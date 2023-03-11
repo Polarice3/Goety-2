@@ -1,0 +1,15 @@
+{
+  "name": "Feasting Focus",
+  "icon": "goety:feast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the power of Ender Pearls and the Hunger Core, you are able to call upon Fangs at the bottom of any creature around you. More accurate than the average Biting Focus, though only if said creature doesn't move."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:feast_focus"
+    }
+  ]
+}

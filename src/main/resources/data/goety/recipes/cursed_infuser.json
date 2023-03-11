@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lcl",
+    "bsb"
+  ],
+  "key":
+  {
+    "l":
+    {
+      "tag": "forge:gems/lapis"
+    },
+    "s":
+    {
+      "item": "minecraft:cauldron"
+    },
+    "b":
+    {
+      "tag": "minecraft:stone_bricks"
+    },
+    "c":
+    {
+      "item": "minecraft:coal_block"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cursed_infuser",
+    "count": 1
+  }
+}

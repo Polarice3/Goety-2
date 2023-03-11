@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "bbb",
+    "b b",
+    "bbb"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "goety:cursed_bars"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cursed_cage",
+    "count": 1
+  }
+}

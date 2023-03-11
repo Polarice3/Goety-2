@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "forge:gems/amethyst"
+  },
+  "result": "goety:empty_focus",
+  "cookingTime": 60
+}

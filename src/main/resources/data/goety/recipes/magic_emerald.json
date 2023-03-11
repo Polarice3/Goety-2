@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "minecraft:emerald"
+  },
+  "result": "goety:magic_emerald",
+  "cookingTime": 60
+}

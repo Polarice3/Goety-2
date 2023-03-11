@@ -1,0 +1,8 @@
+{
+  "type": "goety:soul_absorber_recipes",
+  "ingredient": {
+    "item": "minecraft:totem_of_undying"
+  },
+  "soulIncrease": 200,
+  "cookingtime": 200
+}

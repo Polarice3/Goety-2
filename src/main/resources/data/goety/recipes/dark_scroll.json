@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "b",
+    "c",
+    "d"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "minecraft:black_dye"
+    },
+    "c":
+    {
+      "item": "goety:magic_fabric"
+    },
+    "d":
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_scroll",
+    "count": 1
+  }
+}

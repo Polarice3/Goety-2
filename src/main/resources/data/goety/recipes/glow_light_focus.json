@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "csc",
+    "ses",
+    "csc"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:soul_light_focus"
+    },
+    "s":
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    "c":
+    {
+      "tag": "forge:netherrack"
+    }
+  },
+  "result":
+  {
+    "item": "goety:glow_light_focus",
+    "count": 1
+  }
+}

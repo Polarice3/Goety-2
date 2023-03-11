@@ -1,0 +1,22 @@
+{
+  "name": "Necroturgy Ritual",
+  "icon": "goety:rotting_focus",
+  "category": "goety:rituals",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)16 Non-Wooden Slabs $(li)16 Sculk Blocks $(li)8 Non-Empty Flower Pots"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Sculk holds a lot of Necroturgic Energies. By constructing Graves with them, you found a way to gather up more Necroturgic Energies to use for Rituals."
+    }
+  ]
+}

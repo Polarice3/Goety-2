@@ -1,0 +1,21 @@
+{
+  "name": "Dark Wand",
+  "icon": "goety:dark_wand",
+  "category": "goety:intro",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "It seems magical beings, like Evokers, cast spells by chanting and waving. They seemed to know how to cast these spells by heart through long studies and rituals. Fortunately, you've found a way to cast spells without prolong study by using a wand."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_wand",
+      "text": "Using the newly discovered Magic Fabrics and Haunted Logs, you are able to use Soul Energy to cast spells."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, the wand needs a Focus in order for a spell to be cast. Once the Focus is fitted in the wand, all the user must do is concentrate on the spell and have enough Soul Energy to cast a spell. To fit a Focus in the Wand, Press the Open Wand Focus Slot button (Default: Z) while holding the Wand and add the focus through your inventory."
+    }
+  ]
+}

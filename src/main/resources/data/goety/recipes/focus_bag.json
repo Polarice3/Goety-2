@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "bgb",
+    "beb"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "tag": "forge:leather"
+    },
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    },
+    "e":
+    {
+      "item": "goety:empty_focus"
+    }
+  },
+  "result":
+  {
+    "item": "goety:focus_bag",
+    "count": 1
+  }
+}

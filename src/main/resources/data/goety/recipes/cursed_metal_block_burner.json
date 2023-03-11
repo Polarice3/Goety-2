@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "forge:storage_blocks/iron"
+  },
+  "result": "goety:cursed_metal_block",
+  "cookingTime": 540
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Bestiary",
+  "description": "Documentation of creatures that inhabit this world.",
+  "icon": "minecraft:spawner",
+  "parent": "goety:world",
+  "sortnum": 1
+}

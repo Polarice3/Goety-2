@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "goety:block/haunted_sapling"
+  },
+  "render_type": "cutout"
+}

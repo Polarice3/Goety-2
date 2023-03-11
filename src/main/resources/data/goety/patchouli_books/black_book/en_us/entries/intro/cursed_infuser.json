@@ -1,0 +1,37 @@
+{
+  "name": "Cursed Infusion",
+  "icon": "goety:cursed_infuser",
+  "category": "goety:intro",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Throughout your research, you find that Lapis Lazulis have high magical properties. After all, one needs them to perform enchantments. However, these Lazulis can be used to create some sort of siphon. A way to attract some sort of magical energy towards it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With some experiments and research, you've came up with the idea of a device, called a 'Cursed Infuser'. This device will siphon up magical energies from below it and infuse whatever items is place on it. While there are certain objects that hold some magical energies, there's one that seems to have an endless amount of it. Spawners."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_infuser",
+      "text": "By placing the Cursed Infuser atop of a Spawner, it will start to siphon the Spawner's energy and infuse certain items with it. You've no clue what fuels these monstrous machines, but perhaps the infuser will provide some clues."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:cursed_infuser",
+          "S": "minecraft:spawner"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    }
+  ]
+}

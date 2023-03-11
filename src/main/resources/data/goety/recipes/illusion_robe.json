@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "f f",
+    "yyy",
+    "fff"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:occult_fabric"
+    },
+    "y":
+    {
+      "item": "minecraft:leather"
+    }
+  },
+  "result":
+  {
+    "item": "goety:illusion_robe",
+    "count": 1
+  }
+}

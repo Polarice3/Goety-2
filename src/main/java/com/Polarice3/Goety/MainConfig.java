@@ -1,0 +1,153 @@
+package com.Polarice3.Goety;
+
+import com.electronwill.nightconfig.core.file.CommentedFileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
+import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.io.File;
+
+/**
+ * Learned how to add Config from codes by @AlexModGuy
+ */
+public class MainConfig {
+
+    public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final ForgeConfigSpec SPEC;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxArcaSouls;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> UndeadSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> AnthropodSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VillagerSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PiglinSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EnderDragonSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WardenSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PlayerSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DefaultSouls;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TotemUndying;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ArcaUndying;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StarterTotem;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
+
+    static {
+        BUILDER.push("General");
+        MaxSouls = BUILDER.comment("Totem Maximum Soul Count and Threshold to save the Player, Default: 10000")
+                .defineInRange("maxSouls", 10000, 10, Integer.MAX_VALUE);
+        MaxArcaSouls = BUILDER.comment("Arca Maximum Soul Count, Default: 100000")
+                .defineInRange("maxArcaSouls", 100000, 10, Integer.MAX_VALUE);
+        SoulRepair = BUILDER.comment("Certain Items repair themselves using Soul Energy, Default: true")
+                .define("soulRepair", true);
+        TotemUndying = BUILDER.comment("Totem of Souls will save the Player if full of Soul Energy and its in Curio Slot or inventory, Default: true")
+                .define("totemUndying", true);
+        ArcaUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count, Default: true")
+                .define("arcaUndying", true);
+        StarterTotem = BUILDER.comment("Gives Players a Totem of Souls when first entering World, Default: false")
+                .define("starterTotem", false);
+        StarterBook = BUILDER.comment("Gives Players the Black Book when first entering World and Patchouli is loaded, Default: false")
+                .define("starterBook", false);
+        CraftingSouls = BUILDER.comment("How much Souls is consumed when crafting with Totem, Default: 1")
+                .defineInRange("craftSouls", 1, 0, Integer.MAX_VALUE);
+        ShowNum = BUILDER.comment("Show numerical amount of Souls on the Soul Energy Bar, Default: false")
+                .define("showNumber", false);
+        ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
+                .define("apocalypseMode", false);
+        SpecialBossBar = BUILDER.comment("Bosses from the Mod has custom looking Boss Bars. Default: true")
+                .define("specialBossBar", true);
+        BossMusic = BUILDER.comment("Bosses from the Mod has custom Music Playing. Default: true")
+                .define("bossMusic", true);
+        BUILDER.pop();
+        BUILDER.push("Soul Taken");
+        UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")
+                .defineInRange("undeadSouls", 5, 0, Integer.MAX_VALUE);
+        AnthropodSouls = BUILDER.comment("Anthropods Killed, Default: 5")
+                .defineInRange("anthropodSouls", 5, 0, Integer.MAX_VALUE);
+        IllagerSouls = BUILDER.comment("Illagers, Witches, Cultists Killed, Default: 25")
+                .defineInRange("illagerSouls", 25, 0, Integer.MAX_VALUE);
+        VillagerSouls = BUILDER.comment("Villagers Killed, Default: 100")
+                .defineInRange("villagerSouls", 100, 0, Integer.MAX_VALUE);
+        PiglinSouls = BUILDER.comment("Non-Undead Piglin Killed, Default: 10")
+                .defineInRange("piglinSouls", 10, 0, Integer.MAX_VALUE);
+        EnderDragonSouls = BUILDER.comment("Ender Dragon Killed, Default: 1000")
+                .defineInRange("enderDragonSouls", 1000, 0, Integer.MAX_VALUE);
+        WardenSouls = BUILDER.comment("Warden Killed, Default: 10000")
+                .defineInRange("wardenSouls", 10000, 0, Integer.MAX_VALUE);
+        PlayerSouls = BUILDER.comment("Players Killed, Default: 100")
+                .defineInRange("playerSouls", 100, 0, Integer.MAX_VALUE);
+        DefaultSouls = BUILDER.comment("Others Killed, Default: 5")
+                .defineInRange("otherSouls", 5, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Mobs");
+        VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
+                .define("vizierMinion", false);
+        FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
+                .define("fancierApostleDeath", false);
+        InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
+                .define("interDimensionalMobs", false);
+        WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
+                .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
+        TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
+                .define("tallSkullDrop", true);
+        WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
+                .define("wraithAggressiveTeleport", true);
+        BUILDER.pop();
+        BUILDER.push("Villagers");
+        VillagerHate = BUILDER.comment("Wearing a Dark Helm and Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 100 or more reputation among them, Default: false")
+                .define("villagerHate", false);
+        VillagerHateSpells = BUILDER.comment("Casting Spell in the presence of Villagers will cause the Player to lose a number of Reputation, set 0 to disable, Default: 0")
+                .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Lich");
+        LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per second if they've become a Lich, Default: 1")
+                .defineInRange("lichHealCost", 1, 0, Integer.MAX_VALUE);
+        LichNightVision = BUILDER.comment("Enable to get infinite Night Vision when being a Lich. If set true, wearing Fel Helm will no longer give Blindness during day, Default: true")
+                .define("lichNightVision", true);
+        LichUndeadFriends = BUILDER.comment("Undead Mobs will not attack you if you're a Lich and will even defend you if you're attack by another mob and wearing the Necro Set, Default: true")
+                .define("lichUndeadFriendly", true);
+        LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
+                .define("lichPowerfulHostile", true);
+        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
+                .define("lichScrollRequirement", true);
+        BUILDER.pop();
+        SPEC = BUILDER.build();
+    }
+
+    public static void loadConfig(ForgeConfigSpec config, String path) {
+        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path))
+                .sync()
+                .autosave()
+                .writingMode(WritingMode.REPLACE)
+                .build();
+        file.load();
+        config.setConfig(file);
+    }
+
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:shade_stone"
+    }
+  },
+  "result": {
+    "item": "goety:shade_stone_bricks",
+    "count": 4
+  }
+}

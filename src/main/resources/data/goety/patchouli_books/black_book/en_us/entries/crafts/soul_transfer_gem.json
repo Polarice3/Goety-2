@@ -1,0 +1,20 @@
+{
+  "name": "Transfer Gems",
+  "icon": "goety:soul_transfer",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Cursed Cages are fine and dandy, but you're starting to get sick of constantly putting and removing your precious totem from them."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_transfer",
+      "text": "Fortunately, with power of Activated Emeralds, you have found a way to transfer Soul Energies from an Arca to a Cursed Cage."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Simply right-click the Transfer Gem on the Arca and it will bound to it and it's owner. Then, put the Transfer Gem within the Cursed Cage and it will siphon Soul Energy from the Arca when it's being used."
+    }
+  ]
+}

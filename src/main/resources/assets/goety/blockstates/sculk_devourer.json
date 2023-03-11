@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "bloom=false": {
+      "model": "goety:block/sculk_devourer"
+    },
+    "bloom=true": {
+      "model": "goety:block/sculk_devourer_bloom"
+    }
+  }
+}

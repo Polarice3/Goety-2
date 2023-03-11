@@ -1,0 +1,24 @@
+{
+  "name": "Expert Nether Ritual",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/read_nether_book",
+  "secret": true,
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Be in the Nether $(li)4 Wither Skeleton Skulls $(li)32 Nether/Red Nether Bricks $(li)8 Nether Warts"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/expert_nether.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Wither Skeletons are the charred remains of the Fortress' original inhabitants, ones Apollyon called 'Nephilim', betrayed by their own flaming creations. Even in death, they still hold magical power, and perhaps even retained some arcane knowledge for advanced magics. Perhaps the Warts growing from the anguish of the damned also holds some of its victims' knowledge as well."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "bbb",
+    "bbb"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "goety:cursed_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cursed_bars",
+    "count": 16
+  }
+}

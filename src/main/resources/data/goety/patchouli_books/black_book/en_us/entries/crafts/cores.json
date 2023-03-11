@@ -1,0 +1,23 @@
+{
+  "name": "Cores of Magic",
+  "icon": "goety:empty_focus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Magical cores are used to create all kinds of spells and equipments and can be crafted through all kinds of rituals. Specific types of magical cores can also be obtained by putting a Totem Head on a Crafting Table."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animation_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunger_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_core"
+    }
+  ]
+}

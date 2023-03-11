@@ -1,0 +1,31 @@
+{
+  "name": "Zombie Servant",
+  "icon": "minecraft:zombie_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Zombie Servants are simple in their functions, kill anyone who hurts you or any hostile creatures and follow you much like Tamed Wolves, only taller and stinkier"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Zombie Servants can be summoned or converted into different variants. Casting the Rotting Focus in a Desert exposed to the sky will summon a Husk Servant, casting it underwater summons a Drowned Servant."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:husk_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Drowned Servants can accept Tridents and will attack the same way as a regular Drowned. Zombie Servants in all variants can accept any Armor but only accept Swords or Axes."
+    }
+  ]
+}

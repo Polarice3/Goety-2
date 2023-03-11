@@ -1,0 +1,19 @@
+{
+  "name": "Vex Servants",
+  "icon": "minecraft:vex_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Your own group of Vexes. These Vexes pretty much acts the same as Evoker Vexes, only they will follow you and attack on your behalf."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ally_vex"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unlike other fleshier Servants, Vexes cannot wander and stop following you and will not accept weapons/armor as they're too big for them."
+    }
+  ]
+}

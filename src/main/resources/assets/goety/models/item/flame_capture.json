@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/flame_capture_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "capture": 0.00000
+      },
+      "model": "goety:item/flame_capture_empty"
+    },
+    {
+      "predicate": {
+        "capture": 1.00000
+      },
+      "model": "goety:item/flame_capture_full"
+    }
+  ]
+}

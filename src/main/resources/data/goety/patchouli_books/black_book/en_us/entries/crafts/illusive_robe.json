@@ -1,0 +1,20 @@
+{
+  "name": "Illusive Robes",
+  "icon": "goety:illusion_robe",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Using the Occult Fabrics, you are able to create a set of Illusive Robes that will turn invisible when you do, making you highly undetectable to mobs and others of your kind."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:illusion_helm",
+      "recipe2": "goety:illusion_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wearing a full set buffs the Mirror Spell by making your Doppelgangers' attack actually hurt their targets, though not by a lot."
+    }
+  ]
+}

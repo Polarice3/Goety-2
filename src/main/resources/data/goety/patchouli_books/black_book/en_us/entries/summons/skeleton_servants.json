@@ -1,0 +1,27 @@
+{
+  "name": "Skeleton Servant",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Skeleton Servants will attempt to kill anyone who hurts you or any hostile creatures nearby. They will occasionally shoot Weakness Arrows if summoned when the Summoner wears both a Necro Helm and Robe."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Attempting to summon a Skeleton Servant in a cold tundra exposed to the skies will yield a Stray Servant instead."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stray_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Skeleton Servants can accept any Armor but only Swords/Bows meaning they can either be range or melee attackers."
+    }
+  ]
+}

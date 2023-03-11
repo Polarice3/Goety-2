@@ -1,0 +1,29 @@
+{
+  "name": "Caveats of being a Lich",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:intro",
+  "advancement": "goety:goety/become_lich",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You have finally become the ultimate Undead. As you may have guessed, you have the strengths and weaknesses of Undeath. For starters, your hunger no longer goes up or down. When injured, you will use up the Soul Energy within your Totem to heal up all injuries (unless you're on fire)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Second, you cannot get the Poison, Regeneration, Hunger and/or Saturation effect. You will burn up in Sunlight unless you have something on your head and you gain more injuries from the Smite Enchantment. Also Villagers hate you unless you've cured a lot of them from being Zombies."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "On the plus side, most Undead creatures no longer attack you, you're most resistant to magic and harmful potions, you can never drown and you can stay in the Sunlight all day long if you're near a whole bunch of Dead Sand or Dead Sandstone. Necrotic Totems also cast their beneficial magic on you as well!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "For some reason, Potions of Harming and Healing still work the same to you even in Undeath. Perhaps it is the power of Soul Energy that causes the potions to react the same way, as Ghasts, who are found in Soul Sand Valleys, and Vexes, made using Soul Energy, have the same properties."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Arca resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you, you will be inflicted with a terrible Soul Hunger. The hunger will cause you to be weaker and slower, until your Soul Energy has reached the proper amount."
+    }
+  ]
+}

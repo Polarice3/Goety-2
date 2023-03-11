@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " p ",
+    "rer",
+    " s "
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:magic_emerald"
+    },
+    "p":
+    {
+      "tag": "forge:ender_pearls"
+    },
+    "r":
+    {
+      "tag": "forge:dusts/redstone"
+    },
+    "s":
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:soul_transfer",
+    "count": 1
+  }
+}

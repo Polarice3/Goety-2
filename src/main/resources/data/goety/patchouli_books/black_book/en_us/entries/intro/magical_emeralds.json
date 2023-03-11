@@ -1,0 +1,25 @@
+{
+  "name": "Magical Emeralds",
+  "icon": "minecraft:emerald",
+  "category": "goety:intro",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "It seems your suspicions have been confirmed. Emeralds do possess magical properties! By putting an Emerald in a Cursed Infuser, it seems to 'activate' it, allowing it to release lots of magical energy. The newly activated emeralds reminded you of the Totems dropped by Evokers upon their deaths"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_souls",
+      "text": "After some researching, you've finally cracked the code. The secrets of the Illagers is now in your hand. Soul Energy."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When killing a being with the Totem in the Hotbar or on a Charm Slot, it will fill up with Soul Energy. The amount depends on which creature is slain, but considering the Illagers disposition towards the Villagers, it's not hard to figure out which creature has the most amount of Soul Energy."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You've figured that Soul Energy is what fuels their magic, and it seems to have a relation with Experience, though while Experience is used to enchant items and repair items if it has Mending, you've figure that Soul Energy can be used for more exotic purposes."
+    }
+  ]
+}

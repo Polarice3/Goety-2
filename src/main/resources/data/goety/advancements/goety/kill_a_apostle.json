@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:unholy_blood"
+    },
+    "title": {
+      "translate": "advancements.goety.kill_apostle.title"
+    },
+    "description": {
+      "translate": "advancements.goety.kill_apostle.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "kill_a_apostle": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:apostle"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_a_apostle"
+    ]
+  ]
+}

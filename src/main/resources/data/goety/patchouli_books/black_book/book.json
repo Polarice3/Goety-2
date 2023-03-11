@@ -1,0 +1,8 @@
+{
+  "name": "The Black Book",
+  "landing_text": "The power of the arcane are ever present, one needs to find it first.",
+  "version": 1,
+  "model": "goety:black_book",
+  "show_toasts": true,
+  "creative_tab": "goetyTab"
+}

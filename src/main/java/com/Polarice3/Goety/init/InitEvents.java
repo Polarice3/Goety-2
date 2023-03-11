@@ -1,0 +1,33 @@
+package com.Polarice3.Goety.init;
+
+import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
+import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
+import com.Polarice3.Goety.common.commands.LichCommand;
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class InitEvents {
+
+    @SubscribeEvent
+    public static void onRegisterCommandEvent(RegisterCommandsEvent event) {
+        CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
+        LichCommand.register(commandDispatcher);
+    }
+
+    @SubscribeEvent
+    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof Player) {
+            event.addCapability(new ResourceLocation(Goety.MOD_ID, "soulenergy"), new SEProvider());
+            event.addCapability(new ResourceLocation(Goety.MOD_ID, "lichdom"), new LichProvider());
+        }
+    }
+}

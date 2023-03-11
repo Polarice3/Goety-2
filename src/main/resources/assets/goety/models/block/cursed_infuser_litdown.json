@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_cursed_infuser",
+	"textures": {
+		"flame": "goety:block/cursed_infuser_litdown"
+	}
+}

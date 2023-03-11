@@ -1,0 +1,32 @@
+{
+  "name": "Viziers",
+  "icon": "goety:soul_ruby",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_vizier",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "One of the highest ranking Illager of all Illagers, the Viziers seems to possess a powerful ruby that amplifies spells and magic."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vizier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In battle, they charge upon their target with an Iron Sword multiple times before summoning Fangs upon their feet. When injured, an Irk will be summoned to defend their master, a ranged cousin of the Vex."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:irk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once injured enough, or there are lot of Irks around them, the Vizier will cast a spell that would siphon the life force of all surrounding Irks, healing them in the process."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When slain, their killer will be struck with Bad Omen at it's highest level. There are rumors that the Viziers would grant shards of their mighty ruby to certain Evokers."
+    }
+  ]
+}

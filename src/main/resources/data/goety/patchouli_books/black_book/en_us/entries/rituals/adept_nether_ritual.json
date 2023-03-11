@@ -1,0 +1,18 @@
+{
+  "name": "Adept Nether Ritual",
+  "icon": "minecraft:netherrack",
+  "category": "goety:rituals",
+  "advancement": "goety:goety/read_nether_book",
+  "secret": true,
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Be in the Nether"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One must know the proper chants and movements from the Liber Barathrum in order to perform this ritual. Fortunately, this ritual only demands that the Dark Altar is located within the Nether and nothing else."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Storm Ritual",
+  "icon": "minecraft:lightning_rod",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar must be at 128 or above Blocks High up $(li)Altar must be exposed to a Storm $(li)4 Lightning Rods $(li)20 Chains $(li)12 Blocks of Copper"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/storm_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The power of the storm will power your magical skills like no other!"
+    }
+  ]
+}

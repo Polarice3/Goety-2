@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sculk"
+    },
+    {
+      "item": "goety:spent_totem"
+    }
+  ],
+  "result": {
+    "item": "goety:totem_of_souls",
+    "count": 1
+  }
+}

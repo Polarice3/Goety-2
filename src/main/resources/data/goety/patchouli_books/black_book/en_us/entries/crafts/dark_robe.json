@@ -1,0 +1,21 @@
+{
+  "name": "Dark Robes",
+  "icon": "goety:dark_robe",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Evokers wear such snazzy robes, that you wonder if they're just for show or there's something special about them. By utilizing Dark and Magic Fabrics, you've managed to not only replicate their Robes, but also make some new additions, and discover they hold some special properties."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_robe",
+      "text": "The Robes worn by Evokers help channel their magic more efficiently, utilizing half of the Soul Cost needed to cast the spell."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_hat",
+      "text": "The Dark Hat helps you focus on your spells, reducing the time needed to cast them."
+    }
+  ]
+}

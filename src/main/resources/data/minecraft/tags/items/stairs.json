@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:shade_stone_stairs",
+    "goety:shade_stone_bricks_stairs",
+    "goety:shade_bricks_stairs",
+    "goety:shade_tiles_stairs"
+  ]
+}

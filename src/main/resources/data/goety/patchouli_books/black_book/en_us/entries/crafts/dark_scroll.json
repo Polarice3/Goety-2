@@ -1,0 +1,17 @@
+{
+  "name": "Dark Scroll",
+  "icon": "goety:dark_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_totem",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard whispers of a High Ranking Illager, and how they occasionally call upon or answer the calls of other Illagers to give out commands and advise. You believe they hold something very powerful that can increase your magical powers."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_scroll",
+      "text": "With the Evoker's Totem, you can trick one of these Illagers to answer your call."
+    }
+  ]
+}

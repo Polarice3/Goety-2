@@ -1,0 +1,14 @@
+package com.Polarice3.Goety.compat.jei;
+
+import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.crafting.CursedInfuserRecipes;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
+import mezz.jei.api.recipe.RecipeType;
+
+public class JeiRecipeTypes {
+    public static final RecipeType<CursedInfuserRecipes> CURSED_INFUSER =
+            RecipeType.create(Goety.MOD_ID, "cursed_infuser", CursedInfuserRecipes.class);
+
+    public static final RecipeType<RitualRecipe> RITUAL =
+            RecipeType.create(Goety.MOD_ID, "ritual", RitualRecipe.class);
+}

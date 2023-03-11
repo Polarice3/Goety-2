@@ -1,0 +1,46 @@
+{
+  "name": "Dark Altar & Pedestals",
+  "icon": "goety:dark_altar",
+  "category": "goety:rituals",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar",
+      "recipe2": "goety:cursed_cage"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:pedestal",
+      "text": "Pedestals are used to hold items for peasants to balk at. Also to hold items that are required for the ritual."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Dark Altar is the centerpiece of most Rituals. Before anything, the Altar must be placed above a Cursed Cage, and the Cage must have a Totem of Souls, that has Soul Energy, in it for the Altar to function."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:dark_altar",
+          "S": "goety:cursed_cage"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By using a Dark Altar, you may craft a certain item or summon a creature depending on the blocks and items surrounding the Altar. Unlike other schools of magic, these blocks do not need to be arranged in a certain order for the ritual to function. What matters is the certain amount of certain blocks are within the Altar's 16 block radius."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When the ritual is ongoing, the Altar will siphon Soul Energy from the Totem within the Cage, so you best fill up your Totem with some Soul Energy before enacting a Ritual!"
+    }
+  ]
+}

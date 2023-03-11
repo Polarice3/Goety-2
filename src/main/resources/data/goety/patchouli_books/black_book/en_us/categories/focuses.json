@@ -1,0 +1,6 @@
+{
+  "name": "Focuses",
+  "description": "Focuses are used to cast spells when inserted in a Wand or Staff.",
+  "icon": "goety:dark_wand",
+  "sortnum": 2
+}

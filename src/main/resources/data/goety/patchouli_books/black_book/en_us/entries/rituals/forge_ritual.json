@@ -1,0 +1,22 @@
+{
+  "name": "Forge Ritual",
+  "icon": "minecraft:anvil",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)1 Smithing Table $(li)3 Furnaces or Blast Furnaces $(li)4 Anvils"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/forge_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Creating a Forge around the Dark Altar allows you to craft certain items and upgrade your magical arsenal."
+    }
+  ]
+}

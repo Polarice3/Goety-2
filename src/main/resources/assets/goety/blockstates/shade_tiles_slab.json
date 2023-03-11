@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/shade_tiles_slab"
+    },
+    "type=double": {
+      "model": "goety:block/shade_tiles"
+    },
+    "type=top": {
+      "model": "goety:block/shade_tiles_slab_top"
+    }
+  }
+}

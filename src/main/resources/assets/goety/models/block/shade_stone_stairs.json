@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "goety:block/shade_stone",
+    "top": "goety:block/shade_stone",
+    "side": "goety:block/shade_stone"
+  }
+}

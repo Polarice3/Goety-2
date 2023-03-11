@@ -1,0 +1,17 @@
+{
+  "name": "Sonic Boom Focus",
+  "icon": "goety:sonic_boom_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A great and powerful shout causes all creatures in front of you to be blasted away with great power."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sonic_boom_focus"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:magic_emerald"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_magic_emerald.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_magic_emerald.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_infuser",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "goety:magic_emerald"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  }
+}

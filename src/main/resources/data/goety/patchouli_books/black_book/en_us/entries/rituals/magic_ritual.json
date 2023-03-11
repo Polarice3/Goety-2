@@ -1,0 +1,22 @@
+{
+  "name": "Magic Ritual",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)16 Bookshelves $(li)2 Enchanting Tables $(li)1 Lectern with Book"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/magic_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Surrounding the Altar with large quantities of books will help create certain Magical Items."
+    }
+  ]
+}

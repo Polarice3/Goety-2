@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "f f",
+    "yyy",
+    "fff"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:dark_fabric"
+    },
+    "y":
+    {
+      "item": "goety:magic_fabric"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_robe",
+    "count": 1
+  }
+}

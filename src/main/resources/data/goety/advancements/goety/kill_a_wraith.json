@@ -1,0 +1,24 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "kill_a_wraith": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:wraith"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_a_wraith"
+    ]
+  ]
+}

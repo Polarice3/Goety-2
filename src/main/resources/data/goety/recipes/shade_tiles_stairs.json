@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:shade_tiles"
+    }
+  },
+  "result": {
+    "item": "goety:shade_tiles_stairs",
+    "count": 4
+  }
+}

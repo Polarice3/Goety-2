@@ -1,0 +1,19 @@
+{
+  "name": "Servant Attributes",
+  "icon": "goety:zombie_servant_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Servants summoned by either Rituals or Spells tend to share some attributes with each other. For starters, they attack all kinds of Hostile Creatures, they won't attack each other if they share an Summoner, they have a limited lifespan and a limit on how many Servants a Summoner can have."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, Undead Servants last forever if their summoner dons a Necro Helm and they can use their summoner's Soul Energy to heal themselves (provided they're not on fire) if said summoner wears a Necro Robe. Undead Servants move quicker if the summoner wears a Necro Boots of Wander and burn in sunlight when not wearing a Helmet."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Undead Servants can teleport to their Summoner if their summoner has their Focus equipped to their wands and cast the spell when crouching. If the summoned Servant is not a Vex, right clicking on them with a Wand/Staff will either make them follow the Summoner or wander around the area."
+    }
+  ]
+}

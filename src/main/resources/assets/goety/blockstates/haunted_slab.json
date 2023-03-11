@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/haunted_slab"
+    },
+    "type=double": {
+      "model": "goety:block/haunted_planks"
+    },
+    "type=top": {
+      "model": "goety:block/haunted_slab_top"
+    }
+  }
+}

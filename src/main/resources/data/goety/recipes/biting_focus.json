@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "item": "goety:magic_emerald"
+    },
+    "s":
+    {
+      "item": "goety:savage_tooth"
+    }
+  },
+  "result":
+  {
+    "item": "goety:biting_focus",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Summon Storm",
+  "icon": "minecraft:netherrack",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A simple yet powerful ritual that conjures up a Thunderstorm. Useful to those who wish to hide from the sun."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_storm"
+    }
+  ]
+}

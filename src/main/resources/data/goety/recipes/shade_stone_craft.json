@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "sts",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:stone"
+    },
+    "t":
+    {
+      "item": "goety:totem_of_souls"
+    }
+  },
+  "result":
+  {
+    "item": "goety:shade_stone",
+    "count": 8
+  }
+}

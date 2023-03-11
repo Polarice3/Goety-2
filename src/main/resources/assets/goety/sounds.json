@@ -1,0 +1,442 @@
+{
+  "apostle_ambient": {
+    "sounds": [
+      {
+        "name": "goety:apostle/idle1"
+      },
+      {
+        "name": "goety:apostle/idle2"
+      },
+      {
+        "name": "goety:apostle/idle3"
+      },
+      {
+        "name": "goety:apostle/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_ambient"
+  },
+  "apostle_hurt": {
+    "sounds": [
+      {
+        "name": "goety:apostle/new_hurt_1"
+      },
+      {
+        "name": "goety:apostle/new_hurt_2"
+      },
+      {
+        "name": "goety:apostle/new_hurt_3"
+      },
+      {
+        "name": "goety:apostle/new_hurt_4"
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_hurt"
+  },
+  "apostle_prepare_spell": {
+    "sounds": [
+      {
+        "name": "goety:apostle/prepare_spell1",
+        "volume": 0.25
+      },
+      {
+        "name": "goety:apostle/prepare_spell2",
+        "volume": 0.25
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_prepare_spell"
+  },
+  "apostle_prepare_summon": {
+    "sounds": [
+      {
+        "name": "goety:apostle/prepare_summon",
+        "volume": 0.25
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_prepare_summon"
+  },
+  "apostle_cast_spell": {
+    "sounds": [
+      {
+        "name": "goety:apostle/cast1",
+        "volume": 0.75
+      },
+      {
+        "name": "goety:apostle/cast2",
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_cast_spell"
+  },
+  "apostle_teleport": {
+    "sounds": [
+      {
+        "name": "mob/endermen/portal",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/endermen/portal2",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_teleport"
+  },
+  "apostle_predeath": {
+    "sounds": [
+      {
+        "name": "goety:apostle/predeath"
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_predeath"
+  },
+  "apostle_death": {
+    "sounds": [
+      {
+        "name": "goety:apostle/death1"
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_death"
+  },
+  "wraith_ambient": {
+    "sounds": [
+      {
+        "name": "goety:wraith/idle1"
+      },
+      {
+        "name": "goety:wraith/idle2"
+      },
+      {
+        "name": "goety:wraith/idle3"
+      },
+      {
+        "name": "goety:wraith/idle4"
+      },
+      {
+        "name": "goety:wraith/idle5"
+      },
+      {
+        "name": "goety:wraith/idle6"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_ambient"
+  },
+  "wraith_hurt": {
+    "sounds": [
+      {
+        "name": "goety:wraith/hurt1"
+      },
+      {
+        "name": "goety:wraith/hurt2"
+      },
+      {
+        "name": "goety:wraith/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_hurt"
+  },
+  "wraith_fly": {
+    "sounds": [
+      {
+        "name": "goety:wraith/fly1"
+      },
+      {
+        "name": "goety:wraith/fly2"
+      },
+      {
+        "name": "goety:wraith/fly3"
+      },
+      {
+        "name": "goety:wraith/fly4"
+      },
+      {
+        "name": "goety:wraith/fly5"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_fly"
+  },
+  "wraith_attack": {
+    "sounds": [
+      {
+        "name": "goety:wraith/attack"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_attack"
+  },
+  "wraith_fire": {
+    "sounds": [
+      {
+        "name": "goety:wraith/fire"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_fire"
+  },
+  "wraith_teleport": {
+    "sounds": [
+      {
+        "name": "goety:wraith/teleport1"
+      },
+      {
+        "name": "goety:wraith/teleport2"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_teleport"
+  },
+  "wraith_death": {
+    "sounds": [
+      {
+        "name": "goety:wraith/death1"
+      },
+      {
+        "name": "goety:wraith/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_death"
+  },
+  "vizier_ambient": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/idle1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/evocation_illager/idle2",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/evocation_illager/idle3",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/evocation_illager/idle4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_ambient"
+  },
+  "vizier_hurt": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/evocation_illager/hurt2",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_hurt"
+  },
+  "vizier_confuse": {
+    "sounds": [
+      {
+        "name": "mob/illusion_illager/idle1",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/illusion_illager/idle2",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/illusion_illager/idle3",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/illusion_illager/idle4",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_confuse"
+  },
+  "vizier_rage": {
+    "sounds": [
+      {
+        "name": "mob/villager/no1",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/villager/no2",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/villager/no3",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_rage"
+  },
+  "vizier_celebrate": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/celebrate",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_celebrate"
+  },
+  "vizier_scream": {
+    "sounds": [
+      {
+        "name": "goety:vizier/death"
+      }
+    ]
+  },
+  "vizier_death": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/death1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/evocation_illager/death2",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.vizier_death"
+  },
+  "ice_chunk_idle": {
+    "sounds": [
+      {
+        "name": "goety:ice/idle"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_chunk_idle"
+  },
+  "ice_chunk_summon": {
+    "sounds": [
+      {
+        "name": "goety:ice/summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_chunk_summon"
+  },
+  "ice_chunk_hit": {
+    "sounds": [
+      {
+        "name": "goety:ice/hit"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_chunk_hit"
+  },
+  "roar_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/roar_spell"
+      }
+    ],
+    "subtitle": "subtitle.goety.roar_spell"
+  },
+  "fire_breath": {
+    "sounds": [
+      {
+        "name": "goety:spell/fire_breath"
+      }
+    ],
+    "subtitle": "subtitle.goety.fire_breath"
+  },
+  "prepare_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/prepare_spell1"
+      },
+      {
+        "name": "goety:spell/prepare_spell2"
+      }
+    ],
+    "subtitle": "subtitle.goety.prepare_spell"
+  },
+  "cast_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/cast_spell1"
+      },
+      {
+        "name": "goety:spell/cast_spell2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cast_spell"
+  },
+  "summon_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/summon_spell1"
+      },
+      {
+        "name": "goety:spell/summon_spell2"
+      },
+      {
+        "name": "goety:spell/summon_spell3"
+      }
+    ],
+    "subtitle": "subtitle.goety.summon_spell"
+  },
+  "bolt_impact": {
+    "sounds": [
+      {
+        "name": "goety:spell/bolt_impact1"
+      },
+      {
+        "name": "goety:spell/bolt_impact2"
+      },
+      {
+        "name": "goety:spell/bolt_impact3"
+      },
+      {
+        "name": "goety:spell/bolt_impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.bolt_impact"
+  },
+  "fire_tornado_ambient": {
+    "sounds": [
+      {
+        "name": "goety:random/fire_tornado"
+      }
+    ],
+    "subtitle": "subtitle.goety.fire_tornado_ambient"
+  },
+  "wind": {
+    "sounds": [
+      {
+        "name": "goety:spell/wind1"
+      },
+      {
+        "name": "goety:spell/wind2"
+      },
+      {
+        "name": "goety:spell/wind3"
+      },
+      {
+        "name": "goety:spell/wind4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wind"
+  },
+  "apostle_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/apostle_theme"
+      }
+    ]
+  },
+  "apostle_theme_post": {
+    "sounds": [
+      {
+        "name": "goety:music/apostle_theme_post"
+      }
+    ]
+  },
+  "vizier_theme": {
+    "sounds": [
+      {
+        "name": "goety:music/vizier_theme"
+      }
+    ]
+  },
+  "boss_post": {
+    "sounds": [
+      {
+        "name": "goety:music/boss_post"
+      }
+    ]
+  }
+}

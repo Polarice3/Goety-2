@@ -1,0 +1,15 @@
+{
+  "name": "Vexing Focus",
+  "icon": "goety:vexing_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Through the old Bestiary and some notes on the Allays, you've found the necessary ingredients to summon/create your own Vexes. Strangely, the Bestiary mentions of Demons and Imps in the Nether. Curious..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:vexing_focus"
+    }
+  ]
+}

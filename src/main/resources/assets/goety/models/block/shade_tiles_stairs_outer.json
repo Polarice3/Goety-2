@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "goety:block/shade_tiles",
+    "top": "goety:block/shade_tiles",
+    "side": "goety:block/shade_tiles"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " f ",
+    "lgl"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:dark_fabric"
+    },
+    "g":
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    "l":
+    {
+      "item": "minecraft:leather"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_hat",
+    "count": 1
+  }
+}

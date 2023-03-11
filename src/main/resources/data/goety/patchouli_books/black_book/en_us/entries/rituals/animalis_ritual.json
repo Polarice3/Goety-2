@@ -1,0 +1,22 @@
+{
+  "name": "Animation Ritual",
+  "icon": "goety:animation_core",
+  "category": "goety:rituals",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)15 Ladders $(li)15 Rails $(li)1 Carved Pumpkin"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/animalis_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "From your studies, you figured out a way to make rituals that surrounds summoning and controlling creatures. The rails and ladders are to signify motion, and the pumpkin signifies life, for a Carved Pumpkin is what gives life to Snow and Iron. Funnily, through your researches, you've found out that aside from giving life, pumpkins also have a magical property that stops Enderman from being enraged if you stare at them while wearing it, and not because you are fooling them. "
+    }
+  ]
+}

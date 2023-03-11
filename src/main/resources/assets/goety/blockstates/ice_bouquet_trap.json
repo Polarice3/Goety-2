@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "goety:block/ice_bouquet_trap"
+    },
+    "powered=true": {
+      "model": "goety:block/ice_bouquet_trap_powered"
+    }
+  }
+}

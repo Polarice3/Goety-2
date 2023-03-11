@@ -1,0 +1,48 @@
+{
+  "name": "Focus Enchantments",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:focuses",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Focuses have their own specialize enchantments, but not all Focuses can be enchanted nor accept every enchantments. There are five enchantments that are only applicable to certain Focuses, Potency, Radius, Burning, Range and Life Absorb."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Potency",
+      "text": "Potency increases the damage of your spells."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Duration",
+      "text": "Your spells and your summons lasts longer."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Radius",
+      "text": "Increases the radius of your spells, this generally means any explosive spells has a higher explosive radius. For certain spells, radius allows spells to more accurately find the nearest enemy to hit."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Burning",
+      "text": "Your spells sets targets on fire or extends how long the target remains burning."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Range",
+      "text": "Your spells goes further away. Can reach up to 10 Levels with 1 Block per level. The most common of enchantments."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Life Absorb",
+      "text": "Your spells absorb health from targets when hit. Very Rare and is not compatible with Potency."
+    }
+  ]
+}

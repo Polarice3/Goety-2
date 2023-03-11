@@ -1,0 +1,20 @@
+{
+  "name": "Fire Spawn Cage",
+  "icon": "goety:flame_capture",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Unless one builds a base around a Monster Spawner, it can be quite tedious going back and forth from the block. It's unfortunate one cannot simply pick a up the arcane device and bring it where ever one goes. Unless..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:flame_capture",
+      "text": "The cage can capture the flaming core of the Spawner, breaking the block in the process."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once the cage captures the Spawner's core, it can be right-clicked onto an empty Cursed Cage where it will convert it into a copy of the original Spawner, making the Cursed Infusion process and Mob Farming more convenient!"
+    }
+  ]
+}

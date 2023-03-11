@@ -1,0 +1,15 @@
+{
+  "name": "Mirror Focus",
+  "icon": "goety:illusion_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Studying Illusion magics allows you to craft a Focus that will conjure several doppelgangers that will distract hostile creatures from attacking you. The doppelgangers do no damage whatsoever... unless one wears a full set of Illusive Robes, though their damage output won't be too substantial."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:illusion_focus"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:shade_stone",
+    "goety:shade_stone_slab",
+    "goety:shade_stone_stairs",
+    "goety:shade_stone_bricks_slab",
+    "goety:shade_stone_bricks_stairs",
+    "goety:shade_stone_bricks_wall",
+    "goety:shade_bricks_slab",
+    "goety:shade_bricks_stairs",
+    "goety:shade_bricks_wall",
+    "goety:shade_tiles_slab",
+    "goety:shade_tiles_stairs",
+    "goety:dark_altar",
+    "goety:pedestal",
+    "goety:soul_absorber",
+    "goety:ice_bouquet_trap",
+    "goety:sculk_devourer"
+  ]
+}

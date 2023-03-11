@@ -1,0 +1,16 @@
+{
+  "name": "Air Ritual",
+  "icon": "minecraft:feather",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar must be at 128 or above Blocks High up"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By putting the Altar high in the air, you can harness the very winds to power your magics."
+    }
+  ]
+}

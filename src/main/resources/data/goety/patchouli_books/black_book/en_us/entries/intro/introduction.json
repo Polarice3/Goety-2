@@ -1,0 +1,20 @@
+{
+  "name": "On The Dark Arts",
+  "icon": "minecraft:writable_book",
+  "category": "goety:intro",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Whether it be word of mouth, past experiences or stories, you have been very interested in what many have called, the 'Dark Arts'"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Dark Arts seems very different from the magics most people know. The most common magic available would be Enchanting. However, there's clearly more to magic than enchanting items. The act of summoning creatures to do one's bidding can be seen as a Dark Arts, for example. After all, most summonings you've encountered are done by foul forces."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Zombies seems to summon reinforcements out of nowhere, Evokers with Vexes, and the terrifying (but profitable) Spawners that are found in certain places in the world. And those Spawners may be the key to access these foul magics."
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item" : "minecraft:bone_block"
+  },
+  "result": "goety:savage_tooth",
+  "cookingTime": 60
+}

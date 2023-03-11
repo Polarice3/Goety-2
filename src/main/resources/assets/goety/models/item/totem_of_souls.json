@@ -1,0 +1,28 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/empty_totem"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "activated": 0.00000
+      },
+      "model": "goety:item/empty_totem"
+    },
+    {
+      "predicate": {
+        "activated": 1.00000,
+        "souls": 0.50000
+      },
+      "model": "goety:item/mid_totem"
+    },
+    {
+      "predicate": {
+        "activated": 1.00000,
+        "souls": 1.00000
+      },
+      "model": "goety:item/full_totem"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Ring of Want",
+  "icon": "goety:ring_of_want",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Ring of Want allows creatures to drop more loot when slain by your spells or by creatures conjured up by you. For the Ring to work, you must enchant it, where it will accept the Wanting Enchantment which functions similar to Looting."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_want"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wearing the Ring of Want with Wanting III or more will cause your Fangs to have a 25% chance (100% if it's a Player) of dropping a creature's head/skull."
+    }
+  ]
+}

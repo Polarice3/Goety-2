@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "goety:block/sculk_devourer_bottom",
+    "side": "goety:block/sculk_devourer_side",
+    "top": "goety:block/sculk_devourer_top"
+  }
+}

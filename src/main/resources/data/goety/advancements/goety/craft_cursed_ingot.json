@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:cursed_ingot"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_cursed_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_cursed_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_infuser",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "goety:cursed_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 5
+  }
+}

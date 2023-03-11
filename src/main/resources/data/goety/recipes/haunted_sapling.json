@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "minecraft:saplings"
+  },
+  "result": "goety:haunted_sapling",
+  "cookingTime": 60
+}

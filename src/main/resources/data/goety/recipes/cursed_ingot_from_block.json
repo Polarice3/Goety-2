@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:cursed_metal_block"
+    }
+  ],
+  "result": {
+    "item": "goety:cursed_ingot",
+    "count": 9
+  }
+}

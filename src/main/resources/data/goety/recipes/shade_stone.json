@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "forge:stone"
+  },
+  "result": "goety:shade_stone",
+  "cookingTime": 60
+}
