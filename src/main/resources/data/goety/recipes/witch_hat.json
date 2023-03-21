@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " f ",
+    "ses",
+    "fff"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "item": "goety:dark_fabric"
+    },
+    "s":
+    {
+      "item": "minecraft:string"
+    },
+    "e":
+    {
+      "item": "goety:soul_emerald"
+    }
+  },
+  "result":
+  {
+    "item": "goety:witch_hat",
+    "count": 1
+  }
+}
