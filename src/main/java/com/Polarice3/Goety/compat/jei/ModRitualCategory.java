@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

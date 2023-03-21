@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.ritual;
 
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.player.Player;

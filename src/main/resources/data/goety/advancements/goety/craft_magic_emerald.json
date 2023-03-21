@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_infuser",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "magic_emerald": {
       "conditions": {
         "items": [
           {
-            "item": "goety:magic_emerald"
+            "items": [
+              "goety:magic_emerald"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "magic_emerald"
+    ]
+  ],
   "rewards": {
     "experience": 1
   }

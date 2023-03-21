@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_infuser",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "empty_focus": {
       "conditions": {
         "items": [
           {
-            "item": "goety:empty_focus"
+            "items": [
+              "goety:empty_focus"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "empty_focus"
+    ]
+  ],
   "rewards": {
     "experience": 5
   }

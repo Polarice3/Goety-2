@@ -1,0 +1,23 @@
+{
+  "name": "Ascension to Undeath",
+  "icon": "goety:undeath_potion",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You have successfully recreated the scroll and finally unravelled its secret. The ultimate art of Necroturgy, to cast away mortality and walk as the king of the dead."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To become a Lich, you must brew a special Necroturgic Potion, The Potion of Transformation. With the use of the Apostle's blood, several other ingredients and a sacrifice of a Villager, you will be able to cast a Necroturgic Ritual to brew such a foul potion. The Ritual requires a large amount of Soul Energy, far larger than what a Totem of Souls can usually carry."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:undeath_potion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, one should not immediately drink the brew once crafted! The brew must be drunk on a Full Moon, while wearing a Robe of whatever kind. You must also have an Arca ready to bind your soul to it. Once drunk, you will die, but will rise as an Undead creature if all goes to plan. (If on Hardcore, make sure your Totem is full, or hold a Totem of Undying offhand!)"
+    }
+  ]
+}

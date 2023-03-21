@@ -23,6 +23,22 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> APOSTLE_PREDEATH = create("apostle_predeath");
     public static final RegistryObject<SoundEvent> APOSTLE_DEATH = create("apostle_death");
 
+    public static final RegistryObject<SoundEvent> TORMENTOR_AMBIENT = create("tormentor_ambient");
+    public static final RegistryObject<SoundEvent> TORMENTOR_HURT = create("tormentor_hurt");
+    public static final RegistryObject<SoundEvent> TORMENTOR_CHARGE = create("tormentor_charge");
+    public static final RegistryObject<SoundEvent> TORMENTOR_CELEBRATE = create("tormentor_celebrate");
+    public static final RegistryObject<SoundEvent> TORMENTOR_DEATH = create("tormentor_death");
+
+    public static final RegistryObject<SoundEvent> INQUILLAGER_AMBIENT = create("inquillager_ambient");
+    public static final RegistryObject<SoundEvent> INQUILLAGER_HURT = create("inquillager_hurt");
+    public static final RegistryObject<SoundEvent> INQUILLAGER_CELEBRATE = create("inquillager_celebrate");
+    public static final RegistryObject<SoundEvent> INQUILLAGER_DEATH = create("inquillager_death");
+
+    public static final RegistryObject<SoundEvent> CONQUILLAGER_AMBIENT = create("conquillager_ambient");
+    public static final RegistryObject<SoundEvent> CONQUILLAGER_HURT = create("conquillager_hurt");
+    public static final RegistryObject<SoundEvent> CONQUILLAGER_CELEBRATE = create("conquillager_celebrate");
+    public static final RegistryObject<SoundEvent> CONQUILLAGER_DEATH = create("conquillager_death");
+
     public static final RegistryObject<SoundEvent> WRAITH_AMBIENT = create("wraith_ambient");
     public static final RegistryObject<SoundEvent> WRAITH_HURT = create("wraith_hurt");
     public static final RegistryObject<SoundEvent> WRAITH_FLY = create("wraith_fly");

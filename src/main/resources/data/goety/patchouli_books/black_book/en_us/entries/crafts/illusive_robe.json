@@ -9,8 +9,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:illusion_helm",
-      "recipe2": "goety:illusion_robe"
+      "recipe": "goety:illusion_robe"
     },
     {
       "type": "patchouli:text",

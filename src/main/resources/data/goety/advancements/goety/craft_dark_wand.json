@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_empty_focus",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "dark_wand": {
       "conditions": {
         "items": [
           {
-            "item": "goety:dark_wand"
+            "items": [
+              "goety:dark_wand"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "dark_wand"
+    ]
+  ],
   "rewards": {
     "experience": 25
   }

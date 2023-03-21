@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '${mod_version}'
+version = "${mod_version}"
 group = 'com.Polarice3.Goety' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Goety'
 

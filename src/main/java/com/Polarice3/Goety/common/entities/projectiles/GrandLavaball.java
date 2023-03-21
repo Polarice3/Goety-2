@@ -65,10 +65,8 @@ public class GrandLavaball extends ExplosiveProjectile{
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() instanceof Owned){
-            Owned owner = (Owned) this.getOwner();
-            if (pEntity instanceof Owned){
-                Owned entity = (Owned) pEntity;
+        if (this.getOwner() instanceof Owned owner){
+            if (pEntity instanceof Owned entity){
                 if (owner.getTrueOwner() == entity.getTrueOwner()){
                     return false;
                 }

@@ -31,7 +31,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -160,7 +159,7 @@ public class SEHelper {
     public static int SoulMultiply(LivingEntity livingEntity){
         ItemStack weapon= livingEntity.getMainHandItem();
         int multiply = 1;
-        int i = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.SOUL_EATER.get(), weapon);
+        int i = weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
         if (i > 0) {
             multiply = Mth.clamp(i + 1, 1, 10);
         }

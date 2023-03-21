@@ -1,15 +1,13 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.ritual.Ritual;
 import com.Polarice3.Goety.common.ritual.RitualStructures;
-import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +29,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.BlockPositionSource;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -37,8 +40,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class DarkAltarBlockEntity extends PedestalBlockEntity {
+public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEventListener {
     private CursedCageBlockEntity cursedCageTile;
+    private final BlockPositionSource blockPosSource = new BlockPositionSource(this.worldPosition);
     public RitualRecipe currentRitualRecipe;
     public ResourceLocation currentRitualRecipeId;
     public UUID castingPlayerId;
@@ -254,7 +258,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity {
                             if (!RitualStructures.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
-                            } else if (ritualRecipe.getCraftType().contains("adept_nether") || ritualRecipe.getCraftType().contains("sabbath") || ritualRecipe.getCraftType().contains("expert_nether")){
+                            }/* else if (ritualRecipe.getCraftType().contains("adept_nether") || ritualRecipe.getCraftType().contains("sabbath") || ritualRecipe.getCraftType().contains("expert_nether")){
                                 CompoundTag playerData = player.getPersistentData();
                                 CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
                                 if (data.getBoolean(ConstantPaths.readNetherBook())){
@@ -276,7 +280,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity {
                                 } else {
                                     this.startRitual(player, activationItem, ritualRecipe);
                                 }
-                            } else {
+                            } */else {
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }
                         } else {
@@ -368,6 +372,35 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity {
 
     public void notifySacrifice(LivingEntity entityLivingBase) {
         this.sacrificeProvided = true;
+    }
+
+    public boolean handleEventsImmediately() {
+        return true;
+    }
+
+    public PositionSource getListenerSource() {
+        return this.blockPosSource;
+    }
+
+    public int getListenerRadius() {
+        return Ritual.SACRIFICE_DETECTION_RANGE;
+    }
+
+    public boolean handleGameEvent(ServerLevel serverLevel, GameEvent.Message message) {
+        if (!this.isRemoved()) {
+            GameEvent.Context gameevent$context = message.context();
+            if (message.gameEvent() == GameEvent.ENTITY_DIE) {
+                Entity sourceEntity = gameevent$context.sourceEntity();
+                if (sourceEntity instanceof LivingEntity livingEntity) {
+                    if (this.getCurrentRitualRecipe() != null && this.getCurrentRitualRecipe().getRitual().isValidSacrifice(livingEntity)) {
+                        this.notifySacrifice(livingEntity);
+                    }
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     protected void restoreRemainingAdditionalIngredients() {

@@ -1,0 +1,55 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:glass_bottle"
+  },
+  "craftType": "lich",
+  "entity_to_sacrifice": {
+    "tag": "forge:villagers",
+    "display_name": "entity.minecraft.villager.none"
+  },
+  "soulCost": 1000,
+  "duration": 60,
+  "ingredients": [
+    {
+      "item": "goety:unholy_blood"
+    },
+    {
+      "item": "minecraft:wither_rose"
+    },
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "minecraft:end_crystal"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    {
+      "item": "minecraft:suspicious_stew"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:glowstone"
+    }
+  ],
+  "result": {
+    "item": "goety:undeath_potion"
+  }
+}

@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "cursed_infuser": {
       "conditions": {
         "items": [
           {
-            "item": "goety:cursed_infuser"
+            "items": [
+              "goety:cursed_infuser"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "cursed_infuser"
+    ]
+  ],
   "rewards": {
     "experience": 1
   }

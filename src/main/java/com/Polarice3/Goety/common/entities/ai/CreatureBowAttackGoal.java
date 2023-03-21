@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -9,7 +9,7 @@ import net.minecraft.world.item.BowItem;
 
 import java.util.EnumSet;
 
-public class CreatureBowAttackGoal <T extends PathfinderMob & RangedAttackMob> extends Goal {
+public class CreatureBowAttackGoal <T extends Mob & RangedAttackMob> extends Goal {
     private final T mob;
     private final double speedModifier;
     private int attackIntervalMin;

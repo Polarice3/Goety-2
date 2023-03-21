@@ -16,6 +16,8 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxArcaSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulGuiHorizontal;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulGuiVertical;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnthropodSouls;
@@ -28,11 +30,19 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DefaultSouls;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
+
+    public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
+    public static final ForgeConfigSpec.ConfigValue<Double> DeathScytheDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheEnchantability;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
@@ -42,7 +52,13 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArcaUndying;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterTotem;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagueSpread;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
@@ -76,8 +92,16 @@ public class MainConfig {
                 .define("starterBook", false);
         CraftingSouls = BUILDER.comment("How much Souls is consumed when crafting with Totem, Default: 1")
                 .defineInRange("craftSouls", 1, 0, Integer.MAX_VALUE);
+        SoulGuiShow = BUILDER.comment("Show the Soul Energy Bar if Player has Totem of Souls/Arca, Default: true")
+                .define("soulGuiShow", true);
         ShowNum = BUILDER.comment("Show numerical amount of Souls on the Soul Energy Bar, Default: false")
                 .define("showNumber", false);
+        SoulGuiHorizontal = BUILDER.comment("Horizontal Position of where the Soul Energy Bar is located, Default: 100")
+                .defineInRange("soulGuiHorizontal", 100, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        SoulGuiVertical = BUILDER.comment("Vertical Position of where the Soul Energy Bar is located, Default: -5")
+                .defineInRange("soulGuiVertical", -5, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        FirstPersonGloves = BUILDER.comment("Show gloves in first person, Default: true")
+                .define("firstPersonGloves", true);
         ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
                 .define("apocalypseMode", false);
         SpecialBossBar = BUILDER.comment("Bosses from the Mod has custom looking Boss Bars. Default: true")
@@ -119,6 +143,24 @@ public class MainConfig {
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
         BUILDER.pop();
+        BUILDER.push("Items");
+        DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
+                .defineInRange("darkScytheSouls", 1, 1, Integer.MAX_VALUE);
+        ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
+                .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Tools & Weapons");
+        ScytheBaseDamage = BUILDER.comment("How much base damage Scythes deals, the damage added depends on material the scythe is made off (ie. Iron = 2.0), Default: 5.5")
+                .defineInRange("scytheBaseDamage", 5.5, 1.0, Double.MAX_VALUE);
+        ScytheAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Scythe with item offhand and not wearing Grave Gloves. The lower the number the slower it takes to recharge, Default: 0.6")
+                .defineInRange("scytheAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
+        DeathScytheDamage = BUILDER.comment("How much damage Death Scythe deals, the configured number is added to Scythe Base Damage, Default: 4.0")
+                .defineInRange("deathScytheDamage", 4.0, 1.0, Double.MAX_VALUE);
+        DeathScytheDurability = BUILDER.comment("How many uses before Death Scythe breaks, Default: 444")
+                .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
+        DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
+                .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
         BUILDER.push("Villagers");
         VillagerHate = BUILDER.comment("Wearing a Dark Helm and Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 100 or more reputation among them, Default: false")
                 .define("villagerHate", false);
@@ -136,6 +178,14 @@ public class MainConfig {
                 .define("lichPowerfulHostile", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
                 .define("lichScrollRequirement", true);
+        BUILDER.pop();
+        BUILDER.push("Misc");
+        IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
+                .define("illagueSpread", true);
+        IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")
+                .define("illagerSteal", true);
+        IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can join Raids, Default: true")
+                .define("specialIllagerRaid", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

@@ -74,7 +74,7 @@ public class WraithSpell extends SummonSpells {
             MobUtil.moveDownToGround(summonedentity);
             summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
             summonedentity.setPersistenceRequired();
-//            summonedentity.setUpgraded(this.NecroPower(entityLiving));
+            summonedentity.setUpgraded(this.NecroPower(entityLiving));
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
@@ -103,7 +103,7 @@ public class WraithSpell extends SummonSpells {
                     summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setPersistenceRequired();
-//                    summonedentity.setUpgraded(this.NecroPower(entityLiving));
+                    summonedentity.setUpgraded(this.NecroPower(entityLiving));
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (enchantment > 0){

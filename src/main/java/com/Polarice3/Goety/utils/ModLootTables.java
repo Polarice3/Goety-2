@@ -14,7 +14,10 @@ public class ModLootTables {
     public static final ResourceLocation DECREPIT_TOMB = register("chests/decrepit_tomb");
 
     public static final ResourceLocation TALL_SKULL = register("entities/tall_skull_mobs");
+    public static final ResourceLocation WITCH = register("entities/witch");
     public static final ResourceLocation CULTISTS = register("entities/cultist_extra");
+
+    public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
 
     private static ResourceLocation register(String pId) {
         return register(Goety.location(pId));

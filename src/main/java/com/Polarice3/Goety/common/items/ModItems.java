@@ -3,12 +3,12 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.items.ModBoat;
-import com.Polarice3.Goety.common.items.curios.HatItem;
-import com.Polarice3.Goety.common.items.curios.RobeItem;
-import com.Polarice3.Goety.common.items.curios.RingItem;
+import com.Polarice3.Goety.common.items.curios.*;
+import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
+import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
+import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.items.magic.FocusBag;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ModMathHelper;
@@ -48,16 +48,21 @@ public class ModItems {
     public static final RegistryObject<Item> UNHOLY_BLOOD = ITEMS.register("unholy_blood", () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.RARE).tab(Goety.TAB)));
     public static final RegistryObject<Item> SOUL_TRANSFER = ITEMS.register("soul_transfer", SoulTransferItem::new);
     public static final RegistryObject<Item> FLAME_CAPTURE = ITEMS.register("flame_capture", FlameCaptureItem::new);
+    public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
 
     public static final RegistryObject<ModBoatItem> HAUNTED_BOAT = ITEMS.register("haunted_boat", () -> new ModBoatItem(ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
     //Curios
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
-    public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", HatItem::new);
-    public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", RobeItem::new);
-    public static final RegistryObject<Item> ILLUSION_HELM = ITEMS.register("illusion_helm", HatItem::new);
-    public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", RobeItem::new);
+    public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
+    public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", MagicHatItem::new);
+    public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);
+    public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
+    public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
+    public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
+    public static final RegistryObject<Item> WITCH_ROBE = ITEMS.register("witch_robe", WitchRobeItem::new);
+    public static final RegistryObject<Item> GRAVE_GLOVE = ITEMS.register("grave_glove", SingleStackItem::new);
 
     //Focus
     public static final RegistryObject<Item> VEXING_FOCUS = ITEMS.register("vexing_focus", () -> new MagicFocus(SpellConfig.VexCost.get()));
@@ -66,6 +71,7 @@ public class ModItems {
     public static final RegistryObject<Item> ICEOLOGY_FOCUS = ITEMS.register("iceology_focus", () -> new MagicFocus(SpellConfig.IceChunkCost.get()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(SpellConfig.IllusionCost.get()));
     public static final RegistryObject<Item> SOUL_BOLT_FOCUS = ITEMS.register("soul_bolt_focus", () -> new MagicFocus(SpellConfig.SoulBoltCost.get()));
+    public static final RegistryObject<Item> LIGHTNING_FOCUS = ITEMS.register("lightning_focus", () -> new MagicFocus(SpellConfig.LightningCost.get()));
     public static final RegistryObject<Item> SONIC_BOOM_FOCUS = ITEMS.register("sonic_boom_focus", () -> new MagicFocus(SpellConfig.SonicBoomCost.get()));
     public static final RegistryObject<Item> LAUNCH_FOCUS = ITEMS.register("launch_focus", () -> new MagicFocus(SpellConfig.LaunchCost.get()));
     public static final RegistryObject<Item> SOUL_LIGHT_FOCUS = ITEMS.register("soul_light_focus", () -> new MagicFocus(SpellConfig.SoulLightCost.get()));
@@ -76,6 +82,8 @@ public class ModItems {
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
+    public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", () -> new DarkScytheItem(Tiers.IRON));
+    public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
 
     //Discs
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.VIZIER_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) ModMathHelper.ticksToMinutes(1.33F)));

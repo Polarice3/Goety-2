@@ -2,12 +2,9 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.client.render.model.ZombieServantModel;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
-import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

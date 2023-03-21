@@ -29,6 +29,16 @@ public class ModEntityType {
                     .sized(1.0f,1.0f)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<SwordProjectile>> SWORD = register("sword",
+            EntityType.Builder.<SwordProjectile>of(SwordProjectile::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<ScytheSlash>> SCYTHE = register("scythe",
+            EntityType.Builder.<ScytheSlash>of(ScytheSlash::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<GrandLavaball>> GRAND_LAVABALL = register("grand_lavaball",
             EntityType.Builder.<GrandLavaball>of(GrandLavaball::new, MobCategory.MISC)
                     .sized(1.0f,1.0f)
@@ -233,6 +243,13 @@ public class ModEntityType {
             EntityType.Builder.of(StormEntity::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<SummonApostle>> SUMMON_APOSTLE = register("summon_apostle",
+            EntityType.Builder.<SummonApostle>of(SummonApostle::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 

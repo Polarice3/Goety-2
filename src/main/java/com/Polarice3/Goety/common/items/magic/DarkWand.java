@@ -6,8 +6,8 @@ import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
-import com.Polarice3.Goety.common.items.curios.HatItem;
-import com.Polarice3.Goety.common.items.curios.RobeItem;
+import com.Polarice3.Goety.common.items.curios.MagicHatItem;
+import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
 import com.Polarice3.Goety.common.magic.spells.*;
@@ -93,7 +93,7 @@ public class DarkWand extends Item {
     }
 
     public boolean SoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, (itemStack -> itemStack.getItem() instanceof RobeItem));
+        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicRobeItem);
     }
 
     public boolean SoulCostUp(LivingEntity entityLiving){
@@ -101,7 +101,7 @@ public class DarkWand extends Item {
     }
 
     public boolean ReduceCastTime(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, (itemStack -> itemStack.getItem() instanceof HatItem));
+        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
     }
 
     public int SoulCalculation(LivingEntity entityLiving, ItemStack stack){
@@ -268,6 +268,9 @@ public class DarkWand extends Item {
             } else if (spell == ModItems.SOUL_BOLT_FOCUS.get()) {
                 this.setSpellConditions(new SoulBoltSpell(), itemStack);
                 this.setSpell(12, itemStack);
+            } else if (spell == ModItems.LIGHTNING_FOCUS.get()) {
+                this.setSpellConditions(new LightningSpell(), itemStack);
+                this.setSpell(13, itemStack);
             } else {
                 this.setSpellConditions(null, itemStack);
                 this.setSpell(-1, itemStack);

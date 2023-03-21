@@ -1,13 +1,11 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
-import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
-import com.Polarice3.Goety.common.ritual.Ritual;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -22,16 +20,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeBlock;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
@@ -47,7 +43,6 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
                 .noOcclusion()
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, Boolean.FALSE));
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
@@ -93,26 +88,6 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
         }
     }
 
-    @SubscribeEvent
-    public void livingDeath(LivingDeathEvent event) {
-        LivingEntity entityLivingBase = event.getEntity();
-        if (!entityLivingBase.level.isClientSide) {
-            if (event.getSource().getEntity() instanceof Player) {
-                BlockPos pos = entityLivingBase.blockPosition();
-                int range = Ritual.SACRIFICE_DETECTION_RANGE;
-                for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-                        pos.offset(range, range, range))) {
-                    BlockEntity tileEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
-                    if (tileEntity instanceof DarkAltarBlockEntity darkAltarTileEntity) {
-                        if (darkAltarTileEntity.getCurrentRitualRecipe() != null && darkAltarTileEntity.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
-                            darkAltarTileEntity.notifySacrifice(entityLivingBase);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
@@ -139,6 +114,11 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
 
     public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
         return new DarkAltarBlockEntity(p_153215_, p_153216_);
+    }
+
+    @Nullable
+    public <T extends BlockEntity> GameEventListener getListener(ServerLevel p_222092_, T p_222093_) {
+        return p_222093_ instanceof DarkAltarBlockEntity ? (DarkAltarBlockEntity)p_222093_ : null;
     }
 
     @Nullable

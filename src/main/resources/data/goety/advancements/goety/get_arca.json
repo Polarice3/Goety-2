@@ -1,15 +1,22 @@
 {
   "parent": "goety:goety/root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "arca": {
       "conditions": {
         "items": [
           {
-            "item": "goety:arca"
+            "items": [
+              "goety:arca"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
-  }
+  },
+  "requirements": [
+    [
+      "arca"
+    ]
+  ]
 }

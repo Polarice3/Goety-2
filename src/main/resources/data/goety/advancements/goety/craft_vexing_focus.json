@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_dark_wand",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "vexing_focus": {
       "conditions": {
         "items": [
           {
-            "item": "goety:vexing_focus"
+            "items": [
+              "goety:vexing_focus"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "vexing_focus"
+    ]
+  ],
   "rewards": {
     "experience": 1
   }

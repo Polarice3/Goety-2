@@ -3,8 +3,8 @@ package com.Polarice3.Goety.client.gui.overlay;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
-import com.Polarice3.Goety.utils.TotemFinder;
 import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.TotemFinder;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -20,7 +20,7 @@ public class SoulEnergyGui extends GuiComponent {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static boolean shouldDisplayBar(){
-        return SEHelper.getSoulsContainer(minecraft.player);
+        return SEHelper.getSoulsContainer(minecraft.player) && MainConfig.SoulGuiShow.get();
     }
 
     public static Font getFont() {
@@ -28,8 +28,6 @@ public class SoulEnergyGui extends GuiComponent {
     }
 
     public static void drawHUD(ForgeGui gui, PoseStack ms, float partialTicks, int screenWidth, int screenHeight) {
-        screenWidth = minecraft.getWindow().getGuiScaledWidth();
-        screenHeight = minecraft.getWindow().getGuiScaledHeight();
         if(!shouldDisplayBar()) {
             return;
         }
@@ -46,12 +44,12 @@ public class SoulEnergyGui extends GuiComponent {
             }
         }
 
-        int i = (screenWidth/2) + 100;
+        int i = (screenWidth/2) + (MainConfig.SoulGuiHorizontal.get());
         int energylength = 117;
         energylength = (int)((energylength) * (SoulEnergy / (double)SoulEnergyTotal));
         int maxenergy = (int)(117 * (MainConfig.MaxSouls.get() / (double)SoulEnergyTotal));
 
-        int height = screenHeight - 5;
+        int height = screenHeight + (MainConfig.SoulGuiVertical.get());
 
         int offset = (int) ((minecraft.player.tickCount + partialTicks) % 234);
 

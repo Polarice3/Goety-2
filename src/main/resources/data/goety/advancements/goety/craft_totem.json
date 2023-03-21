@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_magic_emerald",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "totem_of_souls": {
       "conditions": {
         "items": [
           {
-            "item": "goety:totem_of_souls"
+            "items": [
+              "goety:totem_of_souls"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "totem_of_souls"
+    ]
+  ],
   "rewards": {
     "experience": 25
   }

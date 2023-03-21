@@ -56,6 +56,8 @@
 
   "entity.goety.nether_meteor":"Nether Meteor",
   "entity.goety.grand_lavaball": "Grand Fireball",
+  "entity.goety.sword":"Flying Sword",
+  "entity.goety.scythe":"Scythe Slash",
   "entity.goety.soul_bullet":"Soul Bullet",
   "entity.goety.fang":"Magic Fang",
   "entity.goety.spike":"Royal Spike",
@@ -68,6 +70,7 @@
   "entity.goety.fire_rain_trap":"Fire Rain Trap",
   "entity.goety.arrow_rain_trap":"Arrow Rain Trap",
   "entity.goety.storm_util":"Thunderstorm",
+  "entity.goety.summon_apostle":"Apostle",
 
   "item.goety.focus_bag": "Focus Bag",
 
@@ -89,7 +92,12 @@
   "item.goety.spent_totem": "Spent Totem of Souls",
   "item.goety.magic_emerald": "Awakened Emerald",
   "item.goety.soul_emerald": "Concentrated Emerald",
+
+  "item.goety.dark_scythe": "Dark Scythe",
+  "item.goety.death_scythe": "Death Scythe",
+
   "item.goety.dark_scroll": "Dark Scroll",
+  "item.goety.undeath_potion": "Potion of Transformation",
   "item.goety.soul_ruby": "Ruby of Souls",
   "item.goety.unholy_blood": "Unholy Blood",
   "item.goety.cursed_ingot": "Cursed Ingot",
@@ -106,9 +114,14 @@
 
   "item.goety.ring_of_want": "Ring of Want",
   "item.goety.dark_hat": "Dark Hat",
+  "item.goety.witch_hat": "Witches Hat",
+  "item.goety.necro_crown": "Necro Crown",
   "item.goety.dark_robe": "Dark Robe",
-  "item.goety.illusion_helm": "Illusive Helm",
   "item.goety.illusion_robe": "Illusive Robe",
+  "item.goety.necro_cape": "Necro Cape",
+  "item.goety.witch_robe": "Witches Robe",
+  "item.goety.witch_robe.brew": "Witches Robe",
+  "item.goety.grave_glove": "Grave Gloves",
 
   "item.goety.empty_focus": "Empty Focus",
   "item.goety.animation_core": "Animation Core",
@@ -124,6 +137,7 @@
   "item.goety.illusion_focus": "Mirror Focus",
   "item.goety.feast_focus": "Feasting Focus",
   "item.goety.soul_bolt_focus": "Soul Bolt Focus",
+  "item.goety.lightning_focus": "Lightning Focus",
   "item.goety.sonic_boom_focus": "Sonic Boom Focus",
   "item.goety.soul_light_focus": "Soul Light Focus",
   "item.goety.glow_light_focus": "Glow Light Focus",
@@ -219,6 +233,7 @@
   "key.goety.wand": "Open Wand Focus Slot",
   "key.goety.wandandbag": "Open Bag with Wand",
   "key.goety.bag": "Open Focus Bag",
+  "key.goety.robe": "Open Witches Robe",
   "key.goety.ceaseFire": "Cease Fire",
   "key.goety.magnet": "Lich Magnet",
   "key.goety.lichKiss": "Lich Kiss",
@@ -442,6 +457,8 @@
   "advancements.goety.craft_vexing_focus.description": "Look out for any Hermits outside of your windows.",
   "advancements.goety.craft_biting_focus.title": "The Floor Is Jaws",
   "advancements.goety.craft_biting_focus.description": "Perhaps it can be improved later on...",
+  "advancements.goety.become_lich.title": "I Am Beyond Strength",
+  "advancements.goety.become_lich.description": "Ascend to Lichdom and become truly immortal!",
 
   "gui.jei.category.cursed_infuser": "Cursed Infuser",
   "gui.jei.category.cursed_infuser.time": "%ss",
@@ -486,5 +503,7 @@
   "death.attack.goety.directFreeze": "%1$s was frozen by %2$s",
   "death.attack.goety.directFreeze.player": "%1$s was frozen while fighting %2$s",
   "death.attack.goety.indirectFreeze": "%1$s has been frozen by %2$s",
-  "death.attack.goety.indirectFreeze.item": "%1$s has been frozen by %2$s using %3$s"
+  "death.attack.goety.indirectFreeze.item": "%1$s has been frozen by %2$s using %3$s",
+  "death.attack.goety.sword": "%1$s was sliced by %2$s",
+  "death.attack.goety.sword.item": "%1$s was sliced by %2$s with %3$s"
 }

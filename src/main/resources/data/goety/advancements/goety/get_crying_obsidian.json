@@ -1,15 +1,22 @@
 {
   "parent": "goety:goety/root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "crying_obsidian": {
       "conditions": {
         "items": [
           {
-            "item": "minecraft:crying_obsidian"
+            "items": [
+              "minecraft:crying_obsidian"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
-  }
+  },
+  "requirements": [
+    [
+      "crying_obsidian"
+    ]
+  ]
 }

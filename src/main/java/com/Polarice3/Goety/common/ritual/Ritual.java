@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.ritual;
 
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.core.BlockPos;
@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -241,6 +242,10 @@ public abstract class Ritual {
         if (setTamed && livingEntity instanceof TamableAnimal) {
             ((TamableAnimal) livingEntity).tame(castingPlayer);
         }
+        if (setTamed && livingEntity instanceof AbstractHorse){
+            ((AbstractHorse) livingEntity).setTamed(true);
+            ((AbstractHorse) livingEntity).setOwnerUUID(castingPlayer.getUUID());
+        }
         if (setTamed && livingEntity instanceof Owned summonedEntity) {
             summonedEntity.setPersistenceRequired();
             summonedEntity.setOwnerId(castingPlayer.getUUID());
@@ -248,9 +253,6 @@ public abstract class Ritual {
                 ((Summoned) summonedEntity).setWandering(false);
             }
         }
-/*        if (livingEntity instanceof ShadeEntity){
-            ((ShadeEntity) livingEntity).setBoundOrigin(darkAltarPos);
-        }*/
         livingEntity.absMoveTo(darkAltarPos.getX(), darkAltarPos.getY(), darkAltarPos.getZ(),
                 world.random.nextInt(360), 0);
         if (livingEntity instanceof Mob)

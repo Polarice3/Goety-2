@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:undeath_potion"
+    },
+    "title": {
+      "translate": "advancements.goety.become_lich.title"
+    },
+    "description": {
+      "translate": "advancements.goety.become_lich.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/get_arca",
+  "criteria": {
+    "undeath": {
+      "conditions": {
+        "item": {
+          "items": "goety:undeath_potion"
+        }
+      },
+    "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    "undeath"
+  ],
+  "rewards": {
+    "experience": 50
+  }
+}

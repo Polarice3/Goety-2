@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:dark_scythe"
+  },
+  "craftType": "necroturgy",
+  "soulCost": 1,
+  "duration": 30,
+  "ingredients": [
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "item": "goety:unholy_blood"
+    },
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:savage_tooth"
+    }
+  ],
+  "result": {
+    "item": "goety:death_scythe"
+  }
+}

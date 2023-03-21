@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " s ",
+    "ses",
+    " s "
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:soul_light_focus"
+    },
+    "s":
+    {
+      "item": "goety:ectoplasm"
+    }
+  },
+  "result": {
+    "item": "goety:soul_bolt_focus"
+  }
+}

@@ -51,7 +51,7 @@ public class SummonCircleEntity extends Entity {
         this.setTrueOwner(pOwner);
     }
 
-    public float getBrightness() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 

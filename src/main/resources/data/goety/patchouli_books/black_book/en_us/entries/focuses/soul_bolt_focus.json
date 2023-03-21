@@ -1,0 +1,15 @@
+{
+  "name": "Soul Bolt Focus",
+  "icon": "goety:soul_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With this focus, you're capable of rapidly fire bolts of Soul Energy towards your foe, dealing knockback and magic damage."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_bolt_focus"
+    }
+  ]
+}

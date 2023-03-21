@@ -3,13 +3,18 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -38,6 +43,7 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -115,35 +121,30 @@ public class Summoned extends Owned {
                 this.setStaying(false);
             }
         }
-/*        if (this.getTrueOwner() != null){
-            if (RobeArmorFinder.FindNecroHelm(this.getTrueOwner()) && this.getMobType() == CreatureAttribute.UNDEAD){
+        if (this.getTrueOwner() != null){
+            if (CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.NECRO_CROWN.get()) && this.getMobType() == MobType.UNDEAD){
                 this.limitedLifespan = false;
             } else if (this.limitedLifeTicks > 0){
                 this.limitedLifespan = true;
             }
-            if (this.getTrueOwner().getItemBySlot(EquipmentSlotType.FEET).getItem() == ModItems.NECRO_BOOTS_OF_WANDER.get()){
+/*            if (this.getTrueOwner().getItemBySlot(EquipmentSlotType.FEET).getItem() == ModItems.NECRO_BOOTS_OF_WANDER.get()){
                 if (this.getMobType() == CreatureAttribute.UNDEAD){
                     this.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 100, 0, false, false, false));
                 }
-            }
-            if (this.getMobType() == CreatureAttribute.UNDEAD) {
+            }*/
+            if (this.getMobType() == MobType.UNDEAD) {
                 if (!this.isOnFire()) {
                     if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
-                        if (this.getTrueOwner() instanceof PlayerEntity) {
-                            if (RobeArmorFinder.FindNecroSet(this.getTrueOwner())) {
-                                PlayerEntity owner = (PlayerEntity) this.getTrueOwner();
+                        if (this.getTrueOwner() instanceof Player) {
+                            if (CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.NECRO_CAPE.get())) {
+                                Player owner = (Player) this.getTrueOwner();
                                 int SoulCost = SpellConfig.UndeadMinionHealCost.get();
-                                if (RobeArmorFinder.FindLeggings(owner)){
-                                    if (this.random.nextBoolean()){
-                                        SoulCost = 0;
-                                    }
-                                }
                                 if (SEHelper.getSoulsAmount(owner, SpellConfig.UndeadMinionHealCost.get())){
                                     if (this.tickCount % 20 == 0) {
                                         this.heal(1.0F);
-                                        Vector3d vector3d = this.getDeltaMovement();
+                                        Vec3 vector3d = this.getDeltaMovement();
                                         if (!this.level.isClientSide){
-                                            ServerWorld serverWorld = (ServerWorld) this.level;
+                                            ServerLevel serverWorld = (ServerLevel) this.level;
                                             SEHelper.decreaseSouls(owner, SoulCost);
                                             serverWorld.sendParticles(ParticleTypes.SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
                                         }
@@ -154,7 +155,7 @@ public class Summoned extends Owned {
                     }
                 }
             }
-        }*/
+        }
         boolean flag = this.isSunSensitive() && this.isSunBurnTick();
         if (flag) {
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
@@ -199,8 +200,7 @@ public class Summoned extends Owned {
 
     public boolean hurt(DamageSource source, float amount) {
         if (SpellConfig.MinionsMasterImmune.get()) {
-            if (source.getEntity() instanceof Summoned) {
-                Summoned summoned = (Summoned) source.getEntity();
+            if (source.getEntity() instanceof Summoned summoned) {
                 if (!summoned.isHostile() && !this.isHostile()) {
                     if (summoned.getTrueOwner() == this.getTrueOwner() && this.getTrueOwner() != null) {
                         return false;

@@ -3,7 +3,6 @@ package com.Polarice3.Goety.client.render.block;
 import com.Polarice3.Goety.Goety;
 import com.google.common.collect.Sets;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.Set;
 

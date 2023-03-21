@@ -4,7 +4,6 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.curios.RingItem;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.fml.common.Mod;

@@ -24,6 +24,14 @@ public class AttributesConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> MalghastHealth;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> EnviokerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> EnviokerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> TormentorHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> TormentorDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> InquillagerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> InquillagerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerHealth;
+
     public static final ForgeConfigSpec.ConfigValue<Double> WraithHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithDamage;
 
@@ -74,6 +82,26 @@ public class AttributesConfig {
                 ZPiglinBruteServantDamage = BUILDER.comment("How much damage Zombified Piglin Brute Servants deals, Default: 7.0")
                         .defineInRange("zombifiedPiglinBruteServantDamage", 7.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+            BUILDER.pop();
+            BUILDER.push("Illagers");
+                BUILDER.push("Envioker");
+                EnviokerHealth = BUILDER.comment("How much Max Health Envioker have, Default: 24.0")
+                        .defineInRange("enviokerHealth", 24.0, 1.0, Double.MAX_VALUE);
+                EnviokerDamage = BUILDER.comment("How much damage Envioker deals, Default: 5.0")
+                        .defineInRange("enviokerDamage", 5.0, 1.0, Double.MAX_VALUE);
+                TormentorHealth = BUILDER.comment("How much Max Health Tormentor have, Default: 24.0")
+                        .defineInRange("tormentorHealth", 24.0, 1.0, Double.MAX_VALUE);
+                TormentorDamage = BUILDER.comment("How much damage Tormentor deals, Default: 4.0")
+                        .defineInRange("tormentorDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Inquillager");
+                InquillagerHealth = BUILDER.comment("How much Max Health Inquillager have, Default: 24.0")
+                        .defineInRange("inquillagerHealth", 24.0, 1.0, Double.MAX_VALUE);
+                InquillagerDamage = BUILDER.comment("How much damage Inquillager deals, Default: 5.0")
+                        .defineInRange("inquillagerDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+            ConquillagerHealth = BUILDER.comment("How much Max Health Conquillager have, Default: 24.0")
+                    .defineInRange("conquillagerHealth", 24.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("General");
                 BUILDER.push("Wraith");

@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
+import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.init.ModSounds;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.monster.SpellcasterIllager;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
@@ -84,6 +86,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public double xCloak;
     public double yCloak;
     public double zCloak;
+    public boolean flyWarn;
+    public int airBound;
     public int deathTime = 0;
 
     public Vizier(EntityType<? extends Vizier> type, Level worldIn) {
@@ -191,6 +195,11 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 }
             }
         } else {
+            if (!this.getTarget().isOnGround()){
+                ++this.airBound;
+            } else {
+                this.airBound = 0;
+            }
             if (!this.getTarget().hasLineOfSight(this)){
                 BlockPos blockPos = new BlockPos(this.getTarget().getX() - 2, this.getTarget().getY() + 2.0D, this.getTarget().getZ() - 2);
                 if (this.isFree(blockPos.getX(), blockPos.getY(), blockPos.getZ())){
@@ -467,6 +476,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         compound.putInt("Confused", this.getInvulnerableTicks());
         compound.putInt("Casting", this.getCasting());
         compound.putInt("CastTimes", this.getCastTimes());
+        compound.putBoolean("FlyWarn", this.flyWarn);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -478,6 +488,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             this.bossInfo.setName(this.getDisplayName());
         }
         this.bossInfo.setId(this.getUUID());
+        this.flyWarn = compound.getBoolean("FlyWarn");
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -581,6 +592,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     class FangsSpellGoal extends Goal {
         int duration;
         int duration2;
+
         private FangsSpellGoal() {
         }
 
@@ -594,6 +606,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         public void start() {
             Vizier.this.playSound(SoundEvents.EVOKER_PREPARE_ATTACK, 1.0F, 1.0F);
             Vizier.this.setSpellcasting(true);
+            Vizier.this.airBound = 0;
         }
 
         public void stop() {
@@ -609,17 +622,26 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             if (livingentity != null) {
                 ++this.duration;
                 ++this.duration2;
-                if (Vizier.this.getHealth() <= Vizier.this.getMaxHealth() / 2) {
-                    if (this.duration >= 5) {
-                        this.duration = 0;
-                        float f = (float) Mth.atan2(livingentity.getZ() - Vizier.this.getZ(), livingentity.getX() - Vizier.this.getX());
-                        this.spawnFangs(livingentity.getX(), livingentity.getZ(), livingentity.getY(), livingentity.getY() + 1.0D, f, 1);
+                if (Vizier.this.airBound > 20){
+                    if (!Vizier.this.level.isClientSide) {
+                        ServerLevel serverWorld = (ServerLevel) Vizier.this.level;
+                        for (int i = 0; i < 5; ++i) {
+                            double d0 = serverWorld.random.nextGaussian() * 0.02D;
+                            double d1 = serverWorld.random.nextGaussian() * 0.02D;
+                            double d2 = serverWorld.random.nextGaussian() * 0.02D;
+                            serverWorld.sendParticles(ParticleTypes.ENCHANT, Vizier.this.getRandomX(1.0D), Vizier.this.getRandomY() + 1.0D, Vizier.this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
                     }
-                } else {
-                    if (this.duration >= 10) {
-                        this.duration = 0;
-                        float f = (float) Mth.atan2(livingentity.getZ() - Vizier.this.getZ(), livingentity.getX() - Vizier.this.getX());
-                        this.spawnFangs(livingentity.getX(), livingentity.getZ(), livingentity.getY(), livingentity.getY() + 1.0D, f, 1);
+                }
+                int time = Vizier.this.getHealth() <= Vizier.this.getMaxHealth() / 2 ? 5 : 10;
+                time = Vizier.this.airBound > 20 ? time * 2 : time;
+                if (this.duration >= time) {
+                    this.duration = 0;
+                    if (Vizier.this.airBound > 20 && !Vizier.this.flyWarn){
+                        Vizier.this.playSound(ModSounds.VIZIER_CELEBRATE.get(), 1.0F, 1.5F);
+                        Vizier.this.flyWarn = true;
+                    } else {
+                        this.attack(livingentity);
                     }
                 }
                 if (this.duration2 >= 160) {
@@ -631,6 +653,28 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 }
             } else {
                 stop();
+            }
+        }
+
+        private void attack(LivingEntity livingEntity){
+            if (Vizier.this.airBound < 20) {
+                float f = (float) Mth.atan2(livingEntity.getZ() - Vizier.this.getZ(), livingEntity.getX() - Vizier.this.getX());
+                this.spawnFangs(livingEntity.getX(), livingEntity.getZ(), livingEntity.getY(), livingEntity.getY() + 1.0D, f, 1);
+            } else {
+                SwordProjectile swordProjectile = new SwordProjectile(Vizier.this, Vizier.this.level, Vizier.this.getMainHandItem());
+                double d0 = livingEntity.getX() - Vizier.this.getX();
+                double d1 = livingEntity.getY(0.3333333333333333D) - swordProjectile.getY();
+                double d2 = livingEntity.getZ() - Vizier.this.getZ();
+                double d3 = (double)Mth.sqrt((float) (d0 * d0 + d2 * d2));
+                swordProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                swordProjectile.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, 1.0F);
+                if (!Vizier.this.getSensing().hasLineOfSight(livingEntity)){
+                    swordProjectile.setNoPhysics(true);
+                }
+                Vizier.this.level.addFreshEntity(swordProjectile);
+                if (!Vizier.this.isSilent()) {
+                    Vizier.this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F);
+                }
             }
         }
 
@@ -811,10 +855,40 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                     double d1 = Math.max(livingentity.getY(), Vizier.this.getY()) + 1.0D;
                     float f = (float) Mth.atan2(livingentity.getZ() - Vizier.this.getZ(), livingentity.getX() - Vizier.this.getX());
                     ++this.duration;
+                    if (Vizier.this.airBound > 20){
+                        if (!Vizier.this.level.isClientSide) {
+                            ServerLevel serverWorld = (ServerLevel) Vizier.this.level;
+                            for (int i = 0; i < 5; ++i) {
+                                double d3 = serverWorld.random.nextGaussian() * 0.02D;
+                                double d4 = serverWorld.random.nextGaussian() * 0.02D;
+                                double d2 = serverWorld.random.nextGaussian() * 0.02D;
+                                serverWorld.sendParticles(ParticleTypes.ENCHANT, Vizier.this.getRandomX(1.0D), Vizier.this.getRandomY() + 1.0D, Vizier.this.getRandomZ(1.0D), 0, d3, d4, d2, 0.5F);
+                            }
+                        }
+                    }
                     if (this.duration >= 40) {
-                        for (int l = 0; l < 16; ++l) {
-                            double d2 = 1.25D * (double) (l + 1);
-                            this.createSpellEntity(Vizier.this.getX() + (double) Mth.cos(f) * d2, Vizier.this.getZ() + (double) Mth.sin(f) * d2, d0, d1, f, l * 2);
+                        if (Vizier.this.airBound < 20) {
+                            for (int l = 0; l < 16; ++l) {
+                                double d2 = 1.25D * (double) (l + 1);
+                                this.createSpellEntity(Vizier.this.getX() + (double) Mth.cos(f) * d2, Vizier.this.getZ() + (double) Mth.sin(f) * d2, d0, d1, f, l * 2);
+                            }
+                        } else {
+                            for (int j = 0; j < 3; ++j) {
+                                SwordProjectile swordProjectile = new SwordProjectile(Vizier.this, Vizier.this.level, Vizier.this.getMainHandItem());
+                                double d4 = livingentity.getX() - Vizier.this.getX();
+                                double d5 = livingentity.getY(0.3333333333333333D) - swordProjectile.getY();
+                                double d2 = livingentity.getZ() - Vizier.this.getZ();
+                                double d3 = Mth.sqrt((float) (d4 * d4 + d2 * d2));
+                                swordProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                                swordProjectile.shoot(d4 + Vizier.this.random.nextGaussian(), d5 + d3 * (double) 0.2F, d2 + Vizier.this.random.nextGaussian(), 1.6F, 0.6F);
+                                if (!Vizier.this.getSensing().hasLineOfSight(livingentity)) {
+                                    swordProjectile.setNoPhysics(true);
+                                }
+                                Vizier.this.level.addFreshEntity(swordProjectile);
+                            }
+                            if (!Vizier.this.isSilent()) {
+                                Vizier.this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F);
+                            }
                         }
                         this.duration = 0;
                         Vizier.this.setSpellcasting(false);

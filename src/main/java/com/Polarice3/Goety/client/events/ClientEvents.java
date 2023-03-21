@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
+import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -11,6 +12,7 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CBagKeyPacket;
 import com.Polarice3.Goety.common.network.client.CWandAndBagKeyPacket;
 import com.Polarice3.Goety.common.network.client.CWandKeyPacket;
+import com.Polarice3.Goety.common.network.client.CWitchRobePacket;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.LichdomHelper;
@@ -21,19 +23,26 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -57,6 +66,37 @@ public class ClientEvents {
                 }
             }
         }
+    }
+
+    /**
+     * Glove Renderer based of @ochotonida codes
+     */
+    @SubscribeEvent
+    public static void renderGlove(RenderArmEvent event){
+        if (event.isCanceled() || !MainConfig.FirstPersonGloves.get()){
+            return;
+        }
+        InteractionHand hand = event.getArm() == event.getPlayer().getMainArm() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+
+        CuriosApi.getCuriosHelper().getCuriosHandler(event.getPlayer()).ifPresent(handler -> {
+            ICurioStacksHandler stacksHandler = handler.getCurios().get(SlotTypePreset.HANDS.getIdentifier());
+            if (stacksHandler != null) {
+                IDynamicStackHandler stacks = stacksHandler.getStacks();
+                IDynamicStackHandler cosmeticStacks = stacksHandler.getCosmeticStacks();
+
+                for (int slot = hand == InteractionHand.MAIN_HAND ? 0 : 1; slot < stacks.getSlots(); slot += 2) {
+                    ItemStack itemStack = cosmeticStacks.getStackInSlot(slot);
+                    if (itemStack.isEmpty() && stacksHandler.getRenders().get(slot)) {
+                        itemStack = stacks.getStackInSlot(slot);
+                    }
+
+                    WearRenderer renderer = WearRenderer.getRenderer(itemStack);
+                    if (renderer != null) {
+                        renderer.renderFirstPersonArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPlayer(), event.getArm(), itemStack.hasFoil());
+                    }
+                }
+            }
+        });
     }
 
     @SubscribeEvent
@@ -140,6 +180,10 @@ public class ClientEvents {
 
         if (ModKeybindings.keyBindings[2].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandAndBagKeyPacket());
+        }
+
+        if (ModKeybindings.keyBindings[3].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWitchRobePacket());
         }
     }
 }

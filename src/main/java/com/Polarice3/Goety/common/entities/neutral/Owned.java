@@ -34,7 +34,6 @@ import net.minecraft.world.scores.Team;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 
 public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{

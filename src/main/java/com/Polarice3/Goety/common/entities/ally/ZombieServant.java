@@ -4,7 +4,6 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;

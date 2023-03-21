@@ -89,7 +89,7 @@ public class ZombieSpell extends SummonSpells {
             }
             summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
             summonedentity.setPersistenceRequired();
-//            summonedentity.setUpgraded(this.NecroPower(entityLiving));
+            summonedentity.setUpgraded(this.NecroPower(entityLiving));
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
@@ -128,7 +128,7 @@ public class ZombieSpell extends SummonSpells {
                 }
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.setPersistenceRequired();
-//                summonedentity.setUpgraded(this.NecroPower(entityLiving));
+                summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
                 if (enchantment > 0){
                     int boost = Mth.clamp(enchantment - 1, 0, 10);

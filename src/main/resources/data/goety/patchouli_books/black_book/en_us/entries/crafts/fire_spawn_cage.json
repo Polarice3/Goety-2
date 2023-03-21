@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Once the cage captures the Spawner's core, it can be right-clicked onto an empty Cursed Cage where it will convert it into a copy of the original Spawner, making the Cursed Infusion process and Mob Farming more convenient!"
+      "text": "Once the cage captures the Spawner's core, it can be right-clicked onto an empty Cursed Cage where it will convert it into a copy of the original Spawner, making the Cursed Infusion process and Mob Farming more convenient! Although doing this so will destroy the item in the process."
     }
   ]
 }

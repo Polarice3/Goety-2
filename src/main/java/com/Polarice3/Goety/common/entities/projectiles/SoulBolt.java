@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -87,7 +86,6 @@ public class SoulBolt extends AbstractHurtingProjectile {
                 double d0 = (double)this.getX() + this.level.random.nextDouble();
                 double d1 = (double)this.getY() + this.level.random.nextDouble();
                 double d2 = (double)this.getZ() + this.level.random.nextDouble();
-                this.level.addParticle(ModParticleTypes.BULLET_EFFECT.get(), d0, d1, d2, 0.45, 0.45, 0.45);
                 serverLevel.sendParticles(ModParticleTypes.BULLET_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
             }
             this.discard();

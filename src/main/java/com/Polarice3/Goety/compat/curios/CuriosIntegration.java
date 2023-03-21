@@ -2,8 +2,6 @@ package com.Polarice3.Goety.compat.curios;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.curios.HatItem;
-import com.Polarice3.Goety.common.items.curios.RobeItem;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -33,9 +31,13 @@ public class CuriosIntegration implements ICompatable {
     private static final Map<Item, String> TYPES = ImmutableMap.<Item, String>builder()
             .put(ModItems.RING_OF_WANT.get(), "ring")
             .put(ModItems.DARK_HAT.get(), "head")
+            .put(ModItems.WITCH_HAT.get(), "head")
+            .put(ModItems.NECRO_CROWN.get(), "head")
             .put(ModItems.DARK_ROBE.get(), "body")
-            .put(ModItems.ILLUSION_HELM.get(), "head")
             .put(ModItems.ILLUSION_ROBE.get(), "body")
+            .put(ModItems.WITCH_ROBE.get(), "body")
+            .put(ModItems.NECRO_CAPE.get(), "back")
+            .put(ModItems.GRAVE_GLOVE.get(), "hands")
             .put(ModItems.TOTEM_OF_SOULS.get(), "charm")
             .put(ModItems.FOCUS_BAG.get(), "belt")
             .build();

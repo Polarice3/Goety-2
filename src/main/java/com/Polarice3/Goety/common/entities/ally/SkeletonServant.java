@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 
 public class SkeletonServant extends AbstractSkeletonServant {
     private static final EntityDataAccessor<Boolean> DATA_STRAY_CONVERSION_ID = SynchedEntityData.defineId(SkeletonServant.class, EntityDataSerializers.BOOLEAN);
-    public static final String CONVERSION_TAG = "StrayConversionTime";
     private int inPowderSnowTime;
     private int conversionTime;
 

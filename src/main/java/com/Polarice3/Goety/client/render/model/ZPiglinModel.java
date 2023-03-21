@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
 import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.PiglinModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

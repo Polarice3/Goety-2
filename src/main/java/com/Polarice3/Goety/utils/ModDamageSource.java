@@ -30,6 +30,10 @@ public class ModDamageSource extends DamageSource {
         return pIndirectEntity == null ? (new IndirectEntityDamageSource("onFire", fireball, fireball)).setIsFire().setProjectile() : (new IndirectEntityDamageSource("fireball", fireball, pIndirectEntity)).setIsFire().setProjectile();
     }
 
+    public static DamageSource sword(Entity pSource, @Nullable Entity pIndirectEntity){
+        return (new IndirectEntityDamageSource(source("sword"), pSource, pIndirectEntity)).setProjectile();
+    }
+
     public static DamageSource iceBouquet(Entity pSource, @Nullable Entity pIndirectEntity){
         return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor();
     }

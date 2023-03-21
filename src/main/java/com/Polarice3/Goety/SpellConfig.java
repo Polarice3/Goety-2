@@ -25,6 +25,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
@@ -35,6 +36,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
@@ -97,6 +99,8 @@ public class SpellConfig {
                 .defineInRange("iceChunkCost", 16, 0, Integer.MAX_VALUE);
         LaunchCost = BUILDER.comment("Launch Spell Cost, Default: 4")
                 .defineInRange("launchCost", 4, 0, Integer.MAX_VALUE);
+        LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
+                .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -117,6 +121,8 @@ public class SpellConfig {
                 .defineInRange("illusionTime", 40, 0, 72000);
         IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 40")
                 .defineInRange("iceChunkTime", 40, 0, 72000);
+        LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
+                .defineInRange("lightningTime", 60, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();

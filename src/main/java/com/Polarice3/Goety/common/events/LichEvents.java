@@ -5,6 +5,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.LichdomHelper;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
@@ -205,10 +206,10 @@ public class LichEvents {
                 if (event.getSource().isMagic()){
                     event.setAmount(event.getAmount() * 0.15F);
                 }
-/*                if (ModDamageSource.frostAttacks(event.getSource())){
+                if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
                     event.setAmount(event.getAmount()/2);
                 }
-                if (MainConfig.LichUndeadFriends.get()) {
+/*                if (MainConfig.LichUndeadFriends.get()) {
                     if (RobeArmorFinder.FindNecroSet(player) && event.getSource().getEntity() != null) {
                         if (event.getSource().getEntity() instanceof LivingEntity) {
                             LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
@@ -222,8 +223,7 @@ public class LichEvents {
                 }*/
             }
         }
-        if (event.getSource().getDirectEntity() instanceof Player){
-            Player player = (Player) event.getSource().getDirectEntity();
+        if (event.getSource().getDirectEntity() instanceof Player player){
             if (LichdomHelper.isLich(player)){
                 if (player.getMainHandItem().isEmpty() && event.getEntity() != player){
                     event.getEntity().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1200));

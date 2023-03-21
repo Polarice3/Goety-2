@@ -16,17 +16,24 @@
   },
   "parent": "goety:goety/craft_infuser",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "cursed_ingot": {
       "conditions": {
         "items": [
           {
-            "item": "goety:cursed_ingot"
+            "items": [
+              "goety:cursed_ingot"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
+  "requirements": [
+    [
+      "cursed_ingot"
+    ]
+  ],
   "rewards": {
     "experience": 5
   }

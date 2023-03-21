@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.ritual;
 
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,8 +43,7 @@ public class SummonRitual extends Ritual {
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, world, blockPos, tileEntity, castingPlayer);
-            if (entity instanceof LivingEntity) {
-                LivingEntity living = (LivingEntity) entity;
+            if (entity instanceof LivingEntity living) {
                 this.prepareLivingEntityForSpawn(living, world, blockPos, tileEntity, castingPlayer, this.tame);
 
                 this.initSummoned(living, world, blockPos, tileEntity, castingPlayer);

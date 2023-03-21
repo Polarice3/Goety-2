@@ -1,0 +1,16 @@
+{
+  "name": "Wraith Servant",
+  "icon": "goety:wraith_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These spectres are called and bound by your will to the point where their own Ice Bouquets do not touch either you or your allies."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith_servant"
+    }
+  ]
+}

@@ -5,9 +5,9 @@ license="All rights reserved"
 modId="goety"
 version="${file.jarVersion}"
 displayName="Goety"
-displayURL="https://github.com/Polarice3/Goety"
+displayURL="https://github.com/Polarice3/Goety-2"
 logoFile="examplemod.png"
-credits="Tutorial/Help: Technovision, Cy4's Modding, TelepathicGrunt, diesieben07. Sounds: Iron Dude."
+credits="Tutorial/Help: Technovision, Cy4's Modding, TelepathicGrunt, diesieben07."
 authors="Polarice3"
 description='''
 Goety adds a bunch of new Mobs that can help or hinder players and a magic system that can provides a player a different way of combat!
@@ -22,6 +22,13 @@ Goety adds a bunch of new Mobs that can help or hinder players and a magic syste
     ordering="NONE"
 
     side="BOTH"
+
+[[dependencies.goety]]
+    modId = "curios"
+    mandatory = true
+    versionRange = "[1.19-5.1.0.4,)"
+    side = "BOTH"
+
 [[dependencies.goety]]
     modId="minecraft"
 

@@ -1,0 +1,23 @@
+{
+  "name": "Necromancer Set",
+  "icon": "goety:necro_cape",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The power of commanding Zombies and Skeletons sounds wonderful, but with the power of the Necro Cape, your Necroturgic abilities enhance even further. Wearing it causes your Skeletons to occasionally shoot Weakness Arrows, and Zombies will turn natural Zombies into more Servants that obeys you."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Necro Crown keeps your undead horde from decaying like Vexes and will reduce the amount of time to cast spells by half much like the Dark Hat."
+    }
+  ]
+}

@@ -1,15 +1,22 @@
 {
   "parent": "minecraft:adventure/voluntary_exile",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "soul_ruby": {
       "conditions": {
         "items": [
           {
-            "item": "goety:soul_ruby"
+            "items": [
+              "goety:soul_ruby"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
-  }
+  },
+  "requirements": [
+    [
+      "soul_ruby"
+    ]
+  ]
 }
