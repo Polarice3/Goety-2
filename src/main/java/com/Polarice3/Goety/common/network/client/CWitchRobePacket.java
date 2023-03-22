@@ -28,7 +28,7 @@ public class CWitchRobePacket {
             if (playerEntity != null) {
                 ItemStack stack = CuriosFinder.findCurio(playerEntity, ModItems.WITCH_ROBE.get());
 
-                if (stack != null){
+                if (stack != null && !stack.isEmpty()){
                     WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory(stack.getOrCreateTag().getInt(WitchRobeItem.INVENTORY), playerEntity);
                     playerEntity.openMenu(inventory);
                 }

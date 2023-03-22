@@ -208,7 +208,7 @@ public class TotemOfSouls extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() != null) {
             int Soulcounts = stack.getTag().getInt(SOULS_AMOUNT);
-            tooltip.add(Component.translatable("info.goety.goldtotem.souls", Soulcounts, MAX_SOULS));
+            tooltip.add(Component.translatable("info.goety.totem_of_souls.souls", Soulcounts, MAX_SOULS));
         }
     }
 

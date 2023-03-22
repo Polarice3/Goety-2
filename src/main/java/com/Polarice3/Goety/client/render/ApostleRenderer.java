@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class ApostleRenderer extends CultistRenderer<Apostle>{
@@ -116,6 +117,15 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
 
     private static void vertex4(VertexConsumer p_229063_0_, Matrix4f p_229063_1_, float pY, float p_229063_3_) {
         p_229063_0_.vertex(p_229063_1_, 0.0F, pY, 1.0F * p_229063_3_).color(255, 0, 0, 0).endVertex();
+    }
+
+    @Nullable
+    protected RenderType getRenderType(Apostle p_230496_1_, boolean p_230496_2_, boolean p_230496_3_, boolean p_230496_4_) {
+        if (p_230496_1_.deathTime > 0){
+            return RenderType.dragonExplosionAlpha(EXPLODE);
+        } else {
+            return super.getRenderType(p_230496_1_, p_230496_2_, p_230496_3_, p_230496_4_);
+        }
     }
 
     @Override

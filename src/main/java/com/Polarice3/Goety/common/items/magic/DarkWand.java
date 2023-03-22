@@ -464,14 +464,14 @@ public class DarkWand extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() != null) {
             int SoulUse = stack.getTag().getInt(SOULUSE);
-            tooltip.add(Component.translatable("info.goety.soulitems.cost", SoulUse));
+            tooltip.add(Component.translatable("info.goety.wand.cost", SoulUse));
         } else {
-            tooltip.add(Component.translatable("info.goety.soulitems.cost", SoulCost(stack)));
+            tooltip.add(Component.translatable("info.goety.wand.cost", SoulCost(stack)));
         }
         if (!getFocus(stack).isEmpty()){
-            tooltip.add(Component.translatable("info.goety.soulitems.focus", getFocus(stack).getItem().getDescription()));
+            tooltip.add(Component.translatable("info.goety.wand.focus", getFocus(stack).getItem().getDescription()));
         } else {
-            tooltip.add(Component.translatable("info.goety.soulitems.focus", "Empty"));
+            tooltip.add(Component.translatable("info.goety.wand.focus", "Empty"));
         }
     }
 }

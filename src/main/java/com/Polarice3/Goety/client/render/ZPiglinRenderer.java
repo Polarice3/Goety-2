@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.render.model.ZPiglinModel;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
@@ -17,7 +18,7 @@ public class ZPiglinRenderer extends HumanoidMobRenderer<Mob, ZPiglinModel<Mob>>
 
     public ZPiglinRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, createModel(entityRendererManager.getModelSet()), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(entityRendererManager.bakeLayer(ModModelLayer.ZPIGLIN_SERVANT)), new HumanoidModel(entityRendererManager.bakeLayer(ModModelLayer.ZPIGLIN_SERVANT))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_INNER_ARMOR)), new HumanoidModel(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_OUTER_ARMOR))));
     }
 
     private static ZPiglinModel<Mob> createModel(EntityModelSet p_174350_) {
