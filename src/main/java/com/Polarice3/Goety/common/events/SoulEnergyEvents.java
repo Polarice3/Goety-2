@@ -117,7 +117,6 @@ public class SoulEnergyEvents {
                     } else {
                         SEHelper.handleKill(player, victim);
                     }
-                    SEHelper.handleKill(player, victim);
                 }
             }
 

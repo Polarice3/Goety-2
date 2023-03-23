@@ -48,6 +48,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -119,7 +120,7 @@ public class Goety {
 
         CuriosCompat.setup(event);
         event.enqueueWork(() -> {
-            SpawnPlacementRegistry();
+            SpawnPlacement();
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
                     this.setSuccess(ArmorItem.dispenseArmor(source, stack));
@@ -133,7 +134,7 @@ public class Goety {
         });
     }
 
-    public static void SpawnPlacementRegistry() {
+    public static void SpawnPlacement(){
         SpawnPlacements.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules);
     }
 

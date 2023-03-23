@@ -23,12 +23,11 @@ public class BossBarEvent {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar.png");
     protected static final ResourceLocation BOSS_BAR_1 = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar_1.png");
-    private static Minecraft minecraft;
     public static final Set<Mob> BOSSES = Collections.newSetFromMap(new WeakHashMap<>());
 
     @SubscribeEvent
     public static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event){
-        minecraft = Minecraft.getInstance();
+        Minecraft minecraft = Minecraft.getInstance();
         if (MainConfig.SpecialBossBar.get()) {
             if (!BOSSES.isEmpty()) {
                 int i = minecraft.getWindow().getGuiScaledWidth();

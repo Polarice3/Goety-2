@@ -12,6 +12,7 @@ public class TotemFinder {
     private static boolean isFocusBag(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.FOCUS_BAG.get();
     }
+
     public static ItemStack findBag(Player playerEntity) {
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
@@ -20,7 +21,7 @@ public class TotemFinder {
         }
         for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = playerEntity.getInventory().getItem(i);
-            if (!itemStack.isEmpty() && isMatchingItem(itemStack)) {
+            if (!itemStack.isEmpty() && isFocusBag(itemStack)) {
                 foundStack = itemStack;
                 break;
             }
@@ -29,20 +30,20 @@ public class TotemFinder {
         return foundStack;
     }
 
-    private static boolean isMatchingItem(ItemStack itemStack) {
+    private static boolean isTotem(ItemStack itemStack) {
         return itemStack.getItem() == ModItems.TOTEM_OF_SOULS.get();
     }
 
     public static ItemStack FindTotem(Player playerEntity){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(TotemFinder::isMatchingItem, playerEntity).map(
+            foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(TotemFinder::isTotem, playerEntity).map(
                     ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
         }
 
         for (int i = 0; i <= 9; i++) {
             ItemStack itemStack = playerEntity.getInventory().getItem(i);
-            if (!itemStack.isEmpty() && isMatchingItem(itemStack)) {
+            if (!itemStack.isEmpty() && isTotem(itemStack)) {
                 foundStack = itemStack;
                 break;
             }

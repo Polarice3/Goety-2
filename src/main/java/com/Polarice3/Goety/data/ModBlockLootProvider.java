@@ -30,11 +30,12 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
         @Override
         protected void addTables() {
             this.dropSelf(ModBlocks.ARCA_BLOCK.get());
+            this.dropSelf(ModBlocks.CURSED_INFUSER.get());
             this.dropSelf(ModBlocks.CURSED_CAGE_BLOCK.get());
             this.dropSelf(ModBlocks.DARK_ALTAR.get());
-            this.dropSelf(ModBlocks.ICE_BOUQUET_TRAP.get());
             this.dropSelf(ModBlocks.PEDESTAL.get());
             this.dropSelf(ModBlocks.SOUL_ABSORBER.get());
+            this.dropSelf(ModBlocks.ICE_BOUQUET_TRAP.get());
             this.dropSelf(ModBlocks.SCULK_DEVOURER.get());
             this.dropSelf(ModBlocks.CURSED_METAL_BLOCK.get());
             this.dropSelf(ModBlocks.HAUNTED_SAPLING.get());
