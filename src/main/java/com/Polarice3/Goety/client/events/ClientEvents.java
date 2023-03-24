@@ -175,11 +175,11 @@ public class ClientEvents {
         }
 
         if (ModKeybindings.keyBindings[1].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CBagKeyPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandAndBagKeyPacket());
         }
 
         if (ModKeybindings.keyBindings[2].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandAndBagKeyPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CBagKeyPacket());
         }
 
         if (ModKeybindings.keyBindings[3].isDown() && MINECRAFT.isWindowActive()){

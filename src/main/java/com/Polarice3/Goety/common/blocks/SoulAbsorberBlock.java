@@ -56,8 +56,7 @@ public class SoulAbsorberBlock extends BaseEntityBlock implements SimpleWaterlog
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-        if (tileentity instanceof SoulAbsorberBlockEntity) {
-            SoulAbsorberBlockEntity burnerTileEntity = (SoulAbsorberBlockEntity)tileentity;
+        if (tileentity instanceof SoulAbsorberBlockEntity burnerTileEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             Optional<SoulAbsorberRecipes> optional = burnerTileEntity.getRecipes(itemstack);
             if (optional.isPresent()) {

@@ -43,9 +43,9 @@ public class IceBouquetTrapBlockEntity extends OwnedBlockEntity {
             }
             if (this.activated != 0) {
                 --this.activated;
-                this.level.setBlock(this.worldPosition, this.level.getBlockState(this.worldPosition).setValue(IceBouquetTrapBlock.POWERED, true), 3);
+                this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(IceBouquetTrapBlock.POWERED, true), 3);
             } else {
-                this.level.setBlock(this.worldPosition, this.level.getBlockState(this.worldPosition).setValue(IceBouquetTrapBlock.POWERED, false), 3);
+                this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(IceBouquetTrapBlock.POWERED, false), 3);
             }
         }
     }

@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -25,11 +26,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ModBlocks {
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Goety.MOD_ID);
+    public static final Map<ResourceLocation, BlockLootSetting> BLOCK_LOOT = new HashMap<>();
 
     public static void init(){
         ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -44,12 +48,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
     public static final RegistryObject<Block> SCULK_DEVOURER = register("sculk_devourer", SculkDevourerBlock::new);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
-    public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false);
+    public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
 
     //Deco
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
-    public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false);
-    public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false);
+    public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
 
     //Haunted
     public static final RegistryObject<Block> HAUNTED_PLANKS = register("haunted_planks",
@@ -158,8 +162,13 @@ public class ModBlocks {
         return register(string, sup, true);
     }
 
-    public static <T extends Block> RegistryObject<T> register(final String string, final Supplier<? extends T> sup, boolean blockItemDefault) {
+    public static <T extends Block> RegistryObject<T> register(final String string, final Supplier<? extends T> sup, boolean blockItemDefault){
+        return register(string, sup, blockItemDefault, LootTableType.DROP);
+    }
+
+    public static <T extends Block> RegistryObject<T> register(final String string, final Supplier<? extends T> sup, boolean blockItemDefault, LootTableType lootTableType) {
         RegistryObject<T> block = BLOCKS.register(string, sup);
+        BLOCK_LOOT.put(block.getId(), new BlockLootSetting(blockItemDefault, lootTableType));
         if (blockItemDefault) {
             ModItems.ITEMS.register(string,
                     () -> new BlockItemBase(block.get()));
@@ -201,6 +210,25 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
             );
+        }
+    }
+
+    /**
+     * Based on @klikli-dev's Block Loot Generator
+     */
+    public enum LootTableType {
+        EMPTY,
+        DROP
+    }
+
+    public static class BlockLootSetting {
+        public boolean generateDefaultBlockItem;
+        public LootTableType lootTableType;
+
+        public BlockLootSetting(boolean generateDefaultBlockItem,
+                                LootTableType lootTableType) {
+            this.generateDefaultBlockItem = generateDefaultBlockItem;
+            this.lootTableType = lootTableType;
         }
     }
 }

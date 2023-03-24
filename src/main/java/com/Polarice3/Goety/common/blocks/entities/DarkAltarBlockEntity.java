@@ -223,7 +223,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         } else {
             this.stopRitual(false);
         }
-        this.level.setBlock(this.worldPosition, this.level.getBlockState(this.worldPosition).setValue(DarkAltarBlock.LIT, flag), 3);
+        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DarkAltarBlock.LIT, flag), 3);
     }
 
     public void restoreCastingPlayer() {

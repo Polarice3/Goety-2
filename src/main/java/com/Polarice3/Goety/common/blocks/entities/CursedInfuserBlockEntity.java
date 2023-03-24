@@ -58,7 +58,7 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                 }
             }
         }
-        this.level.setBlock(this.worldPosition, this.level.getBlockState(this.worldPosition).setValue(CursedInfuserBlock.LIT, this.checkSpawner()), 3);
+        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(CursedInfuserBlock.LIT, this.checkSpawner()), 3);
     }
 
     private void work() {

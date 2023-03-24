@@ -60,7 +60,7 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
                 }
             }
         }
-        this.level.setBlock(this.worldPosition, this.level.getBlockState(this.worldPosition).setValue(SoulAbsorberBlock.LIT, this.getArcaOwner() != null), 3);
+        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(SoulAbsorberBlock.LIT, this.getArcaOwner() != null), 3);
     }
 
     private void work() {

@@ -1,0 +1,9 @@
+{
+  "type": "goety:cursed_burner_recipes",
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "result": "goety:haunted_log",
+  "experience": 0.0,
+  "cookingtime": 60
+}

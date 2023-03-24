@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.data;
 
-import com.Polarice3.Goety.common.blocks.ModBlockFamilies;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
@@ -8,10 +7,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Based on @klikli-dev's Block Loot Generator
+ */
 public class ModBlockLootProvider extends ModBaseLootProvider{
 
     ModBlockLoot blockLoot = new ModBlockLoot();
@@ -29,21 +33,14 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
 
         @Override
         protected void addTables() {
-            this.dropSelf(ModBlocks.ARCA_BLOCK.get());
-            this.dropSelf(ModBlocks.CURSED_INFUSER.get());
-            this.dropSelf(ModBlocks.CURSED_CAGE_BLOCK.get());
-            this.dropSelf(ModBlocks.DARK_ALTAR.get());
-            this.dropSelf(ModBlocks.PEDESTAL.get());
-            this.dropSelf(ModBlocks.SOUL_ABSORBER.get());
-            this.dropSelf(ModBlocks.ICE_BOUQUET_TRAP.get());
-            this.dropSelf(ModBlocks.SCULK_DEVOURER.get());
-            this.dropSelf(ModBlocks.CURSED_METAL_BLOCK.get());
-            this.dropSelf(ModBlocks.HAUNTED_SAPLING.get());
-            this.dropSelf(ModBlocks.CURSED_BARS_BLOCK.get());
-            this.dropSelf(ModBlocks.TALL_SKULL_BLOCK.get());
             Collection<Block> blocks = new ArrayList<>();
-            ModBlockFamilies.getAllFamilies().forEach((blockFamily -> blocks.addAll(blockFamily.getVariants().values())));
-            ModBlockFamilies.getAllFamilies().forEach((blockFamily -> blocks.add(blockFamily.getBaseBlock())));
+            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block ->
+            {
+                ModBlocks.BlockLootSetting setting = ModBlocks.BLOCK_LOOT.get(ForgeRegistries.BLOCKS.getKey(block));
+                if (setting.lootTableType == ModBlocks.LootTableType.DROP){
+                    blocks.add(block);
+                }
+            });
             for (Block block : blocks){
                 if (block instanceof DoorBlock){
                     this.add(block, BlockLoot::createDoorTable);

@@ -34,28 +34,35 @@ public class DarkScrollItem extends Item {
 
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         super.finishUsingItem(stack, worldIn, entityLiving);
+        boolean flag = false;
         if (worldIn instanceof ServerLevel serverWorld){
             Structure structure = serverWorld.structureManager().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).get(BuiltinStructures.WOODLAND_MANSION);
-            StructureStart structureStart = serverWorld.structureManager().getStructureAt(entityLiving.blockPosition(), structure);
-            if (structureStart.getBoundingBox().isInside(entityLiving.blockPosition())){
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                Vizier vizier = ModEntityType.VIZIER.get().create(worldIn);
-                if (vizier != null) {
-                    vizier.setPos(entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ());
-                    vizier.finalizeSpawn((ServerLevelAccessor) worldIn, worldIn.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    vizier.makeInvulnerable();
-                    worldIn.addFreshEntity(vizier);
-                    if (!(entityLiving instanceof Player && ((Player) entityLiving).isCreative())) {
-                        stack.setCount(0);
+            if (structure != null) {
+                StructureStart structureStart = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), structure);
+                if (!structureStart.getPieces().isEmpty()) {
+                    if (structureStart.getBoundingBox().isInside(entityLiving.blockPosition())) {
+                        flag = true;
                     }
                 }
-            } else {
-                if (entityLiving instanceof Player){
-                    Player player = (Player) entityLiving;
-                    player.displayClientMessage(Component.translatable("info.goety.items.dark_scroll.failure"), true);
-                }
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
+        }
+        if (flag){
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            Vizier vizier = ModEntityType.VIZIER.get().create(worldIn);
+            if (vizier != null) {
+                vizier.setPos(entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ());
+                vizier.finalizeSpawn((ServerLevelAccessor) worldIn, worldIn.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                vizier.makeInvulnerable();
+                worldIn.addFreshEntity(vizier);
+                if (!(entityLiving instanceof Player && ((Player) entityLiving).isCreative())) {
+                    stack.setCount(0);
+                }
+            }
+        } else {
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.items.dark_scroll.failure"), true);
+            }
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
 
         return stack;
