@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.google.common.collect.Sets;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
@@ -56,6 +57,14 @@ public class ModModelLayer {
 
     private static ModelLayerLocation registerOuterArmor(String p_171304_) {
         return register(p_171304_, "outer_armor");
+    }
+
+    public static ModelLayerLocation createBoatModelName(ModBoat.Type p_171290_) {
+        return createLocation("boat/" + p_171290_.getName(), "main");
+    }
+
+    public static ModelLayerLocation createChestBoatModelName(ModBoat.Type p_233551_) {
+        return createLocation("chest_boat/" + p_233551_.getName(), "main");
     }
 
 }

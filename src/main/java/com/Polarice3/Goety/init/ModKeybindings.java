@@ -8,12 +8,15 @@ public class ModKeybindings {
     public static KeyMapping[] keyBindings;
 
     public static void init(){
-        keyBindings = new KeyMapping[4];
+        keyBindings = new KeyMapping[7];
 
         keyBindings[0] = new KeyMapping("key.goety.wand", 90, "key.goety.category");
         keyBindings[1] = new KeyMapping("key.goety.wandandbag", 88, "key.goety.category");
         keyBindings[2] = new KeyMapping("key.goety.bag", 67, "key.goety.category");
         keyBindings[3] = new KeyMapping("key.goety.robe", 86, "key.goety.category");
+        keyBindings[4] = new KeyMapping("key.goety.ceaseFire", 66, "key.goety.category");
+        keyBindings[5] = new KeyMapping("key.goety.lichKiss", 82, "key.goety.category");
+        keyBindings[6] = new KeyMapping("key.goety.magnet", 77, "key.goety.category");
 
         for (int i = 0; i < keyBindings.length; ++i) {
             Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, keyBindings[i]);

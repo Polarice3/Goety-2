@@ -49,6 +49,10 @@ public class ModDamageSource extends DamageSource {
                 && (source.getMsgId().equals("mob") || source.getMsgId().equals("player"));
     }
 
+    public static DamageSource soulLeech(@Nullable Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("soulLeech"), pSource, pIndirectEntity).setMagic();
+    }
+
     public static String source(String source){
         return "goety." + source;
     }

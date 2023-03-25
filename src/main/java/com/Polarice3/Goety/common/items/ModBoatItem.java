@@ -1,12 +1,15 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.common.entities.items.ModBoat;
+import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
+import com.Polarice3.Goety.common.entities.vehicle.ModChestBoat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -21,9 +24,11 @@ import java.util.function.Predicate;
 public class ModBoatItem extends Item {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     private final ModBoat.Type type;
+    private final boolean hasChest;
 
-    public ModBoatItem(ModBoat.Type pType, Item.Properties pProperties) {
+    public ModBoatItem(boolean p_220013_, ModBoat.Type pType, Item.Properties pProperties) {
         super(pProperties);
+        this.hasChest = p_220013_;
         this.type = pType;
     }
 
@@ -48,7 +53,7 @@ public class ModBoatItem extends Item {
             }
 
             if (raytraceresult.getType() == HitResult.Type.BLOCK) {
-                ModBoat boatentity = new ModBoat(pLevel, raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
+                ModBoat boatentity = this.getBoat(pLevel, raytraceresult);
                 boatentity.setType(this.type);
                 boatentity.setYRot(pPlayer.getYRot());
                 if (!pLevel.noCollision(boatentity, boatentity.getBoundingBox().inflate(-0.1D))) {
@@ -68,5 +73,9 @@ public class ModBoatItem extends Item {
                 return InteractionResultHolder.pass(itemstack);
             }
         }
+    }
+
+    private ModBoat getBoat(Level p_220017_, HitResult p_220018_) {
+        return (ModBoat)(this.hasChest ? new ModChestBoat(p_220017_, p_220018_.getLocation().x, p_220018_.getLocation().y, p_220018_.getLocation().z) : new ModBoat(p_220017_, p_220018_.getLocation().x, p_220018_.getLocation().y, p_220018_.getLocation().z));
     }
 }

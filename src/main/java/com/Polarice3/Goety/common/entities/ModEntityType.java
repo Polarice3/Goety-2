@@ -9,11 +9,12 @@ import com.Polarice3.Goety.common.entities.hostile.Wraith;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
-import com.Polarice3.Goety.common.entities.items.ModBoat;
+import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
+import com.Polarice3.Goety.common.entities.vehicle.ModChestBoat;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -101,6 +102,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<ModBoat>> MOD_BOAT = register("boat",
             EntityType.Builder.<ModBoat>of(ModBoat::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<ModChestBoat>> MOD_CHEST_BOAT = register("chest_boat",
+            EntityType.Builder.<ModChestBoat>of(ModChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
 

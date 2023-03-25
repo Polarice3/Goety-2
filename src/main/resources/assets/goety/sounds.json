@@ -619,6 +619,20 @@
     ],
     "subtitle": "subtitle.goety.bolt_impact"
   },
+  "soul_eat": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_eat1"
+      },
+      {
+        "name": "goety:spell/soul_eat2"
+      },
+      {
+        "name": "goety:spell/soul_eat3"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_eat"
+  },
   "fire_tornado_ambient": {
     "sounds": [
       {

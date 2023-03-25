@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.entities.items;
+package com.Polarice3.Goety.common.entities.vehicle;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -14,6 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+
+import java.util.function.Supplier;
 
 public class ModBoat extends Boat {
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.INT);
@@ -72,9 +74,6 @@ public class ModBoat extends Boat {
             return this.name;
         }
 
-        /**
-         * Get a boat type by it's enum ordinal
-         */
         public static Type byId(int pId) {
             Type[] aboatentity$type = values();
             if (pId < 0 || pId >= aboatentity$type.length) {

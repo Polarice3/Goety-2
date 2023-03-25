@@ -65,6 +65,9 @@
   "entity.goety.ice_chunk":"Ice Chunk",
   "entity.goety.fire_tornado":"Flaming Tornado",
 
+  "entity.goety.boat":"Boat",
+  "entity.goety.chest_boat":"Boat with Chest",
+
   "entity.goety.fire_blast_trap":"Fire Blast Trap",
   "entity.goety.lightning_trap":"Lightning Trap",
   "entity.goety.fire_rain_trap":"Fire Rain Trap",
@@ -111,6 +114,7 @@
   "item.goety.soul_transfer": "Transfer Gem",
   "item.goety.flame_capture": "Fire Spawn Cage",
   "item.goety.haunted_boat": "Haunted Boat",
+  "item.goety.haunted_chest_boat": "Haunted Chest Boat",
 
   "item.goety.ring_of_want": "Ring of Want",
   "item.goety.dark_hat": "Dark Hat",

@@ -17,11 +17,14 @@ import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HeartParticle;
 import net.minecraft.client.particle.SpellParticle;
@@ -96,6 +99,14 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_OUTER, VillagerArmorModel::createOuterArmorLayer);
+
+        LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
+        LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);
+
+        for(ModBoat.Type boat$type : ModBoat.Type.values()) {
+            event.registerLayerDefinition(ModModelLayer.createBoatModelName(boat$type), () -> layerdefinition18);
+            event.registerLayerDefinition(ModModelLayer.createChestBoatModelName(boat$type), () ->  layerdefinition19);
+        }
     }
 
     @SubscribeEvent
@@ -125,6 +136,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
+        event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
@@ -158,6 +171,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);

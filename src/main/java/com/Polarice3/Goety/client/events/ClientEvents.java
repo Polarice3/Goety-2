@@ -9,10 +9,7 @@ import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.client.CBagKeyPacket;
-import com.Polarice3.Goety.common.network.client.CWandAndBagKeyPacket;
-import com.Polarice3.Goety.common.network.client.CWandKeyPacket;
-import com.Polarice3.Goety.common.network.client.CWitchRobePacket;
+import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.LichdomHelper;
@@ -173,17 +170,23 @@ public class ClientEvents {
         if (ModKeybindings.keyBindings[0].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandKeyPacket());
         }
-
         if (ModKeybindings.keyBindings[1].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandAndBagKeyPacket());
         }
-
         if (ModKeybindings.keyBindings[2].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CBagKeyPacket());
         }
-
         if (ModKeybindings.keyBindings[3].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWitchRobePacket());
+        }
+        if (ModKeybindings.keyBindings[4].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CStopAttackPacket());
+        }
+        if (ModKeybindings.keyBindings[5].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CLichKissPacket());
+        }
+        if (ModKeybindings.keyBindings[6].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CMagnetPacket());
         }
     }
 }
