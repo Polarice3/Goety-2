@@ -8,10 +8,13 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -65,35 +68,19 @@ public class ClientEvents {
         }
     }
 
-    /**
-     * Glove Renderer based of @ochotonida codes
-     */
     @SubscribeEvent
     public static void renderGlove(RenderArmEvent event){
         if (event.isCanceled() || !MainConfig.FirstPersonGloves.get()){
             return;
         }
-        InteractionHand hand = event.getArm() == event.getPlayer().getMainArm() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
-        CuriosApi.getCuriosHelper().getCuriosHandler(event.getPlayer()).ifPresent(handler -> {
-            ICurioStacksHandler stacksHandler = handler.getCurios().get(SlotTypePreset.HANDS.getIdentifier());
-            if (stacksHandler != null) {
-                IDynamicStackHandler stacks = stacksHandler.getStacks();
-                IDynamicStackHandler cosmeticStacks = stacksHandler.getCosmeticStacks();
-
-                for (int slot = hand == InteractionHand.MAIN_HAND ? 0 : 1; slot < stacks.getSlots(); slot += 2) {
-                    ItemStack itemStack = cosmeticStacks.getStackInSlot(slot);
-                    if (itemStack.isEmpty() && stacksHandler.getRenders().get(slot)) {
-                        itemStack = stacks.getStackInSlot(slot);
-                    }
-
-                    WearRenderer renderer = WearRenderer.getRenderer(itemStack);
-                    if (renderer != null) {
-                        renderer.renderFirstPersonArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPlayer(), event.getArm(), itemStack.hasFoil());
-                    }
-                }
+        if (CuriosFinder.hasCurio(event.getPlayer(), itemStack -> itemStack.getItem() instanceof GloveItem)){
+            ItemStack itemStack = CuriosFinder.findCurio(event.getPlayer(), itemStack1 -> itemStack1.getItem() instanceof GloveItem);
+            WearRenderer renderer = WearRenderer.getRenderer(itemStack);
+            if (renderer != null) {
+                renderer.renderFirstPersonArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPlayer(), event.getArm(), itemStack.hasFoil());
             }
-        });
+        }
     }
 
     @SubscribeEvent

@@ -63,7 +63,7 @@ public class ModItems {
     public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
     public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_ROBE = ITEMS.register("witch_robe", WitchRobeItem::new);
-    public static final RegistryObject<Item> GRAVE_GLOVE = ITEMS.register("grave_glove", SingleStackItem::new);
+    public static final RegistryObject<Item> GRAVE_GLOVE = ITEMS.register("grave_glove", GloveItem::new);
 
     //Focus
     public static final RegistryObject<Item> VEXING_FOCUS = ITEMS.register("vexing_focus", () -> new MagicFocus(SpellConfig.VexCost.get()));
@@ -83,7 +83,7 @@ public class ModItems {
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
-    public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", () -> new DarkScytheItem(Tiers.IRON));
+    public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
 
     //Discs
