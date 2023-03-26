@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "goety:dark_manor",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1543212345,
+    "spacing": 60,
+    "separation": 20,
+    "type": "minecraft:random_spread"
+  }
+}

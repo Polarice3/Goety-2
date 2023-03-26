@@ -1,0 +1,19 @@
+{
+  "name": "Necro Staff",
+  "icon": "goety:necro_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've learned tales of an ancient nameless kingdom and their necroturgy and how they can summon a multitude of undead through their staffs. After some research and experimentation, you've discovered a way to replicate their ancient staffs."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Necro Staff powers up Necroturgic spells, allowing one to summon more than 1 Undead Servant per cast for example."
+    }
+  ]
+}

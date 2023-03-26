@@ -155,11 +155,7 @@ public class DarkWand extends Item {
             SoundEvent soundevent = this.CastingSound(stack);
             int CastTime = stack.getUseDuration() - count;
             if (CastTime == 1) {
-                if (soundevent != null) {
-                    worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, 0.5F, 1.0F);
-                } else {
-                    worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), SoundEvents.EVOKER_PREPARE_ATTACK, SoundSource.PLAYERS, 0.5F, 1.0F);
-                }
+                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), Objects.requireNonNullElse(soundevent, SoundEvents.EVOKER_PREPARE_ATTACK), SoundSource.PLAYERS, 0.5F, 1.0F);
             }
             if (this.getSpell(stack) instanceof ChargingSpells) {
                 if (stack.getTag() != null) {
@@ -210,6 +206,7 @@ public class DarkWand extends Item {
                     this.useParticles(worldIn, playerIn);
                 }
             } else {
+                playerIn.swing(handIn);
                 this.MagicResults(itemstack, worldIn, playerIn);
             }
         }
@@ -361,11 +358,12 @@ public class DarkWand extends Item {
             ServerLevel serverWorld = (ServerLevel) worldIn;
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
-                    assert stack.getTag() != null;
-                    if (stack.getItem() instanceof DarkStaff){
-                        this.getSpell(stack).StaffResult(serverWorld, entityLiving);
-                    } else {
-                        this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                    if (stack.getTag() != null) {
+                        if (stack.getItem() == ModItems.NECRO_STAFF.get() && this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY) {
+                            this.getSpell(stack).StaffResult(serverWorld, entityLiving);
+                        } else {
+                            this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                        }
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
                     boolean spent = true;
@@ -384,11 +382,12 @@ public class DarkWand extends Item {
                             }
                         }
                     }
-                    assert stack.getTag() != null;
-                    if (stack.getItem() instanceof DarkStaff){
-                        this.getSpell(stack).StaffResult(serverWorld, entityLiving);
-                    } else {
-                        this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                    if (stack.getTag() != null) {
+                        if (stack.getItem() == ModItems.NECRO_STAFF.get() && this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY) {
+                            this.getSpell(stack).StaffResult(serverWorld, entityLiving);
+                        } else {
+                            this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                        }
                     }
                 } else {
                     worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);

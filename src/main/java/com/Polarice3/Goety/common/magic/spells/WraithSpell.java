@@ -40,6 +40,11 @@ public class WraithSpell extends SummonSpells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.NECROTURGY;
+    }
+
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
         if (entityLiving instanceof Player){
             Player player = (Player) entityLiving;

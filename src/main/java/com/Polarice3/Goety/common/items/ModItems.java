@@ -6,10 +6,7 @@ import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
-import com.Polarice3.Goety.common.items.magic.FocusBag;
-import com.Polarice3.Goety.common.items.magic.MagicFocus;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
+import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.world.item.*;
@@ -83,6 +80,7 @@ public class ModItems {
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
+    public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", DarkStaff::new);
     public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
 

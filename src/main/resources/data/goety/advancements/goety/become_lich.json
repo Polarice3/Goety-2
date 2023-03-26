@@ -19,7 +19,9 @@
     "undeath": {
       "conditions": {
         "item": {
-          "items": "goety:undeath_potion"
+          "items": [
+            "goety:undeath_potion"
+          ]
         }
       },
     "trigger": "minecraft:consume_item"

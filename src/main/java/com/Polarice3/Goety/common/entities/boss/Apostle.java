@@ -55,6 +55,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -99,8 +100,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     };
     public int deathTime = 0;
     public DamageSource deathBlow = DamageSource.GENERIC;
-    private final TargetingConditions zombieCount = TargetingConditions.forCombat().range(64.0D).ignoreInvisibilityTesting().selector(ZOMBIE_MINIONS);
-    private final TargetingConditions skeletonCount = TargetingConditions.forCombat().range(64.0D).ignoreInvisibilityTesting().selector(SKELETON_MINIONS);
+    private final TargetingConditions zombieCount = TargetingConditions.forNonCombat().range(64.0D).ignoreInvisibilityTesting().selector(ZOMBIE_MINIONS);
+    private final TargetingConditions skeletonCount = TargetingConditions.forNonCombat().range(64.0D).ignoreInvisibilityTesting().selector(SKELETON_MINIONS);
 
     public Apostle(EntityType<? extends SpellCastingCultist> type, Level worldIn) {
         super(type, worldIn);
@@ -204,7 +205,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         pCompound.putInt("titleNumber", this.titleNumber);
         pCompound.putBoolean("fireArrows", this.fireArrows);
         pCompound.putBoolean("secondPhase", this.isSecondPhase());
-        pCompound.putBoolean("settingSecondPhase", this.isSettingupSecond());
+        pCompound.putBoolean("settingSecondPhase", this.isSettingUpSecond());
         pCompound.putBoolean("regen", this.regen);
         pCompound.putBoolean("hat", this.hasHat());
     }
@@ -222,7 +223,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.setTitleNumber(this.titleNumber);
         this.TitleEffect(this.titleNumber);
         this.setSecondPhase(pCompound.getBoolean("secondPhase"));
-        this.setSettingupSecond(pCompound.getBoolean("settingSecondPhase"));
+        this.setSettingUpSecond(pCompound.getBoolean("settingSecondPhase"));
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
@@ -386,7 +387,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        this.populateDefaultEquipmentSlots(difficultyIn);
+        this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         if (!this.hasCustomName()){
             int random = this.random.nextInt(18);
@@ -408,43 +409,22 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public void TitleEffect(Integer integer){
-        switch (integer){
-            case 0:
-                this.setRegen(true);
-                break;
-            case 1:
-                this.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, Integer.MAX_VALUE, 1, false, false));
-                break;
-            case 2:
-                this.setArrowEffect(MobEffects.POISON);
-                break;
-            case 3:
-                this.setArrowEffect(MobEffects.WITHER);
-                break;
-            case 4:
-                this.setArrowEffect(MobEffects.BLINDNESS);
-                break;
-            case 5:
-                this.setArrowEffect(MobEffects.WEAKNESS);
-                break;
-            case 6:
-                this.setFireArrow(true);
-                break;
-            case 7:
-                this.setArrowEffect(MobEffects.HUNGER);
-                break;
-            case 8:
-                this.setArrowEffect(MobEffects.MOVEMENT_SLOWDOWN);
-                break;
-            case 9:
-                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
-                break;
-            case 10:
-                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false, false));
-                break;
-            case 11:
-                this.setArrowEffect(ModEffects.SAPPED.get());
-                break;
+        switch (integer) {
+            case 0 -> this.setRegen(true);
+            case 1 ->
+                    this.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, Integer.MAX_VALUE, 1, false, false));
+            case 2 -> this.setArrowEffect(MobEffects.POISON);
+            case 3 -> this.setArrowEffect(MobEffects.WITHER);
+            case 4 -> this.setArrowEffect(MobEffects.BLINDNESS);
+            case 5 -> this.setArrowEffect(MobEffects.WEAKNESS);
+            case 6 -> this.setFireArrow(true);
+            case 7 -> this.setArrowEffect(MobEffects.HUNGER);
+            case 8 -> this.setArrowEffect(MobEffects.MOVEMENT_SLOWDOWN);
+            case 9 ->
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
+            case 10 ->
+                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false, false));
+            case 11 -> this.setArrowEffect(ModEffects.SAPPED.get());
         }
     }
 
@@ -480,11 +460,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return this.getBossFlag(1);
     }
 
-    public void setSettingupSecond(boolean settingupSecond){
+    public void setSettingUpSecond(boolean settingupSecond){
         this.setBossFlag(2, settingupSecond);
     }
 
-    public boolean isSettingupSecond(){
+    public boolean isSettingUpSecond(){
         return this.getBossFlag(2);
     }
 
@@ -512,7 +492,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return this.entityData.get(HAT);
     }
 
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
@@ -521,11 +501,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.isDeadOrDying()){
             return ArmPose.DYING;
         } else if (this.getMainHandItem().getItem() instanceof BowItem) {
-            if (this.isAggressive() && !this.isSpellcasting() && !this.isSettingupSecond()){
+            if (this.isAggressive() && !this.isSpellcasting() && !this.isSettingUpSecond()){
                 return ArmPose.BOW_AND_ARROW;
             } else if (this.isSpellcasting()){
                 return ArmPose.SPELL_AND_WEAPON;
-            } else if (this.isSettingupSecond()){
+            } else if (this.isSettingUpSecond()){
                 return ArmPose.SPELL_AND_WEAPON;
             } else {
                 return ArmPose.CROSSED;
@@ -567,7 +547,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
-        if (this.isSettingupSecond()){
+        if (this.isSettingUpSecond()){
             return false;
         }
 
@@ -608,7 +588,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected void teleport() {
-        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingupSecond() && !this.isCasting()) {
+        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingUpSecond() && !this.isCasting()) {
             for(int i = 0; i < 128; ++i) {
                 double d3 = this.getX() + (this.getRandom().nextDouble() - 0.5D) * 32.0D;
                 double d4 = this.getY();
@@ -626,7 +606,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     private void teleportTowards(Entity entity) {
-        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingupSecond()) {
+        if (!this.level.isClientSide() && this.isAlive() && !this.isSettingUpSecond()) {
             for(int i = 0; i < 128; ++i) {
                 Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
                 vector3d = vector3d.normalize();
@@ -710,7 +690,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             }*/
         }
-        if (this.isSettingupSecond()){
+        if (this.isSettingUpSecond()){
             this.heal(1.0F);
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0D), ALIVE)) {
                 if (!entity.isAlliedTo(this)) {
@@ -744,7 +724,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         ServerLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
                     }
                 }
-                this.setSettingupSecond(false);
+                this.setSettingUpSecond(false);
                 this.setSecondPhase(true);
             }
         } else {
@@ -774,16 +754,16 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     ServerLevel.setWeatherParameters(0, 6000, true, true);
                 }
             }
-            if (this.coolDown < this.coolDownLimit()) {
-                ++this.coolDown;
-            } else {
-                this.spellCycle = 1;
-            }
             if (!this.level.isClientSide) {
                 if (this.getHealth() <= this.getMaxHealth()/8){
                     if (this.tickCount % 100 == 0){
                         this.teleport();
                     }
+                }
+                if (this.coolDown < this.coolDownLimit()) {
+                    ++this.coolDown;
+                } else {
+                    this.spellCycle = 1;
                 }
             }
             if (this.level.dimension() != Level.NETHER){
@@ -823,18 +803,22 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     }
                 }
             }
-            if (this.coolDown < this.coolDownLimit()) {
-                ++this.coolDown;
-            } else {
-                this.spellCycle = 0;
+            if (!this.level.isClientSide) {
+                if (this.coolDown < this.coolDownLimit()) {
+                    ++this.coolDown;
+                } else {
+                    this.spellCycle = 0;
+                }
             }
         }
-        if (this.spellCycle == 1){
-            if (this.tickCount % 100 == 0) {
-                if (this.level.random.nextBoolean()) {
-                    this.spellCycle = 2;
-                } else {
-                    this.spellCycle = 3;
+        if (!this.level.isClientSide) {
+            if (this.spellCycle == 1) {
+                if (this.tickCount % 100 == 0) {
+                    if (this.level.random.nextBoolean()) {
+                        this.spellCycle = 2;
+                    } else {
+                        this.spellCycle = 3;
+                    }
                 }
             }
         }
@@ -854,8 +838,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.setTarget(player);
             }
         } else {
-            if (target instanceof IOwned && ((IOwned) target).getTrueOwner() != null){
-                IOwned owned = (IOwned) target;
+            if (target instanceof IOwned owned && ((IOwned) target).getTrueOwner() != null){
                 this.setTarget(owned.getTrueOwner());
             }
             int i = this.level.getNearbyEntities(Owned.class, this.zombieCount, this, this.getBoundingBox().inflate(64.0D)).size();
@@ -928,7 +911,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     }
                 }
             }
-            if ((target.distanceToSqr(this) > 1024 || !this.getSensing().hasLineOfSight(target)) && target.isOnGround() && !this.isSettingupSecond()){
+            if ((target.distanceToSqr(this) > 1024 || !this.getSensing().hasLineOfSight(target)) && target.isOnGround() && !this.isSettingUpSecond()){
                 this.teleportTowards(target);
             }
         }
@@ -936,7 +919,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             ++this.f;
             if (this.f % 2 == 0 && this.f < 10) {
                 for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), ALIVE)) {
-                    if (!(entity instanceof Cultist) && !(entity instanceof Owned && ((Owned) entity).getTrueOwner() == this)) {
+                    if (!(entity instanceof Cultist) && !(entity instanceof Witch) && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == this)) {
                         entity.hurt(DamageSource.mobAttack(this), 6.0F);
                         this.launch(entity, this);
                     }
@@ -1098,7 +1081,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 return false;
             } else {
                 return Apostle.this.spellCycle == 0
-                        && !Apostle.this.isSettingupSecond()
+                        && !Apostle.this.isSettingUpSecond()
                         && !Apostle.this.isSecondPhase()
                         && Apostle.this.getSensing().hasLineOfSight(livingentity);
             }
@@ -1153,7 +1136,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 int cool = Apostle.this.spellStart();
                 return Apostle.this.coolDown >= cool
                         && Apostle.this.spellCycle == 2
-                        && !Apostle.this.isSettingupSecond()
+                        && !Apostle.this.isSettingUpSecond()
                         && i < 4;
             }
         }
@@ -1267,18 +1250,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Nullable
         public Item netheriteArmor(EquipmentSlot pSlot) {
-            switch(pSlot) {
-                case HEAD:
-                    return Items.NETHERITE_HELMET;
-                case CHEST:
-                    return Items.NETHERITE_CHESTPLATE;
-                case LEGS:
-                    return Items.NETHERITE_LEGGINGS;
-                case FEET:
-                    return Items.NETHERITE_BOOTS;
-                default:
-                    return null;
-            }
+            return switch (pSlot) {
+                case HEAD -> Items.NETHERITE_HELMET;
+                case CHEST -> Items.NETHERITE_CHESTPLATE;
+                case LEGS -> Items.NETHERITE_LEGGINGS;
+                case FEET -> Items.NETHERITE_BOOTS;
+                default -> null;
+            };
         }
 
         protected SoundEvent getSpellPrepareSound() {
@@ -1305,7 +1283,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 int cool = Apostle.this.spellStart();
                 return Apostle.this.coolDown >= cool
                         && Apostle.this.spellCycle == 2
-                        && !Apostle.this.isSettingupSecond()
+                        && !Apostle.this.isSettingUpSecond()
                         && i > 4
                         && i2 < 2;
             }
@@ -1363,7 +1341,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 int cool = Apostle.this.spellStart();
                 return Apostle.this.coolDown >= cool
                         && Apostle.this.spellCycle == 3
-                        && !Apostle.this.isSettingupSecond()
+                        && !Apostle.this.isSettingUpSecond()
                         && i < 2;
             }
         }
@@ -1467,7 +1445,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             int cool = Apostle.this.spellStart();
             if (!super.canUse()) {
                 return false;
-            } else if (Apostle.this.isSettingupSecond()){
+            } else if (Apostle.this.isSettingUpSecond()){
                 return false;
             } else if (Apostle.this.hitTimes >= 6){
                 return i2 < 1;
@@ -1524,7 +1502,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             } else if (Apostle.this.getTarget() == null) {
                 return false;
             } else return Apostle.this.distanceTo(Apostle.this.getTarget()) < 4.0F
-                    && !Apostle.this.isSettingupSecond();
+                    && !Apostle.this.isSettingUpSecond();
         }
 
         protected int getCastingTime() {
@@ -1621,12 +1599,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return Apostle.this.getHealth() <= Apostle.this.getMaxHealth()/2
                     && Apostle.this.getTarget() != null
                     && !Apostle.this.isSecondPhase()
-                    && !Apostle.this.isSettingupSecond();
+                    && !Apostle.this.isSettingUpSecond();
         }
 
         @Override
         public void tick() {
-            Apostle.this.setSettingupSecond(true);
+            Apostle.this.setSettingUpSecond(true);
         }
     }
 
@@ -1640,7 +1618,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return !this.mob.isSecondPhase() && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingupSecond();
+            return !this.mob.isSecondPhase() && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
         protected boolean HaveBow() {
@@ -1658,7 +1636,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return this.mob.isSecondPhase() && this.mob.getHealth() > this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingupSecond();
+            return this.mob.isSecondPhase() && this.mob.getHealth() > this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
         protected boolean HaveBow() {
@@ -1676,7 +1654,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return this.mob.isSecondPhase() && this.mob.getHealth() <= this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingupSecond();
+            return this.mob.isSecondPhase() && this.mob.getHealth() <= this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
         protected boolean HaveBow() {

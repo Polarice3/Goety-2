@@ -40,6 +40,11 @@ public class SkeletonSpell extends SummonSpells {
         return SoundEvents.EVOKER_PREPARE_SUMMON;
     }
 
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.NECROTURGY;
+    }
+
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
         if (entityLiving instanceof Player){
             Player player = (Player) entityLiving;

@@ -24,6 +24,10 @@ public abstract class Spells {
 
     public abstract void StaffResult(ServerLevel worldIn, LivingEntity entityLiving);
 
+    public SpellType getSpellType(){
+        return SpellType.NONE;
+    }
+
     public boolean isShifting(LivingEntity entityLiving){
         return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
     }
@@ -68,6 +72,11 @@ public abstract class Spells {
         Vec3 destVec = srcVec.add(lookVec.x * range, lookVec.y * range, lookVec.z * range);
         AABB axisalignedbb = livingEntity.getBoundingBox().expandTowards(lookVec.scale(range)).inflate(radius, radius, radius);
         return ProjectileUtil.getEntityHitResult(worldIn, livingEntity, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable());
+    }
+
+    public enum SpellType{
+        NONE,
+        NECROTURGY
     }
 
 }

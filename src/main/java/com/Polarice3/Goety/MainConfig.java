@@ -38,6 +38,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> StaffBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
     public static final ForgeConfigSpec.ConfigValue<Double> DeathScytheDamage;
@@ -70,7 +71,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
+//    public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
 
@@ -150,6 +151,8 @@ public class MainConfig {
                 .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");
+        StaffBaseDamage = BUILDER.comment("How much base damage Staffs deals, Default: 4.0")
+                .defineInRange("staffBaseDamage", 4.0, 1.0, Double.MAX_VALUE);
         ScytheBaseDamage = BUILDER.comment("How much base damage Scythes deals, the damage added depends on material the scythe is made off (ie. Iron = 2.0), Default: 5.5")
                 .defineInRange("scytheBaseDamage", 5.5, 1.0, Double.MAX_VALUE);
         ScytheAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Scythe with item offhand and not wearing Grave Gloves. The lower the number the slower it takes to recharge, Default: 0.6")
@@ -176,8 +179,8 @@ public class MainConfig {
                 .define("lichUndeadFriendly", true);
         LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
-        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
-                .define("lichScrollRequirement", true);
+/*        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
+                .define("lichScrollRequirement", true);*/
         BUILDER.pop();
         BUILDER.push("Misc");
         IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
