@@ -328,8 +328,8 @@ public class Summoned extends Owned {
         return this.upgraded;
     }
 
-    public void setUpgraded(boolean attackAll) {
-        this.upgraded = attackAll;
+    public void setUpgraded(boolean upgraded) {
+        this.upgraded = upgraded;
     }
 
     public static class FollowOwnerGoal extends Goal {

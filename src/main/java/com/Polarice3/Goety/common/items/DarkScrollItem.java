@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
-import net.minecraft.core.Registry;
+import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -21,8 +21,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructureStart;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,15 +34,7 @@ public class DarkScrollItem extends Item {
         super.finishUsingItem(stack, worldIn, entityLiving);
         boolean flag = false;
         if (worldIn instanceof ServerLevel serverWorld){
-            Structure structure = serverWorld.structureManager().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).get(BuiltinStructures.WOODLAND_MANSION);
-            if (structure != null) {
-                StructureStart structureStart = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), structure);
-                if (!structureStart.getPieces().isEmpty()) {
-                    if (structureStart.getBoundingBox().isInside(entityLiving.blockPosition())) {
-                        flag = true;
-                    }
-                }
-            }
+            flag = BlockFinder.findStructure(serverWorld, entityLiving, BuiltinStructures.WOODLAND_MANSION);
         }
         if (flag){
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);

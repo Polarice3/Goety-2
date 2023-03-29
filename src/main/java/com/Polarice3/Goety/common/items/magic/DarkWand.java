@@ -268,7 +268,10 @@ public class DarkWand extends Item {
             } else if (spell == ModItems.LIGHTNING_FOCUS.get()) {
                 this.setSpellConditions(new LightningSpell(), itemStack);
                 this.setSpell(13, itemStack);
-            } else {
+            } else if (spell == ModItems.SKULL_FOCUS.get()) {
+                this.setSpellConditions(new HauntedSkullSpell(), itemStack);
+                this.setSpell(14, itemStack);
+            }  else {
                 this.setSpellConditions(null, itemStack);
                 this.setSpell(-1, itemStack);
             }

@@ -42,6 +42,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> WRAITH_MINION_SPAWN_EGG = ITEMS.register("wraith_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH_SERVANT, 0x0e0d36, 0x2586d9, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> ZPIGLIN_SERVANT_SPAWN_EGG = ITEMS.register("zpiglin_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.ZPIGLIN_SERVANT, 0x594036, 0xf5da2a, new Item.Properties().tab(Goety.TAB)));
 

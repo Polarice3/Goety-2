@@ -340,7 +340,7 @@ public class Malghast extends OwnedFlying {
         public void start() {
             RandomSource random = this.ghast.getRandom();
             float distance = 16.0F;
-            BlockPos blockPos = null;
+            BlockPos blockPos = this.ghast.blockPosition();
             if (this.ghast.getTrueOwner() != null){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){

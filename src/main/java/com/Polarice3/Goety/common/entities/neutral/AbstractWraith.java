@@ -36,7 +36,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AbstractWraith extends Summoned {
-    private static final EntityDataAccessor<Integer> BURNING_LEVEL = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
     public int fireTick;
     public int firingTick;
@@ -84,7 +83,6 @@ public class AbstractWraith extends Summoned {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FLAGS, (byte)0);
-        this.entityData.define(BURNING_LEVEL, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -93,7 +91,6 @@ public class AbstractWraith extends Summoned {
         pCompound.putInt("firingTick", this.firingTick);
         pCompound.putInt("firingTick2", this.firingTick2);
         pCompound.putInt("teleportCooldown", this.teleportCooldown);
-        pCompound.putInt("burningLevel", this.getBurningLevel());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -102,7 +99,6 @@ public class AbstractWraith extends Summoned {
         this.firingTick = pCompound.getInt("firingTick");
         this.firingTick2 = pCompound.getInt("firingTick2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
-        this.setBurningLevel(pCompound.getInt("burningLevel"));
     }
 
     private boolean geFlags(int mask) {
@@ -135,14 +131,6 @@ public class AbstractWraith extends Summoned {
 
     public void setIsTeleporting(boolean charging) {
         this.setFlags(2, charging);
-    }
-
-    public int getBurningLevel(){
-        return this.entityData.get(BURNING_LEVEL);
-    }
-
-    public void setBurningLevel(int level){
-        this.entityData.set(BURNING_LEVEL, level);
     }
 
     public MobType getMobType() {

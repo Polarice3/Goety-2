@@ -49,6 +49,7 @@
   "entity.goety.skeleton_servant":"Skeleton Servant",
   "entity.goety.stray_servant":"Stray Servant",
   "entity.goety.wraith_servant":"Wraith Servant",
+  "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
 
   "entity.goety.vizier":"Vizier",
@@ -85,6 +86,7 @@
   "item.goety.skeleton_servant_spawn_egg": "Skeleton Servant Spawn Egg",
   "item.goety.stray_servant_spawn_egg": "Stray Servant Spawn Egg",
   "item.goety.wraith_servant_spawn_egg": "Wraith Servant Spawn Egg",
+  "item.goety.haunted_skull_spawn_egg": "Haunted Skull Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
   "item.goety.zpiglin_servant_spawn_egg": "Zombified Piglin Servant Spawn Egg",
@@ -138,6 +140,7 @@
   "item.goety.rotting_focus": "Rotting Focus",
   "item.goety.osseous_focus": "Osseous Focus",
   "item.goety.spooky_focus": "Spooky Focus",
+  "item.goety.skull_focus": "Skull Focus",
   "item.goety.iceology_focus": "Iceology Focus",
   "item.goety.illusion_focus": "Mirror Focus",
   "item.goety.feast_focus": "Feasting Focus",

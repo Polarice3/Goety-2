@@ -186,6 +186,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<HauntedSkull>> HAUNTED_SKULL = register("haunted_skull",
+            EntityType.Builder.of(HauntedSkull::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .fireImmune());
+
     public static final RegistryObject<EntityType<Doppelganger>> DOPPELGANGER = register("doppelganger",
             EntityType.Builder.of(Doppelganger::new, MobCategory.MISC)
                     .sized(0.6F, 1.95F)

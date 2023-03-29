@@ -152,6 +152,7 @@ public class Goety {
         event.put(ModEntityType.SKELETON_SERVANT.get(), SkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
+        event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());

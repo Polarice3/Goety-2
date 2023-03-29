@@ -18,6 +18,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
@@ -33,6 +34,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
@@ -48,12 +50,14 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCooldown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCooldown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSoulEaterLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxWantingLevel;
@@ -85,6 +89,8 @@ public class SpellConfig {
                 .defineInRange("skeletonCost", 8, 0, Integer.MAX_VALUE);
         WraithCost = BUILDER.comment("Spooky Spell Cost, Default: 24")
                 .defineInRange("wraithCost", 24, 0, Integer.MAX_VALUE);
+        HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 24")
+                .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                 .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
         SoulBoltCost = BUILDER.comment("Soul Bolt Spell Cost, Default: 4")
@@ -115,6 +121,8 @@ public class SpellConfig {
                 .defineInRange("skeletonTime", 60, 0, 72000);
         WraithDuration = BUILDER.comment("Time to cast Wraith Spell, Default: 60")
                 .defineInRange("wraithTime", 60, 0, 72000);
+        HauntedSkullDuration = BUILDER.comment("Time to cast Haunted Skull Spell, Default: 20")
+                .defineInRange("hauntedSkullTime", 20, 0, 72000);
         FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
                 .defineInRange("feastTime", 20, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")
@@ -135,6 +143,8 @@ public class SpellConfig {
                 .defineInRange("skeletonCooldown", 280, 0, 72000);
         WraithCooldown = BUILDER.comment("Spooky Spell Cooldown, Default: 300")
                 .defineInRange("wraithCooldown", 300, 0, 72000);
+        HauntedSkullCooldown = BUILDER.comment("Skull Spell Cooldown, Default: 0")
+                .defineInRange("hauntedSkullCooldown", 0, 0, 72000);
         BUILDER.pop();
         BUILDER.push("Spell Power");
         FangDamage = BUILDER.comment("How much base damage Magic Fangs deals, Default: 6.0")
@@ -169,6 +179,8 @@ public class SpellConfig {
                 .defineInRange("zombieLimit", 32, 1, Integer.MAX_VALUE);
         SkeletonLimit = BUILDER.comment("Number of Skeleton Servants that can exist around the player without instantly dying, Default: 32")
                 .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
+        WraithLimit = BUILDER.comment("Number of Wraith Servants that can exist around the player without instantly dying, Default: 6")
+                .defineInRange("wraithLimit", 6, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")

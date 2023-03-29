@@ -3,6 +3,9 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -18,6 +21,8 @@ import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -147,6 +152,27 @@ public class BlockFinder {
         } else {
             return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.spawnWaterY(livingEntity, livingEntity.blockPosition()), 0);
         }
+    }
+
+    public static boolean findStructure(ServerLevel serverLevel, LivingEntity livingEntity, ResourceKey<Structure> resourceKey){
+        Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).get(resourceKey);
+        if (structure != null) {
+            StructureStart structureStart = serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), structure);
+            if (!structureStart.getPieces().isEmpty()) {
+                return structureStart.getBoundingBox().isInside(livingEntity.blockPosition());
+            }
+        }
+        return false;
+    }
+
+    public static boolean isEmptyBox(Level level, BlockPos p_46860_){
+        return level.isEmptyBlock(p_46860_)
+                && level.isEmptyBlock(p_46860_.below())
+                && level.isEmptyBlock(p_46860_.above())
+                && level.isEmptyBlock(p_46860_.west())
+                && level.isEmptyBlock(p_46860_.east())
+                && level.isEmptyBlock(p_46860_.north())
+                && level.isEmptyBlock(p_46860_.south());
     }
 
 }

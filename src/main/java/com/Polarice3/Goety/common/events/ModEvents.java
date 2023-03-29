@@ -11,10 +11,15 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
+import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -162,6 +167,46 @@ public class ModEvents {
     public static void PlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         Level world = player.level;
+        int zombies = 0;
+        int skeletons = 0;
+        int wraith = 0;
+        int skull = 0;
+        for (Owned summonedEntity : world.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(32.0D))){
+            if (summonedEntity.getTrueOwner() == player && summonedEntity.isAlive()){
+                if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
+                    ++zombies;
+                    if (SpellConfig.ZombieLimit.get() < zombies){
+                        if (summonedEntity.tickCount % 20 == 0){
+                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                        }
+                    }
+                }
+                if (summonedEntity instanceof AbstractSkeletonServant){
+                    ++skeletons;
+                    if (SpellConfig.SkeletonLimit.get() < skeletons){
+                        if (summonedEntity.tickCount % 20 == 0){
+                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                        }
+                    }
+                }
+                if (summonedEntity instanceof AbstractWraith){
+                    ++wraith;
+                    if (SpellConfig.WraithLimit.get() < wraith){
+                        if (summonedEntity.tickCount % 20 == 0){
+                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                        }
+                    }
+                }
+                if (summonedEntity instanceof HauntedSkull){
+                    ++skull;
+                    if (skull > 8){
+                        if (summonedEntity.tickCount % 20 == 0){
+                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/2);
+                        }
+                    }
+                }
+            }
+        }
 
         AttributeInstance attackSpeed = player.getAttribute(Attributes.ATTACK_SPEED);
         boolean scythe = player.getMainHandItem().getItem() instanceof DarkScytheItem;
@@ -655,6 +700,9 @@ public class ModEvents {
                 if (event.getExplosion().getSourceMob() instanceof Owned sourceMob) {
                     if (sourceMob.getTrueOwner() instanceof Apostle) {
                         event.getAffectedEntities().removeIf(entity -> (entity instanceof Owned && ((Owned) entity).getTrueOwner() instanceof Apostle) || entity == sourceMob.getTrueOwner());
+                    }
+                    if (sourceMob instanceof HauntedSkull){
+                        event.getAffectedEntities().removeIf(entity -> (entity instanceof Owned && ((Owned) entity).getTrueOwner() == sourceMob.getTrueOwner() || entity == sourceMob.getTrueOwner()));
                     }
                 }
             }

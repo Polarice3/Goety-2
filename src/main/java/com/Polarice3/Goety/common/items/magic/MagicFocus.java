@@ -64,6 +64,12 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.BURNING.get()
                     || enchantment == ModEnchantments.ABSORB.get();
         }
+        if (stack.getItem() == ModItems.SKULL_FOCUS.get()){
+            return enchantment == ModEnchantments.POTENCY.get()
+                    || enchantment == ModEnchantments.DURATION.get()
+                    || enchantment == ModEnchantments.BURNING.get()
+                    || enchantment == ModEnchantments.RADIUS.get();
+        }
         if (stack.getItem() == ModItems.SOUL_BOLT_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get();
         }

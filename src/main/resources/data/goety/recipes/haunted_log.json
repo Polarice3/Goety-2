@@ -1,9 +1,0 @@
-{
-  "type": "goety:cursed_infuser_recipes",
-  "ingredient": {
-    "tag": "minecraft:logs"
-  },
-  "result": "goety:haunted_log",
-  "experience": 0.0,
-  "cookingtime": 60
-}

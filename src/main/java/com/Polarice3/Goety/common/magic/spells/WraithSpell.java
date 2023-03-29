@@ -22,7 +22,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 
 public class WraithSpell extends SummonSpells {
-    public int burning = 0;
 
     public int SoulCost() {
         return SpellConfig.WraithCost.get();
@@ -51,7 +50,6 @@ public class WraithSpell extends SummonSpells {
             if (WandUtil.enchantedFocus(player)){
                 this.enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                 this.duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-                this.burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
             }
 //            this.IncreaseInfamy(SpellConfig.WraithInfamyChance.get(), (PlayerEntity) entityLiving);
         }
@@ -85,9 +83,6 @@ public class WraithSpell extends SummonSpells {
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
                 summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
             }
-            if (burning > 0){
-                summonedentity.setBurningLevel(burning);
-            }
             this.SummonSap(entityLiving, summonedentity);
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -114,9 +109,6 @@ public class WraithSpell extends SummonSpells {
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);
                         summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
-                    }
-                    if (burning > 0){
-                        summonedentity.setBurningLevel(burning);
                     }
                     this.SummonSap(entityLiving, summonedentity);
                     worldIn.addFreshEntity(summonedentity);

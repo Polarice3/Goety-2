@@ -24,6 +24,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation VILLAGER_ARMOR_INNER = registerInnerArmor("villager_armor");
     public static final ModelLayerLocation VILLAGER_ARMOR_OUTER = registerOuterArmor("villager_armor");
     public static final ModelLayerLocation MINION = register("minion");
+    public static final ModelLayerLocation HAUNTED_SKULL = register("cursed_skull");
     public static final ModelLayerLocation VIZIER = register("vizier");
     public static final ModelLayerLocation IRK = register("irk");
     public static final ModelLayerLocation VIZIER_ARMOR = register("vizier", "armor");

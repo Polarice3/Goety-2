@@ -6,7 +6,10 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.DrownedServant;
 import com.Polarice3.Goety.common.entities.ally.HuskServant;
+import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
+import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -23,6 +26,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraftforge.common.Tags;
 
 public class ZombieSpell extends SummonSpells {
@@ -49,8 +54,7 @@ public class ZombieSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player){
-            Player player = (Player) entityLiving;
+        if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){
                 enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                 duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
@@ -75,7 +79,7 @@ public class ZombieSpell extends SummonSpells {
     public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-            ZombieServant summonedentity;
+            Summoned summonedentity;
             BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
             if (entityLiving.isUnderWater()){
                 blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
@@ -84,6 +88,12 @@ public class ZombieSpell extends SummonSpells {
                 summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
             } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_DESERT) && worldIn.canSeeSky(blockPos)){
                 summonedentity = new HuskServant(ModEntityType.HUSK_SERVANT.get(), worldIn);
+            } else if (worldIn.dimension() == Level.NETHER){
+                Summoned summoned = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
+                if (worldIn.random.nextFloat() <= 0.25F && BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.BASTION_REMNANT)){
+                    summoned = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), worldIn);
+                }
+                summonedentity = summoned;
             } else {
                 summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
             }
@@ -114,7 +124,7 @@ public class ZombieSpell extends SummonSpells {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(4); ++i1) {
-                ZombieServant summonedentity;
+                Summoned summonedentity;
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
                 if (entityLiving.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
@@ -123,6 +133,12 @@ public class ZombieSpell extends SummonSpells {
                     summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_DESERT) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new HuskServant(ModEntityType.HUSK_SERVANT.get(), worldIn);
+                } else if (worldIn.dimension() == Level.NETHER){
+                    Summoned summoned = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
+                    if (worldIn.random.nextFloat() <= 0.25F && BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.BASTION_REMNANT)){
+                        summoned = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), worldIn);
+                    }
+                    summonedentity = summoned;
                 } else {
                     summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
                 }

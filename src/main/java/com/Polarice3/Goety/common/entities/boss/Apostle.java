@@ -100,8 +100,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     };
     public int deathTime = 0;
     public DamageSource deathBlow = DamageSource.GENERIC;
-    private final TargetingConditions zombieCount = TargetingConditions.forNonCombat().range(64.0D).ignoreInvisibilityTesting().selector(ZOMBIE_MINIONS);
-    private final TargetingConditions skeletonCount = TargetingConditions.forNonCombat().range(64.0D).ignoreInvisibilityTesting().selector(SKELETON_MINIONS);
 
     public Apostle(EntityType<? extends SpellCastingCultist> type, Level worldIn) {
         super(type, worldIn);
@@ -531,11 +529,31 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.hitTimes = 0;
     }
 
+    public void increaseHitTime(){
+        ++this.hitTimes;
+    }
+
+    public int getHitTimes(){
+        return this.hitTimes;
+    }
+
+    public void resetCoolDown(){
+        this.coolDown = 0;
+    }
+
+    public void setCoolDown(int coolDown){
+        this.coolDown = coolDown;
+    }
+
+    public int getCoolDown(){
+        return this.coolDown;
+    }
+
     public boolean hurt(DamageSource pSource, float pAmount) {
         LivingEntity livingEntity = this.getTarget();
         if (!this.level.isClientSide) {
             if (livingEntity != null && pSource.getEntity() instanceof LivingEntity) {
-                ++this.hitTimes;
+                this.increaseHitTime();
             }
         }
 
@@ -561,7 +579,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             this.discard();
         }
 
-        if (this.hitTimes >= this.hitTimeTeleport()){
+        if (this.getHitTimes() >= this.hitTimeTeleport()){
             trueAmount = trueAmount/2;
             this.teleport();
         }
@@ -655,6 +673,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return ModSounds.APOSTLE_CAST_SPELL.get();
     }
 
+    public void setSpellCycle(int spellCycle){
+        this.spellCycle = spellCycle;
+    }
+
+    public int getSpellCycle(){
+        return this.spellCycle;
+    }
+
     protected boolean canRide(Entity pEntity) {
         return false;
     }
@@ -674,21 +700,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (this.isSecondPhase() && this.getHealth() < this.getMaxHealth()/2 && this.hasHat()){
                 this.setHat(false);
             }
-        }
-/*        if (this.tickCount % 100 == 0){
-            MobUtil.secretConversion(this);
-        }*/
-        if (!this.level.isClientSide){
-            ServerLevel ServerLevel = (ServerLevel) this.level;
-/*            if (MainConfig.WitchConversion.get()) {
-                for (WitchEntity witch : this.level.getEntitiesOfClass(WitchEntity.class, this.getBoundingBox().inflate(8.0D))) {
-                    BeldamEntity beldam = witch.convertTo(ModEntityType.BELDAM.get(), true);
-                    if (beldam != null) {
-                        beldam.finalizeSpawn(ServerLevel, ServerLevel.getCurrentDifficultyAt(witch.blockPosition()), MobSpawnType.CONVERSION, null, null);
-                        ForgeEventFactory.onLivingConvert(witch, beldam);
-                    }
-                }
-            }*/
         }
         if (this.isSettingUpSecond()){
             this.heal(1.0F);
@@ -760,10 +771,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         this.teleport();
                     }
                 }
-                if (this.coolDown < this.coolDownLimit()) {
+                if (this.getCoolDown() < this.coolDownLimit()) {
                     ++this.coolDown;
                 } else {
-                    this.spellCycle = 1;
+                    this.setSpellCycle(1);
                 }
             }
             if (this.level.dimension() != Level.NETHER){
@@ -804,21 +815,19 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
             }
             if (!this.level.isClientSide) {
-                if (this.coolDown < this.coolDownLimit()) {
+                if (this.getCoolDown() < this.coolDownLimit()) {
                     ++this.coolDown;
                 } else {
-                    this.spellCycle = 0;
+                    this.setSpellCycle(0);
                 }
             }
         }
         if (!this.level.isClientSide) {
-            if (this.spellCycle == 1) {
-                if (this.tickCount % 100 == 0) {
-                    if (this.level.random.nextBoolean()) {
-                        this.spellCycle = 2;
-                    } else {
-                        this.spellCycle = 3;
-                    }
+            if (this.getSpellCycle() == 1) {
+                if (this.level.random.nextBoolean()) {
+                    this.setSpellCycle(2);
+                } else {
+                    this.setSpellCycle(3);
                 }
             }
         }
@@ -841,7 +850,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (target instanceof IOwned owned && ((IOwned) target).getTrueOwner() != null){
                 this.setTarget(owned.getTrueOwner());
             }
-            int i = this.level.getNearbyEntities(Owned.class, this.zombieCount, this, this.getBoundingBox().inflate(64.0D)).size();
+            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
             if (this.tickCount % 100 == 0 && i < 16 && this.level.random.nextFloat() <= 0.25F){
                 if (!this.level.isClientSide){
                     ServerLevel ServerLevel = (ServerLevel) this.level;
@@ -1035,8 +1044,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.teleportChance()) {
             this.teleport();
         }
-        this.coolDown = 0;
-        this.spellCycle = 0;
+        this.setCoolDown(0);
+        this.setSpellCycle(0);
     }
 
     class CastingSpellGoal extends CastingASpellGoal {
@@ -1080,7 +1089,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             } else if (livingentity == null) {
                 return false;
             } else {
-                return Apostle.this.spellCycle == 0
+                return Apostle.this.getSpellCycle() == 0
                         && !Apostle.this.isSettingUpSecond()
                         && !Apostle.this.isSecondPhase()
                         && Apostle.this.getSensing().hasLineOfSight(livingentity);
@@ -1109,7 +1118,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     Apostle.this.teleport();
                 }
                 Apostle.this.coolDown = 0;
-                ++Apostle.this.spellCycle;
+                Apostle.this.setSpellCycle(1);
             }
         }
 
@@ -1129,13 +1138,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            int i = Apostle.this.level.getNearbyEntities(Owned.class, Apostle.this.zombieCount, Apostle.this, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
             if (!super.canUse()) {
                 return false;
             }  else {
                 int cool = Apostle.this.spellStart();
-                return Apostle.this.coolDown >= cool
-                        && Apostle.this.spellCycle == 2
+                return Apostle.this.getCoolDown() >= cool
+                        && Apostle.this.getSpellCycle() == 2
                         && !Apostle.this.isSettingUpSecond()
                         && i < 4;
             }
@@ -1275,14 +1284,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            int i = Apostle.this.level.getNearbyEntities(Owned.class, Apostle.this.zombieCount, Apostle.this, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
             int i2 = Apostle.this.level.getEntitiesOfClass(AbstractTrap.class, Apostle.this.getBoundingBox().inflate(64.0D)).size();
             if (!super.canUse()) {
                 return false;
             } else {
                 int cool = Apostle.this.spellStart();
-                return Apostle.this.coolDown >= cool
-                        && Apostle.this.spellCycle == 2
+                return Apostle.this.getCoolDown() >= cool
+                        && Apostle.this.getSpellCycle() == 2
                         && !Apostle.this.isSettingUpSecond()
                         && i > 4
                         && i2 < 2;
@@ -1334,13 +1343,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            int i = Apostle.this.level.getNearbyEntities(Owned.class, Apostle.this.skeletonCount, Apostle.this, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), SKELETON_MINIONS).size();
             if (!super.canUse()) {
                 return false;
             } else {
                 int cool = Apostle.this.spellStart();
-                return Apostle.this.coolDown >= cool
-                        && Apostle.this.spellCycle == 3
+                return Apostle.this.getCoolDown() >= cool
+                        && Apostle.this.getSpellCycle() == 3
                         && !Apostle.this.isSettingUpSecond()
                         && i < 2;
             }
@@ -1440,18 +1449,18 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            int i = Apostle.this.level.getNearbyEntities(Owned.class, Apostle.this.skeletonCount, Apostle.this, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), SKELETON_MINIONS).size();
             int i2 = Apostle.this.level.getEntitiesOfClass(FireTornado.class, Apostle.this.getBoundingBox().inflate(64.0D)).size();
             int cool = Apostle.this.spellStart();
             if (!super.canUse()) {
                 return false;
             } else if (Apostle.this.isSettingUpSecond()){
                 return false;
-            } else if (Apostle.this.hitTimes >= 6){
+            } else if (Apostle.this.getHitTimes() >= 6){
                 return i2 < 1;
             } else {
-                return Apostle.this.coolDown >= cool
-                        && Apostle.this.spellCycle == 3
+                return Apostle.this.getCoolDown() >= cool
+                        && Apostle.this.getSpellCycle() == 3
                         && i >= 2
                         && i2 < 1;
             }
@@ -1514,35 +1523,35 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         public void castSpell() {
-            Apostle Apostle = Apostle.this;
-            Apostle.hitTimes = 0;
-            if (!Apostle.isSecondPhase()){
-                Apostle.setFiring(true);
-                Apostle.coolDown = 0;
-                Apostle.playSound(ModSounds.ROAR_SPELL.get(), 1.0F, 1.0F);
+            Apostle apostle = Apostle.this;
+            apostle.resetHitTime();
+            if (!apostle.isSecondPhase()){
+                apostle.setFiring(true);
+                apostle.coolDown = 0;
+                apostle.playSound(ModSounds.ROAR_SPELL.get(), 1.0F, 1.0F);
             } else {
-                double d0 = Math.min(Apostle.getTarget().getY(), Apostle.getY());
-                double d1 = Math.max(Apostle.getTarget().getY(), Apostle.getY()) + 1.0D;
+                double d0 = Math.min(apostle.getTarget().getY(), apostle.getY());
+                double d1 = Math.max(apostle.getTarget().getY(), apostle.getY()) + 1.0D;
                 for(int i = 0; i < 5; ++i) {
                     float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                    spawnBlasts(Apostle,Apostle.getX() + (double)Mth.cos(f1) * 1.5D, Apostle.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1);
+                    spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f1) * 1.5D, apostle.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1);
                 }
 
                 for(int k = 0; k < 8; ++k) {
                     float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                    spawnBlasts(Apostle,Apostle.getX() + (double)Mth.cos(f2) * 2.5D, Apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                    spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                 }
-                if (Apostle.getHealth() < Apostle.getMaxHealth()/2){
+                if (apostle.getHealth() < apostle.getMaxHealth()/2){
                     for(int k = 0; k < 11; ++k) {
                         float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                        spawnBlasts(Apostle,Apostle.getX() + (double)Mth.cos(f2) * 2.5D, Apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                        spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }
 
-                if (Apostle.getHealth() < Apostle.getMaxHealth()/4){
+                if (apostle.getHealth() < apostle.getMaxHealth()/4){
                     for(int k = 0; k < 14; ++k) {
                         float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                        spawnBlasts(Apostle,Apostle.getX() + (double)Mth.cos(f2) * 2.5D, Apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                        spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }
             }

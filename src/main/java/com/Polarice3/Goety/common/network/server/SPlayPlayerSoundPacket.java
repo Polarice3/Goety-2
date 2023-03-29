@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.network.server;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
+import com.Polarice3.Goety.Goety;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -31,7 +31,7 @@ public class SPlayPlayerSoundPacket {
 
     public static void consume(SPlayPlayerSoundPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            AbstractClientPlayer player = Minecraft.getInstance().player;
+            Player player = Goety.PROXY.getPlayer();
             if (player != null){
                 player.playSound(packet.soundEvent, packet.volume, packet.pitch);
             }

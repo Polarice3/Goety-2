@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.LichdomHelper;
@@ -166,6 +167,7 @@ public class SoulEnergyEvents {
                                     player.addEffect(new MobEffectInstance(ModEffects.SOUL_HUNGER.get(), 12000, 4, false, false));
                                 }
                                 player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));
                                 SEHelper.decreaseSESouls(player, MainConfig.MaxSouls.get());
                                 SEHelper.sendSEUpdatePacket(player);
                                 event.setCanceled(true);
@@ -177,6 +179,7 @@ public class SoulEnergyEvents {
                                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
                                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
                                 player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));
                                 SEHelper.decreaseSESouls(player, MainConfig.MaxSouls.get());
                                 SEHelper.sendSEUpdatePacket(player);
                                 event.setCanceled(true);

@@ -77,6 +77,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(SpellConfig.ZombieCost.get()));
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(SpellConfig.SkeletonCost.get()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(SpellConfig.WraithCost.get()));
+    public static final RegistryObject<Item> SKULL_FOCUS = ITEMS.register("skull_focus", () -> new MagicFocus(SpellConfig.HauntedSkullCost.get()));
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);

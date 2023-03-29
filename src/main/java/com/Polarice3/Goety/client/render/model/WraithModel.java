@@ -64,7 +64,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         float f = pAgeInTicks * 0.0025F;
         this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
-        this.body.xRot = 0.1745F + Mth.cos(pLimbSwing * 0.6662F) * 0.31F * pLimbSwingAmount;
+        this.body.xRot = 0.1745F + Mth.abs(Mth.cos(pLimbSwing * 0.6662F) * 0.31F * pLimbSwingAmount);
         this.body.xRot += Mth.cos(pAgeInTicks * 0.09F) * 0.1F + 0.1F;
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.leg.xRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount / f;

@@ -74,7 +74,7 @@ public class VexSpell extends SummonSpells {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
                 for (int i1 = 0; i1 < 3; ++i1) {
-                    BlockPos blockpos = entityLiving.blockPosition();
+                    BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                     AllyVex vexentity = new AllyVex(ModEntityType.ALLY_VEX.get(), worldIn);
                     vexentity.setOwnerId(entityLiving.getUUID());
                     vexentity.moveTo(blockpos, 0.0F, 0.0F);
@@ -104,7 +104,7 @@ public class VexSpell extends SummonSpells {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
                 for (int i1 = 0; i1 < 3 + worldIn.random.nextInt(3); ++i1) {
-                    BlockPos blockpos = entityLiving.blockPosition();
+                    BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                     AllyVex vexentity = new AllyVex(ModEntityType.ALLY_VEX.get(), worldIn);
                     vexentity.setOwnerId(entityLiving.getUUID());
                     vexentity.moveTo(blockpos, 0.0F, 0.0F);

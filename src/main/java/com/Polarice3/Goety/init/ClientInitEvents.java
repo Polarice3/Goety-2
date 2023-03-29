@@ -90,6 +90,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL, HauntedSkullModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER_ARMOR, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_HAT, DarkHatModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WITCH_HAT, WitchHatModel::createBodyLayer);
@@ -152,6 +153,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SKELETON_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.STRAY_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);

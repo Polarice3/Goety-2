@@ -45,7 +45,7 @@ public class IllusionSpell extends Spells {
         }
         for (int i1 = 0; i1 < 4; ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
-            summonedentity.setOwnerId(entityLiving.getUUID());
+            summonedentity.setTrueOwner(entityLiving);
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
             summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
@@ -84,7 +84,7 @@ public class IllusionSpell extends Spells {
         }
         for (int i1 = 0; i1 < 4 + entityLiving.level.random.nextInt(4); ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
-            summonedentity.setOwnerId(entityLiving.getUUID());
+            summonedentity.setTrueOwner(entityLiving);
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
             summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
