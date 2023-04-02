@@ -39,6 +39,7 @@ import java.util.UUID;
 public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> HOSTILE = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
@@ -164,6 +165,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         super.defineSynchedData();
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
         this.entityData.define(HOSTILE, false);
+        this.entityData.define(NATURAL, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -187,6 +189,10 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
             this.setHostile(compound.getBoolean("isHostile"));
         }
 
+        if (compound.contains("isNatural")){
+            this.setNatural(compound.getBoolean("isNatural"));
+        }
+
         if (compound.contains("LifeTicks")) {
             this.setLimitedLife(compound.getInt("LifeTicks"));
         }
@@ -202,6 +208,9 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         if (this.isHostile()){
             compound.putBoolean("isHostile", this.isHostile());
         }
+        if (this.isNatural()){
+            compound.putBoolean("isNatural", this.isNatural());
+        }
         if (this.limitedLifespan) {
             compound.putInt("LifeTicks", this.limitedLifeTicks);
         }
@@ -216,6 +225,9 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.checkHostility();
+        if (pReason != MobSpawnType.MOB_SUMMONED && this.getTrueOwner() == null){
+            this.setNatural(true);
+        }
         return pSpawnData;
     }
 
@@ -248,6 +260,14 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
     public boolean isHostile(){
         return this.entityData.get(HOSTILE);
+    }
+
+    public void setNatural(boolean natural){
+        this.entityData.set(NATURAL, natural);
+    }
+
+    public boolean isNatural(){
+        return this.entityData.get(NATURAL);
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {

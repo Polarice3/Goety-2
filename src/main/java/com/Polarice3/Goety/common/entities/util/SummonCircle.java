@@ -25,17 +25,17 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SummonCircleEntity extends Entity {
-    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(SummonCircleEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+public class SummonCircle extends Entity {
+    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(SummonCircle.class, EntityDataSerializers.OPTIONAL_UUID);
     public Entity entity;
     public boolean preMade;
     public int lifeSpan = 20;
 
-    public SummonCircleEntity(EntityType<?> pType, Level pLevel) {
+    public SummonCircle(EntityType<?> pType, Level pLevel) {
         super(pType, pLevel);
     }
 
-    public SummonCircleEntity(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.x, pPos.y, pPos.z);
         this.entity = pEntity;
@@ -43,7 +43,7 @@ public class SummonCircleEntity extends Entity {
         this.setTrueOwner(pOwner);
     }
 
-    public SummonCircleEntity(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
         this.entity = pEntity;
@@ -131,8 +131,7 @@ public class SummonCircleEntity extends Entity {
         if (!this.isNoGravity()) {
             MobUtil.moveDownToGround(this);
         }
-        if (this.level instanceof ServerLevel) {
-            ServerLevel serverWorld = (ServerLevel) this.level;
+        if (this.level instanceof ServerLevel serverWorld) {
             float f = 1.5F;
             float f5 = (float) Math.PI * f * f;
             if (this.tickCount == this.getLifeSpan()){
@@ -167,7 +166,7 @@ public class SummonCircleEntity extends Entity {
                 }
             }
         }
-        if (this.tickCount % this.getLifeSpan() == 0){
+        if (this.tickCount == this.getLifeSpan()){
             this.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
             this.discard();
         }

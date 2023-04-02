@@ -6,6 +6,10 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
@@ -198,6 +202,31 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .fireImmune());
 
+    public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",
+            EntityType.Builder.of(Envioker::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Tormentor>> TORMENTOR = register("tormentor",
+            EntityType.Builder.of(Tormentor::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Inquillager>> INQUILLAGER = register("inquillager",
+            EntityType.Builder.of(Inquillager::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Conquillager>> CONQUILLAGER = register("conquillager",
+            EntityType.Builder.of(Conquillager::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Vizier>> VIZIER = register("vizier",
             EntityType.Builder.of(Vizier::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -244,8 +273,8 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
-    public static final RegistryObject<EntityType<SummonCircleEntity>> SUMMON_CIRCLE = register("summon_circle",
-            EntityType.Builder.<SummonCircleEntity>of(SummonCircleEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
+            EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)

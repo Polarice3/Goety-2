@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.SummonCircleModel;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
-import com.Polarice3.Goety.common.entities.util.SummonCircleEntity;
+import com.Polarice3.Goety.common.entities.util.SummonCircle;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class SummonCircleRenderer extends EntityRenderer<SummonCircleEntity> {
+public class SummonCircleRenderer extends EntityRenderer<SummonCircle> {
     private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID,"textures/entity/summon_circle.png");
     private static final ResourceLocation TEXTURES_APOSTLE = new ResourceLocation(Goety.MOD_ID,"textures/entity/cultist/apostle_summon_circle.png");
     private final SummonCircleModel model;
@@ -23,7 +23,7 @@ public class SummonCircleRenderer extends EntityRenderer<SummonCircleEntity> {
         this.model = new SummonCircleModel(p_i46179_1_.bakeLayer(ModModelLayer.SUMMON_CIRCLE));
     }
 
-    public void render(SummonCircleEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(SummonCircle entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(entityIn)));
         this.model.setupAnim(entityIn, 0.0F, 0.0F, partialTicks/10, entityIn.getYRot(), entityIn.getXRot());
@@ -36,7 +36,7 @@ public class SummonCircleRenderer extends EntityRenderer<SummonCircleEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SummonCircleEntity pEntity) {
+    public ResourceLocation getTextureLocation(SummonCircle pEntity) {
         if(pEntity.getTrueOwner() instanceof Apostle){
             return TEXTURES_APOSTLE;
         }

@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -107,13 +108,20 @@ public class Malghast extends OwnedFlying {
         return 1.3F;
     }
 
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (this.isInvulnerableTo(pSource)) {
-            return false;
-        } else if (pSource.getDirectEntity() instanceof LargeFireball && pSource.getEntity() instanceof Player) {
-            return super.hurt(pSource, 1000.0F);
+    private static boolean isReflectedFireball(DamageSource p_238408_) {
+        return p_238408_.getDirectEntity() instanceof LargeFireball && p_238408_.getEntity() instanceof Player;
+    }
+
+    public boolean isInvulnerableTo(DamageSource p_238289_) {
+        return !isReflectedFireball(p_238289_) && super.isInvulnerableTo(p_238289_);
+    }
+
+    public boolean hurt(DamageSource p_32730_, float p_32731_) {
+        if (isReflectedFireball(p_32730_)) {
+            super.hurt(p_32730_, 1000.0F);
+            return true;
         } else {
-            return super.hurt(pSource, pAmount);
+            return !this.isInvulnerableTo(p_32730_) && super.hurt(p_32730_, p_32731_);
         }
     }
 
@@ -167,8 +175,20 @@ public class Malghast extends OwnedFlying {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (this.isNatural()){
+            this.setHostile(true);
+        }
         this.setBoundOrigin(this.blockPosition());
         return pSpawnData;
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        if (this.isNatural()){
+            return EntityType.GHAST.getDefaultLootTable();
+        } else {
+            return super.getDefaultLootTable();
+        }
     }
 
     static class FireballAttackGoal extends Goal {

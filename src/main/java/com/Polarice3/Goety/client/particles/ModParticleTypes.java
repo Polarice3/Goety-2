@@ -16,6 +16,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> TOTEM_EFFECT = PARTICLE_TYPES.register("totem_effect",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> PLAGUE_EFFECT = PARTICLE_TYPES.register("plague_effect",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> HEAL_EFFECT = PARTICLE_TYPES.register("heal",
             () -> new SimpleParticleType(false));
 

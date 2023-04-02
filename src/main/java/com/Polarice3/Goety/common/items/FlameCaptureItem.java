@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
+import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -43,6 +45,7 @@ public class FlameCaptureItem extends Item {
         ItemStack stack = context.getItemInHand();
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
+        Player player = context.getPlayer();
 
         if (this.getEntity(stack, level) != null) {
             if (level.getBlockState(pos).getBlock() == ModBlocks.CURSED_CAGE_BLOCK.get()){
@@ -59,6 +62,9 @@ public class FlameCaptureItem extends Item {
                             }
                         }
                         this.clearEntity(stack);
+                        if (player != null) {
+                            player.playSound(ModSounds.FLAME_CAPTURE_RELEASE.get());
+                        }
                         stack.shrink(1);
 
                         return InteractionResult.sidedSuccess(level.isClientSide());
@@ -77,6 +83,9 @@ public class FlameCaptureItem extends Item {
                         }
                     }
                 }
+                if (player != null) {
+                    player.playSound(ModSounds.FLAME_CAPTURE_CATCH.get());
+                }
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
@@ -86,7 +95,7 @@ public class FlameCaptureItem extends Item {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        if (level != null && getEntity(stack, level) != null)  {
+        if (level != null && this.getEntity(stack, level) != null)  {
             Entity entity = this.getEntity(stack, level);
 
             if (entity == null) {
@@ -95,13 +104,8 @@ public class FlameCaptureItem extends Item {
 
             MutableComponent textComponent = Component.translatable("tooltip.goety.entity")
                     .append(": ")
-                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()));
-
-            if (this.getEntityName(stack) != null)  {
-                textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
-            }
-
-            textComponent.withStyle(ChatFormatting.GRAY);
+                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()))
+                    .withStyle(ChatFormatting.GREEN);
 
             tooltip.add(textComponent);
         }
@@ -112,24 +116,14 @@ public class FlameCaptureItem extends Item {
     }
 
     private void setEntity(Entity entity, ItemStack stack) {
-        entity.stopRiding();
-        entity.ejectPassengers();
-
-        CompoundTag entityTag = new CompoundTag();
+        CompoundTag entityTag = stack.getOrCreateTag();
         ResourceLocation name = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
 
         if (name == null) {
             return;
         }
 
-        entityTag.putString("entity", name.toString());
-        if (entity.hasCustomName()) {
-            entityTag.putString("name", Objects.requireNonNull(entity.getCustomName()).getString());
-        }
-        entity.save(entityTag);
-
-        CompoundTag itemNBT = stack.getOrCreateTag();
-        itemNBT.put("entity", entityTag);
+        entityTag.putString("mob", name.toString());
     }
 
     private Entity getEntity(ItemStack stack, Level level) {
@@ -139,37 +133,13 @@ public class FlameCaptureItem extends Item {
             return null;
         }
 
-        CompoundTag entityTag = itemTag.getCompound("entity");
-        EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(entityTag.getString("entity")));
+        EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(itemTag.getString("mob")));
 
         if (entityType == null) {
             return null;
         }
 
-        Entity entity = entityType.create(level);
-
-        if (level instanceof ServerLevel && entity != null) {
-            entity.load(entityTag);
-        }
-
-        return entity;
-    }
-
-    private Component getEntityName(ItemStack stack) {
-        CompoundTag itemTag = stack.getTag();
-
-        if (itemTag == null) {
-            return null;
-        }
-
-        if (itemTag.contains("entity")) {
-            CompoundTag entityTag = itemTag.getCompound("entity");
-
-            if (entityTag.contains("name")) {
-                return Component.literal(entityTag.getString("name"));
-            }
-        }
-        return null;
+        return entityType.create(level);
     }
 
     private void clearEntity(ItemStack stack) {

@@ -25,6 +25,16 @@ repositories {
         name = "Patchouli"
         url = "https://maven.blamejared.com"
     }
+    maven {
+        name = "Curse"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    flatDir {
+        dirs 'runtime-mods'
+    }
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -101,6 +111,10 @@ dependencies {
     //Patchouli
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
+
+    //Testing Only
+    runtimeOnly fg.deobf("curse.maven:jade-324717:4433884")
+    runtimeOnly fg.deobf("curse.maven:nbttool-451553:3879898")
 }
 
 jar {

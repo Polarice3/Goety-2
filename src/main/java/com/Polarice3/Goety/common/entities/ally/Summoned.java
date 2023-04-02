@@ -146,7 +146,7 @@ public class Summoned extends Owned {
                                         if (!this.level.isClientSide){
                                             ServerLevel serverWorld = (ServerLevel) this.level;
                                             SEHelper.decreaseSouls(owner, SoulCost);
-                                            serverWorld.sendParticles(ParticleTypes.SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
                                         }
                                     }
                                 }

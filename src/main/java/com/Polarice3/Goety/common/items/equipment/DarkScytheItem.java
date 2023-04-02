@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableMultimap;
@@ -73,6 +74,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
                     p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
         if (this.getMineBlocks(pState)){
+            pLevel.playSound((Player) null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.SCYTHE_HIT.get(), pEntityLiving.getSoundSource(), 1.0F, 1.0F);
             for (int i = -2; i <= 2; ++i) {
                 for (int j = -1; j <= 1; ++j) {
                     for (int k = -2; k <= 2; ++k) {
@@ -136,7 +138,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
             }
         }
 
-        pPlayer.level.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, pPlayer.getSoundSource(), 1.0F, 1.0F);
+        pPlayer.level.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), ModSounds.SCYTHE_SWING.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
         pPlayer.sweepAttack();
     }
 

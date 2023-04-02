@@ -17,6 +17,9 @@ public class ModEffects {
         EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
+    public static final RegistryObject<MobEffect> ILLAGUE = EFFECTS.register("illague",
+            IllagueEffect::new);
+
     public static final RegistryObject<MobEffect> SUMMON_DOWN = EFFECTS.register("summon_down",
             () -> new ModEffect(MobEffectCategory.HARMFUL, 0));
 

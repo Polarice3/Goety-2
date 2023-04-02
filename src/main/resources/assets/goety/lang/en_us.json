@@ -52,6 +52,11 @@
   "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
 
+  "entity.goety.envioker":"Envioker",
+  "entity.goety.tormentor":"Tormentor",
+  "entity.goety.inquillager":"Inquillager",
+  "entity.goety.conquillager":"Conquillager",
+
   "entity.goety.vizier":"Vizier",
   "entity.goety.irk":"Irk",
 
@@ -60,6 +65,7 @@
   "entity.goety.sword":"Flying Sword",
   "entity.goety.scythe":"Scythe Slash",
   "entity.goety.soul_bullet":"Soul Bullet",
+  "entity.goety.soul_bolt":"Soul Bolt",
   "entity.goety.fang":"Magic Fang",
   "entity.goety.spike":"Royal Spike",
   "entity.goety.ice_bouquet":"Ice Bouquet",
@@ -87,6 +93,10 @@
   "item.goety.stray_servant_spawn_egg": "Stray Servant Spawn Egg",
   "item.goety.wraith_servant_spawn_egg": "Wraith Servant Spawn Egg",
   "item.goety.haunted_skull_spawn_egg": "Haunted Skull Spawn Egg",
+  "item.goety.envioker_spawn_egg": "Envioker Spawn Egg",
+  "item.goety.tormentor_spawn_egg": "Tormentor Spawn Egg",
+  "item.goety.inquillager_spawn_egg": "Inquillager Spawn Egg",
+  "item.goety.conquillager_spawn_egg": "Conquillager Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
   "item.goety.zpiglin_servant_spawn_egg": "Zombified Piglin Servant Spawn Egg",
@@ -215,6 +225,8 @@
   "effect.goety.summon_down.description": "Spells cost more Soul Energy to cast, higher levels increases cost. Newly summoned Mobs will gain Sapped and Weakness.",
   "effect.goety.sapped": "Sapped",
   "effect.goety.sapped.description": "Increases damage taken by 20% per level.",
+  "effect.goety.illague": "Illague",
+  "effect.goety.illague.description": "Periodically gives negative effects. Can be reduced by sleeping or drinking Milk.",
   "effect.goety.burn_hex": "Burn Hex",
   "effect.goety.burn_hex.description": "Removes Fire Resistance from living entities. On Hard, fire damage doubles.",
   "effect.goety.soul_hunger": "Soul Hunger",
@@ -268,6 +280,7 @@
   "tooltip.goety.arca": "Arca location: ",
   "tooltip.goety.arcaPlayer": "Owner: ",
   "tooltip.goety.arca_not_bound": "Has yet to be bound to an Arca.",
+  "tooltip.goety.entity": "Entity",
 
   "subtitle.goety.apostle_ambient": "Apostle mutters",
   "subtitle.goety.apostle_hurt": "Apostle hurts",
@@ -438,6 +451,8 @@
   "subtitle.goety.wind": "Wind Blast",
   "subtitle.goety.fire_tornado_ambient": "Flaming Tornado",
 
+  "subtitle.goety.scythe_swing": "Scythe Swing",
+
   "commands.lich.query.true": "%s is a Lich",
   "commands.lich.query.false": "%s is not a Lich",
   "commands.lich.turnlich.success": "%s has been granted Lichdom!",
@@ -507,8 +522,6 @@
   "item.goety.jei_dummy.item.tooltip": "This ritual requires to use a specific item to start.",
   "item.goety.jei_dummy.none": "Non-Item Ritual Result",
   "item.goety.jei_dummy.none.tooltip": "This ritual does not create any items.",
-
-  "tooltip.goety.entity": "Entity",
 
   "death.attack.goety.iceBouquet": "%1$s has been frozen by %2$s",
   "death.attack.goety.iceBouquet.item": "%1$s has been frozen by %2$s using %3$s",

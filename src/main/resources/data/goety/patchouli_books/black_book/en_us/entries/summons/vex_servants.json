@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Unlike other fleshier Servants, Vexes cannot wander and stop following you and will not accept weapons/armor as they're too big for them."
+      "text": "Unlike other fleshier Servants, Vexes will not wander and stop following you and will not accept weapons/armor as they're too big for them."
     }
   ]
 }

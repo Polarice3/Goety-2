@@ -413,7 +413,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, Integer.MAX_VALUE, 1, false, false));
             case 2 -> this.setArrowEffect(MobEffects.POISON);
             case 3 -> this.setArrowEffect(MobEffects.WITHER);
-            case 4 -> this.setArrowEffect(MobEffects.BLINDNESS);
+            case 4 -> this.setArrowEffect(MobEffects.DARKNESS);
             case 5 -> this.setArrowEffect(MobEffects.WEAKNESS);
             case 6 -> this.setFireArrow(true);
             case 7 -> this.setArrowEffect(MobEffects.HUNGER);
@@ -538,7 +538,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public void resetCoolDown(){
-        this.coolDown = 0;
+        this.setCoolDown(0);
     }
 
     public void setCoolDown(int coolDown){
@@ -589,6 +589,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 trueAmount = trueAmount/2;
             }
         }
+
         if (this.isDeadOrDying()) {
             this.deathBlow = pSource;
         }
@@ -708,6 +709,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.barrier(entity, this);
                 }
             }
+            this.setPos(this.getX(), this.getY(), this.getZ());
 
             if (!this.level.isClientSide){
                 this.serverAiStep();
@@ -875,8 +877,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.setLimitedLife(60 * (90 + this.level.random.nextInt(180)));
                             summonedentity.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(this.getTarget());
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(this.level, blockpos$mutable, summonedentity, false, this);
-                            this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(this.level, blockpos$mutable, summonedentity, false, this);
+                            this.level.addFreshEntity(summonCircle);
                         }
                     } else {
                         for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(16))){
@@ -897,8 +899,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.setLimitedLife(60 * (90 + this.level.random.nextInt(180)));
                             summonedentity.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(this.getTarget());
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(this.level, blockpos$mutable, summonedentity, false, this);
-                            this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(this.level, blockpos$mutable, summonedentity, false, this);
+                            this.level.addFreshEntity(summonCircle);
                         }
                     }
                 }
@@ -1044,7 +1046,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.teleportChance()) {
             this.teleport();
         }
-        this.setCoolDown(0);
+        this.resetCoolDown();
         this.setSpellCycle(0);
     }
 
@@ -1060,6 +1062,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     abstract class CastingGoal extends UseSpellGoal {
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !Apostle.this.isSettingUpSecond();
+        }
 
         public void start() {
             super.start();
@@ -1117,7 +1124,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (Apostle.this.teleportChance()) {
                     Apostle.this.teleport();
                 }
-                Apostle.this.coolDown = 0;
+                Apostle.this.resetCoolDown();
                 Apostle.this.setSpellCycle(1);
             }
         }
@@ -1182,8 +1189,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
                             summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(livingentity);
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
+                            Apostle.this.level.addFreshEntity(summonCircle);
                         } else {
                             for (int p = 0; p < 3 + r.nextInt(6); ++p) {
                                 int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
@@ -1198,8 +1205,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                                 summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
                                 summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                                 summonedentity.setTarget(livingentity);
-                                SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
-                                Apostle.this.level.addFreshEntity(summonCircleEntity);
+                                SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
+                                Apostle.this.level.addFreshEntity(summonCircle);
                             }
                         }
                     } else {
@@ -1231,8 +1238,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             }
                             summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
                             summonedentity.setTarget(livingentity);
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
+                            Apostle.this.level.addFreshEntity(summonCircle);
                         } else {
                             for (int p = 0; p < 2 + r.nextInt(Apostle.this.level.getDifficulty().getId()); ++p) {
                                 int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
@@ -1247,8 +1254,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                                 summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
                                 summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                                 summonedentity.setTarget(livingentity);
-                                SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
-                                Apostle.this.level.addFreshEntity(summonCircleEntity);
+                                SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
+                                Apostle.this.level.addFreshEntity(summonCircle);
                             }
                         }
                     }
@@ -1384,8 +1391,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
                             summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(livingentity);
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
+                            Apostle.this.level.addFreshEntity(summonCircle);
                         } else {
                             BlockPos blockpos = Apostle.this.blockPosition();
                             SkeletonVillagerServant summonedentity = new SkeletonVillagerServant(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), Apostle.this.level);
@@ -1407,8 +1414,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
                             summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(livingentity);
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, Apostle.this);
+                            Apostle.this.level.addFreshEntity(summonCircle);
                         }
                     } else {
                         for (int p = 0; p < 1 + r.nextInt(2); ++p) {
@@ -1424,8 +1431,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
                             summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                             summonedentity.setTarget(livingentity);
-                            SummonCircleEntity summonCircleEntity = new SummonCircleEntity(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircleEntity);
+                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, Apostle.this);
+                            Apostle.this.level.addFreshEntity(summonCircle);
                         }
                     }
                     Apostle.this.postSpellCast();

@@ -28,7 +28,7 @@
     }
   },
   "requirements": [
-    "undeath"
+    ["undeath"]
   ],
   "rewards": {
     "experience": 50

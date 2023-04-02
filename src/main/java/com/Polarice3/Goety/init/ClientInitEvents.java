@@ -87,6 +87,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
@@ -155,6 +158,10 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
+        event.registerEntityRenderer(ModEntityType.ENVIOKER.get(), EnviokerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
+        event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CONQUILLAGER.get(), ConquillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.ARROW_RAIN_TRAP.get(), TrapRenderer::new);
@@ -170,6 +177,7 @@ public class ClientInitEvents {
     public static void registerFactories(RegisterParticleProvidersEvent event) {
         event.register(ModParticleTypes.NONE.get(), NoneParticle.Provider::new);
         event.register(ModParticleTypes.TOTEM_EFFECT.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);

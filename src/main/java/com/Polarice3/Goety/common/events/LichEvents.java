@@ -112,7 +112,7 @@ public class LichEvents {
                         Vec3 vector3d = player.getDeltaMovement();
                         if (!player.level.isClientSide){
                             ServerLevel serverWorld = (ServerLevel) player.level;
-                            serverWorld.sendParticles(ParticleTypes.SOUL, player.getRandomX(0.5D), player.getRandomY(), player.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, player.getRandomX(0.5D), player.getRandomY(), player.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
                         }
                         SEHelper.decreaseSouls(player, MainConfig.LichHealCost.get());
                     }

@@ -163,11 +163,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
                 break;
             case SPELL_AND_WEAPON:
                 if (!entityIn.getMainHandItem().isEmpty()) {
-                    if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
-                        AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, entityIn, this.attackTime, ageInTicks);
-                    } else {
-                        AnimationUtils.swingWeaponDown(this.leftArm, this.rightArm, entityIn, this.attackTime, ageInTicks);
-                    }
+                    AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, entityIn, this.attackTime, ageInTicks);
                 }
                 if (entityIn.getMainArm() == HumanoidArm.RIGHT){
                     this.leftArm.z = 0.0F;

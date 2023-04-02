@@ -26,6 +26,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleTypes;
@@ -68,12 +69,17 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -158,6 +164,33 @@ public class ModEvents {
                         playerData.put(Player.PERSISTED_NBT_TAG, data);
                     }
                 }
+            }
+        }
+
+    }
+
+    private static final Map<ServerLevel, EffectsEvents> EFFECTS_EVENT_MAP = new HashMap<>();
+
+    @SubscribeEvent
+    public static void worldLoad(LevelEvent.Load event) {
+        if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
+            EFFECTS_EVENT_MAP.put(serverWorld, new EffectsEvents());
+        }
+    }
+
+    @SubscribeEvent
+    public static void worldUnload(LevelEvent.Unload event) {
+        if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
+            EFFECTS_EVENT_MAP.remove(serverWorld);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.LevelTickEvent tick){
+        if(!tick.level.isClientSide && tick.level instanceof ServerLevel serverWorld){
+            EffectsEvents effectsEvent = EFFECTS_EVENT_MAP.get(serverWorld);
+            if (effectsEvent != null){
+                effectsEvent.tick(serverWorld);
             }
         }
 
@@ -270,6 +303,7 @@ public class ModEvents {
             }
         }
     }
+
     @SubscribeEvent
     public static void TargetEvents(LivingChangeTargetEvent event){
         LivingEntity attacker = event.getEntity();
@@ -333,7 +367,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void InteractEntityEvent(PlayerInteractEvent.EntityInteract event){
+    public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
         if (CuriosFinder.hasWitchSet(event.getEntity())){
             if (event.getItemStack().getItem() == Items.EMERALD){
                 if (event.getTarget() instanceof Witch witch){
@@ -341,7 +375,7 @@ public class ModEvents {
                         event.getEntity().getMainHandItem().shrink(1);
                         witch.playSound(SoundEvents.WITCH_CELEBRATE);
                         witch.setItemInHand(InteractionHand.MAIN_HAND, event.getItemStack());
-                        WitchBarterGoal.setTrader(event.getEntity());
+                        WitchBarterGoal.setTrader(witch, event.getEntity());
                     }
                 }
             }
@@ -449,8 +483,7 @@ public class ModEvents {
             if (effectInstance != null) {
                 int i = effectInstance.getAmplifier() / 10;
                 float j = 1.2F + ((float) i * 2);
-                float f = event.getAmount() * j;
-                event.setAmount(f);
+                event.setAmount(event.getAmount() * j);
             }
         }
         if (ModDamageSource.freezeAttacks(event.getSource())){
@@ -463,6 +496,9 @@ public class ModEvents {
         if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker){
             if (ModDamageSource.physicalAttacks(event.getSource())) {
                 if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
+                    if (weapon instanceof DarkScytheItem){
+                        victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
+                    }
                     if (weapon instanceof DeathScytheItem) {
                         if (!victim.hasEffect(ModEffects.SAPPED.get())) {
                             victim.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 20));
@@ -646,26 +682,40 @@ public class ModEvents {
         }
     }
 
-/*    @SubscribeEvent
-    public static void LightningEvent(EntityStruckByLightningEvent event){
-        Level level = event.getEntity().level;
-        if (!event.getEntity().level.isClientSide && event.getEntity() instanceof ItemEntity itemEntity){
-            if (itemEntity.getItem().getItem() == Items.EMERALD){
-                ItemEntity itementity = new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), new ItemStack(ModItems.MAGIC_EMERALD.get(), itemEntity.getItem().getCount()));
-                itementity.setDefaultPickUpDelay();
-                itementity.setInvulnerable(true);
-                level.addFreshEntity(itementity);
-                itemEntity.getItem().setCount(0);
-            }
-            if (itemEntity.getItem().getItem() == Items.EMERALD_BLOCK){
-                ItemEntity itementity = new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), new ItemStack(ModItems.MAGIC_EMERALD.get(), itemEntity.getItem().getCount() * 9));
-                itementity.setDefaultPickUpDelay();
-                itementity.setInvulnerable(true);
-                level.addFreshEntity(itementity);
-                itemEntity.getItem().setCount(0);
+    @SubscribeEvent
+    public static void finishItemEvents(LivingEntityUseItemEvent.Finish event){
+        if (event.getItem().getItem() == Items.MILK_BUCKET){
+            if (event.getEntity().hasEffect(ModEffects.ILLAGUE.get())){
+                int duration = Objects.requireNonNull(event.getEntity().getEffect(ModEffects.ILLAGUE.get())).getDuration();
+                int amp = Objects.requireNonNull(event.getEntity().getEffect(ModEffects.ILLAGUE.get())).getAmplifier();
+                if (duration > 0){
+                    if (amp <= 0) {
+                        EffectsUtil.halveDuration(event.getEntity(), ModEffects.ILLAGUE.get(), duration, false, false);
+                    } else {
+                        EffectsUtil.deamplifyEffect(event.getEntity(), ModEffects.ILLAGUE.get(), duration, false, false);
+                    }
+                }
             }
         }
-    }*/
+    }
+
+    @SubscribeEvent
+    public static void SleepEvents(PlayerWakeUpEvent event){
+        Player player = event.getEntity();
+        if (player.isSleepingLongEnough()) {
+            if (player.hasEffect(ModEffects.ILLAGUE.get())) {
+                int duration = Objects.requireNonNull(player.getEffect(ModEffects.ILLAGUE.get())).getDuration();
+                int amp = Objects.requireNonNull(player.getEffect(ModEffects.ILLAGUE.get())).getAmplifier();
+                if (duration > 0){
+                    if (amp <= 0) {
+                        EffectsUtil.halveDuration(player, ModEffects.ILLAGUE.get(), duration, false, false);
+                    } else {
+                        EffectsUtil.deamplifyEffect(player, ModEffects.ILLAGUE.get(), duration, false, false);
+                    }
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void UseItemEvent(LivingEntityUseItemEvent.Finish event){

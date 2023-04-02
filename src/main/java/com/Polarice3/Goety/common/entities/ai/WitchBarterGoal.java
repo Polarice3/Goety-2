@@ -26,13 +26,15 @@ public class WitchBarterGoal extends Goal {
     public Witch witch;
     @Nullable
     public static LivingEntity trader;
+    public static Witch witchTrade;
 
     public WitchBarterGoal(Witch witch) {
         this.witch = witch;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET));
     }
 
-    public static void setTrader(@Nullable LivingEntity livingEntity){
+    public static void setTrader(Witch witch, @Nullable LivingEntity livingEntity){
+        witchTrade = witch;
         trader = livingEntity;
     }
 
@@ -48,7 +50,7 @@ public class WitchBarterGoal extends Goal {
             this.witch.getNavigation().stop();
         }
         if (this.progress <= 0) {
-            Vec3 vec3 = trader != null ? trader.position() : this.witch.position();
+            Vec3 vec3 = trader != null && witchTrade == witch ? trader.position() : this.witch.position();
             if (!this.witch.level.isClientSide) {
                 if (this.witch.level.getServer() != null) {
                     LootTable loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WITCH_BARTER);

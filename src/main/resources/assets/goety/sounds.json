@@ -658,6 +658,63 @@
     ],
     "subtitle": "subtitle.goety.wind"
   },
+  "scythe_swing": {
+    "sounds": [
+      {
+        "name": "goety:item/scythe_swing1"
+      },
+      {
+        "name": "goety:item/scythe_swing2"
+      },
+      {
+        "name": "goety:item/scythe_swing3"
+      }
+    ],
+    "subtitle": "subtitle.goety.scythe_swing"
+  },
+  "scythe_hit": {
+    "sounds": [
+      {
+        "name": "goety:item/scythe_hit1"
+      },
+      {
+        "name": "goety:item/scythe_hit2"
+      },
+      {
+        "name": "goety:item/scythe_hit3"
+      }
+    ]
+  },
+  "scythe_hit_meaty": {
+    "sounds": [
+      {
+        "name": "goety:item/scythe_hit_meaty1"
+      },
+      {
+        "name": "goety:item/scythe_hit_meaty2"
+      },
+      {
+        "name": "goety:item/scythe_hit_meaty3"
+      }
+    ]
+  },
+  "flame_capture_catch": {
+    "sounds": [
+      {
+        "name": "goety:item/flame_capture_catch"
+      }
+    ]
+  },
+  "flame_capture_release": {
+    "sounds": [
+      {
+        "name": "goety:item/flame_capture_release1"
+      },
+      {
+        "name": "goety:item/flame_capture_release2"
+      }
+    ]
+  },
   "apostle_theme": {
     "sounds": [
       {
