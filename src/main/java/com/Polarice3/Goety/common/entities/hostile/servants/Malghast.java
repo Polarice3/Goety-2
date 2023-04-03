@@ -78,12 +78,10 @@ public class Malghast extends OwnedFlying {
         super.tick();
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getSwelling(float pPartialTicks) {
         return Mth.lerp(pPartialTicks, (float)this.oldSwell, (float)this.swell) / (float)(this.maxSwell - 2);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public boolean isCharging() {
         return this.entityData.get(DATA_IS_CHARGING);
     }

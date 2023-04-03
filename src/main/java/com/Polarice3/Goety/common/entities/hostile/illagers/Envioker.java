@@ -115,8 +115,7 @@ public class Envioker extends HuntingIllagerEntity implements ICustomAttributes 
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public IllagerArmPose getArmPose() {
+        public IllagerArmPose getArmPose() {
         if (this.isCastingSpell() && this.isMagic()) {
             return IllagerArmPose.SPELLCASTING;
         } else if (this.isAggressive() && !this.isMagic()) {

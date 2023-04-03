@@ -30,8 +30,7 @@ public abstract class SpewingSpell extends ChargingSpells{
 
     public abstract void showStaffBreath(LivingEntity entityLiving);
 
-    @OnlyIn(Dist.CLIENT)
-    public void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
+        public void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9;

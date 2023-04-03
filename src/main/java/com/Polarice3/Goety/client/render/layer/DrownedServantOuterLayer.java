@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class DrownedServantOuterLayer<T extends DrownedServant> extends RenderLayer<T, DrownedServantModel<T>> {
    private static final ResourceLocation DROWNED_OUTER_LAYER_LOCATION = Goety.location("textures/entity/servants/drowned_minion_outer_layer.png");
    private final DrownedServantModel<T> model;

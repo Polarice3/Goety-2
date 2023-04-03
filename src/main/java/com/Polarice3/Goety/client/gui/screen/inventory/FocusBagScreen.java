@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class FocusBagScreen extends AbstractContainerScreen<FocusBagContainer> {
     private static final ResourceLocation GUI_TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/gui/container/focusbag.png");
 

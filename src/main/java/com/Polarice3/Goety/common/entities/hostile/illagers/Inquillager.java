@@ -164,8 +164,7 @@ public class Inquillager extends HuntingIllagerEntity implements ICustomAttribut
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public IllagerArmPose getArmPose() {
+        public IllagerArmPose getArmPose() {
         if (this.isCastingSpell()) {
             return IllagerArmPose.SPELLCASTING;
         } else if (this.isAggressive()) {

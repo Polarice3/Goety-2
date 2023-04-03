@@ -13,7 +13,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class DrownedServantModel<T extends ZombieServant> extends ZombieServantModel<T> {
    public DrownedServantModel(ModelPart p_170534_) {
       super(p_170534_);

@@ -438,8 +438,7 @@ public class AbstractWraith extends Summoned {
         return ModParticleTypes.WRAITH.get();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte pId) {
+        public void handleEntityEvent(byte pId) {
         super.handleEntityEvent(pId);
         if (pId == 4) {
             this.setIsFiring(true);

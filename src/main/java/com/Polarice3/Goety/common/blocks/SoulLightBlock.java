@@ -94,7 +94,6 @@ public class SoulLightBlock extends Block implements SimpleWaterloggedBlock {
         return false;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
         double d0 = (double)pPos.getX() + 0.5D;
         double d1 = (double)pPos.getY() + 0.6D;

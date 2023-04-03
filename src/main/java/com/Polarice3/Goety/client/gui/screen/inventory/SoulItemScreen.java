@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class SoulItemScreen extends AbstractContainerScreen<SoulItemContainer> {
     private static final ResourceLocation GUI_TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/gui/container/wand.png");
 

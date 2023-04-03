@@ -150,8 +150,7 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
         return SoundEvents.TRIDENT_HIT_GROUND;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public boolean shouldRender(double x, double y, double z) {
+        public boolean shouldRender(double x, double y, double z) {
         return true;
     }
 

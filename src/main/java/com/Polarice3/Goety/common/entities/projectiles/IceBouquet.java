@@ -236,8 +236,7 @@ public class IceBouquet extends GroundProjectile {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte pId) {
+        public void handleEntityEvent(byte pId) {
         super.handleEntityEvent(pId);
         if (pId == 5) {
             if (!this.isSilent()) {

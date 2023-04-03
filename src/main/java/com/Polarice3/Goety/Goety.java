@@ -76,7 +76,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 public class Goety {
     public static final String MOD_ID = "goety";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final ModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static final ModProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public static ResourceLocation location(String path) {
         return new ResourceLocation(MOD_ID, path);

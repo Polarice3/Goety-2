@@ -72,7 +72,6 @@ public class WraithParticle extends TextureSheetParticle {
         return j | k << 16;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

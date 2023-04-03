@@ -494,8 +494,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public ArmPose getArmPose() {
+        public ArmPose getArmPose() {
         if (this.isDeadOrDying()){
             return ArmPose.DYING;
         } else if (this.getMainHandItem().getItem() instanceof BowItem) {
@@ -649,8 +648,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte pId) {
+        public void handleEntityEvent(byte pId) {
         if (pId == 100){
             int i = 128;
 

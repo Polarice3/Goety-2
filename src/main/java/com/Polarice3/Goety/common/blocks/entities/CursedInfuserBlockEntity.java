@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -36,8 +37,7 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     public void tick() {
         boolean flag = checkSpawner();
         assert this.level != null;
-        boolean flag1 = this.level.isClientSide;
-        if (flag1) {
+        if (!this.level.isClientSide) {
             if (flag) {
                 this.makeParticles();
                 for (ItemStack item : this.items) {
@@ -45,10 +45,6 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                         this.makeWorkParticles();
                     }
                 }
-            }
-
-        } else {
-            if (flag) {
                 this.work();
             } else {
                 for(int i = 0; i < this.items.size(); ++i) {
@@ -151,52 +147,50 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void makeParticles() {
         BlockPos blockpos = this.getBlockPos();
-        Minecraft MINECRAFT = Minecraft.getInstance();
+        ServerLevel serverLevel = (ServerLevel) this.level;
 
-        if (MINECRAFT.level != null) {
-            long t = MINECRAFT.level.getGameTime();
-            double d0 = (double)blockpos.getX() + MINECRAFT.level.random.nextDouble();
-            double d1 = (double)blockpos.getY() + MINECRAFT.level.random.nextDouble();
-            double d2 = (double)blockpos.getZ() + MINECRAFT.level.random.nextDouble();
+        if (serverLevel != null) {
+            long t = serverLevel.getGameTime();
+            double d0 = (double)blockpos.getX() + serverLevel.random.nextDouble();
+            double d1 = (double)blockpos.getY() + serverLevel.random.nextDouble();
+            double d2 = (double)blockpos.getZ() + serverLevel.random.nextDouble();
             if (this.getBlockState().getValue(CursedInfuserBlock.WATERLOGGED)){
                 if (t % 20L == 0L) {
                     for (int p = 0; p < 4; ++p) {
-                        MINECRAFT.level.addParticle(ParticleTypes.BUBBLE, d0, d1, d2, 0, 0, 0);
-                        MINECRAFT.level.addParticle(ParticleTypes.BUBBLE_COLUMN_UP, d0, d1, d2, 0.0D, 0.04D, 0.0D);
+                        serverLevel.sendParticles(ParticleTypes.BUBBLE, d0, d1, d2, 1, 0, 0, 0, 0);
+                        serverLevel.sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, d0, d1, d2, 0, 0.0D, 0.04D, 0.0D, 0.5F);
                     }
                 }
             } else {
                 if (t % 20L == 0L) {
                     for (int p = 0; p < 4; ++p) {
-                        MINECRAFT.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0, 0, 0);
-                        MINECRAFT.level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
+                        serverLevel.sendParticles(ParticleTypes.FLAME, d0, d1, d2, 1, 0, 0, 0, 0);
+                        serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                     }
                 }
             }
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void makeWorkParticles() {
         BlockPos blockpos = this.getBlockPos();
-        Minecraft MINECRAFT = Minecraft.getInstance();
+        ServerLevel serverLevel = (ServerLevel) this.level;
 
-        if (MINECRAFT.level != null) {
-            double d0 = (double)blockpos.getX() + MINECRAFT.level.random.nextDouble();
-            double d1 = (double)blockpos.getY() + MINECRAFT.level.random.nextDouble();
-            double d2 = (double)blockpos.getZ() + MINECRAFT.level.random.nextDouble();
+        if (serverLevel != null) {
+            double d0 = (double)blockpos.getX() + serverLevel.random.nextDouble();
+            double d1 = (double)blockpos.getY() + serverLevel.random.nextDouble();
+            double d2 = (double)blockpos.getZ() + serverLevel.random.nextDouble();
             if (this.getBlockState().getValue(CursedInfuserBlock.WATERLOGGED)){
                 for (int p = 0; p < 4; ++p) {
-                    MINECRAFT.level.addParticle(ParticleTypes.BUBBLE, d0, d1, d2, 0, 0, 0);
-                    MINECRAFT.level.addParticle(ParticleTypes.BUBBLE_COLUMN_UP, d0, d1, d2, 0.0D, 0.04D, 0.0D);
+                    serverLevel.sendParticles(ParticleTypes.BUBBLE, d0, d1, d2, 1, 0, 0, 0, 0);
+                    serverLevel.sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, d0, d1, d2, 0, 0.0D, 0.04D, 0.0D, 0.5F);
                 }
             } else {
                 for (int p = 0; p < 6; ++p) {
-                    MINECRAFT.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0, 0, 0);
-                    MINECRAFT.level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
+                    serverLevel.sendParticles(ParticleTypes.FLAME, d0, d1, d2, 1, 0, 0, 0, 0);
+                    serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                 }
             }
         }

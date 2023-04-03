@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.inventory;
 
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -207,6 +209,9 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
         } else itemstack.shrink(1);
 
         this.getLivingEntity().playSound(SoundEvents.BREWING_STAND_BREW);
+        if (this.getLivingEntity() instanceof Player player){
+            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BREWING_STAND_BREW, 1.0F, 1.0F));
+        }
 
         this.items.set(3, itemstack);
     }

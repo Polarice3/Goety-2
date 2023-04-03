@@ -41,16 +41,11 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
     public void tick() {
         boolean flag = this.getArcaOwner() != null;
         assert this.level != null;
-        boolean flag1 = this.level.isClientSide;
-        if (flag1) {
+        if (!this.level.isClientSide) {
             if (flag) {
                 if (!this.itemStack.isEmpty()) {
                     this.makeWorkParticles();
                 }
-            }
-
-        } else {
-            if (flag) {
                 this.work();
             } else {
                 if (this.itemStack != ItemStack.EMPTY){
@@ -174,20 +169,19 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void makeWorkParticles() {
         BlockPos blockpos = this.getBlockPos();
-        Minecraft MINECRAFT = Minecraft.getInstance();
+        ServerLevel serverLevel = (ServerLevel) this.level;
 
-        if (MINECRAFT.level != null) {
-            long t = MINECRAFT.level.getGameTime();
+        if (serverLevel != null) {
+            long t = serverLevel.getGameTime();
             if (t % 20 == 0) {
                 for (int p = 0; p < 6; ++p) {
-                    double d0 = (double)blockpos.getX() + MINECRAFT.level.random.nextDouble();
-                    double d1 = (double)blockpos.getY() + MINECRAFT.level.random.nextDouble();
-                    double d2 = (double)blockpos.getZ() + MINECRAFT.level.random.nextDouble();
-                    MINECRAFT.level.addParticle(ParticleTypes.ENCHANT, d0, d1, d2, 0, 0, 0);
-                    MINECRAFT.level.addParticle(ParticleTypes.PORTAL, d0, d1, d2, 0.0D, 0, 0.0D);
+                    double d0 = (double)blockpos.getX() + serverLevel.random.nextDouble();
+                    double d1 = (double)blockpos.getY() + serverLevel.random.nextDouble();
+                    double d2 = (double)blockpos.getZ() + serverLevel.random.nextDouble();
+                    serverLevel.sendParticles(ParticleTypes.ENCHANT, d0, d1, d2, 1, 0, 0, 0, 0);
+                    serverLevel.sendParticles(ParticleTypes.PORTAL, d0, d1, d2, 1, 0.0D, 0, 0.0D, 0);
                 }
             }
         }

@@ -215,8 +215,7 @@ public class SkeletonVillagerServant extends Owned implements CrossbowAttackMob,
         return 1.74F;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public boolean isCharging() {
+        public boolean isCharging() {
         return this.entityData.get(DATA_CHARGING_STATE);
     }
 

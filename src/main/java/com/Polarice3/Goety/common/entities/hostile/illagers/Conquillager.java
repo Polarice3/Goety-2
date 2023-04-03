@@ -118,8 +118,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         return p_230280_1_ == Items.CROSSBOW;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public boolean isChargingCrossbow() {
+        public boolean isChargingCrossbow() {
         return this.entityData.get(IS_CHARGING_CROSSBOW);
     }
 
@@ -131,8 +130,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         this.noActionTime = 0;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public IllagerArmPose getArmPose() {
+        public IllagerArmPose getArmPose() {
         if (this.isChargingCrossbow()) {
             return IllagerArmPose.CROSSBOW_CHARGE;
         } else if (this.isHolding(item -> item.getItem() instanceof CrossbowItem)) {

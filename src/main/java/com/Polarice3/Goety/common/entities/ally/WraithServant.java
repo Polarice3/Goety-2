@@ -73,7 +73,6 @@ public class WraithServant extends AbstractWraith {
         return InteractionResult.PASS;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte pId) {
         super.handleEntityEvent(pId);
         if (pId == 102){
@@ -84,7 +83,6 @@ public class WraithServant extends AbstractWraith {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     protected void addParticlesAroundSelf(ParticleOptions pParticleData) {
         for(int i = 0; i < 5; ++i) {
             double d0 = this.random.nextGaussian() * 0.02D;

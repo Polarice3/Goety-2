@@ -544,8 +544,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.setVizierFlag(2, spellcasting);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public IllagerArmPose getArmPose() {
+        public IllagerArmPose getArmPose() {
         if (this.isCharging()) {
             return IllagerArmPose.ATTACKING;
         } else if (this.isSpellcasting()){

@@ -31,7 +31,6 @@ public class GlowingParticle extends RisingParticle {
         return 240 | k << 16;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

@@ -243,8 +243,7 @@ public class IceChunk extends Entity {
         return !this.isRemoved();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public boolean displayFireAnimation() {
+        public boolean displayFireAnimation() {
         return false;
     }
 

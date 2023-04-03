@@ -70,8 +70,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public ArmPose getArmPose() {
+        public ArmPose getArmPose() {
         return ArmPose.CROSSED;
     }
 
@@ -106,8 +105,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static enum ArmPose {
+        public static enum ArmPose {
         CROSSED,
         ATTACKING,
         SPELLCASTING,

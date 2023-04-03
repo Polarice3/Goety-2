@@ -215,8 +215,7 @@ public class DarkWand extends Item {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void useParticles(Level worldIn, Player playerIn){
+        public void useParticles(Level worldIn, Player playerIn){
         for (int i = 0; i < playerIn.level.random.nextInt(35) + 10; ++i) {
             double d = worldIn.random.nextGaussian() * 0.2D;
             worldIn.addParticle(ParticleTypes.ENTITY_EFFECT, playerIn.getX(), playerIn.getBoundingBox().maxY + 0.5D, playerIn.getZ(), d, d, d);
@@ -418,8 +417,7 @@ public class DarkWand extends Item {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void failParticles(Level worldIn, LivingEntity entityLiving){
+        public void failParticles(Level worldIn, LivingEntity entityLiving){
         for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
             double d = worldIn.random.nextGaussian() * 0.2D;
             worldIn.addParticle(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), d, d, d);

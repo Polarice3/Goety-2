@@ -14,24 +14,26 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
-        if (!stack.hasTag()) {
-            stack.setTag(new CompoundTag());
-            stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
-        } else {
-            if (!stack.getOrCreateTag().contains(INVENTORY)) {
+        if (ModSaveInventory.getInstance() != null) {
+            if (!stack.hasTag()) {
+                stack.setTag(new CompoundTag());
                 stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
-            }
-
-            WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory((stack.getOrCreateTag().getInt(INVENTORY)), slotContext.entity());
-
-            if (CuriosFinder.hasCurio(slotContext.entity(), ModItems.WITCH_HAT.get())){
-                inventory.setIncreaseSpeed(1);
             } else {
-                inventory.setIncreaseSpeed(0);
-            }
+                if (!stack.getOrCreateTag().contains(INVENTORY)) {
+                    stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
+                }
 
-            if (!inventory.isEmpty() && inventory.isBrewable()) {
-                inventory.tick();
+                WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory((stack.getOrCreateTag().getInt(INVENTORY)), slotContext.entity());
+
+                if (CuriosFinder.hasCurio(slotContext.entity(), ModItems.WITCH_HAT.get())) {
+                    inventory.setIncreaseSpeed(1);
+                } else {
+                    inventory.setIncreaseSpeed(0);
+                }
+
+                if (!inventory.isEmpty() && inventory.isBrewable()) {
+                    inventory.tick();
+                }
             }
         }
     }

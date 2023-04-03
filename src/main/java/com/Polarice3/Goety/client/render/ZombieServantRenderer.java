@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class ZombieServantRenderer extends AbstractZombieServantRenderer<ZombieServant, ZombieServantModel<ZombieServant>> {
    public ZombieServantRenderer(EntityRendererProvider.Context p_174456_) {
       this(p_174456_, ModelLayers.ZOMBIE, ModelLayers.ZOMBIE_INNER_ARMOR, ModelLayers.ZOMBIE_OUTER_ARMOR);
