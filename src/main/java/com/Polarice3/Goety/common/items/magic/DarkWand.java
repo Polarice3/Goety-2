@@ -33,8 +33,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nonnull;
@@ -270,7 +268,13 @@ public class DarkWand extends Item {
             } else if (spell == ModItems.SKULL_FOCUS.get()) {
                 this.setSpellConditions(new HauntedSkullSpell(), itemStack);
                 this.setSpell(14, itemStack);
-            }  else {
+            } else if (spell == ModItems.FIREBALL_FOCUS.get()) {
+                this.setSpellConditions(new FireballSpell(), itemStack);
+                this.setSpell(15, itemStack);
+            } else if (spell == ModItems.LAVABALL_FOCUS.get()) {
+                this.setSpellConditions(new LavaballSpell(), itemStack);
+                this.setSpell(16, itemStack);
+            } else {
                 this.setSpellConditions(null, itemStack);
                 this.setSpell(-1, itemStack);
             }

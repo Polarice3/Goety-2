@@ -12,7 +12,7 @@
       "item": "minecraft:minecart"
     },
     {
-      "tag": "minecraft:boats"
+      "tag": "goety:boats"
     },
     {
       "tag": "forge:leather"

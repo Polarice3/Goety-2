@@ -1,18 +1,23 @@
 {
   "name": "Adept Nether Ritual",
-  "icon": "minecraft:netherrack",
+  "icon": "minecraft:blackstone",
   "category": "goety:rituals",
-  "advancement": "goety:goety/read_nether_book",
-  "secret": true,
+  "advancement": "minecraft:story/enter_the_nether",
   "sortnum": 6,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Be in the Nether"
+      "text": "Requirements: $(li)Be in the Nether $(li)8 Basalts $(li)16 Blackstone $(li)4 Glowstone"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/adept_nether.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
     },
     {
       "type": "patchouli:text",
-      "text": "One must know the proper chants and movements from the Liber Barathrum in order to perform this ritual. Fortunately, this ritual only demands that the Dark Altar is located within the Nether and nothing else."
+      "text": "The Nether is a dimension full of Soul Energy, as shown with the endless amounts of Soul Sand that littered the realm. However, there still needs structure to create Nether related artifacts to focus the abundance into one place. The Blackstone can be Polished, Bricked or Chiseled. The Basalt can be Smooth and Polished."
     }
   ]
 }

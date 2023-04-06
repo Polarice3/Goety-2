@@ -61,6 +61,8 @@
   "entity.goety.irk":"Irk",
 
   "entity.goety.nether_meteor":"Nether Meteor",
+  "entity.goety.fireball": "Small Fireball",
+  "entity.goety.lavaball": "Fireball",
   "entity.goety.grand_lavaball": "Grand Fireball",
   "entity.goety.sword":"Flying Sword",
   "entity.goety.scythe":"Scythe Slash",
@@ -108,9 +110,12 @@
   "item.goety.spent_totem": "Spent Totem of Souls",
   "item.goety.magic_emerald": "Awakened Emerald",
   "item.goety.soul_emerald": "Concentrated Emerald",
+  "item.goety.philosophers_stone": "Philosopher's Stone",
 
   "item.goety.dark_scythe": "Dark Scythe",
   "item.goety.death_scythe": "Death Scythe",
+
+  "item.goety.philosophers_mace": "Philosopher's Mace",
 
   "item.goety.dark_scroll": "Dark Scroll",
   "item.goety.undeath_potion": "Potion of Transformation",
@@ -154,6 +159,8 @@
   "item.goety.iceology_focus": "Iceology Focus",
   "item.goety.illusion_focus": "Mirror Focus",
   "item.goety.feast_focus": "Feasting Focus",
+  "item.goety.fireball_focus": "Fireball Focus",
+  "item.goety.lavaball_focus": "Lava Bomb Focus",
   "item.goety.soul_bolt_focus": "Soul Bolt Focus",
   "item.goety.lightning_focus": "Lightning Focus",
   "item.goety.sonic_boom_focus": "Sonic Boom Focus",
@@ -225,6 +232,8 @@
   "effect.goety.summon_down.description": "Spells cost more Soul Energy to cast, higher levels increases cost. Newly summoned Mobs will gain Sapped and Weakness.",
   "effect.goety.sapped": "Sapped",
   "effect.goety.sapped.description": "Increases damage taken by 20% per level.",
+  "effect.goety.gold_touched": "Gold Touched",
+  "effect.goety.gold_touched.description": "Mobs drop gold nuggets on death, with amount increasing on higher levels.",
   "effect.goety.illague": "Illague",
   "effect.goety.illague.description": "Periodically gives negative effects. Can be reduced by sleeping or drinking Milk.",
   "effect.goety.burn_hex": "Burn Hex",

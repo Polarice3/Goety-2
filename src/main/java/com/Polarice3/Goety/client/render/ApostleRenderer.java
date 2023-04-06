@@ -33,7 +33,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
         this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
             public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Apostle p_116355_, float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_, float p_116361_) {
-                if (p_116355_.getArmPose() != Cultist.ArmPose.CROSSED) {
+                if (p_116355_.getArmPose() != Cultist.CultistArmPose.CROSSED) {
                     super.render(p_116352_, p_116353_, p_116354_, p_116355_, p_116356_, p_116357_, p_116358_, p_116359_, p_116360_, p_116361_);
                 }
             }

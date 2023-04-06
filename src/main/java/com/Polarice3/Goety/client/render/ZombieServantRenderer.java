@@ -5,8 +5,6 @@ import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ZombieServantRenderer extends AbstractZombieServantRenderer<ZombieServant, ZombieServantModel<ZombieServant>> {
    public ZombieServantRenderer(EntityRendererProvider.Context p_174456_) {

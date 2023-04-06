@@ -2,8 +2,7 @@
   "name": "Expert Nether Ritual",
   "icon": "minecraft:nether_bricks",
   "category": "goety:rituals",
-  "advancement": "goety:goety/read_nether_book",
-  "secret": true,
+  "advancement": "minecraft:story/enter_the_nether",
   "sortnum": 7,
   "pages": [
     {
@@ -18,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Wither Skeletons are the charred remains of the Fortress' original inhabitants, ones Apollyon called 'Nephilim', betrayed by their own flaming creations. Even in death, they still hold magical power, and perhaps even retained some arcane knowledge for advanced magics. Perhaps the Warts growing from the anguish of the damned also holds some of its victims' knowledge as well."
+      "text": "The Wither Skeletons are the charred remains of the Fortress' original inhabitants, ones Nether Cultists called 'Nephilim', betrayed by their own flaming creations. Even in death, they still hold magical power, and perhaps even retained some arcane knowledge for advanced magics. Perhaps the Warts growing from the anguish of the damned also holds some of its victims' knowledge as well."
     }
   ]
 }

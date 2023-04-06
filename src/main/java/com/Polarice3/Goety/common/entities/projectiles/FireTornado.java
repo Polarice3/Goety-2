@@ -37,17 +37,17 @@ import java.util.UUID;
 public class FireTornado extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FireTornado.class, EntityDataSerializers.OPTIONAL_UUID);
     private int lifespan;
-    private int totallife;
+    private int totalLife;
 
     public FireTornado(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
         this.noPhysics = false;
         this.lifespan = 0;
-        this.totallife = 60;
+        this.totalLife = 60;
     }
 
-    public FireTornado(Level p_i1794_1_, LivingEntity p_i1794_2_, double p_i1794_3_, double p_i1794_5_, double p_i1794_7_) {
-        super(ModEntityType.FIRE_TORNADO.get(), p_i1794_2_, p_i1794_3_, p_i1794_5_, p_i1794_7_, p_i1794_1_);
+    public FireTornado(Level level, LivingEntity shooter, double xPower, double yPower, double zPower) {
+        super(ModEntityType.FIRE_TORNADO.get(), shooter, xPower, yPower, zPower, level);
     }
 
     public FireTornado(Level p_i1795_1_, double p_i1795_2_, double p_i1795_4_, double p_i1795_6_, double p_i1795_8_, double p_i1795_10_, double p_i1795_12_) {
@@ -58,12 +58,12 @@ public class FireTornado extends AbstractHurtingProjectile {
         return 0.68F;
     }
 
-    public int getTotallife() {
-        return totallife;
+    public int getTotalLife() {
+        return totalLife;
     }
 
-    public void setTotallife(int totallife) {
-        this.totallife = totallife;
+    public void setTotalLife(int totalLife) {
+        this.totalLife = totalLife;
     }
 
     public int getLifespan() {
@@ -94,7 +94,7 @@ public class FireTornado extends AbstractHurtingProjectile {
 
     public void tick() {
         super.tick();
-        if (this.lifespan < getTotallife()){
+        if (this.lifespan < getTotalLife()){
             ++this.lifespan;
         } else {
             this.remove();
@@ -110,11 +110,14 @@ public class FireTornado extends AbstractHurtingProjectile {
                         FireTornado fireTornadoEntity = new FireTornado(this.level, this.getTrueOwner(), d1, d2, d3);
                         fireTornadoEntity.setOwnerId(this.getTrueOwner().getUUID());
                         fireTornadoEntity.setLifespan(this.getLifespan());
-                        fireTornadoEntity.setTotallife(this.getTotallife());
+                        fireTornadoEntity.setTotalLife(this.getTotalLife());
                         fireTornadoEntity.setPos(this.getX(), this.getY(), this.getZ());
                         this.level.addFreshEntity(fireTornadoEntity);
                         this.remove();
                     }
+                } else {
+                    this.setLifespan(this.getTotalLife());
+                    this.remove();
                 }
             }
         }
@@ -122,7 +125,7 @@ public class FireTornado extends AbstractHurtingProjectile {
             this.playSound(ModSounds.FIRE_TORNADO_AMBIENT.get(), 1.0F, 0.5F);
         }
         List<LivingEntity> targets = new ArrayList<>();
-        for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(AreaofEffect()))) {
+        for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(AreaOfEffect()))) {
             if (this.getTrueOwner() != null) {
                 if (entity != this.getTrueOwner() && !entity.isAlliedTo(this.getTrueOwner()) && !this.getTrueOwner().isAlliedTo(entity)) {
                     targets.add(entity);
@@ -160,15 +163,17 @@ public class FireTornado extends AbstractHurtingProjectile {
     }
 
     public void remove() {
-        if (!this.level.isClientSide && this.getLifespan() >= this.getTotallife()){
-            ServerLevel serverWorld = (ServerLevel) this.level;
-            for(int k = 0; k < 200; ++k) {
-                float f2 = random.nextFloat() * 4.0F;
-                float f1 = random.nextFloat() * ((float)Math.PI * 2F);
-                double d1 = Mth.cos(f1) * f2;
-                double d2 = 0.01D + random.nextDouble() * 0.5D;
-                double d3 = Mth.sin(f1) * f2;
-                serverWorld.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+        if (!this.level.isClientSide){
+            if (this.getLifespan() >= this.getTotalLife()) {
+                ServerLevel serverWorld = (ServerLevel) this.level;
+                for (int k = 0; k < 200; ++k) {
+                    float f2 = random.nextFloat() * 4.0F;
+                    float f1 = random.nextFloat() * ((float) Math.PI * 2F);
+                    double d1 = Mth.cos(f1) * f2;
+                    double d2 = 0.01D + random.nextDouble() * 0.5D;
+                    double d3 = Mth.sin(f1) * f2;
+                    serverWorld.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+                }
             }
         }
         this.discard();
@@ -181,7 +186,7 @@ public class FireTornado extends AbstractHurtingProjectile {
         MobUtil.push(livingEntity, vector3d1.x, 0.2, vector3d1.z);
     }
 
-    public double AreaofEffect(){
+    public double AreaOfEffect(){
         return 2.0D;
     }
 
@@ -221,7 +226,7 @@ public class FireTornado extends AbstractHurtingProjectile {
             this.setLifespan(compound.getInt("Lifespan"));
         }
         if (compound.contains("TotalLife")) {
-            this.setTotallife(compound.getInt("TotalLife"));
+            this.setTotalLife(compound.getInt("TotalLife"));
         }
 
     }
@@ -232,7 +237,7 @@ public class FireTornado extends AbstractHurtingProjectile {
             compound.putUUID("Owner", this.getOwnerId());
         }
         compound.putInt("Lifespan", this.getLifespan());
-        compound.putInt("TotalLife", this.getTotallife());
+        compound.putInt("TotalLife", this.getTotalLife());
     }
 
     protected ParticleOptions getTrailParticle() {

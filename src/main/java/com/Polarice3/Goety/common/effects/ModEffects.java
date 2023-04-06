@@ -23,6 +23,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> SUMMON_DOWN = EFFECTS.register("summon_down",
             () -> new ModEffect(MobEffectCategory.HARMFUL, 0));
 
+    public static final RegistryObject<MobEffect> GOLD_TOUCHED = EFFECTS.register("gold_touched",
+            () -> new ModEffect(MobEffectCategory.HARMFUL, 4866583));
+
     public static final RegistryObject<MobEffect> BURN_HEX = EFFECTS.register("burn_hex",
             () -> new ModEffect(MobEffectCategory.HARMFUL, 2236962));
 

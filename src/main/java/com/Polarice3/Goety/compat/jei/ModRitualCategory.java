@@ -142,7 +142,10 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                     .addItemStack(new ItemStack(Items.ENCHANTING_TABLE));
         } else if (recipe.getCraftType().contains("adept_nether")){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
-                    .addItemStack(new ItemStack(Items.NETHERRACK));
+                    .addItemStack(new ItemStack(Items.BLACKSTONE));
+        } else if (recipe.getCraftType().contains("expert_nether")){
+            recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
+                    .addItemStack(new ItemStack(Items.NETHER_BRICKS));
         } else if (recipe.getCraftType().contains("sabbath")){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.CRYING_OBSIDIAN));

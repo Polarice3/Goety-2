@@ -10,8 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DrownedServantModel<T extends ZombieServant> extends ZombieServantModel<T> {
    public DrownedServantModel(ModelPart p_170534_) {

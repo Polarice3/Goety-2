@@ -45,6 +45,9 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheEnchantability;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> PhilosophersMaceDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceDurability;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
 
@@ -163,6 +166,10 @@ public class MainConfig {
                 .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
         DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
                 .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+        PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
+                .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
+        PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")
+                .defineInRange("philosophersMaceDurability", 128, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Villagers");
         VillagerHate = BUILDER.comment("Wearing a Dark Helm and Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 100 or more reputation among them, Default: false")

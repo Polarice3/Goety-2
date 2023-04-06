@@ -90,8 +90,8 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
             this.leftLeg.zRot = 0.0F;
         }
 
-        Cultist.ArmPose armPose = entityIn.getArmPose();
-        switch (armPose){
+        Cultist.CultistArmPose cultistArmPose = entityIn.getArmPose();
+        switch (cultistArmPose){
             case CROSSED:
                 this.rightArm.xRot = 0;
                 this.leftArm.xRot = 0;
@@ -223,7 +223,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
             this.rightArm.yRot = 0.0F;
         }
 
-        boolean flag = armPose == Cultist.ArmPose.CROSSED;
+        boolean flag = cultistArmPose == Cultist.CultistArmPose.CROSSED;
         this.arms.visible = flag;
         this.leftArm.visible = !flag;
         this.rightArm.visible = !flag;
@@ -267,7 +267,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
     private void RightArmPoses (InteractionHand hand, T entityIn){
         ItemStack itemstack = entityIn.getItemInHand(hand);
         UseAnim useAction = itemstack.getUseAnimation();
-        if (entityIn.getArmPose() != Cultist.ArmPose.CROSSED){
+        if (entityIn.getArmPose() != Cultist.CultistArmPose.CROSSED){
             switch (useAction){
                 case CROSSBOW:
                     this.rightArmPose = ArmPose.CROSSBOW_HOLD;
@@ -294,7 +294,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
     private void LeftArmPoses (InteractionHand hand, T entityIn){
         ItemStack itemstack = entityIn.getItemInHand(hand);
         UseAnim useAction = itemstack.getUseAnimation();
-        if (entityIn.getArmPose() != Cultist.ArmPose.CROSSED){
+        if (entityIn.getArmPose() != Cultist.CultistArmPose.CROSSED){
             switch (useAction){
                 case CROSSBOW:
                     this.leftArmPose = ArmPose.CROSSBOW_HOLD;

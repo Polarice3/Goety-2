@@ -21,6 +21,8 @@ public record CastSpells(int spellInt) {
             case 12 -> new SoulBoltSpell();
             case 13 -> new LightningSpell();
             case 14 -> new HauntedSkullSpell();
+            case 15 -> new FireballSpell();
+            case 16 -> new LavaballSpell();
             default -> null;
         };
     }

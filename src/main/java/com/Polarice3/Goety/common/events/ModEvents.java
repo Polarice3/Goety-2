@@ -25,6 +25,7 @@ import com.Polarice3.Goety.common.entities.util.StormEntity;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
+import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -59,6 +60,7 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -70,6 +72,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -299,6 +302,28 @@ public class ModEvents {
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ParticleTypes.WITCH, livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBreakingBlock(BlockEvent.BreakEvent event){
+        Player player = event.getPlayer();
+        if (player.getMainHandItem().getItem() instanceof PhilosophersMaceItem){
+            if (event.getState() == Blocks.NETHER_GOLD_ORE.defaultBlockState()){
+                if (!player.level.isClientSide) {
+                    if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
+                        ItemStack itemStack = new ItemStack(Items.RAW_GOLD);
+                        double d0 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                        double d1 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                        double d2 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                        ItemEntity itementity = new ItemEntity(player.level, (double) event.getPos().getX() + d0, (double) event.getPos().getY() + d1, (double) event.getPos().getZ() + d2, itemStack);
+                        itementity.setDefaultPickUpDelay();
+                        player.level.addFreshEntity(itementity);
+                    }
+                    player.level.setBlockAndUpdate(event.getPos(), Blocks.AIR.defaultBlockState());
+                    event.setCanceled(true);
                 }
             }
         }
@@ -542,6 +567,16 @@ public class ModEvents {
         LivingEntity killed = event.getEntity();
         Entity killer = event.getSource().getEntity();
         Level world = killed.getCommandSenderWorld();
+        if (killed instanceof PathfinderMob){
+            if (killed.hasEffect(ModEffects.GOLD_TOUCHED.get())){
+                if (world.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    int amp = Objects.requireNonNull(killed.getEffect(ModEffects.GOLD_TOUCHED.get())).getAmplifier() + 1;
+                    for (int i = 0; i < (killed.level.random.nextInt(3) + 1) * amp; ++i) {
+                        killed.spawnAtLocation(new ItemStack(Items.GOLD_NUGGET));
+                    }
+                }
+            }
+        }
         if (killer instanceof Player player){
             int looting = Mth.clamp(EnchantmentHelper.getMobLooting(player), 0, 3);
             if (world.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)){

@@ -34,6 +34,16 @@ public class ModEntityType {
                     .sized(1.0f,1.0f)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<ModFireball>> MOD_FIREBALL = register("fireball",
+            EntityType.Builder.<ModFireball>of(ModFireball::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<Lavaball>> LAVABALL = register("lavaball",
+            EntityType.Builder.<Lavaball>of(Lavaball::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<SwordProjectile>> SWORD = register("sword",
             EntityType.Builder.<SwordProjectile>of(SwordProjectile::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)

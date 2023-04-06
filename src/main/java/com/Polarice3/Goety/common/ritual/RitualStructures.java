@@ -98,6 +98,21 @@ public class RitualStructures {
                 if (pState.getBlock() == Blocks.SOUL_FIRE) {
                     pTileEntity.third.add(pPos);
                 }
+            case "adept_nether":
+                if (pState.getBlock() == Blocks.BASALT
+                        || pState.getBlock() == Blocks.POLISHED_BASALT
+                        || pState.getBlock() == Blocks.SMOOTH_BASALT) {
+                    pTileEntity.first.add(pPos);
+                }
+                if (pState.getBlock() == Blocks.BLACKSTONE
+                        || pState.getBlock() == Blocks.POLISHED_BLACKSTONE
+                        || pState.getBlock() == Blocks.POLISHED_BLACKSTONE_BRICKS
+                        || pState.getBlock() == Blocks.CHISELED_POLISHED_BLACKSTONE) {
+                    pTileEntity.second.add(pPos);
+                }
+                if (pState.getBlock() == Blocks.GLOWSTONE) {
+                    pTileEntity.third.add(pPos);
+                }
             case "expert_nether":
                 if (pState.getBlock() == Blocks.WITHER_SKELETON_SKULL || pState.getBlock() == Blocks.WITHER_SKELETON_WALL_SKULL) {
                     pTileEntity.first.add(pPos);
@@ -137,9 +152,6 @@ public class RitualStructures {
                 second = 16;
                 third = 8;
                 break;
-            case "minor_nether":
-                first = 1;
-                break;
             case "forge":
                 first = 1;
                 second = 3;
@@ -150,7 +162,7 @@ public class RitualStructures {
                 second = 1;
                 third = 2;
                 break;
-            case "sabbath":
+            case "sabbath", "adept_nether":
                 first = 8;
                 second = 16;
                 third = 4;

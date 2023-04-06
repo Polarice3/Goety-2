@@ -20,8 +20,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
@@ -70,8 +68,8 @@ public class Cultist extends Raider implements ICustomAttributes {
         }
     }
 
-        public ArmPose getArmPose() {
-        return ArmPose.CROSSED;
+        public CultistArmPose getArmPose() {
+        return CultistArmPose.CROSSED;
     }
 
     @Override
@@ -105,7 +103,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         }
     }
 
-        public static enum ArmPose {
+    public static enum CultistArmPose {
         CROSSED,
         ATTACKING,
         SPELLCASTING,

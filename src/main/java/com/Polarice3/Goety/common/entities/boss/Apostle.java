@@ -70,8 +70,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -494,21 +492,21 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
-        public ArmPose getArmPose() {
+    public CultistArmPose getArmPose() {
         if (this.isDeadOrDying()){
-            return ArmPose.DYING;
+            return CultistArmPose.DYING;
         } else if (this.getMainHandItem().getItem() instanceof BowItem) {
             if (this.isAggressive() && !this.isSpellcasting() && !this.isSettingUpSecond()){
-                return ArmPose.BOW_AND_ARROW;
+                return CultistArmPose.BOW_AND_ARROW;
             } else if (this.isSpellcasting()){
-                return ArmPose.SPELL_AND_WEAPON;
+                return CultistArmPose.SPELL_AND_WEAPON;
             } else if (this.isSettingUpSecond()){
-                return ArmPose.SPELL_AND_WEAPON;
+                return CultistArmPose.SPELL_AND_WEAPON;
             } else {
-                return ArmPose.CROSSED;
+                return CultistArmPose.CROSSED;
             }
         } else {
-            return ArmPose.CROSSED;
+            return CultistArmPose.CROSSED;
         }
     }
 
@@ -701,6 +699,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
         if (this.isSettingUpSecond()){
+            this.setFiring(false);
+            this.f = 0;
             this.heal(1.0F);
             for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0D), ALIVE)) {
                 if (!entity.isAlliedTo(this)) {
@@ -924,7 +924,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.teleportTowards(target);
             }
         }
-        if (this.isFiring()) {
+        if (this.isFiring() && !this.isSettingUpSecond()) {
             ++this.f;
             if (this.f % 2 == 0 && this.f < 10) {
                 for (Entity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), ALIVE)) {
@@ -1635,6 +1635,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return !this.mob.isSecondPhase() && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !this.mob.isCasting();
+        }
+
         protected boolean HaveBow() {
             return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
         }
@@ -1653,6 +1657,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return this.mob.isSecondPhase() && this.mob.getHealth() > this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !this.mob.isCasting();
+        }
+
         protected boolean HaveBow() {
             return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
         }
@@ -1669,6 +1677,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         @Override
         public boolean canUse() {
             return this.mob.isSecondPhase() && this.mob.getHealth() <= this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
+        }
+
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !this.mob.isCasting();
         }
 
         protected boolean HaveBow() {

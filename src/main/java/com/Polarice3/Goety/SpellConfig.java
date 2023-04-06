@@ -20,6 +20,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
@@ -36,12 +38,15 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LavaballDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FireballDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> LavaballDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulBoltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceChunkDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
@@ -93,6 +98,10 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                 .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
+        FireballCost = BUILDER.comment("Fireball Spell Cost, Default: 4")
+                .defineInRange("fireballCost", 4, 0, Integer.MAX_VALUE);
+        LavaballCost = BUILDER.comment("Lava Bomb Spell Cost, Default: 16")
+                .defineInRange("lavaBombCost", 16, 0, Integer.MAX_VALUE);
         SoulBoltCost = BUILDER.comment("Soul Bolt Spell Cost, Default: 4")
                 .defineInRange("soulBoltCost", 4, 0, Integer.MAX_VALUE);
         IllusionCost = BUILDER.comment("Illusion Spell Cost, Default: 20")
@@ -125,6 +134,8 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullTime", 20, 0, 72000);
         FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
                 .defineInRange("feastTime", 20, 0, 72000);
+        LavaballDuration = BUILDER.comment("Time to cast Lava Bomb Spell, Default: 20")
+                .defineInRange("lavaBombTime", 20, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")
                 .defineInRange("illusionTime", 40, 0, 72000);
         IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 40")
@@ -149,6 +160,10 @@ public class SpellConfig {
         BUILDER.push("Spell Power");
         FangDamage = BUILDER.comment("How much base damage Magic Fangs deals, Default: 6.0")
                 .defineInRange("fangDamage", 6.0, 1.0, Double.MAX_VALUE);
+        FireballDamage = BUILDER.comment("How much base damage Fireballs deal when directly hitting a mob, Default: 5.0")
+                .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
+        LavaballDamage = BUILDER.comment("How much base damage Lavaballs deal when directly hitting a mob, Default: 6.0")
+                .defineInRange("lavaballDamage", 6.0, 1.0, Double.MAX_VALUE);
         SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")
                 .defineInRange("soulBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
         IceChunkDamage = BUILDER.comment("How much base damage Ice Chunks deals, Default: 8.0")
