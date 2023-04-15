@@ -20,4 +20,8 @@ public class ModMathHelper {
     public static float modelDegrees(float degree){
         return (float) ((degree * Math.PI)/180.0F);
     }
+
+    public static double rgbToSpeed(double colorCode){
+        return colorCode/255.0D;
+    }
 }

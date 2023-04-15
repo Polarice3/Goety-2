@@ -8,6 +8,12 @@
       "text": "Magical cores are used to create all kinds of spells and equipments and can be crafted through all kinds of rituals. Specific types of magical cores can also be obtained by putting a Totem Head on a Crafting Table."
     },
     {
+      "type": "patchouli:spotlight",
+      "item": "goety:empty_focus",
+      "title": "Empty Focus",
+      "text": "The Empty Focus is the core for all magical Focuses. It is crafted by placing an Amethyst Shard onto a Cursed Infuser."
+    },
+    {
       "type": "goety:ritual",
       "recipe": "goety:animation_core"
     },

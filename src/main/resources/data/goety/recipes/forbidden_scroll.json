@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:forbidden_fragment"
+    }
+  },
+  "result": {
+    "item": "goety:forbidden_scroll",
+    "count": 1
+  }
+}

@@ -29,13 +29,4 @@ public class SoulLightSpell extends InstantCastSpells {
         worldIn.addFreshEntity(soulLightEntity);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
     }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        SoulLight soulLightEntity = new SoulLight(worldIn, entityLiving);
-        soulLightEntity.setOwner(entityLiving);
-        soulLightEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.5F, 1.0F);
-        worldIn.addFreshEntity(soulLightEntity);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
-    }
 }

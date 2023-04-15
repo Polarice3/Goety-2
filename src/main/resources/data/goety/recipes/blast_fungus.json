@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#G#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:snap_fungus"
+    },
+    "G":
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  },
+  "result":
+  {
+    "item": "goety:blast_fungus",
+    "count": 2
+  }
+}

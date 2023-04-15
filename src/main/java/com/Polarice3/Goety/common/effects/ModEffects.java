@@ -32,6 +32,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> SAPPED = EFFECTS.register("sapped",
             () -> new ModEffect(MobEffectCategory.HARMFUL, 197379));
 
+    public static final RegistryObject<MobEffect> CLIMBING = EFFECTS.register("climbing",
+            () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xf5e895));
+
     public static final RegistryObject<MobEffect> BUFF = EFFECTS.register("buff",
             () -> new ModEffect(MobEffectCategory.BENEFICIAL, 9643043)
                     .addAttributeModifier(Attributes.ATTACK_DAMAGE, "f033b086-8a5e-44f2-8655-888dd700691c",

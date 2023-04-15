@@ -1,0 +1,23 @@
+{
+  "name": "Wartlings",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Wartlings have the same properties as Spiders, though they are much smaller and weaker. A Wartling can only exist for 9 seconds before either dying or returning back to its user, where it will disappear and heal the user the amount of health it had."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wartling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Should the user have a negative effect on them, the next Wartling will take and 'store' that effect in them, which will cause them to leave a cloud of the stored effect once they perish. The stored effect does not effect them and they cannot be effected by the same effect as the one they stored. These Wartlings do not return to their user."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Inversely, if the user has a positive effect, the next Warling will also take that effect. These Wartlings do return to their user, and will apply their buff back to them."
+    }
+  ]
+}

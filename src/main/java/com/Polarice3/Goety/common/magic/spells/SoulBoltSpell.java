@@ -40,9 +40,4 @@ public class SoulBoltSpell extends InstantCastSpells {
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
 //        this.IncreaseInfamy(SpellConfig.FireballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.WandResult(worldIn, entityLiving);
-    }
 }

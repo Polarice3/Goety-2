@@ -2,6 +2,8 @@
   "name": "Ascension to Undeath",
   "icon": "goety:undeath_potion",
   "category": "goety:crafts",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
   "pages": [
     {
       "type": "patchouli:text",

@@ -16,6 +16,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
@@ -24,10 +25,12 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.ModPotions;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
@@ -35,6 +38,7 @@ import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
 import com.Polarice3.Goety.compat.curios.CuriosCompat;
 import com.Polarice3.Goety.init.ModProxy;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -42,16 +46,19 @@ import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -94,6 +101,7 @@ public class Goety {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupEntityAttributeCreation);
+        modEventBus.addListener(this::SpawnPlacementEvent);
         modEventBus.addListener(this::enqueueIMC);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MainConfig.SPEC, "goety.toml");
@@ -115,6 +123,7 @@ public class Goety {
         ModRecipeSerializer.init();
         ModSpawnEggs.init();
         ModEffects.init();
+        ModPotions.init();
         ModSounds.init();
     }
 
@@ -123,7 +132,6 @@ public class Goety {
 
         CuriosCompat.setup(event);
         event.enqueueWork(() -> {
-            SpawnPlacement();
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
                     this.setSuccess(ArmorItem.dispenseArmor(source, stack));
@@ -134,15 +142,28 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_LOG.get(), ModBlocks.STRIPPED_HAUNTED_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
             WoodType.register(ModWoodType.HAUNTED);
+            addBrewingRecipes();
         });
     }
 
-    public static void SpawnPlacement(){
-        SpawnPlacements.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules);
+    private static void addBrewingRecipes(){
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModItems.SNAP_FUNGUS.get()), Ingredient.of(Items.LILY_OF_THE_VALLEY), new ItemStack(ModItems.BERSERK_FUNGUS.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setLingeringPotion(Potions.AWKWARD)), Ingredient.of(ModItems.SPIDER_EGG.get()), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.REDSTONE), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setPotion(ModPotions.LONG_CLIMBING.get())), Ingredient.of(Items.GUNPOWDER), ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.CLIMBING.get())), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.CLIMBING.get())));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(ModPotionUtil.setSplashPotion(ModPotions.LONG_CLIMBING.get())), Ingredient.of(Items.DRAGON_BREATH), ModPotionUtil.setLingeringPotion(ModPotions.LONG_CLIMBING.get())));
     }
 
     private void setupEntityAttributeCreation(final EntityAttributeCreationEvent event) {
         event.put(ModEntityType.APOSTLE.get(), Apostle.setCustomAttributes().build());
+        event.put(ModEntityType.WARLOCK.get(), Warlock.setCustomAttributes().build());
+        event.put(ModEntityType.WARTLING.get(), Wartling.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinServant.setCustomAttributes().build());
@@ -164,6 +185,11 @@ public class Goety {
         event.put(ModEntityType.CONQUILLAGER.get(), Conquillager.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
+    }
+
+    private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){
+        event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

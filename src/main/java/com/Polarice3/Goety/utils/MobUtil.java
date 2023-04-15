@@ -1,17 +1,26 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
+import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
@@ -64,6 +73,21 @@ public class MobUtil {
             } else {
                 return false;
             }
+        }
+    }
+
+    public static void ClimbAnyWall(LivingEntity livingEntity){
+        Vec3 movement = livingEntity.getDeltaMovement();
+        if (livingEntity instanceof Player player){
+            if (!player.getAbilities().flying && player.horizontalCollision){
+                movement = new Vec3(movement.x, 0.2D, movement.z);
+            }
+            player.setDeltaMovement(movement);
+        } else {
+            if (livingEntity.horizontalCollision){
+                movement = new Vec3(movement.x, 0.2D, movement.z);
+            }
+            livingEntity.setDeltaMovement(movement);
         }
     }
 
@@ -163,6 +187,13 @@ public class MobUtil {
 
     public static boolean healthIsHalved(LivingEntity livingEntity){
         return livingEntity.getHealth() <= livingEntity.getMaxHealth()/2;
+    }
+
+    public static void releaseAllPois(Villager villager){
+        villager.releasePoi(MemoryModuleType.HOME);
+        villager.releasePoi(MemoryModuleType.JOB_SITE);
+        villager.releasePoi(MemoryModuleType.POTENTIAL_JOB_SITE);
+        villager.releasePoi(MemoryModuleType.MEETING_POINT);
     }
 
     /**
@@ -265,5 +296,73 @@ public class MobUtil {
         Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         Vec3 endPos = new Vec3(entity.getX(), entity.level.getMinBuildHeight(), entity.getZ());
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+    }
+
+    public static void throwSnapFungus(LivingEntity livingEntity, Level level){
+        SnapFungus blastFungus = new SnapFungus(livingEntity, level);
+        throwFungus(blastFungus, livingEntity, level);
+    }
+
+    public static void throwBlastFungus(LivingEntity livingEntity, Level level){
+        BlastFungus blastFungus = new BlastFungus(livingEntity, level);
+        throwFungus(blastFungus, livingEntity, level);
+    }
+
+    public static void throwFungus(Projectile projectile, LivingEntity livingEntity, Level level){
+        float f2 = 0.35F;
+        if (BlockFinder.emptySquareSpace(level, livingEntity.blockPosition(), 13, true)){
+            f2 = 0.75F;
+        } else if (BlockFinder.emptySquareSpace(level, livingEntity.blockPosition(), 6, true)){
+            f2 = 0.55F;
+        }
+        projectile.shootFromRotation(livingEntity, -90.0F, 0.0F, 0.0F, f2, 12.0F);
+        level.addFreshEntity(projectile);
+    }
+
+    public static void shoot(LivingEntity livingEntity, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
+        Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
+        livingEntity.setDeltaMovement(vec3);
+    }
+
+    public static int getPotentialBonusSpawns(Raid.RaiderType p_219829_, RandomSource p_219830_, int p_219831_, DifficultyInstance p_219832_, boolean p_219833_) {
+        Difficulty difficulty = p_219832_.getDifficulty();
+        boolean flag = difficulty == Difficulty.EASY;
+        boolean flag1 = difficulty == Difficulty.NORMAL;
+        int i;
+        switch (p_219829_) {
+            case WITCH -> {
+                if (flag || p_219831_ <= 2 || p_219831_ == 4) {
+                    return 0;
+                }
+                i = 1;
+            }
+            case PILLAGER, VINDICATOR -> {
+                if (flag) {
+                    i = p_219830_.nextInt(2);
+                } else if (flag1) {
+                    i = 1;
+                } else {
+                    i = 2;
+                }
+            }
+            case RAVAGER -> i = !flag && p_219833_ ? 1 : 0;
+            default -> {
+                return 0;
+            }
+        }
+
+        return i > 0 ? p_219830_.nextInt(i + 1) : 0;
+    }
+
+    public static boolean isFinalWave(Raid raid) {
+        return raid.getGroupsSpawned() == raid.getNumGroups(raid.getLevel().getDifficulty());
+    }
+
+    public static boolean hasBonusWave(Raid raid) {
+        return raid.getBadOmenLevel() > 1;
+    }
+
+    public static boolean shouldSpawnBonusGroup(Raid raid) {
+        return isFinalWave(raid) && raid.getTotalRaidersAlive() == 0 && hasBonusWave(raid);
     }
 }

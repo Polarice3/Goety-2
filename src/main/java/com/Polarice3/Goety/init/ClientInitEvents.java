@@ -7,10 +7,7 @@ import com.Polarice3.Goety.client.gui.screen.inventory.FocusBagScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.SoulItemScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.WandandBagScreen;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
-import com.Polarice3.Goety.client.particles.GlowingParticle;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.NoneParticle;
-import com.Polarice3.Goety.client.particles.WraithParticle;
+import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
 import com.Polarice3.Goety.client.render.model.*;
@@ -27,6 +24,7 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HeartParticle;
+import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -80,8 +78,10 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.ICE_BOUQUET, IceBouquetModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_CHUNK, IceChunkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE, ApostleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZOMBIE_VILLAGER_SERVANT, VillagerServantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SKELETON_VILLAGER_SERVANT, SkeletonVillagerModel::createBodyLayer);
@@ -125,6 +125,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SOUL_ABSORBER.get(), SoulAbsorberRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ICE_BOUQUET_TRAP.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SCULK_DEVOURER.get(), ModBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.FORBIDDEN_GRASS.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityType.NETHER_METEOR.get(), NetherMeteorRenderer::new);
@@ -141,10 +142,15 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
+        event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
+        event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
@@ -184,6 +190,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
@@ -192,6 +199,8 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
+        event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
+        event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
     }
 
 }

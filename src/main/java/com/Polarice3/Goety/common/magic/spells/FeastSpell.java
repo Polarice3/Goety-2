@@ -26,6 +26,11 @@ public class FeastSpell extends ChargingSpells {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.ILL;
+    }
+
     public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
         int i = (int) entityLiving.getX();
         int j = (int) entityLiving.getY();

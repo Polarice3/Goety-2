@@ -10,17 +10,20 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
+import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
@@ -38,7 +41,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,17 +50,23 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.entity.animal.horse.Mule;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -138,6 +147,39 @@ public class ModEvents {
                 serverWorld.setWeatherParameters(0, 6000, true, true);
             }
         }
+        if (entity instanceof Raider raider){
+            if (world instanceof ServerLevel serverLevel) {
+                if (raider.hasActiveRaid()) {
+                    Raid raid = raider.getCurrentRaid();
+                    if (raid != null && raid.isActive() && !raid.isBetweenWaves() && !raid.isOver() && !raid.isStopped()) {
+                        int h = raid.getGroupsSpawned() + 1;
+                        boolean flag1 = MobUtil.shouldSpawnBonusGroup(raid);
+                        int warlockNum = raid.getGroupsSpawned() == 4 ? 1 : raid.getGroupsSpawned() == 5 ? 2 : raid.getGroupsSpawned() == 7 ? 1 : 0;
+                        if (entity == raid.getLeader(raider.getWave())){
+                            for (int i = 0; i < warlockNum + MobUtil.getPotentialBonusSpawns(Raid.RaiderType.WITCH, serverLevel.random, h, serverLevel.getCurrentDifficultyAt(raid.getCenter()), flag1); ++i){
+                                Warlock warlock = new Warlock(ModEntityType.WARLOCK.get(), serverLevel);
+                                warlock.setPos(entity.position());
+                                warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
+                                if (serverLevel.random.nextFloat() <= 0.25F){
+                                    AbstractHorse donkey = new Donkey(EntityType.DONKEY, serverLevel);
+                                    if (serverLevel.random.nextFloat() <= 0.25F){
+                                        donkey = new Mule(EntityType.MULE, serverLevel);
+                                    }
+                                    donkey.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
+                                    donkey.setAge(0);
+                                    donkey.setTamed(true);
+                                    donkey.setOwnerUUID(warlock.getUUID());
+                                    donkey.setPos(warlock.position());
+                                    serverLevel.addFreshEntity(donkey);
+                                    warlock.startRiding(donkey);
+                                }
+                                serverLevel.addFreshEntity(warlock);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -200,6 +242,15 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void SpecialSpawnEvents(LivingSpawnEvent.CheckSpawn event){
+        if (event.getEntity() instanceof SpellcasterIllager || event.getEntity() instanceof Witch || event.getEntity() instanceof Cultist){
+            if (event.getSpawnReason() == MobSpawnType.STRUCTURE){
+                event.getEntity().addTag(ConstantPaths.structureMob());
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void PlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         Level world = player.level;
@@ -207,37 +258,41 @@ public class ModEvents {
         int skeletons = 0;
         int wraith = 0;
         int skull = 0;
-        for (Owned summonedEntity : world.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(32.0D))){
-            if (summonedEntity.getTrueOwner() == player && summonedEntity.isAlive()){
-                if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
-                    ++zombies;
-                    if (SpellConfig.ZombieLimit.get() < zombies){
-                        if (summonedEntity.tickCount % 20 == 0){
-                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+        if (world instanceof ServerLevel serverLevel){
+            for (Entity entity : serverLevel.getAllEntities()){
+                if (entity instanceof Owned summonedEntity){
+                    if (summonedEntity.getTrueOwner() == player && summonedEntity.isAlive()){
+                        if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
+                            ++zombies;
+                            if (zombies > SpellConfig.ZombieLimit.get()){
+                                if (summonedEntity.tickCount % 20 == 0){
+                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                }
+                            }
                         }
-                    }
-                }
-                if (summonedEntity instanceof AbstractSkeletonServant){
-                    ++skeletons;
-                    if (SpellConfig.SkeletonLimit.get() < skeletons){
-                        if (summonedEntity.tickCount % 20 == 0){
-                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                        if (summonedEntity instanceof AbstractSkeletonServant){
+                            ++skeletons;
+                            if (skeletons > SpellConfig.SkeletonLimit.get()){
+                                if (summonedEntity.tickCount % 20 == 0){
+                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                }
+                            }
                         }
-                    }
-                }
-                if (summonedEntity instanceof AbstractWraith){
-                    ++wraith;
-                    if (SpellConfig.WraithLimit.get() < wraith){
-                        if (summonedEntity.tickCount % 20 == 0){
-                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                        if (summonedEntity instanceof AbstractWraith){
+                            ++wraith;
+                            if (wraith > SpellConfig.WraithLimit.get()){
+                                if (summonedEntity.tickCount % 20 == 0){
+                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                }
+                            }
                         }
-                    }
-                }
-                if (summonedEntity instanceof HauntedSkull){
-                    ++skull;
-                    if (skull > 8){
-                        if (summonedEntity.tickCount % 20 == 0){
-                            summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/2);
+                        if (summonedEntity instanceof HauntedSkull){
+                            ++skull;
+                            if (skull > SpellConfig.SkullLimit.get()){
+                                if (summonedEntity.tickCount % 20 == 0){
+                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/2);
+                                }
+                            }
                         }
                     }
                 }
@@ -297,10 +352,43 @@ public class ModEvents {
                     livingEntity.removeEffectNoUpdate(MobEffects.FIRE_RESISTANCE);
                 }
             }
+            if (livingEntity.hasEffect(ModEffects.CLIMBING.get())){
+                MobUtil.ClimbAnyWall(livingEntity);
+            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ParticleTypes.WITCH, livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
+                    }
+                }
+            }
+            if (MainConfig.VillagerConvertWarlock.get()) {
+                if (livingEntity instanceof Villager villager) {
+                    if (villager.level instanceof ServerLevel serverLevel) {
+                        if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
+                            if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
+                                if (net.minecraftforge.event.ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
+                                })) {
+                                    serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Explosion.BlockInteraction.NONE);
+                                    Warlock witch = ModEntityType.WARLOCK.get().create(serverLevel);
+                                    if (witch != null) {
+                                        witch.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                        witch.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(witch.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                        witch.setNoAi(villager.isNoAi());
+                                        if (villager.hasCustomName()) {
+                                            witch.setCustomName(villager.getCustomName());
+                                            witch.setCustomNameVisible(villager.isCustomNameVisible());
+                                        }
+
+                                        witch.setPersistenceRequired();
+                                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, witch);
+                                        serverLevel.addFreshEntityWithPassengers(witch);
+                                        MobUtil.releaseAllPois(villager);
+                                        villager.discard();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -393,14 +481,18 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
-        if (CuriosFinder.hasWitchSet(event.getEntity())){
-            if (event.getItemStack().getItem() == Items.EMERALD){
-                if (event.getTarget() instanceof Witch witch){
-                    if (!witch.isAggressive() && witch.getMainHandItem().isEmpty()){
-                        event.getEntity().getMainHandItem().shrink(1);
-                        witch.playSound(SoundEvents.WITCH_CELEBRATE);
-                        witch.setItemInHand(InteractionHand.MAIN_HAND, event.getItemStack());
-                        WitchBarterGoal.setTrader(witch, event.getEntity());
+        if (!event.getLevel().isClientSide) {
+            if (CuriosFinder.hasWitchSet(event.getEntity())) {
+                if (event.getItemStack().getItem() == Items.EMERALD) {
+                    if (event.getTarget() instanceof Witch witch) {
+                        if (!witch.isAggressive() && witch.getMainHandItem().isEmpty() && witch.tickCount % 5 == 0) {
+                            event.setCanceled(true);
+                            event.setCancellationResult(InteractionResult.SUCCESS);
+                            witch.playSound(SoundEvents.WITCH_CELEBRATE);
+                            ItemStack itemstack1 = event.getItemStack().split(1);
+                            witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                            WitchBarterGoal.setTrader(witch, event.getEntity());
+                        }
                     }
                 }
             }
@@ -704,6 +796,33 @@ public class ModEvents {
                     loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
                 }
             }
+            if (living instanceof Player player){
+                if (CuriosFinder.hasWitchSet(player)){
+                    if (living.level.getServer() != null) {
+                        LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.PLAYER_WITCH);
+                        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
+                        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                        loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
+                    }
+                }
+            }
+            if (living instanceof SpellcasterIllager || living instanceof Witch || living instanceof Cultist) {
+                if (living.getTags().contains(ConstantPaths.structureMob())) {
+                    float chance = 0.025F;
+                    chance += (float) event.getLootingLevel() / 100;
+                    if (living.level.random.nextFloat() <= chance) {
+                        event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_FRAGMENT.get())));
+                    }
+                }
+            }
+            if (living.getType() == EntityType.SPIDER){
+                if (living.level.getServer() != null) {
+                    LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.SPIDER);
+                    LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
+                    LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                    loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
+                }
+            }
             if (MainConfig.TallSkullDrops.get()) {
                 if (living instanceof AbstractVillager || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
                     if (living.level.getServer() != null) {
@@ -787,8 +906,19 @@ public class ModEvents {
                         event.getAffectedEntities().removeIf(entity -> (entity instanceof Owned && ((Owned) entity).getTrueOwner() instanceof Apostle) || entity == sourceMob.getTrueOwner());
                     }
                     if (sourceMob instanceof HauntedSkull){
-                        event.getAffectedEntities().removeIf(entity -> (entity instanceof Owned && ((Owned) entity).getTrueOwner() == sourceMob.getTrueOwner() || entity == sourceMob.getTrueOwner()));
+                        event.getAffectedEntities().removeIf(entity ->
+                                (entity instanceof Owned && ((Owned) entity).getTrueOwner() == sourceMob.getTrueOwner()
+                                        || entity instanceof TamableAnimal && ((TamableAnimal) entity).getOwner() == sourceMob.getTrueOwner()
+                                        || entity == sourceMob.getTrueOwner()));
                     }
+                }
+                if (event.getExplosion().getExploder() instanceof ThrowableFungus fungus){
+                    event.getAffectedEntities().removeIf(entity ->
+                            (entity instanceof Owned && ((Owned) entity).getTrueOwner() == fungus.getOwner()
+                                    || entity instanceof TamableAnimal && ((TamableAnimal) entity).getOwner() == fungus.getOwner()
+                                    || entity instanceof AbstractHorse && fungus.getOwner() != null &&  ((AbstractHorse) entity).getOwnerUUID() == fungus.getOwner().getUUID()
+                                    || entity == fungus.getOwner()
+                                    || entity instanceof ThrowableFungus));
                 }
             }
         }

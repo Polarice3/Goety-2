@@ -4,9 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichUpdatePacket;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEUpdatePacket;
 import com.Polarice3.Goety.common.network.client.*;
-import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
-import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
-import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
+import com.Polarice3.Goety.common.network.server.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +40,8 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), TotemDeathPacket.class, TotemDeathPacket::encode, TotemDeathPacket::decode, TotemDeathPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);
+        INSTANCE.registerMessage(nextID(), SFungusExplosionPacket.class, SFungusExplosionPacket::encode, SFungusExplosionPacket::decode, SFungusExplosionPacket::consume);
+        INSTANCE.registerMessage(nextID(), SLootingExplosionPacket.class, SLootingExplosionPacket::encode, SLootingExplosionPacket::decode, SLootingExplosionPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

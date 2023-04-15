@@ -1,0 +1,17 @@
+{
+  "name": "Warlocks",
+  "icon": "goety:snap_fungus",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_warlock",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Cousins to Witches, Warlocks are hostile creatures that attack by summoning Wartlings upon their foes. If their target goes near them, they will throw a bunch of Snap Fungi in the air where they might hit said target."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock",
+      "text": "They're resistant to Explosions and Fire."
+    }
+  ]
+}

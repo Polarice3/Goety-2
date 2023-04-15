@@ -30,6 +30,11 @@ public class FangSpell extends Spells {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.ILL;
+    }
+
     public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
         Player playerEntity = (Player) entityLiving;
         int range = 16;

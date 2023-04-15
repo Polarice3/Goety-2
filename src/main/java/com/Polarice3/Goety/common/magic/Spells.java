@@ -22,7 +22,9 @@ public abstract class Spells {
 
     public abstract void WandResult(ServerLevel worldIn, LivingEntity entityLiving);
 
-    public abstract void StaffResult(ServerLevel worldIn, LivingEntity entityLiving);
+    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
+        this.WandResult(worldIn, entityLiving);
+    }
 
     public SpellType getSpellType(){
         return SpellType.NONE;
@@ -76,7 +78,9 @@ public abstract class Spells {
 
     public enum SpellType{
         NONE,
-        NECROTURGY
+        NECROTURGY,
+        NETHER,
+        ILL
     }
 
 }

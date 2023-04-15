@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "#minecraft:boats",
-    "#goety:chest_boats",
     "goety:haunted_boat"
   ]
 }

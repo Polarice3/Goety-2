@@ -17,10 +17,6 @@ public class ConstantPaths {
         return Goety.location("dark_manor");
     }
 
-    public static ResourceLocation getPortalOutpost(){
-        return Goety.location("portal_outpost");
-    }
-
     public static ResourceLocation getRuinedRitual(){
         return Goety.location("ruined_ritual");
     }

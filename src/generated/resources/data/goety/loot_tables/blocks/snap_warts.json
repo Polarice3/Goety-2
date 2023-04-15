@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "goety:snap_warts",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "2"
+              }
+            }
+          ],
+          "name": "goety:snap_fungus"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "goety:snap_warts",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "1"
+              }
+            }
+          ],
+          "name": "goety:snap_warts"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

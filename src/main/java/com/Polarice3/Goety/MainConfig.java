@@ -36,6 +36,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
 
     public static final ForgeConfigSpec.ConfigValue<Double> StaffBaseDamage;
@@ -65,6 +66,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
@@ -74,7 +76,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
-//    public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
 
@@ -140,6 +142,8 @@ public class MainConfig {
                 .define("fancierApostleDeath", false);
         InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
                 .define("interDimensionalMobs", false);
+        WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")
+                .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
         WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
                 .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
         TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
@@ -176,6 +180,8 @@ public class MainConfig {
                 .define("villagerHate", false);
         VillagerHateSpells = BUILDER.comment("Casting Spell in the presence of Villagers will cause the Player to lose a number of Reputation, set 0 to disable, Default: 0")
                 .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
+        VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
+                .define("villagerConvertToWarlock", true);
         BUILDER.pop();
         BUILDER.push("Lich");
         LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per second if they've become a Lich, Default: 1")
@@ -186,8 +192,8 @@ public class MainConfig {
                 .define("lichUndeadFriendly", true);
         LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
-/*        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
-                .define("lichScrollRequirement", true);*/
+        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
+                .define("lichScrollRequirement", true);
         BUILDER.pop();
         BUILDER.push("Misc");
         IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")

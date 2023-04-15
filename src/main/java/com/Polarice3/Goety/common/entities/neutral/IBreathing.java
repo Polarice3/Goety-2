@@ -6,7 +6,7 @@ public interface IBreathing {
 
     boolean isBreathing();
 
-    void setSpewing(boolean flag);
+    void setBreathing(boolean flag);
 
-    void doSpewing(Entity target);
+    void doBreathing(Entity target);
 }

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#$#",
+    "$W$",
+    "#$#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "minecraft:crimson_fungus"
+    },
+    "$":
+    {
+      "item": "minecraft:warped_fungus"
+    },
+    "W":
+    {
+      "item": "minecraft:nether_wart"
+    }
+  },
+  "result":
+  {
+    "item": "goety:snap_warts",
+    "count": 1
+  }
+}

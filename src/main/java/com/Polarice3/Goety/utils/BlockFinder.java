@@ -15,9 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StemBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -28,6 +26,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.function.Predicate;
 
 public class BlockFinder {
 
@@ -171,8 +171,82 @@ public class BlockFinder {
                 && level.isEmptyBlock(p_46860_.above())
                 && level.isEmptyBlock(p_46860_.west())
                 && level.isEmptyBlock(p_46860_.east())
+                && level.isEmptyBlock(p_46860_.west().north())
+                && level.isEmptyBlock(p_46860_.west().south())
+                && level.isEmptyBlock(p_46860_.east().north())
+                && level.isEmptyBlock(p_46860_.east().south())
                 && level.isEmptyBlock(p_46860_.north())
-                && level.isEmptyBlock(p_46860_.south());
+                && level.isEmptyBlock(p_46860_.south())
+                && level.isEmptyBlock(p_46860_.above().west())
+                && level.isEmptyBlock(p_46860_.above().east())
+                && level.isEmptyBlock(p_46860_.above().west().north())
+                && level.isEmptyBlock(p_46860_.above().west().south())
+                && level.isEmptyBlock(p_46860_.above().east().north())
+                && level.isEmptyBlock(p_46860_.above().east().south())
+                && level.isEmptyBlock(p_46860_.above().north())
+                && level.isEmptyBlock(p_46860_.above().south())
+                && level.isEmptyBlock(p_46860_.below().west())
+                && level.isEmptyBlock(p_46860_.below().east())
+                && level.isEmptyBlock(p_46860_.below().west().north())
+                && level.isEmptyBlock(p_46860_.below().west().south())
+                && level.isEmptyBlock(p_46860_.below().east().north())
+                && level.isEmptyBlock(p_46860_.below().east().south())
+                && level.isEmptyBlock(p_46860_.below().north())
+                && level.isEmptyBlock(p_46860_.below().south());
+    }
+
+    private static final Predicate<Block> isAir = (block) -> block == Blocks.AIR || block == Blocks.CAVE_AIR;
+
+    public static boolean emptySpaceBetween(Level level, BlockPos blockPos, int distance, boolean up){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        boolean flag = false;
+        if (up){
+            while (blockpos$mutable.getY() < blockPos.getY() + distance && level.getBlockState(blockpos$mutable).isAir()){
+                blockpos$mutable.move(Direction.UP);
+                flag = true;
+            }
+        } else {
+            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).isAir()){
+                blockpos$mutable.move(Direction.DOWN);
+                flag = true;
+            }
+        }
+        if (!level.getBlockState(blockpos$mutable).isAir()){
+            flag = false;
+        }
+        return flag;
+    }
+
+    public static boolean emptySquareSpace(Level level, BlockPos blockPos, int distance, boolean up){
+        return emptySpaceBetween(level, blockPos, distance, up)
+                && emptySpaceBetween(level, blockPos.north(), distance, up)
+                && emptySpaceBetween(level, blockPos.south(), distance, up)
+                && emptySpaceBetween(level, blockPos.west(), distance, up)
+                && emptySpaceBetween(level, blockPos.east(), distance, up)
+                && emptySpaceBetween(level, blockPos.west().north(), distance, up)
+                && emptySpaceBetween(level, blockPos.west().south(), distance, up)
+                && emptySpaceBetween(level, blockPos.east().north(), distance, up)
+                && emptySpaceBetween(level, blockPos.east().south(), distance, up);
+    }
+
+    public static boolean getVerticalBlock(Level level, BlockPos blockPos, BlockState blockState, int distance, boolean up){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        boolean flag = false;
+        if (up){
+            while (blockpos$mutable.getY() < blockPos.getY() + distance && level.getBlockState(blockpos$mutable).isAir()){
+                blockpos$mutable.move(Direction.UP);
+                flag = true;
+            }
+        } else {
+            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).isAir()){
+                blockpos$mutable.move(Direction.DOWN);
+                flag = true;
+            }
+        }
+        if (level.getBlockState(blockpos$mutable) != blockState){
+            flag = false;
+        }
+        return flag;
     }
 
 }

@@ -9,7 +9,7 @@
       "weight": 1,
       "element": {
 
-        "location": "goety:dark_manor_entrance",
+        "location": "goety:dark_manor/dark_manor_entrance",
 
         "processors": "minecraft:empty",
 

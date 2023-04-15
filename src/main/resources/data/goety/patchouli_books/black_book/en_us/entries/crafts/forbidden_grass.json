@@ -1,0 +1,18 @@
+{
+  "name": "Forbidden Grass",
+  "icon": "goety:forbidden_grass",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Forbidden Grass Block calls upon the creatures of the night that roam within the biome the block is placed in. Mobs will spawn more quickly on the block but generally follows the rules of how they spawn, ex. Light Level. The Block will burn in sunlight and will catch fire from adjacent blocks which will revert it to Dirt."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_grass",
+      "text": "The Block will drop as Dirt if not collected with Silk Touch."
+    }
+  ]
+}

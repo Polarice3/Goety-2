@@ -1,0 +1,15 @@
+{
+  "name": "Wartful Egg",
+  "icon": "goety:wartful_egg",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Surrounding a Spider Egg with Nether Warts seems to create a fertilized egg that spawns a Wartling. Spawning a Wartling would hurt the user a bit as it takes a bit of life force from them."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wartful_egg"
+    }
+  ]
+}

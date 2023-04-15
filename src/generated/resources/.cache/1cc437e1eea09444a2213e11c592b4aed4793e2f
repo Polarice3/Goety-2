@@ -1,4 +1,4 @@
-// 1.19.2	2023-03-24T13:28:08.3197557	Goety LootTables
+// 1.19.2	2023-04-10T20:19:02.5083794	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 c4b4be15dec799095f04f5ef624134ad9ef1af9b data/goety/loot_tables/blocks/cursed_bars.json
 15092ae0dd39c2b0ed0ccbad98cddadc4acd5d33 data/goety/loot_tables/blocks/cursed_cage.json
@@ -36,6 +36,7 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 8fb2fe3f301d4a6de37648e33076e6ae3a927c4b data/goety/loot_tables/blocks/shade_tiles.json
 9a08cebacfb5639c297cb782ac5fe4e6aa27a46c data/goety/loot_tables/blocks/shade_tiles_slab.json
 1648082fd99fae7a538121d8935afc9ca3d9c80d data/goety/loot_tables/blocks/shade_tiles_stairs.json
+6ab8af30da23094267d3cdd67726d7c9fcac84fd data/goety/loot_tables/blocks/snap_warts.json
 32f726a84cfdaa4a9c8006b9f26e0f17ca6598a8 data/goety/loot_tables/blocks/soul_absorber.json
 776d610d2442c89cb7e9be1ead42912146f5145b data/goety/loot_tables/blocks/stripped_haunted_log.json
 a575cbaf5855710af8df733dad3fe6aa41abf38f data/goety/loot_tables/blocks/stripped_haunted_wood.json

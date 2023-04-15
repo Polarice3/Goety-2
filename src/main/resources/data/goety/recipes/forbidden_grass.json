@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#$#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:grass_block"
+    },
+    "$": {
+      "item": "goety:forbidden_piece"
+    }
+  },
+  "result": {
+    "item": "goety:forbidden_grass",
+    "count": 8
+  }
+}

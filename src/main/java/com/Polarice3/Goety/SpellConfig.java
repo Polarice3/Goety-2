@@ -56,6 +56,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SkullLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
@@ -196,6 +197,8 @@ public class SpellConfig {
                 .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
         WraithLimit = BUILDER.comment("Number of Wraith Servants that can exist around the player without instantly dying, Default: 6")
                 .defineInRange("wraithLimit", 6, 1, Integer.MAX_VALUE);
+        SkullLimit = BUILDER.comment("Number of Haunted Skulls that can exist around the player without instantly dying, Default: 8")
+                .defineInRange("skullLimit", 8, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")

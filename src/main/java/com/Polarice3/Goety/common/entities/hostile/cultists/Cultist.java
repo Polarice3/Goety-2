@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
@@ -42,7 +41,6 @@ public class Cultist extends Raider implements ICustomAttributes {
         this.targetSelector.addGoal(2, (new HurtByTargetGoal(this).setAlertOthers()));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, Cultist.class)).setAlertOthers());
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, Witch.class)).setAlertOthers());
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){

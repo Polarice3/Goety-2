@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#G#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "minecraft:nether_wart"
+    },
+    "G":
+    {
+      "item": "goety:spider_egg"
+    }
+  },
+  "result":
+  {
+    "item": "goety:wartful_egg",
+    "count": 1
+  }
+}

@@ -17,6 +17,7 @@ public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (biome.containsTag(BiomeTags.IS_OVERWORLD)){
+            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MainConfig.WarlockSpawnWeight.get(), 1, 1));
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MainConfig.WraithSpawnWeight.get(), 1, 1));
         }
         if (biome.is(Biomes.SOUL_SAND_VALLEY)){

@@ -1,0 +1,17 @@
+{
+  "name": "Odd Parchment",
+  "icon": "goety:forbidden_piece",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The echoes of the dead and the remnant thoughts within the Nether could hold some secrets towards a dark power. With the power of fresh brains and some necroturgy, you are able to create a piece of a dark, and sinister power."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:forbidden_piece"
+    }
+  ]
+}

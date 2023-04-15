@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "goety:block/forbidden_grass"
+      },
+      {
+        "model": "goety:block/forbidden_grass",
+        "y": 90
+      },
+      {
+        "model": "goety:block/forbidden_grass",
+        "y": 180
+      },
+      {
+        "model": "goety:block/forbidden_grass",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "goety:block/forbidden_grass_snow"
+    }
+  }
+}

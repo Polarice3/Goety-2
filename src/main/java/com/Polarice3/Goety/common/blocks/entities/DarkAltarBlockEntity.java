@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -8,6 +9,7 @@ import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.ritual.Ritual;
 import com.Polarice3.Goety.common.ritual.RitualStructures;
+import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -267,7 +269,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                     player.displayClientMessage(Component.translatable("info.goety.ritual.fail"), true);
                                     return false;
                                 }
-                            } else if (ritualRecipe.getCraftType().contains("lich")){
+                            }*/ else if (ritualRecipe.getCraftType().contains("lich")){
                                 CompoundTag playerData = player.getPersistentData();
                                 CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
                                 if (MainConfig.LichScrollRequirement.get()) {
@@ -280,7 +282,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 } else {
                                     this.startRitual(player, activationItem, ritualRecipe);
                                 }
-                            } */else {
+                            } else {
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }
                         } else {

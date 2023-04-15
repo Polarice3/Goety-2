@@ -67,8 +67,4 @@ public class LightningSpell extends Spells {
             worldIn.addFreshEntity(lightningBolt);
         }
     }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.WandResult(worldIn, entityLiving);
-    }
 }

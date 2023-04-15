@@ -27,6 +27,11 @@ public class LavaballSpell extends Spells {
     }
 
     @Override
+    public SpellType getSpellType() {
+        return SpellType.NETHER;
+    }
+
+    @Override
     public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         Lavaball fireballEntity = new Lavaball(worldIn,

@@ -30,15 +30,12 @@ import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -213,7 +210,7 @@ public class DarkWand extends Item {
 
     }
 
-        public void useParticles(Level worldIn, Player playerIn){
+    public void useParticles(Level worldIn, Player playerIn){
         for (int i = 0; i < playerIn.level.random.nextInt(35) + 10; ++i) {
             double d = worldIn.random.nextGaussian() * 0.2D;
             worldIn.addParticle(ParticleTypes.ENTITY_EFFECT, playerIn.getX(), playerIn.getBoundingBox().maxY + 0.5D, playerIn.getZ(), d, d, d);
@@ -353,11 +350,6 @@ public class DarkWand extends Item {
         return handler.getSlot();
     }
 
-    public static Map<Enchantment, Integer> getFocusEnchantments(ItemStack itemStack){
-        SoulUsingItemHandler handler = SoulUsingItemHandler.get(itemStack);
-        return EnchantmentHelper.getEnchantments(handler.getSlot());
-    }
-
     public void MagicResults(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         Player playerEntity = (Player) entityLiving;
         if (!worldIn.isClientSide) {
@@ -421,7 +413,7 @@ public class DarkWand extends Item {
         }
     }
 
-        public void failParticles(Level worldIn, LivingEntity entityLiving){
+    public void failParticles(Level worldIn, LivingEntity entityLiving){
         for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
             double d = worldIn.random.nextGaussian() * 0.2D;
             worldIn.addParticle(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), d, d, d);

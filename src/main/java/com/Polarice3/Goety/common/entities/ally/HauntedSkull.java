@@ -1,10 +1,11 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.client.render.HauntedSkullTextures;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -147,7 +149,19 @@ public class HauntedSkull extends Minion {
     }
 
     public void explode(){
-        this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), Explosion.BlockInteraction.NONE);
+        boolean loot = false;
+        if (this.getTrueOwner() instanceof Player player){
+            if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
+                if (CuriosFinder.findRing(player).isEnchanted()){
+                    float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
+                    if (wanting > 0){
+                        loot = true;
+                    }
+                }
+            }
+        }
+        LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+        ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower, false, Explosion.BlockInteraction.NONE, lootMode);
         this.discard();
     }
 
@@ -222,18 +236,19 @@ public class HauntedSkull extends Minion {
             }
 
             if (blockpos != null) {
-                for (int i = 0; i < 3; ++i) {
-                    BlockPos blockpos1 = blockpos.offset(HauntedSkull.this.random.nextInt(15) - 7, HauntedSkull.this.random.nextInt(4) - 2, HauntedSkull.this.random.nextInt(15) - 7);
-                    if (BlockFinder.isEmptyBox(HauntedSkull.this.level, blockpos1)) {
-                        if (HauntedSkull.this.getTrueOwner() != null && HauntedSkull.this.distanceTo(HauntedSkull.this.getTrueOwner()) > 8.0F){
-                            HauntedSkull.this.moveControl.setWantedPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 1.0D);
-                        } else {
+                if (HauntedSkull.this.getTrueOwner() != null && HauntedSkull.this.distanceTo(HauntedSkull.this.getTrueOwner()) > 8.0D){
+                    blockpos = new BlockPos(HauntedSkull.this.getTrueOwner().getEyePosition());
+                    HauntedSkull.this.moveControl.setWantedPosition((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D, 1.0D);
+                } else {
+                    for (int i = 0; i < 3; ++i) {
+                        BlockPos blockpos1 = blockpos.offset(HauntedSkull.this.random.nextInt(15) - 7, HauntedSkull.this.random.nextInt(4) - 2, HauntedSkull.this.random.nextInt(15) - 7);
+                        if (BlockFinder.isEmptyBox(HauntedSkull.this.level, blockpos1)) {
                             HauntedSkull.this.moveControl.setWantedPosition((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 0.25D);
+                            if (HauntedSkull.this.getTarget() == null) {
+                                HauntedSkull.this.getLookControl().setLookAt((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                            }
+                            break;
                         }
-                        if (HauntedSkull.this.getTarget() == null) {
-                            HauntedSkull.this.getLookControl().setLookAt((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.5D, (double) blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
-                        }
-                        break;
                     }
                 }
             }
@@ -248,11 +263,7 @@ public class HauntedSkull extends Minion {
 
         public boolean canUse() {
             LivingEntity livingentity = HauntedSkull.this.getTarget();
-            if (livingentity != null && livingentity.isAlive() && !HauntedSkull.this.isInWall() && !HauntedSkull.this.getMoveControl().hasWanted()) {
-                return HauntedSkull.this.distanceToSqr(livingentity) > 2.0D && HauntedSkull.this.tickCount > 20;
-            } else {
-                return false;
-            }
+            return livingentity != null && livingentity.isAlive() && !HauntedSkull.this.isInWall() && !HauntedSkull.this.getMoveControl().hasWanted();
         }
 
         public boolean canContinueToUse() {

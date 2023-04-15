@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
@@ -13,6 +14,7 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
+import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.*;
@@ -108,6 +110,24 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<SnapFungus>> SNAP_FUNGUS = register("snap_fungus",
+            EntityType.Builder.<SnapFungus>of(SnapFungus::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<BlastFungus>> BLAST_FUNGUS = register("blast_fungus",
+            EntityType.Builder.<BlastFungus>of(BlastFungus::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<BerserkFungus>> BERSERK_FUNGUS = register("berserk_fungus",
+            EntityType.Builder.<BerserkFungus>of(BerserkFungus::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<FireTornado>> FIRE_TORNADO = register("fire_tornado",
             EntityType.Builder.<FireTornado>of(FireTornado::new, MobCategory.MISC)
                     .sized(2.0F, 2.0F)
@@ -129,6 +149,16 @@ public class ModEntityType {
                     .canSpawnFarFromPlayer()
                     .fireImmune()
                     .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Warlock>> WARLOCK = register("warlock",
+            EntityType.Builder.of(Warlock::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Wartling>> WARTLING = register("wartling",
+            EntityType.Builder.of(Wartling::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.2F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<ZombieVillagerServant>> ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant",

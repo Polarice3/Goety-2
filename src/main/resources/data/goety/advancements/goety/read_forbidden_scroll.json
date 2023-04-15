@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:forbidden_scroll"
+    },
+    "title": {
+      "translate": "advancements.goety.forbidden_scroll.title"
+    },
+    "description": {
+      "translate": "advancements.goety.forbidden_scroll.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "forbidden_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:forbidden_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    ["forbidden_scroll"]
+  ],
+  "rewards": {
+    "experience": 50
+  }
+}

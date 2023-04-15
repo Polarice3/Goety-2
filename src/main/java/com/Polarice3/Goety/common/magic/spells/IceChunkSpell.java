@@ -62,10 +62,4 @@ public class IceChunkSpell extends Spells {
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
     }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.WandResult(worldIn, entityLiving);
-    }
-
-
 }

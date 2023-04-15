@@ -48,6 +48,9 @@ public class WitchBarterGoal extends Goal {
         this.witch.setTarget(null);
         if (--this.progress > 0) {
             this.witch.getNavigation().stop();
+            if (trader != null && this.witch.distanceTo(trader) <= 16.0F) {
+                this.witch.getLookControl().setLookAt(trader);
+            }
         }
         if (this.progress <= 0) {
             Vec3 vec3 = trader != null && witchTrade == witch ? trader.position() : this.witch.position();
@@ -61,6 +64,13 @@ public class WitchBarterGoal extends Goal {
                 }
             }
             this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        }
+
+        if (this.witch.hurtTime != 0){
+            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).getItem() == Items.EMERALD) {
+                this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                this.witch.spawnAtLocation(new ItemStack(Items.EMERALD));
+            }
         }
     }
 

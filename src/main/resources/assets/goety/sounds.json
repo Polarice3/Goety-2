@@ -97,6 +97,82 @@
     ],
     "subtitle": "subtitle.goety.apostle_death"
   },
+  "warlock_ambient": {
+    "sounds": [
+      {
+        "name": "mob/wandering_trader/no1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/no2",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/no3",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/no4",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/no5",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.warlock_ambient"
+  },
+  "warlock_hurt": {
+    "sounds": [
+      {
+        "name": "mob/wandering_trader/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/hurt3",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/hurt4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.warlock_hurt"
+  },
+  "warlock_celebrate": {
+    "sounds": [
+      {
+        "name": "mob/wandering_trader/yes1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/yes2",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/yes3",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/wandering_trader/yes4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.warlock_celebrate"
+  },
+  "warlock_death": {
+    "sounds": [
+      {
+        "name": "mob/wandering_trader/death",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.warlock_death"
+  },
   "tormentor_ambient": {
     "sounds": [
       {
@@ -714,6 +790,40 @@
         "name": "goety:item/flame_capture_release2"
       }
     ]
+  },
+  "blast_fungus_throw": {
+    "sounds": [
+      {
+        "name": "goety:item/blast_fungus_throw1"
+      },
+      {
+        "name": "goety:item/blast_fungus_throw2"
+      },
+      {
+        "name": "goety:item/blast_fungus_throw3"
+      }
+    ],
+    "subtitle": "subtitle.goety.blast_fungus_throw"
+  },
+  "blast_fungus_explode": {
+    "sounds": [
+      {
+        "name": "goety:item/blast_fungus_explode1"
+      },
+      {
+        "name": "goety:item/blast_fungus_explode2"
+      },
+      {
+        "name": "goety:item/blast_fungus_explode3"
+      },
+      {
+        "name": "goety:item/blast_fungus_explode4"
+      },
+      {
+        "name": "goety:item/blast_fungus_explode5"
+      }
+    ],
+    "subtitle": "subtitle.goety.blast_fungus_explode"
   },
   "apostle_theme": {
     "sounds": [

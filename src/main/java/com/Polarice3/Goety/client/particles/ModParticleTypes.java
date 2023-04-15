@@ -51,4 +51,13 @@ public class ModParticleTypes {
 
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
             () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> WARLOCK = PARTICLE_TYPES.register("warlock",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> FUNGUS_EXPLOSION = PARTICLE_TYPES.register("fungus_explosion",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> FUNGUS_EXPLOSION_EMITTER = PARTICLE_TYPES.register("fungus_explosion_emitter",
+            () -> new SimpleParticleType(true));
 }

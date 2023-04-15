@@ -34,6 +34,8 @@
   "itemGroup.goetyTab": "Goety",
 
   "entity.goety.apostle":"Apostle",
+  "entity.goety.warlock":"Warlock",
+  "entity.goety.wartling":"Wartling",
   "entity.goety.zombie_villager_servant":"Zombie Villager Servant",
   "entity.goety.skeleton_villager_servant":"Skeleton Villager Servant",
   "entity.goety.zpiglin_servant":"Zombified Piglin Servant",
@@ -72,6 +74,9 @@
   "entity.goety.spike":"Royal Spike",
   "entity.goety.ice_bouquet":"Ice Bouquet",
   "entity.goety.ice_chunk":"Ice Chunk",
+  "entity.goety.snap_fungus":"Snap Fungus",
+  "entity.goety.blast_fungus":"Blast Fungus",
+  "entity.goety.berserk_fungus":"Berserk Fungus",
   "entity.goety.fire_tornado":"Flaming Tornado",
 
   "entity.goety.boat":"Boat",
@@ -87,6 +92,7 @@
   "item.goety.focus_bag": "Focus Bag",
 
   "item.goety.apostle_spawn_egg": "Apostle Spawn Egg",
+  "item.goety.warlock_spawn_egg": "Warlock Spawn Egg",
   "item.goety.wraith_spawn_egg": "Wraith Spawn Egg",
   "item.goety.zombie_servant_spawn_egg": "Zombie Servant Spawn Egg",
   "item.goety.husk_servant_spawn_egg": "Husk Servant Spawn Egg",
@@ -124,13 +130,25 @@
   "item.goety.cursed_ingot": "Cursed Ingot",
   "item.goety.savage_tooth": "Savage Tooth",
   "item.goety.ectoplasm": "Ectoplasm",
+  "item.goety.spider_egg": "Spider Egg",
   "item.goety.dark_fabric": "Dark Fabric",
   "item.goety.magic_fabric": "Magic Fabric",
   "item.goety.occult_fabric": "Occult Fabric",
   "item.goety.spirit_fabric": "Spirit Fabric",
 
+  "item.goety.forbidden_piece": "Forbidden Piece",
+  "item.goety.forbidden_fragment": "Forbidden Fragment",
+  "item.goety.forbidden_scroll": "Forbidden Scroll",
+
+  "item.goety.snap_warts": "Snap Warts",
+
   "item.goety.soul_transfer": "Transfer Gem",
   "item.goety.flame_capture": "Fire Spawn Cage",
+  "item.goety.snap_fungus": "Snap Fungus",
+  "item.goety.blast_fungus": "Blast Fungus",
+  "item.goety.berserk_fungus": "Berserk Fungus",
+  "item.goety.wartful_egg": "Wartful Egg",
+
   "item.goety.haunted_boat": "Haunted Boat",
   "item.goety.haunted_chest_boat": "Haunted Chest Boat",
 
@@ -174,6 +192,12 @@
   "item.goety.music_disc_vizier.desc": "Peter Hont - Evoker",
   "item.goety.music_disc_apostle": "Music Disc",
   "item.goety.music_disc_apostle.desc": "Peter Hont - Ghast",
+
+  "item.minecraft.tipped_arrow.effect.climbing": "Arrow of Spider Climbing",
+
+  "item.minecraft.potion.effect.climbing": "Potion of Spider Climbing",
+  "item.minecraft.splash_potion.effect.climbing": "Splash Potion of Spider Climbing",
+  "item.minecraft.lingering_potion.effect.climbing": "Lingering Potion of Spider Climbing",
 
   "block.goety.cursed_metal_block": "Block of Cursed Metal",
   "block.goety.shade_stone": "Shade Stone",
@@ -222,8 +246,12 @@
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
   "block.goety.sculk_devourer": "Sculk Devourer",
 
+  "block.goety.snap_warts": "Snap Warts",
+
   "block.goety.soul_light": "Soul Light",
   "block.goety.glow_light": "Glow Light",
+
+  "block.goety.forbidden_grass": "Forbidden Grass Block",
 
   "block.goety.tall_skull": "Tall Skull",
   "block.goety.wall_tall_skull": "Tall Skull",
@@ -240,6 +268,10 @@
   "effect.goety.burn_hex.description": "Removes Fire Resistance from living entities. On Hard, fire damage doubles.",
   "effect.goety.soul_hunger": "Soul Hunger",
   "effect.goety.soul_hunger.description": "Weakens movement, mining and attack speed and melee damage.",
+  "effect.goety.buff": "Buff",
+  "effect.goety.buff.description": "Increases melee attack damage by 0.5 hearts per level.",
+  "effect.goety.climbing": "Climbing",
+  "effect.goety.climbing.description": "Grants ability to climb up horizontal walls.",
 
   "enchantment.goety.soul_eater": "Soul Eater",
   "enchantment.goety.wanting": "Wanting",
@@ -324,6 +356,11 @@
   "subtitle.goety.conquillager_celebrate": "Conquillager cheers",
   "subtitle.goety.conquillager_death": "Conquillager dies",
 
+  "subtitle.goety.warlock_ambient": "Warlock channels",
+  "subtitle.goety.warlock_hurt": "Warlock hurts",
+  "subtitle.goety.warlock_celebrate": "Warlock cheers",
+  "subtitle.goety.warlock_death": "Warlock dies",
+
   "subtitle.goety.fanatic_ambient": "Fanatic murmurs",
   "subtitle.goety.fanatic_hurt": "Fanatic hurts",
   "subtitle.goety.fanatic_celebrate": "Fanatic cheers",
@@ -338,11 +375,6 @@
   "subtitle.goety.disciple_hurt": "Disciple hurts",
   "subtitle.goety.disciple_celebrate": "Disciple cheers",
   "subtitle.goety.disciple_death": "Disciple dies",
-
-  "subtitle.goety.channeller_ambient": "Channeller channels",
-  "subtitle.goety.channeller_hurt": "Channeller hurts",
-  "subtitle.goety.channeller_celebrate": "Channeller cheers",
-  "subtitle.goety.channeller_death": "Channeller dies",
 
   "subtitle.goety.thug_ambient": "Thug grunts",
   "subtitle.goety.thug_hurt": "Thug hurts",
@@ -461,6 +493,8 @@
   "subtitle.goety.fire_tornado_ambient": "Flaming Tornado",
 
   "subtitle.goety.scythe_swing": "Scythe Swing",
+  "subtitle.goety.blast_fungus_throw": "Throw Fungus",
+  "subtitle.goety.blast_fungus_explode": "Fungus explodes",
 
   "commands.lich.query.true": "%s is a Lich",
   "commands.lich.query.false": "%s is not a Lich",
@@ -479,21 +513,31 @@
   "advancements.goety.craft_totem.description": "Craft a Totem of Souls.",
   "advancements.goety.craft_cursed_ingot.title": "Profaned Metal",
   "advancements.goety.craft_cursed_ingot.description": "Seems to be what Spawners are made of.",
-  "advancements.goety.craft_empty_focus.title": "What Is This, Thaumcraft?",
+  "advancements.goety.craft_empty_focus.title": "What is This, Thaumcraft?",
   "advancements.goety.craft_empty_focus.description": "Maybe make a Wand first before anything else.",
-  "advancements.goety.craft_dark_wand.title": "Oh, The Pointing Again.",
+  "advancements.goety.craft_dark_wand.title": "Oh, the Pointing Again.",
   "advancements.goety.craft_dark_wand.description": "Craft a Dark Wand",
-  "advancements.goety.craft_dark_robe.title": "Look At Me, I'm the Evoker Now",
-  "advancements.goety.craft_dark_robe.description": "Dark Helms reduces Casting Time, Dark Robes reduces Soul Costs.",
+  "advancements.goety.craft_dark_robe.title": "Look at Me, I'm the Evoker Now",
+  "advancements.goety.craft_dark_robe.description": "Dark Hats reduces Casting Time, Dark Robes reduces Soul Costs.",
   "advancements.goety.craft_vexing_focus.title": "Vex Production",
   "advancements.goety.craft_vexing_focus.description": "Look out for any Hermits outside of your windows.",
-  "advancements.goety.craft_biting_focus.title": "The Floor Is Jaws",
+  "advancements.goety.craft_biting_focus.title": "The Floor is Jaws",
   "advancements.goety.craft_biting_focus.description": "Perhaps it can be improved later on...",
+  "advancements.goety.craft_dark_altar.title": "Ran Out of Essentia",
+  "advancements.goety.craft_dark_altar.description": "Place the Dark Altar onto a Cursed Cage with a Totem of Souls in it.",
+  "advancements.goety.craft_witch_hat.title": "We've Found a Witch!",
+  "advancements.goety.craft_witch_hat.description": "Craft or find a Witches Hat, which gives a chance of not consuming a Potion.",
+  "advancements.goety.craft_witch_robe.title": "May We Burn Her?",
+  "advancements.goety.craft_witch_robe.description": "Witches Robes gives 85% magic protection and portable brewing. Wearing both Robe and Hat makes Witches neutral.",
+  "advancements.goety.craft_necro_set.title": "Really Late Healer",
+  "advancements.goety.craft_necro_set.description": "Wearing Necro Crown and Cape causes none boss Undead to be Neutral. Necro Staff powers Necromantic Spells.",
   "advancements.goety.kill_apostle.title": "Trumpeter's Shadow",
   "advancements.goety.kill_apostle.description": "Defeated an Apostle, the Pale Faced envoy of the Nether.",
   "advancements.goety.kill_vizier.title": "Arubian Nights",
   "advancements.goety.kill_vizier.description": "Defeated a Vizier, royal minister of the Illagers.",
-  "advancements.goety.become_lich.title": "I Am Beyond Strength",
+  "advancements.goety.forbidden_scroll.title": "Grandma's Secret Recipe",
+  "advancements.goety.forbidden_scroll.description": "Read the Forbidden Scroll and discover the secrets of Immortality.",
+  "advancements.goety.become_lich.title": "I am Beyond Strength",
   "advancements.goety.become_lich.description": "Ascend to Lichdom and become truly immortal!",
 
   "gui.jei.category.cursed_infuser": "Cursed Infuser",

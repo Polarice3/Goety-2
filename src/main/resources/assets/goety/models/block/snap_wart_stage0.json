@@ -1,0 +1,36 @@
+{
+    "credit": "Made with Blockbench",
+    "ambientocclusion": true,
+    "textures": {
+        "0": "goety:block/snap_wart_stage0",
+        "1": "goety:block/sws_tendril0",
+        "particle": "goety:block/snap_wart_stage0"
+    },
+    "elements": [
+        {
+            "from": [6, 6, 14],
+            "to": [10, 10, 16],
+            "faces": {
+                "north": {"uv": [0, 0, 4, 4], "texture": "#0"},
+                "east": {"uv": [4, 2, 6, 6], "texture": "#0"},
+                "south": {"uv": [0, 0, 4, 4], "texture": "#0"},
+                "west": {"uv": [6, 2, 4, 6], "texture": "#0"},
+                "up": {"uv": [4, 0, 8, 2], "texture": "#0"},
+                "down": {"uv": [4, 2, 8, 0], "texture": "#0"}
+            }
+        },
+        {
+            "from": [0, 0, 15.9],
+            "to": [16, 16, 15.9],
+            "faces": {
+                "north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                "east": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                "south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                "west": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                "up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                "down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+            }
+        }
+    ],
+    "render_type": "translucent"
+}

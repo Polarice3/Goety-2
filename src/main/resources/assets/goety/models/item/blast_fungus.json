@@ -1,0 +1,33 @@
+{
+	"parent": "goety:item/template_explosive_fungus",
+	"textures": {
+		"fungus": "goety:entity/projectiles/blast_fungus"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [0.25, 0, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [90, 0, 0],
+			"translation": [0.25, 0, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"ground": {
+			"translation": [0, 1, 0],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"gui": {
+			"rotation": [25, 135, 0],
+			"translation": [0, 3.5, 0]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		},
+		"fixed": {
+			"rotation": [0, -45, 0],
+			"translation": [0, 3, 1.5]
+		}
+	}
+}

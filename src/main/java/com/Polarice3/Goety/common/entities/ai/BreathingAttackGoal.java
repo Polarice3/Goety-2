@@ -52,7 +52,7 @@ public class BreathingAttackGoal<T extends Mob & IBreathing> extends Goal {
             this.spewZ = this.attackTarget.getZ();
         }
         this.durationLeft = this.maxDuration;
-        this.attacker.setSpewing(true);
+        this.attacker.setBreathing(true);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class BreathingAttackGoal<T extends Mob & IBreathing> extends Goal {
         if (duration > 5) {
             for (Entity entity : MobUtil.getTargets(this.attacker, this.spewingRange)) {
                 if (entity != null) {
-                    this.attacker.doSpewing(entity);
+                    this.attacker.doBreathing(entity);
                 }
             }
         }
@@ -97,7 +97,7 @@ public class BreathingAttackGoal<T extends Mob & IBreathing> extends Goal {
     public void stop() {
         this.durationLeft = 0;
         this.attackTarget = null;
-        this.attacker.setSpewing(false);
+        this.attacker.setBreathing(false);
     }
 
     public void rotateAttacker(double x, double y, double z, float pDeltaYaw, float pDeltaPitch) {

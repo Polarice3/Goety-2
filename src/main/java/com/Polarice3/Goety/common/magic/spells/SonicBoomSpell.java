@@ -74,10 +74,4 @@ public class SonicBoomSpell extends Spells {
         //        this.IncreaseInfamy(SpellConfig.SonicBoomInfamyChance.get(), (PlayerEntity) entityLiving);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
     }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.WandResult(worldIn, entityLiving);
-    }
-
 }
