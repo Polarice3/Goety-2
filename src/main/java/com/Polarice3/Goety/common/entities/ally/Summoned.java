@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -122,7 +121,7 @@ public class Summoned extends Owned {
             }
         }
         if (this.getTrueOwner() != null){
-            if (CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.NECRO_CROWN.get()) && this.getMobType() == MobType.UNDEAD){
+            if (CuriosFinder.hasUndeadCrown(this.getTrueOwner()) && this.getMobType() == MobType.UNDEAD){
                 this.limitedLifespan = false;
             } else if (this.limitedLifeTicks > 0){
                 this.limitedLifespan = true;
@@ -136,7 +135,7 @@ public class Summoned extends Owned {
                 if (!this.isOnFire()) {
                     if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
                         if (this.getTrueOwner() instanceof Player) {
-                            if (CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.NECRO_CAPE.get())) {
+                            if (CuriosFinder.hasUndeadCape(this.getTrueOwner())) {
                                 Player owner = (Player) this.getTrueOwner();
                                 int SoulCost = SpellConfig.UndeadMinionHealCost.get();
                                 if (SEHelper.getSoulsAmount(owner, SpellConfig.UndeadMinionHealCost.get())){

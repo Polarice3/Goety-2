@@ -161,10 +161,8 @@ public class Wartling extends Summoned {
             if (this.getStoredEffect() != null) {
                 AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
                 areaEffectCloud.setRadius(1.0F);
-                areaEffectCloud.setRadiusOnUse(-0.5F);
-                areaEffectCloud.setWaitTime(10);
-                areaEffectCloud.setDuration(areaEffectCloud.getDuration() / 2);
-                areaEffectCloud.setRadiusPerTick(-areaEffectCloud.getRadius() / (float) areaEffectCloud.getDuration());
+                areaEffectCloud.setWaitTime(0);
+                areaEffectCloud.setDuration(ModMathHelper.ticksToSeconds(2));
                 areaEffectCloud.addEffect(this.getStoredEffect());
                 this.level.addFreshEntity(areaEffectCloud);
             }
@@ -209,7 +207,10 @@ public class Wartling extends Summoned {
             net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
             return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
         }
-        return potionEffectIn.getEffect() != this.getStoredEffect().getEffect() && super.canBeAffected(potionEffectIn);
+        if (this.getStoredEffect() != null){
+            return potionEffectIn.getEffect() != this.getStoredEffect().getEffect() && super.canBeAffected(potionEffectIn);
+        }
+        return super.canBeAffected(potionEffectIn);
     }
 
     public void setStoredEffect(MobEffectInstance effect){

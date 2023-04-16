@@ -461,12 +461,12 @@ public class ModEvents {
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() instanceof LivingEntity looker) {
             boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
-            if (CuriosFinder.hasCurio(entity, ModItems.NECRO_CROWN.get())) {
+            if (CuriosFinder.hasUndeadCrown(entity)) {
                 if (undead) {
                     event.modifyVisibility(0.5);
                 }
             }
-            if (CuriosFinder.hasCurio(entity, ModItems.NECRO_CAPE.get())) {
+            if (CuriosFinder.hasUndeadCape(entity)) {
                 if (undead) {
                     event.modifyVisibility(0.5);
                 }
@@ -693,7 +693,7 @@ public class ModEvents {
                                     if (killed instanceof Villager || killed instanceof AbstractIllager) {
                                         killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
                                     }
-                                    if (killed instanceof Witch) {
+                                    if (killed instanceof Witch || (killed instanceof Cultist && killed.getType() != ModEntityType.APOSTLE.get())) {
                                         killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
                                     }
                                 }

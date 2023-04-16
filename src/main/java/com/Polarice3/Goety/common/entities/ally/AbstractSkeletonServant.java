@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
-import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
@@ -39,7 +38,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
-public abstract class AbstractSkeletonServant extends Summoned implements RangedAttackMob, ICustomAttributes {
+public abstract class AbstractSkeletonServant extends Summoned implements RangedAttackMob {
     private final CreatureBowAttackGoal<AbstractSkeletonServant> bowGoal = new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F);
     private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2D, false) {
 
@@ -71,7 +70,6 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
         this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

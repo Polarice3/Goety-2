@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -21,11 +20,11 @@ public abstract class SummonSpells extends Spells{
     public abstract int SummonDownDuration();
 
     public boolean NecroPower(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CAPE.get());
+        return CuriosFinder.hasUndeadCape(entityLiving);
     }
 
     public boolean NecroMastery(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get());
+        return CuriosFinder.hasUndeadCrown(entityLiving);
     }
 
 /*    public boolean SummonMastery(LivingEntity entityLiving){

@@ -660,6 +660,12 @@
       },
       {
         "name": "goety:spell/cast_spell2"
+      },
+      {
+        "name": "mob/evocation_illager/cast1"
+      },
+      {
+        "name": "mob/evocation_illager/cast2"
       }
     ],
     "subtitle": "subtitle.goety.cast_spell"

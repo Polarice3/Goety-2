@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -35,6 +36,11 @@ public class IllusionSpell extends Spells {
         return SoundEvents.ILLUSIONER_PREPARE_MIRROR;
     }
 
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.LICH;
+    }
+
     public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger) {
@@ -48,10 +54,20 @@ public class IllusionSpell extends Spells {
             summonedentity.setTrueOwner(entityLiving);
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
-            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
             summonedentity.setLimitedLife(1200);
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
+            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving));
+            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
+            if (rayTraceResult instanceof EntityHitResult) {
+                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+                if (target instanceof LivingEntity){
+                    double d2 = target.getX() - summonedentity.getX();
+                    double d1 = target.getZ() - summonedentity.getZ();
+                    summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
+                }
+            }
             worldIn.addFreshEntity(summonedentity);
             for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
@@ -87,10 +103,20 @@ public class IllusionSpell extends Spells {
             summonedentity.setTrueOwner(entityLiving);
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
-            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving));
             summonedentity.setLimitedLife(1200);
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
+            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
+            if (rayTraceResult instanceof EntityHitResult) {
+                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+                if (target instanceof LivingEntity){
+                    double d2 = target.getX() - summonedentity.getX();
+                    double d1 = target.getZ() - summonedentity.getZ();
+                    summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
+                }
+            }
             worldIn.addFreshEntity(summonedentity);
             for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);

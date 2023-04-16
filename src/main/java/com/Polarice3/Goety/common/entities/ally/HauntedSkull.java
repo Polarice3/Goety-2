@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.render.HauntedSkullTextures;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
@@ -64,8 +65,12 @@ public class HauntedSkull extends Minion {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0F)
-                .add(Attributes.ATTACK_DAMAGE, 5.0F);
+                .add(Attributes.MAX_HEALTH, 2.0F)
+                .add(Attributes.ATTACK_DAMAGE, SpellConfig.HauntedSkullDamage.get());
+    }
+
+    public AttributeSupplier.Builder getConfiguredAttributes(){
+        return setCustomAttributes();
     }
 
     public void tick() {

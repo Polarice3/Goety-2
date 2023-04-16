@@ -357,7 +357,7 @@ public class DarkWand extends Item {
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
-                        if (stack.getItem() == ModItems.NECRO_STAFF.get() && this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY) {
+                        if (stack.getItem() == this.getSpell(stack).getSpellType().getStaff()) {
                             this.getSpell(stack).StaffResult(serverWorld, entityLiving);
                         } else {
                             this.getSpell(stack).WandResult(serverWorld, entityLiving);
@@ -381,7 +381,7 @@ public class DarkWand extends Item {
                         }
                     }
                     if (stack.getTag() != null) {
-                        if (stack.getItem() == ModItems.NECRO_STAFF.get() && this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY) {
+                        if (stack.getItem() == this.getSpell(stack).getSpellType().getStaff()) {
                             this.getSpell(stack).StaffResult(serverWorld, entityLiving);
                         } else {
                             this.getSpell(stack).WandResult(serverWorld, entityLiving);

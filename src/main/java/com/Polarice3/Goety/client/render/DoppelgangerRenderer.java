@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.client.render.layer.NamelessSetLayer;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -27,6 +28,7 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
         super(p_174557_, new PlayerModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER), p_174558_), 0.5F);
         this.normalModel = this.getModel();
         this.slimModel = new PlayerModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_SLIM), true);
+        this.addLayer(new NamelessSetLayer<>(this, p_174557_.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_INNER_ARMOR : ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_OUTER_ARMOR : ModelLayers.PLAYER_OUTER_ARMOR))));
     }
 

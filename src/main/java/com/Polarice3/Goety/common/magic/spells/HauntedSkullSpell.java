@@ -6,7 +6,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.magic.SummonSpells;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModMathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -80,7 +80,7 @@ public class HauntedSkullSpell extends SummonSpells {
             summonedentity.moveTo(blockpos, 0.0F, 0.0F);
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summonedentity.setBoundOrigin(blockpos);
-            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
+            summonedentity.setLimitedLife(ModMathHelper.ticksToSeconds(10) * duration);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
                 summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
@@ -110,7 +110,7 @@ public class HauntedSkullSpell extends SummonSpells {
                 summonedentity.moveTo(blockpos, 0.0F, 0.0F);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summonedentity.setBoundOrigin(blockpos);
-                summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
+                summonedentity.setLimitedLife(ModMathHelper.ticksToSeconds(10) * duration);
                 if (enchantment > 0){
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
                     summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));

@@ -101,6 +101,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.DARK_ROBE, DarkRobeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CROWN, NecroCapeModel::createHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CAPE, NecroCapeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.NECRO_SET, NecroCapeModel::createNecromancerLayer);
+        event.registerLayerDefinition(ModModelLayer.NAMELESS_CROWN, NecroCapeModel::createBigHeadLayer);
+        event.registerLayerDefinition(ModModelLayer.NAMELESS_SET, NecroCapeModel::createNamelessLayer);
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_OUTER, VillagerArmorModel::createOuterArmorLayer);
@@ -138,6 +141,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.GLOW_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BULLET.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BOLT.get(), SoulBoltRenderer::new);
+        event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), NecroBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.FANG.get(), FangsRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
@@ -189,6 +193,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
@@ -199,6 +204,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
+        event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
     }

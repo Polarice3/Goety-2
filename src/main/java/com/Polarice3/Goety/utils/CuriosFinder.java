@@ -61,6 +61,21 @@ public class CuriosFinder {
                 && CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CAPE.get());
     }
 
+    public static boolean hasNamelessSet(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get())
+                && CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get());
+    }
+
+    public static boolean hasUndeadCrown(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CROWN.get())
+                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get());
+    }
+
+    public static boolean hasUndeadCape(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CAPE.get())
+                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get());
+    }
+
     private static boolean isRing(ItemStack itemStack) {
         return itemStack.getItem() instanceof RingItem;
     }

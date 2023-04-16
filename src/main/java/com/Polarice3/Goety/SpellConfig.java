@@ -47,7 +47,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FireballDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> LavaballDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> HauntedSkullDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulBoltDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> NecroBoltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceChunkDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
 
@@ -165,8 +167,12 @@ public class SpellConfig {
                 .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
         LavaballDamage = BUILDER.comment("How much base damage Lavaballs deal when directly hitting a mob, Default: 6.0")
                 .defineInRange("lavaballDamage", 6.0, 1.0, Double.MAX_VALUE);
+        HauntedSkullDamage = BUILDER.comment("How much base damage Haunted Skulls deal when directly hitting a mob, Default: 5.0")
+                .defineInRange("hauntedSkullDamage", 5.0, 1.0, Double.MAX_VALUE);
         SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")
                 .defineInRange("soulBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
+        NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 10.0")
+                .defineInRange("necroBoltDamage", 10.0, 1.0, Double.MAX_VALUE);
         IceChunkDamage = BUILDER.comment("How much base damage Ice Chunks deals, Default: 8.0")
                 .defineInRange("iceChunkDamage", 8.0, 1.0, Double.MAX_VALUE);
         SonicBoomDamage = BUILDER.comment("How much base damage Sonic Boom Spell deals, Default: 10.0")

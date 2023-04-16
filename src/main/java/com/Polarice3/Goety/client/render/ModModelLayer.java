@@ -38,6 +38,9 @@ public class ModModelLayer {
     public static final ModelLayerLocation DARK_ROBE = register("dark_robe");
     public static final ModelLayerLocation NECRO_CROWN = register("necro_crown");
     public static final ModelLayerLocation NECRO_CAPE = register("necro_cape");
+    public static final ModelLayerLocation NECRO_SET = register("necro_set");
+    public static final ModelLayerLocation NAMELESS_CROWN = register("nameless_crown");
+    public static final ModelLayerLocation NAMELESS_SET = register("nameless_set");
     public static final ModelLayerLocation GLOVE = register("glove");
 
     private static ModelLayerLocation register(String p_171294_) {

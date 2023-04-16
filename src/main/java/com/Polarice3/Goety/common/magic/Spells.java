@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.common.magic;
 
+import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
@@ -77,10 +79,21 @@ public abstract class Spells {
     }
 
     public enum SpellType{
-        NONE,
-        NECROTURGY,
-        NETHER,
-        ILL
+        NONE(ModItems.DARK_WAND.get()),
+        NECROTURGY(ModItems.NECRO_STAFF.get()),
+        LICH(ModItems.NAMELESS_STAFF.get()),
+        NETHER(ModItems.DARK_WAND.get()),
+        ILL(ModItems.DARK_WAND.get());
+
+        private Item staff;
+
+        SpellType(Item staff){
+            this.staff = staff;
+        }
+
+        public Item getStaff() {
+            return staff;
+        }
     }
 
 }

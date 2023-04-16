@@ -85,6 +85,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<NecroBolt>> NECRO_BOLT = register("necro_bolt",
+            EntityType.Builder.<NecroBolt>of(NecroBolt::new, MobCategory.MISC)
+                    .sized(0.625F, 0.625F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<Fangs>> FANG = register("fang",
             EntityType.Builder.<Fangs>of(Fangs::new, MobCategory.MISC)
                     .sized(0.5F, 0.8F)

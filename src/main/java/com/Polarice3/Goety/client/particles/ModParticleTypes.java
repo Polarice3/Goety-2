@@ -25,6 +25,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BULLET_EFFECT = PARTICLE_TYPES.register("bullet_effect",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> NECRO_EFFECT = PARTICLE_TYPES.register("necro_effect",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> SOUL_LIGHT_EFFECT = PARTICLE_TYPES.register("soul_light",
             () -> new SimpleParticleType(false));
 
@@ -47,6 +50,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> WRAITH = PARTICLE_TYPES.register("wraith",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> WRAITH_BURST = PARTICLE_TYPES.register("wraith_burst",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",

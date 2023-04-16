@@ -18,7 +18,6 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     private final ModelPart RightArm;
     private final ModelPart LeftArm;
     private final ModelPart body;
-    private final ModelPart leg;
 
     public WraithModel(ModelPart root) {
         this.Ghost = root.getChild("Ghost");
@@ -26,7 +25,6 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
         this.RightArm = this.Ghost.getChild("RightArm");
         this.LeftArm = this.Ghost.getChild("LeftArm");
         this.body = this.Ghost.getChild("body");
-        this.leg = this.body.getChild("leg");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -39,23 +37,19 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 13.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(40, 59).addBox(-4.0F, -1.5F, 0.0F, 8.0F, 1.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(0.0F, -6.5F, 4.0F, -0.4363F, 0.0F, 0.0F));
+        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(40, 59).addBox(-4.0F, -1.5F, 0.0F, 8.0F, 1.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(0.0F, -6.5F, 4.0F, -0.4363F, 0.0F, 0.0F));
 
-        PartDefinition RightArm = Ghost.addOrReplaceChild("RightArm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-5.0F, -22.0F, 0.0F));
+        PartDefinition RightArm = Ghost.addOrReplaceChild("RightArm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
-        RightArm.addOrReplaceChild("Robe2", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition Robe2 = RightArm.addOrReplaceChild("Robe2", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition LeftArm = Ghost.addOrReplaceChild("LeftArm", CubeListBuilder.create().texOffs(0, 16).addBox(0.0F, -2.0F, -1.0F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, -22.0F, 0.0F));
+        PartDefinition LeftArm = Ghost.addOrReplaceChild("LeftArm", CubeListBuilder.create().texOffs(0, 16).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, -22.0F, 0.0F));
 
-        LeftArm.addOrReplaceChild("Robe", CubeListBuilder.create().texOffs(0, 33).mirror().addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition Robe = LeftArm.addOrReplaceChild("Robe", CubeListBuilder.create().texOffs(16, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create().texOffs(8, 17).addBox(-3.0F, 0.0F, -5.0F, 6.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(32, 32).addBox(-5.0F, -1.0F, -3.0F, 10.0F, 20.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 16).addBox(-0.5F, -1.0F, -1.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
-
-        body.addOrReplaceChild("Body_r1", CubeListBuilder.create().texOffs(0, 51).addBox(-5.0F, -2.0F, -2.0F, 10.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 15.0F, 0.0F, 0.4363F, 0.0F, 0.0F));
-
-        body.addOrReplaceChild("leg", CubeListBuilder.create().texOffs(60, 22).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 10.0F, -1.0F, 0.4363F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
@@ -64,25 +58,25 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         float f = pAgeInTicks * 0.0025F;
         this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
-        this.body.xRot = 0.1745F + Mth.abs(Mth.cos(pLimbSwing * 0.6662F) * 0.31F * pLimbSwingAmount);
+        this.body.xRot = ModMathHelper.modelDegrees(12.5F) + Mth.abs(Mth.cos(pLimbSwing * 0.3331F) * 0.9F * pLimbSwingAmount / 1.25F);
         this.body.xRot += Mth.cos(pAgeInTicks * 0.09F) * 0.1F + 0.1F;
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
-        this.leg.xRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount / f;
-        this.leg.yRot = 0.0F;
-        this.leg.zRot = 0.0F;
-        this.leg.xRot += ((float)Math.PI / 5F);
         if (pEntity instanceof AbstractWraith wraith){
             if (wraith.isFiring()){
                 float f7 = Mth.sin(((float)(wraith.firingTick - 20) - wraith.firingTick2) / 20.0F * (float)Math.PI * 0.25F);
                 this.head.xRot = (((float)Math.PI) * f7) + 0.5F;
                 this.RightArm.zRot = -((float)Math.PI) * f7;
                 this.LeftArm.zRot = ((float)Math.PI) * f7;
+            } else if (wraith.isTeleporting()){
+                float f7 = Mth.sin(((float)(wraith.teleportTime - 20) - wraith.teleportTime2) / 20.0F * (float)Math.PI * 0.25F);
+                this.head.xRot = (((float)Math.PI) * f7) + 2.0F;
+                this.RightArm.zRot = -((float)Math.PI) * f7;
+                this.LeftArm.zRot = ((float)Math.PI) * f7;
+                this.Ghost.y += (((float)Math.PI) * f7) * 5.0F;
             } else {
                 float degrees;
                 if (wraith.getLookControl().isLookingAtTarget()){
                     degrees = 0.0F;
-                } else if (pEntity.getDeltaMovement().x != 0 || pEntity.getDeltaMovement().z != 0){
-                    degrees = ModMathHelper.modelDegrees(7.5F);
                 } else {
                     degrees = ModMathHelper.modelDegrees(17.5F);
                 }

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
@@ -102,6 +103,16 @@ public class SoulBolt extends AbstractHurtingProjectile {
             double d1 = this.getY() - vec3.y;
             double d2 = this.getZ() - vec3.z;
             this.level.addParticle(ModParticleTypes.BULLET_EFFECT.get(), d0, d1 + 0.15D, d2, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
+    protected boolean canHitEntity(Entity pEntity) {
+        if (this.getOwner() != null && this.getOwner().isAlliedTo(pEntity)){
+            return false;
+        } else if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
+            return false;
+        } else {
+            return super.canHitEntity(pEntity);
         }
     }
 

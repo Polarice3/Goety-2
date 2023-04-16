@@ -40,6 +40,7 @@ public class AbstractWraith extends Summoned {
     public int firingTick2;
     public int teleportCooldown;
     public int teleportTime = 20;
+    public int teleportTime2;
     public double prevX;
     public double prevY;
     public double prevZ;
@@ -51,6 +52,7 @@ public class AbstractWraith extends Summoned {
         this.fireTick = 0;
         this.firingTick = 0;
         this.firingTick2 = 0;
+        this.teleportTime2 = 0;
         this.teleportCooldown = 0;
     }
 
@@ -88,6 +90,7 @@ public class AbstractWraith extends Summoned {
         pCompound.putInt("fireTick", this.fireTick);
         pCompound.putInt("firingTick", this.firingTick);
         pCompound.putInt("firingTick2", this.firingTick2);
+        pCompound.putInt("teleportTime2", this.teleportTime2);
         pCompound.putInt("teleportCooldown", this.teleportCooldown);
     }
 
@@ -96,15 +99,16 @@ public class AbstractWraith extends Summoned {
         this.fireTick = pCompound.getInt("fireTick");
         this.firingTick = pCompound.getInt("firingTick");
         this.firingTick2 = pCompound.getInt("firingTick2");
+        this.teleportTime2 = pCompound.getInt("teleportTime2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
     }
 
-    private boolean geFlags(int mask) {
+    private boolean getWraithFlags(int mask) {
         int i = this.entityData.get(FLAGS);
         return (i & mask) != 0;
     }
 
-    private void setFlags(int mask, boolean value) {
+    private void setWraithFlags(int mask, boolean value) {
         int i = this.entityData.get(FLAGS);
         if (value) {
             i = i | mask;
@@ -116,19 +120,19 @@ public class AbstractWraith extends Summoned {
     }
 
     public boolean isFiring() {
-        return this.geFlags(1);
+        return this.getWraithFlags(1);
     }
 
     public void setIsFiring(boolean charging) {
-        this.setFlags(1, charging);
+        this.setWraithFlags(1, charging);
     }
 
     public boolean isTeleporting() {
-        return this.geFlags(2);
+        return this.getWraithFlags(2);
     }
 
     public void setIsTeleporting(boolean charging) {
-        this.setFlags(2, charging);
+        this.setWraithFlags(2, charging);
     }
 
     public MobType getMobType() {
@@ -261,6 +265,7 @@ public class AbstractWraith extends Summoned {
         } else {
             if (this.isTeleporting()) {
                 --this.teleportTime;
+                ++this.teleportTime2;
                 if (this.teleportTime <= 2){
                     this.prevX = this.getX();
                     this.prevY = this.getY();
@@ -268,6 +273,7 @@ public class AbstractWraith extends Summoned {
                 }
             } else {
                 this.teleportTime = 20;
+                this.teleportTime2 = 0;
             }
         }
     }
@@ -436,7 +442,11 @@ public class AbstractWraith extends Summoned {
         return ModParticleTypes.WRAITH.get();
     }
 
-        public void handleEntityEvent(byte pId) {
+    public ParticleOptions getBurstParticles(){
+        return ModParticleTypes.WRAITH_BURST.get();
+    }
+
+    public void handleEntityEvent(byte pId) {
         super.handleEntityEvent(pId);
         if (pId == 4) {
             this.setIsFiring(true);
@@ -445,11 +455,17 @@ public class AbstractWraith extends Summoned {
             this.setIsFiring(false);
         }
         if (pId == 100){
-            for(int j = 0; j < 16; ++j) {
+            for(int j = 0; j < 6; ++j) {
                 double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                double d2 = this.getY() + (this.random.nextDouble() - 0.5D);
+                double d2 = this.getY() + (this.random.nextDouble() + 0.5D);
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
                 this.level.addParticle(this.getFireParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
+            }
+            for(int j = 0; j < 4; ++j) {
+                double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
+                double d2 = this.getY() + (this.random.nextDouble() + 0.5D);
+                double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
+                this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
             }
         }
         if (pId == 101){

@@ -1,14 +1,20 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
+import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,6 +22,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -30,8 +37,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 
 public class Doppelganger extends Summoned implements RangedAttackMob {
+    private static final EntityDataAccessor<Byte> DOPPELGANGER_FLAGS = SynchedEntityData.defineId(Doppelganger.class, EntityDataSerializers.BYTE);
 
     public Doppelganger(EntityType<? extends Doppelganger> type, Level worldIn) {
         super(type, worldIn);
@@ -50,8 +59,22 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
                 mob.setTarget(this);
             }
         }
+
         if (this.getTrueOwner() != null){
             if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
+                this.die(DamageSource.STARVE);
+            }
+        }
+
+        if (this.isUndeadClone()){
+            this.getNavigation().stop();
+            if (this.getTarget() != null){
+                this.getLookControl().setLookAt(this.getTarget());
+            }
+        }
+
+        if (this.hasShot()){
+            if ((this.tickCount % 40 == 0 && this.random.nextFloat() <= 0.25F) || this.tickCount % 100 == 0){
                 this.die(DamageSource.STARVE);
             }
         }
@@ -71,6 +94,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new NecroBoltGoal(this));
         this.goalSelector.addGoal(4, new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
@@ -87,7 +111,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     }
 
     public boolean doHurtTarget(Entity entityIn) {
-        return false;
+        return this.isUndeadClone();
     }
 
     protected SoundEvent getAmbientSound() {
@@ -102,7 +126,59 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
         return SoundEvents.GENERIC_DEATH;
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DOPPELGANGER_FLAGS, (byte)0);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setUndeadClone(compound.getBoolean("UndeadClone"));
+        this.setShot(compound.getBoolean("Shot"));
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("UndeadClone", this.isUndeadClone());
+        compound.putBoolean("Shot", this.hasShot());
+    }
+
+    private boolean getDoppelgangerFlags(int mask) {
+        int i = this.entityData.get(DOPPELGANGER_FLAGS);
+        return (i & mask) != 0;
+    }
+
+    private void setDoppelgangerFlags(int mask, boolean value) {
+        int i = this.entityData.get(DOPPELGANGER_FLAGS);
+        if (value) {
+            i = i | mask;
+        } else {
+            i = i & ~mask;
+        }
+
+        this.entityData.set(DOPPELGANGER_FLAGS, (byte)(i & 255));
+    }
+
+    public boolean isUndeadClone(){
+        return this.getDoppelgangerFlags(1);
+    }
+
+    public void setUndeadClone(boolean undeadClone){
+        this.setDoppelgangerFlags(1, undeadClone);
+    }
+
+    public boolean hasShot(){
+        return this.getDoppelgangerFlags(2);
+    }
+
+    public void setShot(boolean undeadClone){
+        this.setDoppelgangerFlags(2, undeadClone);
+    }
+
     public boolean hurt(DamageSource source, float amount) {
+        if (this.isUndeadClone()){
+            return source.isBypassInvul() || (source.isBypassArmor() && source.isBypassMagic());
+        }
         return super.hurt(source, amount);
     }
 
@@ -126,7 +202,11 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
                 }
             }
         }
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        if (this.isUndeadClone()){
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.NAMELESS_STAFF.get()));
+        } else {
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        }
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
@@ -142,16 +222,30 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     }
 
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof BowItem)));
-        AbstractArrow abstractarrowentity = this.getMobArrow(itemstack, distanceFactor);
-        abstractarrowentity = ((BowItem)this.getMainHandItem().getItem()).customArrow(abstractarrowentity);
-        double d0 = target.getX() - this.getX();
-        double d1 = target.getY(0.3333333333333333D) - abstractarrowentity.getY();
-        double d2 = target.getZ() - this.getZ();
-        double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
-        abstractarrowentity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
-        this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(abstractarrowentity);
+        if (!this.isUndeadClone()) {
+            ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof BowItem)));
+            AbstractArrow abstractarrowentity = this.getMobArrow(itemstack, distanceFactor);
+            abstractarrowentity = ((BowItem) this.getMainHandItem().getItem()).customArrow(abstractarrowentity);
+            double d0 = target.getX() - this.getX();
+            double d1 = target.getY(0.3333333333333333D) - abstractarrowentity.getY();
+            double d2 = target.getZ() - this.getZ();
+            double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+            abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+            this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level.addFreshEntity(abstractarrowentity);
+        } else {
+            double d3 = target.getX() - this.getX();
+            double d4 = (target.getY() + 0.5F) - (this.getY() + 0.5F);
+            double d5 = target.getZ() - this.getZ();
+            NecroBolt soulBolt = new NecroBolt(this, d3, d4, d5, this.level);
+            soulBolt.setPos(this.getX(), this.getEyeY() - 0.2F, this.getZ());
+            soulBolt.setOwner(this);
+            if (this.level.addFreshEntity(soulBolt)) {
+                this.playSound(SoundEvents.EVOKER_CAST_SPELL, 1.0F, 1.0F);
+                this.setShot(true);
+            }
+            this.swing(InteractionHand.MAIN_HAND);
+        }
     }
 
     protected AbstractArrow getMobArrow(ItemStack arrowStack, float distanceFactor) {
@@ -166,5 +260,47 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem p_230280_1_) {
         return p_230280_1_ == Items.BOW;
+    }
+
+    public static class NecroBoltGoal extends Goal {
+        private final Doppelganger rangedAttackMob;
+        @Nullable
+        private LivingEntity target;
+
+        public NecroBoltGoal(Doppelganger p_25773_) {
+            this.rangedAttackMob = p_25773_;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity livingentity = this.rangedAttackMob.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                this.target = livingentity;
+                return this.rangedAttackMob.isUndeadClone() && !this.rangedAttackMob.hasShot();
+            } else {
+                return false;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.canUse() || this.target.isAlive() && !this.rangedAttackMob.getNavigation().isDone() && !this.rangedAttackMob.hasShot();
+        }
+
+        public void stop() {
+            this.target = null;
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            if (this.target != null) {
+                this.rangedAttackMob.getLookControl().setLookAt(this.target);
+                if (this.rangedAttackMob.tickCount % 20 == 0) {
+                    this.rangedAttackMob.performRangedAttack(this.target, 0);
+                }
+            }
+        }
     }
 }
