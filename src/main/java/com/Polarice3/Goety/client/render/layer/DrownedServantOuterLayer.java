@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class DrownedServantOuterLayer<T extends DrownedServant> extends RenderLayer<T, DrownedServantModel<T>> {
-   private static final ResourceLocation DROWNED_OUTER_LAYER_LOCATION = Goety.location("textures/entity/servants/drowned_minion_outer_layer.png");
+   private static final ResourceLocation DROWNED_OUTER_LAYER_LOCATION = Goety.location("textures/entity/servants/drowned_servant_outer_layer.png");
    private final DrownedServantModel<T> model;
 
    public DrownedServantOuterLayer(RenderLayerParent<T, DrownedServantModel<T>> p_174490_, EntityModelSet p_174491_) {

@@ -309,15 +309,15 @@ public class Summoned extends Owned {
         if (!this.isWandering() && !this.isStaying()){
             this.setWandering(true);
             this.setStaying(false);
-            player.displayClientMessage(Component.translatable("info.goety.minion.wander", this.getDisplayName()), true);
+            player.displayClientMessage(Component.translatable("info.goety.servant.wander", this.getDisplayName()), true);
         } else if (!this.isStaying()){
             this.setWandering(false);
             this.setStaying(true);
-            player.displayClientMessage(Component.translatable("info.goety.minion.staying", this.getDisplayName()), true);
+            player.displayClientMessage(Component.translatable("info.goety.servant.staying", this.getDisplayName()), true);
         } else {
             this.setWandering(false);
             this.setStaying(false);
-            player.displayClientMessage(Component.translatable("info.goety.minion.follow", this.getDisplayName()), true);
+            player.displayClientMessage(Component.translatable("info.goety.servant.follow", this.getDisplayName()), true);
         }
         this.playSound(SoundEvents.ZOMBIE_VILLAGER_CONVERTED, 1.0f, 1.0f);
 

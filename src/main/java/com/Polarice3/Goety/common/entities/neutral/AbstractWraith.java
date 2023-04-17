@@ -32,6 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 
 public class AbstractWraith extends Summoned {
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
@@ -48,7 +49,6 @@ public class AbstractWraith extends Summoned {
     public AbstractWraith(EntityType<? extends Summoned> p_i48553_1_, Level p_i48553_2_) {
         super(p_i48553_1_, p_i48553_2_);
         this.moveControl = new MobUtil.WraithMoveController(this);
-        this.maxUpStep = 1.0F;
         this.fireTick = 0;
         this.firingTick = 0;
         this.firingTick2 = 0;
@@ -73,6 +73,7 @@ public class AbstractWraith extends Summoned {
                 .add(Attributes.MAX_HEALTH, AttributesConfig.WraithHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WraithDamage.get());
     }
 

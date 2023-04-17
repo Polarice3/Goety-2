@@ -362,6 +362,11 @@ public class ModEvents {
                     }
                 }
             }
+            if (livingEntity instanceof Witch witch){
+                if (WitchBarterHelper.getTimer(witch) > 0){
+                    WitchBarterHelper.decreaseTimer(witch);
+                }
+            }
             if (MainConfig.VillagerConvertWarlock.get()) {
                 if (livingEntity instanceof Villager villager) {
                     if (villager.level instanceof ServerLevel serverLevel) {
@@ -483,15 +488,17 @@ public class ModEvents {
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
         if (!event.getLevel().isClientSide) {
             if (CuriosFinder.hasWitchSet(event.getEntity())) {
-                if (event.getItemStack().getItem() == Items.EMERALD) {
-                    if (event.getTarget() instanceof Witch witch) {
-                        if (!witch.isAggressive() && witch.getMainHandItem().isEmpty() && witch.tickCount % 5 == 0) {
-                            event.setCanceled(true);
-                            event.setCancellationResult(InteractionResult.SUCCESS);
-                            witch.playSound(SoundEvents.WITCH_CELEBRATE);
-                            ItemStack itemstack1 = event.getItemStack().split(1);
-                            witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
-                            WitchBarterGoal.setTrader(witch, event.getEntity());
+                if (event.getTarget() instanceof Witch witch) {
+                    if (!witch.isAggressive()) {
+                        if (WitchBarterHelper.getTimer(witch) <= 0) {
+                            if (witch.getMainHandItem().isEmpty() && event.getItemStack().getItem() == Items.EMERALD) {
+                                event.setCanceled(true);
+                                event.setCancellationResult(InteractionResult.SUCCESS);
+                                witch.playSound(SoundEvents.WITCH_CELEBRATE);
+                                ItemStack itemstack1 = event.getItemStack().split(1);
+                                witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                                WitchBarterHelper.setTrader(witch, event.getEntity());
+                            }
                         }
                     }
                 }

@@ -6,6 +6,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraftforge.common.Tags;
 
 public class RitualStructures {
 
@@ -15,8 +17,7 @@ public class RitualStructures {
         findStructures(craftType, pTileEntity, pPos, pLevel);
         return switch (craftType) {
             case "animation", "necroturgy", "lich", "forge", "magic", "sabbath" -> RitualStructures.checkRequirements(craftType, pTileEntity);
-            case "adept_nether" -> pLevel.dimensionType().ultraWarm();
-            case "expert_nether" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
+            case "adept_nether", "expert_nether" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
             case "air" -> pPos.getY() >= 128;
             case "storm" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pPos.getY() >= 128 && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
@@ -42,13 +43,13 @@ public class RitualStructures {
     public static void getBlocks(String craftType, RitualBlockEntity pTileEntity, BlockState pState, BlockPos pPos, Level pLevel){
         switch (craftType){
             case "animation":
-                if (pState.getBlock() == Blocks.LADDER) {
+                if (pState.getBlock() instanceof LadderBlock) {
                     pTileEntity.first.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.RAIL) {
+                if (pState.getBlock() instanceof RailBlock) {
                     pTileEntity.second.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.CARVED_PUMPKIN) {
+                if (pState.getBlock() instanceof CarvedPumpkinBlock) {
                     pTileEntity.third.add(pPos);
                 }
             case "necroturgy":
@@ -59,28 +60,28 @@ public class RitualStructures {
                 if (pState.getBlock() instanceof SlabBlock) {
                     pTileEntity.second.add(pPos);
                 }
-                if (pState.getBlock() instanceof FlowerPotBlock) {
-                    if (((FlowerPotBlock) pState.getBlock()).getContent() != Blocks.AIR){
+                if (pState.getBlock() instanceof FlowerPotBlock flowerPotBlock) {
+                    if (flowerPotBlock.getContent() != Blocks.AIR){
                         pTileEntity.third.add(pPos);
                     }
                 }
             case "forge":
-                if (pState.getBlock() == Blocks.SMITHING_TABLE) {
+                if (pState.getBlock() instanceof SmithingTableBlock) {
                     pTileEntity.first.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.FURNACE || pState.getBlock() == Blocks.BLAST_FURNACE) {
+                if (pState.getBlock() instanceof FurnaceBlock || pState.getBlock() instanceof BlastFurnaceBlock) {
                     pTileEntity.second.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.ANVIL || pState.getBlock() == Blocks.CHIPPED_ANVIL || pState.getBlock() == Blocks.DAMAGED_ANVIL) {
+                if (pState.getBlock() instanceof AnvilBlock) {
                     pTileEntity.third.add(pPos);
                 }
             case "magic":
-                if (pState.getBlock() == Blocks.BOOKSHELF) {
+                if (pState.is(Tags.Blocks.BOOKSHELVES)) {
                     pTileEntity.first.add(pPos);
                 }
                 if (pState.getBlock() instanceof LecternBlock) {
                     if (pState.hasBlockEntity() && pLevel.getBlockEntity(pPos) instanceof LecternBlockEntity lecternTileEntity){
-                        if (lecternTileEntity.hasBook()){
+                        if (!lecternTileEntity.getBook().isEmpty()){
                             pTileEntity.second.add(pPos);
                         }
                     }
@@ -99,15 +100,10 @@ public class RitualStructures {
                     pTileEntity.third.add(pPos);
                 }
             case "adept_nether":
-                if (pState.getBlock() == Blocks.BASALT
-                        || pState.getBlock() == Blocks.POLISHED_BASALT
-                        || pState.getBlock() == Blocks.SMOOTH_BASALT) {
+                if (pState.getBlock().getDescriptionId().contains("basalt")) {
                     pTileEntity.first.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.BLACKSTONE
-                        || pState.getBlock() == Blocks.POLISHED_BLACKSTONE
-                        || pState.getBlock() == Blocks.POLISHED_BLACKSTONE_BRICKS
-                        || pState.getBlock() == Blocks.CHISELED_POLISHED_BLACKSTONE) {
+                if (pState.getBlock().getDescriptionId().contains("blackstone")) {
                     pTileEntity.second.add(pPos);
                 }
                 if (pState.getBlock() == Blocks.GLOWSTONE) {
@@ -124,13 +120,13 @@ public class RitualStructures {
                     pTileEntity.third.add(pPos);
                 }
             case "storm":
-                if (pState.getBlock() == Blocks.COPPER_BLOCK) {
+                if (pState.getBlock() instanceof WeatheringCopperFullBlock) {
                     pTileEntity.first.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.LIGHTNING_ROD) {
+                if (pState.getBlock() instanceof LightningRodBlock) {
                     pTileEntity.second.add(pPos);
                 }
-                if (pState.getBlock() == Blocks.CHAIN) {
+                if (pState.getBlock() instanceof ChainBlock) {
                     pTileEntity.third.add(pPos);
                 }
         }
@@ -140,42 +136,42 @@ public class RitualStructures {
         int first = 0;
         int second = 0;
         int third = 0;
-        switch (craftType){
-            case "animation":
+        switch (craftType) {
+            case "animation" -> {
                 first = 15;
                 second = 15;
                 third = 1;
-                break;
-            case "necroturgy":
-            case "lich":
+            }
+            case "necroturgy", "lich" -> {
                 first = 16;
                 second = 16;
                 third = 8;
-                break;
-            case "forge":
+            }
+            case "forge" -> {
                 first = 1;
                 second = 3;
                 third = 4;
-                break;
-            case "magic":
+            }
+            case "magic" -> {
                 first = 16;
                 second = 1;
                 third = 2;
-                break;
-            case "sabbath", "adept_nether":
+            }
+            case "sabbath", "adept_nether" -> {
                 first = 8;
                 second = 16;
                 third = 4;
-                break;
-            case "expert_nether":
+            }
+            case "expert_nether" -> {
                 first = 4;
                 second = 32;
                 third = 8;
-                break;
-            case "storm":
+            }
+            case "storm" -> {
                 first = 12;
                 second = 4;
                 third = 20;
+            }
         }
         return pTileEntity.first.size() >= first && pTileEntity.second.size() >= second && pTileEntity.third.size() >= third;
     }

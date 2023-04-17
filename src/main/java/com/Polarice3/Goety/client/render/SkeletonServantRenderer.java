@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeletonServant, SkeletonModel<AbstractSkeletonServant>> {
-   private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/skeleton_minion.png");
+   private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/skeleton_servant.png");
    private static final ResourceLocation STRAY = new ResourceLocation("textures/entity/skeleton/stray.png");
 
    public SkeletonServantRenderer(EntityRendererProvider.Context p_174380_) {

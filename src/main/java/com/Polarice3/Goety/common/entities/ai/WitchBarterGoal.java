@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.utils.ModLootTables;
+import com.Polarice3.Goety.utils.WitchBarterHelper;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -17,26 +18,18 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
 public class WitchBarterGoal extends Goal {
     private int progress = 100;
     public Witch witch;
-    @Nullable
-    public static LivingEntity trader;
-    public static Witch witchTrade;
 
     public WitchBarterGoal(Witch witch) {
         this.witch = witch;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET));
     }
 
-    public static void setTrader(Witch witch, @Nullable LivingEntity livingEntity){
-        witchTrade = witch;
-        trader = livingEntity;
-    }
 
     @Override
     public boolean isInterruptable() {
@@ -46,6 +39,7 @@ public class WitchBarterGoal extends Goal {
     @Override
     public void tick() {
         this.witch.setTarget(null);
+        LivingEntity trader = WitchBarterHelper.getTrader(witch);
         if (--this.progress > 0) {
             this.witch.getNavigation().stop();
             if (trader != null && this.witch.distanceTo(trader) <= 16.0F) {
@@ -53,7 +47,7 @@ public class WitchBarterGoal extends Goal {
             }
         }
         if (this.progress <= 0) {
-            Vec3 vec3 = trader != null && witchTrade == witch ? trader.position() : this.witch.position();
+            Vec3 vec3 = trader != null ? trader.position() : this.witch.position();
             if (!this.witch.level.isClientSide) {
                 if (this.witch.level.getServer() != null) {
                     LootTable loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WITCH_BARTER);
@@ -63,12 +57,12 @@ public class WitchBarterGoal extends Goal {
                     }
                 }
             }
-            this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            this.clearTrade();
         }
 
         if (this.witch.hurtTime != 0){
             if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).getItem() == Items.EMERALD) {
-                this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                this.clearTrade();
                 this.witch.spawnAtLocation(new ItemStack(Items.EMERALD));
             }
         }
@@ -96,6 +90,13 @@ public class WitchBarterGoal extends Goal {
     public void start(){
         super.start();
         this.progress = 100;
+        WitchBarterHelper.setTimer(this.witch, 5);
         this.addParticlesAroundSelf(ParticleTypes.HAPPY_VILLAGER);
+    }
+
+    public void clearTrade(){
+        this.witch.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        WitchBarterHelper.setTimer(this.witch, 5);
+        WitchBarterHelper.setTrader(this.witch, null);
     }
 }

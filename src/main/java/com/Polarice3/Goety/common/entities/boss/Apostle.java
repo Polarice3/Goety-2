@@ -71,6 +71,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -104,7 +105,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
-        this.maxUpStep = 1.0F;
         this.xpReward = 200;
         this.f = 0;
         this.coolDown = 100;
@@ -140,6 +140,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D);
     }
 

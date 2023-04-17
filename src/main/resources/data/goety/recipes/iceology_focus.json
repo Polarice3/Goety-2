@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "minecraft:snow_block"
+    "item": "goety:empty_core"
   },
   "craftType": "storm",
   "soulCost": 1,

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.network;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichUpdatePacket;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEUpdatePacket;
+import com.Polarice3.Goety.common.capabilities.witchbarter.WBUpdatePacket;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.server.*;
 import net.minecraft.resources.ResourceLocation;
@@ -42,6 +43,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SFungusExplosionPacket.class, SFungusExplosionPacket::encode, SFungusExplosionPacket::decode, SFungusExplosionPacket::consume);
         INSTANCE.registerMessage(nextID(), SLootingExplosionPacket.class, SLootingExplosionPacket::encode, SLootingExplosionPacket::decode, SLootingExplosionPacket::consume);
+        INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

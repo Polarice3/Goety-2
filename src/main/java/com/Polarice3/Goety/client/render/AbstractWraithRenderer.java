@@ -3,9 +3,12 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+
+import javax.annotation.Nullable;
 
 public abstract class AbstractWraithRenderer extends MobRenderer<AbstractWraith, HierarchicalModel<AbstractWraith>> {
 
@@ -16,6 +19,11 @@ public abstract class AbstractWraithRenderer extends MobRenderer<AbstractWraith,
     @Override
     public ResourceLocation getTextureLocation(AbstractWraith entity) {
         return null;
+    }
+
+    @Nullable
+    protected RenderType getRenderType(AbstractWraith p_230496_1_, boolean p_230496_2_, boolean p_230496_3_, boolean p_230496_4_) {
+        return RenderType.entityTranslucent(getTextureLocation(p_230496_1_));
     }
 
     @Override

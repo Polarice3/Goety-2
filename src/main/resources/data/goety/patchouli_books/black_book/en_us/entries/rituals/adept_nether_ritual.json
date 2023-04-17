@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Be in the Nether $(li)8 Basalts $(li)16 Blackstone $(li)4 Glowstone"
+      "text": "Requirements: $(li)Be in the Nether $(li)8 Basalts Any $(li)16 Blackstone Any $(li)4 Glowstone"
     },
     {
       "type": "patchouli:image",
@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Nether is a dimension full of Soul Energy, as shown with the endless amounts of Soul Sand that littered the realm. However, there still needs structure to create Nether related artifacts to focus the abundance into one place. The Blackstone can be Polished, Bricked or Chiseled. The Basalt can be Smooth and Polished."
+      "text": "The Nether is a dimension full of Soul Energy, as shown with the endless amounts of Soul Sand that littered the realm. However, there still needs structure to create Nether related artifacts to focus the abundance into one place. The Blackstone and Basalt can be of any kind."
     }
   ]
 }

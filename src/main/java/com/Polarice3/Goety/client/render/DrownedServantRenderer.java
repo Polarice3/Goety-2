@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.DrownedServantOuterLayer;
 import com.Polarice3.Goety.client.render.model.DrownedServantModel;
 import com.Polarice3.Goety.common.entities.ally.DrownedServant;
@@ -11,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class DrownedServantRenderer extends AbstractZombieServantRenderer<DrownedServant, DrownedServantModel<DrownedServant>> {
-   private static final ResourceLocation DROWNED_LOCATION = new ResourceLocation("textures/entity/zombie/drowned.png");
+   protected static final ResourceLocation DROWNED_LOCATION = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/drowned_servant.png");
 
    public DrownedServantRenderer(EntityRendererProvider.Context p_173964_) {
       super(p_173964_, new DrownedServantModel<>(p_173964_.bakeLayer(ModelLayers.DROWNED)), new DrownedServantModel<>(p_173964_.bakeLayer(ModelLayers.DROWNED_INNER_ARMOR)), new DrownedServantModel<>(p_173964_.bakeLayer(ModelLayers.DROWNED_OUTER_ARMOR)));

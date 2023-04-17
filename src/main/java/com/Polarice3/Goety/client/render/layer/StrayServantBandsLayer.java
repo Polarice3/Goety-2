@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 
 public class StrayServantBandsLayer<T extends Mob & RangedAttackMob, M extends EntityModel<T>> extends RenderLayer<T, M> {
-    private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/stray_minion_bands.png");
+    private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/stray_servant_bands.png");
     private final SkeletonModel<T> layerModel;
 
     public StrayServantBandsLayer(RenderLayerParent<T, M> p_i50919_1_, EntityModelSet p_174555_) {
