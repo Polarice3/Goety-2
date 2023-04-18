@@ -42,6 +42,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation NAMELESS_CROWN = register("nameless_crown");
     public static final ModelLayerLocation NAMELESS_SET = register("nameless_set");
     public static final ModelLayerLocation GLOVE = register("glove");
+    public static final ModelLayerLocation SOUL_SHIELD = register("soul_shield");
 
     private static ModelLayerLocation register(String p_171294_) {
         return register(p_171294_, "main");

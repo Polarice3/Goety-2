@@ -10,6 +10,7 @@ import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
+import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
 import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
@@ -21,6 +22,8 @@ import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HeartParticle;
@@ -30,6 +33,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -57,12 +61,21 @@ public class ClientInitEvents {
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.HAUNTED);
         });
+
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
                 (stack, world, living, seed) -> ((float) TotemOfSouls.currentSouls(stack)) / TotemOfSouls.MAX_SOULS);
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("activated"),
                 (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
+    }
+
+    @SubscribeEvent
+    public static void addLayers(EntityRenderersEvent.AddLayers event){
+        PlayerRenderer playerRenderer = event.getSkin("default");
+        if (playerRenderer != null){
+            playerRenderer.addLayer(new PlayerSoulShieldLayer(playerRenderer, event.getEntityModels()));
+        }
     }
 
     @SubscribeEvent
@@ -107,6 +120,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_OUTER, VillagerArmorModel::createOuterArmorLayer);
+        event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
 
         LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
         LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);

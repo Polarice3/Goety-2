@@ -99,33 +99,31 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
-            Player player = event.getEntity();
-            Player original = event.getOriginal();
+        Player player = event.getEntity();
+        Player original = event.getOriginal();
 
-            original.reviveCaps();
+        original.reviveCaps();
 
-            ILichdom capability2 = LichdomHelper.getCapability(original);
+        ILichdom capability2 = LichdomHelper.getCapability(original);
 
-            player.getCapability(LichProvider.CAPABILITY)
-                    .ifPresent(lichdom ->
-                            lichdom.setLichdom(capability2.getLichdom()));
+        player.getCapability(LichProvider.CAPABILITY)
+                .ifPresent(lichdom ->
+                        lichdom.setLichdom(capability2.getLichdom()));
 
-            ISoulEnergy capability3 = SEHelper.getCapability(original);
+        ISoulEnergy capability3 = SEHelper.getCapability(original);
 
-            player.getCapability(SEProvider.CAPABILITY)
-                    .ifPresent(soulEnergy ->
-                            soulEnergy.setSEActive(capability3.getSEActive()));
-            player.getCapability(SEProvider.CAPABILITY)
-                    .ifPresent(soulEnergy ->
-                            soulEnergy.setSoulEnergy(capability3.getSoulEnergy()));
-            player.getCapability(SEProvider.CAPABILITY)
-                    .ifPresent(soulEnergy ->
-                            soulEnergy.setArcaBlock(capability3.getArcaBlock()));
-            player.getCapability(SEProvider.CAPABILITY)
-                    .ifPresent(soulEnergy ->
-                            soulEnergy.setArcaBlockDimension(capability3.getArcaBlockDimension()));
-        }
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setSEActive(capability3.getSEActive()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setSoulEnergy(capability3.getSoulEnergy()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setArcaBlock(capability3.getArcaBlock()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setArcaBlockDimension(capability3.getArcaBlockDimension()));
     }
 
     @SubscribeEvent
@@ -330,6 +328,9 @@ public class ModEvents {
                     attackSpeed.removeModifier(attributemodifier);
                 }
             }
+        }
+        if (MobUtil.starAmuletActive(player)){
+            player.getAbilities().flying &= player.isCreative();
         }
     }
 
@@ -564,6 +565,11 @@ public class ModEvents {
                     }
                 }
             }
+            if (victim instanceof Player player){
+                if (MobUtil.starAmuletActive(player)){
+                    event.setCanceled(true);
+                }
+            }
         }
     }
 
@@ -644,6 +650,13 @@ public class ModEvents {
     @SubscribeEvent
     public static void DamageEvent(LivingDamageEvent event){
         LivingEntity entity = event.getEntity();
+        if (entity instanceof Player player) {
+            if (MobUtil.starAmuletActive(player)){
+                if (event.getSource().getDirectEntity() instanceof AbstractArrow){
+                    event.setCanceled(true);
+                }
+            }
+        }
         if (event.getSource().getEntity() instanceof IOwned summonedEntity){
             if (summonedEntity.getTrueOwner() != null){
                 if (summonedEntity.getTrueOwner() == entity){

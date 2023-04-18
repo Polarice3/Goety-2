@@ -2,6 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
+import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
@@ -187,6 +188,10 @@ public class MobUtil {
 
     public static boolean healthIsHalved(LivingEntity livingEntity){
         return livingEntity.getHealth() <= livingEntity.getMaxHealth()/2;
+    }
+
+    public static boolean starAmuletActive(Player player){
+        return CuriosFinder.hasCurio(player, ModItems.STAR_AMULET.get()) && MobUtil.healthIsHalved(player);
     }
 
     public static void releaseAllPois(Villager villager){

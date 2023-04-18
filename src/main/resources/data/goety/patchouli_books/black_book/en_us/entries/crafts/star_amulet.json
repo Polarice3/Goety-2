@@ -1,0 +1,15 @@
+{
+  "name": "Soul Shield Amulet",
+  "icon": "goety:star_amulet",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Soul Shield Amulet mimics the Wither's shield when its power has ebbed. Should its wearer be half or less of their maximum health, arrows will bounced off them. Should one be capable of Creative Flight without being in Creative, they will find themselves grounded when the shield is up."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:star_amulet"
+    }
+  ]
+}

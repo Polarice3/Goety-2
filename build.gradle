@@ -115,6 +115,7 @@ dependencies {
     //Testing Only
     runtimeOnly fg.deobf("curse.maven:jade-324717:4433884")
     runtimeOnly fg.deobf("curse.maven:nbttool-451553:3879898")
+    runtimeOnly fg.deobf("curse.maven:yeetus-635427:3909789")
 }
 
 jar {
