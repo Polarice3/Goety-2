@@ -76,6 +76,10 @@ public class CuriosFinder {
                 || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get());
     }
 
+    public static boolean hasUndeadSet(LivingEntity livingEntity){
+        return hasUndeadCrown(livingEntity) && hasUndeadCape(livingEntity);
+    }
+
     private static boolean isRing(ItemStack itemStack) {
         return itemStack.getItem() instanceof RingItem;
     }

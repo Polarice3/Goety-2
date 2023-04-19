@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
@@ -50,6 +51,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.animal.horse.Mule;
@@ -137,6 +139,9 @@ public class ModEvents {
             }
             if (entity instanceof Witch witch){
                 witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
+            }
+            if (entity instanceof AbstractGolem golemEntity && !(entity instanceof Enemy)){
+                golemEntity.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(golemEntity, Owned.class));
             }
         }
         if (entity instanceof StormEntity){
@@ -957,6 +962,16 @@ public class ModEvents {
     public static void PotionApplicationEvents(MobEffectEvent.Applicable event){
         if (event.getEffectInstance().getEffect() == MobEffects.FIRE_RESISTANCE){
             if (event.getEntity().hasEffect(ModEffects.BURN_HEX.get())){
+                event.setResult(Event.Result.DENY);
+            }
+        }
+        if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
+            if (CuriosFinder.hasIllusionRobe(event.getEntity())){
+                event.setResult(Event.Result.DENY);
+            }
+        }
+        if (event.getEffectInstance().getEffect() == ModEffects.ILLAGUE.get()){
+            if (event.getEntity().getType().is(EntityTypeTags.RAIDERS) || event.getEntity() instanceof PatrollingMonster){
                 event.setResult(Event.Result.DENY);
             }
         }

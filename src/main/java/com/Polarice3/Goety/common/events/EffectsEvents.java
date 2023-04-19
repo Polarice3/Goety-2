@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -88,14 +89,17 @@ public class EffectsEvents {
                         case 7 -> infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
                     }
                 } else {
-                    switch (r) {
-                        case 0 ->
-                                infected.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400 * r4, r3, false, false));
-                        case 1, 2, 3 ->
-                                infected.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 400 * r4, r3, false, false));
-                        case 4, 5, 6 ->
-                                infected.addEffect(new MobEffectInstance(MobEffects.POISON, 400 * r4, r3, false, false));
-                        case 7 -> infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
+                    if (!infected.getType().is(EntityTypeTags.RAIDERS)) {
+                        switch (r) {
+                            case 0 ->
+                                    infected.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400 * r4, r3, false, false));
+                            case 1, 2, 3 ->
+                                    infected.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 400 * r4, r3, false, false));
+                            case 4, 5, 6 ->
+                                    infected.addEffect(new MobEffectInstance(MobEffects.POISON, 400 * r4, r3, false, false));
+                            case 7 ->
+                                    infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
+                        }
                     }
                 }
             }

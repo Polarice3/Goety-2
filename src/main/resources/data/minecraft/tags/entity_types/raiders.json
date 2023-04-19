@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "goety:envioker",
+    "goety:inquillager",
+    "goety:conquillager",
+    "goety:warlock",
     "goety:vizier"
   ]
 }
