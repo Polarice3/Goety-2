@@ -174,7 +174,7 @@ public class DarkWand extends Item {
 
     @Nonnull
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BLOCK;
+        return UseAnim.BOW;
     }
 
     @Nonnull
