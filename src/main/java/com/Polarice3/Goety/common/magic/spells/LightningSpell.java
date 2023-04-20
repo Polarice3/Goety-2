@@ -32,8 +32,12 @@ public class LightningSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
-        int range = 16;
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.WIND;
+    }
+
+    public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){
         double radius = 2.0D;
         float damage = 5.0F;
         if (entityLiving instanceof Player playerEntity) {
@@ -42,7 +46,6 @@ public class LightningSpell extends Spells {
                 radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), playerEntity);
                 damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), playerEntity);
             }
-//            this.IncreaseInfamy(SpellConfig.IceChunkInfamyChance.get(), (PlayerEntity) entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, radius);
         if (rayTraceResult instanceof EntityHitResult){
@@ -66,5 +69,13 @@ public class LightningSpell extends Spells {
             }
             worldIn.addFreshEntity(lightningBolt);
         }
+    }
+
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
+        commonResult(worldIn, entityLiving, 16);
+    }
+
+    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
+        commonResult(worldIn, entityLiving, 32);
     }
 }

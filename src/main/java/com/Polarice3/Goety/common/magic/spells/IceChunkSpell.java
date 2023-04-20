@@ -31,7 +31,7 @@ public class IceChunkSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
         int range = 16;
         double radius = 2.0D;
         float damage = 0.0F;

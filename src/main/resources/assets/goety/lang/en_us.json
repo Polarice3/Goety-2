@@ -113,6 +113,7 @@
 
   "item.goety.dark_wand": "Dark Wand",
   "item.goety.necro_staff": "Necro Staff",
+  "item.goety.wind_staff": "Wind Staff",
   "item.goety.nameless_staff": "Nameless Staff",
   "item.goety.totem_of_souls": "Totem of Souls",
   "item.goety.spent_totem": "Spent Totem of Souls",
@@ -190,6 +191,7 @@
   "item.goety.soul_light_focus": "Soul Light Focus",
   "item.goety.glow_light_focus": "Glow Light Focus",
   "item.goety.launch_focus": "Launching Focus",
+  "item.goety.flying_focus": "Flight Focus",
 
   "item.goety.pedestal_dummy": "Pedestal",
 

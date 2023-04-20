@@ -32,7 +32,7 @@ public class SonicBoomSpell extends Spells {
     }
 
     @Override
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 15, 3);
         if (rayTraceResult instanceof EntityHitResult){
             Entity target = ((EntityHitResult) rayTraceResult).getEntity();
@@ -47,7 +47,8 @@ public class SonicBoomSpell extends Spells {
                 }
 
                 worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
-                livingEntity.hurt(DamageSource.sonicBoom(entityLiving), 10.0F);
+                float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+                livingEntity.hurt(DamageSource.sonicBoom(entityLiving), damage);
                 double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                 double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                 livingEntity.push(vec32.x() * d0, vec32.y() * d1, vec32.z() * d0);

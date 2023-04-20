@@ -28,6 +28,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
@@ -117,6 +118,8 @@ public class SpellConfig {
                 .defineInRange("iceChunkCost", 16, 0, Integer.MAX_VALUE);
         LaunchCost = BUILDER.comment("Launch Spell Cost, Default: 4")
                 .defineInRange("launchCost", 4, 0, Integer.MAX_VALUE);
+        FlyingCost = BUILDER.comment("Flight Spell Cost, Default: 2")
+                .defineInRange("flightCost", 2, 0, Integer.MAX_VALUE);
         LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")

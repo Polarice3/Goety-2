@@ -27,7 +27,12 @@ public class LaunchSpell extends InstantCastSpells {
     }
 
     @Override
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public SpellType getSpellType() {
+        return SpellType.WIND;
+    }
+
+    @Override
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         if (entityLiving instanceof Player player){
             int enchantment = 0;
             int duration = 1;
@@ -47,7 +52,7 @@ public class LaunchSpell extends InstantCastSpells {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20 * duration));
 //            this.IncreaseInfamy(SpellConfig.LaunchInfamyChance.get(), player);
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 2.0F, 1.0F);
     }
 
     @Override
@@ -69,8 +74,7 @@ public class LaunchSpell extends InstantCastSpells {
             player.hasImpulse = true;
             player.fallDistance = 0;
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20 * duration));
-//            this.IncreaseInfamy(SpellConfig.LaunchInfamyChance.get(), player);
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 2.0F, 1.0F);
     }
 }

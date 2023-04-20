@@ -22,10 +22,10 @@ public abstract class Spells {
 
     public abstract SoundEvent CastingSound();
 
-    public abstract void WandResult(ServerLevel worldIn, LivingEntity entityLiving);
+    public abstract void RegularResult(ServerLevel worldIn, LivingEntity entityLiving);
 
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        this.WandResult(worldIn, entityLiving);
+        this.RegularResult(worldIn, entityLiving);
     }
 
     public SpellType getSpellType(){
@@ -79,11 +79,12 @@ public abstract class Spells {
     }
 
     public enum SpellType{
-        NONE(ModItems.DARK_WAND.get()),
+        NONE(null),
         NECROTURGY(ModItems.NECRO_STAFF.get()),
         LICH(ModItems.NAMELESS_STAFF.get()),
-        NETHER(ModItems.DARK_WAND.get()),
-        ILL(ModItems.DARK_WAND.get());
+        NETHER(null),
+        ILL(null),
+        WIND(ModItems.WIND_STAFF.get());
 
         private Item staff;
 

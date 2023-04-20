@@ -174,7 +174,7 @@ public class DarkWand extends Item {
 
     @Nonnull
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
+        return UseAnim.BLOCK;
     }
 
     @Nonnull
@@ -271,6 +271,9 @@ public class DarkWand extends Item {
             } else if (spell == ModItems.LAVABALL_FOCUS.get()) {
                 this.setSpellConditions(new LavaballSpell(), itemStack);
                 this.setSpell(16, itemStack);
+            } else if (spell == ModItems.FLYING_FOCUS.get()) {
+                this.setSpellConditions(new FlyingSpell(), itemStack);
+                this.setSpell(17, itemStack);
             } else {
                 this.setSpellConditions(null, itemStack);
                 this.setSpell(-1, itemStack);
@@ -350,6 +353,22 @@ public class DarkWand extends Item {
         return handler.getSlot();
     }
 
+    public Item getStaff(ItemStack stack){
+        return this.getSpell(stack).getSpellType().getStaff();
+    }
+
+    public boolean hasAppropriateStaff(ItemStack stack){
+        if (this.getStaff(stack) != null) {
+            if (this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY){
+                return stack.getItem() == this.getStaff(stack) || stack.getItem() == ModItems.NAMELESS_STAFF.get();
+            } else {
+                return stack.getItem() == this.getStaff(stack);
+            }
+        } else {
+            return false;
+        }
+    }
+
     public void MagicResults(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         Player playerEntity = (Player) entityLiving;
         if (!worldIn.isClientSide) {
@@ -357,18 +376,24 @@ public class DarkWand extends Item {
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
-                        if (stack.getItem() == this.getSpell(stack).getSpellType().getStaff()) {
+                        if (hasAppropriateStaff(stack)) {
                             this.getSpell(stack).StaffResult(serverWorld, entityLiving);
                         } else {
-                            this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                            this.getSpell(stack).RegularResult(serverWorld, entityLiving);
                         }
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
                     boolean spent = true;
-                    int random = worldIn.random.nextInt(4);
                     if (this.getSpell(stack) instanceof SpewingSpell) {
-                        if (random != 0) {
+                        if (worldIn.random.nextFloat() <= 0.25F) {
                             spent = false;
+                        }
+                    }
+                    if (this.getSpell(stack) instanceof ChargingSpells){
+                        if (this.hasAppropriateStaff(stack)){
+                            if (worldIn.random.nextFloat() <= 0.25F) {
+                                spent = false;
+                            }
                         }
                     }
                     if (spent){
@@ -376,15 +401,17 @@ public class DarkWand extends Item {
                         SEHelper.sendSEUpdatePacket(playerEntity);
                         if (MainConfig.VillagerHateSpells.get() > 0) {
                             for (Villager villager : entityLiving.level.getEntitiesOfClass(Villager.class, entityLiving.getBoundingBox().inflate(16.0D))) {
-                                villager.getGossips().add(entityLiving.getUUID(), GossipType.MINOR_NEGATIVE, MainConfig.VillagerHateSpells.get());
+                                if (villager.hasLineOfSight(entityLiving)) {
+                                    villager.getGossips().add(entityLiving.getUUID(), GossipType.MINOR_NEGATIVE, MainConfig.VillagerHateSpells.get());
+                                }
                             }
                         }
                     }
                     if (stack.getTag() != null) {
-                        if (stack.getItem() == this.getSpell(stack).getSpellType().getStaff()) {
+                        if (hasAppropriateStaff(stack)) {
                             this.getSpell(stack).StaffResult(serverWorld, entityLiving);
                         } else {
-                            this.getSpell(stack).WandResult(serverWorld, entityLiving);
+                            this.getSpell(stack).RegularResult(serverWorld, entityLiving);
                         }
                     }
                 } else {

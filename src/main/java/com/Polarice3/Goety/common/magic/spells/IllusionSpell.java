@@ -41,7 +41,7 @@ public class IllusionSpell extends Spells {
         return SpellType.LICH;
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger) {
                 if (((Doppelganger) entity).getTrueOwner() == entityLiving) {

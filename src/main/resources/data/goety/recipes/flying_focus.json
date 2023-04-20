@@ -2,29 +2,32 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:wind_core"
+    "item": "goety:launch_focus"
   },
   "craftType": "air",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:firework_rocket"
+      "item": "minecraft:elytra"
     },
     {
-      "item": "minecraft:firework_rocket"
+      "item": "minecraft:dragon_breath"
     },
     {
-      "item": "minecraft:firework_rocket"
+      "item": "minecraft:dragon_breath"
     },
     {
-      "item": "minecraft:phantom_membrane"
+      "item": "minecraft:shulker_shell"
+    },
+    {
+      "item": "minecraft:shulker_shell"
     },
     {
       "item": "minecraft:phantom_membrane"
     }
   ],
   "result": {
-    "item": "goety:launch_focus"
+    "item": "goety:flying_focus"
   }
 }

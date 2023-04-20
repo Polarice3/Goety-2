@@ -1,0 +1,15 @@
+{
+  "name": "Launch Focus",
+  "icon": "goety:launch_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After some tinkering and experimentation, you've managed to create a spell that propels you into the air, allowing you to fly in a crude yet effective manner."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:launch_focus"
+    }
+  ]
+}

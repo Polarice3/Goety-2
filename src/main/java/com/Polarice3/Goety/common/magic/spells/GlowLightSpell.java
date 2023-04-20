@@ -22,7 +22,7 @@ public class GlowLightSpell extends InstantCastSpells {
     }
 
     @Override
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         GlowLight soulLightEntity = new GlowLight(worldIn, entityLiving);
         soulLightEntity.setOwner(entityLiving);
         soulLightEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.5F, 1.0F);

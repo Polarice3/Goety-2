@@ -35,7 +35,7 @@ public class FangSpell extends Spells {
         return SpellType.ILL;
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
         Player playerEntity = (Player) entityLiving;
         int range = 16;
         double radius = 2.0D;

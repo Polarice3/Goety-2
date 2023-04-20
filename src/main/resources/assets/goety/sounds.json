@@ -715,6 +715,13 @@
     ],
     "subtitle": "subtitle.goety.soul_eat"
   },
+  "fly_loop": {
+    "sounds": [
+      {
+        "name": "goety:spell/fly_loop"
+      }
+    ]
+  },
   "fire_tornado_ambient": {
     "sounds": [
       {

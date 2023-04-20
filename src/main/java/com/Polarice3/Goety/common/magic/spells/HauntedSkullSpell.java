@@ -71,7 +71,7 @@ public class HauntedSkullSpell extends SummonSpells {
         }
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));

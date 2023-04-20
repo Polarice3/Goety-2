@@ -69,7 +69,7 @@ public class SkeletonSpell extends SummonSpells {
         }
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);

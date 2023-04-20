@@ -31,7 +31,7 @@ public class FireballSpell extends InstantCastSpells {
     }
 
     @Override
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         ModFireball smallFireballEntity = new ModFireball(worldIn,
                 entityLiving.getX() + vector3d.x / 2,

@@ -77,7 +77,7 @@ public class ZombieSpell extends SummonSpells {
         }
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             Summoned summonedentity;

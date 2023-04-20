@@ -31,7 +31,7 @@ public class FeastSpell extends ChargingSpells {
         return SpellType.ILL;
     }
 
-    public void WandResult(ServerLevel worldIn, LivingEntity entityLiving){
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
         int i = (int) entityLiving.getX();
         int j = (int) entityLiving.getY();
         int k = (int) entityLiving.getZ();

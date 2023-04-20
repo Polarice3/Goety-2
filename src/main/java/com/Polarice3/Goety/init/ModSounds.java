@@ -71,6 +71,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> WIND = create("wind");
+    public static final RegistryObject<SoundEvent> FLY_LOOP = create("fly_loop");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
 
     public static final RegistryObject<SoundEvent> SCYTHE_SWING = create("scythe_swing");
