@@ -9,14 +9,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 /**
- * Spewing Spells Codes based of codes from @TeamTwilight
+ * Breathing Spells Codes based of codes from @TeamTwilight
  */
-public abstract class SpewingSpell extends ChargingSpells{
-
-    @Override
-    public int Cooldown() {
-        return 0;
-    }
+public abstract class BreathingSpells extends EverChargeSpells{
 
     public List<Entity> getTarget(LivingEntity livingEntity, double range) {
         return MobUtil.getTargets(livingEntity, range);

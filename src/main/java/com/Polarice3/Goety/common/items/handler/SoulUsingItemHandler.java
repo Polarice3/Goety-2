@@ -7,7 +7,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -75,20 +74,6 @@ public class SoulUsingItemHandler extends ItemStackHandler {
     protected void onContentsChanged(int slot) {
         CompoundTag nbt = itemStack.getOrCreateTag();
         nbt.putBoolean("goety-dirty", !nbt.getBoolean("goety-dirty"));
-    }
-
-    public static SoulUsingItemHandler orNull(ItemStack stack) {
-        return (SoulUsingItemHandler) stack.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
-    }
-
-    public static LazyOptional<SoulUsingItemHandler> getOptional(ItemStack stack) {
-        LazyOptional<IItemHandler> itemHandlerOpt = stack.getCapability(ForgeCapabilities.ITEM_HANDLER);
-        if (itemHandlerOpt.isPresent()) {
-            IItemHandler handler = itemHandlerOpt.orElse(null);
-            if (handler instanceof SoulUsingItemHandler)
-                return LazyOptional.of(() -> (SoulUsingItemHandler) handler);
-        }
-        return LazyOptional.empty();
     }
 
     public static SoulUsingItemHandler get(ItemStack stack) {

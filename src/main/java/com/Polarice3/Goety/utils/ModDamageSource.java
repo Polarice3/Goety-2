@@ -38,6 +38,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor();
     }
 
+    public static DamageSource windBlast(Entity pSource, @Nullable Entity pIndirectEntity){
+        return (new IndirectEntityDamageSource("windBlast", pSource, pIndirectEntity)).bypassArmor().setMagic();
+    }
+
     public static boolean freezeAttacks(DamageSource source){
         return source.getMsgId().equals(source("indirectFreeze")) || source.getMsgId().equals(source("directFreeze"))
         || source.getMsgId().equals(source("iceBouquet"));

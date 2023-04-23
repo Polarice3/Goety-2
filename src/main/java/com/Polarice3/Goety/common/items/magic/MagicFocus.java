@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,16 +17,18 @@ import java.util.List;
 
 public class MagicFocus extends Item {
     public static final String SOUL_COST = "Soul Cost";
+    public Spells spell;
     public int soulCost;
 
-    public MagicFocus(int soulCost){
+    public MagicFocus(Spells spell){
         super(new Properties()
                 .tab(Goety.TAB)
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)
         );
-        this.soulCost = soulCost;
+        this.spell = spell;
+        this.soulCost = spell.SoulCost();
     }
 
     public boolean isEnchantable(ItemStack pStack) {
@@ -39,7 +42,8 @@ public class MagicFocus extends Item {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
     {
         if (stack.getItem() == ModItems.ICEOLOGY_FOCUS.get()
-                || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()){
+                || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()
+                || stack.getItem() == ModItems.UPDRAFT_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.RADIUS.get();
@@ -86,6 +90,10 @@ public class MagicFocus extends Item {
         return false;
     }
 
+    public Spells getSpell(){
+        return this.spell;
+    }
+
     @Override
     public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
         if (this.allowedIn(pGroup)){
@@ -111,6 +119,7 @@ public class MagicFocus extends Item {
         } else {
             tooltip.add(Component.translatable("info.goety.focus.cost", 0));
         }
+        tooltip.add(Component.translatable("info.goety.focus.spellType", spell.getSpellType().getName()));
     }
 
 }

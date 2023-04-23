@@ -1,5 +1,5 @@
 {
-  "name": "Air Ritual",
+  "name": "Sky Ritual",
   "icon": "minecraft:feather",
   "category": "goety:rituals",
   "sortnum": 5,
@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By putting the Altar high in the air, you can harness the very winds to power your magics."
+      "text": "By putting the Altar high in the air, you can harness the very winds and the sky to power your magics."
     }
   ]
 }

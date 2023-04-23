@@ -1,10 +1,11 @@
-// 1.19.2	2023-04-10T20:19:02.5083794	Goety LootTables
+// 1.19.2	2023-04-23T16:13:07.0246415	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 c4b4be15dec799095f04f5ef624134ad9ef1af9b data/goety/loot_tables/blocks/cursed_bars.json
 15092ae0dd39c2b0ed0ccbad98cddadc4acd5d33 data/goety/loot_tables/blocks/cursed_cage.json
 b4318aba59c2101a47afc4c5d56af946c1df16d2 data/goety/loot_tables/blocks/cursed_infuser.json
 054c1736e47a673f939bab8d45fa662cce738aee data/goety/loot_tables/blocks/cursed_metal_block.json
 92213c811f68be918a1a66d8a4ba534823dfe8e1 data/goety/loot_tables/blocks/dark_altar.json
+086f7328883dd9e007d7613b3891e99fcc33e231 data/goety/loot_tables/blocks/forbidden_grass.json
 2462caac47ce3f499557901ab910ae581786ca84 data/goety/loot_tables/blocks/haunted_button.json
 903b7a132bdbe1ecc65018e82e75fa8ca0d057a9 data/goety/loot_tables/blocks/haunted_door.json
 d59c0996bf7328e1e3e501b6a40b9979302e9ee9 data/goety/loot_tables/blocks/haunted_fence.json
@@ -20,7 +21,6 @@ b9ae911b48d835091a95fcab64a6e35f6b9b231f data/goety/loot_tables/blocks/haunted_s
 1e1a8c30ddeaab865a2f794621a7e395eb87c865 data/goety/loot_tables/blocks/haunted_wood.json
 055a194274f62791795edc3b9deba76e7ca3eef4 data/goety/loot_tables/blocks/ice_bouquet_trap.json
 b4af0313168be6328b415a03028780c556fa5582 data/goety/loot_tables/blocks/pedestal.json
-ad2252e79df3dad02123ef75c88ffaffd01fae0d data/goety/loot_tables/blocks/sculk_devourer.json
 5ea995cb36b2fef96b3db9438da4217585b4610e data/goety/loot_tables/blocks/shade_bricks.json
 e5480cc7e5ac92ba4e0263d5e167c1349399d5b4 data/goety/loot_tables/blocks/shade_bricks_slab.json
 3c79f7dc6fa024f259cedc5db6d6c6fd66b61b4f data/goety/loot_tables/blocks/shade_bricks_stairs.json

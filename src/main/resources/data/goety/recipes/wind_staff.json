@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:dark_wand"
   },
-  "craftType": "air",
+  "craftType": "sky",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [
@@ -30,7 +30,7 @@
       "tag": "forge:storage_blocks/lapis"
     },
     {
-      "item": "goety:wind_core"
+      "item": "goety:gale_fabric"
     }
   ],
   "result": {

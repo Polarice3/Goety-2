@@ -25,6 +25,7 @@ import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.WebBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -89,6 +90,26 @@ public class MobUtil {
                 movement = new Vec3(movement.x, 0.2D, movement.z);
             }
             livingEntity.setDeltaMovement(movement);
+        }
+    }
+
+    public static void WebMovement(LivingEntity livingEntity){
+        AABB axisalignedbb = livingEntity.getBoundingBox();
+        BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
+        BlockPos blockpos1 = new BlockPos(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
+        if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
+            for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
+                for(int j = blockpos.getY(); j <= blockpos1.getY(); ++j) {
+                    for(int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
+                        blockpos$mutable.set(i, j, k);
+                        BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutable);
+                        if (blockstate.getBlock() instanceof WebBlock){
+                            livingEntity.makeStuckInBlock(blockstate, Vec3.ZERO);
+                        }
+                    }
+                }
+            }
         }
     }
 

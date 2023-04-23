@@ -29,8 +29,14 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PlayerSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DefaultSouls;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSELimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
@@ -53,6 +59,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WindRobeCape;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TotemUndying;
@@ -63,6 +70,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagueSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
@@ -158,6 +167,10 @@ public class MainConfig {
                 .defineInRange("darkScytheSouls", 1, 1, Integer.MAX_VALUE);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
                 .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
+        WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
+                .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
+        WindRobeCape = BUILDER.comment("Render Wind Robe Cape, Default: true")
+                .define("windRobeCape", true);
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");
         NecroStaffDamage = BUILDER.comment("How much base damage Necro Staffs deals, Default: 4.0")
@@ -201,7 +214,19 @@ public class MainConfig {
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
                 .define("lichScrollRequirement", true);
         BUILDER.pop();
-        BUILDER.push("Misc");
+        BUILDER.push("Illagers");
+        IllagerAssault = BUILDER.comment("Special Illagers Spawning based of Player's Soul Energy amount, Default: true")
+                .define("illagerAssault", true);
+        IllagerAssaultSpawnFreq = BUILDER.comment("Spawn Frequency for Illagers Hunting the Player, Default: 12000")
+                .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
+        IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Infamy Spawn Frequency, the lower the more likelier, Default: 5")
+                .defineInRange("illagerAssaultSpawnChance", 5, 0, Integer.MAX_VALUE);
+        IllagerAssaultSEThreshold = BUILDER.comment("How much Soul Energy the Player has is required for Special Illagers to spawn, Default: 2500")
+                .defineInRange("illagerAssaultThreshold", 2500, 0, Integer.MAX_VALUE);
+        IllagerAssaultSELimit = BUILDER.comment("The maximum amount of Soul Energy the Player has that is taken consideration for the Assaults, Default: 30000")
+                .defineInRange("illagerAssaultLimit", 30000, 0, Integer.MAX_VALUE);
+        SoulEnergyBadOmen = BUILDER.comment("Hitting the Illager Assault Limit of Soul Energy have a chance of giving Player Bad Omen effect, Default: true")
+                .define("soulEnergyBadOmen", true);
         IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
                 .define("illagueSpread", true);
         IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")

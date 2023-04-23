@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.ChargingSpells;
+import com.Polarice3.Goety.common.magic.EverChargeSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,12 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
-public class FlyingSpell extends ChargingSpells {
-
-    @Override
-    public int Cooldown() {
-        return 0;
-    }
+public class FlyingSpell extends EverChargeSpells {
 
     public int SoulCost() {
         return SpellConfig.FlyingCost.get();

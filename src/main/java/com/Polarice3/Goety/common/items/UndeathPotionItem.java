@@ -3,8 +3,6 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
-import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -44,7 +42,7 @@ public class UndeathPotionItem extends Item {
                 ISoulEnergy soulEnergy = SEHelper.getCapability(player);
                 boolean isLich = lichdom.getLichdom();
                 ServerLevel serverWorld = (ServerLevel) pLevel;
-                if (serverWorld.getMoonBrightness() > 0.9F && CuriosFinder.hasCurio(pEntityLiving, (itemStack -> itemStack.getItem() instanceof MagicRobeItem))){
+                if (serverWorld.getMoonBrightness() > 0.9F){
                     if (!isLich && soulEnergy.getSEActive() && soulEnergy.getArcaBlock() != null) {
                         if (pEntityLiving instanceof ServerPlayer serverPlayer) {
                             CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, pStack);

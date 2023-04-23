@@ -125,7 +125,7 @@ public class SoulEnergyEvents {
                 LivingEntity owner = slayer.getTrueOwner();
                 if (owner != null){
                     if (owner instanceof Player) {
-                        if (CuriosFinder.hasDarkRobe(owner)) {
+                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner)) {
                             Player playerEntity = (Player) owner;
                             if (!(playerEntity instanceof FakePlayer)) {
                                 SEHelper.handleKill(playerEntity, victim);

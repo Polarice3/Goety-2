@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -36,18 +37,6 @@ public abstract class Spells {
         return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
     }
 
-/*    public void IncreaseInfamy(int random, Player player){
-        if (MainConfig.InfamySpell.get()){
-            if (random != 0) {
-                int random2 = player.level.random.nextInt(random);
-                if (random2 == 0) {
-                    IInfamy infamy1 = InfamyHelper.getCapability(player);
-                    infamy1.increaseInfamy(MainConfig.InfamySpellGive.get());
-                }
-            }
-        }
-    }*/
-
     protected HitResult rayTrace(Level worldIn, LivingEntity livingEntity, int range, double radius) {
         if (this.entityResult(worldIn, livingEntity, range, radius) == null){
             return this.blockResult(worldIn, livingEntity, range);
@@ -79,17 +68,23 @@ public abstract class Spells {
     }
 
     public enum SpellType{
-        NONE(null),
-        NECROTURGY(ModItems.NECRO_STAFF.get()),
-        LICH(ModItems.NAMELESS_STAFF.get()),
-        NETHER(null),
-        ILL(null),
-        WIND(ModItems.WIND_STAFF.get());
+        NONE("none", null),
+        NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
+        LICH("lich", ModItems.NAMELESS_STAFF.get()),
+        NETHER("nether", null),
+        ILL("ill", null),
+        WIND("wind", ModItems.WIND_STAFF.get());
 
-        private Item staff;
+        private final Item staff;
+        private final Component name;
 
-        SpellType(Item staff){
+        SpellType(String name, Item staff){
+            this.name = Component.translatable("spell.goety." + name);
             this.staff = staff;
+        }
+
+        public Component getName(){
+            return name;
         }
 
         public Item getStaff() {

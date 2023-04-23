@@ -319,6 +319,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<UpdraftBlast>> UPDRAFT_BLAST = register("updraft_blast",
+            EntityType.Builder.<UpdraftBlast>of(UpdraftBlast::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
             EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)
                     .fireImmune()

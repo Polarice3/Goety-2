@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.block.ModISTER;
+import com.Polarice3.Goety.common.items.EnchantableBlockItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.TallSkullItem;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
@@ -47,7 +48,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
-    public static final RegistryObject<Block> SCULK_DEVOURER = register("sculk_devourer", SculkDevourerBlock::new);
+    public static final RegistryObject<Block> SCULK_DEVOURER = register("sculk_devourer", SculkDevourerBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
@@ -122,6 +123,8 @@ public class ModBlocks {
                     .noOcclusion()));
 
     //Custom Items
+    public static final RegistryObject<Item> SCULK_DEVOURER_ITEM = ModItems.ITEMS.register("sculk_devourer",
+            () -> new EnchantableBlockItem(SCULK_DEVOURER.get()));
     public static final RegistryObject<Item> HAUNTED_SIGN_ITEM = ModItems.ITEMS.register("haunted_sign",
             () -> new SignItem(new Item.Properties().tab(Goety.TAB).stacksTo(16), HAUNTED_SIGN.get(), HAUNTED_WALL_SIGN.get()));
     public static final RegistryObject<Item> TALL_SKULL_ITEM = ModItems.ITEMS.register("tall_skull",

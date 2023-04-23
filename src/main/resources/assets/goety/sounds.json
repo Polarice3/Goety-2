@@ -740,6 +740,20 @@
     ],
     "subtitle": "subtitle.goety.wind"
   },
+  "updraft_blast": {
+    "sounds": [
+      {
+        "name": "goety:spell/updraft_blast1"
+      },
+      {
+        "name": "goety:spell/updraft_blast2"
+      },
+      {
+        "name": "goety:spell/updraft_blast3"
+      }
+    ],
+    "subtitle": "subtitle.goety.updraft_blast"
+  },
   "scythe_swing": {
     "sounds": [
       {

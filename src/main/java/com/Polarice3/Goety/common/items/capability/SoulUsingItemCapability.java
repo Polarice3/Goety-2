@@ -34,7 +34,7 @@ public class SoulUsingItemCapability implements ICapabilitySerializable<Tag> {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? holder.cast() : LazyOptional.empty();
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
     }
 
     public Tag serializeNBT() {

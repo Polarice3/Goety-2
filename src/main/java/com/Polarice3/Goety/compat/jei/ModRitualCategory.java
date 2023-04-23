@@ -149,7 +149,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         } else if (recipe.getCraftType().contains("sabbath")){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.CRYING_OBSIDIAN));
-        } else if (recipe.getCraftType().contains("air")){
+        } else if (recipe.getCraftType().contains("sky")){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.FEATHER));
         } else if (recipe.getCraftType().contains("storm")){

@@ -10,9 +10,14 @@ import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
-import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ModMathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,10 +25,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.gossip.GossipType;
@@ -31,12 +38,17 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Learned item capabilities from codes made by @vemerion & @MrCrayfish
@@ -47,7 +59,6 @@ public class DarkWand extends Item {
     private static final String SOULCOST = "Soul Cost";
     private static final String DURATION = "Duration";
     private static final String COOLDOWN = "Cooldown";
-    private static final String SPELL = "Spell";
     private static final String COOL = "Cool";
 
     public DarkWand() {
@@ -64,10 +75,9 @@ public class DarkWand extends Item {
                 compound.putInt(CASTTIME, CastTime(livingEntity, stack));
                 compound.putInt(COOL, 0);
             }
-            if (getFocus(stack) != null && !getFocus(stack).isEmpty()) {
-                this.ChangeFocus(stack);
+            if (this.getSpell(stack) != null) {
+                this.setSpellConditions(this.getSpell(stack), stack);
             } else {
-                compound.putInt(SPELL, -1);
                 this.setSpellConditions(null, stack);
             }
             compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
@@ -83,12 +93,15 @@ public class DarkWand extends Item {
         compound.putInt(SOULCOST, 0);
         compound.putInt(CASTTIME, CastTime(pPlayer, pStack));
         compound.putInt(COOL, 0);
-        compound.putInt(SPELL, -1);
         this.setSpellConditions(null, pStack);
     }
 
     public boolean SoulDiscount(LivingEntity entityLiving){
         return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicRobeItem);
+    }
+
+    public boolean WindSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.WIND_ROBE.get());
     }
 
     public boolean SoulCostUp(LivingEntity entityLiving){
@@ -104,6 +117,8 @@ public class DarkWand extends Item {
             int amp = Objects.requireNonNull(entityLiving.getEffect(ModEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
             return SoulCost(stack) * amp;
         } else if (SoulDiscount(entityLiving)){
+            return SoulCost(stack)/2;
+        } else if (WindSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.WIND){
             return SoulCost(stack)/2;
         } else {
             return SoulCost(stack);
@@ -174,7 +189,7 @@ public class DarkWand extends Item {
 
     @Nonnull
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
+        return UseAnim.CUSTOM;
     }
 
     @Nonnull
@@ -217,73 +232,6 @@ public class DarkWand extends Item {
         }
     }
 
-    public void ChangeFocus(ItemStack itemStack){
-        if (!getFocus(itemStack).isEmpty() && getFocus(itemStack) != null) {
-            Item spell = getFocus(itemStack).getItem();
-            if (spell == ModItems.VEXING_FOCUS.get()) {
-                this.setSpellConditions(new VexSpell(), itemStack);
-                this.setSpell(0, itemStack);
-            } else if (spell == ModItems.BITING_FOCUS.get()) {
-                this.setSpellConditions(new FangSpell(), itemStack);
-                this.setSpell(1, itemStack);
-            } else if (spell == ModItems.ICEOLOGY_FOCUS.get()) {
-                this.setSpellConditions(new IceChunkSpell(), itemStack);
-                this.setSpell(2, itemStack);
-            } else if (spell == ModItems.ILLUSION_FOCUS.get()) {
-                this.setSpellConditions(new IllusionSpell(), itemStack);
-                this.setSpell(3, itemStack);
-            } else if (spell == ModItems.FEAST_FOCUS.get()) {
-                this.setSpellConditions(new FeastSpell(), itemStack);
-                this.setSpell(4, itemStack);
-            } else if (spell == ModItems.SONIC_BOOM_FOCUS.get()) {
-                this.setSpellConditions(new SonicBoomSpell(), itemStack);
-                this.setSpell(5, itemStack);
-            } else if (spell == ModItems.SOUL_LIGHT_FOCUS.get()) {
-                this.setSpellConditions(new SoulLightSpell(), itemStack);
-                this.setSpell(6, itemStack);
-            } else if (spell == ModItems.GLOW_LIGHT_FOCUS.get()) {
-                this.setSpellConditions(new GlowLightSpell(), itemStack);
-                this.setSpell(7, itemStack);
-            } else if (spell == ModItems.ROTTING_FOCUS.get()) {
-                this.setSpellConditions(new ZombieSpell(), itemStack);
-                this.setSpell(8, itemStack);
-            } else if (spell == ModItems.OSSEOUS_FOCUS.get()) {
-                this.setSpellConditions(new SkeletonSpell(), itemStack);
-                this.setSpell(9, itemStack);
-            } else if (spell == ModItems.SPOOKY_FOCUS.get()) {
-                this.setSpellConditions(new WraithSpell(), itemStack);
-                this.setSpell(10, itemStack);
-            } else if (spell == ModItems.LAUNCH_FOCUS.get()) {
-                this.setSpellConditions(new LaunchSpell(), itemStack);
-                this.setSpell(11, itemStack);
-            } else if (spell == ModItems.SOUL_BOLT_FOCUS.get()) {
-                this.setSpellConditions(new SoulBoltSpell(), itemStack);
-                this.setSpell(12, itemStack);
-            } else if (spell == ModItems.LIGHTNING_FOCUS.get()) {
-                this.setSpellConditions(new LightningSpell(), itemStack);
-                this.setSpell(13, itemStack);
-            } else if (spell == ModItems.SKULL_FOCUS.get()) {
-                this.setSpellConditions(new HauntedSkullSpell(), itemStack);
-                this.setSpell(14, itemStack);
-            } else if (spell == ModItems.FIREBALL_FOCUS.get()) {
-                this.setSpellConditions(new FireballSpell(), itemStack);
-                this.setSpell(15, itemStack);
-            } else if (spell == ModItems.LAVABALL_FOCUS.get()) {
-                this.setSpellConditions(new LavaballSpell(), itemStack);
-                this.setSpell(16, itemStack);
-            } else if (spell == ModItems.FLYING_FOCUS.get()) {
-                this.setSpellConditions(new FlyingSpell(), itemStack);
-                this.setSpell(17, itemStack);
-            } else {
-                this.setSpellConditions(null, itemStack);
-                this.setSpell(-1, itemStack);
-            }
-        } else {
-            this.setSpellConditions(null, itemStack);
-            this.setSpell(-1, itemStack);
-        }
-    }
-
     public void setSpellConditions(@Nullable Spells spell, ItemStack stack){
         if (stack.getTag() != null) {
             if (spell != null) {
@@ -302,17 +250,11 @@ public class DarkWand extends Item {
         }
     }
 
-    public void setSpell(int spell, ItemStack stack) {
-        if (stack.getTag() != null) {
-            stack.getTag().putInt(SPELL, spell);
-        }
-    }
-
     public Spells getSpell(ItemStack stack){
-        if (stack.getTag() != null) {
-            return new CastSpells(stack.getTag().getInt(SPELL)).getSpell();
+        if (getMagicFocus(stack) != null && getMagicFocus(stack).getSpell() != null){
+            return getMagicFocus(stack).getSpell();
         } else {
-            return new CastSpells(-1).getSpell();
+            return null;
         }
     }
 
@@ -353,13 +295,21 @@ public class DarkWand extends Item {
         return handler.getSlot();
     }
 
+    public static MagicFocus getMagicFocus(ItemStack itemStack){
+        if (getFocus(itemStack) != null && !getFocus(itemStack).isEmpty() && getFocus(itemStack).getItem() instanceof MagicFocus magicFocus){
+            return magicFocus;
+        } else {
+            return null;
+        }
+    }
+
     public Item getStaff(ItemStack stack){
         return this.getSpell(stack).getSpellType().getStaff();
     }
 
     public boolean hasAppropriateStaff(ItemStack stack){
         if (this.getStaff(stack) != null) {
-            if (this.getSpell(stack).getSpellType() == Spells.SpellType.NECROTURGY){
+            if (this.getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
                 return stack.getItem() == this.getStaff(stack) || stack.getItem() == ModItems.NAMELESS_STAFF.get();
             } else {
                 return stack.getItem() == this.getStaff(stack);
@@ -384,16 +334,9 @@ public class DarkWand extends Item {
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
                     boolean spent = true;
-                    if (this.getSpell(stack) instanceof SpewingSpell) {
-                        if (worldIn.random.nextFloat() <= 0.25F) {
+                    if (this.getSpell(stack) instanceof EverChargeSpells) {
+                        if (worldIn.random.nextFloat() >= 0.25F) {
                             spent = false;
-                        }
-                    }
-                    if (this.getSpell(stack) instanceof ChargingSpells){
-                        if (this.hasAppropriateStaff(stack)){
-                            if (worldIn.random.nextFloat() <= 0.25F) {
-                                spent = false;
-                            }
                         }
                     }
                     if (spent){
@@ -424,12 +367,12 @@ public class DarkWand extends Item {
         if (worldIn.isClientSide){
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
-                    if (this.getSpell(stack) instanceof SpewingSpell spewingSpell){
-                        spewingSpell.showWandBreath(entityLiving);
+                    if (this.getSpell(stack) instanceof BreathingSpells breathingSpells){
+                        breathingSpells.showWandBreath(entityLiving);
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
-                    if (this.getSpell(stack) instanceof SpewingSpell spewingSpell){
-                        spewingSpell.showWandBreath(entityLiving);
+                    if (this.getSpell(stack) instanceof BreathingSpells breathingSpells){
+                        breathingSpells.showWandBreath(entityLiving);
                     }
                 } else {
                     this.failParticles(worldIn, entityLiving);
@@ -447,27 +390,31 @@ public class DarkWand extends Item {
         }
     }
 
+    /**
+     * Found Creative Server Bug fix from @mraof's Minestuck Music Player Weapon code.
+     */
+    private static IItemHandler getItemHandler(ItemStack itemStack) {
+        return itemStack.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseThrow(() ->
+                new IllegalArgumentException("Expected an item handler for the Magic Focus item, but " + itemStack + " does not expose an item handler."));
+    }
+
     public CompoundTag getShareTag(ItemStack stack) {
-        CompoundTag result = new CompoundTag();
-        CompoundTag tag = super.getShareTag(stack);
-        CompoundTag cap = SoulUsingItemHandler.get(stack).serializeNBT();
-        if (tag != null) {
-            result.put("tag", tag);
+        IItemHandler iitemHandler = getItemHandler(stack);
+        CompoundTag nbt = stack.getTag() != null ? stack.getTag() : new CompoundTag();
+        if(iitemHandler instanceof ItemStackHandler itemHandler) {
+            nbt.put("cap", itemHandler.serializeNBT());
         }
-        if (cap != null) {
-            result.put("cap", cap);
-        }
-        return result;
+        return nbt;
     }
 
     public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
-        if (nbt != null) {
-            if (nbt.contains("tag")) {
-                stack.setTag(nbt.getCompound("tag"));
-            }
-            if (nbt.contains("cap")) {
-                SoulUsingItemHandler.get(stack).deserializeNBT(nbt.getCompound("cap"));
-            }
+        if(nbt == null) {
+            stack.setTag(null);
+        } else {
+            IItemHandler iitemHandler = getItemHandler(stack);
+            if(iitemHandler instanceof ItemStackHandler itemHandler)
+                itemHandler.deserializeNBT(nbt.getCompound("cap"));
+            stack.setTag(nbt);
         }
     }
 
@@ -496,5 +443,87 @@ public class DarkWand extends Item {
         } else {
             tooltip.add(Component.translatable("info.goety.wand.focus", "Empty"));
         }
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        super.initializeClient(consumer);
+        consumer.accept(new IClientItemExtensions() {
+
+            private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
+                float f5 = entity.animationPosition - entity.animationSpeed * (1.0F - Minecraft.getInstance().getPartialTick());
+                if (arm == HumanoidArm.RIGHT) {
+                    model.rightArm.xRot -= ModMathHelper.modelDegrees(105);
+                    model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
+                    model.leftArm.xRot += ModMathHelper.modelDegrees(25);
+                } else {
+                    model.leftArm.xRot -= ModMathHelper.modelDegrees(105);
+                    model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
+                    model.rightArm.xRot += ModMathHelper.modelDegrees(25);
+                }
+            });
+
+            @Override
+            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+                if (!itemStack.isEmpty()) {
+                    if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
+                        return WAND_POSE;
+                    }
+                }
+                return HumanoidModel.ArmPose.EMPTY;
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                if (player.isUsingItem()) {
+                    applyItemArmTransform(poseStack, arm, equipProcess);
+                    poseStack.translate((double)((float)i * -0.2785682F), (double)0.18344387F, (double)0.15731531F);
+                    poseStack.mulPose(Vector3f.XP.rotationDegrees(-13.935F));
+                    poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * 35.3F));
+                    poseStack.mulPose(Vector3f.ZP.rotationDegrees((float)i * -9.785F));
+                    float f8 = (float)itemInHand.getUseDuration() - ((float)player.getUseItemRemainingTicks() - partialTick + 1.0F);
+                    float f12 = f8 / 20.0F;
+                    f12 = (f12 * f12 + f12 * 2.0F) / 3.0F;
+                    if (f12 > 1.0F) {
+                        f12 = 1.0F;
+                    }
+
+                    if (f12 > 0.1F) {
+                        float f15 = Mth.sin((f8 - 0.1F) * 1.3F);
+                        float f18 = f12 - 0.1F;
+                        float f20 = f15 * f18;
+                        poseStack.translate((double)(f20 * 0.0F), (double)(f20 * 0.004F), (double)(f20 * 0.0F));
+                    }
+
+                    poseStack.translate((double)(f12 * 0.0F), (double)(f12 * 0.0F), (double)(f12 * 0.04F));
+                    poseStack.scale(1.0F, 1.0F, 1.0F + f12 * 0.2F);
+                    poseStack.mulPose(Vector3f.YN.rotationDegrees((float)i * 45.0F));
+                } else {
+                    float f5 = -0.4F * Mth.sin(Mth.sqrt(swingProcess) * (float)Math.PI);
+                    float f6 = 0.2F * Mth.sin(Mth.sqrt(swingProcess) * ((float)Math.PI * 2F));
+                    float f10 = -0.2F * Mth.sin(swingProcess * (float)Math.PI);
+                    poseStack.translate((double)((float)i * f5), (double)f6, (double)f10);
+                    this.applyItemArmTransform(poseStack, arm, equipProcess);
+                    this.applyItemArmAttackTransform(poseStack, arm, swingProcess);
+                }
+                return true;
+            }
+
+            private void applyItemArmTransform(PoseStack poseStack, HumanoidArm arm, float equipProcess) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                poseStack.translate((double)((float)i * 0.56F), (double)(-0.52F + equipProcess * -0.6F), (double)-0.72F);
+            }
+
+            private void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm humanoidArm, float swingProcess) {
+                int i = humanoidArm == HumanoidArm.RIGHT ? 1 : -1;
+                float f = Mth.sin(swingProcess * swingProcess * (float)Math.PI);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * (45.0F + f * -20.0F)));
+                float f1 = Mth.sin(Mth.sqrt(swingProcess) * (float)Math.PI);
+                poseStack.mulPose(Vector3f.ZP.rotationDegrees((float)i * f1 * -20.0F));
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(f1 * -80.0F));
+                poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * -45.0F));
+            }
+        });
     }
 }

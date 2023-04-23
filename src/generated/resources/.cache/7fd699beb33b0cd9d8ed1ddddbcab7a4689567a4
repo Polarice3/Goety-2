@@ -1,0 +1,4 @@
+// 1.19.2	2023-04-23T16:15:43.8709524	Goety Loot Injections
+2f39a08413177811029182e0d1400ee595668e06 data/goety/loot_tables/inject/entities/ravager.json
+fe3cf3897a0dcb91120abf0d1b957207c577a6d1 data/goety/loot_tables/inject/entities/spider.json
+33b5e0b1310f138d6d08a194c74a7ca54e6a94de data/goety/loot_tables/inject/entities/witch.json

@@ -11,9 +11,11 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DarkRobeModel extends HumanoidModel<LivingEntity> {
+    private final ModelPart cape;
 
     public DarkRobeModel(ModelPart root) {
         super(root);
+        this.cape = root.getChild("cape");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -28,6 +30,10 @@ public class DarkRobeModel extends HumanoidModel<LivingEntity> {
 
         partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(24, 16).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
 
+        partdefinition.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(45, 16).addBox(-4.5F, 0.0F, -0.3333F, 9.0F, 20.0F, 0.0F, new CubeDeformation(0.0F))
+                .texOffs(62, 35).addBox(4.5F, 0.0F, -0.3333F, 0.0F, 20.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(62, 15).addBox(-4.5F, 0.0F, -0.3333F, 0.0F, 20.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 1.8333F));
+
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
@@ -40,6 +46,10 @@ public class DarkRobeModel extends HumanoidModel<LivingEntity> {
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         this.bodyParts().forEach((modelPart -> modelPart.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)));
+    }
+
+    public void renderCape(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay) {
+        this.cape.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
     }
 
     @Override

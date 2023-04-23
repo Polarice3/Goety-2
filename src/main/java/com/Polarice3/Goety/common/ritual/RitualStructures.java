@@ -17,7 +17,7 @@ public class RitualStructures {
         return switch (craftType) {
             case "animation", "necroturgy", "lich", "forge", "magic", "sabbath" -> RitualStructures.checkRequirements(craftType, pTileEntity);
             case "adept_nether", "expert_nether" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
-            case "air" -> pPos.getY() >= 128;
+            case "sky" -> pPos.getY() >= 128;
             case "storm" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pPos.getY() >= 128 && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
         };

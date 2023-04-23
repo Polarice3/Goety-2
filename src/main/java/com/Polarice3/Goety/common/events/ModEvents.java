@@ -75,6 +75,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -218,11 +219,13 @@ public class ModEvents {
     }
 
     private static final Map<ServerLevel, EffectsEvents> EFFECTS_EVENT_MAP = new HashMap<>();
+    private static final Map<ServerLevel, IllagerSpawner> ILLAGER_SPAWN_MAP = new HashMap<>();
 
     @SubscribeEvent
     public static void worldLoad(LevelEvent.Load event) {
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
             EFFECTS_EVENT_MAP.put(serverWorld, new EffectsEvents());
+            ILLAGER_SPAWN_MAP.put(serverWorld, new IllagerSpawner());
         }
     }
 
@@ -230,6 +233,7 @@ public class ModEvents {
     public static void worldUnload(LevelEvent.Unload event) {
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
             EFFECTS_EVENT_MAP.remove(serverWorld);
+            ILLAGER_SPAWN_MAP.remove(serverWorld);
         }
     }
 
@@ -239,6 +243,10 @@ public class ModEvents {
             EffectsEvents effectsEvent = EFFECTS_EVENT_MAP.get(serverWorld);
             if (effectsEvent != null){
                 effectsEvent.tick(serverWorld);
+            }
+            IllagerSpawner illagerSpawner = ILLAGER_SPAWN_MAP.get(serverWorld);
+            if (illagerSpawner != null){
+                illagerSpawner.tick(serverWorld);
             }
         }
 
@@ -334,6 +342,34 @@ public class ModEvents {
                 }
             }
         }
+        if (CuriosFinder.hasCurio(player, ModItems.WIND_ROBE.get()) && !player.isSpectator()){
+            Vec3 vector3d = player.getDeltaMovement();
+            if (SEHelper.getSoulsAmount(player, MainConfig.WindRobeSouls.get())) {
+                if (player.hasEffect(MobEffects.SLOW_FALLING)){
+                    player.removeEffect(MobEffects.SLOW_FALLING);
+                }
+                if (!player.isOnGround() && vector3d.y < 0.0D && !player.isNoGravity() && !player.getAbilities().flying) {
+                    if (player.tickCount % 20 == 0 && !player.isCreative()) {
+                        SEHelper.decreaseSouls(player, MainConfig.WindRobeSouls.get());
+                    }
+                    float f = 1.0F;
+                    float f5 = (float) Math.PI * f * f;
+                    for (int k1 = 0; (float) k1 < f5; ++k1) {
+                        float f6 = world.random.nextFloat() * ((float) Math.PI * 2F);
+                        float f7 = Mth.sqrt(world.random.nextFloat()) * f;
+                        float f8 = Mth.cos(f6) * f7;
+                        float f9 = Mth.sin(f6) * f7;
+                        world.addParticle(ParticleTypes.CLOUD, player.getX() + (double) f8, player.getY(), player.getZ() + (double) f9, 0, 0, 0);
+                    }
+                    if (!player.isCrouching() && !player.isShiftKeyDown()) {
+                        player.setDeltaMovement(vector3d.multiply(1.0D, 0.875D, 1.0D));
+                    } else {
+                        player.setDeltaMovement(vector3d.multiply(1.0D, 0.99D, 1.0D));
+                    }
+                }
+                player.resetFallDistance();
+            }
+        }
         if (MobUtil.starAmuletActive(player)){
             player.getAbilities().flying &= player.isCreative();
         }
@@ -360,6 +396,7 @@ public class ModEvents {
             }
             if (livingEntity.hasEffect(ModEffects.CLIMBING.get())){
                 MobUtil.ClimbAnyWall(livingEntity);
+                MobUtil.WebMovement(livingEntity);
             }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
@@ -810,17 +847,6 @@ public class ModEvents {
     public static void DropEvents(LivingDropsEvent event){
         if (event.getEntity() != null) {
             LivingEntity living = event.getEntity();
-            if (living instanceof Ravager){
-                event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.SAVAGE_TOOTH.get(), living.level.random.nextInt(2))));
-            }
-            if (living instanceof Witch){
-                if (living.level.getServer() != null) {
-                    LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.WITCH);
-                    LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
-                    LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
-                    loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
-                }
-            }
             if (living instanceof Player player){
                 if (CuriosFinder.hasWitchSet(player)){
                     if (living.level.getServer() != null) {
@@ -838,14 +864,6 @@ public class ModEvents {
                     if (living.level.random.nextFloat() <= chance) {
                         event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_FRAGMENT.get())));
                     }
-                }
-            }
-            if (living.getType() == EntityType.SPIDER){
-                if (living.level.getServer() != null) {
-                    LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.SPIDER);
-                    LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
-                    LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
-                    loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
                 }
             }
             if (MainConfig.TallSkullDrops.get()) {
@@ -967,6 +985,11 @@ public class ModEvents {
         }
         if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
             if (CuriosFinder.hasIllusionRobe(event.getEntity())){
+                event.setResult(Event.Result.DENY);
+            }
+        }
+        if (event.getEffectInstance().getEffect() == MobEffects.SLOW_FALLING){
+            if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WIND_ROBE.get())){
                 event.setResult(Event.Result.DENY);
             }
         }

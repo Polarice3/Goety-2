@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:launch_focus"
   },
-  "craftType": "air",
+  "craftType": "sky",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

@@ -170,6 +170,10 @@ public class HauntedSkull extends Minion {
         this.discard();
     }
 
+    public MobType getMobType() {
+        return MobType.UNDEAD;
+    }
+
     public int getAnimation() {
         return this.entityData.get(DATA_TYPE_ID);
     }

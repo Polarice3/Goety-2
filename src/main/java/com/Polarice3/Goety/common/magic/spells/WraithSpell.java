@@ -41,7 +41,7 @@ public class WraithSpell extends SummonSpells {
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.NECROTURGY;
+        return SpellType.NECROMANCY;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

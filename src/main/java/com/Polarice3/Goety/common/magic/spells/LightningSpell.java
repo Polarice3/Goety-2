@@ -39,7 +39,7 @@ public class LightningSpell extends Spells {
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){
         double radius = 2.0D;
-        float damage = 5.0F;
+        float damage = SpellConfig.LightningDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (entityLiving instanceof Player playerEntity) {
             if (WandUtil.enchantedFocus(playerEntity)) {
                 range += WandUtil.getLevels(ModEnchantments.RANGE.get(), playerEntity);

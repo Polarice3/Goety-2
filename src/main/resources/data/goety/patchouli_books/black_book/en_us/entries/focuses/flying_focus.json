@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With the power of the graceful dragon and control of the Elytra, you've managed refine the Launching Focus to let you properly fly through your wand or staff(by holding down right mouse button). Casting this spell with the Wind Staff will give 25% of not using up Soul Energy."
+      "text": "With the power of the graceful dragon and control of the Elytra, you've managed refine the Launching Focus to let you properly fly through your wand or staff(by holding down right mouse button)."
     },
     {
       "type": "goety:ritual",

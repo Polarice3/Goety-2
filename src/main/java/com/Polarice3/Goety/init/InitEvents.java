@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
+import com.Polarice3.Goety.common.commands.GoetyCommand;
 import com.Polarice3.Goety.common.commands.LichCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
@@ -23,6 +24,7 @@ public class InitEvents {
     public static void onRegisterCommandEvent(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
         LichCommand.register(commandDispatcher);
+        GoetyCommand.register(commandDispatcher);
     }
 
     @SubscribeEvent

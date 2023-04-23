@@ -1,0 +1,22 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "sculk_catalyst": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:sculk_catalyst"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "sculk_catalyst"
+    ]
+  ]
+}

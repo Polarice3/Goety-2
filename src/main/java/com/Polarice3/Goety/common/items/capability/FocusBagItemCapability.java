@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.items.capability;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
@@ -35,7 +34,7 @@ public class FocusBagItemCapability implements ICapabilitySerializable<Tag> {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? holder.cast() : LazyOptional.empty();
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
     }
 
     public Tag serializeNBT() {
@@ -44,12 +43,5 @@ public class FocusBagItemCapability implements ICapabilitySerializable<Tag> {
 
     public void deserializeNBT(Tag nbt) {
         this.getHandler().deserializeNBT((CompoundTag) nbt);
-    }
-
-    private void legacyDeserialize(ListTag nbt) {
-        if (nbt.size() < 1)
-            return;
-        CompoundTag compound = nbt.getCompound(0);
-        getHandler().insertItem(0, ItemStack.of(compound), false);
     }
 }
