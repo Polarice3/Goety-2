@@ -21,7 +21,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Wearing a Witches Hat while wearing the Witches Robes not only makes the robe brew potions faster, but also makes Witches neutral to the wearer. You can also barter with Witches by right-clicking on them with an Emerald, but only if they're not aggressive or holding something. Unlike the brutish Piglins, Witches won't pick up Emeralds thrown at them, you gotta give it to them straight."
+      "text": "Wearing a Witches Hat while wearing the Witches Robes not only makes the robe brew potions faster, but also makes Witches and Warlocks neutral to the wearer. You can also barter with Witches and Warlocks by right-clicking on them with an Emerald, but only if they're not aggressive or holding something. Unlike the brutish Piglins, the two won't pick up Emeralds thrown at them, you gotta give it to them straight."
     }
   ]
 }

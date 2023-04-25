@@ -76,9 +76,7 @@ public class LichEvents {
                     burn = false;
                 }
                 if (burn){
-                    if (player.hasEffect(MobEffects.FIRE_RESISTANCE) && !player.isCreative() && !player.isSpectator()){
-                        player.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 100, 1, false, false));
-                    } else {
+                    if (!player.hasEffect(MobEffects.FIRE_RESISTANCE)){
                         player.setSecondsOnFire(8);
                     }
                 }
@@ -197,8 +195,10 @@ public class LichEvents {
                 if (event.getSource() == DamageSource.DROWN){
                     event.setCanceled(true);
                 }
-                if (event.getSource().isMagic()){
-                    event.setAmount(event.getAmount() * 0.15F);
+                if (MainConfig.LichMagicResist.get()) {
+                    if (event.getSource().isMagic()) {
+                        event.setAmount(event.getAmount() * 0.15F);
+                    }
                 }
                 if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
                     event.setAmount(event.getAmount()/2);

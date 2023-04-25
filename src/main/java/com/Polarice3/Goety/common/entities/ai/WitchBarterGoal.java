@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
 import com.Polarice3.Goety.utils.WitchBarterHelper;
 import net.minecraft.core.particles.ParticleOptions;
@@ -9,9 +11,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -23,9 +24,9 @@ import java.util.List;
 
 public class WitchBarterGoal extends Goal {
     private int progress = 100;
-    public Witch witch;
+    public Raider witch;
 
-    public WitchBarterGoal(Witch witch) {
+    public WitchBarterGoal(Raider witch) {
         this.witch = witch;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET));
     }
@@ -51,6 +52,9 @@ public class WitchBarterGoal extends Goal {
             if (!this.witch.level.isClientSide) {
                 if (this.witch.level.getServer() != null) {
                     LootTable loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WITCH_BARTER);
+                    if (this.witch instanceof Warlock){
+                        loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WARLOCK_BARTER);
+                    }
                     List<ItemStack> list = loottable.getRandomItems((new LootContext.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withRandom(this.witch.level.random).create(LootContextParamSets.PIGLIN_BARTER));
                     for(ItemStack itemstack : list) {
                         BehaviorUtils.throwItem(this.witch, itemstack, vec3.add(0.0D, 1.0D, 0.0D));
@@ -61,9 +65,9 @@ public class WitchBarterGoal extends Goal {
         }
 
         if (this.witch.hurtTime != 0){
-            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).getItem() == Items.EMERALD) {
+            if (this.witch.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.Items.WITCH_CURRENCY)) {
+                this.witch.spawnAtLocation(this.witch.getItemInHand(InteractionHand.MAIN_HAND));
                 this.clearTrade();
-                this.witch.spawnAtLocation(new ItemStack(Items.EMERALD));
             }
         }
     }
@@ -83,7 +87,7 @@ public class WitchBarterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.witch.getMainHandItem().getItem() == Items.EMERALD;
+        return this.witch.getMainHandItem().is(ModTags.Items.WITCH_CURRENCY);
     }
 
     @Override

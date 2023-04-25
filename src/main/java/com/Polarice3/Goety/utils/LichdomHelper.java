@@ -6,11 +6,20 @@ import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichUpdatePacket;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 public class LichdomHelper {
     public static ILichdom getCapability(Player player) {
         return player.getCapability(LichProvider.CAPABILITY).orElse(new LichImp());
+    }
+
+    public static boolean isLich(Entity livingEntity) {
+        if (livingEntity instanceof Player player){
+            return isLich(player);
+        } else {
+            return false;
+        }
     }
 
     public static boolean isLich(Player player) {

@@ -154,6 +154,24 @@ public class Wartling extends Summoned {
         return MobType.ARTHROPOD;
     }
 
+    protected void pushEntities() {
+    }
+
+    public void push(Entity p_20293_) {
+    }
+
+    public boolean isPushable() {
+        return false;
+    }
+
+    public boolean canCollideWith(Entity p_20303_) {
+        return p_20303_ != this.getTrueOwner();
+    }
+
+    public boolean canBeCollidedWith() {
+        return false;
+    }
+
     @Override
     public void die(DamageSource pCause) {
         super.die(pCause);

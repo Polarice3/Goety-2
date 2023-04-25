@@ -9,6 +9,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.ModifiableBiomeInfo;
 import net.minecraftforge.fml.common.Mod;
 
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
-        if (biome.containsTag(BiomeTags.IS_OVERWORLD)){
+        if (biome.containsTag(BiomeTags.IS_OVERWORLD) && !biome.containsTag(Tags.Biomes.IS_MUSHROOM)){
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MainConfig.WarlockSpawnWeight.get(), 1, 1));
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MainConfig.WraithSpawnWeight.get(), 1, 1));
         }

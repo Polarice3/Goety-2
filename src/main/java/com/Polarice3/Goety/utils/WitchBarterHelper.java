@@ -6,35 +6,35 @@ import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterImp;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
 
 public class WitchBarterHelper {
     public static IWitchBarter getCapability(LivingEntity livingEntity) {
         return livingEntity.getCapability(WitchBarterProvider.CAPABILITY).orElse(new WitchBarterImp());
     }
 
-    public static int getTimer(Witch witch){
+    public static int getTimer(Raider witch){
         return getCapability(witch).getTimer();
     }
 
-    public static void setTimer(Witch witch, int timer){
+    public static void setTimer(Raider witch, int timer){
         getCapability(witch).setTimer(timer);
     }
 
-    public static void decreaseTimer(Witch witch){
+    public static void decreaseTimer(Raider witch){
         setTimer(witch, -1);
     }
 
-    public static LivingEntity getTrader(Witch witch){
+    public static LivingEntity getTrader(Raider witch){
         return getCapability(witch).getTrader();
     }
 
-    public static void setTrader(Witch witch, LivingEntity livingEntity){
+    public static void setTrader(Raider witch, LivingEntity livingEntity){
         getCapability(witch).setTrader(livingEntity);
     }
 
-    public static void sendWitchBarterUpdatePacket(Player player, Witch livingEntity) {
+    public static void sendWitchBarterUpdatePacket(Player player, Raider livingEntity) {
         ModNetwork.sendTo(player, new WBUpdatePacket(livingEntity));
     }
 }

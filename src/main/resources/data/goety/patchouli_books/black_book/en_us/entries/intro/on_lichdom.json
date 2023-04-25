@@ -15,11 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "On the plus side, most Undead creatures no longer attack you, you're most resistant to magic and harmful potions, you can never drown and you can stay in the Sunlight all day long if you're near a whole bunch of Dead Sand or Dead Sandstone. Necrotic Totems also cast their beneficial magic on you as well!"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "For some reason, Potions of Harming and Healing still work the same to you even in Undeath. Perhaps it is the power of Soul Energy that causes the potions to react the same way, as Ghasts, who are found in Soul Sand Valleys, and Vexes, made using Soul Energy, have the same properties."
+      "text": "On the plus side, most Undead creatures no longer attack you, you're most resistant to magic, you can never drown and you can stay in the Sunlight all day long as you're wearing a Helmet or have Fire Resistance! Being Undead also means that Potions of Harming heals you while Potions of Healing harms you the same way as your Undead brethren."
     },
     {
       "type": "patchouli:text",

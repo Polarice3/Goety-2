@@ -29,6 +29,7 @@ public class ModTags {
         private static void init(){}
 
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
+        public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");
 
         private static TagKey<Item> tag(String name)
         {

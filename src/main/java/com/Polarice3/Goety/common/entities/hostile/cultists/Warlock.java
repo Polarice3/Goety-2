@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.cultists;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -55,6 +56,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
         });
         this.attackPlayersGoal = new NearestAttackableWitchTargetGoal<>(this, Player.class, 10, true, false, (Predicate<LivingEntity>)null);
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 20, 40, 10.0F));
+        this.goalSelector.addGoal(1, new WitchBarterGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Raider.class));
         this.targetSelector.addGoal(2, this.healRaidersGoal);
         this.targetSelector.addGoal(3, this.attackPlayersGoal);
@@ -139,7 +141,9 @@ public class Warlock extends Cultist implements RangedAttackMob {
                     this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.BERSERK_FUNGUS.get()));
                 }
             } else {
-                this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                if (this.getMainHandItem().is(ModItems.SNAP_FUNGUS.get()) || this.getMainHandItem().is(ModItems.BERSERK_FUNGUS.get())){
+                    this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                }
                 boolean flag = false;
                 if (!this.isInLava()) {
                     if (this.getHealth() < this.getMaxHealth()) {

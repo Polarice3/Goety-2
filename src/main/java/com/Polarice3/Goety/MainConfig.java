@@ -86,6 +86,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichMagicResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
 
@@ -209,6 +210,8 @@ public class MainConfig {
                 .define("lichNightVision", true);
         LichUndeadFriends = BUILDER.comment("Undead Mobs will not attack you if you're a Lich and will even defend you if you're attack by another mob and wearing the Necro Set, Default: true")
                 .define("lichUndeadFriendly", true);
+        LichMagicResist = BUILDER.comment("Enable to make Liches 85% more resistant to Magic Attacks, Default: false")
+                .define("lichMagicResist", false);
         LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")

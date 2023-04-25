@@ -18,6 +18,7 @@ public class ModLootTables {
     public static final ResourceLocation CULTISTS = register("entities/cultist_extra");
 
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
+    public static final ResourceLocation WARLOCK_BARTER = register("gameplay/warlock_bartering");
 
     private static ResourceLocation register(String pId) {
         return register(Goety.location(pId));
