@@ -12,6 +12,10 @@
       "type": "patchouli:entity",
       "entity": "goety:warlock",
       "text": "They're resistant to Explosions and Fire."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a Villager is underneath a Crying Obsidian Block, they have a chance of transforming into a Warlock."
     }
   ]
 }

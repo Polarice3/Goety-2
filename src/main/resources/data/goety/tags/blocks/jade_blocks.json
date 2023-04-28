@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:jade_tiles",
+    "goety:jade_pillar",
+    "goety:jade_stairs",
+    "goety:jade_slab"
+  ]
+}

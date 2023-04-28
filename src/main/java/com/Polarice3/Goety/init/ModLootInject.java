@@ -13,7 +13,7 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModLootInject {
 
-    private static final List<String> CHEST_TABLES = List.of("abandoned_mineshaft", "desert_pyramid", "end_city_treasure", "igloo_chest", "jungle_temple", "nether_bridge", "simple_dungeon", "stronghold_corridor", "stronghold_crossing", "stronghold_library", "woodland_mansion");
+    private static final List<String> CHEST_TABLES = List.of("abandoned_mineshaft", "nether_bridge", "pillager_outpost", "simple_dungeon", "stronghold_crossing", "woodland_mansion");
 
     private static final List<String> ENTITY_TABLES = List.of("ravager", "spider", "witch");
 

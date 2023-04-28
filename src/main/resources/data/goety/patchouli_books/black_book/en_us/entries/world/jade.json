@@ -1,0 +1,16 @@
+{
+  "name": "Jade Ores",
+  "icon": "goety:jade_ore",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Jades are one of the most illusive ores to find in the world. They hold the power of the winds within themselves and can only be found in places of high elevations like Mountains, specifically the peaks of them."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/jade_ore.png"],
+      "border": true
+    }
+  ]
+}

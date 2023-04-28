@@ -30,6 +30,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
@@ -44,6 +45,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
@@ -126,6 +128,8 @@ public class SpellConfig {
                 .defineInRange("flightCost", 4, 0, Integer.MAX_VALUE);
         UpdraftCost = BUILDER.comment("Updraft Spell Cost, Default: 8")
                 .defineInRange("updraftCost", 8, 0, Integer.MAX_VALUE);
+        WindBlastCost = BUILDER.comment("Wind Blast Spell Cost, Default: 4")
+                .defineInRange("windBlastCost", 4, 0, Integer.MAX_VALUE);
         LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
@@ -154,6 +158,8 @@ public class SpellConfig {
                 .defineInRange("iceChunkTime", 40, 0, 72000);
         UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 20")
                 .defineInRange("updraftTime", 20, 0, 72000);
+        WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 20")
+                .defineInRange("windBlastTime", 20, 0, 72000);
         LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
                 .defineInRange("lightningTime", 60, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")

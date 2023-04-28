@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "#goety:shade_blocks",
+    "#goety:jade_blocks",
+    "#goety:jade_ores",
     "goety:cursed_infuser",
     "goety:cursed_metal_block",
     "goety:cursed_cage",

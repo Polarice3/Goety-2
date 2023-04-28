@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": [
+      {
+        "item": "goety:jade_tiles"
+      },
+      {
+        "item": "goety:jade_pillar"
+      }
+    ]
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "item": "goety:jade_stairs"
+  }
+}

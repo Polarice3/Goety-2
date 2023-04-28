@@ -9,16 +9,16 @@
   "duration": 10,
   "ingredients": [
     {
-      "tag": "forge:gems/emerald"
+      "tag": "forge:gems/jade"
     },
     {
-      "tag": "forge:gems/emerald"
+      "tag": "forge:gems/jade"
     },
     {
-      "item": "goety:cursed_ingot"
+      "tag": "forge:gems/jade"
     },
     {
-      "item": "goety:cursed_ingot"
+      "tag": "forge:gems/jade"
     },
     {
       "item": "goety:cursed_ingot"

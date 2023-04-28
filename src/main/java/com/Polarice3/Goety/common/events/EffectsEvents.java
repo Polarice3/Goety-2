@@ -85,8 +85,9 @@ public class EffectsEvents {
                         case 5 ->
                                 infected.addEffect(new MobEffectInstance(MobEffects.POISON, 400 * r4, r3, false, false));
                         case 6 ->
-                                infected.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400 * r4, 0, false, false));
-                        case 7 -> infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
+                                infected.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 400 * r4, 0, false, false));
+                        case 7 ->
+                                infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
                     }
                 } else {
                     if (!infected.getType().is(EntityTypeTags.RAIDERS)) {

@@ -82,6 +82,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
@@ -166,6 +168,8 @@ public class MainConfig {
         BUILDER.push("Items");
         DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
                 .defineInRange("darkScytheSouls", 1, 1, Integer.MAX_VALUE);
+        ScytheSlashBreaks = BUILDER.comment("Scythe Slashes from Death Scythe breaks blocks that regular Scythes easily breaks, Default: true")
+                .define("scytheSlashBreaks", true);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
                 .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
         WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")

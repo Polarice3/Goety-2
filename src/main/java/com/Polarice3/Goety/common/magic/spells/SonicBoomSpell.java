@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -13,6 +15,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -33,6 +36,12 @@ public class SonicBoomSpell extends Spells {
 
     @Override
     public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+        float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        if (entityLiving instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
+            }
+        }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 15, 3);
         if (rayTraceResult instanceof EntityHitResult){
             Entity target = ((EntityHitResult) rayTraceResult).getEntity();
@@ -47,7 +56,6 @@ public class SonicBoomSpell extends Spells {
                 }
 
                 worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
-                float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                 livingEntity.hurt(DamageSource.sonicBoom(entityLiving), damage);
                 double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                 double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
@@ -63,7 +71,6 @@ public class SonicBoomSpell extends Spells {
             }
             if (MobUtil.getSingleTarget(worldIn, entityLiving) != null){
                 if (MobUtil.getSingleTarget(worldIn, entityLiving) instanceof LivingEntity target1) {
-                    float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                     target1.hurt(DamageSource.sonicBoom(entityLiving), damage);
                     double d0 = target1.getX() - entityLiving.getX();
                     double d1 = target1.getZ() - entityLiving.getZ();
@@ -72,7 +79,6 @@ public class SonicBoomSpell extends Spells {
                 }
             }
         }
-        //        this.IncreaseInfamy(SpellConfig.SonicBoomInfamyChance.get(), (PlayerEntity) entityLiving);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
     }
 }

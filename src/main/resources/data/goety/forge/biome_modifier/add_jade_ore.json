@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#goety:has_jade",
+  "features": "goety:jade_ore",
+  "step": "underground_ores"
+}

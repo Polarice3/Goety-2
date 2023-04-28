@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " w ",
+    "wcw",
+    " w "
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "goety:wind_core"
+    },
+    "w":
+    {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result":
+  {
+    "item": "goety:wind_blast_focus",
+    "count": 1
+  }
+}

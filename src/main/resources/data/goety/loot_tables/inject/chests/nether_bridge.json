@@ -13,7 +13,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1.0,
-                "max": 4.0
+                "max": 2.0
               },
               "add": false
             }
@@ -22,7 +22,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 20
+          "weight": 30
         }
       ]
     }

@@ -66,6 +66,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
@@ -94,6 +95,7 @@ import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -763,14 +765,6 @@ public class ModEvents {
                 }
             }
         }
-        if (victim.hasEffect(ModEffects.SAPPED.get())){
-            MobEffectInstance effectInstance = victim.getEffect(ModEffects.SAPPED.get());
-            if (effectInstance != null) {
-                int i = effectInstance.getAmplifier() / 10;
-                float j = 1.2F + ((float) i * 2);
-                event.setAmount(event.getAmount() * j);
-            }
-        }
         if (ModDamageSource.freezeAttacks(event.getSource())){
             int i = victim.getTicksFrozen();
             victim.setTicksFrozen(Math.min(victim.getTicksRequiredToFreeze(), i + 1));
@@ -789,7 +783,7 @@ public class ModEvents {
                             victim.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 20));
                             victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                         } else {
-                            if (victim.level.random.nextBoolean()) {
+                            if (victim.level.random.nextFloat() <= 0.1F) {
                                 EffectsUtil.amplifyEffect(victim, ModEffects.SAPPED.get(), 20);
                                 victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                             } else {
@@ -810,6 +804,15 @@ public class ModEvents {
                 if (event.getSource().getDirectEntity() instanceof AbstractArrow){
                     event.setCanceled(true);
                 }
+            }
+        }
+        if (entity.hasEffect(ModEffects.SAPPED.get())){
+            MobEffectInstance effectInstance = entity.getEffect(ModEffects.SAPPED.get());
+            float original = event.getAmount();
+            if (effectInstance != null) {
+                int i = effectInstance.getAmplifier() + 1;
+                original += event.getAmount() * 0.2F * i;
+                event.setAmount(original);
             }
         }
         if (event.getSource().getEntity() instanceof IOwned summonedEntity){
@@ -1054,6 +1057,12 @@ public class ModEvents {
                 event.setCanceled(true);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void addWanderTrade(WandererTradesEvent event){
+        List<VillagerTrades.ItemListing> rareTrades = event.getRareTrades();
+        rareTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
     }
 
     @SubscribeEvent

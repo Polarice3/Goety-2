@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -60,6 +61,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> JADE_ORE = register("jade_ore", StoneOreBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> JADE_TILES = register("jade_tiles", JadeStoneBlock::new);
+    public static final RegistryObject<Block> JADE_BLOCK = register("jade_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_CYAN)
+                    .requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)));
+    public static final RegistryObject<Block> JADE_PILLAR = register("jade_pillar",
+            () -> new RotatedPillarBlock(JadeStoneProperties()));
+    public static final RegistryObject<Block> JADE_STAIRS = registerStairs("jade_stairs", JADE_TILES);
+    public static final RegistryObject<Block> JADE_SLAB = registerSlabs("jade_slab", JADE_TILES);
 
     //Haunted
     public static final RegistryObject<Block> HAUNTED_PLANKS = register("haunted_planks",
@@ -220,6 +232,30 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
             );
+        }
+    }
+
+    public static BlockBehaviour.Properties JadeStoneProperties(){
+        return BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_CYAN)
+                .requiresCorrectToolForDrops()
+                .strength(1.5F, 6.0F)
+                .sound(SoundType.STONE);
+    }
+
+    public static class JadeStoneBlock extends Block {
+
+        public JadeStoneBlock() {
+            super(JadeStoneProperties());
+        }
+
+    }
+
+    public static class StoneOreBlock extends DropExperienceBlock{
+        public StoneOreBlock(){
+            super(BlockBehaviour.Properties.of(Material.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 3.0F),
+                    UniformInt.of(3, 7));
         }
     }
 

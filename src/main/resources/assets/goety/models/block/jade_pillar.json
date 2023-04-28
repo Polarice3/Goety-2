@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/jade_pillar_top",
+    "side": "goety:block/jade_pillar"
+  }
+}

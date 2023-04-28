@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "goety:block/jade_block" }
+  }
+}

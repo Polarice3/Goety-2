@@ -36,6 +36,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", ItemBase::new);
     public static final RegistryObject<Item> GALE_FABRIC = ITEMS.register("gale_fabric", ItemBase::new);
     public static final RegistryObject<Item> SAVAGE_TOOTH = ITEMS.register("savage_tooth", ItemBase::new);
+    public static final RegistryObject<Item> JADE = ITEMS.register("jade", ItemBase::new);
     public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", ItemBase::new);
     public static final RegistryObject<Item> SOUL_RUBY = ITEMS.register("soul_ruby", ItemBase::new);
     public static final RegistryObject<Item> EMPTY_FOCUS = ITEMS.register("empty_focus", ItemBase::new);
@@ -92,6 +93,7 @@ public class ModItems {
     public static final RegistryObject<Item> LAUNCH_FOCUS = ITEMS.register("launch_focus", () -> new MagicFocus(new LaunchSpell()));
     public static final RegistryObject<Item> FLYING_FOCUS = ITEMS.register("flying_focus", () -> new MagicFocus(new FlyingSpell()));
     public static final RegistryObject<Item> UPDRAFT_FOCUS = ITEMS.register("updraft_focus", () -> new MagicFocus(new UpdraftSpell()));
+    public static final RegistryObject<Item> WIND_BLAST_FOCUS = ITEMS.register("wind_blast_focus", () -> new MagicFocus(new WindBlastSpell()));
     public static final RegistryObject<Item> SOUL_LIGHT_FOCUS = ITEMS.register("soul_light_focus", () -> new MagicFocus(new SoulLightSpell()));
     public static final RegistryObject<Item> GLOW_LIGHT_FOCUS = ITEMS.register("glow_light_focus", () -> new MagicFocus(new GlowLightSpell()));
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(new ZombieSpell()));

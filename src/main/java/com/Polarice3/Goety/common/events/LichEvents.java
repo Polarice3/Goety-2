@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -14,15 +13,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -157,14 +153,15 @@ public class LichEvents {
     @SubscribeEvent
     public static void UndeadFriendly(LivingChangeTargetEvent event){
         if (MainConfig.LichUndeadFriends.get()) {
-            if (event.getEntity() instanceof Monster) {
+            if (event.getEntity() instanceof Enemy) {
                 if (event.getEntity().getMobType() == MobType.UNDEAD) {
                     if (event.getOriginalTarget() != null) {
                         if (event.getOriginalTarget() instanceof Player player) {
                             if (LichdomHelper.isLich(player)) {
                                 if (MainConfig.LichPowerfulFoes.get()) {
                                     if (event.getEntity().getMaxHealth() < 100) {
-                                        if (!(event.getEntity() instanceof Owned)) {
+                                        event.setNewTarget(null);
+                                        if (event.getEntity() instanceof NeutralMob){
                                             event.setNewTarget(null);
                                         }
                                     }
@@ -206,7 +203,7 @@ public class LichEvents {
                 if (MainConfig.LichUndeadFriends.get()) {
                     if (CuriosFinder.hasUndeadSet(player) && event.getSource().getEntity() != null) {
                         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-                            for (Monster undead : player.level.getEntitiesOfClass(Monster.class, player.getBoundingBox().inflate(16))) {
+                            for (Mob undead : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16))) {
                                 if (undead.getMobType() == MobType.UNDEAD) {
                                     if (undead.getTarget() != player) {
                                         if (MainConfig.LichPowerfulFoes.get()) {

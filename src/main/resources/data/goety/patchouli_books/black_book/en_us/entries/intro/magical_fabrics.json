@@ -17,6 +17,10 @@
       "type": "patchouli:crafting",
       "recipe": "goety:occult_fabric",
       "recipe2": "goety:spirit_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gale_fabric"
     }
   ]
 }

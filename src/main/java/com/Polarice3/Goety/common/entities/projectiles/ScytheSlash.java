@@ -197,12 +197,14 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                 targets.add(entity);
             }
         }
-        AABB aabb = this.getBoundingBox().inflate(0.2D);
+        if (MainConfig.ScytheSlashBreaks.get()) {
+            AABB aabb = this.getBoundingBox().inflate(0.2D);
 
-        for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
-            BlockState blockstate = this.level.getBlockState(blockpos);
-            if (blockstate.is(BlockTags.MINEABLE_WITH_HOE) || BlockFinder.isScytheBreak(blockstate)) {
-                this.level.destroyBlock(blockpos, true, this);
+            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                BlockState blockstate = this.level.getBlockState(blockpos);
+                if (blockstate.is(BlockTags.MINEABLE_WITH_HOE) || BlockFinder.isScytheBreak(blockstate)) {
+                    this.level.destroyBlock(blockpos, true, this);
+                }
             }
         }
         if (!targets.isEmpty()){

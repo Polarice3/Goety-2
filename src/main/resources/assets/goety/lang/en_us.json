@@ -134,6 +134,7 @@
   "item.goety.cursed_ingot": "Cursed Ingot",
   "item.goety.savage_tooth": "Savage Tooth",
   "item.goety.ectoplasm": "Ectoplasm",
+  "item.goety.jade": "Jade",
   "item.goety.spider_egg": "Spider Egg",
   "item.goety.dark_fabric": "Dark Fabric",
   "item.goety.magic_fabric": "Magic Fabric",
@@ -190,6 +191,7 @@
   "item.goety.lavaball_focus": "Lava Bomb Focus",
   "item.goety.soul_bolt_focus": "Soul Bolt Focus",
   "item.goety.updraft_focus": "Updraft Focus",
+  "item.goety.wind_blast_focus": "Wind Blast Focus",
   "item.goety.lightning_focus": "Lightning Focus",
   "item.goety.sonic_boom_focus": "Sonic Boom Focus",
   "item.goety.soul_light_focus": "Soul Light Focus",
@@ -211,6 +213,14 @@
   "item.minecraft.lingering_potion.effect.climbing": "Lingering Potion of Spider Climbing",
 
   "block.goety.cursed_metal_block": "Block of Cursed Metal",
+
+  "block.goety.jade_ore": "Jade Ore",
+  "block.goety.jade_tiles": "Jade Tiles",
+  "block.goety.jade_block": "Block of Jade",
+  "block.goety.jade_pillar": "Jade Pillar",
+  "block.goety.jade_slab": "Jade Slab",
+  "block.goety.jade_stairs": "Jade Stairs",
+
   "block.goety.shade_stone": "Shade Stone",
   "block.goety.shade_stone_slab": "Shade Stone Slab",
   "block.goety.shade_stone_stairs": "Shade Stone Stairs",

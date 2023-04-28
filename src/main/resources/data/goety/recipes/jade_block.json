@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "goety:jade"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "FFF",
+    "FFF"
+  ],
+  "result": {
+    "item": "goety:jade_block"
+  }
+}

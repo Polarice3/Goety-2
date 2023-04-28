@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:jade_ores",
+    "goety:jade_block"
+  ]
+}
