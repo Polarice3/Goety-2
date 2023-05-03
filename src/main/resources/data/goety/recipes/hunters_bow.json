@@ -1,0 +1,30 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:bow"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:gems/emerald"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "tag": "goety:haunted_logs"
+    }
+  ],
+  "result": {
+    "item": "goety:hunters_bow"
+  }
+}

@@ -1,5 +1,21 @@
 {
   "variants": {
-    "": { "model": "goety:block/jade_tiles" }
+    "": [
+      {
+        "model": "goety:block/jade_tiles"
+      },
+      {
+        "model": "goety:block/jade_tiles",
+        "y": 90
+      },
+      {
+        "model": "goety:block/jade_tiles",
+        "y": 180
+      },
+      {
+        "model": "goety:block/jade_tiles",
+        "y": 270
+      }
+    ]
   }
 }

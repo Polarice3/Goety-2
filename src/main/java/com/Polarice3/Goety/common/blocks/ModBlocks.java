@@ -48,6 +48,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> DARK_ALTAR = register("dark_altar", DarkAltarBlock::new);
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
+    public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
     public static final RegistryObject<Block> SCULK_DEVOURER = register("sculk_devourer", SculkDevourerBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);

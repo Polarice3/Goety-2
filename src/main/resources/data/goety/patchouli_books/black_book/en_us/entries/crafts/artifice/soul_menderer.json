@@ -1,0 +1,15 @@
+{
+  "name": "Soul Menderer",
+  "icon": "goety:soul_mender",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Soul Menderer is a powerful device that repairs damaged weapons and tools using Soul Energy. The Soul Menderer must be placed on-top of a Cursed Cage with a Totem or Transfer Gem in it to activate, then it will slowly repair the item within itself."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_mender"
+    }
+  ]
+}

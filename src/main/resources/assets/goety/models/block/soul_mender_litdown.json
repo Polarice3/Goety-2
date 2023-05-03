@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_mender",
+	"textures": {
+		"flame": "goety:block/cursed_infuser_litdown"
+	}
+}

@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.projectiles.ScytheSlash;
-import com.Polarice3.Goety.common.items.ModItemTiers;
+import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CScytheStrikePacket;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -18,7 +18,7 @@ import net.minecraftforge.network.PacketDistributor;
 public class DeathScytheItem extends DarkScytheItem{
 
     public DeathScytheItem() {
-        super(ModItemTiers.DEATH);
+        super(ModTiers.DEATH);
     }
 
     @Override

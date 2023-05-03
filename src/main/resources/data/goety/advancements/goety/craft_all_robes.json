@@ -1,0 +1,52 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:magic_fabric"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_all_robes.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_all_robes.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_robe",
+  "criteria": {
+    "all_robes": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_robe"
+            ]
+          },
+          {
+            "items": [
+              "goety:illusion_robe"
+            ]
+          },
+          {
+            "items": [
+              "goety:witch_robe"
+            ]
+          },
+          {
+            "items": [
+              "goety:wind_robe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "all_robes"
+    ]
+  ]
+}

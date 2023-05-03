@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:arca"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_arca.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_arca.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "arca": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:arca"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "arca"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

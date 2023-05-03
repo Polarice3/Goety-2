@@ -1,0 +1,20 @@
+{
+  "name": "Sculk Devourer",
+  "icon": "goety:sculk_devourer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Sculk Catalyst is a fascinating thing. It converts Experience into Sculk which spreads across the world, but with some tinkering, you've managed to turn the Catalyst into a Soul Energy collector that converts Experience straight to Soul Energy."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_devourer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The amount of Soul Energy delivered is the same amount as the experience dropped. The Devourer can be enchanted with Soul Eater and Radius. Radius multiplies the area of which Experience is absorbed, ie, Radius I doubles the area, Radius II triples. Soul Eater multiplies the amount of Soul Energy gathered from Experience."
+    }
+  ]
+}

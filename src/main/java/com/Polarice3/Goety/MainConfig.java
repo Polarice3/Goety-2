@@ -36,11 +36,13 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PendantOfHungerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulMenderCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
@@ -53,6 +55,10 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> DeathScytheDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheEnchantability;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntersBowDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsEnchantability;
 
     public static final ForgeConfigSpec.ConfigValue<Double> PhilosophersMaceDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceDurability;
@@ -129,6 +135,10 @@ public class MainConfig {
         BossMusic = BUILDER.comment("Bosses from the Mod has custom Music Playing. Default: true")
                 .define("bossMusic", true);
         BUILDER.pop();
+        BUILDER.push("Blocks");
+        SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per second, Default: 5")
+                .defineInRange("soulMenderCost", 5, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
         BUILDER.push("Soul Taken");
         UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")
                 .defineInRange("undeadSouls", 5, 0, Integer.MAX_VALUE);
@@ -172,6 +182,8 @@ public class MainConfig {
                 .define("scytheSlashBreaks", true);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
                 .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
+        PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 256")
+                .defineInRange("pendantOfHungerLimit", 256, 1, Integer.MAX_VALUE);
         WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
                 .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
         WindRobeCape = BUILDER.comment("Render Wind Robe Cape, Default: true")
@@ -194,6 +206,12 @@ public class MainConfig {
                 .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
         DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
                 .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+        SpecialToolsDurability = BUILDER.comment("How many uses before a Special Tool breaks, Default: 1280")
+                .defineInRange("specialToolsDurability", 1280, 1, Integer.MAX_VALUE);
+        HuntersBowDurability = BUILDER.comment("How many uses before a Hunter's Bow breaks, Default: 133")
+                .defineInRange("huntersBowDurability", 128, 1, Integer.MAX_VALUE);
+        SpecialToolsEnchantability = BUILDER.comment("Define the Enchantability for Special Tools, higher number the better, Default: 22")
+                .defineInRange("specialToolsEnchantability", 22, 1, Integer.MAX_VALUE);
         PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
                 .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
         PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")

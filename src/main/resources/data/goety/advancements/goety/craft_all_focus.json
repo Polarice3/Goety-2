@@ -1,0 +1,135 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:focus_bag"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_all_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_all_focus.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_empty_focus",
+  "criteria": {
+    "all_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:vexing_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:biting_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:rotting_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:osseous_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:spooky_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:skull_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:iceology_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:illusion_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:feast_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:fireball_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:lavaball_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:soul_bolt_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:updraft_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:wind_blast_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:lightning_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:sonic_boom_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:soul_light_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:glow_light_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:launch_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:flying_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "all_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

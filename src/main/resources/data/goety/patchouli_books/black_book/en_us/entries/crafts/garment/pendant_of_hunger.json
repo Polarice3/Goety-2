@@ -1,0 +1,15 @@
+{
+  "name": "Pendant of Hunger",
+  "icon": "goety:pendant_of_hunger",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Pendant of Hunger absorbs any Rotten Flesh in your inventory, storing them within itself and uses it to automatically feed you once you are feeling a bit peckish. Of course, eating such food leaves you more hungry than before."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:pendant_of_hunger"
+    }
+  ]
+}

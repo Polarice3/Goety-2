@@ -109,7 +109,7 @@ public class SoulAbsorberBlock extends BaseEntityBlock implements SimpleWaterlog
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
             if (tileentity instanceof SoulAbsorberBlockEntity) {
-                dropItemStack(pLevel, pPos, ((SoulAbsorberBlockEntity) tileentity).getItem(1));
+                dropItemStack(pLevel, pPos, ((SoulAbsorberBlockEntity) tileentity).getItem(0));
             }
 
             super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

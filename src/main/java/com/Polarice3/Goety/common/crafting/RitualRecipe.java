@@ -16,13 +16,16 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-public class RitualRecipe extends ShapelessRecipe {
+public class RitualRecipe extends ModShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation ritualType;
@@ -128,7 +131,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<RitualRecipe> {
-        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
+        private static final ModShapelessRecipe.Serializer serializer = new ModShapelessRecipe.Serializer();
 
         @Override
         public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -186,7 +189,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
         @Override
         public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
+            ModShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
             String craftType = buffer.readUtf(32767);
 
             ResourceLocation ritualType = buffer.readResourceLocation();

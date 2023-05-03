@@ -1,0 +1,7 @@
+{
+  "name": "Garments",
+  "description": "Curios and Clothing of Dark Wizards.",
+  "icon": "goety:dark_hat",
+  "parent": "goety:crafts",
+  "sortnum": 2
+}

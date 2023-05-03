@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.Level;
@@ -29,7 +30,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> maceAttributes;
 
     public PhilosophersMaceItem() {
-        super(new Properties().durability(MainConfig.PhilosophersMaceDurability.get()).tab(Goety.TAB).fireResistant());
+        super(new Properties().rarity(Rarity.UNCOMMON).durability(MainConfig.PhilosophersMaceDurability.get()).tab(Goety.TAB).fireResistant());
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", MainConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-2.4F, AttributeModifier.Operation.ADDITION));

@@ -37,6 +37,9 @@ public class ModRecipeSerializer {
     public static final RegistryObject<RecipeSerializer<RitualRecipe>> RITUAL = RECIPE_SERIALIZERS.register("ritual",
             () -> RitualRecipe.SERIALIZER);
 
+    public static final RegistryObject<RecipeSerializer<ModShapelessRecipe>> MODDED_SHAPELESS = RECIPE_SERIALIZERS.register("crafting_shapeless",
+            ModShapelessRecipe.Serializer::new);
+
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {
             public String toString() {

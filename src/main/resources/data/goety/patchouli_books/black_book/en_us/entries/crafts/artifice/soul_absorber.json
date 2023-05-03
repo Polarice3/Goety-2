@@ -1,0 +1,20 @@
+{
+  "name": "Soul Absorber",
+  "icon": "goety:soul_absorber",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_arca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the Arca, you wonder what you should do with your old Totem of Souls. Stashing it away is an option, but you wondered if you can somehow transfer all the Soul Energy within it towards your Arca."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With the Soul Absorber, you are able to siphon the Soul Energies from not only your Totem of Souls but other items such as the Evokers' Totems and Soul Sand to put within your Arca. While the Soul Absorber will slowly drain Totem of Souls, other items will simply burn up and disappear once it has absorbed its Soul Energy."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_absorber"
+    }
+  ]
+}

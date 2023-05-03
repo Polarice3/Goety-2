@@ -39,6 +39,7 @@ import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -189,18 +190,15 @@ public class ModEvents {
                         Player player = EntityFinder.getNearbyPlayer(world, raid.getCenter());
                         if (player != null) {
                             if (MainConfig.IllagerRaid.get()) {
-                                ISoulEnergy soulEnergy = SEHelper.getCapability(player);
-                                if (soulEnergy.getSoulEnergy() >= (MainConfig.IllagerAssaultSEThreshold.get() * 2)) {
+                                if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 2)) {
                                     int badOmen = Mth.clamp(raid.getBadOmenLevel(), 0, 5) + 1;
                                     int pillager = world.random.nextInt((int) 12 / badOmen);
+                                    if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)){
+                                        pillager = world.random.nextInt(3);
+                                    }
                                     if (pillager == 0) {
                                         if (raider.getType() == EntityType.PILLAGER) {
-                                            HuntingIllagerEntity illager;
-                                            if (world.random.nextBoolean()){
-                                                illager = ModEntityType.CONQUILLAGER.get().create(world);
-                                            } else {
-                                                illager = raider.convertTo(ModEntityType.CONQUILLAGER.get(), false);
-                                            }
+                                            HuntingIllagerEntity illager = ModEntityType.CONQUILLAGER.get().create(world);
                                             if (illager != null) {
                                                 if (world.random.nextInt(4) == 0) {
                                                     illager.setRider(true);
@@ -221,14 +219,9 @@ public class ModEvents {
                                     }
                                     int vindicator = world.random.nextInt((int) 12 / badOmen);
                                     if (vindicator == 0) {
-                                        if (raid.getGroupsSpawned() > 3) {
+                                        if (raid.getGroupsSpawned() > 3 || SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)) {
                                             if (raider.getType() == EntityType.VINDICATOR) {
-                                                HuntingIllagerEntity illager;
-                                                if (world.random.nextBoolean()){
-                                                    illager = ModEntityType.INQUILLAGER.get().create(world);
-                                                } else {
-                                                    illager = raider.convertTo(ModEntityType.INQUILLAGER.get(), false);
-                                                }
+                                                HuntingIllagerEntity illager = ModEntityType.INQUILLAGER.get().create(world);
                                                 if (illager != null) {
                                                     illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
                                                     if (world.random.nextInt(4) == 0) {
@@ -854,8 +847,25 @@ public class ModEvents {
                 }
             }
         }
+        if (world instanceof ServerLevel serverLevel) {
+            if (killed instanceof Villager villager) {
+                if (villager.hasEffect(ModEffects.ILLAGUE.get())) {
+                    ZombieVillager zombievillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+                    if (zombievillager != null) {
+                        zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
+                        zombievillager.setVillagerData(villager.getVillagerData());
+                        zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                        zombievillager.setTradeOffers(villager.getOffers().createTag());
+                        zombievillager.setVillagerXp(villager.getVillagerXp());
+                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, zombievillager);
+                        if (!zombievillager.isSilent()) {
+                            serverLevel.levelEvent((Player) null, 1026, zombievillager.blockPosition(), 0);
+                        }
+                    }
+                }
+            }
+        }
         if (killer instanceof Player player){
-            int looting = Mth.clamp(EnchantmentHelper.getMobLooting(player), 0, 3);
             if (world.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)){
                 Entity entity = event.getSource().getDirectEntity();
                 if (entity instanceof Fangs){

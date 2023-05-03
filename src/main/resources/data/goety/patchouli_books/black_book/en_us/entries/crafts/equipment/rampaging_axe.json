@@ -1,0 +1,15 @@
+{
+  "name": "Rampaging Axe",
+  "icon": "goety:rampaging_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An Axe that hungers for both Blood and Wood. When killing a creature or chopping down wood, the user becomes slightly stronger and their hands move quicker for 10 seconds. Continuous killings/choppings amplifies the effect. Should the user amplify the effect 5 times, the result has been described as 'explosive'."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:rampaging_axe"
+    }
+  ]
+}

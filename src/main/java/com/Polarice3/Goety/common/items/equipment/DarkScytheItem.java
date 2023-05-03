@@ -33,7 +33,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> scytheAttributes;
 
     public DarkScytheItem(Tier itemTier) {
-        super(itemTier, new Properties().durability(itemTier.getUses()).tab(Goety.TAB));
+        super(itemTier, new Properties().rarity(Rarity.UNCOMMON).durability(itemTier.getUses()).tab(Goety.TAB));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         initialDamage = MainConfig.ScytheBaseDamage.get().floatValue() + itemTier.getAttackDamageBonus();
         double attackSpeed = 4.0D - MainConfig.ScytheAttackSpeed.get();
@@ -74,18 +74,13 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         }
         if (this.getMineBlocks(pState)){
             pLevel.playSound((Player) null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.SCYTHE_HIT.get(), pEntityLiving.getSoundSource(), 1.0F, 1.0F);
-            for (int i = -2; i <= 2; ++i) {
-                for (int j = -1; j <= 1; ++j) {
-                    for (int k = -2; k <= 2; ++k) {
-                        BlockPos blockpos1 = pPos.offset(i, j, k);
-                        BlockState blockstate = pLevel.getBlockState(blockpos1);
-                        if (this.getMineBlocks(blockstate)){
-                            if (pLevel.destroyBlock(blockpos1, true, pEntityLiving)){
-                                if (blockstate.getDestroySpeed(pLevel, blockpos1) != 0) {
-                                    pStack.hurtAndBreak(1, pEntityLiving, (p_220044_0_)
-                                            -> p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-                                }
-                            }
+            for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 2, 1, 2)){
+                BlockState blockstate = pLevel.getBlockState(blockPos);
+                if (this.getMineBlocks(blockstate)){
+                    if (pLevel.destroyBlock(blockPos, true, pEntityLiving)){
+                        if (blockstate.getDestroySpeed(pLevel, blockPos) != 0) {
+                            pStack.hurtAndBreak(1, pEntityLiving, (p_220044_0_)
+                                    -> p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                         }
                     }
                 }

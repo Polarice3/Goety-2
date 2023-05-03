@@ -4,9 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.curios.*;
-import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
-import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
-import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
+import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.init.ModSounds;
@@ -66,6 +64,7 @@ public class ModItems {
     //Curios
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
+    public static final RegistryObject<Item> PENDANT_OF_ROT = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", MagicHatItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
@@ -108,6 +107,10 @@ public class ModItems {
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(MainConfig.NamelessStaffDamage.get()));
     public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
+    public static final RegistryObject<Item> EERIE_PICKAXE = ITEMS.register("eerie_pickaxe", EeriePickaxeItem::new);
+    public static final RegistryObject<Item> RAMPAGING_AXE = ITEMS.register("rampaging_axe", RampagingAxeItem::new);
+    public static final RegistryObject<Item> GRAVEROBBER_SHOVEL = ITEMS.register("graverobber_shovel", GraverobberShovelItem::new);
+    public static final RegistryObject<Item> HUNTERS_BOW = ITEMS.register("hunters_bow", HuntersBowItem::new);
     public static final RegistryObject<Item> PHILOSOPHERS_MACE = ITEMS.register("philosophers_mace", PhilosophersMaceItem::new);
 
     //Discs

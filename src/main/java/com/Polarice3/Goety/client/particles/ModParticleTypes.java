@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.Goety;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -69,4 +70,12 @@ public class ModParticleTypes {
 
     public static final RegistryObject<SimpleParticleType> FUNGUS_EXPLOSION_EMITTER = PARTICLE_TYPES.register("fungus_explosion_emitter",
             () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
 }

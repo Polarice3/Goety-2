@@ -18,7 +18,7 @@ public class ModMathHelper {
     }
 
     public static float modelDegrees(float degree){
-        return (float) ((degree * Math.PI)/180.0F);
+        return (float) ((degree * Math.PI)/180.0F); /* For opposite, it's (answer * 180) / PI*/
     }
 
     public static double rgbToSpeed(double colorCode){

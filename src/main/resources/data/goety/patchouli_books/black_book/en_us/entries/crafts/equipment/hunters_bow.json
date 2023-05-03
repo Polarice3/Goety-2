@@ -1,0 +1,15 @@
+{
+  "name": "Hunter's Bow",
+  "icon": "goety:hunters_bow",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Bow suited to killing game, any animal slain by an arrow shot from this bow will drop more loot than even a Looting III weapon."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunters_bow"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Witches Set",
+  "icon": "goety:witch_hat",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Witches are known to look snazzy with their massive hats. You've figured out how to make your own Witch hat with some Dark Fabrics and you've discovered how wearing them gives you a small chance of not consuming any potion."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_hat"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:witch_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You've also discovered a way to replicate the powers of a Witch by crafting your own Witches Robes. The Robe is essentially a portable Brewing Stand (that you can open by pressing the default key: V while wearing it). It also provides resistance to magical attacks."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wearing a Witches Hat while wearing the Witches Robes not only makes the robe brew potions faster, but also makes Witches and Warlocks neutral to the wearer. You can also barter with Witches and Warlocks by right-clicking on them with an Emerald, but only if they're not aggressive or holding something. Unlike the brutish Piglins, the two won't pick up Emeralds thrown at them, you gotta give it to them straight."
+    }
+  ]
+}

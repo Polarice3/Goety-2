@@ -1,0 +1,7 @@
+{
+  "name": "Artifices",
+  "description": "Utilizing and Manipulating Soul Energy.",
+  "icon": "goety:soul_absorber",
+  "parent": "goety:crafts",
+  "sortnum": 3
+}

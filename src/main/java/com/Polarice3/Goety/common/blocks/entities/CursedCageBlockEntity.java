@@ -51,6 +51,16 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
         this.setChanged();
     }
 
+    public Player getOwner(){
+        if (this.item.getItem() == ModItems.SOUL_TRANSFER.get() && this.item.getTag() != null) {
+            if (this.item.getTag().contains("owner")) {
+                UUID owner = this.item.getTag().getUUID("owner");
+                return this.level.getPlayerByUUID(owner);
+            }
+        }
+        return null;
+    }
+
     public int getSouls(){
         if (this.level != null) {
             if (this.item.getItem() == ModItems.SOUL_TRANSFER.get() && this.item.getTag() != null) {

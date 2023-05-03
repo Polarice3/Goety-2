@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/soul_mender" },
+    "lit=false": { "model": "goety:block/soul_mender_litdown" }
+  }
+}

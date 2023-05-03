@@ -40,6 +40,13 @@ public class ModEffects {
                     .addAttributeModifier(Attributes.ATTACK_DAMAGE, "f033b086-8a5e-44f2-8655-888dd700691c",
                             1.0D, AttributeModifier.Operation.ADDITION));
 
+    public static final RegistryObject<MobEffect> RAMPAGE = EFFECTS.register("rampage",
+            () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x6a0000)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, "f51b56c4-bab1-43f4-8607-4db1b50061ef",
+                            1.0D, AttributeModifier.Operation.ADDITION)
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, "da7d3d70-88a2-43c7-8924-4b4fbaf3b6aa",
+                            (double)0.1F, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 }

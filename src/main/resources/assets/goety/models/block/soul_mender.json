@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_mender",
+	"textures": {
+		"flame": "goety:block/soul_mender_litup"
+	}
+}

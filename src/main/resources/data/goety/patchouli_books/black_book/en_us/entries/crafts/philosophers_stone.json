@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Blood of an Apostle allows one to craft the mythical Philosopher's Stone. With this, one can duplicate gold by putting this stone with a gold ingot. Doing this will cause the stone to take durability, but it can be repaired by combining it with Crying Obsidian on an Anvil."
+      "text": "The Blood of an Apostle allows one to craft the mythical Philosopher's Stone. With this, one can duplicate gold by putting this stone with a gold ingot. Doing this will cause the stone to take durability, but it can repair itself using Soul Energy."
     },
     {
       "type": "goety:ritual",

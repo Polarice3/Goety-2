@@ -1,0 +1,7 @@
+{
+  "name": "Tools & Equipments",
+  "description": "Dark and Powerful Tools for a Dark Wizard.",
+  "icon": "goety:eerie_pickaxe",
+  "parent": "goety:crafts",
+  "sortnum": 1
+}

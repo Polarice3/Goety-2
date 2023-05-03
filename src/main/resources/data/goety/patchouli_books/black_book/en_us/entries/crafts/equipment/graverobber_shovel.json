@@ -1,0 +1,15 @@
+{
+  "name": "Graverobber's Shovel",
+  "icon": "goety:graverobber_shovel",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Shovel suited for gravediggers and grave robbers, the shovel breaks 2 blocks instead of one when breaking a blocks like dirt, allowing the user to dig up graves on the fly. The reason for its name is how the shovel has a 10% chance of digging up remains when breaking blocks like dirt or sand."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:graverobber_shovel"
+    }
+  ]
+}

@@ -65,6 +65,16 @@ public class ClientInitEvents {
                 (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pull"),
+                (stack, world, living, seed) -> {
+                    if (living == null) {
+                        return 0.0F;
+                    } else {
+                        return living.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - living.getUseItemRemainingTicks()) / 20;
+                    }
+                });
+        ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pulling")
+                , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent
@@ -137,6 +147,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.DARK_ALTAR.get(), DarkAltarRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SOUL_ABSORBER.get(), SoulAbsorberRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SOUL_MENDER.get(), SoulMenderRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ICE_BOUQUET_TRAP.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SCULK_DEVOURER.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FORBIDDEN_GRASS.get(), ModBlockEntityRenderer::new);
@@ -220,6 +231,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
+        event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
     }
 
 }

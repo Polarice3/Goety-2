@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:grave_glove"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_grave_gloves.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_grave_gloves.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_scythe",
+  "criteria": {
+    "grave_glove": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:grave_glove"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "grave_glove"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  }
+}

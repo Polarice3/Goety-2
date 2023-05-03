@@ -352,6 +352,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     public void remove(Entity.RemovalReason p_146834_) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
+        } else {
+            ServerLevel ServerLevel = (ServerLevel) this.level;
+            if (ServerLevel.getLevelData().isThundering()) {
+                ServerLevel.setWeatherParameters(6000, 0, false, false);
+            }
         }
         super.remove(p_146834_);
     }

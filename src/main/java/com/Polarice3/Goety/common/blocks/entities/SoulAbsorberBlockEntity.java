@@ -185,10 +185,11 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
     }
 
     public void readNetwork(CompoundTag compoundNBT) {
-        this.itemStack = ItemStack.of(compoundNBT);
+        if (compoundNBT.contains("Item")) {
+            this.itemStack = ItemStack.of(compoundNBT.getCompound("Item"));
+        }
         this.cookingProgress = compoundNBT.getInt("CookingTime");
         this.cookingTime = compoundNBT.getInt("CookingTotalTime");
-
     }
 
     public CompoundTag writeNetwork(CompoundTag pCompound) {
@@ -199,7 +200,9 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
     }
 
     private CompoundTag saveMetadataAndItems(CompoundTag pCompound) {
-        this.itemStack.save(pCompound);
+        if (!this.itemStack.isEmpty()) {
+            pCompound.put("Item", this.itemStack.save(new CompoundTag()));
+        }
         return pCompound;
     }
 

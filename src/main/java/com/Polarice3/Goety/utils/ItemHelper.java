@@ -5,7 +5,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.function.Predicate;
 
 public class ItemHelper {
 
@@ -26,5 +29,29 @@ public class ItemHelper {
 
     public static ItemEntity itemEntityDrop(LivingEntity livingEntity, ItemStack itemStack){
         return new ItemEntity(livingEntity.level, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), itemStack);
+    }
+
+    public static ItemStack findItem(Player playerEntity, Item item){
+        ItemStack foundStack = ItemStack.EMPTY;
+        for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+            ItemStack itemStack = playerEntity.getInventory().getItem(i);
+            if (!itemStack.isEmpty() && itemStack.getItem() == item) {
+                foundStack = itemStack;
+                break;
+            }
+        }
+        return foundStack;
+    }
+
+    public static ItemStack findItem(Player playerEntity, Predicate<ItemStack> item){
+        ItemStack foundStack = ItemStack.EMPTY;
+        for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+            ItemStack itemStack = playerEntity.getInventory().getItem(i);
+            if (!itemStack.isEmpty() && item.test(itemStack)) {
+                foundStack = itemStack;
+                break;
+            }
+        }
+        return foundStack;
     }
 }

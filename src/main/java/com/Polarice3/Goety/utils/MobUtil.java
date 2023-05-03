@@ -22,6 +22,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
@@ -46,6 +47,10 @@ public class MobUtil {
     public static final Predicate<LivingEntity> NO_CREATIVE_OR_SPECTATOR = (p_200824_0_) -> {
         return !(p_200824_0_ instanceof Player) || !p_200824_0_.isSpectator() && !((Player)p_200824_0_).isCreative();
     };
+
+    public static boolean isShifting(LivingEntity entityLiving){
+        return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
+    }
 
     public static boolean validEntity(Entity entity){
         if (entity instanceof Player player){
@@ -76,6 +81,10 @@ public class MobUtil {
                 return false;
             }
         }
+    }
+
+    public static BlockHitResult rayTrace(Entity entity, double distance, boolean fluids) {
+        return (BlockHitResult) entity.pick(distance, 1.0F, fluids);
     }
 
     public static void ClimbAnyWall(LivingEntity livingEntity){
@@ -390,5 +399,73 @@ public class MobUtil {
 
     public static boolean shouldSpawnBonusGroup(Raid raid) {
         return isFinalWave(raid) && raid.getTotalRaidersAlive() == 0 && hasBonusWave(raid);
+    }
+
+    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius){
+        float f2 = radius * 2.0F;
+        int k1 = Mth.floor(x - (double)f2 - 1.0D);
+        int l1 = Mth.floor(x + (double)f2 + 1.0D);
+        int i2 = Mth.floor(y - (double)f2 - 1.0D);
+        int i1 = Mth.floor(y + (double)f2 + 1.0D);
+        int j2 = Mth.floor(z - (double)f2 - 1.0D);
+        int j1 = Mth.floor(z + (double)f2 + 1.0D);
+        List<Entity> list = level.getEntities(source, new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
+        Vec3 vec3 = new Vec3(x, y, z);
+        for (Entity entity : list) {
+            double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
+            if (d12 <= 1.0D) {
+                double d5 = entity.getX() - x;
+                double d7 = entity.getEyeY() - y;
+                double d9 = entity.getZ() - z;
+                double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+                if (d13 != 0.0D) {
+                    d5 /= d13;
+                    d7 /= d13;
+                    d9 /= d13;
+                    double d14 = (double) getSeenPercent(vec3, entity);
+                    double d10 = (1.0D - d12) * d14;
+                    entity.hurt(damageSource, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                    double d11 = d10;
+                    if (entity instanceof LivingEntity) {
+                        d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                    }
+
+                    MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
+                }
+            }
+        }
+    }
+
+    public static float getSeenPercent(Vec3 vector, Entity target) {
+        AABB aabb = target.getBoundingBox();
+        double d0 = 1.0D / ((aabb.maxX - aabb.minX) * 2.0D + 1.0D);
+        double d1 = 1.0D / ((aabb.maxY - aabb.minY) * 2.0D + 1.0D);
+        double d2 = 1.0D / ((aabb.maxZ - aabb.minZ) * 2.0D + 1.0D);
+        double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
+        double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
+        if (!(d0 < 0.0D) && !(d1 < 0.0D) && !(d2 < 0.0D)) {
+            int i = 0;
+            int j = 0;
+
+            for(double d5 = 0.0D; d5 <= 1.0D; d5 += d0) {
+                for(double d6 = 0.0D; d6 <= 1.0D; d6 += d1) {
+                    for(double d7 = 0.0D; d7 <= 1.0D; d7 += d2) {
+                        double d8 = Mth.lerp(d5, aabb.minX, aabb.maxX);
+                        double d9 = Mth.lerp(d6, aabb.minY, aabb.maxY);
+                        double d10 = Mth.lerp(d7, aabb.minZ, aabb.maxZ);
+                        Vec3 vec3 = new Vec3(d8 + d3, d9, d10 + d4);
+                        if (target.level.clip(new ClipContext(vec3, vector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, target)).getType() == HitResult.Type.MISS) {
+                            ++i;
+                        }
+
+                        ++j;
+                    }
+                }
+            }
+
+            return (float)i / (float)j;
+        } else {
+            return 0.0F;
+        }
     }
 }
