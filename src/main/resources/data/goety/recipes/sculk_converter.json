@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "e",
+    "b",
+    "c"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:soul_absorber"
+    },
+    "b":
+    {
+      "item": "goety:cursed_cage"
+    },
+    "c":
+    {
+      "item": "minecraft:sculk_catalyst"
+    }
+  },
+  "result":
+  {
+    "item": "goety:sculk_converter",
+    "count": 1
+  }
+}

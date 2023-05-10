@@ -11,11 +11,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,50 +21,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nullable;
-import java.util.Map;
 
-public class SculkDevourerBlock extends BaseEntityBlock {
+public class SculkDevourerBlock extends EnchanteableBlock {
     public static final BooleanProperty PULSE = BlockStateProperties.BLOOM;
 
     public SculkDevourerBlock() {
         super(ModBlocks.ShadeStoneProperties());
         this.registerDefaultState(this.stateDefinition.any().setValue(PULSE, Boolean.valueOf(false)));
-    }
-
-    public void setEnchantments(ItemStack itemStack, BlockEntity tileEntity){
-        SculkDevourerBlockEntity devourerBlockEntity = (SculkDevourerBlockEntity) tileEntity;
-        Map<Enchantment, Integer> enchantments = devourerBlockEntity.getEnchantments();
-        for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-            Enchantment enchantment = entry.getKey();
-            Integer integer = entry.getValue();
-            if (integer < 0){
-                enchantments.remove(enchantment);
-            } else {
-                enchantments.put(enchantment, integer);
-            }
-        }
-        EnchantmentHelper.setEnchantments(enchantments, itemStack);
-    }
-
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-        ItemStack itemStack = new ItemStack(this);
-        BlockEntity tileEntity = world.getBlockEntity(pos);
-        if (tileEntity instanceof SculkDevourerBlockEntity) {
-            this.setEnchantments(itemStack, tileEntity);
-        }
-        return itemStack;
-    }
-
-    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pTe, ItemStack pStack) {
-        ItemStack itemStack = new ItemStack(this);
-        if (pTe instanceof SculkDevourerBlockEntity) {
-            this.setEnchantments(itemStack, pTe);
-        }
-        popResource(pLevel, pPos, itemStack);
-        super.playerDestroy(pLevel, pPlayer, pPos, pState, pTe, pStack);
     }
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
@@ -76,14 +38,6 @@ public class SculkDevourerBlock extends BaseEntityBlock {
         if (pPlacer instanceof Player){
             if (tileentity instanceof SculkDevourerBlockEntity blockEntity){
                 blockEntity.setOwnerId(pPlacer.getUUID());
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(pStack);
-                for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-                    Enchantment enchantment = entry.getKey();
-                    if (!this.asItem().canApplyAtEnchantingTable(pStack, enchantment)){
-                        enchantments.remove(enchantment);
-                    }
-                }
-                blockEntity.getEnchantments().putAll(enchantments);
             }
         }
     }

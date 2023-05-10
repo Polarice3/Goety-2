@@ -3,20 +3,19 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import java.util.Iterator;
 
 public class WartlingEggItem extends Item {
     public WartlingEggItem() {
@@ -30,27 +29,29 @@ public class WartlingEggItem extends Item {
             wartling.setTrueOwner(player);
             wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
             wartling.moveTo(player.blockPosition(), player.getYRot(), player.getXRot());
-            if (!player.getActiveEffects().isEmpty()) {
-                Iterator<MobEffectInstance> mobEffectInstanceIterator = player.getActiveEffects().iterator();
-                if (mobEffectInstanceIterator.hasNext()) {
-                    MobEffectInstance effectInstance = mobEffectInstanceIterator.next();
-                    if (effectInstance != null) {
-                        if (wartling.getStoredEffect() == null) {
-                            wartling.setStoredEffect(effectInstance);
-                            player.removeEffect(effectInstance.getEffect());
-                        }
-                    }
-                }
-            }
+            player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
+                wartling.setStoredEffect(effect);
+                player.removeEffect(effect.getEffect());
+            });
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-            if (player.level.addFreshEntity(wartling)){
-                player.hurt(DamageSource.GENERIC, 2.0F);
+            if (!CuriosFinder.hasCurio(player, ModItems.WARLOCK_SASH.get()) && !CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())) {
+                if (player.level.addFreshEntity(wartling)) {
+                    player.hurt(DamageSource.GENERIC, 2.0F);
+                }
+            } else {
+                player.level.addFreshEntity(wartling);
             }
         }
         if (!player.isSilent()) {
             level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.SCULK_BLOCK_SPREAD, player.getSoundSource(), 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
         }
-        itemstack.shrink(1);
+        if (CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())) {
+            if (level.random.nextFloat() > 0.1F){
+                itemstack.shrink(1);
+            }
+        } else {
+            itemstack.shrink(1);
+        }
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 

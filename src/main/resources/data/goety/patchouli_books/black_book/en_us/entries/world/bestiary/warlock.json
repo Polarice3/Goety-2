@@ -11,7 +11,7 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:warlock",
-      "text": "They're resistant to Explosions and Fire."
+      "text": "They're resistant to Explosions."
     },
     {
       "type": "patchouli:text",

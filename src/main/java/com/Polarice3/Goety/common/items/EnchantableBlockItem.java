@@ -20,6 +20,9 @@ public class EnchantableBlockItem extends BlockItemBase {
                     && (enchantment == ModEnchantments.SOUL_EATER.get()
                     || enchantment == ModEnchantments.RADIUS.get());
         }
+        if (stack.getItem() == ModBlocks.SCULK_CONVERTER_ITEM.get()){
+            return stack.getCount() == 1 && enchantment == ModEnchantments.POTENCY.get();
+        }
         return stack.getCount() == 1;
     }
 

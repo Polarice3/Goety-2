@@ -93,6 +93,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichDamageHelmet;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichMagicResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
@@ -136,8 +137,8 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
-        SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per second, Default: 5")
-                .defineInRange("soulMenderCost", 5, 0, Integer.MAX_VALUE);
+        SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per second, Default: 1")
+                .defineInRange("soulMenderCost", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Soul Taken");
         UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")
@@ -181,7 +182,7 @@ public class MainConfig {
         ScytheSlashBreaks = BUILDER.comment("Scythe Slashes from Death Scythe breaks blocks that regular Scythes easily breaks, Default: true")
                 .define("scytheSlashBreaks", true);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
-                .defineInRange("darkArmoredRobeRepairSouls", 5, 1, Integer.MAX_VALUE);
+                .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
         PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 256")
                 .defineInRange("pendantOfHungerLimit", 256, 1, Integer.MAX_VALUE);
         WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
@@ -196,8 +197,8 @@ public class MainConfig {
                 .defineInRange("windStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
         NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")
                 .defineInRange("namelessStaffDamage", 6.0, 1.0, Double.MAX_VALUE);
-        ScytheBaseDamage = BUILDER.comment("How much base damage Scythes deals, the damage added depends on material the scythe is made off (ie. Iron = 2.0), Default: 5.5")
-                .defineInRange("scytheBaseDamage", 5.5, 1.0, Double.MAX_VALUE);
+        ScytheBaseDamage = BUILDER.comment("How much base damage Scythes deals, the damage added depends on material the scythe is made off (ie. Iron = 2.0), Default: 4.5")
+                .defineInRange("scytheBaseDamage", 4.5, 1.0, Double.MAX_VALUE);
         ScytheAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Scythe with item offhand and not wearing Grave Gloves. The lower the number the slower it takes to recharge, Default: 0.6")
                 .defineInRange("scytheAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
         DeathScytheDamage = BUILDER.comment("How much damage Death Scythe deals, the configured number is added to Scythe Base Damage, Default: 4.0")
@@ -209,7 +210,7 @@ public class MainConfig {
         SpecialToolsDurability = BUILDER.comment("How many uses before a Special Tool breaks, Default: 1280")
                 .defineInRange("specialToolsDurability", 1280, 1, Integer.MAX_VALUE);
         HuntersBowDurability = BUILDER.comment("How many uses before a Hunter's Bow breaks, Default: 133")
-                .defineInRange("huntersBowDurability", 128, 1, Integer.MAX_VALUE);
+                .defineInRange("huntersBowDurability", 133, 1, Integer.MAX_VALUE);
         SpecialToolsEnchantability = BUILDER.comment("Define the Enchantability for Special Tools, higher number the better, Default: 22")
                 .defineInRange("specialToolsEnchantability", 22, 1, Integer.MAX_VALUE);
         PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
@@ -230,6 +231,8 @@ public class MainConfig {
                 .defineInRange("lichHealCost", 1, 0, Integer.MAX_VALUE);
         LichNightVision = BUILDER.comment("Enable to get infinite Night Vision when being a Lich. If set true, wearing Fel Helm will no longer give Blindness during day, Default: true")
                 .define("lichNightVision", true);
+        LichDamageHelmet = BUILDER.comment("Wearing Helmet in Sunlight as a Lich periodically damages it, Default: true")
+                .define("lichDamageHelmet", true);
         LichUndeadFriends = BUILDER.comment("Undead Mobs will not attack you if you're a Lich and will even defend you if you're attack by another mob and wearing the Necro Set, Default: true")
                 .define("lichUndeadFriendly", true);
         LichMagicResist = BUILDER.comment("Enable to make Liches 85% more resistant to Magic Attacks, Default: false")

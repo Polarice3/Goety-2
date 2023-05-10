@@ -14,10 +14,6 @@
     {
       "type": "patchouli:text",
       "text": "Should the user have a negative effect on them, the next Wartling will take and 'store' that effect in them, which will cause them to leave a cloud of the stored effect once they perish. The stored effect does not effect them and they cannot be effected by the same effect as the one they stored. These Wartlings do not return to their user."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Inversely, if the user has a positive effect, the next Warling will also take that effect. These Wartlings do return to their user, and will apply their buff back to them."
     }
   ]
 }

@@ -75,6 +75,8 @@ public class ModItems {
     public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WIND_ROBE = ITEMS.register("wind_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_ROBE = ITEMS.register("witch_robe", WitchRobeItem::new);
+    public static final RegistryObject<Item> WARLOCK_ROBE = ITEMS.register("warlock_robe", SingleStackItem::new);
+    public static final RegistryObject<Item> WARLOCK_SASH = ITEMS.register("warlock_sash", SingleStackItem::new);
     public static final RegistryObject<Item> STAR_AMULET = ITEMS.register("star_amulet", SingleFoiledStackItem::new);
     public static final RegistryObject<Item> GRAVE_GLOVE = ITEMS.register("grave_glove", GloveItem::new);
 

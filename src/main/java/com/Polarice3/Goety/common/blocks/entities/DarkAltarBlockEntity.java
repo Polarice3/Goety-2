@@ -181,6 +181,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
                         if (this.level.getGameTime() % 20 == 0) {
                             this.cursedCageTile.decreaseSouls(recipe.getSoulCost());
+                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, (double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 1.15D, (double)this.worldPosition.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
                             this.currentTime++;
                         }
 

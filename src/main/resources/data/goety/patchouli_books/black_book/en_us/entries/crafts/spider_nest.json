@@ -1,0 +1,16 @@
+{
+  "name": "Spider Nests",
+  "icon": "goety:spider_nest",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With a bunch of Spider Eggs surrounding a piece of raw meat allows you to create a Spider Nest. The Nest holds smaller and more harmless spiders that will periodically generate Cobwebs around itself if there's no Blocks around it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:spider_nest",
+      "text": "The Spider Nest will not produce Cobwebs in bright areas. Rarely, the Spider Nest will produce a Spider."
+    }
+  ]
+}

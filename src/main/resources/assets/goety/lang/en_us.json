@@ -176,6 +176,8 @@
   "item.goety.nameless_cape": "Nameless Cape",
   "item.goety.witch_robe": "Witches Robe",
   "item.goety.witch_robe.brew": "Witches Robe",
+  "item.goety.warlock_sash": "Warlock Sash",
+  "item.goety.warlock_robe": "Warlock Robe",
   "item.goety.grave_glove": "Grave Gloves",
   "item.goety.star_amulet": "Soul Shield Amulet",
   "item.goety.pendant_of_hunger": "Pendant of Hunger",
@@ -274,8 +276,10 @@
 
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
   "block.goety.sculk_devourer": "Sculk Devourer",
+  "block.goety.sculk_converter": "Sculk Converter",
 
   "block.goety.snap_warts": "Snap Warts",
+  "block.goety.spider_nest": "Spider Nest",
 
   "block.goety.soul_light": "Soul Light",
   "block.goety.glow_light": "Glow Light",
@@ -302,7 +306,7 @@
   "effect.goety.rampage": "Rampage",
   "effect.goety.rampage.description": "Increases melee attack damage by 0.5 heart per level, Increases mining and attack speed. Spawns an explosion after gaining 5 levels.",
   "effect.goety.climbing": "Climbing",
-  "effect.goety.climbing.description": "Grants ability to climb up horizontal walls.",
+  "effect.goety.climbing.description": "Grants ability to climb up horizontal walls and move through Cobwebs.",
 
   "enchantment.goety.soul_eater": "Soul Eater",
   "enchantment.goety.wanting": "Wanting",
@@ -506,6 +510,10 @@
   "advancements.goety.craft_wind_robe.description": "Wind Robes slows down descent and gives discount to Wind Spells.",
   "advancements.goety.craft_all_robes.title": "Fancy Wardrobe",
   "advancements.goety.craft_all_robes.description": "Craft every Robes.",
+  "advancements.goety.kill_envioker.title": "Angry Video Game Illager",
+  "advancements.goety.kill_envioker.description": "Looks like you've gathered some attention from those Illagers...",
+  "advancements.goety.kill_illagers.title": "Expected The Unexpected",
+  "advancements.goety.kill_illagers.description": "Defeated an Envioker, an Inquillager and a Conquillager!",
   "advancements.goety.kill_apostle.title": "Trumpeter's Shadow",
   "advancements.goety.kill_apostle.description": "Defeated an Apostle, the Pale Faced envoy of the Nether.",
   "advancements.goety.craft_philosophers_mace.title": "Midas Touch",

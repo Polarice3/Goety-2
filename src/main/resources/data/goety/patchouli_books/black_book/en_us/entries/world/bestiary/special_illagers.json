@@ -1,0 +1,52 @@
+{
+  "name": "Illager Hunters",
+  "icon": "minecraft:crossbow",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_hunting_illagers",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After killing a bunch of Illagers that have come to slay you for stealing their knowledge, you've managed to document the ones that you've never encountered before."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These Illagers seemed to only go after those who had discovered or stolen their secrets as they aren't found stationed in Woodland Mansions or Outposts, and they seemed to only partake in Raids if those discoverers are within that village. What's certain is that these brand of Illagers are high ranking enough to bring even Ravagers in their pursuit."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:envioker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A powerful and well-read Evoker that seems to be using an odd Ruby Shard on their heads to power up their magics. Their Totem was either gifted or taken from others."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tormentor"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Looks to be the result of an experiment between a Vex and a Vindicator, these beings remain invisible when they're not charging at their target."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An unexpected Illager trained to attack magic users as they're immune to their spells. They wield flaming swords and throw Harming Potions."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:conquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Disease-ridden aristocrats that spread civilization-ending pestilence to foreigners. Fortunately, they prefer to shoot from afar than go into barbaric melee."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When partaking in a Raid, Conquillagers will usually come first, Inquillagers will start appearing after 3 Waves and Enviokers will start to appear alongside Ravagers and Evokers."
+    }
+  ]
+}

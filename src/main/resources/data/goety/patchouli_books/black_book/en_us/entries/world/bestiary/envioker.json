@@ -1,0 +1,20 @@
+{
+  "name": "A Strange Incident",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While you were busy with your day, you seemed to be attacked by a lone Illager that seemed to be an Evoker. Unlike other Evokers, this one seems to be far more powerful and seems to be using their Totem to the fullest."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It seems the Illagers despised how you've managed to delve into secrets that they believed belonged to them. You feel that this Evoker was simply one that was too enraged by how quickly you've discovered said secrets. You have a feeling that the more you delve into the dark arts, the more Illagers will take umbrage."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Perhaps a Scrying Mirror, will help gauge the amount of ire these outcasts have for you."
+    }
+  ]
+}

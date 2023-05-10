@@ -60,11 +60,13 @@ public class LichEvents {
                 if (!helmet.isEmpty()) {
                     if (!player.isCreative()) {
                         if (!player.hasEffect(MobEffects.FIRE_RESISTANCE)) {
-                            if (helmet.isDamageableItem()) {
-                                helmet.setDamageValue(helmet.getDamageValue() + world.random.nextInt(2));
-                                if (helmet.getDamageValue() >= helmet.getMaxDamage()) {
-                                    player.broadcastBreakEvent(EquipmentSlot.HEAD);
-                                    player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+                            if (MainConfig.LichDamageHelmet.get()) {
+                                if (helmet.isDamageableItem()) {
+                                    helmet.setDamageValue(helmet.getDamageValue() + world.random.nextInt(2));
+                                    if (helmet.getDamageValue() >= helmet.getMaxDamage()) {
+                                        player.broadcastBreakEvent(EquipmentSlot.HEAD);
+                                        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+                                    }
                                 }
                             }
                         }
@@ -77,17 +79,15 @@ public class LichEvents {
                     }
                 }
             }
-
-            for (MobEffectInstance effectInstance : player.getActiveEffects()){
+            player.getActiveEffects().removeIf(effectInstance -> {
                 MobEffect effect = effectInstance.getEffect();
                 if (!new Zombie(world).canBeAffected(effectInstance)){
-                    player.removeEffect(effect);
+                    return true;
+                } else {
+                    return effect == MobEffects.BLINDNESS || effect == MobEffects.CONFUSION
+                            || effect == MobEffects.HUNGER || effect == MobEffects.SATURATION;
                 }
-                if (effect == MobEffects.BLINDNESS || effect == MobEffects.CONFUSION
-                        || effect == MobEffects.HUNGER || effect == MobEffects.SATURATION){
-                    player.removeEffect(effect);
-                }
-            }
+            });
             if (player.hasEffect(ModEffects.SOUL_HUNGER.get())){
                 if (SEHelper.getSoulsAmount(player, MainConfig.MaxSouls.get())){
                     player.removeEffect(ModEffects.SOUL_HUNGER.get());

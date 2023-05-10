@@ -1,18 +1,19 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
@@ -22,12 +23,12 @@ public class PendantOfHungerItem extends SingleStackItem implements ICurioItem {
     private static final String ROTTEN_FLESH = "Rotten Flesh Count";
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        if (!stack.hasTag()) {
-            stack.setTag(new CompoundTag());
-            stack.getOrCreateTag().putInt(ROTTEN_FLESH, 0);
-        } else {
-            if (slotContext.entity() instanceof Player player) {
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (entityIn instanceof Player player) {
+            if (!stack.hasTag()) {
+                stack.setTag(new CompoundTag());
+                stack.getOrCreateTag().putInt(ROTTEN_FLESH, 0);
+            } else if (CuriosFinder.hasCurio(player, itemStack -> itemStack == stack)){
                 if (getRottenFleshAmount(stack) < MainConfig.PendantOfHungerLimit.get()) {
                     if (!ItemHelper.findItem(player, Items.ROTTEN_FLESH).isEmpty()) {
                         increaseRottenFlesh(stack);
@@ -37,14 +38,15 @@ public class PendantOfHungerItem extends SingleStackItem implements ICurioItem {
                 if (getRottenFleshAmount(stack) > 0) {
                     if (MobUtil.playerValidity(player, true)) {
                         player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0, false, false));
-                    }
-                    if (player.getFoodData().needsFood()){
-                        player.eat(player.level, new ItemStack(Items.ROTTEN_FLESH));
-                        decreaseRottenFlesh(stack);
+                        if (player.getFoodData().needsFood()) {
+                            player.eat(player.level, new ItemStack(Items.ROTTEN_FLESH));
+                            decreaseRottenFlesh(stack);
+                        }
                     }
                 }
             }
         }
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     @Override

@@ -8,23 +8,17 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 
-import java.util.Map;
-
-public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEventListener {
+public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEventListener, IEnchantedBlock {
     private final BlockPositionSource blockPosSource = new BlockPositionSource(this.worldPosition);
     protected final Object2IntMap<Enchantment> enchantments = new Object2IntOpenHashMap<>();
 
@@ -32,22 +26,17 @@ public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEv
         super(ModBlockEntities.SCULK_DEVOURER.get(), p_222774_, p_222775_);
     }
 
-    public Object2IntMap<Enchantment> getEnchantments() {
+    public Object2IntMap<Enchantment> getEnchantments(){
         return this.enchantments;
     }
 
     public void readNetwork(CompoundTag tag) {
         super.readNetwork(tag);
-        ListTag enchants = tag.getList("enchantments", Tag.TAG_COMPOUND);
-        Map<Enchantment, Integer> map = EnchantmentHelper.deserializeEnchantments(enchants);
-        this.enchantments.clear();
-        this.enchantments.putAll(map);
+        this.loadEnchants(tag);
     }
 
     public CompoundTag writeNetwork(CompoundTag tag) {
-        ItemStack stack = new ItemStack(ModBlocks.SCULK_DEVOURER_ITEM.get());
-        EnchantmentHelper.setEnchantments(this.enchantments, stack);
-        tag.put("enchantments", stack.getEnchantmentTags());
+        this.saveEnchants(tag, ModBlocks.SCULK_DEVOURER_ITEM.get());
         return super.writeNetwork(tag);
     }
 

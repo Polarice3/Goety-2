@@ -5,14 +5,14 @@
     "item": "goety:cursed_infuser"
   },
   "craftType": "forge",
-  "soulCost": 1,
+  "soulCost": 5,
   "duration": 30,
   "ingredients": [
     {
       "item": "minecraft:sculk_catalyst"
     },
     {
-      "item": "goety:shade_bricks"
+      "item": "goety:soul_emerald"
     },
     {
       "item": "goety:shade_stone_chiseled"
@@ -24,9 +24,7 @@
       "item": "goety:shade_stone_chiseled"
     },
     {
-      "type": "forge:nbt",
-      "item": "minecraft:enchanted_book",
-      "nbt": "{\"StoredEnchantments\": [{lvl: 1s, id: \"minecraft:mending\"}]}"
+      "item": "minecraft:music_disc_5"
     },
     {
       "item": "minecraft:soul_campfire"

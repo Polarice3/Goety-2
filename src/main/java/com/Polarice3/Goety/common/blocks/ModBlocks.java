@@ -51,6 +51,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
     public static final RegistryObject<Block> SCULK_DEVOURER = register("sculk_devourer", SculkDevourerBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> SCULK_CONVERTER = register("sculk_converter", SculkConverterBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> SPIDER_NEST = register("spider_nest", SpiderNestBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
@@ -138,6 +140,8 @@ public class ModBlocks {
     //Custom Items
     public static final RegistryObject<Item> SCULK_DEVOURER_ITEM = ModItems.ITEMS.register("sculk_devourer",
             () -> new EnchantableBlockItem(SCULK_DEVOURER.get()));
+    public static final RegistryObject<Item> SCULK_CONVERTER_ITEM = ModItems.ITEMS.register("sculk_converter",
+            () -> new EnchantableBlockItem(SCULK_CONVERTER.get()));
     public static final RegistryObject<Item> HAUNTED_SIGN_ITEM = ModItems.ITEMS.register("haunted_sign",
             () -> new SignItem(new Item.Properties().tab(Goety.TAB).stacksTo(16), HAUNTED_SIGN.get(), HAUNTED_WALL_SIGN.get()));
     public static final RegistryObject<Item> TALL_SKULL_ITEM = ModItems.ITEMS.register("tall_skull",

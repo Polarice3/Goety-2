@@ -36,7 +36,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class Warlock extends Cultist implements RangedAttackMob {
@@ -184,7 +183,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
             damage = 0.0F;
         }
 
-        if (damageSource.isExplosion() || damageSource.isFire()) {
+        if (damageSource.isExplosion()) {
             damage *= 0.15F;
         }
 
@@ -244,18 +243,10 @@ public class Warlock extends Cultist implements RangedAttackMob {
         if (this.level instanceof ServerLevel serverLevel) {
             wartling.setTrueOwner(this);
             wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
-            if (!this.getActiveEffects().isEmpty()) {
-                Iterator<MobEffectInstance> mobEffectInstanceIterator = this.getActiveEffects().iterator();
-                if (mobEffectInstanceIterator.hasNext()) {
-                    MobEffectInstance effectInstance = mobEffectInstanceIterator.next();
-                    if (effectInstance != null) {
-                        if (wartling.getStoredEffect() == null) {
-                            wartling.setStoredEffect(effectInstance);
-                            this.removeEffect(effectInstance.getEffect());
-                        }
-                    }
-                }
-            }
+            this.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
+                wartling.setStoredEffect(effect);
+                this.removeEffect(effect.getEffect());
+            });
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             this.level.addFreshEntity(wartling);
         }

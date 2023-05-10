@@ -37,6 +37,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SculkDevourerBlockEntity>> SCULK_DEVOURER = BLOCK_ENTITY.register("sculk_devourer",
             () -> BlockEntityType.Builder.of(SculkDevourerBlockEntity::new, ModBlocks.SCULK_DEVOURER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SculkConverterBlockEntity>> SCULK_CONVERTER = BLOCK_ENTITY.register("sculk_converter",
+            () -> BlockEntityType.Builder.of(SculkConverterBlockEntity::new, ModBlocks.SCULK_CONVERTER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ForbiddenGrassBlockEntity>> FORBIDDEN_GRASS = BLOCK_ENTITY.register("forbidden_grass",
             () -> BlockEntityType.Builder.of(ForbiddenGrassBlockEntity::new, ModBlocks.FORBIDDEN_GRASS.get()).build(null));
 

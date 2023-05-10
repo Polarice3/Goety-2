@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "goety:block/sculk_converter"
+    },
+    "lit=false,powered=true": {
+      "model": "goety:block/sculk_converter"
+    },
+    "lit=true,powered=false": {
+      "model": "goety:block/sculk_converter_activated"
+    },
+    "lit=true,powered=true": {
+      "model": "goety:block/sculk_converter_activated"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
+import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -43,7 +44,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     }
 
     public DarkScytheItem(){
-        this(Tiers.IRON);
+        this(ModTiers.SPECIAL);
     }
 
     public static float getInitialDamage() {

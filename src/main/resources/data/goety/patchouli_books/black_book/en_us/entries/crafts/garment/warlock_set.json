@@ -1,0 +1,27 @@
+{
+  "name": "Warlock Set",
+  "icon": "goety:warlock_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Warlocks are known to have a very fungal brown robes with a nice sash wrapped around it. With some Red Wool you've figured out how to make your own Warlock sash and which makes it so using that a Wartful Egg no longer harms you."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:warlock_sash"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:warlock_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Warlock Robe causes the wearer to be resistant to explosive damages and provides a 10% chance of not consuming any Wartful Eggs. The Sash and Robe also causes Spiders to more likely drop Spider Eggs."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Much like wearing a Witches Hat and Robe, wearing Warlock Robes causes all Witches and Warlocks to be neutral and barter-able."
+    }
+  ]
+}

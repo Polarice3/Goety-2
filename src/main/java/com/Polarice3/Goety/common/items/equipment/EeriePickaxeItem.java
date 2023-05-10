@@ -1,11 +1,8 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
-import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import net.minecraft.core.BlockPos;
@@ -14,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -63,9 +61,14 @@ public class EeriePickaxeItem extends PickaxeItem {
                     worldIn.playSound(player, blockPos, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 }
                 if (!MobUtil.isShifting(player)){
-                    for (ItemEntity itemEntity : worldIn.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(10.0F))){
-                        if (itemEntity.getAge() <= 20){
-                            itemEntity.playerTouch(player);
+                    for (Entity entity : worldIn.getEntitiesOfClass(Entity.class, player.getBoundingBox().inflate(10.0F))){
+                        if (entity instanceof ItemEntity itemEntity) {
+                            if (itemEntity.getAge() <= 20) {
+                                itemEntity.playerTouch(player);
+                            }
+                        }
+                        if (entity instanceof ExperienceOrb experienceOrb){
+                            experienceOrb.playerTouch(player);
                         }
                     }
                 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
@@ -487,6 +488,13 @@ public class ModEvents {
                     }
                 }
             }
+            if (CuriosFinder.hasCurio(livingEntity, ModItems.WARLOCK_ROBE.get())){
+                if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
+                    for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
+                        livingEntity.level.addParticle(ModParticleTypes.WARLOCK.get(), livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
+                    }
+                }
+            }
             if (livingEntity instanceof Raider witch) {
                 if (livingEntity instanceof Warlock || livingEntity instanceof Witch) {
                     if (WitchBarterHelper.getTimer(witch) > 0) {
@@ -578,7 +586,7 @@ public class ModEvents {
                         event.setNewTarget(mobAttacker.getLastHurtByMob());
                     }
                     if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock){
-                        if (CuriosFinder.hasWitchSet(target)){
+                        if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasCurio(target, ModItems.WARLOCK_ROBE.get())){
                             if (mobAttacker.getLastHurtByMob() != target){
                                 event.setNewTarget(null);
                             } else {
@@ -632,7 +640,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
         if (!event.getLevel().isClientSide) {
-            if (CuriosFinder.hasWitchSet(event.getEntity())) {
+            if (CuriosFinder.hasWitchSet(event.getEntity()) || CuriosFinder.hasCurio(event.getEntity(), ModItems.WARLOCK_ROBE.get())) {
                 if (event.getTarget() instanceof Raider witch) {
                     if (event.getTarget() instanceof Witch || event.getTarget() instanceof Warlock) {
                         if (!witch.isAggressive()) {
@@ -756,6 +764,11 @@ public class ModEvents {
                         event.setAmount(event.getAmount() * 0.15F);
                     }
                 }
+            }
+        }
+        if (CuriosFinder.hasCurio(victim, ModItems.WARLOCK_ROBE.get())){
+            if (event.getSource().isExplosion()){
+                event.setAmount(event.getAmount() * 0.15F);
             }
         }
         if (ModDamageSource.freezeAttacks(event.getSource())){
@@ -899,6 +912,15 @@ public class ModEvents {
                                 ItemStack head = new ItemStack(Items.PLAYER_HEAD);
                                 head.setTag(tag);
                                 killed.spawnAtLocation(head);
+                            }
+                        }
+                    }
+                }
+                if (killed.getType() == EntityType.SPIDER){
+                    if (CuriosFinder.hasCurio(player, ModItems.WARLOCK_SASH.get()) || CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())){
+                        if (world.random.nextFloat() <= 0.075F){
+                            for (int i = 0; i < (world.random.nextInt(2) + 1); ++i) {
+                                killed.spawnAtLocation(new ItemStack(ModItems.SPIDER_EGG.get()));
                             }
                         }
                     }

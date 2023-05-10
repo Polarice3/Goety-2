@@ -125,6 +125,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.NAMELESS_CROWN, NecroCapeModel::createBigHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NAMELESS_SET, NecroCapeModel::createNamelessLayer);
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.FOCUS_BAG, MiscCuriosModel::createFocusBagLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_OUTER, VillagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));

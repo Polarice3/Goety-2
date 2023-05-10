@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###",
+    "#$#",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:spider_egg"
+    },
+    "$":
+    {
+      "tag": "goety:meat"
+    }
+  },
+  "result":
+  {
+    "item": "goety:spider_nest",
+    "count": 1
+  }
+}
