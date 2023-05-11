@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.projectiles.ScytheSlash;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -13,8 +14,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
+@Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DeathScytheItem extends DarkScytheItem{
 
     public DeathScytheItem() {
@@ -75,5 +81,15 @@ public class DeathScytheItem extends DarkScytheItem{
                 pLevel.addFreshEntity(scytheSlash);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void EmptyClickEvents(PlayerInteractEvent.LeftClickEmpty event){
+        DeathScytheItem.emptyClick(event.getItemStack());
+    }
+
+    @SubscribeEvent
+    public static void PlayerAttackEvents(AttackEntityEvent event){
+        DeathScytheItem.entityClick(event.getEntity(), event.getEntity().level);
     }
 }

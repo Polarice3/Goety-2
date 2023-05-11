@@ -459,16 +459,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void EmptyClickEvents(PlayerInteractEvent.LeftClickEmpty event){
-        DeathScytheItem.emptyClick(event.getItemStack());
-    }
-
-    @SubscribeEvent
-    public static void PlayerAttackEvents(AttackEntityEvent event){
-        DeathScytheItem.entityClick(event.getEntity(), event.getEntity().level);
-    }
-
-    @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
@@ -653,7 +643,12 @@ public class ModEvents {
                                     } else if (witch instanceof Warlock){
                                         witch.playSound(ModSounds.WARLOCK_CELEBRATE.get());
                                     }
-                                    ItemStack itemstack1 = event.getItemStack().split(1);
+                                    ItemStack itemstack1;
+                                    if (event.getEntity().isCreative()){
+                                        itemstack1 = event.getItemStack();
+                                    } else {
+                                        itemstack1 = event.getItemStack().split(1);
+                                    }
                                     witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
                                     WitchBarterHelper.setTrader(witch, event.getEntity());
                                 }
@@ -1013,21 +1008,25 @@ public class ModEvents {
                 }
             }
             if (living instanceof SpellcasterIllager || living instanceof Witch || living instanceof Cultist) {
-                if (living.getTags().contains(ConstantPaths.structureMob())) {
-                    float chance = 0.025F;
-                    chance += (float) event.getLootingLevel() / 100;
-                    if (living.level.random.nextFloat() <= chance) {
-                        event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_FRAGMENT.get())));
+                if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    if (living.getTags().contains(ConstantPaths.structureMob())) {
+                        float chance = 0.025F;
+                        chance += (float) event.getLootingLevel() / 100;
+                        if (living.level.random.nextFloat() <= chance) {
+                            event.getDrops().add(ItemHelper.itemEntityDrop(living, new ItemStack(ModItems.FORBIDDEN_FRAGMENT.get())));
+                        }
                     }
                 }
             }
             if (MainConfig.TallSkullDrops.get()) {
-                if (living instanceof AbstractVillager || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
-                    if (living.level.getServer() != null) {
-                        LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.TALL_SKULL);
-                        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
-                        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
-                        loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
+                if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    if (living instanceof AbstractVillager || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
+                        if (living.level.getServer() != null) {
+                            LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.TALL_SKULL);
+                            LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
+                            LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                            loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
+                        }
                     }
                 }
             }

@@ -59,6 +59,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> ELECTRIC = PARTICLE_TYPES.register("electric",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> WIND_BLAST = PARTICLE_TYPES.register("wind_blast",
             () -> new SimpleParticleType(false));
 

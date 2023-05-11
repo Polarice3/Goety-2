@@ -1,14 +1,15 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
+import com.Polarice3.Goety.utils.ModMathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.Entity;
 
-public class IceChunkModel<T extends Entity> extends HierarchicalModel<T> {
+public class IceChunkModel<T extends IceChunk> extends HierarchicalModel<T> {
     private final ModelPart chunk;
 
     public IceChunkModel(ModelPart root) {
@@ -28,7 +29,6 @@ public class IceChunkModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-
     @Override
     public ModelPart root() {
         return chunk;
@@ -36,6 +36,11 @@ public class IceChunkModel<T extends Entity> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+        if (p_102618_.isStarting() && this.chunk.yRot != ModMathHelper.modelDegrees(360.0F)){
+            this.chunk.yRot += p_102621_ * 0.5F;
+        } else {
+            this.chunk.yRot = 0.0F;
+        }
     }
 
     @Override

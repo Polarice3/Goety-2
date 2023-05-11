@@ -17,6 +17,10 @@ public class ModDamageSource extends DamageSource {
         super(pMessageId);
     }
 
+    public static DamageSource directShock(LivingEntity pMob) {
+        return new EntityDamageSource(source("directShock"), pMob);
+    }
+
     public static DamageSource directFreeze(LivingEntity pMob) {
         return new EntityDamageSource(source("directFreeze"), pMob).bypassArmor();
     }

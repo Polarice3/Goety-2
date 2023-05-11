@@ -443,6 +443,7 @@
   "subtitle.goety.bolt_impact": "Soul Bolt Impact",
   "subtitle.goety.wind": "Wind Blast",
   "subtitle.goety.updraft_blast": "Updraft Blast",
+  "subtitle.goety.zap": "Thunder Zap",
   "subtitle.goety.fire_tornado_ambient": "Flaming Tornado",
 
   "subtitle.goety.scythe_swing": "Scythe Swing",
@@ -569,6 +570,8 @@
   "death.attack.goety.directFreeze.player": "%1$s was frozen while fighting %2$s",
   "death.attack.goety.indirectFreeze": "%1$s has been frozen by %2$s",
   "death.attack.goety.indirectFreeze.item": "%1$s has been frozen by %2$s using %3$s",
+  "death.attack.goety.directShock": "%1$s was electrocuted by %2$s",
+  "death.attack.goety.directShock.item": "%1$s was electrocuted by %2$s using %3$s",
   "death.attack.goety.windBlast": "%1$s has been air-blasted by %2$s",
   "death.attack.goety.windBlast.item": "%1$s has been air-blasted by %2$s using %3$s",
   "death.attack.goety.sword": "%1$s was sliced by %2$s",

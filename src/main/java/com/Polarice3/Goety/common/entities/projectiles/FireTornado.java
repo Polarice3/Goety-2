@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -182,8 +183,14 @@ public class FireTornado extends AbstractHurtingProjectile {
     private void suckInMobs(LivingEntity livingEntity) {
         Vec3 vector3d = new Vec3(this.getX() + 0.5, this.getY() + 0.5, this.getZ() + 0.5);
         Vec3 vector3d1 = vector3d.subtract(livingEntity.position()).normalize();
+        float y = 0.2F;
+        if (livingEntity.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null){
+            double knockback = 1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+            vector3d1.scale(knockback);
+            y *= knockback;
+        }
 
-        MobUtil.push(livingEntity, vector3d1.x, 0.2, vector3d1.z);
+        MobUtil.push(livingEntity, vector3d1.x, y, vector3d1.z);
     }
 
     public double AreaOfEffect(){

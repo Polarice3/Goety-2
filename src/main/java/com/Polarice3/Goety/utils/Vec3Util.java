@@ -43,4 +43,12 @@ public class Vec3Util {
     public static Vec3 relative(Vec3 vector3d, Direction pDirection, int pDistance) {
         return pDistance == 0 ? vector3d : new Vec3(vector3d.x() + pDirection.getStepX() * pDistance, vector3d.y() + pDirection.getStepY() * pDistance, vector3d.z() + pDirection.getStepZ() * pDistance);
     }
+
+    public static Vec3 subtract(Vec3 vec3, double amount){
+        return vec3.subtract(amount, amount, amount);
+    }
+
+    public static Vec3 add(Vec3 vec3, double amount){
+        return vec3.add(amount, amount, amount);
+    }
 }

@@ -39,6 +39,7 @@ public class IceChunk extends Entity {
     private UUID targetUUID;
     private final int distance = 4;
     private boolean isDropping;
+    public int hovering = 0;
     public float extraDamage = 0.0F;
 
     public IceChunk(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
@@ -82,6 +83,7 @@ public class IceChunk extends Entity {
         if (targetUUID != null) {
             this.targetUUID = targetUUID;
         }
+        this.hovering = pCompound.getInt("hovering");
         this.extraDamage = pCompound.getFloat("extraDamage");
     }
 
@@ -93,6 +95,7 @@ public class IceChunk extends Entity {
         if (this.targetUUID != null) {
             pCompound.putUUID("Target", this.targetUUID);
         }
+        pCompound.putInt("hovering", this.hovering);
         pCompound.putFloat("extraDamage", this.extraDamage);
     }
 
@@ -141,7 +144,7 @@ public class IceChunk extends Entity {
             this.playSound(ModSounds.ICE_CHUNK_HIT.get(), 2.0F, 1.0F);
             serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), this.getY() + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
             if (this.isDropping){
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 0.0D, 2.0D), this::canHitEntity)){
+                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D), this::canHitEntity)){
                     this.damageTargets(livingEntity);
                 }
             }
@@ -177,6 +180,7 @@ public class IceChunk extends Entity {
     public void tick() {
         super.tick();
         if (!this.level.isClientSide){
+            ++this.hovering;
             ServerLevel serverWorld = (ServerLevel) this.level;
             HitResult result = ProjectileUtil.getHitResult(this, this::canHitEntity);
             if (result.getType() != HitResult.Type.MISS) {
@@ -198,24 +202,50 @@ public class IceChunk extends Entity {
             if (this.isOnGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
                 this.onHit();
             }
-            if (!this.isDropping){
-                this.setParticleAura(ParticleTypes.CLOUD, 1.5F, this.getX(), this.getY(), this.getZ());
+            if (!this.isStarting()) {
+                if (!this.isDropping) {
+                    this.setParticleAura(ParticleTypes.CLOUD, 1.5F, this.getX(), this.getY(), this.getZ());
+                }
+                BlockPos blockpos = this.blockPosition().below();
+                BlockState blockState = Blocks.SNOW_BLOCK.defaultBlockState();
+                if (serverWorld.isEmptyBlock(blockpos)) {
+                    this.setParticleAura(new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState), 1.5F, this.getX(), this.getY(), this.getZ());
+                }
             }
-            BlockPos blockpos = this.blockPosition().below();
-            BlockState blockState = Blocks.SNOW_BLOCK.defaultBlockState();
-            if (serverWorld.isEmptyBlock(blockpos)) {
-                this.setParticleAura(new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState), 1.5F, this.getX(), this.getY(), this.getZ());
+            if (this.hovering == 20){
+                for(int k = 0; k < 60; ++k) {
+                    float f2 = random.nextFloat() * 4.0F;
+                    float f1 = random.nextFloat() * ((float)Math.PI * 2F);
+                    double d1 = Mth.cos(f1) * f2;
+                    double d2 = 0.01D + random.nextDouble() * 0.5D;
+                    double d3 = Mth.sin(f1) * f2;
+                    serverWorld.sendParticles(ParticleTypes.POOF, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
+                }
             }
+        } else {
+            ++this.hovering;
         }
-        if (this.tickCount == 1 && !(this.isInWall() || this.isOnGround())){
+        if (this.hovering == 1 && !(this.isInWall() || this.isOnGround())){
             this.playSound(ModSounds.ICE_CHUNK_IDLE.get(), 1.0F, 1.0F);
         }
         int hoverTime = ModMathHelper.ticksToSeconds(5);
-        boolean isHovering = this.tickCount < hoverTime;
-        this.isDropping = this.tickCount > hoverTime;
+        boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
+        this.isDropping = this.hovering > hoverTime;
         if (isHovering){
-            if (this.getTarget() != null){
-                this.setPos(this.getTarget().getX(), this.getTarget().getY() + distance, this.getTarget().getZ());
+            /**
+             * Ice Chunk Movement code based of @Infamous-Misadventures Dungeon Mobs' Ice Cloud positioning codes.
+             */
+            float speed = 0.175F;
+            if (this.getTarget() != null && this.getTarget().isAlive()){
+                this.setDeltaMovement(Vec3.ZERO);
+                double d0 = this.target.getX() - this.getX();
+                double d1 = (this.target.getY() + this.distance) - this.getY();
+                double d2 = this.target.getZ() - this.getZ();
+                double d = Math.sqrt((d0 * d0 + d2 * d2));
+                double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                if (d > 0.5){
+                    this.setDeltaMovement(this.getDeltaMovement().add(d0 / d3, d1 / d3, d2 / d3).scale(speed));
+                }
             }
         } else {
             if (!this.isDropping){
@@ -225,6 +255,10 @@ public class IceChunk extends Entity {
             }
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
+    }
+
+    public boolean isStarting(){
+        return this.hovering < 20;
     }
 
     public boolean isAttackable() {
@@ -241,7 +275,7 @@ public class IceChunk extends Entity {
         return !this.isRemoved();
     }
 
-        public boolean displayFireAnimation() {
+    public boolean displayFireAnimation() {
         return false;
     }
 

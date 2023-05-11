@@ -768,6 +768,29 @@
     ],
     "subtitle": "subtitle.goety.wind_blast"
   },
+  "zap": {
+    "sounds": [
+      {
+        "name": "goety:spell/zap_1"
+      },
+      {
+        "name": "goety:spell/zap_2"
+      },
+      {
+        "name": "goety:spell/zap_3"
+      },
+      {
+        "name": "goety:spell/zap_4"
+      },
+      {
+        "name": "goety:spell/zap_5"
+      },
+      {
+        "name": "goety:spell/zap_6"
+      }
+    ],
+    "subtitle": "subtitle.goety.zap"
+  },
   "scythe_swing": {
     "sounds": [
       {

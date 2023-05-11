@@ -221,6 +221,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
+        event.register(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
         event.register(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
