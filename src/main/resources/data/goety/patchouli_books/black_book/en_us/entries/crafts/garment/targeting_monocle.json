@@ -1,0 +1,15 @@
+{
+  "name": "Targeting Monocle",
+  "icon": "goety:targeting_monocle",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Trying to hit your foes with your spells can be an ordeal as they could avoid your Magical Fangs with but a single step. With this monocle, when casting a spell through a wand and staff, your head will automatically lock onto the creature you're looking at, allowing you to more accurately hit them with a spell."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:targeting_monocle"
+    }
+  ]
+}

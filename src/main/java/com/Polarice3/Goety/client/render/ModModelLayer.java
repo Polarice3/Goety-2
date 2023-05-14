@@ -43,6 +43,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation NAMELESS_SET = register("nameless_set");
     public static final ModelLayerLocation GLOVE = register("glove");
     public static final ModelLayerLocation FOCUS_BAG = register("focus_bag");
+    public static final ModelLayerLocation BELT = register("belt");
+    public static final ModelLayerLocation MONOCLE = register("monocle");
     public static final ModelLayerLocation SOUL_SHIELD = register("soul_shield");
 
     private static ModelLayerLocation register(String p_171294_) {

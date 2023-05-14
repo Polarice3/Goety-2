@@ -21,19 +21,18 @@ public abstract class OwnedFlying extends Owned{
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        if (pCompound.contains("BoundX")) {
-            this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
-        }
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
         if (this.boundOrigin != null) {
             pCompound.putInt("BoundX", this.boundOrigin.getX());
             pCompound.putInt("BoundY", this.boundOrigin.getY());
             pCompound.putInt("BoundZ", this.boundOrigin.getZ());
         }
+    }
 
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("BoundX")) {
+            this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
+        }
     }
 
     @Nullable
@@ -50,6 +49,9 @@ public abstract class OwnedFlying extends Owned{
     }
 
     protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
     }
 
     public void travel(Vec3 pTravelVector) {

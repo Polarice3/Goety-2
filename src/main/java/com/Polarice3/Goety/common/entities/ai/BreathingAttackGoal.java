@@ -85,7 +85,7 @@ public class BreathingAttackGoal<T extends Mob & IBreathing> extends Goal {
 
         int duration = this.maxDuration - this.durationLeft;
         if (duration > 5) {
-            for (Entity entity : MobUtil.getTargets(this.attacker, this.spewingRange)) {
+            for (Entity entity : MobUtil.getTargets(this.attacker.level, this.attacker, this.spewingRange, 3.0D)) {
                 if (entity != null) {
                     this.attacker.doBreathing(entity);
                 }

@@ -12,10 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.npc.Villager;
@@ -234,36 +231,34 @@ public class MobUtil {
     /**
      * Target Codes based of codes from @TeamTwilight
      */
-    public static List<Entity> getTargets(LivingEntity pSource, double pRange) {
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double radius) {
         List<Entity> list = new ArrayList<>();
         double vectorY = pSource.getY();
         if (pSource instanceof Player){
             vectorY = pSource.getEyeY();
         }
-        Vec3 source = new Vec3(pSource.getX(), vectorY, pSource.getZ());
+        Vec3 srcVec = new Vec3(pSource.getX(), vectorY, pSource.getZ());
         Vec3 lookVec = pSource.getViewVector(1.0F);
         Vec3 rangeVec = new Vec3(lookVec.x * pRange, lookVec.y * pRange, lookVec.z * pRange);
-        Vec3 end = source.add(rangeVec);
-        float size = 3.0F;
-        List<Entity> entities = pSource.level.getEntities(pSource, pSource.getBoundingBox().expandTowards(rangeVec).inflate(size));
+        Vec3 end = srcVec.add(rangeVec);
+        List<Entity> entities = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange).inflate(radius, radius, radius));
         double hitDist = 0.0D;
 
-        for (Entity entity : entities) {
-            if (entity.isPickable() && entity != pSource) {
-                float borderSize = entity.getPickRadius();
-                AABB collisionBB = entity.getBoundingBox().inflate(borderSize);
-                Optional<Vec3> interceptPos = collisionBB.clip(source, end);
-
-                if (collisionBB.contains(source)) {
+        for (Entity hit : entities) {
+            if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
+                float borderSize = hit.getPickRadius();
+                AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
+                Optional<Vec3> interceptPos = collisionBB.clip(srcVec, end);
+                if (collisionBB.contains(srcVec)) {
                     if (0.0D <= hitDist) {
-                        list.add(entity);
+                        list.add(hit);
                         hitDist = 0.0D;
                     }
                 } else if (interceptPos.isPresent()) {
-                    double possibleDist = source.distanceTo(interceptPos.get());
+                    double possibleDist = srcVec.distanceTo(interceptPos.get());
 
                     if (possibleDist < hitDist || hitDist == 0.0D) {
-                        list.add(entity);
+                        list.add(hit);
                         hitDist = possibleDist;
                     }
                 }
@@ -273,31 +268,31 @@ public class MobUtil {
     }
 
     @Nullable
-    public static Entity getSingleTarget(Level level, LivingEntity living) {
+    public static Entity getSingleTarget(Level level, LivingEntity pSource, double pRange, double pRadius) {
         Entity target = null;
-        double range = 15.0D;
-        Vec3 srcVec = living.getEyePosition();
-        Vec3 lookVec = living.getViewVector(1.0F);
-        Vec3 destVec = srcVec.add(lookVec.x() * range, lookVec.y() * range, lookVec.z() * range);
-        float radius = 1.0F;
-        List<Entity> possibleList = level.getEntities(living, living.getBoundingBox().expandTowards(lookVec.x() * range, lookVec.y() * range, lookVec.z() * range).inflate(radius, radius, radius));
+        Vec3 srcVec = pSource.getEyePosition();
+        Vec3 lookVec = pSource.getViewVector(1.0F);
+        double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
+        Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
+        List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius));
         double hitDist = 0;
 
-        for (Entity possibleEntity : possibleList) {
-            if (possibleEntity.isPickable()) {
-                float borderSize = possibleEntity.getPickRadius();
-                AABB collisionBB = possibleEntity.getBoundingBox().inflate(borderSize, borderSize, borderSize);
+        for (Entity hit : possibleList) {
+            if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
+                float borderSize = hit.getPickRadius();
+                AABB collisionBB = hit.getBoundingBox().inflate(borderSize, borderSize, borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
+
                 if (collisionBB.contains(srcVec)) {
                     if (0.0D < hitDist || hitDist == 0.0D) {
-                        target = possibleEntity;
+                        target = hit;
                         hitDist = 0.0D;
                     }
                 } else if (interceptPos.isPresent()) {
                     double possibleDist = srcVec.distanceTo(interceptPos.get());
 
                     if (possibleDist < hitDist || hitDist == 0.0D) {
-                        target = possibleEntity;
+                        target = hit;
                         hitDist = possibleDist;
                     }
                 }
@@ -468,4 +463,11 @@ public class MobUtil {
             return 0.0F;
         }
     }
+
+    public static boolean canPositionBeSeen(Level level, LivingEntity living, double x, double y, double z) {
+        HitResult result = level.clip(new ClipContext(new Vec3(living.getX(), living.getY() + (double) living.getEyeHeight(), living.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, living));
+        double dist = result.getLocation().distanceToSqr(x, y, z);
+        return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
+    }
+
 }

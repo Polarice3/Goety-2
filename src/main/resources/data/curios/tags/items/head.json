@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "goety:targeting_monocle",
     "goety:dark_hat",
     "goety:witch_hat",
     "goety:necro_crown",

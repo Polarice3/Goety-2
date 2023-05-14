@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The closest followers of the Sharmat Prophet, Apollyon, these terrific beings spread the word of the Great Flame alongside their master when they walked the Overworld. Some Apostles used to be Kings, Lords or Nobles, while others range from normal Villagers to the most ill-witted Nitwits. When the Emissary appears, the water around them boils, and the sky darkens."
+      "text": "The closest followers of the first Nether Cultist, Apollyon, these terrific beings spread the word of the Great Flame alongside their master when they walked the Overworld. Some Apostles used to be Kings, Lords or Nobles, while others range from normal Villagers to the most ill-witted Nitwits. When the Emissary appears, the water around them boils, and the sky darkens."
     },
     {
       "type": "patchouli:entity",
@@ -18,11 +18,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "When their power has ebbed, the Apostle will reveal their true might. When fought in the Overworld or dimensions similar to it, a storm will rain upon the world once they reveal themselves in their horrid form. Meteors will fall around them and the true battle begins. The Apostle will try to teleport after getting hit once this time, and they will begin to summon Zombified Piglin Brutes to do their bidding instead."
+      "text": "When lowered to half of their maximum health, the Apostle will regenerate their health and reveal their true might. When fought in the Overworld or dimensions similar to it, a storm will rain upon the world once they reveal themselves in their horrid form. Meteors will fall around them and the true battle begins. The Apostle will try to teleport more often, and they will begin to summon Zombified Piglin Brutes to do their bidding instead."
     },
     {
       "type": "patchouli:text",
       "text": "Throughout the battle, they will cast horrid spells upon their target, from a rain of arrows to conjuring a great flaming tornado that follows their target wherever they go. If their target was close to them, the Apostle will summon a circle of fire that after a short time, burst causing whatever creature near them to be knocked into the sky. The bursts and the flaming tornado curses the target with Burn Hex, which prevents Fire Resistance from working."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Apostle constantly regenerates their health, no doubt absorbing the energies of the Nether to heal their wounds. However, when struck with a weapon enchanted with Smite, they won't be able to regenerate their health for a time depending on the level of the Enchantment."
     },
     {
       "type": "patchouli:spotlight",

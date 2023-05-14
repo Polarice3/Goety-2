@@ -32,6 +32,10 @@ public class GrandLavaball extends ExplosiveProjectile{
         super(ModEntityType.GRAND_LAVABALL.get(), shooter, accelX, accelY, accelZ, worldIn);
     }
 
+    public boolean defaultDangerous(){
+        return true;
+    }
+
     public void tick() {
         super.tick();
         Vec3 vector3d = this.getDeltaMovement();

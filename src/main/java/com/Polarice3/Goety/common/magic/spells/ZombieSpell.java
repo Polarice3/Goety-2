@@ -60,7 +60,6 @@ public class ZombieSpell extends SummonSpells {
                 enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                 duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
             }
-//            this.IncreaseInfamy(SpellConfig.ZombieInfamyChance.get(), (Player) entityLiving);
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {

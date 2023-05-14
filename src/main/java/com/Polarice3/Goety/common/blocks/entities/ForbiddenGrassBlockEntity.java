@@ -69,7 +69,7 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
                         }
                     }
                     this.getMobs();
-                    AABB alignedBB = new AABB(above.getX(), above.getY(), above.getZ(), above.getX() + 1, above.getY() + 1, above.getZ() + 1);
+                    AABB alignedBB = new AABB(above.getX() - 1, above.getY(), above.getZ() - 1, above.getX() + 1, above.getY() + 1, above.getZ() + 1);
                     int k = this.getLevel().getEntitiesOfClass(LivingEntity.class, alignedBB.inflate(4)).size();
                     if (this.getLevel().random.nextFloat() <= 0.005F) {
                         if (this.getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(above).inflate(1)).isEmpty()) {
@@ -77,8 +77,7 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
                             if (k <= 16) {
                                 if (SpawnPlacements.checkSpawnRules(entityType, this.getLevel(), MobSpawnType.SPAWNER, above, this.getLevel().random)) {
                                     Entity entity = entityType.create(this.getLevel());
-                                    if (entity instanceof Mob) {
-                                        Mob mob = (Mob) entity;
+                                    if (entity instanceof Mob mob) {
                                         mob.setPos(above.getX() + 0.5F, above.getY(), above.getZ() + 0.5F);
                                         if (this.getLevel().noCollision(entity) && this.getLevel().isUnobstructed(entity, this.getLevel().getBlockState(above).getShape(this.getLevel(), above))) {
                                             mob.finalizeSpawn(this.getLevel(), this.getLevel().getCurrentDifficultyAt(this.worldPosition), MobSpawnType.SPAWNER, null, null);

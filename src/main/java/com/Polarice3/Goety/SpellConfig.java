@@ -23,6 +23,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwordCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCost;
@@ -114,6 +115,8 @@ public class SpellConfig {
                 .defineInRange("lavaBombCost", 16, 0, Integer.MAX_VALUE);
         SoulBoltCost = BUILDER.comment("Soul Bolt Spell Cost, Default: 4")
                 .defineInRange("soulBoltCost", 4, 0, Integer.MAX_VALUE);
+        SwordCost = BUILDER.comment("Sword Spell Cost, Default: 16")
+                .defineInRange("swordCost", 16, 0, Integer.MAX_VALUE);
         IllusionCost = BUILDER.comment("Illusion Spell Cost, Default: 20")
                 .defineInRange("illusionCost", 20, 0, Integer.MAX_VALUE);
         SoulLightCost = BUILDER.comment("Soul Light Spell Cost, Default: 1")

@@ -79,6 +79,13 @@ public class BossBarEvent {
                     RenderSystem.setShaderTexture(0, TEXTURE);
                     blit(pPoseStack, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
+                if (apostleEntity.isSmited()){
+                    float smite = 1.0F - ((float) apostleEntity.getAntiRegen() / apostleEntity.getAntiRegenTotal());
+                    RenderSystem.setShaderTexture(0, BOSS_BAR_1);
+                    blit(pPoseStack, pX2, pY2, offset, 16, i, 8, 364, 64);
+                    RenderSystem.setShaderTexture(0, BOSS_BAR_1);
+                    blit(pPoseStack, pX2, pY2, offset, 0, (int)(smite * i), 8, 364, 64);
+                }
             }
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX, pY, 0, flag ? 16 : 0, 200, 16, 256, 256);

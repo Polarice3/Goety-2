@@ -4,5 +4,6 @@
   "version": 1,
   "model": "goety:black_book",
   "show_toasts": true,
-  "creative_tab": "goetyTab"
+  "creative_tab": "goetyTab",
+  "i18n": true
 }

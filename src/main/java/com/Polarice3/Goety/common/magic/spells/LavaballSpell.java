@@ -47,7 +47,6 @@ public class LavaballSpell extends Spells {
         }
         worldIn.addFreshEntity(fireballEntity);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.GHAST_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.LavaballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
     @Override
@@ -82,6 +81,5 @@ public class LavaballSpell extends Spells {
             worldIn.addFreshEntity(lavaballEntity);
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.GHAST_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.LavaballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 }

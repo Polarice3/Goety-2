@@ -23,7 +23,9 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.WITCH_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/witch_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WARLOCK_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/warlock_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WARLOCK_SASH.get(), () -> new WearRenderer(Goety.location("textures/models/armor/warlock_sash.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(Goety.location("textures/models/armor/wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
         CuriosRendererRegistry.register(ModItems.FOCUS_BAG.get(), () -> new WearRenderer(Goety.location("textures/models/armor/focus_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.FOCUS_BAG))));
+        CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
         CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
     }
 

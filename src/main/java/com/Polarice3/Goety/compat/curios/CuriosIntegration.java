@@ -34,6 +34,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.WITCH_HAT.get(), "head")
             .put(ModItems.NECRO_CROWN.get(), "head")
             .put(ModItems.NAMELESS_CROWN.get(), "head")
+            .put(ModItems.TARGETING_MONOCLE.get(), "head")
             .put(ModItems.PENDANT_OF_ROT.get(), "necklace")
             .put(ModItems.STAR_AMULET.get(), "necklace")
             .put(ModItems.DARK_ROBE.get(), "body")
@@ -47,6 +48,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.TOTEM_OF_SOULS.get(), "charm")
             .put(ModItems.FOCUS_BAG.get(), "belt")
             .put(ModItems.WARLOCK_SASH.get(), "belt")
+            .put(ModItems.WAYFARERS_BELT.get(), "belt")
             .build();
 
     public void setup(FMLCommonSetupEvent event) {

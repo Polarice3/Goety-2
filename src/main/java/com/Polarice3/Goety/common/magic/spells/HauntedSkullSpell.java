@@ -54,7 +54,6 @@ public class HauntedSkullSpell extends SummonSpells {
                 burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
                 radius = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player);
             }
-//            this.IncreaseInfamy(SpellConfig.ZombieInfamyChance.get(), (Player) entityLiving);
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {

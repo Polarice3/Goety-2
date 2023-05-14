@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:soul_bolt_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 5,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:soul_ruby"
+    },
+    {
+      "item": "goety:fireball_focus"
+    },
+    {
+      "item": "goety:vexing_focus"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "item": "goety:sword_focus"
+  }
+}

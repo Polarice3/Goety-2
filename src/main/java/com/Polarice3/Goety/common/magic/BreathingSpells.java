@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class BreathingSpells extends EverChargeSpells{
 
     public List<Entity> getTarget(LivingEntity livingEntity, double range) {
-        return MobUtil.getTargets(livingEntity, range);
+        return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
     }
 
     public abstract ParticleOptions getParticle();

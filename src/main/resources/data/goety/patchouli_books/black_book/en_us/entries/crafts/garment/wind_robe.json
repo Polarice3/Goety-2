@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Wind Robes allows you to fall slowly(or not so slowly when holding shift) and make you immune to fall damage. However, every second the robes slow your fall, Soul Energy is consumed. Wearing the Robes also gives halves the Soul Cost for Wind Spells."
+      "text": "The Wind Robes allows you to fall slowly(or not so slowly when holding shift) and make you immune to fall damage. However, every second the robes slow your fall, Soul Energy is consumed. Wearing the Robes also halves the Soul Cost for Wind Spells."
     },
     {
       "type": "goety:ritual",

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Lapis Lazuli seems to be the main component for utilizing magic. Combining it with a bunch of strings creates a special string that channels magic better than its mundane counterpart. By combining these special strings with a dye, you're capable of creating special fabrics."
+      "text": "Lapis Lazuli seems to be the main component for utilizing magic. Combining it with a bunch of strings creates a special string that channels magic better than its mundane counterpart. By combining these special strings with a dye or some other component, you're capable of creating special fabrics."
     },
     {
       "type": "patchouli:crafting",

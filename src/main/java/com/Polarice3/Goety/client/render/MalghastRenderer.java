@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
 public class MalghastRenderer extends MobRenderer<Malghast, ModGhastModel<Malghast>> {
     private static final ResourceLocation GHAST_LOCATION = Goety.location("textures/entity/malghast/malghast.png");
@@ -30,11 +29,12 @@ public class MalghastRenderer extends MobRenderer<Malghast, ModGhastModel<Malgha
 
     protected void scale(Malghast pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
         float f = pLivingEntity.getSwelling(pPartialTickTime);
-        float f1 = 2.0F + Mth.sin(f * 100.0F) * f * 0.01F;
-        f = Mth.clamp(f, 0.0F, 1.0F);
-        f = f * f;
-        f = f * f;
-        float f2 = (1.0F + f) * f1;
-        pMatrixStack.scale(f2, f2, f2);
+        if (f < 0.0F) {
+            f = 0.0F;
+        }
+        f = 1.0F / (f * f * f * f * f * 2.0F + 1.0F);
+        float var5 = (3.0F + f) / 2.0F;
+        float var6 = (3.0F + 1.0F / f) / 2.0F;
+        pMatrixStack.scale(var6, var5, var6);
     }
 }

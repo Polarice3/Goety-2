@@ -45,13 +45,11 @@ public class WraithSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player){
-            Player player = (Player) entityLiving;
+        if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){
                 this.enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                 this.duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
             }
-//            this.IncreaseInfamy(SpellConfig.WraithInfamyChance.get(), (PlayerEntity) entityLiving);
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {

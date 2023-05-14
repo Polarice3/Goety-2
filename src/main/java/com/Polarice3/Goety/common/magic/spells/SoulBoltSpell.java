@@ -44,7 +44,6 @@ public class SoulBoltSpell extends InstantCastSpells {
         soulBolt.setOwner(entityLiving);
         worldIn.addFreshEntity(soulBolt);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.FireballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
     @Override
@@ -60,6 +59,5 @@ public class SoulBoltSpell extends InstantCastSpells {
         soulBolt.setOwner(entityLiving);
         worldIn.addFreshEntity(soulBolt);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.FireballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 }

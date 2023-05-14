@@ -43,7 +43,6 @@ public class FireballSpell extends InstantCastSpells {
         smallFireballEntity.setOwner(entityLiving);
         worldIn.addFreshEntity(smallFireballEntity);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.FireballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
     @Override
@@ -70,6 +69,5 @@ public class FireballSpell extends InstantCastSpells {
             worldIn.addFreshEntity(smallFireballEntity2);
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
-//        this.IncreaseInfamy(SpellConfig.FireballInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 }

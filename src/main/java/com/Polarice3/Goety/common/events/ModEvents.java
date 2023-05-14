@@ -33,11 +33,13 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
+import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -1029,6 +1031,15 @@ public class ModEvents {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void usingItemEvents(LivingEntityUseItemEvent.Tick event){
+        if (event.getItem().getItem() instanceof DarkWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())){
+            if (MobUtil.getSingleTarget(event.getEntity().level, event.getEntity(), 16, 3) instanceof LivingEntity living){
+                event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
             }
         }
     }

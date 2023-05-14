@@ -70,7 +70,6 @@ public class FangSpell extends Spells {
                 WandUtil.spawnFangs(entityLiving,entityLiving.getX() + (double)Mth.cos(f2) * 2.5D, entityLiving.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3);
             }
         }
-//        this.IncreaseInfamy(SpellConfig.FangInfamyChance.get(), (PlayerEntity) entityLiving);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 
@@ -123,7 +122,6 @@ public class FangSpell extends Spells {
                 WandUtil.spawnFangs(entityLiving,entityLiving.getX() + (double)Mth.cos(f2) * 4.5D, entityLiving.getZ() + (double)Mth.sin(f2) * 4.5D, d0, d1, f2, 9);
             }
         }
-//        this.IncreaseInfamy(SpellConfig.FangInfamyChance.get(), (Player) entityLiving);
         worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 

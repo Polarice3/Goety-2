@@ -12,12 +12,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class SonicBoomSpell extends Spells {
@@ -42,25 +39,21 @@ public class SonicBoomSpell extends Spells {
                 damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
             }
         }
-        HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 15, 3);
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            if (target instanceof LivingEntity livingEntity) {
-                Vec3 vec3 = entityLiving.position().add(0.0D, (double) 1.6F, 0.0D);
-                Vec3 vec31 = livingEntity.getEyePosition().subtract(vec3);
-                Vec3 vec32 = vec31.normalize();
+        if (MobUtil.getSingleTarget(worldIn, entityLiving, 15, 3) instanceof LivingEntity livingEntity){
+            Vec3 vec3 = entityLiving.position().add(0.0D, (double) 1.6F, 0.0D);
+            Vec3 vec31 = livingEntity.getEyePosition().subtract(vec3);
+            Vec3 vec32 = vec31.normalize();
 
-                for (int i = 1; i < Mth.floor(vec31.length()) + 7; ++i) {
-                    Vec3 vec33 = vec3.add(vec32.scale((double) i));
-                    worldIn.sendParticles(ParticleTypes.SONIC_BOOM, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                }
-
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
-                livingEntity.hurt(DamageSource.sonicBoom(entityLiving), damage);
-                double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                livingEntity.push(vec32.x() * d0, vec32.y() * d1, vec32.z() * d0);
+            for (int i = 1; i < Mth.floor(vec31.length()) + 7; ++i) {
+                Vec3 vec33 = vec3.add(vec32.scale((double) i));
+                worldIn.sendParticles(ParticleTypes.SONIC_BOOM, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
+
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL, 3.0F, 1.0F);
+            livingEntity.hurt(DamageSource.sonicBoom(entityLiving), damage);
+            double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            livingEntity.push(vec32.x() * d0, vec32.y() * d1, vec32.z() * d0);
         } else {
             Vec3 srcVec = new Vec3(entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ());
             Vec3 lookVec = entityLiving.getViewVector(1.0F);
@@ -69,8 +62,8 @@ public class SonicBoomSpell extends Spells {
                 Vec3 vector3d2 = srcVec.add(lookVec.scale((double)i));
                 worldIn.sendParticles(ParticleTypes.SONIC_BOOM, vector3d2.x, vector3d2.y, vector3d2.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
-            if (MobUtil.getSingleTarget(worldIn, entityLiving) != null){
-                if (MobUtil.getSingleTarget(worldIn, entityLiving) instanceof LivingEntity target1) {
+            if (MobUtil.getSingleTarget(worldIn, entityLiving, 15.0D, 3.0D) != null){
+                if (MobUtil.getSingleTarget(worldIn, entityLiving, 15.0D, 3.0D) instanceof LivingEntity target1) {
                     target1.hurt(DamageSource.sonicBoom(entityLiving), damage);
                     double d0 = target1.getX() - entityLiving.getX();
                     double d1 = target1.getZ() - entityLiving.getZ();

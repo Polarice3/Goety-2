@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -144,9 +145,11 @@ public class FireTornado extends AbstractHurtingProjectile {
                     }
                     this.suckInMobs(entity);
                     if (this.getTrueOwner() != null) {
-                        entity.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 6.0F);
                         if (this.getTrueOwner() instanceof Apostle) {
+                            entity.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue());
                             entity.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 1200));
+                        } else {
+                            entity.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 6.0F);
                         }
                     } else {
                         if (!entity.fireImmune()) {

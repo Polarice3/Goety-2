@@ -59,8 +59,10 @@ public class RampagingAxeItem extends AxeItem {
                     livingEntity.addEffect(new MobEffectInstance(ModEffects.RAMPAGE.get(), ModMathHelper.ticksToSeconds(10)));
                 } else if (effectinstance1 != null){
                     int random = killed.getMaxHealth() > 20 ? 0 : world.random.nextInt(4);
-                    if (effectinstance1.getAmplifier() < 4 && random == 0) {
-                        EffectsUtil.amplifyEffect(livingEntity, ModEffects.RAMPAGE.get(), ModMathHelper.ticksToSeconds(10));
+                    if (effectinstance1.getAmplifier() < 4) {
+                        if (random == 0) {
+                            EffectsUtil.amplifyEffect(livingEntity, ModEffects.RAMPAGE.get(), ModMathHelper.ticksToSeconds(10));
+                        }
                     } else {
                         livingEntity.removeEffect(ModEffects.RAMPAGE.get());
                         if (world instanceof ServerLevel serverLevel) {

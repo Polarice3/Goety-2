@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
+import com.Polarice3.Goety.common.entities.projectiles.ExplosiveProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.GrandLavaball;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -38,7 +40,7 @@ public class Malghast extends OwnedFlying {
     private float explosionPower = 1.0F;
     private int oldSwell;
     private int swell;
-    private final int maxSwell = 15;
+    private int stun;
 
     public Malghast(EntityType<? extends OwnedFlying> type, Level p_i48578_2_) {
         super(type, p_i48578_2_);
@@ -58,8 +60,12 @@ public class Malghast extends OwnedFlying {
             this.oldSwell = this.swell;
             if (this.isCharging()) {
                 this.setSwellDir(1);
+                this.stun = 40;
             } else {
                 this.setSwellDir(-1);
+                if (this.stun > 0) {
+                    --this.stun;
+                }
             }
 
             int i = this.getSwellDir();
@@ -69,15 +75,16 @@ public class Malghast extends OwnedFlying {
                 this.swell = 0;
             }
 
-            if (this.swell >= this.maxSwell) {
-                this.swell = this.maxSwell;
+            int maxSwell = 20;
+            if (this.swell >= maxSwell) {
+                this.swell = maxSwell;
             }
         }
         super.tick();
     }
 
     public float getSwelling(float pPartialTicks) {
-        return Mth.lerp(pPartialTicks, (float)this.oldSwell, (float)this.swell) / (float)(this.maxSwell - 2);
+        return (this.oldSwell + (this.swell - this.oldSwell) * pPartialTicks) / 20.0F;
     }
 
     public boolean isCharging() {
@@ -159,6 +166,7 @@ public class Malghast extends OwnedFlying {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("ExplosionPower", this.explosionPower);
+        pCompound.putInt("Stun", this.stun);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -166,6 +174,7 @@ public class Malghast extends OwnedFlying {
         if (pCompound.contains("ExplosionPower", 99)) {
             this.explosionPower = pCompound.getFloat("ExplosionPower");
         }
+        this.stun = pCompound.getInt("Stun");
     }
 
     @Nullable
@@ -245,6 +254,9 @@ public class Malghast extends OwnedFlying {
                     } else {
                         fireballentity = new LargeFireball(world, this.ghast, d2, d3, d4, power);
                     }
+                    if (fireballentity instanceof ExplosiveProjectile projectile){
+                        projectile.setDangerous(ForgeEventFactory.getMobGriefingEvent(world, this.ghast));
+                    }
                     double y = this.ghast.getY() <= livingentity.getEyeY() ? this.ghast.getY(0.5D) : this.ghast.getY();
                     fireballentity.setPos(this.ghast.getX() + vector3d.x * d1, y, fireballentity.getZ() + vector3d.z * d1);
                     world.addFreshEntity(fireballentity);
@@ -303,10 +315,14 @@ public class Malghast extends OwnedFlying {
                     Vec3 vector3d = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
                     double d0 = vector3d.length();
                     vector3d = vector3d.normalize();
-                    if (this.canReach(vector3d, Mth.ceil(d0))) {
-                        this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(vector3d.scale(0.1D)));
+                    if (this.ghast.stun <= 0) {
+                        if (this.canReach(vector3d, Mth.ceil(d0))) {
+                            this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(vector3d.scale(0.1D)));
+                        } else {
+                            this.operation = MoveControl.Operation.WAIT;
+                        }
                     } else {
-                        this.operation = MoveControl.Operation.WAIT;
+                        this.ghast.setDeltaMovement(Vec3.ZERO);
                     }
                 }
 
