@@ -261,16 +261,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                             if (!RitualStructures.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
-                            }/* else if (ritualRecipe.getCraftType().contains("adept_nether") || ritualRecipe.getCraftType().contains("sabbath") || ritualRecipe.getCraftType().contains("expert_nether")){
-                                CompoundTag playerData = player.getPersistentData();
-                                CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-                                if (data.getBoolean(ConstantPaths.readNetherBook())){
-                                    this.startRitual(player, activationItem, ritualRecipe);
-                                } else {
-                                    player.displayClientMessage(Component.translatable("info.goety.ritual.fail"), true);
-                                    return false;
-                                }
-                            }*/ else if (ritualRecipe.getCraftType().contains("lich")){
+                            } else if (ritualRecipe.getCraftType().contains("lich")){
                                 CompoundTag playerData = player.getPersistentData();
                                 CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
                                 if (MainConfig.LichScrollRequirement.get()) {

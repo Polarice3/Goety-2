@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Much like the Envioker and Vizier, you are able to shoot out a copy of your sword towards wherever you're looking at. You must have a Sword on either your main hand or off hand to cast this spell. Casting this spell uses up your Sword's durability."
+      "text": "Much like the Envioker and Vizier, you are able to shoot out a copy of your sword towards wherever you're looking at. You must have a Sword on either your main hand or off hand to cast this spell. Casting this spell uses up your Sword's durability. The Focus can be enchanted with Potency which will increase the speed of the flying sword."
     },
     {
       "type": "goety:ritual",

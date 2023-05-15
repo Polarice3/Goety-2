@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.Item;
@@ -142,6 +143,10 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
         } else {
             return super.canHitEntity(pEntity);
         }
+    }
+
+    protected boolean tryPickup(Player p_150196_) {
+        return p_150196_.getAbilities().instabuild;
     }
 
     protected SoundEvent getDefaultHitGroundSoundEvent() {
