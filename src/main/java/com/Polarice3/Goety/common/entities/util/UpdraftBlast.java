@@ -100,13 +100,9 @@ public class UpdraftBlast extends Entity {
             float area = this.getAreaOfEffect() / 2;
             float f = 1.5F + area;
             float f5 = (float) Math.PI * f * f;
-            for (int k1 = 0; (float) k1 < f5; ++k1) {
-                float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
-                float f7 = Mth.sqrt(this.random.nextFloat()) * f;
-                float f8 = Mth.cos(f6) * f7;
-                float f9 = Mth.sin(f6) * f7;
-                serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 1, 0, 0, 0, 0);
-            }
+            serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + Math.cos(this.tickCount * 0.25) * this.getAreaOfEffect(), this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25) * this.getAreaOfEffect(), 0, 0, 0, 0, 0.5F);
+            serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + Math.cos(this.tickCount * 0.25 + Math.PI) * this.getAreaOfEffect(), this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25 + Math.PI) * this.getAreaOfEffect(), 0, 0, 0, 0, 0.5F);
+
             if (this.tickCount % 20 == 0){
                 for (int j1 = 0; j1 < 16; ++j1) {
                     for (int k1 = 0; (float) k1 < f5; ++k1) {

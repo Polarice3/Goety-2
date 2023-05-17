@@ -9,13 +9,13 @@
   "duration": 10,
   "ingredients": [
     {
-      "tag": "forge:leather"
+      "item": "minecraft:rabbit_foot"
     },
     {
       "item": "goety:gale_fabric"
     },
     {
-      "tag": "forge:leather"
+      "item": "minecraft:pufferfish"
     },
     {
       "tag": "forge:leather"
