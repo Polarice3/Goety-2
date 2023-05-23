@@ -2,9 +2,12 @@ package com.Polarice3.Goety.utils;
 
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,6 +25,23 @@ public class ServerParticleUtil {
     public static void addParticles(ParticleOptions pParticleData, double x, double y, double z, double pXOffset, double pYOffset, double pZOffset, Level world){
         ServerLevel serverWorld = (ServerLevel) world;
         serverWorld.sendParticles(pParticleData, x, y, z, 0, pXOffset, pYOffset, pZOffset, 0.5F);
+    }
+
+    public static void spawnRedstoneParticles(ServerLevel pLevel, BlockPos pPos) {
+        double d0 = 0.5625D;
+        RandomSource random = pLevel.random;
+
+        for(Direction direction : Direction.values()) {
+            BlockPos blockpos = pPos.relative(direction);
+            if (!pLevel.getBlockState(blockpos).isSolidRender(pLevel, blockpos)) {
+                Direction.Axis direction$axis = direction.getAxis();
+                double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double)direction.getStepX() : (double)random.nextFloat();
+                double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double)direction.getStepY() : (double)random.nextFloat();
+                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double)direction.getStepZ() : (double)random.nextFloat();
+                smokeParticles(DustParticleOptions.REDSTONE, (double)pPos.getX() + d1, (double)pPos.getY() + d2, (double)pPos.getZ() + d3, pLevel);
+            }
+        }
+
     }
 
     public static void emitterParticles(ServerLevel serverWorld, Entity entity, ParticleOptions particleData){

@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:sculk_grower"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_sculk_grower.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_sculk_grower.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_sculk_converter",
+  "criteria": {
+    "sculk_grower": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:sculk_grower"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "sculk_grower"
+    ]
+  ]
+}

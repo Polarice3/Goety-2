@@ -33,6 +33,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
@@ -48,6 +49,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
@@ -82,6 +84,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRangeLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
@@ -93,6 +96,8 @@ public class SpellConfig {
         BUILDER.push("General");
         SpellDamageMultiplier = BUILDER.comment("Multiplies the damage of spells by this amount, Default: 1")
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
+        WandCooldown = BUILDER.comment("Turns Casting Time into Cooldowns that prevent Players from using Wands/Staffs for the duration and allows Spells with Casting Time be casted instantly, Default: false")
+                .define("wandCooldown", false);
         BUILDER.pop();
         BUILDER.push("Spell Costs");
         VexCost = BUILDER.comment("Vex Spell Cost, Default: 18")
@@ -135,6 +140,8 @@ public class SpellConfig {
                 .defineInRange("windBlastCost", 4, 0, Integer.MAX_VALUE);
         LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
+        RecallCost = BUILDER.comment("Recall Spell Cost, Default: 1000")
+                .defineInRange("recallCost", 1000, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -165,6 +172,8 @@ public class SpellConfig {
                 .defineInRange("windBlastTime", 20, 0, 72000);
         LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
                 .defineInRange("lightningTime", 60, 0, 72000);
+        RecallDuration = BUILDER.comment("Time to cast Recall Spell, Default: 160")
+                .defineInRange("recallTime", 160, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();

@@ -36,6 +36,7 @@ public class ApostleModel<T extends Apostle> extends CultistModel<T> {
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        this.nose.visible = !entity.isSecondPhase();
         this.hat.visible = false;
         this.halo1.zRot = entity.getSpin();
         this.hat2.visible = !(entity.isSecondPhase() && MobUtil.healthIsHalved(entity));

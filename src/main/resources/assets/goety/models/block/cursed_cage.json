@@ -3,5 +3,5 @@
   "textures": {
     "all": "goety:block/cursed_cage"
   },
-  "render_type": "translucent"
+  "render_type": "cutout"
 }

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "goety:sculk_converter"
+    "goety:sculk_converter",
+    "goety:sculk_grower",
+    "goety:sculk_relay"
   ]
 }

@@ -66,6 +66,7 @@ import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -605,9 +606,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         if (pSource.getDirectEntity() instanceof LivingEntity living){
-            float smite = EnchantmentHelper.getDamageBonus(living.getMainHandItem(), MobType.UNDEAD) / 2.5F;
+            int smite = EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, living);
             if (smite > 0){
-                int smite2 = (int) Mth.clamp(smite, 1, 5);
+                int smite2 = Mth.clamp(smite, 1, 5);
                 int duration = ModMathHelper.ticksToSeconds(smite2);
                 this.antiRegenTotal = duration;
                 this.antiRegen = duration;
@@ -749,6 +750,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public void aiStep() {
+        super.aiStep();
         if (this.level.getDifficulty() == Difficulty.PEACEFUL){
             this.remove(RemovalReason.DISCARDED);
         }
@@ -773,10 +775,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.barrier(entity, this);
                 }
             }
-            this.setPos(this.getX(), this.getY(), this.getZ());
 
             if (!this.level.isClientSide){
-                this.serverAiStep();
                 this.resetHitTime();
                 ServerLevel ServerLevel = (ServerLevel) this.level;
                 for(int i = 0; i < 40; ++i) {
@@ -804,8 +804,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.setSettingUpSecond(false);
                 this.setSecondPhase(true);
             }
-        } else {
-            super.aiStep();
         }
         LivingEntity target = this.getTarget();
         if (this.getMainHandItem().isEmpty() && this.isAlive()){
@@ -924,7 +922,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.setTarget(owned.getTrueOwner());
             }
             int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
-            if (this.tickCount % 100 == 0 && i < 16 && this.level.random.nextFloat() <= 0.25F){
+            if (this.tickCount % 100 == 0 && i < 16 && this.level.random.nextFloat() <= 0.25F && !this.isSettingUpSecond()){
                 if (!this.level.isClientSide){
                     ServerLevel ServerLevel = (ServerLevel) this.level;
                     RandomSource r = this.level.random;
@@ -1032,6 +1030,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 target.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 100));
             }
         }
+    }
+
+    protected boolean isImmobile() {
+        return super.isImmobile() || this.isSettingUpSecond();
+    }
+
+    public boolean hasLineOfSight(Entity p_149755_) {
+        return !this.isSettingUpSecond() && super.hasLineOfSight(p_149755_);
     }
 
     private void serverRoarParticles(){

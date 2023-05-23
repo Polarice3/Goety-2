@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:sculk_converter"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_sculk_converter.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_sculk_converter.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "sculk_converter": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:sculk_converter"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "sculk_converter"
+    ]
+  ]
+}

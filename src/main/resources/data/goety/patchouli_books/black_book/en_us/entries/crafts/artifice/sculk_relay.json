@@ -1,0 +1,17 @@
+{
+  "name": "Sculk Relay",
+  "icon": "goety:sculk_relay",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Sculk Converter can be a messy contraption, as it spreads Sculk around itself. With this Relay, the Converter will instead spread Sculk around the Relay's location instead! Right clicking on the Converter with an empty hand will show the Relay it's using. The Relay can be harvested with a Silk-Touched Hoe."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_relay",
+      "text": "The Sculk Converter will only use the closest Relay."
+    }
+  ]
+}

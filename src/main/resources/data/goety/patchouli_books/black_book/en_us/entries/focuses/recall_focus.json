@@ -1,0 +1,15 @@
+{
+  "name": "Recall Focus",
+  "icon": "goety:recall_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Recall Focus allows the caster to teleport back to a location saved by the Focus. To use the Focus, it needs to have a location saved by right-clicking on either an Arca owned by the Caster, a Bed, or a Respawn Anchor with it. Shift-right clicking the Focus will clear any saved location."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:recall_focus"
+    }
+  ]
+}

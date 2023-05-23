@@ -47,6 +47,7 @@ public class SpiderNestBlock extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    @SuppressWarnings("deprecation")
     public void randomTick(BlockState p_221000_, ServerLevel p_221001_, BlockPos p_221002_, RandomSource p_221003_) {
         float f = p_221001_.getLightLevelDependentMagicValue(p_221002_);
         if (p_221001_.isAreaLoaded(p_221002_, 4) && f <= 0.5F) {

@@ -146,7 +146,6 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                 if (!this.level.isClientSide) {
                     ServerLevel serverWorld = (ServerLevel) this.level;
                     if (recipe != null) {
-                        this.cursedCageTile.generateParticles();
 
                         this.restoreCastingPlayer();
 

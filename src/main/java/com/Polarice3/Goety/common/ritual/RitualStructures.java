@@ -119,7 +119,7 @@ public class RitualStructures {
                     pTileEntity.third.add(pPos);
                 }
             case "storm":
-                if (pState.getBlock() instanceof WeatheringCopperFullBlock) {
+                if (pState.getBlock().getDescriptionId().contains("copper")) {
                     pTileEntity.first.add(pPos);
                 }
                 if (pState.getBlock() instanceof LightningRodBlock) {

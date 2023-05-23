@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "lit=false,powered=false,charged=false": {
+      "model": "goety:block/sculk_grower"
+    },
+    "lit=false,powered=true,charged=false": {
+      "model": "goety:block/sculk_grower"
+    },
+    "lit=false,powered=false,charged=true": {
+      "model": "goety:block/sculk_grower_charged"
+    },
+    "lit=false,powered=true,charged=true": {
+      "model": "goety:block/sculk_grower_charged"
+    },
+    "lit=true,powered=false,charged=false": {
+      "model": "goety:block/sculk_grower_activated"
+    },
+    "lit=true,powered=true,charged=false": {
+      "model": "goety:block/sculk_grower_activated"
+    },
+    "lit=true,powered=false,charged=true": {
+      "model": "goety:block/sculk_grower_activated_charged"
+    },
+    "lit=true,powered=true,charged=true": {
+      "model": "goety:block/sculk_grower_activated_charged"
+    }
+  }
+}

@@ -16,13 +16,11 @@ import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
@@ -32,7 +30,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 public class SEHelper {
 
@@ -66,6 +67,10 @@ public class SEHelper {
 
     public static BlockPos getArcaBlock(Player player){
         return getCapability(player).getArcaBlock();
+    }
+
+    public static ResourceKey<Level> getArcaDimension(Player player){
+        return getCapability(player).getArcaBlockDimension();
     }
 
     public static boolean decreaseSESouls(Player player, int souls){
@@ -183,24 +188,32 @@ public class SEHelper {
         return multiply;
     }
 
-    public static void teleportDeathArca(Player player){
+    public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
         BlockPos blockPos1 = new BlockPos(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
-        Vec3 vector3d = new Vec3(blockPos1.getX(), blockPos1.getY(), blockPos1.getZ());
         if (soulEnergy.getArcaBlockDimension() == player.level.dimension()) {
-            player.teleportTo(blockPos1.getX(), blockPos1.getY(), blockPos1.getZ());
+            Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos1);
+            if (optional.isPresent()) {
+                player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
+                return true;
+            }
         } else {
             if (soulEnergy.getArcaBlockDimension() != null) {
                 if (player.getServer() != null) {
                     ServerLevel serverWorld = player.getServer().getLevel(soulEnergy.getArcaBlockDimension());
                     if (serverWorld != null) {
-                        player.changeDimension(serverWorld, new ArcaTeleporter(vector3d));
-                        player.teleportTo(blockPos1.getX(), blockPos1.getY(), blockPos1.getZ());
+                        Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos1);
+                        if (optional.isPresent()) {
+                            player.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
+                            player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
+                            return true;
+                        }
                     }
                 }
             }
         }
+        return false;
     }
 
     public static void sendSEUpdatePacket(Player player) {

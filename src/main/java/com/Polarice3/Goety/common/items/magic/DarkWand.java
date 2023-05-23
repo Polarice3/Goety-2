@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -10,6 +11,7 @@ import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
+import com.Polarice3.Goety.common.magic.spells.RecallSpell;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -161,11 +163,16 @@ public class DarkWand extends Item {
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        if (!(this.getSpell(stack) instanceof InstantCastSpells)) {
+        if (!(this.getSpell(stack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()) {
             SoundEvent soundevent = this.CastingSound(stack);
             int CastTime = stack.getUseDuration() - count;
             if (CastTime == 1) {
                 worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), Objects.requireNonNullElse(soundevent, SoundEvents.EVOKER_PREPARE_ATTACK), SoundSource.PLAYERS, 0.5F, 1.0F);
+            }
+            if (this.getSpell(stack) instanceof RecallSpell){
+                for(int i = 0; i < 2; ++i) {
+                    worldIn.addParticle(ParticleTypes.PORTAL, livingEntityIn.getRandomX(0.5D), livingEntityIn.getRandomY() - 0.25D, livingEntityIn.getRandomZ(0.5D), (worldIn.random.nextDouble() - 0.5D) * 2.0D, -worldIn.random.nextDouble(), (worldIn.random.nextDouble() - 0.5D) * 2.0D);
+                }
             }
             if (this.getSpell(stack) instanceof ChargingSpells) {
                 if (stack.getTag() != null) {
@@ -180,10 +187,14 @@ public class DarkWand extends Item {
     }
 
     public int getUseDuration(ItemStack stack) {
-        if (stack.getTag() != null) {
-            return stack.getTag().getInt(CASTTIME);
+        if (!SpellConfig.WandCooldown.get()) {
+            if (stack.getTag() != null) {
+                return stack.getTag().getInt(CASTTIME);
+            } else {
+                return this.CastDuration(stack);
+            }
         } else {
-            return this.CastDuration(stack);
+            return 0;
         }
     }
 
@@ -195,7 +206,7 @@ public class DarkWand extends Item {
     @Nonnull
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         super.finishUsingItem(stack, worldIn, entityLiving);
-        if (!(this.getSpell(stack) instanceof ChargingSpells) || !(this.getSpell(stack) instanceof InstantCastSpells)){
+        if (!(this.getSpell(stack) instanceof ChargingSpells) || !(this.getSpell(stack) instanceof InstantCastSpells) || SpellConfig.WandCooldown.get()){
             this.MagicResults(stack, worldIn, entityLiving);
         }
         if (stack.getTag() != null) {
@@ -210,7 +221,7 @@ public class DarkWand extends Item {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (this.getSpell(itemstack) != null) {
-            if (!(this.getSpell(itemstack) instanceof InstantCastSpells)){
+            if (!(this.getSpell(itemstack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()){
                 playerIn.startUsingItem(handIn);
                 if (worldIn.isClientSide){
                     this.useParticles(worldIn, playerIn);
@@ -331,6 +342,9 @@ public class DarkWand extends Item {
                         } else {
                             this.getSpell(stack).RegularResult(serverWorld, entityLiving);
                         }
+                        if (SpellConfig.WandCooldown.get()){
+                            playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
+                        }
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
                     boolean spent = true;
@@ -355,6 +369,9 @@ public class DarkWand extends Item {
                             this.getSpell(stack).StaffResult(serverWorld, entityLiving);
                         } else {
                             this.getSpell(stack).RegularResult(serverWorld, entityLiving);
+                        }
+                        if (SpellConfig.WandCooldown.get()){
+                            playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
                         }
                     }
                 } else {
@@ -440,6 +457,10 @@ public class DarkWand extends Item {
         }
         if (!getFocus(stack).isEmpty()){
             tooltip.add(Component.translatable("info.goety.wand.focus", getFocus(stack).getItem().getDescription()));
+            if (getFocus(stack).getItem() instanceof RecallFocus){
+                ItemStack recallFocus = getFocus(stack);
+                RecallFocus.addRecallText(recallFocus, tooltip);
+            }
         } else {
             tooltip.add(Component.translatable("info.goety.wand.focus", "Empty"));
         }

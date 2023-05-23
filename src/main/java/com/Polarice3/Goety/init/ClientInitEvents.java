@@ -18,6 +18,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.RecallFocus;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -75,6 +76,8 @@ public class ClientInitEvents {
                 });
         ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pulling")
                 , (stack, world, living, seed) -> living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.RECALL_FOCUS.get(), new ResourceLocation("active")
+                , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent
@@ -236,6 +239,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
     }
 
 }

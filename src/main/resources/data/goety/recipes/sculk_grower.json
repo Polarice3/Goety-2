@@ -1,0 +1,33 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:sculk_converter"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "item": "minecraft:sculk"
+    },
+    {
+      "item": "minecraft:composter"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "item": "minecraft:sculk"
+    },
+    {
+      "item": "minecraft:composter"
+    }
+  ],
+  "result": {
+    "item": "goety:sculk_grower"
+  }
+}

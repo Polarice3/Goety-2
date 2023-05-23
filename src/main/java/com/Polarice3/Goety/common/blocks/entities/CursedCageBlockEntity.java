@@ -90,6 +90,7 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                 if (Soulcount > 0){
                     Soulcount -= souls;
                     this.item.getTag().putInt(TotemOfSouls.SOULS_AMOUNT, Soulcount);
+                    this.generateParticles();
                 }
             }
         }
@@ -107,6 +108,7 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                                 ArcaBlockEntity arcaTile = (ArcaBlockEntity) this.level.getBlockEntity(SEHelper.getArcaBlock(player));
                                 if (arcaTile != null) {
                                     arcaTile.generateParticles();
+                                    this.generateParticles();
                                 }
                             }
                         }
@@ -140,6 +142,23 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
             }
             this.spinning = 20;
         }
+    }
+
+    public void generateManyParticles(){
+        BlockPos blockpos = this.getBlockPos();
+        if (this.level != null) {
+            if (!this.level.isClientSide) {
+                ServerLevel serverWorld = (ServerLevel) this.level;
+                for(int k = 0; k < 20; ++k) {
+                    double d9 = (double)blockpos.getX() + 0.5D + (this.level.random.nextDouble() - 0.5D) * 2.0D;
+                    double d13 = (double)blockpos.getY() + 0.5D + (this.level.random.nextDouble() - 0.5D) * 2.0D;
+                    double d19 = (double)blockpos.getZ() + 0.5D + (this.level.random.nextDouble() - 0.5D) * 2.0D;
+                    serverWorld.sendParticles(ParticleTypes.SMOKE, d9, d13, d19, 1, 0.0D, 0.0D, 0.0D, 0);
+                    serverWorld.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, d9, d13, d19, 1, 0.0D, 0.0D, 0.0D, 0);
+                }
+            }
+        }
+
     }
 
     @Override

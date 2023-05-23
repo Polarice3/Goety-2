@@ -210,6 +210,7 @@
   "item.goety.glow_light_focus": "Glow Light Focus",
   "item.goety.launch_focus": "Launching Focus",
   "item.goety.flying_focus": "Flight Focus",
+  "item.goety.recall_focus": "Recall Focus",
 
   "item.goety.pedestal_dummy": "Pedestal",
 
@@ -236,6 +237,10 @@
   "block.goety.shade_stone": "Shade Stone",
   "block.goety.shade_stone_slab": "Shade Stone Slab",
   "block.goety.shade_stone_stairs": "Shade Stone Stairs",
+  "block.goety.shade_stone_polished": "Polished Shade Stone",
+  "block.goety.shade_stone_polished_slab": "Polished Shade Stone Slab",
+  "block.goety.shade_stone_polished_stairs": "Polished Shade Stone Stairs",
+  "block.goety.shade_stone_chiseled": "Chiseled Shade Stone",
   "block.goety.shade_stone_bricks": "Shade Stone Bricks",
   "block.goety.shade_stone_bricks_slab": "Shade Stone Bricks Slab",
   "block.goety.shade_stone_bricks_stairs": "Shade Stone Bricks Stairs",
@@ -244,7 +249,6 @@
   "block.goety.shade_bricks_slab": "Shade Bricks Slab",
   "block.goety.shade_bricks_stairs": "Shade Bricks Stairs",
   "block.goety.shade_bricks_wall": "Shade Bricks Wall",
-  "block.goety.shade_stone_chiseled": "Chiseled Shade Stone",
   "block.goety.shade_tiles": "Shade Tiles",
   "block.goety.shade_tiles_slab": "Shade Tiles Slab",
   "block.goety.shade_tiles_stairs": "Shade Tiles Stairs",
@@ -280,6 +284,8 @@
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
   "block.goety.sculk_devourer": "Sculk Devourer",
   "block.goety.sculk_converter": "Sculk Converter",
+  "block.goety.sculk_relay": "Sculk Relay",
+  "block.goety.sculk_grower": "Sculk Grower",
 
   "block.goety.snap_warts": "Snap Warts",
   "block.goety.spider_nest": "Spider Nest",
@@ -342,6 +348,11 @@
   "info.goety.wand.focus": "§dFocus:§d %d",
   "info.goety.focus.cost": "§bOriginal Cost:§b %d",
   "info.goety.focus.spellType": "§dSpell Type:§d %d",
+  "info.goety.focus.noPos": "§5No Recall Position Set§5",
+  "info.goety.focus.Pos": "§5Recall:§5",
+  "info.goety.focus.PosNum": "X: %d, Y: %d, Z: %d",
+  "info.goety.focus.PosDim": "§aDimension:§a %d",
+  "info.goety.focus.PosInvalid": "§cRecall Block Is Invalid§c",
   "info.goety.items.dark_scroll.desc": "Must be used within a Woodland Mansion.",
   "info.goety.items.dark_scroll.failure": "You are not within a Woodland Mansion!",
   "info.goety.items.forbidden_scroll": "The Secrets to Immortality...",
@@ -500,6 +511,10 @@
   "advancements.goety.craft_star_amulet.description": "Protects wearer from arrows when under half the max health.",
   "advancements.goety.craft_ring_of_want.title": "My Precious",
   "advancements.goety.craft_ring_of_want.description": "Increases Loot Drop from Mobs when killed using Spells or Summons. Must be enchanted first.",
+  "advancements.goety.craft_sculk_converter.title": "How Bad Can I Be?",
+  "advancements.goety.craft_sculk_converter.description": "Absorbs Soul Energy, from the Cursed Cage above it, to grow Sculk around itself.",
+  "advancements.goety.craft_sculk_grower.title": "Let It Grow",
+  "advancements.goety.craft_sculk_grower.description": "Absorbs a certain amount of Soul Energy to grow surrounding crops.",
   "advancements.goety.craft_arca.title": "Remote Connection",
   "advancements.goety.craft_arca.description": "The Arca stores and distributes your Soul Energy without a need of a Totem of Souls.",
   "advancements.goety.craft_witch_hat.title": "We've Found a Witch!",
@@ -578,5 +593,7 @@
   "death.attack.goety.windBlast": "%1$s has been air-blasted by %2$s",
   "death.attack.goety.windBlast.item": "%1$s has been air-blasted by %2$s using %3$s",
   "death.attack.goety.sword": "%1$s was sliced by %2$s",
-  "death.attack.goety.sword.item": "%1$s was sliced by %2$s with %3$s"
+  "death.attack.goety.sword.item": "%1$s was sliced by %2$s with %3$s",
+  "death.attack.goety.soulLeech": "%1$s soul was sucked by %2$s",
+  "death.attack.goety.soulLeech.item": "%1$s soul was sucked by %2$s with %3$s"
 }

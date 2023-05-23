@@ -1,0 +1,24 @@
+{
+  "name": "Sculk Grower",
+  "icon": "goety:sculk_grower",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the way the Sculk grows using Soul Energy, you wonder if you can use it to grow crops instead of more of itself. Enter the Sculk Grower."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sculk_grower"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Sculk Grower requires a Cursed Cage on top of it, much like the Sculk Converter. Unlike the Sculk Converter, it will remain active with a constant Redstone signal, and it absorbs Soul Energy in bulk rather than slowly siphoning it. When it absorbs a bulk of Soul Energy, it gains 'Charges' which is used to speed up the growth of the surrounding crops."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Usually, the Sculk Grower grows random crops from a 8 x 4 x 8 Blocks around it, but the Grower can be enchanted with Radius (Though, unlike, say, the Sculk Devourer, the Radius adds rather than multiply). If not supplied with Redstone, the Grower will still grow crops until it runs out of Charges. If there aren't any crops around the Grower(Or the Continuous Growth Config is disabled), its Charges will decay within itself."
+    }
+  ]
+}

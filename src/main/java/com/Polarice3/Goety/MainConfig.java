@@ -43,6 +43,9 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulMenderCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
+    public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
@@ -75,6 +78,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
@@ -137,8 +142,16 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
-        SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per second, Default: 1")
+        SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per the configured amount of seconds, Default: 1")
                 .defineInRange("soulMenderCost", 1, 0, Integer.MAX_VALUE);
+        SoulMenderSeconds = BUILDER.comment("How many seconds the Soul Menderer repairs 1 durability from an item, Default: 0.5")
+                .defineInRange("soulMenderSeconds", 0.5, 0.0, Double.MAX_VALUE);
+        SculkGrowerCost = BUILDER.comment("The amount of Soul Energy used to give Charges to the Sculk Grower, Default: 20")
+                .defineInRange("sculkGrowerCost", 20, 0, Integer.MAX_VALUE);
+        SculkGrowerCharge = BUILDER.comment("How much Charges is given to the Sculk Grower whenever it absorbs Soul Energy, Default: 100")
+                .defineInRange("sculkGrowerCharge", 100, 0, Integer.MAX_VALUE);
+        SculkGrowerContinue = BUILDER.comment("Whether Sculk Grower continues to grow plants without Redstone if it still contains charges. Setting it to false will cause the Sculk Grower to slowly decay its charges, Default: true")
+                .define("sculkGrowerContinue", true);
         BUILDER.pop();
         BUILDER.push("Soul Taken");
         UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")

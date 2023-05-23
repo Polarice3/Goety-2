@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,7 +37,6 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
             if (flag) {
                 if (!this.itemStack.isEmpty() && this.cursedCageTile.getSouls() > MainConfig.SoulMenderCost.get()) {
                     this.makeWorkParticles();
-                    this.cursedCageTile.generateParticles();
                 }
                 this.work();
             }
@@ -48,7 +48,7 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
         if (this.level != null) {
             if (!this.itemStack.isEmpty() && this.cursedCageTile.getSouls() > MainConfig.SoulMenderCost.get()) {
                 if (this.itemStack.isDamaged()) {
-                    if (this.level.getGameTime() % 20 == 0) {
+                    if (this.level.getGameTime() % ModMathHelper.ticksToSeconds(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
                         this.itemStack.setDamageValue(this.itemStack.getDamageValue() - 1);
                         int i = this.itemStack.getAllEnchantments().size() + 1;
                         this.cursedCageTile.decreaseSouls(MainConfig.SoulMenderCost.get() * i);

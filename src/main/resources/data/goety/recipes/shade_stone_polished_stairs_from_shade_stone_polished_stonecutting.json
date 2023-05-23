@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:shade_stone_polished"
+  },
+  "result": "goety:shade_stone_polished_stairs",
+  "count": 1
+}

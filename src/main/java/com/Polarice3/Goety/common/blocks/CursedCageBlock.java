@@ -38,6 +38,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()
                 .noOcclusion()
+                .dynamicShape()
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, Boolean.FALSE));
     }

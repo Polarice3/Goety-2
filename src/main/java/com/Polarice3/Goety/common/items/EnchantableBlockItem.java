@@ -15,13 +15,17 @@ public class EnchantableBlockItem extends BlockItemBase {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        if (stack.getItem() == ModBlocks.SCULK_DEVOURER_ITEM.get()){
+        if (stack.getItem() == ModBlocks.SCULK_DEVOURER.get().asItem()){
             return stack.getCount() == 1
                     && (enchantment == ModEnchantments.SOUL_EATER.get()
                     || enchantment == ModEnchantments.RADIUS.get());
         }
-        if (stack.getItem() == ModBlocks.SCULK_CONVERTER_ITEM.get()){
+        if (stack.getItem() == ModBlocks.SCULK_CONVERTER.get().asItem()){
             return stack.getCount() == 1 && enchantment == ModEnchantments.POTENCY.get();
+        }
+        if (stack.getItem() == ModBlocks.SCULK_GROWER.get().asItem()){
+            return stack.getCount() == 1
+                    && enchantment == ModEnchantments.RADIUS.get();
         }
         return stack.getCount() == 1;
     }
@@ -37,6 +41,6 @@ public class EnchantableBlockItem extends BlockItemBase {
 
     @Override
     public int getEnchantmentValue(ItemStack stack) {
-        return 50;
+        return 25;
     }
 }

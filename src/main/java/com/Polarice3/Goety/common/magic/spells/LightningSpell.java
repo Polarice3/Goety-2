@@ -43,7 +43,6 @@ public class LightningSpell extends Spells {
         if (entityLiving instanceof Player playerEntity) {
             if (WandUtil.enchantedFocus(playerEntity)) {
                 range += WandUtil.getLevels(ModEnchantments.RANGE.get(), playerEntity);
-                radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), playerEntity);
                 damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), playerEntity);
             }
         }

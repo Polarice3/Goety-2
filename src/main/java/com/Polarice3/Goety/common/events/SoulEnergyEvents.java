@@ -157,7 +157,7 @@ public class SoulEnergyEvents {
                     if (MainConfig.ArcaUndying.get()) {
                         if (!player.level.isClientSide) {
                             if (LichdomHelper.isLich(player)) {
-                                SEHelper.teleportDeathArca(player);
+                                SEHelper.teleportToArca(player);
                                 player.setHealth(1.0F);
                                 player.removeAllEffects();
                                 if (soulEnergy.getSoulEnergy() > MainConfig.MaxSouls.get()) {
@@ -172,7 +172,7 @@ public class SoulEnergyEvents {
                                 SEHelper.sendSEUpdatePacket(player);
                                 event.setCanceled(true);
                             } else if (soulEnergy.getSoulEnergy() > MainConfig.MaxSouls.get()) {
-                                SEHelper.teleportDeathArca(player);
+                                SEHelper.teleportToArca(player);
                                 player.setHealth(1.0F);
                                 player.removeAllEffects();
                                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));

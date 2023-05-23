@@ -81,4 +81,12 @@ public class ModParticleTypes {
                     return ShockwaveParticleOption.CODEC;
                 }
             });
+
+    public static final RegistryObject<ParticleType<SculkBubbleParticleOption>> SCULK_BUBBLE = PARTICLE_TYPES.register("sculk_bubble",
+            () -> new ParticleType<>(false, SculkBubbleParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return SculkBubbleParticleOption.CODEC;
+                }
+            });
 }

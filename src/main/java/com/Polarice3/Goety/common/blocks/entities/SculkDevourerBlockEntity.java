@@ -36,7 +36,7 @@ public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEv
     }
 
     public CompoundTag writeNetwork(CompoundTag tag) {
-        this.saveEnchants(tag, ModBlocks.SCULK_DEVOURER_ITEM.get());
+        this.saveEnchants(tag, ModBlocks.SCULK_DEVOURER.get().asItem());
         return super.writeNetwork(tag);
     }
 

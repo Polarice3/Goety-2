@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:empty_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "minecraft:ender_chest"
+    },
+    {
+      "item": "minecraft:chorus_flower"
+    },
+    {
+      "item": "minecraft:ender_chest"
+    },
+    {
+      "item": "minecraft:chorus_flower"
+    },
+    {
+      "item": "minecraft:ender_chest"
+    },
+    {
+      "item": "minecraft:chorus_flower"
+    },
+    {
+      "item": "minecraft:ender_chest"
+    },
+    {
+      "item": "minecraft:chorus_flower"
+    }
+  ],
+  "result": {
+    "item": "goety:recall_focus"
+  }
+}

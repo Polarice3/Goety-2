@@ -6,19 +6,13 @@
   },
   "craftType": "forge",
   "soulCost": 1,
-  "duration": 30,
+  "duration": 10,
   "ingredients": [
-    {
-      "item": "goety:shade_stone_chiseled"
-    },
-    {
-      "item": "goety:cursed_ingot"
-    },
     {
       "item": "goety:shade_bricks"
     },
     {
-      "tag": "minecraft:soul_fire_base_blocks"
+      "item": "goety:cursed_ingot"
     },
     {
       "item": "minecraft:hopper"

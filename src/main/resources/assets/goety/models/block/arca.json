@@ -3,5 +3,5 @@
   "textures": {
     "all": "goety:block/arca"
   },
-  "render_type": "translucent"
+  "render_type": "cutout"
 }

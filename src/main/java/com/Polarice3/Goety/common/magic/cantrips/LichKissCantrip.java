@@ -23,8 +23,7 @@ public class LichKissCantrip {
             if (this.entityResult(pPlayer) != null) {
                 target = this.entityResult(pPlayer).getEntity();
             }
-            if (target instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity) target;
+            if (target instanceof LivingEntity livingEntity) {
                 if (!livingEntity.isAlive()) {
                     return;
                 } else {

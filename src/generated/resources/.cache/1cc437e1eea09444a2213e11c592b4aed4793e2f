@@ -1,4 +1,4 @@
-// 1.19.2	2023-05-10T16:18:04.7469259	Goety LootTables
+// 1.19.2	2023-05-23T12:52:44.8099609	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 c4b4be15dec799095f04f5ef624134ad9ef1af9b data/goety/loot_tables/blocks/cursed_bars.json
 15092ae0dd39c2b0ed0ccbad98cddadc4acd5d33 data/goety/loot_tables/blocks/cursed_cage.json
@@ -27,7 +27,7 @@ b9ae911b48d835091a95fcab64a6e35f6b9b231f data/goety/loot_tables/blocks/haunted_s
 faecb9e11ce968c0efbf4f5f647658d315ea221f data/goety/loot_tables/blocks/jade_stairs.json
 5a4559bc2a26198ae7f45d59604d06c6c873f83b data/goety/loot_tables/blocks/jade_tiles.json
 b4af0313168be6328b415a03028780c556fa5582 data/goety/loot_tables/blocks/pedestal.json
-ebf9cd9fcb0ca0ba137c2188f1ad482e9af38105 data/goety/loot_tables/blocks/sculk_converter.json
+f7b70496e118fd770f156e17860b35df0d06badc data/goety/loot_tables/blocks/sculk_relay.json
 5ea995cb36b2fef96b3db9438da4217585b4610e data/goety/loot_tables/blocks/shade_bricks.json
 e5480cc7e5ac92ba4e0263d5e167c1349399d5b4 data/goety/loot_tables/blocks/shade_bricks_slab.json
 3c79f7dc6fa024f259cedc5db6d6c6fd66b61b4f data/goety/loot_tables/blocks/shade_bricks_stairs.json
@@ -38,6 +38,9 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 02950ce0533c6ce7575d6332c2080ea1bc0a0e04 data/goety/loot_tables/blocks/shade_stone_bricks_stairs.json
 1604eebd4b53ba190ff2c409146c6cb1f1291702 data/goety/loot_tables/blocks/shade_stone_bricks_wall.json
 10711ab0d9021457ef3ec805573557f93246bf86 data/goety/loot_tables/blocks/shade_stone_chiseled.json
+90538fbff478e8228af47199dc8c829496de49ca data/goety/loot_tables/blocks/shade_stone_polished.json
+20b274283e37d2cc028af724c25d30b57bcbc4bb data/goety/loot_tables/blocks/shade_stone_polished_slab.json
+287bdd0b84d5e2aa12fa5b71791fff760f97f8b3 data/goety/loot_tables/blocks/shade_stone_polished_stairs.json
 66ea5d3d5a21c50bb60cb75570199f9b000ddd90 data/goety/loot_tables/blocks/shade_stone_slab.json
 67895f4b57b456ad2349de5f46a483c458fcd758 data/goety/loot_tables/blocks/shade_stone_stairs.json
 8fb2fe3f301d4a6de37648e33076e6ae3a927c4b data/goety/loot_tables/blocks/shade_tiles.json

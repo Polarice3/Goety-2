@@ -5,11 +5,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,6 +58,28 @@ public class BlockFinder {
         Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         Vec3 endPos = new Vec3(entity.getX(), 0, entity.getZ());
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+    }
+
+    public static double moveBlockDownToGround(Level level, BlockPos blockPos) {
+        HitResult rayTrace = blockRayTrace(level, blockPos);
+        if (rayTrace.getType() == HitResult.Type.BLOCK) {
+            BlockHitResult hitResult = (BlockHitResult) rayTrace;
+            if (hitResult.getDirection() == Direction.UP) {
+                BlockState hitBlock = level.getBlockState(hitResult.getBlockPos());
+                if (hitBlock.getBlock() instanceof SlabBlock && hitBlock.getValue(BlockStateProperties.SLAB_TYPE) == SlabType.BOTTOM) {
+                    return hitResult.getBlockPos().getY() + 1.0625F - 0.5F;
+                } else {
+                    return hitResult.getBlockPos().getY() + 1.0625F;
+                }
+            }
+        }
+        return blockPos.getY();
+    }
+
+    private static HitResult blockRayTrace(Level level, BlockPos blockPos) {
+        Vec3 startPos = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        Vec3 endPos = new Vec3(blockPos.getX(), 0, blockPos.getZ());
+        return level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
     }
 
     public static boolean hasChunksAt(LivingEntity livingEntity){
@@ -261,6 +285,23 @@ public class BlockFinder {
         return BlockPos.betweenClosed(
                 blockPos.offset(start),
                 blockPos.offset(end));
+    }
+
+    public static void spawnRedstoneParticles(Level pLevel, BlockPos pPos) {
+        double d0 = 0.5625D;
+        RandomSource random = pLevel.random;
+
+        for(Direction direction : Direction.values()) {
+            BlockPos blockpos = pPos.relative(direction);
+            if (!pLevel.getBlockState(blockpos).isSolidRender(pLevel, blockpos)) {
+                Direction.Axis direction$axis = direction.getAxis();
+                double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double)direction.getStepX() : (double)random.nextFloat();
+                double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double)direction.getStepY() : (double)random.nextFloat();
+                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double)direction.getStepZ() : (double)random.nextFloat();
+                pLevel.addParticle(DustParticleOptions.REDSTONE, (double)pPos.getX() + d1, (double)pPos.getY() + d2, (double)pPos.getZ() + d3, 0.0D, 0.0D, 0.0D);
+            }
+        }
+
     }
 
 }

@@ -7,6 +7,8 @@
     "goety:cursed_infuser",
     "goety:cursed_metal_block",
     "goety:cursed_cage",
-    "goety:cursed_bars"
+    "goety:cursed_bars",
+    "goety:sculk_converter",
+    "goety:sculk_grower"
   ]
 }

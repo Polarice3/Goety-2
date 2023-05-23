@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "e",
+    "b",
+    "c"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "minecraft:sculk_sensor"
+    },
+    "b":
+    {
+      "item": "minecraft:sculk_catalyst"
+    },
+    "c":
+    {
+      "item": "minecraft:sculk_shrieker"
+    }
+  },
+  "result":
+  {
+    "item": "goety:sculk_relay",
+    "count": 1
+  }
+}
