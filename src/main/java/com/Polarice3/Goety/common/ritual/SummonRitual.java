@@ -65,10 +65,6 @@ public class SummonRitual extends Ritual {
 
     public void initSummoned(LivingEntity living, Level world, BlockPos goldenBowlPosition, DarkAltarBlockEntity tileEntity,
                              Player castingPlayer) {
-/*        if (living instanceof ShadeEntity){
-            ShadeEntity shadeEntity = (ShadeEntity) living;
-            shadeEntity.setLimitedLife(12000);
-        }*/
     }
 }
 /*

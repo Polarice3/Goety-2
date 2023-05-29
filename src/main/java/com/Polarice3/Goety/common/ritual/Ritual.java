@@ -132,7 +132,7 @@ public abstract class Ritual {
 
     public boolean consumeAdditionalIngredients(Level world, BlockPos darkAltarPos,
                                                 List<Ingredient> remainingAdditionalIngredients, int time,
-                                                List<ItemStack> consumedIngredients, boolean villager) {
+                                                List<ItemStack> consumedIngredients) {
         if (remainingAdditionalIngredients.isEmpty())
             return true;
 
@@ -149,7 +149,7 @@ public abstract class Ritual {
              it.hasNext() && consumed < ingredientsToConsume; consumed++) {
             Ingredient ingredient = it.next();
             if (this.consumeAdditionalIngredient(world, darkAltarPos, pedestals, ingredient,
-                    consumedIngredients, villager)) {
+                    consumedIngredients)) {
                 it.remove();
             } else {
                 return false;
@@ -160,7 +160,7 @@ public abstract class Ritual {
 
     public boolean consumeAdditionalIngredient(Level world, BlockPos darkAltarPos,
                                                List<PedestalBlockEntity> pedestals,
-                                               Ingredient ingredient, List<ItemStack> consumedIngredients, boolean villager) {
+                                               Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (PedestalBlockEntity pedestal : pedestals) {
             if (pedestal.itemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
@@ -168,11 +168,9 @@ public abstract class Ritual {
                     ItemStack extracted = handler.extractItem(0, 1, false);
 
                     consumedIngredients.add(extracted);
-                    if (villager){
-                        world.playSound(null, darkAltarPos, SoundEvents.VILLAGER_HURT, SoundSource.BLOCKS, 1.2F, (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
-                    }
+
                     world.playSound(null, pedestal.getBlockPos(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS,
-                            0.7f, 0.7f);
+                            0.7F, 0.7F);
                     return true;
                 }
                 return false;
@@ -266,16 +264,20 @@ public abstract class Ritual {
         if (setTamed && livingEntity instanceof Owned summonedEntity) {
             summonedEntity.setPersistenceRequired();
             summonedEntity.setOwnerId(castingPlayer.getUUID());
-            if (summonedEntity instanceof Summoned){
-                ((Summoned) summonedEntity).setWandering(false);
+            if (summonedEntity instanceof Summoned summoned){
+                summoned.setWandering(false);
             }
         }
-        livingEntity.absMoveTo(darkAltarPos.getX(), darkAltarPos.getY(), darkAltarPos.getZ(),
-                world.random.nextInt(360), 0);
-        if (livingEntity instanceof Mob)
-            ((Mob) livingEntity).finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(darkAltarPos),
+
+        if (livingEntity instanceof Mob mob) {
+            mob.absMoveTo(darkAltarPos.getX(), darkAltarPos.getY(), darkAltarPos.getZ(),
+                    world.random.nextInt(360), 0);
+            mob.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(darkAltarPos),
                     MobSpawnType.MOB_SUMMONED, null,
                     null);
+        } else {
+            livingEntity.setPos(darkAltarPos.getX(), darkAltarPos.getY() + 1, darkAltarPos.getZ());
+        }
     }
 
     public boolean isValidSacrifice(LivingEntity entity) {

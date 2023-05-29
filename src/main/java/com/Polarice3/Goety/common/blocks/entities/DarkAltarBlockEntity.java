@@ -7,6 +7,9 @@ import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.ritual.Ritual;
 import com.Polarice3.Goety.common.ritual.RitualStructures;
 import com.Polarice3.Goety.utils.ConstantPaths;
@@ -20,21 +23,25 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoulFireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -180,6 +187,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
                         if (this.level.getGameTime() % 20 == 0) {
                             this.cursedCageTile.decreaseSouls(recipe.getSoulCost());
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.SCULK_CATALYST_BLOOM, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
                             serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, (double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 1.15D, (double)this.worldPosition.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
                             this.currentTime++;
                         }
@@ -187,11 +195,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         recipe.getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
                                 this.currentTime);
 
-                        boolean villager = /*recipe.getActivationItem().test(new ItemStack(ModItems.FILLED_ILL_CAGE.get()));*/ false;
-
                         if (!recipe.getRitual()
                                 .consumeAdditionalIngredients(this.level, this.worldPosition, this.remainingAdditionalIngredients,
-                                        this.currentTime, this.consumedIngredients, villager)) {
+                                        this.currentTime, this.consumedIngredients)) {
                             this.stopRitual(false);
                             return;
                         }
@@ -338,6 +344,24 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                 if (finished) {
                     ItemStack activationItem = handler.getStackInSlot(0);
                     recipe.getRitual().finish(this.level, this.worldPosition, this, this.castingPlayer, activationItem);
+                    if (recipe.getEntityToSummon() == ModEntityType.SUMMON_APOSTLE.get()){
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 1.0F, 1.0F));
+                            Warden.applyDarknessAround(serverLevel, Vec3.atCenterOf(this.worldPosition), (Entity)null, 32);
+                        }
+                        for (int i = -8; i <= 8; ++i) {
+                            for (int j = -8; j <= 8; ++j) {
+                                for (int k = -8; k <= 8; ++k) {
+                                    BlockPos blockpos1 = this.worldPosition.offset(i, j, k);
+                                    BlockState blockstate = this.level.getBlockState(blockpos1);
+                                    if (blockstate.getBlock() instanceof SoulFireBlock){
+                                        this.level.destroyBlock(blockpos1, false);
+                                        this.level.levelEvent((Player)null, 1009, blockpos1, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } else {
                     recipe.getRitual().interrupt(this.level, this.worldPosition, this, this.castingPlayer,
                             handler.getStackInSlot(0));

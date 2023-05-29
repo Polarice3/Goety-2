@@ -58,4 +58,9 @@ public class ModNetwork {
     public static <MSG> void sentToTrackingChunk(LevelChunk chunk, MSG msg) {
         ModNetwork.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
     }
+
+    public static <MSG> void sendToALL(MSG msg) {
+        ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), msg);
+    }
+
 }

@@ -1,0 +1,19 @@
+{
+  "name": "Hook Bell",
+  "icon": "goety:hook_bell",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When dealing with Raids, some of the Raiders have a bad tendency of falling into holes, appearing in places deep underground and so on. After many research, you've managed to improve on the Villager's Bell to not only have a much higher radius of effect, but also teleports any Raider towards the Bell's vicinity if they're more than 16 Blocks away from it!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hook_bell"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unfortunately, the newly Hook Bell does not respond to any Redstone power and can only be rung, by hand or from projectiles shot, from beings like yourself."
+    }
+  ]
+}

@@ -60,13 +60,10 @@ public class SummonApostle extends Entity {
                 this.discard();
             }
             float f = 3.0F;
-            float f5 = (float)Math.PI * f * f;
-            for(int k1 = 0; (float)k1 < f5; ++k1) {
-                float f6 = this.random.nextFloat() * ((float)Math.PI * 2F);
-                float f7 = Mth.sqrt(this.random.nextFloat()) * f;
-                float f8 = Mth.cos(f6) * f7;
-                float f9 = Mth.sin(f6) * f7;
-                serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + (double)f8, this.getY(), this.getZ() + (double)f9, 1, (0.5D - this.random.nextDouble()) * 0.15D, (double)0.01F, (0.5D - this.random.nextDouble()) * 0.15D, (0.5D - this.random.nextDouble()) * 0.15D);
+            serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + Math.cos(this.tickCount * 0.25) * f, this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25) * f, 0, 0, 0, 0, 0.5F);
+            serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + Math.cos(this.tickCount * 0.25 + Math.PI) * f, this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25 + Math.PI) * f, 0, 0, 0, 0, 0.5F);
+            for(int i = 0; i < 2; ++i) {
+                serverWorld.sendParticles(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 0, (serverWorld.random.nextDouble() - 0.5D) * 2.0D, -serverWorld.random.nextDouble(), (serverWorld.random.nextDouble() - 0.5D) * 2.0D, 0.5D);
             }
             if (this.tickCount == 450){
                 for(int k = 0; k < 200; ++k) {
@@ -77,6 +74,7 @@ public class SummonApostle extends Entity {
                     double d3 = Mth.sin(f1) * f2;
                     serverWorld.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
                 }
+                serverWorld.setWeatherParameters(6000, 0, false, false);
                 Apostle apostleEntity = new Apostle(ModEntityType.APOSTLE.get(), this.level);
                 apostleEntity.setPos(this.getX(), this.getY(), this.getZ());
                 apostleEntity.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);

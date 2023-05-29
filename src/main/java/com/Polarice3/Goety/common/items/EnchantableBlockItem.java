@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.common.blocks.BlockItemBase;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import net.minecraft.world.item.ItemStack;

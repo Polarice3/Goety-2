@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells;
+package com.Polarice3.Goety.common.magic.spells.summon;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
@@ -90,6 +90,7 @@ public class HauntedSkullSpell extends SummonSpells {
             if (burning > 0){
                 summonedentity.setBurning(burning);
             }
+            this.setTarget(worldIn, entityLiving, summonedentity);
             summonedentity.setUpgraded(this.NecroPower(entityLiving));
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -120,6 +121,7 @@ public class HauntedSkullSpell extends SummonSpells {
                 if (burning > 0){
                     summonedentity.setBurning(burning);
                 }
+                this.setTarget(worldIn, entityLiving, summonedentity);
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 worldIn.addFreshEntity(summonedentity);
                 for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {

@@ -10,6 +10,9 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 
+/**
+ * Separate from Abstract so that it can implement Enemy for Hostile targeting purposes
+ */
 public class Wraith extends AbstractWraith implements Enemy {
 
     public Wraith(EntityType<? extends AbstractWraith> p_i48553_1_, Level p_i48553_2_) {

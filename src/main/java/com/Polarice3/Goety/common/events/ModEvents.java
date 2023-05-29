@@ -329,6 +329,15 @@ public class ModEvents {
                 event.getEntity().addTag(ConstantPaths.structureMob());
             }
         }
+        if (event.getEntity() instanceof Cultist cultist){
+            if (event.getLevel() instanceof ServerLevel serverLevel) {
+                if (serverLevel.getRaidAt(cultist.blockPosition()) != null) {
+                    if (event.getSpawnReason() == MobSpawnType.NATURAL || event.getSpawnReason() == MobSpawnType.CHUNK_GENERATION) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent

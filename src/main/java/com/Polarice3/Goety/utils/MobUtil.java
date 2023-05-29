@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -117,6 +120,18 @@ public class MobUtil {
                 }
             }
         }
+    }
+
+    public static void dropFromLootTable(LivingEntity living, float luck) {
+        ResourceLocation resourcelocation = living.getLootTable();
+        LootTable loottable = living.level.getServer().getLootTables().get(resourcelocation);
+        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(DamageSource.GENERIC, living, luck);
+        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+        loottable.getRandomItems(ctx).forEach(living::spawnAtLocation);
+    }
+
+    public static LootContext.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity, float luck) {
+        return (new LootContext.Builder((ServerLevel) livingEntity.level)).withRandom(livingEntity.getRandom()).withParameter(LootContextParams.THIS_ENTITY, livingEntity).withParameter(LootContextParams.ORIGIN, livingEntity.position()).withParameter(LootContextParams.DAMAGE_SOURCE, pDamageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, pDamageSource.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, pDamageSource.getDirectEntity()).withLuck(luck);
     }
 
     public static LootContext.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity) {
@@ -469,5 +484,4 @@ public class MobUtil {
         double dist = result.getLocation().distanceToSqr(x, y, z);
         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
     }
-
 }

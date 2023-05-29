@@ -20,7 +20,7 @@ public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity
             Minecraft minecraft = Minecraft.getInstance();
             if (!stack.isEmpty()) {
                 pMatrixStack.pushPose();
-                pMatrixStack.translate(0.5F, 1.0F, 0.5F);
+                pMatrixStack.translate(0.5F, 1.1F, 0.5F);
                 pMatrixStack.scale(1.0F, 1.0F, 1.0F);
                 assert minecraft.level != null;
                 pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(3 * (minecraft.level.getGameTime() % 360 + pPartialTicks)));

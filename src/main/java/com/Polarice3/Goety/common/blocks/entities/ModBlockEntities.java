@@ -46,8 +46,19 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ForbiddenGrassBlockEntity>> FORBIDDEN_GRASS = BLOCK_ENTITY.register("forbidden_grass",
             () -> BlockEntityType.Builder.of(ForbiddenGrassBlockEntity::new, ModBlocks.FORBIDDEN_GRASS.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<HookBellBlockEntity>> HOOK_BELL = BLOCK_ENTITY.register("hook_bell",
+            () -> BlockEntityType.Builder.of(HookBellBlockEntity::new, ModBlocks.HOOK_BELL.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TallSkullBlockEntity>> TALL_SKULL = BLOCK_ENTITY.register("tall_skull",
             () -> BlockEntityType.Builder.of(TallSkullBlockEntity::new, ModBlocks.TALL_SKULL_BLOCK.get(), ModBlocks.WALL_TALL_SKULL_BLOCK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> MOD_CHEST = BLOCK_ENTITY.register("chest",
+            () -> BlockEntityType.Builder.of(ModChestBlockEntity::new,
+                    ModBlocks.HAUNTED_CHEST.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> MOD_TRAPPED_CHEST = BLOCK_ENTITY.register("trapped_chest",
+            () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new,
+                    ModBlocks.TRAPPED_HAUNTED_CHEST.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN_BLOCK_ENTITIES = BLOCK_ENTITY.register("sign",
             () -> BlockEntityType.Builder.of(ModSignBlockEntity::new,

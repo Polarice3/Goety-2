@@ -63,6 +63,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -397,7 +398,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             damage = 0.0F;
         }
 
-        if (source.getDirectEntity() instanceof ExplosiveProjectile) {
+        if (source.getDirectEntity() instanceof ExplosiveProjectile || source.getDirectEntity() instanceof Fireball) {
             damage = (float)((double)damage * 0.15D);
         }
 
@@ -610,6 +611,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (smite > 0){
                 int smite2 = Mth.clamp(smite, 1, 5);
                 int duration = ModMathHelper.ticksToSeconds(smite2);
+                if (this.Regen()){
+                    duration /= 2;
+                }
                 this.antiRegenTotal = duration;
                 this.antiRegen = duration;
                 if (this.level instanceof ServerLevel){

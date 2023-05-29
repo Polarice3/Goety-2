@@ -8,9 +8,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public abstract class SummonSpells extends Spells{
     private final TargetingConditions summonCountTargeting = TargetingConditions.DEFAULT.range(64.0D).ignoreInvisibilityTesting();
@@ -26,10 +30,6 @@ public abstract class SummonSpells extends Spells{
     public boolean NecroMastery(LivingEntity entityLiving){
         return CuriosFinder.hasUndeadCrown(entityLiving);
     }
-
-/*    public boolean SummonMastery(LivingEntity entityLiving){
-        return RobeArmorFinder.FindLeggings(entityLiving);
-    }*/
 
     public abstract void commonResult(ServerLevel worldIn, LivingEntity entityLiving);
 
@@ -69,6 +69,16 @@ public abstract class SummonSpells extends Spells{
         }*/
         MobEffectInstance effectinstance = new MobEffectInstance(ModEffects.SUMMON_DOWN.get(), s, i, false, false, true);
         entityLiving.addEffect(effectinstance);
+    }
+
+    public void setTarget(ServerLevel serverLevel, LivingEntity source, Mob summoned){
+        HitResult rayTraceResult = this.rayTrace(serverLevel, source, 16, 3);
+        if (rayTraceResult instanceof EntityHitResult){
+            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+            if (target instanceof LivingEntity living) {
+                summoned.setTarget(living);
+            }
+        }
     }
 
     public int SummonLimit(LivingEntity entityLiving){

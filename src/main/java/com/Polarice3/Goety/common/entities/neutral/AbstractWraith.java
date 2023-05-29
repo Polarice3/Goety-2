@@ -371,6 +371,7 @@ public class AbstractWraith extends Summoned {
                     BlockPos blockPos1 = new BlockPos(d3, d4, d5);
                     if (!(this.level.canSeeSky(blockPos1) && this.level.isDay()
                             && !(this.fireImmune() || this.hasEffect(MobEffects.FIRE_RESISTANCE)))) {
+                        /*Makes it so that the Wraith teleports to a position where they can see its target.*/
                         AbstractWraith wraith = new Wraith(ModEntityType.WRAITH.get(), this.level);
                         wraith.setPos(d3, d4, d5);
                         wraith.getLookControl().setLookAt(this.getTarget(), 100.0F, 100.0F);

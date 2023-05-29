@@ -82,6 +82,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<ShoutParticleOption>> SHOUT = PARTICLE_TYPES.register("shout",
+            () -> new ParticleType<>(false, ShoutParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShoutParticleOption.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<SculkBubbleParticleOption>> SCULK_BUBBLE = PARTICLE_TYPES.register("sculk_bubble",
             () -> new ParticleType<>(false, SculkBubbleParticleOption.DESERIALIZER) {
                 @Override

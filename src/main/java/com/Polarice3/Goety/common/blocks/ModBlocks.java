@@ -2,9 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.block.ModISTER;
-import com.Polarice3.Goety.common.items.EnchantableBlockItem;
-import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.TallSkullItem;
+import com.Polarice3.Goety.common.items.*;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
@@ -56,6 +54,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SCULK_GROWER = enchantedRegister("sculk_grower", SculkGrowerBlock::new);
     public static final RegistryObject<Block> SPIDER_NEST = register("spider_nest", SpiderNestBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> FORBIDDEN_GRASS = register("forbidden_grass", ForbiddenGrassBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> HOOK_BELL = register("hook_bell", HookBellBlock::new);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
 
@@ -103,6 +102,10 @@ public class ModBlocks {
             () -> new FenceBlock(Block.Properties.of(Material.WOOD, HAUNTED_PLANKS.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> HAUNTED_DOOR = register("haunted_door",
             () -> new DoorBlock(Block.Properties.of(Material.WOOD, HAUNTED_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Block> HAUNTED_BOOKSHELF = register("haunted_bookshelf",
+            () -> new BookshelfBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GRAY).strength(1.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModChestBlock> HAUNTED_CHEST = isterRegister("haunted_chest", () -> new ModChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_HAUNTED_CHEST = isterRegister("trapped_haunted_chest", () -> new ModTrappedChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> HAUNTED_SIGN = register("haunted_sign",
             () -> new ModStandSignBlock(Block.Properties.of(Material.WOOD, HAUNTED_PLANKS.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.HAUNTED), false);
     public static final RegistryObject<Block> HAUNTED_WALL_SIGN = register("haunted_wall_sign",
@@ -201,6 +204,18 @@ public class ModBlocks {
             ModItems.ITEMS.register(string,
                     () -> new BlockItemBase(block.get()));
         }
+        return block;
+    }
+
+    public static <T extends Block> RegistryObject<T> isterRegister(final String string, final Supplier<? extends T> sup){
+        return isterRegister(string, sup, LootTableType.DROP);
+    }
+
+    public static <T extends Block> RegistryObject<T> isterRegister(final String string, final Supplier<? extends T> sup, LootTableType lootTableType) {
+        RegistryObject<T> block = BLOCKS.register(string, sup);
+        BLOCK_LOOT.put(block.getId(), new BlockLootSetting(false, lootTableType));
+        ModItems.ITEMS.register(string,
+                () -> new BlockISTERItem(block.get()));
         return block;
     }
 

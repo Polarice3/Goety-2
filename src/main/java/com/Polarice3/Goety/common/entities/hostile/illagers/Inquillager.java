@@ -327,7 +327,7 @@ public class Inquillager extends HuntingIllagerEntity implements ICustomAttribut
                     double d2 = livingEntity.getZ() + vector3d.z - this.inquillager.getZ();
                     float f = Mth.sqrt((float) (d0 * d0 + d2 * d2));
                     Potion potion;
-                    if (livingEntity.getMobType() == MobType.UNDEAD) {
+                    if (livingEntity.isInvertedHealAndHarm()) {
                         potion = Potions.HEALING;
                     } else {
                         potion = Potions.HARMING;

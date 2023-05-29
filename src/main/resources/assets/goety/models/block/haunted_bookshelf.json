@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/haunted_planks",
+    "side": "goety:block/haunted_bookshelf"
+  }
+}

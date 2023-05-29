@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells;
+package com.Polarice3.Goety.common.magic.spells.summon;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
@@ -111,6 +111,7 @@ public class ZombieSpell extends SummonSpells {
                 summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
             }
             this.SummonSap(entityLiving, summonedentity);
+            this.setTarget(worldIn, entityLiving, summonedentity);
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
             for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
@@ -156,6 +157,7 @@ public class ZombieSpell extends SummonSpells {
                     summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
                 }
                 this.SummonSap(entityLiving, summonedentity);
+                this.setTarget(worldIn, entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
                 for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
                     worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);

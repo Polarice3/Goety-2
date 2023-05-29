@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.magic.spells.*;
+import com.Polarice3.Goety.common.magic.spells.summon.*;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.world.item.*;

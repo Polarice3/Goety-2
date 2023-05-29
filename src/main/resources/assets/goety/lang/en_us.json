@@ -38,6 +38,7 @@
   "entity.goety.wartling":"Wartling",
   "entity.goety.zombie_villager_servant":"Zombie Villager Servant",
   "entity.goety.skeleton_villager_servant":"Skeleton Villager Servant",
+  "entity.goety.villaghoul":"Villaghoul",
   "entity.goety.zpiglin_servant":"Zombified Piglin Servant",
   "entity.goety.zpiglin_brute_servant":"Zombified Piglin Brute Servant",
   "entity.goety.malghast":"Malghast",
@@ -109,6 +110,7 @@
   "item.goety.conquillager_spawn_egg": "Conquillager Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
+  "item.goety.villaghoul_spawn_egg": "Villaghoul Spawn Egg",
   "item.goety.zpiglin_servant_spawn_egg": "Zombified Piglin Servant Spawn Egg",
   "item.goety.zpiglin_brute_servant_spawn_egg": "Zombified Piglin Brute Servant Spawn Egg",
 
@@ -267,6 +269,9 @@
   "block.goety.haunted_pressure_plate": "Haunted Pressure Plate",
   "block.goety.haunted_sign": "Haunted Sign",
   "block.goety.haunted_wall_sign": "Haunted Wall Sign",
+  "block.goety.haunted_bookshelf": "Haunted Bookshelf",
+  "block.goety.haunted_chest": "Haunted Chest",
+  "block.goety.trapped_haunted_chest": "Trapped Haunted Chest",
   "block.goety.dark_pressure_plate": "Dark Pressure Plate",
   "block.goety.stripped_haunted_log": "Stripped Haunted Log",
   "block.goety.stripped_haunted_wood": "Stripped Haunted Wood",
@@ -282,6 +287,7 @@
   "block.goety.soul_mender": "Soul Menderer",
 
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
+  "block.goety.hook_bell": "Hook Bell",
   "block.goety.sculk_devourer": "Sculk Devourer",
   "block.goety.sculk_converter": "Sculk Converter",
   "block.goety.sculk_relay": "Sculk Relay",

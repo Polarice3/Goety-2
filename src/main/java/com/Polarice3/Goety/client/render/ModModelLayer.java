@@ -20,6 +20,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");
     public static final ModelLayerLocation SKELETON_VILLAGER_SERVANT = register("skeleton_villager_servant");
+    public static final ModelLayerLocation VILLAGHOUL = register("villaghoul");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation WRAITH = register("wraith");

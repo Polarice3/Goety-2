@@ -1,18 +1,35 @@
 package com.Polarice3.Goety.client.render.block;
 
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
+import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Chest Item Rendering based of codes from @TeamTwilight
+ */
 public class ModISTER extends BlockEntityWithoutLevelRenderer {
+    private final Map<Block, ModChestBlockEntity> chestEntities = Util.make(new HashMap<>(), map -> {
+        makeInstance(map, ModBlocks.HAUNTED_CHEST);
+        makeInstance(map, ModBlocks.TRAPPED_HAUNTED_CHEST);
+    });
 
     public ModISTER() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -38,7 +55,14 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                 } else {
                     TallSkullBlockEntityRenderer.renderSkull(null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
+            } else if (block instanceof ModChestBlock) {
+                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), pMatrixStack, pBuffer, pLight, pOverlay);
             }
         }
+    }
+
+    public static void makeInstance(Map<Block, ModChestBlockEntity> map, RegistryObject<? extends ChestBlock> registryObject) {
+        ChestBlock block = registryObject.get();
+        map.put(block, new ModChestBlockEntity(BlockPos.ZERO, block.defaultBlockState()));
     }
 }

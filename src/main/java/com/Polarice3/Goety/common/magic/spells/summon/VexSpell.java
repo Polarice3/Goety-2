@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells;
+package com.Polarice3.Goety.common.magic.spells.summon;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -97,6 +97,7 @@ public class VexSpell extends SummonSpells {
                         vexentity.setItemSlot(EquipmentSlot.MAINHAND, vexentity.getMainHandItem());
                     }
                     this.SummonSap(entityLiving, vexentity);
+                    this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
                 }
                 worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -127,6 +128,7 @@ public class VexSpell extends SummonSpells {
                         vexentity.setItemSlot(EquipmentSlot.MAINHAND, vexentity.getMainHandItem());
                     }
                     this.SummonSap(entityLiving, vexentity);
+                    this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
                 }
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);

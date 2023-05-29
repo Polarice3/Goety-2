@@ -12,6 +12,8 @@ import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
 import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
 import com.Polarice3.Goety.client.render.model.*;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -38,11 +40,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientInitEvents {
@@ -157,7 +161,10 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.ICE_BOUQUET_TRAP.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SCULK_DEVOURER.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FORBIDDEN_GRASS.get(), ModBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MOD_CHEST.get(), ModChestRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MOD_TRAPPED_CHEST.get(), ModChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityType.NETHER_METEOR.get(), NetherMeteorRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_FIREBALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 0.75F, true));
@@ -216,6 +223,18 @@ public class ClientInitEvents {
     }
 
     @SubscribeEvent
+    public static void textureStitching(TextureStitchEvent.Pre event){
+        if (event.getAtlas().location() == Sheets.CHEST_SHEET) {
+            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block ->
+            {
+                if (block instanceof ModChestBlock){
+                    ModChestRenderer.stitchChests(event, block);
+                }
+            });
+        }
+    }
+
+    @SubscribeEvent
     public static void registerFactories(RegisterParticleProvidersEvent event) {
         event.register(ModParticleTypes.NONE.get(), NoneParticle.Provider::new);
         event.register(ModParticleTypes.TOTEM_EFFECT.get(), SpellParticle.Provider::new);
@@ -239,6 +258,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.register(ModParticleTypes.SHOUT.get(), ShoutParticle.RedProvider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
     }
 

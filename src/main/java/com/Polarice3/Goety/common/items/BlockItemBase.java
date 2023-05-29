@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.blocks;
+package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import net.minecraft.world.item.BlockItem;
