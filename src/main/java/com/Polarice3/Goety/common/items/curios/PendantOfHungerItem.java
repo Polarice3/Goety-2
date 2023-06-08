@@ -6,6 +6,7 @@ import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -14,12 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PendantOfHungerItem extends SingleStackItem implements ICurioItem {
+public class PendantOfHungerItem extends SingleStackItem {
     private static final String ROTTEN_FLESH = "Rotten Flesh Count";
 
     @Override
@@ -78,6 +78,35 @@ public class PendantOfHungerItem extends SingleStackItem implements ICurioItem {
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return oldStack.getItem() != newStack.getItem();
+    }
+
+    public int getBarColor(ItemStack stack) {
+        float f = Math.max(0.0F, (float) (1.0F - amountColor(stack))/2.0F);
+        return Mth.hsvToRgb(1.0F, f, f);
+    }
+
+    public double amountColor(ItemStack stack){
+        if (stack.getTag() != null) {
+            int i = stack.getTag().getInt(ROTTEN_FLESH);
+            return 1.0D - (i / (double) MainConfig.PendantOfHungerLimit.get());
+        } else {
+            return 1.0D;
+        }
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return stack.getTag() != null;
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack){
+        if (stack.getTag() != null) {
+            int power = stack.getTag().getInt(ROTTEN_FLESH);
+            return Math.round((power * 13.0F / MainConfig.PendantOfHungerLimit.get()));
+        } else {
+            return 0;
+        }
     }
 
     @Override

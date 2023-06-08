@@ -34,6 +34,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
@@ -50,6 +51,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
@@ -61,6 +63,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> IceChunkDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> UpdraftBlastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> LightningDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveMaxDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
@@ -83,6 +87,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRadiusLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRangeLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
@@ -142,6 +148,8 @@ public class SpellConfig {
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
         RecallCost = BUILDER.comment("Recall Spell Cost, Default: 1000")
                 .defineInRange("recallCost", 1000, 0, Integer.MAX_VALUE);
+        ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 40")
+                .defineInRange("shockwaveCost", 40, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -174,6 +182,8 @@ public class SpellConfig {
                 .defineInRange("lightningTime", 60, 0, 72000);
         RecallDuration = BUILDER.comment("Time to cast Recall Spell, Default: 160")
                 .defineInRange("recallTime", 160, 0, 72000);
+        ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 80")
+                .defineInRange("shockwaveTime", 80, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();
@@ -192,6 +202,8 @@ public class SpellConfig {
         BUILDER.push("Spell Power");
         FangDamage = BUILDER.comment("How much base damage Magic Fangs deals, Default: 6.0")
                 .defineInRange("fangDamage", 6.0, 1.0, Double.MAX_VALUE);
+        FangGainSouls = BUILDER.comment("Amount of Soul Energy Magic Fangs gives when hitting mob(s), Default: 1")
+                .defineInRange("fangGainSouls", 1, 0, Integer.MAX_VALUE);
         FireballDamage = BUILDER.comment("How much base damage Fireballs deal when directly hitting a mob, Default: 5.0")
                 .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
         LavaballDamage = BUILDER.comment("How much base damage Lavaballs deal when directly hitting a mob, Default: 6.0")
@@ -200,14 +212,18 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullDamage", 5.0, 1.0, Double.MAX_VALUE);
         SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")
                 .defineInRange("soulBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
-        NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 10.0")
-                .defineInRange("necroBoltDamage", 10.0, 1.0, Double.MAX_VALUE);
+        NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 8.0")
+                .defineInRange("necroBoltDamage", 8.0, 1.0, Double.MAX_VALUE);
         IceChunkDamage = BUILDER.comment("How much base damage Ice Chunks deals, Default: 8.0")
                 .defineInRange("iceChunkDamage", 8.0, 1.0, Double.MAX_VALUE);
         UpdraftBlastDamage = BUILDER.comment("How much base damage Updraft Blasts deals, Default: 5.0")
                 .defineInRange("updraftBlastDamage", 5.0, 1.0, Double.MAX_VALUE);
         LightningDamage = BUILDER.comment("How much base damage Lightning from the spell deals, Default: 5.0")
                 .defineInRange("lightningDamage", 5.0, 1.0, Double.MAX_VALUE);
+        ShockwaveDamage = BUILDER.comment("How much base minimum damage Shockwave Spell deals, Default: 5.0")
+                .defineInRange("shockwaveMinDamage", 5.0, 1.0, Double.MAX_VALUE);
+        ShockwaveMaxDamage = BUILDER.comment("How much base maximum damage Shockwave Spell deals, Default: 24.0")
+                .defineInRange("shockwaveMaxDamage", 24.0, 2.0, Double.MAX_VALUE);
         SonicBoomDamage = BUILDER.comment("How much base damage Sonic Boom Spell deals, Default: 10.0")
                 .defineInRange("sonicBoomDamage", 10.0, 1.0, Double.MAX_VALUE);
         BUILDER.pop();

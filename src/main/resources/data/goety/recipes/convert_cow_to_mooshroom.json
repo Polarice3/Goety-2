@@ -1,0 +1,32 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert",
+  "activation_item": {
+    "item": "minecraft:red_mushroom"
+  },
+  "craftType": "animation",
+  "entity_to_convert": {
+    "tag": "forge:cows",
+    "display_name": "entity.minecraft.cow"
+  },
+  "entity_to_convert_into": "minecraft:mooshroom",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

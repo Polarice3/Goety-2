@@ -37,11 +37,15 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> PendantOfHungerLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletChargeConsume;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletMax;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkAnvilRepairCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkAnvilSoulCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulMenderCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
@@ -79,6 +83,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilNoCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
@@ -142,6 +147,12 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
+        DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if No Cap is enabled, or the level cap if disabled, Default: 40")
+                .defineInRange("darkAnvilRepairCost", 40, 1, Integer.MAX_VALUE);
+        DarkAnvilNoCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: true")
+                .define("darkAnvilNoCap", true);
+        DarkAnvilSoulCost = BUILDER.comment("How much Soul Energy is required for the Dark Anvil to repair itself, Default: 1000")
+                .defineInRange("darkAnvilSoulCost", 1000, 0, Integer.MAX_VALUE);
         SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per the configured amount of seconds, Default: 1")
                 .defineInRange("soulMenderCost", 1, 0, Integer.MAX_VALUE);
         SoulMenderSeconds = BUILDER.comment("How many seconds the Soul Menderer repairs 1 durability from an item, Default: 0.5")
@@ -198,6 +209,10 @@ public class MainConfig {
                 .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
         PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 256")
                 .defineInRange("pendantOfHungerLimit", 256, 1, Integer.MAX_VALUE);
+        SeaAmuletChargeConsume = BUILDER.comment("How much Charges the Sea Amulet needs to consume to function, Default: 1")
+                .defineInRange("seaAmuletChargeConsume", 1, 1, Integer.MAX_VALUE);
+        SeaAmuletMax = BUILDER.comment("The total amount of Charges a Sea Amulet can hold, Default: 256")
+                .defineInRange("seaAmuletMax", 256, 1, Integer.MAX_VALUE);
         WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
                 .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
         WindRobeCape = BUILDER.comment("Render Wind Robe Cape, Default: true")

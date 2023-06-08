@@ -1,0 +1,23 @@
+{
+  "name": "Necrotic Brazier",
+  "icon": "goety:necro_brazier",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Deep Dark holds a lot of Necrotic energies, as evidence by the abundance of Sculk that doted the underbiome. By infusing a Shade Brazier with Necrotic elements, you've created a device that can channel the dark energies of the biome to create all kinds of items."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_brazier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Necrotic Brazier burns with a green flame that seems to not harm the Undead, and can only burn if placed within the Deep Dark and ontop of a Cursed Cage with a Totem or Transfer Gem in it. The Brazier takes in multiple items to craft one, and the items can either be placed by hand or dropped on top of it. It will not accept any items dropped on to it if it's in the process of crafting."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Necrotic Brazier will slowly take Soul Energy from the Cage, only completing, and spewing out the resulting item, once it has taken enough consuming all the items placed in it. Breaking the Cursed Cage, not having enough Soul Energy, or attempting to place or remove an item from the Brazier will cause it to spit out all of its items, wasting any consumed Soul Energy."
+    }
+  ]
+}

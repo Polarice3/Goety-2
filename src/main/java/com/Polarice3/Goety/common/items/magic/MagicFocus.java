@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spells;
@@ -46,6 +47,10 @@ public class MagicFocus extends Item {
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get();
         }
+        if (stack.getItem() == ModItems.SHOCKWAVE_FOCUS.get()){
+            return enchantment == ModEnchantments.POTENCY.get()
+                    || enchantment == ModEnchantments.RADIUS.get();
+        }
         if (stack.getItem() == ModItems.UPDRAFT_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RADIUS.get()
@@ -55,7 +60,8 @@ public class MagicFocus extends Item {
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.BURNING.get()
-                    || enchantment == ModEnchantments.ABSORB.get();
+                    || enchantment == ModEnchantments.ABSORB.get()
+                    || (SpellConfig.FangGainSouls.get() > 0 && enchantment == ModEnchantments.SOUL_EATER.get());
         }
         if (stack.getItem() == ModItems.ROTTING_FOCUS.get()
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()

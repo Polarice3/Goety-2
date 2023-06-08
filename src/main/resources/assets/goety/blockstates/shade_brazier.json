@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/shade_brazier" },
+    "lit=false": { "model": "goety:block/shade_brazier_unlit" }
+  }
+}

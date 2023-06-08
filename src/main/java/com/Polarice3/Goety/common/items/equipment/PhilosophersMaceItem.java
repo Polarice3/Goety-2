@@ -3,13 +3,12 @@ package com.Polarice3.Goety.common.items.equipment;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -26,7 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
-public class PhilosophersMaceItem extends Item implements Vanishable {
+public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepair {
     private final Multimap<Attribute, AttributeModifier> maceAttributes;
 
     public PhilosophersMaceItem() {
@@ -35,27 +34,6 @@ public class PhilosophersMaceItem extends Item implements Vanishable {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", MainConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-2.4F, AttributeModifier.Operation.ADDITION));
         this.maceAttributes = builder.build();
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (MainConfig.SoulRepair.get()) {
-            if (entityIn instanceof Player player) {
-                if (!(player.swinging && isSelected)) {
-                    if (stack.isDamaged()) {
-                        if (SEHelper.getSoulsContainer(player)){
-                            if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get())){
-                                if (player.tickCount % 20 == 0) {
-                                    stack.setDamageValue(stack.getDamageValue() - 1);
-                                    SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
@@ -113,7 +91,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable {
     }
 
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return pRepair.getItem() == ModItems.CURSED_INGOT.get();
+        return pRepair.getItem() == ModItems.CURSED_METAL_INGOT.get();
     }
 
 }

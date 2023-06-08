@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/necro_brazier" },
+    "lit=false": { "model": "goety:block/necro_brazier_deactivated" }
+  }
+}

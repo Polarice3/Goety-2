@@ -19,6 +19,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -30,6 +32,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class BlockFinder {
@@ -304,4 +307,45 @@ public class BlockFinder {
 
     }
 
+    public static BlockState findBlock(Level pLevel, BlockPos initial, int range){
+        return findBlock(pLevel, initial, range, range, range);
+    }
+
+    public static BlockState findBlock(Level pLevel, BlockPos initial, int xRange, int yRange, int zRange){
+        BlockState blockState = pLevel.getBlockState(initial);
+        for (int i = -xRange; i <= xRange; ++i) {
+            for (int j = -yRange; j <= yRange; ++j) {
+                for (int k = -zRange; k <= zRange; ++k) {
+                    BlockPos blockpos1 = initial.offset(i, j, k);
+                    blockState = pLevel.getBlockState(blockpos1);
+                }
+            }
+        }
+        return blockState;
+    }
+
+    @Nullable
+    public static BlockEntity findBlockEntity(BlockEntityType<?> blockEntityType, Level pLevel, BlockPos initial, int range){
+        return findBlockEntity(blockEntityType, pLevel, initial, range, range, range);
+    }
+
+    @Nullable
+    public static BlockEntity findBlockEntity(BlockEntityType<?> blockEntityType, Level pLevel, BlockPos initial, int xRange, int yRange, int zRange){
+        for (int i = -xRange; i <= xRange; ++i) {
+            for (int j = -yRange; j <= yRange; ++j) {
+                for (int k = -zRange; k <= zRange; ++k) {
+                    BlockPos blockPos = initial.offset(i, j, k);
+                    if (pLevel.getBlockEntity(blockPos) != null){
+                        BlockEntity blockEntity = pLevel.getBlockEntity(blockPos);
+                        if (blockEntity != null){
+                            if (blockEntity.getType() == blockEntityType){
+                                return blockEntity;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

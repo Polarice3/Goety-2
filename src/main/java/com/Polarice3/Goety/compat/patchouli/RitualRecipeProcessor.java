@@ -77,6 +77,18 @@ public class RitualRecipeProcessor implements IComponentProcessor {
             }
         }
 
+        if (key.equals("entity_to_convert")) {
+            if (this.recipe.getEntityToConvert() != null) {
+                return IVariable.wrap(I18n.get("jei.goety.convert", I18n.get(this.recipe.getEntityToConvertDisplayName())));
+            }
+        }
+
+        if (key.equals("entity_to_convert_into")) {
+            if (this.recipe.getEntityToConvertInto() != null) {
+                return IVariable.wrap(I18n.get("jei.goety.convertInto", I18n.get(this.recipe.getEntityToConvertInto().getDescriptionId())));
+            }
+        }
+
         if (key.startsWith("soulCost")) {
             return IVariable.wrap(I18n.get("jei.goety.soulCost", this.recipe.getSoulCost()));
         }

@@ -19,6 +19,7 @@ public class ModTags {
 
         public static final TagKey<Block> HAUNTED_LOGS = tag("haunted_logs");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
+        public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
 
         private static TagKey<Block> tag(String name)
         {

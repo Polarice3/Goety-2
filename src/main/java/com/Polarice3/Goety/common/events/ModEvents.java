@@ -29,7 +29,10 @@ import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
+import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
@@ -38,8 +41,10 @@ import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -71,6 +76,7 @@ import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
@@ -393,6 +399,26 @@ public class ModEvents {
                 if (pillagerEntity.getTarget() == player) {
                     if (!pillagerEntity.isAggressive()) {
                         pillagerEntity.setAggressive(true);
+                    }
+                }
+            }
+        }
+
+        if (event.phase == TickEvent.Phase.END) {
+            Inventory inventory = player.getInventory();
+
+            List<NonNullList<ItemStack>> compartments = ImmutableList.of(inventory.items, inventory.armor, inventory.offhand);
+
+            for (NonNullList<ItemStack> nonnulllist : compartments) {
+                for (int i = 0; i < nonnulllist.size(); ++i) {
+                    if (!nonnulllist.get(i).isEmpty()) {
+                        ItemStack itemStack = nonnulllist.get(i);
+                        if (itemStack.getItem() instanceof ISoulRepair soulRepair) {
+                            soulRepair.repairTick(nonnulllist.get(i), player, inventory.selected == i);
+                        }
+                        if (itemStack.getItem() instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK) {
+                            ItemHelper.repairTick(itemStack, player, inventory.selected == i);
+                        }
                     }
                 }
             }
@@ -923,7 +949,7 @@ public class ModEvents {
                     }
                 }
                 if (killed.getType() == EntityType.SPIDER){
-                    if (CuriosFinder.hasCurio(player, ModItems.WARLOCK_SASH.get()) || CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())){
+                    if (CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WarlockGarmentItem)){
                         if (world.random.nextFloat() <= 0.075F){
                             for (int i = 0; i < (world.random.nextInt(2) + 1); ++i) {
                                 killed.spawnAtLocation(new ItemStack(ModItems.SPIDER_EGG.get()));

@@ -1,15 +1,13 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.projectiles.ScytheSlash;
+import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CScytheStrikePacket;
-import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -21,31 +19,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class DeathScytheItem extends DarkScytheItem{
+public class DeathScytheItem extends DarkScytheItem implements ISoulRepair {
 
     public DeathScytheItem() {
         super(ModTiers.DEATH);
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (MainConfig.SoulRepair.get()) {
-            if (entityIn instanceof Player player) {
-                if (!(player.swinging && isSelected)) {
-                    if (stack.isDamaged()) {
-                        if (SEHelper.getSoulsContainer(player)){
-                            if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get())){
-                                if (player.tickCount % 20 == 0) {
-                                    stack.setDamageValue(stack.getDamageValue() - 1);
-                                    SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     public static void emptyClick(ItemStack stack) {

@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.MainConfig;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -53,5 +55,24 @@ public class ItemHelper {
             }
         }
         return foundStack;
+    }
+
+    public static void repairTick(ItemStack stack, Entity entityIn, boolean isSelected){
+        if (MainConfig.SoulRepair.get()) {
+            if (entityIn instanceof Player player) {
+                if (!(player.swinging && isSelected)) {
+                    if (stack.isDamaged()) {
+                        if (SEHelper.getSoulsContainer(player)){
+                            if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get())){
+                                if (player.tickCount % 20 == 0) {
+                                    stack.setDamageValue(stack.getDamageValue() - 1);
+                                    SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

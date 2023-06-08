@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
+import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
@@ -131,6 +132,13 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<BerserkFungus>> BERSERK_FUNGUS = register("berserk_fungus",
             EntityType.Builder.<BerserkFungus>of(BerserkFungus::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<ObsidianMonolith>> OBSIDIAN_MONOLITH = register("obsidian_monolith",
+            EntityType.Builder.of(ObsidianMonolith::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1.0F, 3.1F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
 

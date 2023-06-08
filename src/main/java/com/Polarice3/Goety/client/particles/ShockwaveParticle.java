@@ -106,4 +106,61 @@ public class ShockwaveParticle extends TextureSheetParticle {
          return shriekparticle;
       }
    }
+
+   /**
+    * Modified Vanilla's Firework Particle Ball
+    */
+   public static class Explosion extends NoRenderParticle {
+      private int life;
+      private final int radius;
+      private final ParticleEngine engine;
+
+      public Explosion(ClientLevel p_106757_, double p_106758_, double p_106759_, double p_106760_, double p_106761_, double p_106762_, double p_106763_, int radius, ParticleEngine p_106764_) {
+         super(p_106757_, p_106758_, p_106759_, p_106760_);
+         this.xd = p_106761_;
+         this.yd = p_106762_;
+         this.zd = p_106763_;
+         this.engine = p_106764_;
+         this.radius = radius;
+         this.lifetime = 8;
+      }
+
+      public void tick() {
+         if (this.life % 2 == 0) {
+            this.createParticleBall(0.5D, this.radius);
+         }
+
+         ++this.life;
+         if (this.life > this.lifetime) {
+            this.remove();
+         }
+
+      }
+
+      private void createParticle(double p_106768_, double p_106769_, double p_106770_, double p_106771_, double p_106772_, double p_106773_) {
+         this.engine.createParticle(ModParticleTypes.SOUL_EXPLODE_BITS.get(), p_106768_, p_106769_, p_106770_, p_106771_, p_106772_, p_106773_);
+      }
+
+      private void createParticleBall(double p_106779_, int p_106780_) {
+         double d0 = this.x;
+         double d1 = this.y;
+         double d2 = this.z;
+
+         for(int i = -p_106780_; i <= p_106780_; ++i) {
+            for(int j = -p_106780_; j <= p_106780_; ++j) {
+               for(int k = -p_106780_; k <= p_106780_; ++k) {
+                  double d3 = (double)j + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
+                  double d4 = (double)i + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
+                  double d5 = (double)k + (this.random.nextDouble() - this.random.nextDouble()) * 0.5D;
+                  double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / p_106779_ + this.random.nextGaussian() * 0.05D;
+                  this.createParticle(d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+                  if (i != -p_106780_ && i != p_106780_ && j != -p_106780_ && j != p_106780_) {
+                     k += p_106780_ * 2 - 1;
+                  }
+               }
+            }
+         }
+
+      }
+   }
 }

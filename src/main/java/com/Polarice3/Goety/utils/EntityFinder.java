@@ -80,4 +80,8 @@ public class EntityFinder {
     public static void sendEntityUpdatePacket(Player player, LivingEntity livingEntity) {
         ModNetwork.sendTo(player, new EntityUpdatePacket(livingEntity.getUUID(), livingEntity.getPersistentData()));
     }
+
+    public static void sendEntityUpdatePacket(LivingEntity livingEntity) {
+        ModNetwork.sendToALL(new EntityUpdatePacket(livingEntity.getUUID(), livingEntity.getPersistentData()));
+    }
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.util;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -64,6 +65,9 @@ public class SummonApostle extends Entity {
             serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + Math.cos(this.tickCount * 0.25 + Math.PI) * f, this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25 + Math.PI) * f, 0, 0, 0, 0, 0.5F);
             for(int i = 0; i < 2; ++i) {
                 serverWorld.sendParticles(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 0, (serverWorld.random.nextDouble() - 0.5D) * 2.0D, -serverWorld.random.nextDouble(), (serverWorld.random.nextDouble() - 0.5D) * 2.0D, 0.5D);
+            }
+            if (serverWorld.dimension() == Level.NETHER) {
+                ServerParticleUtil.gatheringParticles(ParticleTypes.ENCHANT, this, serverWorld);
             }
             if (this.tickCount == 450){
                 for(int k = 0; k < 200; ++k) {

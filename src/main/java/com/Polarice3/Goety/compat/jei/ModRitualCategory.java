@@ -168,16 +168,31 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         RenderSystem.disableBlend();
 
         int infotextY = 0;
+        int initial = 14;
         if (recipe.requiresSacrifice()) {
-            infotextY += 13;
+            infotextY += initial;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
                     I18n.get("jei.goety.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
+        int sequence = 8;
 
         if (recipe.getEntityToSummon() != null) {
-            infotextY += 13;
+            infotextY += infotextY == 0 ? initial : sequence;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
                     I18n.get("jei.goety.summon", I18n.get(recipe.getEntityToSummon().getDescriptionId())),
+                    84, infotextY);
+        }
+
+        if (recipe.getEntityToConvert() != null) {
+            infotextY += infotextY == 0 ? initial : sequence;
+            this.drawStringCentered(stack, Minecraft.getInstance().font,
+                    I18n.get("jei.goety.convert", I18n.get(recipe.getEntityToConvertDisplayName())), 84, infotextY);
+        }
+
+        if (recipe.getEntityToConvertInto() != null) {
+            infotextY += infotextY == 0 ? initial : sequence;
+            this.drawStringCentered(stack, Minecraft.getInstance().font,
+                    I18n.get("jei.goety.convertInto", I18n.get(recipe.getEntityToConvertInto().getDescriptionId())),
                     84, infotextY);
         }
 

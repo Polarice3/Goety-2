@@ -1,0 +1,21 @@
+{
+  "name": "Dark Anvil",
+  "icon": "goety:dark_anvil",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Anvils can be very annoying to deal with. Not only can they break, they also demand a lot, and have a limit of, experience they can take. With Dark Metal, you are able to create a much better Anvil."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_anvil"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Dark Anvil can repair itself when placed on top of a Cursed Cage, where it would uncommonly take a large amount of Soul Energy from it to mend itself. Using the Dark Anvil does not multiply the repair cost of the item by 2, but will add by 1. Instead of preventing you from repairing/enchanting items if the level cost is too high, the cost will stay at the level limit, allowing the item to be used on the anvil regardless."
+    }
+  ]
+}

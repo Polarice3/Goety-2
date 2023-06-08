@@ -27,6 +27,14 @@ public class ModRituals {
             RITUALS.register("summon_tamed",
                     () -> new ModRitualFactory((ritual) -> new SummonRitual(ritual, true)));
 
+    public static final RegistryObject<ModRitualFactory> CONVERT_RITUAL =
+            RITUALS.register("convert",
+                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, false)));
+
+    public static final RegistryObject<ModRitualFactory> CONVERT_TAMED_RITUAL =
+            RITUALS.register("convert_tamed",
+                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, true)));
+
 }
 /*
  * MIT License

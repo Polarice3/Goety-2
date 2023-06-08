@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:necro_brazier"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_necro_brazier.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_necro_brazier.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "necro_brazier": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:necro_brazier"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "necro_brazier"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

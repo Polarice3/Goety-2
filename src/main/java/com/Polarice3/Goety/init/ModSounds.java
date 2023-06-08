@@ -70,10 +70,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
+    public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
     public static final RegistryObject<SoundEvent> WIND = create("wind");
     public static final RegistryObject<SoundEvent> UPDRAFT_BLAST = create("updraft_blast");
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");
+    public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
+    public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
 
     public static final RegistryObject<SoundEvent> SCYTHE_SWING = create("scythe_swing");
@@ -85,6 +88,10 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_THROW = create("blast_fungus_throw");
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
+
+    public static final RegistryObject<SoundEvent> ALTAR_START = create("altar_start");
+    public static final RegistryObject<SoundEvent> ALTAR_LOOP = create("altar_loop");
+    public static final RegistryObject<SoundEvent> ALTAR_FINISH = create("altar_finish");
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 

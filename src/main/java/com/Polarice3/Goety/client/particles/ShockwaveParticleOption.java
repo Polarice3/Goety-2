@@ -17,7 +17,7 @@ public class ShockwaveParticleOption implements ParticleOptions {
          return p_235954_.delay;
       })).apply(p_235952_, ShockwaveParticleOption::new);
    });
-   public static final Deserializer<ShockwaveParticleOption> DESERIALIZER = new Deserializer<ShockwaveParticleOption>() {
+   public static final Deserializer<ShockwaveParticleOption> DESERIALIZER = new Deserializer<>() {
       public ShockwaveParticleOption fromCommand(ParticleType<ShockwaveParticleOption> p_235961_, StringReader p_235962_) throws CommandSyntaxException {
          p_235962_.expect(' ');
          int i = p_235962_.readInt();

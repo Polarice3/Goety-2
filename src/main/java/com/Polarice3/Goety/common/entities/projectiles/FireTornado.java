@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +28,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -40,6 +40,7 @@ public class FireTornado extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FireTornado.class, EntityDataSerializers.OPTIONAL_UUID);
     private int lifespan;
     private int totalLife;
+    private int spun = 0;
 
     public FireTornado(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -76,6 +77,14 @@ public class FireTornado extends AbstractHurtingProjectile {
         this.lifespan = lifespan;
     }
 
+    public int getSpun(){
+        return spun;
+    }
+
+    public void setSpun(int spun){
+        this.spun = spun;
+    }
+
     public LivingEntity getTrueOwner() {
         try {
             UUID uuid = this.getOwnerId();
@@ -96,10 +105,13 @@ public class FireTornado extends AbstractHurtingProjectile {
 
     public void tick() {
         super.tick();
-        if (this.lifespan < getTotalLife()){
+        if (this.getLifespan() < getTotalLife()){
             ++this.lifespan;
         } else {
-            this.remove();
+            this.trueRemove();
+        }
+        if (this.isInPowderSnow){
+            this.lifespan += 10;
         }
         if (this.getTrueOwner() != null){
             if (this.getTrueOwner() instanceof Mob owner){
@@ -109,19 +121,16 @@ public class FireTornado extends AbstractHurtingProjectile {
                     double d2 = livingentity.getY(0.5D) - this.getY(0.5D);
                     double d3 = livingentity.getZ() - this.getZ();
                     if (this.tickCount % 50 == 0) {
-                        FireTornado fireTornadoEntity = new FireTornado(this.level, this.getTrueOwner(), d1, d2, d3);
-                        fireTornadoEntity.setOwnerId(this.getTrueOwner().getUUID());
-                        fireTornadoEntity.setLifespan(this.getLifespan());
-                        fireTornadoEntity.setTotalLife(this.getTotalLife());
-                        fireTornadoEntity.setPos(this.getX(), this.getY(), this.getZ());
-                        this.level.addFreshEntity(fireTornadoEntity);
-                        this.remove();
+                        this.fakeRemove(d1, d2, d3);
                     }
                 } else {
-                    this.setLifespan(this.getTotalLife());
-                    this.remove();
+                    this.trueRemove();
                 }
             }
+        }
+        int maxSpun = 80;
+        if (this.getSpun() >= maxSpun){
+            this.trueRemove();
         }
         if (this.tickCount % 20 == 0){
             this.playSound(ModSounds.FIRE_TORNADO_AMBIENT.get(), 1.0F, 0.5F);
@@ -144,26 +153,25 @@ public class FireTornado extends AbstractHurtingProjectile {
                         entity.removeEffectNoUpdate(MobEffects.FIRE_RESISTANCE);
                     }
                     this.suckInMobs(entity);
-                    if (this.getTrueOwner() != null) {
-                        if (this.getTrueOwner() instanceof Apostle) {
-                            entity.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue());
-                            entity.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 1200));
-                        } else {
-                            entity.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 6.0F);
-                        }
-                    } else {
-                        if (!entity.fireImmune()) {
-                            entity.hurt(DamageSource.IN_FIRE, 6.0F);
-                        }
-                    }
-                    if (entity instanceof Player player){
-                        if (player.isBlocking()) {
-                            player.disableShield(true);
-                        }
-                    }
                 }
             }
         }
+    }
+
+    public void trueRemove(){
+        this.setLifespan(this.getTotalLife());
+        this.remove();
+    }
+
+    public void fakeRemove(double x, double y, double z){
+        FireTornado fireTornadoEntity = new FireTornado(this.level, this.getTrueOwner(), x, y, z);
+        fireTornadoEntity.setOwnerId(this.getTrueOwner().getUUID());
+        fireTornadoEntity.setLifespan(this.getLifespan());
+        fireTornadoEntity.setTotalLife(this.getTotalLife());
+        fireTornadoEntity.setSpun(this.getSpun());
+        fireTornadoEntity.setPos(this.getX(), this.getY(), this.getZ());
+        this.level.addFreshEntity(fireTornadoEntity);
+        this.remove();
     }
 
     public void remove() {
@@ -178,22 +186,53 @@ public class FireTornado extends AbstractHurtingProjectile {
                     double d3 = Mth.sin(f1) * f2;
                     serverWorld.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
                 }
+                if (this.getTrueOwner() instanceof Apostle apostle){
+                    apostle.setTornadoCoolDown(apostle.getTornadoCoolDown() + ModMathHelper.ticksToSeconds(45));
+                }
             }
         }
         this.discard();
     }
 
+    /**
+     * Based on EntityDuster lift codes from @AlexModGuy's Alex's Mobs.
+     */
     private void suckInMobs(LivingEntity livingEntity) {
-        Vec3 vector3d = new Vec3(this.getX() + 0.5, this.getY() + 0.5, this.getZ() + 0.5);
-        Vec3 vector3d1 = vector3d.subtract(livingEntity.position()).normalize();
-        float y = 0.2F;
-        if (livingEntity.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null){
-            double knockback = 1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-            vector3d1.scale(knockback);
-            y *= knockback;
+        ++this.spun;
+        float radius = 1.0F + (this.spun * 0.05F);
+        float knockBack = (float) Mth.clamp((1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)), 0, 1);
+        float angle = this.spun * -0.25F;
+        double f0 = this.getX() + radius * Mth.sin((float) (Math.PI + angle));
+        double f1 = this.getZ() + radius * Mth.cos(angle);
+        double d0 = (f0 - livingEntity.getX()) * knockBack;
+        double d1 = (f1 - livingEntity.getZ()) * knockBack;
+        if (this.xPower != 0 || this.yPower != 0 || this.zPower != 0){
+            this.fakeRemove(0, 0, 0);
         }
+        this.hurtMobs(livingEntity);
 
-        MobUtil.push(livingEntity, vector3d1.x, y, vector3d1.z);
+        MobUtil.twister(livingEntity, d0, 0.1 * knockBack, d1);
+    }
+
+    public void hurtMobs(LivingEntity living){
+        if (this.getTrueOwner() != null) {
+            if (this.getTrueOwner() instanceof Apostle) {
+                if (living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F)){
+                    living.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 1200));
+                }
+            } else {
+                living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 4.0F);
+            }
+        } else {
+            if (!living.fireImmune()) {
+                living.hurt(DamageSource.IN_FIRE, 4.0F);
+            }
+        }
+        if (living instanceof Player player){
+            if (player.isBlocking()) {
+                player.disableShield(true);
+            }
+        }
     }
 
     public double AreaOfEffect(){
@@ -238,6 +277,9 @@ public class FireTornado extends AbstractHurtingProjectile {
         if (compound.contains("TotalLife")) {
             this.setTotalLife(compound.getInt("TotalLife"));
         }
+        if (compound.contains("Spun")){
+            this.setSpun(compound.getInt("Spun"));
+        }
 
     }
 
@@ -248,6 +290,7 @@ public class FireTornado extends AbstractHurtingProjectile {
         }
         compound.putInt("Lifespan", this.getLifespan());
         compound.putInt("TotalLife", this.getTotalLife());
+        compound.putInt("Spun", this.getSpun());
     }
 
     protected ParticleOptions getTrailParticle() {

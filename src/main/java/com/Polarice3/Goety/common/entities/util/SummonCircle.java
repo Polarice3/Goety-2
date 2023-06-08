@@ -29,25 +29,28 @@ public class SummonCircle extends Entity {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(SummonCircle.class, EntityDataSerializers.OPTIONAL_UUID);
     public Entity entity;
     public boolean preMade;
+    public boolean noPos;
     public int lifeSpan = 20;
 
     public SummonCircle(EntityType<?> pType, Level pLevel) {
         super(pType, pLevel);
     }
 
-    public SummonCircle(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, boolean noPos, LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.x, pPos.y, pPos.z);
         this.entity = pEntity;
         this.preMade = preMade;
+        this.noPos = noPos;
         this.setTrueOwner(pOwner);
     }
 
-    public SummonCircle(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, boolean noPos, LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
         this.entity = pEntity;
         this.preMade = preMade;
+        this.noPos = noPos;
         this.setTrueOwner(pOwner);
     }
 
@@ -77,6 +80,7 @@ public class SummonCircle extends Entity {
             }
         }
         this.preMade = pCompound.getBoolean("preMade");
+        this.noPos = pCompound.getBoolean("noPos");
         this.lifeSpan = pCompound.getInt("lifeSpan");
     }
 
@@ -86,6 +90,7 @@ public class SummonCircle extends Entity {
             pCompound.putUUID("Owner", this.getOwnerId());
         }
         pCompound.putBoolean("preMade", this.preMade);
+        pCompound.putBoolean("noPos", this.noPos);
         pCompound.putInt("lifeSpan", this.lifeSpan);
     }
 
@@ -145,7 +150,9 @@ public class SummonCircle extends Entity {
                     }
                 }
                 if (this.entity != null){
-                    this.entity.setPos(this.getX(), this.getY(), this.getZ());
+                    if (this.noPos) {
+                        this.entity.setPos(this.getX(), this.getY(), this.getZ());
+                    }
                     if (this.preMade) {
                         if (this.entity instanceof TamableAnimal && this.getOwnerId() != null) {
                             ((TamableAnimal) this.entity).setOwnerUUID(this.getOwnerId());

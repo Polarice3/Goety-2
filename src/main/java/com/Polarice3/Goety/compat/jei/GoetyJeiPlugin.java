@@ -2,6 +2,7 @@ package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.crafting.BrazierRecipe;
 import com.Polarice3.Goety.common.crafting.CursedInfuserRecipes;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
@@ -28,6 +29,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         jeiHelper = registration.getJeiHelpers();
         registration.addRecipeCategories(new CursedInfuserCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -35,6 +37,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CURSED_INFUSER.get()), JeiRecipeTypes.CURSED_INFUSER);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_ALTAR.get()), JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PEDESTAL.get()), JeiRecipeTypes.RITUAL);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
     }
 
     public void registerRecipes(IRecipeRegistration registration) {
@@ -44,6 +47,8 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.CURSED_INFUSER, cursedRecipes);
         List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
+        List<BrazierRecipe> brazierRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.BRAZIER_TYPE.get());
+        registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
     }
 
     @Override

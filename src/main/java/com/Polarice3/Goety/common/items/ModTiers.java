@@ -14,7 +14,14 @@ public enum ModTiers implements Tier {
             8.0F,
             3.0F,
             MainConfig.SpecialToolsEnchantability.get(), () -> {
-        return Ingredient.of(ModItems.CURSED_INGOT.get());
+        return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
+    }),
+    DARK(4,
+            166,
+            8.0F,
+            3.0F,
+            20, () -> {
+        return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     }),
     DEATH(4,
             MainConfig.DeathScytheDurability.get(),

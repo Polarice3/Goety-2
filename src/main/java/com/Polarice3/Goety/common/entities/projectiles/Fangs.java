@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -129,6 +131,8 @@ public class Fangs extends Entity {
         if (this.isTotemSpawned()){
             pCompound.putInt("Damage", this.damage);
             pCompound.putInt("Burning", this.burning);
+        }
+        if (this.soulEater > 0){
             pCompound.putInt("SoulEater", this.soulEater);
         }
         if (this.isAbsorbing()){
@@ -201,9 +205,12 @@ public class Fangs extends Entity {
                             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                             burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
                         }
-                        target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage + enchantment);
-                        if (burning > 0){
-                            target.setSecondsOnFire(5 * burning);
+                        if (target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage + enchantment)){
+                            int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
+                            SEHelper.increaseSouls(player, SpellConfig.FangGainSouls.get() * soulEater);
+                            if (burning > 0){
+                                target.setSecondsOnFire(5 * burning);
+                            }
                         }
                     }
                 } else {

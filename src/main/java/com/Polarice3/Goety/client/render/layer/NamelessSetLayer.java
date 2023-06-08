@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class NamelessSetLayer<T extends Doppelganger> extends RenderLayer<T, PlayerModel<T>> {
-    private static final ResourceLocation TEXTURES = Goety.location("textures/models/armor/nameless_cape.png");
+    private static final ResourceLocation TEXTURES = Goety.location("textures/models/curios/nameless_cape.png");
     private final NecroCapeModel<T> layerModel;
 
     public NamelessSetLayer(RenderLayerParent<T, PlayerModel<T>> p_i50919_1_, EntityModelSet p_174555_) {

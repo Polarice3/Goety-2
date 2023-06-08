@@ -244,8 +244,10 @@ public class Warlock extends Cultist implements RangedAttackMob {
             wartling.setTrueOwner(this);
             wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
             this.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
-                wartling.setStoredEffect(effect);
-                this.removeEffect(effect.getEffect());
+                if (!effect.getCurativeItems().isEmpty()) {
+                    wartling.setStoredEffect(effect);
+                    this.removeEffect(effect.getEffect());
+                }
             });
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             this.level.addFreshEntity(wartling);

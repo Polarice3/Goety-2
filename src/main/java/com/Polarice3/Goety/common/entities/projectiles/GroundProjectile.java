@@ -94,7 +94,7 @@ public abstract class GroundProjectile extends Entity {
         }
     }
 
-        public void handleEntityEvent(byte pId) {
+    public void handleEntityEvent(byte pId) {
         super.handleEntityEvent(pId);
         if (pId == 4) {
             this.sentTrapEvent = true;

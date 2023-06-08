@@ -2,23 +2,40 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
 
-public class RitualStructures {
+public class RitualRequirements {
 
-    public static final int RANGE = 8;
+    public static final int RANGE = Ritual.RANGE;
+
+    public static boolean noConvertEntity(TagKey<EntityType<?>> entityType, BlockPos pPos, Level pLevel){
+        return getConvertEntity(entityType, pPos, pLevel) == null;
+    }
+
+    public static Mob getConvertEntity(TagKey<EntityType<?>> entityType, BlockPos pPos, Level pLevel){
+        for (Mob mob : pLevel.getEntitiesOfClass(Mob.class, new AABB(pPos).inflate(RANGE))){
+            if (mob.getType().is(entityType)){
+                return mob;
+            }
+        }
+        return null;
+    }
 
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){
         findStructures(craftType, pTileEntity, pPos, pLevel);
         return switch (craftType) {
-            case "animation", "necroturgy", "lich", "forge", "magic", "sabbath" -> RitualStructures.checkRequirements(craftType, pTileEntity);
-            case "adept_nether", "expert_nether" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
+            case "animation", "necroturgy", "lich", "forge", "magic", "sabbath" -> RitualRequirements.checkRequirements(craftType, pTileEntity);
+            case "adept_nether", "expert_nether" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
             case "sky" -> pPos.getY() >= 128;
-            case "storm" -> RitualStructures.checkRequirements(craftType, pTileEntity) && pPos.getY() >= 128 && pLevel.isThundering() && pLevel.canSeeSky(pPos);
+            case "storm" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pPos.getY() >= 128 && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
         };
     }

@@ -11,7 +11,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.ritual.Ritual;
-import com.Polarice3.Goety.common.ritual.RitualStructures;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
@@ -28,6 +28,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -59,8 +60,10 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
     public List<ItemStack> consumedIngredients = new ArrayList<>();
     public boolean sacrificeProvided;
+    public Mob getConvertEntity;
     public int currentTime;
     public int structureTime;
+    public int convertTime;
 
     public DarkAltarBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.DARK_ALTAR.get(), blockPos, blockState);
@@ -125,6 +128,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
         this.currentTime = compound.getInt("currentTime");
         this.structureTime = compound.getInt("structureTime");
+        this.convertTime = compound.getInt("convertTime");
     }
 
     @Override
@@ -138,6 +142,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         }
         compound.putInt("currentTime", this.currentTime);
         compound.putInt("structureTime", this.structureTime);
+        compound.putInt("convertTime", this.convertTime);
         return super.writeNetwork(compound);
     }
 
@@ -193,7 +198,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         }
 
                         recipe.getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
-                                this.currentTime);
+                                this.currentTime, recipe.getDuration());
 
                         if (!recipe.getRitual()
                                 .consumeAdditionalIngredients(this.level, this.worldPosition, this.remainingAdditionalIngredients,
@@ -203,19 +208,43 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         }
 
                         if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration()) {
-                            this.stopRitual(true);
+                            if (!recipe.isConversion()) {
+                                this.stopRitual(true);
+                            } else {
+                                if (this.getConvertEntity != null){
+                                    this.stopRitual(true);
+                                } else {
+                                    this.castingPlayer.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
+                                    this.stopRitual(false);
+                                }
+                            }
                         }
 
-                        int totalSTime = 60;
+                        int totalTime = 60;
 
-                        if (!RitualStructures.getProperStructure(recipe.getCraftType(), this, this.worldPosition, this.level)){
+                        if (!RitualRequirements.getProperStructure(recipe.getCraftType(), this, this.worldPosition, this.level)){
                             ++this.structureTime;
-                            if (this.structureTime >= totalSTime) {
+                            if (this.structureTime >= totalTime) {
                                 this.castingPlayer.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 this.stopRitual(false);
                             }
                         } else {
                             this.structureTime = 0;
+                        }
+                        if (recipe.isConversion()){
+                            if (RitualRequirements.noConvertEntity(recipe.getEntityToConvert(), this.worldPosition, this.level)){
+                                ++this.convertTime;
+                                if (this.getConvertEntity != null){
+                                    this.getConvertEntity = null;
+                                }
+                                if (this.convertTime >= totalTime) {
+                                    this.castingPlayer.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
+                                    this.stopRitual(false);
+                                }
+                            } else {
+                                this.getConvertEntity = RitualRequirements.getConvertEntity(recipe.getEntityToConvert(), this.worldPosition, this.level);
+                                this.convertTime = 0;
+                            }
                         }
                     } else {
                         if (this.level.getGameTime() % 20 == 0) {
@@ -263,7 +292,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                     if (ritualRecipe != null) {
                         if (ritualRecipe.getRitual().isValid(world, pos, this, player, activationItem, ritualRecipe.getIngredients())) {
 
-                            if (!RitualStructures.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
+                            if (!RitualRequirements.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
                             } else if (ritualRecipe.getCraftType().contains("lich")){
@@ -279,6 +308,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 } else {
                                     this.startRitual(player, activationItem, ritualRecipe);
                                 }
+                            } else if (ritualRecipe.isConversion() && RitualRequirements.noConvertEntity(ritualRecipe.getEntityToConvert(), pos, world)){
+                                player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
+                                return false;
                             } else {
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }

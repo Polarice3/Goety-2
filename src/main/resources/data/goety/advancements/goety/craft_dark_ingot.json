@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:dark_ingot"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_dark_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_dark_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_necro_brazier",
+  "criteria": {
+    "dark_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:dark_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "dark_ingot"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

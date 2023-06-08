@@ -97,6 +97,18 @@ public class CursedInfuserBlock extends BaseEntityBlock implements SimpleWaterlo
         if (!pEntity.fireImmune() && pState.getValue(LIT) && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)pEntity)) {
             pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
         }
+/*        BlockEntity tileentity = pLevel.getBlockEntity(pPos);
+        if (tileentity instanceof CursedInfuserBlockEntity blockEntity) {
+            if (pEntity instanceof ItemEntity itemEntity){
+                Optional<CursedInfuserRecipes> optional = blockEntity.getRecipes(itemEntity.getItem());
+                if (optional.isPresent()) {
+                    if (!pLevel.isClientSide) {
+                        blockEntity.placeItem(itemEntity.getItem(), optional.get().getCookingTime());
+                        itemEntity.discard();
+                    }
+                }
+            }
+        }*/
 
         super.entityInside(pState, pLevel, pPos, pEntity);
     }

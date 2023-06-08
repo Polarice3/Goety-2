@@ -17,8 +17,10 @@
     "goety:shade_tiles_stairs",
     "goety:dark_altar",
     "goety:pedestal",
+    "goety:shade_brazier",
     "goety:soul_absorber",
     "goety:ice_bouquet_trap",
-    "goety:sculk_devourer"
+    "goety:sculk_devourer",
+    "goety:necro_brazier"
   ]
 }

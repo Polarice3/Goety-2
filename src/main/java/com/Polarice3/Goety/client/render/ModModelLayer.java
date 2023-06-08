@@ -16,6 +16,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
+    public static final ModelLayerLocation PILLAR = register("pillar");
     public static final ModelLayerLocation WARLOCK = register("warlock");
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");
@@ -26,6 +27,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation VILLAGER_ARMOR_INNER = registerInnerArmor("villager_armor");
     public static final ModelLayerLocation VILLAGER_ARMOR_OUTER = registerOuterArmor("villager_armor");
+    public static final ModelLayerLocation DARK_ARMOR_INNER = registerInnerArmor("dark_armor");
+    public static final ModelLayerLocation DARK_ARMOR_OUTER = registerOuterArmor("dark_armor");
     public static final ModelLayerLocation MINION = register("minion");
     public static final ModelLayerLocation HAUNTED_SKULL = register("cursed_skull");
     public static final ModelLayerLocation TORMENTOR = register("tormentor");
@@ -44,6 +47,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation NAMELESS_SET = register("nameless_set");
     public static final ModelLayerLocation GLOVE = register("glove");
     public static final ModelLayerLocation FOCUS_BAG = register("focus_bag");
+    public static final ModelLayerLocation AMULET = register("amulet");
     public static final ModelLayerLocation BELT = register("belt");
     public static final ModelLayerLocation MONOCLE = register("monocle");
     public static final ModelLayerLocation SOUL_SHIELD = register("soul_shield");

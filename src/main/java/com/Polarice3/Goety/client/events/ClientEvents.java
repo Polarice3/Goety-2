@@ -5,6 +5,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
+import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
@@ -109,7 +110,7 @@ public class ClientEvents {
                                 RenderSystem.defaultBlendFunc();
                                 int SoulEnergy = SEHelper.getSESouls(player);
                                 int SoulEnergyTotal = MainConfig.MaxArcaSouls.get();
-                                String s = "" + SoulEnergy + "/" + "" + SoulEnergyTotal;
+                                String s = "Soul Energy: " + SoulEnergy + "/" + "" + SoulEnergyTotal;
                                 int l = fontRenderer.width(s);
                                 fontRenderer.drawShadow(event.getPoseStack(), s, (float) (-l / 2), -4.0F, 0xFFFFFF);
                                 RenderSystem.disableBlend();
@@ -133,6 +134,18 @@ public class ClientEvents {
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = "Owner: " + ownedBlock.getPlayer().getDisplayName().getString();
+                            int l = fontRenderer.width(s);
+                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            event.getPoseStack().popPose();
+                        }
+                    } else if (blockEntity instanceof CursedCageBlockEntity cageBlockEntity){
+                        if (player.isShiftKeyDown() || player.isCrouching() && !cageBlockEntity.getItem().isEmpty()){
+                            event.getPoseStack().pushPose();
+                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s = "Soul Energy: " + cageBlockEntity.getSouls();
                             int l = fontRenderer.width(s);
                             fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();

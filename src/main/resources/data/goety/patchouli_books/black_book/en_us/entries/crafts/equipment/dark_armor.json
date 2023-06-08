@@ -1,0 +1,29 @@
+{
+  "name": "Dark Armor",
+  "icon": "goety:dark_helmet",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While Dark Metal can be used to craft regular tools, when it comes to armor, it seems to require more... elaborate ways of crafting them. The armor looks nothing like the others you have crafted, looking more elaborate yet intimidating, but it still provides Diamond level protection and toughness."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark_boots"
+    }
+  ]
+}

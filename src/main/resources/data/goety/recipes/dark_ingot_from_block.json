@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "goety:dark_metal_block"
+    }
+  ],
+  "result": {
+    "item": "goety:dark_ingot",
+    "count": 9
+  }
+}

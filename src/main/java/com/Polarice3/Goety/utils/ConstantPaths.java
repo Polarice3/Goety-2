@@ -18,4 +18,8 @@ public class ConstantPaths {
         return "goety:rain_arrow";
     }
 
+    public static String resultItem(){
+        return "goety:resultItem";
+    }
+
 }

@@ -38,6 +38,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> GLOW_LIGHT_EFFECT = PARTICLE_TYPES.register("glow_light",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE_BITS = PARTICLE_TYPES.register("soul_explode_bits",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BURNING = PARTICLE_TYPES.register("burning",
             () -> new SimpleParticleType(true));
 
@@ -54,6 +57,18 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> WRAITH_BURST = PARTICLE_TYPES.register("wraith_burst",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> BIG_FIRE = PARTICLE_TYPES.register("big_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> NECRO_FIRE = PARTICLE_TYPES.register("necro_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> SMALL_NECRO_FIRE = PARTICLE_TYPES.register("small_necro_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> NECRO_FLAME = PARTICLE_TYPES.register("necro_flame",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
@@ -74,7 +89,26 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> FUNGUS_EXPLOSION_EMITTER = PARTICLE_TYPES.register("fungus_explosion_emitter",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE = PARTICLE_TYPES.register("soul_explode",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SOUL_SHOCKWAVE = PARTICLE_TYPES.register("soul_shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> PORTAL_SHOCKWAVE = PARTICLE_TYPES.register("portal_shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
                 public Codec codec() {

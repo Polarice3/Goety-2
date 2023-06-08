@@ -12,6 +12,10 @@
       "type": "patchouli:crafting",
       "recipe": "goety:dark_scroll",
       "text": "With the Evoker's Totem, you can trick one of these Illagers to answer your call."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "(Recommended Equipment: Enchanted Armor)"
     }
   ]
 }

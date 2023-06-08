@@ -3,8 +3,10 @@ package com.Polarice3.Goety.common.ritual;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,8 +17,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,11 +34,11 @@ import java.util.Optional;
  */
 public abstract class Ritual {
 
+    public static final int RANGE = 8;
+
     public static final int PEDESTAL_RANGE = 8;
 
     public static final int SACRIFICE_DETECTION_RANGE = 8;
-
-    public static final int ITEM_USE_DETECTION_RANGE = 16;
 
     public RitualRecipe recipe;
 
@@ -83,29 +83,38 @@ public abstract class Ritual {
 
     public void start(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                       Player castingPlayer, ItemStack activationItem) {
-        world.playSound(null, darkAltarPos, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 1, 1);
+        world.playSound(null, darkAltarPos, ModSounds.ALTAR_START.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
     }
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
-/*        if (activationItem.getItem() == ModItems.FILLED_ILL_CAGE.get()){
-            world.playSound(null, darkAltarPos, SoundEvents.VILLAGER_DEATH, SoundSource.BLOCKS, 1.2F,
-                    0.5f);
-            world.playSound(null, darkAltarPos, SoundEvents.CHAIN_BREAK, SoundSource.BLOCKS, 1.5F,
-                    1.0f);
-        }*/
-        world.playSound(null, darkAltarPos, SoundEvents.BEACON_POWER_SELECT, SoundSource.BLOCKS, 0.7f,
-                0.7f);
+        world.playSound(null, darkAltarPos, ModSounds.ALTAR_FINISH.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
     }
 
     public void interrupt(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                           Player castingPlayer, ItemStack activationItem) {
-        world.playSound(null, darkAltarPos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 0.7f, 0.7f);
+        world.playSound(null, darkAltarPos, ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 0.7f, 0.7f);
     }
 
     public void update(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem,
-                       List<Ingredient> remainingAdditionalIngredients, int time) {
+                       List<Ingredient> remainingAdditionalIngredients, int time, int totalTime) {
+        if (tileEntity.getConvertEntity != null){
+            tileEntity.getConvertEntity.setTicksFrozen(150);
+            if (tileEntity.getConvertEntity.tickCount % 39 == 0) {
+                if (world instanceof ServerLevel serverLevel){
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, tileEntity.getConvertEntity);
+                }
+                tileEntity.getConvertEntity.tickCount -= 9;
+            }
+        }
+
+        int progress = totalTime - time;
+
+        if (world.getGameTime() % ModMathHelper.ticksToSeconds(4) == 0 && ModMathHelper.ticksToSeconds(4) > progress) {
+            world.playSound(null, darkAltarPos, ModSounds.ALTAR_LOOP.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+        }
+
         List<PedestalBlockEntity> pedestals = this.getPedestals(world, darkAltarPos);
         for (PedestalBlockEntity pedestal : pedestals) {
             pedestal.itemStackHandler.map(handler -> {
@@ -120,9 +129,9 @@ public abstract class Ritual {
     }
 
     public void update(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
-                       Player castingPlayer, ItemStack activationItem, int time) {
+                       Player castingPlayer, ItemStack activationItem, int time, int totalTime) {
         this.update(world, darkAltarPos, tileEntity, castingPlayer, activationItem, new ArrayList<Ingredient>(),
-                time);
+                time, totalTime);
     }
 
     public boolean identify(Level world, BlockPos darkAltarPos, ItemStack activationItem) {
@@ -254,19 +263,8 @@ public abstract class Ritual {
 
     public void prepareLivingEntityForSpawn(LivingEntity livingEntity, Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                                             Player castingPlayer, boolean setTamed) {
-        if (setTamed && livingEntity instanceof TamableAnimal) {
-            ((TamableAnimal) livingEntity).tame(castingPlayer);
-        }
-        if (setTamed && livingEntity instanceof AbstractHorse){
-            ((AbstractHorse) livingEntity).setTamed(true);
-            ((AbstractHorse) livingEntity).setOwnerUUID(castingPlayer.getUUID());
-        }
-        if (setTamed && livingEntity instanceof Owned summonedEntity) {
-            summonedEntity.setPersistenceRequired();
-            summonedEntity.setOwnerId(castingPlayer.getUUID());
-            if (summonedEntity instanceof Summoned summoned){
-                summoned.setWandering(false);
-            }
+        if (setTamed){
+            MobUtil.summonTame(livingEntity, castingPlayer);
         }
 
         if (livingEntity instanceof Mob mob) {

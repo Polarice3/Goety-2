@@ -22,6 +22,7 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
+import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -162,6 +163,7 @@ public class Goety {
 
     private void setupEntityAttributeCreation(final EntityAttributeCreationEvent event) {
         event.put(ModEntityType.APOSTLE.get(), Apostle.setCustomAttributes().build());
+        event.put(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolith.setCustomAttributes().build());
         event.put(ModEntityType.WARLOCK.get(), Warlock.setCustomAttributes().build());
         event.put(ModEntityType.WARTLING.get(), Wartling.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServant.setCustomAttributes().build());

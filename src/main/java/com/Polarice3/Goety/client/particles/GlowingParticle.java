@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.particles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.Mth;
 
 public class GlowingParticle extends RisingParticle {
     private GlowingParticle(ClientLevel p_i232392_1_, double p_i232392_2_, double p_i232392_4_, double p_i232392_6_, double p_i232392_8_, double p_i232392_10_, double p_i232392_12_) {
@@ -10,7 +11,12 @@ public class GlowingParticle extends RisingParticle {
     }
 
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    public void tick() {
+        super.tick();
+        this.setAlpha(Mth.lerp(0.05F, this.alpha, 1.0F));
     }
 
     public void move(double pX, double pY, double pZ) {
@@ -21,12 +27,6 @@ public class GlowingParticle extends RisingParticle {
     public float getQuadSize(float pScaleFactor) {
         float f = ((float)this.age + pScaleFactor) / (float)this.lifetime;
         return this.quadSize * (1.0F - f * f * 0.5F);
-    }
-
-    public int getLightColor(float pPartialTick) {
-        int i = super.getLightColor(pPartialTick);
-        int k = i >> 16 & 255;
-        return 240 | k << 16;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {

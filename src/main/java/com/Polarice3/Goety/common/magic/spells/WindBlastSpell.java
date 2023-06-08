@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -48,6 +49,9 @@ public class WindBlastSpell extends Spells {
                 double d1 = entity.getZ() - entityLiving.getZ();
                 double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
                 MobUtil.push(entity, d0 / d2 * 4.0D, 0.2D, d1 / d2 * 4.0D);
+                if (entity instanceof FireTornado fireTornado){
+                    fireTornado.trueRemove();
+                }
             }
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.WIND_BLAST.get(), SoundSource.NEUTRAL, 3.0F, 1.0F);
@@ -69,6 +73,9 @@ public class WindBlastSpell extends Spells {
                 double d1 = entity.getZ() - entityLiving.getZ();
                 double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
                 MobUtil.push(entity, d0 / d2 * 8.0D, 0.4D, d1 / d2 * 8.0D);
+                if (entity instanceof FireTornado fireTornado){
+                    fireTornado.trueRemove();
+                }
             }
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.WIND_BLAST.get(), SoundSource.NEUTRAL, 3.0F, 1.0F);

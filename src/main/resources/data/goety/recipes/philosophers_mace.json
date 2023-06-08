@@ -9,10 +9,10 @@
   "duration": 30,
   "ingredients": [
     {
-      "item": "minecraft:netherite_shovel"
+      "item": "goety:dark_shovel"
     },
     {
-      "item": "minecraft:netherite_pickaxe"
+      "item": "goety:dark_pickaxe"
     },
     {
       "item": "goety:graverobber_shovel"
@@ -21,10 +21,10 @@
       "item": "goety:eerie_pickaxe"
     },
     {
-      "tag": "forge:gems/lapis"
+      "tag": "forge:ingots/netherite"
     },
     {
-      "tag": "forge:gems/lapis"
+      "tag": "forge:ingots/netherite"
     }
   ],
   "result": {

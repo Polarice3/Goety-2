@@ -1,0 +1,15 @@
+{
+  "name": "Shockwave Focus",
+  "icon": "goety:shockwave_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Casting with this focus causes an explosion of Soul Energy at your position, hurting all nearby creatures and launching them away. The explosion deals magic damage and does not harm the caster."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shockwave_focus"
+    }
+  ]
+}

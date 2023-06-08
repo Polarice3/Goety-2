@@ -1,10 +1,15 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
+import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -16,10 +21,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -60,9 +69,9 @@ public class MobUtil {
         }
     }
 
-    public static boolean playerValidity(Player player, boolean lich){
+    public static boolean playerValidity(Player player, boolean isNotLich){
         if (!player.isCreative() && !player.isSpectator()) {
-            if (lich) {
+            if (isNotLich) {
                 return !LichdomHelper.isLich(player);
             } else {
                 return true;
@@ -153,6 +162,11 @@ public class MobUtil {
             }
         }
         pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pX, pY, pZ));
+        pEntity.hasImpulse = true;
+    }
+
+    public static void twister(Entity pEntity, double pX, double pY, double pZ){
+        pEntity.setDeltaMovement(pX, pY, pZ);
         pEntity.hasImpulse = true;
     }
 
@@ -411,7 +425,15 @@ public class MobUtil {
         return isFinalWave(raid) && raid.getTotalRaidersAlive() == 0 && hasBonusWave(raid);
     }
 
-    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius){
+    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius) {
+        explosionDamage(level, source, damageSource, x, y, z, radius, 0);
+    }
+
+    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, BlockPos blockPos, float radius, float damage){
+        explosionDamage(level, source, damageSource, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, damage);
+    }
+
+    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius, float damage){
         float f2 = radius * 2.0F;
         int k1 = Mth.floor(x - (double)f2 - 1.0D);
         int l1 = Mth.floor(x + (double)f2 + 1.0D);
@@ -434,10 +456,16 @@ public class MobUtil {
                     d9 /= d13;
                     double d14 = (double) getSeenPercent(vec3, entity);
                     double d10 = (1.0D - d12) * d14;
-                    entity.hurt(damageSource, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                    float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
+                    entity.hurt(damageSource, actualDamage);
                     double d11 = d10;
                     if (entity instanceof LivingEntity) {
                         d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                    }
+                    if (damageSource.isMagic()){
+                        if (entity instanceof FireTornado fireTornado){
+                            fireTornado.trueRemove();
+                        }
                     }
 
                     MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
@@ -483,5 +511,108 @@ public class MobUtil {
         HitResult result = level.clip(new ClipContext(new Vec3(living.getX(), living.getY() + (double) living.getEyeHeight(), living.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, living));
         double dist = result.getLocation().distanceToSqr(x, y, z);
         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
+    }
+
+    /**
+     * Copy of Vanilla's getEquipmentDropChance. Had to accesstransformer handDropChances and armorDropChances
+     */
+    public static float getEquipmentDropChance(Mob mob, EquipmentSlot p_21520_) {
+        float f;
+        switch (p_21520_.getType()) {
+            case HAND:
+                f = mob.handDropChances[p_21520_.getIndex()];
+                break;
+            case ARMOR:
+                f = mob.armorDropChances[p_21520_.getIndex()];
+                break;
+            default:
+                f = 0.0F;
+        }
+
+        return f;
+    }
+
+    /**
+     * Copy of Vanilla's Mob convertTo to be able to accept Entity class instead of just Mob class.
+     */
+    @Nullable
+    public static Entity convertTo(Entity originalEntity, EntityType<?> convertedType, boolean loot, Player player) {
+        if (originalEntity.isRemoved()) {
+            return null;
+        } else {
+            Entity newEntity = convertedType.create(originalEntity.level);
+            if (newEntity != null) {
+                newEntity.copyPosition(originalEntity);
+                if (originalEntity instanceof Mob originalMob && newEntity instanceof Mob newMob) {
+                    newMob.setBaby(originalMob.isBaby());
+                    newMob.setNoAi(originalMob.isNoAi());
+                    if (originalMob.hasCustomName()) {
+                        newEntity.setCustomName(originalMob.getCustomName());
+                        newEntity.setCustomNameVisible(originalMob.isCustomNameVisible());
+                    }
+
+                    if (originalMob.isPersistenceRequired()) {
+                        newMob.setPersistenceRequired();
+                    }
+
+                    newMob.setInvulnerable(originalMob.isInvulnerable());
+                    if (loot) {
+                        newMob.setCanPickUpLoot(originalMob.canPickUpLoot());
+
+                        for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                            ItemStack itemstack = originalMob.getItemBySlot(equipmentslot);
+                            if (!itemstack.isEmpty()) {
+                                newMob.setItemSlot(equipmentslot, itemstack.copy());
+                                newMob.setDropChance(equipmentslot, getEquipmentDropChance(originalMob, equipmentslot));
+                                itemstack.setCount(0);
+                            }
+                        }
+                    }
+                    if (player != null){
+                        summonTame(newMob, player);
+                    }
+
+                    if (originalMob.level instanceof ServerLevel serverLevel) {
+                        if (originalMob instanceof Villager villager && newMob instanceof ZombieVillager zombievillager) {
+                            zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
+                            zombievillager.setVillagerData(villager.getVillagerData());
+                            zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                            zombievillager.setTradeOffers(villager.getOffers().createTag());
+                            zombievillager.setVillagerXp(villager.getVillagerXp());
+                            if (!originalMob.isSilent()) {
+                                serverLevel.levelEvent((Player)null, 1026, originalMob.blockPosition(), 0);
+                            }
+                        }
+                    }
+
+                    originalMob.level.addFreshEntity(newEntity);
+                    if (originalMob.isPassenger()) {
+                        Entity entity = originalMob.getVehicle();
+                        if (entity != null) {
+                            originalMob.stopRiding();
+                            newEntity.startRiding(entity, true);
+                        }
+                    }
+                }
+
+                originalEntity.discard();
+            }
+            return newEntity;
+        }
+    }
+
+    public static void summonTame(Entity entity, Player player){
+        if (entity instanceof TamableAnimal tamableAnimal){
+            tamableAnimal.tame(player);
+        } else if (entity instanceof AbstractHorse horse){
+            horse.setTamed(true);
+            horse.setOwnerUUID(player.getUUID());
+        } else if (entity instanceof Owned summonedEntity) {
+            summonedEntity.setPersistenceRequired();
+            summonedEntity.setOwnerId(player.getUUID());
+            if (summonedEntity instanceof Summoned summoned){
+                summoned.setWandering(false);
+            }
+        }
     }
 }

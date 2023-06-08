@@ -2,18 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "fef",
-    "fff"
+    "nen",
+    "wfw"
   ],
   "key":
   {
+    "n":
+    {
+      "item": "minecraft:nether_wart"
+    },
+    "w":
+    {
+      "item": "goety:wartful_egg"
+    },
     "f":
     {
       "item": "minecraft:red_wool"
     },
     "e":
     {
-      "item": "goety:soul_emerald"
+      "item": "goety:spider_nest"
     }
   },
   "result":

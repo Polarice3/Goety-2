@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###",
+    "###",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:dark_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_metal_block"
+  }
+}

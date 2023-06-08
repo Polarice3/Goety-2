@@ -116,6 +116,7 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                 }
             }
         }
+        this.markUpdated();
 
     }
 
@@ -194,5 +195,10 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
         if (this.spinning > 0){
             --this.spinning;
         }
+    }
+
+    public void markUpdated() {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 }

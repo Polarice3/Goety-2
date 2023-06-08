@@ -34,8 +34,7 @@ public class EntityUpdatePacket {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             Entity entity = EntityFinder.getEntityByUuiDGlobal(packet.LivingEntityUUID).get();
-            if (entity instanceof LivingEntity){
-                LivingEntity livingEntity = (LivingEntity) entity;
+            if (entity instanceof LivingEntity livingEntity){
                 livingEntity.readAdditionalSaveData(packet.tag);
             }
         });

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
+import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -24,17 +25,24 @@ public class WartlingEggItem extends Item {
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
+        warlockUse(level, player, itemstack);
+        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+    }
+
+    public static void warlockUse(Level level, Player player, ItemStack itemStack){
         if (level instanceof ServerLevel serverLevel) {
             Wartling wartling = new Wartling(ModEntityType.WARTLING.get(), level);
             wartling.setTrueOwner(player);
             wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
             wartling.moveTo(player.blockPosition(), player.getYRot(), player.getXRot());
             player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
-                wartling.setStoredEffect(effect);
-                player.removeEffect(effect.getEffect());
+                if (!effect.getCurativeItems().isEmpty()) {
+                    wartling.setStoredEffect(effect);
+                    player.removeEffect(effect.getEffect());
+                }
             });
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-            if (!CuriosFinder.hasCurio(player, ModItems.WARLOCK_SASH.get()) && !CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())) {
+            if (!CuriosFinder.hasCurio(player, itemStack1 -> itemStack1.getItem() instanceof WarlockGarmentItem)) {
                 if (player.level.addFreshEntity(wartling)) {
                     player.hurt(DamageSource.GENERIC, 2.0F);
                 }
@@ -47,12 +55,11 @@ public class WartlingEggItem extends Item {
         }
         if (CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())) {
             if (level.random.nextFloat() > 0.1F){
-                itemstack.shrink(1);
+                itemStack.shrink(1);
             }
         } else {
-            itemstack.shrink(1);
+            itemStack.shrink(1);
         }
-        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 
 }

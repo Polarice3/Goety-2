@@ -18,4 +18,7 @@ public class ModContainerType {
 
     public static final RegistryObject<MenuType<WandandBagContainer>> WAND_AND_BAG = CONTAINER_TYPE.register("wand_and_bag",
             () -> IForgeMenuType.create(WandandBagContainer::createContainerClientSide));
+
+    public static final RegistryObject<MenuType<DarkAnvilMenu>> DARK_ANVIL = CONTAINER_TYPE.register("dark_anvil",
+            () -> IForgeMenuType.create(DarkAnvilMenu::new));
 }

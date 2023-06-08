@@ -11,22 +11,23 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 public class CuriosRenderer {
 
     public static void register() {
-        CuriosRendererRegistry.register(ModItems.DARK_HAT.get(), () -> new WearRenderer(Goety.location("textures/models/armor/dark_hat.png"), new DarkHatModel(bakeLayer(ModModelLayer.DARK_HAT))));
-        CuriosRendererRegistry.register(ModItems.WITCH_HAT.get(), () -> new WearRenderer(Goety.location("textures/models/armor/witch_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
-        CuriosRendererRegistry.register(ModItems.DARK_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/dark_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/illusion_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.WIND_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/wind_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(Goety.location("textures/models/armor/necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));
-        CuriosRendererRegistry.register(ModItems.NECRO_CAPE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
-        CuriosRendererRegistry.register(ModItems.NAMELESS_CROWN.get(), () -> new WearRenderer(Goety.location("textures/models/armor/nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NAMELESS_CROWN))));
-        CuriosRendererRegistry.register(ModItems.NAMELESS_CAPE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
-        CuriosRendererRegistry.register(ModItems.WITCH_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/witch_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.WARLOCK_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/warlock_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.WARLOCK_SASH.get(), () -> new WearRenderer(Goety.location("textures/models/armor/warlock_sash.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
-        CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(Goety.location("textures/models/armor/wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
-        CuriosRendererRegistry.register(ModItems.FOCUS_BAG.get(), () -> new WearRenderer(Goety.location("textures/models/armor/focus_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.FOCUS_BAG))));
-        CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
-        CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(Goety.location("textures/models/armor/grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
+        CuriosRendererRegistry.register(ModItems.DARK_HAT.get(), () -> new WearRenderer(Goety.location("textures/models/curios/dark_hat.png"), new DarkHatModel(bakeLayer(ModModelLayer.DARK_HAT))));
+        CuriosRendererRegistry.register(ModItems.WITCH_HAT.get(), () -> new WearRenderer(Goety.location("textures/models/curios/witch_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
+        CuriosRendererRegistry.register(ModItems.DARK_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/dark_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE.get(), () -> new WearRenderer(Goety.location("textures/curios/armor/illusion_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.WIND_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/wind_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(Goety.location("textures/models/curios/necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));
+        CuriosRendererRegistry.register(ModItems.NECRO_CAPE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
+        CuriosRendererRegistry.register(ModItems.NAMELESS_CROWN.get(), () -> new WearRenderer(Goety.location("textures/models/curios/nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NAMELESS_CROWN))));
+        CuriosRendererRegistry.register(ModItems.NAMELESS_CAPE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
+        CuriosRendererRegistry.register(ModItems.WITCH_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/witch_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.WARLOCK_ROBE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/warlock_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.WARLOCK_SASH.get(), () -> new WearRenderer(Goety.location("textures/models/curios/warlock_sash.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.SEA_AMULET.get(), () -> new WearRenderer(Goety.location("textures/models/curios/sea_amulet.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMULET))));
+        CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(Goety.location("textures/models/curios/wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
+        CuriosRendererRegistry.register(ModItems.FOCUS_BAG.get(), () -> new WearRenderer(Goety.location("textures/models/curios/focus_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.FOCUS_BAG))));
+        CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
+        CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(Goety.location("textures/models/curios/grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
     }
 
     public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {

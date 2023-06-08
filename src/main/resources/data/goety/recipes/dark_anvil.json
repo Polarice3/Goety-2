@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ddd",
+    " s ",
+    "sss"
+  ],
+  "key":
+  {
+    "d":
+    {
+      "item": "goety:dark_metal_block"
+    },
+    "s":
+    {
+      "item": "goety:dark_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:dark_anvil"
+  }
+}
