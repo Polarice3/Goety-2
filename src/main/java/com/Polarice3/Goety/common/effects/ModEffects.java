@@ -30,7 +30,7 @@ public class ModEffects {
             () -> new ModEffect(MobEffectCategory.HARMFUL, 2236962));
 
     public static final RegistryObject<MobEffect> SAPPED = EFFECTS.register("sapped",
-            () -> new ModEffect(MobEffectCategory.HARMFUL, 197379));
+            () -> new ModEffect(MobEffectCategory.HARMFUL, 0x3f395f));
 
     public static final RegistryObject<MobEffect> CLIMBING = EFFECTS.register("climbing",
             () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xf5e895));

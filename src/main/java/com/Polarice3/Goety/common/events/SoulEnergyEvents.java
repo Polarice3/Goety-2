@@ -8,14 +8,12 @@ import com.Polarice3.Goety.common.effects.ModEffects;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.LichdomHelper;
-import com.Polarice3.Goety.utils.SEHelper;
-import com.Polarice3.Goety.utils.TotemFinder;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
@@ -125,7 +123,7 @@ public class SoulEnergyEvents {
                 LivingEntity owner = slayer.getTrueOwner();
                 if (owner != null){
                     if (owner instanceof Player) {
-                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner)) {
+                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
                             Player playerEntity = (Player) owner;
                             if (!(playerEntity instanceof FakePlayer)) {
                                 SEHelper.handleKill(playerEntity, victim);

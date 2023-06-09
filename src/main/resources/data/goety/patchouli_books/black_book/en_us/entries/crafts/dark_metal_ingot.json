@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "You've done, you've managed to channel the energies of the Deep Dark into a metal that repairs itself using Soul Energy. The metal seems to hunger for it when chipped or damaged and appears to be as tough a material as Diamonds and almost as enchanteable as Gold. Yet the amount of Soul Energy needed to craft one ingot is very... substantial."
+      "text": "You've done, you've managed to channel the energies of the Deep Dark into a metal that repairs itself using Soul Energy. The amount of Soul Energy needed to craft one ingot is very substantial, but you've managed to make one regardless. The metal seems to hunger for it when chipped or damaged and appears to be as tough a material as Diamonds and almost as enchantable as Gold. It also appears to slow down any creature it was struck at."
     },
     {
       "type": "goety:brazier",

@@ -238,10 +238,10 @@ public class SpellConfig {
                 .define("minionMasterImmune", true);
         OwnerAttackCancel = BUILDER.comment("Owners can't attack their servants, Default: true")
                 .define("ownerAttackCancel", true);
-        UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Robes, Default: true")
+        UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
                 .define("undeadMinionHeal", true);
-        UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 1")
-                .defineInRange("undeadMinionHealCost", 1, 0, Integer.MAX_VALUE);
+        UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
+                .defineInRange("undeadMinionHealCost", 5, 0, Integer.MAX_VALUE);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
                 .defineInRange("wandVexLimit", 8, 1, Integer.MAX_VALUE);
         StaffVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a staff, without instantly dying, around the player, Default: 16")

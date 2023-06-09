@@ -7,7 +7,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "While Dark Metal can be used to craft regular tools, when it comes to armor, it seems to require more... elaborate ways of crafting them. The armor looks nothing like the others you have crafted, looking more elaborate yet intimidating, but it still provides Diamond level protection and toughness."
+      "text": "While Dark Metal can be used to craft regular tools, when it comes to armor, it seems to require more... elaborate ways of crafting them. The armor looks nothing like the others you have crafted, looking more elaborate yet intimidating, but it still provides Diamond level protection and toughness, as well as some knockback resistance."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Each armor pieces gives a discount on using Soul Energy, whether it's used to cast spells, heal servants and repairing certain items. It doesn't discount usage in crafting or rituals unfortunately. Wearing the full set also allows passive regeneration even when below full hunger and allows summons to grant Soul Energy when they kill a mob. The Helmet protects the wearer from the Darkness and Blindness Effect."
     },
     {
       "type": "goety:ritual",

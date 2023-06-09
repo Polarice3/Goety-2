@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "#goety:jade_ores",
-    "goety:jade_block",
-    "goety:dark_metal_block"
+    "#goety:dark_metal_blocks",
+    "goety:jade_block"
   ]
 }

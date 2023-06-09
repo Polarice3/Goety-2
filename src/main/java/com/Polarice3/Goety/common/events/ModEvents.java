@@ -32,6 +32,7 @@ import com.Polarice3.Goety.common.entities.util.StormEntity;
 import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
@@ -404,6 +405,15 @@ public class ModEvents {
             }
         }
 
+        if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+            if (player.getEffect(MobEffects.DARKNESS) != null){
+                player.removeEffect(MobEffects.DARKNESS);
+            }
+            if (player.getEffect(MobEffects.BLINDNESS) != null){
+                player.removeEffect(MobEffects.BLINDNESS);
+            }
+        }
+
         if (event.phase == TickEvent.Phase.END) {
             Inventory inventory = player.getInventory();
 
@@ -416,9 +426,14 @@ public class ModEvents {
                         if (itemStack.getItem() instanceof ISoulRepair soulRepair) {
                             soulRepair.repairTick(nonnulllist.get(i), player, inventory.selected == i);
                         }
-                        if (itemStack.getItem() instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK) {
-                            ItemHelper.repairTick(itemStack, player, inventory.selected == i);
-                        }
+                    }
+                }
+            }
+
+            if (ItemHelper.armorSet(player, ModArmorMaterials.DARK)){
+                if (player.getFoodData().needsFood()){
+                    if (player.tickCount % 40 == 0){
+                        player.heal(1.0F);
                     }
                 }
             }
@@ -818,16 +833,19 @@ public class ModEvents {
                     }
                     if (weapon instanceof DeathScytheItem) {
                         if (!victim.hasEffect(ModEffects.SAPPED.get())) {
-                            victim.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 20));
+                            victim.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 60));
                             victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                         } else {
                             if (victim.level.random.nextFloat() <= 0.1F) {
-                                EffectsUtil.amplifyEffect(victim, ModEffects.SAPPED.get(), 20);
+                                EffectsUtil.amplifyEffect(victim, ModEffects.SAPPED.get(), 60);
                                 victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                             } else {
-                                EffectsUtil.resetDuration(victim, ModEffects.SAPPED.get(), 20);
+                                EffectsUtil.resetDuration(victim, ModEffects.SAPPED.get(), 60);
                             }
                         }
+                    }
+                    if (weapon.getTier() == ModTiers.DARK){
+                        victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60));
                     }
                 }
             }
@@ -1005,9 +1023,6 @@ public class ModEvents {
                                         event.setLootingLevel(event.getLootingLevel() + looting);
                                     }
                                 }
-/*                                if (ModDamageSource.breathAttacks(event.getDamageSource())) {
-                                    event.setLootingLevel(event.getLootingLevel() + looting);
-                                }*/
                             }
                         }
                         if (event.getDamageSource().getEntity() instanceof IOwned ownedEntity) {
@@ -1192,6 +1207,18 @@ public class ModEvents {
         if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
             if (CuriosFinder.hasIllusionRobe(event.getEntity())){
                 event.setResult(Event.Result.DENY);
+            }
+            if (event.getEntity() instanceof Player player) {
+                if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+        }
+        if (event.getEffectInstance().getEffect() == MobEffects.DARKNESS){
+            if (event.getEntity() instanceof Player player) {
+                if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+                    event.setResult(Event.Result.DENY);
+                }
             }
         }
         if (event.getEffectInstance().getEffect() == MobEffects.SLOW_FALLING){

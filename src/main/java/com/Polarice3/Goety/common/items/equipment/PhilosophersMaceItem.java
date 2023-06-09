@@ -61,11 +61,16 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
 
     public boolean isCorrectToolForDrops(BlockState pBlock) {
         Material material = pBlock.getMaterial();
-        return material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || pBlock.is(Blocks.SNOW) || pBlock.is(Blocks.SNOW_BLOCK);
+        return material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST || material == Material.SCULK || pBlock.is(Blocks.SNOW) || pBlock.is(Blocks.SNOW_BLOCK) || pBlock.is(Blocks.POWDER_SNOW);
     }
 
-    public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-        return 8.0F;
+    public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
+        float blockHard = p_41005_.getDestroySpeed(null, BlockPos.ZERO);
+        if (this.isCorrectToolForDrops(p_41004_, p_41005_) && blockHard >= 1.0F) {
+            return 8.0F * blockHard;
+        } else {
+            return 8.0F;
+        }
     }
 
     public int getEnchantmentValue() {

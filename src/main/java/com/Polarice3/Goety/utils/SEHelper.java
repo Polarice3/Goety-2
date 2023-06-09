@@ -10,6 +10,8 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
+import com.Polarice3.Goety.common.items.armor.DarkArmor;
+import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
@@ -28,6 +30,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
@@ -166,7 +169,21 @@ public class SEHelper {
         }
     }
 
+    public static float soulDiscount(LivingEntity living){
+        float init = 1.0F;
+        for (ItemStack itemStack : living.getArmorSlots()){
+            if (itemStack.getItem() instanceof ArmorItem armorItem){
+                if (armorItem.getMaterial() == ModArmorMaterials.DARK){
+                    init -= (DarkArmor.getSoulDiscount() / 100.0F);
+                }
+            }
+        }
+
+        return init;
+    }
+
     public static void decreaseSouls(Player player, int souls){
+        souls *= soulDiscount(player);
         if (getSEActive(player)) {
             decreaseSESouls(player, souls);
             SEHelper.sendSEUpdatePacket(player);

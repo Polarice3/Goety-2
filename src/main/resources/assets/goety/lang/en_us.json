@@ -376,6 +376,7 @@
   "info.goety.totem_of_souls.souls": "§aSoul Energy: %d/%d§a",
   "info.goety.wand.cost": "§3Soul Cost:§3 %d",
   "info.goety.wand.focus": "§dFocus:§d %d",
+  "info.goety.armor.discount": "Soul Discount",
   "info.goety.focus.cost": "§bOriginal Cost:§b %d",
   "info.goety.focus.spellType": "§dSpell Type:§d %d",
   "info.goety.focus.noPos": "§5No Recall Position Set§5",

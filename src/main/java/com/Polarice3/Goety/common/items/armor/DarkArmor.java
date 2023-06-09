@@ -5,27 +5,31 @@ import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.DarkArmorModel;
 import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class DarkArmor extends ArmorItem implements ISoulRepair {
     public DarkArmor(EquipmentSlot p_40387_) {
         super(ModArmorMaterials.DARK, p_40387_, ModItems.baseProperities());
     }
-
-
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String layer) {
@@ -34,6 +38,10 @@ public class DarkArmor extends ArmorItem implements ISoulRepair {
         } else {
             return Goety.location("textures/models/armor/dark_armor.png").toString();
         }
+    }
+
+    public static int getSoulDiscount(){
+        return 5;
     }
 
     @Override
@@ -67,5 +75,11 @@ public class DarkArmor extends ArmorItem implements ISoulRepair {
                return model;
            }
         });
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(Component.literal(String.valueOf(getSoulDiscount())).append("% ").append(Component.translatable("info.goety.armor.discount")).withStyle(ChatFormatting.DARK_AQUA));
     }
 }

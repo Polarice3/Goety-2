@@ -130,11 +130,11 @@ public class ModItems {
     public static final RegistryObject<Item> GRAVEROBBER_SHOVEL = ITEMS.register("graverobber_shovel", GraverobberShovelItem::new);
     public static final RegistryObject<Item> HUNTERS_BOW = ITEMS.register("hunters_bow", HuntersBowItem::new);
     public static final RegistryObject<Item> PHILOSOPHERS_MACE = ITEMS.register("philosophers_mace", PhilosophersMaceItem::new);
-    public static final RegistryObject<Item> DARK_SWORD = ITEMS.register("dark_sword", () -> new SwordItem(ModTiers.DARK, 3, -2.4F, baseProperities()));
-    public static final RegistryObject<Item> DARK_SHOVEL = ITEMS.register("dark_shovel", () -> new ShovelItem(ModTiers.DARK, 1.5F, -3.0F, baseProperities()));
-    public static final RegistryObject<Item> DARK_PICKAXE = ITEMS.register("dark_pickaxe", () -> new PickaxeItem(ModTiers.DARK, 1, -2.8F, baseProperities()));
-    public static final RegistryObject<Item> DARK_AXE = ITEMS.register("dark_axe", () -> new AxeItem(ModTiers.DARK, 5.0F, -3.0F, baseProperities()));
-    public static final RegistryObject<Item> DARK_HOE = ITEMS.register("dark_hoe", () -> new HoeItem(ModTiers.DARK, -3, 0.0F, baseProperities()));
+    public static final RegistryObject<Item> DARK_SWORD = ITEMS.register("dark_sword", ModToolItems.DarkSwordItem::new);
+    public static final RegistryObject<Item> DARK_SHOVEL = ITEMS.register("dark_shovel", ModToolItems.DarkShovelItem::new);
+    public static final RegistryObject<Item> DARK_PICKAXE = ITEMS.register("dark_pickaxe", ModToolItems.DarkPickaxeItem::new);
+    public static final RegistryObject<Item> DARK_AXE = ITEMS.register("dark_axe", ModToolItems.DarkAxeItem::new);
+    public static final RegistryObject<Item> DARK_HOE = ITEMS.register("dark_hoe", ModToolItems.DarkHoeItem::new);
 
     //Discs
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.VIZIER_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) ModMathHelper.ticksToMinutes(1.33F)));

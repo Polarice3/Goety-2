@@ -129,9 +129,9 @@ public class DarkWand extends Item {
 
     public int SoulUse(LivingEntity entityLiving, ItemStack stack){
         if (getFocus(stack).isEnchanted()){
-            return SoulCalculation(entityLiving, stack) * 2;
+            return (int) (SoulCalculation(entityLiving, stack) * 2 * SEHelper.soulDiscount(entityLiving));
         } else {
-            return SoulCalculation(entityLiving, stack);
+            return (int) (SoulCalculation(entityLiving, stack) * SEHelper.soulDiscount(entityLiving));
         }
     }
 

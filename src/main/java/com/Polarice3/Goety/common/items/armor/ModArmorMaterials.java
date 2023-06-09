@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
 
-    DARK("dark", 15, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> {
+    DARK("dark", 15, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.1F, () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     });
 

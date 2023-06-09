@@ -35,8 +35,14 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
         assert this.level != null;
         if (!this.level.isClientSide) {
             if (flag) {
-                if (!this.itemStack.isEmpty() && this.cursedCageTile.getSouls() > MainConfig.SoulMenderCost.get()) {
-                    this.makeWorkParticles();
+                if (!this.itemStack.isEmpty()) {
+                    int i = 1;
+                    if (!this.itemStack.getAllEnchantments().isEmpty()) {
+                        i += this.itemStack.getAllEnchantments().size();
+                    }
+                    if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
+                        this.makeWorkParticles();
+                    }
                 }
                 this.work();
             }
@@ -46,22 +52,27 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     private void work() {
         if (this.level != null) {
-            if (!this.itemStack.isEmpty() && this.cursedCageTile.getSouls() > MainConfig.SoulMenderCost.get()) {
-                if (this.itemStack.isDamaged()) {
-                    if (this.level.getGameTime() % ModMathHelper.ticksToSeconds(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
-                        this.itemStack.setDamageValue(this.itemStack.getDamageValue() - 1);
-                        int i = this.itemStack.getAllEnchantments().size() + 1;
-                        this.cursedCageTile.decreaseSouls(MainConfig.SoulMenderCost.get() * i);
+            if (!this.itemStack.isEmpty()) {
+                int i = 1;
+                if (!this.itemStack.getAllEnchantments().isEmpty()) {
+                    i += this.itemStack.getAllEnchantments().size();
+                }
+                if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
+                    if (this.itemStack.isDamaged()) {
+                        if (this.level.getGameTime() % ModMathHelper.ticksToSeconds(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
+                            this.itemStack.setDamageValue(this.itemStack.getDamageValue() - 1);
+                            this.cursedCageTile.decreaseSouls(MainConfig.SoulMenderCost.get() * i);
+                        }
+                        if (this.level.random.nextInt(24) == 0) {
+                            this.level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F);
+                        }
+                    } else {
+                        BlockPos blockpos = this.getBlockPos();
+                        Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.itemStack);
+                        this.itemStack.shrink(1);
+                        this.finishParticles();
+                        this.markUpdated();
                     }
-                    if (this.level.random.nextInt(24) == 0) {
-                        this.level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F);
-                    }
-                } else {
-                    BlockPos blockpos = this.getBlockPos();
-                    Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.itemStack);
-                    this.itemStack.shrink(1);
-                    this.finishParticles();
-                    this.markUpdated();
                 }
             }
         }
