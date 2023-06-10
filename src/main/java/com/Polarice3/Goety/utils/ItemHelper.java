@@ -59,28 +59,8 @@ public class ItemHelper {
         return foundStack;
     }
 
-    public static ItemStack findArmor(Player playerEntity, Item item){
-        ItemStack foundStack = ItemStack.EMPTY;
-        for (int i = 0; i <= playerEntity.getInventory().armor.size(); i++) {
-            ItemStack itemStack = playerEntity.getInventory().getArmor(i);
-            if (!itemStack.isEmpty() && itemStack.getItem() == item) {
-                foundStack = itemStack;
-                break;
-            }
-        }
-        return foundStack;
-    }
-
-    public static ItemStack findArmor(Player playerEntity, Predicate<ItemStack> item){
-        ItemStack foundStack = ItemStack.EMPTY;
-        for (int i = 0; i <= playerEntity.getInventory().armor.size(); i++) {
-            ItemStack itemStack = playerEntity.getInventory().getArmor(i);
-            if (!itemStack.isEmpty() && item.test(itemStack)) {
-                foundStack = itemStack;
-                break;
-            }
-        }
-        return foundStack;
+    public static boolean findHelmet(Player player, Item item){
+        return player.getItemBySlot(EquipmentSlot.HEAD).getItem() == item;
     }
 
     public static boolean armorSet(LivingEntity living, ArmorMaterial material){

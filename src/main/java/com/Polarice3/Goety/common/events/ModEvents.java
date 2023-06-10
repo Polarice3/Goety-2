@@ -405,7 +405,7 @@ public class ModEvents {
             }
         }
 
-        if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+        if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
             if (player.getEffect(MobEffects.DARKNESS) != null){
                 player.removeEffect(MobEffects.DARKNESS);
             }
@@ -1209,14 +1209,14 @@ public class ModEvents {
                 event.setResult(Event.Result.DENY);
             }
             if (event.getEntity() instanceof Player player) {
-                if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
                     event.setResult(Event.Result.DENY);
                 }
             }
         }
         if (event.getEffectInstance().getEffect() == MobEffects.DARKNESS){
             if (event.getEntity() instanceof Player player) {
-                if (!ItemHelper.findArmor(player, ModItems.DARK_HELMET.get()).isEmpty()){
+                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
                     event.setResult(Event.Result.DENY);
                 }
             }
