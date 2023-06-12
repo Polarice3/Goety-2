@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -113,20 +114,24 @@ public class UpdraftBlast extends Entity {
                         serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 0, 0, 0.5D, 0, 0.5F);
                     }
                 }
-                List<LivingEntity> targets = new ArrayList<>();
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0F + area, 1.0F, 1.0F + area))){
+                List<Entity> targets = new ArrayList<>();
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(1.0F + area, 1.0F, 1.0F + area))){
                     if (this.owner != null) {
-                        if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner)) {
-                            targets.add(livingEntity);
+                        if (entity != this.owner && !entity.isAlliedTo(this.owner)) {
+                            targets.add(entity);
                         }
                     } else {
-                        targets.add(livingEntity);
+                        targets.add(entity);
                     }
                 }
                 if (!targets.isEmpty()){
-                    for (LivingEntity livingEntity : targets) {
-                        livingEntity.hurt(ModDamageSource.windBlast(this, this.owner), this.damage);
-                        MobUtil.push(livingEntity, 0, 1.0, 0);
+                    for (Entity entity : targets) {
+                        if (entity instanceof LivingEntity livingEntity) {
+                            livingEntity.hurt(ModDamageSource.windBlast(this, this.owner), this.damage);
+                            MobUtil.push(livingEntity, 0, 1.0, 0);
+                        } else if (entity instanceof FireTornado fireTornado){
+                            fireTornado.trueRemove();
+                        }
                     }
                 }
             }

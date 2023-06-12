@@ -33,11 +33,11 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition Ghost = partdefinition.addOrReplaceChild("Ghost", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition head = Ghost.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+        PartDefinition head = Ghost.addOrReplaceChild("head", CubeListBuilder.create().texOffs(2, 3).addBox(-3.0F, -7.0F, -2.0F, 6.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, -1.0F));
 
-        PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 13.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -3.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 
-        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(40, 59).addBox(-4.0F, -1.5F, 0.0F, 8.0F, 1.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(0.0F, -6.5F, 4.0F, -0.4363F, 0.0F, 0.0F));
+        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(0, 56).addBox(-4.0F, -1.5F, 0.0F, 8.0F, 2.0F, 6.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, -6.5F, 4.0F, -0.4363F, 0.0F, 0.0F));
 
         PartDefinition RightArm = Ghost.addOrReplaceChild("RightArm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
@@ -47,8 +47,8 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition Robe = LeftArm.addOrReplaceChild("Robe", CubeListBuilder.create().texOffs(16, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create().texOffs(8, 17).addBox(-3.0F, 0.0F, -5.0F, 6.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(33, 32).addBox(-4.0F, -1.0F, -3.0F, 8.0F, 20.0F, 6.0F, new CubeDeformation(0.0F))
+        PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create().texOffs(8, 17).addBox(-3.0F, 0.0F, -4.0F, 6.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(35, 34).addBox(-4.0F, -1.0F, -2.0F, 8.0F, 20.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 16).addBox(-0.5F, -1.0F, -1.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
@@ -95,7 +95,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
         leftArm.zRot = 0.0F;
         rightArm.yRot = -(0.1F - f * 0.6F);
         leftArm.yRot = 0.1F - f * 0.6F;
-        float f2 = -0.7854F;
+        float f2 = -ModMathHelper.modelDegrees(45.0F);
         rightArm.xRot = f2;
         leftArm.xRot = f2;
         rightArm.xRot -= f * 1.2F - f1 * 0.4F;

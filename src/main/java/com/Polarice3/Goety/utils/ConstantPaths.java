@@ -21,5 +21,4 @@ public class ConstantPaths {
     public static String resultItem(){
         return "goety:resultItem";
     }
-
 }

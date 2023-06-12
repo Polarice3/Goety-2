@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/soul_candlestick_lit" },
+    "lit=false": { "model": "goety:block/soul_candlestick" }
+  }
+}

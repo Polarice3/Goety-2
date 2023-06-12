@@ -9,18 +9,18 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModTiers implements Tier {
-    SPECIAL(3,
+    SPECIAL(MainConfig.SpecialToolsMiningLevel.get(),
             MainConfig.SpecialToolsDurability.get(),
-            8.0F,
-            3.0F,
+            MainConfig.SpecialToolsBreakSpeed.get().floatValue(),
+            MainConfig.SpecialToolsDamage.get().floatValue(),
             MainConfig.SpecialToolsEnchantability.get(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    DARK(4,
-            166,
-            8.0F,
-            3.0F,
-            20, () -> {
+    DARK(MainConfig.DarkToolsMiningLevel.get(),
+            MainConfig.DarkToolsDurability.get(),
+            MainConfig.DarkToolsBreakSpeed.get().floatValue(),
+            MainConfig.DarkToolsDamage.get().floatValue(),
+            MainConfig.DarkToolsEnchantability.get(), () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     }),
     DEATH(4,

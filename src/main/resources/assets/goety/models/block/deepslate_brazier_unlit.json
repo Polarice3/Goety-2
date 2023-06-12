@@ -1,0 +1,7 @@
+{
+	"parent": "goety:block/template_brazier",
+	"textures": {
+		"brazier": "goety:block/deepslate_brazier",
+		"fire": "goety:block/brazier_fireless"
+	}
+}

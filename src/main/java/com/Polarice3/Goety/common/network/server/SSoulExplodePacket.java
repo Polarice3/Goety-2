@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.network.server;
 
-import com.Polarice3.Goety.client.particles.ShockwaveParticle;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
+import com.Polarice3.Goety.Goety;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
@@ -29,10 +27,7 @@ public class SSoulExplodePacket {
 
     public static void consume(SSoulExplodePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ClientLevel clientWorld = Minecraft.getInstance().level;
-            if (clientWorld != null){
-                Minecraft.getInstance().particleEngine.add(new ShockwaveParticle.Explosion(clientWorld, packet.blockPos.getX(), packet.blockPos.getY(), packet.blockPos.getZ(), 0, 0, 0, packet.radius, Minecraft.getInstance().particleEngine));
-            }
+            Goety.PROXY.soulExplode(packet.blockPos, packet.radius);
         });
         ctx.get().setPacketHandled(true);
     }

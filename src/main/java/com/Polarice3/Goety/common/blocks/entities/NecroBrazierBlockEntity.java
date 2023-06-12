@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.NecroBrazierBlock;
 import com.Polarice3.Goety.common.crafting.BrazierRecipe;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
@@ -25,14 +24,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.compress.utils.Lists;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable {
-    private CursedCageBlockEntity cursedCageTile;
+    private final List<SoulCandlestickBlockEntity> candlestickBlockEntityList = Lists.newArrayList();
     public BrazierRecipe recipe;
     public ResourceLocation recipeId;
     public final SimpleContainer inventory = new SimpleContainer(5){
@@ -167,8 +167,9 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
 
     public void tick() {
         if (this.level != null) {
-            boolean flag = this.checkCage() && this.level.getBiome(this.getBlockPos()).is(Biomes.DEEP_DARK);
+            boolean flag = this.level.getBiome(this.getBlockPos()).is(Biomes.DEEP_DARK);
             if (flag) {
+                this.findCandlesticks();
                 if (!this.level.isClientSide) {
                     if (this.level.random.nextFloat() < 0.3F) {
                         if (this.level.random.nextFloat() < 0.17F) {
@@ -176,7 +177,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         }
                     }
                 }
-                if (this.cursedCageTile.getSouls() > 0){
+                if (!this.candlestickBlockEntityList.isEmpty()){
                     BrazierRecipe recipe = this.getRecipe();
                     double d0 = (double)this.worldPosition.getX() + this.level.random.nextDouble();
                     double d1 = (double)this.worldPosition.getY() + 0.5D + this.level.random.nextDouble();
@@ -191,8 +192,12 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                                     serverWorld.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                                     serverWorld.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0.0F);
                                 }
-                                this.cursedCageTile.decreaseSouls(1);
-                                this.currentTime++;
+                                for (SoulCandlestickBlockEntity candlestickBlock : this.candlestickBlockEntityList){
+                                    if (candlestickBlock.getSouls() > 0){
+                                        candlestickBlock.drainSouls(1, this.getBlockPos());
+                                        this.currentTime++;
+                                    }
+                                }
                                 if (this.currentTime == 1) {
                                     ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.BLAZE_AMBIENT, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
                                 }
@@ -300,20 +305,21 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
         }
     }
 
-    private boolean checkCage() {
-        assert this.level != null;
-        BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
-        BlockState blockState = this.level.getBlockState(pos);
-        if (blockState.is(ModBlocks.CURSED_CAGE_BLOCK.get())){
-            BlockEntity tileentity = this.level.getBlockEntity(pos);
-            if (tileentity instanceof CursedCageBlockEntity){
-                this.cursedCageTile = (CursedCageBlockEntity) tileentity;
-                return !cursedCageTile.getItem().isEmpty();
-            } else {
-                return false;
+    private void findCandlesticks(){
+        if (this.level != null){
+            this.candlestickBlockEntityList.clear();
+            for (int i = -8; i <= 8; ++i) {
+                for (int j = -8; j <= 8; ++j) {
+                    for (int k = -8; k <= 8; ++k) {
+                        BlockPos blockpos1 = this.getBlockPos().offset(i, j, k);
+                        if (this.level.getBlockEntity(blockpos1) instanceof SoulCandlestickBlockEntity soulCandlestickBlockEntity) {
+                            if (soulCandlestickBlockEntity.getSouls() > 0) {
+                                this.candlestickBlockEntityList.add(soulCandlestickBlockEntity);
+                            }
+                        }
+                    }
+                }
             }
-        } else {
-            return false;
         }
     }
 }

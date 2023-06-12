@@ -1,0 +1,16 @@
+{
+  "name": "Soul Candlestick",
+  "icon": "goety:soul_candlestick",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Certain devices require a large portion of Soul Energy, but are unable to directly take the energy from the Cursed Cage. After some experiments, you've discovered a way to have such devices siphon energies from multiple Cursed Cages instead of one. Such devices usually process faster the more Candlesticks and filled Cages are, usually usually 8 blocks, around it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_candlestick",
+      "text": "Placed one on top of a filled Cursed Cage."
+    }
+  ]
+}

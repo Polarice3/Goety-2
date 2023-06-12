@@ -307,7 +307,7 @@ public class AbstractWraith extends Summoned {
                             this.fireTick = 0;
                         }
                         this.stopFiring();
-                        if (!this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F)) {
+                        if (!this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0) {
                             this.setIsTeleporting(true);
                         } else {
                             this.setIsTeleporting(false);
@@ -316,7 +316,7 @@ public class AbstractWraith extends Summoned {
                     }
                 } else {
                     if (MainConfig.WraithAggressiveTeleport.get()) {
-                        if (!this.isStaying()) {
+                        if (!this.isStaying() && this.teleportCooldown <= 0) {
                             this.setIsTeleporting(true);
                         }
                     }

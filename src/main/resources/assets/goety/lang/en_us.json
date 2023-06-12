@@ -273,6 +273,10 @@
 
   "block.goety.shade_brazier": "Shade Brazier",
   "block.goety.stone_brazier": "Stone Brazier",
+  "block.goety.brick_brazier": "Brick Brazier",
+  "block.goety.deepslate_brazier": "Deepslate Brazier",
+  "block.goety.nether_brick_brazier": "Nether Brick Brazier",
+  "block.goety.blackstone_brazier": "Blackstone Brazier",
 
   "block.goety.haunted_sapling": "Haunted Sapling",
   "block.goety.haunted_log": "Haunted Log",
@@ -311,6 +315,7 @@
   "block.goety.dark_anvil": "Dark Anvil",
   "block.goety.chipped_dark_anvil": "Chipped Dark Anvil",
   "block.goety.damaged_dark_anvil": "Damaged Dark Anvil",
+  "block.goety.soul_candlestick": "Soul Candlestick",
 
   "block.goety.sculk_devourer": "Sculk Devourer",
   "block.goety.sculk_converter": "Sculk Converter",
@@ -346,6 +351,8 @@
   "effect.goety.rampage.description": "Increases melee attack damage by 0.5 heart per level, Increases mining and attack speed. Spawns an explosion after gaining 5 levels.",
   "effect.goety.climbing": "Climbing",
   "effect.goety.climbing.description": "Grants ability to climb up horizontal walls and move through Cobwebs.",
+  "effect.goety.pressure": "Pressure",
+  "effect.goety.pressure.description": "Creepers will explode nigh-instantly towards targets with this effect.",
 
   "enchantment.goety.soul_eater": "Soul Eater",
   "enchantment.goety.wanting": "Wanting",

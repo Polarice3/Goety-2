@@ -59,11 +59,19 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
+    public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsBreakSpeed;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsMiningLevel;
     public static final ForgeConfigSpec.ConfigValue<Double> DeathScytheDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DeathScytheEnchantability;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> SpecialToolsDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpecialToolsBreakSpeed;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsMiningLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> HuntersBowDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpecialToolsEnchantability;
 
@@ -147,8 +155,8 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
-        DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if No Cap is enabled, or the level cap if disabled, Default: 40")
-                .defineInRange("darkAnvilRepairCost", 40, 1, Integer.MAX_VALUE);
+        DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if No Cap is enabled, or the level cap if disabled, Default: 30")
+                .defineInRange("darkAnvilRepairCost", 30, 1, Integer.MAX_VALUE);
         DarkAnvilNoCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: true")
                 .define("darkAnvilNoCap", true);
         DarkAnvilSoulCost = BUILDER.comment("How much Soul Energy is required for the Dark Anvil to repair itself, Default: 1000")
@@ -229,18 +237,34 @@ public class MainConfig {
                 .defineInRange("scytheBaseDamage", 4.5, 1.0, Double.MAX_VALUE);
         ScytheAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Scythe with item offhand and not wearing Grave Gloves. The lower the number the slower it takes to recharge, Default: 0.6")
                 .defineInRange("scytheAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
+        DarkToolsDamage = BUILDER.comment("How much damage Dark Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")
+                .defineInRange("darkToolsDamage", 3.0, 1.0, Double.MAX_VALUE);
+        DarkToolsBreakSpeed = BUILDER.comment("How fast Dark Tools mines, the higher the better, Default: 8.0")
+                .defineInRange("darkToolsBreakSpeed", 8.0, 1.0, Double.MAX_VALUE);
+        DarkToolsDurability = BUILDER.comment("How many uses before Dark Tools breaks, Default: 166")
+                .defineInRange("darkToolsDurability", 166, 1, Integer.MAX_VALUE);
+        DarkToolsEnchantability = BUILDER.comment("Define the Enchantability for Dark Tools, higher number the better, Default: 20")
+                .defineInRange("darkToolsEnchantability", 20, 1, Integer.MAX_VALUE);
+        DarkToolsMiningLevel = BUILDER.comment("Define the Mining Level for Dark Tools, example, 3 = Diamond, 4 = Netherite, Default: 4")
+                .defineInRange("darkToolsMiningLevel", 4, 0, Integer.MAX_VALUE);
         DeathScytheDamage = BUILDER.comment("How much damage Death Scythe deals, the configured number is added to Scythe Base Damage, Default: 4.0")
                 .defineInRange("deathScytheDamage", 4.0, 1.0, Double.MAX_VALUE);
         DeathScytheDurability = BUILDER.comment("How many uses before Death Scythe breaks, Default: 444")
                 .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
         DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
                 .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+        SpecialToolsDamage = BUILDER.comment("How much damage Special Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")
+                .defineInRange("specialToolsDamage", 3.0, 1.0, Double.MAX_VALUE);
+        SpecialToolsBreakSpeed = BUILDER.comment("How fast Special Tools mines, the higher the better, Default: 8.0")
+                .defineInRange("specialToolsBreakSpeed", 8.0, 1.0, Double.MAX_VALUE);
         SpecialToolsDurability = BUILDER.comment("How many uses before a Special Tool breaks, Default: 1280")
                 .defineInRange("specialToolsDurability", 1280, 1, Integer.MAX_VALUE);
         HuntersBowDurability = BUILDER.comment("How many uses before a Hunter's Bow breaks, Default: 133")
                 .defineInRange("huntersBowDurability", 133, 1, Integer.MAX_VALUE);
         SpecialToolsEnchantability = BUILDER.comment("Define the Enchantability for Special Tools, higher number the better, Default: 22")
                 .defineInRange("specialToolsEnchantability", 22, 1, Integer.MAX_VALUE);
+        SpecialToolsMiningLevel = BUILDER.comment("Define the Mining Level for Special Tools, example, 3 = Diamond, 4 = Netherite, Default: 3")
+                .defineInRange("specialToolsMiningLevel", 3, 0, Integer.MAX_VALUE);
         PhilosophersMaceDamage = BUILDER.comment("How much damage Philosopher's Mace deals, Default: 9.0")
                 .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
         PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")

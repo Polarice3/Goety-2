@@ -2,9 +2,11 @@ package com.Polarice3.Goety.client.inventory.container;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
 
@@ -73,6 +76,17 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                 BlockState blockstate1 = DarkAnvilBlock.damage(blockstate);
                 if (blockstate1 == null) {
                     p_150479_.removeBlock(p_150480_, false);
+                    for (int i = 0; i < 4; ++i) {
+                        if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
+                            ItemStack itemStack = new ItemStack(ModItems.DARK_METAL_INGOT.get());
+                            double d0 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                            double d1 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                            double d2 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
+                            ItemEntity itementity = new ItemEntity(player.level, (double) p_150480_.getX() + d0, (double) p_150480_.getY() + d1, (double) p_150480_.getZ() + d2, itemStack);
+                            itementity.setDefaultPickUpDelay();
+                            player.level.addFreshEntity(itementity);
+                        }
+                    }
                     p_150479_.levelEvent(1029, p_150480_, 0);
                 } else {
                     p_150479_.setBlock(p_150480_, blockstate1, 2);

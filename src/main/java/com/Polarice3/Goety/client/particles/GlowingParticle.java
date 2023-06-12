@@ -8,6 +8,7 @@ import net.minecraft.util.Mth;
 public class GlowingParticle extends RisingParticle {
     private GlowingParticle(ClientLevel p_i232392_1_, double p_i232392_2_, double p_i232392_4_, double p_i232392_6_, double p_i232392_8_, double p_i232392_10_, double p_i232392_12_) {
         super(p_i232392_1_, p_i232392_2_, p_i232392_4_, p_i232392_6_, p_i232392_8_, p_i232392_10_, p_i232392_12_);
+        this.lifetime = 10;
     }
 
     public ParticleRenderType getRenderType() {

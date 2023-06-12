@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.entities.MagicLightBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -8,10 +9,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,7 +27,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class GlowLightBlock extends Block implements SimpleWaterloggedBlock {
+public class GlowLightBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(5.0D, 5.0D, 5.0D, 11.0D, 11.0D, 11.0D);
 
@@ -97,6 +98,20 @@ public class GlowLightBlock extends Block implements SimpleWaterloggedBlock {
         double d1 = (double)pPos.getY() + 0.6D;
         double d2 = (double)pPos.getZ() + 0.5D;
         pLevel.addParticle(ModParticleTypes.GLOW_EFFECT.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-        pLevel.addParticle(ModParticleTypes.GLOW_LIGHT_EFFECT.get(), d0, (double)pPos.getY() + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+        return new MagicLightBlockEntity(p_153215_, p_153216_);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
+        return (world, pos, state, blockEntity) -> {
+            if (blockEntity instanceof MagicLightBlockEntity arcaBlock)
+                arcaBlock.tick(ModParticleTypes.GLOW_LIGHT_EFFECT.get());
+        };
     }
 }

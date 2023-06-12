@@ -195,11 +195,14 @@ public class RitualRecipe extends ModShapelessRecipe {
             EntityType<?> entityToConvertInto = null;
             TagKey<EntityType<?>> entityToConvert = null;
             String entityToConvertDisplayName = "";
-            if (json.has("entity_to_convert_into")) {
+            if (json.has("entity_to_convert")){
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_convert"), "tag"));
                 entityToConvert = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
-                entityToConvertInto = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_convert_into")));
+
                 entityToConvertDisplayName = json.getAsJsonObject("entity_to_convert").get("display_name").getAsString();
+            }
+            if (json.has("entity_to_convert_into")) {
+                entityToConvertInto = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_convert_into")));
             }
 
             return new RitualRecipe(recipeId, group, craftType, ritualType,
@@ -252,9 +255,12 @@ public class RitualRecipe extends ModShapelessRecipe {
             String entityToConvertDisplayName = "";
             if (buffer.readBoolean()) {
                 var tagRL = buffer.readResourceLocation();
-                entityToConvertInto = buffer.readRegistryId();
                 entityToConvert = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
                 entityToConvertDisplayName = buffer.readUtf();
+            }
+
+            if (buffer.readBoolean()){
+                entityToConvertInto = buffer.readRegistryId();
             }
 
             assert recipe != null;
@@ -283,11 +289,14 @@ public class RitualRecipe extends ModShapelessRecipe {
                 buffer.writeResourceLocation(recipe.entityToSacrifice.location());
                 buffer.writeUtf(recipe.entityToSacrificeDisplayName);
             }
+            buffer.writeBoolean(recipe.entityToConvert != null);
+            if (recipe.entityToConvert != null){
+                buffer.writeResourceLocation(recipe.entityToConvert.location());
+                buffer.writeUtf(recipe.entityToConvertDisplayName);
+            }
             buffer.writeBoolean(recipe.entityToConvertInto != null);
             if (recipe.entityToConvertInto != null) {
                 buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToConvertInto);
-                buffer.writeResourceLocation(recipe.entityToConvert.location());
-                buffer.writeUtf(recipe.entityToConvertDisplayName);
             }
         }
     }

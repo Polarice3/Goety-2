@@ -562,6 +562,17 @@ public class ModEvents {
                     }
                 }
             }
+            if (livingEntity instanceof Creeper creeper){
+                if (!creeper.level.isClientSide) {
+                    if (creeper.getTarget() != null) {
+                        if (creeper.getTarget().hasEffect(ModEffects.PRESSURE.get())) {
+                            if (creeper.getSwellDir() >= 1 && creeper.tickCount % 30 == 0) {
+                                MobUtil.explodeCreeper(creeper);
+                            }
+                        }
+                    }
+                }
+            }
             if (MainConfig.VillagerConvertWarlock.get()) {
                 if (livingEntity instanceof Villager villager) {
                     if (villager.level instanceof ServerLevel serverLevel) {
@@ -933,8 +944,9 @@ public class ModEvents {
                 Entity entity = event.getSource().getDirectEntity();
                 if (entity instanceof Fangs){
                     if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                        if (EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player)) >= 3) {
-                            if (world.random.nextFloat() <= 0.25F) {
+                        int enchantment = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
+                        if (enchantment >= 3) {
+                            if (world.random.nextFloat() <= (enchantment / 9.0F)) {
                                 if (killed.getType() == EntityType.SKELETON) {
                                     killed.spawnAtLocation(new ItemStack(Items.SKELETON_SKULL));
                                 }

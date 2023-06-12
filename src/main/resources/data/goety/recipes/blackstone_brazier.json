@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bcb",
+    "sms"
+  ],
+  "key": {
+    "b": {
+      "item": "minecraft:iron_bars"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    },
+    "s": {
+      "item": "minecraft:blackstone_slab"
+    },
+    "m": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "result": {
+    "item": "goety:blackstone_brazier"
+  }
+}

@@ -5,6 +5,8 @@ import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -107,6 +109,7 @@ public class NecroBrazierBlock extends BaseEntityBlock implements SimpleWaterlog
                         if (!itemEntity.getTags().contains(ConstantPaths.resultItem())) {
                             if (blockEntity.currentTime <= 0) {
                                 blockEntity.addItem(null, itemEntity.getItem());
+                                pLevel.playSound(null, pPos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
                                 itemEntity.discard();
                             }
                         }

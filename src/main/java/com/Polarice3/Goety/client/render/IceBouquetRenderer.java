@@ -38,6 +38,8 @@ public class IceBouquetRenderer extends EntityRenderer<IceBouquet> {
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
             this.model.setupAnim(pEntity, 0.0F, 0.0F, pPartialTicks/10, 0, 0);
             this.model.renderToBuffer(pMatrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
+            VertexConsumer glow = bufferIn.getBuffer(ModRenderType.wraith(this.getTextureLocation(pEntity)));
+            this.model.renderToBuffer(pMatrixStack, glow, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             pMatrixStack.popPose();
             super.render(pEntity, entityYaw, pPartialTicks, pMatrixStack, bufferIn, packedLightIn);
         }

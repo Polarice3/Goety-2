@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Necrotic Brazier will slowly take Soul Energy from the Cage, only completing, and spewing out the resulting item, once it has taken enough consuming all the items placed in it. Breaking the Cursed Cage, not having enough Soul Energy, or attempting to place or remove an item from the Brazier will cause it to spit out all of its items, wasting any consumed Soul Energy."
+      "text": "The Necrotic Brazier will slowly take Soul Energy from the surrounding Soul Candlesticks, only completing, and spewing out the resulting item, once it has taken enough consuming all the items placed in it. Breaking every Candlesticks, not having enough Soul Energy from them, or attempting to place or remove an item from the Brazier will cause it to spit out all of its items, wasting any consumed Soul Energy."
     }
   ]
 }
