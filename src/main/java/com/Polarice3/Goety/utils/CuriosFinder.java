@@ -90,7 +90,7 @@ public class CuriosFinder {
             foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(CuriosFinder::isRing, playerEntity).map(
                     ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
         } else {
-            for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+            for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
                 ItemStack itemStack = playerEntity.getInventory().getItem(i);
                 if (!itemStack.isEmpty() && isRing(itemStack)) {
                     foundStack = itemStack;

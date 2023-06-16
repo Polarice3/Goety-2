@@ -35,9 +35,13 @@ public class ItemHelper {
         return new ItemEntity(livingEntity.level, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), itemStack);
     }
 
+    public static boolean hasItem(Player player, Item item){
+        return !findItem(player, item).isEmpty();
+    }
+
     public static ItemStack findItem(Player playerEntity, Item item){
         ItemStack foundStack = ItemStack.EMPTY;
-        for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+        for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = playerEntity.getInventory().getItem(i);
             if (!itemStack.isEmpty() && itemStack.getItem() == item) {
                 foundStack = itemStack;
@@ -49,7 +53,7 @@ public class ItemHelper {
 
     public static ItemStack findItem(Player playerEntity, Predicate<ItemStack> item){
         ItemStack foundStack = ItemStack.EMPTY;
-        for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+        for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = playerEntity.getInventory().getItem(i);
             if (!itemStack.isEmpty() && item.test(itemStack)) {
                 foundStack = itemStack;

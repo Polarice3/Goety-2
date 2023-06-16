@@ -62,6 +62,11 @@ public class ModEntityType {
                     .sized(1.0f,1.0f)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<HauntedSkullProjectile>> HAUNTED_SKULL_SHOT = register("haunted_skull_shot",
+            EntityType.Builder.<HauntedSkullProjectile>of(HauntedSkullProjectile::new, MobCategory.MISC)
+                    .sized(0.5f,0.5f)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<SoulLight>> SOUL_LIGHT = register("soul_light",
             EntityType.Builder.<SoulLight>of(SoulLight::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)

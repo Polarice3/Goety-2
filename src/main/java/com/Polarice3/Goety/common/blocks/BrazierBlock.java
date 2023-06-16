@@ -39,11 +39,35 @@ import javax.annotation.Nullable;
 import java.util.function.ToIntFunction;
 
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
-    protected static final VoxelShape SHAPE_BASE = Block.box(1.0D, 0.0D, 1.0D,
+    protected static final VoxelShape SHAPE_BASE_1 = Block.box(1.0D, 0.0D, 1.0D,
             15.0D, 1.0D, 15.0D);
-    protected static final VoxelShape SHAPE_2 = Block.box(2.0D, 1.0D, 2.0D,
-            14.0D, 11.0D, 14.0D);
-    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_2);
+    protected static final VoxelShape SHAPE_BASE_2 = Block.box(2.0D, 1.0D, 2.0D,
+            14.0D, 2.0D, 14.0D);
+    protected static final VoxelShape SHAPE_HOLD_1 = Block.box(7.0D, 2.0D, 2.0D,
+            9.0D, 7.0D, 3.0D);
+    protected static final VoxelShape SHAPE_HOLD_2 = Block.box(13.0D, 2.0D, 7.0D,
+            14.0D, 7.0D, 9.0D);
+    protected static final VoxelShape SHAPE_HOLD_3 = Block.box(7.0D, 2.0D, 13.0D,
+            9.0D, 7.0D, 14.0D);
+    protected static final VoxelShape SHAPE_HOLD_4 = Block.box(2.0D, 2.0D, 7.0D,
+            3.0D, 7.0D, 9.0D);
+    protected static final VoxelShape SHAPE_TOP_BASE = Block.box(3.0D, 5.0D, 3.0D,
+            13.0D, 7.0D, 13.0D);
+    protected static final VoxelShape SHAPE_BARS_1 = Block.box(3.0D, 7.0D, 3.0D,
+            13.0D, 11.0D, 3.0D);
+    protected static final VoxelShape SHAPE_BARS_2 = Block.box(13.0D, 7.0D, 3.0D,
+            13.0D, 11.0D, 13.0D);
+    protected static final VoxelShape SHAPE_BARS_3 = Block.box(3.0D, 7.0D, 13.0D,
+            13.0D, 11.0D, 13.0D);
+    protected static final VoxelShape SHAPE_BARS_4 = Block.box(3.0D, 7.0D, 3.0D,
+            3.0D, 11.0D, 13.0D);
+    protected static final VoxelShape SHAPE_BURNER = Block.box(4.0D, 7.0D, 4.0D,
+            12.0D, 8.0D, 12.0D);
+    public static final VoxelShape SHAPE_HOLDER = Shapes.or(SHAPE_HOLD_1, SHAPE_HOLD_2, SHAPE_HOLD_3, SHAPE_HOLD_4);
+    public static final VoxelShape SHAPE_BASE = Shapes.or(SHAPE_BASE_1, SHAPE_BASE_2);
+    public static final VoxelShape SHAPE_BARS = Shapes.or(SHAPE_BARS_1, SHAPE_BARS_2, SHAPE_BARS_3, SHAPE_BARS_4);
+    public static final VoxelShape SHAPE_TOP = Shapes.or(SHAPE_TOP_BASE, SHAPE_BARS, SHAPE_BURNER);
+    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_HOLDER, SHAPE_TOP);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -84,7 +108,8 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pState.getValue(LIT)) {
-            if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)) {
+            if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
+                    && pEntity.getY() >= pPos.getY() + 0.5F) {
                 pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
             }
         }

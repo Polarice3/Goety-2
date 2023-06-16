@@ -218,6 +218,9 @@ public class IceBouquet extends GroundProjectile {
                 } else {
                     if (owner.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         damage = (float) owner.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                        if (damage < 1){
+                            damage = 1.0F;
+                        }
                         if (this.tickCount >= 14){
                             damage /= 2.0F;
                         }

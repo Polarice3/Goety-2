@@ -182,5 +182,14 @@ public class ClientEvents {
         if (ModKeybindings.keyBindings[6].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CMagnetPacket());
         }
+        if (ModKeybindings.keyBindings[7].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CAddWitchFuelKeyPacket());
+        }
+        if (ModKeybindings.keyBindings[8].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CAddCatalystKeyPacket());
+        }
+        if (ModKeybindings.keyBindings[9].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CExtractPotionKeyPacket());
+        }
     }
 }

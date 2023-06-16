@@ -37,7 +37,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -3.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 
-        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(0, 56).addBox(-4.0F, -1.5F, 0.0F, 8.0F, 2.0F, 6.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, -6.5F, 4.0F, -0.4363F, 0.0F, 0.0F));
+        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(0, 55).addBox(-4.0F, -3.0F, -0.5F, 8.0F, 2.0F, 7.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, -5.0F, 4.5F, -0.4363F, 0.0F, 0.0F));
 
         PartDefinition RightArm = Ghost.addOrReplaceChild("RightArm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
@@ -58,7 +58,8 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         float f = pAgeInTicks * 0.0025F;
         this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
-        this.body.xRot = ModMathHelper.modelDegrees(12.5F) + Mth.abs(Mth.cos(pLimbSwing * 0.3331F) * 0.9F * pLimbSwingAmount / 1.25F);
+        float f4 = Math.min(pLimbSwingAmount / 0.3F, 1.0F);
+        this.body.xRot = f4 * ModMathHelper.modelDegrees(40.0F);
         this.body.xRot += Mth.cos(pAgeInTicks * 0.09F) * 0.1F + 0.1F;
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         if (pEntity instanceof AbstractWraith wraith){
@@ -74,11 +75,12 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
                 this.LeftArm.zRot = ((float)Math.PI) * f7;
                 this.Ghost.y += (((float)Math.PI) * f7) * 5.0F;
             } else {
+                float f5 = Math.min(pLimbSwingAmount / 2.0F, 1.0F);
                 float degrees;
                 if (wraith.getLookControl().isLookingAtTarget()){
                     degrees = 0.0F;
                 } else {
-                    degrees = ModMathHelper.modelDegrees(17.5F);
+                    degrees = ModMathHelper.modelDegrees(17.5F) - f5;
                 }
                 this.head.xRot = pHeadPitch * ((float)Math.PI / 180F) + degrees;
                 animateArms(this.LeftArm, this.RightArm, 0, pAgeInTicks);

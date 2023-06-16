@@ -476,7 +476,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             case 9 ->
                     this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false), this);
             case 10 ->
-                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false, false), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), this);
             case 11 -> this.setArrowEffect(ModEffects.SAPPED.get());
         }
     }
@@ -810,6 +810,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (this.isSecondPhase() && this.getHealth() < this.getMaxHealth()/2 && this.hasHat()){
                 this.setHat(false);
             }
+            if (this.isSettingUpSecond()){
+                for(int i = 0; i < 40; ++i) {
+                    double d0 = this.random.nextGaussian() * 0.2D;
+                    double d1 = this.random.nextGaussian() * 0.2D;
+                    double d2 = this.random.nextGaussian() * 0.2D;
+                    this.level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), d0, d1, d2);
+                }
+            }
         }
         if (!this.level.isClientSide){
             AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -834,19 +842,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
             if (!this.level.isClientSide){
                 this.resetHitTime();
-                ServerLevel ServerLevel = (ServerLevel) this.level;
-                for(int i = 0; i < 40; ++i) {
-                    double d0 = this.random.nextGaussian() * 0.2D;
-                    double d1 = this.random.nextGaussian() * 0.2D;
-                    double d2 = this.random.nextGaussian() * 0.2D;
-                    ServerLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), 0, d0, d1, d2, 0.5F);
-                }
             }
             if (this.getHealth() >= this.getMaxHealth()){
                 if (!this.level.isClientSide){
-                    ServerLevel ServerLevel = (ServerLevel) this.level;
-                    if (!ServerLevel.isThundering()) {
-                        ServerLevel.setWeatherParameters(0, 6000, true, true);
+                    ServerLevel serverLevel = (ServerLevel) this.level;
+                    if (!serverLevel.isThundering()) {
+                        serverLevel.setWeatherParameters(0, 6000, true, true);
                     }
                     for(int k = 0; k < 60; ++k) {
                         float f2 = random.nextFloat() * 4.0F;
@@ -854,7 +855,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         double d1 = Mth.cos(f1) * f2;
                         double d2 = 0.01D + random.nextDouble() * 0.5D;
                         double d3 = Mth.sin(f1) * f2;
-                        ServerLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
+                        serverLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.25F);
                     }
                 }
                 this.setSettingUpSecond(false);

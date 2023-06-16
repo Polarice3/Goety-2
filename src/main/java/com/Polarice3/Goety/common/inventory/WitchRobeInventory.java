@@ -2,15 +2,18 @@ package com.Polarice3.Goety.common.inventory;
 
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,14 +23,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+
+import static net.minecraftforge.common.brewing.BrewingRecipeRegistry.canBrew;
 
 /**
  * Code based from @cnlimiter's Portable-Craft mod
  */
 public class WitchRobeInventory extends SimpleContainer implements MenuProvider {
+    /**
+     * item.get(0 - 2) = Outputs
+     * item.get(3) = Catalyst
+     * item.get(4) = Fuel
+     */
     private static final int[] SLOTS_FOR_SIDES = new int[]{0, 1, 2, 4};
     private NonNullList<ItemStack> items = NonNullList.withSize(5, ItemStack.EMPTY);
     private int brewTime;
@@ -177,7 +189,7 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
     public boolean isBrewable() {
         ItemStack itemstack = this.items.get(3);
         if (!itemstack.isEmpty())
-            return net.minecraftforge.common.brewing.BrewingRecipeRegistry.canBrew(items, itemstack, SLOTS_FOR_SIDES);
+            return canBrew(items, itemstack, SLOTS_FOR_SIDES);
         if (itemstack.isEmpty()) {
             return false;
         } else if (!PotionBrewing.isIngredient(itemstack)) {
@@ -195,7 +207,9 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
     }
 
     private void doBrew() {
-        if (net.minecraftforge.event.ForgeEventFactory.onPotionAttemptBrew(items)) return;
+        if (net.minecraftforge.event.ForgeEventFactory.onPotionAttemptBrew(items)) {
+            return;
+        }
         ItemStack itemstack = this.items.get(3);
 
         net.minecraftforge.common.brewing.BrewingRecipeRegistry.brewPotions(items, itemstack, SLOTS_FOR_SIDES);
@@ -207,18 +221,114 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
                 itemstack = itemstack1;
             }
 
-        } else itemstack.shrink(1);
+        } else {
+            itemstack.shrink(1);
+        }
 
-        if (this.getLivingEntity() != null) {
-            this.getLivingEntity().playSound(SoundEvents.BREWING_STAND_BREW);
-            if (!this.getLivingEntity().level.isClientSide) {
-                if (this.getLivingEntity() instanceof ServerPlayer player) {
-                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.BREWING_STAND_BREW, 1.0F, 1.0F));
+        this.playSound(SoundEvents.BREWING_STAND_BREW);
+
+        this.items.set(3, itemstack);
+    }
+
+    public static boolean isAirOrEmpty(ItemStack itemStack){
+        return itemStack.isEmpty() || itemStack.is(Items.AIR);
+    }
+
+    public boolean inputEmpty(){
+        return isAirOrEmpty(this.items.get(0)) || isAirOrEmpty(this.items.get(1)) || isAirOrEmpty(this.items.get(2));
+    }
+
+    public boolean isWaterOrEmpty(){
+        boolean[] flag = {false, false, false};
+        if (!inputEmpty()) {
+            flag[0] = PotionUtils.getPotion(this.items.get(0)) == Potions.WATER || isAirOrEmpty(this.items.get(0));
+            flag[1] = PotionUtils.getPotion(this.items.get(1)) == Potions.WATER || isAirOrEmpty(this.items.get(1));
+            flag[2] = PotionUtils.getPotion(this.items.get(2)) == Potions.WATER || isAirOrEmpty(this.items.get(2));
+        }
+
+        return flag[0] && flag[1] && flag[2];
+    }
+
+    public boolean needsFuel(){
+        return this.fuel <= 5;
+    }
+
+    public void addFuel(ItemStack itemStack){
+        if (canPlaceItem(4, itemStack)){
+            if (this.items.get(4).getCount() != 64) {
+                if (this.items.get(4).isEmpty()) {
+                    ItemStack newItem = itemStack.copy();
+                    newItem.setCount(1);
+                    this.items.set(4, newItem);
+                } else {
+                    this.items.get(4).grow(1);
+                }
+                itemStack.shrink(1);
+                this.playSound(SoundEvents.FIRECHARGE_USE);
+                this.setChanged();
+            }
+        }
+    }
+
+    public void autoAddWaterBottles(ItemStack itemStack){
+        if (itemStack.is(Items.GLASS_BOTTLE)){
+            if (this.inputEmpty()){
+                this.addBottles(itemStack, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
+                this.playSound(SoundEvents.BOTTLE_FILL);
+            }
+        }
+    }
+
+    public void addBottlesOrCatalyst(ItemStack itemStack){
+        if (canPlaceItem(3, itemStack) && (isAirOrEmpty(this.items.get(3)) || itemStack.sameItem(this.items.get(3)) && this.items.get(3).getCount() < 64)){
+            this.items.set(3, itemStack.copy());
+            itemStack.shrink(1);
+            this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC);
+            this.setChanged();
+        } else if (canPlaceItem(0, itemStack) || canPlaceItem(1, itemStack) || canPlaceItem(2, itemStack)){
+            this.addBottles(itemStack, itemStack.copy());
+        }
+    }
+
+    public void addBottles(ItemStack input, ItemStack newStack){
+        for (int i = 0; i < 3; i++){
+            if (isAirOrEmpty(this.items.get(i)) && input.getCount() > 0){
+                this.items.set(i, newStack);
+                input.shrink(1);
+                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC);
+                this.setChanged();
+            }
+        }
+    }
+
+    public void extractPotions(){
+        for (int i = 0; i < 3; i++){
+            if (!this.items.get(i).isEmpty()){
+                if (this.getLivingEntity() instanceof Player player){
+                    if (player.getInventory().add(this.items.get(i))){
+                        this.playSound(SoundEvents.ITEM_PICKUP);
+                    } else {
+                        BlockPos blockPos = this.getLivingEntity().blockPosition();
+                        ItemEntity itemEntity = new ItemEntity(this.getLivingEntity().level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.items.get(i));
+                        this.getLivingEntity().level.addFreshEntity(itemEntity);
+                        this.playSound(SoundEvents.ITEM_FRAME_REMOVE_ITEM);
+                    }
+                    this.items.get(i).shrink(1);
                 }
             }
         }
+        this.setChanged();
+    }
 
-        this.items.set(3, itemstack);
+    public void playSound(SoundEvent soundEvent){
+        if (this.getLivingEntity() != null) {
+            this.getLivingEntity().playSound(soundEvent);
+            if (!this.getLivingEntity().level.isClientSide) {
+                if (this.getLivingEntity() instanceof ServerPlayer serverPlayer) {
+                    ModNetwork.sendTo(serverPlayer, new SPlayPlayerSoundPacket(soundEvent, 1.0F, 1.0F));
+                }
+            }
+        }
     }
 
     public void load(CompoundTag p_230337_2_) {

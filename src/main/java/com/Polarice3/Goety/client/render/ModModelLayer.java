@@ -16,7 +16,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
-    public static final ModelLayerLocation PILLAR = register("pillar");
+    public static final ModelLayerLocation MONOLITH = register("pillar");
     public static final ModelLayerLocation WARLOCK = register("warlock");
     public static final ModelLayerLocation APOSTLE = register("apostle");
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");

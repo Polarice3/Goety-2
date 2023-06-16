@@ -158,6 +158,13 @@ public class DarkWand extends Item {
                 return InteractionResult.SUCCESS;
             }
         }
+        if (this.getSpell(stack) instanceof TouchSpells touchSpells){
+            if (this.canCastTouch(stack, player.level, player)) {
+                if (player.level instanceof ServerLevel serverLevel) {
+                    touchSpells.touchResult(serverLevel, player, target);
+                }
+            }
+        }
         return super.interactLivingEntity(stack, player, target, hand);
 
     }
@@ -330,23 +337,41 @@ public class DarkWand extends Item {
         }
     }
 
-    public void MagicResults(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
-        Player playerEntity = (Player) entityLiving;
+    public boolean canCastTouch(ItemStack stack, Level worldIn, LivingEntity caster){
+        Player playerEntity = (Player) caster;
+        if (!worldIn.isClientSide) {
+            if (this.getSpell(stack) != null) {
+                if (playerEntity.isCreative()){
+                    return stack.getTag() != null;
+                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
+                    if (stack.getTag() != null) {
+                        SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
+                        SEHelper.sendSEUpdatePacket(playerEntity);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void MagicResults(ItemStack stack, Level worldIn, LivingEntity caster) {
+        Player playerEntity = (Player) caster;
         if (!worldIn.isClientSide) {
             ServerLevel serverWorld = (ServerLevel) worldIn;
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
                         if (hasAppropriateStaff(stack)) {
-                            this.getSpell(stack).StaffResult(serverWorld, entityLiving);
+                            this.getSpell(stack).StaffResult(serverWorld, caster);
                         } else {
-                            this.getSpell(stack).RegularResult(serverWorld, entityLiving);
+                            this.getSpell(stack).RegularResult(serverWorld, caster);
                         }
                         if (SpellConfig.WandCooldown.get()){
                             playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
                         }
                     }
-                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
+                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     boolean spent = true;
                     if (this.getSpell(stack) instanceof EverChargeSpells) {
                         if (worldIn.random.nextFloat() >= 0.25F) {
@@ -354,48 +379,48 @@ public class DarkWand extends Item {
                         }
                     }
                     if (spent){
-                        SEHelper.decreaseSouls(playerEntity, SoulUse(entityLiving, stack));
+                        SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
                         SEHelper.sendSEUpdatePacket(playerEntity);
                         if (MainConfig.VillagerHateSpells.get() > 0) {
-                            for (Villager villager : entityLiving.level.getEntitiesOfClass(Villager.class, entityLiving.getBoundingBox().inflate(16.0D))) {
-                                if (villager.hasLineOfSight(entityLiving)) {
-                                    villager.getGossips().add(entityLiving.getUUID(), GossipType.MINOR_NEGATIVE, MainConfig.VillagerHateSpells.get());
+                            for (Villager villager : caster.level.getEntitiesOfClass(Villager.class, caster.getBoundingBox().inflate(16.0D))) {
+                                if (villager.hasLineOfSight(caster)) {
+                                    villager.getGossips().add(caster.getUUID(), GossipType.MINOR_NEGATIVE, MainConfig.VillagerHateSpells.get());
                                 }
                             }
                         }
                     }
                     if (stack.getTag() != null) {
                         if (hasAppropriateStaff(stack)) {
-                            this.getSpell(stack).StaffResult(serverWorld, entityLiving);
+                            this.getSpell(stack).StaffResult(serverWorld, caster);
                         } else {
-                            this.getSpell(stack).RegularResult(serverWorld, entityLiving);
+                            this.getSpell(stack).RegularResult(serverWorld, caster);
                         }
                         if (SpellConfig.WandCooldown.get()){
                             playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
                         }
                     }
                 } else {
-                    worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                    worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 }
             } else {
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
         }
         if (worldIn.isClientSide){
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
                     if (this.getSpell(stack) instanceof BreathingSpells breathingSpells){
-                        breathingSpells.showWandBreath(entityLiving);
+                        breathingSpells.showWandBreath(caster);
                     }
-                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(entityLiving, stack))) {
+                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (this.getSpell(stack) instanceof BreathingSpells breathingSpells){
-                        breathingSpells.showWandBreath(entityLiving);
+                        breathingSpells.showWandBreath(caster);
                     }
                 } else {
-                    this.failParticles(worldIn, entityLiving);
+                    this.failParticles(worldIn, caster);
                 }
             } else {
-                this.failParticles(worldIn, entityLiving);
+                this.failParticles(worldIn, caster);
             }
         }
     }

@@ -79,7 +79,7 @@ public class HauntedSkullSpell extends SummonSpells {
             summonedentity.moveTo(blockpos, 0.0F, 0.0F);
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summonedentity.setBoundOrigin(blockpos);
-            summonedentity.setLimitedLife(ModMathHelper.ticksToSeconds(10) * duration);
+            summonedentity.setLimitedLife(ModMathHelper.ticksToMinutes(1) * duration);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
                 summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
@@ -110,7 +110,7 @@ public class HauntedSkullSpell extends SummonSpells {
                 summonedentity.moveTo(blockpos, 0.0F, 0.0F);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summonedentity.setBoundOrigin(blockpos);
-                summonedentity.setLimitedLife(ModMathHelper.ticksToSeconds(10) * duration);
+                summonedentity.setLimitedLife(ModMathHelper.ticksToMinutes(1) * duration);
                 if (enchantment > 0){
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
                     summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));

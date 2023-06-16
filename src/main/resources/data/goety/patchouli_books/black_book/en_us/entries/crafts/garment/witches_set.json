@@ -21,6 +21,10 @@
     },
     {
       "type": "patchouli:text",
+      "text": "Shift-right clicking the Robes will cause it to be in Automation mode. In this mode, Witches robes will automatically take in Water Bottles or convert empty Glass Bottles into Water Bottles if there's a Water Bucket in the wearer's inventory, Blaze Powder if current fuel is running out, and Nether Warts if the Potion slots are comprised only of Water Bottles. Shift-right click it again to turn off Automation."
+    },
+    {
+      "type": "patchouli:text",
       "text": "Wearing a Witches Hat while wearing the Witches Robes not only makes the robe brew potions faster, but also makes Witches and Warlocks neutral to the wearer. You can also barter with Witches and Warlocks by right-clicking on them with an Emerald, but only if they're not aggressive or holding something. Unlike the brutish Piglins, the two won't pick up Emeralds thrown at them, you gotta give it to them straight."
     }
   ]

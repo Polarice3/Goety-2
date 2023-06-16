@@ -21,7 +21,7 @@ public abstract class AbstractMonolithRenderer extends EntityRenderer<AbstractMo
 
     public AbstractMonolithRenderer(EntityRendererProvider.Context p_i47208_1_) {
         super(p_i47208_1_);
-        this.model = new MonolithModel<>(p_i47208_1_.bakeLayer(ModModelLayer.PILLAR));
+        this.model = new MonolithModel<>(p_i47208_1_.bakeLayer(ModModelLayer.MONOLITH));
     }
 
     public void render(AbstractMonolith pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {

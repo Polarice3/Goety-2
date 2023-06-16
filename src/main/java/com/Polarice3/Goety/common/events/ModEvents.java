@@ -38,6 +38,8 @@ import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -603,6 +605,74 @@ public class ModEvents {
                     }
                 }
             }
+            AttributeInstance speed = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
+            AttributeInstance attack = livingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
+
+            AttributeModifier addSpeed = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Charged Speed I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+            AttributeModifier addAttack = new AttributeModifier(UUID.fromString("4bf0a8e3-a8f8-4bf6-95d2-f0ddbadd793e"), "Charged Attack I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
+            AttributeModifier addMoreSpeed = new AttributeModifier(UUID.fromString("e8ea9f21-c671-4a61-a297-db8fa50f3d13"), "Charged Speed II", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
+            AttributeModifier reduceAttack = new AttributeModifier(UUID.fromString("a55e53d6-dd6a-41e8-8c1f-8f548887ed30"), "Charged Attack II", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
+            MobEffectInstance chargeInstance = livingEntity.getEffect(ModEffects.CHARGED.get());
+            boolean notNull = chargeInstance != null;
+            boolean flag = notNull && chargeInstance.getAmplifier() < 1;
+            boolean flag2 = notNull && chargeInstance.getAmplifier() >= 1;
+            if (attack != null && speed != null) {
+                if (notNull) {
+                    if (flag) {
+                        if (speed.hasModifier(addMoreSpeed)){
+                            speed.removeModifier(addMoreSpeed);
+                        }
+                        if (attack.hasModifier(reduceAttack)){
+                            attack.removeModifier(reduceAttack);
+                        }
+                        if (!speed.hasModifier(addSpeed)) {
+                            speed.addPermanentModifier(addSpeed);
+                        }
+                        if (!attack.hasModifier(addAttack)) {
+                            attack.addPermanentModifier(addAttack);
+                        }
+                    } else if (flag2) {
+                        if (speed.hasModifier(addSpeed)){
+                            speed.removeModifier(addSpeed);
+                        }
+                        if (attack.hasModifier(addAttack)){
+                            attack.removeModifier(addAttack);
+                        }
+                        if (!speed.hasModifier(addMoreSpeed)) {
+                            speed.addPermanentModifier(addMoreSpeed);
+                        }
+                        if (!attack.hasModifier(reduceAttack)) {
+                            attack.addPermanentModifier(reduceAttack);
+                        }
+                    }
+                } else {
+                    if (speed.hasModifier(addSpeed)){
+                        speed.removeModifier(addSpeed);
+                    }
+                    if (attack.hasModifier(addAttack)){
+                        attack.removeModifier(addAttack);
+                    }
+                    if (speed.hasModifier(addMoreSpeed)) {
+                        speed.removeModifier(addMoreSpeed);
+                    }
+                    if (attack.hasModifier(reduceAttack)) {
+                        attack.removeModifier(reduceAttack);
+                    }
+                }
+            }
+            if (notNull){
+                if (chargeInstance.getAmplifier() >= 2 && livingEntity.hurtTime > 0){
+                    livingEntity.removeEffect(chargeInstance.getEffect());
+                } else {
+                    if (livingEntity.tickCount % 20 == 0){
+                        if (livingEntity.level instanceof ServerLevel serverLevel){
+                            ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.ELECTRIC.get(), livingEntity);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -817,7 +887,7 @@ public class ModEvents {
         }
         if (CuriosFinder.hasCurio(victim, ModItems.WITCH_ROBE.get())){
             if (victim instanceof Player player){
-                if (!LichdomHelper.isLich(player)){
+                if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
                     if (event.getSource().isMagic()){
                         event.setAmount(event.getAmount() * 0.15F);
                     }
@@ -834,6 +904,14 @@ public class ModEvents {
             victim.setTicksFrozen(Math.min(victim.getTicksRequiredToFreeze(), i + 1));
             if (victim.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
                 event.setAmount(event.getAmount() * 2);
+            }
+        }
+        if (ModDamageSource.shockAttacks(event.getSource())){
+            if (victim.level instanceof ServerLevel serverLevel){
+                for (int i = 0; i < 20; ++i) {
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.ELECTRIC.get(), victim);
+                }
+                ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), ModSounds.ZAP.get(), 2.0F, 1.0F));
             }
         }
         if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker){
@@ -856,7 +934,7 @@ public class ModEvents {
                         }
                     }
                     if (weapon.getTier() == ModTiers.DARK){
-                        victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60));
+                        victim.addEffect(new MobEffectInstance(ModEffects.WANE.get(), 60));
                     }
                 }
             }
@@ -1247,10 +1325,12 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void PotionAddedEvents(MobEffectEvent.Added event){
-        MobEffect effect = event.getEffectInstance().getEffect();
+        LivingEntity effected = event.getEntity();
+        MobEffectInstance instance = event.getEffectInstance();
+        MobEffect effect = instance.getEffect();
         if (effect == ModEffects.BURN_HEX.get()){
-            if (event.getEntity().hasEffect(MobEffects.FIRE_RESISTANCE)){
-                event.getEntity().removeEffect(MobEffects.FIRE_RESISTANCE);
+            if (effected.hasEffect(MobEffects.FIRE_RESISTANCE)){
+                effected.removeEffect(MobEffects.FIRE_RESISTANCE);
             }
         }
     }

@@ -99,7 +99,8 @@ public class NecroBrazierBlock extends BaseEntityBlock implements SimpleWaterlog
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pState.getValue(LIT)) {
-            if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getMobType() != MobType.UNDEAD && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)) {
+            if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getMobType() != MobType.UNDEAD && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
+                    && pEntity.getY() >= pPos.getY() + 0.5F) {
                 pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
             }
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);

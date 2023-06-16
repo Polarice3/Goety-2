@@ -1,0 +1,48 @@
+package com.Polarice3.Goety.common.magic.spells;
+
+import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.magic.TouchSpells;
+import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.EffectsUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.ModMathHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+
+public class ChargeSpell extends TouchSpells {
+    @Override
+    public int SoulCost() {
+        return SpellConfig.ChargeCost.get();
+    }
+
+    @Override
+    public SoundEvent CastingSound() {
+        return ModSounds.ZAP.get();
+    }
+
+    @Override
+    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    }
+
+    @Override
+    public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target) {
+        if (!target.hasEffect(ModEffects.CHARGED.get())) {
+            worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), SoundSource.NEUTRAL, 1.0F, 0.5F);
+            target.addEffect(new MobEffectInstance(ModEffects.CHARGED.get(), ModMathHelper.ticksToSeconds(30), 0, false, false));
+        } else {
+            MobEffectInstance instance = target.getEffect(ModEffects.CHARGED.get());
+            if (instance != null) {
+                if (instance.getAmplifier() >= 1) {
+                    target.hurt(ModDamageSource.directShock(caster), SpellConfig.ChargeDamage.get().floatValue());
+                } else {
+                    worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), SoundSource.NEUTRAL, 1.0F, 0.75F);
+                }
+                EffectsUtil.amplifyEffect(target, ModEffects.CHARGED.get(), ModMathHelper.ticksToSeconds(30), 3, false, false);
+            }
+        }
+    }
+}

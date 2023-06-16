@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 
 public class ModDamageSource extends DamageSource {
+    public static DamageSource SHOCK = new DamageSource(source("shock"));
 
     public ModDamageSource(String pMessageId) {
         super(pMessageId);
@@ -43,7 +44,11 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource windBlast(Entity pSource, @Nullable Entity pIndirectEntity){
-        return (new IndirectEntityDamageSource("windBlast", pSource, pIndirectEntity)).bypassArmor().setMagic();
+        return (new IndirectEntityDamageSource(source("windBlast"), pSource, pIndirectEntity)).bypassArmor().setMagic();
+    }
+
+    public static boolean shockAttacks(DamageSource source){
+        return source.getMsgId().equals(source("directShock")) || source == ModDamageSource.SHOCK;
     }
 
     public static boolean freezeAttacks(DamageSource source){

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "tag": "minecraft:wool_carpets"
+    },
+    "s":
+    {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result":
+  {
+    "item": "goety:charge_focus",
+    "count": 1
+  }
+}

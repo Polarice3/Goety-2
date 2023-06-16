@@ -19,7 +19,7 @@ public class TotemFinder {
             foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(TotemFinder::isFocusBag, playerEntity).map(
                     ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
         }
-        for (int i = 0; i <= playerEntity.getInventory().getContainerSize(); i++) {
+        for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = playerEntity.getInventory().getItem(i);
             if (!itemStack.isEmpty() && isFocusBag(itemStack)) {
                 foundStack = itemStack;

@@ -5,8 +5,12 @@ import com.Polarice3.Goety.client.render.HauntedSkullTextures;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
+import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ExplosionUtil;
+import com.Polarice3.Goety.utils.LootingExplosion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,11 +21,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -103,7 +106,6 @@ public class HauntedSkull extends Minion {
     }
 
     public void lifeSpanDamage(){
-        this.limitedLifeTicks = 20;
         this.explode();
     }
 
@@ -272,26 +274,21 @@ public class HauntedSkull extends Minion {
 
         public boolean canUse() {
             LivingEntity livingentity = HauntedSkull.this.getTarget();
-            return livingentity != null && livingentity.isAlive() && !HauntedSkull.this.isInWall() && !HauntedSkull.this.getMoveControl().hasWanted();
-        }
-
-        public boolean canContinueToUse() {
-            return HauntedSkull.this.getMoveControl().hasWanted() && HauntedSkull.this.isCharging() && HauntedSkull.this.getTarget() != null && HauntedSkull.this.getTarget().isAlive();
+            return livingentity != null
+                    && livingentity.isAlive()
+                    && HauntedSkull.this.hasLineOfSight(livingentity)
+                    && !HauntedSkull.this.isInWall()
+                    && !HauntedSkull.this.getMoveControl().hasWanted();
         }
 
         public void start() {
             LivingEntity livingentity = HauntedSkull.this.getTarget();
             if (livingentity != null) {
-                Vec3 vec3 = livingentity.getEyePosition();
-                HauntedSkull.this.moveControl.setWantedPosition(vec3.x, vec3.y, vec3.z, 2.0D);
+                double d4 = livingentity.getX() - HauntedSkull.this.getX();
+                double d5 = livingentity.getZ() - HauntedSkull.this.getZ();
+                HauntedSkull.this.setYRot(-((float) Mth.atan2(d4, d5)) * (180F / (float)Math.PI));
+                HauntedSkull.this.yBodyRot = HauntedSkull.this.getYRot();
             }
-
-            HauntedSkull.this.setIsCharging(true);
-            HauntedSkull.this.playChargeCry();
-        }
-
-        public void stop() {
-            HauntedSkull.this.setIsCharging(false);
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -301,33 +298,24 @@ public class HauntedSkull extends Minion {
         public void tick() {
             LivingEntity livingentity = HauntedSkull.this.getTarget();
             if (livingentity != null) {
-                if (HauntedSkull.this.getBoundingBox().intersects(livingentity.getBoundingBox())) {
-                    dealDamage(livingentity);
-                } else {
-                    double d0 = HauntedSkull.this.distanceToSqr(livingentity);
-                    if (d0 < 9.0D) {
-                        Vec3 vec3 = livingentity.getEyePosition();
-                        HauntedSkull.this.moveControl.setWantedPosition(vec3.x, vec3.y, vec3.z, 2.0D);
+                if (HauntedSkull.this.tickCount % 20 == 0) {
+                    double d1 = livingentity.getX() - HauntedSkull.this.getX();
+                    double d2 = livingentity.getY(0.5D) - HauntedSkull.this.getY(0.5D);
+                    double d3 = livingentity.getZ() - HauntedSkull.this.getZ();
+                    HauntedSkullProjectile soulSkull = new HauntedSkullProjectile(HauntedSkull.this, d1, d2, d3, HauntedSkull.this.level);
+                    if (HauntedSkull.this.getTrueOwner() != null) {
+                        soulSkull.setOwner(HauntedSkull.this.getTrueOwner());
+                    }
+                    soulSkull.setPos(soulSkull.getX(), HauntedSkull.this.getY(0.75D), soulSkull.getZ());
+                    soulSkull.setDamage((float) HauntedSkull.this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    soulSkull.setUpgraded(HauntedSkull.this.isUpgraded());
+                    soulSkull.setBurning(HauntedSkull.this.getBurning());
+                    soulSkull.setExplosionPower(HauntedSkull.this.getExplosionPower());
+                    if (HauntedSkull.this.level.addFreshEntity(soulSkull)) {
+                        HauntedSkull.this.playChargeCry();
+                        HauntedSkull.this.discard();
                     }
                 }
-            }
-        }
-
-        public void dealDamage(LivingEntity livingEntity){
-            boolean flag;
-            if (HauntedSkull.this.getTrueOwner() != null) {
-                flag = livingEntity.hurt(DamageSource.indirectMagic(HauntedSkull.this, HauntedSkull.this.getTrueOwner()), (float) HauntedSkull.this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-            } else {
-                flag = livingEntity.hurt(DamageSource.MAGIC, (float) HauntedSkull.this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-            }
-            if (flag) {
-                if (HauntedSkull.this.isUpgraded()) {
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ModMathHelper.ticksToSeconds(5), 1));
-                }
-                if (HauntedSkull.this.getBurning() > 0) {
-                    livingEntity.setSecondsOnFire(HauntedSkull.this.getBurning() * 8);
-                }
-                HauntedSkull.this.explode();
             }
         }
     }

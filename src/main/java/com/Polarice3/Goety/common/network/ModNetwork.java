@@ -35,6 +35,9 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CStopAttackPacket.class, CStopAttackPacket::encode, CStopAttackPacket::decode, CStopAttackPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CWandAndBagKeyPacket.class, CWandAndBagKeyPacket::encode, CWandAndBagKeyPacket::decode, CWandAndBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CWitchRobePacket.class, CWitchRobePacket::encode, CWitchRobePacket::decode, CWitchRobePacket::consume);
+        INSTANCE.registerMessage(nextID(), CAddWitchFuelKeyPacket.class, CAddWitchFuelKeyPacket::encode, CAddWitchFuelKeyPacket::decode, CAddWitchFuelKeyPacket::consume);
+        INSTANCE.registerMessage(nextID(), CAddCatalystKeyPacket.class, CAddCatalystKeyPacket::encode, CAddCatalystKeyPacket::decode, CAddCatalystKeyPacket::consume);
+        INSTANCE.registerMessage(nextID(), CExtractPotionKeyPacket.class, CExtractPotionKeyPacket::encode, CExtractPotionKeyPacket::decode, CExtractPotionKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CScytheStrikePacket.class, CScytheStrikePacket::encode, CScytheStrikePacket::decode, CScytheStrikePacket::consume);
         INSTANCE.registerMessage(nextID(), CLichKissPacket.class, CLichKissPacket::encode, CLichKissPacket::decode, CLichKissPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMagnetPacket.class, CMagnetPacket::encode, CMagnetPacket::decode, CMagnetPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
