@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.ExplosionUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -41,7 +41,7 @@ public class SnapFungus extends ThrowableFungus {
                 areaEffectCloud.setWaitTime(10);
                 areaEffectCloud.setDuration(areaEffectCloud.getDuration() / 2);
                 areaEffectCloud.setRadiusPerTick(-areaEffectCloud.getRadius() / (float)areaEffectCloud.getDuration());
-                areaEffectCloud.addEffect(new MobEffectInstance(MobEffects.POISON, ModMathHelper.ticksToSeconds(11)));
+                areaEffectCloud.addEffect(new MobEffectInstance(MobEffects.POISON, MathHelper.secondsToTicks(11)));
                 this.level.addFreshEntity(areaEffectCloud);
             }
             this.discard();

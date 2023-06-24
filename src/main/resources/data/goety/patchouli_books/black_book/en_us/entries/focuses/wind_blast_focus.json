@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:wind_blast_focus"
+      "recipe": "goety:focus/wind_blast_focus"
     }
   ]
 }

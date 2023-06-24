@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:charge_focus"
+      "recipe": "goety:focus/charge_focus"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:warped_wart_block"
+    },
+    {
+      "item": "goety:wartful_egg"
+    },
+    {
+      "item": "minecraft:warped_fungus"
+    }
+  ],
+  "result":
+  {
+    "item": "goety:warped_wartful_egg",
+    "count": 1
+  }
+}

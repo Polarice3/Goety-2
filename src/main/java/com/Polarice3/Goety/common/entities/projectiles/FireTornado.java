@@ -1,13 +1,13 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.AttributesConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -187,7 +187,7 @@ public class FireTornado extends AbstractHurtingProjectile {
                     serverWorld.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
                 }
                 if (this.getTrueOwner() instanceof Apostle apostle){
-                    apostle.setTornadoCoolDown(apostle.getTornadoCoolDown() + ModMathHelper.ticksToSeconds(45));
+                    apostle.setTornadoCoolDown(apostle.getTornadoCoolDown() + MathHelper.secondsToTicks(45));
                 }
             }
         }
@@ -218,7 +218,7 @@ public class FireTornado extends AbstractHurtingProjectile {
         if (this.getTrueOwner() != null) {
             if (this.getTrueOwner() instanceof Apostle) {
                 if (living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F)){
-                    living.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 1200));
+                    living.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                 }
             } else {
                 living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 4.0F);

@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.magic.spells.summon;
 
 import com.Polarice3.Goety.SpellConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.magic.SummonSpells;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -79,10 +79,10 @@ public class HauntedSkullSpell extends SummonSpells {
             summonedentity.moveTo(blockpos, 0.0F, 0.0F);
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summonedentity.setBoundOrigin(blockpos);
-            summonedentity.setLimitedLife(ModMathHelper.ticksToMinutes(1) * duration);
+            summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
             }
             if (radius > 0){
                 summonedentity.setExplosionPower(1.0F + radius/4.0F);
@@ -110,10 +110,10 @@ public class HauntedSkullSpell extends SummonSpells {
                 summonedentity.moveTo(blockpos, 0.0F, 0.0F);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summonedentity.setBoundOrigin(blockpos);
-                summonedentity.setLimitedLife(ModMathHelper.ticksToMinutes(1) * duration);
+                summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
                 if (enchantment > 0){
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
-                    summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
                 }
                 if (radius > 0){
                     summonedentity.setExplosionPower(1.0F + radius/4.0F);

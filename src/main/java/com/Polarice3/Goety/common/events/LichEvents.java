@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -88,9 +88,9 @@ public class LichEvents {
                             || effect == MobEffects.HUNGER || effect == MobEffects.SATURATION;
                 }
             });
-            if (player.hasEffect(ModEffects.SOUL_HUNGER.get())){
+            if (player.hasEffect(GoetyEffects.SOUL_HUNGER.get())){
                 if (SEHelper.getSoulsAmount(player, MainConfig.MaxSouls.get())){
-                    player.removeEffect(ModEffects.SOUL_HUNGER.get());
+                    player.removeEffect(GoetyEffects.SOUL_HUNGER.get());
                 }
             }
             if (!player.isOnFire()) {
@@ -228,7 +228,7 @@ public class LichEvents {
                         event.getEntity().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1200));
                     }
                     if (event.getEntity().getMobType() != MobType.UNDEAD && player.getMainHandItem().is(ModTags.Items.LICH_WITHER_ITEMS)){
-                        event.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, ModMathHelper.ticksToSeconds(5)));
+                        event.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5)));
                     }
                 }
             }

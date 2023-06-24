@@ -9,8 +9,8 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:soul_light_focus",
-      "recipe2": "goety:glow_light_focus"
+      "recipe": "goety:focus/soul_light_focus",
+      "recipe2": "goety:focus/glow_light_focus"
     }
   ]
 }

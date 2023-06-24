@@ -1,0 +1,36 @@
+{
+  "name": "Brewing Steps",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:brewing",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "To truly start brewing, you must add a $(item)Nether Wart$() into the boiling cauldron! Then, when it starts emitting purple sparks, we can truly begin nyehahahaha!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The brewing process goes as follows,$(br2)$()$(l)Capacity -> Catalyst -> Augmentation -> Completion!$()$(br2)Remember these steps brat! Mix them up and your brew will be ruined! Now you might be asking, Granny, what do these words mean? Well shut ya yap and I'll tell ya!"
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "goety:brewing/capacity",
+        "goety:brewing/catalysts",
+        "goety:brewing/augmentation"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once the Capacity, Catalyst and Augmentation are added in, and your brew isn't bellowing black smokes, your brew is ready for the Completion process! You must right click the Cauldron with the Cauldron Ladle to begin so don't go bottling the brew yet!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Make sure your Soul Candlesticks can transfer the required amount of energy, which you can see by looking at the Cauldron while crouching, before starting! The Cauldron will emit Effect Particles once the process is completed, which is when you can start bottling your brew!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Make sure you wear your proper Witch attire when bottling! Everyone knows that a Witch's Hat and Robes gives a chance of extra brews! Also, here's a little ol' secret from Ol' Granny! Apples can be quite... receptive to taking in brews. Remember Snow White? Hehehehahaha!"
+    }
+  ]
+}

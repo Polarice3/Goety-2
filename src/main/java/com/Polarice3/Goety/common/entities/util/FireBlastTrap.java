@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -126,7 +126,7 @@ public class FireBlastTrap extends Entity {
                         if (!(livingEntity instanceof Apostle)) {
                             MobUtil.push(livingEntity, 0, 0.25, 0);
                             if (this.owner instanceof Apostle) {
-                                livingEntity.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 1200));
+                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                                 livingEntity.hurt(DamageSource.indirectMagic(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
                             } else {
                                 if (this.owner != null){

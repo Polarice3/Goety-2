@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.entities.boss;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.SpellCastingCultist;
@@ -23,9 +23,9 @@ import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.common.network.server.SApostleSmitePacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModLootTables;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -76,6 +76,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -220,7 +221,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
-        return pPotioneffect.getEffect() != ModEffects.BURN_HEX.get() && pPotioneffect.getEffect() != MobEffects.WITHER && super.canBeAffected(pPotioneffect);
+        return pPotioneffect.getEffect() != GoetyEffects.BURN_HEX.get() && pPotioneffect.getEffect() != MobEffects.WITHER && super.canBeAffected(pPotioneffect);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -469,7 +470,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             case 5 -> this.setArrowEffect(MobEffects.WEAKNESS);
             case 6 -> {
                 this.setFireArrow(true);
-                this.setArrowEffect(ModEffects.BURN_HEX.get());
+                this.setArrowEffect(GoetyEffects.BURN_HEX.get());
             }
             case 7 -> this.setArrowEffect(MobEffects.HUNGER);
             case 8 -> this.setArrowEffect(MobEffects.MOVEMENT_SLOWDOWN);
@@ -477,7 +478,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false), this);
             case 10 ->
                     this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), this);
-            case 11 -> this.setArrowEffect(ModEffects.SAPPED.get());
+            case 11 -> this.setArrowEffect(GoetyEffects.SAPPED.get());
         }
     }
 
@@ -651,7 +652,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             int smite = EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, living);
             if (smite > 0){
                 int smite2 = Mth.clamp(smite, 1, 5);
-                int duration = ModMathHelper.ticksToSeconds(smite2);
+                int duration = MathHelper.secondsToTicks(smite2);
                 if (this.Regen()){
                     duration /= 2;
                 }
@@ -752,6 +753,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public void teleportHits(){
         this.level.broadcastEntityEvent(this, (byte) 100);
+        this.level.gameEvent(GameEvent.TELEPORT, this.position(), GameEvent.Context.of(this));
         if (!this.isSilent()) {
             this.level.playSound((Player) null, this.xo, this.yo, this.zo, ModSounds.APOSTLE_TELEPORT.get(), this.getSoundSource(), 1.0F, 1.0F);
             this.playSound(ModSounds.APOSTLE_TELEPORT.get(), 1.0F, 1.0F);
@@ -1068,7 +1070,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         if (this.level.dimension() == Level.NETHER){
             if (target != null){
-                target.addEffect(new MobEffectInstance(ModEffects.BURN_HEX.get(), 100));
+                target.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 100));
             }
         }
     }

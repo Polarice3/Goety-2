@@ -4,17 +4,8 @@ import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.inventory.WitchRobeInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -42,7 +33,7 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
                         inventory.setIncreaseSpeed(0);
                     }
 
-                    if (isAutomating(stack)) {
+/*                    if (isAutomating(stack)) {
                         if (slotContext.entity() instanceof Player player) {
                             if (ItemHelper.hasItem(player, Items.WATER_BUCKET)) {
                                 if (ItemHelper.hasItem(player, Items.GLASS_BOTTLE)) {
@@ -65,7 +56,7 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
                                 }
                             }
                         }
-                    }
+                    }*/
                     if (!inventory.isEmpty() && inventory.isBrewable()) {
                         inventory.tick();
                     }
@@ -74,7 +65,7 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
         }
     }
 
-    @Override
+/*    @Override
     public boolean isFoil(ItemStack p_41453_) {
         return super.isFoil(p_41453_) || isAutomating(p_41453_);
     }
@@ -95,5 +86,5 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
             return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
         }
         return InteractionResultHolder.pass(itemstack);
-    }
+    }*/
 }

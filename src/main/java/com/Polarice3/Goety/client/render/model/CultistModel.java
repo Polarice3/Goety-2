@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -160,9 +160,9 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
                 this.leftArm.yRot = 0.0F;
                 break;
             case PRAYING:
-                this.rightArm.xRot = ModMathHelper.modelDegrees(125);
-                this.leftArm.xRot = ModMathHelper.modelDegrees(125);
-                this.head.xRot = ModMathHelper.modelDegrees(30);
+                this.rightArm.xRot = MathHelper.modelDegrees(125);
+                this.leftArm.xRot = MathHelper.modelDegrees(125);
+                this.head.xRot = MathHelper.modelDegrees(30);
                 break;
             case SPELL_AND_WEAPON:
                 if (!entityIn.getMainHandItem().isEmpty()) {
@@ -212,7 +212,7 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
                     this.leftLeg.xRot = 0.0F;
                     this.leftLeg.yRot = 0.0F;
                     this.leftLeg.zRot = 0.0F;
-                    this.head.xRot = -ModMathHelper.modelDegrees(25.0F);
+                    this.head.xRot = -MathHelper.modelDegrees(25.0F);
                 }
         }
 

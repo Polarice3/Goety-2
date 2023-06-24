@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.MainConfig;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.function.Predicate;
 
@@ -33,6 +36,31 @@ public class ItemHelper {
 
     public static ItemEntity itemEntityDrop(LivingEntity livingEntity, ItemStack itemStack){
         return new ItemEntity(livingEntity.level, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), itemStack);
+    }
+
+    public static void addItemEntity(Level level, BlockPos blockPos, ItemStack itemStack){
+        double d0 = (double) (level.random.nextFloat() * 0.5F) + 0.25D;
+        double d1 = (double) (level.random.nextFloat() * 0.5F) + 0.25D;
+        double d2 = (double) (level.random.nextFloat() * 0.5F) + 0.25D;
+        ItemEntity itementity = new ItemEntity(level, (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, itemStack);
+        itementity.setDefaultPickUpDelay();
+        level.addFreshEntity(itementity);
+    }
+
+    public static void addAndConsumeItem(Player player, InteractionHand hand, ItemStack toAdd) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.getCount() == 1) {
+            if (!player.isCreative()) {
+                player.setItemInHand(hand, toAdd);
+            }
+        } else {
+            if (!player.isCreative()) {
+                stack.shrink(1);
+            }
+            if (!player.getInventory().add(toAdd)) {
+                player.drop(toAdd, false, true);
+            }
+        }
     }
 
     public static boolean hasItem(Player player, Item item){

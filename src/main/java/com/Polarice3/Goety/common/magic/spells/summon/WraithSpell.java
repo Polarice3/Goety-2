@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.summon;
 
 import com.Polarice3.Goety.SpellConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.WraithServant;
@@ -79,7 +79,7 @@ public class WraithSpell extends SummonSpells {
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             if (enchantment > 0){
                 int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
             }
             this.SummonSap(entityLiving, summonedentity);
             this.setTarget(worldIn, entityLiving, summonedentity);
@@ -107,7 +107,7 @@ public class WraithSpell extends SummonSpells {
                     summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(ModEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
                     }
                     this.SummonSap(entityLiving, summonedentity);
                     this.setTarget(worldIn, entityLiving, summonedentity);

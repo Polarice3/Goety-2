@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,7 +48,7 @@ public class BerserkFungus extends ThrowableFungus {
                 if (livingentity.isAffectedByPotions()) {
                     double d0 = this.distanceToSqr(livingentity);
                     if (d0 < 16.0D) {
-                        int duration = ModMathHelper.ticksToSeconds(10);
+                        int duration = MathHelper.secondsToTicks(10);
                         livingentity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, duration));
                         livingentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, duration));
                         livingentity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, duration));
@@ -67,7 +67,7 @@ public class BerserkFungus extends ThrowableFungus {
                 float f7 = Mth.sqrt(this.random.nextFloat()) * f;
                 float f8 = Mth.cos(f6) * f7;
                 float f9 = Mth.sin(f6) * f7;
-                this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, ModMathHelper.rgbToSpeed(162), ModMathHelper.rgbToSpeed(28), 0.0D);
+                this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, MathHelper.rgbToSpeed(162), MathHelper.rgbToSpeed(28), 0.0D);
             }
             this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLAST_FUNGUS_EXPLODE.get(), SoundSource.BLOCKS, 1.0F, (2.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
         } else {

@@ -4,8 +4,9 @@ import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.PedestalBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -19,7 +20,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -111,7 +114,7 @@ public abstract class Ritual {
 
         int progress = totalTime - time;
 
-        if (world.getGameTime() % ModMathHelper.ticksToSeconds(4) == 0 && ModMathHelper.ticksToSeconds(4) > progress) {
+        if (world.getGameTime() % MathHelper.secondsToTicks(4) == 0 && MathHelper.secondsToTicks(4) > progress) {
             world.playSound(null, darkAltarPos, ModSounds.ALTAR_LOOP.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }
 
@@ -177,6 +180,12 @@ public abstract class Ritual {
                     ItemStack extracted = handler.extractItem(0, 1, false);
 
                     consumedIngredients.add(extracted);
+
+                    if (extracted.getItem() instanceof BucketItem bucketItem && !bucketItem.getFluid().defaultFluidState().isEmpty()){
+                        ItemHelper.addItemEntity(world, pedestal.getBlockPos(), new ItemStack(Items.BUCKET));
+                        world.playSound(null, pedestal.getBlockPos(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS,
+                                0.7F, 0.7F);
+                    }
 
                     world.playSound(null, pedestal.getBlockPos(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS,
                             0.7F, 0.7F);

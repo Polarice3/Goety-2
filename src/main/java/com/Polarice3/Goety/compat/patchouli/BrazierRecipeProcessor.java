@@ -39,7 +39,7 @@ public class BrazierRecipeProcessor implements IComponentProcessor {
         }
 
         if (key.startsWith("soulCost")) {
-            return IVariable.wrap(I18n.get("jei.goety.brazier.soulcost", this.recipe.getSoulCost()));
+            return IVariable.wrap(I18n.get("jei.goety.single.soulcost", this.recipe.getSoulCost()));
         }
 
         return IVariable.empty();

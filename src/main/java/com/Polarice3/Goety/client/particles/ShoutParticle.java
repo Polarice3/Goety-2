@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.particles;
 
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
@@ -42,11 +42,11 @@ public class ShoutParticle extends TextureSheetParticle {
          this.alpha = 1.0F - Mth.clamp(((float)this.age + p_233987_) / (float)this.lifetime, 0.0F, 1.0F);
          this.renderRotatedParticle(p_233985_, p_233986_, p_233987_, (p_234005_) -> {
             p_234005_.mul(Vector3f.YP.rotation(0.0F));
-            p_234005_.mul(Vector3f.XP.rotation(-ModMathHelper.modelDegrees(0.0F)));
+            p_234005_.mul(Vector3f.XP.rotation(-MathHelper.modelDegrees(0.0F)));
          });
          this.renderRotatedParticle(p_233985_, p_233986_, p_233987_, (p_234000_) -> {
             p_234000_.mul(Vector3f.YP.rotation(-(float)Math.PI));
-            p_234000_.mul(Vector3f.XP.rotation(ModMathHelper.modelDegrees(0.0F)));
+            p_234000_.mul(Vector3f.XP.rotation(MathHelper.modelDegrees(0.0F)));
          });
       }
    }

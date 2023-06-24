@@ -5,7 +5,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +33,7 @@ public class WartlingEggItem extends Item {
         if (level instanceof ServerLevel serverLevel) {
             Wartling wartling = new Wartling(ModEntityType.WARTLING.get(), level);
             wartling.setTrueOwner(player);
-            wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
+            wartling.setLimitedLife(MathHelper.secondsToTicks(9));
             wartling.moveTo(player.blockPosition(), player.getYRot(), player.getXRot());
             player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
                 if (!effect.getCurativeItems().isEmpty()) {
@@ -53,7 +53,7 @@ public class WartlingEggItem extends Item {
         if (!player.isSilent()) {
             level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.SCULK_BLOCK_SPREAD, player.getSoundSource(), 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
         }
-        if (CuriosFinder.hasCurio(player, ModItems.WARLOCK_ROBE.get())) {
+        if (CuriosFinder.hasWarlockRobe(player)) {
             if (level.random.nextFloat() > 0.1F){
                 itemStack.shrink(1);
             }

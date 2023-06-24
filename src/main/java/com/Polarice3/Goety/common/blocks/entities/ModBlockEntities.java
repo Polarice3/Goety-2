@@ -55,6 +55,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SoulCandlestickBlockEntity>> SOUL_CANDLESTICK = BLOCK_ENTITY.register("soul_candlestick",
             () -> BlockEntityType.Builder.of(SoulCandlestickBlockEntity::new, ModBlocks.SOUL_CANDLESTICK.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<BrewCauldronBlockEntity>> BREWING_CAULDRON = BLOCK_ENTITY.register("witch_cauldron",
+            () -> BlockEntityType.Builder.of(BrewCauldronBlockEntity::new, ModBlocks.BREWING_CAULDRON.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<MagicLightBlockEntity>> MAGIC_LIGHT = BLOCK_ENTITY.register("magic_light",
             () -> BlockEntityType.Builder.of(MagicLightBlockEntity::new, ModBlocks.SOUL_LIGHT_BLOCK.get(), ModBlocks.GLOW_LIGHT_BLOCK.get()).build(null));
 

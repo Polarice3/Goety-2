@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -175,7 +175,7 @@ public class NecroCapeModel<T extends LivingEntity> extends HumanoidModel<T> {
             f = 1.0F;
         }
         this.middle.xRot = Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.25F * limbSwingAmount / f);
-        this.cape.xRot = ModMathHelper.modelDegrees(10.0F) + Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f);
+        this.cape.xRot = MathHelper.modelDegrees(10.0F) + Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f);
         if (pEntity.getVehicle() != null){
             if (pEntity.getVehicle().isAlive() && pEntity.getVehicle() instanceof LivingEntity livingEntity) {
                 float f8 = Mth.lerp(Minecraft.getInstance().getPartialTick(), livingEntity.animationSpeedOld, livingEntity.animationSpeed);
@@ -187,7 +187,7 @@ public class NecroCapeModel<T extends LivingEntity> extends HumanoidModel<T> {
                 if (f8 > 1.0F) {
                     f8 = 1.0F;
                 }
-                this.cape.xRot = ModMathHelper.modelDegrees(45.0F) + Mth.abs(Mth.cos(f5 * 0.6662F) * 0.45F * f8 / f);
+                this.cape.xRot = MathHelper.modelDegrees(45.0F) + Mth.abs(Mth.cos(f5 * 0.6662F) * 0.45F * f8 / f);
             }
         }
     }

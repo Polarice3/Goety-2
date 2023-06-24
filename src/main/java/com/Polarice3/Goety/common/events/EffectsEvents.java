@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
@@ -23,7 +23,7 @@ public class EffectsEvents {
     public void tick(ServerLevel level) {
         for (Entity entity: level.getAllEntities()){
             if (entity instanceof LivingEntity infected){
-                if (infected.hasEffect(ModEffects.ILLAGUE.get())){
+                if (infected.hasEffect(GoetyEffects.ILLAGUE.get())){
                     this.Illague(level, infected);
                 }
             }
@@ -31,17 +31,19 @@ public class EffectsEvents {
     }
 
     public void Illague(ServerLevel level, LivingEntity infected){
-        int duration = Objects.requireNonNull(infected.getEffect(ModEffects.ILLAGUE.get())).getDuration() + 1;
-        int amplifier = Objects.requireNonNull(infected.getEffect(ModEffects.ILLAGUE.get())).getAmplifier();
+        int duration = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getDuration() + 1;
+        int amplifier = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getAmplifier();
         if (MainConfig.IllagueSpread.get()) {
             for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, infected.getBoundingBox().inflate(8.0D))) {
-                if (!(livingEntity instanceof PatrollingMonster) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(ModEffects.ILLAGUE.get())) {
-                    if (livingEntity instanceof Player) {
-                        if (!((Player) livingEntity).isCreative()) {
-                            livingEntity.addEffect(new MobEffectInstance(ModEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
+                if (!(livingEntity instanceof PatrollingMonster) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
+                    if (livingEntity.tickCount % 100 == 0 && livingEntity.getRandom().nextInt(20) == 0){
+                        if (livingEntity instanceof Player) {
+                            if (!((Player) livingEntity).isCreative()) {
+                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
+                            }
+                        } else {
+                            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
                         }
-                    } else {
-                        livingEntity.addEffect(new MobEffectInstance(ModEffects.ILLAGUE.get(), duration / 2, amplifier, false, false));
                     }
                 }
             }
@@ -68,9 +70,9 @@ public class EffectsEvents {
                 int r3 = level.random.nextInt(i2);
                 int r4 = r3 + 1;
                 if (r2 == 0) {
-                    EffectsUtil.amplifyEffect(infected, ModEffects.ILLAGUE.get(), 6000);
+                    EffectsUtil.amplifyEffect(infected, GoetyEffects.ILLAGUE.get(), 6000);
                 }
-                if (infected instanceof Player) {
+                if (!infected.getType().is(EntityTypeTags.RAIDERS)) {
                     switch (r) {
                         case 0 ->
                                 infected.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400 * r4, r3, false, false));
@@ -85,22 +87,9 @@ public class EffectsEvents {
                         case 5 ->
                                 infected.addEffect(new MobEffectInstance(MobEffects.POISON, 400 * r4, r3, false, false));
                         case 6 ->
-                                infected.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 400 * r4, 0, false, false));
+                                infected.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 400 * r4, 0, false, false));
                         case 7 ->
                                 infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
-                    }
-                } else {
-                    if (!infected.getType().is(EntityTypeTags.RAIDERS)) {
-                        switch (r) {
-                            case 0 ->
-                                    infected.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400 * r4, r3, false, false));
-                            case 1, 2, 3 ->
-                                    infected.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 400 * r4, r3, false, false));
-                            case 4, 5, 6 ->
-                                    infected.addEffect(new MobEffectInstance(MobEffects.POISON, 400 * r4, r3, false, false));
-                            case 7 ->
-                                    infected.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, r3, false, false));
-                        }
                     }
                 }
             }

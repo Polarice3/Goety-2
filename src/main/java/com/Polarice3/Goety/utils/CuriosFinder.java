@@ -3,6 +3,8 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.curios.RingItem;
+import com.Polarice3.Goety.common.items.curios.WarlockRobeItem;
+import com.Polarice3.Goety.common.items.curios.WitchRobeItem;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -51,9 +53,17 @@ public class CuriosFinder {
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() == ModItems.ILLUSION_ROBE.get()));
     }
 
+    public static boolean hasWitchRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WitchRobeItem);
+    }
+
+    public static boolean hasWarlockRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WarlockRobeItem);
+    }
+
     public static boolean hasWitchSet(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, ModItems.WITCH_HAT.get())
-                && CuriosFinder.hasCurio(livingEntity, ModItems.WITCH_ROBE.get());
+                && hasWitchRobe(livingEntity);
     }
 
     public static boolean hasNecroSet(LivingEntity livingEntity){

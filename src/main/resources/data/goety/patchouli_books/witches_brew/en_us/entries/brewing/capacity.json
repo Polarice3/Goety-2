@@ -1,0 +1,20 @@
+{
+  "name": "Capacity",
+  "icon": "minecraft:crimson_fungus",
+  "category": "goety:brewing",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Brew can hold more effects and augmentation than regular old potions, but it needs enough capacity to hold them! Put more ingredients than the brew's capacity and you'll be left with a hot mess! Usually, a simple brew can hold 4 ingredients! But there are ways to increase the brew's capacity!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "I must make it clear! These ingredients must be put into order to increase the brew's capacity, so no shortcutting by just throwing the last ingredient in! Also, remember that the first thing you needed to put in the Cauldron is a $(item)Nether Wart$() to begin brewing!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Capacity Order$()$(br)$(li)$(item)Crimson Fungus$() - +2 $(li)$(item)Snap Warts$() - +2 $(li)$(item)Activated Emerald$() - +2 $(li)$(item)Concentrated Emerald$() - +2 $(li)$(item)Ruby of Souls$() - +4"
+    }
+  ]
+}

@@ -48,6 +48,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SLootingExplosionPacket.class, SLootingExplosionPacket::encode, SLootingExplosionPacket::decode, SLootingExplosionPacket::consume);
         INSTANCE.registerMessage(nextID(), SApostleSmitePacket.class, SApostleSmitePacket::encode, SApostleSmitePacket::decode, SApostleSmitePacket::consume);
         INSTANCE.registerMessage(nextID(), SSoulExplodePacket.class, SSoulExplodePacket::encode, SSoulExplodePacket::decode, SSoulExplodePacket::consume);
+        INSTANCE.registerMessage(nextID(), SAddBrewParticlesPacket.class, SAddBrewParticlesPacket::encode, SAddBrewParticlesPacket::decode, SAddBrewParticlesPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
     }
 

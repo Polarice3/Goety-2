@@ -11,21 +11,21 @@
     },
     {
       "type": "goety:brazier",
-      "recipe": "goety:dark_ingot"
+      "recipe": "goety:dark/dark_ingot"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_sword",
-      "recipe2": "goety:dark_pickaxe"
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_axe",
-      "recipe2": "goety:dark_shovel"
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_hoe"
+      "recipe": "goety:dark/dark_hoe"
     }
   ]
 }

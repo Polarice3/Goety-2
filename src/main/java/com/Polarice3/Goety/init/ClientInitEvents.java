@@ -16,6 +16,7 @@ import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
+import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
@@ -30,6 +31,7 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -37,11 +39,9 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -170,6 +170,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.MAGIC_LIGHT.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_CHEST.get(), ModChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_TRAPPED_CHEST.get(), ModChestRenderer::new);
@@ -178,6 +179,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MOD_FIREBALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 0.75F, true));
         event.registerEntityRenderer(ModEntityType.LAVABALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 3.0F, true));
         event.registerEntityRenderer(ModEntityType.SWORD.get(), (rendererManager) -> new SwordProjectileRenderer<>(rendererManager, itemRenderer, 1.25F, true));
+        event.registerEntityRenderer(ModEntityType.BREW.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCYTHE.get(), ScytheSlashRenderer::new);
         event.registerEntityRenderer(ModEntityType.GRAND_LAVABALL.get(), GrandLavaballRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL_SHOT.get(), HauntedSkullProjectileRenderer::new);
@@ -230,6 +232,24 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void colorBlock(RegisterColorHandlersEvent.Block event){
+        event.register(
+                (state, lightReader, pos, color) ->
+                        lightReader != null && pos != null ?
+                                Minecraft.getInstance().level != null
+                                && Minecraft.getInstance().level.getBlockEntity(pos) instanceof BrewCauldronBlockEntity cauldronBlock
+                                        ? cauldronBlock.getColor() :
+                                BiomeColors.getAverageWaterColor(lightReader, pos) : -1, ModBlocks.BREWING_CAULDRON.get());
+    }
+
+    @SubscribeEvent
+    public static void colorItem(RegisterColorHandlersEvent.Item event){
+        event.register((itemStack, i) -> i > 0 ? -1 : PotionUtils.getColor(itemStack),
+                ModItems.BREW.get(), ModItems.SPLASH_BREW.get(), ModItems.LINGERING_BREW.get());
     }
 
     @SubscribeEvent
@@ -256,6 +276,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
+        event.register(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
         event.register(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);

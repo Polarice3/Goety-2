@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -180,7 +180,7 @@ public class Wartling extends Summoned {
                 AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
                 areaEffectCloud.setRadius(1.0F);
                 areaEffectCloud.setWaitTime(0);
-                areaEffectCloud.setDuration(ModMathHelper.ticksToSeconds(2));
+                areaEffectCloud.setDuration(MathHelper.secondsToTicks(2));
                 areaEffectCloud.addEffect(this.getStoredEffect());
                 this.level.addFreshEntity(areaEffectCloud);
             }
@@ -210,7 +210,7 @@ public class Wartling extends Summoned {
                     this.level.broadcastEntityEvent(this, (byte) 15);
                 }
                 this.discard();
-            } else if (this.searchTime >= ModMathHelper.ticksToSeconds(5)){
+            } else if (this.searchTime >= MathHelper.secondsToTicks(5)){
                 this.hurt(DamageSource.STARVE, this.getMaxHealth());
             }
         } else {

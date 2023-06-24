@@ -87,7 +87,7 @@ public class ModBrazierCategory implements IRecipeCategory<BrazierRecipe> {
         this.arrow2.draw(stack, 48, 22);
         RenderSystem.disableBlend();
         this.drawStringCentered(stack, Minecraft.getInstance().font,
-                I18n.get("jei.goety.brazier.soulcost", recipe.getSoulCost()), 46, 70);
+                I18n.get("jei.goety.single.soulcost", recipe.getSoulCost()), 46, 70);
     }
 
     protected void drawStringCentered(PoseStack matrixStack, Font fontRenderer, String text, int x, int y) {

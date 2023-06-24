@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SoulHungerEffect extends ModEffect{
+public class SoulHungerEffect extends GoetyBaseEffect {
 
     public SoulHungerEffect() {
         super(MobEffectCategory.NEUTRAL, 5064781);

@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,7 +59,7 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
                 }
                 if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
                     if (this.itemStack.isDamaged()) {
-                        if (this.level.getGameTime() % ModMathHelper.ticksToSeconds(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
+                        if (this.level.getGameTime() % MathHelper.secondsToTicks(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
                             this.itemStack.setDamageValue(this.itemStack.getDamageValue() - 1);
                             this.cursedCageTile.decreaseSouls(MainConfig.SoulMenderCost.get() * i);
                         }

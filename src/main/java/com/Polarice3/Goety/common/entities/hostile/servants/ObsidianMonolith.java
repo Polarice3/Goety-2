@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
@@ -103,14 +103,14 @@ public class ObsidianMonolith extends AbstractMonolith {
                 if (owned.getTrueOwner() == this.getTrueOwner()){
                     if (!(owned instanceof ObsidianMonolith)) {
                         if (owned.hurt(DamageSource.MAGIC, this.level.random.nextInt(10) + 5.0F)){
-                            owned.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 16000, 4));
+                            owned.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 16000, 4));
                             this.launch(owned, this);
                         }
                     }
                 }
             }
             if (this.getTrueOwner() instanceof Apostle apostle && apostle.isAlive()){
-                apostle.setMonolithCoolDown(apostle.getMonolithCoolDown() + ModMathHelper.ticksToSeconds(45));
+                apostle.setMonolithCoolDown(apostle.getMonolithCoolDown() + MathHelper.secondsToTicks(45));
             }
         }
         this.remove(RemovalReason.KILLED);

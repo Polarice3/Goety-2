@@ -348,4 +348,32 @@ public class BlockFinder {
         }
         return null;
     }
+
+    public static void copyValues(Level level, BlockPos blockPos, BlockState newBlock, BlockState oldBlock){
+        if (oldBlock.getBlock() instanceof SlabBlock && newBlock.getBlock() instanceof SlabBlock) {
+            copySlab(level, blockPos, newBlock, oldBlock);
+        } else if (oldBlock.getBlock() instanceof StairBlock && newBlock.getBlock() instanceof StairBlock){
+            copyStairs(level, blockPos, newBlock, oldBlock);
+        } else if (oldBlock.getBlock() instanceof WallBlock && newBlock.getBlock() instanceof WallBlock){
+            copyWalls(level, blockPos, newBlock, oldBlock);
+        }
+    }
+
+    public static void copySlab(Level level, BlockPos blockPos, BlockState newBlock, BlockState oldBlock){
+        if (oldBlock.getBlock() instanceof SlabBlock && newBlock.getBlock() instanceof SlabBlock) {
+            level.setBlockAndUpdate(blockPos, newBlock.setValue(SlabBlock.TYPE, oldBlock.getValue(SlabBlock.TYPE)));
+        }
+    }
+
+    public static void copyStairs(Level level, BlockPos blockPos, BlockState newBlock, BlockState oldBlock){
+        if (oldBlock.getBlock() instanceof StairBlock && newBlock.getBlock() instanceof StairBlock) {
+            level.setBlockAndUpdate(blockPos, newBlock.setValue(StairBlock.FACING, oldBlock.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, oldBlock.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, oldBlock.getValue(StairBlock.SHAPE)));
+        }
+    }
+
+    public static void copyWalls(Level level, BlockPos blockPos, BlockState newBlock, BlockState oldBlock){
+        if (oldBlock.getBlock() instanceof WallBlock && newBlock.getBlock() instanceof WallBlock) {
+            level.setBlockAndUpdate(blockPos, newBlock.setValue(WallBlock.UP, oldBlock.getValue(WallBlock.UP)).setValue(WallBlock.WEST_WALL, oldBlock.getValue(WallBlock.WEST_WALL)).setValue(WallBlock.EAST_WALL, oldBlock.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.NORTH_WALL, oldBlock.getValue(WallBlock.NORTH_WALL)).setValue(WallBlock.SOUTH_WALL, oldBlock.getValue(WallBlock.SOUTH_WALL)));
+        }
+    }
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  p",
+    " s ",
+    "s  "
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:rods/wooden"
+    },
+    "p":
+    {
+      "item": "goety:shade_stone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cauldron_ladle",
+    "count": 1
+  }
+}

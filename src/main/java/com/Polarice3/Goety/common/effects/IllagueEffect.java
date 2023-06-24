@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IllagueEffect extends ModEffect {
+public class IllagueEffect extends GoetyBaseEffect {
 
     public IllagueEffect() {
         super(MobEffectCategory.HARMFUL, 9804699);

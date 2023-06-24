@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:soul_bolt_focus"
+      "recipe": "goety:focus/soul_bolt_focus"
     }
   ]
 }

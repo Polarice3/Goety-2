@@ -3,7 +3,8 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.SpellConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
@@ -13,13 +14,15 @@ import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
 import com.Polarice3.Goety.common.magic.spells.RecallSpell;
 import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,6 +42,7 @@ import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -107,7 +111,7 @@ public class DarkWand extends Item {
     }
 
     public boolean SoulCostUp(LivingEntity entityLiving){
-        return entityLiving.hasEffect(ModEffects.SUMMON_DOWN.get());
+        return entityLiving.hasEffect(GoetyEffects.SUMMON_DOWN.get());
     }
 
     public boolean ReduceCastTime(LivingEntity entityLiving){
@@ -116,7 +120,7 @@ public class DarkWand extends Item {
 
     public int SoulCalculation(LivingEntity entityLiving, ItemStack stack){
         if (SoulCostUp(entityLiving)){
-            int amp = Objects.requireNonNull(entityLiving.getEffect(ModEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
+            int amp = Objects.requireNonNull(entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
             return SoulCost(stack) * amp;
         } else if (SoulDiscount(entityLiving)){
             return SoulCost(stack)/2;
@@ -167,6 +171,27 @@ public class DarkWand extends Item {
         }
         return super.interactLivingEntity(stack, player, target, hand);
 
+    }
+
+    public InteractionResult useOn(UseOnContext p_220235_) {
+        Level level = p_220235_.getLevel();
+        BlockPos blockpos = p_220235_.getClickedPos();
+        Player player = p_220235_.getPlayer();
+        ItemStack itemstack = p_220235_.getItemInHand();
+        if (player != null) {
+            if (!level.isClientSide) {
+                if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
+                    if (MobUtil.isShifting(player)) {
+                        if (itemstack.getItem() instanceof DarkWand){
+                            cauldronBlock.fullReset();
+                            level.playSound(null, blockpos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                            level.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    }
+                }
+            }
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
@@ -499,13 +524,13 @@ public class DarkWand extends Item {
             private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
                 float f5 = entity.animationPosition - entity.animationSpeed * (1.0F - Minecraft.getInstance().getPartialTick());
                 if (arm == HumanoidArm.RIGHT) {
-                    model.rightArm.xRot -= ModMathHelper.modelDegrees(105);
+                    model.rightArm.xRot -= MathHelper.modelDegrees(105);
                     model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
-                    model.leftArm.xRot += ModMathHelper.modelDegrees(25);
+                    model.leftArm.xRot += MathHelper.modelDegrees(25);
                 } else {
-                    model.leftArm.xRot -= ModMathHelper.modelDegrees(105);
+                    model.leftArm.xRot -= MathHelper.modelDegrees(105);
                     model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
-                    model.rightArm.xRot += ModMathHelper.modelDegrees(25);
+                    model.rightArm.xRot += MathHelper.modelDegrees(25);
                 }
             });
 

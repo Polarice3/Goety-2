@@ -4,14 +4,19 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
+import com.Polarice3.Goety.common.items.brew.BrewApple;
+import com.Polarice3.Goety.common.items.brew.BrewItem;
+import com.Polarice3.Goety.common.items.brew.LingeringBrewItem;
+import com.Polarice3.Goety.common.items.brew.SplashBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.common.magic.spells.summon.*;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,13 +45,19 @@ public class ModItems {
     public static final RegistryObject<Item> SAVAGE_TOOTH = ITEMS.register("savage_tooth", ItemBase::new);
     public static final RegistryObject<Item> JADE = ITEMS.register("jade", ItemBase::new);
     public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", ItemBase::new);
+    public static final RegistryObject<Item> WARPED_WARTFUL_EGG = ITEMS.register("warped_wartful_egg", ItemBase::new);
     public static final RegistryObject<Item> SOUL_RUBY = ITEMS.register("soul_ruby", ItemBase::new);
     public static final RegistryObject<Item> EMPTY_FOCUS = ITEMS.register("empty_focus", ItemBase::new);
     public static final RegistryObject<Item> ANIMATION_CORE = ITEMS.register("animation_core", ItemBase::new);
     public static final RegistryObject<Item> HUNGER_CORE = ITEMS.register("hunger_core", ItemBase::new);
     public static final RegistryObject<Item> WIND_CORE = ITEMS.register("wind_core", ItemBase::new);
+    public static final RegistryObject<Item> MYSTIC_CORE = ITEMS.register("mystic_core", ItemBase::new);
+    public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", ItemBase::new);
     public static final RegistryObject<Item> FORBIDDEN_FRAGMENT = ITEMS.register("forbidden_fragment", ItemBase::new);
     public static final RegistryObject<Item> FORBIDDEN_PIECE = ITEMS.register("forbidden_piece", ItemBase::new);
+
+    public static final RegistryObject<Item> FEET_OF_FROG = ITEMS.register("feet_of_frog", () -> new Item(new Item.Properties().food(Foods.COD).tab(Goety.TAB)));
+    public static final RegistryObject<Item> COOKED_FEET_OF_FROG = ITEMS.register("cooked_feet_of_frog", () -> new Item(new Item.Properties().food(Foods.COOKED_COD).tab(Goety.TAB)));
 
     public static final RegistryObject<Item> PHILOSOPHERS_STONE = ITEMS.register("philosophers_stone", PhilosophersStone::new);
     public static final RegistryObject<Item> DARK_SCROLL = ITEMS.register("dark_scroll", DarkScrollItem::new);
@@ -59,8 +70,14 @@ public class ModItems {
     public static final RegistryObject<Item> BLAST_FUNGUS = ITEMS.register("blast_fungus", BlastFungusItem::new);
     public static final RegistryObject<Item> BERSERK_FUNGUS = ITEMS.register("berserk_fungus", BerserkFungusItem::new);
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
+    public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
+
+    public static final RegistryObject<Item> BREW = ITEMS.register("brew", BrewItem::new);
+    public static final RegistryObject<Item> SPLASH_BREW = ITEMS.register("splash_brew", SplashBrewItem::new);
+    public static final RegistryObject<Item> LINGERING_BREW = ITEMS.register("lingering_brew", LingeringBrewItem::new);
+    public static final RegistryObject<Item> BREW_APPLE = ITEMS.register("brew_apple", BrewApple::new);
 
     public static final RegistryObject<Item> HAUNTED_BOAT = ITEMS.register("haunted_boat", () -> new ModBoatItem(false, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> HAUNTED_CHEST_BOAT = ITEMS.register("haunted_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
@@ -80,7 +97,9 @@ public class ModItems {
     public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WIND_ROBE = ITEMS.register("wind_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_ROBE = ITEMS.register("witch_robe", WitchRobeItem::new);
-    public static final RegistryObject<Item> WARLOCK_ROBE = ITEMS.register("warlock_robe", WarlockGarmentItem::new);
+    public static final RegistryObject<Item> WITCH_ROBE_HEDGE = ITEMS.register("witch_robe_hedge", WitchRobeItem::new);
+    public static final RegistryObject<Item> WARLOCK_ROBE = ITEMS.register("warlock_robe", WarlockRobeItem::new);
+    public static final RegistryObject<Item> WARLOCK_ROBE_DARK = ITEMS.register("warlock_robe_dark", WarlockRobeItem::new);
     public static final RegistryObject<Item> WARLOCK_SASH = ITEMS.register("warlock_sash", WarlockGarmentItem::new);
     public static final RegistryObject<Item> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
     public static final RegistryObject<Item> WAYFARERS_BELT = ITEMS.register("wayfarers_belt", WayfarersBeltItem::new);
@@ -138,8 +157,8 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_HOE = ITEMS.register("dark_hoe", ModToolItems.DarkHoeItem::new);
 
     //Discs
-    public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.VIZIER_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) ModMathHelper.ticksToMinutes(1.33F)));
-    public static final RegistryObject<Item> MUSIC_DISC_APOSTLE = ITEMS.register("music_disc_apostle", () -> new RecordItem(15, ModSounds.APOSTLE_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE),(int) ModMathHelper.ticksToMinutes(2.41F)));
+    public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.VIZIER_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) MathHelper.minutesToTicks(1.33F)));
+    public static final RegistryObject<Item> MUSIC_DISC_APOSTLE = ITEMS.register("music_disc_apostle", () -> new RecordItem(15, ModSounds.APOSTLE_THEME, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE),(int) MathHelper.minutesToTicks(2.41F)));
 
     //Dummies
     public static final RegistryObject<Item> PEDESTAL_DUMMY = ITEMS.register("pedestal_dummy",

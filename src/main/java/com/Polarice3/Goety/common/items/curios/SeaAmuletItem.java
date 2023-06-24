@@ -55,7 +55,7 @@ public class SeaAmuletItem extends SingleStackItem{
                                 flag = false;
                             }
                         }
-                        int duration = ModMathHelper.ticksToSeconds(5);
+                        int duration = MathHelper.secondsToTicks(5);
                         if (player.hasEffect(MobEffects.CONDUIT_POWER)){
                             MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.CONDUIT_POWER);
                             flag = mobEffectInstance != null && mobEffectInstance.getDuration() < duration;

@@ -5,6 +5,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
+import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -146,6 +147,27 @@ public class ClientEvents {
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = "Soul Energy: " + cageBlockEntity.getSouls();
+                            int l = fontRenderer.width(s);
+                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            event.getPoseStack().popPose();
+                        }
+                    } else if (blockEntity instanceof BrewCauldronBlockEntity cauldronBlock){
+                        if (player.isShiftKeyDown() || player.isCrouching()){
+                            event.getPoseStack().pushPose();
+                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 60), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s1 = "Capacity: " + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
+                            int l2 = fontRenderer.width(s1);
+                            fontRenderer.drawShadow(event.getPoseStack(), s1, (float)(-l2 / 2), -4.0F, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            event.getPoseStack().popPose();
+                            event.getPoseStack().pushPose();
+                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s = "Soul Cost: " + (cauldronBlock.getBrewCost() - cauldronBlock.soulTime);
                             int l = fontRenderer.width(s);
                             fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();

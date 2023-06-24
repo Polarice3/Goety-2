@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-12T23:00:10.806016	Goety LootTables
+// 1.19.2	2023-06-24T23:58:49.8491796	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -69,3 +69,5 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 a575cbaf5855710af8df733dad3fe6aa41abf38f data/goety/loot_tables/blocks/stripped_haunted_wood.json
 b074adc9ce774c5d097f5178a1d75266eadbe738 data/goety/loot_tables/blocks/tall_skull.json
 ff2732c8e862bc38cae51d810c8f18fbcc72bc11 data/goety/loot_tables/blocks/trapped_haunted_chest.json
+dbc604b3613797556c5d513051c76355f3769e9f data/goety/loot_tables/blocks/witch_cauldron.json
+710aa9aeb401ccf1ab250d15ba634dbdb6b7d33b data/goety/loot_tables/blocks/witch_pole.json

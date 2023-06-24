@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.magic;
 
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -35,22 +35,22 @@ public abstract class SummonSpells extends Spells{
 
     public void SummonSap(LivingEntity owner, LivingEntity summonedEntity){
         if (owner != null && summonedEntity != null) {
-            if (owner.hasEffect(ModEffects.SUMMON_DOWN.get())) {
-                MobEffectInstance effectinstance = owner.getEffect(ModEffects.SUMMON_DOWN.get());
+            if (owner.hasEffect(GoetyEffects.SUMMON_DOWN.get())) {
+                MobEffectInstance effectinstance = owner.getEffect(GoetyEffects.SUMMON_DOWN.get());
                 if (effectinstance != null) {
                     summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Integer.MAX_VALUE, effectinstance.getAmplifier()));
-                    summonedEntity.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), Integer.MAX_VALUE, effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), Integer.MAX_VALUE, effectinstance.getAmplifier()));
                 }
             }
         }
     }
 
     public void SummonDown(LivingEntity entityLiving){
-        MobEffectInstance effectinstance1 = entityLiving.getEffect(ModEffects.SUMMON_DOWN.get());
+        MobEffectInstance effectinstance1 = entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get());
         int i = 1;
         if (effectinstance1 != null) {
             i += effectinstance1.getAmplifier();
-            entityLiving.removeEffectNoUpdate(ModEffects.SUMMON_DOWN.get());
+            entityLiving.removeEffectNoUpdate(GoetyEffects.SUMMON_DOWN.get());
         } else {
             --i;
         }
@@ -67,7 +67,7 @@ public abstract class SummonSpells extends Spells{
                 s = SummonDownDuration()/2;
             }
         }*/
-        MobEffectInstance effectinstance = new MobEffectInstance(ModEffects.SUMMON_DOWN.get(), s, i, false, false, true);
+        MobEffectInstance effectinstance = new MobEffectInstance(GoetyEffects.SUMMON_DOWN.get(), s, i, false, false, true);
         entityLiving.addEffect(effectinstance);
     }
 

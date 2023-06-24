@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.init.ModSounds;
@@ -81,15 +81,17 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         super.tick();
         for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0D), field_213690_b)) {
             if (!(entity instanceof PatrollingMonster) && entity.getMobType() != MobType.UNDEAD) {
-                if (entity instanceof Player){
-                    if (!((Player) entity).isCreative()){
-                        entity.addEffect(new MobEffectInstance(ModEffects.ILLAGUE.get(), 6000, 0, false, false));
+                if (this.tickCount % 100 == 0 && this.getRandom().nextInt(20) == 0) {
+                    if (entity instanceof Player) {
+                        if (!((Player) entity).isCreative()) {
+                            entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 6000, 0, false, false));
 
+                        }
+                    } else if (entity instanceof AbstractVillager) {
+                        entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 6000, 0, false, false));
+                    } else {
+                        entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 2000, 0, false, false));
                     }
-                } else if (entity instanceof AbstractVillager) {
-                    entity.addEffect(new MobEffectInstance(ModEffects.ILLAGUE.get(), 6000, 0, false, false));
-                } else {
-                    entity.addEffect(new MobEffectInstance(ModEffects.ILLAGUE.get(), 2000, 0, false, false));
                 }
             }
         }

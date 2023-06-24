@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.network.client;
 
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.inventory.WitchRobeInventory;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.WitchRobeItem;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,7 +25,7 @@ public class CWitchRobePacket {
             ServerPlayer playerEntity = ctx.get().getSender();
 
             if (playerEntity != null) {
-                ItemStack stack = CuriosFinder.findCurio(playerEntity, ModItems.WITCH_ROBE.get());
+                ItemStack stack = CuriosFinder.findCurio(playerEntity, itemStack -> itemStack.getItem() instanceof WitchRobeItem);
 
                 if (stack != null && !stack.isEmpty()){
                     WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory(stack.getOrCreateTag().getInt(WitchRobeItem.INVENTORY), playerEntity);

@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrappedEffect extends ModEffect{
+public class TrappedEffect extends GoetyBaseEffect {
     public TrappedEffect() {
         super(MobEffectCategory.HARMFUL, 5064781);
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "7ad88b67-392d-4d87-a6a5-08c08c2f86eb", (double)-2.0F, AttributeModifier.Operation.MULTIPLY_TOTAL);

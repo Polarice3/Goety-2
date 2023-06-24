@@ -3,8 +3,8 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -157,7 +157,7 @@ public class IceChunk extends Entity {
         damage += this.extraDamage;
         if (livingEntity != null) {
             if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, ModMathHelper.ticksToSeconds(5), 4));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(5), 4));
             }
         }
     }
@@ -228,7 +228,7 @@ public class IceChunk extends Entity {
         if (this.hovering == 1 && !(this.isInWall() || this.isOnGround())){
             this.playSound(ModSounds.ICE_CHUNK_IDLE.get(), 1.0F, 1.0F);
         }
-        int hoverTime = ModMathHelper.ticksToSeconds(5);
+        int hoverTime = MathHelper.secondsToTicks(5);
         boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
         this.isDropping = this.hovering > hoverTime;
         if (isHovering){

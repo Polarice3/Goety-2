@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)16 Non-Wooden Slabs $(li)16 Sculk Blocks $(li)8 Non-Empty Flower Pots"
+      "text": "Requirements: $(li)16 Non-Wooden Slabs $(li)16 Sculk Blocks $(li)8 Non-Empty Flower Pots $(li)Must be done at Night"
     },
     {
       "type": "patchouli:image",

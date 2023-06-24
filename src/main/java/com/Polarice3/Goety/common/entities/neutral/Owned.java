@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -272,7 +272,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
-        return pPotioneffect.getEffect() != ModEffects.GOLD_TOUCHED.get() && super.canBeAffected(pPotioneffect);
+        return pPotioneffect.getEffect() != GoetyEffects.GOLD_TOUCHED.get() && super.canBeAffected(pPotioneffect);
     }
 
     public int getExperienceReward() {

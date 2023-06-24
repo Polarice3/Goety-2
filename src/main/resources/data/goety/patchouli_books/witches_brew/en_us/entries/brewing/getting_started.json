@@ -1,0 +1,30 @@
+{
+  "name": "Getting Started",
+  "icon": "minecraft:glass_bottle",
+  "category": "goety:brewing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Greetings worm! If you're reading this, you must be either one lucky little guttersnipe, or a true seeker of knowledge! I have many names, but you can call me Granny, or Ms. Toefungus if you're feeling polite, ehehehehe! So you want to be a master of the art of brewing, eh? Well don't rely on those Brewing Stands then! A true Witch uses their Cauldrons to make their artistry!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_cauldron",
+      "text": "But not just any Cauldron will do! You need a true Witch's Cauldron! Place it on a fireplace, or campfire or those magma blocks or whatever and fill it with water!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Cauldron also needs the power of the spirit world to properly brew, so it must have some Soul Candlesticks that can absorb the energies of the dead around."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cauldron_ladle",
+      "text": "You also need a Cauldron Ladle in order to brew properly! When brewing, you would need to right-click the Cauldron with the ladle to begin the Completion stage!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you're brew has failed or you're unsatisfied with it, shift-right click the Cauldron with a magic Wand or Staff will clear all of its content!"
+    }
+  ]
+}

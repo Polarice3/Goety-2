@@ -1,0 +1,17 @@
+{
+  "name": "Work Station",
+  "icon": "goety:witch_pole",
+  "category": "goety:brewing",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There are ways to improve your brewing station to use less energy! First, make sure you're brewing in a Swamp! It's a nice and moist land filled with wonderful bugs!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_pole",
+      "text": "A Witch's Pole helps reduce the amount of energy needed to make a brew when placed within 8 blocks of a Witch's Cauldron. Only up to 3 Poles will give the effect."
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -45,7 +45,7 @@ public class SoulEnergyEvents {
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
             if (!world.isClientSide){
-                player.addEffect(new MobEffectInstance(ModEffects.SOUL_HUNGER.get(), 60));
+                player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));
                 if (player.tickCount % 5 == 0) {
                     SEHelper.decreaseSESouls(player, 1);
                     SEHelper.sendSEUpdatePacket(player);
@@ -133,6 +133,11 @@ public class SoulEnergyEvents {
                 }
             }
 
+            if (CuriosFinder.hasCurio(victim, itemStack -> itemStack.getItem() instanceof TotemOfSouls)){
+                ItemStack itemStack = CuriosFinder.findCurio(victim, itemStack1 -> itemStack1.getItem() instanceof TotemOfSouls);
+                TotemOfSouls.increaseSouls(itemStack, SEHelper.getSoulGiven(victim) * 2);
+            }
+
             if (!(victim instanceof Player) || !MainConfig.TotemUndying.get()) {
                 if (victim.getMainHandItem().getItem() instanceof TotemOfSouls){
                     ItemStack itemStack = victim.getMainHandItem();
@@ -162,7 +167,7 @@ public class SoulEnergyEvents {
                                     player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
                                     player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
                                 } else {
-                                    player.addEffect(new MobEffectInstance(ModEffects.SOUL_HUNGER.get(), 12000, 4, false, false));
+                                    player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 12000, 4, false, false));
                                 }
                                 player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
                                 ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));

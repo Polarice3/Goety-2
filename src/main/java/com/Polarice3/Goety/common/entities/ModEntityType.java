@@ -52,6 +52,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<ThrownBrew>> BREW = register("brew",
+            EntityType.Builder.<ThrownBrew>of(ThrownBrew::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10));
+
     public static final RegistryObject<EntityType<ScytheSlash>> SCYTHE = register("scythe",
             EntityType.Builder.<ScytheSlash>of(ScytheSlash::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -357,6 +363,13 @@ public class ModEntityType {
             EntityType.Builder.<SummonApostle>of(SummonApostle::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<BrewEffectCloud>> BREW_EFFECT_CLOUD = register("brew_effect_cloud",
+            EntityType.Builder.<BrewEffectCloud>of(BrewEffectCloud::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 

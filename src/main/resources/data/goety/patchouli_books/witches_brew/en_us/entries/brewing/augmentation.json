@@ -1,0 +1,40 @@
+{
+  "name": "Augmentation",
+  "icon": "minecraft:glowstone_dust",
+  "category": "goety:brewing",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There are many ways you can augment your brew! A novice should know that adding Redstone increases duration and Glowstone increases power, but there's more to it than that! Much like capacity, the ingredients must be put in order!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Duration$()$(br)$(li)$(item)Redstone Dust$()$(li2)Increase Cost - x1.25 $(li)$(item)Prismarine Block$()$(li2)Increase Cost - x1.5 $(li)$(item)Chorus Flower$()$(li2)Increase Cost - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Amplify Effects$()$(br)$(li)$(item)Glowstone Dust$()$(li2)Increase Cost - x2 $(li)$(item)Blaze Rod$()$(li2)Increase Cost - x2.5 $(li)$(item)Mystic Core$()$(li2)Increase Cost - x3"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Area of Effect$()$(br)$(li)$(item)Charcoal$()$(li2)Increase Cost - x1.25 $(li)$(item)Firework Star$()$(li2)Increase Cost - x1.5 $(li)$(item)Tall Skull$()$(li2)Increase Cost - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Lingering$()$(br)$(li)$(item)Hanging Roots$()$(li2)Increase Cost - x1.25 $(li)$(item)Big Dripleaf$()$(li2)Increase Cost - x1.25 $(li)$(item)Spore Blossom$()$(li2)Increase Cost - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Drinking Speed$()$(br)$(li)$(item)Honey Bottle$()$(li2)Increase Cost - x1.25 $(li)$(item)Grow Lichen$()$(li2)Increase Cost - x1.25 $(li)$(item)Turtle Egg$()$(li2)Increase Cost - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Throwing Velocity$()$(br)$(li)$(item)Snowball$()$(li2)Increase Cost - x1.25 $(li)$(item)Bow$()$(li2)Increase Cost - x1.25 $(li)$(item)Crossbow$()$(li2)Increase Cost - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Additional$()$(br)$(li)$(item)Gunpowder$()$(li2)Make Brew Splash $(li)$(item)Dragon's Breath$()$(li2)Make Brew Lingering $(li2)Brew must been turned to Splash before. $(li)$(item)Eye of Ender$()$(li2)Hides effect particles."
+    }
+  ]
+}

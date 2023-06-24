@@ -9,7 +9,7 @@ import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
@@ -59,7 +59,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -104,7 +103,6 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -291,6 +289,12 @@ public class ModEvents {
                         data.putBoolean("goety:starterBook", true);
                         playerData.put(Player.PERSISTED_NBT_TAG, data);
                     }
+                }
+                if (!data.getBoolean("goety:witchBook")) {
+                    ItemStack book = PatchouliAPI.get().getBookStack(Goety.location("witches_brew"));
+                    event.getEntity().addItem(book);
+                    data.putBoolean("goety:witchBook", true);
+                    playerData.put(Player.PERSISTED_NBT_TAG, data);
                 }
             }
         }
@@ -516,15 +520,6 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
-            if (livingEntity.hasEffect(ModEffects.BURN_HEX.get())){
-                if (livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)){
-                    livingEntity.removeEffectNoUpdate(MobEffects.FIRE_RESISTANCE);
-                }
-            }
-            if (livingEntity.hasEffect(ModEffects.CLIMBING.get())){
-                MobUtil.ClimbAnyWall(livingEntity);
-                MobUtil.WebMovement(livingEntity);
-            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
@@ -532,7 +527,7 @@ public class ModEvents {
                     }
                 }
             }
-            if (CuriosFinder.hasCurio(livingEntity, ModItems.WARLOCK_ROBE.get())){
+            if (CuriosFinder.hasWarlockRobe(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ModParticleTypes.WARLOCK.get(), livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
@@ -564,17 +559,6 @@ public class ModEvents {
                     }
                 }
             }
-            if (livingEntity instanceof Creeper creeper){
-                if (!creeper.level.isClientSide) {
-                    if (creeper.getTarget() != null) {
-                        if (creeper.getTarget().hasEffect(ModEffects.PRESSURE.get())) {
-                            if (creeper.getSwellDir() >= 1 && creeper.tickCount % 30 == 0) {
-                                MobUtil.explodeCreeper(creeper);
-                            }
-                        }
-                    }
-                }
-            }
             if (MainConfig.VillagerConvertWarlock.get()) {
                 if (livingEntity instanceof Villager villager) {
                     if (villager.level instanceof ServerLevel serverLevel) {
@@ -601,74 +585,6 @@ public class ModEvents {
                                     }
                                 }
                             }
-                        }
-                    }
-                }
-            }
-            AttributeInstance speed = livingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
-            AttributeInstance attack = livingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
-
-            AttributeModifier addSpeed = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Charged Speed I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-            AttributeModifier addAttack = new AttributeModifier(UUID.fromString("4bf0a8e3-a8f8-4bf6-95d2-f0ddbadd793e"), "Charged Attack I", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-
-            AttributeModifier addMoreSpeed = new AttributeModifier(UUID.fromString("e8ea9f21-c671-4a61-a297-db8fa50f3d13"), "Charged Speed II", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
-            AttributeModifier reduceAttack = new AttributeModifier(UUID.fromString("a55e53d6-dd6a-41e8-8c1f-8f548887ed30"), "Charged Attack II", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
-
-            MobEffectInstance chargeInstance = livingEntity.getEffect(ModEffects.CHARGED.get());
-            boolean notNull = chargeInstance != null;
-            boolean flag = notNull && chargeInstance.getAmplifier() < 1;
-            boolean flag2 = notNull && chargeInstance.getAmplifier() >= 1;
-            if (attack != null && speed != null) {
-                if (notNull) {
-                    if (flag) {
-                        if (speed.hasModifier(addMoreSpeed)){
-                            speed.removeModifier(addMoreSpeed);
-                        }
-                        if (attack.hasModifier(reduceAttack)){
-                            attack.removeModifier(reduceAttack);
-                        }
-                        if (!speed.hasModifier(addSpeed)) {
-                            speed.addPermanentModifier(addSpeed);
-                        }
-                        if (!attack.hasModifier(addAttack)) {
-                            attack.addPermanentModifier(addAttack);
-                        }
-                    } else if (flag2) {
-                        if (speed.hasModifier(addSpeed)){
-                            speed.removeModifier(addSpeed);
-                        }
-                        if (attack.hasModifier(addAttack)){
-                            attack.removeModifier(addAttack);
-                        }
-                        if (!speed.hasModifier(addMoreSpeed)) {
-                            speed.addPermanentModifier(addMoreSpeed);
-                        }
-                        if (!attack.hasModifier(reduceAttack)) {
-                            attack.addPermanentModifier(reduceAttack);
-                        }
-                    }
-                } else {
-                    if (speed.hasModifier(addSpeed)){
-                        speed.removeModifier(addSpeed);
-                    }
-                    if (attack.hasModifier(addAttack)){
-                        attack.removeModifier(addAttack);
-                    }
-                    if (speed.hasModifier(addMoreSpeed)) {
-                        speed.removeModifier(addMoreSpeed);
-                    }
-                    if (attack.hasModifier(reduceAttack)) {
-                        attack.removeModifier(reduceAttack);
-                    }
-                }
-            }
-            if (notNull){
-                if (chargeInstance.getAmplifier() >= 2 && livingEntity.hurtTime > 0){
-                    livingEntity.removeEffect(chargeInstance.getEffect());
-                } else {
-                    if (livingEntity.tickCount % 20 == 0){
-                        if (livingEntity.level instanceof ServerLevel serverLevel){
-                            ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.ELECTRIC.get(), livingEntity);
                         }
                     }
                 }
@@ -709,7 +625,7 @@ public class ModEvents {
                         event.setNewTarget(mobAttacker.getLastHurtByMob());
                     }
                     if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock){
-                        if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasCurio(target, ModItems.WARLOCK_ROBE.get())){
+                        if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasWarlockRobe(target)){
                             if (mobAttacker.getLastHurtByMob() != target){
                                 event.setNewTarget(null);
                             } else {
@@ -763,7 +679,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
         if (!event.getLevel().isClientSide) {
-            if (CuriosFinder.hasWitchSet(event.getEntity()) || CuriosFinder.hasCurio(event.getEntity(), ModItems.WARLOCK_ROBE.get())) {
+            if (CuriosFinder.hasWitchSet(event.getEntity()) || CuriosFinder.hasWarlockRobe(event.getEntity())) {
                 if (event.getTarget() instanceof Raider witch) {
                     if (event.getTarget() instanceof Witch || event.getTarget() instanceof Warlock) {
                         if (!witch.isAggressive()) {
@@ -874,8 +790,8 @@ public class ModEvents {
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
         if (victim.level.getDifficulty() == Difficulty.HARD){
-            if (victim.hasEffect(ModEffects.BURN_HEX.get())){
-                MobEffectInstance effectInstance = victim.getEffect(ModEffects.BURN_HEX.get());
+            if (victim.hasEffect(GoetyEffects.BURN_HEX.get())){
+                MobEffectInstance effectInstance = victim.getEffect(GoetyEffects.BURN_HEX.get());
                 int i = 2;
                 if (effectInstance != null) {
                     i = effectInstance.getAmplifier() + 2;
@@ -885,7 +801,7 @@ public class ModEvents {
                 }
             }
         }
-        if (CuriosFinder.hasCurio(victim, ModItems.WITCH_ROBE.get())){
+        if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
                     if (event.getSource().isMagic()){
@@ -894,7 +810,7 @@ public class ModEvents {
                 }
             }
         }
-        if (CuriosFinder.hasCurio(victim, ModItems.WARLOCK_ROBE.get())){
+        if (CuriosFinder.hasWarlockRobe(victim)){
             if (event.getSource().isExplosion()){
                 event.setAmount(event.getAmount() * 0.15F);
             }
@@ -921,20 +837,20 @@ public class ModEvents {
                         victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
                     }
                     if (weapon instanceof DeathScytheItem) {
-                        if (!victim.hasEffect(ModEffects.SAPPED.get())) {
-                            victim.addEffect(new MobEffectInstance(ModEffects.SAPPED.get(), 60));
+                        if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
+                            victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60));
                             victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                         } else {
                             if (victim.level.random.nextFloat() <= 0.1F) {
-                                EffectsUtil.amplifyEffect(victim, ModEffects.SAPPED.get(), 60);
+                                EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 60);
                                 victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                             } else {
-                                EffectsUtil.resetDuration(victim, ModEffects.SAPPED.get(), 60);
+                                EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 60);
                             }
                         }
                     }
                     if (weapon.getTier() == ModTiers.DARK){
-                        victim.addEffect(new MobEffectInstance(ModEffects.WANE.get(), 60));
+                        victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
                     }
                 }
             }
@@ -951,8 +867,8 @@ public class ModEvents {
                 }
             }
         }
-        if (entity.hasEffect(ModEffects.SAPPED.get())){
-            MobEffectInstance effectInstance = entity.getEffect(ModEffects.SAPPED.get());
+        if (entity.hasEffect(GoetyEffects.SAPPED.get())){
+            MobEffectInstance effectInstance = entity.getEffect(GoetyEffects.SAPPED.get());
             float original = event.getAmount();
             if (effectInstance != null) {
                 int i = effectInstance.getAmplifier() + 1;
@@ -990,9 +906,9 @@ public class ModEvents {
         Entity killer = event.getSource().getEntity();
         Level world = killed.getCommandSenderWorld();
         if (killed instanceof PathfinderMob){
-            if (killed.hasEffect(ModEffects.GOLD_TOUCHED.get())){
+            if (killed.hasEffect(GoetyEffects.GOLD_TOUCHED.get())){
                 if (world.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-                    int amp = Objects.requireNonNull(killed.getEffect(ModEffects.GOLD_TOUCHED.get())).getAmplifier() + 1;
+                    int amp = Objects.requireNonNull(killed.getEffect(GoetyEffects.GOLD_TOUCHED.get())).getAmplifier() + 1;
                     for (int i = 0; i < (killed.level.random.nextInt(3) + 1) * amp; ++i) {
                         killed.spawnAtLocation(new ItemStack(Items.GOLD_NUGGET));
                     }
@@ -1001,7 +917,7 @@ public class ModEvents {
         }
         if (world instanceof ServerLevel serverLevel) {
             if (killed instanceof Villager villager) {
-                if (villager.hasEffect(ModEffects.ILLAGUE.get())) {
+                if (villager.hasEffect(GoetyEffects.ILLAGUE.get())) {
                     ZombieVillager zombievillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false);
                     if (zombievillager != null) {
                         zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
@@ -1185,41 +1101,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void finishItemEvents(LivingEntityUseItemEvent.Finish event){
-        if (event.getItem().getItem() == Items.MILK_BUCKET){
-            if (event.getEntity().hasEffect(ModEffects.ILLAGUE.get())){
-                int duration = Objects.requireNonNull(event.getEntity().getEffect(ModEffects.ILLAGUE.get())).getDuration();
-                int amp = Objects.requireNonNull(event.getEntity().getEffect(ModEffects.ILLAGUE.get())).getAmplifier();
-                if (duration > 0){
-                    if (amp <= 0) {
-                        EffectsUtil.halveDuration(event.getEntity(), ModEffects.ILLAGUE.get(), duration, false, false);
-                    } else {
-                        EffectsUtil.deamplifyEffect(event.getEntity(), ModEffects.ILLAGUE.get(), duration, false, false);
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void SleepEvents(PlayerWakeUpEvent event){
-        Player player = event.getEntity();
-        if (player.isSleepingLongEnough()) {
-            if (player.hasEffect(ModEffects.ILLAGUE.get())) {
-                int duration = Objects.requireNonNull(player.getEffect(ModEffects.ILLAGUE.get())).getDuration();
-                int amp = Objects.requireNonNull(player.getEffect(ModEffects.ILLAGUE.get())).getAmplifier();
-                if (duration > 0){
-                    if (amp <= 0) {
-                        EffectsUtil.halveDuration(player, ModEffects.ILLAGUE.get(), duration, false, false);
-                    } else {
-                        EffectsUtil.deamplifyEffect(player, ModEffects.ILLAGUE.get(), duration, false, false);
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void UseItemEvent(LivingEntityUseItemEvent.Finish event){
         if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WITCH_HAT.get())){
             if (event.getEntity().level.random.nextFloat() <= 0.1F){
@@ -1283,54 +1164,6 @@ public class ModEvents {
         if (event.getProjectile() instanceof AbstractArrow arrowEntity) {
             if (arrowEntity.getTags().contains(ConstantPaths.rainArrow())) {
                 arrowEntity.discard();
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void PotionApplicationEvents(MobEffectEvent.Applicable event){
-        if (event.getEffectInstance().getEffect() == MobEffects.FIRE_RESISTANCE){
-            if (event.getEntity().hasEffect(ModEffects.BURN_HEX.get())){
-                event.setResult(Event.Result.DENY);
-            }
-        }
-        if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
-            if (CuriosFinder.hasIllusionRobe(event.getEntity())){
-                event.setResult(Event.Result.DENY);
-            }
-            if (event.getEntity() instanceof Player player) {
-                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
-                    event.setResult(Event.Result.DENY);
-                }
-            }
-        }
-        if (event.getEffectInstance().getEffect() == MobEffects.DARKNESS){
-            if (event.getEntity() instanceof Player player) {
-                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
-                    event.setResult(Event.Result.DENY);
-                }
-            }
-        }
-        if (event.getEffectInstance().getEffect() == MobEffects.SLOW_FALLING){
-            if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WIND_ROBE.get())){
-                event.setResult(Event.Result.DENY);
-            }
-        }
-        if (event.getEffectInstance().getEffect() == ModEffects.ILLAGUE.get()){
-            if (event.getEntity().getType().is(EntityTypeTags.RAIDERS) || event.getEntity() instanceof PatrollingMonster){
-                event.setResult(Event.Result.DENY);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void PotionAddedEvents(MobEffectEvent.Added event){
-        LivingEntity effected = event.getEntity();
-        MobEffectInstance instance = event.getEffectInstance();
-        MobEffect effect = instance.getEffect();
-        if (effect == ModEffects.BURN_HEX.get()){
-            if (effected.hasEffect(MobEffects.FIRE_RESISTANCE)){
-                effected.removeEffect(MobEffects.FIRE_RESISTANCE);
             }
         }
     }

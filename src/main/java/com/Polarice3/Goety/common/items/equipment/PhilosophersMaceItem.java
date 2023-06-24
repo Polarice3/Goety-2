@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.google.common.collect.ImmutableMultimap;
@@ -45,7 +45,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
             entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
         });
         int i2 = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
-        target.addEffect(new MobEffectInstance(ModEffects.GOLD_TOUCHED.get(), 300, i2));
+        target.addEffect(new MobEffectInstance(GoetyEffects.GOLD_TOUCHED.get(), 300, i2));
         return true;
     }
 

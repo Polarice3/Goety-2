@@ -2,8 +2,8 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -27,7 +27,7 @@ public class BlastFungusItem extends Item {
             level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), player.getSoundSource(), 2.0F, 0.8F + level.random.nextFloat() * 0.4F);
         }
         itemstack.shrink(random);
-        player.getCooldowns().addCooldown(ModItems.BLAST_FUNGUS.get(), ModMathHelper.ticksToSeconds(random));
+        player.getCooldowns().addCooldown(ModItems.BLAST_FUNGUS.get(), MathHelper.secondsToTicks(random));
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 

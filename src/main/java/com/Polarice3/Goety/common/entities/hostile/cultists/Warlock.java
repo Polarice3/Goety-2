@@ -7,8 +7,8 @@ import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModMathHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -105,8 +105,8 @@ public class Warlock extends Cultist implements RangedAttackMob {
         if (this.isPassenger() && this.getVehicle() != null){
             if (this.getVehicle() instanceof AbstractHorse donkey){
                 if (donkey.getOwnerUUID() != null && donkey.getOwnerUUID() == this.getUUID()){
-                    donkey.addEffect(new MobEffectInstance(MobEffects.WITHER, ModMathHelper.ticksToMinutes(5), 9));
-                    donkey.addEffect(new MobEffectInstance(MobEffects.POISON, ModMathHelper.ticksToMinutes(5), 9));
+                    donkey.addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.minutesToTicks(5), 9));
+                    donkey.addEffect(new MobEffectInstance(MobEffects.POISON, MathHelper.minutesToTicks(5), 9));
                     donkey.setSecondsOnFire(300);
                 }
             }
@@ -197,7 +197,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
             for (int i = 0; i < this.totalCool; ++i) {
                 MobUtil.throwSnapFungus(this, level);
             }
-            this.coolDown = ModMathHelper.ticksToSeconds(this.totalCool);
+            this.coolDown = MathHelper.secondsToTicks(this.totalCool);
             if (!this.isSilent()) {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), this.getSoundSource(), 2.0F, 0.8F + this.random.nextFloat() * 0.4F);
             }
@@ -242,7 +242,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
     private void summonWartlings(Wartling wartling){
         if (this.level instanceof ServerLevel serverLevel) {
             wartling.setTrueOwner(this);
-            wartling.setLimitedLife(ModMathHelper.ticksToSeconds(9));
+            wartling.setLimitedLife(MathHelper.secondsToTicks(9));
             this.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
                 if (!effect.getCurativeItems().isEmpty()) {
                     wartling.setStoredEffect(effect);

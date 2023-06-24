@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "fl",
+    "sl",
+    " l"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "tag": "minecraft:flowers"
+    },
+    "l":
+    {
+      "tag": "minecraft:logs"
+    },
+    "s":
+    {
+      "item": "minecraft:skeleton_skull"
+    }
+  },
+  "result":
+  {
+    "item": "goety:witch_pole",
+    "count": 1
+  }
+}

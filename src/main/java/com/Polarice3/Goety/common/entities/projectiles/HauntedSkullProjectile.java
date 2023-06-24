@@ -10,7 +10,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ExplosionUtil;
 import com.Polarice3.Goety.utils.LootingExplosion;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -114,7 +114,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     }
                     if (flag) {
                         if (this.upgraded) {
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ModMathHelper.ticksToSeconds(5), 1));
+                            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(5), 1));
                         }
                         if (this.burning > 0) {
                             livingEntity.setSecondsOnFire(this.burning * 8);

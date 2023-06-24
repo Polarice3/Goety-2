@@ -8,7 +8,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
-import com.Polarice3.Goety.common.effects.ModEffects;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
@@ -123,7 +123,7 @@ public class Goety {
         ModBlocks.init();
         ModRecipeSerializer.init();
         ModSpawnEggs.init();
-        ModEffects.init();
+        GoetyEffects.init();
         ModPotions.init();
         ModSounds.init();
     }

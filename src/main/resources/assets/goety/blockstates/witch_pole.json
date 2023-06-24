@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,half=lower": {
+      "model": "goety:block/witch_pole_bottom",
+      "y": 270
+    },
+    "facing=east,half=upper": {
+      "model": "goety:block/witch_pole_top",
+      "y": 270
+    },
+    "facing=north,half=lower": {
+      "model": "goety:block/witch_pole_bottom",
+      "y": 180
+    },
+    "facing=north,half=upper": {
+      "model": "goety:block/witch_pole_top",
+      "y": 180
+    },
+    "facing=south,half=lower": {
+      "model": "goety:block/witch_pole_bottom"
+    },
+    "facing=south,half=upper": {
+      "model": "goety:block/witch_pole_top"
+    },
+    "facing=west,half=lower": {
+      "model": "goety:block/witch_pole_bottom",
+      "y": 90
+    },
+    "facing=west,half=upper": {
+      "model": "goety:block/witch_pole_top",
+      "y": 90
+    }
+  }
+}

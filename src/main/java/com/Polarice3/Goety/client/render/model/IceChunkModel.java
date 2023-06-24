@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
-import com.Polarice3.Goety.utils.ModMathHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -36,7 +36,7 @@ public class IceChunkModel<T extends IceChunk> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
-        if (p_102618_.isStarting() && this.chunk.yRot != ModMathHelper.modelDegrees(360.0F)){
+        if (p_102618_.isStarting() && this.chunk.yRot != MathHelper.modelDegrees(360.0F)){
             this.chunk.yRot += p_102621_ * 0.5F;
         } else {
             this.chunk.yRot = 0.0F;

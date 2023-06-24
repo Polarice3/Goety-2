@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_anvil"
+      "recipe": "goety:dark/dark_anvil"
     },
     {
       "type": "patchouli:text",
