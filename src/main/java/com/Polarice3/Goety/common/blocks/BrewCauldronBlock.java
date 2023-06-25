@@ -7,8 +7,10 @@ import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -21,8 +23,10 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -32,6 +36,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -45,6 +52,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
  */
+@SuppressWarnings("deprecation")
 public class BrewCauldronBlock extends BaseEntityBlock{
     private static final VoxelShape INSIDE = box(2.0D, 3.0D, 2.0D,
             14.0D, 13.0D, 14.0D);
@@ -87,19 +95,29 @@ public class BrewCauldronBlock extends BaseEntityBlock{
         this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 0).setValue(FAILED, Boolean.FALSE));
     }
 
+    public void tick(BlockState p_220702_, ServerLevel p_220703_, BlockPos p_220704_, RandomSource p_220705_) {
+        BlockPos blockpos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(p_220703_, p_220704_);
+        if (blockpos != null) {
+            Fluid fluid = PointedDripstoneBlock.getCauldronFillFluidType(p_220703_, blockpos);
+            if (fluid == Fluids.WATER) {
+                this.receiveStalactiteDrip(p_220702_, p_220703_, p_220704_, fluid);
+            }
+        }
+    }
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.getBlockEntity(pPos) instanceof BrewCauldronBlockEntity cauldron) {
             ItemStack stack = pPlayer.getItemInHand(pHand);
-            boolean bucket = stack.getItem() == Items.BUCKET, waterBucket = stack.getItem() == Items.WATER_BUCKET, glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = stack.getItem() == Items.APPLE, wand = stack.getItem() == ModItems.CAULDRON_LADLE.get();
+            boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = stack.getItem() == Items.APPLE, ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
             if (!pLevel.isClientSide) {
-                if (bucket || waterBucket || apple || glassBottle || waterBottle || wand) {
+                if (bucket || waterBucket || apple || glassBottle || waterBottle || ladle) {
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.WATER_BUCKET));
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack));
                         } else if (waterBucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.BUCKET));
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack));
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
                                 ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(ModItems.BREW_APPLE.get()), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
@@ -119,7 +137,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             }
                         } else if (waterBottle) {
                             ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.GLASS_BOTTLE));
-                        } else if (wand) {
+                        } else if (ladle) {
                             cauldron.brew();
                         }
                         if (targetLevel == 0) {
@@ -182,12 +200,44 @@ public class BrewCauldronBlock extends BaseEntityBlock{
         super.entityInside(pState, pLevel, pPos, pEntity);
     }
 
+    @Override
+    public void handlePrecipitation(BlockState blockState, Level level, BlockPos blockPos, Biome.Precipitation precipitation) {
+        if (precipitation == Biome.Precipitation.RAIN) {
+            if (level.getRandom().nextInt(20) == 1) {
+                if (blockState.getValue(LEVEL) < 3) {
+                    level.setBlockAndUpdate(blockPos, blockState.setValue(LEVEL, blockState.getValue(LEVEL) + 1));
+                }
+            }
+        }
+    }
+
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(LEVEL, FAILED);
     }
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return false;
+    }
+
+    protected void receiveStalactiteDrip(BlockState p_152940_, Level p_152941_, BlockPos p_152942_, Fluid p_152943_) {
+        if (p_152943_ == Fluids.WATER) {
+            if (p_152940_.getValue(LEVEL) < 3) {
+                p_152941_.setBlockAndUpdate(p_152942_, p_152940_.setValue(LEVEL, p_152940_.getValue(LEVEL) + 1));
+            }
+            p_152941_.gameEvent(GameEvent.BLOCK_CHANGE, p_152942_, GameEvent.Context.of(p_152940_));
+            p_152941_.levelEvent(1047, p_152942_, 0);
+        }
+
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+        return state.getValue(LEVEL) == 3 ? 15 : state.getValue(LEVEL) == 2 ? 10 : state.getValue(LEVEL) == 1 ? 5 : 0;
     }
 
     @Nullable

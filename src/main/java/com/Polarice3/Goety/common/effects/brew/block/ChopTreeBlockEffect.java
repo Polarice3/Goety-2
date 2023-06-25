@@ -14,7 +14,7 @@ public class ChopTreeBlockEffect extends BrewEffect {
 
     @Override
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
-        for (BlockPos blockPos : this.getCubePos(pPos, pAreaOfEffect + 2)) {
+        for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 2 + pAmplifier)) {
             if (pLevel.getBlockState(blockPos).is(BlockTags.LOGS)){
                 pLevel.destroyBlock(blockPos, true, pSource);
             }

@@ -155,4 +155,9 @@ public class ServerParticleUtil {
             serverLevel.sendParticles(particleOptions, living.getRandomX(1.0D), living.getRandomY() + 1.0D, living.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
         }
     }
+
+    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, LivingEntity livingEntity, float radius){
+        serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25 + Math.PI) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
+    }
 }

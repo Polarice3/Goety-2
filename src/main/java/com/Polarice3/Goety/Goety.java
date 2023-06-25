@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.ClientProxy;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.CommonProxy;
+import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
@@ -43,6 +44,7 @@ import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
@@ -52,6 +54,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -136,6 +139,32 @@ public class Goety {
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
                     this.setSuccess(ArmorItem.dispenseArmor(source, stack));
+                    return stack;
+                }
+            });
+            DispenserBlock.registerBehavior(Items.WATER_BUCKET, new OptionalDispenseItemBehavior() {
+                protected ItemStack execute(BlockSource source, ItemStack stack) {
+                    BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                    BlockState blockState = source.getLevel().getBlockState(blockpos);
+                    if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
+                        if (blockState.getValue(BrewCauldronBlock.LEVEL) < 3) {
+                            this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 3)));
+                            return new ItemStack(Items.BUCKET);
+                        }
+                    }
+                    return stack;
+                }
+            });
+            DispenserBlock.registerBehavior(Items.BUCKET, new OptionalDispenseItemBehavior() {
+                protected ItemStack execute(BlockSource source, ItemStack stack) {
+                    BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                    BlockState blockState = source.getLevel().getBlockState(blockpos);
+                    if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
+                        if (blockState.getValue(BrewCauldronBlock.LEVEL) == 3) {
+                            this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 0)));
+                            return new ItemStack(Items.WATER_BUCKET);
+                        }
+                    }
                     return stack;
                 }
             });

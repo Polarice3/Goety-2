@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -79,6 +80,10 @@ public abstract class BrewEffect {
 
     public boolean isDurationEffectTick(int p_19455_, int p_19456_) {
         return false;
+    }
+
+    public void applyDirectionalBlockEffect(Level pLevel, BlockPos pPos, Direction pDirection, LivingEntity pSource, int pAmplifier, int pAreaOfEffect){
+
     }
 
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect){

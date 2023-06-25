@@ -259,16 +259,16 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                             return Mode.BREWING;
                         }
                         if (this.getQuaff() == 0 && ingredient == Items.HONEY_BOTTLE) {
-                            this.quaff += 4;
+                            this.quaff += 8;
                             this.multiplyCost(1.25F);
                             return Mode.BREWING;
                         }
-                        if (this.getQuaff() == 4 && ingredient == Items.GLOW_LICHEN) {
-                            this.quaff += 4;
+                        if (this.getQuaff() == 8 && ingredient == Items.GLOW_LICHEN) {
+                            this.quaff += 8;
                             this.multiplyCost(1.25F);
                             return Mode.BREWING;
                         }
-                        if (this.getQuaff() == 8 && ingredient == Items.TURTLE_EGG) {
+                        if (this.getQuaff() == 16 && ingredient == Items.TURTLE_EGG) {
                             this.quaff += 8;
                             this.multiplyCost(1.25F);
                             return Mode.BREWING;

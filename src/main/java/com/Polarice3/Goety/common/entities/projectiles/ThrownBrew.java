@@ -86,6 +86,7 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
             }
             for (BrewEffectInstance brewEffectInstance : list){
                 LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
+                brewEffectInstance.getEffect().applyDirectionalBlockEffect(this.level, p_37541_.getBlockPos(), p_37541_.getDirection(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
                 brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37541_.getBlockPos(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
             }
 

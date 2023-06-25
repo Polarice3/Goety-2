@@ -21,4 +21,8 @@ public class ConstantPaths {
     public static String resultItem(){
         return "goety:resultItem";
     }
+
+    public static String conjuredBee(){
+        return "goety:conjuredBee";
+    }
 }

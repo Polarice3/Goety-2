@@ -14,6 +14,11 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.function.Predicate;
 
@@ -129,5 +134,53 @@ public class ItemHelper {
                 }
             }
         }
+    }
+
+    /**
+     * Based on fluid codes from @Vazkii.
+     */
+    public static boolean isValidFluidContainerToDrain(ItemStack stack, Fluid fluid) {
+        if (stack.isEmpty() || stack.getCount() != 1) {
+            return false;
+        }
+
+        return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
+            FluidStack simulate = handler.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+            return !simulate.isEmpty() && simulate.getFluid() == fluid && simulate.getAmount() == FluidType.BUCKET_VOLUME;
+        }).orElse(false);
+    }
+
+    public static ItemStack drain(Fluid fluid, ItemStack stack) {
+        return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+                .map(handler -> {
+                    handler.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+                    return handler.getContainer();
+                })
+                .orElse(stack);
+    }
+
+    public static boolean isValidFluidContainerToFill(ItemStack stack, Fluid fluid) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        ItemStack container = stack;
+        if (stack.getCount() > 1) {
+            container = new ItemStack(stack.getItem());
+        }
+
+        return container.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
+            int amount = handler.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+            return amount == FluidType.BUCKET_VOLUME;
+        }).orElse(false);
+    }
+
+    public static ItemStack fill(Fluid fluid, ItemStack stack) {
+        return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+                .map(handler -> {
+                    handler.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+                    return handler.getContainer();
+                })
+                .orElse(stack);
     }
 }

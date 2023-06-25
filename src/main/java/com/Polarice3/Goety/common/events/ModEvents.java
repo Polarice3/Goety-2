@@ -290,11 +290,13 @@ public class ModEvents {
                         playerData.put(Player.PERSISTED_NBT_TAG, data);
                     }
                 }
-                if (!data.getBoolean("goety:witchBook")) {
-                    ItemStack book = PatchouliAPI.get().getBookStack(Goety.location("witches_brew"));
-                    event.getEntity().addItem(book);
-                    data.putBoolean("goety:witchBook", true);
-                    playerData.put(Player.PERSISTED_NBT_TAG, data);
+                if (MainConfig.StarterWitchBook.get()){
+                    if (!data.getBoolean("goety:witchBook")) {
+                        ItemStack book = PatchouliAPI.get().getBookStack(Goety.location("witches_brew"));
+                        event.getEntity().addItem(book);
+                        data.putBoolean("goety:witchBook", true);
+                        playerData.put(Player.PERSISTED_NBT_TAG, data);
+                    }
                 }
             }
         }
@@ -596,7 +598,7 @@ public class ModEvents {
     public static void onBreakingBlock(BlockEvent.BreakEvent event){
         Player player = event.getPlayer();
         if (player.getMainHandItem().getItem() instanceof PhilosophersMaceItem){
-            if (event.getState() == Blocks.NETHER_GOLD_ORE.defaultBlockState()){
+            if (event.getState().getBlock().getDescriptionId().contains("nether_gold")){
                 if (!player.level.isClientSide) {
                     if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
                         ItemStack itemStack = new ItemStack(Items.RAW_GOLD);

@@ -23,6 +23,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.bees",
+      "text": "Buzzing bumbles, flying rumbles, sting my foe, honey my toes!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.blind_jump",
       "text": "Teleports the affected to a random location! The higher the level, the more further they can teleport to!"
     },
@@ -75,12 +80,22 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.fiery_aura",
+      "text": "Don't get too close to me! I'm too hot for ya!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.fire_resistance"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.flame_hands",
       "text": "Talk to these hands and you'll be burning!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flaying",
+      "text": "Rips the skin, feathers and wool from Animals! Leaves the meat and flesh behind, though don't think they'll be fine! Hahaha!"
     },
     {
       "type": "goety:catalyst",
@@ -103,7 +118,18 @@
     },
     {
       "type": "goety:catalyst",
-      "recipe": "effect.goety.gold_touched"
+      "recipe": "effect.goety.gold_touched",
+      "text": "While not fully gold, they sure do drop them dead!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cactus",
+      "text": "Bringing the green dye to the sandy beaches of my home!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cave_vines",
+      "text": "Those vines from those lushes caves can be pretty when hanging in my own cave! Unfortunately, these vines don't come glowing!"
     },
     {
       "type": "goety:catalyst",
@@ -209,11 +235,17 @@
     },
     {
       "type": "goety:catalyst",
-      "recipe": "effect.goety.sapped"
+      "recipe": "effect.goety.sapped",
+      "text": "My fists feels harder, only because your face is softer!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.saturation"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shear",
+      "text": "My arms are too old to be shearing those Sheeps! My brews will do it for Ol' Granny!"
     },
     {
       "type": "goety:catalyst",
@@ -260,6 +292,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.tripping",
       "text": "Careful where you walk kids! You might trip and be thrown off to a random direction! If the levels higher, you'll be tripping constantly!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.venomous_hands",
+      "text": "My hands are made of Spiders! Hahahaha!"
     },
     {
       "type": "goety:catalyst",

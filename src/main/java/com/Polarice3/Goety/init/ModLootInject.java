@@ -15,7 +15,7 @@ public class ModLootInject {
 
     private static final List<String> CHEST_TABLES = List.of("abandoned_mineshaft", "ancient_city", "nether_bridge", "pillager_outpost", "simple_dungeon", "stronghold_crossing", "woodland_mansion");
 
-    private static final List<String> ENTITY_TABLES = List.of("frog", "ravager", "spider", "witch");
+    private static final List<String> ENTITY_TABLES = List.of("cave_spider", "frog", "ravager", "spider", "witch");
 
     @SubscribeEvent
     public static void InjectLootTables(LootTableLoadEvent evt) {

@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.effects.brew;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +28,9 @@ public class LaunchBrewEffect extends BrewEffect {
     }
 
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
+        if (!pTarget.level.isClientSide) {
+            ModNetwork.sendToALL(new SPlayWorldSoundPacket(pTarget.blockPosition(), SoundEvents.FIREWORK_ROCKET_LAUNCH, 1.0F, 1.0F));
+        }
         pTarget.playSound(SoundEvents.FIREWORK_ROCKET_LAUNCH);
         int extra = 0;
         if (pIndirectSource instanceof LivingEntity livingEntity){

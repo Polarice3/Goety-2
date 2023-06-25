@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#w#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:dark_fabric"
+    },
+    "w":
+    {
+      "item": "goety:warlock_robe"
+    }
+  },
+  "result":
+  {
+    "item": "goety:warlock_robe_dark",
+    "count": 1
+  }
+}

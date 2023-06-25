@@ -20,7 +20,7 @@ public class FloodBlockEffect extends BrewEffect {
 
     @Override
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
-        for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 2)){
+        for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 3)){
             if (pLevel.getBlockState(blockPos).canBeReplaced(Fluids.WATER)
                     && (pLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())
                     || pLevel.getFluidState(blockPos.below()).is(Fluids.WATER))) {

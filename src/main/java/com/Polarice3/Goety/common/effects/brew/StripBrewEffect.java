@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew;
 
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
@@ -37,7 +39,10 @@ public class StripBrewEffect extends BrewEffect {
                 itemEntity.setPickUpDelay(80);
                 if (pTarget.level.addFreshEntity(itemEntity)){
                     pTarget.setItemSlot(equipmentSlot, ItemStack.EMPTY);
-                    pTarget.playSound(SoundEvents.ARMOR_EQUIP_GENERIC);
+                    if (!pTarget.level.isClientSide) {
+                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(pTarget.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.5F));
+                    }
+                    pTarget.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.5F);
                 }
             }
         }

@@ -84,7 +84,7 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x969696));
 
     public static final RegistryObject<MobEffect> EXPLOSIVE = EFFECTS.register("explosive",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x912d11));
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x912d11));
 
     public static final RegistryObject<MobEffect> SWIFT_SWIM = EFFECTS.register("swift_swim",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xbead6a)
@@ -94,6 +94,13 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> FLAME_HANDS = EFFECTS.register("flame_hands",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xff3d29));
 
+    public static final RegistryObject<MobEffect> VENOMOUS_HANDS = EFFECTS.register("venomous_hands",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x122620));
+
     public static final RegistryObject<MobEffect> REPULSIVE = EFFECTS.register("repulsive",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x67502c));
+
+    public static final RegistryObject<MobEffect> FIERY_AURA = EFFECTS.register("fiery_aura",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xff0000));
+
 }
