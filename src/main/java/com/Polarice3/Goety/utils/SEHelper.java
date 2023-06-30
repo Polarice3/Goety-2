@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
@@ -149,6 +150,9 @@ public class SEHelper {
             }
         }
         if (player != null) {
+            if (killer.getMainHandItem().getItem() == ModItems.FANGED_DAGGER.get()){
+                soulEater *= 1.5;
+            }
             increaseSouls(player, getSoulGiven(victim) * soulEater);
         }
     }

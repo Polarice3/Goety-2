@@ -3,6 +3,7 @@
   "values": [
     "goety:sculk_converter",
     "goety:sculk_grower",
-    "goety:sculk_relay"
+    "goety:sculk_relay",
+    "goety:hardened_leaves"
   ]
 }

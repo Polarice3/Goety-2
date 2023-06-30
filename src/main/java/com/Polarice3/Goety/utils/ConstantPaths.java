@@ -25,4 +25,12 @@ public class ConstantPaths {
     public static String conjuredBee(){
         return "goety:conjuredBee";
     }
+
+    public static String conjuredBat(){
+        return "goety:conjuredBat";
+    }
+
+    public static String gassed(){
+        return "goety:gassed";
+    }
 }

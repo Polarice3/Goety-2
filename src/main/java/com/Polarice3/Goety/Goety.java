@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
@@ -26,10 +27,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.entities.neutral.Wartling;
-import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
-import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
+import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
@@ -117,6 +115,9 @@ public class Goety {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SpellConfig.SPEC, "goety-spells.toml");
         SpellConfig.loadConfig(SpellConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-spells.toml").toString());
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BrewConfig.SPEC, "goety-brews.toml");
+        BrewConfig.loadConfig(BrewConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-brews.toml").toString());
+
         final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Goety.MOD_ID);
         biomeModifiers.register(modEventBus);
         biomeModifiers.register("mob_spawns", ModMobSpawnBiomeModifier::makeCodec);
@@ -195,11 +196,13 @@ public class Goety {
         event.put(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolith.setCustomAttributes().build());
         event.put(ModEntityType.WARLOCK.get(), Warlock.setCustomAttributes().build());
         event.put(ModEntityType.WARTLING.get(), Wartling.setCustomAttributes().build());
+        event.put(ModEntityType.CRONE.get(), Crone.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), ZPiglinBruteServant.setCustomAttributes().build());
         event.put(ModEntityType.MALGHAST.get(), Malghast.setCustomAttributes().build());
+        event.put(ModEntityType.VAMPIRE_BAT.get(), VampireBat.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServant.setCustomAttributes().build());

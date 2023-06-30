@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.network.server;
 
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ParticleUtil;
 import net.minecraft.client.Minecraft;
@@ -12,9 +13,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -49,29 +48,28 @@ public class SAddBrewParticlesPacket {
             ClientLevel clientWorld = Minecraft.getInstance().level;
             if (clientWorld != null){
                 int area = BrewUtils.getAreaOfEffect(packet.itemStack) + 4;
-                int areaSqr = Mth.square(area);
                 Vec3 vec3 = Vec3.atBottomCenterOf(packet.blockPos);
 
                 for(int l = 0; l < 8; ++l) {
-                    clientWorld.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), vec3.x, vec3.y, vec3.z, clientWorld.random.nextGaussian() * 0.15D, clientWorld.random.nextDouble() * 0.2D, clientWorld.random.nextGaussian() * 0.15D);
+                    clientWorld.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.SPLASH_BREW.get())), vec3.x, vec3.y, vec3.z, clientWorld.random.nextGaussian() * 0.15D, clientWorld.random.nextDouble() * 0.2D, clientWorld.random.nextGaussian() * 0.15D);
                 }
 
-                float f4 = (float)(packet.color >> 16 & 255) / 255.0F;
-                float f6 = (float)(packet.color >> 8 & 255) / 255.0F;
-                float f8 = (float)(packet.color >> 0 & 255) / 255.0F;
+                float f0 = (float)(packet.color >> 16 & 255) / 255.0F;
+                float f1 = (float)(packet.color >> 8 & 255) / 255.0F;
+                float f2 = (float)(packet.color & 255) / 255.0F;
                 ParticleOptions particleoptions = packet.instant ? ParticleTypes.INSTANT_EFFECT : ParticleTypes.EFFECT;
 
                 for(int j3 = 0; j3 < 100 * (BrewUtils.getAreaOfEffect(packet.itemStack) + 1); ++j3) {
-                    double d21 = clientWorld.random.nextDouble() * area;
-                    double d26 = clientWorld.random.nextDouble() * Math.PI * (area / 2.0D);
-                    double d30 = Math.cos(d26) * d21;
+                    float f3 = clientWorld.random.nextFloat() * area;
+                    float f4 = clientWorld.random.nextFloat() * (float)(Math.PI * (area / 2.0F));
+                    double d1 = Math.cos(f4) * f3;
                     double d2 = 0.01D + clientWorld.random.nextDouble() * 0.5D + (area / 10.0D);
-                    double d4 = Math.sin(d26) * d21;
-                    Particle particle = ParticleUtil.addParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), vec3.x + d30 * 0.1D, vec3.y + 0.3D, vec3.z + d4 * 0.1D, d30, d2, d4);
+                    double d3 = Math.sin(f4) * f3;
+                    Particle particle = ParticleUtil.addParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), vec3.x + d1 * 0.1D, vec3.y + 0.3D, vec3.z + d3 * 0.1D, d1, d2, d3);
                     if (particle != null) {
-                        float f3 = 0.75F + clientWorld.random.nextFloat() * 0.25F;
-                        particle.setColor(f4 * f3, f6 * f3, f8 * f3);
-                        particle.setPower((float)d21);
+                        float f5 = 0.75F + clientWorld.random.nextFloat() * 0.25F;
+                        particle.setColor(f0 * f5, f1 * f5, f2 * f5);
+                        particle.setPower((float)f3);
                     }
                 }
 

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
@@ -15,6 +16,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
+import com.Polarice3.Goety.common.entities.neutral.VampireBat;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
@@ -186,6 +188,11 @@ public class ModEntityType {
                     .sized(0.4F, 0.2F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Crone>> CRONE = register("crone",
+            EntityType.Builder.of(Crone::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<ZombieVillagerServant>> ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant",
             EntityType.Builder.of(ZombieVillagerServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -213,6 +220,12 @@ public class ModEntityType {
                     .sized(2.0F, 2.0F)
                     .fireImmune()
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<VampireBat>> VAMPIRE_BAT = register("vampire_bat",
+            EntityType.Builder.of(VampireBat::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(5));
+
 
     public static final RegistryObject<EntityType<Wraith>> WRAITH = register("wraith",
             EntityType.Builder.of(Wraith::new, MobCategory.MONSTER)
@@ -370,6 +383,13 @@ public class ModEntityType {
             EntityType.Builder.<BrewEffectCloud>of(BrewEffectCloud::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(6.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<BrewGas>> BREW_EFFECT_GAS = register("brew_effect_gas",
+            EntityType.Builder.<BrewGas>of(BrewGas::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.0F, 1.0F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 

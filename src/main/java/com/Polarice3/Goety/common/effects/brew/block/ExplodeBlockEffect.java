@@ -14,6 +14,6 @@ public class ExplodeBlockEffect extends BrewEffect {
 
     @Override
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
-        pLevel.explode(pSource, pPos.getX(), pPos.getY() + 1, pPos.getZ(), pAreaOfEffect + (pAmplifier / 2.0F) + 1, Explosion.BlockInteraction.DESTROY);
+        pLevel.explode(pSource, pPos.getX(), pPos.getY() + 1, pPos.getZ(), pAreaOfEffect + (pAmplifier / 2.0F) + 2, Explosion.BlockInteraction.DESTROY);
     }
 }

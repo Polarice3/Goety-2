@@ -41,22 +41,22 @@ public class BrewItem extends Item {
         return PotionUtils.setPotion(super.getDefaultInstance(), Potions.WATER);
     }
 
-    public ItemStack finishUsingItem(ItemStack pStack, Level p_42985_, LivingEntity p_42986_) {
-        Player player = p_42986_ instanceof Player ? (Player)p_42986_ : null;
+    public ItemStack finishUsingItem(ItemStack pStack, Level level, LivingEntity livingEntity) {
+        Player player = livingEntity instanceof Player ? (Player)livingEntity : null;
         if (player instanceof ServerPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pStack);
         }
 
-        if (!p_42985_.isClientSide) {
+        if (!level.isClientSide) {
             for(MobEffectInstance mobeffectinstance : PotionUtils.getMobEffects(pStack)) {
                 if (mobeffectinstance.getEffect().isInstantenous()) {
-                    mobeffectinstance.getEffect().applyInstantenousEffect(player, player, p_42986_, mobeffectinstance.getAmplifier(), 1.0D);
+                    mobeffectinstance.getEffect().applyInstantenousEffect(player, player, livingEntity, mobeffectinstance.getAmplifier(), 1.0D);
                 } else {
-                    p_42986_.addEffect(new MobEffectInstance(mobeffectinstance));
+                    livingEntity.addEffect(new MobEffectInstance(mobeffectinstance));
                 }
             }
             for (BrewEffectInstance brewEffectInstance : BrewUtils.getBrewEffects(pStack)){
-                brewEffectInstance.getEffect().drinkBlockEffect(player, player, p_42986_, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(pStack));
+                brewEffectInstance.getEffect().drinkBlockEffect(player, player, livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(pStack));
             }
         }
 
@@ -77,7 +77,7 @@ public class BrewItem extends Item {
             }
         }
 
-        p_42986_.gameEvent(GameEvent.DRINK);
+        livingEntity.gameEvent(GameEvent.DRINK);
         return pStack;
     }
 

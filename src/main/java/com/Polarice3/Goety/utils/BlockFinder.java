@@ -15,6 +15,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -61,6 +63,22 @@ public class BlockFinder {
         Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         Vec3 endPos = new Vec3(entity.getX(), 0, entity.getZ());
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+    }
+
+    public static double distanceFromGround(Entity entity){
+        HitResult rayTrace = rayTrace(entity);
+        if (rayTrace.getType() == HitResult.Type.BLOCK) {
+            BlockHitResult hitResult = (BlockHitResult) rayTrace;
+            if (hitResult.getDirection() == Direction.UP) {
+                BlockState hitBlock = entity.level.getBlockState(hitResult.getBlockPos());
+                if (hitBlock.getBlock() instanceof SlabBlock && hitBlock.getValue(BlockStateProperties.SLAB_TYPE) == SlabType.BOTTOM) {
+                    return entity.getY() - (hitResult.getBlockPos().getY() - 0.5F);
+                } else {
+                    return entity.getY() - hitResult.getBlockPos().getY();
+                }
+            }
+        }
+        return 0;
     }
 
     public static double moveBlockDownToGround(Level level, BlockPos blockPos) {
@@ -375,5 +393,13 @@ public class BlockFinder {
         if (oldBlock.getBlock() instanceof WallBlock && newBlock.getBlock() instanceof WallBlock) {
             level.setBlockAndUpdate(blockPos, newBlock.setValue(WallBlock.UP, oldBlock.getValue(WallBlock.UP)).setValue(WallBlock.WEST_WALL, oldBlock.getValue(WallBlock.WEST_WALL)).setValue(WallBlock.EAST_WALL, oldBlock.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.NORTH_WALL, oldBlock.getValue(WallBlock.NORTH_WALL)).setValue(WallBlock.SOUTH_WALL, oldBlock.getValue(WallBlock.SOUTH_WALL)));
         }
+    }
+
+    public static boolean canBeReplaced(Level pLevel, BlockPos pReplaceablePos){
+        return canBeReplaced(pLevel, pReplaceablePos, pReplaceablePos);
+    }
+
+    public static boolean canBeReplaced(Level pLevel, BlockPos pReplaceablePos, BlockPos pReplacedBlockPos){
+        return pLevel.getBlockState(pReplaceablePos).canBeReplaced(new DirectionalPlaceContext(pLevel, pReplacedBlockPos, Direction.DOWN, ItemStack.EMPTY, Direction.UP));
     }
 }

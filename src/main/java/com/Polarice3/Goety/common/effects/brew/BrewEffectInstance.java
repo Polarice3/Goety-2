@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.effects.brew;
 
 import com.google.common.collect.ComparisonChain;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nullable;
@@ -15,12 +16,12 @@ public class BrewEffectInstance implements Comparable<BrewEffectInstance> {
       this(brewEffect, 1, 0);
    }
 
-   public BrewEffectInstance(BrewEffect p_19515_, int p_19516_) {
-      this(p_19515_, p_19516_, 0);
+   public BrewEffectInstance(BrewEffect brewEffect, int duration) {
+      this(brewEffect, duration, 0);
    }
 
-   public BrewEffectInstance(BrewEffect p_216887_, int duration, int amplifier) {
-      this.effect = p_216887_;
+   public BrewEffectInstance(BrewEffect brewEffect, int duration, int amplifier) {
+      this.effect = brewEffect;
       this.duration = duration;
       this.amplifier = amplifier;
    }
@@ -90,6 +91,10 @@ public class BrewEffectInstance implements Comparable<BrewEffectInstance> {
 
    public String getDescriptionId() {
       return this.effect.getDescriptionId();
+   }
+
+   public MutableComponent getName(){
+      return this.effect.getDisplayName();
    }
 
    public String toString() {

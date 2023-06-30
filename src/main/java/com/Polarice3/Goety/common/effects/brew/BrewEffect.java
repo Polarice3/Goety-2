@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.effects.brew;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +25,14 @@ public abstract class BrewEffect {
     private String descriptionId;
     /** Used String because it's easier than making a new Registry, lol */
     public String effectID;
+
+    public BrewEffect(String effectID, int soulCost, int capacityExtra, MobEffectCategory category, int color, boolean noExtra) {
+        this.effectID = effectID;
+        this.soulCost = soulCost;
+        this.capacityExtra = capacityExtra;
+        this.category = category;
+        this.color = color;
+    }
 
     public BrewEffect(String effectID, int soulCost, int capacityExtra, MobEffectCategory category, int color) {
         this.effectID = "effect.goety." + effectID;
@@ -52,6 +61,10 @@ public abstract class BrewEffect {
 
     public BrewEffect(String effectID, MobEffectCategory category, int color){
         this(effectID, 25, category, color);
+    }
+
+    public BrewEffect(String effectID, MobEffectCategory category, int color, boolean noExtra){
+        this(effectID, 25, 0, category, color, noExtra);
     }
 
     public String getEffectID(){
@@ -100,6 +113,19 @@ public abstract class BrewEffect {
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
     }
 
+    public List<BlockPos> getTreePos(BlockPos initial, int x, int y, int z){
+        List<BlockPos> result = new ArrayList<>();
+        for (int i = -x; i <= x; ++i) {
+            for (int j = -(y / 2); j <= y; ++j) {
+                for (int k = -z; k <= z; ++k) {
+                    BlockPos blockpos1 = initial.offset(i, j, k);
+                    result.add(blockpos1);
+                }
+            }
+        }
+        return result;
+    }
+
     public List<BlockPos> getCubePos(BlockPos initial, int range){
         List<BlockPos> result = new ArrayList<>();
         for (int i = -range; i <= range; ++i) {
@@ -134,6 +160,40 @@ public abstract class BrewEffect {
         return result;
     }
 
+    public List<BlockPos> getHollowSphere(BlockPos initial, int range){
+        List<BlockPos> result = new ArrayList<>();
+        if (range > 1){
+            int rangeSqr = range * range;
+
+            for (int i = -range; i <= range; ++i) {
+                for (int j = -range; j <= range; ++j) {
+                    for (int k = -range; k <= range; ++k) {
+                        BlockPos blockpos1 = initial.offset(i, j, k);
+                        if (blockpos1.distSqr(initial) < (rangeSqr - 1)) {
+                            result.add(blockpos1);
+                        }
+                    }
+                }
+            }
+
+            int range2 = range - 1;
+            int range2Sqr = range2 * range2;
+            for (int i = -range2; i <= range2; ++i) {
+                for (int j = -range2; j <= range2; ++j) {
+                    for (int k = -range2; k <= range2; ++k) {
+                        BlockPos blockpos1 = initial.offset(i, j, k);
+                        if (blockpos1.distSqr(initial) < (range2Sqr - 1)) {
+                            result.remove(blockpos1);
+                        }
+                    }
+                }
+            }
+        } else {
+            result.add(initial);
+        }
+        return result;
+    }
+
     protected String getOrCreateDescriptionId() {
         if (this.descriptionId == null) {
             this.descriptionId = this.effectID;
@@ -146,7 +206,7 @@ public abstract class BrewEffect {
         return this.getOrCreateDescriptionId();
     }
 
-    public Component getDisplayName() {
+    public MutableComponent getDisplayName() {
         return Component.translatable(this.getDescriptionId());
     }
 

@@ -35,11 +35,9 @@ public class WartlingEggItem extends Item {
             wartling.setTrueOwner(player);
             wartling.setLimitedLife(MathHelper.secondsToTicks(9));
             wartling.moveTo(player.blockPosition(), player.getYRot(), player.getXRot());
-            player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
-                if (!effect.getCurativeItems().isEmpty()) {
-                    wartling.setStoredEffect(effect);
-                    player.removeEffect(effect.getEffect());
-                }
+            player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL && !mobEffect.getEffect().getCurativeItems().isEmpty()).findFirst().ifPresent(effect -> {
+                wartling.setStoredEffect(effect);
+                player.removeEffect(effect.getEffect());
             });
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             if (!CuriosFinder.hasCurio(player, itemStack1 -> itemStack1.getItem() instanceof WarlockGarmentItem)) {

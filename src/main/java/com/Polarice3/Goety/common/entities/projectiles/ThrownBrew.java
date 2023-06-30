@@ -4,9 +4,12 @@ import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.util.BrewEffectCloud;
+import com.Polarice3.Goety.common.entities.util.BrewGas;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SAddBrewParticlesPacket;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -69,38 +72,41 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
     protected void onHitBlock(BlockHitResult p_37541_) {
         super.onHitBlock(p_37541_);
         if (!this.level.isClientSide) {
-            ItemStack itemstack = this.getItem();
-            Potion potion = PotionUtils.getPotion(itemstack);
-            List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemstack);
-            boolean flag = potion == Potions.WATER && list.isEmpty();
-            Direction direction = p_37541_.getDirection();
-            BlockPos blockpos = p_37541_.getBlockPos();
-            BlockPos blockpos1 = blockpos.relative(direction);
-            if (flag) {
-                this.dowseFire(blockpos1);
-                this.dowseFire(blockpos1.relative(direction.getOpposite()));
+            if (!this.isGas()) {
+                ItemStack itemstack = this.getItem();
+                Potion potion = PotionUtils.getPotion(itemstack);
+                List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemstack);
+                boolean flag = potion == Potions.WATER && list.isEmpty();
+                Direction direction = p_37541_.getDirection();
+                BlockPos blockpos = p_37541_.getBlockPos();
+                BlockPos blockpos1 = blockpos.relative(direction);
+                if (flag) {
+                    this.dowseFire(blockpos1);
+                    this.dowseFire(blockpos1.relative(direction.getOpposite()));
 
-                for(Direction direction1 : Direction.Plane.HORIZONTAL) {
-                    this.dowseFire(blockpos1.relative(direction1));
+                    for (Direction direction1 : Direction.Plane.HORIZONTAL) {
+                        this.dowseFire(blockpos1.relative(direction1));
+                    }
+                }
+                for (BrewEffectInstance brewEffectInstance : list) {
+                    LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
+                    brewEffectInstance.getEffect().applyDirectionalBlockEffect(this.level, p_37541_.getBlockPos(), p_37541_.getDirection(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
+                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37541_.getBlockPos(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
                 }
             }
-            for (BrewEffectInstance brewEffectInstance : list){
-                LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
-                brewEffectInstance.getEffect().applyDirectionalBlockEffect(this.level, p_37541_.getBlockPos(), p_37541_.getDirection(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
-                brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37541_.getBlockPos(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
-            }
-
         }
     }
 
     protected void onHitEntity(EntityHitResult p_37259_) {
         super.onHitEntity(p_37259_);
         if (!this.level.isClientSide) {
-            ItemStack itemstack = this.getItem();
-            List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemstack);
-            for (BrewEffectInstance brewEffectInstance : list){
-                LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
-                brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37259_.getEntity().blockPosition(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
+            if (!this.isGas()) {
+                ItemStack itemstack = this.getItem();
+                List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemstack);
+                for (BrewEffectInstance brewEffectInstance : list) {
+                    LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
+                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37259_.getEntity().blockPosition(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
+                }
             }
         }
     }
@@ -116,7 +122,9 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
             if (flag) {
                 this.applyWater();
             } else if (!list.isEmpty() || !list1.isEmpty()) {
-                if (this.isLingering()) {
+                if (this.isGas()){
+                    this.makeBrewGas(itemstack, p_37543_);
+                } else if (this.isLingering()) {
                     this.makeAreaOfEffectCloud(itemstack);
                 } else {
                     this.applySplash(list, list1, p_37543_.getType() == HitResult.Type.ENTITY ? ((EntityHitResult)p_37543_).getEntity() : null);
@@ -230,8 +238,36 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
         this.level.addFreshEntity(brewEffectCloud);
     }
 
+    private void makeBrewGas(ItemStack itemStack, HitResult hitResult){
+        ItemStack itemstack = this.getItem();
+        int h = BrewUtils.getAreaOfEffect(itemstack);
+        int i = (int) BrewUtils.getLingering(itemstack);
+        BlockPos blockPos = new BlockPos(hitResult.getLocation());
+        if (hitResult.getType() == HitResult.Type.ENTITY){
+            EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+            blockPos = entityHitResult.getEntity().blockPosition();
+        }
+        BrewGas brewGas = new BrewGas(this.level, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        LivingEntity livingEntity = null;
+        if (this.getOwner() instanceof LivingEntity livingEntity1) {
+            livingEntity = livingEntity1;
+        }
+        brewGas.setGas(PotionUtils.getCustomEffects(itemStack), BrewUtils.getCustomEffects(itemStack),
+                120 * (i + 1), 3 * (h + 1), livingEntity);
+
+        this.level.addFreshEntity(brewGas);
+
+        if (!this.level.isClientSide){
+            ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, ModSounds.BREW_GAS.get(), 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
+        }
+    }
+
     private boolean isLingering() {
         return this.getItem().is(ModItems.LINGERING_BREW.get());
+    }
+
+    private boolean isGas() {
+        return this.getItem().is(ModItems.GAS_BREW.get());
     }
 
     private void dowseFire(BlockPos p_150193_) {

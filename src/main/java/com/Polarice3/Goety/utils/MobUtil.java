@@ -18,8 +18,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
@@ -30,6 +32,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
@@ -115,6 +118,27 @@ public class MobUtil {
         }
     }
 
+    public static boolean isInWeb(LivingEntity livingEntity){
+        AABB axisalignedbb = livingEntity.getBoundingBox();
+        BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
+        BlockPos blockpos1 = new BlockPos(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
+        if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
+            for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
+                for(int j = blockpos.getY(); j <= blockpos1.getY(); ++j) {
+                    for(int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
+                        blockpos$mutable.set(i, j, k);
+                        BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutable);
+                        if (blockstate.getBlock() instanceof WebBlock){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public static void WebMovement(LivingEntity livingEntity){
         AABB axisalignedbb = livingEntity.getBoundingBox();
         BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
@@ -154,6 +178,24 @@ public class MobUtil {
         }
 
         return lootcontext$builder;
+    }
+
+    public static void knockBack(LivingEntity attacker, LivingEntity target, double xPower, double yPower, double zPower) {
+        Vec3 vec3 = new Vec3(target.getX() - attacker.getX(), target.getY() - attacker.getY(), target.getZ() - attacker.getZ()).normalize();
+        double pY0 = Math.max(-vec3.y, yPower);
+        Vec3 vec31 = new Vec3(-vec3.x * xPower, pY0, -vec3.z * zPower);
+        double resist = attacker.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        double resist1 = Math.max(0.0D, 1.0D - resist);
+        if (attacker instanceof Player player) {
+            if (MobUtil.playerValidity(player, false)) {
+                player.hurtMarked = true;
+                if (!player.level.isClientSide){
+                    player.setOnGround(false);
+                }
+            }
+        }
+        attacker.setDeltaMovement(attacker.getDeltaMovement().add(vec31).scale(resist1));
+        attacker.hasImpulse = true;
     }
 
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
@@ -647,5 +689,42 @@ public class MobUtil {
             creeper.level.addFreshEntity(areaeffectcloud);
         }
 
+    }
+
+    public static boolean hasNegativeEffects(LivingEntity livingEntity){
+        return !livingEntity.getActiveEffects().isEmpty() && livingEntity.getActiveEffects().stream().anyMatch((mobEffectInstance2 -> mobEffectInstance2.getEffect().getCategory() == MobEffectCategory.HARMFUL));
+    }
+
+    public static boolean hasLongNegativeEffects(LivingEntity livingEntity){
+        return !livingEntity.getActiveEffects().isEmpty() && livingEntity.getActiveEffects().stream().anyMatch((mobEffectInstance2 -> mobEffectInstance2.getEffect().getCategory() == MobEffectCategory.HARMFUL && mobEffectInstance2.getDuration() > MathHelper.secondsToTicks(5)));
+    }
+
+    public static boolean isMoving(LivingEntity livingEntity){
+        return livingEntity.isOnGround() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F;
+    }
+
+    public static boolean hasVisualLineOfSight(LivingEntity looker, Entity target) {
+        if (target.level != looker.level) {
+            return false;
+        } else {
+            Vec3 vec3 = new Vec3(looker.getX(), looker.getEyeY(), looker.getZ());
+            Vec3 vec31 = new Vec3(target.getX(), target.getEyeY(), target.getZ());
+            if (vec31.distanceTo(vec3) > 128.0D) {
+                return false;
+            } else {
+                return looker.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, looker)).getType() == HitResult.Type.MISS;
+            }
+        }
+    }
+
+    public static boolean isPushed(LivingEntity livingEntity){
+        List<Entity> list = livingEntity.level.getEntities(livingEntity, livingEntity.getBoundingBox(), EntitySelector.pushableBy(livingEntity));
+        return !list.isEmpty() && livingEntity.isPushable();
+    }
+
+    public static boolean isInSunlight(LivingEntity livingEntity){
+        float f = livingEntity.getLightLevelDependentMagicValue();
+        BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
+        return f > 0.5F && livingEntity.level.canSeeSky(blockpos);
     }
 }

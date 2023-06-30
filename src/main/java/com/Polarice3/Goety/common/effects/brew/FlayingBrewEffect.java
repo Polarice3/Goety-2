@@ -41,11 +41,11 @@ public class FlayingBrewEffect extends BrewEffect {
                 for (int i = 0; i < pAmplifier + 1; ++i) {
                     for (ItemStack itemStack : loottable.getRandomItems(ctx)) {
                         if (!itemStack.getItem().isEdible() && !itemStack.isEmpty()) {
-                            itemStack.setCount(1);
-                            ItemEntity item = ItemHelper.itemEntityDrop(animal, itemStack);
-                            item.setDefaultPickUpDelay();
-                            if (animal.level.addFreshEntity(item)) {
-                                animal.hurt(damageSource, animal.getMaxHealth() / 4.0F);
+                            if (animal.hurt(damageSource, animal.getMaxHealth() / 4.0F)) {
+                                itemStack.setCount(1);
+                                ItemEntity item = ItemHelper.itemEntityDrop(animal, itemStack);
+                                item.setDefaultPickUpDelay();
+                                animal.level.addFreshEntity(item);
                             }
                         }
                     }

@@ -62,6 +62,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOUL_CANDLESTICK = register("soul_candlestick", SoulCandlestickBlock::new);
     public static final RegistryObject<Block> WITCH_POLE = register("witch_pole", WitchPoleBlock::new);
     public static final RegistryObject<Block> BREWING_CAULDRON = register("witch_cauldron", BrewCauldronBlock::new);
+    public static final RegistryObject<Block> MAGIC_THORN = register("magic_thorn", MagicThornBlock::new, true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> HARDENED_LEAVES = register("hardened_leaves", ()
+            -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(2.0F).randomTicks().sound(SoundType.GRASS)
+                    .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
+            true, LootTableType.EMPTY);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
 

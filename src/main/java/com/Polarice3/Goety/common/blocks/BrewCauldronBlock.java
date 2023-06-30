@@ -65,7 +65,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
             box(1.0D, 0.0D, 14.0D,
                     2.0D, 3.0D, 15.0D));
     private static final VoxelShape BOTTOM = Shapes.or(box(2.0D, 1.0D, 2.0D,
-            14.0D, 3.0D, 14.0D), LEGS);
+            14.0D, 4.0D, 14.0D), LEGS);
     private static final VoxelShape BODY = Shapes.or(box(0.0D, 3.0D, 0.0D,
                     16.0D, 13.0D, 2.0D),
             box(14.0D, 3.0D, 2.0D,
@@ -115,9 +115,9 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack));
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack), false);
                         } else if (waterBucket) {
-                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack));
+                            ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack), false);
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
                                 ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(ModItems.BREW_APPLE.get()), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));

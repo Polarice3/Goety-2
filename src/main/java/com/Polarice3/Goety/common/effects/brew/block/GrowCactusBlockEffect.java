@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +18,7 @@ public class GrowCactusBlockEffect extends BrewEffect {
         if (Blocks.CACTUS.defaultBlockState().canSurvive(pLevel, pPos.above())) {
             for (int i = 0; i < pAmplifier + 3; ++i) {
                 BlockPos blockPos = pPos.offset(0, i + 1, 0);
-                if (pLevel.getBlockState(blockPos).isAir()) {
+                if (pLevel.getBlockState(blockPos).isAir() || BlockFinder.canBeReplaced(pLevel, blockPos)) {
                     pLevel.setBlockAndUpdate(blockPos, Blocks.CACTUS.defaultBlockState());
                 }
             }

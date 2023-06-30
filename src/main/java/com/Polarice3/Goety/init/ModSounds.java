@@ -28,6 +28,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WARLOCK_CELEBRATE = create("warlock_celebrate");
     public static final RegistryObject<SoundEvent> WARLOCK_DEATH = create("warlock_death");
 
+    public static final RegistryObject<SoundEvent> CRONE_AMBIENT = create("crone_ambient");
+
     public static final RegistryObject<SoundEvent> TORMENTOR_AMBIENT = create("tormentor_ambient");
     public static final RegistryObject<SoundEvent> TORMENTOR_HURT = create("tormentor_hurt");
     public static final RegistryObject<SoundEvent> TORMENTOR_CHARGE = create("tormentor_charge");
@@ -88,6 +90,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_THROW = create("blast_fungus_throw");
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
+
+    public static final RegistryObject<SoundEvent> BREW_GAS = create("brew_gas");
 
     public static final RegistryObject<SoundEvent> ALTAR_START = create("altar_start");
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = create("altar_loop");

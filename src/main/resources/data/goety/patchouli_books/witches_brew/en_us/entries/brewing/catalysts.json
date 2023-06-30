@@ -23,6 +23,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.bats",
+      "text": "Fly my pretties! Fly and eat the faces of my foes!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.bees",
       "text": "Buzzing bumbles, flying rumbles, sting my foe, honey my toes!"
     },
@@ -37,8 +42,13 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.brew_dye",
+      "text": "Changes the Brew's colors into whatever dyes you throw in! Careful though! The color will change if you add another Catalyst or dye!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.chop_tree",
-      "text": "These hands are too old to chop wood! Fortunately, my brew will do it for me!"
+      "text": "With Axe of Stone, I cast my brew! I see a tree and it's wood I hew!"
     },
     {
       "type": "goety:catalyst",
@@ -86,6 +96,15 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.fire_resistance"
+    },{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fire_trail",
+      "text": "Catch me if you can if you can handle my hot boots!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flammable",
+      "text": "The fires stings a lot more than usual! Almost like you're made of grass!"
     },
     {
       "type": "goety:catalyst",
@@ -138,7 +157,17 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_tree",
+      "text": "What's a Witch that don't surround themselves with trees? The Catalyst can be any Sapling!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.haste"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.harvest",
+      "text": "A bucket of water breaks the seeds! With this brew, the ground retains its treats!"
     },
     {
       "type": "goety:catalyst",
@@ -169,6 +198,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.launch",
       "text": "Up, Up and Away!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leaf_shell",
+      "text": "Better light those matches! Those leaves aren't so easy to break by hand!"
     },
     {
       "type": "goety:catalyst",
@@ -240,7 +274,7 @@
     },
     {
       "type": "goety:catalyst",
-      "recipe": "effect.minecraft.saturation"
+      "recipe": "effect.goety.saturation"
     },
     {
       "type": "goety:catalyst",
@@ -282,6 +316,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.sweet_thorns",
       "text": "Granny wants to make Sweet Berry Pie, but my poor legs are too tired to go to the Taiga. Meh, just make my own Berry Bushes then!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.thorn_trap",
+      "text": "You're surrounded brat! You should stop walking unless you get a face full of thorns! Hahahaha!"
     },
     {
       "type": "goety:catalyst",

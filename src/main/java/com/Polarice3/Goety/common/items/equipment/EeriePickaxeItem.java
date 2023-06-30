@@ -22,11 +22,9 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EeriePickaxeItem extends PickaxeItem {
     public EeriePickaxeItem() {
         super(ModTiers.SPECIAL, 1, -2.8F, (new Item.Properties()).rarity(Rarity.UNCOMMON).tab(Goety.TAB));

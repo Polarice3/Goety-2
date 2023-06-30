@@ -39,7 +39,10 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -111,7 +114,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MONOLITH, MonolithModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BLOCK, BlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.CRONE, CroneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE, ApostleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZOMBIE_VILLAGER_SERVANT, VillagerServantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SKELETON_VILLAGER_SERVANT, SkeletonVillagerModel::createBodyLayer);
@@ -198,16 +203,19 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolithRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CRONE.get(), CroneRenderer::new);
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), ZPiglinRenderer::new);
         event.registerEntityRenderer(ModEntityType.MALGHAST.get(), MalghastRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VAMPIRE_BAT.get(), VampireBatRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServantRenderer::new);
@@ -244,12 +252,21 @@ public class ClientInitEvents {
                                 && Minecraft.getInstance().level.getBlockEntity(pos) instanceof BrewCauldronBlockEntity cauldronBlock
                                         ? cauldronBlock.getColor() :
                                 BiomeColors.getAverageWaterColor(lightReader, pos) : -1, ModBlocks.BREWING_CAULDRON.get());
+        event.register(
+                (state, lightReader, pos, color) ->
+                        lightReader != null && pos != null ?
+                                BiomeColors.getAverageFoliageColor(lightReader, pos) :
+                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get());
     }
 
     @SubscribeEvent
     public static void colorItem(RegisterColorHandlersEvent.Item event){
         event.register((itemStack, i) -> i > 0 ? -1 : PotionUtils.getColor(itemStack),
-                ModItems.BREW.get(), ModItems.SPLASH_BREW.get(), ModItems.LINGERING_BREW.get());
+                ModItems.BREW.get(), ModItems.SPLASH_BREW.get(), ModItems.LINGERING_BREW.get(), ModItems.GAS_BREW.get());
+        event.register((itemStack, i) -> {
+            BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
+            return event.getBlockColors().getColor(blockstate, null, null, i);
+        }, ModBlocks.HARDENED_LEAVES.get());
     }
 
     @SubscribeEvent

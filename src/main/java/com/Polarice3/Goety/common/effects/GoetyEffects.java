@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.effects;
 
+import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.Goety;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -72,16 +73,28 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
     public static final RegistryObject<MobEffect> NYCTOPHOBIA = EFFECTS.register("nyctophobia",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x0d1305));
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x0d1305, BrewConfig.NyctophobiaCurable.get()));
 
     public static final RegistryObject<MobEffect> SUN_ALLERGY = EFFECTS.register("sun_allergy",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1f1421));
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x1f1421, BrewConfig.SunAllergyCurable.get()));
+
+    public static final RegistryObject<MobEffect> SNOW_SKIN = EFFECTS.register("snow_skin",
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0xe3f3f3, BrewConfig.SunAllergyCurable.get()));
 
     public static final RegistryObject<MobEffect> TRIPPING = EFFECTS.register("tripping",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x101636));
 
     public static final RegistryObject<MobEffect> ARROWMANTIC = EFFECTS.register("arrowmantic",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x969696));
+
+    public static final RegistryObject<MobEffect> PLUNGE = EFFECTS.register("plunge",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x8d989a));
+
+    public static final RegistryObject<MobEffect> SENSE_LOSS = EFFECTS.register("sense_loss",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 2039587));
+
+    public static final RegistryObject<MobEffect> FLAMMABLE = EFFECTS.register("flammable",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1e0f07));
 
     public static final RegistryObject<MobEffect> EXPLOSIVE = EFFECTS.register("explosive",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x912d11));
@@ -100,7 +113,12 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> REPULSIVE = EFFECTS.register("repulsive",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x67502c));
 
+    public static final RegistryObject<MobEffect> FIRE_TRAIL = EFFECTS.register("fire_trail",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffc800));
+
     public static final RegistryObject<MobEffect> FIERY_AURA = EFFECTS.register("fiery_aura",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xff0000));
 
+    public static final RegistryObject<MobEffect> PHOTOSYNTHESIS = EFFECTS.register("photosynthesis",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffec4f));
 }

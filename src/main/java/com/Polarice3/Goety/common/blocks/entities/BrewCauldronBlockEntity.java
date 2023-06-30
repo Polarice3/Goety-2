@@ -174,25 +174,31 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
                 if (this.mode == Mode.BREWING) {
                     Item ingredient = itemStack.getItem();
-                    BrewingRecipe cauldronBrewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
+                    BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
                     BrewEffect brewEffect = new BrewEffects().getEffectFromCatalyst(ingredient);
                     if (this.hasNoAugmentation()) {
-                        if (cauldronBrewingRecipe != null || brewEffect != null) {
-                            if (cauldronBrewingRecipe != null){
-                                this.capacityUsed += cauldronBrewingRecipe.getCapacityExtra();
-                                this.addCost(cauldronBrewingRecipe.soulCost);
+                        if (brewingRecipe != null || brewEffect != null) {
+                            if (brewingRecipe != null){
+                                if (brewingRecipe.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                                    this.capacityUsed += brewingRecipe.getCapacityExtra();
+                                    this.addCost(brewingRecipe.soulCost);
+                                    this.setColor(BrewUtils.getColor(this.getBrew()));
+                                    return Mode.BREWING;
+                                }
                             }
                             if (brewEffect != null){
-                                this.capacityUsed += brewEffect.getCapacityExtra();
-                                this.addCost(brewEffect.getSoulCost());
+                                if (brewEffect.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                                    this.capacityUsed += brewEffect.getCapacityExtra();
+                                    this.addCost(brewEffect.getSoulCost());
+                                    this.setColor(BrewUtils.getColor(this.getBrew()));
+                                    return Mode.BREWING;
+                                }
                             }
-                            this.setColor(BrewUtils.getColor(this.getBrew()));
-                            return Mode.BREWING;
                         }
                     }
 
                     if (BrewUtils.hasEffect(this.getBrew())) {
-                        if (ingredient == Items.ENDER_EYE || ingredient == Items.GUNPOWDER || ingredient == Items.DRAGON_BREATH){
+                        if (ingredient == Items.ENDER_EYE || ingredient == Items.GUNPOWDER || ingredient == Items.DRAGON_BREATH || ingredient == ModItems.WIND_CORE.get()){
                             if (ingredient == Items.ENDER_EYE){
                                 this.addCost(10);
                             }
@@ -387,6 +393,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             this.capacity = 0;
             this.soulTime = 0;
             this.totalCost = 0;
+            this.level.playSound(null, this.worldPosition, SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 5.0F, 0.75F);
             this.markUpdated();
         }
         return Mode.FAILED;
@@ -440,6 +447,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     brew = new ItemStack(ModItems.SPLASH_BREW.get());
                 } else if (item == Items.DRAGON_BREATH && brew.is(ModItems.SPLASH_BREW.get())){
                     brew = new ItemStack(ModItems.LINGERING_BREW.get());
+                } else if (item == ModItems.WIND_CORE.get() && brew.is(ModItems.LINGERING_BREW.get())){
+                    brew = new ItemStack(ModItems.GAS_BREW.get());
                 }
             }
             for (int i = 0; i < effects.size(); i++) {

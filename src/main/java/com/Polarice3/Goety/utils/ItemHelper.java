@@ -53,10 +53,18 @@ public class ItemHelper {
     }
 
     public static void addAndConsumeItem(Player player, InteractionHand hand, ItemStack toAdd) {
+        addAndConsumeItem(player, hand, toAdd, true);
+    }
+
+    public static void addAndConsumeItem(Player player, InteractionHand hand, ItemStack toAdd, boolean addToInventory) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getCount() == 1) {
             if (!player.isCreative()) {
                 player.setItemInHand(hand, toAdd);
+            } else if (addToInventory){
+                if (!player.getInventory().add(toAdd)) {
+                    player.drop(toAdd, false, true);
+                }
             }
         } else {
             if (!player.isCreative()) {

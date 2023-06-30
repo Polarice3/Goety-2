@@ -175,7 +175,7 @@ public class BrewUtils {
         } else {
             if (!list2.isEmpty()) {
                 for (BrewEffectInstance brewEffectInstance : list2) {
-                    MutableComponent mutablecomponent = Component.translatable(brewEffectInstance.getDescriptionId());
+                    MutableComponent mutablecomponent = brewEffectInstance.getName();
                     BrewEffect mobeffect = brewEffectInstance.getEffect();
 
                     if (brewEffectInstance.getAmplifier() > 0) {

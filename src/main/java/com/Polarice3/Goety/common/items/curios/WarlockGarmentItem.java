@@ -20,10 +20,8 @@ public class WarlockGarmentItem extends SingleStackItem{
                     if (player.tickCount % 60 == 0) {
                         if (!ItemHelper.findItem(player, ModItems.WARTFUL_EGG.get()).isEmpty()) {
                             ItemStack itemStack = ItemHelper.findItem(player, ModItems.WARTFUL_EGG.get());
-                            player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL).findFirst().ifPresent(effect -> {
-                                if (!effect.getCurativeItems().isEmpty()) {
-                                    WartlingEggItem.warlockUse(worldIn, player, itemStack);
-                                }
+                            player.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL && !mobEffect.getEffect().getCurativeItems().isEmpty()).findFirst().ifPresent(effect -> {
+                                WartlingEggItem.warlockUse(worldIn, player, itemStack);
                             });
                         }
                     }

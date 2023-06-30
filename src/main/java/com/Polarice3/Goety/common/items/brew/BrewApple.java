@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.brew;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.utils.BrewUtils;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class BrewApple extends Item {
     public BrewApple() {
-        super((new Item.Properties()).tab(Goety.TAB).food(Foods.APPLE));
+        super((new Item.Properties()).food(Foods.APPLE));
     }
 
     public ItemStack finishUsingItem(ItemStack pStack, Level p_42985_, LivingEntity p_42986_) {

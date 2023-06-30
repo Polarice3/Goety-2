@@ -26,14 +26,16 @@ public class BeesBrewEffect extends BrewEffect {
     }
 
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
-        for (int i = 0; i < 3 + pAmplifier; ++i){
-            Bee bee = new Bee(EntityType.BEE, pTarget.level);
-            bee.moveTo(BlockFinder.SummonRadius(pTarget, pTarget.level), 0.0F, 0.0F);
-            bee.addTag(ConstantPaths.conjuredBee());
-            bee.startPersistentAngerTimer();
-            bee.setPersistentAngerTarget(pTarget.getUUID());
-            bee.setTarget(pTarget);
-            pTarget.level.addFreshEntity(bee);
+        if (!(pTarget instanceof Bee) && pTarget != pIndirectSource) {
+            for (int i = 0; i < 3 + pAmplifier; ++i) {
+                Bee bee = new Bee(EntityType.BEE, pTarget.level);
+                bee.moveTo(BlockFinder.SummonRadius(pTarget, pTarget.level), 0.0F, 0.0F);
+                bee.addTag(ConstantPaths.conjuredBee());
+                bee.startPersistentAngerTimer();
+                bee.setPersistentAngerTarget(pTarget.getUUID());
+                bee.setTarget(pTarget);
+                pTarget.level.addFreshEntity(bee);
+            }
         }
     }
 }

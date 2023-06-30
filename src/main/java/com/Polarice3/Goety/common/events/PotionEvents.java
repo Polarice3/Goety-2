@@ -8,30 +8,39 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -50,6 +59,11 @@ public class PotionEvents {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
             Level world = livingEntity.level;
+            if (livingEntity.getTags().contains(ConstantPaths.gassed())){
+                if (livingEntity.tickCount % 20 == 0){
+                    livingEntity.getTags().remove(ConstantPaths.gassed());
+                }
+            }
             if (livingEntity.hasEffect(GoetyEffects.BURN_HEX.get())){
                 if (livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)){
                     livingEntity.removeEffectNoUpdate(MobEffects.FIRE_RESISTANCE);
@@ -73,11 +87,21 @@ public class PotionEvents {
             if (livingEntity instanceof Bee bee){
                 if (!bee.level.isClientSide) {
                     if (bee.getTags().contains(ConstantPaths.conjuredBee())){
-                        if (bee.getTarget() == null && bee.getPersistentAngerTarget() == null){
-                            if (bee.tickCount % 200 == 0){
+                        if ((bee.getTarget() == null && bee.getPersistentAngerTarget() == null) || bee.hasStung()){
+                            if (bee.tickCount % MathHelper.secondsToTicks(10) == 0){
                                 bee.spawnAnim();
                                 bee.discard();
                             }
+                        }
+                    }
+                }
+            }
+            if (livingEntity instanceof Bat bat){
+                if (!bat.level.isClientSide){
+                    if (bat.getTags().contains(ConstantPaths.conjuredBat())){
+                        if (bat.tickCount % MathHelper.secondsToTicks(20) == 0){
+                            bat.spawnAnim();
+                            bat.discard();
                         }
                     }
                 }
@@ -110,8 +134,7 @@ public class PotionEvents {
                 boolean burn = false;
                 if (!world.isClientSide && world.isDay()) {
                     float f = livingEntity.getLightLevelDependentMagicValue();
-                    BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
-                    if (f > 0.5F && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
+                    if (MobUtil.isInSunlight(livingEntity) && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                         burn = true;
                     }
                 }
@@ -135,13 +158,30 @@ public class PotionEvents {
                     }
                 }
             }
+            if (livingEntity.hasEffect(GoetyEffects.PHOTOSYNTHESIS.get())){
+                if (!world.isClientSide && world.isDay()) {
+                    MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.PHOTOSYNTHESIS.get());
+                    if (mobEffectInstance != null) {
+                        int a = mobEffectInstance.getAmplifier();
+                        int j = 50 >> a;
+                        if (j > 0){
+                            float f = livingEntity.getLightLevelDependentMagicValue();
+                            if (MobUtil.isInSunlight(livingEntity) && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+                                if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
+                                    livingEntity.heal(1.0F);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             if (livingEntity.hasEffect(GoetyEffects.TRIPPING.get())){
                 MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.TRIPPING.get());
                 if (mobEffectInstance != null){
                     int a = mobEffectInstance.getAmplifier();
                     int j = 20 >> a;
                     if (j > 0) {
-                        if (livingEntity.tickCount % j == 0 && world.random.nextFloat() <= 0.25F + (a / 10.0F) && livingEntity.isOnGround() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F) {
+                        if (livingEntity.tickCount % j == 0 && world.random.nextFloat() <= 0.25F + (a / 10.0F) && MobUtil.isMoving(livingEntity)) {
                             MobUtil.push(livingEntity, world.random.nextDouble(), world.random.nextDouble() / 2.0D, world.random.nextDouble());
                         }
                     }
@@ -151,7 +191,7 @@ public class PotionEvents {
                 MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.ARROWMANTIC.get());
                 if (mobEffectInstance != null){
                     int a = mobEffectInstance.getAmplifier();
-                    for (AbstractArrow abstractArrow : livingEntity.level.getEntitiesOfClass(AbstractArrow.class, livingEntity.getBoundingBox().inflate(2.0F + a))){
+                    for (AbstractArrow abstractArrow : world.getEntitiesOfClass(AbstractArrow.class, livingEntity.getBoundingBox().inflate(2.0F + a))){
                         if (!abstractArrow.isOnGround()){
                             double d0 = livingEntity.getX() - abstractArrow.getX();
                             double d1 = livingEntity.getY(0.3333333333333333D) - abstractArrow.getY();
@@ -163,17 +203,98 @@ public class PotionEvents {
                 }
             }
             if (livingEntity.hasEffect(GoetyEffects.FIERY_AURA.get())){
-                if (livingEntity.level instanceof ServerLevel serverLevel) {
+                if (world instanceof ServerLevel serverLevel) {
                     MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FIERY_AURA.get());
                     if (mobEffectInstance != null){
                         int a = mobEffectInstance.getAmplifier();
                         float f = 2.0F + a;
                         ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.FLAME, livingEntity, f);
-                        for (LivingEntity living : livingEntity.level.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
+                        for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
                             if (!living.isOnFire() && !living.fireImmune() && MobUtil.validEntity(living) && living != livingEntity) {
                                 ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.FLAME, living);
                                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE, 1.0F, 0.75F));
                                 living.setSecondsOnFire(5 * (a + 1));
+                            }
+                        }
+                    }
+                }
+            }
+            if (livingEntity.hasEffect(GoetyEffects.FIRE_TRAIL.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FIRE_TRAIL.get());
+                if (mobEffectInstance != null){
+                    BlockState blockState = world.getBlockState(livingEntity.blockPosition());
+                    if (MobUtil.isMoving(livingEntity)){
+                        if (blockState.canBeReplaced(new DirectionalPlaceContext(world, livingEntity.blockPosition(), Direction.DOWN, ItemStack.EMPTY, Direction.UP))
+                                && world.getFluidState(livingEntity.blockPosition()).isEmpty()
+                                && world.getBlockState(livingEntity.blockPosition().below()).isSolidRender(world, livingEntity.blockPosition().below())){
+                            world.setBlockAndUpdate(livingEntity.blockPosition(), BaseFireBlock.getState(world, livingEntity.blockPosition()));
+                        }
+                    }
+                }
+            }
+            if (livingEntity.hasEffect(GoetyEffects.PLUNGE.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.PLUNGE.get());
+                if (mobEffectInstance != null && !livingEntity.hasEffect(MobEffects.LEVITATION)){
+                    if (MobUtil.validEntity(livingEntity)) {
+                        if (livingEntity instanceof Player player) {
+                            player.getAbilities().flying &= player.isCreative();
+                        }
+                        if (livingEntity.isInFluidType()) {
+                            livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().subtract(0, 0.05D + (mobEffectInstance.getAmplifier() / 100.0D), 0));
+                        } else if (BlockFinder.distanceFromGround(livingEntity) > 4) {
+                            livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().subtract(0, 0.2D + (mobEffectInstance.getAmplifier() / 10.0D), 0));
+                        }
+                    }
+                }
+            }
+            if (livingEntity instanceof Player && livingEntity.hasEffect(GoetyEffects.SENSE_LOSS.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.SENSE_LOSS.get());
+                if (mobEffectInstance != null) {
+                    if (livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, mobEffectInstance.getDuration(), mobEffectInstance.getAmplifier(), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible()))){
+                        livingEntity.removeEffect(GoetyEffects.SENSE_LOSS.get());
+                    }
+                }
+            }
+            if (livingEntity.hasEffect(GoetyEffects.EXPLOSIVE.get())) {
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.EXPLOSIVE.get());
+                if (mobEffectInstance != null){
+                    int a = mobEffectInstance.getAmplifier() + 1;
+                    if (MobUtil.isPushed(livingEntity)) {
+                        if (livingEntity.getRandom().nextInt(100 - (a * 10)) == 0) {
+                            if (!livingEntity.level.isClientSide) {
+                                livingEntity.level.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F + (a / 2.0F), Explosion.BlockInteraction.DESTROY);
+                                livingEntity.removeEffect(GoetyEffects.EXPLOSIVE.get());
+                            }
+                        }
+                    }
+                }
+            }
+            if (livingEntity.hasEffect(GoetyEffects.SNOW_SKIN.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.SNOW_SKIN.get());
+                if(mobEffectInstance != null){
+                    if (!livingEntity.level.isClientSide){
+                        int i = Mth.floor(livingEntity.getX());
+                        int j = Mth.floor(livingEntity.getY());
+                        int k = Mth.floor(livingEntity.getZ());
+                        BlockPos blockpos = new BlockPos(i, j, k);
+                        Biome biome = livingEntity.level.getBiome(blockpos).value();
+                        if (biome.shouldSnowGolemBurn(blockpos)) {
+                            livingEntity.hurt(DamageSource.ON_FIRE, 1.0F);
+                        }
+
+                        livingEntity.setIsInPowderSnow(false);
+                        livingEntity.setTicksFrozen(0);
+
+                        BlockState blockstate = Blocks.SNOW.defaultBlockState();
+
+                        for(int l = 0; l < 4; ++l) {
+                            i = Mth.floor(livingEntity.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                            j = Mth.floor(livingEntity.getY());
+                            k = Mth.floor(livingEntity.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                            BlockPos blockpos1 = new BlockPos(i, j, k);
+                            if (livingEntity.level.isEmptyBlock(blockpos1) && blockstate.canSurvive(livingEntity.level, blockpos1)) {
+                                livingEntity.level.setBlockAndUpdate(blockpos1, blockstate);
+                                livingEntity.level.gameEvent(GameEvent.BLOCK_PLACE, blockpos1, GameEvent.Context.of(livingEntity, blockstate));
                             }
                         }
                     }
@@ -220,20 +341,29 @@ public class PotionEvents {
                     living.playSound(SoundEvents.IRON_GOLEM_ATTACK);
                     if (!living.level.isClientSide){
                         ModNetwork.sendToALL(new SPlayWorldSoundPacket(living.blockPosition(), SoundEvents.IRON_GOLEM_ATTACK, 1.0F, 1.0F));
+                        MobUtil.knockBack(living, victim, 1.0D + (a / 2.0D), 0.4D + (a * 0.2D), 1.0D + (a / 2.0D));
                     }
-                    living.knockback(1.0D + (a * 0.75D), 0.5D + (a * 0.2D), 1.0D + (a * 0.75D));
                 }
             }
-            if (victim.hasEffect(GoetyEffects.EXPLOSIVE.get())) {
-                MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.EXPLOSIVE.get());
-                if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier() + 1;
-                    if (victim.getRandom().nextInt(5 - a) == 0){
-                        if (!victim.level.isClientSide) {
-                            victim.level.explode(victim, victim.getX(), victim.getY(), victim.getZ(), 3.0F + (a / 2.0F), Explosion.BlockInteraction.DESTROY);
-                            victim.removeEffect(GoetyEffects.EXPLOSIVE.get());
-                        }
+        }
+        if (victim.hasEffect(GoetyEffects.EXPLOSIVE.get())) {
+            MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.EXPLOSIVE.get());
+            if (mobEffectInstance != null){
+                int a = mobEffectInstance.getAmplifier() + 1;
+                if (victim.getRandom().nextInt(5 - a) == 0) {
+                    if (!victim.level.isClientSide) {
+                        victim.level.explode(victim, victim.getX(), victim.getY(), victim.getZ(), 3.0F + (a / 2.0F), Explosion.BlockInteraction.DESTROY);
+                        victim.removeEffect(GoetyEffects.EXPLOSIVE.get());
                     }
+                }
+            }
+        }
+        if (victim.hasEffect(GoetyEffects.FLAMMABLE.get())){
+            MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.FLAMMABLE.get());
+            if (mobEffectInstance != null){
+                int a = mobEffectInstance.getAmplifier() + 2;
+                if (event.getSource().isFire()) {
+                    event.setAmount(event.getAmount() * a);
                 }
             }
         }
@@ -309,6 +439,19 @@ public class PotionEvents {
                             ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.ELECTRIC.get(), livingEntity);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void EffectVisibilityEvents(LivingEvent.LivingVisibilityEvent event){
+        if (event.getLookingEntity() instanceof LivingEntity living){
+            if (living.hasEffect(GoetyEffects.SENSE_LOSS.get())){
+                MobEffectInstance mobEffectInstance = living.getEffect(GoetyEffects.SENSE_LOSS.get());
+                if (mobEffectInstance != null){
+                    int a = mobEffectInstance.getAmplifier();
+                    event.modifyVisibility(0.5D - (a / 10.0D));
                 }
             }
         }
@@ -394,6 +537,11 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.FREEZING.get()){
+            if (event.getEntity().hasEffect(GoetyEffects.SNOW_SKIN.get())){
+                event.setResult(Event.Result.DENY);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -404,6 +552,16 @@ public class PotionEvents {
         if (effect == GoetyEffects.BURN_HEX.get()){
             if (effected.hasEffect(MobEffects.FIRE_RESISTANCE)){
                 effected.removeEffect(MobEffects.FIRE_RESISTANCE);
+            }
+        }
+        if (effect == GoetyEffects.SNOW_SKIN.get()){
+            if (effected.hasEffect(GoetyEffects.FREEZING.get())){
+                effected.removeEffect(GoetyEffects.FREEZING.get());
+            }
+        }
+        if (effect == GoetyEffects.SENSE_LOSS.get()){
+            if (effected instanceof Mob mob){
+                mob.setTarget(null);
             }
         }
     }

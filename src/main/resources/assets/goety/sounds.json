@@ -173,6 +173,17 @@
     ],
     "subtitle": "subtitle.goety.warlock_death"
   },
+  "crone_ambient": {
+    "sounds": [
+      {
+        "name": "goety:crone/crone1"
+      },
+      {
+        "name": "goety:crone/crone2"
+      }
+    ],
+    "subtitle": "subtitle.goety.crone_ambient"
+  },
   "tormentor_ambient": {
     "sounds": [
       {
@@ -917,6 +928,20 @@
       }
     ],
     "subtitle": "subtitle.goety.blast_fungus_explode"
+  },
+  "brew_gas": {
+    "sounds": [
+      {
+        "name": "goety:item/brew_gas1"
+      },
+      {
+        "name": "goety:item/brew_gas2"
+      },
+      {
+        "name": "goety:item/brew_gas3"
+      }
+    ],
+    "subtitle": "subtitle.goety.brew_gas"
   },
   "altar_start": {
     "sounds": [

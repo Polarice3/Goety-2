@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class BossBarEvent {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar.png");
     protected static final ResourceLocation BOSS_BAR_1 = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar_1.png");
+    protected static final ResourceLocation MINI_BOSS_BAR = new ResourceLocation(Goety.MOD_ID, "textures/gui/miniboss_bar.png");
     public static final Set<Mob> BOSSES = Collections.newSetFromMap(new WeakHashMap<>());
 
     @SubscribeEvent
@@ -37,7 +39,11 @@ public class BossBarEvent {
                             event.setCanceled(true);
                             int k = i / 2 - 100;
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                            drawBar(event.getPoseStack(), k, event.getY(), event.getPartialTick(), boss);
+                            if (boss.getType().is(Tags.EntityTypes.BOSSES)) {
+                                drawBar(event.getPoseStack(), k, event.getY(), event.getPartialTick(), boss);
+                            } else {
+                                drawMiniBossBar(event.getPoseStack(), k, event.getY(), boss);
+                            }
                             Component itextcomponent = boss.getDisplayName();
                             int l = minecraft.font.width(itextcomponent);
                             int i1 = i / 2 - l / 2;
@@ -105,6 +111,21 @@ public class BossBarEvent {
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX, pY, 0, 48, 200, 16, 256, 256);
         }
+    }
+
+    private static void drawMiniBossBar(PoseStack pPoseStack, int pX, int pY, Mob pEntity) {
+        float percent = pEntity.getHealth() / pEntity.getMaxHealth();
+        int i = (int) (percent * 128.0F);
+        int j = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+        int j1 = j / 2 - 62;
+        if (i > 0) {
+            RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
+            blit(pPoseStack, j1, pY, 0, 8, i, 8, 128, 128);
+        }
+        RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
+        blit(pPoseStack, j1 - 11, pY, 0, 16, 9, 8, 128, 128);
+        RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
+        blit(pPoseStack, j1, pY, 0, 0, 128, 8, 128, 128);
     }
 
     public static void addBoss(Mob mob){

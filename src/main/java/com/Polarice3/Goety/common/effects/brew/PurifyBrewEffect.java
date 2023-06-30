@@ -25,18 +25,12 @@ public class PurifyBrewEffect extends BrewEffect{
     }
 
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
-        if (this.removeDebuff){
-            pTarget.getActiveEffects().stream().filter(mobEffect -> !mobEffect.getEffect().isBeneficial()).findFirst().ifPresent(effect -> {
-                if (!effect.getCurativeItems().isEmpty()) {
-                    pTarget.removeEffect(effect.getEffect());
-                }
-            });
-        } else {
-            pTarget.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().isBeneficial()).findFirst().ifPresent(effect -> {
-                if (!effect.getCurativeItems().isEmpty()) {
-                    pTarget.removeEffect(effect.getEffect());
-                }
-            });
+        if (!pTarget.level.isClientSide) {
+            if (this.removeDebuff) {
+                pTarget.getActiveEffects().removeIf(mobEffectInstance -> !mobEffectInstance.getEffect().isBeneficial() && !mobEffectInstance.getEffect().getCurativeItems().isEmpty());
+            } else {
+                pTarget.getActiveEffects().removeIf(mobEffectInstance -> mobEffectInstance.getEffect().isBeneficial() && !mobEffectInstance.getEffect().getCurativeItems().isEmpty());
+            }
         }
     }
 }

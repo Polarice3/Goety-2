@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 public class ModDamageSource extends DamageSource {
     public static DamageSource SHOCK = new DamageSource(source("shock"));
-    public static DamageSource BOILING = new DamageSource(source("boiling"));
+    public static DamageSource BOILING = new DamageSource(source("boiling")).setIsFire();
     public static DamageSource PHOBIA = new DamageSource(source("phobia")).bypassArmor().setMagic();
 
     public ModDamageSource(String pMessageId) {

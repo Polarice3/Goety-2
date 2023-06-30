@@ -40,9 +40,9 @@ public class StripBrewEffect extends BrewEffect {
                 if (pTarget.level.addFreshEntity(itemEntity)){
                     pTarget.setItemSlot(equipmentSlot, ItemStack.EMPTY);
                     if (!pTarget.level.isClientSide) {
-                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(pTarget.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.5F));
+                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(pTarget.blockPosition(), SoundEvents.ARMOR_EQUIP_GENERIC, 10.0F, 1.5F));
                     }
-                    pTarget.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.5F);
+                    pTarget.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 10.0F, 1.5F);
                 }
             }
         }

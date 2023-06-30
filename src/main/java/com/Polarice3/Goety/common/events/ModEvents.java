@@ -791,18 +791,6 @@ public class ModEvents {
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
-        if (victim.level.getDifficulty() == Difficulty.HARD){
-            if (victim.hasEffect(GoetyEffects.BURN_HEX.get())){
-                MobEffectInstance effectInstance = victim.getEffect(GoetyEffects.BURN_HEX.get());
-                int i = 2;
-                if (effectInstance != null) {
-                    i = effectInstance.getAmplifier() + 2;
-                }
-                if (event.getSource().isFire()){
-                    event.setAmount(event.getAmount() * i);
-                }
-            }
-        }
         if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
