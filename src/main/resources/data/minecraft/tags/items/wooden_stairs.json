@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "goety:haunted_stairs"
+    "goety:haunted_stairs",
+    "goety:rotten_stairs"
   ]
 }

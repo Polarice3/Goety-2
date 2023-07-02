@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:rotten_planks"
+    }
+  },
+  "result": {
+    "item": "goety:rotten_boat"
+  }
+}

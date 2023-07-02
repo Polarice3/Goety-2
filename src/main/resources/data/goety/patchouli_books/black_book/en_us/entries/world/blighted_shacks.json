@@ -1,0 +1,16 @@
+{
+  "name": "Blighted Shacks",
+  "icon": "goety:rotten_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Rumors of old, rotting shacks have reached your ear. Apparently, old and powerful witches live within those decrepit dens, studying and brewing all kinds of dark magic. Yet when you come across these shacks, you spot no ancient witch, but a peculiar crystal ball..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/blighted_shack.png"],
+      "border": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/rotten_slab"
+    },
+    "type=double": {
+      "model": "goety:block/rotten_planks"
+    },
+    "type=top": {
+      "model": "goety:block/rotten_slab_top"
+    }
+  }
+}

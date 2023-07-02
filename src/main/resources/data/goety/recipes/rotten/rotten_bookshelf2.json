@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:rotten_planks"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "goety:rotten_bookshelf"
+  }
+}

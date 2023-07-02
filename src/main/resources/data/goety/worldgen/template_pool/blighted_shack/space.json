@@ -1,0 +1,22 @@
+{
+  "name": "goety:blighted_shack/space",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:blighted_shack/space",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

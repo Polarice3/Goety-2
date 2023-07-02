@@ -71,7 +71,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), 25, 3600), ModItems.FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.FIERY_AURA.get(), 50, 2, 1800), Items.MAGMA_BLOCK);
         this.register(new PotionBrewEffect(GoetyEffects.FIRE_TRAIL.get(), 50, 4, 900), Items.LAVA_BUCKET);
-        this.register(new PotionBrewEffect(GoetyEffects.PLUNGE.get(), 50, 4, 600), Items.GRAVEL);
+        this.register(new PotionBrewEffect(GoetyEffects.PLUNGE.get(), 50, 4, 600), Items.ANVIL);
 
         //Brew
         this.register(new MossifyBlockEffect(), Items.MOSS_BLOCK);

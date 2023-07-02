@@ -33,6 +33,7 @@ import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
+import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
@@ -88,6 +89,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -845,6 +847,17 @@ public class ModEvents {
                 }
             }
         }
+        if (victim instanceof Player player) {
+            if (CuriosFinder.hasCurio(victim, ModItems.SPITEFUL_BELT.get())) {
+                int a = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.THORNS, CuriosFinder.findCurio(victim, ModItems.SPITEFUL_BELT.get()));
+                if (SEHelper.getSoulsAmount(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
+                    if (!event.getSource().isExplosion() && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
+                        livingentity.hurt(DamageSource.thorns(victim), 2.0F + a);
+                        SEHelper.decreaseSouls(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1));
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -1092,7 +1105,18 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void UseItemEvent(LivingEntityUseItemEvent.Finish event){
-        if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WITCH_HAT.get())){
+        if (CuriosFinder.hasCurio(event.getEntity(), ModItems.CRONE_HAT.get())){
+            if (event.getEntity().level.random.nextFloat() <= 0.25F){
+                if (event.getItem().getItem() instanceof PotionItem){
+                    event.setResultStack(event.getItem());
+                }
+            }
+            if (event.getEntity().level.random.nextFloat() <= 0.1F){
+                if (event.getItem().getItem() instanceof BrewItem){
+                    event.setResultStack(event.getItem());
+                }
+            }
+        }else if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WITCH_HAT.get())){
             if (event.getEntity().level.random.nextFloat() <= 0.1F){
                 if (event.getItem().getItem() instanceof PotionItem){
                     event.setResultStack(event.getItem());

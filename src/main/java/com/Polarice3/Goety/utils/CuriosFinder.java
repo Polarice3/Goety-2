@@ -53,6 +53,10 @@ public class CuriosFinder {
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() == ModItems.ILLUSION_ROBE.get()));
     }
 
+    public static boolean hasWitchHat(LivingEntity livingEntity){
+        return hasCurio(livingEntity, ModItems.WITCH_HAT.get()) || hasCurio(livingEntity, ModItems.CRONE_HAT.get());
+    }
+
     public static boolean hasWitchRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WitchRobeItem);
     }
@@ -62,7 +66,7 @@ public class CuriosFinder {
     }
 
     public static boolean hasWitchSet(LivingEntity livingEntity){
-        return CuriosFinder.hasCurio(livingEntity, ModItems.WITCH_HAT.get())
+        return hasWitchHat(livingEntity)
                 && hasWitchRobe(livingEntity);
     }
 

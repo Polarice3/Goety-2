@@ -84,6 +84,9 @@ public class ModItems {
     public static final RegistryObject<Item> HAUNTED_BOAT = ITEMS.register("haunted_boat", () -> new ModBoatItem(false, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> HAUNTED_CHEST_BOAT = ITEMS.register("haunted_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
+    public static final RegistryObject<Item> ROTTEN_BOAT = ITEMS.register("rotten_boat", () -> new ModBoatItem(false, ModBoat.Type.ROTTEN, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> ROTTEN_CHEST_BOAT = ITEMS.register("rotten_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.ROTTEN, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
+
     //Curios
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
@@ -93,6 +96,7 @@ public class ModItems {
     public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", MagicHatItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);
+    public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
     public static final RegistryObject<Item> NAMELESS_CAPE = ITEMS.register("nameless_cape", SingleStackItem::new);
@@ -105,6 +109,7 @@ public class ModItems {
     public static final RegistryObject<Item> WARLOCK_SASH = ITEMS.register("warlock_sash", WarlockGarmentItem::new);
     public static final RegistryObject<Item> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
     public static final RegistryObject<Item> WAYFARERS_BELT = ITEMS.register("wayfarers_belt", WayfarersBeltItem::new);
+    public static final RegistryObject<Item> SPITEFUL_BELT = ITEMS.register("spiteful_belt", SingleStackItem::new);
     public static final RegistryObject<Item> STAR_AMULET = ITEMS.register("star_amulet", SingleFoiledStackItem::new);
     public static final RegistryObject<Item> GRAVE_GLOVE = ITEMS.register("grave_glove", GloveItem::new);
 

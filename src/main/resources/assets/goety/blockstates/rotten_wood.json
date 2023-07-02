@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "goety:block/rotten_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "goety:block/rotten_wood"
+    },
+    "axis=z": {
+      "model": "goety:block/rotten_wood",
+      "x": 90
+    }
+  }
+}

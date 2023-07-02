@@ -1,9 +1,7 @@
 {
   "replace": false,
   "values": [
-    "goety:haunted_log",
-    "goety:haunted_wood",
-    "goety:stripped_haunted_log",
-    "goety:stripped_haunted_wood"
+    "#goety:haunted_logs",
+    "#goety:rotten_logs"
   ]
 }

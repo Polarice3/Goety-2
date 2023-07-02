@@ -33,7 +33,10 @@ public class ModBoat extends Boat {
     }
 
     public Item getDropItem() {
-        return ModItems.HAUNTED_BOAT.get();
+        return switch (this.getModBoatType()) {
+            case HAUNTED -> ModItems.HAUNTED_BOAT.get();
+            case ROTTEN -> ModItems.ROTTEN_BOAT.get();
+        };
     }
 
     protected void defineSynchedData() {
@@ -50,7 +53,8 @@ public class ModBoat extends Boat {
     }
 
     public static enum Type {
-        HAUNTED(ModBlocks.HAUNTED_PLANKS.get(), "haunted");
+        HAUNTED(ModBlocks.HAUNTED_PLANKS.get(), "haunted"),
+        ROTTEN(ModBlocks.ROTTEN_PLANKS.get(), "rotten");
 
         private final String name;
         private final Block planks;

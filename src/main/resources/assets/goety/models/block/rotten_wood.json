@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/rotten_log",
+    "side": "goety:block/rotten_log"
+  }
+}

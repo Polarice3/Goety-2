@@ -29,6 +29,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WARLOCK_DEATH = create("warlock_death");
 
     public static final RegistryObject<SoundEvent> CRONE_AMBIENT = create("crone_ambient");
+    public static final RegistryObject<SoundEvent> CRONE_LAUGH = create("crone_laugh");
+    public static final RegistryObject<SoundEvent> CRONE_DEATH = create("crone_death");
 
     public static final RegistryObject<SoundEvent> TORMENTOR_AMBIENT = create("tormentor_ambient");
     public static final RegistryObject<SoundEvent> TORMENTOR_HURT = create("tormentor_hurt");

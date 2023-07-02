@@ -180,9 +180,31 @@
       },
       {
         "name": "goety:crone/crone2"
+      },
+      {
+        "name": "goety:crone/crone3"
+      },
+      {
+        "name": "goety:crone/crone4"
       }
     ],
     "subtitle": "subtitle.goety.crone_ambient"
+  },
+  "crone_laugh": {
+    "sounds": [
+      {
+        "name": "goety:crone/crone_laugh"
+      }
+    ],
+    "subtitle": "subtitle.goety.crone_laugh"
+  },
+  "crone_death": {
+    "sounds": [
+      {
+        "name": "goety:crone/crone_death"
+      }
+    ],
+    "subtitle": "subtitle.goety.crone_death"
   },
   "tormentor_ambient": {
     "sounds": [

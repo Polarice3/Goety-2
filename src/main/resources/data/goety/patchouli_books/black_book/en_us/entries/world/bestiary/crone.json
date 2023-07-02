@@ -1,0 +1,22 @@
+{
+  "name": "Crones",
+  "icon": "goety:crone_hat",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crone",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Older and wiser, yet still malicious, Witches that have created and utilize far greater brews than their lesser kin. Their Hats are said to help make extra witch brews."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crone",
+      "text": "Deals damage when getting hit."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:crone_hat",
+      "text": "The hat of a Crone is a powerful object that when worn, gives a 25% chance of not using up a Potion, and a 10% chance of not using up a Brew. It also gives a chance of bottling, up to three extra brews if the wearer dons a Witch Robe, instead of two if the wearer had been don a regular Witch Hat instead."
+    }
+  ]
+}

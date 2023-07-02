@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "#goety:haunted_wood_blocks",
+    "#goety:rotten_wood_blocks",
     "#goety:chests",
+    "#goety:trapped_chests",
     "goety:witch_pole",
     "goety:magic_thorn"
   ]

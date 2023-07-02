@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.common.entities.util;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ConstantPaths;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -175,6 +177,9 @@ public class BrewGas extends Entity {
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
+            if (this.level instanceof ServerLevel serverLevel){
+                serverLevel.sendParticles(ModParticleTypes.CULT_SPELL.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, MathHelper.rgbParticle(this.getColor())[0], MathHelper.rgbParticle(this.getColor())[1], MathHelper.rgbParticle(this.getColor())[2], 0.5F);
+            }
             if (this.isInSolid()){
                 this.discard();
             }

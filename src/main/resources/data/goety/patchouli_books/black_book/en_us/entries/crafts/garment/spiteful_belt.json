@@ -1,0 +1,15 @@
+{
+  "name": "Spiteful Belt",
+  "icon": "goety:spiteful_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You have crafted a Belt that specializes in hurting your attackers when taking damage. While it does not wear down like what Thorn Enchantment does to armor, it does use the wearer's Soul Energy when doing this. It can be enchanted with Thorns to increase damage."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:spiteful_belt"
+    }
+  ]
+}

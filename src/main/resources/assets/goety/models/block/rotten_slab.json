@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "goety:block/rotten_planks",
+    "top": "goety:block/rotten_planks",
+    "side": "goety:block/rotten_planks"
+  }
+}

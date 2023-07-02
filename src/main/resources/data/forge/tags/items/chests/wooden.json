@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "goety:haunted_chest",
-    "goety:trapped_haunted_chest"
+    "goety:trapped_haunted_chest",
+    "goety:rotten_chest",
+    "goety:trapped_rotten_chest"
   ]
 }

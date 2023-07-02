@@ -67,6 +67,7 @@ public class ClientInitEvents {
         forgeBus.addListener(BossBarEvent::renderBossBar);
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.HAUNTED);
+            Sheets.addWoodType(ModWoodType.ROTTEN);
         });
 
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
@@ -133,6 +134,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VIZIER_ARMOR, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_HAT, DarkHatModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WITCH_HAT, WitchHatModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.CRONE_HAT, WitchHatModel::createCroneLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ROBE, DarkRobeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CROWN, NecroCapeModel::createHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CAPE, NecroCapeModel::createBodyLayer);
@@ -256,7 +258,7 @@ public class ClientInitEvents {
                 (state, lightReader, pos, color) ->
                         lightReader != null && pos != null ?
                                 BiomeColors.getAverageFoliageColor(lightReader, pos) :
-                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get());
+                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -266,7 +268,7 @@ public class ClientInitEvents {
         event.register((itemStack, i) -> {
             BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, i);
-        }, ModBlocks.HARDENED_LEAVES.get());
+        }, ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
     }
 
     @SubscribeEvent

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.block.ModISTER;
 import com.Polarice3.Goety.common.items.*;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
+import com.Polarice3.Goety.common.world.features.trees.RottenTree;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -62,6 +63,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOUL_CANDLESTICK = register("soul_candlestick", SoulCandlestickBlock::new);
     public static final RegistryObject<Block> WITCH_POLE = register("witch_pole", WitchPoleBlock::new);
     public static final RegistryObject<Block> BREWING_CAULDRON = register("witch_cauldron", BrewCauldronBlock::new);
+    public static final RegistryObject<Block> CRYSTAL_BALL = register("crystal_ball", CrystalBallBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> MAGIC_THORN = register("magic_thorn", MagicThornBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> HARDENED_LEAVES = register("hardened_leaves", ()
             -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(2.0F).randomTicks().sound(SoundType.GRASS)
@@ -130,6 +132,46 @@ public class ModBlocks {
     public static final RegistryObject<Block> HAUNTED_WALL_SIGN = register("haunted_wall_sign",
             () -> new ModWallSignBlock(Block.Properties.of(Material.WOOD, HAUNTED_PLANKS.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(HAUNTED_SIGN.get()), ModWoodType.HAUNTED), false);
     public static final RegistryObject<Block> HAUNTED_SAPLING = register("haunted_sapling", () -> sapling(new HauntedTree()));
+    public static final RegistryObject<Block> POTTED_HAUNTED_SAPLING = register("potted_haunted_sapling", () ->
+            new FlowerPotBlock(null, ModBlocks.HAUNTED_SAPLING, Block.Properties.of(Material.PLANT).noOcclusion().instabreak()), false, LootTableType.DROP);
+
+    //Rotten
+    public static final RegistryObject<Block> ROTTEN_PLANKS = register("rotten_planks",
+            () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_LOG = register("rotten_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
+    public static final RegistryObject<Block> STRIPPED_ROTTEN_LOG = register("stripped_rotten_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
+    public static final RegistryObject<Block> ROTTEN_WOOD = register("rotten_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STRIPPED_ROTTEN_WOOD = register("stripped_rotten_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_LEAVES = register("rotten_leaves", () -> leaves(SoundType.GRASS), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> ROTTEN_PRESSURE_PLATE = register("rotten_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_TRAPDOOR = register("rotten_trapdoor",
+            () -> new TrapDoorBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Block> ROTTEN_BUTTON = register("rotten_button",
+            () -> new WoodButtonBlock(Block.Properties.of(Material.DECORATION).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_STAIRS = registerStairs("rotten_stairs",
+            ROTTEN_PLANKS);
+    public static final RegistryObject<Block> ROTTEN_SLAB = registerSlabs("rotten_slab",
+            ROTTEN_PLANKS);
+    public static final RegistryObject<Block> ROTTEN_FENCE_GATE = register("rotten_fence_gate",
+            () -> new FenceGateBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_FENCE = register("rotten_fence",
+            () -> new FenceBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_DOOR = register("rotten_door",
+            () -> new DoorBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Block> ROTTEN_BOOKSHELF = register("rotten_bookshelf",
+            () -> new BookshelfBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(1.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModChestBlock> ROTTEN_CHEST = isterRegister("rotten_chest", () -> new ModChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_ROTTEN_CHEST = isterRegister("trapped_rotten_chest", () -> new ModTrappedChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ROTTEN_SIGN = register("rotten_sign",
+            () -> new ModStandSignBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.ROTTEN), false);
+    public static final RegistryObject<Block> ROTTEN_WALL_SIGN = register("rotten_wall_sign",
+            () -> new ModWallSignBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(ROTTEN_SIGN.get()), ModWoodType.ROTTEN), false);
+    public static final RegistryObject<Block> ROTTEN_SAPLING = register("rotten_sapling", () -> sapling(new RottenTree()));
+    public static final RegistryObject<Block> POTTED_ROTTEN_SAPLING = register("potted_rotten_sapling", () ->
+            new FlowerPotBlock(null, ModBlocks.ROTTEN_SAPLING, Block.Properties.of(Material.PLANT).noOcclusion().instabreak()), false, LootTableType.EMPTY);
 
     //Shade Stones
     public static final RegistryObject<Block> SHADE_STONE_BLOCK = register("shade_stone", ShadeStoneBlock::new);
@@ -167,6 +209,8 @@ public class ModBlocks {
     //Custom Items
     public static final RegistryObject<Item> HAUNTED_SIGN_ITEM = ModItems.ITEMS.register("haunted_sign",
             () -> new SignItem(new Item.Properties().tab(Goety.TAB).stacksTo(16), HAUNTED_SIGN.get(), HAUNTED_WALL_SIGN.get()));
+    public static final RegistryObject<Item> ROTTEN_SIGN_ITEM = ModItems.ITEMS.register("rotten_sign",
+            () -> new SignItem(new Item.Properties().tab(Goety.TAB).stacksTo(16), ROTTEN_SIGN.get(), ROTTEN_WALL_SIGN.get()));
     public static final RegistryObject<Item> TALL_SKULL_ITEM = ModItems.ITEMS.register("tall_skull",
             () -> new TallSkullItem(ModBlocks.TALL_SKULL_BLOCK.get(), ModBlocks.WALL_TALL_SKULL_BLOCK.get(), (new Item.Properties()).tab(Goety.TAB).rarity(Rarity.UNCOMMON)){
                 @Override
@@ -244,6 +288,10 @@ public class ModBlocks {
         ModItems.ITEMS.register(string,
                 () -> new EnchantableBlockItem(block.get()));
         return block;
+    }
+
+    private static LeavesBlock leaves(SoundType p_152615_) {
+        return new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(p_152615_).noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never));
     }
 
     private static boolean ocelotOrParrot(BlockState blockState, BlockGetter iBlockReader, BlockPos blockPos, EntityType<?> entityType) {

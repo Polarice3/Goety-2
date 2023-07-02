@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:crone_hat"
+    },
+    "title": {
+      "translate": "advancements.goety.kill_crone.title"
+    },
+    "description": {
+      "translate": "advancements.goety.kill_crone.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "kill_a_crone": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:crone"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_a_crone"
+    ]
+  ]
+}

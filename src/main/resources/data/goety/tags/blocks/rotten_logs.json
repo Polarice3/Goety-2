@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:rotten_log",
+    "goety:rotten_wood",
+    "goety:stripped_rotten_log",
+    "goety:stripped_rotten_wood"
+  ]
+}

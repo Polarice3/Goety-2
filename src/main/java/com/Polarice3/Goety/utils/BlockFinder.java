@@ -180,7 +180,21 @@ public class BlockFinder {
         blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
         blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(5) - world.random.nextInt(5));
         if (hasChunksAt(livingEntity)
-                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), ModEntityType.DOPPELGANGER.get(), false)){
+                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)){
+            return blockpos$mutable;
+        } else {
+            return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.moveDownToGround(livingEntity), 0);
+        }
+    }
+
+    public static BlockPos SummonFurtherRadius(LivingEntity livingEntity, Level world){
+        BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable();
+        blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(9) - world.random.nextInt(9));
+        blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
+        blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(9) - world.random.nextInt(9));
+        if (hasChunksAt(livingEntity)
+                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)
+                && world.getBlockState(blockpos$mutable.below()).isCollisionShapeFullBlock(world, blockpos$mutable.below())){
             return blockpos$mutable;
         } else {
             return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.moveDownToGround(livingEntity), 0);

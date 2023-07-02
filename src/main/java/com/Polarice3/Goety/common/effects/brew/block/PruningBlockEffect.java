@@ -11,6 +11,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.WebBlock;
 
 public class PruningBlockEffect extends BrewEffect {
     public PruningBlockEffect(int soulCost) {
@@ -20,7 +21,7 @@ public class PruningBlockEffect extends BrewEffect {
     @Override
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
         for (BlockPos blockPos : this.getCubePos(pPos, pAreaOfEffect + 2)) {
-            if (pLevel.getBlockState(blockPos).getBlock() instanceof LeavesBlock || pLevel.getBlockState(blockPos).is(BlockTags.LEAVES)){
+            if (pLevel.getBlockState(blockPos).getBlock() instanceof LeavesBlock || pLevel.getBlockState(blockPos).is(BlockTags.LEAVES) || pLevel.getBlockState(blockPos).getBlock() instanceof WebBlock){
                 if (pAmplifier > 0){
                     if (pLevel.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !pLevel.restoringBlockSnapshots) {
                         ItemStack itemStack = new ItemStack(pLevel.getBlockState(blockPos).getBlock().asItem());

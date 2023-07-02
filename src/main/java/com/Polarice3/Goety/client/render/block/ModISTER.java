@@ -29,6 +29,8 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
     private final Map<Block, ModChestBlockEntity> chestEntities = Util.make(new HashMap<>(), map -> {
         makeInstance(map, ModBlocks.HAUNTED_CHEST);
         makeInstance(map, ModBlocks.TRAPPED_HAUNTED_CHEST);
+        makeInstance(map, ModBlocks.ROTTEN_CHEST);
+        makeInstance(map, ModBlocks.TRAPPED_ROTTEN_CHEST);
     });
 
     public ModISTER() {

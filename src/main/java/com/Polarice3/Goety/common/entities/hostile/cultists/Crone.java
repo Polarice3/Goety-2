@@ -40,11 +40,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableWitchTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestHealableRaiderTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -76,7 +79,8 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     public Crone(EntityType<? extends Cultist> type, Level worldIn) {
         super(type, worldIn);
-        this.xpReward = 100;
+        this.xpReward = 99;
+        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
         if (this.level.isClientSide){
             Goety.PROXY.addBoss(this);
         }
@@ -85,13 +89,14 @@ public class Crone extends Cultist implements RangedAttackMob {
     protected void registerGoals() {
         super.registerGoals();
         this.healRaidersGoal = new NearestHealableRaiderTargetGoal<>(this, Raider.class, true, (target) -> {
-            return target != null && this.hasActiveRaid() && target.getType() != EntityType.WITCH && target.getType() != ModEntityType.WARLOCK.get();
+            return target != null && this.hasActiveRaid() && target.getType() != EntityType.WITCH && target.getType() != ModEntityType.CRONE.get() && target.getType() != ModEntityType.WARLOCK.get();
         });
         this.attackPlayersGoal = new NearestAttackableWitchTargetGoal<>(this, Player.class, 10, true, false, (Predicate<LivingEntity>)null);
         this.goalSelector.addGoal(2, new BrewThrowsGoal(this));
         this.goalSelector.addGoal(2, new FastBrewThrowsGoal(this));
         this.goalSelector.addGoal(1, new WitchBarterGoal(this));
         this.goalSelector.addGoal(1, new CroneTeleportGoal(this));
+        this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Raider.class));
         this.targetSelector.addGoal(2, this.healRaidersGoal);
         this.targetSelector.addGoal(3, this.attackPlayersGoal);
@@ -99,7 +104,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 156.0D)
+                .add(Attributes.MAX_HEALTH, 130.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
@@ -136,6 +141,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     protected void customServerAiStep() {
         super.customServerAiStep();
+        this.bossInfo.setVisible(this.getTarget() != null);
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
@@ -156,8 +162,16 @@ public class Crone extends Cultist implements RangedAttackMob {
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         if (!this.hasCustomName()){
+            if (this.getTarget() == null){
+                this.bossInfo.setVisible(false);
+            }
             int random = this.random.nextInt(4);
-            int random2 = this.random.nextInt(12);
+            int random2;
+            if (random == 0){
+                random2 = 12 + this.random.nextInt(6);
+            } else {
+                random2 = this.random.nextInt(12);
+            }
             Component component = Component.translatable("title.goety.crone." + random);
             Component component1 = Component.translatable("name.goety.crone." + random2);
             this.setCustomName(Component.translatable(component.getString() + " " +  component1.getString()));
@@ -174,7 +188,7 @@ public class Crone extends Cultist implements RangedAttackMob {
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WITCH_DEATH;
+        return ModSounds.CRONE_DEATH.get();
     }
 
     public void setUsingItem(boolean p_34164_) {
@@ -183,6 +197,15 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     public boolean isDrinkingPotion() {
         return this.getEntityData().get(DATA_USING_ITEM);
+    }
+
+    protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
+        super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
+        ItemEntity itementity = this.spawnAtLocation(ModItems.CRONE_HAT.get());
+        if (itementity != null) {
+            itementity.setExtendedLifetime();
+        }
+
     }
 
     @Override
@@ -228,7 +251,9 @@ public class Crone extends Cultist implements RangedAttackMob {
                 }
                 List<MobEffectInstance> mobEffectInstance = Lists.newArrayList();
                 List<BrewEffectInstance> brewEffectInstance = Lists.newArrayList();
-                if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource() == DamageSource.CACTUS || this.getLastDamageSource() == DamageSource.SWEET_BERRY_BUSH)){
+                if (this.random.nextFloat() < 0.15F && (this.isInWall() || (this.getLastDamageSource() != null && this.getLastDamageSource() == DamageSource.IN_WALL))){
+                    brewEffectInstance.add(new BrewEffectInstance(new BlindJumpBrewEffect(0), 1, amp));
+                } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource() == DamageSource.CACTUS || this.getLastDamageSource() == DamageSource.SWEET_BERRY_BUSH)){
                     brewEffectInstance.add(new BrewEffectInstance(new HarvestBlockEffect()));
                 } else if (this.random.nextFloat() < 0.15F && this.getHealth() < this.getMaxHealth() && (this.getTarget() == null || this.lastHitTime == 0)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.HEAL, 1, amp));
@@ -286,7 +311,7 @@ public class Crone extends Cultist implements RangedAttackMob {
     }
 
     public SoundEvent getCelebrateSound() {
-        return SoundEvents.WITCH_CELEBRATE;
+        return ModSounds.CRONE_LAUGH.get();
     }
 
     public void handleEntityEvent(byte p_34138_) {
@@ -377,10 +402,13 @@ public class Crone extends Cultist implements RangedAttackMob {
                     brewEffectInstance.add(new BrewEffectInstance(new TransposeBrewEffect(), 1, amp));
                 } else if (this.random.nextFloat() <= 0.5F
                         && !target.fireImmune()
+                        && MobUtil.isInSunlight(target)
                         && !target.hasEffect(MobEffects.FIRE_RESISTANCE)
                         && !target.hasEffect(GoetyEffects.SUN_ALLERGY.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.SUN_ALLERGY.get(), 3600 / (amp + 1), amp));
-                } else if (this.random.nextFloat() <= 0.75F && !target.hasEffect(GoetyEffects.NYCTOPHOBIA.get())){
+                } else if (this.random.nextFloat() <= 0.75F
+                        && target.level.getLightLevelDependentMagicValue(target.blockPosition()) < 0.1
+                        && !target.hasEffect(GoetyEffects.NYCTOPHOBIA.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.NYCTOPHOBIA.get(), 1800 / (amp + 1), amp));
                 } else if (!target.hasEffect(GoetyEffects.SAPPED.get())) {
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.SAPPED.get(), 1800 / (amp + 1), amp));
@@ -443,6 +471,14 @@ public class Crone extends Cultist implements RangedAttackMob {
             }
         }
 
+        if (!pSource.isExplosion() && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
+            float thorn = 2.0F;
+            if (this.level.getDifficulty() == Difficulty.HARD){
+                thorn *= 2.0F;
+            }
+            livingentity.hurt(DamageSource.thorns(this), thorn);
+        }
+
         return super.hurt(pSource, pAmount);
     }
 
@@ -498,7 +534,6 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     static class CroneTeleportGoal extends Goal {
         private final Crone crone;
-        private LivingEntity target;
         private int teleportTime;
 
         public CroneTeleportGoal(Crone p_32573_) {
@@ -506,10 +541,7 @@ public class Crone extends Cultist implements RangedAttackMob {
         }
 
         public boolean canUse() {
-            if (this.crone.getTarget() != null){
-                this.target = this.crone.getTarget();
-            }
-            return this.target != null;
+            return this.crone.getTarget() != null;
         }
 
         public void start() {
@@ -519,13 +551,13 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         @Override
         public boolean canContinueToUse() {
-            return this.target != null;
+            return this.crone.getTarget() != null;
         }
 
         public void tick() {
             super.tick();
-            if (this.target != null && !this.crone.isPassenger()) {
-                if ((this.target.distanceToSqr(this.crone) > 256 || !MobUtil.hasVisualLineOfSight(this.crone, this.target)) && this.teleportTime++ >= this.adjustedTickDelay(30) && this.crone.teleportTowards(this.target)) {
+            if (this.crone.getTarget() != null && !this.crone.isPassenger()) {
+                if ((this.crone.getTarget().distanceToSqr(this.crone) > 256 || !MobUtil.hasVisualLineOfSight(this.crone, this.crone.getTarget())) && this.teleportTime++ >= this.adjustedTickDelay(30) && this.crone.teleportTowards(this.crone.getTarget())) {
                     this.teleportTime = 0;
                 }
             }

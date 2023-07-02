@@ -41,6 +41,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SeaAmuletMax;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindRobeSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpitefulBeltUseAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
@@ -218,6 +219,8 @@ public class MainConfig {
                 .define("scytheSlashBreaks", true);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
                 .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
+        SpitefulBeltUseAmount = BUILDER.comment("Amount of Souls needed to use Spiteful Belt functionality, Default: 5")
+                .defineInRange("spitefulBeltUseAmount", 5, 1, Integer.MAX_VALUE);
         PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 256")
                 .defineInRange("pendantOfHungerLimit", 256, 1, Integer.MAX_VALUE);
         SeaAmuletChargeConsume = BUILDER.comment("How much Charges the Sea Amulet needs to consume to function, Default: 1")
@@ -294,8 +297,8 @@ public class MainConfig {
                 .define("lichMagicResist", false);
         LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
-        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
-                .define("lichScrollRequirement", true);
+        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: false")
+                .define("lichScrollRequirement", false);
         BUILDER.pop();
         BUILDER.push("Illagers");
         IllagerAssault = BUILDER.comment("Special Illagers Spawning based of Player's Soul Energy amount, Default: true")

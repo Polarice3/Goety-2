@@ -44,6 +44,13 @@
   "name.goety.crone.10" : "Gravespitter",
   "name.goety.crone.11" : "Muckback",
 
+  "name.goety.crone.12" : "Zhovch",
+  "name.goety.crone.13" : "Didʹka",
+  "name.goety.crone.14" : "Nedza",
+  "name.goety.crone.15" : "Ohydnyy",
+  "name.goety.crone.16" : "Boli",
+  "name.goety.crone.17" : "Strach",
+
   "title.goety.crone.0" : "Baba",
   "title.goety.crone.1" : "Granny",
   "title.goety.crone.2" : "Old",
@@ -224,6 +231,7 @@
   "item.goety.ring_of_want": "Ring of Want",
   "item.goety.dark_hat": "Dark Hat",
   "item.goety.witch_hat": "Witch Hat",
+  "item.goety.crone_hat": "Crone Hat",
   "item.goety.necro_crown": "Necro Crown",
   "item.goety.nameless_crown": "Nameless Crown",
   "item.goety.dark_robe": "Dark Robe",
@@ -241,6 +249,7 @@
   "item.goety.targeting_monocle": "Targeting Monocle",
   "item.goety.sea_amulet": "Sea Amulet",
   "item.goety.wayfarers_belt": "Wayfarer's Belt",
+  "item.goety.spiteful_belt": "Spiteful Belt",
   "item.goety.star_amulet": "Soul Shield Amulet",
   "item.goety.pendant_of_hunger": "Pendant of Hunger",
 
@@ -325,6 +334,7 @@
   "block.goety.blackstone_brazier": "Blackstone Brazier",
 
   "block.goety.haunted_sapling": "Haunted Sapling",
+  "block.goety.potted_haunted_sapling": "Potted Haunted Sapling",
   "block.goety.haunted_log": "Haunted Log",
   "block.goety.haunted_planks": "Haunted Planks",
   "block.goety.haunted_door": "Haunted Door",
@@ -344,6 +354,28 @@
   "block.goety.dark_pressure_plate": "Dark Pressure Plate",
   "block.goety.stripped_haunted_log": "Stripped Haunted Log",
   "block.goety.stripped_haunted_wood": "Stripped Haunted Wood",
+
+  "block.goety.rotten_sapling": "Rotten Sapling",
+  "block.goety.potted_rotten_sapling": "Potted Rotten Sapling",
+  "block.goety.rotten_log": "Rotten Log",
+  "block.goety.rotten_planks": "Rotten Planks",
+  "block.goety.rotten_leaves": "Rotten Leaves",
+  "block.goety.rotten_door": "Rotten Door",
+  "block.goety.rotten_fence": "Rotten Fence",
+  "block.goety.rotten_fence_gate": "Rotten Fence Gate",
+  "block.goety.rotten_slab": "Rotten Slab",
+  "block.goety.rotten_stairs": "Rotten Stairs",
+  "block.goety.rotten_trapdoor": "Rotten Trapdoor",
+  "block.goety.rotten_wood": "Rotten Wood",
+  "block.goety.rotten_button": "Rotten Button",
+  "block.goety.rotten_pressure_plate": "Rotten Pressure Plate",
+  "block.goety.rotten_sign": "Rotten Sign",
+  "block.goety.rotten_wall_sign": "Rotten Wall Sign",
+  "block.goety.rotten_bookshelf": "Rotten Bookshelf",
+  "block.goety.rotten_chest": "Rotten Chest",
+  "block.goety.trapped_rotten_chest": "Trapped Rotten Chest",
+  "block.goety.stripped_rotten_log": "Stripped Rotten Log",
+  "block.goety.stripped_rotten_wood": "Stripped Rotten Wood",
 
   "block.goety.cursed_bars": "Cursed Metal Bars",
 
@@ -378,6 +410,7 @@
   "block.goety.glow_light": "Glow Light",
 
   "block.goety.forbidden_grass": "Forbidden Grass Block",
+  "block.goety.crystal_ball": "Crystal Ball",
 
   "block.goety.magic_thorn": "Magic Thorn",
   "block.goety.hardened_leaves": "Hardened Leaves",
@@ -597,6 +630,8 @@
   "subtitle.goety.warlock_death": "Warlock dies",
 
   "subtitle.goety.crone_ambient": "Crone cackles",
+  "subtitle.goety.crone_laugh": "Crone laughs",
+  "subtitle.goety.crone_death": "Crone dies",
 
   "subtitle.goety.cultist_prepare_spell": "Cultist beseeches",
   "subtitle.goety.cultist_cast_spell": "Cultist casts spell",
@@ -724,8 +759,10 @@
   "advancements.goety.kill_envioker.description": "Looks like you've gathered some attention from those Illagers...",
   "advancements.goety.kill_illagers.title": "Expected The Unexpected",
   "advancements.goety.kill_illagers.description": "Defeated an Envioker, an Inquillager and a Conquillager!",
+  "advancements.goety.kill_crone.title": "It's a Fair Cop",
+  "advancements.goety.kill_crone.description": "Defeated a Crone, the old brewer of the bogs and trees.",
   "advancements.goety.kill_apostle.title": "Trumpeter's Shadow",
-  "advancements.goety.kill_apostle.description": "Defeated an Apostle, the Pale Faced envoy of the Nether.",
+  "advancements.goety.kill_apostle.description": "Defeated an Apostle, the pale faced envoy of the Nether.",
   "advancements.goety.craft_philosophers_mace.title": "Midas Touch",
   "advancements.goety.craft_philosophers_mace.description": "Can break almost any block and causes Mobs to drop Gold Nuggets.",
   "advancements.goety.craft_death_scythe.title": "Grim Reaper",

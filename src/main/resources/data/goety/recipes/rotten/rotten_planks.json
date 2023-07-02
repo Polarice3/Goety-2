@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "goety:rotten_logs"
+    }
+  ],
+  "result": {
+    "item": "goety:rotten_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:rotten_planks"
+    }
+  },
+  "result": {
+    "item": "goety:rotten_chest"
+  }
+}

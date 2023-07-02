@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "goety:haunted_planks"
+    "goety:haunted_planks",
+    "goety:rotten_planks"
   ]
 }

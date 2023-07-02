@@ -51,7 +51,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -172,7 +174,12 @@ public class Goety {
             AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_LOG.get(), ModBlocks.STRIPPED_HAUNTED_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_LOG.get(), ModBlocks.STRIPPED_ROTTEN_LOG.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_WOOD.get(), ModBlocks.STRIPPED_ROTTEN_WOOD.get());
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HAUNTED_SAPLING.getId(), ModBlocks.POTTED_HAUNTED_SAPLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.ROTTEN_SAPLING.getId(), ModBlocks.POTTED_ROTTEN_SAPLING);
             WoodType.register(ModWoodType.HAUNTED);
+            WoodType.register(ModWoodType.ROTTEN);
             addBrewingRecipes();
         });
     }

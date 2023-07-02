@@ -676,10 +676,13 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
             } else if (mode == Mode.COMPLETED) {
                 if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
-                    boolean hat = CuriosFinder.hasCurio(player, ModItems.WITCH_HAT.get()), robe = CuriosFinder.hasWitchRobe(player);
+                    boolean hat = CuriosFinder.hasCurio(player, ModItems.WITCH_HAT.get()), croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()), robe = CuriosFinder.hasWitchRobe(player);
                     float chance = 1.0F;
                     int times = 0;
-                    if (hat){
+                    if (croneHat){
+                        times += 2;
+                        chance -= 0.25F;
+                    } else if (hat){
                         times += 1;
                         chance -= 0.25F;
                     }
