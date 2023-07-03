@@ -45,6 +45,7 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleMagicDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CroneHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleDamageCap;
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleBowDamage;
@@ -130,6 +131,12 @@ public class AttributesConfig {
                         .defineInRange("summonedVexHealth", 14.0, 1.0, Double.MAX_VALUE);
                 SummonedVexDamage = BUILDER.comment("How much damage Summoned Vexes deals, Default: 4.0")
                         .defineInRange("summonedVexDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+            BUILDER.pop();
+            BUILDER.push("Mini-Bosses");
+                BUILDER.push("Crone");
+                CroneHealth = BUILDER.comment("How much Max Health Crones have, Default: 130.0")
+                        .defineInRange("croneHealth", 130.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Bosses");

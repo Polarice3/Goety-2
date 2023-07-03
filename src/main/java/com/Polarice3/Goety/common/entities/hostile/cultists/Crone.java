@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
+import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -59,9 +60,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
-import org.apache.commons.compress.utils.Lists;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -73,6 +74,7 @@ public class Crone extends Cultist implements RangedAttackMob {
     private int usingTime;
     private int hitTimes;
     private int lastHitTime;
+    private int overwhelmed;
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
     private NearestHealableRaiderTargetGoal<Raider> healRaidersGoal;
     private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
@@ -104,7 +106,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 130.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.CroneHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
@@ -122,12 +124,14 @@ public class Crone extends Cultist implements RangedAttackMob {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("hitTimes", this.hitTimes);
         pCompound.putInt("lastHitTime", this.lastHitTime);
+        pCompound.putInt("overwhelmed", this.overwhelmed);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.hitTimes = pCompound.getInt("hitTimes");
         this.lastHitTime = pCompound.getInt("lastHitTime");
+        this.overwhelmed = pCompound.getInt("overwhelmed");
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
@@ -249,8 +253,8 @@ public class Crone extends Cultist implements RangedAttackMob {
                 } else if (this.level.random.nextFloat() <= 0.25F){
                     amp = 1;
                 }
-                List<MobEffectInstance> mobEffectInstance = Lists.newArrayList();
-                List<BrewEffectInstance> brewEffectInstance = Lists.newArrayList();
+                List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
+                List<BrewEffectInstance> brewEffectInstance = new ArrayList<>();
                 if (this.random.nextFloat() < 0.15F && (this.isInWall() || (this.getLastDamageSource() != null && this.getLastDamageSource() == DamageSource.IN_WALL))){
                     brewEffectInstance.add(new BrewEffectInstance(new BlindJumpBrewEffect(0), 1, amp));
                 } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource() == DamageSource.CACTUS || this.getLastDamageSource() == DamageSource.SWEET_BERRY_BUSH)){
@@ -290,7 +294,7 @@ public class Crone extends Cultist implements RangedAttackMob {
                     BrewUtils.setAreaOfEffect(brew, this.level.random.nextInt(amp + 1));
                     brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(mobEffectInstance, brewEffectInstance));
                     this.setItemSlot(EquipmentSlot.MAINHAND, brew);
-                    this.usingTime = this.getMainHandItem().getUseDuration();
+                    this.usingTime = this.overwhelmed > 0 ? this.getMainHandItem().getUseDuration() / 2 : this.getMainHandItem().getUseDuration();
                     this.setUsingItem(true);
                     if (!this.isSilent()) {
                         this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
@@ -363,8 +367,8 @@ public class Crone extends Cultist implements RangedAttackMob {
             } else if (this.level.random.nextFloat() <= 0.25F){
                 amp = 1;
             }
-            List<MobEffectInstance> mobEffectInstance = Lists.newArrayList();
-            List<BrewEffectInstance> brewEffectInstance = Lists.newArrayList();
+            List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
+            List<BrewEffectInstance> brewEffectInstance = new ArrayList<>();
             if (target instanceof Raider) {
                 if (target.getHealth() <= 4.0F) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.HEAL, 1));
@@ -465,13 +469,17 @@ public class Crone extends Cultist implements RangedAttackMob {
     public boolean hurt(DamageSource pSource, float pAmount) {
         this.lastHitTime = MathHelper.secondsToTicks(15);
 
+        if (pAmount >= 15){
+            this.overwhelmed = MathHelper.secondsToTicks(15);
+        }
+
         if (this.getHealth() <= 10.0F){
             if (pSource == DamageSource.CACTUS || pSource == DamageSource.SWEET_BERRY_BUSH || pSource.isMagic()){
                 return false;
             }
         }
 
-        if (!pSource.isExplosion() && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
+        if (!pSource.isExplosion() && !pSource.isMagic() && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
             float thorn = 2.0F;
             if (this.level.getDifficulty() == Difficulty.HARD){
                 thorn *= 2.0F;

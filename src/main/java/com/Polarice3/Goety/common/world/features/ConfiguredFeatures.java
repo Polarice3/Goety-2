@@ -26,6 +26,9 @@ public class ConfiguredFeatures {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_ROTTEN_TREE =
             FeatureUtils.register("rotten_tree_sapling", Feature.TREE, createRotten().ignoreVines().build());
 
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_FANCY_ROTTEN_TREE =
+            FeatureUtils.register("fancy_rotten_tree_sapling", Feature.TREE, createFancyRotten().build());
+
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {
         return (new TreeConfiguration
                 .TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.HAUNTED_LOG.get()),
@@ -38,6 +41,10 @@ public class ConfiguredFeatures {
 
     private static TreeConfiguration.TreeConfigurationBuilder createRotten() {
         return createStraightBlobTree(ModBlocks.ROTTEN_LOG.get(), ModBlocks.ROTTEN_LEAVES.get(), 4, 8, 0, 2);
+    }
+
+    private static TreeConfiguration.TreeConfigurationBuilder createFancyRotten() {
+        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.ROTTEN_LOG.get()), new FancyTrunkPlacer(3, 11, 0), BlockStateProvider.simple(ModBlocks.ROTTEN_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createStraightBlobTree(Block p_195147_, Block p_195148_, int p_195149_, int p_195150_, int p_195151_, int p_195152_) {

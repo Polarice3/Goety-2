@@ -851,7 +851,7 @@ public class ModEvents {
             if (CuriosFinder.hasCurio(victim, ModItems.SPITEFUL_BELT.get())) {
                 int a = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.THORNS, CuriosFinder.findCurio(victim, ModItems.SPITEFUL_BELT.get()));
                 if (SEHelper.getSoulsAmount(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
-                    if (!event.getSource().isExplosion() && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
+                    if (!event.getSource().isExplosion() && !event.getSource().isMagic() && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
                         livingentity.hurt(DamageSource.thorns(victim), 2.0F + a);
                         SEHelper.decreaseSouls(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1));
                     }

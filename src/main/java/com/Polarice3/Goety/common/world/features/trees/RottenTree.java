@@ -8,6 +8,10 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class RottenTree extends AbstractTreeGrower {
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222938_, boolean p_222939_) {
-        return ConfiguredFeatures.SAPLING_ROTTEN_TREE;
+        if (p_222938_.nextInt(10) == 0) {
+            return ConfiguredFeatures.SAPLING_FANCY_ROTTEN_TREE;
+        } else {
+            return ConfiguredFeatures.SAPLING_ROTTEN_TREE;
+        }
     }
 }
