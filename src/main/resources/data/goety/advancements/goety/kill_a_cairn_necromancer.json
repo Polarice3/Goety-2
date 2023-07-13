@@ -1,0 +1,24 @@
+{
+  "parent": "goety:goety/root",
+  "criteria": {
+    "kill_a_cairn_necromancer": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:cairn_necromancer"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_a_cairn_necromancer"
+    ]
+  ]
+}

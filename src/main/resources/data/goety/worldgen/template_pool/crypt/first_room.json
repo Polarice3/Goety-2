@@ -1,0 +1,47 @@
+{
+  "name": "goety:crypt/first_room",
+
+  "fallback": "goety:crypt/first_room",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/four_way_room1",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/four_way_room2",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/four_way_room3",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -50,6 +50,35 @@
           "weight": 30
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "mansion",
+              "function": "minecraft:exploration_map",
+              "destination": "goety:explorer_maps/crypt",
+              "skip_existing_chunks": true,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.goety.crypt"
+              }
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 10
+        }
+      ]
     }
   ]
 }

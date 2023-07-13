@@ -12,5 +12,7 @@ public class ModDataGenerator {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         generator.addProvider(event.includeServer(), new ModBlockLootProvider(generator));
+        generator.addProvider(event.includeServer(), new ModBlockModelProvider(generator, event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new ModBlockStateProvider(generator, event.getExistingFileHelper()));
     }
 }

@@ -1,11 +1,6 @@
 package com.Polarice3.Goety.utils;
 
 public class ConstantPaths {
-
-    public static String readNetherBook(){
-        return "goety:readNetherBook";
-    }
-
     public static String readScroll(){
         return "goety:readScroll";
     }
@@ -32,5 +27,13 @@ public class ConstantPaths {
 
     public static String gassed(){
         return "goety:gassed";
+    }
+
+    public static String skullLordMinion(){
+        return "goety:sl_minion";
+    }
+
+    public static String giveAI(){
+        return "goety:giveAI";
     }
 }

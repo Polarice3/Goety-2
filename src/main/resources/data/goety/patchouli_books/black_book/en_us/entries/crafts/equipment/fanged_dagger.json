@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:fanged_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Added from pantman687's suggestion"
     }
   ]
 }

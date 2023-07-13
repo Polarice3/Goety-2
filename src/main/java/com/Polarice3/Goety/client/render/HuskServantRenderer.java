@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class HuskServantRenderer extends ZombieServantRenderer {
    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/husk_servant.png");
+   private static final ResourceLocation ZOMBIE_LOCATION = new ResourceLocation("textures/entity/zombie/husk.png");
 
    public HuskServantRenderer(EntityRendererProvider.Context p_174180_) {
       super(p_174180_, ModelLayers.HUSK, ModelLayers.HUSK_INNER_ARMOR, ModelLayers.HUSK_OUTER_ARMOR);
@@ -21,6 +22,10 @@ public class HuskServantRenderer extends ZombieServantRenderer {
    }
 
    public ResourceLocation getTextureLocation(ZombieServant p_114905_) {
-      return TEXTURE;
+      if (p_114905_.isHostile()){
+         return ZOMBIE_LOCATION;
+      } else {
+         return TEXTURE;
+      }
    }
 }

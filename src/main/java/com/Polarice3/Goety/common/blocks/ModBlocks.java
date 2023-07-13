@@ -69,6 +69,7 @@ public class ModBlocks {
             -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(2.0F).randomTicks().sound(SoundType.GRASS)
                     .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
             true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
 
@@ -162,7 +163,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> ROTTEN_DOOR = register("rotten_door",
             () -> new DoorBlock(Block.Properties.of(Material.WOOD, ROTTEN_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistryObject<Block> ROTTEN_BOOKSHELF = register("rotten_bookshelf",
-            () -> new BookshelfBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(1.5F).sound(SoundType.WOOD)));
+            () -> new BookshelfBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN).strength(1.5F).sound(SoundType.WOOD)), true, LootTableType.EMPTY);
     public static final RegistryObject<ModChestBlock> ROTTEN_CHEST = isterRegister("rotten_chest", () -> new ModChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<ModTrappedChestBlock> TRAPPED_ROTTEN_CHEST = isterRegister("trapped_rotten_chest", () -> new ModTrappedChestBlock(Block.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ROTTEN_SIGN = register("rotten_sign",
@@ -181,12 +182,24 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHADE_BRICK_BLOCK = register("shade_bricks", ShadeStoneBlock::new);
     public static final RegistryObject<Block> SHADE_TILES_BLOCK = register("shade_tiles", ShadeStoneBlock::new);
 
+    //Crypt
+    public static final RegistryObject<Block> CRYPT_STONE_BLOCK = register("crypt_stone", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_STONE_POLISHED_BLOCK = register("crypt_stone_polished", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_STONE_CHISELED_BLOCK = register("crypt_stone_chiseled", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_BRICKS_BLOCK = register("crypt_bricks", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_TILES_BLOCK = register("crypt_tiles", CryptStoneBlock::new);
+
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_SLAB_BLOCK = registerShadeSlabs("shade_stone_polished_slab");
     public static final RegistryObject<Block> SHADE_STONE_BRICK_SLAB_BLOCK = registerShadeSlabs("shade_stone_bricks_slab");
     public static final RegistryObject<Block> SHADE_BRICK_SLAB_BLOCK = registerShadeSlabs("shade_bricks_slab");
     public static final RegistryObject<Block> SHADE_TILES_SLAB_BLOCK = registerShadeSlabs("shade_tiles_slab");
+
+    public static final RegistryObject<Block> CRYPT_STONE_SLAB_BLOCK = registerCryptSlabs("crypt_stone_slab");
+    public static final RegistryObject<Block> CRYPT_STONE_POLISHED_SLAB_BLOCK = registerCryptSlabs("crypt_stone_polished_slab");
+    public static final RegistryObject<Block> CRYPT_BRICKS_SLAB_BLOCK = registerCryptSlabs("crypt_bricks_slab");
+    public static final RegistryObject<Block> CRYPT_TILES_SLAB_BLOCK = registerCryptSlabs("crypt_tiles_slab");
 
     //Stairs
     public static final RegistryObject<Block> SHADE_STONE_STAIRS_BLOCK = registerStairs("shade_stone_stairs", SHADE_STONE_BLOCK);
@@ -195,9 +208,18 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHADE_BRICK_STAIRS_BLOCK = registerStairs("shade_bricks_stairs", SHADE_BRICK_BLOCK);
     public static final RegistryObject<Block> SHADE_TILES_STAIRS_BLOCK = registerStairs("shade_tiles_stairs", SHADE_TILES_BLOCK);
 
+    public static final RegistryObject<Block> CRYPT_STONE_STAIRS_BLOCK = registerStairs("crypt_stone_stairs", CRYPT_STONE_BLOCK);
+    public static final RegistryObject<Block> CRYPT_STONE_POLISHED_STAIRS_BLOCK = registerStairs("crypt_stone_polished_stairs", CRYPT_STONE_POLISHED_BLOCK);
+    public static final RegistryObject<Block> CRYPT_BRICKS_STAIRS_BLOCK = registerStairs("crypt_bricks_stairs", CRYPT_BRICKS_BLOCK);
+    public static final RegistryObject<Block> CRYPT_TILES_STAIRS_BLOCK = registerStairs("crypt_tiles_stairs", CRYPT_TILES_BLOCK);
+
     //Walls
     public static final RegistryObject<Block> SHADE_BRICK_WALL_BLOCK = registerWalls("shade_bricks_wall", SHADE_BRICK_BLOCK);
     public static final RegistryObject<Block> SHADE_STONE_BRICK_WALL_BLOCK = registerWalls("shade_stone_bricks_wall", SHADE_STONE_BRICK_BLOCK);
+
+    public static final RegistryObject<Block> CRYPT_STONE_POLISHED_WALL_BLOCK = registerWalls("crypt_stone_polished_wall", CRYPT_STONE_POLISHED_BLOCK);
+    public static final RegistryObject<Block> CRYPT_BRICKS_WALL_BLOCK = registerWalls("crypt_bricks_wall", CRYPT_BRICKS_BLOCK);
+    public static final RegistryObject<Block> CRYPT_TILES_WALL_BLOCK = registerWalls("crypt_tiles_wall", CRYPT_TILES_BLOCK);
 
     public static final RegistryObject<Block> CURSED_BARS_BLOCK = register("cursed_bars",
             () -> new IronBarsBlock(Block.Properties.of(Material.METAL, MaterialColor.NONE)
@@ -238,6 +260,10 @@ public class ModBlocks {
 
     public static <T extends Block> RegistryObject<Block> registerShadeSlabs(final String string){
         return register(string, () -> new SlabBlock(ShadeStoneProperties()), true);
+    }
+
+    public static <T extends Block> RegistryObject<Block> registerCryptSlabs(final String string){
+        return register(string, () -> new SlabBlock(CryptStoneProperties()), true);
     }
 
     public static <T extends Block> RegistryObject<Block> registerSlabs(final String string, final RegistryObject<T> block){
@@ -312,10 +338,24 @@ public class ModBlocks {
                 .sound(SoundType.STONE);
     }
 
+    public static BlockBehaviour.Properties CryptStoneProperties(){
+        return BlockBehaviour.Properties.of(Material.STONE)
+                .strength(50.0F, 1200.0F)
+                .sound(SoundType.STONE);
+    }
+
     public static class ShadeStoneBlock extends Block {
 
         public ShadeStoneBlock() {
             super(ShadeStoneProperties());
+        }
+
+    }
+
+    public static class CryptStoneBlock extends Block {
+
+        public CryptStoneBlock() {
+            super(CryptStoneProperties());
         }
 
     }

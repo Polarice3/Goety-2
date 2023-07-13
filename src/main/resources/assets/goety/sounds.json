@@ -206,6 +206,112 @@
     ],
     "subtitle": "subtitle.goety.crone_death"
   },
+  "skull_lord_ambient": {
+    "sounds": [
+      {
+        "name": "goety:skull_lord/idle1"
+      },
+      {
+        "name": "goety:skull_lord/idle2"
+      },
+      {
+        "name": "goety:skull_lord/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_ambient"
+  },
+  "skull_lord_hurt": {
+    "sounds": [
+      {
+        "name": "mob/wither/hurt1",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/wither/hurt2",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/wither/hurt3",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/wither/hurt4",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_hurt"
+  },
+  "skull_lord_charge": {
+    "sounds": [
+      {
+        "name": "mob/endermen/scream1",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/endermen/scream2",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/endermen/scream3",
+        "pitch": 0.5
+      },
+      {
+        "name": "mob/endermen/scream4",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_charge"
+  },
+  "skull_lord_shoot": {
+    "sounds": [
+      {
+        "name": "mob/wither/shoot"
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_shoot"
+  },
+  "skull_lord_laser_begin": {
+    "sounds": [
+      {
+        "name": "goety:skull_lord/laser_gather"
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_laser_begin"
+  },
+  "skull_lord_laser_start": {
+    "sounds": [
+      {
+        "name": "goety:skull_lord/laser_start"
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_laser_start"
+  },
+  "skull_lord_fly": {
+    "sounds": [
+      {
+        "name": "goety:skull_lord/fly1"
+      },
+      {
+        "name": "goety:skull_lord/fly2"
+      },
+      {
+        "name": "goety:skull_lord/fly3"
+      },
+      {
+        "name": "goety:skull_lord/fly4"
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_fly"
+  },
+  "skull_lord_death": {
+    "sounds": [
+      {
+        "name": "mob/endermen/death",
+        "pitch": 0.15
+      }
+    ],
+    "subtitle": "subtitle.goety.skull_lord_death"
+  },
   "tormentor_ambient": {
     "sounds": [
       {
@@ -534,6 +640,126 @@
     ],
     "subtitle": "subtitle.goety.wraith_death"
   },
+  "necromancer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:necromancer/idle1"
+      },
+      {
+        "name": "goety:necromancer/idle2"
+      },
+      {
+        "name": "goety:necromancer/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_ambient"
+  },
+  "necromancer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:necromancer/hurt1"
+      },
+      {
+        "name": "goety:necromancer/hurt2"
+      },
+      {
+        "name": "goety:necromancer/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_hurt"
+  },
+  "necromancer_laugh": {
+    "sounds": [
+      {
+        "name": "goety:necromancer/laugh1"
+      },
+      {
+        "name": "goety:necromancer/laugh2"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_laugh"
+  },
+  "necromancer_step": {
+    "sounds": [
+      {
+        "name": "goety:necromancer/step1"
+      },
+      {
+        "name": "goety:necromancer/step2"
+      },
+      {
+        "name": "goety:necromancer/step3"
+      },
+      {
+        "name": "goety:necromancer/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_step"
+  },
+  "necromancer_death": {
+    "sounds": [
+      {
+        "name": "goety:necromancer/death1"
+      },
+      {
+        "name": "goety:necromancer/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_death"
+  },
+  "haunted_armor_ambient": {
+    "sounds": [
+      {
+        "name": "goety:haunted_armor/idle1"
+      },
+      {
+        "name": "goety:haunted_armor/idle2"
+      },
+      {
+        "name": "goety:haunted_armor/idle3"
+      },
+      {
+        "name": "goety:haunted_armor/idle4"
+      },
+      {
+        "name": "goety:haunted_armor/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.haunted_armor_ambient"
+  },
+  "haunted_armor_hurt": {
+    "sounds": [
+      {
+        "name": "mob/zombie/metal1",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/zombie/metal2",
+        "pitch": 0.75
+      },
+      {
+        "name": "mob/zombie/metal3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.haunted_armor_hurt"
+  },
+  "haunted_armor_step": {
+    "sounds": [
+      {
+        "name": "goety:haunted_armor/step"
+      }
+    ],
+    "subtitle": "subtitle.goety.haunted_armor_step"
+  },
+  "haunted_armor_death": {
+    "sounds": [
+      {
+        "name": "goety:haunted_armor/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.haunted_armor_death"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -852,6 +1078,20 @@
     ],
     "subtitle": "subtitle.goety.rumble"
   },
+  "ice_spike_hit": {
+    "sounds": [
+      {
+        "name": "goety:spell/freeze1"
+      },
+      {
+        "name": "goety:spell/freeze2"
+      },
+      {
+        "name": "goety:spell/freeze3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_spike_hit"
+  },
   "spell_fail": {
     "sounds": [
       {
@@ -992,28 +1232,48 @@
   "apostle_theme": {
     "sounds": [
       {
-        "name": "goety:music/apostle_theme"
+        "name": "goety:music/apostle_theme",
+        "stream": true
+      }
+    ]
+  },
+  "apostle_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/apostle_theme_mono",
+        "stream": true
       }
     ]
   },
   "apostle_theme_post": {
     "sounds": [
       {
-        "name": "goety:music/apostle_theme_post"
+        "name": "goety:music/apostle_theme_post",
+        "stream": true
       }
     ]
   },
   "vizier_theme": {
     "sounds": [
       {
-        "name": "goety:music/vizier_theme"
+        "name": "goety:music/vizier_theme",
+        "stream": true
+      }
+    ]
+  },
+  "vizier_theme_disc": {
+    "sounds": [
+      {
+        "name": "goety:music/vizier_theme_mono",
+        "stream": true
       }
     ]
   },
   "boss_post": {
     "sounds": [
       {
-        "name": "goety:music/boss_post"
+        "name": "goety:music/boss_post",
+        "stream": true
       }
     ]
   }

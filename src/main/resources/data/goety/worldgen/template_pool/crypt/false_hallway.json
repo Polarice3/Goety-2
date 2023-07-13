@@ -1,0 +1,22 @@
+{
+  "name": "goety:crypt/false_hallway",
+
+  "fallback": "goety:crypt/false_hallway",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/false_hallway",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

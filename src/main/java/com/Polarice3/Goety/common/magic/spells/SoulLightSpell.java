@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.magic.InstantCastSpells;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SoulLightSpell extends InstantCastSpells {
@@ -27,6 +26,6 @@ public class SoulLightSpell extends InstantCastSpells {
         soulLightEntity.setOwner(entityLiving);
         soulLightEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.5F, 1.0F);
         worldIn.addFreshEntity(soulLightEntity);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

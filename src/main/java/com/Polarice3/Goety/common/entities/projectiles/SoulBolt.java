@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -35,7 +36,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
     }
 
     protected float getInertia() {
-        return 0.8F;
+        return 0.82F;
     }
 
     public boolean isOnFire() {
@@ -107,7 +108,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && this.getOwner().isAlliedTo(pEntity)){
+        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
             return false;
         } else if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
             return false;

@@ -66,7 +66,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         }
     }
 
-        public CultistArmPose getArmPose() {
+    public CultistArmPose getArmPose() {
         return CultistArmPose.CROSSED;
     }
 

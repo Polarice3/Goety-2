@@ -5,7 +5,9 @@
   "minVersion": "0.8",
   "refmap": "goety.refmap.json",
   "mixins": [
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "StructureProcessorAccessor",
+    "StructureTemplateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

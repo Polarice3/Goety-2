@@ -11,6 +11,7 @@ import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -81,7 +82,7 @@ public abstract class Ritual {
                            Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.recipe.getActivationItem().test(activationItem) &&
-                this.areAdditionalIngredientsFulfilled(world, darkAltarPos, remainingAdditionalIngredients);
+                this.areAdditionalIngredientsFulfilled(world, darkAltarPos, castingPlayer, remainingAdditionalIngredients);
     }
 
     public void start(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
@@ -103,8 +104,8 @@ public abstract class Ritual {
                        Player castingPlayer, ItemStack activationItem,
                        List<Ingredient> remainingAdditionalIngredients, int time, int totalTime) {
         if (tileEntity.getConvertEntity != null){
-            tileEntity.getConvertEntity.setTicksFrozen(150);
-            if (tileEntity.getConvertEntity.tickCount % 39 == 0) {
+            tileEntity.getConvertEntity.setTicksFrozen(140);
+            if (tileEntity.getConvertEntity.tickCount % 19 == 0) {
                 if (world instanceof ServerLevel serverLevel){
                     ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.ENCHANT, tileEntity.getConvertEntity);
                 }
@@ -137,12 +138,12 @@ public abstract class Ritual {
                 time, totalTime);
     }
 
-    public boolean identify(Level world, BlockPos darkAltarPos, ItemStack activationItem) {
+    public boolean identify(Level world, BlockPos darkAltarPos, Player player, ItemStack activationItem) {
         return this.recipe.getActivationItem().test(activationItem) &&
-                this.areAdditionalIngredientsFulfilled(world, darkAltarPos, this.recipe.getIngredients());
+                this.areAdditionalIngredientsFulfilled(world, darkAltarPos, player, this.recipe.getIngredients());
     }
 
-    public boolean consumeAdditionalIngredients(Level world, BlockPos darkAltarPos,
+    public boolean consumeAdditionalIngredients(Level world, BlockPos darkAltarPos, Player player,
                                                 List<Ingredient> remainingAdditionalIngredients, int time,
                                                 List<ItemStack> consumedIngredients) {
         if (remainingAdditionalIngredients.isEmpty())
@@ -164,6 +165,7 @@ public abstract class Ritual {
                     consumedIngredients)) {
                 it.remove();
             } else {
+                player.displayClientMessage(Component.translatable("info.goety.ritual.cannotConsume.fail"), true);
                 return false;
             }
         }
@@ -185,6 +187,8 @@ public abstract class Ritual {
                         ItemHelper.addItemEntity(world, pedestal.getBlockPos(), new ItemStack(Items.BUCKET));
                         world.playSound(null, pedestal.getBlockPos(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS,
                                 0.7F, 0.7F);
+                    } else if (extracted.hasCraftingRemainingItem()){
+                        ItemHelper.addItemEntity(world, pedestal.getBlockPos(), extracted.getCraftingRemainingItem());
                     }
 
                     world.playSound(null, pedestal.getBlockPos(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS,
@@ -207,18 +211,23 @@ public abstract class Ritual {
     }
 
     public boolean areAdditionalIngredientsFulfilled(Level world, BlockPos darkAltarPos,
-                                                     List<Ingredient> additionalIngredients) {
-        return this.matchesAdditionalIngredients(additionalIngredients,
+                                                     Player player, List<Ingredient> additionalIngredients) {
+        return this.matchesAdditionalIngredients(player, additionalIngredients,
                 this.getItemsOnPedestals(world, darkAltarPos));
     }
 
-    public boolean matchesAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> items) {
+    public boolean matchesAdditionalIngredients(Player player, List<Ingredient> additionalIngredients, List<ItemStack> items) {
 
-        if (additionalIngredients.size() != items.size())
+        if (additionalIngredients.size() != items.size()) {
+            if (additionalIngredients.size() > items.size()){
+                player.displayClientMessage(Component.translatable("info.goety.ritual.tooLittleItems.fail"), true);
+            }
             return false;
+        }
 
-        if (additionalIngredients.isEmpty())
+        if (additionalIngredients.isEmpty()) {
             return true;
+        }
 
         List<ItemStack> remainingItems = new ArrayList<>(items);
 
@@ -232,11 +241,31 @@ public abstract class Ritual {
                     break;
                 }
             }
-            if (!isMatched)
+            if (!isMatched) {
+                player.displayClientMessage(Component.translatable("info.goety.ritual.wrongItems.fail"), true);
                 return false;
+            }
         }
 
         return true;
+    }
+
+    public List<ItemStack> getItemsOnPedestals(Level world, BlockPos darkAltarPos, List<Ingredient> additionalIngredients) {
+        List<ItemStack> result = new ArrayList<>();
+
+        List<PedestalBlockEntity> pedestals = this.getPedestals(world, darkAltarPos);
+        for (PedestalBlockEntity pedestalTile : pedestals) {
+            pedestalTile.itemStackHandler.ifPresent(handler -> {
+                ItemStack stack = handler.getStackInSlot(0);
+                for (Ingredient ingredient : additionalIngredients) {
+                    if (ingredient.test(stack) && !result.contains(stack)) {
+                        result.add(stack);
+                    }
+                }
+            });
+        }
+
+        return result;
     }
 
     public List<ItemStack> getItemsOnPedestals(Level world, BlockPos darkAltarPos) {

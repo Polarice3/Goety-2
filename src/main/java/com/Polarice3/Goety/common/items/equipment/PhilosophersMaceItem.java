@@ -96,7 +96,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return pRepair.getItem() == ModItems.CURSED_METAL_INGOT.get();
+        return pRepair.getItem() == ModItems.DARK_METAL_INGOT.get();
     }
 
 }

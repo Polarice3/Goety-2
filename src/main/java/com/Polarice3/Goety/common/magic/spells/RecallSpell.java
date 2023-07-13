@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 
 public class RecallSpell extends Spells {
@@ -37,11 +36,11 @@ public class RecallSpell extends Spells {
             } else if (!RecallFocus.hasRecall(WandUtil.findFocus(player))){
                 SEHelper.increaseSouls(player, this.SoulCost());
                 player.displayClientMessage(Component.translatable("info.goety.focus.noPos"), true);
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, this.getSoundSource(), 1.0F, 1.0F);
             } else {
                 SEHelper.increaseSouls(player, this.SoulCost());
                 player.displayClientMessage(Component.translatable("info.goety.focus.PosInvalid"), true);
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, this.getSoundSource(), 1.0F, 1.0F);
             }
         }
     }

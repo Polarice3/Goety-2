@@ -93,6 +93,7 @@ public class MagicFocus extends Item {
         }
         if (stack.getItem() == ModItems.SOUL_BOLT_FOCUS.get()
                 || stack.getItem() == ModItems.SWORD_FOCUS.get()
+                || stack.getItem() == ModItems.ICE_SPIKE_FOCUS.get()
                 || stack.getItem() == ModItems.FLYING_FOCUS.get()
                 || stack.getItem() == ModItems.SONIC_BOOM_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get();

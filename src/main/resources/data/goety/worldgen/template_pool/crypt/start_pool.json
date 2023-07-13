@@ -1,0 +1,21 @@
+{
+  "name": "goety:crypt/start_pool",
+
+  "fallback": "goety:crypt/start_pool",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/entrance",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

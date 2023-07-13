@@ -106,6 +106,10 @@ public class DarkWand extends Item {
         return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicRobeItem);
     }
 
+    public boolean FrostSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.FROST_ROBE.get());
+    }
+
     public boolean WindSoulDiscount(LivingEntity entityLiving){
         return CuriosFinder.hasCurio(entityLiving, ModItems.WIND_ROBE.get());
     }
@@ -123,6 +127,8 @@ public class DarkWand extends Item {
             int amp = Objects.requireNonNull(entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
             return SoulCost(stack) * amp;
         } else if (SoulDiscount(entityLiving)){
+            return SoulCost(stack)/2;
+        } else if (FrostSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.FROST){
             return SoulCost(stack)/2;
         } else if (WindSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.WIND){
             return SoulCost(stack)/2;

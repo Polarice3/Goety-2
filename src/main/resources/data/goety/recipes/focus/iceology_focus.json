@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:empty_focus"
+    "item": "goety:ice_spike_focus"
   },
   "craftType": "sky",
   "soulCost": 1,

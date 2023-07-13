@@ -1,0 +1,25 @@
+{
+  "name": "Ravaged",
+  "icon": "goety:savage_tooth",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The secrets of creating Ravagers have been revealed to you. As you have long suspected, Ravagers are made from average Villagers through magical means. The conversion, however, is not instantaneous. The Villager is turned into, what it's called, Ravaged, and will need to consume large amount of flesh before it can transition into a full Ravager."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_ravaged"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Ravaged can be fed by throwing Rotten Flesh at it, or siccing them onto any Villager, or Illager surprisingly, and have them kill the latter. Unsurprisingly, Villagers provide the most amount of flesh than any other. Once the Ravaged has transformed, it would need a specialized saddle that will make it not only rideable, but also stronger."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_saddle"
+    }
+  ]
+}

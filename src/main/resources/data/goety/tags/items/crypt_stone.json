@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:crypt_stone",
+    "goety:crypt_stone_polished",
+    "goety:crypt_bricks",
+    "goety:crypt_stone_chiseled",
+    "goety:crypt_tiles"
+  ]
+}

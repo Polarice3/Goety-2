@@ -3,7 +3,7 @@
   "biomes": "#goety:has_structure/blighted_shack",
   "step": "surface_structures",
   "spawn_overrides": {
-    "creature": {
+    "monster": {
       "bounding_box": "piece",
       "spawns": [
         {

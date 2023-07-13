@@ -1,0 +1,17 @@
+{
+  "name": "Necromancer",
+  "icon": "goety:necro_cape",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The scroll contains some instruction on granting, or calling forth, intelligence to the long diseased, allowing you to create and command undead Necromancers from Skeletons."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_to_necromancer"
+    }
+  ]
+}

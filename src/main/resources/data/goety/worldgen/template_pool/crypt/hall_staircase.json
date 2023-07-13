@@ -1,0 +1,22 @@
+{
+  "name": "goety:crypt/hall_staircase",
+
+  "fallback": "goety:crypt/hall_staircase",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/hall_staircase",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

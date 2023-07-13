@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "goety:wraith"
+    "goety:wraith",
+    "goety:wraith_servant"
   ]
 }

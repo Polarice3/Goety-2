@@ -4,13 +4,14 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.render.HauntedSkullTextures;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
+import com.Polarice3.Goety.common.entities.hostile.BoneLord;
+import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ExplosionUtil;
 import com.Polarice3.Goety.utils.LootingExplosion;
-import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -19,18 +20,18 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class HauntedSkullProjectile extends ExplosiveProjectile{
@@ -102,55 +103,78 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
         if (!this.level.isClientSide) {
-            Entity entity = pResult.getEntity();
-            Entity entity1 = this.getOwner();
-            boolean flag;
-            if (canHitEntity(entity)) {
-                if (entity instanceof LivingEntity livingEntity) {
-                    if (entity1 != null) {
-                        flag = livingEntity.hurt(DamageSource.indirectMagic(entity1, entity1), this.damage);
-                    } else {
-                        flag = livingEntity.hurt(DamageSource.MAGIC, this.damage);
-                    }
-                    if (flag) {
-                        if (this.upgraded) {
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(5), 1));
-                        }
-                        if (this.burning > 0) {
-                            livingEntity.setSecondsOnFire(this.burning * 8);
-                        }
-                        this.explode();
-                    }
-                }
-            }
-        }
-    }
-
-    protected void onHitBlock(BlockHitResult p_37258_) {
-        super.onHitBlock(p_37258_);
-        this.explode();
-    }
-
-    public void explode(){
-        if (!this.level.isClientSide) {
+            Entity target = pResult.getEntity();
             Entity owner = this.getOwner();
-            boolean loot = false;
-            if (owner instanceof HauntedSkull owned){
-                if (owned.getTrueOwner() instanceof Player player) {
-                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                        if (CuriosFinder.findRing(player).isEnchanted()) {
-                            float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
-                            if (wanting > 0) {
-                                loot = true;
-                            }
+            boolean flag;
+            float enchantment = 0;
+            int flaming = 0;
+            if (owner instanceof LivingEntity livingentity) {
+                if (livingentity instanceof Player player){
+                    if (WandUtil.enchantedFocus(player)){
+                        enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
+                        flaming = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
+                    }
+                } else if (livingentity instanceof Mob mob){
+                    if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
+                        this.damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                    }
+                }
+                flag = target.hurt(DamageSource.indirectMagic(this, livingentity), this.damage + enchantment);
+                if (livingentity instanceof SkullLord){
+                    if (target instanceof BoneLord){
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    if (target.isAlive()) {
+                        this.doEnchantDamageEffects(livingentity, target);
+                        if (flaming != 0) {
+                            target.setSecondsOnFire(5 + flaming);
                         }
+                    } else {
+                        livingentity.heal(1.0F);
+                    }
+                }
+            } else {
+                target.hurt(DamageSource.MAGIC, this.damage);
+            }
+        }
+    }
+
+    protected void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        Entity owner = this.getOwner();
+        float enchantment = 0;
+        boolean flaming = false;
+        boolean loot = false;
+        if (owner instanceof Player player){
+            if (WandUtil.enchantedFocus(player)){
+                enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player)/2.5F;
+                if (WandUtil.getLevels(ModEnchantments.BURNING.get(), player) > 0){
+                    flaming = true;
+                }
+            }
+            if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
+                if (CuriosFinder.findRing(player).isEnchanted()){
+                    float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
+                    if (wanting > 0){
+                        loot = true;
                     }
                 }
             }
-            LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower, false, Explosion.BlockInteraction.NONE, lootMode);
-            this.discard();
         }
+        Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.NONE;
+        if (this.isDangerous()){
+            if (this.getOwner() instanceof Player){
+                explodeMode = Explosion.BlockInteraction.DESTROY;
+            } else {
+                explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+            }
+        }
+        LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+        ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);
+        this.discard();
+
     }
 
     protected boolean canHitEntity(Entity pEntity) {

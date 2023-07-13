@@ -11,7 +11,7 @@ public class ModLootTables {
     private static final Set<ResourceLocation> LOCATIONS = Sets.newHashSet();
     private static final Set<ResourceLocation> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
     public static final ResourceLocation EMPTY = new ResourceLocation("empty");
-    public static final ResourceLocation DECREPIT_TOMB = register("chests/decrepit_tomb");
+    public static final ResourceLocation CRYPT_TOMB = register("chests/crypt_tomb");
 
     public static final ResourceLocation TALL_SKULL = register("entities/tall_skull_mobs");
     public static final ResourceLocation PLAYER_WITCH = register("entities/player_witch");

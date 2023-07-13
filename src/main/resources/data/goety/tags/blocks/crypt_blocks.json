@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:crypt_stone",
+    "goety:crypt_stone_slab",
+    "goety:crypt_stone_stairs",
+    "goety:crypt_stone_polished_slab",
+    "goety:crypt_stone_polished_stairs",
+    "goety:crypt_stone_polished_wall",
+    "goety:crypt_bricks_slab",
+    "goety:crypt_bricks_stairs",
+    "goety:crypt_bricks_wall",
+    "goety:crypt_tiles_slab",
+    "goety:crypt_tiles_stairs",
+    "goety:crypt_tiles_wall"
+  ]
+}

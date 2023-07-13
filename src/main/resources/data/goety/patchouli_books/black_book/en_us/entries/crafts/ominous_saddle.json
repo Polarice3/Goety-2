@@ -1,0 +1,17 @@
+{
+  "name": "Ominous Saddle",
+  "icon": "goety:ominous_saddle",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Ravager is a powerful beast, yet the one you have lacks its silver armor and saddle. With some Cursed Metal, you are able to recreate the armored saddle. Right-clicking on the poor naked Ravager will cause it to equip it, making it rideable and stronger."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_saddle"
+    }
+  ]
+}

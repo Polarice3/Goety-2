@@ -41,6 +41,7 @@ import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -93,6 +94,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -276,6 +278,9 @@ public class ModEvents {
             data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
         }
         if (!event.getEntity().level.isClientSide) {
+            if (data.getBoolean(ConstantPaths.readScroll())){
+                SEHelper.addResearch(event.getEntity(), ResearchList.FORBIDDEN);
+            }
             if (MainConfig.StarterTotem.get()) {
                 if (!data.getBoolean("goety:gotTotem")) {
                     event.getEntity().addItem(new ItemStack(ModItems.TOTEM_OF_SOULS.get()));
@@ -344,6 +349,13 @@ public class ModEvents {
         if (event.getEntity() instanceof SpellcasterIllager || event.getEntity() instanceof Witch || event.getEntity() instanceof Cultist){
             if (event.getSpawnReason() == MobSpawnType.STRUCTURE){
                 event.getEntity().addTag(ConstantPaths.structureMob());
+            }
+        }
+        if (event.getSpawnReason() == MobSpawnType.STRUCTURE) {
+            if (event.getEntity().getTags().contains(ConstantPaths.giveAI())) {
+                if (event.getEntity().isNoAi()) {
+                    event.getEntity().setNoAi(false);
+                }
             }
         }
         if (event.getEntity() instanceof Cultist cultist){
@@ -524,6 +536,11 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
+            if (CuriosFinder.hasCurio(livingEntity, ModItems.FROST_ROBE.get())){
+                livingEntity.setTicksFrozen(0);
+                livingEntity.setIsInPowderSnow(false);
+                MobUtil.PowderedSnowMovement(livingEntity);
+            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
@@ -593,6 +610,19 @@ public class ModEvents {
                     }
                 }
             }
+            AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("17cb060f-0465-412e-abe7-a9c397b2e548"), "Increase Armor", 4.0D, AttributeModifier.Operation.ADDITION);
+            AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
+            if (armor != null){
+                if (ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_KNIGHT)){
+                    if (!armor.hasModifier(attributemodifier)){
+                        armor.addPermanentModifier(attributemodifier);
+                    }
+                } else {
+                    if (armor.hasModifier(attributemodifier)){
+                        armor.removeModifier(attributemodifier);
+                    }
+                }
+            }
         }
     }
 
@@ -602,15 +632,7 @@ public class ModEvents {
         if (player.getMainHandItem().getItem() instanceof PhilosophersMaceItem){
             if (event.getState().getBlock().getDescriptionId().contains("nether_gold")){
                 if (!player.level.isClientSide) {
-                    if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
-                        ItemStack itemStack = new ItemStack(Items.RAW_GOLD);
-                        double d0 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
-                        double d1 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
-                        double d2 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
-                        ItemEntity itementity = new ItemEntity(player.level, (double) event.getPos().getX() + d0, (double) event.getPos().getY() + d1, (double) event.getPos().getZ() + d2, itemStack);
-                        itementity.setDefaultPickUpDelay();
-                        player.level.addFreshEntity(itementity);
-                    }
+                    Block.dropResources(Blocks.GOLD_ORE.defaultBlockState(), player.level, event.getPos(), null, player, player.getMainHandItem());
                     player.level.setBlockAndUpdate(event.getPos(), Blocks.AIR.defaultBlockState());
                     event.setCanceled(true);
                 }
@@ -793,6 +815,11 @@ public class ModEvents {
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
+        if(CuriosFinder.hasCurio(victim, ModItems.FROST_ROBE.get())){
+            if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
+                event.setAmount(event.getAmount() * 0.15F);
+            }
+        }
         if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
@@ -807,13 +834,6 @@ public class ModEvents {
                 event.setAmount(event.getAmount() * 0.15F);
             }
         }
-        if (ModDamageSource.freezeAttacks(event.getSource())){
-            int i = victim.getTicksFrozen();
-            victim.setTicksFrozen(Math.min(victim.getTicksRequiredToFreeze(), i + 1));
-            if (victim.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                event.setAmount(event.getAmount() * 2);
-            }
-        }
         if (ModDamageSource.shockAttacks(event.getSource())){
             if (victim.level instanceof ServerLevel serverLevel){
                 for (int i = 0; i < 20; ++i) {
@@ -822,27 +842,32 @@ public class ModEvents {
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), ModSounds.ZAP.get(), 2.0F, 1.0F));
             }
         }
-        if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker){
-            if (ModDamageSource.physicalAttacks(event.getSource())) {
-                if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
-                    if (weapon instanceof DarkScytheItem){
-                        victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
-                    }
-                    if (weapon instanceof DeathScytheItem) {
-                        if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60));
-                            victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
-                        } else {
-                            if (victim.level.random.nextFloat() <= 0.1F) {
-                                EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 60);
+        if (event.getAmount() > 0.0F) {
+            if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
+                if (ModDamageSource.physicalAttacks(event.getSource())) {
+                    if (livingAttacker.getMainHandItem().getItem() instanceof TieredItem weapon) {
+                        if (weapon instanceof DarkScytheItem) {
+                            victim.playSound(ModSounds.SCYTHE_HIT_MEATY.get());
+                        }
+                        if (weapon instanceof DeathScytheItem) {
+                            if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
+                                victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60));
                                 victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                             } else {
-                                EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 60);
+                                if (victim.level.random.nextFloat() <= 0.1F) {
+                                    EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 60);
+                                    victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
+                                } else {
+                                    EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 60);
+                                }
                             }
                         }
-                    }
-                    if (weapon.getTier() == ModTiers.DARK){
-                        victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
+                        if (weapon.getTier() == ModTiers.DARK) {
+                            victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
+                        }
+                        if (weapon == ModItems.FELL_BLADE.get() && victim.getRandom().nextBoolean()) {
+                            victim.addEffect(new MobEffectInstance(GoetyEffects.BUSTED.get(), MathHelper.secondsToTicks(10)));
+                        }
                     }
                 }
             }

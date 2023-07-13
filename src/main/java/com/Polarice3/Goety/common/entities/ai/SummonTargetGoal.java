@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ai;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.NeutralMob;
@@ -33,16 +34,16 @@ public class SummonTargetGoal<T extends LivingEntity> extends NearestAttackableT
     }
 
     public static Predicate<LivingEntity> predicate(LivingEntity livingEntity){
-        if (livingEntity instanceof IOwned){
-            IOwned ownedEntity = (IOwned) livingEntity;
+        if (livingEntity instanceof IOwned ownedEntity){
             if (ownedEntity.getTrueOwner() instanceof Enemy || ownedEntity instanceof Enemy || (ownedEntity instanceof Owned && ((Owned)ownedEntity).isHostile())){
                 return (entity) -> entity instanceof Player;
             } else {
                 return (entity) ->
-                        entity instanceof Enemy
+                        (entity instanceof Enemy
                                 && !(entity instanceof Creeper && entity.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && SpellConfig.MinionsAttackCreepers.get())
                                 && !(entity instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) entity).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) entity).getTarget() != ownedEntity))
-                                && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == ownedEntity.getTrueOwner() && ownedEntity.getTrueOwner() != null);
+                                && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == ownedEntity.getTrueOwner() && ownedEntity.getTrueOwner() != null))
+                        || ownedEntity.getTrueOwner() instanceof Player player && entity instanceof Player target && SEHelper.getGrudgePlayers(player).contains(target);
             }
         } else {
             return null;

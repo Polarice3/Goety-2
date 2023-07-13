@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:is_forest",
+    "#minecraft:is_taiga",
     "#minecraft:has_structure/swamp_hut"
   ]
 }

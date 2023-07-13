@@ -34,6 +34,8 @@ public class AttributesConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> WraithHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> NecromancerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HauntedArmorHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantDamage;
@@ -41,6 +43,11 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Double> SkullLordHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SkullLordDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoneLordHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoneLordDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleMagicDamage;
@@ -112,6 +119,14 @@ public class AttributesConfig {
                 WraithDamage = BUILDER.comment("How much damage Wraith deals, Default: 4.0")
                         .defineInRange("wraithDamage", 4.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Necromancer");
+                NecromancerHealth = BUILDER.comment("How much Max Health Necromancers have, Default: 50.0")
+                        .defineInRange("necromancerHealth", 50.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Haunted Armor");
+                HauntedArmorHealth = BUILDER.comment("How much Max Health Haunted Armor have, Default: 25.0")
+                        .defineInRange("hauntedArmorHealth", 25.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Summoned Mobs");
                 BUILDER.push("Zombie Servant");
@@ -137,6 +152,16 @@ public class AttributesConfig {
                 BUILDER.push("Crone");
                 CroneHealth = BUILDER.comment("How much Max Health Crones have, Default: 130.0")
                         .defineInRange("croneHealth", 130.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Skull Lord");
+                SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 100.0")
+                        .defineInRange("skullLordHealth", 100.0, 1.0, Double.MAX_VALUE);
+                SkullLordDamage = BUILDER.comment("How much damage Skull Lord deals, Default: 6.0")
+                        .defineInRange("skullLordDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BoneLordHealth = BUILDER.comment("How much Max Health Bone Lord have, Default: 20.0")
+                        .defineInRange("boneLordHealth", 20.0, 1.0, Double.MAX_VALUE);
+                BoneLordDamage = BUILDER.comment("How much damage Bone Lord deals, Default: 3.0")
+                        .defineInRange("boneLordDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Bosses");

@@ -1,0 +1,15 @@
+{
+  "name": "Mooshroom",
+  "icon": "minecraft:red_mushroom",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With some red mushrooms and a cow, you're able to turn said cow into a red Mooshroom."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_cow_to_mooshroom"
+    }
+  ]
+}

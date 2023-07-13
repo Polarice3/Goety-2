@@ -92,6 +92,9 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
             this.add(ModBlocks.ROTTEN_LEAVES.get(), (p_124094_) -> {
                 return createRottenLeavesDrops(p_124094_, ModBlocks.ROTTEN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
             });
+            this.add(ModBlocks.ROTTEN_BOOKSHELF.get(), (p_124233_) -> {
+                return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
+            });
         }
 
         protected static LootTable.Builder createRottenLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/crypt_stone_polished_slab"
+    },
+    "type=double": {
+      "model": "goety:block/crypt_stone_polished"
+    },
+    "type=top": {
+      "model": "goety:block/crypt_stone_polished_slab_top"
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "biomes": "#goety:has_structure/mangrove_tower",
   "step": "surface_structures",
   "spawn_overrides": {
-    "creature": {
+    "monster": {
       "bounding_box": "piece",
       "spawns": [
         {

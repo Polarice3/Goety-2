@@ -1,0 +1,17 @@
+{
+  "name": "Cairn Necromancers",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_cairn_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Long dead officials risen to undeath to maintain and guard the Crypt with their undead servants. They appear to be an offshoot of the ancient Necromancers of the desert, utilizing the power of the cold."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer",
+      "text": "Summons multiple Skeletons and shoots Ice Spikes."
+    }
+  ]
+}

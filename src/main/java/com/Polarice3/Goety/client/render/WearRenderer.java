@@ -65,10 +65,10 @@ public record WearRenderer(ResourceLocation texture,
         ICurioRenderer.followBodyRotations(slotContext.entity(), model);
         render(matrixStack, renderTypeBuffer, light);
 
-        if (stack.getItem() == ModItems.WIND_ROBE.get()){
+        if (stack.getItem() == ModItems.FROST_ROBE.get() || stack.getItem() == ModItems.WIND_ROBE.get()){
             if (livingEntity instanceof AbstractClientPlayer p_116618_) {
                 if (MainConfig.WindRobeCape.get()
-                        && CuriosFinder.hasCurio(p_116618_, ModItems.WIND_ROBE.get())
+                        && (CuriosFinder.hasCurio(p_116618_, ModItems.FROST_ROBE.get()) || CuriosFinder.hasCurio(p_116618_, ModItems.WIND_ROBE.get()))
                         && !CuriosFinder.hasUndeadCape(p_116618_)
                         && !hasCape(p_116618_)
                         && !p_116618_.isInvisible()) {

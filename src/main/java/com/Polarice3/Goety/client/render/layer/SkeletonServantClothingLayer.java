@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.StrayServant;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
@@ -11,10 +12,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.RangedAttackMob;
 
-public class SkeletonServantClothingLayer<T extends Mob & RangedAttackMob, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/skeleton_servant_overlay.png");
     private static final ResourceLocation STRAY = new ResourceLocation("textures/entity/skeleton/stray_overlay.png");
     private final SkeletonModel<T> layerModel;
@@ -26,11 +25,13 @@ public class SkeletonServantClothingLayer<T extends Mob & RangedAttackMob, M ext
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ResourceLocation resourceLocation = TEXTURES;
-        if (entitylivingbaseIn instanceof StrayServant){
-            resourceLocation = STRAY;
+        if (!entitylivingbaseIn.isHostile()) {
+            ResourceLocation resourceLocation = TEXTURES;
+            if (entitylivingbaseIn instanceof StrayServant) {
+                resourceLocation = STRAY;
+            }
+            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, resourceLocation, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
         }
-        coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, resourceLocation, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
 
     }
 }

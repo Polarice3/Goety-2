@@ -1,0 +1,45 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:hunger_core"
+  },
+  "craftType": "magic",
+  "entity_to_convert": {
+    "tag": "goety:villagers",
+    "display_name": "entity.minecraft.villager"
+  },
+  "entity_to_convert_into": "goety:ravaged",
+  "soulCost": 5,
+  "duration": 30,
+  "research": "ravaging",
+  "ingredients": [
+    {
+      "item": "goety:savage_tooth"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "goety:savage_tooth"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "goety:venomous_fang"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "goety:jade"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

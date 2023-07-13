@@ -24,6 +24,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwordCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
@@ -47,6 +48,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
@@ -60,6 +62,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> LavaballDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HauntedSkullDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulBoltDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceSpikeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ChargeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroBoltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceChunkDamage;
@@ -130,6 +133,8 @@ public class SpellConfig {
                 .defineInRange("soulBoltCost", 4, 0, Integer.MAX_VALUE);
         SwordCost = BUILDER.comment("Sword Spell Cost, Default: 16")
                 .defineInRange("swordCost", 16, 0, Integer.MAX_VALUE);
+        IceSpikeCost = BUILDER.comment("Ice Spike Spell Cost, Default: 8")
+                .defineInRange("iceSpikeCost", 8, 0, Integer.MAX_VALUE);
         ChargeCost = BUILDER.comment("Charge Spell Cost, Default: 4")
                 .defineInRange("chargeCost", 4, 0, Integer.MAX_VALUE);
         IllusionCost = BUILDER.comment("Illusion Spell Cost, Default: 20")
@@ -176,6 +181,8 @@ public class SpellConfig {
                 .defineInRange("lavaBombTime", 20, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")
                 .defineInRange("illusionTime", 40, 0, 72000);
+        IceSpikeDuration = BUILDER.comment("Time to cast Ice Spike Spell, Default: 40")
+                .defineInRange("iceSpikeDuration", 40, 0, 72000);
         IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 40")
                 .defineInRange("iceChunkTime", 40, 0, 72000);
         UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 20")
@@ -216,6 +223,8 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullDamage", 5.0, 1.0, Double.MAX_VALUE);
         SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")
                 .defineInRange("soulBoltDamage", 4.0, 1.0, Double.MAX_VALUE);
+        IceSpikeDamage = BUILDER.comment("How much base damage Ice Spike deals, Default: 4.0")
+                .defineInRange("iceSpikeDamage", 4.0, 1.0, Double.MAX_VALUE);
         ChargeDamage = BUILDER.comment("How much base damage Charge deals after gaining 2 Levels, Default: 4.0")
                 .defineInRange("chargeDamage", 4.0, 1.0, Double.MAX_VALUE);
         NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 8.0")

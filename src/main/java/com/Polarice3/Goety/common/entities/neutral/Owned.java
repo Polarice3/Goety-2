@@ -97,9 +97,13 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
                 }
             }
         }
-        if (this.getTrueOwner() instanceof Owned){
-            if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()){
-                this.kill();
+        if (this.getTrueOwner() instanceof Owned owned){
+            if (owned.isDeadOrDying() || !owned.isAlive()){
+                if (owned.getTrueOwner() != null){
+                    this.setTrueOwner(owned.getTrueOwner());
+                } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()){
+                    this.kill();
+                }
             }
         }
         if (this.getLastHurtByMob() == this.getTrueOwner()){

@@ -5,6 +5,10 @@
     "goety:shade_stone_polished_stairs",
     "goety:shade_stone_bricks_stairs",
     "goety:shade_bricks_stairs",
-    "goety:shade_tiles_stairs"
+    "goety:shade_tiles_stairs",
+    "goety:crypt_stone_stairs",
+    "goety:crypt_stone_polished_stairs",
+    "goety:crypt_bricks_stairs",
+    "goety:crypt_tiles_stairs"
   ]
 }

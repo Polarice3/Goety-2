@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "locked=false,open=false,triggered=false": { "model": "goety:block/pithos" },
+    "locked=false,open=true,triggered=false": {"model": "goety:block/pithos_open"},
+    "locked=false,open=false,triggered=true": { "model": "goety:block/pithos" },
+    "locked=false,open=true,triggered=true": {"model": "goety:block/pithos_open"},
+    "locked=true,open=false,triggered=false": {"model": "goety:block/pithos_trapped"},
+    "locked=true,open=true,triggered=false": {"model": "goety:block/pithos_open"},
+    "locked=true,open=false,triggered=true": {"model": "goety:block/pithos_locked"},
+    "locked=true,open=true,triggered=true": {"model": "goety:block/pithos_open"}
+  }
+}

@@ -41,6 +41,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE_BITS = PARTICLE_TYPES.register("soul_explode_bits",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> LASER_GATHER = PARTICLE_TYPES.register("laser",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> BURNING = PARTICLE_TYPES.register("burning",
             () -> new SimpleParticleType(true));
 
@@ -94,6 +97,9 @@ public class ModParticleTypes {
 
     public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE = PARTICLE_TYPES.register("soul_explode",
             () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
+            () -> new SimpleParticleType(false));
 
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {

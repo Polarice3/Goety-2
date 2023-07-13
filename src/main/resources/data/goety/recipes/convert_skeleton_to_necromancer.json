@@ -1,0 +1,32 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_tamed",
+  "activation_item": {
+    "item": "goety:necro_cape"
+  },
+  "craftType": "lich",
+  "entity_to_convert": {
+    "tag": "goety:skeletons",
+    "display_name": "entity.minecraft.skeleton"
+  },
+  "entity_to_convert_into": "goety:necromancer_servant",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:necro_staff"
+    },
+    {
+      "item": "goety:necro_crown"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:rotting_focus"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

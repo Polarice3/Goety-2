@@ -180,7 +180,8 @@ public class BlockFinder {
         blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
         blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(5) - world.random.nextInt(5));
         if (hasChunksAt(livingEntity)
-                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)){
+                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)
+                && world.getBlockState(blockpos$mutable.below()).isCollisionShapeFullBlock(world, blockpos$mutable.below())){
             return blockpos$mutable;
         } else {
             return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.moveDownToGround(livingEntity), 0);

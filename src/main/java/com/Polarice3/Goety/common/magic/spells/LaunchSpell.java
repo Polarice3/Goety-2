@@ -7,7 +7,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -52,7 +51,7 @@ public class LaunchSpell extends InstantCastSpells {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20 * duration));
 //            this.IncreaseInfamy(SpellConfig.LaunchInfamyChance.get(), player);
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 2.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
     }
 
     @Override
@@ -75,6 +74,6 @@ public class LaunchSpell extends InstantCastSpells {
             player.fallDistance = 0;
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20 * duration));
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 2.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
     }
 }

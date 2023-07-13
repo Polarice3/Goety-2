@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -42,12 +43,12 @@ public class RitualRecipe extends ModShapelessRecipe {
     private final float durationPerIngredient;
     private final String entityToSacrificeDisplayName;
     private final String entityToConvertDisplayName;
-
+    private final String research;
 
     public RitualRecipe(ResourceLocation id, String group, String pCraftType, ResourceLocation ritualType,
                         ItemStack result, EntityType<?> entityToSummon, EntityType<?> entityToConvertInto, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int summonLife, int pSoulCost,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName,
-                        TagKey<EntityType<?>> entityToConvert, String entityToConvertDisplayName) {
+                        TagKey<EntityType<?>> entityToConvert, String entityToConvertDisplayName, String research) {
         super(id, group, result, input);
         this.craftType = pCraftType;
         this.soulCost = pSoulCost;
@@ -63,6 +64,7 @@ public class RitualRecipe extends ModShapelessRecipe {
         this.entityToSacrificeDisplayName = entityToSacrificeDisplayName;
         this.entityToConvert = entityToConvert;
         this.entityToConvertDisplayName = entityToConvertDisplayName;
+        this.research = research;
     }
 
     public String getCraftType() {
@@ -90,8 +92,8 @@ public class RitualRecipe extends ModShapelessRecipe {
         return SERIALIZER;
     }
 
-    public boolean matches(Level world, BlockPos darkAltarPos, ItemStack activationItem) {
-        return this.ritual.identify(world, darkAltarPos, activationItem);
+    public boolean matches(Level world, BlockPos darkAltarPos, Player player, ItemStack activationItem) {
+        return this.ritual.identify(world, darkAltarPos, player, activationItem);
     }
 
     @Override
@@ -149,6 +151,10 @@ public class RitualRecipe extends ModShapelessRecipe {
         return this.entityToConvertDisplayName;
     }
 
+    public String getResearch(){
+        return this.research;
+    }
+
     public int getSummonLife() {
         return this.summonLife;
     }
@@ -195,6 +201,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             EntityType<?> entityToConvertInto = null;
             TagKey<EntityType<?>> entityToConvert = null;
             String entityToConvertDisplayName = "";
+            String research = "";
             if (json.has("entity_to_convert")){
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_convert"), "tag"));
                 entityToConvert = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
@@ -204,11 +211,13 @@ public class RitualRecipe extends ModShapelessRecipe {
             if (json.has("entity_to_convert_into")) {
                 entityToConvertInto = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_convert_into")));
             }
-
+            if (json.has("research")){
+                research = GsonHelper.getAsString(json, "research", "");
+            }
             return new RitualRecipe(recipeId, group, craftType, ritualType,
                     result, entityToSummon, entityToConvertInto, activationItem, ingredients, duration,
                     summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName,
-                    entityToConvert, entityToConvertDisplayName);
+                    entityToConvert, entityToConvertDisplayName, research);
         }
 
         private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
@@ -262,10 +271,14 @@ public class RitualRecipe extends ModShapelessRecipe {
             if (buffer.readBoolean()){
                 entityToConvertInto = buffer.readRegistryId();
             }
+            String research = "";
+            if (buffer.readBoolean()){
+                research = buffer.readUtf(32767);
+            }
 
             assert recipe != null;
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), craftType, ritualType, recipe.getResultItem(), entityToSummon, entityToConvertInto,
-                    activationItem, recipe.getIngredients(), duration, summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName, entityToConvert, entityToConvertDisplayName);
+                    activationItem, recipe.getIngredients(), duration, summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName, entityToConvert, entityToConvertDisplayName, research);
         }
 
         @Override
@@ -297,6 +310,9 @@ public class RitualRecipe extends ModShapelessRecipe {
             buffer.writeBoolean(recipe.entityToConvertInto != null);
             if (recipe.entityToConvertInto != null) {
                 buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToConvertInto);
+            }
+            if (recipe.research != null) {
+                buffer.writeUtf(recipe.research);
             }
         }
     }

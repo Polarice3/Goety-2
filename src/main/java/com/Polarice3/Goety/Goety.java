@@ -15,8 +15,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
-import com.Polarice3.Goety.common.entities.hostile.Irk;
-import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
@@ -28,6 +27,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
+import com.Polarice3.Goety.common.entities.util.SkullLaser;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
@@ -35,6 +35,8 @@ import com.Polarice3.Goety.common.items.ModSpawnEggs;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
+import com.Polarice3.Goety.common.world.processors.ModProcessors;
+import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.curios.CuriosCompat;
 import com.Polarice3.Goety.init.ModProxy;
 import com.Polarice3.Goety.init.ModSounds;
@@ -102,6 +104,8 @@ public class Goety {
         ModContainerType.CONTAINER_TYPE.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
         ModRituals.RITUALS.register(modEventBus);
+        ModStructureTypes.STRUCTURE_TYPE.register(modEventBus);
+        ModProcessors.STRUCTURE_PROCESSOR.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupEntityAttributeCreation);
@@ -211,26 +215,36 @@ public class Goety {
         event.put(ModEntityType.MALGHAST.get(), Malghast.setCustomAttributes().build());
         event.put(ModEntityType.VAMPIRE_BAT.get(), VampireBat.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
+        event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
+        event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.HUSK_SERVANT.get(), HuskServant.setCustomAttributes().build());
         event.put(ModEntityType.DROWNED_SERVANT.get(), DrownedServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_SERVANT.get(), SkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
+        event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());
+        event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
+        event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());
         event.put(ModEntityType.CONQUILLAGER.get(), Conquillager.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
+        event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
+        event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
+        event.put(ModEntityType.LASER.get(), SkullLaser.setCustomAttributes().build());
     }
 
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){
         event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

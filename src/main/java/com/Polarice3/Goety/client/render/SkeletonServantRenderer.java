@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeletonServant, SkeletonModel<AbstractSkeletonServant>> {
    private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/skeleton_servant.png");
+   private static final ResourceLocation SKELETON_LOCATION = new ResourceLocation("textures/entity/skeleton/skeleton.png");
    private static final ResourceLocation STRAY = new ResourceLocation("textures/entity/skeleton/stray.png");
 
    public SkeletonServantRenderer(EntityRendererProvider.Context p_174380_) {
@@ -31,7 +32,9 @@ public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeleto
    public ResourceLocation getTextureLocation(AbstractSkeletonServant p_115941_) {
       if (p_115941_ instanceof StrayServant){
          return STRAY;
-      } else{
+      } else if (p_115941_.isHostile()){
+         return SKELETON_LOCATION;
+      } else {
          return TEXTURES;
       }
    }

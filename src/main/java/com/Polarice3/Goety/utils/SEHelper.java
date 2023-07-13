@@ -15,10 +15,11 @@ import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.research.Research;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +38,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class SEHelper {
 
@@ -237,6 +241,67 @@ public class SEHelper {
         return false;
     }
 
+    public static boolean addGrudgePlayer(Player player, Player target){
+        if (target != player) {
+            if (!getGrudgePlayers(player).contains(target)) {
+                getCapability(player).addPlayerGrudge(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean removeGrudgePlayer(Player player, Player target){
+        if (target != player) {
+            if (getGrudgePlayers(player).contains(target)) {
+                getCapability(player).removePlayerGrudge(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<Player> getGrudgePlayers(Player player){
+        List<Player> players = new ArrayList<>();
+        if (!getCapability(player).grudgePlayers().isEmpty()){
+            for (UUID uuid : getCapability(player).grudgePlayers()){
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                if (entity instanceof Player player1 && !players.contains(player1) && player1 != player){
+                    players.add(player1);
+                }
+            }
+        }
+        return players;
+    }
+
+    public static boolean addResearch(Player player, Research research){
+        if (!getResearch(player).contains(research)) {
+            getCapability(player).addResearch(research);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removeResearch(Player player, Research research){
+        if (getResearch(player).contains(research)) {
+            getCapability(player).removeResearch(research);
+            return true;
+        }
+        return false;
+    }
+
+    public static List<Research> getResearch(Player player){
+        List<Research> research = new ArrayList<>();
+        if (!getCapability(player).getResearch().isEmpty()){
+            research.addAll(getCapability(player).getResearch());
+        }
+        return research;
+    }
+
+    public static boolean hasResearch(Player player, Research research){
+        return getResearch(player).contains(research);
+    }
+
     public static void sendSEUpdatePacket(Player player) {
         if (!player.level.isClientSide()) {
             ModNetwork.sendTo(player, new SEUpdatePacket(player));
@@ -253,6 +318,28 @@ public class SEHelper {
             ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, soulEnergy.getArcaBlockDimension().location()).resultOrPartial(Goety.LOGGER::error).ifPresent(
                     (p_241148_1_) -> tag.put("dimension", p_241148_1_));
         }
+
+        if (soulEnergy.grudgePlayers() != null) {
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.grudgePlayers().isEmpty()) {
+                for (UUID uuid : soulEnergy.grudgePlayers()) {
+                    listTag.add(NbtUtils.createUUID(uuid));
+                }
+                tag.put("grudgePlayers", listTag);
+            }
+        }
+
+        if (soulEnergy.getResearch() != null){
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.getResearch().isEmpty()){
+                for (Research research : soulEnergy.getResearch()){
+                    CompoundTag compoundTag = new CompoundTag();
+                    compoundTag.putString("research", research.getId());
+                    listTag.add(compoundTag);
+                }
+                tag.put("researchList", listTag);
+            }
+        }
         return tag;
     }
 
@@ -261,6 +348,21 @@ public class SEHelper {
         soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
+        if (tag.contains("grudgePlayers", 9)) {
+            ListTag listtag = tag.getList("grudgePlayers", 11);
+            for (net.minecraft.nbt.Tag value : listtag) {
+                soulEnergy.addPlayerGrudge(NbtUtils.loadUUID(value));
+            }
+        }
+        if (tag.contains("researchList", Tag.TAG_LIST)) {
+            ListTag listtag = tag.getList("researchList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < listtag.size(); ++i) {
+                String string = listtag.getCompound(i).getString("research");
+                if (ResearchList.getResearch(string) != null) {
+                    soulEnergy.addResearch(ResearchList.getResearch(string));
+                }
+            }
+        }
         return soulEnergy;
     }
 }

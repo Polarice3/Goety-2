@@ -7,7 +7,6 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -69,7 +68,7 @@ public class FangSpell extends Spells {
                 WandUtil.spawnFangs(entityLiving,entityLiving.getX() + (double)Mth.cos(f2) * 2.5D, entityLiving.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3);
             }
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
     }
 
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -120,7 +119,7 @@ public class FangSpell extends Spells {
                 WandUtil.spawnFangs(entityLiving,entityLiving.getX() + (double)Mth.cos(f2) * 4.5D, entityLiving.getZ() + (double)Mth.sin(f2) * 4.5D, d0, d1, f2, 9);
             }
         }
-        worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
     }
 
 }

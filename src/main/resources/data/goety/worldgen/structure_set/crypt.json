@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "goety:crypt",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1876543456,
+    "spacing": 120,
+    "separation": 40,
+    "type": "minecraft:random_spread"
+  }
+}

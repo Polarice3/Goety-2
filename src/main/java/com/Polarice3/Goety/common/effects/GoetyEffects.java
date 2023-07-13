@@ -59,6 +59,11 @@ public class GoetyEffects {
                     .addAttributeModifier(Attributes.MOVEMENT_SPEED, "9a4d6273-711a-4f6d-87d2-23e91e190ab8",
                             -0.15D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
+    public static final RegistryObject<MobEffect> BUSTED = EFFECTS.register("busted",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x232f58)
+                    .addAttributeModifier(Attributes.ARMOR, "bf1df32b-2ee2-4fb9-9b96-e1765202bca3",
+                            -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 
@@ -79,7 +84,7 @@ public class GoetyEffects {
             () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x1f1421, BrewConfig.SunAllergyCurable.get()));
 
     public static final RegistryObject<MobEffect> SNOW_SKIN = EFFECTS.register("snow_skin",
-            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0xe3f3f3, BrewConfig.SunAllergyCurable.get()));
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0xe3f3f3, BrewConfig.SnowSkinCurable.get()));
 
     public static final RegistryObject<MobEffect> TRIPPING = EFFECTS.register("tripping",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x101636));

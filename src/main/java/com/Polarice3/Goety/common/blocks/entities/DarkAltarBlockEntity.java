@@ -10,10 +10,11 @@ import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.Ritual;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
-import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -201,7 +202,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 this.currentTime, recipe.getDuration());
 
                         if (!recipe.getRitual()
-                                .consumeAdditionalIngredients(this.level, this.worldPosition, this.remainingAdditionalIngredients,
+                                .consumeAdditionalIngredients(this.level, this.worldPosition, this.castingPlayer, this.remainingAdditionalIngredients,
                                         this.currentTime, this.consumedIngredients)) {
                             this.stopRitual(false);
                             return;
@@ -286,7 +287,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                 if (this.getCurrentRitualRecipe() == null) {
 
                     RitualRecipe ritualRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get()).stream().filter(
-                            r -> r.matches(world, pos, activationItem)
+                            r -> r.matches(world, pos, player, activationItem)
                     ).findFirst().orElse(null);
 
                     if (ritualRecipe != null) {
@@ -296,10 +297,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
                             } else if (ritualRecipe.getCraftType().contains("lich")){
-                                CompoundTag playerData = player.getPersistentData();
-                                CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
                                 if (MainConfig.LichScrollRequirement.get()) {
-                                    if (data.getBoolean(ConstantPaths.readScroll())) {
+                                    if (SEHelper.hasResearch(player, ResearchList.FORBIDDEN)) {
                                         this.startRitual(player, activationItem, ritualRecipe);
                                     } else {
                                         player.displayClientMessage(Component.translatable("info.goety.ritual.fail"), true);
@@ -311,6 +310,14 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                             } else if (ritualRecipe.isConversion() && RitualRequirements.noConvertEntity(ritualRecipe.getEntityToConvert(), pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
                                 return false;
+                            } if (ritualRecipe.getResearch() != null
+                                    && ResearchList.getResearch(ritualRecipe.getResearch()) != null){
+                                if (SEHelper.hasResearch(player, ResearchList.getResearch(ritualRecipe.getResearch()))){
+                                    this.startRitual(player, activationItem, ritualRecipe);
+                                } else {
+                                    player.displayClientMessage(Component.translatable("info.goety.ritual.fail"), true);
+                                    return false;
+                                }
                             } else {
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }

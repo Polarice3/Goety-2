@@ -10,6 +10,10 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/charge_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Added from pvzfan's suggestion"
     }
   ]
 }

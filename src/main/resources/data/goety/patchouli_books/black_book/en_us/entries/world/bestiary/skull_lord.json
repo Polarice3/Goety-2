@@ -1,0 +1,20 @@
+{
+  "name": "Skull Lords",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_skull_lord",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Desecrating and trying to open a jar of the grand tomb unleashed an enraged lord that once ruled the structure. It appears that they hold a piece of dark magic with them that they couldn't complete within their lifetime."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skull_lord"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unfortunately for would be treasure hunters and mages, the dark master of the Crypt managed to stay bound to the material world to guard their treasure. Their heads are the source of their power and intellect and is protected whenever they reconstituted their armored yet skeletonized bodies."
+    }
+  ]
+}

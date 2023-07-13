@@ -12,7 +12,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -52,8 +51,7 @@ public class VexSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player){
-            Player player = (Player) entityLiving;
+        if (entityLiving instanceof Player player){
             if (WandUtil.enchantedFocus(player)){
                 enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                 duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
@@ -70,7 +68,7 @@ public class VexSpell extends SummonSpells {
             for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
                 worldIn.sendParticles(ParticleTypes.POOF, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
         }
     }
 
@@ -100,7 +98,7 @@ public class VexSpell extends SummonSpells {
                     this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
                 }
-                worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
                 this.SummonDown(entityLiving);
             }
     }
@@ -131,9 +129,9 @@ public class VexSpell extends SummonSpells {
                     this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
                 }
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
             this.SummonDown(entityLiving);
-            }
+        }
     }
 
     public int VexLimit(LivingEntity entityLiving){

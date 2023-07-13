@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -67,12 +68,17 @@ public abstract class Spells {
         return ProjectileUtil.getEntityHitResult(worldIn, livingEntity, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable());
     }
 
+    public SoundSource getSoundSource(){
+        return SoundSource.PLAYERS;
+    }
+
     public enum SpellType{
         NONE("none", null),
         NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
         LICH("lich", ModItems.NAMELESS_STAFF.get()),
         NETHER("nether", null),
         ILL("ill", null),
+        FROST("frost", null),
         WIND("wind", ModItems.WIND_STAFF.get());
 
         private final Item staff;

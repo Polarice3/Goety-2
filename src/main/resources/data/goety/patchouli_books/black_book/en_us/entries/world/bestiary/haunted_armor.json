@@ -1,0 +1,29 @@
+{
+  "name": "Haunted Armors",
+  "icon": "goety:cursed_knight_helmet",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_haunted_armor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The guardians and sentries of the Crypts, no doubt brought to life through Necroturgic magic. Due to their nature as unholy constructs, they are immune to almost all Debuffs and won't burn in flames. They will, however, still melt in lava and take more damage from Smite."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_armor{ArmorItems:[{Count:1,id:\"goety:cursed_knight_boots\"},{Count:1,id:\"goety:cursed_knight_leggings\"},{Count:1,id:\"goety:cursed_knight_chestplate\"},{Count:1,id:\"goety:cursed_knight_helmet\"}]}",
+      "text": "Their Shields can be disabled through Axe."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:fell_blade",
+      "title": "Fell Blade",
+      "text": "The blade held by the Haunted Armors have a special property where they have a chance of halving a creature's armor points. They can be repaired using Cursed Metal Ingots on an Anvil"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_knight_helmet",
+      "title": "Cursed Knight Armor",
+      "text": "The armor seems to be more or less an ornate Cursed Metal version of regular Iron Armor, with two exceptions. One, it provides small amount of knockback resistance. Two, wearing the full set of armor gives an additional 4 armor points."
+    }
+  ]
+}

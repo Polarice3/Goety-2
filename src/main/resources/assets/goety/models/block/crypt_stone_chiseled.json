@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/crypt_stone_chiseled_end",
+    "side": "goety:block/crypt_stone_chiseled"
+  }
+}

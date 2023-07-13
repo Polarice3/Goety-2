@@ -1,10 +1,10 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.common.items.research;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.utils.ConstantPaths;
+import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -33,28 +33,16 @@ public class ForbiddenScroll extends Item {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (!worldIn.isClientSide){
-            CompoundTag playerData = playerIn.getPersistentData();
-            CompoundTag data;
-
-            if (!playerData.contains(Player.PERSISTED_NBT_TAG)) {
-                data = new CompoundTag();
-            } else {
-                data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+            if (!SEHelper.hasResearch(playerIn, ResearchList.FORBIDDEN)) {
+                if (SEHelper.addResearch(playerIn, ResearchList.FORBIDDEN)) {
+                    CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerIn, itemstack);
+                    playerIn.displayClientMessage(Component.translatable("info.goety.research.lich"), true);
+                    itemstack.shrink(1);
+                    return InteractionResultHolder.consume(playerIn.getItemInHand(handIn));
+                }
             }
-
-            if (!data.getBoolean(ConstantPaths.readScroll())) {
-                data.putBoolean(ConstantPaths.readScroll(), true);
-                playerData.put(Player.PERSISTED_NBT_TAG, data);
-                CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerIn, itemstack);
-                playerIn.displayClientMessage(Component.translatable("info.goety.research.lich"), true);
-                itemstack.shrink(1);
-                return InteractionResultHolder.consume(playerIn.getItemInHand(handIn));
-            } else {
-                return InteractionResultHolder.pass(playerIn.getItemInHand(handIn));
-            }
-        } else {
-            return InteractionResultHolder.pass(playerIn.getItemInHand(handIn));
         }
+        return InteractionResultHolder.pass(playerIn.getItemInHand(handIn));
     }
 
     @Override

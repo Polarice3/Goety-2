@@ -1,0 +1,16 @@
+{
+  "name": "Crypts",
+  "icon": "goety:crypt_stone_chiseled",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard of ancient crypts burrowed under the earth, warping the landscapes above its unholy structure. Rumor has it that these Crypts hold great treasures, forbidden secrets... and horrible monsters."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/crypt.png"],
+      "border": true
+    }
+  ]
+}

@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.magic.InstantCastSpells;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,7 +41,7 @@ public class FireballSpell extends InstantCastSpells {
                 vector3d.z);
         smallFireballEntity.setOwner(entityLiving);
         worldIn.addFreshEntity(smallFireballEntity);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }
 
     @Override
@@ -68,6 +67,6 @@ public class FireballSpell extends InstantCastSpells {
             smallFireballEntity2.setOwner(entityLiving);
             worldIn.addFreshEntity(smallFireballEntity2);
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

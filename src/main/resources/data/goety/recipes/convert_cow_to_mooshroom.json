@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:convert",
   "activation_item": {
-    "item": "minecraft:red_mushroom"
+    "item": "minecraft:mycelium"
   },
   "craftType": "animation",
   "entity_to_convert": {

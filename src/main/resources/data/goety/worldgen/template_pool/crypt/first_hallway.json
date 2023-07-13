@@ -1,0 +1,22 @@
+{
+  "name": "goety:crypt/first_hallway",
+
+  "fallback": "goety:crypt/first_hallway",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/first_hallway",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

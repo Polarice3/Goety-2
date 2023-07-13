@@ -40,6 +40,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.STAR_AMULET.get(), "necklace")
             .put(ModItems.SEA_AMULET.get(), "necklace")
             .put(ModItems.DARK_ROBE.get(), "body")
+            .put(ModItems.FROST_ROBE.get(), "body")
             .put(ModItems.WIND_ROBE.get(), "body")
             .put(ModItems.ILLUSION_ROBE.get(), "body")
             .put(ModItems.WITCH_ROBE.get(), "body")

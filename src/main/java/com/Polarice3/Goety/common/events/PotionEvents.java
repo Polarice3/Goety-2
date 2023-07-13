@@ -542,6 +542,11 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.BUSTED.get()){
+            if (event.getEntity().getAttribute(Attributes.ARMOR) == null || event.getEntity().getAttributeValue(Attributes.ARMOR) <= 0.0D){
+                event.setResult(Event.Result.DENY);
+            }
+        }
     }
 
     @SubscribeEvent
