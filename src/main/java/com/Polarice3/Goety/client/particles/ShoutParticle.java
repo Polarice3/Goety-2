@@ -11,13 +11,10 @@ import net.minecraft.client.particle.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@OnlyIn(Dist.CLIENT)
 public class ShoutParticle extends TextureSheetParticle {
    private static final Vector3f ROTATION_VECTOR = Util.make(new Vector3f(0.5F, 0.5F, 0.5F), Vector3f::normalize);
    private static final Vector3f TRANSFORM_VECTOR = new Vector3f(-1.0F, -1.0F, 0.0F);
@@ -114,7 +111,6 @@ public class ShoutParticle extends TextureSheetParticle {
       }
    }
 
-   @OnlyIn(Dist.CLIENT)
    public static class RedProvider implements ParticleProvider<ShoutParticleOption> {
       private final SpriteSet sprite;
 

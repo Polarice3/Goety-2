@@ -1,7 +1,7 @@
 {
   "name": "goety:crypt/false_room",
 
-  "fallback": "goety:crypt/end",
+  "fallback": "goety:crypt/end_room",
 
   "elements": [
     {
@@ -74,6 +74,32 @@
       "element": {
 
         "location": "goety:crypt/rooms/prison_room",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+
+        "location": "goety:crypt/rooms/tomb_room",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+
+        "location": "goety:crypt/rooms/skull_room",
 
         "processors": "goety:no_waterlogging",
 

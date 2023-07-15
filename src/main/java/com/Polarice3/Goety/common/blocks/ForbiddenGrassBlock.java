@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.BlockLightEngine;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -69,7 +67,6 @@ public class ForbiddenGrassBlock extends SnowyDirtBlock implements EntityBlock {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
         if (pLevel.getBlockState(pPos.above()).isAir()) {
             if (pRand.nextFloat() <= 0.25F) {

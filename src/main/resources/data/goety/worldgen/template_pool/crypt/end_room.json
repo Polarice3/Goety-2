@@ -1,0 +1,22 @@
+{
+  "name": "goety:crypt/end_room",
+
+  "fallback": "goety:crypt/end_room",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/end_room",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

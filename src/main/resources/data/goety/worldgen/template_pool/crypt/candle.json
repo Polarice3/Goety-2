@@ -1,0 +1,36 @@
+{
+  "name": "goety:crypt/candle",
+
+  "fallback": "goety:crypt/candle",
+
+  "elements": [
+    {
+
+      "weight": 5,
+      "element": {
+
+        "location": "goety:crypt/candle",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:crypt/candle_two",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

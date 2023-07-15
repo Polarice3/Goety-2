@@ -85,6 +85,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> DEEPSLATE_BRAZIER = register("deepslate_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> NETHER_BRICK_BRAZIER = register("nether_brick_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> BLACKSTONE_BRAZIER = register("blackstone_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK)), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
 
@@ -188,6 +190,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_STONE_CHISELED_BLOCK = register("crypt_stone_chiseled", CryptStoneBlock::new);
     public static final RegistryObject<Block> CRYPT_BRICKS_BLOCK = register("crypt_bricks", CryptStoneBlock::new);
     public static final RegistryObject<Block> CRYPT_TILES_BLOCK = register("crypt_tiles", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_PLINTH_BLOCK = register("crypt_plinth", CryptStoneBlock::new);
+    public static final RegistryObject<Block> CRYPT_PILLAR_BLOCK = register("crypt_pillar", () -> pillar(CryptStoneProperties()));
+    public static final RegistryObject<Block> CRYPT_BOOKSHELF = register("crypt_bookshelf",
+            () -> new BookshelfBlock(CryptStoneProperties(), 1.25F), true, LootTableType.EMPTY);
 
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");
@@ -250,6 +256,10 @@ public class ModBlocks {
 
     private static SaplingBlock sapling(AbstractTreeGrower tree){
         return new SaplingBlock(tree, Block.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
+    }
+
+    private static RotatedPillarBlock pillar(BlockBehaviour.Properties properties) {
+        return new RotatedPillarBlock(properties);
     }
 
     private static RotatedPillarBlock log(MaterialColor pTopColor, MaterialColor pBarkColor) {

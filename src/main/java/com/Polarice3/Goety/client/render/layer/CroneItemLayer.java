@@ -11,10 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.CrossedArmsItemLayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class CroneItemLayer<T extends Crone> extends CrossedArmsItemLayer<T, CroneModel<T>> {
    public CroneItemLayer(RenderLayerParent<T, CroneModel<T>> p_234926_, ItemInHandRenderer p_234927_) {
       super(p_234926_, p_234927_);

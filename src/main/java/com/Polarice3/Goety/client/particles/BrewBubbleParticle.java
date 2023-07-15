@@ -5,8 +5,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BrewBubbleParticle extends TextureSheetParticle {
    public BrewBubbleParticle(ClientLevel p_105773_, double p_105774_, double p_105775_, double p_105776_, double p_105777_, double p_105778_, double p_105779_) {
@@ -42,7 +40,6 @@ public class BrewBubbleParticle extends TextureSheetParticle {
       return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
    }
 
-   @OnlyIn(Dist.CLIENT)
    public static class Provider implements ParticleProvider<SimpleParticleType> {
       private final SpriteSet sprite;
 

@@ -5,8 +5,6 @@ import net.minecraft.client.particle.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Optional;
 
@@ -50,7 +48,6 @@ public class SculkBubbleParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SculkBubbleParticleOption> {
         private final SpriteSet sprite;
 

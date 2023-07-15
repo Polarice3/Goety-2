@@ -24,6 +24,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -40,8 +42,11 @@ import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.UUID;
 
 public abstract class AbstractHauntedArmor extends Summoned {
+    private static final UUID SPEED_MODIFIER_HOSTILE_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
+    private static final AttributeModifier SPEED_MODIFIER_HOSTILE = new AttributeModifier(SPEED_MODIFIER_HOSTILE_UUID, "Aggression Speed", 0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractHauntedArmor.class, EntityDataSerializers.BYTE);
     private int blockTime;
     private int coolTime;
@@ -216,6 +221,17 @@ public abstract class AbstractHauntedArmor extends Summoned {
     @Override
     public void tick() {
         super.tick();
+        if (!this.level.isClientSide){
+            AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (attributeinstance != null) {
+                if ((this.getTarget() != null || this.isAggressive())
+                        && !attributeinstance.hasModifier(SPEED_MODIFIER_HOSTILE)) {
+                    attributeinstance.addTransientModifier(SPEED_MODIFIER_HOSTILE);
+                } else if (attributeinstance.hasModifier(SPEED_MODIFIER_HOSTILE)){
+                    attributeinstance.removeModifier(SPEED_MODIFIER_HOSTILE);
+                }
+            }
+        }
         if (this.isGuarding()){
             ++this.blockTime;
             int total = MathHelper.secondsToTicks(3 + this.level.random.nextInt(3));
@@ -489,6 +505,10 @@ public abstract class AbstractHauntedArmor extends Summoned {
         @Override
         public boolean canUse() {
             return super.canUse() && !this.mob.isGuarding();
+        }
+
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + p_25556_.getBbWidth());
         }
     }
 

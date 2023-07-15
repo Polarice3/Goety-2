@@ -5,10 +5,7 @@ import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class HugeFungusExplosionSeedParticle extends NoRenderParticle {
    private int life;
    private final int lifeTime = 8;
@@ -32,7 +29,6 @@ public class HugeFungusExplosionSeedParticle extends NoRenderParticle {
 
    }
 
-   @OnlyIn(Dist.CLIENT)
    public static class Provider implements ParticleProvider<SimpleParticleType> {
       public Particle createParticle(SimpleParticleType p_106969_, ClientLevel p_106970_, double p_106971_, double p_106972_, double p_106973_, double p_106974_, double p_106975_, double p_106976_) {
          return new HugeFungusExplosionSeedParticle(p_106970_, p_106971_, p_106972_, p_106973_);

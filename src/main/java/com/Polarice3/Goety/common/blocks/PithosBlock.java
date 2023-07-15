@@ -29,8 +29,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -133,7 +131,6 @@ public class PithosBlock extends BaseEntityBlock {
         return this.defaultBlockState().setValue(LOCKED, Boolean.FALSE);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
         if (!pState.getValue(TRIGGERED)) {
             double d0 = (double) pPos.getX() + 0.5D;

@@ -368,6 +368,9 @@
   "block.goety.crypt_tiles_slab": "Crypt Tiles Slab",
   "block.goety.crypt_tiles_stairs": "Crypt Tiles Stairs",
   "block.goety.crypt_tiles_wall": "Crypt Tiles Wall",
+  "block.goety.crypt_plinth": "Crypt Plinth",
+  "block.goety.crypt_pillar": "Crypt Pillar",
+  "block.goety.crypt_bookshelf": "Crypt Bookshelf",
 
   "block.goety.shade_brazier": "Shade Brazier",
   "block.goety.stone_brazier": "Stone Brazier",
@@ -375,6 +378,8 @@
   "block.goety.deepslate_brazier": "Deepslate Brazier",
   "block.goety.nether_brick_brazier": "Nether Brick Brazier",
   "block.goety.blackstone_brazier": "Blackstone Brazier",
+
+  "block.goety.skull_pile": "Skull Pile",
 
   "block.goety.haunted_sapling": "Haunted Sapling",
   "block.goety.potted_haunted_sapling": "Potted Haunted Sapling",
@@ -455,6 +460,7 @@
   "block.goety.forbidden_grass": "Forbidden Grass Block",
   "block.goety.crystal_ball": "Crystal Ball",
   "block.goety.pithos": "Pithos",
+  "block.goety.crypt_urn": "Crypt Urn",
 
   "block.goety.magic_thorn": "Magic Thorn",
   "block.goety.hardened_leaves": "Hardened Leaves",
@@ -560,6 +566,7 @@
   "effect.goety.purify_buff": "Purify Buffs",
 
   "container.goety.pithos": "Pithos",
+  "container.goety.urn": "Urn",
 
   "enchantment.goety.soul_eater": "Soul Eater",
   "enchantment.goety.wanting": "Wanting",
