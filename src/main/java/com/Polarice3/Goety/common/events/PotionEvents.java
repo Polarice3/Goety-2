@@ -10,6 +10,8 @@ import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
@@ -43,11 +45,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -370,6 +375,55 @@ public class PotionEvents {
     }
 
     @SubscribeEvent
+    public static void DeathEvents(LivingDeathEvent event){
+        if (event.getEntity() instanceof Player player){
+            if (player.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){
+                if (!player.getActiveEffects().isEmpty()){
+                    List<MobEffectInstance> instanceList = new ArrayList<>(player.getActiveEffects());
+                    if (!instanceList.isEmpty()){
+                        ListTag listtag = new ListTag();
+                        CompoundTag playerData = event.getEntity().getPersistentData();
+                        CompoundTag data;
+
+                        if (!playerData.contains(Player.PERSISTED_NBT_TAG)) {
+                            data = new CompoundTag();
+                        } else {
+                            data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+                        }
+                        for(MobEffectInstance mobeffectinstance : instanceList) {
+                            listtag.add(mobeffectinstance.save(new CompoundTag()));
+                        }
+                        data.put(ConstantPaths.keepEffects(), listtag);
+                        playerData.put(Player.PERSISTED_NBT_TAG, data);
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void RespawnEvents(PlayerEvent.PlayerRespawnEvent event){
+        CompoundTag playerData = event.getEntity().getPersistentData();
+        if (playerData.contains(Player.PERSISTED_NBT_TAG)) {
+            CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+            if (data.contains(ConstantPaths.keepEffects(), 9)) {
+                ListTag listtag = data.getList(ConstantPaths.keepEffects(), 10);
+
+                for (int i = 0; i < listtag.size(); ++i) {
+                    MobEffectInstance mobeffectinstance = MobEffectInstance.load(listtag.getCompound(i));
+                    if (mobeffectinstance != null
+                            && !event.getEntity().hasEffect(mobeffectinstance.getEffect())
+                            && mobeffectinstance.getEffect() != GoetyEffects.SAVE_EFFECTS.get()) {
+                        event.getEntity().addEffect(mobeffectinstance);
+                    }
+                }
+
+                data.remove(ConstantPaths.keepEffects());
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void ChargeEffect(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
@@ -568,6 +622,14 @@ public class PotionEvents {
             if (effected instanceof Mob mob){
                 mob.setTarget(null);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PotionRemoveEvents(MobEffectEvent.Remove event){
+        LivingEntity effected = event.getEntity();
+        if (effected.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){
+            event.setCanceled(event.getEffect() != GoetyEffects.SAVE_EFFECTS.get());
         }
     }
 }

@@ -467,7 +467,7 @@ public class AbstractWraith extends Summoned {
             }
             for(int j = 0; j < 4; ++j) {
                 double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                double d2 = this.getY() + (this.random.nextDouble() + 0.5D);
+                double d2 = this.getY();
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
                 this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
             }

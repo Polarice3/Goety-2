@@ -278,6 +278,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.save_effects",
+      "text": "Got the idea from eating those Echoey Shards! Makes the effects stick even after drinking some Milk, and apparently death? Must be useful to those darn immortal types, like that blue compass thing!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.shear",
       "text": "My arms are too old to be shearing those Sheeps! My brews will do it for Ol' Granny!"
     },

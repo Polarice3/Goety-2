@@ -107,7 +107,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         super.tick();
         if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying()){
             if (this.tickCount % 20 == 0){
-                this.die(DamageSource.STARVE);
+                this.discard();
             }
         } else {
             if (this.getSkullLord().isHalfHealth()){

@@ -6,6 +6,7 @@
   "refmap": "goety.refmap.json",
   "mixins": [
     "LivingEntityMixin",
+    "RaidMixin",
     "StructureProcessorAccessor",
     "StructureTemplateMixin"
   ],

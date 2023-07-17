@@ -1,0 +1,33 @@
+{
+  "name": "Dark Armor",
+  "icon": "goety:iron_ravager_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While reading the scroll on the secrets of Ravagers, you've came up with an idea of creating specialize armor that augments their already armored saddles."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Creating armor for the massive beast requires a lot of Iron and metal but it will provide a large amount of protection for the newly transformed Ravager. However, the Ravager must be Saddled before applying the armor. You've heard rumors that you're not the first to think of armoring up Ravagers..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_ravager_armor"
+    }
+  ]
+}

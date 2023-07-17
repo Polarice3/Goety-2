@@ -213,5 +213,11 @@ public class ClientEvents {
         if (ModKeybindings.keyBindings[9].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CExtractPotionKeyPacket());
         }
+        if (ModKeybindings.keyBindings[10].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CRavagerRoarPacket());
+        }
+        if (ModKeybindings.keyBindings[11].isDown() && MINECRAFT.isWindowActive()){
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CRavagerAutoPacket());
+        }
     }
 }

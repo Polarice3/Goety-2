@@ -246,7 +246,7 @@ public class ModEvents {
                                                 }
                                             }
                                         }
-                                        if (raider.getType() == EntityType.RAVAGER) {
+                                        if (raider instanceof Ravager) {
                                             Envioker envioker = ModEntityType.ENVIOKER.get().create(world);
                                             if (envioker != null) {
                                                 if (world.random.nextInt(4) == 0) {

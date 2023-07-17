@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
+import com.Polarice3.Goety.common.items.magic.GrudgeGrimoire;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -27,11 +28,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -96,9 +99,26 @@ public class SoulEnergyEvents {
                 SEHelper.sendSEUpdatePacket(player);
             }
         }
+        if (!world.isClientSide) {
+            soulEnergy.grudgeList().removeIf(uuid -> {
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                return entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved());
+            });
+        }
         int s = soulEnergy.getSoulEnergy();
         if (s < 0){
             soulEnergy.setSoulEnergy(0);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingInteract(PlayerInteractEvent.EntityInteract event){
+        if (!event.getLevel().isClientSide){
+            if (event.getItemStack().getItem() instanceof GrudgeGrimoire) {
+                if (event.getTarget() instanceof Merchant && event.getTarget() instanceof LivingEntity living) {
+                    event.getItemStack().getItem().interactLivingEntity(event.getItemStack(), event.getEntity(), living, event.getHand());
+                }
+            }
         }
     }
 

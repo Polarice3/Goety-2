@@ -308,6 +308,11 @@ public class ModEntityType {
                     .sized(1.95F, 2.2F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<ArmoredRavager>> ARMORED_RAVAGER = register("armored_ravager",
+            EntityType.Builder.of(ArmoredRavager::new, MobCategory.MONSTER)
+                    .sized(1.95F, 2.2F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",
             EntityType.Builder.of(Envioker::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()

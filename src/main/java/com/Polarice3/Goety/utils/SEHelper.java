@@ -241,37 +241,65 @@ public class SEHelper {
         return false;
     }
 
-    public static boolean addGrudgePlayer(Player player, Player target){
-        if (target != player) {
-            if (!getGrudgePlayers(player).contains(target)) {
-                getCapability(player).addPlayerGrudge(target.getUUID());
+    public static boolean addGrudgeEntity(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (!getGrudgeEntities(owner).contains(target)) {
+                getCapability(owner).addGrudge(target.getUUID());
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean removeGrudgePlayer(Player player, Player target){
-        if (target != player) {
-            if (getGrudgePlayers(player).contains(target)) {
-                getCapability(player).removePlayerGrudge(target.getUUID());
+    public static boolean removeGrudgeEntity(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (getGrudgeEntities(owner).contains(target)) {
+                getCapability(owner).removeGrudge(target.getUUID());
                 return true;
             }
         }
         return false;
     }
 
-    public static List<Player> getGrudgePlayers(Player player){
-        List<Player> players = new ArrayList<>();
-        if (!getCapability(player).grudgePlayers().isEmpty()){
-            for (UUID uuid : getCapability(player).grudgePlayers()){
+    public static List<LivingEntity> getGrudgeEntities(Player owner){
+        List<LivingEntity> livingEntities = new ArrayList<>();
+        if (!getCapability(owner).grudgeList().isEmpty()){
+            for (UUID uuid : getCapability(owner).grudgeList()){
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                if (entity instanceof Player player1 && !players.contains(player1) && player1 != player){
-                    players.add(player1);
+                if (entity instanceof LivingEntity target && !livingEntities.contains(target) && target != owner){
+                    livingEntities.add(target);
                 }
             }
         }
-        return players;
+        return livingEntities;
+    }
+
+    public static boolean addGrudgeEntityType(Player owner, EntityType<?> target){
+        if (!getGrudgeEntityTypes(owner).contains(target)) {
+            getCapability(owner).addGrudgeType(target);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removeGrudgeEntityType(Player owner, EntityType<?> target){
+        if (getGrudgeEntityTypes(owner).contains(target)) {
+            getCapability(owner).removeGrudgeType(target);
+            return true;
+        }
+        return false;
+    }
+
+    public static List<EntityType<?>> getGrudgeEntityTypes(Player owner){
+        List<EntityType<?>> entityTypes = new ArrayList<>();
+        if (!getCapability(owner).grudgeTypeList().isEmpty()){
+            for (EntityType<?> entityType : getCapability(owner).grudgeTypeList()){
+                if (!entityTypes.contains(entityType)){
+                    entityTypes.add(entityType);
+                }
+            }
+        }
+        return entityTypes;
     }
 
     public static boolean addResearch(Player player, Research research){
@@ -319,13 +347,25 @@ public class SEHelper {
                     (p_241148_1_) -> tag.put("dimension", p_241148_1_));
         }
 
-        if (soulEnergy.grudgePlayers() != null) {
+        if (soulEnergy.grudgeList() != null) {
             ListTag listTag = new ListTag();
-            if (!soulEnergy.grudgePlayers().isEmpty()) {
-                for (UUID uuid : soulEnergy.grudgePlayers()) {
+            if (!soulEnergy.grudgeList().isEmpty()) {
+                for (UUID uuid : soulEnergy.grudgeList()) {
                     listTag.add(NbtUtils.createUUID(uuid));
                 }
-                tag.put("grudgePlayers", listTag);
+                tag.put("grudgeList", listTag);
+            }
+        }
+
+        if (soulEnergy.grudgeTypeList() != null){
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.grudgeTypeList().isEmpty()) {
+                for (EntityType<?> entityType : soulEnergy.grudgeTypeList()){
+                    CompoundTag compoundTag = new CompoundTag();
+                    compoundTag.putString("id", EntityType.getKey(entityType).toString());
+                    listTag.add(compoundTag);
+                }
+                tag.put("grudgeTypeList", listTag);
             }
         }
 
@@ -348,10 +388,19 @@ public class SEHelper {
         soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
-        if (tag.contains("grudgePlayers", 9)) {
-            ListTag listtag = tag.getList("grudgePlayers", 11);
+        if (tag.contains("grudgeList", 9)) {
+            ListTag listtag = tag.getList("grudgeList", 11);
             for (net.minecraft.nbt.Tag value : listtag) {
-                soulEnergy.addPlayerGrudge(NbtUtils.loadUUID(value));
+                soulEnergy.addGrudge(NbtUtils.loadUUID(value));
+            }
+        }
+        if (tag.contains("grudgeTypeList", Tag.TAG_LIST)) {
+            ListTag listtag = tag.getList("grudgeTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < listtag.size(); ++i) {
+                String string = listtag.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent()){
+                    soulEnergy.addGrudgeType(EntityType.byString(string).get());
+                }
             }
         }
         if (tag.contains("researchList", Tag.TAG_LIST)) {

@@ -94,6 +94,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
@@ -257,6 +258,8 @@ public class SpellConfig {
                 .define("undeadMinionHeal", true);
         UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
                 .defineInRange("undeadMinionHealCost", 5, 0, Integer.MAX_VALUE);
+        RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
+                .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
                 .defineInRange("wandVexLimit", 8, 1, Integer.MAX_VALUE);
         StaffVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a staff, without instantly dying, around the player, Default: 16")

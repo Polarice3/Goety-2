@@ -342,7 +342,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         return fail();
     }
 
-    public void fullReset(){
+    public void commonReset(){
         if (this.level != null && !this.level.isClientSide) {
             this.setColor(WATER_COLOR, false);
             this.isBrewing = false;
@@ -358,31 +358,20 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             this.lingering = 0;
             this.takeBrew = 0;
             this.clearContent();
-            this.mode = Mode.IDLE;
             this.markUpdated();
             this.level.setBlock(this.worldPosition, this.getBlockState().setValue(ModStateProperties.LEVEL_BREW, 0), 3);
         }
     }
 
-    public Mode reset() {
+    public void fullReset(){
         if (this.level != null && !this.level.isClientSide) {
-            this.setColor(WATER_COLOR, false);
-            this.isBrewing = false;
-            this.capacity = 0;
-            this.capacityUsed = 0;
-            this.soulTime = 0;
-            this.totalCost = 0;
-            this.duration = 0;
-            this.amplifier = 0;
-            this.aoe = 0;
-            this.quaff = 0;
-            this.velocity = 0;
-            this.lingering = 0;
-            this.takeBrew = 0;
-            this.clearContent();
-            this.markUpdated();
-            this.level.setBlock(this.worldPosition, this.getBlockState().setValue(ModStateProperties.LEVEL_BREW, 0), 3);
+            this.commonReset();
+            this.mode = Mode.IDLE;
         }
+    }
+
+    public Mode reset() {
+        this.commonReset();
         return Mode.IDLE;
     }
 

@@ -233,7 +233,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+                    this.playSound(SoundEvents.SKELETON_STEP, 1.0F, 1.25F);
                     this.heal(2.0F);
                     for (int i = 0; i < 7; ++i) {
                         double d0 = this.random.nextGaussian() * 0.02D;

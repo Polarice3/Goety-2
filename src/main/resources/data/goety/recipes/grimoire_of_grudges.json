@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    "rbv",
+    " c "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:ink_sac"
+    },
+    "r": {
+      "tag": "minecraft:banners"
+    },
+    "v": {
+      "item": "goety:venomous_fang"
+    },
+    "b": {
+      "item": "minecraft:book"
+    },
+    "c": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "goety:grimoire_of_grudges"
+  }
+}

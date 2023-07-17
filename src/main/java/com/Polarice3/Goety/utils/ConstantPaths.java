@@ -36,4 +36,9 @@ public class ConstantPaths {
     public static String giveAI(){
         return "goety:giveAI";
     }
+
+    public static String keepEffects(){
+        return "goety:keepEffects";
+    }
+
 }

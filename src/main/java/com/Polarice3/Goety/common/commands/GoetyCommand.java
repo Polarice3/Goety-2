@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.utils.ConstantPaths;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -91,6 +92,16 @@ public class GoetyCommand {
                                         })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
                                                     return spawnPersistEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
+                                                })))))
+                        .then(Commands.literal("summon_tamed")
+                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                            return spawnTamedEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
+                                        })
+                                        .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
+                                                    return spawnTamedEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
+                                                })
+                                                .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
+                                                    return spawnTamedEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
                                                 }))))))
                 .then(Commands.literal("research")
                         .then(Commands.literal("get").executes((p_198352_0_) -> {
@@ -219,6 +230,38 @@ public class GoetyCommand {
                     throw ERROR_DUPLICATE_UUID.create();
                 } else {
                     pSource.sendSuccess(Component.translatable("commands.summon_persist.success", entity.getDisplayName()), true);
+                    return 1;
+                }
+            }
+        }
+    }
+
+    private static int spawnTamedEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
+        BlockPos blockpos = new BlockPos(pPos);
+        if (!Level.isInSpawnableBounds(blockpos)) {
+            throw INVALID_POSITION.create();
+        } else {
+            CompoundTag compoundnbt = pNbt.copy();
+            compoundnbt.putString("id", pType.toString());
+            ServerLevel serverworld = pSource.getLevel();
+            Entity entity = EntityType.loadEntityRecursive(compoundnbt, serverworld, (p_218914_1_) -> {
+                p_218914_1_.moveTo(pPos.x, pPos.y, pPos.z, p_218914_1_.getYRot(), p_218914_1_.getXRot());
+                return p_218914_1_;
+            });
+            if (entity == null) {
+                throw ERROR_FAILED.create();
+            } else {
+                if (entity instanceof Mob mob){
+                    MobUtil.summonTame(mob, pSource.getPlayerOrException());
+                    if (pRandomizeProperties){
+                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
+                    }
+                }
+
+                if (!serverworld.tryAddFreshEntityWithPassengers(entity)) {
+                    throw ERROR_DUPLICATE_UUID.create();
+                } else {
+                    pSource.sendSuccess(Component.translatable("commands.summon_tame.success", entity.getDisplayName()), true);
                     return 1;
                 }
             }

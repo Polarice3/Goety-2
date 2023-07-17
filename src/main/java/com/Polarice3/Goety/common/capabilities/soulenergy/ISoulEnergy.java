@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.capabilities.soulenergy;
 import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -20,9 +21,12 @@ public interface ISoulEnergy {
     void setSoulEnergy(int soulEnergy);
     boolean increaseSE(int increase);
     boolean decreaseSE(int decrease);
-    Set<UUID> grudgePlayers();
-    void addPlayerGrudge(UUID uuid);
-    void removePlayerGrudge(UUID uuid);
+    Set<UUID> grudgeList();
+    void addGrudge(UUID uuid);
+    void removeGrudge(UUID uuid);
+    List<EntityType<?>> grudgeTypeList();
+    void addGrudgeType(EntityType<?> entityType);
+    void removeGrudgeType(EntityType<?> entityType);
     List<Research> getResearch();
     void addResearch(Research research);
     void removeResearch(Research research);

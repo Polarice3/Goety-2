@@ -36,14 +36,16 @@ public class SummonTargetGoal<T extends LivingEntity> extends NearestAttackableT
     public static Predicate<LivingEntity> predicate(LivingEntity livingEntity){
         if (livingEntity instanceof IOwned ownedEntity){
             if (ownedEntity.getTrueOwner() instanceof Enemy || ownedEntity instanceof Enemy || (ownedEntity instanceof Owned && ((Owned)ownedEntity).isHostile())){
-                return (entity) -> entity instanceof Player;
+                return (target) -> target instanceof Player;
             } else {
-                return (entity) ->
-                        (entity instanceof Enemy
-                                && !(entity instanceof Creeper && entity.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && SpellConfig.MinionsAttackCreepers.get())
-                                && !(entity instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) entity).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) entity).getTarget() != ownedEntity))
-                                && !(entity instanceof IOwned && ((IOwned) entity).getTrueOwner() == ownedEntity.getTrueOwner() && ownedEntity.getTrueOwner() != null))
-                        || ownedEntity.getTrueOwner() instanceof Player player && entity instanceof Player target && SEHelper.getGrudgePlayers(player).contains(target);
+                return (target) ->
+                        (target instanceof Enemy
+                                && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && SpellConfig.MinionsAttackCreepers.get())
+                                && !(target instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) target).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) target).getTarget() != ownedEntity))
+                                && !(target instanceof IOwned && ((IOwned) target).getTrueOwner() == ownedEntity.getTrueOwner() && ownedEntity.getTrueOwner() != null))
+                        || ownedEntity.getTrueOwner() instanceof Player player
+                                && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                                || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType())));
             }
         } else {
             return null;

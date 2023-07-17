@@ -15,12 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
@@ -100,17 +95,15 @@ public class Warlock extends Cultist implements RangedAttackMob {
     }
 
     @Override
-    public void die(DamageSource p_37847_) {
-        super.die(p_37847_);
+    public void remove(Entity.RemovalReason p_146834_) {
         if (this.isPassenger() && this.getVehicle() != null){
             if (this.getVehicle() instanceof AbstractHorse donkey){
                 if (donkey.getOwnerUUID() != null && donkey.getOwnerUUID() == this.getUUID()){
-                    donkey.addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.minutesToTicks(5), 9));
-                    donkey.addEffect(new MobEffectInstance(MobEffects.POISON, MathHelper.minutesToTicks(5), 9));
-                    donkey.setSecondsOnFire(300);
+                    donkey.kill();
                 }
             }
         }
+        super.remove(p_146834_);
     }
 
     @Override

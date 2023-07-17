@@ -1,6 +1,13 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.RavagerArmorItem;
+import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -12,10 +19,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -28,12 +36,14 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,17 +56,23 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 import java.util.function.Predicate;
 
-public class ModRavager extends Summoned implements PlayerRideable {
+public class ModRavager extends Summoned implements PlayerRideable, ContainerListener, IRavager {
+    private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("d404309f-25d3-4837-8828-e2b7b0ea79fd");
     private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
     private static final Predicate<Entity> NO_RAVAGER_AND_ALIVE = (p_33346_) -> p_33346_.isAlive() && !(p_33346_ instanceof ModRavager);
+    protected SimpleContainer inventory;
     private int attackTick;
     private int stunnedTick;
     private int roarTick;
+    private int roarCool;
 
     public ModRavager(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
+        this.createInventory();
     }
 
     protected void registerGoals() {
@@ -72,7 +88,6 @@ public class ModRavager extends Summoned implements PlayerRideable {
         super.targetSelectGoal();
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, AbstractVillager.class));
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, Player.class));
     }
 
     protected void updateControlFlags() {
@@ -87,6 +102,7 @@ public class ModRavager extends Summoned implements PlayerRideable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_SADDLE_ID, false);
+        this.entityData.define(AUTO_MODE, false);
     }
 
     public float getStepHeight() {
@@ -109,7 +125,12 @@ public class ModRavager extends Summoned implements PlayerRideable {
         p_33353_.putInt("AttackTick", this.attackTick);
         p_33353_.putInt("StunTick", this.stunnedTick);
         p_33353_.putInt("RoarTick", this.roarTick);
+        p_33353_.putInt("RoarCool", this.roarCool);
         p_33353_.putBoolean("Saddle", this.hasSaddle());
+        p_33353_.putBoolean("AutoMode", this.isAutonomous());
+        if (!this.getArmorSlot().isEmpty()) {
+            p_33353_.put("ArmorItem", this.getArmorSlot().save(new CompoundTag()));
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag p_33344_) {
@@ -117,7 +138,24 @@ public class ModRavager extends Summoned implements PlayerRideable {
         this.attackTick = p_33344_.getInt("AttackTick");
         this.stunnedTick = p_33344_.getInt("StunTick");
         this.roarTick = p_33344_.getInt("RoarTick");
+        this.roarCool = p_33344_.getInt("RoarCool");
         this.setSaddle(p_33344_.getBoolean("Saddle"));
+        this.setAutonomous(p_33344_.getBoolean("AutoMode"));
+        if (p_33344_.contains("ArmorItem", 10)) {
+            ItemStack itemstack = ItemStack.of(p_33344_.getCompound("ArmorItem"));
+            if (!itemstack.isEmpty() && this.isArmor(itemstack)) {
+                this.setArmorSlot(itemstack);
+            }
+        }
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (this.isNatural()){
+            this.setHostile(true);
+        }
+        return pSpawnData;
     }
 
     public void setSaddle(boolean p_20850_) {
@@ -126,6 +164,19 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
     public boolean hasSaddle() {
         return this.entityData.get(DATA_SADDLE_ID);
+    }
+
+    public void setAutonomous(boolean p_20850_) {
+        this.entityData.set(AUTO_MODE, p_20850_);
+        this.playSound(SoundEvents.ARROW_HIT_PLAYER);
+        if (!this.isWandering()){
+            this.setWandering(true);
+            this.setStaying(false);
+        }
+    }
+
+    public boolean isAutonomous() {
+        return this.entityData.get(AUTO_MODE);
     }
 
     protected PathNavigation createNavigation(Level p_33348_) {
@@ -146,19 +197,111 @@ public class ModRavager extends Summoned implements PlayerRideable {
         return entity != null && this.canBeControlledBy(entity) ? entity : null;
     }
 
+    public boolean isControlledByLocalInstance() {
+        return super.isControlledByLocalInstance() && !this.isAutonomous();
+    }
+
     private boolean canBeControlledBy(Entity p_219063_) {
         return !this.isNoAi() && p_219063_ instanceof LivingEntity;
     }
 
+    public ItemStack getArmorSlot(){
+        return this.inventory.getItem(0);
+    }
+
+    public void setArmorSlot(ItemStack itemStack){
+        this.inventory.setItem(0, itemStack);
+    }
+
+    protected void createInventory() {
+        SimpleContainer simplecontainer = this.inventory;
+        this.inventory = new SimpleContainer(1);
+        if (simplecontainer != null) {
+            simplecontainer.removeListener(this);
+            ItemStack itemstack = simplecontainer.getItem(0);
+            if (!itemstack.isEmpty()) {
+                this.inventory.setItem(0, itemstack.copy());
+            }
+        }
+
+        this.inventory.addListener(this);
+        this.updateContainerEquipment();
+        this.itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this.inventory));
+    }
+
+    protected void updateContainerEquipment() {
+        if (!this.level.isClientSide) {
+            this.setArmorEquipment(this.getArmorSlot());
+            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+        }
+    }
+
+    public void containerChanged(Container p_30696_) {
+        ItemStack itemstack = this.getArmor();
+        this.updateContainerEquipment();
+        ItemStack itemstack1 = this.getArmor();
+        if (this.tickCount > 20 && this.isArmor(itemstack1) && itemstack != itemstack1) {
+            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
+        }
+
+    }
+
+    public ItemStack getArmor() {
+        return this.getItemBySlot(EquipmentSlot.CHEST);
+    }
+
+    private void setArmor(ItemStack p_30733_) {
+        this.setItemSlot(EquipmentSlot.CHEST, p_30733_);
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+    }
+
+    private void setArmorEquipment(ItemStack p_30735_) {
+        this.setArmor(p_30735_);
+        if (!this.level.isClientSide) {
+            AttributeInstance attribute = this.getAttribute(Attributes.ARMOR);
+            if (attribute != null) {
+                attribute.removeModifier(ARMOR_MODIFIER_UUID);
+                if (this.isArmor(p_30735_)) {
+                    int i = ((RavagerArmorItem) p_30735_.getItem()).getProtection();
+                    if (i != 0) {
+                        attribute.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Ravager armor bonus", (double) i, AttributeModifier.Operation.ADDITION));
+                    }
+                }
+            }
+        }
+
+    }
+
+    public boolean isArmor(ItemStack p_30731_) {
+        return p_30731_.getItem() instanceof RavagerArmorItem;
+    }
+
     public void aiStep() {
         super.aiStep();
+        if (this.tickCount % 20 == 0) {
+            if (this.isHostile()) {
+                if (this.hasSaddle()) {
+                    if (!this.getArmor().isEmpty()) {
+                        ArmoredRavager armoredRavager = this.convertTo(ModEntityType.ARMORED_RAVAGER.get(), false);
+                        if (armoredRavager != null) {
+                            armoredRavager.setArmorSlot(this.getArmorSlot());
+                        }
+                    } else {
+                        this.convertTo(EntityType.RAVAGER, false);
+                    }
+                }
+            }
+        }
         if (this.isAlive()) {
-            if (this.isImmobile()) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.0D);
-            } else {
-                double d0 = this.getTarget() != null ? 0.35D : 0.3D;
-                double d1 = this.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue();
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(Mth.lerp(0.1D, d1, d0));
+            AttributeInstance attribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (attribute != null) {
+                if (this.isImmobile()) {
+                    attribute.setBaseValue(0.0D);
+                } else {
+                    double d0 = this.getTarget() != null ? 0.35D : 0.3D;
+                    double d1 = attribute.getBaseValue();
+                    attribute.setBaseValue(Mth.lerp(0.1D, d1, d0));
+                }
             }
 
             if (!this.level.isClientSide) {
@@ -174,6 +317,10 @@ public class ModRavager extends Summoned implements PlayerRideable {
                         }
                     }
                 }
+            }
+
+            if (this.roarCool > 0){
+                --this.roarCool;
             }
 
             if (this.roarTick > 0) {
@@ -228,6 +375,7 @@ public class ModRavager extends Summoned implements PlayerRideable {
         if (this.roarTick == 0) {
             if (this.random.nextDouble() < 0.5D) {
                 this.stunnedTick = 40;
+                this.roarCool = getRoarCoolMax();
                 this.playSound(SoundEvents.RAVAGER_STUNNED, 1.0F, 1.0F);
                 this.level.broadcastEntityEvent(this, (byte)39);
                 p_33361_.push(this);
@@ -237,7 +385,15 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
             p_33361_.hurtMarked = true;
         }
+    }
 
+    public void forceRoar(){
+        if (this.roarCool <= 0) {
+            this.roarTick = 20;
+            this.playSound(SoundEvents.RAVAGER_ROAR, 1.0F, 1.0F);
+            this.roarCool = getRoarCoolMax();
+            this.level.broadcastEntityEvent(this, (byte) 40);
+        }
     }
 
     private void roar() {
@@ -277,6 +433,11 @@ public class ModRavager extends Summoned implements PlayerRideable {
             this.playSound(SoundEvents.RAVAGER_ATTACK, 1.0F, 1.0F);
         } else if (p_33335_ == 39) {
             this.stunnedTick = 40;
+            this.roarCool = getRoarCoolMax();
+        } else if (p_33335_ == 40) {
+            this.roarTick = 20;
+            this.playSound(SoundEvents.RAVAGER_ROAR, 1.0F, 1.0F);
+            this.roarCool = getRoarCoolMax();
         }
 
         super.handleEntityEvent(p_33335_);
@@ -292,6 +453,14 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
     public int getRoarTick() {
         return this.roarTick;
+    }
+
+    public int getRoarCool(){
+        return this.roarCool;
+    }
+
+    public static int getRoarCoolMax(){
+        return MathHelper.secondsToTicks(SpellConfig.RavagerRoarCooldown.get());
     }
 
     public boolean doHurtTarget(Entity p_33328_) {
@@ -316,6 +485,9 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
     protected void playStepSound(BlockPos p_33350_, BlockState p_33351_) {
         this.playSound(SoundEvents.RAVAGER_STEP, 0.15F, 1.0F);
+        if (!this.getArmor().isEmpty()){
+            this.playSound(SoundEvents.CHAIN_STEP, 0.15F, 1.0F);
+        }
     }
 
     public boolean checkSpawnObstruction(LevelReader p_33342_) {
@@ -332,68 +504,89 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
     public void travel(Vec3 pTravelVector) {
         if (this.isAlive()) {
-            if (!this.isStaying()) {
-                LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-                if (this.isVehicle() && this.hasSaddle() && livingentity != null) {
-                    this.setYRot(livingentity.getYRot());
-                    this.yRotO = this.getYRot();
-                    this.setXRot(livingentity.getXRot() * 0.5F);
-                    this.setRot(this.getYRot(), this.getXRot());
-                    this.yBodyRot = this.getYRot();
-                    this.yHeadRot = this.yBodyRot;
-                    float f = livingentity.xxa * 0.5F;
-                    float f1 = livingentity.zza;
-                    if (f1 <= 0.0F) {
-                        f1 *= 0.25F;
-                    }
-
-                    if (this.isInWater() && this.getFluidTypeHeight(ForgeMod.WATER_TYPE.get()) > this.getFluidJumpThreshold() || this.isInLava() || this.isInFluidType((fluidType, height) -> this.canSwimInFluidType(fluidType) && height > this.getFluidJumpThreshold())){
-                        Vec3 vector3d = this.getDeltaMovement();
-                        this.setDeltaMovement(vector3d.x, 0.04F, vector3d.z);
-                        this.hasImpulse = true;
-                        if (f1 > 0.0F) {
-                            float f2 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
-                            float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F));
-                            this.setDeltaMovement(this.getDeltaMovement().add((double) (-0.4F * f2 * 0.04F), 0.0D, (double) (0.4F * f3 * 0.04F)));
-                        }
-                    }
-
-                    this.flyingSpeed = this.getSpeed() * 0.1F;
-                    if (this.isControlledByLocalInstance() || livingentity instanceof Player) {
-                        this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                        super.travel(new Vec3(f, pTravelVector.y, f1));
-                        this.lerpSteps = 0;
-                    }
-
-                    this.calculateEntityAnimation(this, false);
-                } else {
-                    super.travel(pTravelVector);
+            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+            if (this.isVehicle() && this.hasSaddle() && livingentity != null && !this.isAutonomous()) {
+                this.setYRot(livingentity.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = livingentity.xxa * 0.5F;
+                float f1 = livingentity.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
                 }
+
+                if (this.isInWater() && this.getFluidTypeHeight(ForgeMod.WATER_TYPE.get()) > this.getFluidJumpThreshold() || this.isInLava() || this.isInFluidType((fluidType, height) -> this.canSwimInFluidType(fluidType) && height > this.getFluidJumpThreshold())){
+                    Vec3 vector3d = this.getDeltaMovement();
+                    this.setDeltaMovement(vector3d.x, 0.04F, vector3d.z);
+                    this.hasImpulse = true;
+                    if (f1 > 0.0F) {
+                        float f2 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
+                        float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F));
+                        this.setDeltaMovement(this.getDeltaMovement().add((double) (-0.4F * f2 * 0.04F), 0.0D, (double) (0.4F * f3 * 0.04F)));
+                    }
+                }
+
+                this.flyingSpeed = this.getSpeed() * 0.1F;
+                if (this.isControlledByLocalInstance() || livingentity instanceof Player) {
+                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    super.travel(new Vec3(f, pTravelVector.y, f1));
+                    this.lerpSteps = 0;
+                }
+
+                this.calculateEntityAnimation(this, false);
+            } else {
+                super.travel(pTravelVector);
             }
         }
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        if (pPlayer == this.getTrueOwner()) {
-            if (this.hasSaddle() && !pPlayer.isCrouching()) {
-                this.doPlayerRide(pPlayer);
-                this.setStaying(false);
-                this.setWandering(false);
-            } else if (pPlayer.getItemInHand(pHand).is(ModItems.OMINOUS_SADDLE.get()) && !this.hasSaddle()){
-                pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
-                this.equipSaddle();
-                return InteractionResult.SUCCESS;
-            } else if (this.isFood(pPlayer.getMainHandItem()) && this.getHealth() < this.getMaxHealth()) {
-                this.heal((float)pPlayer.getMainHandItem().getFoodProperties(this).getNutrition());
-                if (!pPlayer.getAbilities().instabuild) {
-                    pPlayer.getMainHandItem().shrink(1);
+        if (!pPlayer.level.isClientSide) {
+            if (pPlayer == this.getTrueOwner()) {
+                if (this.hasSaddle() && !pPlayer.isCrouching()) {
+                    this.doPlayerRide(pPlayer);
+                    this.setStaying(false);
+                    this.setWandering(false);
+                } else if (pPlayer.getItemInHand(pHand).is(ModItems.OMINOUS_SADDLE.get()) && !this.hasSaddle()) {
+                    pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
+                    this.equipSaddle();
+                    return InteractionResult.SUCCESS;
+                } else if (this.isArmor(pPlayer.getMainHandItem()) && this.hasSaddle()) {
+                    if (!this.getArmorSlot().isEmpty()) {
+                        if (this.spawnAtLocation(this.getArmorSlot()) != null) {
+                            this.setArmorSlot(pPlayer.getMainHandItem().copy());
+                            if (!pPlayer.getAbilities().instabuild) {
+                                pPlayer.getMainHandItem().shrink(1);
+                            }
+                        }
+                    } else {
+                        this.setArmorSlot(pPlayer.getMainHandItem().copy());
+                        if (!pPlayer.getAbilities().instabuild) {
+                            pPlayer.getMainHandItem().shrink(1);
+                        }
+                    }
+                    EntityFinder.sendEntityUpdatePacket(pPlayer, this);
+                    return InteractionResult.SUCCESS;
+                } else if (this.isFood(pPlayer.getMainHandItem()) && this.getHealth() < this.getMaxHealth()) {
+                    FoodProperties foodProperties = pPlayer.getMainHandItem().getFoodProperties(this);
+                    if (foodProperties != null) {
+                        this.heal((float) foodProperties.getNutrition());
+                        if (!pPlayer.getAbilities().instabuild) {
+                            pPlayer.getMainHandItem().shrink(1);
+                        }
+                        this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), 0.5F);
+                        this.gameEvent(GameEvent.EAT, this);
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        return InteractionResult.PASS;
+                    }
+                } else {
+                    this.updateMoveMode(pPlayer);
+                    return InteractionResult.SUCCESS;
                 }
-                this.playSound(SoundEvents.PHANTOM_BITE, this.getSoundVolume(), 0.5F);
-                this.gameEvent(GameEvent.EAT, this);
-                return InteractionResult.SUCCESS;
-            } else {
-                this.updateMoveMode(pPlayer);
-                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.SUCCESS;
@@ -401,12 +594,16 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
     public boolean isFood(ItemStack p_30440_) {
         Item item = p_30440_.getItem();
-        return item.isEdible() && p_30440_.getFoodProperties(this).isMeat();
+        FoodProperties foodProperties = p_30440_.getFoodProperties(this);
+        return item.isEdible() && foodProperties != null && foodProperties.isMeat();
     }
 
     public void equipSaddle() {
         this.level.playSound((Player)null, this, SoundEvents.HORSE_SADDLE, SoundSource.PLAYERS, 1.0F, 1.0F);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100.0D);
+        AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+        if (attributeInstance != null) {
+            attributeInstance.setBaseValue(100.0D);
+        }
         this.setSaddle(true);
     }
 
@@ -448,6 +645,25 @@ public class ModRavager extends Summoned implements PlayerRideable {
 
         public boolean canUse() {
             return super.canUse() && this.ravaged.isNatural() && (this.ravaged.getTrueOwner() == null || this.ravaged.getTrueOwner() instanceof AbstractIllager) && this.target != null && !this.target.isBaby();
+        }
+    }
+
+    private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
+
+    @Override
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.core.Direction facing) {
+        if (this.isAlive() && capability == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER && itemHandler != null)
+            return itemHandler.cast();
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        if (itemHandler != null) {
+            net.minecraftforge.common.util.LazyOptional<?> oldHandler = itemHandler;
+            itemHandler = null;
+            oldHandler.invalidate();
         }
     }
 }

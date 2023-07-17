@@ -1,16 +1,14 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 
-public class ModRavagerModel extends HierarchicalModel<ModRavager> {
+public class ModRavagerModel<T extends LivingEntity & IRavager> extends HierarchicalModel<T> {
    private final ModelPart root;
    private final ModelPart head;
    private final ModelPart mouth;
@@ -31,20 +29,29 @@ public class ModRavagerModel extends HierarchicalModel<ModRavager> {
       this.leftFrontLeg = p_170889_.getChild("left_front_leg");
    }
 
-   public static LayerDefinition createBodyLayer() {
+   public static MeshDefinition createMesh(CubeDeformation p_170682_) {
       MeshDefinition meshdefinition = new MeshDefinition();
       PartDefinition partdefinition = meshdefinition.getRoot();
-      int i = 16;
-      PartDefinition partdefinition1 = partdefinition.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(68, 73).addBox(-5.0F, -1.0F, -18.0F, 10.0F, 10.0F, 18.0F), PartPose.offset(0.0F, -7.0F, 5.5F));
-      PartDefinition partdefinition2 = partdefinition1.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -20.0F, -14.0F, 16.0F, 20.0F, 16.0F).texOffs(0, 0).addBox(-2.0F, -6.0F, -18.0F, 4.0F, 8.0F, 4.0F), PartPose.offset(0.0F, 16.0F, -17.0F));
-      partdefinition2.addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(74, 55).addBox(0.0F, -14.0F, -2.0F, 2.0F, 14.0F, 4.0F), PartPose.offsetAndRotation(-10.0F, -14.0F, -8.0F, 1.0995574F, 0.0F, 0.0F));
-      partdefinition2.addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(74, 55).mirror().addBox(0.0F, -14.0F, -2.0F, 2.0F, 14.0F, 4.0F), PartPose.offsetAndRotation(8.0F, -14.0F, -8.0F, 1.0995574F, 0.0F, 0.0F));
-      partdefinition2.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 36).addBox(-8.0F, 0.0F, -16.0F, 16.0F, 3.0F, 16.0F), PartPose.offset(0.0F, -2.0F, 2.0F));
-      partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 55).addBox(-7.0F, -10.0F, -7.0F, 14.0F, 16.0F, 20.0F).texOffs(0, 91).addBox(-6.0F, 6.0F, -7.0F, 12.0F, 13.0F, 18.0F), PartPose.offsetAndRotation(0.0F, 1.0F, 2.0F, ((float)Math.PI / 2F), 0.0F, 0.0F));
-      partdefinition.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(96, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F), PartPose.offset(-8.0F, -13.0F, 18.0F));
-      partdefinition.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(96, 0).mirror().addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F), PartPose.offset(8.0F, -13.0F, 18.0F));
-      partdefinition.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(64, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F), PartPose.offset(-8.0F, -13.0F, -5.0F));
-      partdefinition.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(64, 0).mirror().addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F), PartPose.offset(8.0F, -13.0F, -5.0F));
+      PartDefinition partdefinition1 = partdefinition.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(68, 73).addBox(-5.0F, -1.0F, -18.0F, 10.0F, 10.0F, 18.0F, p_170682_), PartPose.offset(0.0F, -7.0F, 5.5F));
+      PartDefinition partdefinition2 = partdefinition1.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -20.0F, -14.0F, 16.0F, 20.0F, 16.0F, p_170682_).texOffs(0, 0).addBox(-2.0F, -6.0F, -18.0F, 4.0F, 8.0F, 4.0F, p_170682_), PartPose.offset(0.0F, 16.0F, -17.0F));
+      partdefinition2.addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(74, 55).addBox(0.0F, -14.0F, -2.0F, 2.0F, 14.0F, 4.0F, p_170682_), PartPose.offsetAndRotation(-10.0F, -14.0F, -8.0F, 1.0995574F, 0.0F, 0.0F));
+      partdefinition2.addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(74, 55).mirror().addBox(0.0F, -14.0F, -2.0F, 2.0F, 14.0F, 4.0F, p_170682_), PartPose.offsetAndRotation(8.0F, -14.0F, -8.0F, 1.0995574F, 0.0F, 0.0F));
+      partdefinition2.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 36).addBox(-8.0F, 0.0F, -16.0F, 16.0F, 3.0F, 16.0F, p_170682_), PartPose.offset(0.0F, -2.0F, 2.0F));
+      partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 55).addBox(-7.0F, -10.0F, -7.0F, 14.0F, 16.0F, 20.0F, p_170682_).texOffs(0, 91).addBox(-6.0F, 6.0F, -7.0F, 12.0F, 13.0F, 18.0F, p_170682_), PartPose.offsetAndRotation(0.0F, 1.0F, 2.0F, ((float)Math.PI / 2F), 0.0F, 0.0F));
+      partdefinition.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(96, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F, p_170682_), PartPose.offset(-8.0F, -13.0F, 18.0F));
+      partdefinition.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(96, 0).mirror().addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F, p_170682_), PartPose.offset(8.0F, -13.0F, 18.0F));
+      partdefinition.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(64, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F, p_170682_), PartPose.offset(-8.0F, -13.0F, -5.0F));
+      partdefinition.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(64, 0).mirror().addBox(-4.0F, 0.0F, -4.0F, 8.0F, 37.0F, 8.0F, p_170682_), PartPose.offset(8.0F, -13.0F, -5.0F));
+      return meshdefinition;
+   }
+
+   public static LayerDefinition createBodyLayer() {
+      MeshDefinition meshdefinition = createMesh(new CubeDeformation(0.0F));
+      return LayerDefinition.create(meshdefinition, 128, 128);
+   }
+
+   public static LayerDefinition createArmorLayer() {
+      MeshDefinition meshdefinition = createMesh(new CubeDeformation(0.5F));
       return LayerDefinition.create(meshdefinition, 128, 128);
    }
 
@@ -52,7 +59,7 @@ public class ModRavagerModel extends HierarchicalModel<ModRavager> {
       return this.root;
    }
 
-   public void setupAnim(ModRavager p_103626_, float p_103627_, float p_103628_, float p_103629_, float p_103630_, float p_103631_) {
+   public void setupAnim(T p_103626_, float p_103627_, float p_103628_, float p_103629_, float p_103630_, float p_103631_) {
       this.head.xRot = p_103631_ * ((float)Math.PI / 180F);
       this.head.yRot = p_103630_ * ((float)Math.PI / 180F);
       float f = 0.4F * p_103628_;
@@ -62,7 +69,7 @@ public class ModRavagerModel extends HierarchicalModel<ModRavager> {
       this.leftFrontLeg.xRot = Mth.cos(p_103627_ * 0.6662F) * f;
    }
 
-   public void prepareMobModel(ModRavager p_103621_, float p_103622_, float p_103623_, float p_103624_) {
+   public void prepareMobModel(T p_103621_, float p_103622_, float p_103623_, float p_103624_) {
       super.prepareMobModel(p_103621_, p_103622_, p_103623_, p_103624_);
       int i = p_103621_.getStunnedTick();
       int j = p_103621_.getRoarTick();

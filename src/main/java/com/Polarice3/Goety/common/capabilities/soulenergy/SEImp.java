@@ -4,6 +4,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
 import java.util.*;
@@ -13,7 +14,8 @@ public class SEImp implements ISoulEnergy{
     private int soulEnergy = 0;
     private ResourceKey<Level> dimension = Level.OVERWORLD;
     private BlockPos ArcaBlock = new BlockPos(0, 0, 0);
-    private Set<UUID> grudgePlayers = new HashSet<>();
+    private Set<UUID> grudgeList = new HashSet<>();
+    private List<EntityType<?>> grudgeTypeList = new ArrayList<>();
     private List<Research> researchList = new ArrayList<>();
 
     @Override
@@ -75,18 +77,33 @@ public class SEImp implements ISoulEnergy{
     }
 
     @Override
-    public Set<UUID> grudgePlayers() {
-        return this.grudgePlayers;
+    public Set<UUID> grudgeList() {
+        return this.grudgeList;
     }
 
     @Override
-    public void addPlayerGrudge(UUID uuid) {
-        this.grudgePlayers.add(uuid);
+    public void addGrudge(UUID uuid) {
+        this.grudgeList.add(uuid);
     }
 
     @Override
-    public void removePlayerGrudge(UUID uuid) {
-        this.grudgePlayers.remove(uuid);
+    public void removeGrudge(UUID uuid) {
+        this.grudgeList.remove(uuid);
+    }
+
+    @Override
+    public List<EntityType<?>> grudgeTypeList() {
+        return this.grudgeTypeList;
+    }
+
+    @Override
+    public void addGrudgeType(EntityType<?> entityType) {
+        this.grudgeTypeList.add(entityType);
+    }
+
+    @Override
+    public void removeGrudgeType(EntityType<?> entityType) {
+        this.grudgeTypeList.remove(entityType);
     }
 
     @Override

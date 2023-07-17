@@ -92,6 +92,9 @@ public abstract class Ritual {
 
     public void finish(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
                        Player castingPlayer, ItemStack activationItem) {
+        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains("forge")){
+            world.playSound(null, darkAltarPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+        }
         world.playSound(null, darkAltarPos, ModSounds.ALTAR_FINISH.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
     }
 

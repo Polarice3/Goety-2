@@ -37,6 +37,28 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WeaknessCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherCost;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> ClimbingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PressureCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EnderGroundCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FlameHandsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VenomousHandsCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FreezingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GoldTouchedCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SappedCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SunAllergyCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TrippingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RepulsiveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PhotosynthesisCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwiftSwimCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ArrowmanticCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireTrailCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> NyctophobiaCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunAllergyCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SnowSkinCurable;
@@ -95,6 +117,50 @@ public class BrewConfig {
                 .defineInRange("weaknessCost", 25, 1, Integer.MAX_VALUE);
         WitherCost = BUILDER.comment("Wither Soul Cost, Default: 25")
                 .defineInRange("witherCost", 25, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+        BUILDER.push("Modded Soul Cost");
+        ClimbingCost = BUILDER.comment("Climbing Soul Cost, Default: 25")
+                .defineInRange("climbingCost", 25, 1, Integer.MAX_VALUE);
+        PressureCost = BUILDER.comment("Pressure Soul Cost, Default: 10")
+                .defineInRange("pressureCost", 10, 1, Integer.MAX_VALUE);
+        EnderGroundCost = BUILDER.comment("Ender Ground Soul Cost, Default: 10")
+                .defineInRange("enderGroundCost", 10, 1, Integer.MAX_VALUE);
+        FlameHandsCost = BUILDER.comment("Flame Hands Soul Cost, Default: 25")
+                .defineInRange("flameHandsCost", 25, 1, Integer.MAX_VALUE);
+        VenomousHandsCost = BUILDER.comment("Venomous Hands Soul Cost, Default: 25")
+                .defineInRange("venomousHandsCost", 25, 1, Integer.MAX_VALUE);
+        FreezingCost = BUILDER.comment("Freezing Soul Cost, Default: 25")
+                .defineInRange("freezingCost", 25, 1, Integer.MAX_VALUE);
+        GoldTouchedCost = BUILDER.comment("Gold Touched Soul Cost, Default: 10")
+                .defineInRange("goldTouchedCost", 10, 1, Integer.MAX_VALUE);
+        NyctophobiaCost = BUILDER.comment("Nyctophobia Soul Cost, Default: 50")
+                .defineInRange("nyctophobiaCost", 50, 1, Integer.MAX_VALUE);
+        SappedCost = BUILDER.comment("Sapped Soul Cost, Default: 25")
+                .defineInRange("sappedCost", 25, 1, Integer.MAX_VALUE);
+        SunAllergyCost = BUILDER.comment("Sun Allergy Soul Cost, Default: 50")
+                .defineInRange("sunAllergyCost", 50, 1, Integer.MAX_VALUE);
+        TrippingCost = BUILDER.comment("Tripping Soul Cost, Default: 25")
+                .defineInRange("trippingCost", 25, 1, Integer.MAX_VALUE);
+        RepulsiveCost = BUILDER.comment("Repulsive Soul Cost, Default: 25")
+                .defineInRange("repulsiveCost", 25, 1, Integer.MAX_VALUE);
+        PhotosynthesisCost = BUILDER.comment("Photosynthesis Soul Cost, Default: 25")
+                .defineInRange("photosynthesisCost", 25, 1, Integer.MAX_VALUE);
+        SwiftSwimCost = BUILDER.comment("Swift Swim Soul Cost, Default: 25")
+                .defineInRange("swiftSwimCost", 25, 1, Integer.MAX_VALUE);
+        ArrowmanticCost = BUILDER.comment("Arrowmantic Soul Cost, Default: 50")
+                .defineInRange("arrowmanticCost", 50, 1, Integer.MAX_VALUE);
+        FlammableCost = BUILDER.comment("Flammable Soul Cost, Default: 50")
+                .defineInRange("flammableCost", 50, 1, Integer.MAX_VALUE);
+        ExplosiveCost = BUILDER.comment("Explosive Soul Cost, Default: 50")
+                .defineInRange("explosiveCost", 50, 1, Integer.MAX_VALUE);
+        FieryAuraCost = BUILDER.comment("Fiery Aura Soul Cost, Default: 50")
+                .defineInRange("fieryAuraCost", 50, 1, Integer.MAX_VALUE);
+        FireTrailCost = BUILDER.comment("Fire Trail Soul Cost, Default: 50")
+                .defineInRange("fireTrailCost", 50, 1, Integer.MAX_VALUE);
+        PlungeCost = BUILDER.comment("Plunge Soul Cost, Default: 50")
+                .defineInRange("plungeCost", 50, 1, Integer.MAX_VALUE);
+        SaveEffectsCost = BUILDER.comment("Save Effects Soul Cost, Default: 50")
+                .defineInRange("saveEffectsCost", 50, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Curable");
         NyctophobiaCurable = BUILDER.comment("Whether Nyctophobia is curable via Milk or Wartful Egg, Default: false")

@@ -1,0 +1,24 @@
+{
+  "name": "Grimoire of Grudges",
+  "icon": "goety:grimoire_of_grudges",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sometimes, you feel like you have an intense grudge against a certain being, yet your servants won't attack them unprovoked! Fortunately, you've devised a terrible book, one that when hitting that being with it causes it to record them."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Any being recorded in this grimoire will cause all your servants to be automatically hostile towards said being. The grimoire can record multiple beings, ranging from Villagers to even beings like you! That's not all, if your grudge extends towards species, hitting the being while crouching will cause the being's species be recorded! For example, crouching and hitting a Villager with the grimoire will make all your servants hostile towards ALL Villagers."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grimoire_of_grudges",
+      "text": "Right clicking in the air shows who you're grudging against. Shift right click to see the species."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, if you're in a forgiving mood and want to erase the grudge, you can simply right click on the being you have a grudge with, or shift right click if you have a grudge against the entire species, the grudge will be erased from the grimoire. Until you hit them again."
+    }
+  ]
+}

@@ -101,6 +101,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagueSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
@@ -319,6 +320,8 @@ public class MainConfig {
                 .define("illagerSteal", true);
         IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can join Raids, Default: true")
                 .define("specialIllagerRaid", true);
+        ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
+                .define("armoredRavagerRaid", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

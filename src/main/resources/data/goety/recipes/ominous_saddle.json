@@ -18,7 +18,7 @@
       "item": "minecraft:chain"
     },
     {
-      "item": "minecraft:lapis_block"
+      "tag": "forge:storage_blocks/lapis"
     },
     {
       "item": "minecraft:chain"

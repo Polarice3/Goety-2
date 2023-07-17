@@ -2,6 +2,7 @@ package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.events.BossBarEvent;
+import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
 import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
 import com.Polarice3.Goety.client.gui.screen.inventory.DarkAnvilScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusBagScreen;
@@ -101,6 +102,7 @@ public class ClientInitEvents {
     @SubscribeEvent
     public static void registerGUI(final RegisterGuiOverlaysEvent event){
         event.registerAboveAll("soul_energy_hud", SoulEnergyGui.OVERLAY);
+        event.registerAboveAll("ravager_roar_hud", RavagerRoarGui.OVERLAY);
     }
 
     @SubscribeEvent
@@ -123,6 +125,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SKELETON_VILLAGER_SERVANT, SkeletonVillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGED, RavagedModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER, ModRavagerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
@@ -240,6 +243,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.RAVAGED.get(), RavagedRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_RAVAGER.get(), ModRavagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENVIOKER.get(), EnviokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);

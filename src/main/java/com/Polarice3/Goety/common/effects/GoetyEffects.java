@@ -67,15 +67,15 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 
+    public static final RegistryObject<MobEffect> FREEZING = EFFECTS.register("freezing",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
+
     //Brew Exclusive
     public static final RegistryObject<MobEffect> PRESSURE = EFFECTS.register("pressure",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x007200));
 
     public static final RegistryObject<MobEffect> ENDER_GROUND = EFFECTS.register("ender_ground",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x258474));
-
-    public static final RegistryObject<MobEffect> FREEZING = EFFECTS.register("freezing",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
     public static final RegistryObject<MobEffect> NYCTOPHOBIA = EFFECTS.register("nyctophobia",
             () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x0d1305, BrewConfig.NyctophobiaCurable.get()));
@@ -126,4 +126,7 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> PHOTOSYNTHESIS = EFFECTS.register("photosynthesis",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffec4f));
+
+    public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
+            () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));
 }

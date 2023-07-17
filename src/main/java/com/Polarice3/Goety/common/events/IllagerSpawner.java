@@ -259,9 +259,27 @@ public class IllagerSpawner {
             switch (r) {
                 case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 -> illager = EntityType.PILLAGER.create(worldIn);
                 case 11, 12, 13 -> illager = EntityType.VINDICATOR.create(worldIn);
-                case 14 -> illager = EntityType.RAVAGER.create(worldIn);
+                case 14 -> {
+                    if (infamy >= MainConfig.IllagerAssaultSEThreshold.get() * 3){
+                        if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
+                            illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
+                        } else {
+                            illager = EntityType.RAVAGER.create(worldIn);
+                        }
+                    } else {
+                        illager = EntityType.RAVAGER.create(worldIn);
+                    }
+                }
                 case 15 -> {
-                    illager = EntityType.RAVAGER.create(worldIn);
+                    if (infamy >= MainConfig.IllagerAssaultSEThreshold.get() * 3){
+                        if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
+                            illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
+                        } else {
+                            illager = EntityType.RAVAGER.create(worldIn);
+                        }
+                    } else {
+                        illager = EntityType.RAVAGER.create(worldIn);
+                    }
                     ++i;
                 }
             }
