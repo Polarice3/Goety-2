@@ -18,7 +18,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 
 public class WraithSpell extends SummonSpells {
 
@@ -44,11 +43,9 @@ public class WraithSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                this.enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                this.duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            this.enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            this.duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1;
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
@@ -84,9 +81,6 @@ public class WraithSpell extends SummonSpells {
             this.setTarget(worldIn, entityLiving, summonedentity);
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
-            for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-            }
             this.SummonDown(entityLiving);
 
         }
@@ -111,9 +105,6 @@ public class WraithSpell extends SummonSpells {
                     this.SummonSap(entityLiving, summonedentity);
                     this.setTarget(worldIn, entityLiving, summonedentity);
                     worldIn.addFreshEntity(summonedentity);
-                    for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                        worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-                    }
                 }
                 this.SummonDown(entityLiving);
                 worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);

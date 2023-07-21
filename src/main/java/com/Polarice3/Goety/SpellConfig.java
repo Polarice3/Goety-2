@@ -79,6 +79,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkullLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
@@ -258,6 +259,8 @@ public class SpellConfig {
                 .define("undeadMinionHeal", true);
         UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
                 .defineInRange("undeadMinionHealCost", 5, 0, Integer.MAX_VALUE);
+        UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
+                .defineInRange("undeadMinionHealTime", 1, 0, Integer.MAX_VALUE);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")

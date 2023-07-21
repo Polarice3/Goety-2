@@ -286,6 +286,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<HauntedArmorServant>> HAUNTED_ARMOR_SERVANT = register("haunted_armor_servant",
+            EntityType.Builder.of(HauntedArmorServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<HauntedSkull>> HAUNTED_SKULL = register("haunted_skull",
             EntityType.Builder.of(HauntedSkull::new, MobCategory.MONSTER)
                     .sized(0.5F, 0.5F)
@@ -310,6 +315,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<ArmoredRavager>> ARMORED_RAVAGER = register("armored_ravager",
             EntityType.Builder.of(ArmoredRavager::new, MobCategory.MONSTER)
+                    .sized(1.95F, 2.2F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<ZombieRavager>> ZOMBIE_RAVAGER = register("zombie_ravager",
+            EntityType.Builder.of(ZombieRavager::new, MobCategory.MONSTER)
                     .sized(1.95F, 2.2F)
                     .clientTrackingRange(10));
 

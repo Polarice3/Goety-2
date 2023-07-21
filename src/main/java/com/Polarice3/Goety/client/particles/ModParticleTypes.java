@@ -98,6 +98,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE = PARTICLE_TYPES.register("soul_explode",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SUMMON = PARTICLE_TYPES.register("summon",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
             () -> new SimpleParticleType(false));
 

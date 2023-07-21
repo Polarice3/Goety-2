@@ -760,6 +760,128 @@
     ],
     "subtitle": "subtitle.goety.haunted_armor_death"
   },
+  "zombie_ravager_ambient": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/idle1"
+      },
+      {
+        "name": "goety:zombie_ravager/idle2"
+      },
+      {
+        "name": "goety:zombie_ravager/idle3"
+      },
+      {
+        "name": "goety:zombie_ravager/idle4"
+      },
+      {
+        "name": "goety:zombie_ravager/idle5"
+      },
+      {
+        "name": "goety:zombie_ravager/idle6"
+      },
+      {
+        "name": "goety:zombie_ravager/idle7"
+      },
+      {
+        "name": "goety:zombie_ravager/idle8"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_ambient"
+  },
+  "zombie_ravager_hurt": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/hurt1"
+      },
+      {
+        "name": "goety:zombie_ravager/hurt2"
+      },
+      {
+        "name": "goety:zombie_ravager/hurt3"
+      },
+      {
+        "name": "goety:zombie_ravager/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_hurt"
+  },
+  "zombie_ravager_bite": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/bite1"
+      },
+      {
+        "name": "goety:zombie_ravager/bite2"
+      },
+      {
+        "name": "goety:zombie_ravager/bite3"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_bite"
+  },
+  "zombie_ravager_stun": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/stun1"
+      },
+      {
+        "name": "goety:zombie_ravager/stun2"
+      },
+      {
+        "name": "goety:zombie_ravager/stun3"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_stun"
+  },
+  "zombie_ravager_roar": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/roar1"
+      },
+      {
+        "name": "goety:zombie_ravager/roar2"
+      },
+      {
+        "name": "goety:zombie_ravager/roar3"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_roar"
+  },
+  "zombie_ravager_step": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/step1"
+      },
+      {
+        "name": "goety:zombie_ravager/step2"
+      },
+      {
+        "name": "goety:zombie_ravager/step3"
+      },
+      {
+        "name": "goety:zombie_ravager/step4"
+      },
+      {
+        "name": "goety:zombie_ravager/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_step"
+  },
+  "zombie_ravager_death": {
+    "sounds": [
+      {
+        "name": "goety:zombie_ravager/death1"
+      },
+      {
+        "name": "goety:zombie_ravager/death2"
+      },
+      {
+        "name": "goety:zombie_ravager/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.zombie_ravager_death"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -884,6 +1006,53 @@
       }
     ],
     "subtitle": "subtitle.goety.ice_chunk_hit"
+  },
+  "wall_spawn": {
+    "sounds": [
+      {
+        "name": "goety:wall/wall_spawn1"
+      },
+      {
+        "name": "goety:wall/wall_spawn2"
+      },
+      {
+        "name": "goety:wall/wall_spawn3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wall_spawn"
+  },
+  "wall_hit": {
+    "sounds": [
+      {
+        "name": "goety:wall/wall_hit1"
+      },
+      {
+        "name": "goety:wall/wall_hit2"
+      }
+    ],
+    "subtitle": "subtitle.goety.wall_hit"
+  },
+  "wall_erupt": {
+    "sounds": [
+      {
+        "name": "goety:wall/wall_erupt1"
+      },
+      {
+        "name": "goety:wall/wall_erupt2"
+      },
+      {
+        "name": "goety:wall/wall_erupt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wall_erupt"
+  },
+  "wall_disappear": {
+    "sounds": [
+      {
+        "name": "goety:wall/wall_disappear"
+      }
+    ],
+    "subtitle": "subtitle.goety.wall_disappear"
   },
   "roar_spell": {
     "sounds": [

@@ -51,11 +51,9 @@ public class VexSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1;
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {

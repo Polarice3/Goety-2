@@ -9,7 +9,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:lightning_focus"
+      "recipe": "goety:focus/lightning_focus"
     }
   ]
 }

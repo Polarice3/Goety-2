@@ -22,7 +22,7 @@ public class WandUtil {
         return itemStack.getItem() instanceof DarkWand;
     }
 
-    public static ItemStack findWand(Player playerEntity) {
+    public static ItemStack findWand(LivingEntity playerEntity) {
         ItemStack foundStack = ItemStack.EMPTY;
         if (isMatchingItem(playerEntity.getMainHandItem())){
             foundStack = playerEntity.getMainHandItem();
@@ -33,7 +33,7 @@ public class WandUtil {
         return foundStack;
     }
 
-    public static ItemStack findFocus(Player playerEntity){
+    public static ItemStack findFocus(LivingEntity playerEntity){
         ItemStack foundStack = ItemStack.EMPTY;
         if (!findWand(playerEntity).isEmpty()){
             if (!DarkWand.getFocus(findWand(playerEntity)).isEmpty()) {
@@ -44,11 +44,11 @@ public class WandUtil {
         return foundStack;
     }
 
-    public static boolean enchantedFocus(Player playerEntity){
+    public static boolean enchantedFocus(LivingEntity playerEntity){
         return !findFocus(playerEntity).isEmpty() && findFocus(playerEntity).isEnchanted();
     }
 
-    public static int getLevels(Enchantment enchantment, Player playerEntity){
+    public static int getLevels(Enchantment enchantment, LivingEntity playerEntity){
         if (enchantedFocus(playerEntity)) {
             return findFocus(playerEntity).getEnchantmentLevel(enchantment);
         } else {

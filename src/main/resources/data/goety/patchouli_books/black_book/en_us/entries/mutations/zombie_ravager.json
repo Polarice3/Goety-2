@@ -1,0 +1,17 @@
+{
+  "name": "Zombie Ravager",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You know what's better than a regular Ravager? An Undead one! Well, kinda. Much like most Undead, the Zombie Ravager would burn in sunlight, and can't swim in water. The Zombie Ravager is also slower than its living counter part, but has a tiny boost in Armor points. Overall, a perfect mount for a Necromancer or for someone who hates sunlight and love rotting corpses."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_zombify_ravager"
+    }
+  ]
+}

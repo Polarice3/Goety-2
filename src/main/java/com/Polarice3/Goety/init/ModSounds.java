@@ -76,6 +76,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HAUNTED_ARMOR_STEP = create("haunted_armor_step");
     public static final RegistryObject<SoundEvent> HAUNTED_ARMOR_DEATH = create("haunted_armor_death");
 
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_AMBIENT = create("zombie_ravager_ambient");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_HURT = create("zombie_ravager_hurt");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_BITE = create("zombie_ravager_bite");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STUN = create("zombie_ravager_stun");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_ROAR = create("zombie_ravager_roar");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
+    public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
+
     public static final RegistryObject<SoundEvent> VIZIER_AMBIENT = create("vizier_ambient");
     public static final RegistryObject<SoundEvent> VIZIER_HURT = create("vizier_hurt");
     public static final RegistryObject<SoundEvent> VIZIER_CONFUSE = create("vizier_confuse");
@@ -87,6 +95,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ICE_CHUNK_IDLE = create("ice_chunk_idle");
     public static final RegistryObject<SoundEvent> ICE_CHUNK_SUMMON = create("ice_chunk_summon");
     public static final RegistryObject<SoundEvent> ICE_CHUNK_HIT = create("ice_chunk_hit");
+
+    public static final RegistryObject<SoundEvent> WALL_SPAWN = create("wall_spawn");
+    public static final RegistryObject<SoundEvent> WALL_HIT = create("wall_hit");
+    public static final RegistryObject<SoundEvent> WALL_ERUPT = create("wall_erupt");
+    public static final RegistryObject<SoundEvent> WALL_DISAPPEAR = create("wall_disappear");
 
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");

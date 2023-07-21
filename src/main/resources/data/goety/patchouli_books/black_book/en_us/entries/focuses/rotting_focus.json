@@ -9,7 +9,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:rotting_focus"
+      "recipe": "goety:focus/rotting_focus"
     }
   ]
 }

@@ -79,7 +79,11 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public boolean isEmerging() {
-        return this.getAge() < getEmergingTime();
+        return this.getAge() < getEmergingTime() && !this.isActivate();
+    }
+
+    public boolean isDescending(){
+        return this.getAge() > 0 && this.isActivate();
     }
 
     public boolean canBeCollidedWith() {
@@ -101,6 +105,10 @@ public abstract class AbstractMonolith extends Owned{
     public void move(MoverType p_213315_1_, Vec3 p_213315_2_) {
     }
 
+    public int getAgeSpeed(){
+        return 1;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isNoGravity()) {
@@ -108,7 +116,7 @@ public abstract class AbstractMonolith extends Owned{
         }
         if (this.isEmerging()){
             if (!this.level.isClientSide) {
-                this.setAge(this.getAge() + 1);
+                this.setAge(this.getAge() + this.getAgeSpeed());
                 this.level.broadcastEntityEvent(this, (byte) 4);
             }
         }
@@ -116,7 +124,7 @@ public abstract class AbstractMonolith extends Owned{
 
     public void handleEntityEvent(byte pId) {
         if (pId == 4){
-            this.setAge(this.getAge() + 1);
+            this.setAge(this.getAge() + this.getAgeSpeed());
         } else {
             super.handleEntityEvent(pId);
         }

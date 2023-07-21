@@ -44,7 +44,6 @@ public class FeastSpell extends ChargingSpells {
         for(int i1 = 0; i1 < entityLiving.level.random.nextInt(35) + 10; ++i1) {
             worldIn.sendParticles(ParticleTypes.POOF, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
         }
-//        this.IncreaseInfamy(SpellConfig.FeastInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -68,7 +67,6 @@ public class FeastSpell extends ChargingSpells {
         for(int i1 = 0; i1 < entityLiving.level.random.nextInt(35) + 10; ++i1) {
             worldIn.sendParticles(ParticleTypes.POOF, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
         }
-//        this.IncreaseInfamy(SpellConfig.FeastInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
 }

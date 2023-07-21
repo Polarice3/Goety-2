@@ -604,6 +604,11 @@ public class MobUtil {
      */
     @Nullable
     public static Entity convertTo(Entity originalEntity, EntityType<?> convertedType, boolean loot, Player player) {
+        return convertTo(originalEntity, convertedType, loot, false, player);
+    }
+
+    @Nullable
+    public static Entity convertTo(Entity originalEntity, EntityType<?> convertedType, boolean loot, boolean newEquip, Player player) {
         if (originalEntity.isRemoved()) {
             return null;
         } else {
@@ -649,6 +654,8 @@ public class MobUtil {
                             if (!originalMob.isSilent()) {
                                 serverLevel.levelEvent((Player)null, 1026, originalMob.blockPosition(), 0);
                             }
+                        } else if (newEquip && newMob instanceof Owned owned){
+                            owned.convertNewEquipment(originalEntity);
                         }
                     }
 
@@ -747,5 +754,28 @@ public class MobUtil {
         float f = livingEntity.getLightLevelDependentMagicValue();
         BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
         return f > 0.5F && livingEntity.level.canSeeSky(blockpos);
+    }
+
+
+    /**
+     * Mind Bending, lol.
+     */
+    public static boolean ownerStack(Owned owned0, Owned owned1){
+        LivingEntity masterOwner0 = owned0.getMasterOwner();
+        LivingEntity masterOwner1 = owned1.getMasterOwner();
+        LivingEntity trueOwner0 = owned0.getTrueOwner();
+        LivingEntity trueOwner1 = owned1.getTrueOwner();
+        if (trueOwner0 != null && trueOwner1 != null){
+            if (masterOwner0 != null && masterOwner1 != null){
+                return masterOwner0 == masterOwner1;
+            } else if (masterOwner0 != null){
+                return masterOwner0 == trueOwner1;
+            } else if (masterOwner1 != null){
+                return masterOwner1 == trueOwner0;
+            } else {
+                return trueOwner0 == trueOwner1;
+            }
+        }
+        return false;
     }
 }

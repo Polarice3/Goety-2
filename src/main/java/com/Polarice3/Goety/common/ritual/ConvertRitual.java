@@ -16,10 +16,12 @@ import net.minecraft.world.level.Level;
 
 public class ConvertRitual extends Ritual {
     private final boolean tame;
+    private final boolean newEquip;
 
-    public ConvertRitual(RitualRecipe recipe, boolean tame) {
+    public ConvertRitual(RitualRecipe recipe, boolean tame, boolean newEquip) {
         super(recipe);
         this.tame = tame;
+        this.newEquip = newEquip;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class ConvertRitual extends Ritual {
 
         EntityType<?> entityType = this.recipe.getEntityToConvertInto();
         if (entityType != null && tileEntity.getConvertEntity != null) {
-            Entity entity = MobUtil.convertTo(tileEntity.getConvertEntity, entityType, true, this.tame ? castingPlayer : null);
+            Entity entity = MobUtil.convertTo(tileEntity.getConvertEntity, entityType, true, this.newEquip, this.tame ? castingPlayer : null);
             if (entity instanceof Mob mob){
                 mob.spawnAnim();
             }

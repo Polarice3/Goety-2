@@ -10,7 +10,7 @@ public class SoulExplodeParticle extends TextureSheetParticle {
         this.gravity = -0.25F;
         this.friction = 0.85F;
         this.setSize(0.02F, 0.02F);
-        this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
+        this.quadSize *= this.random.nextFloat() * 1.2F + 0.2F;
         this.xd = p_105737_ * (double)0.2F + (Math.random() * 2.0D - 1.0D) * (double)0.02F;
         this.yd = p_105738_ * (double)0.2F + (Math.random() * 2.0D - 1.0D) * (double)0.02F;
         this.zd = p_105739_ * (double)0.2F + (Math.random() * 2.0D - 1.0D) * (double)0.02F;
@@ -35,6 +35,21 @@ public class SoulExplodeParticle extends TextureSheetParticle {
         public Particle createParticle(SimpleParticleType p_105764_, ClientLevel p_105765_, double p_105766_, double p_105767_, double p_105768_, double p_105769_, double p_105770_, double p_105771_) {
             SoulExplodeParticle bubblecolumnupparticle = new SoulExplodeParticle(p_105765_, p_105766_, p_105767_, p_105768_, p_105769_, p_105770_, p_105771_);
             bubblecolumnupparticle.pickSprite(this.sprite);
+            return bubblecolumnupparticle;
+        }
+    }
+
+    public static class SummonProvider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public SummonProvider(SpriteSet p_105753_) {
+            this.sprite = p_105753_;
+        }
+
+        public Particle createParticle(SimpleParticleType p_105764_, ClientLevel p_105765_, double p_105766_, double p_105767_, double p_105768_, double p_105769_, double p_105770_, double p_105771_) {
+            SoulExplodeParticle bubblecolumnupparticle = new SoulExplodeParticle(p_105765_, p_105766_, p_105767_, p_105768_, p_105769_, p_105770_, p_105771_);
+            bubblecolumnupparticle.pickSprite(this.sprite);
+            bubblecolumnupparticle.scale(0.5F);
             return bubblecolumnupparticle;
         }
     }

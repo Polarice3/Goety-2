@@ -49,6 +49,9 @@ public class IceSpike extends AbstractArrow {
 
     public void tick() {
         super.tick();
+        if (this.isInLava()){
+            this.discard();
+        }
         if (!this.inGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double d3 = vector3d.x;
@@ -67,12 +70,10 @@ public class IceSpike extends AbstractArrow {
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
-            if (entity1 instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                }
-            }
             if (entity1 instanceof LivingEntity livingentity) {
+                if (WandUtil.enchantedFocus(livingentity)){
+                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
+                }
                 flag = entity.hurt(ModDamageSource.indirectFreeze(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {

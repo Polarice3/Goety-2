@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class RavagedRenderer extends MobRenderer<Ravaged, RavagedModel<Ravaged>> {
-   private static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/ravaged.png");
+   private static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/ravager/ravaged.png");
 
    public RavagedRenderer(EntityRendererProvider.Context p_174443_) {
       super(p_174443_, new RavagedModel<>(p_174443_.bakeLayer(ModModelLayer.RAVAGED)), 1.0F);

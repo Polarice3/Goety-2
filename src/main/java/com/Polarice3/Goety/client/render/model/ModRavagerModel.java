@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -71,11 +72,18 @@ public class ModRavagerModel<T extends LivingEntity & IRavager> extends Hierarch
 
    public void prepareMobModel(T p_103621_, float p_103622_, float p_103623_, float p_103624_) {
       super.prepareMobModel(p_103621_, p_103622_, p_103623_, p_103624_);
-      int i = p_103621_.getStunnedTick();
-      int j = p_103621_.getRoarTick();
-      int k = 20;
-      int l = p_103621_.getAttackTick();
-      int i1 = 10;
+      int i;
+      int j;
+      int l;
+      if (p_103621_ instanceof ArmoredRavager ravager){
+         i = ravager.getStunnedTick();
+         j = ravager.getRoarTick();
+         l = ravager.getAttackTick();
+      } else {
+         i = p_103621_.getStunnedTick();
+         j = p_103621_.getRoarTick();
+         l = p_103621_.getAttackTick();
+      }
       if (l > 0) {
          float f = Mth.triangleWave((float)l - p_103624_, 10.0F);
          float f1 = (1.0F + f) * 0.5F;
@@ -91,7 +99,6 @@ public class ModRavagerModel<T extends LivingEntity & IRavager> extends Hierarch
             this.mouth.xRot = 0.15707964F * Mth.sin((float)Math.PI * ((float)l - p_103624_) / 10.0F);
          }
       } else {
-         float f5 = -1.0F;
          float f6 = -1.0F * Mth.sin(this.neck.xRot);
          this.neck.x = 0.0F;
          this.neck.y = -7.0F - f6;

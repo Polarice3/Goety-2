@@ -9,7 +9,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:vexing_focus"
+      "recipe": "goety:focus/vexing_focus"
     }
   ]
 }

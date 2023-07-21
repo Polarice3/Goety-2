@@ -86,7 +86,6 @@ public class IllusionSpell extends Spells {
         for(int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
             worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
         }
-//        this.IncreaseInfamy(SpellConfig.IllusionInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
@@ -135,7 +134,6 @@ public class IllusionSpell extends Spells {
         for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
             worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
         }
-//        this.IncreaseInfamy(SpellConfig.IllusionInfamyChance.get(), (PlayerEntity) entityLiving);
     }
 
 }

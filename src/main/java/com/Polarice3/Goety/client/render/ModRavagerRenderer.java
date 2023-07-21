@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Mob;
 
 public class ModRavagerRenderer<T extends Mob & IRavager> extends MobRenderer<T, ModRavagerModel<T>> {
    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/illager/ravager.png");
-   private static final ResourceLocation UNARMORED_LOCATION = Goety.location("textures/entity/servants/unarmored_ravager.png");
+   private static final ResourceLocation UNARMORED_LOCATION = Goety.location("textures/entity/servants/ravager/unarmored_ravager.png");
 
    public ModRavagerRenderer(EntityRendererProvider.Context p_174362_) {
       super(p_174362_, new ModRavagerModel<>(p_174362_.bakeLayer(ModModelLayer.RAVAGER)), 1.1F);

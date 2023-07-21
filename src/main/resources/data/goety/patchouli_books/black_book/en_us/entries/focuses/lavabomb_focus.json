@@ -10,7 +10,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:lavaball_focus"
+      "recipe": "goety:focus/lavaball_focus"
     }
   ]
 }

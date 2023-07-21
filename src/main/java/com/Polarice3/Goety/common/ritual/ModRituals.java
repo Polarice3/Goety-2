@@ -29,11 +29,15 @@ public class ModRituals {
 
     public static final RegistryObject<ModRitualFactory> CONVERT_RITUAL =
             RITUALS.register("convert",
-                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, false)));
+                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, false, false)));
 
     public static final RegistryObject<ModRitualFactory> CONVERT_TAMED_RITUAL =
             RITUALS.register("convert_tamed",
-                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, true)));
+                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, true, false)));
+
+    public static final RegistryObject<ModRitualFactory> CONVERT_COMPLETE_TAMED_RITUAL =
+            RITUALS.register("convert_complete_tamed",
+                    () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, true, true)));
 
 }
 /*

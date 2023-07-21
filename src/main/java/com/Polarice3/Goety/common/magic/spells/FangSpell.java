@@ -38,8 +38,8 @@ public class FangSpell extends Spells {
         Player playerEntity = (Player) entityLiving;
         int range = 16;
         double radius = 2.0D;
-        if (WandUtil.enchantedFocus(playerEntity)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), playerEntity);
+        if (WandUtil.enchantedFocus(entityLiving)){
+            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, playerEntity, range, radius);
         Vec3 vector3d = rayTraceResult.getLocation();
@@ -75,8 +75,8 @@ public class FangSpell extends Spells {
         Player playerEntity = (Player) entityLiving;
         int range = 16;
         double radius = 2.0D;
-        if (WandUtil.enchantedFocus(playerEntity)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), playerEntity);
+        if (WandUtil.enchantedFocus(entityLiving)){
+            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, playerEntity, range, radius);
         Vec3 vector3d = rayTraceResult.getLocation();

@@ -5,8 +5,8 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.*;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
@@ -23,13 +23,30 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ArmoredRavager extends Ravager implements ContainerListener, IRavager {
+public class ArmoredRavager extends Ravager implements IRavager {
     private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("d404309f-25d3-4837-8828-e2b7b0ea79fd");
-    protected SimpleContainer inventory;
     
     public ArmoredRavager(EntityType<? extends Ravager> p_33325_, Level p_33326_) {
         super(p_33325_, p_33326_);
-        this.createInventory();
+        this.xpReward = 40;
+    }
+
+    public void addAdditionalSaveData(CompoundTag p_33353_) {
+        super.addAdditionalSaveData(p_33353_);
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+        if(!itemStack.isEmpty()) {
+            CompoundTag compoundTag = new CompoundTag();
+            itemStack.save(compoundTag);
+            p_33353_.put("ArmorItem", compoundTag);
+        }
+    }
+
+    public void readAdditionalSaveData(CompoundTag p_33344_) {
+        super.readAdditionalSaveData(p_33344_);
+        CompoundTag armorItem = p_33344_.getCompound("ArmorItem");
+        if(!armorItem.isEmpty()) {
+            this.setArmorEquipment(ItemStack.of(armorItem));
+        }
     }
 
     @Override
@@ -40,75 +57,50 @@ public class ArmoredRavager extends Ravager implements ContainerListener, IRavag
         }
     }
 
-    public ItemStack getArmorSlot(){
-        return this.inventory.getItem(0);
-    }
-
-    public void setArmorSlot(ItemStack itemStack){
-        this.inventory.setItem(0, itemStack);
-    }
-
-    protected void createInventory() {
-        SimpleContainer simplecontainer = this.inventory;
-        this.inventory = new SimpleContainer(1);
-        if (simplecontainer != null) {
-            simplecontainer.removeListener(this);
-            ItemStack itemstack = simplecontainer.getItem(0);
-            if (!itemstack.isEmpty()) {
-                this.inventory.setItem(0, itemstack.copy());
-            }
-        }
-
-        this.inventory.addListener(this);
-        this.updateContainerEquipment();
-        this.itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this.inventory));
-    }
-
-    protected void updateContainerEquipment() {
-        if (!this.level.isClientSide) {
-            this.setArmorEquipment(this.getArmorSlot());
-            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
-        }
-    }
-
-    public void containerChanged(Container p_30696_) {
-        ItemStack itemstack = this.getArmor();
-        this.updateContainerEquipment();
-        ItemStack itemstack1 = this.getArmor();
-        if (this.tickCount > 20 && this.isArmor(itemstack1) && itemstack != itemstack1) {
-            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
-        }
-
-    }
-
     public ItemStack getArmor() {
         return this.getItemBySlot(EquipmentSlot.CHEST);
     }
 
-    private void setArmor(ItemStack p_30733_) {
+    public void setArmor(ItemStack p_30733_) {
         this.setItemSlot(EquipmentSlot.CHEST, p_30733_);
         this.setDropChance(EquipmentSlot.CHEST, 0.0F);
     }
 
-    private void setArmorEquipment(ItemStack p_30735_) {
-        this.setArmor(p_30735_);
+    public void setArmorEquipment(ItemStack armor) {
         if (!this.level.isClientSide) {
-            AttributeInstance attribute = this.getAttribute(Attributes.ARMOR);
-            if (attribute != null) {
-                attribute.removeModifier(ARMOR_MODIFIER_UUID);
-                if (this.isArmor(p_30735_)) {
-                    int i = ((RavagerArmorItem) p_30735_.getItem()).getProtection();
-                    if (i != 0) {
-                        attribute.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Ravager armor bonus", (double) i, AttributeModifier.Operation.ADDITION));
-                    }
+            this.setItemSlot(EquipmentSlot.CHEST, armor);
+            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+            this.updateArmor();
+        }
+    }
+
+    public void updateArmor(){
+        AttributeInstance attribute = this.getAttribute(Attributes.ARMOR);
+        if (attribute != null) {
+            attribute.removeModifier(ARMOR_MODIFIER_UUID);
+            if (this.isArmor(this.getArmor())) {
+                int i = ((RavagerArmorItem) this.getArmor().getItem()).getProtection();
+                if (i != 0) {
+                    attribute.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Ravager armor bonus", (double) i, AttributeModifier.Operation.ADDITION));
                 }
             }
         }
-
     }
 
     public boolean isArmor(ItemStack p_30731_) {
         return p_30731_.getItem() instanceof RavagerArmorItem;
+    }
+
+    public int getAttackTick() {
+        return super.getAttackTick();
+    }
+
+    public int getStunnedTick() {
+        return super.getStunnedTick();
+    }
+
+    public int getRoarTick() {
+        return super.getRoarTick();
     }
 
     @Nullable
@@ -130,7 +122,7 @@ public class ArmoredRavager extends Ravager implements ContainerListener, IRavag
 
         Item item = ArmoredRavager.getEquipmentForSlot(i);
         if (item != null) {
-            this.setArmorSlot(new ItemStack(item));
+            this.setArmorEquipment(new ItemStack(item));
         }
         return pSpawnData;
     }
@@ -150,24 +142,5 @@ public class ArmoredRavager extends Ravager implements ContainerListener, IRavag
             return ModItems.DIAMOND_RAVAGER_ARMOR.get();
         }
         return null;
-    }
-
-    private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
-
-    @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.core.Direction facing) {
-        if (this.isAlive() && capability == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER && itemHandler != null)
-            return itemHandler.cast();
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        if (itemHandler != null) {
-            net.minecraftforge.common.util.LazyOptional<?> oldHandler = itemHandler;
-            itemHandler = null;
-            oldHandler.invalidate();
-        }
     }
 }

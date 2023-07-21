@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.curios.RingItem;
@@ -82,12 +83,14 @@ public class CuriosFinder {
 
     public static boolean hasUndeadCrown(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CROWN.get())
-                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get());
+                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get())
+                || livingEntity instanceof AbstractNecromancer;
     }
 
     public static boolean hasUndeadCape(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CAPE.get())
-                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get());
+                || CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get())
+                || livingEntity instanceof AbstractNecromancer;
     }
 
     public static boolean hasUndeadSet(LivingEntity livingEntity){

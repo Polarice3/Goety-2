@@ -355,7 +355,7 @@ public class SkullLord extends Monster implements ICustomAttributes{
                     this.spawnMobs();
                 }
             }
-            if (this.getBoneLord() == null){
+            if (this.getBoneLord() == null || (this.getBoneLord() != null && this.getBoneLord().isDeadOrDying())){
                 if (!this.isLaserTime()){
                     --this.boneLordRegen;
                 }

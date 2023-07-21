@@ -13,7 +13,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -40,11 +39,9 @@ public class LightningSpell extends Spells {
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){
         double radius = 2.0D;
         float damage = SpellConfig.LightningDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        if (entityLiving instanceof Player playerEntity) {
-            if (WandUtil.enchantedFocus(playerEntity)) {
-                range += WandUtil.getLevels(ModEnchantments.RANGE.get(), playerEntity);
-                damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), playerEntity);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
+            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, radius);
         if (rayTraceResult instanceof EntityHitResult){

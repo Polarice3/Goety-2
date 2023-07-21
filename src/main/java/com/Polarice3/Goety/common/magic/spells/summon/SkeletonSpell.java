@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.StrayServant;
 import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -45,12 +46,9 @@ public class SkeletonSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player){
-            Player player = (Player) entityLiving;
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1;
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
@@ -86,10 +84,7 @@ public class SkeletonSpell extends SummonSpells {
             this.SummonSap(entityLiving, summonedentity);
             this.setTarget(worldIn, entityLiving, summonedentity);
             worldIn.addFreshEntity(summonedentity);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
-            for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-            }
+            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
             this.SummonDown(entityLiving);
 
         }
@@ -115,12 +110,9 @@ public class SkeletonSpell extends SummonSpells {
                 this.SummonSap(entityLiving, summonedentity);
                 this.setTarget(worldIn, entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
-                for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                    worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-                }
             }
             this.SummonDown(entityLiving);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
         }
     }
 }

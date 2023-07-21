@@ -6,6 +6,8 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -50,12 +51,10 @@ public class SoulBolt extends AbstractHurtingProjectile {
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
-            if (entity1 instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                }
-            }
             if (entity1 instanceof LivingEntity livingentity) {
+                if (WandUtil.enchantedFocus(livingentity)){
+                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
+                }
                 flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
@@ -98,6 +97,9 @@ public class SoulBolt extends AbstractHurtingProjectile {
     public void tick() {
         super.tick();
         Entity entity = this.getOwner();
+        if (this.tickCount >= MathHelper.secondsToTicks(10)){
+            this.discard();
+        }
         if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() - vec3.x;
@@ -110,8 +112,8 @@ public class SoulBolt extends AbstractHurtingProjectile {
     protected boolean canHitEntity(Entity pEntity) {
         if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
             return false;
-        } else if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
-            return false;
+        } else if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+            return !MobUtil.ownerStack(owned0, owned1);
         } else {
             return super.canHitEntity(pEntity);
         }

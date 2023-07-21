@@ -4,12 +4,12 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -24,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,7 +34,11 @@ import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
@@ -193,10 +198,79 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
         Vec3 vector3d = this.getViewVector( 1.0F);
         SoulBolt soulBolt = new SoulBolt(this, vector3d.x, vector3d.y, vector3d.z, this.level);
+        soulBolt.setYRot(this.getYRot());
+        soulBolt.setXRot(this.getXRot());
         soulBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
         if (this.level.addFreshEntity(soulBolt)){
             this.playSound(ModSounds.CAST_SPELL.get());
             this.swing(InteractionHand.MAIN_HAND);
+        }
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
+        if (!this.level.isClientSide) {
+            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+            Item item = itemstack.getItem();
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner() && !pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()) {
+                if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.playSound(ModSounds.NECROMANCER_STEP.get(), 1.0F, 1.25F);
+                    this.heal(2.0F);
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    return InteractionResult.CONSUME;
+                }
+                if (item instanceof ArmorItem) {
+                    ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
+                    ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
+                    ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
+                    ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
+                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                    if (((ArmorItem) item).getSlot() == EquipmentSlot.HEAD) {
+                        this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
+                        this.setGuaranteedDrop(EquipmentSlot.HEAD);
+                        this.spawnAtLocation(helmet);
+                    }
+                    if (((ArmorItem) item).getSlot() == EquipmentSlot.CHEST) {
+                        this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
+                        this.setGuaranteedDrop(EquipmentSlot.CHEST);
+                        this.spawnAtLocation(chestplate);
+                    }
+                    if (((ArmorItem) item).getSlot() == EquipmentSlot.LEGS) {
+                        this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
+                        this.setGuaranteedDrop(EquipmentSlot.LEGS);
+                        this.spawnAtLocation(legging);
+                    }
+                    if (((ArmorItem) item).getSlot() == EquipmentSlot.FEET) {
+                        this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
+                        this.setGuaranteedDrop(EquipmentSlot.FEET);
+                        this.spawnAtLocation(boots);
+                    }
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    EntityFinder.sendEntityUpdatePacket(pPlayer, this);
+                    return InteractionResult.CONSUME;
+                } else {
+                    return InteractionResult.PASS;
+                }
+            } else {
+                return InteractionResult.PASS;
+            }
+        } else {
+            return InteractionResult.PASS;
         }
     }
 
@@ -223,12 +297,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             if (AbstractNecromancer.this.getTarget() != null) {
                 AbstractNecromancer.this.getLookControl().setLookAt(AbstractNecromancer.this.getTarget(), (float) AbstractNecromancer.this.getMaxHeadYRot(), (float) AbstractNecromancer.this.getMaxHeadXRot());
             }
-
         }
     }
 
     public abstract class UseSpellGoal extends Goal {
-        protected int spellWarmup;
+        protected int spellTime;
 
         protected UseSpellGoal() {
         }
@@ -248,15 +321,14 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         public boolean canContinueToUse() {
             LivingEntity livingentity = AbstractNecromancer.this.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.spellWarmup > 0;
+            return livingentity != null && livingentity.isAlive() && this.spellTime > 0;
         }
 
         public void start() {
-            this.spellWarmup = this.getCastWarmupTime();
+            this.spellTime = this.getCastingTime();
             AbstractNecromancer.this.setSpellCooldown(this.getCastingInterval());
-            SoundEvent soundevent = this.getSpellPrepareSound();
-            if (soundevent != null) {
-                AbstractNecromancer.this.playSound(soundevent, 1.0F, 1.0F);
+            if (this.getSpellPrepareSound() != null) {
+                AbstractNecromancer.this.playSound(this.getSpellPrepareSound(), 1.0F, 1.0F);
             }
             AbstractNecromancer.this.setSpellCasting(true);
             AbstractNecromancer.this.setSpellType(this.getSpellType());
@@ -269,29 +341,31 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
 
         public void tick() {
-            --this.spellWarmup;
-            if (this.spellWarmup == 0) {
+            --this.spellTime;
+            if (this.spellTime == 0) {
+                if (this.getCastSound() != null) {
+                    AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
+                }
+                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 1.0F);
                 this.castSpell();
                 AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
-                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 1.0F);
-                AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
             }
-
         }
 
         protected abstract void castSpell();
 
-        protected int getCastWarmupTime() {
+        protected int getCastingTime() {
             return 10;
         }
 
         protected int getCastingInterval(){
-            return 120;
+            return 100;
         };
 
         @Nullable
         protected abstract SoundEvent getSpellPrepareSound();
 
+        @Nullable
         protected SoundEvent getCastSound(){
             return ModSounds.SUMMON_SPELL.get();
         }
@@ -303,31 +377,64 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         public boolean canUse() {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
-            int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(16.0D)
+            int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
             , predicate).size();
-            return super.canUse() && i < 4;
+            return super.canUse() && i < 7;
         }
 
         protected void castSpell(){
             if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
-                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 1.0F);
-                for (int i1 = 0; i1 < 2 + serverLevel.random.nextInt(4); ++i1) {
-                    Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+                int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
+                        , predicate).size();
+                for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(7 - i); ++i1) {
+                    ZombieServant summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
                     BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
                     summonedentity.setOwnerId(AbstractNecromancer.this.getUUID());
-                    summonedentity.moveTo(blockPos, 0.0F, 0.0F);
+                    summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
                     summonedentity.setPersistenceRequired();
                     summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
                     if (serverLevel.addFreshEntity(summonedentity)){
                         summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
-                        for (int i = 0; i < serverLevel.random.nextInt(35) + 10; ++i) {
-                            serverLevel.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
+                    }
+                }
+            }
+        }
+
+        protected void populateDefaultEquipmentSlots(LivingEntity livingEntity, RandomSource p_217055_) {
+            if (p_217055_.nextFloat() <= 0.15F) {
+                int i = p_217055_.nextInt(2) + 2;
+                if (p_217055_.nextFloat() < 0.095F) {
+                    ++i;
+                }
+
+                boolean flag = true;
+
+                for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                    if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
+                        ItemStack itemstack = livingEntity.getItemBySlot(equipmentslot);
+                        if (!flag && p_217055_.nextFloat() < 0.1F) {
+                            break;
+                        }
+
+                        flag = false;
+                        if (itemstack.isEmpty()) {
+                            Item item = getEquipmentForSlot(equipmentslot, i);
+                            if (item != null) {
+                                livingEntity.setItemSlot(equipmentslot, new ItemStack(item));
+                            }
                         }
                     }
                 }
             }
+
+        }
+
+        protected SoundEvent getCastSound(){
+            return null;
         }
 
         @Nullable

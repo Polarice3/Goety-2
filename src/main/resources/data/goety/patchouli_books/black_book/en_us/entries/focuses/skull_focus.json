@@ -9,7 +9,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:skull_focus"
+      "recipe": "goety:focus/skull_focus"
     }
   ]
 }

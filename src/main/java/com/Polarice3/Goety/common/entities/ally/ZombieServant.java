@@ -215,6 +215,8 @@ public class ZombieServant extends Summoned{
                 this.armorDropChances[EquipmentSlot.HEAD.getIndex()] = 0.0F;
             }
         }
+        this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
+        this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         this.handleAttributes(f);
         return spawnDataIn;
     }
@@ -231,8 +233,7 @@ public class ZombieServant extends Summoned{
     public boolean wasKilled(ServerLevel world, LivingEntity killedEntity) {
         boolean flag = super.wasKilled(world, killedEntity);
         float random = this.level.random.nextFloat();
-        if (this.isUpgraded() && killedEntity instanceof Zombie && random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_SERVANT.get(), (timer) -> {})) {
-            Zombie zombieEntity = (Zombie)killedEntity;
+        if (this.isUpgraded() && killedEntity instanceof Zombie zombieEntity && random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_SERVANT.get(), (timer) -> {})) {
             EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_SERVANT.get();
             if (zombieEntity instanceof Husk){
                 entityType = ModEntityType.HUSK_SERVANT.get();

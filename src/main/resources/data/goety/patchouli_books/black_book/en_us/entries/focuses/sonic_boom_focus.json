@@ -11,7 +11,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:sonic_boom_focus"
+      "recipe": "goety:focus/sonic_boom_focus"
     }
   ]
 }

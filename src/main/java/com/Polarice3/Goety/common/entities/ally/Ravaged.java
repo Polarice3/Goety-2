@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -48,8 +47,6 @@ public class Ravaged extends Summoned {
     private static final AttributeModifier SPEED_BOOST = new AttributeModifier(SPEED_BOOST_UUID, "Aggressive speed boost", 0.5D, AttributeModifier.Operation.MULTIPLY_BASE);
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(Ravaged.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_CONVERSION_ID = SynchedEntityData.defineId(Ravaged.class, EntityDataSerializers.BOOLEAN);
-    private boolean canHunger;
-    private int hungerTick = 0;
     private int bitingTick;
     private int excessFood = 0;
     private int conversionTime;
@@ -95,7 +92,6 @@ public class Ravaged extends Summoned {
 
     public void setRavagedSize(int p_33109_) {
         this.entityData.set(ID_SIZE, Mth.clamp(p_33109_, 0, 64));
-        this.hungerTick = 0;
         this.excessFood = 0;
     }
 
@@ -119,23 +115,19 @@ public class Ravaged extends Summoned {
     public void addAdditionalSaveData(CompoundTag p_33353_) {
         super.addAdditionalSaveData(p_33353_);
         p_33353_.putInt("BitingTick", this.bitingTick);
-        p_33353_.putInt("HungerTick", this.hungerTick);
         p_33353_.putInt("ExcessFood", this.excessFood);
         p_33353_.putInt("ConversionTime", this.isConverting() ? this.conversionTime : -1);
         p_33353_.putInt("Size", this.getRavagedSize());
-        p_33353_.putBoolean("CanHunger", this.canHunger);
     }
 
     public void readAdditionalSaveData(CompoundTag p_33344_) {
         super.readAdditionalSaveData(p_33344_);
         this.bitingTick = p_33344_.getInt("BitingTick");
-        this.hungerTick = p_33344_.getInt("HungerTick");
         this.excessFood = p_33344_.getInt("ExcessFood");
         if (p_33344_.contains("ConversionTime", 99) && p_33344_.getInt("ConversionTime") > -1) {
             this.startConversion(p_33344_.getInt("StrayConversionTime"));
         }
         this.setRavagedSize(p_33344_.getInt("Size"));
-        this.setCanHunger(p_33344_.getBoolean("CanHunger"));
     }
 
     public boolean isConverting() {
@@ -198,13 +190,6 @@ public class Ravaged extends Summoned {
             if (this.bitingTick > 0) {
                 --this.bitingTick;
             }
-            if (this.canHunger) {
-                if (this.hungerTick < 1000) {
-                    ++this.hungerTick;
-                }
-            } else {
-                this.hungerTick = 0;
-            }
 
             if (!this.level.isClientSide && this.isAlive() && !this.isNoAi()){
                 if (this.isConverting()) {
@@ -263,10 +248,6 @@ public class Ravaged extends Summoned {
         return 10;
     }
 
-    public void setCanHunger(boolean canHunger){
-        this.canHunger = canHunger;
-    }
-
     public boolean doHurtTarget(Entity entityIn) {
         boolean flag = super.doHurtTarget(entityIn);
         if (flag) {
@@ -288,7 +269,6 @@ public class Ravaged extends Summoned {
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setCanHunger(true);
         return spawnDataIn;
     }
 
@@ -304,10 +284,6 @@ public class Ravaged extends Summoned {
         }
 
         super.handleEntityEvent(p_33335_);
-    }
-
-    public boolean isHungry(){
-        return this.hungerTick >= (MathHelper.secondsToTicks(5) + MathHelper.secondsToTicks(this.getRavagedSize()));
     }
 
     public boolean wasKilled(ServerLevel p_219160_, LivingEntity p_219161_) {
@@ -328,12 +304,7 @@ public class Ravaged extends Summoned {
                 this.setTarget(living);
             }
         }
-        if (super.hurt(p_34288_, p_34289_)) {
-            if (this.canHunger) {
-                this.hungerTick += (int) p_34289_;
-            }
-        }
-        return false;
+        return super.hurt(p_34288_, p_34289_);
     }
 
     public EntityDimensions getDimensions(Pose p_33113_) {
@@ -357,10 +328,7 @@ public class Ravaged extends Summoned {
                 }
             }
         } else {
-            if (this.canHunger) {
-                this.excessFood += excess;
-                this.hungerTick -= this.random.nextInt(40) + (40 / this.getRavagedSize() + 1);
-            }
+            this.excessFood += excess;
         }
         this.heal(heal);
         this.playSound(SoundEvents.PLAYER_BURP, this.getSoundVolume(), this.getVoicePitch());
@@ -380,7 +348,7 @@ public class Ravaged extends Summoned {
                     this.food = itemEntity;
                 }
             }
-            return this.food != null && !this.food.isRemoved() && Ravaged.this.isHungry() && Ravaged.this.hurtTime <= 0;
+            return this.food != null && !this.food.isRemoved() && Ravaged.this.hurtTime <= 0;
         }
 
         public boolean canContinueToUse() {
@@ -444,7 +412,7 @@ public class Ravaged extends Summoned {
         }
 
         public boolean canUse() {
-            return super.canUse() && this.ravaged.isNatural() && (this.ravaged.getTrueOwner() == null || this.ravaged.getTrueOwner() instanceof AbstractIllager) && this.ravaged.isHungry() && this.target != null && !this.target.isBaby();
+            return super.canUse() && this.ravaged.isNatural() && (this.ravaged.getTrueOwner() == null || this.ravaged.getTrueOwner() instanceof AbstractIllager) && this.target != null && !this.target.isBaby();
         }
     }
 }

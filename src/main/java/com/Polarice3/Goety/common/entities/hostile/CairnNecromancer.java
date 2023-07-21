@@ -91,7 +91,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
 
         public boolean canUse() {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
-            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(16.0D)
+            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
             return super.canUse() && i < 2;
         }
@@ -160,7 +160,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
 
         public boolean canUse() {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
-            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(16.0D)
+            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
             return super.canUse() && i >= 2;
         }
@@ -175,7 +175,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         }
 
         @Override
-        protected int getCastWarmupTime() {
+        protected int getCastingTime() {
             return 20;
         }
 

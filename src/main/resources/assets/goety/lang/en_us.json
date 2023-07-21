@@ -68,6 +68,7 @@
   "entity.goety.ravaged":"Ravaged",
   "entity.goety.ravager":"Ravager",
   "entity.goety.armored_ravager":"Ravager",
+  "entity.goety.zombie_ravager":"Zombie Ravager",
   "entity.goety.zpiglin_servant":"Zombified Piglin Servant",
   "entity.goety.zpiglin_brute_servant":"Zombified Piglin Brute Servant",
   "entity.goety.malghast":"Malghast",
@@ -86,6 +87,7 @@
   "entity.goety.stray_servant":"Stray Servant",
   "entity.goety.necromancer_servant":"Necromancer Servant",
   "entity.goety.wraith_servant":"Wraith Servant",
+  "entity.goety.haunted_armor_servant":"Haunted Armor Servant",
   "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
 
@@ -752,6 +754,14 @@
   "subtitle.goety.haunted_armor_step": "Haunted Armor steps",
   "subtitle.goety.haunted_armor_death": "Haunted Armor dies",
 
+  "subtitle.goety.zombie_ravager_ambient": "Zombie Ravager grunts",
+  "subtitle.goety.zombie_ravager_hurt": "Zombie Ravager hurts",
+  "subtitle.goety.zombie_ravager_bite": "Zombie Ravager bites",
+  "subtitle.goety.zombie_ravager_stun": "Zombie Ravager stunned",
+  "subtitle.goety.zombie_ravager_roar": "Zombie Ravager roars",
+  "subtitle.goety.zombie_ravager_step": "Zombie Ravager steps",
+  "subtitle.goety.zombie_ravager_death": "Zombie Ravager dies",
+
   "subtitle.goety.vizier_ambient": "Vizier vizies",
   "subtitle.goety.vizier_hurt": "Vizier hurts",
   "subtitle.goety.vizier_confuse": "Vizier confuzzles",
@@ -762,6 +772,11 @@
   "subtitle.goety.ice_chunk_idle": "Ice Chunk floating",
   "subtitle.goety.ice_chunk_summon": "Ice Chunk summoned",
   "subtitle.goety.ice_chunk_hit": "Ice Chunk hits",
+
+  "subtitle.goety.wall_spawn": "Totemic Wall appears",
+  "subtitle.goety.wall_hit": "Totemic Wall gets hit",
+  "subtitle.goety.wall_erupt": "Totemic Wall erupts",
+  "subtitle.goety.wall_disappear": "Totemic Wall disappears",
 
   "subtitle.goety.evil_laugh": "Evil Laugh",
   "subtitle.goety.roar_spell": "Loud Roar",

@@ -9,7 +9,6 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 
 public class IceSpikeSpell extends Spells {
 
@@ -32,10 +31,8 @@ public class IceSpikeSpell extends Spells {
     @Override
     public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         float enchantment = 0;
-        if (entityLiving instanceof Player player) {
-            if (WandUtil.enchantedFocus(player)) {
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player) / 3.0F;
-            }
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 3.0F;
         }
         IceSpike iceSpike = new IceSpike(entityLiving, worldIn);
         iceSpike.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.6F + enchantment, 1.0F);

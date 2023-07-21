@@ -13,7 +13,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 public class SonicBoomSpell extends Spells {
@@ -33,10 +32,8 @@ public class SonicBoomSpell extends Spells {
     @Override
     public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
         float damage = SpellConfig.SonicBoomDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
         }
         if (MobUtil.getSingleTarget(worldIn, entityLiving, 15, 3) instanceof LivingEntity livingEntity){
             Vec3 vec3 = entityLiving.position().add(0.0D, (double) 1.6F, 0.0D);

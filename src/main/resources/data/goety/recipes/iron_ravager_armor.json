@@ -7,6 +7,7 @@
   "craftType": "forge",
   "soulCost": 1,
   "duration": 30,
+  "research": "ravaging",
   "ingredients": [
     {
       "tag": "forge:storage_blocks/iron"

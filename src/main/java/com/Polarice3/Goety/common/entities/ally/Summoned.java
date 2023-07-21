@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -38,12 +41,14 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -126,21 +131,15 @@ public class Summoned extends Owned {
             } else if (this.limitedLifeTicks > 0){
                 this.limitedLifespan = true;
             }
-/*            if (this.getTrueOwner().getItemBySlot(EquipmentSlotType.FEET).getItem() == ModItems.NECRO_BOOTS_OF_WANDER.get()){
-                if (this.getMobType() == CreatureAttribute.UNDEAD){
-                    this.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 100, 0, false, false, false));
-                }
-            }*/
             if (this.getMobType() == MobType.UNDEAD) {
                 if (!this.isOnFire()) {
                     if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
-                        if (this.getTrueOwner() instanceof Player) {
-                            if (CuriosFinder.hasUndeadCape(this.getTrueOwner())) {
-                                Player owner = (Player) this.getTrueOwner();
+                        if (this.getTrueOwner() instanceof Player owner) {
+                            if (CuriosFinder.hasUndeadCape(owner)) {
                                 int SoulCost = SpellConfig.UndeadMinionHealCost.get();
-                                if (SEHelper.getSoulsAmount(owner, SpellConfig.UndeadMinionHealCost.get())){
-                                    if (this.tickCount % 20 == 0) {
-                                        this.heal(1.0F);
+                                if (SEHelper.getSoulsAmount(owner, SoulCost)){
+                                    if (this.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
+                                        this.heal(this.getMaxHealth() * 0.025F);
                                         Vec3 vector3d = this.getDeltaMovement();
                                         if (!this.level.isClientSide){
                                             ServerLevel serverWorld = (ServerLevel) this.level;
@@ -188,6 +187,18 @@ public class Summoned extends Owned {
 
     protected boolean isSunSensitive() {
         return false;
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null && this.getMobType() == MobType.UNDEAD){
+            for (int i = 0; i < pLevel.getLevel().random.nextInt(10) + 10; ++i) {
+                pLevel.getLevel().sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 1.0F, 0.0F, 1.0F);
+            }
+            pLevel.getLevel().sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
+        }
+        return pSpawnData;
     }
 
     public void die(DamageSource pCause) {
@@ -288,8 +299,12 @@ public class Summoned extends Owned {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setUpgraded(compound.getBoolean("Upgraded"));
-        this.setWandering(compound.getBoolean("wandering"));
-        this.setStaying(compound.getBoolean("staying"));
+        if (compound.contains("wandering")) {
+            this.setWandering(compound.getBoolean("wandering"));
+        }
+        if (compound.contains("staying")) {
+            this.setStaying(compound.getBoolean("staying"));
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

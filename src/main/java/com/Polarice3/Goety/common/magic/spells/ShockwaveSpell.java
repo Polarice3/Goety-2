@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 
 public class ShockwaveSpell extends Spells {
 
@@ -41,12 +40,10 @@ public class ShockwaveSpell extends Spells {
         int radius = 3;
         float damage = SpellConfig.ShockwaveDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         float maxDamage = SpellConfig.ShockwaveMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), player);
-                damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving);
+            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
         }
         for (int i = -radius; i < radius; ++i){
             for (int k = -radius; k < radius; ++k){

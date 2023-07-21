@@ -15,7 +15,19 @@
     },
     {
       "type": "patchouli:text",
+      "text": "#entity_to_convert",
+      "x": 5,
+      "y": 10
+    },
+    {
+      "type": "patchouli:text",
       "text": "#entity_to_summon",
+      "x": 5,
+      "y": 120
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#entity_to_convert_into",
       "x": 5,
       "y": 120
     },

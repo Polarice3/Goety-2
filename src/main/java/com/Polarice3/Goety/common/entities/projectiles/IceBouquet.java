@@ -163,7 +163,7 @@ public class IceBouquet extends GroundProjectile {
                 }
             }
 
-            if (this.isInLava() || this.isInWaterOrBubble()){
+            if (this.isInLava()){
                 this.level.broadcastEntityEvent(this, (byte)6);
                 this.discard();
             }

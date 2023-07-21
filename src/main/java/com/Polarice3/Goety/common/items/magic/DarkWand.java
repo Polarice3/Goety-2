@@ -6,6 +6,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
@@ -157,7 +158,7 @@ public class DarkWand extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
         if (target instanceof Summoned summonedEntity){
-            if (summonedEntity.getTrueOwner() == player){
+            if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)){
                 if (player.isShiftKeyDown() || player.isCrouching()){
                     summonedEntity.kill();
                 } else {

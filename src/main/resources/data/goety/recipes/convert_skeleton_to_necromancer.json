@@ -1,6 +1,6 @@
 {
   "type": "goety:ritual",
-  "ritual_type": "goety:convert_tamed",
+  "ritual_type": "goety:convert_complete_tamed",
   "activation_item": {
     "item": "goety:necro_cape"
   },

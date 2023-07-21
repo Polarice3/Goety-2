@@ -311,6 +311,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             if (recipe.entityToConvertInto != null) {
                 buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToConvertInto);
             }
+            buffer.writeBoolean(recipe.research != null);
             if (recipe.research != null) {
                 buffer.writeUtf(recipe.research);
             }

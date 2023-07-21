@@ -46,13 +46,11 @@ public class HauntedSkullSpell extends SummonSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-                burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                radius = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1;
+            burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving);
+            radius = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving);
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
@@ -93,9 +91,6 @@ public class HauntedSkullSpell extends SummonSpells {
             summonedentity.setUpgraded(this.NecroPower(entityLiving));
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
-            for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-            }
         }
     }
 
@@ -123,9 +118,6 @@ public class HauntedSkullSpell extends SummonSpells {
                 this.setTarget(worldIn, entityLiving, summonedentity);
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 worldIn.addFreshEntity(summonedentity);
-                for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                    worldIn.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-                }
             }
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
         }
