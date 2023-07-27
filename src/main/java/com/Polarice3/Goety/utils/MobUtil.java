@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.DarkWand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -201,13 +202,13 @@ public class MobUtil {
         return lootcontext$builder;
     }
 
-    public static void knockBack(LivingEntity attacker, LivingEntity target, double xPower, double yPower, double zPower) {
-        Vec3 vec3 = new Vec3(target.getX() - attacker.getX(), target.getY() - attacker.getY(), target.getZ() - attacker.getZ()).normalize();
+    public static void knockBack(LivingEntity knocked, LivingEntity knocker, double xPower, double yPower, double zPower) {
+        Vec3 vec3 = new Vec3(knocker.getX() - knocked.getX(), knocker.getY() - knocked.getY(), knocker.getZ() - knocked.getZ()).normalize();
         double pY0 = Math.max(-vec3.y, yPower);
         Vec3 vec31 = new Vec3(-vec3.x * xPower, pY0, -vec3.z * zPower);
-        double resist = attacker.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        double resist = knocked.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
         double resist1 = Math.max(0.0D, 1.0D - resist);
-        if (attacker instanceof Player player) {
+        if (knocked instanceof Player player) {
             if (MobUtil.playerValidity(player, false)) {
                 player.hurtMarked = true;
                 if (!player.level.isClientSide){
@@ -215,8 +216,8 @@ public class MobUtil {
                 }
             }
         }
-        attacker.setDeltaMovement(attacker.getDeltaMovement().add(vec31).scale(resist1));
-        attacker.hasImpulse = true;
+        knocked.setDeltaMovement(knocked.getDeltaMovement().add(vec31).scale(resist1));
+        knocked.hasImpulse = true;
     }
 
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
@@ -418,9 +419,28 @@ public class MobUtil {
         }
     }
 
+    public static void moveUpFromGround(Entity entity, int distance) {
+        HitResult rayTrace = rayTraceToAir(entity, distance);
+        if (rayTrace.getType() == HitResult.Type.BLOCK) {
+            BlockHitResult hitResult = (BlockHitResult) rayTrace;
+            if (hitResult.getDirection() == Direction.DOWN) {
+                entity.setPos(entity.getX(), hitResult.getBlockPos().getY() - 1.0625F, entity.getZ());
+                if (entity.level instanceof ServerLevel) {
+                    ((ServerLevel) entity.level).getChunkSource().broadcastAndSend(entity, new ClientboundTeleportEntityPacket(entity));
+                }
+            }
+        }
+    }
+
     private static HitResult rayTrace(Entity entity) {
         Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         Vec3 endPos = new Vec3(entity.getX(), entity.level.getMinBuildHeight(), entity.getZ());
+        return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+    }
+
+    private static HitResult rayTraceToAir(Entity entity, int distance) {
+        Vec3 startPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
+        Vec3 endPos = new Vec3(entity.getX(), entity.getY() + distance, entity.getZ());
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
     }
 
@@ -777,5 +797,9 @@ public class MobUtil {
             }
         }
         return false;
+    }
+
+    public static boolean isSpellCasting(LivingEntity livingEntity){
+        return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof DarkWand && !WandUtil.findFocus(livingEntity).isEmpty();
     }
 }

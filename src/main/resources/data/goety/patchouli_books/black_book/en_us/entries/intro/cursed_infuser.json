@@ -2,11 +2,11 @@
   "name": "Cursed Infusion",
   "icon": "goety:cursed_infuser",
   "category": "goety:intro",
-  "sortnum": 2,
+  "sortnum": 4,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Throughout your research, you find that Lapis Lazulis have high magical properties. After all, one needs them to perform enchantments. However, these Lazulis can be used to create some sort of siphon. A way to attract some sort of magical energy towards it."
+      "text": "While crafting using your Totem is all well and good, some of the items can demand a lot of resources, so you wondered if there's a way to obtain these items more cheaply. Throughout your research, you find that Lapis Lazulis have high magical properties. After all, one needs them to perform enchantments. However, these Lazulis can be used to create some sort of siphon. A way to attract some sort of magical energy towards it."
     },
     {
       "type": "patchouli:text",

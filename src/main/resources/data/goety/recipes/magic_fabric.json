@@ -11,7 +11,7 @@
       "tag": "forge:gems/lapis"
     },
     {
-      "item": "minecraft:yellow_dye"
+      "tag": "forge:ingots/gold"
     }
   ],
   "result": {

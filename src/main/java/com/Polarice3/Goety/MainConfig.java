@@ -81,7 +81,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> WindRobeCape;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TotemUndying;
@@ -93,6 +93,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilNoCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
 
@@ -160,6 +161,8 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
+        EnableNightBeacon = BUILDER.comment("Whether Night Beacons are allowed to function, turning Daytime to Midnight so long as it's activated, Default: true")
+                .define("enableNightBeacon", true);
         DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if No Cap is enabled, or the level cap if disabled, Default: 30")
                 .defineInRange("darkAnvilRepairCost", 30, 1, Integer.MAX_VALUE);
         DarkAnvilNoCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: true")
@@ -230,7 +233,7 @@ public class MainConfig {
                 .defineInRange("seaAmuletMax", 256, 1, Integer.MAX_VALUE);
         WindRobeSouls = BUILDER.comment("How much Soul Energy is taken per second when wearer is falling slowly, Default: 1")
                 .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
-        WindRobeCape = BUILDER.comment("Render Wind Robe Cape, Default: true")
+        RobeCape = BUILDER.comment("Render Capes on certain Robes, Default: true")
                 .define("windRobeCape", true);
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");

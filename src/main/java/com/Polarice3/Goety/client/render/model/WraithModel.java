@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.client.render.WraithAnimations;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -56,34 +57,33 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        float f = pAgeInTicks * 0.0025F;
-        this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
-        float f4 = Math.min(pLimbSwingAmount / 0.3F, 1.0F);
-        this.body.xRot = f4 * MathHelper.modelDegrees(40.0F);
-        this.body.xRot += Mth.cos(pAgeInTicks * 0.09F) * 0.1F + 0.1F;
-        this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+        this.root().getAllParts().forEach(ModelPart::resetPose);
         if (pEntity instanceof AbstractWraith wraith){
-            if (wraith.isFiring()){
-                float f7 = Mth.sin(((float)(wraith.firingTick - 20) - wraith.firingTick2) / 20.0F * (float)Math.PI * 0.25F);
-                this.head.xRot = (((float)Math.PI) * f7) + 0.5F;
-                this.RightArm.zRot = -((float)Math.PI) * f7;
-                this.LeftArm.zRot = ((float)Math.PI) * f7;
-            } else if (wraith.isTeleporting()){
-                float f7 = Mth.sin(((float)(wraith.teleportTime - 20) - wraith.teleportTime2) / 20.0F * (float)Math.PI * 0.25F);
-                this.head.xRot = (((float)Math.PI) * f7) + 2.0F;
-                this.RightArm.zRot = -((float)Math.PI) * f7;
-                this.LeftArm.zRot = ((float)Math.PI) * f7;
-                this.Ghost.y += (((float)Math.PI) * f7) * 5.0F;
-            } else {
-                float f5 = Math.min(pLimbSwingAmount / 2.0F, 1.0F);
-                float degrees;
-                if (wraith.getLookControl().isLookingAtTarget()){
-                    degrees = 0.0F;
+            this.animate(wraith.attackAnimationState, WraithAnimations.ATTACK, pAgeInTicks);
+            if (!wraith.isFiring()) {
+                if (wraith.isTeleporting()) {
+                    float f7 = Mth.sin(((float) (wraith.teleportTime - 20) - wraith.teleportTime2) / 20.0F * (float) Math.PI * 0.25F);
+                    this.head.xRot = (((float) Math.PI) * f7) + 2.0F;
+                    this.RightArm.xRot = ((float) Math.PI) * f7;
+                    this.LeftArm.xRot = ((float) Math.PI) * f7;
+                    this.Ghost.y += (((float) Math.PI) * f7) * 5.0F;
                 } else {
-                    degrees = MathHelper.modelDegrees(17.5F) - f5;
+                    float f = pAgeInTicks * 0.0025F;
+                    this.Ghost.y = Mth.sin(f * 40.0F) + 24.0F;
+                    float f4 = Math.min(pLimbSwingAmount / 0.3F, 1.0F);
+                    this.body.xRot = f4 * MathHelper.modelDegrees(40.0F);
+                    this.body.xRot += Mth.cos(pAgeInTicks * 0.09F) * 0.1F + 0.1F;
+                    this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+                    float f5 = Math.min(pLimbSwingAmount / 2.0F, 1.0F);
+                    float degrees;
+                    if (wraith.getLookControl().isLookingAtTarget()) {
+                        degrees = 0.0F;
+                    } else {
+                        degrees = MathHelper.modelDegrees(17.5F) - f5;
+                    }
+                    this.head.xRot = pHeadPitch * ((float) Math.PI / 180F) + degrees;
+                    animateArms(this.LeftArm, this.RightArm, pLimbSwingAmount, pAgeInTicks);
                 }
-                this.head.xRot = pHeadPitch * ((float)Math.PI / 180F) + degrees;
-                animateArms(this.LeftArm, this.RightArm, 0, pAgeInTicks);
             }
         } else {
             this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
@@ -91,17 +91,13 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
     }
 
     public static void animateArms(ModelPart leftArm, ModelPart rightArm, float attackTime, float ageInTicks) {
-        float f = Mth.sin(attackTime * (float)Math.PI);
-        float f1 = Mth.sin((1.0F - (1.0F - attackTime) * (1.0F - attackTime)) * (float)Math.PI);
-        rightArm.zRot = 0.0F;
-        leftArm.zRot = 0.0F;
-        rightArm.yRot = -(0.1F - f * 0.6F);
-        leftArm.yRot = 0.1F - f * 0.6F;
+        rightArm.zRot = Math.min(attackTime / 0.9F, 1.0F);
+        leftArm.zRot = -Math.min(attackTime / 0.9F, 1.0F);
+        rightArm.yRot = -(0.1F - 0 * 0.6F);
+        leftArm.yRot = 0.1F - 0 * 0.6F;
         float f2 = -MathHelper.modelDegrees(45.0F);
         rightArm.xRot = f2;
         leftArm.xRot = f2;
-        rightArm.xRot -= f * 1.2F - f1 * 0.4F;
-        leftArm.xRot -= f * 1.2F - f1 * 0.4F;
         AnimationUtils.bobArms(rightArm, leftArm, ageInTicks);
     }
 

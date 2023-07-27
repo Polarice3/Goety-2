@@ -46,7 +46,7 @@ import java.util.UUID;
 
 public abstract class AbstractHauntedArmor extends Summoned {
     private static final UUID SPEED_MODIFIER_HOSTILE_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
-    private static final AttributeModifier SPEED_MODIFIER_HOSTILE = new AttributeModifier(SPEED_MODIFIER_HOSTILE_UUID, "Aggression Speed", 0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    private static final AttributeModifier SPEED_MODIFIER_HOSTILE = new AttributeModifier(SPEED_MODIFIER_HOSTILE_UUID, "Aggression Speed", 0.5D, AttributeModifier.Operation.MULTIPLY_BASE);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractHauntedArmor.class, EntityDataSerializers.BYTE);
     private int blockTime;
     private int coolTime;
@@ -297,7 +297,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 return false;
             }
         }
-        if (!this.isGuarding() && this.coolTime > 0 && !this.canDisableShield(source)){
+        if (!this.isGuarding() && this.coolTime > 0 && !this.canDisableShield(source) && !source.isBypassArmor()){
             this.coolTime -= amount * 10;
         }
         if (this.level instanceof ServerLevel serverLevel && !this.isDamageSourceBlocked(source)){

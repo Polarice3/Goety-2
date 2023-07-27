@@ -121,6 +121,10 @@ public class ItemHelper {
         return false;
     }
 
+    public static boolean noArmor(LivingEntity living){
+        return living.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && living.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && living.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && living.getItemBySlot(EquipmentSlot.FEET).isEmpty();
+    }
+
     public static void repairTick(ItemStack stack, Entity entityIn, boolean isSelected){
         if (MainConfig.SoulRepair.get()) {
             if (entityIn instanceof Player player) {

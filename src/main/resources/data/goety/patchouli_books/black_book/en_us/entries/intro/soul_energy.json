@@ -1,0 +1,25 @@
+{
+  "name": "Soul Energy",
+  "icon": "goety:totem_of_roots",
+  "category": "goety:intro",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've researched on the secrets of the Illagers magic powers, Soul Energy, and you pondered on how to utilize and collect this energy."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_roots",
+      "text": "With some twigs, an Ectoplasm and some Emeralds, you've managed to create your first Totem!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When killing a being with the Totem in the Hotbar or on a Charm Slot, it will fill up with Soul Energy. The amount depends on which creature is slain, but considering the Illagers disposition towards the Villagers, it's not hard to figure out which creature has the most amount of Soul Energy."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Soul Energy is what fuels their magic, and it seems to have a relation with Experience, though while Experience is used to enchant items and repair items if it has Mending, you've figure that Soul Energy can be used for more exotic purposes."
+    }
+  ]
+}

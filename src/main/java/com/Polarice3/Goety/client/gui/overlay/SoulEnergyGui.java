@@ -2,11 +2,11 @@ package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.common.items.magic.TotemOfRoots;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;
-import com.Polarice3.Goety.utils.WandUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -43,6 +43,9 @@ public class SoulEnergyGui extends GuiComponent {
         } else if (!stack.isEmpty()) {
             if (stack.getTag() != null) {
                 SoulEnergy = TotemOfSouls.currentSouls(stack);
+                if (stack.getTag().contains(TotemOfSouls.MAX_SOUL_AMOUNT)) {
+                    SoulEnergyTotal = TotemOfSouls.maximumSouls(stack);
+                }
             }
         }
 
@@ -56,23 +59,24 @@ public class SoulEnergyGui extends GuiComponent {
 
         if (SEHelper.getSEActive(minecraft.player)){
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i, height - 9, 0, 9, 128, 9, 128, 36);
+            blit(ms, i, height - 9, 0, 9, 128, 9, 128, 90);
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i + 9, height - 9, 9, 18, maxenergy, 9, 128, 36);
+            blit(ms, i + 9, height - 9, 9, 18, maxenergy, 9, 128, 90);
         } else {
+            int height1 = stack.getItem() instanceof TotemOfRoots ? 36 : 0;
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i, height - 9, 0, 0, 128, 9, 128, 36);
+            blit(ms, i, height - 9, 0, height1, 128, 9, 128, 90);
         }
         RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy_bar.png"));
         blit(ms, i + 9, height - 7, offset, 0, energylength, 5, 234, 5);
 
-        if (minecraft.player.isUsingItem() && minecraft.player.getUseItem().getItem() instanceof DarkWand && !WandUtil.findFocus(minecraft.player).isEmpty()){
+        if (MobUtil.isSpellCasting(minecraft.player)){
             int useDuration = minecraft.player.getUseItem().getUseDuration();
             int remain = minecraft.player.getUseItemRemainingTicks();
             float useTime0 = (float) (useDuration - remain) / useDuration;
-            int useTime = (int) (128 * useTime0);
+            int useTime = (int) (117 * useTime0);
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i, height - 9, 0, 27, useTime, 9, 128, 36);
+            blit(ms, i + 9, height - 9, 9, 27, useTime, 9, 128, 90);
         }
 
         if (MainConfig.ShowNum.get()) {

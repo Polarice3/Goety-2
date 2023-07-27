@@ -1,0 +1,33 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:necro_crown"
+  },
+  "craftType": "lich",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "item": "goety:soul_emerald"
+    },
+    {
+      "item": "goety:forbidden_piece"
+    },
+    {
+      "item": "goety:forbidden_piece"
+    }
+  ],
+  "result": {
+    "item": "goety:nameless_crown"
+  }
+}

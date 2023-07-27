@@ -115,6 +115,10 @@ public class DarkWand extends Item {
         return CuriosFinder.hasCurio(entityLiving, ModItems.WIND_ROBE.get());
     }
 
+    public boolean GeoSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.AMETHYST_NECKLACE.get());
+    }
+
     public boolean SoulCostUp(LivingEntity entityLiving){
         return entityLiving.hasEffect(GoetyEffects.SUMMON_DOWN.get());
     }
@@ -132,6 +136,8 @@ public class DarkWand extends Item {
         } else if (FrostSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.FROST){
             return SoulCost(stack)/2;
         } else if (WindSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.WIND){
+            return SoulCost(stack)/2;
+        } else if (GeoSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == Spells.SpellType.GEOMANCY){
             return SoulCost(stack)/2;
         } else {
             return SoulCost(stack);
@@ -193,12 +199,13 @@ public class DarkWand extends Item {
                             cauldronBlock.fullReset();
                             level.playSound(null, blockpos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+                            return InteractionResult.SUCCESS;
                         }
                     }
                 }
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return super.useOn(p_220235_);
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {

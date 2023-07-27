@@ -15,10 +15,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
-import com.Polarice3.Goety.common.entities.neutral.VampireBat;
-import com.Polarice3.Goety.common.entities.neutral.Wartling;
-import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
-import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
+import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
@@ -134,6 +131,12 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<MinisterTooth>> MINISTER_TOOTH = register("minister_tooth",
+            EntityType.Builder.<MinisterTooth>of(MinisterTooth::new, MobCategory.MISC)
+                    .sized(0.6F, 1.4F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<SnapFungus>> SNAP_FUNGUS = register("snap_fungus",
             EntityType.Builder.<SnapFungus>of(SnapFungus::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -154,6 +157,20 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<ObsidianMonolith>> OBSIDIAN_MONOLITH = register("obsidian_monolith",
             EntityType.Builder.of(ObsidianMonolith::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1.0F, 3.1F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<TotemicWall>> TOTEMIC_WALL = register("totemic_wall",
+            EntityType.Builder.of(TotemicWall::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1.0F, 3.1F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<TotemicBomb>> TOTEMIC_BOMB = register("totemic_bomb",
+            EntityType.Builder.of(TotemicBomb::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(1.0F, 3.1F)
                     .clientTrackingRange(8)
@@ -247,6 +264,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<AllyVex>> ALLY_VEX = register("ally_vex",
             EntityType.Builder.of(AllyVex::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.4F, 0.8F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<AllyIrk>> ALLY_IRK = register("ally_irk",
+            EntityType.Builder.of(AllyIrk::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(0.4F, 0.8F)
                     .clientTrackingRange(8));

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " s ",
+    "sts",
+    " s "
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:gems/amethyst"
+    },
+    "t":
+    {
+      "tag": "goety:totems"
+    }
+  },
+  "result":
+  {
+    "item": "goety:empty_focus",
+    "count": 1
+  }
+}

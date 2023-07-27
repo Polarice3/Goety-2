@@ -2,7 +2,7 @@
   "name": "Magical Fabrics",
   "icon": "goety:dark_fabric",
   "category": "goety:intro",
-  "sortnum": 4,
+  "sortnum": 5,
   "pages": [
     {
       "type": "patchouli:text",

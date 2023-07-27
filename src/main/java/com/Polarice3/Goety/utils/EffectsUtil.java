@@ -54,6 +54,19 @@ public class EffectsUtil {
         infected.addEffect(MobEffectInstance);
     }
 
+    public static void decreaseDuration(LivingEntity infected, MobEffect effect, float duration, boolean pAmbient, boolean pVisible){
+        MobEffectInstance MobEffectInstance1 = infected.getEffect(effect);
+        float i = duration;
+        int a = 0;
+        if (MobEffectInstance1 != null) {
+            a = MobEffectInstance1.getAmplifier();
+            i = MobEffectInstance1.getDuration() - duration;
+            infected.removeEffectNoUpdate(effect);
+        }
+        MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, (int) i, a, pAmbient, pVisible);
+        infected.addEffect(MobEffectInstance);
+    }
+
     public static void deamplifyEffect(LivingEntity infected, MobEffect effect, int duration){
         deamplifyEffect(infected, effect, duration, false, true);
     }

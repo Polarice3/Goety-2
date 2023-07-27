@@ -12,6 +12,9 @@
     "goety:crypt_bricks_wall",
     "goety:crypt_tiles_slab",
     "goety:crypt_tiles_stairs",
-    "goety:crypt_tiles_wall"
+    "goety:crypt_tiles_wall",
+    "goety:crypt_plinth",
+    "goety:crypt_pillar",
+    "goety:crypt_bookshelf"
   ]
 }

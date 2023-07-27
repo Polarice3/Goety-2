@@ -40,14 +40,13 @@ public class WindBlastSpell extends Spells {
             Vec3 vector3d2 = srcVec.add(lookVec.scale((double)i));
             worldIn.sendParticles(ModParticleTypes.WIND_BLAST.get(), vector3d2.x, vector3d2.y, vector3d2.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
         }
-        Vec3 rangeVec = new Vec3(lookVec.x * 4, lookVec.y * 4, lookVec.z * 4);
+        Vec3 rangeVec = new Vec3(lookVec.x * 8, lookVec.y * 8, lookVec.z * 8);
         List<Entity> entities = entityLiving.level.getEntities(entityLiving, entityLiving.getBoundingBox().expandTowards(rangeVec));
         for (Entity entity : entities){
             if (entityLiving.hasLineOfSight(entity)){
-                double d0 = entity.getX() - entityLiving.getX();
-                double d1 = entity.getZ() - entityLiving.getZ();
-                double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                MobUtil.push(entity, d0 / d2 * 4.0D, 0.2D, d1 / d2 * 4.0D);
+                if (entity instanceof LivingEntity living) {
+                    MobUtil.knockBack(living, entityLiving, 2.0D, 0.2D, 2.0D);
+                }
                 if (entity instanceof FireTornado fireTornado){
                     fireTornado.trueRemove();
                 }
@@ -64,14 +63,13 @@ public class WindBlastSpell extends Spells {
             Vec3 vector3d2 = srcVec.add(lookVec.scale((double)i));
             worldIn.sendParticles(ModParticleTypes.WIND_BLAST.get(), vector3d2.x, vector3d2.y, vector3d2.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
         }
-        Vec3 rangeVec = new Vec3(lookVec.x * 8, lookVec.y * 8, lookVec.z * 8);
+        Vec3 rangeVec = new Vec3(lookVec.x * 16, lookVec.y * 16, lookVec.z * 16);
         List<Entity> entities = entityLiving.level.getEntities(entityLiving, entityLiving.getBoundingBox().expandTowards(rangeVec));
         for (Entity entity : entities){
             if (entityLiving.hasLineOfSight(entity)){
-                double d0 = entity.getX() - entityLiving.getX();
-                double d1 = entity.getZ() - entityLiving.getZ();
-                double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                MobUtil.push(entity, d0 / d2 * 8.0D, 0.4D, d1 / d2 * 8.0D);
+                if (entity instanceof LivingEntity living) {
+                    MobUtil.knockBack(living, entityLiving, 4.0D, 0.4D, 4.0D);
+                }
                 if (entity instanceof FireTornado fireTornado){
                     fireTornado.trueRemove();
                 }

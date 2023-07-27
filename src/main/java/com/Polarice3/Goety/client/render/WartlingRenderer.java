@@ -11,13 +11,18 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WartlingRenderer<T extends Wartling> extends MobRenderer<T, SpiderModel<T>> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/cultist/wartling.png");
+    protected static final ResourceLocation TEXTURE_MEGA = Goety.location("textures/entity/cultist/wartling_mega.png");
 
     public WartlingRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new SpiderModel<>(renderManagerIn.bakeLayer(ModelLayers.SPIDER)), 0.8F * 0.4F);
     }
 
     protected void scale(T pLivingEntity, PoseStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(0.4F, 0.4F, 0.4F);
+        if (pLivingEntity.isMega()){
+            matrixStackIn.scale(0.8F, 0.8F, 0.8F);
+        } else {
+            matrixStackIn.scale(0.4F, 0.4F, 0.4F);
+        }
     }
 
     protected float getFlipDegrees(T pLivingEntity) {
@@ -25,6 +30,10 @@ public class WartlingRenderer<T extends Wartling> extends MobRenderer<T, SpiderM
     }
 
     public ResourceLocation getTextureLocation(T entity) {
-        return TEXTURE;
+        if (entity.isMega()){
+            return TEXTURE_MEGA;
+        } else {
+            return TEXTURE;
+        }
     }
 }

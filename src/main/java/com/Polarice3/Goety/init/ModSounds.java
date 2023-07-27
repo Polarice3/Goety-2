@@ -101,8 +101,17 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WALL_ERUPT = create("wall_erupt");
     public static final RegistryObject<SoundEvent> WALL_DISAPPEAR = create("wall_disappear");
 
+    public static final RegistryObject<SoundEvent> BOMB_SPAWN = create("bomb_spawn");
+    public static final RegistryObject<SoundEvent> BOMB_PULSE = create("bomb_pulse");
+    public static final RegistryObject<SoundEvent> BOMB_FUSE = create("bomb_fuse");
+    public static final RegistryObject<SoundEvent> BOMB_LOAD = create("bomb_load");
+    public static final RegistryObject<SoundEvent> BOMB_SPARKLE = create("bomb_sparkle");
+
+    public static final RegistryObject<SoundEvent> SPIDER_BITE = create("spider_bite");
+
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
+    public static final RegistryObject<SoundEvent> SOUL_ARMOR = create("soul_armor");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");

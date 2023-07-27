@@ -74,7 +74,7 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                     }
                 }
             }
-            if (this.item.getItem() == ModItems.TOTEM_OF_SOULS.get()) {
+            if (this.item.getItem() instanceof TotemOfSouls) {
                 assert this.item.getTag() != null;
                 return this.item.getTag().getInt(TotemOfSouls.SOULS_AMOUNT);
             }
@@ -83,7 +83,7 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
     }
 
     public void decreaseSouls(int souls) {
-        if (this.item.getItem() == ModItems.TOTEM_OF_SOULS.get()) {
+        if (this.item.getItem() instanceof TotemOfSouls) {
             assert this.item.getTag() != null;
             int Soulcount = this.item.getTag().getInt(TotemOfSouls.SOULS_AMOUNT);
             if (!this.item.isEmpty()) {

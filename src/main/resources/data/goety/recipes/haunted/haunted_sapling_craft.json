@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "dsd",
+    "sts",
+    "dsd"
+  ],
+  "key":
+  {
+    "d":
+    {
+      "item": "minecraft:dead_bush"
+    },
+    "s":
+    {
+      "tag": "minecraft:saplings"
+    },
+    "t":
+    {
+      "tag": "goety:totems"
+    }
+  },
+  "result":
+  {
+    "item": "goety:haunted_sapling",
+    "count": 1
+  }
+}

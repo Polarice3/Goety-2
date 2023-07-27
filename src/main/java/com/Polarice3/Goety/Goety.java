@@ -219,6 +219,7 @@ public class Goety {
         event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
+        event.put(ModEntityType.ALLY_IRK.get(), AllyIrk.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.HUSK_SERVANT.get(), HuskServant.setCustomAttributes().build());
         event.put(ModEntityType.DROWNED_SERVANT.get(), DrownedServant.setCustomAttributes().build());
@@ -233,6 +234,8 @@ public class Goety {
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
+        event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
+        event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.hostile.Irk;
+import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.AnimationUtils;
@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class IrkModel extends HierarchicalModel<Irk> {
+public class IrkModel<T extends Minion> extends HierarchicalModel<T> {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -43,7 +43,7 @@ public class IrkModel extends HierarchicalModel<Irk> {
     }
 
     @Override
-    public void setupAnim(Irk entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float f = ageInTicks * 20.0F * ((float)Math.PI / 180F) + limbSwingAmount;
         float f1 = Mth.cos(f) * (float)Math.PI * 0.15F;
         this.head.xRot = headPitch * ((float)Math.PI / 180F);

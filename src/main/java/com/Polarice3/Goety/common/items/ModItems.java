@@ -13,9 +13,10 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.items.research.ForbiddenScroll;
-import com.Polarice3.Goety.common.items.research.RavagingScroll;
+import com.Polarice3.Goety.common.items.research.Scroll;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.common.magic.spells.summon.*;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -33,6 +34,7 @@ public class ModItems {
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
+    public static final RegistryObject<Item> TOTEM_OF_ROOTS = ITEMS.register("totem_of_roots", TotemOfRoots::new);
     public static final RegistryObject<Item> TOTEM_OF_SOULS = ITEMS.register("totem_of_souls", TotemOfSouls::new);
 
     //Basic
@@ -81,8 +83,10 @@ public class ModItems {
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
-    public static final RegistryObject<Item> RAVAGING_SCROLL = ITEMS.register("ravaging_scroll", RavagingScroll::new);
+
+    public static final RegistryObject<Item> RAVAGING_SCROLL = ITEMS.register("ravaging_scroll", () -> new Scroll(ResearchList.RAVAGING));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
+
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
 
     public static final RegistryObject<Item> BREW = ITEMS.register("brew", BrewItem::new);
@@ -103,11 +107,14 @@ public class ModItems {
     public static final RegistryObject<Item> PENDANT_OF_ROT = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
+    public static final RegistryObject<Item> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
     public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", MagicHatItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
+    public static final RegistryObject<Item> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);
     public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
+    public static final RegistryObject<Item> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
     public static final RegistryObject<Item> NAMELESS_CAPE = ITEMS.register("nameless_cape", SingleStackItem::new);
     public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
@@ -119,6 +126,7 @@ public class ModItems {
     public static final RegistryObject<Item> WARLOCK_ROBE_DARK = ITEMS.register("warlock_robe_dark", WarlockRobeItem::new);
     public static final RegistryObject<Item> WARLOCK_SASH = ITEMS.register("warlock_sash", WarlockGarmentItem::new);
     public static final RegistryObject<Item> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
+    public static final RegistryObject<Item> WARDING_CHARM = ITEMS.register("warding_charm", WardingCharmItem::new);
     public static final RegistryObject<Item> WAYFARERS_BELT = ITEMS.register("wayfarers_belt", WayfarersBeltItem::new);
     public static final RegistryObject<Item> SPITEFUL_BELT = ITEMS.register("spiteful_belt", SingleStackItem::new);
     public static final RegistryObject<Item> STAR_AMULET = ITEMS.register("star_amulet", SingleFoiledStackItem::new);
@@ -129,6 +137,7 @@ public class ModItems {
     public static final RegistryObject<Item> BITING_FOCUS = ITEMS.register("biting_focus", () -> new MagicFocus(new FangSpell()));
     public static final RegistryObject<Item> FEAST_FOCUS = ITEMS.register("feast_focus", () -> new MagicFocus(new FeastSpell()));
     public static final RegistryObject<Item> ICEOLOGY_FOCUS = ITEMS.register("iceology_focus", () -> new MagicFocus(new IceChunkSpell()));
+    public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(new IllusionSpell()));
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
     public static final RegistryObject<Item> LAVABALL_FOCUS = ITEMS.register("lavaball_focus", () -> new MagicFocus(new LavaballSpell()));

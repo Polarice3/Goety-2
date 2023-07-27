@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.boss;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -414,6 +415,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         ItemEntity itementity = this.spawnAtLocation(ModItems.UNHOLY_BLOOD.get());
         if (itementity != null) {
             itementity.setExtendedLifetime();
+        }
+        if (this.level.dimension() == Level.NETHER){
+            if (MainConfig.EnableNightBeacon.get()){
+                ItemEntity itementity2 = this.spawnAtLocation(ModBlocks.NIGHT_BEACON.get().asItem());
+                if (itementity2 != null) {
+                    itementity2.setExtendedLifetime();
+                }
+            }
         }
 
     }

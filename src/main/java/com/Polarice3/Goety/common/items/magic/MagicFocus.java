@@ -91,6 +91,11 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.RADIUS.get()
                     || enchantment == ModEnchantments.BURNING.get();
         }
+        if (stack.getItem() == ModItems.BARRICADE_FOCUS.get()){
+            return enchantment == ModEnchantments.POTENCY.get()
+                    || enchantment == ModEnchantments.RANGE.get()
+                    || enchantment == ModEnchantments.DURATION.get();
+        }
         if (stack.getItem() == ModItems.SOUL_BOLT_FOCUS.get()
                 || stack.getItem() == ModItems.SWORD_FOCUS.get()
                 || stack.getItem() == ModItems.ICE_SPIKE_FOCUS.get()

@@ -85,8 +85,8 @@ public class Irk extends Minion implements Enemy {
     }
 
     public void die(DamageSource cause) {
-        if (cause.getEntity() instanceof LivingEntity) {
-            ((LivingEntity) cause.getEntity()).heal(2.0F);
+        if (cause.getEntity() instanceof LivingEntity livingEntity) {
+            livingEntity.heal(2.0F);
         }
         super.die(cause);
     }

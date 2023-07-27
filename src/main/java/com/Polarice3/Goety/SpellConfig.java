@@ -30,6 +30,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
@@ -37,6 +38,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
@@ -50,11 +52,13 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
@@ -147,6 +151,8 @@ public class SpellConfig {
                 .defineInRange("glowLightCost", 2, 0, Integer.MAX_VALUE);
         IceChunkCost = BUILDER.comment("Ice Chunk Spell Cost, Default: 16")
                 .defineInRange("iceChunkCost", 16, 0, Integer.MAX_VALUE);
+        BarricadeCost = BUILDER.comment("Barricade Spell Cost, Default: 16")
+                .defineInRange("barricadeCost", 16, 0, Integer.MAX_VALUE);
         LaunchCost = BUILDER.comment("Launch Spell Cost, Default: 4")
                 .defineInRange("launchCost", 4, 0, Integer.MAX_VALUE);
         FlyingCost = BUILDER.comment("Flight Spell Cost, Default: 4")
@@ -161,6 +167,8 @@ public class SpellConfig {
                 .defineInRange("recallCost", 1000, 0, Integer.MAX_VALUE);
         ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 40")
                 .defineInRange("shockwaveCost", 40, 0, Integer.MAX_VALUE);
+        SoulArmorCost = BUILDER.comment("Soul Armor Spell Cost, Default: 50")
+                .defineInRange("soulArmorCost", 50, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -187,6 +195,8 @@ public class SpellConfig {
                 .defineInRange("iceSpikeDuration", 40, 0, 72000);
         IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 40")
                 .defineInRange("iceChunkTime", 40, 0, 72000);
+        BarricadeDuration = BUILDER.comment("Time to cast Barricade Spell, Default: 60")
+                .defineInRange("barricadeTime", 60, 0, 72000);
         UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 20")
                 .defineInRange("updraftTime", 20, 0, 72000);
         WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 20")
@@ -197,6 +207,8 @@ public class SpellConfig {
                 .defineInRange("recallTime", 160, 0, 72000);
         ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 80")
                 .defineInRange("shockwaveTime", 80, 0, 72000);
+        SoulArmorDuration = BUILDER.comment("Time to cast Soul Armor Spell, Default: 40")
+                .defineInRange("soulArmorTime", 40, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();

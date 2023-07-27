@@ -9,15 +9,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
 public abstract class AbstractMonolith extends Owned{
     protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(AbstractMonolith.class, EntityDataSerializers.INT);
     private boolean activate;
+    public int lifeSpan = 6;
 
     public AbstractMonolith(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -36,16 +38,38 @@ public abstract class AbstractMonolith extends Owned{
         this.entityData.define(AGE, 0);
     }
 
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
+        if (AGE.equals(p_33134_)) {
+            this.refreshDimensions();
+        }
+
+        super.onSyncedDataUpdated(p_33134_);
+    }
+
     public void addAdditionalSaveData(CompoundTag p_31485_) {
         super.addAdditionalSaveData(p_31485_);
         p_31485_.putInt("Age", this.getAge());
+        p_31485_.putInt("LifeSpan", this.getLifeSpan());
         p_31485_.putBoolean("Activate", this.isActivate());
     }
 
     public void readAdditionalSaveData(CompoundTag p_31474_) {
         super.readAdditionalSaveData(p_31474_);
         this.setAge(p_31474_.getInt("Age"));
+        this.setLifeSpan(p_31474_.getInt("LifeSpan"));
         this.setActivate(p_31474_.getBoolean("Activate"));
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        switch (pLevel.getLevel().random.nextInt(4)){
+            case 1 -> this.setYRot(90.0F);
+            case 2 -> this.setYRot(180.0F);
+            case 3 -> this.setYRot(270.0F);
+            default -> this.setYRot(0.0F);
+        }
+        return pSpawnData;
     }
 
     public abstract BlockState getState();
@@ -68,6 +92,14 @@ public abstract class AbstractMonolith extends Owned{
 
     public boolean isActivate(){
         return this.activate;
+    }
+
+    public void setLifeSpan(int lifeSpan){
+        this.lifeSpan = lifeSpan;
+    }
+
+    public int getLifeSpan(){
+        return this.lifeSpan;
     }
 
     public boolean isInvulnerableTo(DamageSource p_219427_) {
@@ -118,6 +150,12 @@ public abstract class AbstractMonolith extends Owned{
             if (!this.level.isClientSide) {
                 this.setAge(this.getAge() + this.getAgeSpeed());
                 this.level.broadcastEntityEvent(this, (byte) 4);
+                for (AbstractMonolith abstractMonolith : this.level.getEntitiesOfClass(AbstractMonolith.class, this.getBoundingBox())){
+                    if (abstractMonolith != this){
+                        this.discard();
+                    }
+                }
+
             }
         }
     }
@@ -125,9 +163,17 @@ public abstract class AbstractMonolith extends Owned{
     public void handleEntityEvent(byte pId) {
         if (pId == 4){
             this.setAge(this.getAge() + this.getAgeSpeed());
+        } else if (pId == 5){
+            this.setAge(this.getAge() - this.getAgeSpeed());
         } else {
             super.handleEntityEvent(pId);
         }
+    }
+
+    public EntityDimensions getDimensions(Pose p_33113_) {
+        float i = (this.getAge() / getEmergingTime());
+        EntityDimensions entitydimensions = super.getDimensions(p_33113_);
+        return entitydimensions.scale(1, i);
     }
 
     public AbstractMonolith.Crackiness getCrackiness() {

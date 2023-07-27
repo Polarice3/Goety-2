@@ -50,6 +50,7 @@ public class SoulExplodeParticle extends TextureSheetParticle {
             SoulExplodeParticle bubblecolumnupparticle = new SoulExplodeParticle(p_105765_, p_105766_, p_105767_, p_105768_, p_105769_, p_105770_, p_105771_);
             bubblecolumnupparticle.pickSprite(this.sprite);
             bubblecolumnupparticle.scale(0.5F);
+            bubblecolumnupparticle.lifetime = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
             return bubblecolumnupparticle;
         }
     }

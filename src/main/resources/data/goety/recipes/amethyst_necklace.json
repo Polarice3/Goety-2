@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "a a",
+    "a a",
+    "aaa"
+  ],
+  "key":
+  {
+    "a":
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    }
+  },
+  "result":
+  {
+    "item": "goety:amethyst_necklace",
+    "count": 1
+  }
+}

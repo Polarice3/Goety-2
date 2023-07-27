@@ -64,6 +64,25 @@ public class PotionEvents {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
             Level world = livingEntity.level;
+            AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
+            AttributeModifier soulArmorBuff = new AttributeModifier(UUID.fromString("3e4b414b-466c-4b90-8a92-a878e2542bb8"), "Increase Armor", 2.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+            if (armor != null){
+                if (livingEntity.hasEffect(GoetyEffects.SOUL_ARMOR.get())){
+                    if (ItemHelper.noArmor(livingEntity)){
+                        if (!armor.hasModifier(soulArmorBuff)){
+                            armor.addPermanentModifier(soulArmorBuff);
+                        }
+                    } else {
+                        if (armor.hasModifier(soulArmorBuff)){
+                            armor.removeModifier(soulArmorBuff);
+                        }
+                    }
+                } else {
+                    if (armor.hasModifier(soulArmorBuff)){
+                        armor.removeModifier(soulArmorBuff);
+                    }
+                }
+            }
             if (livingEntity.getTags().contains(ConstantPaths.gassed())){
                 if (livingEntity.tickCount % 20 == 0){
                     livingEntity.getTags().remove(ConstantPaths.gassed());
@@ -351,6 +370,17 @@ public class PotionEvents {
                 }
             }
         }
+        if (victim.hasEffect(GoetyEffects.SOUL_ARMOR.get())){
+            MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.SOUL_ARMOR.get());
+            if (mobEffectInstance != null){
+                if (mobEffectInstance.getDuration() > MathHelper.secondsToTicks(event.getAmount())){
+                    EffectsUtil.decreaseDuration(victim, GoetyEffects.SOUL_ARMOR.get(), MathHelper.secondsToTicks(event.getAmount()), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible());
+                }
+                if (victim instanceof Player player){
+                    SEHelper.decreaseSouls(player, (int) event.getAmount());
+                }
+            }
+        }
         if (victim.hasEffect(GoetyEffects.EXPLOSIVE.get())) {
             MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.EXPLOSIVE.get());
             if (mobEffectInstance != null){
@@ -535,6 +565,9 @@ public class PotionEvents {
                         EffectsUtil.deamplifyEffect(event.getEntity(), GoetyEffects.ILLAGUE.get(), duration, false, false);
                     }
                 }
+            }
+            if (event.getEntity().hasEffect(GoetyEffects.SOUL_ARMOR.get())){
+                event.getEntity().removeEffect(GoetyEffects.SOUL_ARMOR.get());
             }
         }
     }

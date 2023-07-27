@@ -12,6 +12,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation SPIKE = register("spike");
     public static final ModelLayerLocation ICE_BOUQUET = register("ice_bouquet");
     public static final ModelLayerLocation ICE_CHUNK = register("ice_chunk");
+    public static final ModelLayerLocation MINISTER_TOOTH = register("minister_tooth");
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
@@ -46,6 +47,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation IRK = register("irk");
     public static final ModelLayerLocation VIZIER_ARMOR = register("vizier", "armor");
     public static final ModelLayerLocation DARK_HAT = register("dark_hat");
+    public static final ModelLayerLocation GRAND_TURBAN = register("grand_turban");
     public static final ModelLayerLocation WITCH_HAT = register("witch_hat");
     public static final ModelLayerLocation CRONE_HAT = register("crone_hat");
     public static final ModelLayerLocation DARK_ROBE = register("dark_robe");
@@ -59,7 +61,9 @@ public class ModModelLayer {
     public static final ModelLayerLocation AMULET = register("amulet");
     public static final ModelLayerLocation BELT = register("belt");
     public static final ModelLayerLocation MONOCLE = register("monocle");
+    public static final ModelLayerLocation AMETHYST_NECKLACE = register("amethyst_necklace");
     public static final ModelLayerLocation SOUL_SHIELD = register("soul_shield");
+    public static final ModelLayerLocation SOUL_ARMOR = register("soul_armor");
 
     private static ModelLayerLocation register(String p_171294_) {
         return register(p_171294_, "main");

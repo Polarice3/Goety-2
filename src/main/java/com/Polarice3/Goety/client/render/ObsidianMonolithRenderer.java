@@ -19,12 +19,12 @@ public class ObsidianMonolithRenderer extends AbstractMonolithRenderer{
     }
 
     @Override
-    public RenderType getActivatedTextureLocation() {
+    public RenderType getActivatedTextureLocation(AbstractMonolith monolith) {
         return RENDER_TYPE;
     }
 
     @Override
-    public Map<AbstractMonolith.Crackiness, ResourceLocation> resourceLocations() {
+    public Map<AbstractMonolith.Crackiness, ResourceLocation> cracknessLocation() {
         return resourceLocations;
     }
 

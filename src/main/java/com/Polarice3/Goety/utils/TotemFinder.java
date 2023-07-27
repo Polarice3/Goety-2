@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +32,7 @@ public class TotemFinder {
     }
 
     private static boolean isTotem(ItemStack itemStack) {
-        return itemStack.getItem() == ModItems.TOTEM_OF_SOULS.get();
+        return itemStack.getItem() instanceof TotemOfSouls;
     }
 
     public static ItemStack FindTotem(Player playerEntity){

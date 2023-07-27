@@ -3,7 +3,9 @@ package com.Polarice3.Goety.common.magic.spells.summon;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.AllyIrk;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
+import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -57,9 +59,14 @@ public class VexSpell extends SummonSpells {
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof AllyVex) {
-                    if (((AllyVex) entity).getTrueOwner() == entityLiving) {
-                        entity.kill();
+                if (entity instanceof Minion minion) {
+                    if (minion instanceof AllyVex || minion instanceof AllyIrk) {
+                        if (minion.getTrueOwner() == entityLiving) {
+                            if (minion instanceof AllyIrk){
+                                entityLiving.heal(2.0F);
+                            }
+                            entity.kill();
+                        }
                     }
                 }
             }

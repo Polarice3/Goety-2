@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -32,6 +33,10 @@ public abstract class Spells {
 
     public SpellType getSpellType(){
         return SpellType.NONE;
+    }
+
+    public boolean GeoPower(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.AMETHYST_NECKLACE.get());
     }
 
     public boolean isShifting(LivingEntity entityLiving){
@@ -79,6 +84,7 @@ public abstract class Spells {
         NETHER("nether", null),
         ILL("ill", null),
         FROST("frost", null),
+        GEOMANCY("geomancy", null),
         WIND("wind", ModItems.WIND_STAFF.get());
 
         private final Item staff;

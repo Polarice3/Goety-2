@@ -38,21 +38,18 @@ import net.minecraftforge.common.ForgeMod;
 public class AbstractWraith extends Summoned {
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
     public int fireTick;
-    public int firingTick;
-    public int firingTick2;
     public int teleportCooldown;
     public int teleportTime = 20;
     public int teleportTime2;
     public double prevX;
     public double prevY;
     public double prevZ;
+    public AnimationState attackAnimationState = new AnimationState();
 
     public AbstractWraith(EntityType<? extends Summoned> p_i48553_1_, Level p_i48553_2_) {
         super(p_i48553_1_, p_i48553_2_);
         this.moveControl = new MobUtil.WraithMoveController(this);
         this.fireTick = 0;
-        this.firingTick = 0;
-        this.firingTick2 = 0;
         this.teleportTime2 = 0;
         this.teleportCooldown = 0;
     }
@@ -90,8 +87,6 @@ public class AbstractWraith extends Summoned {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("fireTick", this.fireTick);
-        pCompound.putInt("firingTick", this.firingTick);
-        pCompound.putInt("firingTick2", this.firingTick2);
         pCompound.putInt("teleportTime2", this.teleportTime2);
         pCompound.putInt("teleportCooldown", this.teleportCooldown);
     }
@@ -99,8 +94,6 @@ public class AbstractWraith extends Summoned {
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.fireTick = pCompound.getInt("fireTick");
-        this.firingTick = pCompound.getInt("firingTick");
-        this.firingTick2 = pCompound.getInt("firingTick2");
         this.teleportTime2 = pCompound.getInt("teleportTime2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
     }
@@ -326,16 +319,6 @@ public class AbstractWraith extends Summoned {
                 this.setIsTeleporting(false);
                 this.stopFiring();
             }
-        } else {
-            if (this.isFiring()){
-                this.firingTick = 20;
-                ++this.firingTick2;
-            } else {
-                this.firingTick2 = 0;
-            }
-            if (this.firingTick > 0){
-                --this.firingTick;
-            }
         }
     }
 
@@ -454,6 +437,7 @@ public class AbstractWraith extends Summoned {
         super.handleEntityEvent(pId);
         if (pId == 4) {
             this.setIsFiring(true);
+            this.attackAnimationState.start(this.tickCount);
         }
         if (pId == 5) {
             this.setIsFiring(false);
@@ -465,11 +449,13 @@ public class AbstractWraith extends Summoned {
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
                 this.level.addParticle(this.getFireParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
             }
-            for(int j = 0; j < 4; ++j) {
-                double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                double d2 = this.getY();
-                double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
+            if (!this.level.getBlockState(this.blockPosition().below()).isAir()) {
+                for (int j = 0; j < 4; ++j) {
+                    double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
+                    double d2 = this.blockPosition().below().getY() + 0.5F;
+                    double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
+                    this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
+                }
             }
         }
         if (pId == 101){

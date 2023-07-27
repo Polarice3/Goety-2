@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:sculk"
+      "item": "minecraft:soul_lantern"
     },
     {
       "item": "goety:spent_totem"

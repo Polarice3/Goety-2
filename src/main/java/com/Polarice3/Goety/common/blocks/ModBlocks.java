@@ -70,6 +70,7 @@ public class ModBlocks {
                     .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
             true, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
+    public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
 
@@ -334,7 +335,7 @@ public class ModBlocks {
         return entityType == EntityType.OCELOT || entityType == EntityType.PARROT;
     }
 
-    private static boolean never(BlockState blockState, BlockGetter iBlockReader, BlockPos blockPos) {
+    public static boolean never(BlockState blockState, BlockGetter iBlockReader, BlockPos blockPos) {
         return false;
     }
 

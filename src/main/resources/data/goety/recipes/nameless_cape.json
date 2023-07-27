@@ -1,0 +1,36 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:necro_cape"
+  },
+  "craftType": "lich",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:illusion_robe"
+    },
+    {
+      "item": "goety:soul_emerald"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:forbidden_piece"
+    },
+    {
+      "item": "goety:forbidden_piece"
+    },
+    {
+      "tag": "forge:bones"
+    }
+  ],
+  "result": {
+    "item": "goety:nameless_cape"
+  }
+}

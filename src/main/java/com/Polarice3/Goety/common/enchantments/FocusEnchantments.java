@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.enchantments;
 
 import com.Polarice3.Goety.common.items.EnchantableBlockItem;
+import com.Polarice3.Goety.common.items.curios.WardingCharmItem;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +17,6 @@ public abstract class FocusEnchantments extends Enchantment {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
-        return super.canApplyAtEnchantingTable(stack) && (stack.getItem() instanceof MagicFocus || stack.getItem() instanceof EnchantableBlockItem);
+        return super.canApplyAtEnchantingTable(stack) && (stack.getItem() instanceof MagicFocus || stack.getItem() instanceof WardingCharmItem || stack.getItem() instanceof EnchantableBlockItem);
     }
 }

@@ -222,9 +222,6 @@ public abstract class Ritual {
     public boolean matchesAdditionalIngredients(Player player, List<Ingredient> additionalIngredients, List<ItemStack> items) {
 
         if (additionalIngredients.size() != items.size()) {
-            if (additionalIngredients.size() > items.size()){
-                player.displayClientMessage(Component.translatable("info.goety.ritual.tooLittleItems.fail"), true);
-            }
             return false;
         }
 

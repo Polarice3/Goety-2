@@ -12,7 +12,9 @@ import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
+import com.Polarice3.Goety.client.render.layer.PlayerSoulArmorLayer;
 import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
+import com.Polarice3.Goety.client.render.layer.PlayerSpellShieldLayer;
 import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModChestBlock;
@@ -72,7 +74,7 @@ public class ClientInitEvents {
         });
 
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
-                (stack, world, living, seed) -> ((float) TotemOfSouls.currentSouls(stack)) / TotemOfSouls.MAX_SOULS);
+                (stack, world, living, seed) -> ((float) TotemOfSouls.currentSouls(stack)) / TotemOfSouls.maximumSouls(stack));
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("activated"),
                 (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
@@ -95,7 +97,9 @@ public class ClientInitEvents {
     public static void addLayers(EntityRenderersEvent.AddLayers event){
         PlayerRenderer playerRenderer = event.getSkin("default");
         if (playerRenderer != null){
+            playerRenderer.addLayer(new PlayerSoulArmorLayer(playerRenderer, event.getEntityModels()));
             playerRenderer.addLayer(new PlayerSoulShieldLayer(playerRenderer, event.getEntityModels()));
+            playerRenderer.addLayer(new PlayerSpellShieldLayer(playerRenderer, event.getEntityModels()));
         }
     }
 
@@ -112,6 +116,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SPIKE, SpikeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_BOUQUET, IceBouquetModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_CHUNK, IceChunkModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MINISTER_TOOTH, MinisterToothModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
@@ -139,7 +144,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL, HauntedSkullModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SKULL_LORD, SkullLordModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER_ARMOR, VizierModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayer.DARK_HAT, DarkHatModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.DARK_HAT, DarkHatModel::createDarkHatLayer);
+        event.registerLayerDefinition(ModModelLayer.GRAND_TURBAN, DarkHatModel::createGrandTurbanLayer);
         event.registerLayerDefinition(ModModelLayer.WITCH_HAT, WitchHatModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE_HAT, WitchHatModel::createCroneLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ROBE, DarkRobeModel::createBodyLayer);
@@ -151,6 +157,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FOCUS_BAG, MiscCuriosModel::createFocusBagLayer);
         event.registerLayerDefinition(ModModelLayer.AMULET, MiscCuriosModel::createAmuletLayer);
+        event.registerLayerDefinition(ModModelLayer.AMETHYST_NECKLACE, MiscCuriosModel::createAmethystNecklaceLayer);
         event.registerLayerDefinition(ModModelLayer.BELT, MiscCuriosModel::createBeltLayer);
         event.registerLayerDefinition(ModModelLayer.MONOCLE, MiscCuriosModel::createMonocleLayer);
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_INNER, VillagerArmorModel::createInnerArmorLayer);
@@ -160,6 +167,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_INNER, DarkArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_OUTER, DarkArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
+        event.registerLayerDefinition(ModModelLayer.SOUL_ARMOR, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.3F), false), 64, 64));
 
         LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
         LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);
@@ -187,6 +195,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.NIGHT_BEACON.get(), NightBeaconRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_CHEST.get(), ModChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_TRAPPED_CHEST.get(), ModChestRenderer::new);
@@ -209,11 +218,14 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MINISTER_TOOTH.get(), MinisterToothRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolithRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TOTEMIC_WALL.get(), TotemicWallRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TOTEMIC_BOMB.get(), TotemicBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
@@ -232,6 +244,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ALLY_IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HUSK_SERVANT.get(), HuskServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.DROWNED_SERVANT.get(), DrownedServantRenderer::new);

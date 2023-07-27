@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,6 +19,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -37,6 +39,7 @@ import java.util.EnumSet;
 
 public class Wartling extends Summoned {
     private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(Wartling.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> MEGA = SynchedEntityData.defineId(Wartling.class, EntityDataSerializers.BOOLEAN);
     private int searchTime;
     private MobEffectInstance effect;
 
@@ -101,6 +104,7 @@ public class Wartling extends Summoned {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CLIMBING, (byte)0);
+        this.entityData.define(MEGA, false);
     }
 
     public void addAdditionalSaveData(CompoundTag p_21145_) {
@@ -109,6 +113,7 @@ public class Wartling extends Summoned {
             p_21145_.put("StoredEffect", this.getStoredEffect().save(new CompoundTag()));
         }
         p_21145_.putInt("SearchTime", this.searchTime);
+        p_21145_.putBoolean("Mega", this.isMega());
     }
 
     public void readAdditionalSaveData(CompoundTag p_21096_) {
@@ -117,6 +122,17 @@ public class Wartling extends Summoned {
             this.setStoredEffect(MobEffectInstance.load(p_21096_.getCompound("StoredEffect")));
         }
         this.searchTime = p_21096_.getInt("SearchTime");
+        if (p_21096_.getBoolean("Mega")) {
+            this.setMega();
+        }
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
+        if (MEGA.equals(p_33134_)) {
+            this.refreshDimensions();
+        }
+
+        super.onSyncedDataUpdated(p_33134_);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -137,6 +153,23 @@ public class Wartling extends Summoned {
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+    }
+
+    public boolean isMega(){
+        return this.entityData.get(MEGA);
+    }
+
+    public void setMega(){
+        this.entityData.set(MEGA, true);
+        AttributeInstance attack = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        AttributeInstance health = this.getAttribute(Attributes.MAX_HEALTH);
+        if (attack != null){
+            attack.setBaseValue(4.0F);
+        }
+        if (health != null){
+            health.setBaseValue(8.0F);
+            this.setHealth(8.0F);
+        }
     }
 
     public boolean onClimbable() {
@@ -170,6 +203,26 @@ public class Wartling extends Summoned {
 
     public boolean canBeCollidedWith() {
         return false;
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entityIn) {
+        if (this.isMega()){
+            if (entityIn instanceof LivingEntity livingEntity){
+                if (this.getStoredEffect() != null) {
+                    if (!this.getStoredEffect().getEffect().isBeneficial()) {
+                        livingEntity.addEffect(this.getStoredEffect());
+                    }
+                } else if (!livingEntity.getActiveEffects().isEmpty()){
+                    livingEntity.getActiveEffects().stream().filter(mobEffect -> mobEffect.getEffect().isBeneficial() && !mobEffect.getEffect().getCurativeItems().isEmpty()).findFirst().ifPresent(effect -> {
+                        this.setStoredEffect(effect);
+                        livingEntity.removeEffect(effect.getEffect());
+                        this.playSound(ModSounds.SPIDER_BITE.get());
+                    });
+                }
+            }
+        }
+        return super.doHurtTarget(entityIn);
     }
 
     @Override
@@ -296,6 +349,11 @@ public class Wartling extends Summoned {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         return spawnDataIn;
+    }
+
+    public EntityDimensions getDimensions(Pose p_33113_) {
+        EntityDimensions entitydimensions = super.getDimensions(p_33113_);
+        return this.isMega() ? entitydimensions.scale(2.0F) : super.getDimensions(p_33113_);
     }
 
     public static class AvoidOwnerGoal extends Goal {

@@ -1054,6 +1054,69 @@
     ],
     "subtitle": "subtitle.goety.wall_disappear"
   },
+  "bomb_spawn": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_spawn1"
+      },
+      {
+        "name": "goety:wall/bomb_spawn2"
+      }
+    ],
+    "subtitle": "subtitle.goety.bomb_spawn"
+  },
+  "bomb_pulse": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_pulse1"
+      },
+      {
+        "name": "goety:wall/bomb_pulse2"
+      }
+    ],
+    "subtitle": "subtitle.goety.bomb_pulse"
+  },
+  "bomb_fuse": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_fuse"
+      }
+    ],
+    "subtitle": "subtitle.goety.bomb_fuse"
+  },
+  "bomb_load": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_load"
+      }
+    ],
+    "subtitle": "subtitle.goety.bomb_load"
+  },
+  "bomb_sparkle": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_sparkle1"
+      },
+      {
+        "name": "goety:wall/bomb_sparkle2"
+      },
+      {
+        "name": "goety:wall/bomb_sparkle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bomb_sparkle"
+  },
+  "spider_bite": {
+    "sounds": [
+      {
+        "name": "goety:random/spider_bite1"
+      },
+      {
+        "name": "goety:random/spider_bite2"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_bite"
+  },
   "roar_spell": {
     "sounds": [
       {
@@ -1069,6 +1132,20 @@
       }
     ],
     "subtitle": "subtitle.goety.fire_breath"
+  },
+  "soul_armor": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_armor1"
+      },
+      {
+        "name": "goety:spell/soul_armor2"
+      },
+      {
+        "name": "goety:spell/soul_armor3"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_armor"
   },
   "prepare_spell": {
     "sounds": [

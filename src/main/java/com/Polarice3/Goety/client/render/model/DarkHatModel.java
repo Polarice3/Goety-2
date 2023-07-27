@@ -15,7 +15,7 @@ public class DarkHatModel extends HumanoidModel<LivingEntity> {
         super(root);
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createDarkHatLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.25F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -26,6 +26,15 @@ public class DarkHatModel extends HumanoidModel<LivingEntity> {
         PartDefinition top = rim.addOrReplaceChild("top", CubeListBuilder.create().texOffs(0, 33).addBox(-4.0F, -10.0F, -3.0F, 8.0F, 12.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 1.0F, -0.2182F, 0.0F, 0.0F));
 
         PartDefinition cube_r1 = top.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(26, 33).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -10.0F, 2.0F, -0.4363F, 0.0F, 0.0F));
+
+        return LayerDefinition.create(meshdefinition, 64, 64);
+    }
+
+    public static LayerDefinition createGrandTurbanLayer() {
+        MeshDefinition meshdefinition = HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.25F);
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -12.0F, -5.0F, 10.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }

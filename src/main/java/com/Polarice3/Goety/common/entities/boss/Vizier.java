@@ -421,6 +421,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                     if ((this.level.random.nextBoolean() || this.getHealth() < this.getMaxHealth()/2) && irks < 16) {
                         Irk irk = new Irk(ModEntityType.IRK.get(), this.level);
                         irk.setPos(this.getX(), this.getY(), this.getZ());
+                        irk.setLimitedLife(MobUtil.getSummonLifespan(this.level));
                         irk.setTrueOwner(this);
                         this.level.addFreshEntity(irk);
                     }
@@ -430,6 +431,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                         if (!this.level.isClientSide) {
                             Vex irk = new Vex(EntityType.VEX, this.level);
                             irk.setPos(this.getX(), this.getY(), this.getZ());
+                            irk.setLimitedLife(MobUtil.getSummonLifespan(this.level));
                             irk.setOwner(this);
                             irk.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                             this.level.addFreshEntity(irk);

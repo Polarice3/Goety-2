@@ -33,7 +33,7 @@ public class LightningSpell extends Spells {
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.WIND;
+        return SpellType.GEOMANCY;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){

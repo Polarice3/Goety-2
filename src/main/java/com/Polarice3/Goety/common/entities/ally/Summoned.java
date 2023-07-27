@@ -26,12 +26,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ArmorItem;
@@ -103,21 +104,23 @@ public class Summoned extends Owned {
     public void tick(){
         super.tick();
         AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-        if (this.isStaying()){
-            if (this.navigation.getPath() != null) {
-                this.navigation.stop();
-            }
-            if (modifiableattributeinstance != null && this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
-                modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
-                modifiableattributeinstance.addTransientModifier(SPEED_MODIFIER);
-            }
-            this.stayingPosition();
-            if (this.isWandering()) {
-                this.setWandering(false);
-            }
-        } else {
-            if (modifiableattributeinstance != null && modifiableattributeinstance.hasModifier(SPEED_MODIFIER)) {
-                modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
+        if (modifiableattributeinstance != null) {
+            if (this.isStaying()){
+                if (this.navigation.getPath() != null) {
+                    this.navigation.stop();
+                }
+                if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
+                    modifiableattributeinstance.addTransientModifier(SPEED_MODIFIER);
+                }
+                this.stayingPosition();
+                if (this.isWandering()) {
+                    this.setWandering(false);
+                }
+            } else {
+                if (modifiableattributeinstance.hasModifier(SPEED_MODIFIER)) {
+                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
+                }
             }
         }
         if (this.isWandering()){
@@ -310,14 +313,8 @@ public class Summoned extends Owned {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Upgraded", this.upgraded);
-
-        if (this.isWandering()) {
-            compound.putBoolean("wandering", true);
-        }
-
-        if (this.isStaying()) {
-            compound.putBoolean("staying", true);
-        }
+        compound.putBoolean("wandering", this.isWandering());
+        compound.putBoolean("staying", this.isStaying());
     }
 
     public void updateMoveMode(Player player){
@@ -474,14 +471,26 @@ public class Summoned extends Owned {
         }
     }
 
-    public class WanderGoal extends WaterAvoidingRandomStrollGoal {
+    public class WanderGoal extends RandomStrollGoal {
+        protected final float probability;
 
         public WanderGoal(PathfinderMob p_i47301_1_, double p_i47301_2_) {
             this(p_i47301_1_, p_i47301_2_, 0.001F);
         }
 
         public WanderGoal(PathfinderMob entity, double speedModifier, float probability) {
-            super(entity, speedModifier, probability);
+            super(entity, speedModifier, 120, false);
+            this.probability = probability;
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            if (this.mob.isInWaterOrBubble()) {
+                Vec3 vec3 = LandRandomPos.getPos(this.mob, 15, 7);
+                return vec3 == null ? super.getPosition() : vec3;
+            } else {
+                return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
+            }
         }
 
         public boolean canUse() {

@@ -56,6 +56,27 @@ public class MiscCuriosModel extends HumanoidModel<LivingEntity> {
         return LayerDefinition.create(meshdefinition, 24, 16);
     }
 
+    public static LayerDefinition createAmethystNecklaceLayer() {
+        MeshDefinition meshdefinition = HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.5F);
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+        partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, 2.0F, -6.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(2.0F, 1.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-4.0F, 1.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-6.0F, -1.0F, -3.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(4.0F, -1.0F, 2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(4.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(4.0F, -1.0F, -3.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-6.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-6.0F, -1.0F, 2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-4.0F, 1.0F, 3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(2.0F, 1.0F, 3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F))
+                .texOffs(0, 0).addBox(-1.0F, 2.0F, 4.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+        return LayerDefinition.create(meshdefinition, 16, 16);
+    }
+
     @Override
     public void setupAnim(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);

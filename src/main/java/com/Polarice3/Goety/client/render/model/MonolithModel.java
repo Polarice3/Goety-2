@@ -18,9 +18,7 @@ public class MonolithModel<T extends AbstractMonolith> extends EntityModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-
-		PartDefinition monolith = partdefinition.addOrReplaceChild("monolith", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, -50.0F, -7.0F, 14.0F, 50.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
-
+		partdefinition.addOrReplaceChild("monolith", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, -50.0F, -7.0F, 14.0F, 50.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 

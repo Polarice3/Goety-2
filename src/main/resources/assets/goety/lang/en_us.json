@@ -80,6 +80,7 @@
   "entity.goety.haunted_armor":"Haunted Armor",
 
   "entity.goety.ally_vex":"Vex",
+  "entity.goety.ally_irk":"Irk",
   "entity.goety.zombie_servant":"Zombie Servant",
   "entity.goety.husk_servant":"Husk Servant",
   "entity.goety.drowned_servant":"Drowned Servant",
@@ -91,6 +92,9 @@
   "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
 
+  "entity.goety.totemic_wall":"Totemic Wall",
+  "entity.goety.totemic_bomb":"Totemic Bomb",
+
   "entity.goety.skull_lord":"Skull Lord",
   "entity.goety.bone_lord":"Bone Lord",
 
@@ -98,6 +102,8 @@
   "entity.goety.tormentor":"Tormentor",
   "entity.goety.inquillager":"Inquillager",
   "entity.goety.conquillager":"Conquillager",
+
+  "entity.goety.minister":"Minister",
 
   "entity.goety.vizier":"Vizier",
   "entity.goety.irk":"Irk",
@@ -116,6 +122,7 @@
   "entity.goety.necro_bolt":"Necro Bolt",
   "entity.goety.fang":"Magic Fang",
   "entity.goety.spike":"Royal Spike",
+  "entity.goety.minister_tooth":"Minister Tooth",
   "entity.goety.ice_bouquet":"Ice Bouquet",
   "entity.goety.ice_chunk":"Ice Chunk",
   "entity.goety.snap_fungus":"Snap Fungus",
@@ -169,6 +176,7 @@
   "item.goety.necro_staff": "Necro Staff",
   "item.goety.wind_staff": "Wind Staff",
   "item.goety.nameless_staff": "Nameless Staff",
+  "item.goety.totem_of_roots": "Totem of Roots",
   "item.goety.totem_of_souls": "Totem of Souls",
   "item.goety.spent_totem": "Spent Totem of Souls",
   "item.goety.magic_emerald": "Awakened Emerald",
@@ -221,6 +229,7 @@
   "item.goety.gale_fabric": "Gale Fabric",
 
   "item.goety.ravaging_scroll": "Ravaging Scroll",
+  "item.goety.frost_scroll": "Frost Scroll",
   "item.goety.replication_scroll": "Replication Scroll",
 
   "item.goety.forbidden_piece": "Forbidden Piece",
@@ -263,11 +272,14 @@
 
   "item.goety.ring_of_want": "Ring of Want",
   "item.goety.dark_hat": "Dark Hat",
+  "item.goety.grand_turban": "Grand Turban",
   "item.goety.witch_hat": "Witch Hat",
   "item.goety.crone_hat": "Crone Hat",
   "item.goety.necro_crown": "Necro Crown",
   "item.goety.nameless_crown": "Nameless Crown",
+  "item.goety.amethyst_necklace": "Amethyst Necklace",
   "item.goety.dark_robe": "Dark Robe",
+  "item.goety.grand_robe": "Grand Robe",
   "item.goety.illusion_robe": "Illusive Robe",
   "item.goety.frost_robe": "Frost Robe",
   "item.goety.wind_robe": "Wind Robe",
@@ -286,6 +298,7 @@
   "item.goety.spiteful_belt": "Spiteful Belt",
   "item.goety.star_amulet": "Soul Shield Amulet",
   "item.goety.pendant_of_hunger": "Pendant of Hunger",
+  "item.goety.warding_charm": "Warding Charm",
 
   "item.goety.empty_focus": "Empty Focus",
   "item.goety.animation_core": "Animation Core",
@@ -300,6 +313,7 @@
   "item.goety.spooky_focus": "Spooky Focus",
   "item.goety.skull_focus": "Skull Focus",
   "item.goety.iceology_focus": "Iceology Focus",
+  "item.goety.barricade_focus": "Barricade Focus",
   "item.goety.illusion_focus": "Mirror Focus",
   "item.goety.feast_focus": "Feasting Focus",
   "item.goety.fireball_focus": "Fireball Focus",
@@ -470,6 +484,7 @@
   "block.goety.crystal_ball": "Crystal Ball",
   "block.goety.pithos": "Pithos",
   "block.goety.crypt_urn": "Crypt Urn",
+  "block.goety.night_beacon": "Night Beacon",
 
   "block.goety.magic_thorn": "Magic Thorn",
   "block.goety.hardened_leaves": "Hardened Leaves",
@@ -499,6 +514,8 @@
   "effect.goety.wane.description": "Weakens movement, and melee damage.",
   "effect.goety.busted": "Busted",
   "effect.goety.busted.description": "Reduces armor points by 50% per level.",
+  "effect.goety.soul_armor": "Soul Armor",
+  "effect.goety.soul_armor.description": "Increases armor points by 2. Triples armor points if affected entities does not wear any armor.",
   "effect.goety.pressure": "Pressure",
   "effect.goety.pressure.description": "Creepers will explode nigh-instantly towards targets with this effect.",
   "effect.goety.charged": "Charged",
@@ -628,16 +645,20 @@
   "info.goety.focus.PosNum": "X: %d, Y: %d, Z: %d",
   "info.goety.focus.PosDim": "§aDimension:§a %d",
   "info.goety.focus.PosInvalid": "§cRecall Block Is Invalid§c",
+
   "info.goety.items.dark_scroll.desc": "Must be used within a Woodland Mansion.",
   "info.goety.items.dark_scroll.failure": "You are not within a Woodland Mansion!",
-  "info.goety.items.ravaging_scroll": "An Evoker's ritual cheatsheet.",
-  "info.goety.items.replication_scroll": "Magical facsimiles of items.",
+  "info.goety.items.ravaging": "An Evoker's ritual cheatsheet.",
+  "info.goety.items.frost": "The ways of frost and winter.",
   "info.goety.items.forbidden_scroll": "The Secrets to Immortality...",
+
+  "info.goety.research.ravaging": "You have learned the method of creating Ravagers!",
+  "info.goety.research.frost": "You have learned the ways of Frost Magic!",
+  "info.goety.research.lich": "You have learned the secret to Immortality!",
+
   "info.goety.hunger_pendent.amount": "§2Rotten Flesh:§2 %d",
   "info.goety.sea_amulet.amount": "§3Conduit Charges:§3 %d",
-  "info.goety.research.ravager": "You have learned the method of creating Ravagers!",
-  "info.goety.research.replication": "You have learned the magical replication method!",
-  "info.goety.research.lich": "You have learned the secret to Immortality!",
+
   "info.goety.ritual.fail": "You do not know how to properly start this ritual!",
   "info.goety.ritual.structure.fail": "Inefficient Block Requirements!",
   "info.goety.ritual.convert.fail": "Required Mob Not In Range!",
@@ -670,6 +691,7 @@
   "spell.goety.nether": "§4Nether§4",
   "spell.goety.ill": "§eMagic§e",
   "spell.goety.frost": "§9Frost§9",
+  "spell.goety.geomancy": "§6Geomancy§6",
   "spell.goety.wind": "§bWind§b",
 
   "tooltip.goety.arca": "Arca location: ",
@@ -778,9 +800,18 @@
   "subtitle.goety.wall_erupt": "Totemic Wall erupts",
   "subtitle.goety.wall_disappear": "Totemic Wall disappears",
 
+  "subtitle.goety.bomb_spawn": "Totemic Bomb appears",
+  "subtitle.goety.bomb_pulse": "Totemic Bomb pulses",
+  "subtitle.goety.bomb_fuse": "Totemic Bomb lights up",
+  "subtitle.goety.bomb_load": "Totemic Bomb powers up",
+  "subtitle.goety.bomb_sparkle": "Totemic Bomb sparkles",
+
+  "subtitle.goety.spider_bite": "Spider bites",
+
   "subtitle.goety.evil_laugh": "Evil Laugh",
   "subtitle.goety.roar_spell": "Loud Roar",
   "subtitle.goety.fire_breath": "Breathing Flames",
+  "subtitle.goety.soul_armor": "Apply Soul Armor",
   "subtitle.goety.prepare_spell": "Prepares Spell",
   "subtitle.goety.cast_spell": "Casts Spell",
   "subtitle.goety.summon_spell": "Summon Spell",
@@ -884,6 +915,8 @@
   "advancements.goety.kill_envioker.description": "Looks like you've gathered some attention from those Illagers...",
   "advancements.goety.kill_illagers.title": "Expected The Unexpected",
   "advancements.goety.kill_illagers.description": "Defeated an Envioker, an Inquillager and a Conquillager!",
+  "advancements.goety.find_crypt.title": "Pretty Creepy",
+  "advancements.goety.find_crypt.description": "Find your way into the Crypts.",
   "advancements.goety.kill_skull_lord.title": "Doom Raider",
   "advancements.goety.kill_skull_lord.description": "Defeated a Skull Lord, the ancient lord of the Crypt.",
   "advancements.goety.kill_crone.title": "It's a Fair Cop",

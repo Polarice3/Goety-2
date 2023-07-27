@@ -28,10 +28,15 @@ import java.util.List;
  */
 public class TotemOfSouls extends Item {
     public static final String SOULS_AMOUNT = "Souls";
+    public static final String MAX_SOUL_AMOUNT = "Max Souls";
     public static final int MAX_SOULS = MainConfig.MaxSouls.get();
 
     public TotemOfSouls() {
         super(new Properties().tab(Goety.TAB).stacksTo(1).rarity(Rarity.RARE));
+    }
+
+    public int getMaxSouls(){
+        return MAX_SOULS;
     }
 
     @Override
@@ -39,10 +44,12 @@ public class TotemOfSouls extends Item {
         if (this.allowedIn(pGroup)){
             ItemStack emptySouls = new ItemStack(this);
             setSoulsamount(emptySouls, 0);
+            setMaxSoulAmount(emptySouls, this.getMaxSouls());
             pItems.add(emptySouls);
 
             ItemStack maxSouls = new ItemStack(this);
-            setSoulsamount(maxSouls, MAX_SOULS);
+            setSoulsamount(maxSouls, this.getMaxSouls());
+            setMaxSoulAmount(maxSouls, this.getMaxSouls());
             pItems.add(maxSouls);
         }
     }
@@ -55,7 +62,8 @@ public class TotemOfSouls extends Item {
     public double amountColor(ItemStack stack){
         if (stack.getTag() != null) {
             int Soulcount = stack.getTag().getInt(SOULS_AMOUNT);
-            return 1.0D - (Soulcount / (double) MAX_SOULS);
+            int MaxSouls = stack.getTag().getInt(MAX_SOUL_AMOUNT);
+            return 1.0D - (Soulcount / (double) MaxSouls);
         } else {
             return 1.0D;
         }
@@ -69,6 +77,7 @@ public class TotemOfSouls extends Item {
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
         setSoulsamount(pStack, 0);
+        setMaxSoulAmount(pStack, this.getMaxSouls());
         super.onCraftedBy(pStack, pLevel, pPlayer);
     }
 
@@ -93,9 +102,14 @@ public class TotemOfSouls extends Item {
         if (stack.getTag() == null){
             CompoundTag compound = stack.getOrCreateTag();
             compound.putInt(SOULS_AMOUNT, 0);
+            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
         }
-        if (stack.getTag().getInt(SOULS_AMOUNT) > MAX_SOULS){
-            stack.getTag().putInt(SOULS_AMOUNT, MAX_SOULS);
+        if (!stack.getTag().contains(MAX_SOUL_AMOUNT)){
+            CompoundTag compound = stack.getOrCreateTag();
+            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
+        }
+        if (stack.getTag().getInt(SOULS_AMOUNT) > stack.getTag().getInt(MAX_SOUL_AMOUNT)){
+            stack.getTag().putInt(SOULS_AMOUNT, stack.getTag().getInt(MAX_SOUL_AMOUNT));
         }
         if (stack.getTag().getInt(SOULS_AMOUNT) < 0){
             stack.getTag().putInt(SOULS_AMOUNT, 0);
@@ -110,7 +124,8 @@ public class TotemOfSouls extends Item {
     private static boolean isFull(ItemStack itemStack) {
         assert itemStack.getTag() != null;
         int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        return Soulcount == MAX_SOULS;
+        int MaxSouls = itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
+        return Soulcount == MaxSouls;
     }
 
     private static boolean isEmpty(ItemStack itemStack) {
@@ -139,15 +154,30 @@ public class TotemOfSouls extends Item {
         }
     }
 
+    public static int maximumSouls(ItemStack itemStack){
+        if (itemStack.getTag() != null){
+            return itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
+        } else {
+            return 0;
+        }
+    }
+
     public static void setSoulsamount(ItemStack itemStack, int souls){
-        if (itemStack.getItem() != ModItems.TOTEM_OF_SOULS.get()) {
+        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
             return;
         }
         itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, souls);
     }
 
+    public static void setMaxSoulAmount(ItemStack itemStack, int souls){
+        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
+            return;
+        }
+        itemStack.getOrCreateTag().putInt(MAX_SOUL_AMOUNT, souls);
+    }
+
     public static void increaseSouls(ItemStack itemStack, int souls) {
-        if (itemStack.getItem() != ModItems.TOTEM_OF_SOULS.get()) {
+        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
             return;
         }
         assert itemStack.getTag() != null;
@@ -159,7 +189,7 @@ public class TotemOfSouls extends Item {
     }
 
     public static void decreaseSouls(ItemStack itemStack, int souls) {
-        if (itemStack.getItem() != ModItems.TOTEM_OF_SOULS.get()) {
+        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
             return;
         }
         assert itemStack.getTag() != null;
@@ -179,7 +209,8 @@ public class TotemOfSouls extends Item {
     public int getBarWidth(ItemStack stack){
         if (stack.getTag() != null) {
             int Soulcount = stack.getTag().getInt(SOULS_AMOUNT);
-            return Math.round((Soulcount * 13.0F / MAX_SOULS));
+            int MaxSouls = stack.getTag().getInt(MAX_SOUL_AMOUNT);
+            return Math.round((Soulcount * 13.0F / MaxSouls));
         } else {
             return 0;
         }
@@ -208,7 +239,8 @@ public class TotemOfSouls extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() != null) {
             int Soulcounts = stack.getTag().getInt(SOULS_AMOUNT);
-            tooltip.add(Component.translatable("info.goety.totem_of_souls.souls", Soulcounts, MAX_SOULS));
+            int MaxSouls = stack.getTag().getInt(MAX_SOUL_AMOUNT);
+            tooltip.add(Component.translatable("info.goety.totem_of_souls.souls", Soulcounts, MaxSouls));
         }
     }
 

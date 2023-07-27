@@ -64,6 +64,11 @@ public class GoetyEffects {
                     .addAttributeModifier(Attributes.ARMOR, "bf1df32b-2ee2-4fb9-9b96-e1765202bca3",
                             -0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
+    public static final RegistryObject<MobEffect> SOUL_ARMOR = EFFECTS.register("soul_armor",
+            () -> new BrewMobEffect(MobEffectCategory.BENEFICIAL, 0x668785, false)
+                    .addAttributeModifier(Attributes.ARMOR, "e4b8d878-0c5b-43b2-bd94-8c021d231f1e",
+                            2.0D, AttributeModifier.Operation.ADDITION));
+
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 

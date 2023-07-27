@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:empty_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    },
+    {
+      "item": "minecraft:creeper_head"
+    }
+  ],
+  "result": {
+    "item": "goety:barricade_focus"
+  }
+}

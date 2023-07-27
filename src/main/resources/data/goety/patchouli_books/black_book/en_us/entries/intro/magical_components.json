@@ -1,0 +1,39 @@
+{
+  "name": "Magical Components",
+  "icon": "goety:magic_emerald",
+  "category": "goety:intro",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With your primitive Totem in hand, you've discovered that you can use it to craft brand new items that can be used to create all kinds of magical contraptions and focus!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_ingot_craft",
+      "recipe2": "goety:empty_focus_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_stone_craft",
+      "recipe2": "goety:haunted/haunted_sapling_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:savage_tooth_craft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Evoker's Totem seems to have Emeralds placed where the eyes would be. You have a feeling that the Emeralds are different from the usual. Could there be a way to 'activate' them?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:magic_emerald_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_souls",
+      "text": "You've finally made a true simulacrum of the Evoker's Totem. This Totem can hold far more Soul Energy than the Totem of Roots."
+    }
+  ]
+}

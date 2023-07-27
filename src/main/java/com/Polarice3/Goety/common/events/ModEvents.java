@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.AllyIrk;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -815,6 +816,27 @@ public class ModEvents {
     @SubscribeEvent
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
+        if (CuriosFinder.hasCurio(victim, ModItems.GRAND_TURBAN.get())){
+            if (victim instanceof Player player) {
+                if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get())) {
+                    int irks = victim.level.getEntitiesOfClass(AllyIrk.class, victim.getBoundingBox().inflate(32)).size();
+                    if ((victim.level.random.nextBoolean() || victim.getHealth() <= victim.getMaxHealth() / 2) && irks < 16) {
+                        AllyIrk irk = new AllyIrk(ModEntityType.ALLY_IRK.get(), victim.level);
+                        irk.setPos(victim.getX(), victim.getY(), victim.getZ());
+                        irk.setLimitedLife(MobUtil.getSummonLifespan(victim.level));
+                        irk.setTrueOwner(victim);
+                        if (victim.level.addFreshEntity(irk)) {
+                            SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get());
+                        }
+                    }
+                }
+            }
+        }
+        if (CuriosFinder.hasCurio(victim, ModItems.GRAND_ROBE.get())){
+            if (MobUtil.isSpellCasting(victim)){
+                event.setAmount(event.getAmount() / 2.0F);
+            }
+        }
         if(CuriosFinder.hasCurio(victim, ModItems.FROST_ROBE.get())){
             if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
                 event.setAmount(event.getAmount() * 0.15F);
@@ -1121,9 +1143,12 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void usingItemEvents(LivingEntityUseItemEvent.Tick event){
-        if (event.getItem().getItem() instanceof DarkWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())){
-            if (MobUtil.getSingleTarget(event.getEntity().level, event.getEntity(), 16, 3) instanceof LivingEntity living){
-                event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
+        if (!event.getEntity().level.isClientSide) {
+            if (event.getItem().getItem() instanceof DarkWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())) {
+                Entity entity = MobUtil.getSingleTarget(event.getEntity().level, event.getEntity(), 16, 3);
+                if (entity instanceof LivingEntity living && !entity.isAlliedTo(event.getEntity()) && !event.getEntity().isAlliedTo(entity)) {
+                    event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
+                }
             }
         }
     }
