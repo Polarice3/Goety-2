@@ -186,8 +186,6 @@ public class IceBouquet extends GroundProjectile {
                 if (flag){
                     damage *= 2.0F;
                 }
-                int i = target.getTicksFrozen();
-                target.setTicksFrozen(Math.min(target.getTicksRequiredToFreeze(), i + 1));
                 target.hurt(DamageSource.FREEZE, damage);
             } else {
                 if (owner instanceof Mob mobOwner) {

@@ -159,6 +159,49 @@ public class WandUtil {
         world.addFreshEntity(iceBouquet5);
     }
 
+    public static void spawn4x4IceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
+        Vec3 vector3d = Vec3Util.west(pPos);
+        Vec3 vector3d1 = Vec3Util.east(pPos);
+        int random = world.random.nextInt(4);
+        if (random == 0) {
+            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+            world.addFreshEntity(iceBouquet1);
+            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet2);
+            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.west(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet3);
+            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(vector3d), livingEntity);
+            world.addFreshEntity(iceBouquet4);
+        } else if (random == 1){
+            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+            world.addFreshEntity(iceBouquet1);
+            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet2);
+            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.west(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet3);
+            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.south(vector3d), livingEntity);
+            world.addFreshEntity(iceBouquet4);
+        } else if (random == 2){
+            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+            world.addFreshEntity(iceBouquet1);
+            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet2);
+            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.east(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet3);
+            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(vector3d1), livingEntity);
+            world.addFreshEntity(iceBouquet4);
+        } else {
+            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+            world.addFreshEntity(iceBouquet1);
+            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet2);
+            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.east(pPos), livingEntity);
+            world.addFreshEntity(iceBouquet3);
+            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.south(vector3d1), livingEntity);
+            world.addFreshEntity(iceBouquet4);
+        }
+    }
+
     /**
      * Based off GeomancyHelper class from Dungeons Mobs: <a href="https://github.com/Infamous-Misadventures/Dungeons-Mobs/blob/1.19/src/main/java/com/infamous/dungeons_mobs/utils/GeomancyHelper.java">...</a>
      */

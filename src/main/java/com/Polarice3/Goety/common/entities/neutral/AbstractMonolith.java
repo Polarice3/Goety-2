@@ -141,6 +141,10 @@ public abstract class AbstractMonolith extends Owned{
         return 1;
     }
 
+    public boolean canSpawn(Level level){
+        return level.noCollision(this, this.getBoundingBox().deflate(0.25D));
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isNoGravity()) {
@@ -148,6 +152,9 @@ public abstract class AbstractMonolith extends Owned{
         }
         if (this.isEmerging()){
             if (!this.level.isClientSide) {
+                if (!this.canSpawn(this.level)){
+                    this.discard();
+                }
                 this.setAge(this.getAge() + this.getAgeSpeed());
                 this.level.broadcastEntityEvent(this, (byte) 4);
                 for (AbstractMonolith abstractMonolith : this.level.getEntitiesOfClass(AbstractMonolith.class, this.getBoundingBox())){

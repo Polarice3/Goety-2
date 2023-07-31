@@ -3,11 +3,16 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.projectiles.MinisterTooth;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -15,6 +20,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
@@ -97,4 +104,61 @@ public class Minister extends HuntingIllagerEntity{
     public SoundEvent getCelebrateSound() {
         return null;
     }
+
+    class CastingSpellGoal extends SpellcasterCastingSpellGoal {
+        private CastingSpellGoal() {
+        }
+
+        public void tick() {
+            if (Minister.this.getTarget() != null) {
+                Minister.this.getLookControl().setLookAt(Minister.this.getTarget(), (float)Minister.this.getMaxHeadYRot(), (float)Minister.this.getMaxHeadXRot());
+            }
+
+        }
+    }
+
+    class TeethSpellGoal extends SpellcasterUseSpellGoal {
+
+        private TeethSpellGoal() {
+        }
+
+        protected int getCastingTime() {
+            return 40;
+        }
+
+        protected int getCastingInterval() {
+            return 100;
+        }
+
+        protected void performSpellCasting() {
+            if (Minister.this.getTarget() != null) {
+                BlockPos blockPos = Minister.this.getTarget().blockPosition();
+                for (int length = 0; length < 12; length++) {
+                    blockPos = blockPos.offset(-4 + Minister.this.getRandom().nextInt(8), 0, -4 + Minister.this.getRandom().nextInt(8));
+                    BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+
+                    while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                        blockpos$mutable.move(Direction.UP);
+                    }
+
+                    if (Minister.this.level.noCollision(new AABB(blockpos$mutable).inflate(0.5D))){
+                        MinisterTooth ministerTooth = new MinisterTooth(ModEntityType.MINISTER_TOOTH.get(), Minister.this.level);
+                        ministerTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
+                        ministerTooth.setOwner(Minister.this);
+                        Minister.this.level.addFreshEntity(ministerTooth);
+                    }
+                }
+            }
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        }
+
+        protected IllagerSpell getSpell() {
+            return IllagerSpell.FANGS;
+        }
+    }
+
+
 }

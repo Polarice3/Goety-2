@@ -610,6 +610,14 @@
     ],
     "subtitle": "subtitle.goety.wraith_attack"
   },
+  "wraith_puke": {
+    "sounds": [
+      {
+        "name": "goety:wraith/puke"
+      }
+    ],
+    "subtitle": "subtitle.goety.wraith_puke"
+  },
   "wraith_fire": {
     "sounds": [
       {

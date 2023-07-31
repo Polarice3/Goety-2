@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -110,7 +109,7 @@ public class MinisterTooth extends Entity {
     }
 
     public void damageTargets(LivingEntity livingEntity){
-        float damage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+        float damage = 12.0F;
         damage += this.extraDamage;
         if (livingEntity != null) {
             livingEntity.hurt(DamageSource.indirectMagic(this, this.getOwner()), damage);

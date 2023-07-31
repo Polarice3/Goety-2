@@ -61,6 +61,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WRAITH_HURT = create("wraith_hurt");
     public static final RegistryObject<SoundEvent> WRAITH_FLY = create("wraith_fly");
     public static final RegistryObject<SoundEvent> WRAITH_ATTACK = create("wraith_attack");
+    public static final RegistryObject<SoundEvent> WRAITH_PUKE = create("wraith_puke");
     public static final RegistryObject<SoundEvent> WRAITH_FIRE = create("wraith_fire");
     public static final RegistryObject<SoundEvent> WRAITH_TELEPORT = create("wraith_teleport");
     public static final RegistryObject<SoundEvent> WRAITH_DEATH = create("wraith_death");

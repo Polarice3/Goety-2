@@ -105,6 +105,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
@@ -119,6 +120,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichMagicResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichVillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
@@ -281,8 +283,10 @@ public class MainConfig {
                 .defineInRange("philosophersMaceDurability", 128, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Villagers");
-        VillagerHate = BUILDER.comment("Wearing a Dark Helm and Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 100 or more reputation among them, Default: false")
+        VillagerHate = BUILDER.comment("Wearing a Dark Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")
                 .define("villagerHate", false);
+        VillagerHateRavager = BUILDER.comment("Having an owned Ravaged or Ravager, causes Villagers around the Player to have a negative Reputation, Default: false")
+                .define("villagerHateRavager", false);
         VillagerHateSpells = BUILDER.comment("Casting Spell in the presence of Villagers will cause the Player to lose a number of Reputation, set 0 to disable, Default: 0")
                 .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
         VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
@@ -301,6 +305,8 @@ public class MainConfig {
                 .define("lichMagicResist", false);
         LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
+        LichVillagerHate = BUILDER.comment("If Villagers provide negative Reputation to Liches and non-Player Iron Golems are automatically aggressive against them, Default: true")
+                .define("lichVillagerHate", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: false")
                 .define("lichScrollRequirement", false);
         BUILDER.pop();

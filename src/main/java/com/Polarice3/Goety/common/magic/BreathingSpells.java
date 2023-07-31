@@ -23,7 +23,7 @@ public abstract class BreathingSpells extends EverChargeSpells{
 
     public abstract void showStaffBreath(LivingEntity entityLiving);
 
-        public void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
+    public void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9;

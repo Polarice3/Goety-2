@@ -106,16 +106,18 @@ public class LichEvents {
                     }
                 }
             }
-            for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
-                if (villager.getPlayerReputation(player) > -100 && villager.getPlayerReputation(player) < 100) {
-                    if (player.tickCount % 20 == 0) {
-                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+            if (MainConfig.LichVillagerHate.get()) {
+                for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
+                    if (villager.getPlayerReputation(player) > -200 && villager.getPlayerReputation(player) < 100) {
+                        if (player.tickCount % 20 == 0) {
+                            villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                        }
                     }
                 }
-            }
-            for (IronGolem ironGolem : player.level.getEntitiesOfClass(IronGolem.class, player.getBoundingBox().inflate(16.0D))) {
-                if (!ironGolem.isPlayerCreated() && ironGolem.getTarget() != player && TargetingConditions.forCombat().range(16.0F).test(ironGolem, player)) {
-                    ironGolem.setTarget(player);
+                for (IronGolem ironGolem : player.level.getEntitiesOfClass(IronGolem.class, player.getBoundingBox().inflate(16.0D))) {
+                    if (!ironGolem.isPlayerCreated() && ironGolem.getTarget() != player && TargetingConditions.forCombat().range(16.0F).test(ironGolem, player)) {
+                        ironGolem.setTarget(player);
+                    }
                 }
             }
             if (player.isAlive()){

@@ -52,10 +52,12 @@ public class TotemicBomb extends AbstractMonolith{
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.playSound(ModSounds.BOMB_SPAWN.get(), 2.0F, 1.0F);
-        ServerLevel serverLevel = pLevel.getLevel();
-        for (int i = 0; i < serverLevel.random.nextInt(35) + 10; ++i) {
-            ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), serverLevel);
+        if (this.canSpawn(pLevel.getLevel())){
+            this.playSound(ModSounds.BOMB_SPAWN.get(), 2.0F, 1.0F);
+            ServerLevel serverLevel = pLevel.getLevel();
+            for (int i = 0; i < serverLevel.random.nextInt(35) + 10; ++i) {
+                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), serverLevel);
+            }
         }
         return pSpawnData;
     }

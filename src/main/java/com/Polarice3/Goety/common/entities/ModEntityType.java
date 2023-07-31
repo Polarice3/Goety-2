@@ -252,6 +252,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BorderWraith>> BORDER_WRAITH = register("border_wraith",
+            EntityType.Builder.of(BorderWraith::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<CairnNecromancer>> CAIRN_NECROMANCER = register("cairn_necromancer",
             EntityType.Builder.of(CairnNecromancer::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.4875F)

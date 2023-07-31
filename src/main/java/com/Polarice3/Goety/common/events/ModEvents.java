@@ -14,10 +14,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.AllyIrk;
-import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
-import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
@@ -69,6 +66,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.animal.AbstractGolem;
@@ -434,6 +432,38 @@ public class ModEvents {
             }
             if (player.getEffect(MobEffects.BLINDNESS) != null){
                 player.removeEffect(MobEffects.BLINDNESS);
+            }
+        }
+
+        if (MainConfig.VillagerHate.get()){
+            if (CuriosFinder.hasCurio(player, ModItems.DARK_ROBE.get())) {
+                for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
+                    if (villager.hasLineOfSight(player)) {
+                        if (villager.getPlayerReputation(player) > -25 && villager.getPlayerReputation(player) < 25) {
+                            if (player.tickCount % 20 == 0) {
+                                villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (MainConfig.VillagerHateRavager.get()) {
+            for (Owned owned : player.level.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(16.0D))) {
+                if (owned instanceof Ravaged || owned instanceof ModRavager) {
+                    if (owned.getTrueOwner() == player || owned.getMasterOwner() == player) {
+                        for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
+                            if (villager.hasLineOfSight(owned)) {
+                                if (villager.getPlayerReputation(player) > -200) {
+                                    if (player.tickCount % 20 == 0) {
+                                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

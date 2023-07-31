@@ -45,6 +45,7 @@ public class AbstractWraith extends Summoned {
     public double prevY;
     public double prevZ;
     public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState breathingAnimationState = new AnimationState();
 
     public AbstractWraith(EntityType<? extends Summoned> p_i48553_1_, Level p_i48553_2_) {
         super(p_i48553_1_, p_i48553_2_);
@@ -98,12 +99,12 @@ public class AbstractWraith extends Summoned {
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
     }
 
-    private boolean getWraithFlags(int mask) {
+    protected boolean getWraithFlags(int mask) {
         int i = this.entityData.get(FLAGS);
         return (i & mask) != 0;
     }
 
-    private void setWraithFlags(int mask, boolean value) {
+    protected void setWraithFlags(int mask, boolean value) {
         int i = this.entityData.get(FLAGS);
         if (value) {
             i = i | mask;
@@ -128,6 +129,14 @@ public class AbstractWraith extends Summoned {
 
     public void setIsTeleporting(boolean charging) {
         this.setWraithFlags(2, charging);
+    }
+
+    public boolean isBreathing() {
+        return this.getWraithFlags(4);
+    }
+
+    public void setBreathing(boolean flag) {
+        this.setWraithFlags(4, flag);
     }
 
     public MobType getMobType() {

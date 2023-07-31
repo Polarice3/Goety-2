@@ -2,16 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "dsd",
+    " s ",
     "sts",
-    "dsd"
+    " s "
   ],
   "key":
   {
-    "d":
-    {
-      "item": "minecraft:dead_bush"
-    },
     "s":
     {
       "tag": "minecraft:saplings"

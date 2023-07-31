@@ -62,6 +62,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> WRAITH_BURST = PARTICLE_TYPES.register("wraith_burst",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> WRAITH_FIRE = PARTICLE_TYPES.register("wraith_fire",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BIG_FIRE = PARTICLE_TYPES.register("big_fire",
             () -> new SimpleParticleType(false));
 

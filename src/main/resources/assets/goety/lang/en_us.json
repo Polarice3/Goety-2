@@ -76,6 +76,7 @@
   "entity.goety.vampire_bat":"Vampire Bat",
 
   "entity.goety.wraith":"Wraith",
+  "entity.goety.border_wraith":"Border Wraith",
   "entity.goety.cairn_necromancer":"Cairn Necromancer",
   "entity.goety.haunted_armor":"Haunted Armor",
 
@@ -761,7 +762,8 @@
   "subtitle.goety.wraith_hurt": "Wraith hurts",
   "subtitle.goety.wraith_fly": "Wraith floats",
   "subtitle.goety.wraith_attack": "Wraith attacks",
-  "subtitle.goety.wraith_fire": "Ghost Fire burns",
+  "subtitle.goety.wraith_puke": "Wraith pukes fire",
+  "subtitle.goety.wraith_fire": "Ice Bouquet burns",
   "subtitle.goety.wraith_teleport": "Wraith teleports",
   "subtitle.goety.wraith_death": "Wraith dies",
 

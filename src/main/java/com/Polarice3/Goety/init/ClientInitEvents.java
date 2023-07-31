@@ -241,6 +241,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MALGHAST.get(), MalghastRenderer::new);
         event.registerEntityRenderer(ModEntityType.VAMPIRE_BAT.get(), VampireBatRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
@@ -342,6 +343,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
+        event.register(ModParticleTypes.WRAITH_FIRE.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
         event.register(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);

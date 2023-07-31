@@ -38,7 +38,7 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -3.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 
-        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(0, 55).addBox(-4.0F, -3.0F, -0.5F, 8.0F, 2.0F, 7.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, -5.0F, 4.5F, -0.4363F, 0.0F, 0.0F));
+        PartDefinition hat_r1 = hat.addOrReplaceChild("hat_r1", CubeListBuilder.create().texOffs(0, 51).addBox(-5.0F, -4.7F, -0.6F, 10.0F, 4.0F, 9.0F, new CubeDeformation(-0.75F)), PartPose.offsetAndRotation(0.0F, -5.3F, 2.6F, -0.6981F, 0.0F, 0.0F));
 
         PartDefinition RightArm = Ghost.addOrReplaceChild("RightArm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
@@ -60,7 +60,8 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         if (pEntity instanceof AbstractWraith wraith){
             this.animate(wraith.attackAnimationState, WraithAnimations.ATTACK, pAgeInTicks);
-            if (!wraith.isFiring()) {
+            this.animate(wraith.breathingAnimationState, WraithAnimations.PUKE, pAgeInTicks);
+            if (!wraith.isFiring() && !wraith.isBreathing()) {
                 if (wraith.isTeleporting()) {
                     float f7 = Mth.sin(((float) (wraith.teleportTime - 20) - wraith.teleportTime2) / 20.0F * (float) Math.PI * 0.25F);
                     this.head.xRot = (((float) Math.PI) * f7) + 2.0F;
@@ -84,6 +85,9 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
                     this.head.xRot = pHeadPitch * ((float) Math.PI / 180F) + degrees;
                     animateArms(this.LeftArm, this.RightArm, pLimbSwingAmount, pAgeInTicks);
                 }
+            } else if (wraith.isBreathing()){
+                this.Ghost.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+                this.Ghost.xRot = pHeadPitch * ((float)Math.PI / 180F);
             }
         } else {
             this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
