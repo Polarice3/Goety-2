@@ -24,8 +24,8 @@ public class FireTornadoTrap extends AbstractTrap {
         super.tick();
         if (this.tickCount >= this.getDuration()) {
             if (this.owner != null) {
-                if (this.owner instanceof Mob owner) {
-                    LivingEntity livingentity = owner.getTarget();
+                if (this.owner instanceof Mob mob) {
+                    LivingEntity livingentity = mob.getTarget();
                     if (livingentity != null) {
                         double d1 = livingentity.getX() - this.getX();
                         double d2 = livingentity.getY(0.5D) - this.getY(0.5D);

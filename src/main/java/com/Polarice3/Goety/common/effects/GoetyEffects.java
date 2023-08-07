@@ -72,6 +72,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 
+    public static final RegistryObject<MobEffect> CURSED = EFFECTS.register("cursed",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1e1f24));
+
     public static final RegistryObject<MobEffect> FREEZING = EFFECTS.register("freezing",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
@@ -134,4 +137,7 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));
+
+    public static final RegistryObject<MobEffect> WILD_RAGE = EFFECTS.register("wild_rage",
+            () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0xa8311c));
 }

@@ -4,35 +4,39 @@ import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.inventory.WitchRobeInventory;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.SlotContext;
+import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class WitchRobeItem extends SingleStackItem implements ICurioItem {
     public static String INVENTORY = "WITCH_ROBE_BREW";
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        if (ModSaveInventory.getInstance() != null) {
-            if (!stack.hasTag()) {
-                stack.setTag(new CompoundTag());
-                stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
-            } else {
-                if (!stack.getOrCreateTag().contains(INVENTORY)) {
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (entityIn instanceof LivingEntity livingEntity) {
+            if (ModSaveInventory.getInstance() != null) {
+                if (!stack.hasTag()) {
+                    stack.setTag(new CompoundTag());
                     stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
-                }
-
-                WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory((stack.getOrCreateTag().getInt(INVENTORY)), slotContext.entity());
-
-                if (!slotContext.entity().level.isClientSide) {
-                    if (CuriosFinder.hasWitchHat(slotContext.entity())) {
-                        inventory.setIncreaseSpeed(1);
-                    } else {
-                        inventory.setIncreaseSpeed(0);
+                } else {
+                    if (!stack.getOrCreateTag().contains(INVENTORY)) {
+                        stack.getOrCreateTag().putInt(INVENTORY, ModSaveInventory.getInstance().addAndCreateWitchRobe());
                     }
 
-                    if (!inventory.isEmpty() && inventory.isBrewable()) {
-                        inventory.tick();
+                    WitchRobeInventory inventory = ModSaveInventory.getInstance().getWitchRobeInventory((stack.getOrCreateTag().getInt(INVENTORY)), livingEntity);
+
+                    if (!worldIn.isClientSide) {
+                        if (CuriosFinder.hasWitchHat(livingEntity)) {
+                            inventory.setIncreaseSpeed(1);
+                        } else {
+                            inventory.setIncreaseSpeed(0);
+                        }
+
+                        if (!inventory.isEmpty() && inventory.isBrewable()) {
+                            inventory.tick();
+                        }
                     }
                 }
             }

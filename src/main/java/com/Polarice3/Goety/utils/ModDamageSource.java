@@ -7,9 +7,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class ModDamageSource extends DamageSource {
     public static DamageSource SHOCK = new DamageSource(source("shock"));
@@ -45,6 +47,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor().setMagic();
     }
 
+    public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
+        return (new NoKnockBackDamageSource("indirectMagic", pSource, pIndirectEntity)).bypassArmor().setMagic();
+    }
+
     public static DamageSource windBlast(Entity pSource, @Nullable Entity pIndirectEntity){
         return (new IndirectEntityDamageSource(source("windBlast"), pSource, pIndirectEntity)).bypassArmor().setMagic();
     }
@@ -62,6 +68,15 @@ public class ModDamageSource extends DamageSource {
         return source.getDirectEntity() != null && source.getDirectEntity() instanceof LivingEntity
                 && source instanceof EntityDamageSource
                 && (source.getMsgId().equals("mob") || source.getMsgId().equals("player"));
+    }
+
+    public static boolean toolAttack(DamageSource source, Predicate<Item> item){
+        if (physicalAttacks(source)) {
+            if (source.getDirectEntity() instanceof LivingEntity living) {
+                return item.test(living.getMainHandItem().getItem());
+            }
+        }
+        return false;
     }
 
     public static DamageSource soulLeech(@Nullable Entity pSource, @Nullable Entity pIndirectEntity){

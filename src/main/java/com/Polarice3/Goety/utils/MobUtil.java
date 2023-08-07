@@ -7,17 +7,23 @@ import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,7 +40,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Explosion;
@@ -99,6 +108,10 @@ public class MobUtil {
                 return false;
             }
         }
+    }
+
+    public static boolean areAllies(Entity entity, Entity entity1){
+        return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity);
     }
 
     public static BlockHitResult rayTrace(Entity entity, double distance, boolean fluids) {
@@ -202,7 +215,7 @@ public class MobUtil {
         return lootcontext$builder;
     }
 
-    public static void knockBack(LivingEntity knocked, LivingEntity knocker, double xPower, double yPower, double zPower) {
+    public static void knockBack(LivingEntity knocked, Entity knocker, double xPower, double yPower, double zPower) {
         Vec3 vec3 = new Vec3(knocker.getX() - knocked.getX(), knocker.getY() - knocked.getY(), knocker.getZ() - knocked.getZ()).normalize();
         double pY0 = Math.max(-vec3.y, yPower);
         Vec3 vec31 = new Vec3(-vec3.x * xPower, pY0, -vec3.z * zPower);
@@ -801,5 +814,75 @@ public class MobUtil {
 
     public static boolean isSpellCasting(LivingEntity livingEntity){
         return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof DarkWand && !WandUtil.findFocus(livingEntity).isEmpty();
+    }
+
+    public static void instaLook(Mob mob, Vec3 vec3){
+        mob.getLookControl().setLookAt(vec3.x, vec3.y, vec3.z, 200.0F, mob.getMaxHeadXRot());
+        double d2 = vec3.x - mob.getX();
+        double d1 = vec3.z - mob.getZ();
+        mob.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+        mob.yBodyRot = mob.getYRot();
+    }
+
+    public static void instaLook(Mob mob, LivingEntity living){
+        mob.getLookControl().setLookAt(living, 200.0F, mob.getMaxHeadXRot());
+        double d2 = living.getX() - mob.getX();
+        double d1 = living.getZ() - mob.getZ();
+        mob.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+        mob.yBodyRot = mob.getYRot();
+    }
+
+    public static ItemStack createFirework(int explosions, DyeColor[] dyeColor) {
+        ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET);
+        ItemStack star = new ItemStack(Items.FIREWORK_STAR);
+        CompoundTag starTag = star.getOrCreateTagElement("Explosion");
+        starTag.putInt("Type", FireworkRocketItem.Shape.BURST.getId());
+        CompoundTag fireworkTag = firework.getOrCreateTagElement("Fireworks");
+        ListTag explosionTags = new ListTag();
+        CompoundTag starExplosionTag = star.getTagElement("Explosion");
+        if (starExplosionTag != null) {
+            List<Integer> colorList = Lists.newArrayList();
+            for (DyeColor color : dyeColor) {
+                int pinkFireworkColor = color.getFireworkColor();
+                colorList.add(pinkFireworkColor);
+            }
+            starExplosionTag.putIntArray("Colors", colorList);
+            starExplosionTag.putIntArray("FadeColors", colorList);
+            for (int i = 0; i < explosions; i++) {
+                explosionTags.add(starExplosionTag);
+            }
+        }
+        if (!explosionTags.isEmpty()) {
+            fireworkTag.put("Explosions", explosionTags);
+        }
+        return firework;
+    }
+
+    public static void hurtUsedShield(LivingEntity living, float p_36383_) {
+        if (living.getUseItem().canPerformAction(net.minecraftforge.common.ToolActions.SHIELD_BLOCK)) {
+            if (!living.level.isClientSide && living instanceof ServerPlayer player) {
+                player.awardStat(Stats.ITEM_USED.get(player.getUseItem().getItem()));
+            }
+
+            if (p_36383_ >= 3.0F) {
+                int i = 1 + Mth.floor(p_36383_);
+                InteractionHand interactionhand = living.getUsedItemHand();
+                living.getUseItem().hurtAndBreak(i, living, (p_219739_) -> {
+                    p_219739_.broadcastBreakEvent(interactionhand);
+                    if (living instanceof Player player) {
+                        net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, living.getUseItem(), interactionhand);
+                    }
+                });
+                if (living.getUseItem().isEmpty()) {
+                    if (interactionhand == InteractionHand.MAIN_HAND) {
+                        living.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    } else {
+                        living.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                    }
+                    living.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + living.level.random.nextFloat() * 0.4F);
+                }
+            }
+
+        }
     }
 }

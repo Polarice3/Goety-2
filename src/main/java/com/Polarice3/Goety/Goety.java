@@ -4,7 +4,6 @@ import com.Polarice3.Goety.client.ClientProxy;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.CommonProxy;
-import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
@@ -18,16 +17,14 @@ import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
+import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
+import com.Polarice3.Goety.common.entities.util.TunnelingFang;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
@@ -40,11 +37,11 @@ import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.curios.CuriosCompat;
 import com.Polarice3.Goety.init.ModProxy;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.RaidAdditions;
 import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +54,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -150,32 +146,6 @@ public class Goety {
                     return stack;
                 }
             });
-            DispenserBlock.registerBehavior(Items.WATER_BUCKET, new OptionalDispenseItemBehavior() {
-                protected ItemStack execute(BlockSource source, ItemStack stack) {
-                    BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-                    BlockState blockState = source.getLevel().getBlockState(blockpos);
-                    if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
-                        if (blockState.getValue(BrewCauldronBlock.LEVEL) < 3) {
-                            this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 3)));
-                            return new ItemStack(Items.BUCKET);
-                        }
-                    }
-                    return stack;
-                }
-            });
-            DispenserBlock.registerBehavior(Items.BUCKET, new OptionalDispenseItemBehavior() {
-                protected ItemStack execute(BlockSource source, ItemStack stack) {
-                    BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-                    BlockState blockState = source.getLevel().getBlockState(blockpos);
-                    if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
-                        if (blockState.getValue(BrewCauldronBlock.LEVEL) == 3) {
-                            this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 0)));
-                            return new ItemStack(Items.WATER_BUCKET);
-                        }
-                    }
-                    return stack;
-                }
-            });
             AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_LOG.get(), ModBlocks.STRIPPED_HAUNTED_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
@@ -185,6 +155,7 @@ public class Goety {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.ROTTEN_SAPLING.getId(), ModBlocks.POTTED_ROTTEN_SAPLING);
             WoodType.register(ModWoodType.HAUNTED);
             WoodType.register(ModWoodType.ROTTEN);
+            RaidAdditions.addRaiders();
             addBrewingRecipes();
         });
     }
@@ -241,11 +212,13 @@ public class Goety {
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());
         event.put(ModEntityType.CONQUILLAGER.get(), Conquillager.setCustomAttributes().build());
+        event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
         event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
         event.put(ModEntityType.LASER.get(), SkullLaser.setCustomAttributes().build());
+        event.put(ModEntityType.TUNNELING_FANG.get(), TunnelingFang.setCustomAttributes().build());
     }
 
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){

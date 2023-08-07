@@ -110,7 +110,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
+        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner()) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
             return false;
         } else if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
             return !MobUtil.ownerStack(owned0, owned1);

@@ -29,6 +29,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> NECRO_EFFECT = PARTICLE_TYPES.register("necro_effect",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> NECRO_BOLT = PARTICLE_TYPES.register("necro_bolt",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> SOUL_LIGHT_EFFECT = PARTICLE_TYPES.register("soul_light",
             () -> new SimpleParticleType(false));
 
@@ -105,6 +108,12 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> FANG_RAIN = PARTICLE_TYPES.register("fang_rain",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> MAGIC_BOLT = PARTICLE_TYPES.register("magic_bolt",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",

@@ -12,7 +12,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation SPIKE = register("spike");
     public static final ModelLayerLocation ICE_BOUQUET = register("ice_bouquet");
     public static final ModelLayerLocation ICE_CHUNK = register("ice_chunk");
-    public static final ModelLayerLocation MINISTER_TOOTH = register("minister_tooth");
+    public static final ModelLayerLocation VICIOUS_TOOTH = register("vicious_tooth");
+    public static final ModelLayerLocation VICIOUS_PIKE = register("vicious_pike");
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
@@ -43,6 +44,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation TORMENTOR = register("tormentor");
     public static final ModelLayerLocation INQUILLAGER = register("inquillager");
     public static final ModelLayerLocation CONQUILLAGER = register("conquillager");
+    public static final ModelLayerLocation MINISTER = register("minister");
     public static final ModelLayerLocation VIZIER = register("vizier");
     public static final ModelLayerLocation IRK = register("irk");
     public static final ModelLayerLocation VIZIER_ARMOR = register("vizier", "armor");

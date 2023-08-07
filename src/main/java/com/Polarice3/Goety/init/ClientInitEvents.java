@@ -116,7 +116,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SPIKE, SpikeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_BOUQUET, IceBouquetModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_CHUNK, IceChunkModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayer.MINISTER_TOOTH, MinisterToothModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.VICIOUS_TOOTH, ViciousToothModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.VICIOUS_PIKE, ViciousPikeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
@@ -138,6 +139,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MINISTER, MinisterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
@@ -213,12 +215,16 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.GLOW_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BULLET.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BOLT.get(), SoulBoltRenderer::new);
-        event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), NecroBoltRenderer::new);
+        event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), SoulBulletRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MAGIC_BOLT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.FANG.get(), FangsRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ILL_BOMB.get(), IllBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_CHUNK.get(), IceChunkRenderer::new);
-        event.registerEntityRenderer(ModEntityType.MINISTER_TOOTH.get(), MinisterToothRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VICIOUS_TOOTH.get(), ViciousToothRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VICIOUS_PIKE.get(), ViciousPikeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CORRUPTED_BEAM.get(), CorruptedBeamRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
@@ -264,6 +270,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CONQUILLAGER.get(), ConquillagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKULL_LORD.get(), SkullLordRenderer::new);
@@ -274,11 +281,13 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.FROST_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.TUNNELING_FANG.get(), TrapRenderer::new);
     }
 
     @SubscribeEvent
@@ -349,6 +358,9 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
         event.register(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
+        event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
+        event.register(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
+        event.register(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.register(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);

@@ -36,7 +36,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -200,14 +199,14 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             } else {
                 this.airBound = 0;
             }
-            if (!this.getTarget().hasLineOfSight(this)){
+/*            if (!this.getTarget().hasLineOfSight(this)){
                 BlockPos blockPos = new BlockPos(this.getTarget().getX() - 2, this.getTarget().getY() + 2.0D, this.getTarget().getZ() - 2);
                 if (this.isFree(blockPos.getX(), blockPos.getY(), blockPos.getZ())){
                     this.moveControl.setWantedPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F);
                 } else {
                     this.moveControl.setWantedPosition(this.getTarget().getX(), this.getTarget().getY(), this.getTarget().getZ(), 1.0F);
                 }
-            }
+            }*/
         }
     }
 
@@ -265,7 +264,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new DoNothingGoal());
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FangsSpellGoal());
         this.goalSelector.addGoal(1, new HealGoal());
         this.goalSelector.addGoal(1, new SpikesGoal());
@@ -458,9 +456,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == null) {
-            return false;
-        } else if (pEntity == this) {
+        if (pEntity == this) {
             return true;
         } else if (super.isAlliedTo(pEntity)) {
             return true;
@@ -546,7 +542,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.setVizierFlag(2, spellcasting);
     }
 
-        public IllagerArmPose getArmPose() {
+    public IllagerArmPose getArmPose() {
         if (this.isCharging()) {
             return IllagerArmPose.ATTACKING;
         } else if (this.isSpellcasting()){
@@ -953,6 +949,9 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
         public void tick() {
             BlockPos blockpos = Vizier.this.blockPosition();
+            if (Vizier.this.getTarget() != null){
+                blockpos = Vizier.this.getTarget().blockPosition();
+            }
 
             for(int i = 0; i < 3; ++i) {
                 BlockPos blockpos1 = blockpos.offset(Vizier.this.random.nextInt(8) - 4, Vizier.this.random.nextInt(6) - 2, Vizier.this.random.nextInt(8) - 4);

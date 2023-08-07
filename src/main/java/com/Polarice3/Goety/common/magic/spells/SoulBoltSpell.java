@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.magic.InstantCastSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
@@ -57,6 +56,6 @@ public class SoulBoltSpell extends InstantCastSpells {
                 vector3d.z, worldIn);
         soulBolt.setOwner(entityLiving);
         worldIn.addFreshEntity(soulBolt);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.NECRO_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

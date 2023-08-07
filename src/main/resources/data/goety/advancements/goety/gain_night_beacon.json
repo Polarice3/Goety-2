@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:night_beacon"
+    },
+    "title": {
+      "translate": "advancements.goety.gain_night_beacon.title"
+    },
+    "description": {
+      "translate": "advancements.goety.gain_night_beacon.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "night_beacon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:night_beacon"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "night_beacon"
+    ]
+  ]
+}

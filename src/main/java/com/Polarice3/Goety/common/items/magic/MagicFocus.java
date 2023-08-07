@@ -67,7 +67,8 @@ public class MagicFocus extends Item {
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()
                 || stack.getItem() == ModItems.SPOOKY_FOCUS.get()
                 || stack.getItem() == ModItems.VEXING_FOCUS.get()
-                || stack.getItem() == ModItems.LAUNCH_FOCUS.get()) {
+                || stack.getItem() == ModItems.LAUNCH_FOCUS.get()
+                || stack.getItem() == ModItems.MAGIC_BOLT_FOCUS.get()) {
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.DURATION.get();
         }
@@ -100,7 +101,8 @@ public class MagicFocus extends Item {
                 || stack.getItem() == ModItems.SWORD_FOCUS.get()
                 || stack.getItem() == ModItems.ICE_SPIKE_FOCUS.get()
                 || stack.getItem() == ModItems.FLYING_FOCUS.get()
-                || stack.getItem() == ModItems.SONIC_BOOM_FOCUS.get()){
+                || stack.getItem() == ModItems.SONIC_BOOM_FOCUS.get()
+                || stack.getItem() == ModItems.CORRUPTION_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get();
         }
         return false;

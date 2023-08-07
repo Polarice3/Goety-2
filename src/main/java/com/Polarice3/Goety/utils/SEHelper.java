@@ -68,6 +68,7 @@ public class SEHelper {
     public static void setSoulsAmount(Player player, int souls){
         if (SEHelper.getSEActive(player)){
             SEHelper.setSESouls(player, souls);
+            SEHelper.sendSEUpdatePacket(player);
         } else if (!TotemFinder.FindTotem(player).isEmpty()){
             TotemOfSouls.setSoulsamount(TotemFinder.FindTotem(player), souls);
         }

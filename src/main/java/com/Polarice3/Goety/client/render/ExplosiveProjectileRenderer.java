@@ -26,7 +26,7 @@ public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends 
 
     public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.scale(1.5F, 1.5F, 1.5F);
+        matrixStackIn.scale(this.scale(), this.scale(), this.scale());
         matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F));
         PoseStack.Pose matrixstack$entry = matrixStackIn.last();
@@ -42,8 +42,12 @@ public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends 
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    private static void func_229045_a_(VertexConsumer p_229045_0_, Matrix4f p_229045_1_, Matrix3f p_229045_2_, int p_229045_3_, float p_229045_4_, int p_229045_5_, int p_229045_6_, int p_229045_7_) {
+    protected static void func_229045_a_(VertexConsumer p_229045_0_, Matrix4f p_229045_1_, Matrix3f p_229045_2_, int p_229045_3_, float p_229045_4_, int p_229045_5_, int p_229045_6_, int p_229045_7_) {
         p_229045_0_.vertex(p_229045_1_, p_229045_4_ - 0.5F, (float)p_229045_5_ - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)p_229045_6_, (float)p_229045_7_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_229045_3_).normal(p_229045_2_, 0.0F, 1.0F, 0.0F).endVertex();
+    }
+
+    public float scale(){
+        return 1.5F;
     }
 
     public abstract ResourceLocation getTextureLocation(T entity);

@@ -194,7 +194,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_PLINTH_BLOCK = register("crypt_plinth", CryptStoneBlock::new);
     public static final RegistryObject<Block> CRYPT_PILLAR_BLOCK = register("crypt_pillar", () -> pillar(CryptStoneProperties()));
     public static final RegistryObject<Block> CRYPT_BOOKSHELF = register("crypt_bookshelf",
-            () -> new BookshelfBlock(CryptStoneProperties(), 1.25F), true, LootTableType.EMPTY);
+            () -> new BookshelfBlock(CryptStoneProperties(), 2.0F), true, LootTableType.EMPTY);
 
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");

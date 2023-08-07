@@ -23,6 +23,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MagicBoltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwordCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCost;
@@ -40,6 +41,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FangDuration;
@@ -75,6 +77,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveMaxDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
@@ -137,6 +140,8 @@ public class SpellConfig {
                 .defineInRange("lavaBombCost", 16, 0, Integer.MAX_VALUE);
         SoulBoltCost = BUILDER.comment("Soul Bolt Spell Cost, Default: 4")
                 .defineInRange("soulBoltCost", 4, 0, Integer.MAX_VALUE);
+        MagicBoltCost = BUILDER.comment("Magic Bolt Spell Cost, Default: 8")
+                .defineInRange("magicBoltCost", 8, 0, Integer.MAX_VALUE);
         SwordCost = BUILDER.comment("Sword Spell Cost, Default: 16")
                 .defineInRange("swordCost", 16, 0, Integer.MAX_VALUE);
         IceSpikeCost = BUILDER.comment("Ice Spike Spell Cost, Default: 8")
@@ -171,6 +176,8 @@ public class SpellConfig {
                 .defineInRange("soulArmorCost", 50, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
+        CorruptionCost = BUILDER.comment("Corruption Spell Cost, Default: 4500")
+                .defineInRange("corruptionCost", 4500, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Casting Time");
         VexDuration = BUILDER.comment("Time to cast Vex Spell, Default: 100")
@@ -241,8 +248,8 @@ public class SpellConfig {
                 .defineInRange("iceSpikeDamage", 4.0, 1.0, Double.MAX_VALUE);
         ChargeDamage = BUILDER.comment("How much base damage Charge deals after gaining 2 Levels, Default: 4.0")
                 .defineInRange("chargeDamage", 4.0, 1.0, Double.MAX_VALUE);
-        NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 8.0")
-                .defineInRange("necroBoltDamage", 8.0, 1.0, Double.MAX_VALUE);
+        NecroBoltDamage = BUILDER.comment("How much base damage Necro Bolts deals, Default: 12.0")
+                .defineInRange("necroBoltDamage", 12.0, 1.0, Double.MAX_VALUE);
         IceChunkDamage = BUILDER.comment("How much base damage Ice Chunks deals, Default: 8.0")
                 .defineInRange("iceChunkDamage", 8.0, 1.0, Double.MAX_VALUE);
         UpdraftBlastDamage = BUILDER.comment("How much base damage Updraft Blasts deals, Default: 5.0")
@@ -255,6 +262,8 @@ public class SpellConfig {
                 .defineInRange("shockwaveMaxDamage", 24.0, 2.0, Double.MAX_VALUE);
         SonicBoomDamage = BUILDER.comment("How much base damage Sonic Boom Spell deals, Default: 10.0")
                 .defineInRange("sonicBoomDamage", 10.0, 1.0, Double.MAX_VALUE);
+        CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 1.0")
+                .defineInRange("corruptedBeamDamage", 1.0, 0.0, Double.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Minions");
         UndeadTeleport = BUILDER.comment("Whether Undead Servants can teleport to Players, Default: false")

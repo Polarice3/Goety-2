@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
+import com.Polarice3.Goety.client.audio.LoopSound;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
@@ -10,6 +11,7 @@ import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
@@ -60,6 +62,10 @@ public class ClientEvents {
                     minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_vizier.desc"));
                     soundHandler.play(new BossLoopMusic(ModSounds.VIZIER_THEME.get(), (Vizier) entity));
                 }
+            }
+            if (entity instanceof CorruptedBeam){
+                soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_LOOP.get(), entity));
+                soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_SOUL.get(), entity));
             }
         }
     }

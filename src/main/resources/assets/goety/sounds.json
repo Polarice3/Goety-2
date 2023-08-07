@@ -545,6 +545,86 @@
     ],
     "subtitle": "subtitle.goety.conquillager_death"
   },
+  "minister_ambient": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/idle1",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/evocation_illager/idle2",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/evocation_illager/idle3",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/evocation_illager/idle4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_ambient"
+  },
+  "minister_hurt": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/hurt1",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/evocation_illager/hurt2",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_hurt"
+  },
+  "minister_laugh": {
+    "sounds": [
+      {
+        "name": "goety:minister/laugh1"
+      },
+      {
+        "name": "goety:minister/laugh2"
+      },
+      {
+        "name": "goety:minister/laugh3"
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_laugh"
+  },
+  "minister_cast": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/celebrate",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_cast"
+  },
+
+  "minister_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:minister/laugh1"
+      },
+      {
+        "name": "goety:minister/laugh2"
+      },
+      {
+        "name": "goety:minister/laugh3"
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_celebrate"
+  },
+  "minister_death": {
+  "sounds": [
+    {
+      "name": "goety:minister/death"
+    }
+  ],
+    "subtitle": "subtitle.goety.minister_death"
+  },
   "wraith_ambient": {
     "sounds": [
       {
@@ -1183,6 +1263,20 @@
     ],
     "subtitle": "subtitle.goety.cast_spell"
   },
+  "necro_cast": {
+    "sounds": [
+      {
+        "name": "goety:spell/necro_cast1"
+      },
+      {
+        "name": "goety:spell/necro_cast2"
+      },
+      {
+        "name": "goety:spell/necro_cast3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necro_cast"
+  },
   "summon_spell": {
     "sounds": [
       {
@@ -1332,6 +1426,25 @@
     ],
     "subtitle": "subtitle.goety.rumble"
   },
+  "tooth_spawn": {
+    "sounds": [
+      {
+        "name": "goety:wall/bomb_spawn1"
+      },
+      {
+        "name": "goety:wall/bomb_spawn2"
+      }
+    ],
+    "subtitle": "subtitle.goety.tooth_spawn"
+  },
+  "impale": {
+    "sounds": [
+      {
+        "name": "goety:spell/impale"
+      }
+    ],
+    "subtitle": "subtitle.goety.impale"
+  },
   "ice_spike_hit": {
     "sounds": [
       {
@@ -1444,6 +1557,32 @@
       }
     ],
     "subtitle": "subtitle.goety.blast_fungus_explode"
+  },
+  "corrupt_beam_start": {
+    "sounds": [
+      {
+        "name": "goety:spell/corrupt_beam_start1"
+      },
+      {
+        "name": "goety:spell/corrupt_beam_start2"
+      }
+    ],
+    "subtitle": "subtitle.goety.corrupt_beam_start"
+  },
+  "corrupt_beam_loop": {
+    "sounds": [
+      {
+        "name": "goety:spell/corrupt_beam_loop1"
+      }
+    ],
+    "subtitle": "subtitle.goety.corrupt_beam_loop"
+  },
+  "corrupt_beam_soul": {
+    "sounds": [
+      {
+        "name": "goety:spell/corrupt_beam_soul"
+      }
+    ]
   },
   "brew_gas": {
     "sounds": [

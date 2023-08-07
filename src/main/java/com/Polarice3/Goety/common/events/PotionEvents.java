@@ -27,6 +27,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.monster.Creeper;
@@ -319,6 +320,22 @@ public class PotionEvents {
                             if (livingEntity.level.isEmptyBlock(blockpos1) && blockstate.canSurvive(livingEntity.level, blockpos1)) {
                                 livingEntity.level.setBlockAndUpdate(blockpos1, blockstate);
                                 livingEntity.level.gameEvent(GameEvent.BLOCK_PLACE, blockpos1, GameEvent.Context.of(livingEntity, blockstate));
+                            }
+                        }
+                    }
+                }
+            }
+            if (livingEntity.hasEffect(GoetyEffects.WILD_RAGE.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.WILD_RAGE.get());
+                if(mobEffectInstance != null){
+                    if (!livingEntity.level.isClientSide){
+                        if (livingEntity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
+                            double follow = mob.getAttributeValue(Attributes.FOLLOW_RANGE);
+                            LivingEntity target = world.getNearestEntity(world.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(follow, 4.0D, follow), (p_148152_) -> {
+                                return true;
+                            }), TargetingConditions.forCombat(), mob, mob.getX(), mob.getEyeY(), mob.getZ());
+                            if (target != null && mob != target && mob.getTarget() != target){
+                                mob.setTarget(target);
                             }
                         }
                     }

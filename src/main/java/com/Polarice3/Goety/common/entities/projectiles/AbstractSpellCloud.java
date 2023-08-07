@@ -6,6 +6,8 @@ import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.ParticleArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +37,21 @@ public abstract class AbstractSpellCloud extends Entity {
 
     public AbstractSpellCloud(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
+    }
+
+    public AbstractSpellCloud(EntityType<?> p_19870_, Level pLevel, LivingEntity pOwner, LivingEntity pTarget){
+        this(p_19870_, pLevel);
+        if (pOwner != null){
+            this.setOwner(pOwner);
+        }
+        if (pTarget != null){
+            BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(pTarget.getX(), pTarget.getY(), pTarget.getZ());
+
+            while(blockpos$mutable.getY() < pTarget.getY() + 4.0D && !this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                blockpos$mutable.move(Direction.UP);
+            }
+            this.setPos(pTarget.getX(), blockpos$mutable.getY(), pTarget.getZ());
+        }
     }
 
     @Override

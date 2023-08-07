@@ -55,6 +55,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WindStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
@@ -239,6 +240,8 @@ public class MainConfig {
                 .define("windRobeCape", true);
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");
+        OminousStaffDamage = BUILDER.comment("How much base damage Ominous Staffs deals, Default: 4.0")
+                .defineInRange("ominousStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
         NecroStaffDamage = BUILDER.comment("How much base damage Necro Staffs deals, Default: 4.0")
                 .defineInRange("necroStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
         WindStaffDamage = BUILDER.comment("How much base damage Wind Staffs deals, Default: 4.0")
@@ -327,7 +330,7 @@ public class MainConfig {
                 .define("illagueSpread", true);
         IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")
                 .define("illagerSteal", true);
-        IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can join Raids, Default: true")
+        IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers, Conquillagers and Ministers can join Raids, Default: true")
                 .define("specialIllagerRaid", true);
         ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                 .define("armoredRavagerRaid", true);

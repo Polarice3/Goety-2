@@ -145,6 +145,11 @@ public abstract class AbstractMonolith extends Owned{
         return level.noCollision(this, this.getBoundingBox().deflate(0.25D));
     }
 
+    @Override
+    public void makeStuckInBlock(BlockState p_20006_, Vec3 p_20007_) {
+        super.makeStuckInBlock(p_20006_, Vec3.ZERO);
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isNoGravity()) {

@@ -67,6 +67,7 @@ public class DarkWand extends Item {
     private static final String DURATION = "Duration";
     private static final String COOLDOWN = "Cooldown";
     private static final String COOL = "Cool";
+    private static final String SECONDS = "Seconds";
 
     public DarkWand() {
         super(new Properties().tab(Goety.TAB).stacksTo(1).setNoRepair().rarity(Rarity.RARE));
@@ -81,6 +82,7 @@ public class DarkWand extends Item {
                 compound.putInt(SOULCOST, 0);
                 compound.putInt(CASTTIME, CastTime(livingEntity, stack));
                 compound.putInt(COOL, 0);
+                compound.putInt(SECONDS, 0);
             }
             if (this.getSpell(stack) != null) {
                 this.setSpellConditions(this.getSpell(stack), stack);
@@ -100,6 +102,7 @@ public class DarkWand extends Item {
         compound.putInt(SOULCOST, 0);
         compound.putInt(CASTTIME, CastTime(pPlayer, pStack));
         compound.putInt(COOL, 0);
+        compound.putInt(SECONDS, 0);
         this.setSpellConditions(null, pStack);
     }
 
@@ -228,6 +231,12 @@ public class DarkWand extends Item {
                         this.MagicResults(stack, worldIn, livingEntityIn);
                     }
                 }
+
+                if (livingEntityIn instanceof Player player){
+                    if (!SEHelper.getSoulsAmount(player, this.getSpell(stack).SoulCost()) && !player.isCreative()){
+                        player.stopUsingItem();
+                    }
+                }
             }
         }
     }
@@ -268,9 +277,11 @@ public class DarkWand extends Item {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (this.getSpell(itemstack) != null) {
             if (!(this.getSpell(itemstack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()){
-                playerIn.startUsingItem(handIn);
-                if (worldIn.isClientSide){
-                    this.useParticles(worldIn, playerIn);
+                if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).SoulCost()) || playerIn.getAbilities().instabuild) {
+                    playerIn.startUsingItem(handIn);
+                    if (worldIn.isClientSide) {
+                        this.useParticles(worldIn, playerIn);
+                    }
                 }
             } else {
                 playerIn.swing(handIn);
@@ -413,8 +424,13 @@ public class DarkWand extends Item {
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     boolean spent = true;
                     if (this.getSpell(stack) instanceof EverChargeSpells) {
-                        if (worldIn.random.nextFloat() >= 0.25F) {
-                            spent = false;
+                        if (stack.getTag() != null) {
+                            stack.getTag().putInt(SECONDS, stack.getTag().getInt(SECONDS) + 1);
+                            if (stack.getTag().getInt(SECONDS) != 20){
+                                spent = false;
+                            } else {
+                                stack.getTag().putInt(SECONDS, 0);
+                            }
                         }
                     }
                     if (spent){

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "fsf",
+    "ses",
+    "fsf"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:mystic_core"
+    },
+    "s":
+    {
+      "item": "goety:ectoplasm"
+    },
+    "f":
+    {
+      "item": "minecraft:fire_charge"
+    }
+  },
+  "result": {
+    "item": "goety:magic_bolt_focus"
+  }
+}

@@ -118,12 +118,12 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
 
     public void tick() {
         double x = (double) (this.increaseSpeed * 720) / 100.0D;
-        int durchgang = (int) Math.floor(1.0D + x + this.rest);
-        this.setRest(1.0D + x + this.rest - (double) durchgang);
+        int time = (int) Math.floor(1.0D + x + this.rest);
+        this.setRest(1.0D + x + this.rest - (double) time);
 
-        for (int a = 0; a < durchgang; ++a) {
+        for (int a = 0; a < time; ++a) {
             ItemStack itemstack = this.items.get(4);
-            if (this.fuel <= 0 && itemstack.getItem() == Items.BLAZE_POWDER) {
+            if (this.fuel <= 0 && itemstack.isStackable()) {
                 this.fuel = 20;
                 itemstack.shrink(1);
                 this.setChanged();

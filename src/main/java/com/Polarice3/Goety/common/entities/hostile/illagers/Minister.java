@@ -1,38 +1,100 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.projectiles.MinisterTooth;
+import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
+import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
+import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.google.common.collect.Maps;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.Map;
 
-public class Minister extends HuntingIllagerEntity{
+public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
+    private static final EntityDataAccessor<Boolean> HAS_STAFF = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.INT);
+    public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
+        map.put(0, Goety.location("textures/entity/illagers/minister/minister.png"));
+        map.put(1, Goety.location("textures/entity/illagers/minister/minister_2.png"));
+        map.put(2, Goety.location("textures/entity/illagers/minister/minister_3.png"));
+    });
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    public float staffDamage;
+    public boolean isLaughing;
+    public int laughDebug;
+    public int deathTime = 0;
+    public float deathRotation = 0.0F;
+    public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState castAnimationState = new AnimationState();
+    public AnimationState laughAnimationState = new AnimationState();
+    public AnimationState laughTargetAnimationState = new AnimationState();
+    public AnimationState blockAnimationState = new AnimationState();
+    public AnimationState smashedAnimationState = new AnimationState();
+    public AnimationState deathAnimationState = new AnimationState();
 
     public Minister(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
+        this.xpReward = 99;
         if (this.level.isClientSide){
             Goety.PROXY.addBoss(this);
         }
+    }
+
+    public ResourceLocation getResourceLocation() {
+        return TEXTURE_BY_TYPE.getOrDefault(this.getOutfitType(), TEXTURE_BY_TYPE.get(5));
+    }
+
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new CastingSpellGoal());
+        this.goalSelector.addGoal(4, new LaughTargetGoal());
+        this.goalSelector.addGoal(5, new TeethSpellGoal());
+        this.goalSelector.addGoal(6, AvoidTargetGoal.newGoal(this, 4.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(7, new MinisterRangedGoal(this, 1.0D, 20, 16.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
@@ -40,23 +102,216 @@ public class Minister extends HuntingIllagerEntity{
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MAX_HEALTH, 128.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.EnviokerDamage.get());
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){
         return setCustomAttributes();
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_TYPE_ID, 1);
+        this.entityData.define(HAS_STAFF, true);
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("HasStaff", this.hasStaff());
+        pCompound.putBoolean("isLaughing", this.isLaughing);
+        pCompound.putFloat("StaffDamage", this.staffDamage);
+        pCompound.putInt("Outfit", this.getOutfitType());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("HasStaff")) {
+            this.setHasStaff(pCompound.getBoolean("HasStaff"));
+        }
+        if (pCompound.contains("isLaughing")) {
+            this.isLaughing = pCompound.getBoolean("isLaughing");
+        }
+        if (pCompound.contains("StaffDamage")) {
+            this.staffDamage = pCompound.getFloat("StaffDamage");
+        }
+        if (pCompound.contains("Outfit")){
+            this.setOutfitType(pCompound.getInt("Outfit"));
+        }
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
         this.bossInfo.setId(this.getUUID());
+    }
+
+    public int getOutfitType() {
+        return this.entityData.get(DATA_TYPE_ID);
+    }
+
+    public void setOutfitType(int pType) {
+        if (pType < 0 || pType >= this.OutfitTypeNumber() + 1) {
+            pType = this.random.nextInt(this.OutfitTypeNumber());
+        }
+
+        this.entityData.set(DATA_TYPE_ID, pType);
+    }
+
+    public int OutfitTypeNumber(){
+        return TEXTURE_BY_TYPE.size();
+    }
+
+    public boolean hasStaff(){
+        return this.entityData.get(HAS_STAFF);
+    }
+
+    public void setHasStaff(boolean staff){
+        this.entityData.set(HAS_STAFF, staff);
+    }
+
+    @Override
+    public IllagerArmPose getArmPose() {
+        if (this.isAggressive() || this.isCelebrating() || this.isDeadOrDying()) {
+            return IllagerArmPose.NEUTRAL;
+        } else {
+            return IllagerArmPose.CROSSED;
+        }
+    }
+
+    public boolean isAlliedTo(Entity pEntity) {
+        if (pEntity == this) {
+            return true;
+        } else if (super.isAlliedTo(pEntity)) {
+            return true;
+        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
+            return this.isAlliedTo(vex.getOwner());
+        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
+            return this.getTeam() == null && pEntity.getTeam() == null;
+        } else {
+            return false;
+        }
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.MINISTER_AMBIENT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.MINISTER_DEATH.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return ModSounds.MINISTER_HURT.get();
+    }
+
+    public SoundEvent getCelebrateSound() {
+        return ModSounds.MINISTER_CELEBRATE.get();
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_37856_, DifficultyInstance p_37857_, MobSpawnType p_37858_, @org.jetbrains.annotations.Nullable SpawnGroupData p_37859_, @org.jetbrains.annotations.Nullable CompoundTag p_37860_) {
+        this.setOutfitType(this.random.nextInt(this.OutfitTypeNumber()));
+        return super.finalizeSpawn(p_37856_, p_37857_, p_37858_, p_37859_, p_37860_);
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        return true;
+    }
+
+    @Override
+    public boolean hurt(DamageSource p_37849_, float p_37850_) {
+        if (this.hasStaff() && this.isAggressive() && !this.isCasting() && !this.isLaughing){
+            if (this.staffDamage >= 64){
+                this.setHasStaff(false);
+                this.level.broadcastEntityEvent(this, (byte) 3);
+                if (this.level instanceof ServerLevel serverLevel){
+                    for(int i = 0; i < 20; ++i) {
+                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
+                    }
+                }
+                if (p_37849_.getEntity() != null){
+                    MobUtil.knockBack(this, p_37849_.getEntity(), 4.0D, 0.2D, 4.0D);
+                }
+                this.playSound(SoundEvents.ITEM_BREAK, 4.0F, 1.0F);
+                return false;
+            } else if (!p_37849_.isBypassInvul()
+                    && !p_37849_.isBypassMagic()
+                    && !p_37849_.isBypassEnchantments()
+                    && !p_37849_.isExplosion()
+                    && !p_37849_.isCreativePlayer()
+                    && p_37849_.getEntity() != null){
+                Vec3 vec32 = p_37849_.getSourcePosition();
+                if (vec32 != null) {
+                    MobUtil.instaLook(Minister.this, vec32);
+                    if (ModDamageSource.toolAttack(p_37849_, item -> item instanceof AxeItem)){
+                        p_37850_ *= 2.0F;
+                    }
+                    this.staffDamage += p_37850_;
+                    this.level.broadcastEntityEvent(this, (byte) 8);
+                    this.playSound(SoundEvents.SHIELD_BLOCK);
+                    if (this.level instanceof ServerLevel serverLevel){
+                        for(int i = 0; i < 5; ++i) {
+                            ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
+                        }
+                    }
+                    if (this.level.random.nextFloat() <= 0.05F){
+                        this.playSound(ModSounds.MINISTER_LAUGH.get());
+                    }
+                }
+                return false;
+            }
+        }
+        return super.hurt(p_37849_, p_37850_);
+    }
+
+    protected void tickDeath() {
+        ++this.deathTime;
+        if (this.deathTime == 40) {
+            this.spawnAnim();
+            this.remove(RemovalReason.KILLED);
+        }
+        this.setYRot(this.deathRotation);
+        this.setYBodyRot(this.deathRotation);
+    }
+
+    public void die(DamageSource p_21014_) {
+        this.level.broadcastEntityEvent(this, (byte) 10);
+        this.deathRotation = this.getYRot();
+        super.die(p_21014_);
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource p_21385_, int p_21386_, boolean p_21387_) {
+        super.dropCustomDeathLoot(p_21385_, p_21386_, p_21387_);
+        if (this.hasStaff()){
+            ItemStack itemStack = ModItems.OMINOUS_ORB.get().getDefaultInstance();
+            ItemEntity itementity = this.spawnAtLocation(itemStack);
+            if (itementity != null) {
+                itementity.setExtendedLifetime();
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    public ItemEntity spawnAtLocation(ItemStack itemStack, float p_19986_) {
+        if (itemStack.isEmpty()) {
+            return null;
+        } else if (this.level.isClientSide) {
+            return null;
+        } else {
+            ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY() + (double)p_19986_, this.getZ(), itemStack
+                    , this.random.nextDouble() * 0.4D - 0.2D, 0.4D, this.random.nextDouble() * 0.4D - 0.2D);
+            itementity.setDefaultPickUpDelay();
+            if (this.captureDrops() != null) {
+                this.captureDrops().add(itementity);
+            } else {
+                this.level.addFreshEntity(itementity);
+            }
+            return itementity;
+        }
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -90,9 +345,44 @@ public class Minister extends HuntingIllagerEntity{
         super.remove(p_146834_);
     }
 
+    public void tick() {
+        super.tick();
+        if (this.isCelebrating()){
+            if (this.tickCount % 100 == 0 && this.hurtTime <= 0){
+                this.laughAnimationState.start(this.tickCount);
+                this.level.broadcastEntityEvent(this, (byte) 6);
+            }
+        }
+        if (this.isDeadOrDying()){
+            this.setYRot(this.deathRotation);
+            this.setYBodyRot(this.deathRotation);
+        }
+        if (this.level instanceof ServerLevel serverLevel){
+            if (!this.getOffhandItem().isEmpty()){
+                this.spawnAtLocation(this.getOffhandItem());
+                this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+            }
+            ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.ENCHANT, this, 8.0F);
+            for (LivingEntity living : serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0F, 4.0F, 8.0F))) {
+                if (living.getMobType() == MobType.ILLAGER && living != this) {
+                    living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20));
+                }
+            }
+            if (this.isLaughing){
+                ++this.laughDebug;
+                if (this.laughDebug >= 20){
+                    this.stopLaughing();
+                }
+            } else {
+                this.laughDebug = 0;
+            }
+            this.setAggressive(this.getTarget() != null);
+        }
+    }
+
     @Override
     protected SoundEvent getCastingSoundEvent() {
-        return null;
+        return SoundEvents.EVOKER_CAST_SPELL;
     }
 
     @Override
@@ -100,9 +390,62 @@ public class Minister extends HuntingIllagerEntity{
 
     }
 
+    public void stopLaughing(){
+        this.level.broadcastEntityEvent(Minister.this, (byte) 9);
+        this.isLaughing = false;
+    }
+
     @Override
-    public SoundEvent getCelebrateSound() {
-        return null;
+    public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
+        if (this.hasStaff()) {
+            Vec3 vector3d = this.getViewVector(1.0F);
+            double d1 = p_33317_.getX() - this.getX();
+            double d2 = p_33317_.getY(0.5D) - this.getY(0.5D);
+            double d3 = p_33317_.getZ() - this.getZ();
+            MagicBolt magicBolt = new MagicBolt(this.level, this, d1, d2, d3);
+            magicBolt.setYRot(this.getYRot());
+            magicBolt.setXRot(this.getXRot());
+            magicBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
+            this.playSound(ModSounds.CAST_SPELL.get(), 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level.addFreshEntity(magicBolt);
+        } else {
+            IllBomb snowball = new IllBomb(this, this.level);
+            double d0 = p_33317_.getEyeY() - (double)1.1F;
+            double d1 = p_33317_.getX() - this.getX();
+            double d2 = d0 - snowball.getY();
+            double d3 = p_33317_.getZ() - this.getZ();
+            double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
+            float velocity = p_33317_.distanceTo(this) >= 10.0F ? 1.0F : 0.5F;
+            snowball.shoot(d1, d2 + d4, d3, velocity, 0.5F);
+            this.playSound(SoundEvents.WITCH_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level.addFreshEntity(snowball);
+        }
+    }
+
+    public void handleEntityEvent(byte pId) {
+        if (pId == 3){
+            this.smashedAnimationState.start(this.tickCount);
+            this.setHasStaff(false);
+        } else if (pId == 4) {
+            this.attackAnimationState.start(this.tickCount);
+        } else if (pId == 5) {
+            this.castAnimationState.start(this.tickCount);
+        } else if (pId == 6) {
+            this.laughAnimationState.start(this.tickCount);
+        } else if (pId == 7){
+            this.laughTargetAnimationState.start(this.tickCount);
+            this.isLaughing = true;
+        } else if (pId == 8){
+            this.blockAnimationState.start(this.tickCount);
+        } else if (pId == 9){
+            this.isLaughing = false;
+        } else if (pId == 10){
+            this.deathAnimationState.start(this.tickCount);
+            this.deathRotation = this.getYRot();
+            this.playSound(ModSounds.MINISTER_DEATH.get(), 4.0F, 1.0F);
+        } else {
+            super.handleEntityEvent(pId);
+        }
     }
 
     class CastingSpellGoal extends SpellcasterCastingSpellGoal {
@@ -113,46 +456,99 @@ public class Minister extends HuntingIllagerEntity{
             if (Minister.this.getTarget() != null) {
                 Minister.this.getLookControl().setLookAt(Minister.this.getTarget(), (float)Minister.this.getMaxHeadYRot(), (float)Minister.this.getMaxHeadXRot());
             }
-
         }
     }
 
-    class TeethSpellGoal extends SpellcasterUseSpellGoal {
+    class TeethSpellGoal extends CastingGoal {
+        public int teethAmount;
 
         private TeethSpellGoal() {
         }
 
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !Minister.this.isLaughing;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            Minister.this.castAnimationState.start(Minister.this.tickCount);
+            Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 5);
+        }
+
         protected int getCastingTime() {
-            return 40;
+            return 30;
         }
 
         protected int getCastingInterval() {
-            return 100;
+            return 120;
         }
 
         protected void performSpellCasting() {
             if (Minister.this.getTarget() != null) {
                 BlockPos blockPos = Minister.this.getTarget().blockPosition();
-                for (int length = 0; length < 12; length++) {
-                    blockPos = blockPos.offset(-4 + Minister.this.getRandom().nextInt(8), 0, -4 + Minister.this.getRandom().nextInt(8));
-                    BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                if (Minister.this.getTarget().distanceTo(Minister.this) <= 4.0F){
+                    this.surroundTeeth();
+                } else {
+                    for (int length = 0; length < 16; length++) {
+                        blockPos = blockPos.offset(-2 + Minister.this.getRandom().nextInt(4), 0, -2 + Minister.this.getRandom().nextInt(4));
+                        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                    while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
-                        blockpos$mutable.move(Direction.UP);
+                        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                            blockpos$mutable.move(Direction.UP);
+                        }
+
+                        if (Minister.this.level.noCollision(new AABB(blockpos$mutable).inflate(0.5D))){
+                            ++this.teethAmount;
+                            ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), Minister.this.level);
+                            viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
+                            viciousTooth.setOwner(Minister.this);
+                            if (Minister.this.level.addFreshEntity(viciousTooth)) {
+                                viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
+                            }
+                        }
                     }
+                }
+                if (this.teethAmount <= 0){
+                    this.surroundTeeth();
+                }
+            }
+        }
 
-                    if (Minister.this.level.noCollision(new AABB(blockpos$mutable).inflate(0.5D))){
-                        MinisterTooth ministerTooth = new MinisterTooth(ModEntityType.MINISTER_TOOTH.get(), Minister.this.level);
-                        ministerTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
-                        ministerTooth.setOwner(Minister.this);
-                        Minister.this.level.addFreshEntity(ministerTooth);
+        public void surroundTeeth(){
+            if (Minister.this.getTarget() != null) {
+                BlockPos blockPos = Minister.this.blockPosition();
+                BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+
+                while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                    blockpos$mutable.move(Direction.UP);
+                }
+
+                float f = (float) Mth.atan2(Minister.this.getTarget().getZ() - blockPos.getZ(), Minister.this.getTarget().getX() - blockPos.getX());
+                for (int i = 0; i < 5; ++i) {
+                    float f1 = f + (float) i * (float) Math.PI * 0.4F;
+                    ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), Minister.this.level);
+                    viciousTooth.setPos(blockPos.getX() + (double) Mth.cos(f1) * 1.5D, blockpos$mutable.getY(), blockPos.getZ() + (double) Mth.cos(f1) * 1.5D);
+                    viciousTooth.setOwner(Minister.this);
+                    if (Minister.this.level.addFreshEntity(viciousTooth)) {
+                        viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
+                    }
+                }
+                for (int k = 0; k < 8; ++k) {
+                    float f2 = f + (float) k * (float) Math.PI * 2.0F / 8.0F + 1.2566371F;
+                    ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), Minister.this.level);
+                    viciousTooth.setPos(blockPos.getX() + (double) Mth.cos(f2) * 2.5D, blockpos$mutable.getY(), blockPos.getZ() + (double) Mth.sin(f2) * 2.5D);
+                    viciousTooth.setOwner(Minister.this);
+                    if (Minister.this.level.addFreshEntity(viciousTooth)) {
+                        viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
                     }
                 }
             }
         }
 
         protected SoundEvent getSpellPrepareSound() {
-            return SoundEvents.EVOKER_PREPARE_SUMMON;
+            return ModSounds.MINISTER_CAST.get();
         }
 
         protected IllagerSpell getSpell() {
@@ -160,5 +556,148 @@ public class Minister extends HuntingIllagerEntity{
         }
     }
 
+    public class LaughTargetGoal extends Goal{
+        public int attackTime = 0;
 
+        @Override
+        public boolean canUse() {
+            LivingEntity livingentity = Minister.this.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                return !livingentity.hasEffect(MobEffects.WEAKNESS) && !Minister.this.isLaughing && livingentity.canBeAffected(new MobEffectInstance(MobEffects.WEAKNESS)) && livingentity.distanceTo(Minister.this) <= 16.0F;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() || Minister.this.isLaughing;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            LivingEntity livingentity = Minister.this.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 7);
+                Minister.this.isLaughing = true;
+                Minister.this.playSound(ModSounds.MINISTER_LAUGH.get());
+                MobUtil.instaLook(Minister.this, livingentity);
+                Minister.this.getNavigation().stop();
+            }
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.attackTime = 0;
+            Minister.this.stopLaughing();
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            LivingEntity livingentity = Minister.this.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                ++this.attackTime;
+                if (this.attackTime >= 10){
+                    Minister.this.stopLaughing();
+                    this.attackTime = 0;
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(30)), Minister.this);
+                } else {
+                    Minister.this.getLookControl().setLookAt(livingentity, 500.0F, Minister.this.getMaxHeadXRot());
+                    Minister.this.getNavigation().stop();
+                }
+            } else {
+                this.attackTime = 0;
+                Minister.this.stopLaughing();
+            }
+        }
+    }
+
+    public class MinisterRangedGoal extends Goal{
+        private final Minister mob;
+        @Nullable
+        private LivingEntity target;
+        private int attackTime = -1;
+        private final double speedModifier;
+        private int seeTime;
+        private final int attackIntervalMin;
+        private final int attackIntervalMax;
+        private final float attackRadius;
+        private final float attackRadiusSqr;
+
+        public MinisterRangedGoal(Minister p_25768_, double speed, int attackInterval, float attackRadius) {
+            this(p_25768_, speed, attackInterval, attackInterval, attackRadius);
+        }
+
+        public MinisterRangedGoal(Minister mob, double speed, int attackMin, int attackMax, float attackRadius) {
+            this.mob = mob;
+            this.speedModifier = speed;
+            this.attackIntervalMin = attackMin;
+            this.attackIntervalMax = attackMax;
+            this.attackRadius = attackRadius;
+            this.attackRadiusSqr = attackRadius * attackRadius;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                this.target = livingentity;
+                return !this.mob.isLaughing;
+            } else {
+                return false;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.canUse() || (this.target != null && this.target.isAlive() && !this.mob.getNavigation().isDone());
+        }
+
+        public void stop() {
+            this.target = null;
+            this.seeTime = 0;
+            this.attackTime = -1;
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            if (this.target != null) {
+                double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+                boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
+                if (flag) {
+                    ++this.seeTime;
+                } else {
+                    this.seeTime = 0;
+                }
+
+                if (!(d0 > (double) this.attackRadiusSqr) && this.seeTime >= 5) {
+                    this.mob.getNavigation().stop();
+                } else {
+                    this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+                }
+
+                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+                --this.attackTime;
+                if (this.attackTime == 5) {
+                    this.mob.attackAnimationState.start(Minister.this.tickCount);
+                    this.mob.level.broadcastEntityEvent(Minister.this, (byte) 4);
+                } else if (this.attackTime == 0) {
+                    if (!flag) {
+                        return;
+                    }
+
+                    float f = (float) Math.sqrt(d0) / this.attackRadius;
+                    float f1 = Mth.clamp(f, 0.1F, 1.0F);
+                    this.mob.performRangedAttack(this.target, f1);
+                    this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
+                } else if (this.attackTime < 0) {
+                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));
+                }
+            }
+        }
+    }
 }

@@ -344,7 +344,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void SpecialSpawnEvents(LivingSpawnEvent.CheckSpawn event){
+    public static void CheckSpawnEvents(LivingSpawnEvent.CheckSpawn event){
         if (event.getEntity() instanceof SpellcasterIllager || event.getEntity() instanceof Witch || event.getEntity() instanceof Cultist){
             if (event.getSpawnReason() == MobSpawnType.STRUCTURE){
                 event.getEntity().addTag(ConstantPaths.structureMob());
@@ -970,6 +970,13 @@ public class ModEvents {
                     player.heal(event.getAmount());
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHeal(LivingHealEvent event){
+        if (event.getEntity().hasEffect(GoetyEffects.CURSED.get()) && event.getAmount() > 0.0F){
+            event.setCanceled(true);
         }
     }
 

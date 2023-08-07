@@ -78,14 +78,14 @@ public class IceSpike extends AbstractArrow {
                 if (WandUtil.enchantedFocus(livingentity)){
                     baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
                 }
-                flag = entity.hurt(ModDamageSource.indirectFreeze(this, livingentity), baseDamage);
+                flag = entity.hurt(ModDamageSource.indirectFreeze(this, livingentity).setProjectile(), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     }
                 }
             } else {
-                flag = entity.hurt(DamageSource.FREEZE, baseDamage);
+                flag = entity.hurt(DamageSource.FREEZE.setProjectile(), baseDamage);
             }
 
             if (flag && entity instanceof LivingEntity livingEntity) {

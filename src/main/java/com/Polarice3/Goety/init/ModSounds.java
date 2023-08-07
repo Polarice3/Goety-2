@@ -85,6 +85,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
 
+    public static final RegistryObject<SoundEvent> MINISTER_AMBIENT = create("minister_ambient");
+    public static final RegistryObject<SoundEvent> MINISTER_HURT = create("minister_hurt");
+    public static final RegistryObject<SoundEvent> MINISTER_LAUGH = create("minister_laugh");
+    public static final RegistryObject<SoundEvent> MINISTER_CAST = create("minister_cast");
+    public static final RegistryObject<SoundEvent> MINISTER_CELEBRATE = create("minister_celebrate");
+    public static final RegistryObject<SoundEvent> MINISTER_DEATH = create("minister_death");
+
     public static final RegistryObject<SoundEvent> VIZIER_AMBIENT = create("vizier_ambient");
     public static final RegistryObject<SoundEvent> VIZIER_HURT = create("vizier_hurt");
     public static final RegistryObject<SoundEvent> VIZIER_CONFUSE = create("vizier_confuse");
@@ -115,6 +122,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SOUL_ARMOR = create("soul_armor");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
+    public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
@@ -123,6 +131,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");
     public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
+    public static final RegistryObject<SoundEvent> TOOTH_SPAWN = create("tooth_spawn");
+    public static final RegistryObject<SoundEvent> IMPALE = create("impale");
     public static final RegistryObject<SoundEvent> ICE_SPIKE_HIT = create("ice_spike_hit");
     public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
@@ -136,6 +146,10 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_THROW = create("blast_fungus_throw");
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
+
+    public static final RegistryObject<SoundEvent> CORRUPT_BEAM_START = create("corrupt_beam_start");
+    public static final RegistryObject<SoundEvent> CORRUPT_BEAM_LOOP = create("corrupt_beam_loop");
+    public static final RegistryObject<SoundEvent> CORRUPT_BEAM_SOUL = create("corrupt_beam_soul");
 
     public static final RegistryObject<SoundEvent> BREW_GAS = create("brew_gas");
 

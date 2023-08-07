@@ -1,0 +1,17 @@
+{
+  "name": "Corruption Focus",
+  "icon": "goety:corruption_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Night Beacon holds tremendous power, you believe that by supplying it with Soul Energy, you'll be be able to transform it's night bringing beam into something more devastating!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/corruption_focus"
+    }
+  ]
+}

@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
@@ -42,11 +41,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class Envioker extends HuntingIllagerEntity implements ICustomAttributes {
+public class Envioker extends HuntingIllagerEntity {
 
     public Envioker(EntityType<? extends Envioker> p_i50207_1_, Level p_i50207_2_) {
         super(p_i50207_1_, p_i50207_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i50207_1_, this);
         this.xpReward = 20;
     }
 

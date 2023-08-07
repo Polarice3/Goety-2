@@ -1,0 +1,20 @@
+{
+  "name": "Ministers",
+  "icon": "goety:ominous_orb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Illagers higher in rank and prestige than Evokers. Indeed, they are most likely to be the leader of the Illager tribe they are a part of. Ministers are notorious for plundering civilizations and their oratory skills, which they use to empower other Illagers or to viciously mock their foes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:minister"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It is said that the Staff they wield is either inspired by or plundered and modified from a nameless kingdom, with the staff's orb radiating great magic. Ministers are also good at blocking hits with their staff, though unfortunately for them, their staffs aren't as durable as a standard shield. Perhaps there's a way to plunder the staff, or at the very least, its orb, without destroying it..."
+    }
+  ]
+}

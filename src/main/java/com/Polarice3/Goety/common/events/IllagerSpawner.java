@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ai.HuntDownPlayerGoal;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
@@ -152,6 +153,12 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + randomsource.nextInt(5) - randomsource.nextInt(5));
                                         }
                                     }
+                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 3 && p_64570_.random.nextFloat() <= 0.15F) {
+                                        blockpos$mutable.setX(blockpos$mutable.getX() + randomsource.nextInt(5) - randomsource.nextInt(5));
+                                        blockpos$mutable.setY(p_64570_.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                                        blockpos$mutable.setZ(blockpos$mutable.getZ() + randomsource.nextInt(5) - randomsource.nextInt(5));
+                                        this.spawnMinister(p_64570_, blockpos$mutable, randomsource, player);
+                                    }
                                     if (soulEnergy >= MainConfig.IllagerAssaultSELimit.get() && MainConfig.SoulEnergyBadOmen.get()) {
                                         if (!player.hasEffect(MobEffects.BAD_OMEN)) {
                                             player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 0, false, false));
@@ -239,6 +246,31 @@ public class IllagerSpawner {
                 }
                 illager.setTarget(player);
                 this.upgradeIllagers(illager, infamy);
+                worldIn.addFreshEntityWithPassengers(illager);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public boolean spawnMinister(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, Player player) {
+        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
+        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.MINISTER.get())) {
+            return false;
+        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.MINISTER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
+            return false;
+        } else {
+            Minister illager = ModEntityType.MINISTER.get().create(worldIn);
+            if (illager != null) {
+                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
+                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
+                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
+                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
+                if (random.nextInt(4) == 0){
+                    illager.setRider(true);
+                }
+                illager.setTarget(player);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
             } else {
@@ -467,6 +499,12 @@ public class IllagerSpawner {
                         blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
+                }
+                if (j1 >= MainConfig.IllagerAssaultSEThreshold.get() * 3 && world.random.nextFloat() <= 0.15F) {
+                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                    blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                    this.spawnMinister(world, blockpos$mutable, random, player);
                 }
                 this.nextTick += MainConfig.IllagerAssaultSpawnFreq.get();
             }

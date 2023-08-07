@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.projectiles.MinisterTooth;
+import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -9,10 +9,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class MinisterToothModel<T extends MinisterTooth> extends HierarchicalModel<T> {
+public class ViciousToothModel<T extends ViciousTooth> extends HierarchicalModel<T> {
 	private final ModelPart base;
 
-	public MinisterToothModel(ModelPart root) {
+	public ViciousToothModel(ModelPart root) {
 		this.base = root.getChild("base");
 	}
 

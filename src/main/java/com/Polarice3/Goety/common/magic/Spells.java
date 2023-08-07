@@ -82,7 +82,7 @@ public abstract class Spells {
         NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
         LICH("lich", ModItems.NAMELESS_STAFF.get()),
         NETHER("nether", null),
-        ILL("ill", null),
+        ILL("ill", ModItems.OMINOUS_STAFF.get()),
         FROST("frost", null),
         GEOMANCY("geomancy", null),
         WIND("wind", ModItems.WIND_STAFF.get());

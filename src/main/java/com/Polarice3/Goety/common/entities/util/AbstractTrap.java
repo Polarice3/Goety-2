@@ -37,7 +37,9 @@ public abstract class AbstractTrap extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        this.duration = compound.getInt("Duration");
+        if (compound.contains("Duration")) {
+            this.duration = compound.getInt("Duration");
+        }
         if (compound.hasUUID("Owner")) {
             this.ownerUniqueId = compound.getUUID("Owner");
         }
@@ -83,21 +85,23 @@ public abstract class AbstractTrap extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.level instanceof ServerLevel) {
-            ServerLevel serverWorld = (ServerLevel) this.level;
-            ParticleOptions iparticledata = this.getParticle();
-            float f = radius();
-            float f5 = (float) Math.PI * f * f;
-            for (int k1 = 0; (float) k1 < f5; ++k1) {
-                float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
-                float f7 = Mth.sqrt(this.random.nextFloat()) * f;
-                float f8 = Mth.cos(f6) * f7;
-                float f9 = Mth.sin(f6) * f7;
-                serverWorld.sendParticles(iparticledata, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 1, 0, 0, 0, 0);
+        if (this.getParticle() != null) {
+            if (this.level instanceof ServerLevel serverWorld) {
+                ParticleOptions iparticledata = this.getParticle();
+                float f = radius();
+                float f5 = (float) Math.PI * f * f;
+                for (int k1 = 0; (float) k1 < f5; ++k1) {
+                    float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
+                    float f7 = Mth.sqrt(this.random.nextFloat()) * f;
+                    float f8 = Mth.cos(f6) * f7;
+                    float f9 = Mth.sin(f6) * f7;
+                    serverWorld.sendParticles(iparticledata, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 1, 0, 0, 0, 0);
+                }
             }
         }
     }
 
+    @Nullable
     public ParticleOptions getParticle() {
         return this.getEntityData().get(DATA_PARTICLE);
     }

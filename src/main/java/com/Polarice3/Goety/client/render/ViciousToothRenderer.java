@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.client.render.model.MinisterToothModel;
-import com.Polarice3.Goety.common.entities.projectiles.MinisterTooth;
+import com.Polarice3.Goety.client.render.model.ViciousToothModel;
+import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -12,16 +12,16 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class MinisterToothRenderer extends EntityRenderer<MinisterTooth> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID,"textures/entity/projectiles/minister_tooth.png");
-    private final MinisterToothModel<MinisterTooth> model;
+public class ViciousToothRenderer extends EntityRenderer<ViciousTooth> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID,"textures/entity/projectiles/vicious_tooth.png");
+    private final ViciousToothModel<ViciousTooth> model;
 
-    public MinisterToothRenderer(EntityRendererProvider.Context renderManagerIn) {
+    public ViciousToothRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
-        this.model = new MinisterToothModel<>(renderManagerIn.bakeLayer(ModModelLayer.MINISTER_TOOTH));
+        this.model = new ViciousToothModel<>(renderManagerIn.bakeLayer(ModModelLayer.VICIOUS_TOOTH));
     }
 
-    public void render(MinisterTooth pEntity, float entityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(ViciousTooth pEntity, float entityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn) {
         pMatrixStack.pushPose();
         pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
         float f;
@@ -40,7 +40,7 @@ public class MinisterToothRenderer extends EntityRenderer<MinisterTooth> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MinisterTooth pEntity) {
+    public ResourceLocation getTextureLocation(ViciousTooth pEntity) {
         return TEXTURE;
     }
 }

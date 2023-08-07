@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.client.render.WraithAnimations;
+import com.Polarice3.Goety.client.render.animation.WraithAnimations;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.mojang.blaze3d.vertex.PoseStack;

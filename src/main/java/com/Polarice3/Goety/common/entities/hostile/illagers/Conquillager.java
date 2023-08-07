@@ -4,15 +4,12 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
-import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.init.ModSounds;
-import com.google.common.collect.Lists;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
 import com.mojang.math.Vector3f;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -47,15 +44,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 
-public class Conquillager extends HuntingIllagerEntity implements CrossbowAttackMob, ICustomAttributes {
+public class Conquillager extends HuntingIllagerEntity implements CrossbowAttackMob {
     private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Conquillager.class, EntityDataSerializers.BOOLEAN);
 
     public Conquillager(EntityType<? extends Conquillager> p_i48556_1_, Level p_i48556_2_) {
         super(p_i48556_1_, p_i48556_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i48556_1_, this);
         this.xpReward = 20;
     }
 
@@ -217,33 +212,9 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         shooter.playSound(SoundEvents.CROSSBOW_SHOOT, 1.0F, 1.0F / (shooter.getRandom().nextFloat() * 0.4F + 0.8F));
     }
 
-    private ItemStack getFirework(DyeColor pColor, int pFlightTime) {
-        ItemStack itemstack = new ItemStack(Items.FIREWORK_ROCKET, 1);
-        ItemStack itemstack1 = new ItemStack(Items.FIREWORK_STAR);
-        CompoundTag compoundnbt = itemstack1.getOrCreateTagElement("Explosion");
-        List<Integer> list = Lists.newArrayList();
-        list.add(pColor.getFireworkColor());
-        compoundnbt.putIntArray("Colors", list);
-        compoundnbt.putByte("Type", (byte)FireworkRocketItem.Shape.BURST.getId());
-        CompoundTag compoundnbt1 = itemstack.getOrCreateTagElement("Fireworks");
-        ListTag listnbt = new ListTag();
-        CompoundTag compoundnbt2 = itemstack1.getTagElement("Explosion");
-        if (compoundnbt2 != null) {
-            listnbt.add(compoundnbt2);
-        }
-
-        compoundnbt1.putByte("Flight", (byte)pFlightTime);
-        if (!listnbt.isEmpty()) {
-            compoundnbt1.put("Explosions", listnbt);
-        }
-
-        return itemstack;
-    }
-
     public ItemStack getProjectile(ItemStack pShootable) {
-        DyeColor dyecolor = Util.getRandom(DyeColor.values(), random);
-        int i = random.nextInt(3);
-        return getFirework(dyecolor, i);
+        int difficulty = this.level.getCurrentDifficultyAt(this.blockPosition()).getDifficulty().getId();
+        return MobUtil.createFirework(difficulty * 2, DyeColor.values());
     }
 
     public void applyRaidBuffs(int pWave, boolean p_213660_2_) {

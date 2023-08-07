@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ai.StealTotemGoal;
+import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -29,13 +31,15 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Predicate;
 
-public abstract class HuntingIllagerEntity extends SpellcasterIllager {
+public abstract class HuntingIllagerEntity extends SpellcasterIllager implements ICustomAttributes {
     private static final EntityDataAccessor<Boolean> RIDER = SynchedEntityData.defineId(HuntingIllagerEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(HuntingIllagerEntity.class, EntityDataSerializers.BYTE);
     public final Predicate<Entity> field_213690_b = Entity::isAlive;
     public final SimpleContainer inventory = new SimpleContainer(1);
 
     protected HuntingIllagerEntity(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
+        ICustomAttributes.applyAttributesForEntity(p_i48551_1_, this);
     }
 
     protected void registerGoals() {
@@ -49,6 +53,10 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager {
         this.targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, (new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false)).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
+    }
+
+    public AttributeSupplier.Builder getConfiguredAttributes(){
+        return null;
     }
 
     public void tick(){
@@ -79,6 +87,31 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(RIDER, false);
+        this.entityData.define(FLAGS, (byte)0);
+    }
+
+    private boolean getFlag(int mask) {
+        int i = this.entityData.get(FLAGS);
+        return (i & mask) != 0;
+    }
+
+    private void setFlag(int mask, boolean value) {
+        int i = this.entityData.get(FLAGS);
+        if (value) {
+            i = i | mask;
+        } else {
+            i = i & ~mask;
+        }
+
+        this.entityData.set(FLAGS, (byte)(i & 255));
+    }
+
+    public void setCasting(boolean casting){
+        this.setFlag(1, casting);
+    }
+
+    public boolean isCasting(){
+        return this.getFlag(1);
     }
 
     public boolean isRider(){
@@ -87,6 +120,10 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager {
 
     public void setRider(boolean pIsRider){
         this.entityData.set(RIDER, pIsRider);
+    }
+
+    public boolean isCastingSpell() {
+        return super.isCastingSpell() || this.isCasting();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -171,5 +208,23 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager {
 
         }
         super.die(pCause);
+    }
+
+    abstract class CastingGoal extends SpellcasterUseSpellGoal {
+
+        public void start() {
+            super.start();
+            HuntingIllagerEntity.this.setCasting(true);
+        }
+
+        public void stop() {
+            super.stop();
+            HuntingIllagerEntity.this.setCasting(false);
+        }
+
+        protected int getCastingInterval() {
+            return 0;
+        }
+
     }
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.GameRenderer;
@@ -42,4 +43,41 @@ public class ModRenderType {
     public static RenderType wraith(ResourceLocation p_110459_) {
         return WRAITH.apply(p_110459_);
     }
+
+    /**
+     * Beam render Types and StateShards based on MyRenderType on @Thelnfamous1's Dungeon Gears
+     */
+    protected static final RenderStateShard.LayeringStateShard VIEW_OFFSET_Z_LAYERING = new RenderStateShard.LayeringStateShard("view_offset_z_layering", () -> {
+        PoseStack posestack = RenderSystem.getModelViewStack();
+        posestack.pushPose();
+        posestack.scale(0.99975586F, 0.99975586F, 0.99975586F);
+        RenderSystem.applyModelViewMatrix();
+    }, () -> {
+        PoseStack posestack = RenderSystem.getModelViewStack();
+        posestack.popPose();
+        RenderSystem.applyModelViewMatrix();
+    });
+    protected static final RenderStateShard.DepthTestStateShard NO_DEPTH_TEST = new RenderStateShard.DepthTestStateShard("always", 519);
+    protected static final RenderStateShard.LightmapStateShard NO_LIGHTMAP = new RenderStateShard.LightmapStateShard(false);
+    protected static final RenderStateShard.ShaderStateShard RENDERTYPE_ENERGY_SWIRL_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEnergySwirlShader);
+
+    private static final Function<ResourceLocation, RenderType> BEACON_BEAM = Util.memoize((p_173253_) -> {
+        RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_173253_, false, false);
+        return RenderType.create("magic_beam",
+                DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 256, false, false,
+                RenderType.CompositeState.builder().setTextureState(renderstateshard$texturestateshard)
+                        .setLayeringState(VIEW_OFFSET_Z_LAYERING)
+                        .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                        .setDepthTestState(NO_DEPTH_TEST)
+                        .setCullState(NO_CULL)
+                        .setLightmapState(NO_LIGHTMAP)
+                        .setWriteMaskState(COLOR_WRITE)
+                        .setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER)
+                        .createCompositeState(false));
+    });
+
+    public static RenderType magicBeam(ResourceLocation p_110459_) {
+        return BEACON_BEAM.apply(p_110459_);
+    }
+
 }

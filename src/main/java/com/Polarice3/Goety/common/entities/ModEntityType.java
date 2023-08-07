@@ -7,10 +7,7 @@ import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Tormentor;
+import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
@@ -102,6 +99,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<NecroBolt>> NECRO_BOLT = register("necro_bolt",
             EntityType.Builder.<NecroBolt>of(NecroBolt::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<MagicBolt>> MAGIC_BOLT = register("magic_bolt",
+            EntityType.Builder.<MagicBolt>of(MagicBolt::new, MobCategory.MISC)
                     .sized(0.625F, 0.625F)
                     .clientTrackingRange(4)
                     .updateInterval(1));
@@ -118,6 +121,11 @@ public class ModEntityType {
                     .clientTrackingRange(6)
                     .updateInterval(2));
 
+    public static final RegistryObject<EntityType<IllBomb>> ILL_BOMB = register("ill_bomb",
+            EntityType.Builder.<IllBomb>of(IllBomb::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<IceBouquet>> ICE_BOUQUET = register("ice_bouquet",
             EntityType.Builder.<IceBouquet>of(IceBouquet::new, MobCategory.MISC)
                     .fireImmune()
@@ -131,11 +139,25 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
-    public static final RegistryObject<EntityType<MinisterTooth>> MINISTER_TOOTH = register("minister_tooth",
-            EntityType.Builder.<MinisterTooth>of(MinisterTooth::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<ViciousTooth>> VICIOUS_TOOTH = register("vicious_tooth",
+            EntityType.Builder.<ViciousTooth>of(ViciousTooth::new, MobCategory.MISC)
                     .sized(0.6F, 1.4F)
                     .clientTrackingRange(10)
                     .updateInterval(1));
+
+    public static final RegistryObject<EntityType<ViciousPike>> VICIOUS_PIKE = register("vicious_pike",
+            EntityType.Builder.<ViciousPike>of(ViciousPike::new, MobCategory.MISC)
+                    .sized(0.6F, 3.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<CorruptedBeam>> CORRUPTED_BEAM = register("corrupted_beam",
+            EntityType.Builder.<CorruptedBeam>of(CorruptedBeam::new, MobCategory.MISC)
+                    .fireImmune()
+                    .setShouldReceiveVelocityUpdates(false)
+                    .sized(2.0F, 1.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(2));
 
     public static final RegistryObject<EntityType<SnapFungus>> SNAP_FUNGUS = register("snap_fungus",
             EntityType.Builder.<SnapFungus>of(SnapFungus::new, MobCategory.MISC)
@@ -376,6 +398,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Minister>> MINISTER = register("minister",
+            EntityType.Builder.of(Minister::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Vizier>> VIZIER = register("vizier",
             EntityType.Builder.of(Vizier::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -439,6 +467,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<MagicGround>> MAGIC_GROUND = register("magic_ground",
+            EntityType.Builder.<MagicGround>of(MagicGround::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.25F, 1.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
             EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)
                     .fireImmune()
@@ -483,6 +518,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SkullLaser>> LASER = register("laser",
             EntityType.Builder.of(SkullLaser::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<TunnelingFang>> TUNNELING_FANG = register("tunneling_fang",
+            EntityType.Builder.of(TunnelingFang::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));

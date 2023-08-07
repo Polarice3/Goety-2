@@ -4,6 +4,9 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -11,10 +14,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class NecroBolt extends AbstractHurtingProjectile {
@@ -73,8 +77,8 @@ public class NecroBolt extends AbstractHurtingProjectile {
         }
     }
 
-    protected void onHit(HitResult p_37628_) {
-        super.onHit(p_37628_);
+    protected void onHitBlock(BlockHitResult p_230299_1_) {
+        super.onHitBlock(p_230299_1_);
         if (!this.level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel) this.level;
             for (int p = 0; p < 8; ++p) {
@@ -82,26 +86,39 @@ public class NecroBolt extends AbstractHurtingProjectile {
                 double d1 = (double)this.getY() + this.level.random.nextDouble();
                 double d2 = (double)this.getZ() + this.level.random.nextDouble();
                 serverLevel.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
+                serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
             }
             this.discard();
         }
-
     }
 
     public void tick() {
         super.tick();
+        if (this.tickCount >= MathHelper.secondsToTicks(20)){
+            this.discard();
+        }
         Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = this.getX() - vec3.x;
             double d1 = this.getY() - vec3.y;
             double d2 = this.getZ() - vec3.z;
-            this.level.addParticle(ModParticleTypes.NECRO_EFFECT.get(), d0, d1 + 0.3D, d2, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ModParticleTypes.SUMMON.get(), d0, d1 + 0.3D, d2, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
+    protected boolean canHitEntity(Entity pEntity) {
+        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner()) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
+            return false;
+        } else if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+            return !MobUtil.ownerStack(owned0, owned1);
+        } else {
+            return super.canHitEntity(pEntity);
         }
     }
 
     protected ParticleOptions getTrailParticle() {
-        return ModParticleTypes.NONE.get();
+        return ModParticleTypes.NECRO_BOLT.get();
     }
 
     public boolean isPickable() {

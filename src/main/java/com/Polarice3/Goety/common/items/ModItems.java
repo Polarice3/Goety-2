@@ -58,6 +58,8 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGER_CORE = ITEMS.register("hunger_core", ItemBase::new);
     public static final RegistryObject<Item> WIND_CORE = ITEMS.register("wind_core", ItemBase::new);
     public static final RegistryObject<Item> MYSTIC_CORE = ITEMS.register("mystic_core", ItemBase::new);
+    public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", RepeatCraftItem::new);
+    public static final RegistryObject<Item> HEART_OF_THE_NIGHT = ITEMS.register("heart_of_the_night", ItemBase::new);
     public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", ItemBase::new);
     public static final RegistryObject<Item> OMINOUS_SADDLE = ITEMS.register("ominous_saddle", ItemBase::new);
     public static final RegistryObject<Item> IRON_RAVAGER_ARMOR = ITEMS.register("iron_ravager_armor", () -> new RavagerArmorItem(7, "iron"));
@@ -82,6 +84,7 @@ public class ModItems {
     public static final RegistryObject<Item> BERSERK_FUNGUS = ITEMS.register("berserk_fungus", BerserkFungusItem::new);
     public static final RegistryObject<Item> WARTFUL_EGG = ITEMS.register("wartful_egg", WartlingEggItem::new);
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
+    public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
 
     public static final RegistryObject<Item> RAVAGING_SCROLL = ITEMS.register("ravaging_scroll", () -> new Scroll(ResearchList.RAVAGING));
@@ -142,6 +145,7 @@ public class ModItems {
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
     public static final RegistryObject<Item> LAVABALL_FOCUS = ITEMS.register("lavaball_focus", () -> new MagicFocus(new LavaballSpell()));
     public static final RegistryObject<Item> SOUL_BOLT_FOCUS = ITEMS.register("soul_bolt_focus", () -> new MagicFocus(new SoulBoltSpell()));
+    public static final RegistryObject<Item> MAGIC_BOLT_FOCUS = ITEMS.register("magic_bolt_focus", () -> new MagicFocus(new MagicBoltSpell()));
     public static final RegistryObject<Item> SWORD_FOCUS = ITEMS.register("sword_focus", () -> new MagicFocus(new SwordSpell()));
     public static final RegistryObject<Item> ICE_SPIKE_FOCUS = ITEMS.register("ice_spike_focus", () -> new MagicFocus(new IceSpikeSpell()));
     public static final RegistryObject<Item> CHARGE_FOCUS = ITEMS.register("charge_focus", () -> new MagicFocus(new ChargeSpell()));
@@ -159,6 +163,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
     public static final RegistryObject<Item> SKULL_FOCUS = ITEMS.register("skull_focus", () -> new MagicFocus(new HauntedSkullSpell()));
     public static final RegistryObject<Item> RECALL_FOCUS = ITEMS.register("recall_focus", RecallFocus::new);
+    public static final RegistryObject<Item> CORRUPTION_FOCUS = ITEMS.register("corruption_focus", () -> new MagicFocus(new CorruptedBeamSpell()));
 
     //Armors
     public static final RegistryObject<Item> CURSED_KNIGHT_HELMET = ITEMS.register("cursed_knight_helmet", () -> new CursedKnightArmor(EquipmentSlot.HEAD));
@@ -173,6 +178,7 @@ public class ModItems {
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
+    public static final RegistryObject<Item> OMINOUS_STAFF = ITEMS.register("ominous_staff", () -> new DarkStaff(MainConfig.OminousStaffDamage.get()));
     public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", () -> new DarkStaff(MainConfig.NecroStaffDamage.get()));
     public static final RegistryObject<Item> WIND_STAFF = ITEMS.register("wind_staff", () -> new DarkStaff(MainConfig.WindStaffDamage.get()));
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(MainConfig.NamelessStaffDamage.get()));

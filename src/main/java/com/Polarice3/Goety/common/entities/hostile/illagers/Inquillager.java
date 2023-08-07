@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.init.ModSounds;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
@@ -41,13 +40,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class Inquillager extends HuntingIllagerEntity implements ICustomAttributes{
+public class Inquillager extends HuntingIllagerEntity{
     public int coolDown;
     public int healTimes;
 
     public Inquillager(EntityType<? extends Inquillager> p_i48556_1_, Level p_i48556_2_) {
         super(p_i48556_1_, p_i48556_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i48556_1_, this);
         this.xpReward = 20;
         this.coolDown = 0;
         this.healTimes = 0;

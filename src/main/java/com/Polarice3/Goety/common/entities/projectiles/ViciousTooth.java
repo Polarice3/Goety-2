@@ -2,6 +2,9 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -26,19 +29,19 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class MinisterTooth extends Entity {
+public class ViciousTooth extends Entity {
     private LivingEntity owner;
     private UUID ownerUUID;
     private boolean isDropping;
     public int hovering = 0;
     public float extraDamage = 0.0F;
 
-    public MinisterTooth(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
+    public ViciousTooth(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
     }
 
-    public MinisterTooth(Level pLevel, LivingEntity pOwner){
-        this(ModEntityType.MINISTER_TOOTH.get(), pLevel);
+    public ViciousTooth(Level pLevel, LivingEntity pOwner){
+        this(ModEntityType.VICIOUS_TOOTH.get(), pLevel);
         this.owner = pOwner;
     }
 
@@ -104,6 +107,15 @@ public class MinisterTooth extends Entity {
                     this.damageTargets(livingEntity);
                 }
             }
+            for (Direction direction : Direction.values()){
+                if (direction.getAxis().isHorizontal()){
+                    BlockPos blockPos = this.blockPosition().relative(direction);
+                    ViciousPike impale = new ViciousPike(this.level, this.getOwner() != null ? this.getOwner() : null);
+                    impale.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                    MobUtil.moveDownToGround(impale);
+                    this.level.addFreshEntity(impale);
+                }
+            }
         }
         this.discard();
     }
@@ -112,8 +124,15 @@ public class MinisterTooth extends Entity {
         float damage = 12.0F;
         damage += this.extraDamage;
         if (livingEntity != null) {
-            livingEntity.hurt(DamageSource.indirectMagic(this, this.getOwner()), damage);
+            if ((this.getOwner() != null && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)) || this.getOwner() == null) {
+                livingEntity.hurt(DamageSource.indirectMagic(this, this.getOwner()), damage);
+            }
         }
+    }
+
+    @Override
+    public void makeStuckInBlock(BlockState p_20006_, Vec3 p_20007_) {
+        super.makeStuckInBlock(p_20006_, Vec3.ZERO);
     }
 
     @Override
