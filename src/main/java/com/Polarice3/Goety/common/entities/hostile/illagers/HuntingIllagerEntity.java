@@ -210,21 +210,4 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager implements
         super.die(pCause);
     }
 
-    abstract class CastingGoal extends SpellcasterUseSpellGoal {
-
-        public void start() {
-            super.start();
-            HuntingIllagerEntity.this.setCasting(true);
-        }
-
-        public void stop() {
-            super.stop();
-            HuntingIllagerEntity.this.setCasting(false);
-        }
-
-        protected int getCastingInterval() {
-            return 0;
-        }
-
-    }
 }

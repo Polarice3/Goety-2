@@ -1,0 +1,30 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:biting_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:barricade_focus"
+    },
+    {
+      "item": "goety:mystic_core"
+    },
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    },
+    {
+      "tag": "forge:storage_blocks/amethyst"
+    },
+    {
+      "item": "goety:magic_emerald"
+    }
+  ],
+  "result": {
+    "item": "goety:teeth_focus"
+  }
+}

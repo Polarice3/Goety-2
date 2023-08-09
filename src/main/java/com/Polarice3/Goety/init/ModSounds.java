@@ -88,7 +88,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MINISTER_AMBIENT = create("minister_ambient");
     public static final RegistryObject<SoundEvent> MINISTER_HURT = create("minister_hurt");
     public static final RegistryObject<SoundEvent> MINISTER_LAUGH = create("minister_laugh");
+    public static final RegistryObject<SoundEvent> MINISTER_COMMAND = create("minister_command");
     public static final RegistryObject<SoundEvent> MINISTER_CAST = create("minister_cast");
+    public static final RegistryObject<SoundEvent> MINISTER_SPEECH = create("minister_speech");
     public static final RegistryObject<SoundEvent> MINISTER_CELEBRATE = create("minister_celebrate");
     public static final RegistryObject<SoundEvent> MINISTER_DEATH = create("minister_death");
 

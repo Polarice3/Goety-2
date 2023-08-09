@@ -20,6 +20,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TeethCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCost;
@@ -50,6 +51,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TeethDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeDuration;
@@ -134,6 +136,8 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                 .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
+        TeethCost = BUILDER.comment("Teeth Spell Cost, Default: 8")
+                .defineInRange("teethCost", 8, 0, Integer.MAX_VALUE);
         FireballCost = BUILDER.comment("Fireball Spell Cost, Default: 4")
                 .defineInRange("fireballCost", 4, 0, Integer.MAX_VALUE);
         LavaballCost = BUILDER.comment("Lava Bomb Spell Cost, Default: 16")
@@ -194,6 +198,8 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullTime", 20, 0, 72000);
         FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
                 .defineInRange("feastTime", 20, 0, 72000);
+        TeethDuration = BUILDER.comment("Time to cast Teeth Spell, Default: 60")
+                .defineInRange("teethTime", 60, 0, 72000);
         LavaballDuration = BUILDER.comment("Time to cast Lava Bomb Spell, Default: 20")
                 .defineInRange("lavaBombTime", 20, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")

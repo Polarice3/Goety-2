@@ -370,6 +370,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.register(ModParticleTypes.SHOUT.get(), ShoutParticle.RedProvider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
+        event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
     }
 
 }

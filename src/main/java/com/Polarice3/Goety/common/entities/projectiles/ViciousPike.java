@@ -110,7 +110,7 @@ public class ViciousPike extends Entity {
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (target.isAlive() && !target.isInvulnerable() && MobUtil.validEntity(target) && target != livingentity) {
             if (livingentity != null) {
-                if (target.isAlliedTo(livingentity)){
+                if (target.isAlliedTo(livingentity)) {
                     return;
                 }
                 if (livingentity.isAlliedTo(target)) {
@@ -120,8 +120,10 @@ public class ViciousPike extends Entity {
             } else {
                 target.hurt(DamageSource.MAGIC, baseDamage);
             }
-            MobUtil.push(target, 0, 1, 0);
-            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 4, false, false));
+            if (!target.hasImpulse) {
+                MobUtil.push(target, 0, 1, 0);
+                target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 4, false, false));
+            }
         }
     }
 

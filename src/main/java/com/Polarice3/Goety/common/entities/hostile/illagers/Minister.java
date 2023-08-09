@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.AxeItem;
@@ -51,8 +52,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> HAS_STAFF = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.BOOLEAN);
@@ -64,16 +68,17 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     });
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
     public float staffDamage;
-    public boolean isLaughing;
-    public int laughDebug;
+    public int coolDown;
     public int deathTime = 0;
     public float deathRotation = 0.0F;
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState castAnimationState = new AnimationState();
     public AnimationState laughAnimationState = new AnimationState();
     public AnimationState laughTargetAnimationState = new AnimationState();
+    public AnimationState commandAnimationState = new AnimationState();
     public AnimationState blockAnimationState = new AnimationState();
     public AnimationState smashedAnimationState = new AnimationState();
+    public AnimationState speechAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
     public Minister(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
@@ -85,16 +90,29 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     }
 
     public ResourceLocation getResourceLocation() {
-        return TEXTURE_BY_TYPE.getOrDefault(this.getOutfitType(), TEXTURE_BY_TYPE.get(5));
+        return TEXTURE_BY_TYPE.getOrDefault(this.getOutfitType(), TEXTURE_BY_TYPE.get(0));
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new CastingSpellGoal());
+        this.goalSelector.addGoal(3, new SpeechGoal());
         this.goalSelector.addGoal(4, new LaughTargetGoal());
-        this.goalSelector.addGoal(5, new TeethSpellGoal());
-        this.goalSelector.addGoal(6, AvoidTargetGoal.newGoal(this, 4.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(7, new MinisterRangedGoal(this, 1.0D, 20, 16.0F));
+        this.goalSelector.addGoal(5, new CommandGoal());
+        this.goalSelector.addGoal(6, new TeethSpellGoal());
+        this.goalSelector.addGoal(7, AvoidTargetGoal.newGoal(this, 4.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(8, new MinisterRangedGoal(this, 1.0D, 20, 16.0F){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !Minister.this.hasNearbyIllagers();
+            }
+        });
+        this.goalSelector.addGoal(8, new MinisterRangedGoal(this, 1.0D, 20, 60, 16.0F){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Minister.this.hasNearbyIllagers();
+            }
+        });
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){
@@ -120,9 +138,9 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("HasStaff", this.hasStaff());
-        pCompound.putBoolean("isLaughing", this.isLaughing);
         pCompound.putFloat("StaffDamage", this.staffDamage);
         pCompound.putInt("Outfit", this.getOutfitType());
+        pCompound.putInt("CoolDown", this.coolDown);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -130,14 +148,14 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         if (pCompound.contains("HasStaff")) {
             this.setHasStaff(pCompound.getBoolean("HasStaff"));
         }
-        if (pCompound.contains("isLaughing")) {
-            this.isLaughing = pCompound.getBoolean("isLaughing");
-        }
         if (pCompound.contains("StaffDamage")) {
             this.staffDamage = pCompound.getFloat("StaffDamage");
         }
         if (pCompound.contains("Outfit")){
             this.setOutfitType(pCompound.getInt("Outfit"));
+        }
+        if (pCompound.contains("CoolDown")){
+            this.coolDown = pCompound.getInt("CoolDown");
         }
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
@@ -169,13 +187,39 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         this.entityData.set(HAS_STAFF, staff);
     }
 
+    public static final Predicate<AbstractIllager> NOT_THEMSELVES = (p_20434_) -> {
+        return !(p_20434_ instanceof Minister);
+    };
+
+    public List<AbstractIllager> getNearbyIllagers(){
+        return this.level.getEntitiesOfClass(AbstractIllager.class, this.getBoundingBox().inflate(32.0D, 16.0D, 32.0D), NOT_THEMSELVES);
+    }
+
+    public boolean hasNearbyIllagers(){
+        return !this.getNearbyIllagers().isEmpty();
+    }
+
     @Override
     public IllagerArmPose getArmPose() {
-        if (this.isAggressive() || this.isCelebrating() || this.isDeadOrDying()) {
+        if (this.isAggressive() || this.isCelebrating() || this.isDeadOrDying() || this.isCasting()) {
             return IllagerArmPose.NEUTRAL;
         } else {
             return IllagerArmPose.CROSSED;
         }
+    }
+
+    public List<AnimationState> getAnimations(){
+        List<AnimationState> animationStates = new ArrayList<>();
+        animationStates.add(this.attackAnimationState);
+        animationStates.add(this.castAnimationState);
+        animationStates.add(this.laughAnimationState);
+        animationStates.add(this.laughTargetAnimationState);
+        animationStates.add(this.commandAnimationState);
+        animationStates.add(this.blockAnimationState);
+        animationStates.add(this.smashedAnimationState);
+        animationStates.add(this.speechAnimationState);
+        animationStates.add(this.deathAnimationState);
+        return animationStates;
     }
 
     public boolean isAlliedTo(Entity pEntity) {
@@ -222,7 +266,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
 
     @Override
     public boolean hurt(DamageSource p_37849_, float p_37850_) {
-        if (this.hasStaff() && this.isAggressive() && !this.isCasting() && !this.isLaughing){
+        if (this.hasStaff() && this.isAggressive() && !this.isCasting() && this.coolDown <= 10){
             if (this.staffDamage >= 64){
                 this.setHasStaff(false);
                 this.level.broadcastEntityEvent(this, (byte) 3);
@@ -354,6 +398,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             }
         }
         if (this.isDeadOrDying()){
+            for (AnimationState animationState : this.getAnimations()){
+                if (animationState != deathAnimationState){
+                    animationState.stop();
+                }
+            }
             this.setYRot(this.deathRotation);
             this.setYBodyRot(this.deathRotation);
         }
@@ -365,16 +414,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.ENCHANT, this, 8.0F);
             for (LivingEntity living : serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0F, 4.0F, 8.0F))) {
                 if (living.getMobType() == MobType.ILLAGER && living != this) {
-                    living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20));
+                    living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20, 0, false, false));
                 }
             }
-            if (this.isLaughing){
-                ++this.laughDebug;
-                if (this.laughDebug >= 20){
-                    this.stopLaughing();
-                }
-            } else {
-                this.laughDebug = 0;
+            if (this.coolDown > 0){
+                --this.coolDown;
             }
             this.setAggressive(this.getTarget() != null);
         }
@@ -388,11 +432,6 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     @Override
     public void applyRaidBuffs(int p_37844_, boolean p_37845_) {
 
-    }
-
-    public void stopLaughing(){
-        this.level.broadcastEntityEvent(Minister.this, (byte) 9);
-        this.isLaughing = false;
     }
 
     @Override
@@ -434,15 +473,16 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             this.laughAnimationState.start(this.tickCount);
         } else if (pId == 7){
             this.laughTargetAnimationState.start(this.tickCount);
-            this.isLaughing = true;
         } else if (pId == 8){
             this.blockAnimationState.start(this.tickCount);
-        } else if (pId == 9){
-            this.isLaughing = false;
         } else if (pId == 10){
             this.deathAnimationState.start(this.tickCount);
             this.deathRotation = this.getYRot();
             this.playSound(ModSounds.MINISTER_DEATH.get(), 4.0F, 1.0F);
+        } else if (pId == 11){
+            this.speechAnimationState.start(this.tickCount);
+        } else if (pId == 12){
+            this.commandAnimationState.start(this.tickCount);
         } else {
             super.handleEntityEvent(pId);
         }
@@ -454,20 +494,55 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
 
         public void tick() {
             if (Minister.this.getTarget() != null) {
-                Minister.this.getLookControl().setLookAt(Minister.this.getTarget(), (float)Minister.this.getMaxHeadYRot(), (float)Minister.this.getMaxHeadXRot());
+                MobUtil.instaLook(Minister.this, Minister.this.getTarget());
+                Minister.this.getLookControl().setLookAt(Minister.this.getTarget(), 500.0F, (float)Minister.this.getMaxHeadXRot());
             }
         }
+    }
+
+    abstract class CastingGoal extends SpellcasterUseSpellGoal {
+        public boolean hasCastSound;
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !Minister.this.isCasting() && Minister.this.coolDown <= 0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && (Minister.this.isCasting() || Minister.this.coolDown > 0);
+        }
+
+        public void start() {
+            super.start();
+            Minister.this.setCasting(true);
+            Minister.this.coolDown = 20;
+        }
+
+        public void stop() {
+            super.stop();
+            Minister.this.setCasting(false);
+            Minister.this.coolDown = 20;
+        }
+
+        public void tick() {
+            --this.attackWarmupDelay;
+            if (this.attackWarmupDelay == 0) {
+                this.performSpellCasting();
+                if (this.hasCastSound) {
+                    Minister.this.playSound(Minister.this.getCastingSoundEvent(), 1.0F, 1.0F);
+                }
+            }
+
+        }
+
     }
 
     class TeethSpellGoal extends CastingGoal {
         public int teethAmount;
 
         private TeethSpellGoal() {
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !Minister.this.isLaughing;
+            this.hasCastSound = true;
         }
 
         @Override
@@ -482,7 +557,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         }
 
         protected int getCastingInterval() {
-            return 120;
+            if (Minister.this.hasNearbyIllagers()){
+                return 360;
+            } else {
+                return 120;
+            }
         }
 
         protected void performSpellCasting() {
@@ -499,7 +578,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
                             blockpos$mutable.move(Direction.UP);
                         }
 
-                        if (Minister.this.level.noCollision(new AABB(blockpos$mutable).inflate(0.5D))){
+                        if (Minister.this.level.noCollision(new AABB(blockpos$mutable))){
                             ++this.teethAmount;
                             ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), Minister.this.level);
                             viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
@@ -556,61 +635,155 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         }
     }
 
-    public class LaughTargetGoal extends Goal{
-        public int attackTime = 0;
-
-        @Override
-        public boolean canUse() {
-            LivingEntity livingentity = Minister.this.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
-                return !livingentity.hasEffect(MobEffects.WEAKNESS) && !Minister.this.isLaughing && livingentity.canBeAffected(new MobEffectInstance(MobEffects.WEAKNESS)) && livingentity.distanceTo(Minister.this) <= 16.0F;
-            }
-            return false;
+    class SpeechGoal extends CastingGoal{
+        private SpeechGoal(){
+            this.hasCastSound = false;
         }
 
         @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() || Minister.this.isLaughing;
+        public boolean canUse() {
+            return super.canUse() && Minister.this.hasNearbyIllagers();
         }
 
         @Override
         public void start() {
             super.start();
-            LivingEntity livingentity = Minister.this.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
-                Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 7);
-                Minister.this.isLaughing = true;
-                Minister.this.playSound(ModSounds.MINISTER_LAUGH.get());
-                MobUtil.instaLook(Minister.this, livingentity);
-                Minister.this.getNavigation().stop();
-            }
+            Minister.this.speechAnimationState.start(Minister.this.tickCount);
+            Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 11);
         }
 
-        @Override
-        public void stop() {
-            super.stop();
-            this.attackTime = 0;
-            Minister.this.stopLaughing();
+        protected int getCastingTime() {
+            return MathHelper.secondsToTicks(3);
+        }
+
+        protected int getCastingInterval() {
+            return MathHelper.secondsToTicks(10);
         }
 
         @Override
         public void tick() {
             super.tick();
+            for (AbstractIllager abstractIllager : Minister.this.getNearbyIllagers()){
+                if (abstractIllager.isAlive() && abstractIllager.getMaxHealth() < Minister.this.getMaxHealth() && abstractIllager.getTarget() != Minister.this && (abstractIllager.getLastHurtByMob() == null || !abstractIllager.isAlliedTo(abstractIllager.getLastHurtByMob()))){
+                    abstractIllager.setTarget(null);
+                    abstractIllager.setAggressive(false);
+                    abstractIllager.getNavigation().stop();
+                    MobUtil.instaLook(abstractIllager, Minister.this);
+                    abstractIllager.getLookControl().setLookAt(Minister.this, 500.0F, abstractIllager.getMaxHeadXRot());
+                }
+            }
+        }
+
+        protected void performSpellCasting() {
+            if (Minister.this.hasNearbyIllagers()){
+                for (AbstractIllager abstractIllager : Minister.this.getNearbyIllagers()){
+                    if (abstractIllager.isAlive() && abstractIllager.getTarget() != Minister.this && abstractIllager.getMaxHealth() < Minister.this.getMaxHealth()){
+                        abstractIllager.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, MathHelper.secondsToTicks(30)));
+                    }
+                }
+            }
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.MINISTER_SPEECH.get();
+        }
+
+        protected IllagerSpell getSpell() {
+            return IllagerSpell.BLINDNESS;
+        }
+    }
+
+    class CommandGoal extends CastingGoal{
+        private CommandGoal(){
+            this.hasCastSound = false;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && Minister.this.hasNearbyIllagers() && Minister.this.getLastHurtByMob() != null
+                    && Minister.this.getTarget() == Minister.this.getLastHurtByMob();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            Minister.this.commandAnimationState.start(Minister.this.tickCount);
+            Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 12);
+        }
+
+        protected int getCastingTime() {
+            return MathHelper.secondsToTicks(1);
+        }
+
+        protected int getCastingInterval() {
+            return 100;
+        }
+
+        protected void performSpellCasting() {
+            if (Minister.this.hasNearbyIllagers()){
+                for (AbstractIllager abstractIllager : Minister.this.getNearbyIllagers()){
+                    if (abstractIllager.getMaxHealth() < Minister.this.getMaxHealth() && Minister.this.getTarget() != null && abstractIllager.getTarget() != Minister.this.getTarget()){
+                        abstractIllager.setTarget(Minister.this.getTarget());
+                    }
+                }
+            }
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.MINISTER_COMMAND.get();
+        }
+
+        protected IllagerSpell getSpell() {
+            return IllagerSpell.SUMMON_VEX;
+        }
+    }
+
+    class LaughTargetGoal extends CastingGoal{
+        private LaughTargetGoal(){
+            this.hasCastSound = false;
+        }
+
+        @Override
+        public boolean canUse() {
             LivingEntity livingentity = Minister.this.getTarget();
             if (livingentity != null && livingentity.isAlive()) {
-                ++this.attackTime;
-                if (this.attackTime >= 10){
-                    Minister.this.stopLaughing();
-                    this.attackTime = 0;
-                    livingentity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(30)), Minister.this);
-                } else {
-                    Minister.this.getLookControl().setLookAt(livingentity, 500.0F, Minister.this.getMaxHeadXRot());
-                    Minister.this.getNavigation().stop();
-                }
-            } else {
-                this.attackTime = 0;
-                Minister.this.stopLaughing();
+                return !livingentity.hasEffect(MobEffects.WEAKNESS) && livingentity.canBeAffected(new MobEffectInstance(MobEffects.WEAKNESS)) && livingentity.distanceTo(Minister.this) <= 16.0F && super.canUse();
             }
+            return false;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            Minister.this.level.broadcastEntityEvent(Minister.this, (byte) 7);
+        }
+
+        @Override
+        protected int getCastingTime() {
+            return 20;
+        }
+
+        protected int getCastingInterval() {
+            return MathHelper.secondsToTicks(15);
+        }
+
+        @Override
+        protected void performSpellCasting() {
+            LivingEntity livingentity = Minister.this.getTarget();
+            if (livingentity != null) {
+                livingentity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, MathHelper.secondsToTicks(30)), Minister.this);
+            }
+        }
+
+        @Nullable
+        @Override
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.MINISTER_LAUGH.get();
+        }
+
+        @Override
+        protected IllagerSpell getSpell() {
+            return IllagerSpell.WOLOLO;
         }
     }
 
@@ -644,7 +817,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             LivingEntity livingentity = this.mob.getTarget();
             if (livingentity != null && livingentity.isAlive()) {
                 this.target = livingentity;
-                return !this.mob.isLaughing;
+                return true;
             } else {
                 return false;
             }

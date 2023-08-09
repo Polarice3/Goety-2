@@ -23,6 +23,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
+import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
 import com.Polarice3.Goety.common.entities.util.TunnelingFang;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
@@ -43,14 +44,18 @@ import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -144,6 +149,11 @@ public class Goety {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
                     this.setSuccess(ArmorItem.dispenseArmor(source, stack));
                     return stack;
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.ILL_BOMB.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
+                    return new IllBomb(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
                 }
             });
             AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);

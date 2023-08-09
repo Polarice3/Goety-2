@@ -160,4 +160,15 @@ public class ServerParticleUtil {
         serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
         serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25 + Math.PI) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
     }
+
+    public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){
+        float f5 = (float) Math.PI * radius * radius;
+        for (int k1 = 0; (float) k1 < f5; ++k1) {
+            float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
+            float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
+            float f8 = Mth.cos(f6) * f7;
+            float f9 = Mth.sin(f6) * f7;
+            serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, 0, 0, 0, 0);
+        }
+    }
 }

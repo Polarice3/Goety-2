@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.particles;
 
 import com.Polarice3.Goety.Goety;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -115,6 +116,14 @@ public class ModParticleTypes {
 
     public static final RegistryObject<SimpleParticleType> MAGIC_BOLT = PARTICLE_TYPES.register("magic_bolt",
             () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<ParticleType<BlockParticleOption>> FAST_DUST = PARTICLE_TYPES.register("fast_dust",
+            () -> new ParticleType<>(false, BlockParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<BlockParticleOption> codec() {
+                    return BlockParticleOption.codec(this);
+                }
+            });
 
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> SHOCKWAVE = PARTICLE_TYPES.register("shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {

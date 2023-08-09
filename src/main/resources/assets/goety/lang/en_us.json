@@ -328,6 +328,7 @@
   "item.goety.barricade_focus": "Barricade Focus",
   "item.goety.illusion_focus": "Mirror Focus",
   "item.goety.feast_focus": "Feasting Focus",
+  "item.goety.teeth_focus": "Teeth Focus",
   "item.goety.fireball_focus": "Fireball Focus",
   "item.goety.lavaball_focus": "Lava Bomb Focus",
   "item.goety.soul_bolt_focus": "Soul Bolt Focus",
@@ -759,7 +760,9 @@
   "subtitle.goety.minister_ambient": "Minister ministers",
   "subtitle.goety.minister_hurt": "Minister hurts",
   "subtitle.goety.minister_laugh": "Minister mockingly laughs",
+  "subtitle.goety.minister_command": "Minister commands",
   "subtitle.goety.minister_cast": "Minister laughs",
+  "subtitle.goety.minister_speech": "Minister preaches",
   "subtitle.goety.minister_celebrate": "Minister cheers",
   "subtitle.goety.minister_death": "Minister dies",
 

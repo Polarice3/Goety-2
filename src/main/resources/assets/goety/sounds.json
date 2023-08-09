@@ -593,6 +593,15 @@
     ],
     "subtitle": "subtitle.goety.minister_laugh"
   },
+  "minister_command": {
+    "sounds": [
+      {
+        "name": "mob/pillager/idle4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_command"
+  },
   "minister_cast": {
     "sounds": [
       {
@@ -602,7 +611,14 @@
     ],
     "subtitle": "subtitle.goety.minister_cast"
   },
-
+  "minister_speech": {
+    "sounds": [
+      {
+        "name": "goety:minister/speech"
+      }
+    ],
+    "subtitle": "subtitle.goety.minister_speech"
+  },
   "minister_celebrate": {
     "sounds": [
       {

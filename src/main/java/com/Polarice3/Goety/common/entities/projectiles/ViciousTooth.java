@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -12,6 +14,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -100,7 +103,7 @@ public class ViciousTooth extends Entity {
         if (!this.level.isClientSide()) {
             ServerLevel serverWorld = (ServerLevel) this.level;
             BlockState blockState = Blocks.TUFF.defaultBlockState();
-            this.playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, 2.0F, 1.0F);
+            this.playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 0.5F);
             serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), this.getY() + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
             if (this.isDropping){
                 for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D), this::canHitEntity)){
@@ -156,10 +159,14 @@ public class ViciousTooth extends Entity {
         } else {
             ++this.hovering;
         }
-        int hoverTime = MathHelper.secondsToTicks(2);
+        int hoverTime = this.level.getDifficulty() != Difficulty.HARD ? MathHelper.secondsToTicks(3) : MathHelper.secondsToTicks(2);
         this.isDropping = this.hovering > hoverTime;
         if (!this.isDropping){
             this.setDeltaMovement(Vec3.ZERO);
+            if (this.level instanceof ServerLevel serverLevel){
+                BlockState blockState = Blocks.TUFF.defaultBlockState();
+                ServerParticleUtil.circularParticles(serverLevel, new BlockParticleOption(ModParticleTypes.FAST_DUST.get(), blockState), this.getX(), this.getY(), this.getZ(), 0.25F);
+            }
         } else {
             this.setDeltaMovement(this.getDeltaMovement().subtract(0.0D, 0.25D, 0.0D));
         }

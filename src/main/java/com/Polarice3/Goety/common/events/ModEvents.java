@@ -20,6 +20,7 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -208,6 +209,16 @@ public class ModEvents {
                                     int pillager = world.random.nextInt((int) 12 / badOmen);
                                     if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)){
                                         pillager = world.random.nextInt(3);
+                                    }
+                                    if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 3)){
+                                        if (raid.getGroupsSpawned() >= 7) {
+                                            if (entity == raid.getLeader(raider.getWave())) {
+                                                Minister minister = new Minister(ModEntityType.MINISTER.get(), serverLevel);
+                                                minister.setPos(entity.position());
+                                                minister.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
+                                                serverLevel.addFreshEntity(minister);
+                                            }
+                                        }
                                     }
                                     if (pillager == 0) {
                                         if (raider.getType() == EntityType.PILLAGER) {

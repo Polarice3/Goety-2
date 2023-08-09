@@ -89,8 +89,18 @@ public class MagicBolt extends AbstractHurtingProjectile {
     @Override
     protected void onHit(HitResult p_37260_) {
         super.onHit(p_37260_);
-        this.magicGround(p_37260_);
-        this.discard();
+        if (!this.level.isClientSide) {
+            boolean flag = true;
+            if (p_37260_ instanceof EntityHitResult hitResult) {
+                if (!this.canHitEntity(hitResult.getEntity())) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                this.magicGround(p_37260_);
+                this.discard();
+            }
+        }
     }
 
     protected boolean canHitEntity(Entity pEntity) {

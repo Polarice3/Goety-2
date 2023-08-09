@@ -110,8 +110,12 @@ public class MobUtil {
         }
     }
 
-    public static boolean areAllies(Entity entity, Entity entity1){
-        return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity);
+    public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
+        if (entity != null && entity1 != null) {
+            return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity);
+        } else {
+            return false;
+        }
     }
 
     public static BlockHitResult rayTrace(Entity entity, double distance, boolean fluids) {
@@ -824,12 +828,12 @@ public class MobUtil {
         mob.yBodyRot = mob.getYRot();
     }
 
-    public static void instaLook(Mob mob, LivingEntity living){
-        mob.getLookControl().setLookAt(living, 200.0F, mob.getMaxHeadXRot());
-        double d2 = living.getX() - mob.getX();
-        double d1 = living.getZ() - mob.getZ();
-        mob.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-        mob.yBodyRot = mob.getYRot();
+    public static void instaLook(Mob looker, LivingEntity target){
+        looker.getLookControl().setLookAt(target, 200.0F, looker.getMaxHeadXRot());
+        double d2 = target.getX() - looker.getX();
+        double d1 = target.getZ() - looker.getZ();
+        looker.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+        looker.yBodyRot = looker.getYRot();
     }
 
     public static ItemStack createFirework(int explosions, DyeColor[] dyeColor) {
