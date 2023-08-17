@@ -72,8 +72,13 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     if (!this.isHeated()) {
                         ++this.heatTime;
                     } else if (this.getBlockState().getValue(ModStateProperties.LEVEL_BREW) > 0){
-                        if (this.level.random.nextFloat() <= 0.075F || this.isBrewing) {
-                            this.level.playSound(null, this.getBlockPos(), SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS, 0.33F, this.mode == Mode.FAILED ? 0.5F : 1);
+                        if (this.level.getGameTime() % 60 == 0 || this.isBrewing) {
+                            this.level.playSound(null, this.getBlockPos(), ModSounds.CAULDRON_BUBBLES.get(), SoundSource.BLOCKS, 0.33F, this.mode == Mode.FAILED ? 0.5F : 1);
+                        }
+                        if (this.mode == Mode.BREWING){
+                            if (this.level.getGameTime() % 60 == 0 && this.level.random.nextBoolean()){
+                                this.level.playSound(null, this.getBlockPos(), ModSounds.CAULDRON_CHIMES.get(), SoundSource.BLOCKS, 0.15F, this.level.random.nextFloat() * 0.4F + 0.8F);
+                            }
                         }
                         this.findCandlesticks();
                         if (this.isBrewing && mode == Mode.BREWING) {

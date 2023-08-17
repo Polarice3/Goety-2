@@ -203,6 +203,14 @@ public class Crone extends Cultist implements RangedAttackMob {
         return this.getEntityData().get(DATA_USING_ITEM);
     }
 
+    @Override
+    public void die(DamageSource p_37847_) {
+        if (p_37847_.getEntity() != null && p_37847_.getEntity() instanceof LivingEntity livingEntity){
+            livingEntity.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), MathHelper.minutesToTicks(1)));
+        }
+        super.die(p_37847_);
+    }
+
     protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
         super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
         ItemEntity itementity = this.spawnAtLocation(ModItems.CRONE_HAT.get());
@@ -369,7 +377,7 @@ public class Crone extends Cultist implements RangedAttackMob {
             }
             List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
             List<BrewEffectInstance> brewEffectInstance = new ArrayList<>();
-            if (target instanceof Raider) {
+            if (target instanceof Raider raider && this.hasActiveRaid() && raider.getTarget() != this) {
                 if (target.getHealth() <= 4.0F) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.HEAL, 1));
                 } else {
@@ -398,6 +406,8 @@ public class Crone extends Cultist implements RangedAttackMob {
                 } else if (this.random.nextFloat() <= 0.5F && !target.hasEffect(GoetyEffects.TRIPPING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.TRIPPING.get(), 1800 / (amp + 1), amp));
                 }
+            } else if (target.hasEffect(MobEffects.REGENERATION) && !target.hasEffect(GoetyEffects.CURSED.get())){
+                mobEffectInstance.add(new MobEffectInstance(GoetyEffects.CURSED.get(), 600, 0));
             } else if (this.getLastDamageSource() != null
                     && ModDamageSource.physicalAttacks(this.getLastDamageSource())
                     && !target.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F) {
@@ -440,7 +450,8 @@ public class Crone extends Cultist implements RangedAttackMob {
 
             if (!mobEffectInstance.isEmpty() || !brewEffectInstance.isEmpty()) {
                 ThrownBrew thrownBrew = new ThrownBrew(this.level, this);
-                ItemStack brew = BrewUtils.setCustomEffects(new ItemStack(ModItems.SPLASH_BREW.get()), mobEffectInstance, brewEffectInstance);
+                ItemStack brew0 = this.level.random.nextFloat() <= 0.15F && this.level.getDifficulty() == Difficulty.HARD ? new ItemStack(ModItems.GAS_BREW.get()) : new ItemStack(ModItems.SPLASH_BREW.get());
+                ItemStack brew = BrewUtils.setCustomEffects(brew0, mobEffectInstance, brewEffectInstance);
                 BrewUtils.setAreaOfEffect(brew, this.level.random.nextInt(amp + 1));
                 brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(mobEffectInstance, brewEffectInstance));
                 thrownBrew.setItem(brew);
@@ -582,7 +593,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && (this.crone.getHealth() >= (this.crone.getMaxHealth() / 4) || (this.crone.getTarget() instanceof Raider && this.crone.hasActiveRaid()));
+            return super.canUse() && (this.crone.getHealth() >= (this.crone.getMaxHealth() / 4));
         }
     }
 
@@ -596,7 +607,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.crone.getHealth() < (this.crone.getMaxHealth() / 4) && !(this.crone.getTarget() instanceof Raider && this.crone.hasActiveRaid());
+            return super.canUse() && this.crone.getHealth() < (this.crone.getMaxHealth() / 4);
         }
     }
 }

@@ -61,6 +61,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.cursed",
+      "text": "A Curse upon you! No healing for you! I just rhymed you with you! What ya gonna do?"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.darkness"
     },
     {
@@ -354,6 +359,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.webbed",
       "text": "Those spiders sure work fast! Though they seemed to only make webs when the brew hits a creature instead of on solid land..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.wild_rage",
+      "text": "Let the hate flow through you!"
     },
     {
       "type": "goety:catalyst",

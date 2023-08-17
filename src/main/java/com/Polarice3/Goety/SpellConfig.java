@@ -81,12 +81,15 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemObsidian;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkullLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
 
@@ -302,6 +305,10 @@ public class SpellConfig {
                 .defineInRange("wraithLimit", 6, 1, Integer.MAX_VALUE);
         SkullLimit = BUILDER.comment("Number of Haunted Skulls that can exist around the player without instantly dying, Default: 8")
                 .defineInRange("skullLimit", 8, 1, Integer.MAX_VALUE);
+        RedstoneGolemObsidian = BUILDER.comment("The chance of a Diamond Block turning into Obsidian when spawning Redstone Golems, Default: 0.5")
+                .defineInRange("redstoneGolemObsidian", 0.5, 0.0, 1.0);
+        RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems a player can summon, Default: 2")
+                .defineInRange("redstoneGolemLimit", 2, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")

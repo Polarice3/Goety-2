@@ -55,8 +55,10 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WildRageCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireTrailCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CursedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> NyctophobiaCurable;
@@ -155,10 +157,14 @@ public class BrewConfig {
                 .defineInRange("explosiveCost", 50, 1, Integer.MAX_VALUE);
         FieryAuraCost = BUILDER.comment("Fiery Aura Soul Cost, Default: 50")
                 .defineInRange("fieryAuraCost", 50, 1, Integer.MAX_VALUE);
+        WildRageCost = BUILDER.comment("Wild Rage Soul Cost, Default: 50")
+                .defineInRange("wildRageCost", 50, 1, Integer.MAX_VALUE);
         FireTrailCost = BUILDER.comment("Fire Trail Soul Cost, Default: 50")
                 .defineInRange("fireTrailCost", 50, 1, Integer.MAX_VALUE);
         PlungeCost = BUILDER.comment("Plunge Soul Cost, Default: 50")
                 .defineInRange("plungeCost", 50, 1, Integer.MAX_VALUE);
+        CursedCost = BUILDER.comment("Cursed Soul Cost, Default: 50")
+                .defineInRange("cursedCost", 50, 1, Integer.MAX_VALUE);
         SaveEffectsCost = BUILDER.comment("Save Effects Soul Cost, Default: 50")
                 .defineInRange("saveEffectsCost", 50, 1, Integer.MAX_VALUE);
         BUILDER.pop();

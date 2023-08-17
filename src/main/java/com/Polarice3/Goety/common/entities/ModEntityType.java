@@ -159,6 +159,13 @@ public class ModEntityType {
                     .clientTrackingRange(6)
                     .updateInterval(2));
 
+    public static final RegistryObject<EntityType<ScatterMine>> SCATTER_MINE = register("scatter_mine",
+            EntityType.Builder.<ScatterMine>of(ScatterMine::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.0F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<SnapFungus>> SNAP_FUNGUS = register("snap_fungus",
             EntityType.Builder.<SnapFungus>of(SnapFungus::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -371,6 +378,12 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<ZombieRavager>> ZOMBIE_RAVAGER = register("zombie_ravager",
             EntityType.Builder.of(ZombieRavager::new, MobCategory.MONSTER)
                     .sized(1.95F, 2.2F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<RedstoneGolem>> REDSTONE_GOLEM = register("redstone_golem",
+            EntityType.Builder.of(RedstoneGolem::new, MobCategory.MONSTER)
+                    .sized(2.7F, 3.9F)
+                    .fireImmune()
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",

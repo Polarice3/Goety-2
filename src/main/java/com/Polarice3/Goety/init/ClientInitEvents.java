@@ -119,6 +119,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VICIOUS_TOOTH, ViciousToothModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VICIOUS_PIKE, ViciousPikeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SCATTER_MINE, ScatterMineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
@@ -132,6 +133,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.RAVAGED, RavagedModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER, ModRavagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
+        event.registerLayerDefinition(ModModelLayer.REDSTONE_GOLEM, RedstoneGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
@@ -225,6 +227,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VICIOUS_TOOTH.get(), ViciousToothRenderer::new);
         event.registerEntityRenderer(ModEntityType.VICIOUS_PIKE.get(), ViciousPikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.CORRUPTED_BEAM.get(), CorruptedBeamRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SCATTER_MINE.get(), ScatterMineRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
@@ -266,6 +269,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MOD_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENVIOKER.get(), EnviokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
@@ -340,6 +344,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
+        event.register(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);
         event.register(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
         event.register(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
@@ -359,6 +364,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
+        event.register(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
         event.register(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);

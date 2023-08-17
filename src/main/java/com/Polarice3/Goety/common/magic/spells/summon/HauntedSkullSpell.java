@@ -90,6 +90,7 @@ public class HauntedSkullSpell extends SummonSpells {
             this.setTarget(worldIn, entityLiving, summonedentity);
             summonedentity.setUpgraded(this.NecroPower(entityLiving));
             worldIn.addFreshEntity(summonedentity);
+            this.summonAdvancement(entityLiving, summonedentity);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
         }
     }
@@ -118,6 +119,7 @@ public class HauntedSkullSpell extends SummonSpells {
                 this.setTarget(worldIn, entityLiving, summonedentity);
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 worldIn.addFreshEntity(summonedentity);
+                this.summonAdvancement(entityLiving, summonedentity);
             }
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
         }

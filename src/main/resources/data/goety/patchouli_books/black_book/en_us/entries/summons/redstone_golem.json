@@ -1,0 +1,22 @@
+{
+  "name": "Redstone Golem",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Plundering through old architectures, you've came across a sort of blueprint for a powerful Golem that's used for wars in ancient days. The Golem seems mighty, though it requires a mold made of Diamonds to create such a terrible beast."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem",
+      "text": "Right click the center Redstone Block with an Animation Core."
+    }
+  ]
+}

@@ -70,8 +70,10 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.FLAMMABLE.get(), BrewConfig.FlammableCost.get(), 1800), Items.GRASS);
         this.register(new PotionBrewEffect(GoetyEffects.EXPLOSIVE.get(), BrewConfig.ExplosiveCost.get(), 2, 900), Items.CREEPER_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.FIERY_AURA.get(), BrewConfig.FieryAuraCost.get(), 2, 1800), Items.MAGMA_BLOCK);
+        this.register(new PotionBrewEffect(GoetyEffects.WILD_RAGE.get(), BrewConfig.WildRageCost.get(), 2, 900), ModItems.RAGING_MATTER.get());
         this.register(new PotionBrewEffect(GoetyEffects.FIRE_TRAIL.get(), BrewConfig.FireTrailCost.get(), 4, 900), Items.LAVA_BUCKET);
         this.register(new PotionBrewEffect(GoetyEffects.PLUNGE.get(), BrewConfig.PlungeCost.get(), 4, 600), Items.ANVIL);
+        this.register(new PotionBrewEffect(GoetyEffects.CURSED.get(), BrewConfig.CursedCost.get(), 4, 600), ModItems.OCCULT_FABRIC.get());
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), 8, 6000), Items.ECHO_SHARD);
 
         //Brew

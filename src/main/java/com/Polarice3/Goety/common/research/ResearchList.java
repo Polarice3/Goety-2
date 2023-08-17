@@ -8,29 +8,34 @@ import java.util.Map;
 public class ResearchList {
     public static Research FORBIDDEN = new Research("forbidden");
     public static Research RAVAGING = new Research("ravaging");
-    public static Research FROST = new Research("frost");
-    public static Research REPLICATION = new Research("replication");
+    public static Research WARRED = new Research("warred");
 
-    public static Research getResearch(ResourceLocation resourceLocation){
+    public static Map<String, Research> getResearchList(){
+        Map<String, Research> researches = Maps.newHashMap();
+        researches.put(FORBIDDEN.getId(), FORBIDDEN);
+        researches.put(RAVAGING.getId(), RAVAGING);
+        researches.put(WARRED.getId(), WARRED);
+        return researches;
+    }
+
+    public static Map<ResourceLocation, Research> getResearchIdList(){
         Map<ResourceLocation, Research> researches = Maps.newHashMap();
         researches.put(FORBIDDEN.getLocation(), FORBIDDEN);
         researches.put(RAVAGING.getLocation(), RAVAGING);
-        researches.put(FROST.getLocation(), FROST);
-        researches.put(REPLICATION.getLocation(), REPLICATION);
-        if (researches.containsKey(resourceLocation)){
-            return researches.get(resourceLocation);
+        researches.put(WARRED.getLocation(), WARRED);
+        return researches;
+    }
+
+    public static Research getResearch(ResourceLocation resourceLocation){
+        if (getResearchIdList().containsKey(resourceLocation)){
+            return getResearchIdList().get(resourceLocation);
         }
         return null;
     }
 
     public static Research getResearch(String id){
-        Map<String, Research> researches = Maps.newHashMap();
-        researches.put(FORBIDDEN.getId(), FORBIDDEN);
-        researches.put(RAVAGING.getId(), RAVAGING);
-        researches.put(FROST.getId(), FROST);
-        researches.put(REPLICATION.getId(), REPLICATION);
-        if (researches.containsKey(id)){
-            return researches.get(id);
+        if (getResearchList().containsKey(id)){
+            return getResearchList().get(id);
         }
         return null;
     }

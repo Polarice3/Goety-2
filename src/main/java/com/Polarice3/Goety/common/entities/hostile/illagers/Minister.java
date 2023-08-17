@@ -261,7 +261,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
 
     @Override
     public boolean isLeftHanded() {
-        return true;
+        return false;
     }
 
     @Override
@@ -269,7 +269,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         if (this.hasStaff() && this.isAggressive() && !this.isCasting() && this.coolDown <= 10){
             if (this.staffDamage >= 64){
                 this.setHasStaff(false);
-                this.level.broadcastEntityEvent(this, (byte) 3);
+                this.level.broadcastEntityEvent(this, (byte) 13);
                 if (this.level instanceof ServerLevel serverLevel){
                     for(int i = 0; i < 20; ++i) {
                         ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
@@ -407,9 +407,15 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             this.setYBodyRot(this.deathRotation);
         }
         if (this.level instanceof ServerLevel serverLevel){
-            if (!this.getOffhandItem().isEmpty()){
-                this.spawnAtLocation(this.getOffhandItem());
-                this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+            if (this.hasStaff()) {
+                if (!this.getMainHandItem().isEmpty()) {
+                    if (this.getOffhandItem().isEmpty()) {
+                        this.setItemSlot(EquipmentSlot.OFFHAND, this.getOffhandItem());
+                    } else {
+                        this.spawnAtLocation(this.getMainHandItem());
+                    }
+                    this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                }
             }
             ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.ENCHANT, this, 8.0F);
             for (LivingEntity living : serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0F, 4.0F, 8.0F))) {
@@ -462,10 +468,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 3){
-            this.smashedAnimationState.start(this.tickCount);
-            this.setHasStaff(false);
-        } else if (pId == 4) {
+        if (pId == 4) {
             this.attackAnimationState.start(this.tickCount);
         } else if (pId == 5) {
             this.castAnimationState.start(this.tickCount);
@@ -483,6 +486,9 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             this.speechAnimationState.start(this.tickCount);
         } else if (pId == 12){
             this.commandAnimationState.start(this.tickCount);
+        } else if (pId == 13){
+            this.smashedAnimationState.start(this.tickCount);
+            this.setHasStaff(false);
         } else {
             super.handleEntityEvent(pId);
         }

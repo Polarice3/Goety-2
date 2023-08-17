@@ -121,8 +121,8 @@ public class MinisterModel<T extends Minister> extends HierarchicalModel<T> impl
 		this.animate(entity.smashedAnimationState, MinisterAnimations.SMASHED, ageInTicks);
 		this.animate(entity.speechAnimationState, MinisterAnimations.SPEECH, ageInTicks);
 		this.animate(entity.deathAnimationState, MinisterAnimations.DEATH, ageInTicks);
-		AbstractIllager.IllagerArmPose abstractprotectorentity$armpose = entity.getArmPose();
-		boolean flag = abstractprotectorentity$armpose == AbstractIllager.IllagerArmPose.CROSSED;
+		AbstractIllager.IllagerArmPose armPose = entity.getArmPose();
+		boolean flag = armPose == AbstractIllager.IllagerArmPose.CROSSED;
 		this.staff.visible = entity.hasStaff();
 		this.arms.visible = flag;
 		this.leftArm.visible = !flag;

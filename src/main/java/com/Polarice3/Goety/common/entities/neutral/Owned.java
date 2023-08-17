@@ -307,17 +307,35 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
     @Override
     public void push(Entity p_21294_) {
-        if (p_21294_ != this.getTrueOwner()) {
-            super.push(p_21294_);
+        if (!this.level.isClientSide) {
+            if (p_21294_ != this.getTrueOwner()) {
+                super.push(p_21294_);
+            }
+        }
+    }
+
+    protected void doPush(Entity p_20971_) {
+        if (!this.level.isClientSide) {
+            if (p_20971_ != this.getTrueOwner()) {
+                super.doPush(p_20971_);
+            }
         }
     }
 
     public boolean canCollideWith(Entity p_20303_) {
-        return p_20303_ != this.getTrueOwner();
+        if (p_20303_ != this.getTrueOwner()){
+            return super.canCollideWith(p_20303_);
+        } else {
+            return false;
+        }
     }
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
+        return this.isHostile();
+    }
+
+    public boolean removeWhenFarAway(double p_27519_) {
         return this.isHostile();
     }
 

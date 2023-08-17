@@ -87,6 +87,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> ELECTRIC = PARTICLE_TYPES.register("electric",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BIG_ELECTRIC = PARTICLE_TYPES.register("big_electric",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BREW_BUBBLE = PARTICLE_TYPES.register("brew_bubble",
             () -> new SimpleParticleType(false));
 
@@ -115,6 +118,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> MAGIC_BOLT = PARTICLE_TYPES.register("magic_bolt",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> REDSTONE_EXPLODE = PARTICLE_TYPES.register("redstone_explode",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<ParticleType<BlockParticleOption>> FAST_DUST = PARTICLE_TYPES.register("fast_dust",

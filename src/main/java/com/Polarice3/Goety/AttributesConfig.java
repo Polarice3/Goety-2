@@ -43,6 +43,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordDamage;
@@ -146,6 +148,12 @@ public class AttributesConfig {
                         .defineInRange("summonedVexHealth", 14.0, 1.0, Double.MAX_VALUE);
                 SummonedVexDamage = BUILDER.comment("How much damage Summoned Vexes deals, Default: 4.0")
                         .defineInRange("summonedVexDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Redstone Golem");
+                RedstoneGolemHealth = BUILDER.comment("How much Max Health Redstone Golems have, Default: 240.0")
+                        .defineInRange("redstoneGolemHealth", 240.0, 1.0, Double.MAX_VALUE);
+                RedstoneGolemDamage = BUILDER.comment("How much damage Redstone Golems deals, Default: 20.0")
+                        .defineInRange("redstoneGolemDamage", 20.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Mini-Bosses");

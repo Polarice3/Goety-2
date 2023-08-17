@@ -4,7 +4,9 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.WandUtil;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -32,6 +34,12 @@ public abstract class SummonSpells extends Spells{
     }
 
     public abstract void commonResult(ServerLevel worldIn, LivingEntity entityLiving);
+
+    public void summonAdvancement(LivingEntity summoner, LivingEntity summoned){
+        if(summoner instanceof ServerPlayer serverPlayer){
+            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, summoned);
+        }
+    }
 
     public void SummonSap(LivingEntity owner, LivingEntity summonedEntity){
         if (owner != null && summonedEntity != null) {

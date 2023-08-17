@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/old_research_scroll",
+    "layer1": "goety:research/warred_research"
+  }
+}

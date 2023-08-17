@@ -30,4 +30,7 @@ public interface ISoulEnergy {
     List<Research> getResearch();
     void addResearch(Research research);
     void removeResearch(Research research);
+    Set<UUID> summonList();
+    void addSummon(UUID uuid);
+    void removeSummon(UUID uuid);
 }

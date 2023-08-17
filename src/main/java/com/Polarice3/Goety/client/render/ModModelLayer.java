@@ -15,6 +15,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation VICIOUS_TOOTH = register("vicious_tooth");
     public static final ModelLayerLocation VICIOUS_PIKE = register("vicious_pike");
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
+    public static final ModelLayerLocation SCATTER_MINE = register("scatter_mine");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
@@ -28,6 +29,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
+    public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation WRAITH = register("wraith");

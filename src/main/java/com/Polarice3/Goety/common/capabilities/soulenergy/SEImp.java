@@ -17,6 +17,7 @@ public class SEImp implements ISoulEnergy{
     private Set<UUID> grudgeList = new HashSet<>();
     private List<EntityType<?>> grudgeTypeList = new ArrayList<>();
     private List<Research> researchList = new ArrayList<>();
+    private Set<UUID> summonList = new HashSet<>();
 
     @Override
     public BlockPos getArcaBlock() {
@@ -119,5 +120,20 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void removeResearch(Research research) {
         this.researchList.remove(research);
+    }
+
+    @Override
+    public Set<UUID> summonList() {
+        return this.summonList;
+    }
+
+    @Override
+    public void addSummon(UUID uuid) {
+        this.summonList.add(uuid);
+    }
+
+    @Override
+    public void removeSummon(UUID uuid) {
+        this.summonList.remove(uuid);
     }
 }

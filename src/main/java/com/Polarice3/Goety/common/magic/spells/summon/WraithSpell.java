@@ -82,6 +82,7 @@ public class WraithSpell extends SummonSpells {
             worldIn.addFreshEntity(summonedentity);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
             this.SummonDown(entityLiving);
+            this.summonAdvancement(entityLiving, entityLiving);
 
         }
     }
@@ -105,6 +106,7 @@ public class WraithSpell extends SummonSpells {
                     this.SummonSap(entityLiving, summonedentity);
                     this.setTarget(worldIn, entityLiving, summonedentity);
                     worldIn.addFreshEntity(summonedentity);
+                    this.summonAdvancement(entityLiving, entityLiving);
                 }
                 this.SummonDown(entityLiving);
                 worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.ClientProxy;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.CommonProxy;
+import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
@@ -30,12 +31,15 @@ import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
+import com.Polarice3.Goety.common.items.magic.AnimationCore;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.curios.CuriosCompat;
+import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
+import com.Polarice3.Goety.init.ModDispenserRegister;
 import com.Polarice3.Goety.init.ModProxy;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.RaidAdditions;
@@ -43,6 +47,7 @@ import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
@@ -59,6 +64,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -69,6 +75,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -77,6 +84,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -86,6 +94,7 @@ import org.slf4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
+import vazkii.patchouli.api.PatchouliAPI;
 
 @Mod(Goety.MOD_ID)
 public class Goety {
@@ -113,6 +122,7 @@ public class Goety {
         modEventBus.addListener(this::setupEntityAttributeCreation);
         modEventBus.addListener(this::SpawnPlacementEvent);
         modEventBus.addListener(this::enqueueIMC);
+        modEventBus.addListener(EventPriority.LOWEST, this::finalLoad);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MainConfig.SPEC, "goety.toml");
         MainConfig.loadConfig(MainConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety.toml").toString());
@@ -144,6 +154,9 @@ public class Goety {
         ModNetwork.init();
 
         CuriosCompat.setup(event);
+        if (PatchouliLoaded.PATCHOULI.isLoaded()){
+            PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), AnimationCore.REDSTONE_GOLEM.get());
+        }
         event.enqueueWork(() -> {
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {
@@ -156,6 +169,38 @@ public class Goety {
                     return new IllBomb(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
                 }
             });
+            ModDispenserRegister.registerAlternativeDispenseBehavior(new ModDispenserRegister.AlternativeDispenseBehavior(
+                    Goety.MOD_ID, Items.WATER_BUCKET,
+                    (blockSource, itemStack) -> blockSource.getLevel().getBlockState(ModDispenserRegister.offsetPos(blockSource)).is(ModBlocks.BREWING_CAULDRON.get()),
+                    new OptionalDispenseItemBehavior() {
+                        protected ItemStack execute(BlockSource source, ItemStack stack) {
+                            BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                            BlockState blockState = source.getLevel().getBlockState(blockpos);
+                            if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
+                                if (blockState.getValue(BrewCauldronBlock.LEVEL) < 3) {
+                                    this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 3)));
+                                    return new ItemStack(Items.BUCKET);
+                                }
+                            }
+                            return stack;
+                        }
+                    }));
+            ModDispenserRegister.registerAlternativeDispenseBehavior(new ModDispenserRegister.AlternativeDispenseBehavior(
+                    Goety.MOD_ID, Items.BUCKET,
+                    (blockSource, itemStack) -> blockSource.getLevel().getBlockState(ModDispenserRegister.offsetPos(blockSource)).is(ModBlocks.BREWING_CAULDRON.get()),
+                    new OptionalDispenseItemBehavior() {
+                        protected ItemStack execute(BlockSource source, ItemStack stack) {
+                            BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                            BlockState blockState = source.getLevel().getBlockState(blockpos);
+                            if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
+                                if (blockState.getValue(BrewCauldronBlock.LEVEL) == 3) {
+                                    this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 0)));
+                                    return new ItemStack(Items.WATER_BUCKET);
+                                }
+                            }
+                            return stack;
+                        }
+                    }));
             AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_LOG.get(), ModBlocks.STRIPPED_HAUNTED_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
@@ -167,6 +212,12 @@ public class Goety {
             WoodType.register(ModWoodType.ROTTEN);
             RaidAdditions.addRaiders();
             addBrewingRecipes();
+        });
+    }
+
+    private void finalLoad(FMLLoadCompleteEvent event){
+        event.enqueueWork(() -> {
+                ModDispenserRegister.getSortedAlternativeDispenseBehaviors().forEach(ModDispenserRegister.AlternativeDispenseBehavior::register);
         });
     }
 
@@ -216,6 +267,7 @@ public class Goety {
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
+        event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
@@ -234,6 +286,7 @@ public class Goety {
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){
         event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }

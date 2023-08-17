@@ -303,6 +303,63 @@ public class SEHelper {
         return entityTypes;
     }
 
+    public static boolean addSummon(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (!getSummons(owner).contains(target)) {
+                getCapability(owner).addSummon(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean removeSummon(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (getSummons(owner).contains(target)) {
+                getCapability(owner).removeSummon(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<LivingEntity> getSummons(Player owner){
+        List<LivingEntity> livingEntities = new ArrayList<>();
+        if (!getCapability(owner).summonList().isEmpty()){
+            for (UUID uuid : getCapability(owner).summonList()){
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                if (entity instanceof LivingEntity target && !livingEntities.contains(target) && target != owner){
+                    livingEntities.add(target);
+                }
+            }
+        }
+        return livingEntities;
+    }
+
+    public static List<LivingEntity> getSpecificSummons(Player owner, EntityType<?> entityType){
+        List<LivingEntity> livingEntities = new ArrayList<>();
+        if (!getSummons(owner).isEmpty()){
+            for (LivingEntity livingEntity : getSummons(owner)){
+                if (livingEntity.getType() == entityType){
+                    livingEntities.add(livingEntity);
+                }
+            }
+        }
+        return livingEntities;
+    }
+
+    public static List<LivingEntity> getSpecificSummons(Player owner, Class<?> aClass){
+        List<LivingEntity> livingEntities = new ArrayList<>();
+        if (!getSummons(owner).isEmpty()){
+            for (LivingEntity livingEntity : getSummons(owner)){
+                if (livingEntity.getClass() == aClass){
+                    livingEntities.add(livingEntity);
+                }
+            }
+        }
+        return livingEntities;
+    }
+
     public static boolean addResearch(Player player, Research research){
         if (!getResearch(player).contains(research)) {
             getCapability(player).addResearch(research);
@@ -381,6 +438,16 @@ public class SEHelper {
                 tag.put("researchList", listTag);
             }
         }
+
+        if (soulEnergy.summonList() != null){
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.summonList().isEmpty()) {
+                for (UUID uuid : soulEnergy.summonList()) {
+                    listTag.add(NbtUtils.createUUID(uuid));
+                }
+                tag.put("summonList", listTag);
+            }
+        }
         return tag;
     }
 
@@ -411,6 +478,12 @@ public class SEHelper {
                 if (ResearchList.getResearch(string) != null) {
                     soulEnergy.addResearch(ResearchList.getResearch(string));
                 }
+            }
+        }
+        if (tag.contains("summonList", Tag.TAG_LIST)) {
+            ListTag listtag = tag.getList("summonList", Tag.TAG_INT_ARRAY);
+            for (net.minecraft.nbt.Tag value : listtag) {
+                soulEnergy.addSummon(NbtUtils.loadUUID(value));
             }
         }
         return soulEnergy;

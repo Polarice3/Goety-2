@@ -11,11 +11,14 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.CompoundTagArgument;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.EntitySummonArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.BlockPos;
@@ -38,6 +41,10 @@ public class GoetyCommand {
     private static final SimpleCommandExceptionType ERROR_DUPLICATE_UUID = new SimpleCommandExceptionType(Component.translatable("commands.summon.failed.uuid"));
     private static final SimpleCommandExceptionType INVALID_POSITION = new SimpleCommandExceptionType(Component.translatable("commands.summon.invalidPosition"));
     private static final SimpleCommandExceptionType ERROR_SET_POINTS_INVALID = new SimpleCommandExceptionType(Component.translatable("commands.goety.soul.set.points.invalid"));
+    private static final SuggestionProvider<CommandSourceStack> SUGGEST_RESEARCHES = (p_136344_, p_136345_) -> {
+        Collection<Research> collection = ResearchList.getResearchIdList().values();
+        return SharedSuggestionProvider.suggestResource(collection.stream().map(Research::getLocation), p_136345_);
+    };
 
     public static void register(CommandDispatcher<CommandSourceStack> pDispatcher) {
         pDispatcher.register(Commands.literal("goety")
@@ -109,7 +116,25 @@ public class GoetyCommand {
                         })
                                 .then(Commands.argument("targets", EntityArgument.player()).executes((p_198435_0_) -> {
                             return getResearches(p_198435_0_.getSource(), EntityArgument.getPlayer(p_198435_0_, "targets"));
-                        })))));
+                        })))
+                        .then(Commands.literal("add").executes((p_198352_0_) -> {
+                                    return getResearches(p_198352_0_.getSource(), p_198352_0_.getSource().getPlayerOrException());
+                                })
+                                .then(Commands.argument("targets", EntityArgument.player()).then(Commands.literal("only").then(Commands.argument("research", ResourceLocationArgument.id()).suggests(SUGGEST_RESEARCHES).executes((p_136363_) -> {
+                                    return addResearch(p_136363_.getSource(), EntityArgument.getPlayers(p_136363_, "targets"), ResourceLocationArgument.getId(p_136363_, "research"));
+                                })))
+                                        .then(Commands.literal("all").executes(context -> {
+                                            return addAllResearch(context.getSource(), EntityArgument.getPlayers(context, "targets"));
+                                        }))))
+                        .then(Commands.literal("remove").executes((p_198352_0_) -> {
+                                    return getResearches(p_198352_0_.getSource(), p_198352_0_.getSource().getPlayerOrException());
+                                })
+                                .then(Commands.argument("targets", EntityArgument.player()).then(Commands.literal("only").then(Commands.argument("research", ResourceLocationArgument.id()).suggests(SUGGEST_RESEARCHES).executes((p_136363_) -> {
+                                    return removeResearch(p_136363_.getSource(), EntityArgument.getPlayers(p_136363_, "targets"), ResourceLocationArgument.getId(p_136363_, "research"));
+                                })))
+                                        .then(Commands.literal("all").executes(context -> {
+                                            return removeAllResearch(context.getSource(), EntityArgument.getPlayers(context, "targets"));
+                                        }))))));
     }
 
     private static int addSoulEnergy(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int pAmount) {
@@ -280,7 +305,7 @@ public class GoetyCommand {
         return 1;
     }
 
-    private static int addResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, String string){
+    private static int addResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, ResourceLocation string){
         for(ServerPlayer serverPlayer : pTargets) {
             if (ResearchList.getResearch(string) != null){
                 Research research = ResearchList.getResearch(string);
@@ -296,7 +321,7 @@ public class GoetyCommand {
         return 1;
     }
 
-    private static int removeResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, String string){
+    private static int removeResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, ResourceLocation string){
         for(ServerPlayer serverPlayer : pTargets) {
             if (ResearchList.getResearch(string) != null){
                 Research research = ResearchList.getResearch(string);
@@ -307,6 +332,32 @@ public class GoetyCommand {
                     pSource.sendSuccess(Component.translatable("commands.goety.research.remove.success", serverPlayer.getDisplayName()), true);
                 }
             }
+        }
+
+        return 1;
+    }
+
+    private static int addAllResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets){
+        for(ServerPlayer serverPlayer : pTargets) {
+            for (Research research : ResearchList.getResearchList().values()){
+                if (!SEHelper.hasResearch(serverPlayer, research)){
+                    SEHelper.addResearch(serverPlayer, research);
+                }
+            }
+            pSource.sendSuccess(Component.translatable("commands.goety.research.addAll", serverPlayer.getDisplayName()), true);
+        }
+
+        return 1;
+    }
+
+    private static int removeAllResearch(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets){
+        for(ServerPlayer serverPlayer : pTargets) {
+            for (Research research : ResearchList.getResearchList().values()){
+                if (SEHelper.hasResearch(serverPlayer, research)){
+                    SEHelper.removeResearch(serverPlayer, research);
+                }
+            }
+            pSource.sendSuccess(Component.translatable("commands.goety.research.removeAll", serverPlayer.getDisplayName()), true);
         }
 
         return 1;

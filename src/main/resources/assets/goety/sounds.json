@@ -986,6 +986,135 @@
     ],
     "subtitle": "subtitle.goety.zombie_ravager_death"
   },
+  "redstone_golem_ambient": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/idle1"
+      },
+      {
+        "name": "goety:redstone_golem/idle2"
+      },
+      {
+        "name": "goety:redstone_golem/idle3"
+      },
+      {
+        "name": "goety:redstone_golem/idle4"
+      },
+      {
+        "name": "goety:redstone_golem/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_ambient"
+  },
+  "redstone_golem_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/hurt1"
+      },
+      {
+        "name": "goety:redstone_golem/hurt2"
+      },
+      {
+        "name": "goety:redstone_golem/hurt3"
+      },
+      {
+        "name": "goety:redstone_golem/hurt4"
+      },
+      {
+        "name": "goety:redstone_golem/hurt5"
+      },
+      {
+        "name": "goety:redstone_golem/hurt6"
+      },
+      {
+        "name": "goety:redstone_golem/hurt7"
+      },
+      {
+        "name": "goety:redstone_golem/hurt8"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_hurt"
+  },
+  "redstone_golem_summon": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_summon"
+  },
+  "redstone_golem_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/pre_attack1"
+      },
+      {
+        "name": "goety:redstone_golem/pre_attack2"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_pre_attack"
+  },
+  "redstone_golem_attack": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/attack1"
+      },
+      {
+        "name": "goety:redstone_golem/attack2"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_attack"
+  },
+  "redstone_golem_novelty": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/chest"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_novelty"
+  },
+  "redstone_golem_mine_spawn": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/mine_spawn"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_mine_spawn"
+  },
+  "redstone_golem_step": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/step1"
+      },
+      {
+        "name": "goety:redstone_golem/step2"
+      },
+      {
+        "name": "goety:redstone_golem/step3"
+      },
+      {
+        "name": "goety:redstone_golem/step4"
+      },
+      {
+        "name": "goety:redstone_golem/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_step"
+  },
+  "redstone_golem_death": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/death1"
+      },
+      {
+        "name": "goety:redstone_golem/death2"
+      },
+      {
+        "name": "goety:redstone_golem/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_death"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -1540,6 +1669,22 @@
       }
     ]
   },
+  "redstone_explode": {
+    "sounds": [
+      {
+        "name": "goety:item/mine_explode1"
+      },
+      {
+        "name": "goety:item/mine_explode2"
+      },
+      {
+        "name": "goety:item/mine_explode3"
+      },
+      {
+        "name": "goety:item/mine_explode4"
+      }
+    ]
+  },
   "blast_fungus_throw": {
     "sounds": [
       {
@@ -1637,6 +1782,34 @@
       }
     ],
     "subtitle": "subtitle.goety.altar_finish"
+  },
+  "cauldron_bubbles": {
+    "sounds": [
+      {
+        "name": "goety:block/cauldron_bubbles1"
+      },
+      {
+        "name": "goety:block/cauldron_bubbles2"
+      },
+      {
+        "name": "goety:block/cauldron_bubbles3"
+      },
+      {
+        "name": "goety:block/cauldron_bubbles4"
+      },
+      {
+        "name": "goety:block/cauldron_bubbles5"
+      }
+    ],
+    "subtitle": "subtitle.goety.cauldron_bubbles"
+  },
+  "cauldron_chimes": {
+    "sounds": [
+      {
+        "name": "goety:block/cauldron_chimes"
+      }
+    ],
+    "subtitle": "subtitle.goety.cauldron_chimes"
   },
   "apostle_theme": {
     "sounds": [

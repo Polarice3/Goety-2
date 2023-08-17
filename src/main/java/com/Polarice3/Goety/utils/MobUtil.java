@@ -32,6 +32,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -888,5 +889,21 @@ public class MobUtil {
             }
 
         }
+    }
+
+    public static void sweepAttack(LivingEntity attacker, Entity target, DamageSource damageSource, float damage){
+        for(LivingEntity livingentity : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.0D, 0.25D, 1.0D))) {
+            if (livingentity != attacker && livingentity != target && !attacker.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && attacker.canAttack(livingentity)) {
+                livingentity.knockback((double)0.4F, (double)Mth.sin(attacker.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(attacker.getYRot() * ((float)Math.PI / 180F))));
+                livingentity.hurt(damageSource, damage);
+            }
+        }
+    }
+
+    public static boolean isCloseEnough(LivingEntity attacker, Entity entity, double dist) {
+        Vec3 eye = attacker.getEyePosition();
+        Vec3 targetCenter = entity.getPosition(1.0F).add(0, entity.getBbHeight() / 2, 0);
+        Optional<Vec3> hit = entity.getBoundingBox().clip(eye, targetCenter);
+        return (hit.map(eye::distanceToSqr).orElseGet(() -> attacker.distanceToSqr(entity))) < dist * dist;
     }
 }

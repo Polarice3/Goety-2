@@ -1,4 +1,4 @@
-// 1.19.2	2023-07-16T00:47:51.3496389	Goety LootTables
+// 1.19.2	2023-08-15T11:04:22.678848	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -59,6 +59,7 @@ faecb9e11ce968c0efbf4f5f647658d315ea221f data/goety/loot_tables/blocks/jade_stai
 5a4559bc2a26198ae7f45d59604d06c6c873f83b data/goety/loot_tables/blocks/jade_tiles.json
 eb2835dbefb17fe27d57c6ab611ae35833bd48ff data/goety/loot_tables/blocks/necro_brazier.json
 832cf33f4e999f452ae5d92d87f7c35ec702a6c0 data/goety/loot_tables/blocks/nether_brick_brazier.json
+31c1a037bc5bc7ba12ddb33f2be4b47928f94d97 data/goety/loot_tables/blocks/night_beacon.json
 b4af0313168be6328b415a03028780c556fa5582 data/goety/loot_tables/blocks/pedestal.json
 0cad000b18e8a2e926843b90af267310d6b6d956 data/goety/loot_tables/blocks/pithos.json
 440edd16f0d8dae076160e846cc17579ff56c7b8 data/goety/loot_tables/blocks/potted_haunted_sapling.json

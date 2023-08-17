@@ -85,6 +85,16 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
 
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_AMBIENT = create("redstone_golem_ambient");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_HURT = create("redstone_golem_hurt");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_SUMMON = create("redstone_golem_summon");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_PRE_ATTACK = create("redstone_golem_pre_attack");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_ATTACK = create("redstone_golem_attack");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_NOVELTY = create("redstone_golem_novelty");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_MINE_SPAWN = create("redstone_golem_mine_spawn");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_STEP = create("redstone_golem_step");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_DEATH = create("redstone_golem_death");
+
     public static final RegistryObject<SoundEvent> MINISTER_AMBIENT = create("minister_ambient");
     public static final RegistryObject<SoundEvent> MINISTER_HURT = create("minister_hurt");
     public static final RegistryObject<SoundEvent> MINISTER_LAUGH = create("minister_laugh");
@@ -146,6 +156,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FLAME_CAPTURE_CATCH = create("flame_capture_catch");
     public static final RegistryObject<SoundEvent> FLAME_CAPTURE_RELEASE = create("flame_capture_release");
 
+    public static final RegistryObject<SoundEvent> REDSTONE_EXPLODE = create("redstone_explode");
+
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_THROW = create("blast_fungus_throw");
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
 
@@ -158,6 +170,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ALTAR_START = create("altar_start");
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = create("altar_loop");
     public static final RegistryObject<SoundEvent> ALTAR_FINISH = create("altar_finish");
+
+    public static final RegistryObject<SoundEvent> CAULDRON_BUBBLES = create("cauldron_bubbles");
+    public static final RegistryObject<SoundEvent> CAULDRON_CHIMES = create("cauldron_chimes");
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 

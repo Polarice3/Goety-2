@@ -102,6 +102,7 @@ public class VexSpell extends SummonSpells {
                     this.SummonSap(entityLiving, vexentity);
                     this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
+                    this.summonAdvancement(entityLiving, vexentity);
                 }
                 worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
                 this.SummonDown(entityLiving);
@@ -118,7 +119,7 @@ public class VexSpell extends SummonSpells {
                     vexentity.moveTo(blockpos, 0.0F, 0.0F);
                     vexentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                     vexentity.setBoundOrigin(blockpos);
-                    if (SpellConfig.WandVexLimit.get() > VexLimit(entityLiving)) {
+                    if (SpellConfig.StaffVexLimit.get() > VexLimit(entityLiving)) {
                         vexentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     } else {
                         vexentity.setLimitedLife(1);
@@ -133,6 +134,7 @@ public class VexSpell extends SummonSpells {
                     this.SummonSap(entityLiving, vexentity);
                     this.setTarget(worldIn, entityLiving, vexentity);
                     worldIn.addFreshEntity(vexentity);
+                    this.summonAdvancement(entityLiving, vexentity);
                 }
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
             this.SummonDown(entityLiving);

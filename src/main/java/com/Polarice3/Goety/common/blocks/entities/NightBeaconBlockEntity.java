@@ -141,19 +141,13 @@ public class NightBeaconBlockEntity extends BlockEntity {
         if (this.level != null) {
             playSound(this.level, this.worldPosition, SoundEvents.BEACON_DEACTIVATE);
             if (MainConfig.EnableNightBeacon.get()) {
-                if (this.level.getServer() != null && !this.beamSections.isEmpty()) {
+                if (this.level.getServer() != null && this.isActive && !this.beamSections.isEmpty()) {
                     for (ServerLevel serverLevel : this.level.getServer().getAllLevels()) {
                         serverLevel.setDayTime(MathHelper.setDayNumberAndTime(40, 23000));
                         for (ServerPlayer player : serverLevel.players()) {
                             player.connection.send(new ClientboundSetTimePacket(serverLevel.getGameTime(), serverLevel.getDayTime(), serverLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)));
                         }
                     }
-/*                    if (!this.level.isClientSide){
-                        if (this.level.getBlockState(this.worldPosition.below().below()).is(Blocks.NETHER_PORTAL)){
-                            this.level.destroyBlock(this.worldPosition.below().below(), false);
-                        }
-                        this.level.explode(null, this.worldPosition.getX() + 0.5F, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5F, 7.0F, false, Explosion.BlockInteraction.DESTROY);
-                    }*/
                 }
             }
 
