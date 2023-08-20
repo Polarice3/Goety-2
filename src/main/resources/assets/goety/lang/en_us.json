@@ -349,6 +349,7 @@
   "item.goety.glow_light_focus": "Glow Light Focus",
   "item.goety.launch_focus": "Launching Focus",
   "item.goety.flying_focus": "Flight Focus",
+  "item.goety.call_focus": "Call Focus",
   "item.goety.recall_focus": "Recall Focus",
   "item.goety.corruption_focus": "Corruption Focus",
 
@@ -511,6 +512,9 @@
   "block.goety.tall_skull": "Tall Skull",
   "block.goety.wall_tall_skull": "Tall Skull",
 
+  "block.goety.redstone_golem_skull": "Redstone Golem Skull",
+  "block.goety.wall_redstone_golem_skull": "Redstone Golem Skull",
+
   "effect.goety.summon_down": "Summon Down",
   "effect.goety.summon_down.description": "Spells cost more Soul Energy to cast, higher levels increases cost. Newly summoned Mobs will gain Sapped and Weakness.",
   "effect.goety.sapped": "Sapped",
@@ -663,6 +667,8 @@
   "info.goety.armor.discount": "Soul Discount",
   "info.goety.focus.cost": "§bOriginal Cost:§b %d",
   "info.goety.focus.spellType": "§dSpell Type:§d %d",
+  "info.goety.focus.noSummon": "§5No Summon§5",
+  "info.goety.focus.summon": "Summon:",
   "info.goety.focus.noPos": "§5No Recall Position Set§5",
   "info.goety.focus.Pos": "§5Recall:§5",
   "info.goety.focus.PosNum": "X: %d, Y: %d, Z: %d",
@@ -723,6 +729,7 @@
   "tooltip.goety.arca": "Arca location: ",
   "tooltip.goety.arcaPlayer": "Owner: ",
   "tooltip.goety.arca_not_bound": "Has yet to be bound to an Arca.",
+  "tooltip.goety.customName": "Name: ",
   "tooltip.goety.entity": "Entity",
   "tooltip.goety.brew.area": "Area Of Effect %s",
   "tooltip.goety.brew.lingering": "Lingering %s",

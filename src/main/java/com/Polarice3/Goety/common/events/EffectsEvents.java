@@ -53,20 +53,19 @@ public class EffectsEvents {
                 level.sendParticles(ModParticleTypes.PLAGUE_EFFECT.get(), infected.getRandomX(0.5D), infected.getRandomY(), infected.getRandomZ(0.5D), 1, 0.0D, 0.5D, 0.0D, 0);
             }
         }
-        int i1 = Mth.clamp(amplifier * 50, 0, 250);
+        int i1 = Mth.clamp((amplifier * 50) * 10, 0, 2500);
         int i2 = amplifier + 1;
-        int i3 = i1 * 10;
         int c = switch (level.getDifficulty()) {
-            case PEACEFUL -> 6000;
-            case EASY -> 4500;
-            case NORMAL -> 3000;
-            case HARD -> 1500;
+            case PEACEFUL -> 10000;
+            case EASY -> 6000;
+            case NORMAL -> 4000;
+            case HARD -> 2550;
         };
         int k = 600 >> amplifier;
         if (k > 0) {
             if ((infected.tickCount % k == 0) && level.getDifficulty() != Difficulty.PEACEFUL) {
                 int r = level.random.nextInt(8);
-                int r2 = level.random.nextInt(c - i3);
+                int r2 = level.random.nextInt(c - i1);
                 int r3 = level.random.nextInt(i2);
                 int r4 = r3 + 1;
                 if (r2 == 0) {

@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -55,6 +56,10 @@ public class CrystalBallBlock extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, Boolean.TRUE));
     }
 
+    public float getDestroyProgress(BlockState pState, Player pPlayer, BlockGetter pLevel, BlockPos pPos) {
+        return !pState.getValue(POWERED) ? 3.0F : -1.0F;
+    }
+
     public InteractionResult use(BlockState p_49722_, Level p_49723_, BlockPos p_49724_, Player p_49725_, InteractionHand p_49726_, BlockHitResult p_49727_) {
         if (!p_49723_.isClientSide && p_49723_.getDifficulty() != Difficulty.PEACEFUL) {
             if (p_49723_ instanceof ServerLevel serverLevel) {
@@ -69,6 +74,7 @@ public class CrystalBallBlock extends Block {
                         crone.setTarget(p_49725_);
                     }
                     crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(p_49724_), MobSpawnType.MOB_SUMMONED, null, null);
+                    crone.setPersistenceRequired();
                     if (p_49723_.addFreshEntity(crone)) {
                         p_49723_.playSound(null, crone.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
                         p_49723_.playSound(null, p_49724_, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.75F);
@@ -108,5 +114,14 @@ public class CrystalBallBlock extends Block {
 
     public boolean isPathfindable(BlockState p_48799_, BlockGetter p_48800_, BlockPos p_48801_, PathComputationType p_48802_) {
         return false;
+    }
+
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
+        double d0 = (double)pPos.getX() + pRand.nextDouble();
+        double d2 = (double)pPos.getZ() + pRand.nextDouble();
+        if (pState.getValue(POWERED)) {
+            pLevel.addParticle(ParticleTypes.WITCH, d0, pPos.getY(), d2, 0, 0, 0);
+        }
     }
 }

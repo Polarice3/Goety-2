@@ -10,10 +10,7 @@ import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -44,6 +41,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -323,6 +321,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     public void die(DamageSource p_21014_) {
         this.level.broadcastEntityEvent(this, (byte) 10);
         this.deathRotation = this.getYRot();
+        if (this.level instanceof ServerLevel serverLevel){
+            for (Player player : serverLevel.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(32.0F))){
+                SEHelper.setRestPeriod(player, MathHelper.minecraftDayToTicks(3));
+            }
+        }
         super.die(p_21014_);
     }
 

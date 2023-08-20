@@ -3,8 +3,6 @@ package com.Polarice3.Goety.client.render.model;
 import com.Polarice3.Goety.client.render.animation.RedstoneGolemAnimations;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,6 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalModel<T> {
+	private final ModelPart root;
 	private final ModelPart golem;
 	private final ModelPart head;
 	private final ModelPart body;
@@ -30,6 +29,7 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 	private final List<ModelPart> glowParts;
 
 	public RedstoneGolemModel(ModelPart root) {
+		this.root = root;
 		this.golem = root.getChild("golem");
 		this.body = this.golem.getChild("body");
 		this.chest = this.body.getChild("chest");
@@ -90,13 +90,6 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 		if (!entity.isSummoning() && !entity.isDeadOrDying()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
-		if (entity.isDeadOrDying()){
-			this.golem.y = 32.0F;
-		} else if (entity.isSitting()){
-			this.golem.y = 37.0F;
-		} else {
-			this.golem.y = 24.0F;
-		}
 		Vec3 velocity = entity.getDeltaMovement();
 		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
@@ -115,13 +108,8 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		golem.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-	@Override
 	public ModelPart root() {
-		return this.golem;
+		return this.root;
 	}
 
 	public List<ModelPart> getGlowParts() {

@@ -10,6 +10,7 @@ public class ModBlockLayer {
     private static final Set<ModelLayerLocation> ALL_MODELS = Sets.newHashSet();
     public static final ModelLayerLocation ARCA = register("arca");
     public static final ModelLayerLocation TALL_SKULL = register("tall_skull");
+    public static final ModelLayerLocation REDSTONE_GOLEM_SKULL = register("redstone_golem_skull");
 
     private static ModelLayerLocation register(String p_171294_) {
         return register(p_171294_, "main");

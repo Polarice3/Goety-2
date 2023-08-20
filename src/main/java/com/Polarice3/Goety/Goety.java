@@ -31,14 +31,12 @@ import com.Polarice3.Goety.common.inventory.ModSaveInventory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModPotions;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
-import com.Polarice3.Goety.common.items.magic.AnimationCore;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.ritual.ModRituals;
 import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
-import com.Polarice3.Goety.compat.curios.CuriosCompat;
-import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
+import com.Polarice3.Goety.compat.OtherModCompat;
 import com.Polarice3.Goety.init.ModDispenserRegister;
 import com.Polarice3.Goety.init.ModProxy;
 import com.Polarice3.Goety.init.ModSounds;
@@ -94,7 +92,6 @@ import org.slf4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import vazkii.patchouli.api.PatchouliAPI;
 
 @Mod(Goety.MOD_ID)
 public class Goety {
@@ -153,10 +150,7 @@ public class Goety {
     private void commonSetup(final FMLCommonSetupEvent event) {
         ModNetwork.init();
 
-        CuriosCompat.setup(event);
-        if (PatchouliLoaded.PATCHOULI.isLoaded()){
-            PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), AnimationCore.REDSTONE_GOLEM.get());
-        }
+        OtherModCompat.setup(event);
         event.enqueueWork(() -> {
             DispenserBlock.registerBehavior(ModBlocks.TALL_SKULL_ITEM.get(), new OptionalDispenseItemBehavior() {
                 protected ItemStack execute(BlockSource source, ItemStack stack) {

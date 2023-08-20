@@ -214,6 +214,22 @@ public class SEHelper {
         return multiply;
     }
 
+    public static int getRestPeriod(Player player){
+        return getCapability(player).getRestPeriod();
+    }
+
+    public static void setRestPeriod(Player player, int restPeriod){
+        getCapability(player).setRestPeriod(restPeriod);
+    }
+
+    public static boolean increaseRestPeriod(Player player, int increase){
+        return getCapability(player).increaseRestPeriod(increase);
+    }
+
+    public static boolean decreaseRestPeriod(Player player, int decrease){
+        return getCapability(player).decreaseRestPeriod(decrease);
+    }
+
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
@@ -397,6 +413,7 @@ public class SEHelper {
     public static CompoundTag save(CompoundTag tag, ISoulEnergy soulEnergy) {
         tag.putBoolean("seActive", soulEnergy.getSEActive());
         tag.putInt("soulEnergy", soulEnergy.getSoulEnergy());
+        tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         if (soulEnergy.getArcaBlock() != null) {
             tag.putInt("arcax", soulEnergy.getArcaBlock().getX());
             tag.putInt("arcay", soulEnergy.getArcaBlock().getY());
@@ -455,6 +472,7 @@ public class SEHelper {
         soulEnergy.setSEActive(tag.getBoolean("seActive"));
         soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
+        soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         if (tag.contains("grudgeList", 9)) {
             ListTag listtag = tag.getList("grudgeList", 11);

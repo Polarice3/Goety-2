@@ -38,6 +38,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorCost;
@@ -60,6 +61,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorDuration;
@@ -80,8 +82,6 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveMaxDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
-
-    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemObsidian;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
@@ -115,6 +115,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
 
     static {
@@ -175,6 +177,8 @@ public class SpellConfig {
                 .defineInRange("windBlastCost", 4, 0, Integer.MAX_VALUE);
         LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
+        CallCost = BUILDER.comment("Call Spell Cost, Default: 16")
+                .defineInRange("callCost", 16, 0, Integer.MAX_VALUE);
         RecallCost = BUILDER.comment("Recall Spell Cost, Default: 1000")
                 .defineInRange("recallCost", 1000, 0, Integer.MAX_VALUE);
         ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 40")
@@ -219,6 +223,8 @@ public class SpellConfig {
                 .defineInRange("windBlastTime", 20, 0, 72000);
         LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
                 .defineInRange("lightningTime", 60, 0, 72000);
+        CallDuration = BUILDER.comment("Time to cast Call Spell, Default: 100")
+                .defineInRange("callTime", 100, 0, 72000);
         RecallDuration = BUILDER.comment("Time to cast Recall Spell, Default: 160")
                 .defineInRange("recallTime", 160, 0, 72000);
         ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 80")
@@ -285,6 +291,10 @@ public class SpellConfig {
                 .define("minionMasterImmune", true);
         OwnerAttackCancel = BUILDER.comment("Owners can't attack their servants, Default: true")
                 .define("ownerAttackCancel", true);
+        MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
+                .define("mobSense", true);
+        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
+                .define("redstoneGolemMold", true);
         UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
                 .define("undeadMinionHeal", true);
         UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
@@ -305,8 +315,6 @@ public class SpellConfig {
                 .defineInRange("wraithLimit", 6, 1, Integer.MAX_VALUE);
         SkullLimit = BUILDER.comment("Number of Haunted Skulls that can exist around the player without instantly dying, Default: 8")
                 .defineInRange("skullLimit", 8, 1, Integer.MAX_VALUE);
-        RedstoneGolemObsidian = BUILDER.comment("The chance of a Diamond Block turning into Obsidian when spawning Redstone Golems, Default: 0.5")
-                .defineInRange("redstoneGolemObsidian", 0.5, 0.0, 1.0);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems a player can summon, Default: 2")
                 .defineInRange("redstoneGolemLimit", 2, 1, Integer.MAX_VALUE);
         BUILDER.pop();

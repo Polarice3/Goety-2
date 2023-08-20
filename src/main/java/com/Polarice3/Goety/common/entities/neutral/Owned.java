@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -126,6 +127,13 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
                     && target.getTarget() == this.getTrueOwner()
                     && this.getTrueOwner() != null){
                 this.setTarget(target);
+            }
+        }
+        if (SpellConfig.MobSense.get()) {
+            if (this.getTarget() != null) {
+                if (this.getTarget() instanceof Mob mob && mob.getTarget() == null) {
+                    mob.setTarget(this);
+                }
             }
         }
         if (this.limitedLifespan && --this.limitedLifeTicks <= 0) {
@@ -364,7 +372,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         }
 
         public void start() {
-            this.mob.setTarget(this.attacker);
+            Owned.this.setTarget(this.attacker);
             LivingEntity livingentity = Owned.this.getTrueOwner();
             if (livingentity != null) {
                 this.timestamp = livingentity.getLastHurtMobTimestamp();

@@ -73,6 +73,10 @@ public abstract class OwnedBlockEntity extends BlockEntity {
         this.ownerUUID = p_184754_1_;
     }
 
+    public void setOwner(LivingEntity livingEntity){
+        this.setOwnerId(livingEntity.getUUID());
+    }
+
     public LivingEntity getTrueOwner() {
         try {
             UUID uuid = this.getOwnerId();
@@ -88,7 +92,13 @@ public abstract class OwnedBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.readNetwork(pkt.getTag());
+        if (pkt.getTag() != null) {
+            this.readNetwork(pkt.getTag());
+        }
+    }
+
+    public boolean screenView(){
+        return true;
     }
 
     @Override

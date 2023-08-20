@@ -2,6 +2,7 @@ package com.Polarice3.Goety.compat.curios;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.compat.ICompatable;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;

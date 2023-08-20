@@ -134,8 +134,8 @@ public class ClientEvents {
                                 event.getPoseStack().popPose();
                             }
                         }
-                    } else if (blockEntity instanceof OwnedBlockEntity ownedBlock){
-                        if (player.isShiftKeyDown() || player.isCrouching() && ownedBlock.getPlayer() != null){
+                    } else if (blockEntity instanceof OwnedBlockEntity ownedBlock && ownedBlock.screenView()){
+                        if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
                             event.getPoseStack().pushPose();
                             event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                             RenderSystem.enableBlend();

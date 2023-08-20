@@ -12,6 +12,7 @@ import java.util.*;
 public class SEImp implements ISoulEnergy{
     private boolean seActive;
     private int soulEnergy = 0;
+    private int restPeriod = 0;
     private ResourceKey<Level> dimension = Level.OVERWORLD;
     private BlockPos ArcaBlock = new BlockPos(0, 0, 0);
     private Set<UUID> grudgeList = new HashSet<>();
@@ -74,6 +75,28 @@ public class SEImp implements ISoulEnergy{
             return false;
         }
         this.soulEnergy = Math.max(this.soulEnergy - decrease, 0);
+        return true;
+    }
+
+    @Override
+    public int getRestPeriod() {
+        return this.restPeriod;
+    }
+
+    @Override
+    public void setRestPeriod(int restPeriod) {
+        this.restPeriod = restPeriod;
+    }
+
+    @Override
+    public boolean increaseRestPeriod(int increase) {
+        this.restPeriod += increase;
+        return true;
+    }
+
+    @Override
+    public boolean decreaseRestPeriod(int decrease) {
+        this.restPeriod = Math.max(this.restPeriod - decrease, 0);
         return true;
     }
 

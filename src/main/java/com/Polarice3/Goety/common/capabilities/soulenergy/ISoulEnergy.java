@@ -21,6 +21,10 @@ public interface ISoulEnergy {
     void setSoulEnergy(int soulEnergy);
     boolean increaseSE(int increase);
     boolean decreaseSE(int decrease);
+    int getRestPeriod();
+    void setRestPeriod(int restPeriod);
+    boolean increaseRestPeriod(int increase);
+    boolean decreaseRestPeriod(int decrease);
     Set<UUID> grudgeList();
     void addGrudge(UUID uuid);
     void removeGrudge(UUID uuid);

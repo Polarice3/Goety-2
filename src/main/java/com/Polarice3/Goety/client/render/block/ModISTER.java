@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.block;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModChestBlock;
+import com.Polarice3.Goety.common.blocks.RedstoneGolemSkullBlock;
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
 import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -56,6 +57,20 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
 
                 } else {
                     TallSkullBlockEntityRenderer.renderSkull(null, 180.0F, pMatrixStack, pBuffer, pLight);
+                }
+            } else if (block instanceof RedstoneGolemSkullBlock){
+                if(pCamera == ItemTransforms.TransformType.GUI) {
+                    pMatrixStack.pushPose();
+                    pMatrixStack.translate(0.5F, 0.5F, 0.5F);
+                    pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Vector3f.YN.rotationDegrees(-45));
+                    pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
+                    pMatrixStack.translate(0.0F, 0.25F, 0.0F);
+                    RedstoneGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                    pMatrixStack.popPose();
+
+                } else {
+                    RedstoneGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
             } else if (block instanceof ModChestBlock) {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), pMatrixStack, pBuffer, pLight, pOverlay);

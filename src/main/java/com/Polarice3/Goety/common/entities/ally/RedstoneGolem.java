@@ -2,9 +2,11 @@ package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
+import com.Polarice3.Goety.common.items.RedstoneGolemSkullItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -250,6 +253,19 @@ public class RedstoneGolem extends Summoned {
         ++this.deathTime;
         if (this.deathTime >= 30) {
             this.spawnAnim();
+            ItemStack itemStack = new ItemStack(ModBlocks.REDSTONE_GOLEM_SKULL_ITEM.get());
+            if (this.getTrueOwner() != null){
+                RedstoneGolemSkullItem.setOwner(this.getTrueOwner(), itemStack);
+                if (this.getCustomName() != null){
+                    RedstoneGolemSkullItem.setCustomName(this.getCustomName().getString(), itemStack);
+                }
+                ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+                if (itemEntity != null){
+                    itemEntity.setExtendedLifetime();
+                }
+            } else if (this.level.random.nextFloat() <= 0.11F){
+                this.spawnAtLocation(itemStack);
+            }
             this.remove(RemovalReason.KILLED);
         }
         this.hurtTime = 1;
@@ -358,7 +374,8 @@ public class RedstoneGolem extends Summoned {
                     }
                 }
                 if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) - 10) && this.mineCount > 0) {
-                    if (this.tickCount % 6 == 0 && this.isOnGround()) {
+                    int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) / 14);
+                    if (this.tickCount % time == 0 && this.isOnGround()) {
                         BlockPos blockPos = this.blockPosition();
                         blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
                         ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
@@ -585,7 +602,7 @@ public class RedstoneGolem extends Summoned {
         public boolean canUse() {
             LivingEntity livingentity = RedstoneGolem.this.getTarget();
             if (livingentity != null && livingentity.isAlive()) {
-                return RedstoneGolem.this.summonCool <= 0 && RedstoneGolem.this.isOnGround();
+                return RedstoneGolem.this.summonCool <= 0 && RedstoneGolem.this.isOnGround() && livingentity.distanceTo(RedstoneGolem.this) <= 8.0F;
             } else {
                 return false;
             }

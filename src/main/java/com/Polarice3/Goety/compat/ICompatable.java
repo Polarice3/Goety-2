@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.compat.curios;
+package com.Polarice3.Goety.compat;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 

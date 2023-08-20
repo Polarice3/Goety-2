@@ -55,6 +55,9 @@ public class SoulEnergyEvents {
                 }
             }
         }
+        if (SEHelper.getRestPeriod(player) > 0){
+            SEHelper.decreaseRestPeriod(player, 1);
+        }
         if (soulEnergy.getArcaBlock() != null){
             if (soulEnergy.getArcaBlockDimension() == world.dimension()) {
                 if (!world.isClientSide){

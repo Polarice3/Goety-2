@@ -20,6 +20,14 @@ public class MathHelper extends Mth {
         return secondsToTicks(pMinutes * 60);
     }
 
+    public static int minecraftDayToTicks(int pDay){
+        return pDay * 24000;
+    }
+
+    public static float minecraftDayToTicks(float pDay){
+        return pDay * 24000;
+    }
+
     public static float modelDegrees(float degree){
         return (float) ((degree * Math.PI)/180.0F); /* For opposite, it's (answer * 180) / PI*/
     }

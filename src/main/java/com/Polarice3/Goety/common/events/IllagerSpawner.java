@@ -63,6 +63,8 @@ public class IllagerSpawner {
                         int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(player), 0, MainConfig.IllagerAssaultSELimit.get());
                         if (player.isSpectator()) {
                             return 0;
+                        } else if (SEHelper.getRestPeriod(player) > 0){
+                            return 0;
                         } else if (p_64570_.isCloseToVillage(player.blockPosition(), 2) && soulEnergy < MainConfig.IllagerAssaultSELimit.get()) {
                             return 0;
                         } else if (soulEnergy > MainConfig.IllagerAssaultSEThreshold.get()) {
