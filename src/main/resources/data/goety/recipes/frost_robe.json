@@ -1,0 +1,33 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:magic_fabric"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:chill_fabric"
+    },
+    {
+      "item": "goety:chill_fabric"
+    },
+    {
+      "item": "goety:chill_fabric"
+    },
+    {
+      "item": "goety:chill_fabric"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:leather"
+    }
+  ],
+  "result": {
+    "item": "goety:frost_robe"
+  }
+}

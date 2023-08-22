@@ -244,6 +244,23 @@ public class PotionEvents {
                     }
                 }
             }
+            if (livingEntity.hasEffect(GoetyEffects.FROSTY_AURA.get())){
+                if (world instanceof ServerLevel serverLevel) {
+                    MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FROSTY_AURA.get());
+                    if (mobEffectInstance != null){
+                        int a = mobEffectInstance.getAmplifier();
+                        float f = 2.0F + a;
+                        ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity, f);
+                        for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
+                            if (!living.isFreezing() && living.canFreeze() && MobUtil.validEntity(living) && living != livingEntity) {
+                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, living);
+                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 0.75F));
+                                living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 100, a));
+                            }
+                        }
+                    }
+                }
+            }
             if (livingEntity.hasEffect(GoetyEffects.FIRE_TRAIL.get())){
                 MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FIRE_TRAIL.get());
                 if (mobEffectInstance != null){

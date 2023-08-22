@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -121,7 +123,7 @@ public class HookBellBlockEntity extends BlockEntity {
 
     private static boolean areRaidersNearby(BlockPos p_155200_, List<LivingEntity> p_155201_) {
         for(LivingEntity livingentity : p_155201_) {
-            if (livingentity.isAlive() && !livingentity.isRemoved() && areRaidersClose(p_155200_, livingentity) && livingentity.getType().is(EntityTypeTags.RAIDERS)) {
+            if (isRaiderWithinRange(p_155200_, livingentity)) {
                 return true;
             }
         }
@@ -142,7 +144,7 @@ public class HookBellBlockEntity extends BlockEntity {
     }
 
     private static boolean isRaiderWithinRange(BlockPos p_155197_, LivingEntity p_155198_) {
-        return p_155198_.isAlive() && !p_155198_.isRemoved() && areRaidersClose(p_155197_, p_155198_) && p_155198_.getType().is(EntityTypeTags.RAIDERS);
+        return p_155198_.isAlive() && !p_155198_.isRemoved() && areRaidersClose(p_155197_, p_155198_) && p_155198_.getType().is(EntityTypeTags.RAIDERS) && !MobUtil.hasEntityTypesConfig(MainConfig.HookBellBlackList.get(), p_155198_.getType());
     }
 
     private static void teleport(LivingEntity p_58841_, HookBellBlockEntity blockEntity) {

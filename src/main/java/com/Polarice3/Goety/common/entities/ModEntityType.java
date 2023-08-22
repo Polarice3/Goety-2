@@ -221,6 +221,12 @@ public class ModEntityType {
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
 
+/*    public static final RegistryObject<EntityType<ModPainting>> MOD_PAINTING = register("mod_painting",
+            EntityType.Builder.of(ModPainting::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));*/
+
     public static final RegistryObject<EntityType<Apostle>> APOSTLE = register("apostle",
             EntityType.Builder.of(Apostle::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()

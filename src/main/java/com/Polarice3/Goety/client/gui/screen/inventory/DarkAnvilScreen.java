@@ -89,7 +89,7 @@ public class DarkAnvilScreen extends ItemCombinerScreen<DarkAnvilMenu> {
       if (i > 0) {
          int j = 8453920;
          Component component;
-         if (!MainConfig.DarkAnvilNoCap.get() && i >= MainConfig.DarkAnvilRepairCost.get() && !this.minecraft.player.getAbilities().instabuild) {
+         if (MainConfig.DarkAnvilCap.get() && i >= MainConfig.DarkAnvilRepairCost.get() && !this.minecraft.player.getAbilities().instabuild) {
             component = TOO_EXPENSIVE_TEXT;
             j = 16736352;
          } else if (!this.menu.getSlot(2).hasItem()) {

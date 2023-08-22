@@ -169,7 +169,6 @@ public class FireTornado extends AbstractHurtingProjectile {
         fireTornadoEntity.setLifespan(this.getLifespan());
         fireTornadoEntity.setTotalLife(this.getTotalLife());
         fireTornadoEntity.setSpun(this.getSpun());
-        fireTornadoEntity.setPos(this.getX(), this.getY(), this.getZ());
         this.level.addFreshEntity(fireTornadoEntity);
         this.remove();
     }
@@ -207,7 +206,9 @@ public class FireTornado extends AbstractHurtingProjectile {
         double d0 = (f0 - livingEntity.getX()) * knockBack;
         double d1 = (f1 - livingEntity.getZ()) * knockBack;
         if (this.xPower != 0 || this.yPower != 0 || this.zPower != 0){
-            this.fakeRemove(0, 0, 0);
+            if (this.getTrueOwner() != null) {
+                this.fakeRemove(0, 0, 0);
+            }
         }
         this.hurtMobs(livingEntity);
 

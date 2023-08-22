@@ -132,6 +132,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> FIERY_AURA = EFFECTS.register("fiery_aura",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xff0000));
 
+    public static final RegistryObject<MobEffect> FROSTY_AURA = EFFECTS.register("frosty_aura",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x212d5f));
+
     public static final RegistryObject<MobEffect> PHOTOSYNTHESIS = EFFECTS.register("photosynthesis",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffec4f));
 

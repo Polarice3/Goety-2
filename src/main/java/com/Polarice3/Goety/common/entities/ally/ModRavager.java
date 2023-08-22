@@ -553,7 +553,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     }
                     this.equipSaddle(true);
                     return InteractionResult.SUCCESS;
-                } else if (this.isArmor(pPlayer.getMainHandItem()) && this.hasSaddle()) {
+                } else if (this.isArmor(pPlayer.getItemInHand(pHand)) && this.hasSaddle()) {
                     if (!this.getArmor().isEmpty()) {
                         if (this.spawnAtLocation(this.getArmor()) != null) {
                             this.setArmorEquipment(pPlayer.getMainHandItem().copy(), true);
@@ -569,7 +569,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     }
                     EntityFinder.sendEntityUpdatePacket(pPlayer, this);
                     return InteractionResult.SUCCESS;
-                } else if (this.isFood(pPlayer.getMainHandItem()) && this.getHealth() < this.getMaxHealth()) {
+                } else if (this.isFood(pPlayer.getItemInHand(pHand)) && this.getHealth() < this.getMaxHealth()) {
                     FoodProperties foodProperties = pPlayer.getMainHandItem().getFoodProperties(this);
                     if (foodProperties != null) {
                         this.heal((float) foodProperties.getNutrition());
@@ -582,11 +582,11 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     } else {
                         return InteractionResult.PASS;
                     }
-                } else if (pPlayer.getMainHandItem().is(Items.STICK) && !this.getArmor().isEmpty()){
+                } else if (pPlayer.getItemInHand(pHand).is(Items.STICK) && !this.getArmor().isEmpty()){
                     if (this.spawnAtLocation(this.getArmor()) != null) {
                         this.setArmorEquipment(ItemStack.EMPTY, true);
                     }
-                } else {
+                } else if (!pPlayer.getItemInHand(pHand).interactLivingEntity(pPlayer, this, pHand).consumesAction()){
                     this.updateMoveMode(pPlayer);
                     return InteractionResult.SUCCESS;
                 }

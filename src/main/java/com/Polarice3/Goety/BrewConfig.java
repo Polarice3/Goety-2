@@ -55,6 +55,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostyAuraCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WildRageCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireTrailCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PlungeCost;
@@ -157,6 +158,8 @@ public class BrewConfig {
                 .defineInRange("explosiveCost", 50, 1, Integer.MAX_VALUE);
         FieryAuraCost = BUILDER.comment("Fiery Aura Soul Cost, Default: 50")
                 .defineInRange("fieryAuraCost", 50, 1, Integer.MAX_VALUE);
+        FrostyAuraCost = BUILDER.comment("Frosty Aura Soul Cost, Default: 100")
+                .defineInRange("frostyAuraCost", 100, 1, Integer.MAX_VALUE);
         WildRageCost = BUILDER.comment("Wild Rage Soul Cost, Default: 50")
                 .defineInRange("wildRageCost", 50, 1, Integer.MAX_VALUE);
         FireTrailCost = BUILDER.comment("Fire Trail Soul Cost, Default: 50")

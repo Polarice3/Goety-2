@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.FrostSpellCloud;
@@ -46,17 +47,22 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new FleeSunGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
-    public void projectileGoal() {
-        this.goalSelector.addGoal(2, new CairnAttackGoal(this));
+    public void projectileGoal(int priority) {
+        this.goalSelector.addGoal(priority, new CairnAttackGoal(this));
     }
 
-    public void summonSpells(){
-        this.goalSelector.addGoal(1, new SummonServantSpell());
+    public void summonSpells(int priority){
+        this.goalSelector.addGoal(priority, new SummonServantSpell());
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return 0.75F;
     }
 
     @Override
@@ -83,7 +89,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && necromancer.getTarget() != null && necromancer.getTarget().distanceTo(this.necromancer) >= 5.0F;
+            return super.canUse() && necromancer.getTarget() != null;
         }
     }
 
@@ -100,6 +106,11 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
             if (CairnNecromancer.this.level instanceof ServerLevel serverLevel) {
                 for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(3); ++i1) {
                     Summoned summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
+                    if (CairnNecromancer.this.hasAlternateSummon()){
+                        if (serverLevel.random.nextBoolean()){
+                            summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                        }
+                    }
                     BlockPos blockPos = BlockFinder.SummonRadius(CairnNecromancer.this, serverLevel);
                     summonedentity.setOwnerId(CairnNecromancer.this.getUUID());
                     summonedentity.moveTo(blockPos, 0.0F, 0.0F);

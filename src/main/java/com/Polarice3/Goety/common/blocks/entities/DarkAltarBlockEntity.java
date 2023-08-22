@@ -192,10 +192,16 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         }
 
                         if (this.level.getGameTime() % 20 == 0) {
-                            this.cursedCageTile.decreaseSouls(recipe.getSoulCost());
-                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.SCULK_CATALYST_BLOOM, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
-                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, (double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 1.15D, (double)this.worldPosition.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
-                            this.currentTime++;
+                            if (this.cursedCageTile.getSouls() >= recipe.getSoulCost()){
+                                this.cursedCageTile.decreaseSouls(recipe.getSoulCost());
+                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.SCULK_CATALYST_BLOOM, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
+                                serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, (double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 1.15D, (double)this.worldPosition.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
+                                this.currentTime++;
+                            } else {
+                                this.castingPlayer.displayClientMessage(Component.translatable("info.goety.ritual.noSouls.fail"), true);
+                                this.stopRitual(false);
+                                return;
+                            }
                         }
 
                         recipe.getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
@@ -281,18 +287,17 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
             if (this.checkCage()){
                 ItemStack activationItem = player.getItemInHand(hand);
                 if (activationItem == ItemStack.EMPTY){
-                    this.RemoveItem();
+                    this.removeItem();
                 }
 
                 if (this.getCurrentRitualRecipe() == null) {
 
-                    RitualRecipe ritualRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get()).stream().filter(
+                    RitualRecipe ritualRecipe = world.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get()).stream().filter(
                             r -> r.matches(world, pos, player, activationItem)
                     ).findFirst().orElse(null);
 
                     if (ritualRecipe != null) {
                         if (ritualRecipe.getRitual().isValid(world, pos, this, player, activationItem, ritualRecipe.getIngredients())) {
-
                             if (!RitualRequirements.getProperStructure(ritualRecipe.getCraftType(), this, pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.structure.fail"), true);
                                 return false;
@@ -322,22 +327,24 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }
                         } else {
+                            player.displayClientMessage(Component.translatable("info.goety.ritual.itemProblem.fail"), true);
                             return false;
                         }
                     } else {
+                        player.displayClientMessage(Component.translatable("info.goety.ritual.itemProblem.fail"), true);
                         return false;
                     }
                 } else {
                     this.stopRitual(false);
                 }
             } else {
-                this.RemoveItem();
+                this.removeItem();
             }
         }
         return true;
     }
 
-    public void RemoveItem(){
+    public void removeItem(){
         IItemHandler handler = this.itemStackHandler.orElseThrow(RuntimeException::new);
         ItemStack itemStack = handler.getStackInSlot(0);
         if (itemStack != ItemStack.EMPTY){
@@ -481,7 +488,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
             BlockEntity tileentity = this.level.getBlockEntity(pos);
             if (tileentity instanceof CursedCageBlockEntity){
                 this.cursedCageTile = (CursedCageBlockEntity) tileentity;
-                return !cursedCageTile.getItem().isEmpty();
+                return !cursedCageTile.getItem().isEmpty() && cursedCageTile.getSouls() > 0;
             } else {
                 return false;
             }

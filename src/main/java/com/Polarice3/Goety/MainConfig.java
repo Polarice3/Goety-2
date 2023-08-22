@@ -2,9 +2,11 @@ package com.Polarice3.Goety;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Learned how to add Config from codes by @AlexModGuy
@@ -95,8 +97,10 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilNoCap;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
@@ -164,12 +168,19 @@ public class MainConfig {
                 .define("bossMusic", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
+        HookBellBlackList = BUILDER.comment("""
+                        Add mobs that Hook Bells don't work on.\s
+                        To do so, enter the namespace ID of the mob, like "minecraft:zombie, minecraft:skeleton".""")
+                .defineList("hookBellBlackList", Lists.newArrayList(),
+                        (itemRaw) -> itemRaw instanceof String);
         EnableNightBeacon = BUILDER.comment("Whether Night Beacons are allowed to function, turning Daytime to Midnight so long as it's activated, Default: true")
                 .define("enableNightBeacon", true);
-        DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if No Cap is enabled, or the level cap if disabled, Default: 30")
+        DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if Cap is disabled, Default: 30")
                 .defineInRange("darkAnvilRepairCost", 30, 1, Integer.MAX_VALUE);
-        DarkAnvilNoCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: true")
-                .define("darkAnvilNoCap", true);
+        DarkAnvilCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: false")
+                .define("darkAnvilCap", false);
+        DarkAnvilTakePoints = BUILDER.comment("Whether Dark Anvils will take Experience Points instead of Levels, Default: false")
+                .define("darkAnvilTakePoints", false);
         DarkAnvilSoulCost = BUILDER.comment("How much Soul Energy is required for the Dark Anvil to repair itself, Default: 1000")
                 .defineInRange("darkAnvilSoulCost", 1000, 0, Integer.MAX_VALUE);
         SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per the configured amount of seconds, Default: 1")

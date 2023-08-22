@@ -1,0 +1,15 @@
+{
+  "name": "Frost Robes",
+  "icon": "goety:frost_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Frost Robes imbues the wearer the power of all that's cold. Wearers will never freeze, be resistant to Freezing attacks and can move through Powdered Snow freely. The Robes also makes Frost Spells cheaper."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:frost_robe"
+    }
+  ]
+}

@@ -58,7 +58,7 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
         BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity instanceof DarkAltarBlockEntity darkAltarTile) {
             if (player.isShiftKeyDown() || player.isCrouching()){
-                darkAltarTile.RemoveItem();
+                darkAltarTile.removeItem();
                 return InteractionResult.SUCCESS;
             } else {
                 return darkAltarTile.activate(world, pos, player, hand,

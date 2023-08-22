@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
@@ -33,7 +34,9 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
@@ -155,7 +158,10 @@ public class SEHelper {
             }
         }
         if (player != null) {
-            if (killer.getMainHandItem().getItem() == ModItems.FANGED_DAGGER.get()){
+            ItemStack itemStack = killer.getMainHandItem();
+            Item item = itemStack.getItem();
+            if (item == ModItems.FANGED_DAGGER.get()
+                    || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)){
                 soulEater *= 1.5;
             }
             increaseSouls(player, getSoulGiven(victim) * soulEater);

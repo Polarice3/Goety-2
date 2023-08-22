@@ -3,7 +3,10 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -31,8 +34,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -41,7 +42,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -61,17 +61,17 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new CastingSpellGoal());
-        this.goalSelector.addGoal(2, new NecromancerAvoidGoal(this, 1.2D));
-        this.projectileGoal();
-        this.summonSpells();
+        this.summonSpells(1);
+        this.goalSelector.addGoal(2, AvoidTargetGoal.newGoal(this, 4.0F, 1.0D, 1.2D));
+        this.projectileGoal(3);
     }
 
-    public void projectileGoal(){
-        this.goalSelector.addGoal(2, new NecromancerAttackGoal(this));
+    public void projectileGoal(int priority){
+        this.goalSelector.addGoal(priority, new NecromancerAttackGoal(this));
     }
 
-    public void summonSpells(){
-        this.goalSelector.addGoal(1, new SummonZombieSpell());
+    public void summonSpells(int priority){
+        this.goalSelector.addGoal(priority, new SummonZombieSpell());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -109,6 +109,14 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     public boolean isSpellCasting() {
         return this.getNecromancerFlags(1);
+    }
+
+    public void setAlternateSummon(boolean alternate){
+        this.setNecromancerFlags(2, alternate);
+    }
+
+    public boolean hasAlternateSummon(){
+        return this.getNecromancerFlags(2);
     }
 
     public void setSpellType(SpellType spellType) {
@@ -225,6 +233,14 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                     }
                     return InteractionResult.CONSUME;
+                }
+                if (!this.hasAlternateSummon() && item == ModItems.OSSEOUS_FOCUS.get()){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.setAlternateSummon(true);
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get());
+                    return InteractionResult.SUCCESS;
                 }
                 if (item instanceof ArmorItem) {
                     ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
@@ -346,7 +362,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 if (this.getCastSound() != null) {
                     AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
                 }
-                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 1.0F);
+                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
                 this.castSpell();
                 AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
             }
@@ -388,7 +404,12 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                         , predicate).size();
                 for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(7 - i); ++i1) {
-                    ZombieServant summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                    Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                    if (AbstractNecromancer.this.hasAlternateSummon()){
+                        if (serverLevel.random.nextBoolean()){
+                            summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
+                        }
+                    }
                     BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
                     summonedentity.setOwnerId(AbstractNecromancer.this.getUUID());
                     summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
@@ -459,52 +480,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         @Override
         public boolean canUse() {
-            return super.canUse() && necromancer.getTarget() != null && necromancer.getTarget().distanceTo(this.necromancer) >= 5.0F;
-        }
-    }
-
-    public static class NecromancerAvoidGoal extends Goal{
-        private final AbstractNecromancer necromancer;
-        private final double walkSpeedModifier;
-        @Nullable
-        protected Path path;
-        protected final PathNavigation pathNav;
-
-        public NecromancerAvoidGoal(AbstractNecromancer p_28191_, double p_25044_) {
-            this.necromancer = p_28191_;
-            this.walkSpeedModifier = p_25044_;
-            this.pathNav = p_28191_.getNavigation();
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            if (this.necromancer.getTarget() == null) {
-                return false;
-            } else {
-                Vec3 vec3 = DefaultRandomPos.getPosAway(this.necromancer, 16, 7, this.necromancer.getTarget().position());
-                if (vec3 == null) {
-                    return false;
-                } else if (this.necromancer.getTarget().distanceToSqr(vec3.x, vec3.y, vec3.z) < this.necromancer.getTarget().distanceToSqr(this.necromancer)) {
-                    return false;
-                } else {
-                    this.path = this.pathNav.createPath(vec3.x, vec3.y, vec3.z, 0);
-                    return this.path != null;
-                }
-            }
-        }
-
-        public boolean canContinueToUse() {
-            return !this.pathNav.isDone() && this.necromancer.getTarget() != null && this.necromancer.getTarget().distanceTo(this.necromancer) < 6.0F;
-        }
-
-        public void start() {
-            this.pathNav.moveTo(this.path, this.walkSpeedModifier);
-        }
-
-        public void tick() {
-            if (this.necromancer.getTarget() != null) {
-                this.necromancer.getNavigation().setSpeedModifier(this.walkSpeedModifier);
-            }
+            return super.canUse() && necromancer.getTarget() != null;
         }
     }
 

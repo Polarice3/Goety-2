@@ -242,7 +242,6 @@ public abstract class Ritual {
                 }
             }
             if (!isMatched) {
-                player.displayClientMessage(Component.translatable("info.goety.ritual.wrongItems.fail"), true);
                 return false;
             }
         }

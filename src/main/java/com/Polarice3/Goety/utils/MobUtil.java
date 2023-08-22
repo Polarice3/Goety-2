@@ -10,6 +10,8 @@ import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -21,6 +23,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -46,15 +49,17 @@ import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WebBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -63,6 +68,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -258,6 +264,23 @@ public class MobUtil {
 
     public static int getSummonLifespan(Level world){
         return 20 * (30 + world.random.nextInt(90));
+    }
+
+    public static List<EntityType<?>> getEntityTypesConfig(List<? extends String> config){
+        List<EntityType<?>> list = new ArrayList<>();
+        if (!config.isEmpty()){
+            for (String id : config){
+                EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(id));
+                if (entityType != null){
+                    list.add(entityType);
+                }
+            }
+        }
+        return list;
+    }
+
+    public static boolean hasEntityTypesConfig(List<? extends String> config, EntityType<?> entityType){
+        return !getEntityTypesConfig(config).isEmpty() && getEntityTypesConfig(config).contains(entityType);
     }
 
     public static class MinionMoveControl extends MoveControl {
@@ -905,5 +928,13 @@ public class MobUtil {
         Vec3 targetCenter = entity.getPosition(1.0F).add(0, entity.getBbHeight() / 2, 0);
         Optional<Vec3> hit = entity.getBoundingBox().clip(eye, targetCenter);
         return (hit.map(eye::distanceToSqr).orElseGet(() -> attacker.distanceToSqr(entity))) < dist * dist;
+    }
+
+    public static boolean inRadius(LivingEntity owner, LivingEntity target, float further, float closer){
+        return owner.distanceTo(target) >= further && owner.distanceTo(target) <= closer;
+    }
+
+    public static WeightedRandomList<MobSpawnSettings.SpawnerData> mobsAt(ServerLevel p_220444_, StructureManager p_220445_, ChunkGenerator p_220446_, MobCategory p_220447_, BlockPos p_220448_, @Nullable Holder<Biome> p_220449_) {
+        return net.minecraftforge.event.ForgeEventFactory.getPotentialSpawns(p_220444_, p_220447_, p_220448_, NaturalSpawner.isInNetherFortressBounds(p_220448_, p_220444_, p_220447_, p_220445_) ? p_220445_.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).getOrThrow(BuiltinStructures.FORTRESS).spawnOverrides().get(MobCategory.MONSTER).spawns() : p_220446_.getMobsAt(p_220449_ != null ? p_220449_ : p_220444_.getBiome(p_220448_), p_220445_, p_220447_, p_220448_));
     }
 }

@@ -47,7 +47,11 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
 
     protected void onTake(Player p_150474_, ItemStack p_150475_) {
         if (!p_150474_.getAbilities().instabuild) {
-            p_150474_.giveExperienceLevels(-this.cost.get());
+            if (MainConfig.DarkAnvilTakePoints.get()){
+                p_150474_.giveExperiencePoints(-this.cost.get());
+            } else {
+                p_150474_.giveExperienceLevels(-this.cost.get());
+            }
         }
 
         float breakChance = net.minecraftforge.common.ForgeHooks.onAnvilRepair(p_150474_, p_150475_, DarkAnvilMenu.this.inputSlots.getItem(0), DarkAnvilMenu.this.inputSlots.getItem(1));
@@ -76,7 +80,7 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                 BlockState blockstate1 = DarkAnvilBlock.damage(blockstate);
                 if (blockstate1 == null) {
                     p_150479_.removeBlock(p_150480_, false);
-                    for (int i = 0; i < 4; ++i) {
+                    for (int i = 0; i < 12; ++i) {
                         if (player.level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && !player.level.restoringBlockSnapshots) {
                             ItemStack itemStack = new ItemStack(ModItems.DARK_METAL_INGOT.get());
                             double d0 = (double) (player.level.random.nextFloat() * 0.5F) + 0.25D;
@@ -251,7 +255,7 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                 this.cost.set(1);
             }
 
-            if (!MainConfig.DarkAnvilNoCap.get() && this.cost.get() >= MainConfig.DarkAnvilRepairCost.get() && !this.player.getAbilities().instabuild) {
+            if (MainConfig.DarkAnvilCap.get() && this.cost.get() >= MainConfig.DarkAnvilRepairCost.get() && !this.player.getAbilities().instabuild) {
                 itemstack1 = ItemStack.EMPTY;
             }
 

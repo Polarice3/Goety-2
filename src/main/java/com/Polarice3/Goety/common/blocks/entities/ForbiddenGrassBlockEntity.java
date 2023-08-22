@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -136,10 +137,13 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
 
 
     public void getMobs(){
-        WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = this.getLevel().getBiome(this.getBlockPos()).get().getMobSettings().getMobs(MobCategory.MONSTER);
-        if (!spawners.isEmpty()) {
-            for (MobSpawnSettings.SpawnerData spawners1 : spawners.unwrap()) {
-                addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
+        if (this.getLevel() != null) {
+//            WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = this.getLevel().getBiome(this.getBlockPos()).get().getMobSettings().getMobs(MobCategory.MONSTER);
+            WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(this.getLevel(), this.getLevel().structureManager(), this.getLevel().getChunkSource().getGenerator(), MobCategory.MONSTER, this.getBlockPos(), this.getLevel().getBiome(this.getBlockPos()));
+            if (!spawners.isEmpty()) {
+                for (MobSpawnSettings.SpawnerData spawners1 : spawners.unwrap()) {
+                    addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
+                }
             }
         }
     }

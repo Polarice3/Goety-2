@@ -20,7 +20,8 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:gale_fabric"
+      "recipe": "goety:gale_fabric",
+      "recipe2": "goety:chill_fabric"
     }
   ]
 }

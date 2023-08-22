@@ -288,8 +288,16 @@ public class Crone extends Cultist implements RangedAttackMob {
                         }
                     } else if (this.random.nextFloat() < 0.05F && !this.hasEffect(MobEffects.DAMAGE_RESISTANCE)){
                         mobEffectInstance.add(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1800));
-                    } else if (!this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !this.getTarget().hasEffect(GoetyEffects.FREEZING.get()) && !this.getTarget().hasEffect(MobEffects.FIRE_RESISTANCE) && !this.getTarget().fireImmune() && this.random.nextFloat() < 0.05F) {
-                        mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FIERY_AURA.get(), 1800 / (amp + 1), amp));
+                    } else if (this.random.nextFloat() < 0.05F) {
+                        if (this.random.nextBoolean()) {
+                            if (!this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !this.getTarget().hasEffect(GoetyEffects.FREEZING.get()) && !this.getTarget().hasEffect(MobEffects.FIRE_RESISTANCE) && !this.getTarget().fireImmune()) {
+                                mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FIERY_AURA.get(), 1800 / (amp + 1), amp));
+                            }
+                        } else {
+                            if (!this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !this.getTarget().isOnFire() && this.getTarget().canFreeze()){
+                                mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FROSTY_AURA.get(), 1800 / (amp + 1), amp));
+                            }
+                        }
                     }
                 } else if (this.random.nextFloat() <= 0.15F && MobUtil.isInWeb(this) && !this.hasEffect(GoetyEffects.CLIMBING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.CLIMBING.get(), 3600));
@@ -403,6 +411,8 @@ public class Crone extends Cultist implements RangedAttackMob {
                 mobEffectInstance.add(new MobEffectInstance(MobEffects.POISON, 900 / (amp + 1), amp));
                 if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !target.hasEffect(GoetyEffects.FREEZING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900 / (amp + 1), amp));
+                } else if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !target.hasEffect(GoetyEffects.FLAMMABLE.get()) && !target.hasEffect(MobEffects.FIRE_RESISTANCE)){
+                    mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FLAMMABLE.get(), 900 / (amp + 1), amp));
                 } else if (this.random.nextFloat() <= 0.5F && !target.hasEffect(GoetyEffects.TRIPPING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.TRIPPING.get(), 1800 / (amp + 1), amp));
                 }

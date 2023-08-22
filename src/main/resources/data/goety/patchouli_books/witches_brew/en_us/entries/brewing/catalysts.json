@@ -138,6 +138,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.frosty_aura",
+      "text": "Don't get too close to me! I'm too cold for ya!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.glowing"
     },
     {

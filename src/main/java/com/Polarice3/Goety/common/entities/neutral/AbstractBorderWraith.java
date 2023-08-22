@@ -11,6 +11,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -103,7 +104,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
                         } else {
                             this.initial = new Vec3(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
                         }
-                        if (this.breathTick >= MathHelper.secondsToTicks(3.5F) || this.hurtTime > 0){
+                        if (this.breathTick >= MathHelper.secondsToTicks(3.5F) || this.hurtStop()){
                             this.stopBreathing();
                         }
                     }
@@ -115,11 +116,15 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
         }
     }
 
+    public boolean hurtStop(){
+        return this.level.getDifficulty() == Difficulty.EASY && this.hurtTime > 0;
+    }
+
     public void movement(){
         if (this.getTarget() != null) {
             if (this.random.nextBoolean() && !this.isBreathing()
                     && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F)
-                    && this.hurtTime <= 0 && this.tickCount % 20 == 0) {
+                    && !this.hurtStop() && this.tickCount % 20 == 0) {
                 this.startBreathing();
             } else if (!this.getNavigation().isInProgress()){
                 super.movement();
