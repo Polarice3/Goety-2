@@ -9,20 +9,22 @@ public class ResearchList {
     public static Research FORBIDDEN = new Research("forbidden");
     public static Research RAVAGING = new Research("ravaging");
     public static Research WARRED = new Research("warred");
+    public static Research BURIED = new Research("buried");
 
     public static Map<String, Research> getResearchList(){
         Map<String, Research> researches = Maps.newHashMap();
         researches.put(FORBIDDEN.getId(), FORBIDDEN);
         researches.put(RAVAGING.getId(), RAVAGING);
         researches.put(WARRED.getId(), WARRED);
+        researches.put(BURIED.getId(), BURIED);
         return researches;
     }
 
     public static Map<ResourceLocation, Research> getResearchIdList(){
         Map<ResourceLocation, Research> researches = Maps.newHashMap();
-        researches.put(FORBIDDEN.getLocation(), FORBIDDEN);
-        researches.put(RAVAGING.getLocation(), RAVAGING);
-        researches.put(WARRED.getLocation(), WARRED);
+        for (Research research : getResearchList().values()){
+            researches.put(research.getLocation(), research);
+        }
         return researches;
     }
 

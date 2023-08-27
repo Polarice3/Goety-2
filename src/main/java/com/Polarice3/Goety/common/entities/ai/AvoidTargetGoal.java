@@ -19,4 +19,9 @@ public class AvoidTargetGoal<T extends LivingEntity> extends AvoidEntityGoal<T> 
     public static AvoidTargetGoal<LivingEntity> newGoal(PathfinderMob pathfinderMob, float radius, double minSpeed, double maxSpeed){
         return new AvoidTargetGoal<>(pathfinderMob, LivingEntity.class, radius, minSpeed, maxSpeed);
     }
+
+    public void stop() {
+        super.stop();
+        this.pathNav.stop();
+    }
 }

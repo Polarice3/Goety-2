@@ -35,6 +35,9 @@ public class ForbiddenScroll extends Item {
         if (!worldIn.isClientSide){
             if (!SEHelper.hasResearch(playerIn, ResearchList.FORBIDDEN)) {
                 if (SEHelper.addResearch(playerIn, ResearchList.FORBIDDEN)) {
+                    if (!SEHelper.hasResearch(playerIn, ResearchList.BURIED)){
+                        SEHelper.addResearch(playerIn, ResearchList.BURIED);
+                    }
                     CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerIn, itemstack);
                     playerIn.displayClientMessage(Component.translatable("info.goety.research.lich"), true);
                     itemstack.shrink(1);

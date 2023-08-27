@@ -315,12 +315,21 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                             } else if (ritualRecipe.isConversion() && RitualRequirements.noConvertEntity(ritualRecipe.getEntityToConvert(), pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
                                 return false;
-                            } if (ritualRecipe.getResearch() != null
+                            } else if (ritualRecipe.getResearch() != null
                                     && ResearchList.getResearch(ritualRecipe.getResearch()) != null){
                                 if (SEHelper.hasResearch(player, ResearchList.getResearch(ritualRecipe.getResearch()))){
                                     this.startRitual(player, activationItem, ritualRecipe);
                                 } else {
                                     player.displayClientMessage(Component.translatable("info.goety.ritual.fail"), true);
+                                    return false;
+                                }
+                            } else if (world.dimension() == Level.NETHER && ritualRecipe.getEntityToSummon() == ModEntityType.SUMMON_APOSTLE.get()){
+                                if (SEHelper.apostleWarned(player)){
+                                    SEHelper.setApostleWarned(player, false);
+                                    this.startRitual(player, activationItem, ritualRecipe);
+                                } else {
+                                    SEHelper.setApostleWarned(player, true);
+                                    player.displayClientMessage(Component.translatable("info.goety.ritual.apostleWarn"), true);
                                     return false;
                                 }
                             } else {

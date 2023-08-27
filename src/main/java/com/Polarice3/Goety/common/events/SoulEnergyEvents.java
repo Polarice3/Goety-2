@@ -14,6 +14,7 @@ import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -55,8 +56,15 @@ public class SoulEnergyEvents {
                 }
             }
         }
-        if (SEHelper.getRestPeriod(player) > 0){
-            SEHelper.decreaseRestPeriod(player, 1);
+        if (event.phase == TickEvent.Phase.END) {
+            if (SEHelper.getRestPeriod(player) > 0) {
+                SEHelper.decreaseRestPeriod(player, 1);
+            }
+            if (SEHelper.hasResearch(player, ResearchList.FORBIDDEN)){
+                if (!SEHelper.hasResearch(player, ResearchList.BURIED)){
+                    SEHelper.addResearch(player, ResearchList.BURIED);
+                }
+            }
         }
         if (soulEnergy.getArcaBlock() != null){
             if (soulEnergy.getArcaBlockDimension() == world.dimension()) {
@@ -145,6 +153,15 @@ public class SoulEnergyEvents {
             if (killer instanceof IOwned slayer){
                 LivingEntity owner = slayer.getTrueOwner();
                 if (owner != null){
+                    if (owner instanceof IOwned ownedOwner){
+                        if (ownedOwner.getTrueOwner() instanceof Player player){
+                            if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(player, ModArmorMaterials.DARK)) {
+                                if (!(player instanceof FakePlayer)) {
+                                    SEHelper.handleKill(player, victim);
+                                }
+                            }
+                        }
+                    }
                     if (owner instanceof Player) {
                         if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
                             Player playerEntity = (Player) owner;

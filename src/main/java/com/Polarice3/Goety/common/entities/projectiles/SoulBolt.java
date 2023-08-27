@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -9,7 +10,14 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
+import com.google.common.collect.Maps;
+import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -24,7 +32,16 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Map;
+
 public class SoulBolt extends AbstractHurtingProjectile {
+    private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(SoulBolt.class, EntityDataSerializers.INT);
+    public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
+        map.put(0, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_1.png"));
+        map.put(1, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_2.png"));
+        map.put(2, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_3.png"));
+    });
+    public float boltSpeed = 0.0F;
 
     public SoulBolt(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -38,8 +55,43 @@ public class SoulBolt extends AbstractHurtingProjectile {
         super(ModEntityType.SOUL_BOLT.get(), pShooter, pXPower, pYPower, pZPower, pLevel);
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_TYPE_ID, 0);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setAnimation(compound.getInt("Animation"));
+        if (compound.contains("BoltSpeed")){
+            this.boltSpeed = compound.getFloat("BoltSpeed");
+        }
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Animation", this.getAnimation());
+        compound.putFloat("BoltSpeed", this.boltSpeed);
+    }
+
+    public ResourceLocation getResourceLocation() {
+        return TEXTURE_BY_TYPE.getOrDefault(this.getAnimation(), TEXTURE_BY_TYPE.get(0));
+    }
+
+    public int getAnimation() {
+        return this.entityData.get(DATA_TYPE_ID);
+    }
+
+    public void setAnimation(int pType) {
+        this.entityData.set(DATA_TYPE_ID, pType);
+    }
+
+    public void setBoltSpeed(int increase){
+        this.boltSpeed += (float) increase / 50;
+    }
+
     protected float getInertia() {
-        return 0.82F;
+        return 0.82F + Math.max(this.boltSpeed, 0.18F);
     }
 
     public boolean isOnFire() {
@@ -102,6 +154,11 @@ public class SoulBolt extends AbstractHurtingProjectile {
 
     public void tick() {
         super.tick();
+        if (this.getAnimation() < 2) {
+            this.setAnimation(this.getAnimation() + 1);
+        } else {
+            this.setAnimation(0);
+        }
         Entity entity = this.getOwner();
         if (this.tickCount >= MathHelper.secondsToTicks(10)){
             this.discard();

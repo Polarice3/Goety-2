@@ -93,6 +93,14 @@ public class SEHelper {
         return getCapability(player).increaseSE(souls);
     }
 
+    public static boolean apostleWarned(Player player){
+        return getCapability(player).apostleWarned();
+    }
+
+    public static void setApostleWarned(Player player, boolean warned){
+        getCapability(player).setApostleWarned(warned);
+    }
+
     public static boolean getSoulsContainer(Player player){
         if(SEHelper.getSEActive(player)){
             return true;
@@ -420,6 +428,7 @@ public class SEHelper {
         tag.putBoolean("seActive", soulEnergy.getSEActive());
         tag.putInt("soulEnergy", soulEnergy.getSoulEnergy());
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
+        tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
         if (soulEnergy.getArcaBlock() != null) {
             tag.putInt("arcax", soulEnergy.getArcaBlock().getX());
             tag.putInt("arcay", soulEnergy.getArcaBlock().getY());
@@ -479,6 +488,7 @@ public class SEHelper {
         soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
+        soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         if (tag.contains("grudgeList", 9)) {
             ListTag listtag = tag.getList("grudgeList", 11);

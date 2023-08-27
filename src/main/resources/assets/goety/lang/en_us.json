@@ -117,6 +117,7 @@
   "entity.goety.haunted_skull_shot": "Haunted Skull",
   "entity.goety.sword":"Flying Sword",
   "entity.goety.ice_spike":"Ice Spike",
+  "entity.goety.death_arrow":"Death Arrow",
   "entity.goety.brew": "Witch's Brew",
   "entity.goety.scythe":"Scythe Slash",
   "entity.goety.soul_bullet":"Soul Bullet",
@@ -179,6 +180,7 @@
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
   "item.goety.skull_lord_spawn_egg": "Skull Lord Spawn Egg",
   "item.goety.ravaged_spawn_egg": "Ravaged Spawn Egg",
+  "item.goety.redstone_golem_spawn_egg": "Redstone Golem Spawn Egg",
   "item.goety.zpiglin_servant_spawn_egg": "Zombified Piglin Servant Spawn Egg",
   "item.goety.zpiglin_brute_servant_spawn_egg": "Zombified Piglin Brute Servant Spawn Egg",
 
@@ -245,7 +247,7 @@
 
   "item.goety.ravaging_scroll": "Ravaging Scroll",
   "item.goety.warred_scroll": "Warred Scroll",
-  "item.goety.frost_scroll": "Frost Scroll",
+  "item.goety.buried_scroll": "Buried Scroll",
   "item.goety.replication_scroll": "Replication Scroll",
 
   "item.goety.forbidden_piece": "Forbidden Piece",
@@ -264,6 +266,7 @@
   "item.goety.berserk_fungus": "Berserk Fungus",
   "item.goety.wartful_egg": "Wartful Egg",
   "item.goety.ill_bomb": "Ill Bomb",
+  "item.goety.soul_jar": "Soul Jar",
   "item.goety.refuse_bottle": "Bottle of Refuse",
 
   "item.goety.grimoire_of_grudges": "Grimoire of Grudges",
@@ -682,12 +685,12 @@
   "info.goety.items.dark_scroll.failure": "You are not within a Woodland Mansion!",
   "info.goety.items.ravaging": "An Evoker's ritual cheatsheet.",
   "info.goety.items.warred": "The template for ancient war machines.",
-  "info.goety.items.frost": "The ways of frost and winter.",
+  "info.goety.items.buried": "Some sort of ancient manuscript of a nameless kingdom...",
   "info.goety.items.forbidden_scroll": "The Secrets to Immortality...",
 
   "info.goety.research.ravaging": "You have learned the method of creating Ravagers!",
   "info.goety.research.warred": "You have learned the method of making Redstone Golems!",
-  "info.goety.research.frost": "You have learned the ways of Frost Magic!",
+  "info.goety.research.buried": "You have learned the nameless paths of Necromancy!",
   "info.goety.research.lich": "You have learned the secret to Immortality!",
 
   "info.goety.hunger_pendent.amount": "§2Rotten Flesh:§2 %d",
@@ -703,6 +706,7 @@
   "info.goety.ritual.notCatalyst.fail": "Item is not Ritual Catalyst!",
   "info.goety.ritual.noSouls.fail": "Not enough Soul Energy!",
   "info.goety.ritual.itemProblem.fail": "Missing or Incorrect Items",
+  "info.goety.ritual.apostleWarn": "§4Warning: You're about to face a foe within their own domain. Are you prepared?§4",
   "info.goety.grimoire.addType": "Added all %s to Grimoire",
   "info.goety.grimoire.add": "Added %s to Grimoire",
   "info.goety.grimoire.removeType": "Removed all %s from Grimoire",
@@ -999,6 +1003,8 @@
   "advancements.goety.ravaging_scroll.description": "Read the Ravaging Scroll and discover the way of Ravaging.",
   "advancements.goety.warred_scroll.title": "Some Mumbo Jumbo",
   "advancements.goety.warred_scroll.description": "Read the Warred Scroll and discover the way of war.",
+  "advancements.goety.unlock_necromancer.title": "Simple Sight",
+  "advancements.goety.unlock_necromancer.description": "Discover the secrets of making Necromancers.",
   "advancements.goety.forbidden_scroll.title": "Grandma's Secret Recipe",
   "advancements.goety.forbidden_scroll.description": "Read the Forbidden Scroll and discover the secrets of Immortality.",
   "advancements.goety.summon_redstone_golem.title": "Warforged",

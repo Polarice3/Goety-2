@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:necro_cape"
   },
-  "craftType": "lich",
+  "craftType": "necroturgy",
   "entity_to_convert": {
     "tag": "goety:skeletons",
     "display_name": "entity.minecraft.skeleton"
@@ -12,6 +12,7 @@
   "entity_to_convert_into": "goety:necromancer_servant",
   "soulCost": 5,
   "duration": 30,
+  "research": "buried",
   "ingredients": [
     {
       "item": "goety:necro_staff"

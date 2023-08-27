@@ -2,7 +2,7 @@
   "name": "Necromancer",
   "icon": "goety:necro_cape",
   "category": "goety:mutations",
-  "advancement": "goety:goety/read_forbidden_scroll",
+  "advancement": "goety:goety/unlock_necromancer",
   "secret": true,
   "pages": [
     {

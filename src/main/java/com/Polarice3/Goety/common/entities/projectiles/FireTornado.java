@@ -169,6 +169,7 @@ public class FireTornado extends AbstractHurtingProjectile {
         fireTornadoEntity.setLifespan(this.getLifespan());
         fireTornadoEntity.setTotalLife(this.getTotalLife());
         fireTornadoEntity.setSpun(this.getSpun());
+        fireTornadoEntity.setPos(this.getX(), this.getY(), this.getZ());
         this.level.addFreshEntity(fireTornadoEntity);
         this.remove();
     }

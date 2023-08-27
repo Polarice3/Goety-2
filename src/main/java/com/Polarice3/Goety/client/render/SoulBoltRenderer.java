@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.client.render;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.SoulBoltModel;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SoulBoltRenderer extends EntityRenderer<SoulBolt> {
-   private static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID,"textures/entity/projectiles/soul_bolt.png");
    private final SoulBoltModel<SoulBolt> model;
 
    public SoulBoltRenderer(EntityRendererProvider.Context p_174449_) {
@@ -40,6 +38,6 @@ public class SoulBoltRenderer extends EntityRenderer<SoulBolt> {
    }
 
    public ResourceLocation getTextureLocation(SoulBolt p_116482_) {
-      return TEXTURE;
+      return p_116482_.getResourceLocation();
    }
 }

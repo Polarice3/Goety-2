@@ -15,19 +15,19 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:dark_helmet"
+      "recipe": "goety:dark/dark_helmet"
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:dark_chestplate"
+      "recipe": "goety:dark/dark_chestplate"
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:dark_leggings"
+      "recipe": "goety:dark/dark_leggings"
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:dark_boots"
+      "recipe": "goety:dark/dark_boots"
     }
   ]
 }

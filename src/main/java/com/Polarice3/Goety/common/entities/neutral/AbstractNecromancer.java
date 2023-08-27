@@ -4,19 +4,15 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.SoulJar;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,6 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -33,26 +30,34 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class AbstractNecromancer extends AbstractSkeletonServant implements RangedAttackMob {
     private static final EntityDataAccessor<Byte> SPELL = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> DROP_JAR = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BOOLEAN);
     protected int spellCooldown;
     private SpellType activeSpell = SpellType.NONE;
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState summonAnimationState = new AnimationState();
+    public AnimationState spellAnimationState = new AnimationState();
 
     public AbstractNecromancer(EntityType<? extends AbstractSkeletonServant> type, Level level) {
         super(type, level);
@@ -67,11 +72,12 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public void projectileGoal(int priority){
-        this.goalSelector.addGoal(priority, new NecromancerAttackGoal(this));
+        this.goalSelector.addGoal(priority, new NecromancerRangedGoal(this, 1.0D, 20, 10.0F));
     }
 
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority, new SummonZombieSpell());
+        this.goalSelector.addGoal(priority + 1, new SummonUndeadGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -79,7 +85,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 .add(Attributes.MAX_HEALTH, AttributesConfig.NecromancerHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.NecromancerDamage.get())
                 .add(Attributes.ARMOR, 2.0D);
     }
 
@@ -91,16 +97,29 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         super.defineSynchedData();
         this.entityData.define(SPELL, (byte)0);
         this.entityData.define(FLAGS, (byte)0);
+        this.entityData.define(DROP_JAR, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.spellCooldown = compound.getInt("SpellCoolDown");
+        this.setAlternateSummon(compound.getBoolean("HasAlternate"));
+        this.setUndeadIdle(compound.getBoolean("SpawnUndeadIdle"));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("SpellCoolDown", this.spellCooldown);
+        compound.putBoolean("HasAlternate", this.hasAlternateSummon());
+        compound.putBoolean("SpawnUndeadIdle", this.spawnUndeadIdle());
+    }
+
+    public void setDropJar(boolean dropJar){
+        this.entityData.set(DROP_JAR, dropJar);
+    }
+
+    public boolean dropsJar(){
+        return this.entityData.get(DROP_JAR);
     }
 
     public void setSpellCasting(boolean casting){
@@ -117,6 +136,14 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     public boolean hasAlternateSummon(){
         return this.getNecromancerFlags(2);
+    }
+
+    public void setUndeadIdle(boolean spawn){
+        this.setNecromancerFlags(4, spawn);
+    }
+
+    public boolean spawnUndeadIdle(){
+        return this.getNecromancerFlags(4);
     }
 
     public void setSpellType(SpellType spellType) {
@@ -175,6 +202,20 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         this.spellCooldown = cooldown;
     }
 
+    @Override
+    public void die(DamageSource pCause) {
+        if (this.getTrueOwner() != null){
+            ItemStack itemStack = new ItemStack(ModItems.SOUL_JAR.get());
+            SoulJar.setOwnerName(this.getTrueOwner(), itemStack);
+            SoulJar.setNecromancer(this, itemStack);
+            ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+            if (itemEntity != null){
+                itemEntity.setExtendedLifetime();
+            }
+        }
+        super.die(pCause);
+    }
+
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
@@ -187,17 +228,53 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
+    public List<AnimationState> getAnimations(){
+        List<AnimationState> animationStates = new ArrayList<>();
+        animationStates.add(this.idleAnimationState);
+        animationStates.add(this.walkAnimationState);
+        animationStates.add(this.attackAnimationState);
+        animationStates.add(this.summonAnimationState);
+        animationStates.add(this.spellAnimationState);
+        return animationStates;
+    }
+
+    public void stopAllAnimations(){
+        for (AnimationState animationState : this.getAnimations()){
+            animationState.stop();
+        }
+    }
+
+    public boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
+
     public void tick() {
         super.tick();
         if (this.spellCooldown > 0) {
             --this.spellCooldown;
         }
-        if (this.level.isClientSide && this.isSpellCasting() && this.isAlive()) {
-            double d0 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[0];
-            double d1 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[1];
-            double d2 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[2];
-            for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
+        if (this.level.isClientSide){
+            if (this.isAlive()){
+                if (!this.isAggressive() && !this.isSpellCasting()) {
+                    if (!this.isMoving()) {
+                        this.idleAnimationState.startIfStopped(this.tickCount);
+                        this.walkAnimationState.stop();
+                    } else {
+                        this.idleAnimationState.stop();
+                        this.walkAnimationState.startIfStopped(this.tickCount);
+                    }
+                } else {
+                    this.walkAnimationState.stop();
+                    this.idleAnimationState.stop();
+                }
+                if (this.isSpellCasting()){
+                    double d0 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[0];
+                    double d1 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[1];
+                    double d2 = MathHelper.rgbParticle(this.getSpellType().particleSpeed)[2];
+                    for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+                        this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
+                    }
+                }
             }
         }
     }
@@ -242,52 +319,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     this.playSound(ModSounds.NECROMANCER_LAUGH.get());
                     return InteractionResult.SUCCESS;
                 }
-                if (item instanceof ArmorItem) {
-                    ItemStack helmet = this.getItemBySlot(EquipmentSlot.HEAD);
-                    ItemStack chestplate = this.getItemBySlot(EquipmentSlot.CHEST);
-                    ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
-                    ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.HEAD) {
-                        this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
-                        this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                        this.spawnAtLocation(helmet);
-                    }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.CHEST) {
-                        this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
-                        this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                        this.spawnAtLocation(chestplate);
-                    }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.LEGS) {
-                        this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
-                        this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                        this.spawnAtLocation(legging);
-                    }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.FEET) {
-                        this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
-                        this.setGuaranteedDrop(EquipmentSlot.FEET);
-                        this.spawnAtLocation(boots);
-                    }
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    EntityFinder.sendEntityUpdatePacket(pPlayer, this);
-                    return InteractionResult.CONSUME;
-                } else {
-                    return InteractionResult.PASS;
-                }
-            } else {
-                return InteractionResult.PASS;
             }
-        } else {
-            return InteractionResult.PASS;
         }
+        return InteractionResult.PASS;
     }
 
     public class CastingSpellGoal extends Goal {
@@ -346,6 +380,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             if (this.getSpellPrepareSound() != null) {
                 AbstractNecromancer.this.playSound(this.getSpellPrepareSound(), 1.0F, 1.0F);
             }
+            AbstractNecromancer.this.level.broadcastEntityEvent(AbstractNecromancer.this, (byte) 5);
             AbstractNecromancer.this.setSpellCasting(true);
             AbstractNecromancer.this.setSpellType(this.getSpellType());
         }
@@ -358,7 +393,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         public void tick() {
             --this.spellTime;
-            if (this.spellTime == 0) {
+            if (this.spellTime == 5) {
                 if (this.getCastSound() != null) {
                     AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
                 }
@@ -371,7 +406,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         protected abstract void castSpell();
 
         protected int getCastingTime() {
-            return 10;
+            return 12;
         }
 
         protected int getCastingInterval(){
@@ -411,7 +446,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         }
                     }
                     BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
-                    summonedentity.setOwnerId(AbstractNecromancer.this.getUUID());
+                    summonedentity.setTrueOwner(AbstractNecromancer.this);
                     summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
@@ -470,17 +505,218 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
     }
 
-    public static class NecromancerAttackGoal extends RangedAttackGoal{
-        public AbstractNecromancer necromancer;
-
-        public NecromancerAttackGoal(AbstractNecromancer p_25768_) {
-            super(p_25768_, 1.0D, 20, 10.0F);
-            this.necromancer = p_25768_;
-        }
+    public class SummonUndeadGoal extends Goal{
+        protected int spellTime;
 
         @Override
         public boolean canUse() {
-            return super.canUse() && necromancer.getTarget() != null;
+            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+            int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
+                    , predicate).size();
+            if (AbstractNecromancer.this.getTarget() != null && AbstractNecromancer.this.getTarget().isAlive()){
+                return false;
+            } else if (AbstractNecromancer.this.isAggressive()){
+                return false;
+            } else if (AbstractNecromancer.this.isSpellCasting()) {
+                return false;
+            } else if (AbstractNecromancer.this.isFollowing()){
+                return false;
+            } else if (!AbstractNecromancer.this.spawnUndeadIdle()){
+                return false;
+            } else {
+                return AbstractNecromancer.this.getSpellCooldown() <= 0 && i < 4 && AbstractNecromancer.this.tickCount % 100 >= 90 && AbstractNecromancer.this.random.nextFloat() <= 0.05F;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.spellTime > 0 && AbstractNecromancer.this.hurtTime <= 0;
+        }
+
+        public void start() {
+            this.spellTime = 20;
+            AbstractNecromancer.this.setSpellCooldown(100);
+            AbstractNecromancer.this.playSound(SoundEvents.EVOKER_PREPARE_SUMMON, 1.0F, 1.0F);
+            AbstractNecromancer.this.setSpellCasting(true);
+            AbstractNecromancer.this.setSpellType(SpellType.ZOMBIE);
+            AbstractNecromancer.this.level.broadcastEntityEvent(AbstractNecromancer.this, (byte) 6);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            AbstractNecromancer.this.setSpellCasting(false);
+            AbstractNecromancer.this.level.broadcastEntityEvent(AbstractNecromancer.this, (byte) 7);
+        }
+
+        public void tick() {
+            --this.spellTime;
+            if (this.spellTime == 0) {
+                AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
+                AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
+                if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
+                    Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                    if (AbstractNecromancer.this.random.nextFloat() <= 0.25F){
+                        summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
+                        if (serverLevel.getBiome(AbstractNecromancer.this.blockPosition()).is(Tags.Biomes.IS_COLD_OVERWORLD)){
+                            summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), serverLevel);
+                        }
+                    } else if (serverLevel.getBiome(AbstractNecromancer.this.blockPosition()).is(Tags.Biomes.IS_DESERT)){
+                        summonedentity = new HuskServant(ModEntityType.HUSK_SERVANT.get(), serverLevel);
+                    }
+                    if (AbstractNecromancer.this.random.nextFloat() <= 0.025F){
+                        summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), serverLevel);
+                    }
+                    BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
+                    summonedentity.setTrueOwner(AbstractNecromancer.this);
+                    summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
+                    MobUtil.moveDownToGround(summonedentity);
+                    summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
+                    summonedentity.setPersistenceRequired();
+                    summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
+                    if (serverLevel.addFreshEntity(summonedentity)){
+                        summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
+                    }
+                }
+            }
+        }
+
+        protected void populateDefaultEquipmentSlots(LivingEntity livingEntity, RandomSource p_217055_) {
+            if (p_217055_.nextFloat() <= 0.15F) {
+                int i = p_217055_.nextInt(2) + 2;
+                if (p_217055_.nextFloat() < 0.095F) {
+                    ++i;
+                }
+
+                boolean flag = true;
+
+                for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                    if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
+                        ItemStack itemstack = livingEntity.getItemBySlot(equipmentslot);
+                        if (!flag && p_217055_.nextFloat() < 0.1F) {
+                            break;
+                        }
+
+                        flag = false;
+                        if (itemstack.isEmpty()) {
+                            Item item = getEquipmentForSlot(equipmentslot, i);
+                            if (item != null) {
+                                livingEntity.setItemSlot(equipmentslot, new ItemStack(item));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    public static class NecromancerRangedGoal extends Goal{
+        private final AbstractNecromancer mob;
+        @Nullable
+        private LivingEntity target;
+        private int attackTime = -1;
+        private final double speedModifier;
+        private int seeTime;
+        private final int attackIntervalMin;
+        private final int attackIntervalMax;
+        private final float attackRadius;
+        private final float attackRadiusSqr;
+
+        public NecromancerRangedGoal(AbstractNecromancer p_25768_, double speed, int attackInterval, float attackRadius) {
+            this(p_25768_, speed, attackInterval, attackInterval, attackRadius);
+        }
+
+        public NecromancerRangedGoal(AbstractNecromancer mob, double speed, int attackMin, int attackMax, float attackRadius) {
+            this.mob = mob;
+            this.speedModifier = speed;
+            this.attackIntervalMin = attackMin;
+            this.attackIntervalMax = attackMax;
+            this.attackRadius = attackRadius;
+            this.attackRadiusSqr = attackRadius * attackRadius;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity != null && livingentity.isAlive()) {
+                this.target = livingentity;
+                return !this.mob.isSpellCasting();
+            } else {
+                return false;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.canUse() || (this.target != null && this.target.isAlive() && !this.mob.getNavigation().isDone() && !this.mob.isSpellCasting());
+        }
+
+        public void stop() {
+            this.mob.setAggressive(false);
+            this.target = null;
+            this.seeTime = 0;
+            this.attackTime = -1;
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            if (this.target != null && !this.mob.isSpellCasting()) {
+                double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+                boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
+                if (flag) {
+                    ++this.seeTime;
+                } else {
+                    this.seeTime = 0;
+                }
+
+                if (!(d0 > (double) this.attackRadiusSqr) && this.seeTime >= 5) {
+                    this.mob.getNavigation().stop();
+                } else {
+                    this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+                }
+
+                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+                --this.attackTime;
+                if (this.attackTime == 5) {
+                    this.mob.setAggressive(true);
+                    this.mob.attackAnimationState.start(this.mob.tickCount);
+                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 4);
+                } else if (this.attackTime == 0) {
+                    if (!flag) {
+                        return;
+                    }
+
+                    float f = (float) Math.sqrt(d0) / this.attackRadius;
+                    float f1 = Mth.clamp(f, 0.1F, 1.0F);
+                    this.mob.performRangedAttack(this.target, f1);
+                    this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
+                } else if (this.attackTime < 0) {
+                    this.mob.setAggressive(false);
+                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_21375_) {
+        if (p_21375_ == 4){
+            this.stopAllAnimations();
+            this.attackAnimationState.start(this.tickCount);
+        } else if (p_21375_ == 5){
+            this.stopAllAnimations();
+            this.summonAnimationState.start(this.tickCount);
+        } else if (p_21375_ == 6){
+            this.stopAllAnimations();
+            this.spellAnimationState.start(this.tickCount);
+        } else if (p_21375_ == 7){
+            this.stopAllAnimations();
+        } else {
+            super.handleEntityEvent(p_21375_);
         }
     }
 

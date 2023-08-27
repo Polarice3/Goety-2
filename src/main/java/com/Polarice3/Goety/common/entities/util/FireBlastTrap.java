@@ -19,6 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -112,7 +113,7 @@ public class FireBlastTrap extends Entity {
                     }
                 }
                 List<LivingEntity> targets = new ArrayList<>();
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1))){
+                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
                     if (this.owner != null) {
                         if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner)) {
                             targets.add(livingEntity);

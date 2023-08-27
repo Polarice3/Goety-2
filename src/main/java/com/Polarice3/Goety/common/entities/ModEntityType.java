@@ -52,6 +52,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<DeathArrow>> DEATH_ARROW = register("death_arrow",
+            EntityType.Builder.<DeathArrow>of(DeathArrow::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20));
+
     public static final RegistryObject<EntityType<ThrownBrew>> BREW = register("brew",
             EntityType.Builder.<ThrownBrew>of(ThrownBrew::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)

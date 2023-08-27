@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:buried_scroll"
+    },
+    "title": {
+      "translate": "advancements.goety.unlock_necromancer.title"
+    },
+    "description": {
+      "translate": "advancements.goety.unlock_necromancer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "forbidden_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:forbidden_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "buried_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:buried_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    [
+      "forbidden_scroll",
+      "buried_scroll"
+    ]
+  ]
+}

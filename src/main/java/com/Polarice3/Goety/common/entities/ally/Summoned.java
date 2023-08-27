@@ -299,6 +299,10 @@ public class Summoned extends Owned {
         this.setFlags(2, staying);
     }
 
+    public boolean isFollowing(){
+        return !this.isWandering() && !this.isStaying();
+    }
+
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setUpgraded(compound.getBoolean("Upgraded"));

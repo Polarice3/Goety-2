@@ -130,9 +130,11 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
             }
         }
         if (SpellConfig.MobSense.get()) {
-            if (this.getTarget() != null) {
-                if (this.getTarget() instanceof Mob mob && mob.getTarget() == null) {
-                    mob.setTarget(this);
+            if (this.isAlive()) {
+                if (this.getTarget() != null) {
+                    if (this.getTarget() instanceof Mob mob && mob.getTarget() == null) {
+                        mob.setTarget(this);
+                    }
                 }
             }
         }
@@ -260,7 +262,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     }
 
     public LivingEntity getMasterOwner(){
-        if (this.getTrueOwner() instanceof Owned owned){
+        if (this.getTrueOwner() instanceof IOwned owned){
             return owned.getTrueOwner();
         } else {
             return null;

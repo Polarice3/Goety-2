@@ -56,7 +56,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -67,7 +66,6 @@ import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
@@ -86,6 +84,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -108,14 +107,17 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private static final EntityDataAccessor<Float> SPIN = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> HAT = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BOOLEAN);
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true).setCreateWorldFog(true);
-    public Predicate<LivingEntity> ZOMBIE_MINIONS = (livingEntity) -> {
-        return livingEntity instanceof ZombieVillagerServant || livingEntity instanceof ZPiglinServant;
+    public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
+        return (owned instanceof ZombieVillagerServant || owned instanceof ZPiglinServant) && owned.getTrueOwner() == this;
     };
     private final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
-        return livingEntity instanceof ObsidianMonolith;
+        return livingEntity instanceof ObsidianMonolith monolith && monolith.getTrueOwner() == this;
     };
-    private final Predicate<LivingEntity> SKELETON_MINIONS = (livingEntity) -> {
-        return livingEntity instanceof SkeletonVillagerServant || livingEntity instanceof Malghast;
+    private final Predicate<Owned> SKELETON_MINIONS = (owned) -> {
+        return (owned instanceof SkeletonVillagerServant || owned instanceof Malghast) && owned.getTrueOwner() == this;
+    };
+    private final Predicate<Entity> OWNED_TRAPS = (entity) -> {
+        return entity instanceof AbstractTrap abstractTrap && abstractTrap.getOwner() == this;
     };
     public int antiRegen;
     public int antiRegenTotal;
@@ -140,9 +142,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new SecondPhaseIndicator());
-        this.goalSelector.addGoal(2, new BowAttackGoal<>(this));
-        this.goalSelector.addGoal(2, new FasterBowAttackGoal<>(this));
-        this.goalSelector.addGoal(2, new FastestBowAttackGoal<>(this));
+        this.goalSelector.addGoal(2, new ApostleBowGoal<>(this, 30.0F));
         this.goalSelector.addGoal(3, new CastingSpellGoal());
         this.goalSelector.addGoal(3, new FireballSpellGoal());
         this.goalSelector.addGoal(3, new ZombieSpellGoal());
@@ -692,7 +692,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
-        float trueAmount = this.level.dimension() == Level.NETHER ? pAmount/4 : pAmount;
+        float trueAmount = this.level.dimension() == Level.NETHER ? pAmount / 2 : pAmount;
 
         if (pSource == DamageSource.OUT_OF_WORLD){
             this.discard();
@@ -705,7 +705,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         if (!this.level.getNearbyPlayers(TargetingConditions.forCombat().selector(MobUtil.NO_CREATIVE_OR_SPECTATOR), this, this.getBoundingBox().inflate(32)).isEmpty()){
             if (!(pSource.getEntity() instanceof Player)){
-                trueAmount = trueAmount/2;
+                trueAmount = trueAmount / 2;
             }
         }
 
@@ -987,7 +987,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.setTarget(player);
             }
             for (Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)), EntitySelector.LIVING_ENTITY_STILL_ALIVE)){
-                if (mob.getTarget() == this){
+                if (mob.getTarget() == this && this.getTarget() == null){
                     this.setTarget(mob);
                 }
             }
@@ -1136,7 +1136,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public AbstractArrow getArrow(ItemStack pArrowStack, float pDistanceFactor) {
-        AbstractArrow abstractarrowentity = ProjectileUtil.getMobArrow(this, pArrowStack, pDistanceFactor);
+        DeathArrow deathArrow = new DeathArrow(this.level, this);
+        deathArrow.setEffectsFromItem(pArrowStack);
+        deathArrow.setEnchantmentEffectsFromEntity(this, pDistanceFactor);
         if (this.getArrowEffect() != null){
             MobEffect mobEffect = this.getArrowEffect();
             int amp;
@@ -1148,12 +1150,30 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (this.getTarget() != null && this.getArrowEffect() == MobEffects.HARM && this.getTarget().isInvertedHealAndHarm()){
                 mobEffect = MobEffects.HEAL;
             }
-            ((Arrow)abstractarrowentity).addEffect(new MobEffectInstance(mobEffect, mobEffect.isInstantenous() ? 1 : 200, amp));
+            deathArrow.addEffect(new MobEffectInstance(mobEffect, mobEffect.isInstantenous() ? 1 : 200, amp));
         }
         if (this.getFireArrow()){
-            abstractarrowentity.setRemainingFireTicks(100);
+            deathArrow.setRemainingFireTicks(100);
         }
-        return abstractarrowentity;
+        if (this.level.dimension() == Level.NETHER){
+            deathArrow.setPierceLevel((byte) 5);
+            deathArrow.setCritArrow(true);
+        } else {
+            float critChance = 0.05F;
+            if (this.level.getDifficulty() == Difficulty.HARD){
+                critChance += 0.25F;
+            }
+            if (this.isSecondPhase()){
+                critChance += 0.1F;
+            }
+            if (this.isSecondPhase() && this.getHealth() <= this.getMaxHealth() / 4){
+                critChance += 0.25F;
+            }
+            if (this.level.random.nextFloat() <= critChance){
+                deathArrow.setCritArrow(true);
+            }
+        }
+        return deathArrow;
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem p_230280_1_) {
@@ -1254,7 +1274,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 double d2 = livingentity.getY(0.5D) - Apostle.this.getY(0.5D);
                 double d3 = livingentity.getZ() - Apostle.this.getZ();
                 ExplosiveProjectile fireballEntity;
-                if (Apostle.this.level.getDifficulty() == Difficulty.HARD){
+                if (Apostle.this.level.getDifficulty() != Difficulty.EASY){
                     fireballEntity = new GrandLavaball(Apostle.this.level, Apostle.this, d1, d2, d3);
                 } else {
                     fireballEntity = new Lavaball(Apostle.this.level, Apostle.this, d1, d2, d3);
@@ -1309,130 +1329,77 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         public void castSpell() {
             if (!Apostle.this.level.isClientSide) {
-                ServerLevel ServerLevel = (ServerLevel) Apostle.this.level;
+                ServerLevel serverLevel = (ServerLevel) Apostle.this.level;
                 LivingEntity livingentity = Apostle.this.getTarget();
-                RandomSource r = Apostle.this.random;
+                RandomSource randomSource = serverLevel.random;
                 if (livingentity != null) {
                     BlockPos blockpos = Apostle.this.blockPosition();
-                    if (!Apostle.this.isSecondPhase()){
-                        if (r.nextBoolean()) {
-                            ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), Apostle.this.level);
-                            summonedentity.moveTo(blockpos, 0.0F, 0.0F);
-                            summonedentity.setOwnerId(Apostle.this.getUUID());
-                            summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
-                            for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                                    ItemStack itemstack = summonedentity.getItemBySlot(equipmentslottype);
-                                    if (itemstack.isEmpty()) {
-                                        Item item = getEquipmentForSlot(equipmentslottype, 1);
-                                        if (item != null) {
-                                            summonedentity.setItemSlot(equipmentslottype, new ItemStack(item));
-                                        }
+                    if (randomSource.nextBoolean()) {
+                        ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), Apostle.this.level);
+                        if (Apostle.this.isSecondPhase()){
+                            summonedentity = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), Apostle.this.level);
+                        }
+                        summonedentity.moveTo(blockpos, 0.0F, 0.0F);
+                        summonedentity.setTrueOwner(Apostle.this);
+                        summonedentity.setLimitedLife(60 * (90 + serverLevel.random.nextInt(180)));
+                        for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
+                            if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+                                ItemStack itemstack = summonedentity.getItemBySlot(equipmentslottype);
+                                if (itemstack.isEmpty()) {
+                                    Item item = getEquipmentForSlot(equipmentslottype, 1);
+                                    if (serverLevel.getDifficulty() == Difficulty.HARD && Apostle.this.isSecondPhase()){
+                                        item = netheriteArmor(equipmentslottype);
+                                    }
+                                    if (item != null) {
+                                        summonedentity.setItemSlot(equipmentslottype, new ItemStack(item));
                                     }
                                 }
-                                summonedentity.setDropChance(equipmentslottype, 0.0F);
                             }
-                            summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
-                            summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                            summonedentity.setTarget(livingentity);
-                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, true, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircle);
-                        } else {
-                            if (ServerLevel.dimension() == Level.NETHER) {
-                                for (int p = 0; p < 3 + r.nextInt(6); ++p) {
-                                    int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                                    blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                                    blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                    ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), Apostle.this.level);
-                                    summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                                    summonedentity.setTrueOwner(Apostle.this);
-                                    summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
-                                    summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                    summonedentity.setTarget(livingentity);
-                                    SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, true, Apostle.this);
-                                    Apostle.this.level.addFreshEntity(summonCircle);
+                            if (equipmentslottype == EquipmentSlot.MAINHAND){
+                                if (serverLevel.getDifficulty() == Difficulty.HARD && Apostle.this.isSecondPhase()){
+                                    summonedentity.setItemSlot(equipmentslottype, new ItemStack(Items.NETHERITE_AXE));
                                 }
-                            } else {
-                                int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
+                            }
+                            summonedentity.setDropChance(equipmentslottype, 0.0F);
+                        }
+                        summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
+                        summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                        summonedentity.setTarget(livingentity);
+                        SummonCircle summonCircle = new SummonCircle(serverLevel, blockpos, summonedentity, false, true, Apostle.this);
+                        serverLevel.addFreshEntity(summonCircle);
+                    } else {
+                        if (serverLevel.dimension() == Level.NETHER) {
+                            for (int p = 0; p < 3 + randomSource.nextInt(6); ++p) {
+                                int k = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
+                                int l = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
                                 BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                                blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
+                                blockpos$mutable.setX(blockpos$mutable.getX() + randomSource.nextInt(5) - randomSource.nextInt(5));
                                 blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                                blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), Apostle.this.level);
+                                blockpos$mutable.setZ(blockpos$mutable.getZ() + randomSource.nextInt(5) - randomSource.nextInt(5));
+                                ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), Apostle.this.level);
+                                if (Apostle.this.isSecondPhase()){
+                                    summonedentity = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), Apostle.this.level);
+                                }
                                 summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
                                 summonedentity.setTrueOwner(Apostle.this);
-                                summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                Apostle.this.level.addFreshEntity(summonedentity);
+                                summonedentity.setLimitedLife(60 * (90 + serverLevel.random.nextInt(180)));
+                                summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
+                                summonedentity.setTarget(livingentity);
+                                SummonCircle summonCircle = new SummonCircle(serverLevel, blockpos$mutable, summonedentity, false, true, Apostle.this);
+                                serverLevel.addFreshEntity(summonCircle);
                             }
-                        }
-                    } else {
-                        if (r.nextBoolean()) {
-                            ZPiglinBruteServant summonedentity = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), Apostle.this.level);
-                            summonedentity.moveTo(blockpos, 0.0F, 0.0F);
-                            summonedentity.setTrueOwner(Apostle.this);
-                            summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
-                            summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                            for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                                    ItemStack itemstack = summonedentity.getItemBySlot(equipmentslottype);
-                                    if (itemstack.isEmpty()) {
-                                        Item item = getEquipmentForSlot(equipmentslottype, 1);
-                                        if (Apostle.this.level.getDifficulty() == Difficulty.HARD){
-                                            item = netheriteArmor(equipmentslottype);
-                                        }
-                                        if (item != null) {
-                                            summonedentity.setItemSlot(equipmentslottype, new ItemStack(item));
-                                        }
-                                    }
-                                }
-                                if (equipmentslottype == EquipmentSlot.MAINHAND){
-                                    if (Apostle.this.level.getDifficulty() == Difficulty.HARD){
-                                        summonedentity.setItemSlot(equipmentslottype, new ItemStack(Items.NETHERITE_AXE));
-                                    }
-                                }
-                                summonedentity.setDropChance(equipmentslottype, 0.0F);
-                            }
-                            summonedentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false));
-                            summonedentity.setTarget(livingentity);
-                            SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, true, Apostle.this);
-                            Apostle.this.level.addFreshEntity(summonCircle);
                         } else {
-                            if (ServerLevel.dimension() == Level.NETHER) {
-                                for (int p = 0; p < 2 + r.nextInt(Apostle.this.level.getDifficulty().getId()); ++p) {
-                                    int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                                    blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                                    blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                    ZPiglinBruteServant summonedentity = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), Apostle.this.level);
-                                    summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                                    summonedentity.setTrueOwner(Apostle.this);
-                                    summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
-                                    summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                    summonedentity.setTarget(livingentity);
-                                    SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, true, Apostle.this);
-                                    Apostle.this.level.addFreshEntity(summonCircle);
-                                }
-                            } else {
-                                for (int p = 0; p < 1 + r.nextInt(2); ++p) {
-                                    int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                    BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                                    blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                                    blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                    ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), Apostle.this.level);
-                                    summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                                    summonedentity.setTrueOwner(Apostle.this);
-                                    summonedentity.finalizeSpawn(ServerLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                    Apostle.this.level.addFreshEntity(summonedentity);
-                                }
-                            }
+                            int k = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
+                            int l = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
+                            BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
+                            blockpos$mutable.setX(blockpos$mutable.getX() + randomSource.nextInt(5) - randomSource.nextInt(5));
+                            blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + randomSource.nextInt(5) - randomSource.nextInt(5));
+                            ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), Apostle.this.level);
+                            summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
+                            summonedentity.setTrueOwner(Apostle.this);
+                            summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
+                            serverLevel.addFreshEntity(summonedentity);
                         }
                     }
                     Apostle.this.postSpellCast();
@@ -1468,7 +1435,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         @Override
         public boolean canUse() {
             int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
-            int i2 = Apostle.this.level.getEntitiesOfClass(AbstractTrap.class, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            int i2 = Apostle.this.level.getEntitiesOfClass(AbstractTrap.class, Apostle.this.getBoundingBox().inflate(64.0D), OWNED_TRAPS).size();
             if (!super.canUse()) {
                 return false;
             } else {
@@ -1801,65 +1768,117 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
-    static class BowAttackGoal<T extends Apostle & RangedAttackMob> extends RangedBowAttackGoal<T> {
+    static class ApostleBowGoal<T extends Apostle> extends Goal{
         private final T mob;
+        private final float attackRadiusSqr;
+        private int attackTime = -1;
+        private int seeTime;
+        private boolean strafingClockwise;
+        private boolean strafingBackwards;
+        private int strafingTime = -1;
 
-        public BowAttackGoal(T p_i47515_1_) {
-            super(p_i47515_1_, 1.0D, 40, 30.0F);
-            this.mob = p_i47515_1_;
+        public ApostleBowGoal(T p_25792_, float p_25795_) {
+            this.mob = p_25792_;
+            this.attackRadiusSqr = p_25795_ * p_25795_;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         @Override
         public boolean canUse() {
-            return !this.mob.isSecondPhase() && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
+            return this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
         }
 
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && !this.mob.isCasting();
+            return (this.canUse() || !this.mob.getNavigation().isDone()) && this.HaveBow() && !this.mob.isCasting();
         }
 
-        protected boolean HaveBow() {
-            return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
-        }
-    }
-
-    static class FasterBowAttackGoal<T extends Apostle & RangedAttackMob> extends RangedBowAttackGoal<T> {
-        private final T mob;
-
-        public FasterBowAttackGoal(T p_i47515_1_) {
-            super(p_i47515_1_, 1.0D, 20, 30.0F);
-            this.mob = p_i47515_1_;
+        public void start() {
+            super.start();
+            this.mob.setAggressive(true);
         }
 
-        @Override
-        public boolean canUse() {
-            return this.mob.isSecondPhase() && this.mob.getHealth() > this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
+        public void stop() {
+            super.stop();
+            this.mob.setAggressive(false);
+            this.seeTime = 0;
+            this.attackTime = -1;
+            this.mob.stopUsingItem();
         }
 
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !this.mob.isCasting();
+        public boolean requiresUpdateEveryTick() {
+            return true;
         }
 
-        protected boolean HaveBow() {
-            return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
-        }
-    }
+        public void tick() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity != null) {
+                double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                boolean flag = this.mob.getSensing().hasLineOfSight(livingentity);
+                boolean flag1 = this.seeTime > 0;
+                if (flag != flag1) {
+                    this.seeTime = 0;
+                }
 
-    static class FastestBowAttackGoal<T extends Apostle & RangedAttackMob> extends RangedBowAttackGoal<T> {
-        private final T mob;
+                if (flag) {
+                    ++this.seeTime;
+                } else {
+                    --this.seeTime;
+                }
 
-        public FastestBowAttackGoal(T p_i47515_1_) {
-            super(p_i47515_1_, 1.0D, 5, 30.0F);
-            this.mob = p_i47515_1_;
-        }
+                if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 20) {
+                    this.mob.getNavigation().stop();
+                    ++this.strafingTime;
+                } else {
+                    this.mob.getNavigation().moveTo(livingentity, 1.0F);
+                    this.strafingTime = -1;
+                }
 
-        @Override
-        public boolean canUse() {
-            return this.mob.isSecondPhase() && this.mob.getHealth() <= this.mob.getMaxHealth()/4 && this.mob.getTarget() != null && this.HaveBow() && !this.mob.isSettingUpSecond();
-        }
+                if (this.strafingTime >= 20) {
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
+                        this.strafingClockwise = !this.strafingClockwise;
+                    }
 
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !this.mob.isCasting();
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
+                        this.strafingBackwards = !this.strafingBackwards;
+                    }
+
+                    this.strafingTime = 0;
+                }
+
+                if (this.strafingTime > -1) {
+                    if (d0 > (double)(this.attackRadiusSqr * 0.75F)) {
+                        this.strafingBackwards = false;
+                    } else if (d0 < (double)(this.attackRadiusSqr * 0.25F)) {
+                        this.strafingBackwards = true;
+                    }
+
+                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
+                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
+                } else {
+                    this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
+                }
+
+                if (this.mob.isUsingItem()) {
+                    if (!flag && this.seeTime < -60) {
+                        this.mob.stopUsingItem();
+                    } else if (flag) {
+                        int i = this.mob.getTicksUsingItem();
+                        if (i >= 20) {
+                            this.mob.stopUsingItem();
+                            this.mob.performRangedAttack(livingentity, BowItem.getPowerForTime(i));
+                            Difficulty difficulty = this.mob.level.getDifficulty();
+                            int attackIntervalMin = difficulty != Difficulty.HARD ? 10 : 5;
+                            if (this.mob.isSecondPhase() || this.mob.level.dimension() == Level.NETHER) {
+                                attackIntervalMin = 0;
+                            }
+                            this.attackTime = attackIntervalMin;
+                        }
+                    }
+                } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
+                    this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, item -> item instanceof BowItem));
+                }
+
+            }
         }
 
         protected boolean HaveBow() {

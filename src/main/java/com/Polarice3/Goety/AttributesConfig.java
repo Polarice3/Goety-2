@@ -35,6 +35,7 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> WraithHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WraithDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> NecromancerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HauntedArmorHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantHealth;
@@ -124,6 +125,8 @@ public class AttributesConfig {
                 BUILDER.push("Necromancer");
                 NecromancerHealth = BUILDER.comment("How much Max Health Necromancers have, Default: 50.0")
                         .defineInRange("necromancerHealth", 50.0, 1.0, Double.MAX_VALUE);
+                NecromancerDamage = BUILDER.comment("How much damage Necromancers deals, Default: 4.0")
+                        .defineInRange("necromancerDamage", 4.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Haunted Armor");
                 HauntedArmorHealth = BUILDER.comment("How much Max Health Haunted Armor have, Default: 25.0")

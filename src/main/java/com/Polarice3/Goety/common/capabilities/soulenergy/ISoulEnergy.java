@@ -21,6 +21,8 @@ public interface ISoulEnergy {
     void setSoulEnergy(int soulEnergy);
     boolean increaseSE(int increase);
     boolean decreaseSE(int decrease);
+    boolean apostleWarned();
+    void setApostleWarned(boolean apostleWarned);
     int getRestPeriod();
     void setRestPeriod(int restPeriod);
     boolean increaseRestPeriod(int increase);

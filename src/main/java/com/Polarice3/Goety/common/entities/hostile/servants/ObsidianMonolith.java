@@ -19,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -35,6 +36,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ObsidianMonolith extends AbstractMonolith {
 
@@ -166,6 +169,10 @@ public class ObsidianMonolith extends AbstractMonolith {
         return null;
     }
 
+    public boolean canSpawn(Level level){
+        return true;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isEmerging()){
@@ -194,7 +201,8 @@ public class ObsidianMonolith extends AbstractMonolith {
                     this.teleportTowards(apostle);
                 }
                 int i = this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(64.0D), apostle.ZOMBIE_MINIONS).size();
-                int j = this.getCrackiness() == Crackiness.NONE ? 6 : this.getCrackiness() == Crackiness.LOW ? 4 : this.getCrackiness() == Crackiness.MEDIUM ? 2 : 1;
+                Integer[] difficulty = this.difficultyIntegerMap().get(this.level.getDifficulty());
+                int j = this.getCrackiness() == Crackiness.NONE ? difficulty[0] : this.getCrackiness() == Crackiness.LOW ? difficulty[1] : this.getCrackiness() == Crackiness.MEDIUM ? difficulty[2] : 1;
                 if (this.tickCount % 100 == 0 && i < j && this.level.random.nextFloat() <= 0.25F && !apostle.isSettingUpSecond()) {
                     if (!this.level.isClientSide) {
                         ServerLevel ServerLevel = (ServerLevel) this.level;
@@ -249,6 +257,15 @@ public class ObsidianMonolith extends AbstractMonolith {
                 }
             }
         }
+    }
+
+    public Map<Difficulty, Integer[]> difficultyIntegerMap(){
+        Map<Difficulty, Integer[]> difficultyIntegerMap = new HashMap<>();
+        difficultyIntegerMap.put(Difficulty.PEACEFUL, new Integer[]{0, 0, 0});
+        difficultyIntegerMap.put(Difficulty.EASY, new Integer[]{6, 4, 2});
+        difficultyIntegerMap.put(Difficulty.NORMAL, new Integer[]{8, 6, 4});
+        difficultyIntegerMap.put(Difficulty.HARD, new Integer[]{12, 10, 8});
+        return difficultyIntegerMap;
     }
 
     private void teleportTowards(Entity entity) {

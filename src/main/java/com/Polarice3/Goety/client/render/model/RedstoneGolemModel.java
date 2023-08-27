@@ -34,10 +34,10 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 		this.body = this.golem.getChild("body");
 		this.chest = this.body.getChild("chest");
 		this.pelvis = this.body.getChild("pelvis");
-		this.core = this.body.getChild("core");
-		this.head = this.body.getChild("head");
-		this.rightArm = this.body.getChild("right_arm");
-		this.leftArm = this.body.getChild("left_arm");
+		this.core = this.chest.getChild("core");
+		this.head = this.chest.getChild("head");
+		this.rightArm = this.chest.getChild("right_arm");
+		this.leftArm = this.chest.getChild("left_arm");
 		this.lowerRight = this.rightArm.getChild("lower_right");
 		this.lowerLeft = this.leftArm.getChild("lower_left");
 		this.rightLeg = this.golem.getChild("right_leg");
@@ -55,27 +55,35 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 
 		PartDefinition chest = body.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(0, 0).addBox(-20.0F, -41.0F, -10.0F, 40.0F, 32.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition pelvis = body.addOrReplaceChild("pelvis", CubeListBuilder.create().texOffs(120, 36).addBox(-11.0F, -9.0F, -7.0F, 22.0F, 8.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-		PartDefinition core = body.addOrReplaceChild("core", CubeListBuilder.create().texOffs(49, 90).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 16.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -21.0F, 6.0F));
-
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(124, 8).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 16.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -33.0F, -10.0F));
-
-		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 52).addBox(-14.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-20.0F, -31.0F, 0.0F));
+		PartDefinition right_arm = chest.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 52).addBox(-14.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-20.0F, -31.0F, 0.0F));
 
 		PartDefinition lower_right = right_arm.addOrReplaceChild("lower_right", CubeListBuilder.create().texOffs(3, 88).addBox(-5.25F, -0.25F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-10.75F, 16.25F, -0.75F));
 
-		PartDefinition right_hand = lower_right.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(97, 55).addBox(-4.0F, -3.0F, 2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F))
-				.texOffs(97, 55).addBox(-4.0F, -3.0F, -3.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F))
-				.texOffs(81, 57).addBox(1.0F, -2.0F, -3.5F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.75F, 21.75F, -1.25F));
+		PartDefinition right_hand = lower_right.addOrReplaceChild("right_hand", CubeListBuilder.create(), PartPose.offset(0.75F, 21.75F, -1.25F));
 
-		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 52).mirror().addBox(0.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(20.0F, -31.0F, 0.0F));
+		PartDefinition front_finger_R = right_hand.addOrReplaceChild("front_finger_R", CubeListBuilder.create().texOffs(97, 55).addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.5F, 0.0F, -1.0F));
+
+		PartDefinition back_finger_R = right_hand.addOrReplaceChild("back_finger_R", CubeListBuilder.create().texOffs(97, 55).addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.5F, 0.0F, 5.0F));
+
+		PartDefinition thumb_R = right_hand.addOrReplaceChild("thumb_R", CubeListBuilder.create().texOffs(81, 57).addBox(-1.5F, -2.0F, -2.5F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, 0.0F, -1.0F));
+
+		PartDefinition left_arm = chest.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 52).mirror().addBox(0.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(20.0F, -31.0F, 0.0F));
 
 		PartDefinition lower_left = left_arm.addOrReplaceChild("lower_left", CubeListBuilder.create().texOffs(3, 88).mirror().addBox(-6.5F, -0.25F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(11.5F, 16.25F, -0.75F));
 
-		PartDefinition left_hand = lower_left.addOrReplaceChild("left_hand", CubeListBuilder.create().texOffs(97, 55).mirror().addBox(2.0F, -3.0F, 1.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(97, 55).mirror().addBox(2.0F, -3.0F, -4.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(81, 57).mirror().addBox(-3.0F, -2.0F, -4.5F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-1.5F, 21.75F, -0.25F));
+		PartDefinition left_hand = lower_left.addOrReplaceChild("left_hand", CubeListBuilder.create(), PartPose.offset(-1.5F, 21.75F, -0.25F));
+
+		PartDefinition front_finger_L = left_hand.addOrReplaceChild("front_finger_L", CubeListBuilder.create().texOffs(97, 55).mirror().addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.5F, 0.0F, -2.0F));
+
+		PartDefinition back_finger_L = left_hand.addOrReplaceChild("back_finger_L", CubeListBuilder.create().texOffs(97, 55).mirror().addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.5F, 0.0F, 4.0F));
+
+		PartDefinition thumb_L = left_hand.addOrReplaceChild("thumb_L", CubeListBuilder.create().texOffs(81, 57).mirror().addBox(-1.5F, -2.0F, -2.5F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-1.5F, 0.0F, -2.0F));
+
+		PartDefinition core = chest.addOrReplaceChild("core", CubeListBuilder.create().texOffs(49, 90).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 16.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -21.0F, 6.0F));
+
+		PartDefinition head = chest.addOrReplaceChild("head", CubeListBuilder.create().texOffs(124, 8).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 16.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -33.0F, -10.0F));
+
+		PartDefinition pelvis = body.addOrReplaceChild("pelvis", CubeListBuilder.create().texOffs(120, 36).addBox(-11.0F, -9.0F, -7.0F, 22.0F, 8.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition right_leg = golem.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(113, 58).addBox(-6.0F, 0.0F, -6.0F, 12.0F, 20.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-14.0F, -20.0F, 2.0F));
 
@@ -95,7 +103,7 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 		this.animate(entity.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 		this.animate(entity.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-		this.animate(entity.walkAnimationState, RedstoneGolemAnimations.WALK, ageInTicks, groundSpeed * 10);
+		this.animate(entity.walkAnimationState, RedstoneGolemAnimations.WALK, ageInTicks, groundSpeed * 20);
 		this.animate(entity.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 		this.animate(entity.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 		this.animate(entity.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);

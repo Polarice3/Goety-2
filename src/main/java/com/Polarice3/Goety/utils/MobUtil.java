@@ -244,6 +244,21 @@ public class MobUtil {
         knocked.hasImpulse = true;
     }
 
+    public static void forcefulKnockBack(LivingEntity knocked, double strength, double ratioX, double ratioZ, double reduction) {
+        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(knocked, (float) strength, ratioX, ratioZ);
+        if(event.isCanceled()) return;
+        strength = event.getStrength();
+        ratioX = event.getRatioX();
+        ratioZ = event.getRatioZ();
+        strength *= 1.0D - (knocked.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) * reduction);
+        if (!(strength <= 0.0D)) {
+            knocked.hasImpulse = true;
+            Vec3 vec3 = knocked.getDeltaMovement();
+            Vec3 vec31 = (new Vec3(ratioX, 0.0D, ratioZ)).normalize().scale(strength);
+            knocked.setDeltaMovement(vec3.x / 2.0D - vec31.x, knocked.isOnGround() ? Math.min(0.4D, vec3.y / 2.0D + strength) : vec3.y, vec3.z / 2.0D - vec31.z);
+        }
+    }
+
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
         if (pEntity instanceof Player player) {
             if (MobUtil.playerValidity(player, false)) {
@@ -253,7 +268,12 @@ public class MobUtil {
                 }
             }
         }
-        pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pX, pY, pZ));
+        double resist = 0.0D;
+        if (pEntity instanceof LivingEntity living) {
+            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        }
+        double resist1 = Math.max(0.0D, 1.0D - resist);
+        pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pX, pY, pZ).scale(resist1));
         pEntity.hasImpulse = true;
     }
 

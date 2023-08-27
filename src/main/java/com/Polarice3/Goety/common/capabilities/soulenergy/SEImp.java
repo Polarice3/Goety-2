@@ -13,6 +13,7 @@ public class SEImp implements ISoulEnergy{
     private boolean seActive;
     private int soulEnergy = 0;
     private int restPeriod = 0;
+    private boolean apostleWarned = false;
     private ResourceKey<Level> dimension = Level.OVERWORLD;
     private BlockPos ArcaBlock = new BlockPos(0, 0, 0);
     private Set<UUID> grudgeList = new HashSet<>();
@@ -76,6 +77,16 @@ public class SEImp implements ISoulEnergy{
         }
         this.soulEnergy = Math.max(this.soulEnergy - decrease, 0);
         return true;
+    }
+
+    @Override
+    public boolean apostleWarned() {
+        return this.apostleWarned;
+    }
+
+    @Override
+    public void setApostleWarned(boolean apostleWarned) {
+        this.apostleWarned = apostleWarned;
     }
 
     @Override

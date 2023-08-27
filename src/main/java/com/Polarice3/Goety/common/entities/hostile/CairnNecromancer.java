@@ -6,13 +6,11 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.entities.projectiles.FrostSpellCloud;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,7 +21,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -53,7 +50,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
     }
 
     public void projectileGoal(int priority) {
-        this.goalSelector.addGoal(priority, new CairnAttackGoal(this));
+        this.goalSelector.addGoal(priority, new NecromancerRangedGoal(this, 1.0D, 40, 10.0F));
     }
 
     public void summonSpells(int priority){
@@ -76,20 +73,6 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         if (this.level.addFreshEntity(iceSpike)){
             this.playSound(ModSounds.CAST_SPELL.get());
             this.swing(InteractionHand.MAIN_HAND);
-        }
-    }
-
-    public static class CairnAttackGoal extends RangedAttackGoal {
-        public CairnNecromancer necromancer;
-
-        public CairnAttackGoal(CairnNecromancer p_25768_) {
-            super(p_25768_, 1.0D, 40, 10.0F);
-            this.necromancer = p_25768_;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && necromancer.getTarget() != null;
         }
     }
 
@@ -167,43 +150,4 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         }
     }
 
-    public class SummonCloudSpell extends UseSpellGoal {
-
-        public boolean canUse() {
-            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
-            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
-                    , predicate).size();
-            return super.canUse() && i >= 2;
-        }
-
-        protected void castSpell(){
-            if (CairnNecromancer.this.level instanceof ServerLevel serverLevel) {
-                FrostSpellCloud frostSpellCloud = new FrostSpellCloud(serverLevel, CairnNecromancer.this, CairnNecromancer.this.getTarget());
-                frostSpellCloud.setLifeSpan(MathHelper.secondsToTicks(6));
-                frostSpellCloud.setRadius(1.5F);
-                serverLevel.addFreshEntity(frostSpellCloud);
-            }
-        }
-
-        @Override
-        protected int getCastingTime() {
-            return 20;
-        }
-
-        @Nullable
-        @Override
-        protected SoundEvent getSpellPrepareSound() {
-            return ModSounds.PREPARE_SPELL.get();
-        }
-
-        @Override
-        protected SoundEvent getCastSound() {
-            return ModSounds.CAST_SPELL.get();
-        }
-
-        @Override
-        protected SpellType getSpellType() {
-            return SpellType.CLOUD;
-        }
-    }
 }
