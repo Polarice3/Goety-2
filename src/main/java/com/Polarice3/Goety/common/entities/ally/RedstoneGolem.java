@@ -283,6 +283,12 @@ public class RedstoneGolem extends Summoned {
         }
     }
 
+    public void stopAnimations(){
+        for (AnimationState animationState : this.getAnimations()){
+            animationState.stop();
+        }
+    }
+
     public void tick() {
         super.tick();
         if (this.isDeadOrDying()){
@@ -317,6 +323,7 @@ public class RedstoneGolem extends Summoned {
                         } else if (!this.isAggressive() && this.idleTime > 100) {
                             if (!this.noveltyAnimationState.isStarted()) {
                                 this.idleTime = 0;
+                                this.stopAnimations();
                                 this.noveltyAnimationState.start(this.tickCount);
                                 this.gameEvent(GameEvent.ENTITY_ROAR, this);
                                 this.playSound(ModSounds.REDSTONE_GOLEM_NOVELTY.get());
@@ -398,6 +405,7 @@ public class RedstoneGolem extends Summoned {
 
     public void handleEntityEvent(byte pId) {
         if (pId == 4){
+            this.stopAnimations();
             this.summonAnimationState.start(this.tickCount);
             this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get());
             this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) + 5);
@@ -405,13 +413,16 @@ public class RedstoneGolem extends Summoned {
         } else if (pId == 5){
             this.attackTick = 0;
         } else if (pId == 6){
+            this.stopAnimations();
             this.attackAnimationState.start(this.tickCount);
             this.playSound(ModSounds.REDSTONE_GOLEM_ATTACK.get());
         } else if (pId == 7){
+            this.stopAnimations();
             this.deathAnimationState.start(this.tickCount);
             this.deathRotation = this.getYRot();
             this.playSound(ModSounds.REDSTONE_GOLEM_DEATH.get(), 1.0F, 1.0F);
         } else if (pId == 8){
+            this.stopAnimations();
             this.activateAnimationState.start(this.tickCount);
         } else {
             super.handleEntityEvent(pId);
@@ -569,7 +580,6 @@ public class RedstoneGolem extends Summoned {
                 if (RedstoneGolem.this.targetClose(livingentity, d0)){
                     if (RedstoneGolem.this.attackTick == 1) {
                         RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_ATTACK.get());
-                        RedstoneGolem.this.attackAnimationState.start(RedstoneGolem.this.tickCount);
                         RedstoneGolem.this.level.broadcastEntityEvent(RedstoneGolem.this, (byte) 6);
                     }
                     if (RedstoneGolem.this.attackTick == 3) {

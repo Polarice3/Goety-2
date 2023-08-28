@@ -91,7 +91,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
     }
 
     protected float getInertia() {
-        return 0.82F + Math.max(this.boltSpeed, 0.18F);
+        return 0.82F + Math.min(this.boltSpeed, 0.18F);
     }
 
     public boolean isOnFire() {

@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -80,6 +81,7 @@ public class CallFocus extends MagicFocus{
                 BlockPos blockPos = BlockFinder.SummonRadius(player, player.level);
                 if (livingEntity.level.dimension() == player.level.dimension()) {
                     livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                    MobUtil.moveDownToGround(livingEntity);
                     ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                     ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                     return true;
@@ -89,6 +91,7 @@ public class CallFocus extends MagicFocus{
                         Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
                         livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                        MobUtil.moveDownToGround(livingEntity);
                         ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                         return true;
                     }
