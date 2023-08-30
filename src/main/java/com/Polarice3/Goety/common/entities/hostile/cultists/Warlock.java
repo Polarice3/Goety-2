@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.*;
@@ -23,13 +24,17 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableWitchTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestHealableRaiderTargetGoal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.entity.animal.horse.Mule;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
@@ -104,6 +109,27 @@ public class Warlock extends Cultist implements RangedAttackMob {
             }
         }
         super.remove(p_146834_);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_37856_, DifficultyInstance p_37857_, MobSpawnType p_37858_, @Nullable SpawnGroupData p_37859_, @Nullable CompoundTag p_37860_) {
+        if (p_37858_ == MobSpawnType.EVENT) {
+            if (p_37856_.getLevel().random.nextFloat() <= 0.25F) {
+                AbstractHorse donkey = new Donkey(EntityType.DONKEY, p_37856_.getLevel());
+                if (p_37856_.getLevel().random.nextFloat() <= 0.25F) {
+                    donkey = new Mule(EntityType.MULE, p_37856_.getLevel());
+                }
+                donkey.finalizeSpawn(p_37856_, p_37856_.getLevel().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.EVENT, null, null);
+                donkey.setAge(0);
+                donkey.setTamed(true);
+                donkey.setOwnerUUID(this.getUUID());
+                donkey.setPos(this.position());
+                p_37856_.getLevel().addFreshEntity(donkey);
+                this.startRiding(donkey);
+            }
+        }
+        return super.finalizeSpawn(p_37856_, p_37857_, p_37858_, p_37859_, p_37860_);
     }
 
     @Override

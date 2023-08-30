@@ -27,7 +27,7 @@ public class BeesBrewEffect extends BrewEffect {
     }
 
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
-        if (!(pTarget instanceof Bee) && pTarget != pIndirectSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(pTarget)) {
+        if (!(pTarget instanceof Bee) && pTarget != null && pTarget != pIndirectSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(pTarget)) {
             for (int i = 0; i < 3 + pAmplifier; ++i) {
                 Bee bee = new Bee(EntityType.BEE, pTarget.level);
                 bee.moveTo(BlockFinder.SummonRadius(pTarget, pTarget.level), 0.0F, 0.0F);

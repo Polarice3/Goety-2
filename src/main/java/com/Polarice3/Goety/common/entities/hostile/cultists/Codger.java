@@ -135,7 +135,7 @@ public class Codger extends Cultist implements RangedAttackMob {
 
     protected void customServerAiStep() {
         super.customServerAiStep();
-        this.bossInfo.setVisible(this.getTarget() != null);
+        this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 

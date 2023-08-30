@@ -145,7 +145,7 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     protected void customServerAiStep() {
         super.customServerAiStep();
-        this.bossInfo.setVisible(this.getTarget() != null);
+        this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
@@ -288,13 +288,13 @@ public class Crone extends Cultist implements RangedAttackMob {
                         }
                     } else if (this.random.nextFloat() < 0.05F && !this.hasEffect(MobEffects.DAMAGE_RESISTANCE)){
                         mobEffectInstance.add(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1800));
-                    } else if (this.random.nextFloat() < 0.05F) {
+                    } else if (this.random.nextFloat() < 0.05F && !this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !this.hasEffect(GoetyEffects.FIERY_AURA.get())) {
                         if (this.random.nextBoolean()) {
-                            if (!this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !this.getTarget().hasEffect(GoetyEffects.FREEZING.get()) && !this.getTarget().hasEffect(MobEffects.FIRE_RESISTANCE) && !this.getTarget().fireImmune()) {
+                            if (!this.getTarget().hasEffect(GoetyEffects.FREEZING.get()) && !this.getTarget().hasEffect(MobEffects.FIRE_RESISTANCE) && !this.getTarget().fireImmune()) {
                                 mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FIERY_AURA.get(), 1800 / (amp + 1), amp));
                             }
                         } else {
-                            if (!this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !this.getTarget().isOnFire() && this.getTarget().canFreeze()){
+                            if (!this.getTarget().isOnFire() && this.getTarget().canFreeze()){
                                 mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FROSTY_AURA.get(), 1800 / (amp + 1), amp));
                             }
                         }

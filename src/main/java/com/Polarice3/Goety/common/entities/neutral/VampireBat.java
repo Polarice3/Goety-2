@@ -129,7 +129,9 @@ public class VampireBat extends Bat implements IOwned{
     }
 
     public void setTarget(LivingEntity livingEntity){
-        this.setTargetId(livingEntity.getUUID());
+        if (livingEntity != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
+            this.setTargetId(livingEntity.getUUID());
+        }
     }
 
     protected void doPush(Entity entity) {
@@ -155,7 +157,7 @@ public class VampireBat extends Bat implements IOwned{
     @Override
     public boolean hurt(DamageSource p_27424_, float p_27425_) {
         if (p_27424_.getEntity() instanceof LivingEntity living){
-            if (this.getTarget() == null && living != this.getTrueOwner()){
+            if (this.getTarget() == null && living != this.getTrueOwner() && !(living instanceof Bat)){
                 this.setTarget(living);
                 this.callBats(living);
             }
@@ -165,7 +167,7 @@ public class VampireBat extends Bat implements IOwned{
 
     public void callBats(LivingEntity livingEntity){
         for (VampireBat vampireBat : this.level.getEntitiesOfClass(VampireBat.class, this.getBoundingBox().inflate(10.0D))){
-            if (vampireBat.getTarget() == null && livingEntity != this.getTrueOwner()){
+            if (vampireBat.getTarget() == null && livingEntity != this.getTrueOwner() && !(livingEntity instanceof Bat)){
                 vampireBat.setTarget(livingEntity);
             }
         }
@@ -185,16 +187,19 @@ public class VampireBat extends Bat implements IOwned{
             }
         }
 
-        double d2 = (double) this.targetPosition.getX() + 0.5D - this.getX();
-        double d0 = (double) this.targetPosition.getY() + 0.1D - this.getY();
-        double d1 = (double) this.targetPosition.getZ() + 0.5D - this.getZ();
-        Vec3 vec3 = this.getDeltaMovement();
-        Vec3 vec31 = vec3.add((Math.signum(d2) * 0.5D - vec3.x) * (double) 0.1F, (Math.signum(d0) * (double) 0.7F - vec3.y) * (double) 0.1F, (Math.signum(d1) * 0.5D - vec3.z) * (double) 0.1F);
-        this.setDeltaMovement(vec31);
-        float f = (float) (Mth.atan2(vec31.z, vec31.x) * (double) (180F / (float) Math.PI)) - 90.0F;
-        float f1 = Mth.wrapDegrees(f - this.getYRot());
-        this.zza = 0.5F;
-        this.setYRot(this.getYRot() + f1);
+        BlockPos blockPos = this.targetPosition;
+        if (blockPos != null) {
+            double d0 = (double) blockPos.getX() + 0.5D - this.getX();
+            double d1 = (double) blockPos.getY() + 0.1D - this.getY();
+            double d2 = (double) blockPos.getZ() + 0.5D - this.getZ();
+            Vec3 vec3 = this.getDeltaMovement();
+            Vec3 vec31 = vec3.add((Math.signum(d0) * 0.5D - vec3.x) * (double) 0.1F, (Math.signum(d1) * (double) 0.7F - vec3.y) * (double) 0.1F, (Math.signum(d2) * 0.5D - vec3.z) * (double) 0.1F);
+            this.setDeltaMovement(vec31);
+            float f = (float) (Mth.atan2(vec31.z, vec31.x) * (double) (180F / (float) Math.PI)) - 90.0F;
+            float f1 = Mth.wrapDegrees(f - this.getYRot());
+            this.zza = 0.5F;
+            this.setYRot(this.getYRot() + f1);
+        }
     }
 
 }

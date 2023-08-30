@@ -72,8 +72,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Donkey;
-import net.minecraft.world.entity.animal.horse.Mule;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.Piglin;
@@ -177,30 +175,6 @@ public class ModEvents {
                 if (raider.hasActiveRaid()) {
                     Raid raid = raider.getCurrentRaid();
                     if (raid != null && raid.isActive() && !raid.isBetweenWaves() && !raid.isOver() && !raid.isStopped()) {
-                        int h = raid.getGroupsSpawned() + 1;
-                        boolean flag1 = MobUtil.shouldSpawnBonusGroup(raid);
-                        int warlockNum = raid.getGroupsSpawned() == 4 ? 1 : raid.getGroupsSpawned() == 5 ? 2 : raid.getGroupsSpawned() == 7 ? 1 : 0;
-                        if (entity == raid.getLeader(raider.getWave())){
-                            for (int i = 0; i < warlockNum + MobUtil.getPotentialBonusSpawns(Raid.RaiderType.WITCH, serverLevel.random, h, serverLevel.getCurrentDifficultyAt(raid.getCenter()), flag1); ++i){
-                                Warlock warlock = new Warlock(ModEntityType.WARLOCK.get(), serverLevel);
-                                warlock.setPos(entity.position());
-                                warlock.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                if (serverLevel.random.nextFloat() <= 0.25F){
-                                    AbstractHorse donkey = new Donkey(EntityType.DONKEY, serverLevel);
-                                    if (serverLevel.random.nextFloat() <= 0.25F){
-                                        donkey = new Mule(EntityType.MULE, serverLevel);
-                                    }
-                                    donkey.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                    donkey.setAge(0);
-                                    donkey.setTamed(true);
-                                    donkey.setOwnerUUID(warlock.getUUID());
-                                    donkey.setPos(warlock.position());
-                                    serverLevel.addFreshEntity(donkey);
-                                    warlock.startRiding(donkey);
-                                }
-                                serverLevel.addFreshEntity(warlock);
-                            }
-                        }
                         Player player = EntityFinder.getNearbyPlayer(world, raid.getCenter());
                         if (player != null) {
                             if (MainConfig.IllagerRaid.get()) {

@@ -737,17 +737,15 @@ public class SkullLord extends Monster implements ICustomAttributes{
 
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if (MainConfig.SpecialBossBar.get()) {
-            this.bossInfo.setVisible(this.getTarget() != null);
-        } else {
-            this.bossInfo.setVisible(false);
-        }
+        this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void startSeenByPlayer(ServerPlayer pPlayer) {
         super.startSeenByPlayer(pPlayer);
-        this.bossInfo.addPlayer(pPlayer);
+        if (MainConfig.SpecialBossBar.get()) {
+            this.bossInfo.addPlayer(pPlayer);
+        }
     }
 
     public void stopSeenByPlayer(ServerPlayer pPlayer) {
