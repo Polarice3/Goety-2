@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
@@ -232,6 +233,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));*/
+
+    public static final RegistryObject<EntityType<HauntedArmorStand>> HAUNTED_ARMOR_STAND = register("haunted_armor_stand",
+            EntityType.Builder.<HauntedArmorStand>of(HauntedArmorStand::new, MobCategory.MISC)
+                    .sized(0.5F, 1.975F)
+                    .fireImmune()
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Apostle>> APOSTLE = register("apostle",
             EntityType.Builder.of(Apostle::new, MobCategory.MONSTER)

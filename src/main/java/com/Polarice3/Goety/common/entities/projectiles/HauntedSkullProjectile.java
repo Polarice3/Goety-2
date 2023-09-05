@@ -8,10 +8,7 @@ import com.Polarice3.Goety.common.entities.hostile.BoneLord;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ExplosionUtil;
-import com.Polarice3.Goety.utils.LootingExplosion;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -178,14 +175,16 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() instanceof Owned owner){
-            if (pEntity instanceof Owned entity){
-                if (owner.getTrueOwner() == entity.getTrueOwner()){
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
                     return false;
                 }
-            }
-            if (owner.getTrueOwner() == pEntity){
-                return false;
+                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
             }
         }
         if (this.upgraded){

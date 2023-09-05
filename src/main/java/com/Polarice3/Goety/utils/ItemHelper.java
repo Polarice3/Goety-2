@@ -121,6 +121,17 @@ public class ItemHelper {
         return false;
     }
 
+    public static boolean isFullArmored(LivingEntity living){
+        if (living.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem) {
+            if (living.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem) {
+                if (living.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem){
+                    return living.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem;
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean noArmor(LivingEntity living){
         return living.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && living.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && living.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && living.getItemBySlot(EquipmentSlot.FEET).isEmpty();
     }

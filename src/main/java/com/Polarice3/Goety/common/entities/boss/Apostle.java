@@ -122,6 +122,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     public int antiRegen;
     public int antiRegenTotal;
     public int deathTime = 0;
+    public int moddedInvul = 0;
     public DamageSource deathBlow = DamageSource.GENERIC;
 
     public Apostle(EntityType<? extends SpellCastingCultist> type, Level worldIn) {
@@ -236,6 +237,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         pCompound.putInt("antiRegen", this.antiRegen);
         pCompound.putInt("antiRegenTotal", this.antiRegenTotal);
         pCompound.putInt("titleNumber", this.titleNumber);
+        pCompound.putInt("moddedInvul", this.moddedInvul);
         pCompound.putBoolean("fireArrows", this.fireArrows);
         pCompound.putBoolean("secondPhase", this.isSecondPhase());
         pCompound.putBoolean("settingSecondPhase", this.isSettingUpSecond());
@@ -254,6 +256,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.antiRegen = pCompound.getInt("antiRegen");
         this.antiRegenTotal = pCompound.getInt("antiRegenTotal");
         this.titleNumber = pCompound.getInt("titleNumber");
+        this.moddedInvul = pCompound.getInt("moddedInvul");
         this.fireArrows = pCompound.getBoolean("fireArrows");
         this.regen = pCompound.getBoolean("regen");
         this.setHat(pCompound.getBoolean("hat"));
@@ -692,6 +695,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
+        if (this.moddedInvul > 0){
+            return false;
+        }
+
         float trueAmount = this.level.dimension() == Level.NETHER ? pAmount / 2 : pAmount;
 
         if (pSource == DamageSource.OUT_OF_WORLD){
@@ -714,6 +721,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         return super.hurt(pSource, Math.min(trueAmount, (float) AttributesConfig.ApostleDamageCap.get()));
+    }
+
+    protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {
+//        this.moddedInvul = 20;
+        super.actuallyHurt(p_21240_, p_21241_);
     }
 
     @Override
@@ -809,6 +821,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         super.aiStep();
         if (this.level.getDifficulty() == Difficulty.PEACEFUL){
             this.remove(RemovalReason.DISCARDED);
+        }
+        if (this.moddedInvul > 0){
+            --this.moddedInvul;
         }
         if (this.level.isClientSide){
             if (this.isAlive()) {

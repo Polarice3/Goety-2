@@ -1,0 +1,23 @@
+{
+  "name": "Haunted Armor Stand",
+  "icon": "goety:haunted_armor_stand",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Haunted Armor Stands are somewhat different than regular Armor Stands as unlike the latter, the stand comes with arms to put weapons or items for it to hold. Due to being made of Haunted Planks, the stand is immune to fire."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted_armor_stand"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:animation_core",
+      "title": "Haunted Armor",
+      "text": "What truly makes the stand special, is that if the stand is fully clad in armor, right-clicking an Animation Core on it will transform the stand into a loyal Haunted Armor."
+    }
+  ]
+}

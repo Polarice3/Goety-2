@@ -6,10 +6,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
@@ -22,6 +19,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -101,13 +99,22 @@ public class IceSpike extends AbstractArrow {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
-            return false;
-        } else if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
-            return false;
-        } else {
-            return super.canHitEntity(pEntity);
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                    return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
         }
+        return super.canHitEntity(pEntity);
     }
 
     protected float getWaterInertia() {

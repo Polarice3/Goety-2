@@ -358,7 +358,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         ItemStack itemStack = handler.getStackInSlot(0);
         if (itemStack != ItemStack.EMPTY){
             Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(),
-                    handler.extractItem(0, 1, false));
+                    handler.extractItem(0, itemStack.getCount(), false));
         }
         this.currentRitualRecipe = null;
         this.castingPlayerId = null;

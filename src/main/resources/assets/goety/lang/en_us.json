@@ -141,6 +141,8 @@
   "entity.goety.boat":"Boat",
   "entity.goety.chest_boat":"Boat with Chest",
 
+  "entity.goety.haunted_armor_stand":"Haunted Armor Stand",
+
   "entity.goety.fire_blast_trap":"Fire Blast Trap",
   "entity.goety.lightning_trap":"Lightning Trap",
   "entity.goety.fire_rain_trap":"Fire Rain Trap",
@@ -249,7 +251,7 @@
   "item.goety.ravaging_scroll": "Ravaging Scroll",
   "item.goety.warred_scroll": "Warred Scroll",
   "item.goety.buried_scroll": "Buried Scroll",
-  "item.goety.replication_scroll": "Replication Scroll",
+  "item.goety.haunting_scroll": "Haunting Scroll",
 
   "item.goety.forbidden_piece": "Forbidden Piece",
   "item.goety.forbidden_fragment": "Forbidden Fragment",
@@ -280,6 +282,11 @@
 
   "item.goety.haunted_boat": "Haunted Boat",
   "item.goety.haunted_chest_boat": "Haunted Chest Boat",
+
+  "item.goety.rotten_boat": "Rotten Boat",
+  "item.goety.rotten_chest_boat": "Rotten Chest Boat",
+
+  "item.goety.haunted_armor_stand":"Haunted Armor Stand",
 
   "item.goety.cursed_knight_helmet": "Cursed Knight Helmet",
   "item.goety.cursed_knight_chestplate": "Cursed Knight Chestplate",
@@ -687,11 +694,13 @@
   "info.goety.items.ravaging": "An Evoker's ritual cheatsheet.",
   "info.goety.items.warred": "The template for ancient war machines.",
   "info.goety.items.buried": "Some sort of ancient manuscript of a nameless kingdom...",
+  "info.goety.items.haunting": "Incantations for possessed warriors.",
   "info.goety.items.forbidden_scroll": "The Secrets to Immortality...",
 
   "info.goety.research.ravaging": "You have learned the method of creating Ravagers!",
   "info.goety.research.warred": "You have learned the method of making Redstone Golems!",
   "info.goety.research.buried": "You have learned the nameless paths of Necromancy!",
+  "info.goety.research.haunting": "You have learned the method of possessing Armors!",
   "info.goety.research.lich": "You have learned the secret to Immortality!",
 
   "info.goety.hunger_pendent.amount": "§2Rotten Flesh:§2 %d",
@@ -1004,6 +1013,8 @@
   "advancements.goety.ravaging_scroll.description": "Read the Ravaging Scroll and discover the way of Ravaging.",
   "advancements.goety.warred_scroll.title": "Some Mumbo Jumbo",
   "advancements.goety.warred_scroll.description": "Read the Warred Scroll and discover the way of war.",
+  "advancements.goety.haunting_scroll.title": "All Is Dust",
+  "advancements.goety.haunting_scroll.description": "Read the Haunting Scroll and discover the way of haunting.",
   "advancements.goety.unlock_necromancer.title": "Simple Sight",
   "advancements.goety.unlock_necromancer.description": "Discover the secrets of making Necromancers.",
   "advancements.goety.forbidden_scroll.title": "Grandma's Secret Recipe",

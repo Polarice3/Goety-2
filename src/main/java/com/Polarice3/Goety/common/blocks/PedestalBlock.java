@@ -57,7 +57,7 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
                 if (!player.isShiftKeyDown() && !player.isCrouching()) {
                     ItemStack itemStack = handler.getStackInSlot(0);
                     if (itemStack.isEmpty()) {
-                        player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
+                        handler.insertItem(0, heldItem.split(1), false);
                         world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
                     } else {
                         if (heldItem.isEmpty()) {

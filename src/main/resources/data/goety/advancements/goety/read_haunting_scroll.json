@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:haunting_scroll"
+    },
+    "title": {
+      "translate": "advancements.goety.haunting_scroll.title"
+    },
+    "description": {
+      "translate": "advancements.goety.haunting_scroll.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "haunting_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:haunting_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    ["haunting_scroll"]
+  ]
+}

@@ -30,7 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShieldItem;
@@ -60,7 +60,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GuardingGoal(this, 0.75D, 20));
         this.goalSelector.addGoal(2, new AttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
     }
 
     @Override
@@ -179,6 +179,14 @@ public abstract class AbstractHauntedArmor extends Summoned {
     @Override
     protected SoundEvent getHurtSound(DamageSource p_21239_) {
         if (!this.isDamageSourceBlocked(p_21239_)) {
+            if (this.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem armorItem){
+                if (armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_LEATHER
+                || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_ELYTRA
+                || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_TURTLE
+                || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_GENERIC){
+                    return SoundEvents.GENERIC_HURT;
+                }
+            }
             return ModSounds.HAUNTED_ARMOR_HURT.get();
         } else {
             return SoundEvents.SHIELD_BLOCK;
@@ -195,12 +203,23 @@ public abstract class AbstractHauntedArmor extends Summoned {
         return ModSounds.HAUNTED_ARMOR_DEATH.get();
     }
 
+    @Nullable
     protected SoundEvent getStepSound() {
+        if (this.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem armorItem){
+            if (armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_LEATHER
+                    || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_ELYTRA
+                    || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_TURTLE
+                    || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_GENERIC){
+                return null;
+            }
+        }
         return ModSounds.HAUNTED_ARMOR_STEP.get();
     }
 
     protected void playStepSound(BlockPos p_34316_, BlockState p_34317_) {
-        this.playSound(this.getStepSound(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+        if (this.getStepSound() != null) {
+            this.playSound(this.getStepSound(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+        }
     }
 
     @Override

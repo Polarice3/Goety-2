@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
@@ -47,13 +48,18 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potions;
@@ -161,6 +167,19 @@ public class Goety {
             DispenserBlock.registerBehavior(ModItems.ILL_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
                     return new IllBomb(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.HAUNTED_ARMOR_STAND.get(), new DefaultDispenseItemBehavior() {
+                public ItemStack execute(BlockSource p_123461_, ItemStack p_123462_) {
+                    Direction direction = p_123461_.getBlockState().getValue(DispenserBlock.FACING);
+                    BlockPos blockpos = p_123461_.getPos().relative(direction);
+                    Level level = p_123461_.getLevel();
+                    HauntedArmorStand armorstand = new HauntedArmorStand(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D);
+                    EntityType.updateCustomEntityTag(level, (Player)null, armorstand, p_123462_.getTag());
+                    armorstand.setYRot(direction.toYRot());
+                    level.addFreshEntity(armorstand);
+                    p_123462_.shrink(1);
+                    return p_123462_;
                 }
             });
             ModDispenserRegister.registerAlternativeDispenseBehavior(new ModDispenserRegister.AlternativeDispenseBehavior(
@@ -275,6 +294,7 @@ public class Goety {
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
         event.put(ModEntityType.LASER.get(), SkullLaser.setCustomAttributes().build());
         event.put(ModEntityType.TUNNELING_FANG.get(), TunnelingFang.setCustomAttributes().build());
+        event.put(ModEntityType.HAUNTED_ARMOR_STAND.get(), LivingEntity.createLivingAttributes().build());
     }
 
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){

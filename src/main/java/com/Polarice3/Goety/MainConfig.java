@@ -20,6 +20,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxArcaSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulGuiHorizontal;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulGuiVertical;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiHorizontal;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiVertical;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnthropodSouls;
@@ -93,6 +95,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterWitchBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
 
@@ -152,12 +155,18 @@ public class MainConfig {
                 .defineInRange("craftSouls", 1, 0, Integer.MAX_VALUE);
         SoulGuiShow = BUILDER.comment("Show the Soul Energy Bar if Player has Totem of Souls/Arca, Default: true")
                 .define("soulGuiShow", true);
+        FocusGuiShow = BUILDER.comment("Show currently equipped focus on Wand/Staff in Gui, Default: true")
+                .define("focusGuiShow", true);
         ShowNum = BUILDER.comment("Show numerical amount of Souls on the Soul Energy Bar, Default: false")
                 .define("showNumber", false);
         SoulGuiHorizontal = BUILDER.comment("Horizontal Position of where the Soul Energy Bar is located, Default: 100")
                 .defineInRange("soulGuiHorizontal", 100, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         SoulGuiVertical = BUILDER.comment("Vertical Position of where the Soul Energy Bar is located, Default: -5")
                 .defineInRange("soulGuiVertical", -5, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        FocusGuiHorizontal = BUILDER.comment("Move where the equipped Focus is located horizontally from its original position (- = Left, + = Right), Default: 0")
+                .defineInRange("focusGuiHorizontal", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+        FocusGuiVertical = BUILDER.comment("Move where the equipped Focus is located vertically from its original position (- = Up, + = Down), Default: 0")
+                .defineInRange("focusGuiVertical", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         FirstPersonGloves = BUILDER.comment("Show gloves in first person, Default: true")
                 .define("firstPersonGloves", true);
         ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
@@ -329,7 +338,7 @@ public class MainConfig {
                 .define("illagerAssault", true);
         IllagerAssaultSpawnFreq = BUILDER.comment("Spawn Frequency for Illagers Hunting the Player, Default: 12000")
                 .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
-        IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Infamy Spawn Frequency, the lower the more likelier, Default: 5")
+        IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Spawn Frequency, the lower the more likelier, Default: 5")
                 .defineInRange("illagerAssaultSpawnChance", 5, 0, Integer.MAX_VALUE);
         IllagerAssaultSEThreshold = BUILDER.comment("How much Soul Energy the Player has is required for Special Illagers to spawn, Default: 2500")
                 .defineInRange("illagerAssaultThreshold", 2500, 0, Integer.MAX_VALUE);

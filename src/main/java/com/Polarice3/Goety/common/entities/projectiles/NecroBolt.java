@@ -14,6 +14,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -108,13 +109,22 @@ public class NecroBolt extends AbstractHurtingProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null && (this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner()) || (this.getOwner() instanceof Enemy && pEntity instanceof Enemy))){
-            return false;
-        } else if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
-            return !MobUtil.ownerStack(owned0, owned1);
-        } else {
-            return super.canHitEntity(pEntity);
+        if (this.getOwner() != null){
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                    return false;
+                }
+                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
+                    return false;
+                }
+                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
         }
+        return super.canHitEntity(pEntity);
     }
 
     protected ParticleOptions getTrailParticle() {

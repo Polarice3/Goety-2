@@ -160,7 +160,7 @@ public class ScatterMine extends Entity {
             if (this.getOwner() != null){
                 owner = this.getOwner();
                 if (this.getOwner().getAttribute(Attributes.ATTACK_DAMAGE) != null && this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE) > 0.0F){
-                    damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE) / 1.666667F);
+                    damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE)/* / 1.666667F*/);
                 }
             }
             livingEntity.hurt(DamageSource.explosion(owner), damage);

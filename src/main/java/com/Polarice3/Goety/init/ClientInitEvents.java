@@ -2,6 +2,7 @@ package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.events.BossBarEvent;
+import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
 import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
 import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
 import com.Polarice3.Goety.client.gui.screen.inventory.DarkAnvilScreen;
@@ -110,6 +111,7 @@ public class ClientInitEvents {
     public static void registerGUI(final RegisterGuiOverlaysEvent event){
         event.registerAboveAll("soul_energy_hud", SoulEnergyGui.OVERLAY);
         event.registerAboveAll("ravager_roar_hud", RavagerRoarGui.OVERLAY);
+        event.registerAboveAll("current_focus_hud", CurrentFocusGui.OVERLAY);
     }
 
     @SubscribeEvent
@@ -176,6 +178,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_OUTER, DarkArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
         event.registerLayerDefinition(ModModelLayer.SOUL_ARMOR, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.3F), false), 64, 64));
+        event.registerLayerDefinition(ModModelLayer.HAUNTED_ARMOR_STAND, HauntedArmorStandModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HAS_INNER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(0.5F)));
+        event.registerLayerDefinition(ModModelLayer.HAS_OUTER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(1.0F)));
 
         LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
         LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);
@@ -245,6 +250,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
+        event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_STAND.get(), HauntedArmorStandRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRONE.get(), CroneRenderer::new);

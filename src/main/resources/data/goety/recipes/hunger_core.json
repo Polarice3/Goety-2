@@ -25,6 +25,7 @@
     }
   ],
   "result": {
-    "item": "goety:hunger_core"
+    "item": "goety:hunger_core",
+    "count": 2
   }
 }
