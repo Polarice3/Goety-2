@@ -1,0 +1,19 @@
+{
+  "name": "恼鬼仆人",
+  "icon": "minecraft:vex_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "隶属于你自己的一组恼鬼。这些恼鬼们的行为与唤魔者恼鬼几乎相同，只是它们会跟随你，并且替你进行攻击。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ally_vex"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "与其他有肉体的仆人不同，恼鬼并不会徘徊或待命，也不会接受武器/盔甲，因为它们对他们来说太大了."
+    }
+  ]
+}

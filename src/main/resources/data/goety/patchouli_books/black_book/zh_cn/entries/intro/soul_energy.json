@@ -1,0 +1,25 @@
+{
+  "name": "灵魂能量",
+  "icon": "goety:totem_of_roots",
+  "category": "goety:intro",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你研究了灾厄村民们魔法力量中的秘密，并思考了如何利用和收集这种灵魂能量."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_roots",
+      "text": "用一些树枝，一个灵质和一些绿宝石，你创造了你的第一个图腾!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当杀死一个生物时，图腾在副手或饰品栏上，它会充满灵魂能量。数量取决于被杀死的生物种类，但考虑到灾厄村民对村民的态度，不难发现哪种生物拥有最多的灵魂能量。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "灵魂能量是他们魔法的燃料，它似乎与经验有关，尽管经验是用来附魔物品和修复物品的，如果它有经验修补，你会发现灵魂能量可以用于更奇异的目的。"
+    }
+  ]
+}

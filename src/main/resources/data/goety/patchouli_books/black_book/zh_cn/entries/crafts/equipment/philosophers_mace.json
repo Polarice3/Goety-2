@@ -1,0 +1,21 @@
+{
+  "name": "贤者之杖",
+  "icon": "goety:philosophers_mace",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "贤者之杖是一把终极的武器/工具，因为它不仅可以将敌人打的粉身碎骨，还可以像镐或锹一样挖掘方块。当目标被击中时，会获得迈达斯之触效果，这会导致他们在死亡时掉落金粒。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_mace"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "锻造这把武器/工具使用了下界合金，因此它可以施加抗火效果，并且不会被火焰或熔岩摧毁。"
+    }
+  ]
+}

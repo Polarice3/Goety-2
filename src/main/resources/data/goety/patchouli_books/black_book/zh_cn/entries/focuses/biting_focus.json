@@ -1,0 +1,15 @@
+{
+  "name": "撕咬聚晶",
+  "icon": "goety:biting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你面前召唤一排魔法尖牙，造成无视目标盔甲的伤害（除非它含有保护魔咒）。潜行则会以自己为中心点召唤一圈尖牙。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/biting_focus"
+    }
+  ]
+}

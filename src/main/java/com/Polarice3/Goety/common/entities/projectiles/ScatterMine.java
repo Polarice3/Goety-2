@@ -42,7 +42,7 @@ public class ScatterMine extends Entity {
         if (blockPos != null){
             this.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         }
-        this.owner = pOwner;
+        this.setOwner(pOwner);
     }
 
     @Override

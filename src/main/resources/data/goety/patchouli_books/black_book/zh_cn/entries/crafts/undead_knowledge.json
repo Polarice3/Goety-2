@@ -1,0 +1,17 @@
+{
+  "name": "奇怪的羊皮卷",
+  "icon": "goety:forbidden_piece",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "死去生物的回音和下界中残余的记忆，可能隐藏着一些黑暗力量的秘密。利用回响碎片和一些死灵的力量，你可以创造出一种黑暗而邪恶的力量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:forbidden_piece"
+    }
+  ]
+}

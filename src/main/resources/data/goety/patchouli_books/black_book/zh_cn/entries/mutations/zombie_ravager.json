@@ -1,0 +1,17 @@
+{
+  "name": "僵尸劫掠兽",
+  "icon": "minecraft:rotten_flesh",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你知道什么比普通的劫掠兽更好吗？一个不死的！嗯，有点。就像大多数亡灵一样，僵尸掠夺兽会在阳光下燃烧，不能在水中游泳。僵尸掠夺兽的速度也比它的正常版本慢，但护甲值略有提高。总的来说，这是一个适合亡灵巫师或讨厌阳光和喜欢腐烂尸体的人的完美坐骑。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_zombify_ravager"
+    }
+  ]
+}

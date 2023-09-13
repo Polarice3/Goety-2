@@ -1,0 +1,17 @@
+{
+  "name": "亡灵巫师",
+  "icon": "goety:necro_cape",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "卷轴包含一些关于向不死族授予召唤智慧生物的指令，它允许你从骷髅中创建和指挥亡灵巫师."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_to_necromancer"
+    }
+  ]
+}

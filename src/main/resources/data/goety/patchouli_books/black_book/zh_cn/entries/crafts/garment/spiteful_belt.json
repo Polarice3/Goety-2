@@ -1,0 +1,15 @@
+{
+  "name": "恶意腰带",
+  "icon": "goety:spiteful_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这条腰带，专门用于在受到伤害时伤害攻击者。虽然它不会像荆棘魔咒那样扣减耐久，但会消耗佩戴者的灵魂能量。它可以附魔荆棘魔咒以增加伤害。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:spiteful_belt"
+    }
+  ]
+}

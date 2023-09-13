@@ -1,0 +1,31 @@
+{
+  "name": "僵尸仆人",
+  "icon": "minecraft:zombie_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "僵尸仆人的功能很简单，杀死任何伤害你或任何敌对生物的人，并像驯服的狼一样跟着你，只是它们更高更臭"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "僵尸仆人可以被召唤或转换成不同的变体。在沙漠中会召唤一名尸壳仆人，在水下会召唤一位溺尸仆人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:husk_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "溺尸仆人可以接受三叉戟，并以与普通溺尸相同的方式进行攻击。所有变种的僵尸仆人都可以接受任何盔甲，但只能接受剑或斧头。"
+    }
+  ]
+}

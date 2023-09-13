@@ -1,0 +1,19 @@
+{
+  "name": "渴望戒指",
+  "icon": "goety:ring_of_want",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "渴望戒指使得生物在被你的法术或你召唤的生物杀死时，掉落更多战利品。为了让它发挥作用，你必须给它附上渴望魔咒，效果类似于抢夺魔咒。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_want"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "穿戴具有渴望III魔咒的渴望戒指会让你的尖牙在杀死生物的时候有25%的概率（如果是玩家，则是100%）掉落其头颅/头骨。"
+    }
+  ]
+}

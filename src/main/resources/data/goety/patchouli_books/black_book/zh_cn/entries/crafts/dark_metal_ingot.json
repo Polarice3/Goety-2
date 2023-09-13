@@ -1,0 +1,31 @@
+{
+  "name": "黑暗金属锭",
+  "icon": "goety:dark_ingot",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你做到了，你成功地将深暗之域的能量注入到一种金属中，这种金属可以使用灵魂能量自我修复。制作一个金属锭所需的灵魂能量非常多，但显然你会有办法解决的。这种金属制作的工具，和钻石一样耐用，而且附魔的能力几乎和黄金工具一样。它似乎也会减速并削弱任何被它击中的生物。"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_hoe"
+    }
+  ]
+}

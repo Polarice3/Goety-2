@@ -1,0 +1,15 @@
+{
+  "name": "发射聚晶",
+  "icon": "goety:launch_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "经过一些想法和实验，你已经成功地创造了一个将你推向空中的法术，让你以一种粗糙而有效的方式飞行。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/launch_focus"
+    }
+  ]
+}

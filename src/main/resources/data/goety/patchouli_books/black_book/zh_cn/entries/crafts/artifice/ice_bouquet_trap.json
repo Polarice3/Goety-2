@@ -1,0 +1,17 @@
+{
+  "name": "冰火陷阱",
+  "icon": "goety:ice_bouquet_trap",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你可以利用幽灵掉落的细胞外质，将他们神秘的无焰之火转化为一台机器，燃烧上面的任何生物。在燃烧上面的生物时，这种火焰似乎会侵蚀这些生物的灵魂能量， 激活的绿宝石则可以将这些灵魂能量转移到方块的放置者身上。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ice_bouquet_trap",
+      "text": "机器在接到红石信号后激活。它的火焰不会伤害放置者。"
+    }
+  ]
+}

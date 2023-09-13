@@ -1,0 +1,33 @@
+{
+  "name": "黑暗盔甲",
+  "icon": "goety:dark_helmet",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然黑暗金属锭制作的工具和其他材料并无大的区别，但它们制成的盔甲，似乎有所不同，需要额外的阐述。这件盔甲看起来，和你制作的其他盔甲一点也不相似，看起来更精致，也更为可怕，但它仍然提供钻石盔甲那样的的保护和韧性，以及一些击退抗性。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "每件盔甲都能减少灵魂能量的使用量，适用场合是释放法术，治疗仆人，以及修复一些物品。很不幸，在合成物品或进行仪式的时候，并不会提供减免。穿着全套的情况下，即使饥饿值耗尽也可以被动地恢复生命，并允许你召唤的生物在杀死怪物时获得灵魂能量。黑暗头盔还能保护佩戴者免受黑暗和失明效果的影响。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_boots"
+    }
+  ]
+}

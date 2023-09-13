@@ -1,0 +1,15 @@
+{
+  "name": "雷霆聚晶",
+  "icon": "goety:lightning_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最后，有了这个聚晶，你现在可以在敌人身上或某个地方召唤来自天堂的愤怒!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lightning_focus"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "腐化聚晶",
+  "icon": "goety:corruption_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "黑夜信标拥有巨大的力量，通过为它提供灵魂能量，你将能够将它的信标光束转化为更具破坏性的东西！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/corruption_focus"
+    }
+  ]
+}

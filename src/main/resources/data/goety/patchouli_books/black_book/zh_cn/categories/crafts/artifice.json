@@ -1,0 +1,7 @@
+{
+  "name": "设备",
+  "description": "利用和操纵灵魂能量。",
+  "icon": "goety:soul_absorber",
+  "parent": "goety:crafts",
+  "sortnum": 3
+}

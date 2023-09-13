@@ -864,6 +864,76 @@
     ],
     "subtitle": "subtitle.goety.haunted_armor_death"
   },
+  "vanguard_ambient": {
+    "sounds": [
+      {
+        "name": "goety:vanguard/idle1"
+      },
+      {
+        "name": "goety:vanguard/idle2"
+      },
+      {
+        "name": "goety:vanguard/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_ambient"
+  },
+  "vanguard_hurt": {
+    "sounds": [
+      {
+        "name": "goety:vanguard/hurt1"
+      },
+      {
+        "name": "goety:vanguard/hurt2"
+      },
+      {
+        "name": "goety:vanguard/hurt3"
+      },
+      {
+        "name": "goety:vanguard/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_hurt"
+  },
+  "vanguard_spear": {
+    "sounds": [
+      {
+        "name": "goety:vanguard/spear"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_spear"
+  },
+  "vanguard_step": {
+    "sounds": [
+      {
+        "name": "goety:vanguard/step1"
+      },
+      {
+        "name": "goety:vanguard/step2"
+      },
+      {
+        "name": "goety:vanguard/step3"
+      },
+      {
+        "name": "goety:vanguard/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_step"
+  },
+  "vanguard_death": {
+    "sounds": [
+      {
+        "name": "goety:vanguard/death1"
+      },
+      {
+        "name": "goety:vanguard/death2"
+      },
+      {
+        "name": "goety:vanguard/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_death"
+  },
   "zombie_ravager_ambient": {
     "sounds": [
       {
@@ -1065,13 +1135,33 @@
     ],
     "subtitle": "subtitle.goety.redstone_golem_attack"
   },
-  "redstone_golem_novelty": {
+  "redstone_golem_chest": {
     "sounds": [
       {
-        "name": "goety:redstone_golem/chest"
+        "name": "goety:redstone_golem/chest1"
+      },
+      {
+        "name": "goety:redstone_golem/chest2"
+      },
+      {
+        "name": "goety:redstone_golem/chest3"
       }
     ],
-    "subtitle": "subtitle.goety.redstone_golem_novelty"
+    "subtitle": "subtitle.goety.redstone_golem_chest"
+  },
+  "redstone_golem_growl": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/growl1"
+      },
+      {
+        "name": "goety:redstone_golem/growl2"
+      },
+      {
+        "name": "goety:redstone_golem/growl3"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_golem_growl"
   },
   "redstone_golem_mine_spawn": {
     "sounds": [
@@ -1391,6 +1481,17 @@
     ],
     "subtitle": "subtitle.goety.prepare_spell"
   },
+  "prepare_summon": {
+    "sounds": [
+      {
+        "name": "mob/evocation_illager/prepare_summon"
+      },
+      {
+        "name": "goety:spell/prepare_summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.prepare_summon"
+  },
   "cast_spell": {
     "sounds": [
       {
@@ -1435,6 +1536,22 @@
       }
     ],
     "subtitle": "subtitle.goety.summon_spell"
+  },
+  "vanguard_spell": {
+    "sounds": [
+      {
+        "name": "goety:skull_lord/laser_gather"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_spell"
+  },
+  "vanguard_summon": {
+    "sounds": [
+      {
+        "name": "goety:spell/vanguard_summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.vanguard_summon"
   },
   "bolt_impact": {
     "sounds": [

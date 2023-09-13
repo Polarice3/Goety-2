@@ -1,0 +1,17 @@
+{
+  "name": "流浪亡灵巫师",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_cairn_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "死去已久的高级官员变为了亡灵，与他们的亡灵仆人一起维护和守卫墓穴。他们似乎是古代沙漠亡灵巫师的一个分支，利用寒冷的力量。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer",
+      "text": "召唤多个骷髅并发射冰刺."
+    }
+  ]
+}

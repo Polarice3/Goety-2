@@ -1,0 +1,48 @@
+{
+  "name": "聚晶附魔",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:focuses",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "聚晶有自己的特殊附魔，但并不是所有的聚晶都能被附魔，也不是所有的聚晶都能接受每一个附魔。有五种附魔只适用于特定的聚晶，强效，半径，燃烧，范围和生命吸收。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Potency",
+      "text": "强效增加你法术的伤害."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "持久",
+      "text": "你的咒语和召唤持续时间更长."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "半径",
+      "text": "增加你的法术半径，这通常意味着任何爆炸性法术都有更高的爆炸半径。对于某些法术，半径可以让法术更准确地找到最近的敌人。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "燃烧",
+      "text": "你的法术会点燃目标或延长目标燃烧的时间."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "范围",
+      "text": "你的法术范围更大。可以达到10级，每个级别会扩大一个方块的半径。这是最常见的魔法."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "生命吸收",
+      "text": "你的法术在被击中时吸收目标的生命值。非常罕见，与强效不兼容。"
+    }
+  ]
+}

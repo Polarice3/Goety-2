@@ -1,0 +1,16 @@
+{
+  "name": "Vanguard Focus",
+  "icon": "goety:vanguard_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've discovered a way to summon loyal guards from beyond the grave using this focus. You have a feeling that this spell was stolen and repurposed from an ancient king."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vanguard_focus"
+    }
+  ]
+}

@@ -144,6 +144,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECROMANCER, NecromancerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.VANGUARD, VanguardModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
@@ -274,6 +275,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.STRAY_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));

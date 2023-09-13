@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -37,7 +38,7 @@ public class HauntedSkullSpell extends SummonSpells {
     }
 
     public SoundEvent CastingSound() {
-        return SoundEvents.EVOKER_PREPARE_SUMMON;
+        return ModSounds.PREPARE_SUMMON.get();
     }
 
     @Override

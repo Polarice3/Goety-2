@@ -1,0 +1,15 @@
+{
+  "name": "尖牙盛宴聚晶",
+  "icon": "goety:feast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "凭借末影珍珠和饥饿核心的力量，你可以在你周围所有生物的脚下召唤尖牙。比普通的“撕咬聚晶”更加精确，但前提是该生物不会移动。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/feast_focus"
+    }
+  ]
+}

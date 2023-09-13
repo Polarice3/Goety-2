@@ -1,0 +1,20 @@
+{
+  "name": "Capacity",
+  "icon": "minecraft:crimson_fungus",
+  "category": "goety:brewing",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "酿造可以容纳比普通药剂更多的效果和增强效果，但它需要足够的容量来容纳它们！加入比药剂容量更多的配料，你会被弄得一团糟！通常，一瓶简单的药剂可以容纳4种成分！但是有一些方法可以提高药剂的容量!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "我必须说清楚！这些成分必须放入以增加酿造的容量，所以不要只放入最后一种成分！此外，请记住，首先你要在坩埚内放入 $(item)下界疣$() 才能开始酿造!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)容量剂要求$()$(br)$(li)$(item)绯红菌$() - +2 $(li)$(item)砰砰菌$() - +2 $(li)$(item)觉醒绿宝石$() - +2 $(li)$(item)浓缩绿宝石$() - +2 $(li)$(item)灵魂红宝石$() - +4"
+    }
+  ]
+}

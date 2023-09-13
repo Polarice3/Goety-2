@@ -1,0 +1,21 @@
+{
+  "name": "黑暗长袍",
+  "icon": "goety:dark_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "唤魔者穿着如此精美的长袍，以至于你想知道它们是为了炫耀，还是有什么特别之处。使用黑暗布料和魔法布料，你成功地复制了它们的长袍，甚至还添加了一些新的材料，并发现它们具有一些特殊的属性。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_robe",
+      "text": "唤魔者的长袍可以帮助他们更好地释放魔法，让施放法术消耗的灵魂消耗减半。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_hat",
+      "text": "黑暗帽子可以帮你专注于释放法术，从而减少前摇时间。"
+    }
+  ]
+}

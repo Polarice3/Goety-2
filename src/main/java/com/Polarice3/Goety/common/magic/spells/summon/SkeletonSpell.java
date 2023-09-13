@@ -37,7 +37,7 @@ public class SkeletonSpell extends SummonSpells {
     }
 
     public SoundEvent CastingSound() {
-        return SoundEvents.EVOKER_PREPARE_SUMMON;
+        return ModSounds.PREPARE_SUMMON.get();
     }
 
     @Override

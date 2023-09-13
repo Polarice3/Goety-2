@@ -1,0 +1,21 @@
+{
+  "name": "黑暗卷轴",
+  "icon": "goety:dark_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_totem",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已经听到了高等级巡查官的低语，以及他们如何偶尔召唤、拜访其他灾厄村民，并发出命令和建议。你相信，他们持有非常强大的东西，可以增强你的魔法力量。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_scroll",
+      "text": "有了唤魔者的图腾, 你可以哄骗一个灾厄村民来回应你的要求。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "（推荐的装备：附魔的盔甲）"
+    }
+  ]
+}

@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.hostile;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.AbstractBorderWraith;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
@@ -24,7 +23,7 @@ public class BorderWraith extends AbstractBorderWraith implements Enemy {
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new AvoidTargetGoal<>(this, LivingEntity.class, 4.0F, 1.2D, 1.4D));
+        this.goalSelector.addGoal(6, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 2, 4, 1.2D, 1.4D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 }

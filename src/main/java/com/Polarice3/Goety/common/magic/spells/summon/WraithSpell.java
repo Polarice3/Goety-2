@@ -34,7 +34,7 @@ public class WraithSpell extends SummonSpells {
     }
 
     public SoundEvent CastingSound() {
-        return ModSounds.PREPARE_SPELL.get();
+        return ModSounds.PREPARE_SUMMON.get();
     }
 
     @Override

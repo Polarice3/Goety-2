@@ -1,0 +1,378 @@
+{
+  "name": "Catalysts",
+  "icon": "goety:brew",
+  "category": "goety:brewing",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "以下是给您的药剂带来效果的催化剂！正如你可能已经注意到的，其中一些效果是不熟悉的，大多数效果都是好的女巫酿造独有的!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "但别担心！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！哦，其中一些效果占据了多余一个容量槽，所以在酿造时要注意另一件事！哈哈哈！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.absorption"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.arrowmantic",
+      "text": "那些箭真烦人！在这里现在箭反而会惹恼你！哈哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bats",
+      "text": "放飞我的美人们！飞起来吃掉我敌人的脸!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bees",
+      "text": "蝴蝶翅膀青蛙腿，野猪腐肉蝙蝠嘴!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.blind_jump",
+      "text": "将有此效果的人传送到随机位置！等级越高，可以将他们传送到更远的地方!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.blindness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.brew_dye",
+      "text": "将药剂的颜色更改为您加入的任何染料！不过要小心！如果添加其他催化剂或染料，颜色会发生变化!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.chop_tree",
+      "text": "利斧磐石有相助，珍馐佳酿已出釜。眉前若现老橡树，此刻已为手中木!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.climbing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.combust",
+      "text": "火焰！哈哈哈哈哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.cursed",
+      "text": "一个诅咒赠与你！没有治愈恢复你！我刚把u和u押韵了！你要做什么?"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.darkness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.drought",
+      "text": "水太多了！有了这种药水，就不会再有水了!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.ender_ground",
+      "text": "教导那些末影人在被砍伤或泼溅时不要瞬移!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explosive",
+      "text": "不要用这种效果伤害生物，你这个混蛋！据我所知，他们可能脾气“爆”躁！哈哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.extinguish",
+      "text": "啊...没火了..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fertility",
+      "text": "你说你没有感觉是什么意思？去给奶奶喂牛！奶奶需要一双新皮靴!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fiery_aura",
+      "text": "别靠近我，对你来说我可真的是太热烈啦!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.fire_resistance"
+    },{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fire_trail",
+      "text": "抓住我，如果你敢!追上我！如果你能驾驭这种火焰！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flammable",
+      "text": "大火比平时痛得多！你就像是草垛一样!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flame_hands",
+      "text": "和这些手说话，你会被烧死的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flaying",
+      "text": "撕裂动物的皮肤、羽毛和羊毛！把肉都留下，尽管别以为它们会好起来的！哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flood",
+      "text": "水太少了，但是在这个药剂的帮助下，这里将会闹洪灾!哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.freeze",
+      "text": "有些时候奥奶奶想在他们的沼泽地里，在他们自制的冰冻池塘里滑冰!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.freezing",
+      "text": "嘿，孩子们！想成为雪人吗？呵呵哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.frosty_aura",
+      "text": "别靠近我！我对你来说太冷酷了!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.glowing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.gold_touched",
+      "text": "虽然不是纯粹的黄金，但他们确实会让他们死去!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cactus",
+      "text": "把绿色染料带到我家的沙滩上!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cave_vines",
+      "text": "那些繁茂洞穴里的藤蔓挂在我自己的洞穴里会很漂亮！不幸的是，这些藤蔓不会发光!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.growth",
+      "text": "我的草药长得不够快！但是不用怕，奶奶不会给你们每个人吃骨粉!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_tree",
+      "text": "一个女巫的家居然不被树包围起来？这不可容忍!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.haste"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.harvest",
+      "text": "一桶水冲跑了种子！有了这种药水，就再也不会发生这种事了！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.hunger"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.infest",
+      "text": "让石头和石砖被侵蚀!这才有古老建筑的风格!哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.instant_damage"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.instant_health"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.invisibility"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.jump_boost"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.launch",
+      "text": "向着更高的天空迸发!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leaf_shell",
+      "text": "最好点燃那些火柴！那些叶子不是那么容易用手折断的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.levitation"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.love",
+      "text": "现在是繁殖时间!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.mossify",
+      "text": "奶奶有时需要把繁茂带出洞穴！还有一些苔藓鹅卵石和砖块!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.mining_fatigue"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.nausea"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.night_vision"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.nyctophobia",
+      "text": "孩子们，拿个夜灯吧！你会需要的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.poison"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pressure",
+      "text": "那些行走、发出嘶嘶声的迷彩服充满了焦虑！这种效果会让它变得更糟！呵呵哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pruning",
+      "text": "把那些该死的漂浮树叶从我的房子里拿出来!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.purify_buff",
+      "text": "消除那些倒霉的孩子的所有无害效果!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.purify_debuff",
+      "text": "消除那些倒霉的孩子的所有有害效果!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.regeneration"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.resistance"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sapped",
+      "text": "硬了，拳头硬了，因为你的脸更欠打了!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.saturation"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.save_effects",
+      "text": "吃了那些回响碎片就有了这个想法！即使喝了一些牛奶，效果也会持续，而且针对类型显然是死亡？对那些可恨的不朽存在也有用，比如蓝色指南针！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shear",
+      "text": "我的胳膊太老了，剪不动那些羊毛！但没有关系，药剂会为奶奶料理好的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.slow_falling"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.slowness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.snow",
+      "text": "当奶奶觉得她想在雪地里玩的时候!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.speed"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.strength"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.strip",
+      "text": "哦，不，我还不够拘谨，扯不掉你的衣服！只是你的盔甲！如果我的药剂浓度更高，我甚至可以把皮都撕下来*老巫婆眨眼*."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sun_allergy",
+      "text": "嘿，孩子们！你想成为骷髅吗？还是僵尸？还是幻翼？还是...."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sweet_thorns",
+      "text": "奶奶想做甜浆果派，但我可怜的腿太累了，不能去针叶林。嗯，那就让浆果自己来吧!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.thorn_trap",
+      "text": "你被包围了，小淘气！你应该停止行走，除非你想让你的脸上长满刺！哈哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.transpose",
+      "text": "将包括物品在内的各种实体聚集到药剂落地或饮用的位置!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.tripping",
+      "text": "小心点，你可能会绊倒，然后被扔到一个随机的方向！如果等级更高，你会跌的根本起不来!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.venomous_hands",
+      "text": "我的手是蜘蛛做的！哈哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.water_breathing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.weakness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.webbed",
+      "text": "那些蜘蛛真快！尽管它们似乎只有在药剂碰到生物时才会结网，而不是在坚实的土地上..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.wild_rage",
+      "text": "让怒气充满你的全身!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.wither"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "被遗忘的草方块",
+  "icon": "goety:forbidden_grass",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "被遗忘的草方块可以召唤它所在的生物群系中，在夜间漫游着的那些生物。生物在这种方块上面生成的速度会更快，但也会遵循生成规则，例如光照等级。这个方块会在白天燃烧，火焰会蔓延到相邻的方块，最终转化为泥土。 "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_grass",
+      "text": "如果使用不带有精准采掘的工具挖掘被遗忘的草方块，它会掉落为泥土。"
+    }
+  ]
+}

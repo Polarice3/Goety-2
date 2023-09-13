@@ -1,0 +1,20 @@
+{
+  "name": "捕捉笼",
+  "icon": "goety:flame_capture",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "除非有人在刷怪笼附近建造了基地，否则从不同的区块跑来跑去大概会很乏味。不幸的是，人们无法简单地想出哪怕一个神秘的装置，把它带到任何地方。除非……"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:flame_capture",
+      "text": "捕捉笼可以捕捉刷怪笼中的火苗，这个过程中刷怪笼会被破坏。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当使用笼子捕捉到刷怪笼的核心后，就可以右键点击一个空的诅咒之笼，将其转换为原来的刷怪笼的的复制品，这会使诅咒注入和建造刷怪场更加方便！尽管这样做会破坏掉捕捉笼。"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Brewing Steps",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:brewing",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要真正开始酿造，你必须在沸腾的大锅中加入一个 $(item)下界疣$() ! 然后，当它开始发出紫色的火花时，我们才能真正开始捏哈哈哈哈!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "酿造过程如下,$(br2)$()$(l)Capacity -> 催化剂 -> 增强剂 -> 完成!$()$(br2) 记住这些步骤，孩子！把它们混在一起，你的药剂就会毁了！现在你可能会问，奶奶，这些词是什么意思？闭嘴，听我说!"
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "goety:brewing/capacity",
+        "goety:brewing/catalysts",
+        "goety:brewing/augmentation"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一旦加入容量剂，催化剂和增强剂，并且药剂没有发出黑烟，药剂就可以安心完成过程了！你必须用右键点击坩埚和坩埚巨勺开始，所以现在还不要装瓶！"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在开始之前，确保你的灵魂蜡烛能够传递所需的能量，你可以通过潜行检查坩埚来看到！一旦过程完成，坩埚就会发射效果粒子，这时你就可以开始装瓶了！"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "装瓶时一定要穿上合适的女巫装！每个人都知道，女巫的帽子和长袍给了额外酿造的机会！还有，这是奥奶奶的一个小秘密！苹果可能很。。。容易接受药剂。还记得白雪公主吗？呵呵哈哈哈!"
+    }
+  ]
+}

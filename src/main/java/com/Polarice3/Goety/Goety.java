@@ -273,6 +273,7 @@ public class Goety {
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
+        event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());

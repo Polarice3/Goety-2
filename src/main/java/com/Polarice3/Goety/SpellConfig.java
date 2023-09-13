@@ -18,6 +18,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethCost;
@@ -50,6 +51,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethDuration;
@@ -97,6 +99,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCooldown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCooldown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSoulEaterLevel;
@@ -137,6 +140,8 @@ public class SpellConfig {
                 .defineInRange("skeletonCost", 8, 0, Integer.MAX_VALUE);
         WraithCost = BUILDER.comment("Spooky Spell Cost, Default: 24")
                 .defineInRange("wraithCost", 24, 0, Integer.MAX_VALUE);
+        VanguardCost = BUILDER.comment("Vanguard Spell Cost, Default: 24")
+                .defineInRange("vanguardCost", 24, 0, Integer.MAX_VALUE);
         HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 24")
                 .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
@@ -201,6 +206,8 @@ public class SpellConfig {
                 .defineInRange("skeletonTime", 60, 0, 72000);
         WraithDuration = BUILDER.comment("Time to cast Wraith Spell, Default: 60")
                 .defineInRange("wraithTime", 60, 0, 72000);
+        VanguardDuration = BUILDER.comment("Time to cast Vanguard Spell, Default: 180")
+                .defineInRange("vanguardTime", 180, 0, 72000);
         HauntedSkullDuration = BUILDER.comment("Time to cast Haunted Skull Spell, Default: 20")
                 .defineInRange("hauntedSkullTime", 20, 0, 72000);
         FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
@@ -243,6 +250,8 @@ public class SpellConfig {
                 .defineInRange("skeletonCooldown", 280, 0, 72000);
         WraithCooldown = BUILDER.comment("Spooky Spell Cooldown, Default: 300")
                 .defineInRange("wraithCooldown", 300, 0, 72000);
+        VanguardCooldown = BUILDER.comment("Vanguard Spell Cooldown, Default: 300")
+                .defineInRange("vanguardCooldown", 300, 0, 72000);
         HauntedSkullCooldown = BUILDER.comment("Skull Spell Cooldown, Default: 0")
                 .defineInRange("hauntedSkullCooldown", 0, 0, 72000);
         BUILDER.pop();

@@ -1,0 +1,52 @@
+{
+  "name": "Illager Hunters",
+  "icon": "minecraft:crossbow",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_hunting_illagers",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在杀死了一群因窃取他们的知识而试图杀害你的灾厄村民们之后，你成功地记录了那些你从未遇到过的人。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些入侵者似乎只会追捕那些发现或窃取他们秘密的人，因为他们没有被发现驻扎在林地府邸或前哨站，而且他们似乎只有在发现那个村庄有猎杀目标的情况下才会参与袭击。可以肯定的是，这些刌民的排名很高，甚至可以吸引劫掠兽加入他们的追捕."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:envioker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一个强大且博览群书的唤魔者，在他们的头上似乎使用了一块奇怪的红宝石碎片来增强他们的魔法。他们的图腾要么是天赋异禀而被授予的，要么是从别人那里拿走的."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tormentor"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "看起来是Vex和卫道士之间实验的结果，当这些生物不向目标冲锋时，它们仍然是隐形的."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一个出乎意料的刌民被训练来攻击敌对的法师，因为他们对魔法免疫。他们挥舞着燃烧的剑，投掷伤害药剂."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:conquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "疾病缠身的贵族向外族人传播着结束文明的瘟疫。幸运的是，他们宁愿从远处放冷箭，也不愿陷入野蛮的混战。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当参加突袭时，灾厄征服者通常会排在第一位，灾厄巡查官将在3波之后开始出现，灾厄恶妒者将开始与劫掠兽和唤魔者一起出现."
+    }
+  ]
+}

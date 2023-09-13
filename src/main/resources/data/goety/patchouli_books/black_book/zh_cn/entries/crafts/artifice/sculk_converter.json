@@ -1,0 +1,37 @@
+{
+  "name": "幽匿转换器",
+  "icon": "goety:sculk_converter",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽匿催发体将死亡的生物转化为幽匿块，但它似乎在此过程中吞噬了生物的灵魂能量。使用灵魂吸收器，你能够让幽匿催发体从诅咒之笼里吸收灵魂能量，并在它周围扩散幽匿块。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_converter",
+      "text": "幽匿转换器需要红石信号以工作，吸收灵魂能量和扩散幽匿块。"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:cursed_cage",
+          "S": "goety:sculk_converter"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "幽匿转换器也可以被附魔强效魔咒, 这个魔咒可以让它吸收更多灵魂能量、扩散更多幽匿块。这个物品很奇怪，如果你对它进行修补、改造，似乎会导致它在死亡生物附近扩散幽匿块的行为停下来。"
+    }
+  ]
+}

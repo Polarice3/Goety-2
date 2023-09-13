@@ -1,0 +1,15 @@
+{
+  "name": "饥饿吊坠",
+  "icon": "goety:pendant_of_hunger",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "饥饿吊坠吸收你物品栏中的腐肉，将它们储存起来，并在你的饥饿值有损失时自动喂食给你。当然，吃这种食物会让你比变得更饿。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:pendant_of_hunger"
+    }
+  ]
+}

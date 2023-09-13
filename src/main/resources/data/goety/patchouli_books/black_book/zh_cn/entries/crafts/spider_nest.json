@@ -1,0 +1,16 @@
+{
+  "name": "蜘蛛巢",
+  "icon": "goety:spider_nest",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用一些蜘蛛卵围绕着一块生肉，你可以这制造蜘蛛巢。巢里有更小、更无害的蜘蛛，如果周围没有方块，它们会周期性地在自己周围生成蜘蛛网。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:spider_nest",
+      "text": "蜘蛛巢在明亮的区域不会产生蛛网。偶尔，它会生成一只蜘蛛。" 
+    }
+  ]
+}

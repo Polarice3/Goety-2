@@ -1,0 +1,19 @@
+{
+  "name": "尖牙匕首",
+  "icon": "goety:fanged_dagger",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尖牙匕首似乎并不令人印象深刻，但它提供了高于剑的攻击速度，且可以让目标中毒。当使用它杀死一个生物时，使用者会获得更多的灵魂能量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:fanged_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "来自pantman687的建议"
+    }
+  ]
+}

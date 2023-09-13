@@ -1,0 +1,23 @@
+{
+  "name": "幽灵",
+  "icon": "goety:ectoplasm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "神秘的阴影会在目标的脚上召唤阴冷火焰，而不是炽热的火焰，它会冻结灵魂。他们也有传送的能力，但只有当他们的目标在他们附近时才能这样做。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith",
+      "text": "尽管他们有着火焰的力量，但他们也不能免疫火焰的灼烧."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ectoplasm",
+      "title": "Ectoplasm",
+      "text": "幽灵有机会在其死亡时掉落一块灵质和一些骨头。而灵质对制作亡灵密器和咒语很有用."
+    }
+  ]
+}

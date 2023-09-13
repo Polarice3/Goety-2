@@ -1,0 +1,40 @@
+{
+  "name": "Augmentation",
+  "icon": "minecraft:glowstone_dust",
+  "category": "goety:brewing",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有很多方法可以增强你的药剂！新手应该知道，添加红石可以增加持续时间，添加萤石粉可以增加力量等级，但还有更多！就像容量计一样，配料也必须摆放整齐!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)持续时间$()$(br)$(li)$(item)红石粉$()$(li2)增加成本 - x1.25 $(li)$(item)海晶石块$()$(li2)增加成本 - x1.5 $(li)$(item)紫颂花$()$(li2)增加成本 - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)增强效果$()$(br)$(li)$(item)萤石粉$()$(li2)增加成本 - x2 $(li)$(item)烈焰棒$()$(li2)增加成本 - x2.5 $(li)$(item)神秘核心$()$(li2)增加成本 - x3"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)影响范围$()$(br)$(li)$(item)木炭$()$(li2)增加成本 - x1.25 $(li)$(item)烟火之星$()$(li2)增加成本 - x1.5 $(li)$(item)高头骨$()$(li2)增加成本 - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)滞留型$()$(br)$(li)$(item)垂根$()$(li2)增加成本 - x1.25 $(li)$(item)大型垂滴叶$()$(li2)增加成本 - x1.25 $(li)$(item)孢子花$()$(li2)增加成本 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)饮用速度$()$(br)$(li)$(item)蜂蜜瓶$()$(li2)增加成本 - x1.25 $(li)$(item)发光地衣$()$(li2)增加成本 - x1.25 $(li)$(item)海龟蛋$()$(li2)增加成本 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)投掷力度$()$(br)$(li)$(item)雪球$()$(li2)增加成本 - x1.25 $(li)$(item)弓$()$(li2)增加成本 - x1.25 $(li)$(item)弩$()$(li2)增加成本 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)附加$()$(br)$(li)$(item)火药$()$(li2)变成喷溅药水 $(li)$(item)龙息$()$(li2)变成滞留药水 $(li2)药水必须先变成喷溅型的. $(li)$(item)烈风核心$()$(li2)使药水成为气态 $(li2)药剂必须先变成滞留型的. $(li)$(item)末影之眼$()$(li2)隐藏效果粒子."
+    }
+  ]
+}

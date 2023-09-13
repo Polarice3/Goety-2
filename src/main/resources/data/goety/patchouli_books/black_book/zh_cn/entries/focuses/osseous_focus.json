@@ -1,0 +1,15 @@
+{
+  "name": "骨质聚晶",
+  "icon": "goety:osseous_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "骷髅对那些没有耐心携带盾牌的人来说可能很烦人。现在你有能力召唤和指挥一些骷髅把其他人变成刺猬."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/osseous_focus"
+    }
+  ]
+}

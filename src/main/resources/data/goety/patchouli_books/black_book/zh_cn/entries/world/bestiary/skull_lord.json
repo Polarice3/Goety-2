@@ -1,0 +1,20 @@
+{
+  "name": "骷髅领主",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_skull_lord",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当你蔑视着并试图打开一个大坟墓的罐子，却释放了一位曾经统治这座建筑的愤怒的领主。看起来他们身上带着他们一生都无法完成的黑暗魔法。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skull_lord"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "不幸的是，对于即将成为寻宝者和法师的人来说，墓穴的黑暗大法师是一个难点，他们设法与物质世界保持联系，以保护他们的宝藏。他们的头部是他们力量和智慧的源泉，当它们的骨骼身体存在时，他们的头部就会受到保护。"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "灾厄使者",
+  "icon": "goety:ominous_orb",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_minister",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "灾厄使者在等级和声望上比唤魔者高。事实上，他们很可能是他们所属的灾厄村民的首领。灾厄使者们以掠夺文明和他们的演讲技巧而臭名昭著，他们利用这些技巧来增强其他掠夺者的力量或恶毒地嘲笑他们的敌人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:minister"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "据说，他们挥舞的杖要么是受到一个无名王国的启发，要么是从这个王国掠夺和改造而来，杖的球体散发出巨大的魔力。灾厄使者也善于用他们的手杖阻挡攻击，尽管不幸的是，他们的手杖不如标准的盾牌耐用。也许有一种方法可以在不破坏它的情况下掠夺手杖，或者至少掠夺它的魔力之源。。。"
+    }
+  ]
+}

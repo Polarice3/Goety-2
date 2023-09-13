@@ -11,7 +11,7 @@
     },
     {
       "type": "goety:ritual",
-      "recipe": "goety:haunted_armor_stand"
+      "recipe": "goety:haunted/haunted_armor_stand"
     },
     {
       "type": "patchouli:spotlight",

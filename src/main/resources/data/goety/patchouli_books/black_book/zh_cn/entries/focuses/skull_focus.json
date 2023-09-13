@@ -1,0 +1,15 @@
+{
+  "name": "头颅聚晶",
+  "icon": "goety:skull_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了这个聚晶，你就可以召唤出被来自远方的灵魂所困扰的头骨，它们会跟随你，并向附近的任何敌对生物发起冲锋，在撞击时爆炸并伤害生物."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/skull_focus"
+    }
+  ]
+}

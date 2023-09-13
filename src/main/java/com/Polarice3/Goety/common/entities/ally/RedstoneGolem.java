@@ -50,17 +50,21 @@ import java.util.List;
 
 public class RedstoneGolem extends Summoned {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
-    public static float SUMMON_SECONDS_TIME = 4.5F;
+    public static float SUMMON_SECONDS_TIME = 5.15F;
     private int idleTime;
     private int summonTick;
     private int summonCool;
     private int mineCount;
     public int attackTick;
+    public int postAttackTick;
     public float getGlow;
     public float glowAmount = 0.01F;
+    public int noveltyTick;
     public int deathTime = 0;
     public float deathRotation = 0.0F;
     public boolean markChanged = true;
+    public boolean isNovelty = false;
+    public boolean isPostAttack = false;
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState noveltyAnimationState = new AnimationState();
@@ -283,6 +287,14 @@ public class RedstoneGolem extends Summoned {
         }
     }
 
+    public void stopMostAnimations(AnimationState animationState0){
+        for (AnimationState animationState : this.getAnimations()){
+            if (animationState != animationState0) {
+                animationState.stop();
+            }
+        }
+    }
+
     public void stopAnimations(){
         for (AnimationState animationState : this.getAnimations()){
             animationState.stop();
@@ -311,33 +323,22 @@ public class RedstoneGolem extends Summoned {
         if (this.level.isClientSide()) {
             if (this.isAlive()) {
                 this.glow();
+                if (!this.isSummoning()){
+                    this.summonAnimationState.stop();
+                }
                 if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
                     this.walkAnimationState.stop();
                     if (this.isStaying()) {
                         this.sitAnimationState.startIfStopped(this.tickCount);
                     } else {
-                        ++this.idleTime;
+                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.sitAnimationState.stop();
-                        if (this.level.random.nextFloat() > 0.05F) {
-                            this.idleAnimationState.startIfStopped(this.tickCount);
-                        } else if (!this.isAggressive() && this.idleTime > 100) {
-                            if (!this.noveltyAnimationState.isStarted()) {
-                                this.idleTime = 0;
-                                this.stopAnimations();
-                                this.noveltyAnimationState.start(this.tickCount);
-                                this.gameEvent(GameEvent.ENTITY_ROAR, this);
-                                this.playSound(ModSounds.REDSTONE_GOLEM_NOVELTY.get());
-                                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.REDSTONE_GOLEM_NOVELTY.get(), this.getSoundSource(), 1.0F, 1.0F, false);
-                            }
-                        }
                     }
                 } else {
-                    this.idleTime = 0;
                     this.noveltyAnimationState.stop();
                     this.idleAnimationState.stop();
                     this.sitAnimationState.stop();
                 }
-
                 if (!this.isMeleeAttacking() && !this.isSummoning()) {
                     if (this.isMoving()) {
                         this.walkAnimationState.startIfStopped(this.tickCount);
@@ -359,6 +360,36 @@ public class RedstoneGolem extends Summoned {
         }
         if (!this.level.isClientSide){
             if (this.isAlive()) {
+                if (this.isNovelty){
+                    this.jumping = false;
+                    this.xxa = 0.0F;
+                    this.zza = 0.0F;
+                    ++this.noveltyTick;
+                    if (this.noveltyTick == 8 || this.noveltyTick == 13 || this.noveltyTick == 18 || this.noveltyTick == 23 || this.noveltyTick == 28 || this.noveltyTick == 33){
+                        this.playSound(ModSounds.REDSTONE_GOLEM_CHEST.get());
+                    }
+                    if (this.noveltyTick == 42){
+                        this.playSound(ModSounds.REDSTONE_GOLEM_GROWL.get());
+                        this.gameEvent(GameEvent.ENTITY_ROAR, this);
+                    }
+                    if (this.noveltyTick >= 92 || this.getTarget() != null || this.hurtTime > 0){
+                        this.isNovelty = false;
+                    }
+                } else {
+                    this.level.broadcastEntityEvent(this, (byte) 10);
+                    this.noveltyTick = 0;
+                }
+                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving() && !this.isStaying()) {
+                    ++this.idleTime;
+                    if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.minutesToTicks(5)) {
+                        this.idleTime = 0;
+                        this.isNovelty = true;
+                        this.level.broadcastEntityEvent(this, (byte) 9);
+                    }
+                } else {
+                    this.idleTime = 0;
+                    this.isNovelty = false;
+                }
                 if (this.summonTick > 0) {
                     --this.summonTick;
                 }
@@ -367,6 +398,14 @@ public class RedstoneGolem extends Summoned {
                 }
                 if (this.isMeleeAttacking()) {
                     ++this.attackTick;
+                }
+                if (this.isPostAttack){
+                    ++this.postAttackTick;
+                }
+                if (this.postAttackTick >= 15){
+                    this.level.broadcastEntityEvent(this, (byte) 11);
+                    this.postAttackTick = 0;
+                    this.isPostAttack = false;
                 }
                 if (this.isSummoning()) {
                     if (this.level instanceof ServerLevel serverLevel) {
@@ -424,13 +463,20 @@ public class RedstoneGolem extends Summoned {
         } else if (pId == 8){
             this.stopAnimations();
             this.activateAnimationState.start(this.tickCount);
+        } else if (pId == 9){
+            this.stopAnimations();
+            this.noveltyAnimationState.start(this.tickCount);
+        } else if (pId == 10) {
+            this.noveltyAnimationState.stop();
+        } else if (pId == 11){
+            this.attackAnimationState.stop();
         } else {
             super.handleEntityEvent(pId);
         }
     }
 
-    protected double getAttackReachSqr(LivingEntity p_25556_) {
-        return (double)(this.getBbWidth() * 6.0F + p_25556_.getBbWidth());
+    protected double getAttackReachSqr(LivingEntity enemy) {
+        return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth());
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
@@ -471,7 +517,7 @@ public class RedstoneGolem extends Summoned {
                         }
                     }
                     return InteractionResult.SUCCESS;
-                } else if (item instanceof DarkWand) {
+                } else if (pPlayer.getMainHandItem().getItem() instanceof DarkWand) {
                     this.updateMoveMode(pPlayer);
                     return InteractionResult.SUCCESS;
                 }
@@ -511,6 +557,14 @@ public class RedstoneGolem extends Summoned {
         }
 
         @Override
+        public void stop() {
+            RedstoneGolem.this.getNavigation().stop();
+            if (RedstoneGolem.this.getTarget() == null) {
+                RedstoneGolem.this.setAggressive(false);
+            }
+        }
+
+        @Override
         public void tick() {
             LivingEntity livingentity = RedstoneGolem.this.getTarget();
             if (livingentity == null) {
@@ -525,24 +579,22 @@ public class RedstoneGolem extends Summoned {
             }
 
             this.attackTimer = Math.max(this.attackTimer - 1, 0);
-            this.checkAndPerformAttack(livingentity, RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getBoundingBox().minY, livingentity.getZ()));
+            this.checkAndPerformAttack(livingentity, RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ()));
         }
 
         @Override
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr) && this.attackTimer <= 0) {
-                this.attackTimer = this.maxAttackTimer;
-                RedstoneGolem.this.doHurtTarget(enemy);
+            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr)) {
+                if (RedstoneGolem.this.summonCool > 10 && this.attackTimer == 5){
+                    RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_PRE_ATTACK.get(), 1.5F, 1.0F);
+                }
+                if (this.attackTimer <= 0) {
+                    this.attackTimer = this.maxAttackTimer;
+                    RedstoneGolem.this.doHurtTarget(enemy);
+                }
             }
         }
 
-        @Override
-        public void stop() {
-            RedstoneGolem.this.getNavigation().stop();
-            if (RedstoneGolem.this.getTarget() == null) {
-                RedstoneGolem.this.setAggressive(false);
-            }
-        }
     }
 
     class MeleeGoal extends Goal {
@@ -555,6 +607,9 @@ public class RedstoneGolem extends Summoned {
             return RedstoneGolem.this.getTarget() != null && RedstoneGolem.this.isMeleeAttacking();
         }
 
+        /**
+         * Is short so that the Redstone Golem can immediately move after attacking, else it would stay in place until animation is finished.
+         */
         @Override
         public boolean canContinueToUse() {
             return RedstoneGolem.this.attackTick < 5;
@@ -563,12 +618,15 @@ public class RedstoneGolem extends Summoned {
         @Override
         public void start() {
             RedstoneGolem.this.setMeleeAttacking(true);
-            RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_PRE_ATTACK.get());
         }
 
+        /**
+         * Using Post Attack Tick to ensure that attack animation is stopped properly.
+         */
         @Override
         public void stop() {
             RedstoneGolem.this.setMeleeAttacking(false);
+            RedstoneGolem.this.isPostAttack = true;
         }
 
         @Override
@@ -578,6 +636,7 @@ public class RedstoneGolem extends Summoned {
                 double d0 = RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
                 RedstoneGolem.this.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
                 if (RedstoneGolem.this.targetClose(livingentity, d0)){
+                    RedstoneGolem.this.setYBodyRot(RedstoneGolem.this.getYHeadRot());
                     if (RedstoneGolem.this.attackTick == 1) {
                         RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_ATTACK.get());
                         RedstoneGolem.this.level.broadcastEntityEvent(RedstoneGolem.this, (byte) 6);
@@ -585,6 +644,7 @@ public class RedstoneGolem extends Summoned {
                     if (RedstoneGolem.this.attackTick == 3) {
                         if (RedstoneGolem.this.targetClose(livingentity, d0)) {
                             this.hurtTarget(livingentity);
+                            this.massiveSweep(RedstoneGolem.this, livingentity, 3.0D, 100.0D);
                         }
                     }
                 }
@@ -596,7 +656,6 @@ public class RedstoneGolem extends Summoned {
             float f1 = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
             boolean flag = target.hurt(DamageSource.mobAttack(RedstoneGolem.this), f);
             if (flag) {
-                MobUtil.sweepAttack(RedstoneGolem.this, target, DamageSource.mobAttack(RedstoneGolem.this), f);
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > RedstoneGolem.this.getBoundingBox().getSize()){
                         livingEntity.knockback((double)(f1 * 0.5F), (double)Mth.sin(RedstoneGolem.this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(RedstoneGolem.this.getYRot() * ((float)Math.PI / 180F))));
@@ -608,6 +667,27 @@ public class RedstoneGolem extends Summoned {
 
                 RedstoneGolem.this.doEnchantDamageEffects(RedstoneGolem.this, target);
                 RedstoneGolem.this.setLastHurtMob(target);
+            }
+        }
+
+        public void massiveSweep(LivingEntity source, LivingEntity exempt, double range, double arc){
+            List<LivingEntity> hits = MobUtil.getAttackableLivingEntitiesNearby(source, range, 1.0F, range, range);
+            for (LivingEntity target : hits) {
+                float targetAngle = (float) ((Math.atan2(target.getZ() - source.getZ(), target.getX() - source.getX()) * (180 / Math.PI) - 90) % 360);
+                float attackAngle = source.yBodyRot % 360;
+                if (targetAngle < 0) {
+                    targetAngle += 360;
+                }
+                if (attackAngle < 0) {
+                    attackAngle += 360;
+                }
+                float relativeAngle = targetAngle - attackAngle;
+                float hitDistance = (float) Math.sqrt((target.getZ() - source.getZ()) * (target.getZ() - source.getZ()) + (target.getX() - source.getX()) * (target.getX() - source.getX())) - target.getBbWidth() / 2f;
+                if (target != exempt) {
+                    if (hitDistance <= range && (relativeAngle <= arc / 2 && relativeAngle >= -arc / 2) || (relativeAngle >= 360 - arc / 2 || relativeAngle <= -360 + arc / 2)) {
+                        this.hurtTarget(target);
+                    }
+                }
             }
         }
 

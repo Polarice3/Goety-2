@@ -1,0 +1,23 @@
+{
+  "name": "专家下界仪式",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rituals",
+  "advancement": "minecraft:story/enter_the_nether",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)在下界之中 $(li)4 个凋灵骷髅头颅 $(li)32 下界砖块/红色下界砖 $(li)8 下界疣"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/expert_nether.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "凋灵骷髅是下界原始居民的烧焦残骸，这些被称为“伟人”的下界邪教分子被他们自己燃烧的造物背叛了。即使在死亡之后，他们仍然拥有魔力，甚至可能为高级魔法保留了一些奥术知识。也许从被诅咒者的痛苦中成长起来的下界疣也掌握了受害者的一些知识。"
+    }
+  ]
+}

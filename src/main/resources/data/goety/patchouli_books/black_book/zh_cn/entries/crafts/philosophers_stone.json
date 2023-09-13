@@ -1,0 +1,17 @@
+{
+  "name": "贤者之石",
+  "icon": "goety:philosophers_stone",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使徒的血让你可以合成只存在于神话中的贤者之石。有了这个，你可以用将它和金锭放在一起来复制金锭，这样做会消耗贤者之石的耐久，但它可以使用灵魂能量修复。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_stone"
+    }
+  ]
+}

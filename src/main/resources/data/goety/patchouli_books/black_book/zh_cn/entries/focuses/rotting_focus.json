@@ -1,0 +1,15 @@
+{
+  "name": "腐烂聚晶",
+  "icon": "goety:rotting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "亡灵术真正的第一步是召唤并指挥僵尸。僵尸有多种变体，聚晶允许你根据施法的位置和环境召唤变体。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rotting_focus"
+    }
+  ]
+}

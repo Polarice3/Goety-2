@@ -1,0 +1,16 @@
+{
+  "name": "天空仪式",
+  "icon": "minecraft:feather",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)祭坛必须在128高度之上"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通过将祭坛高高地放在空中，你可以利用风和天空来为你的魔法充能."
+    }
+  ]
+}

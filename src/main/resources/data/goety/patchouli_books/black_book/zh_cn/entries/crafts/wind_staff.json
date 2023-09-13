@@ -1,0 +1,19 @@
+{
+  "name": "风之魔杖",
+  "icon": "goety:wind_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已经了解到发生在某些秘密场所的故事，知道那里的人对风的控制和实验，知道他们如何使用法杖控制它。经过一些研究和实验，你发现了一种复制他们古老法杖的方法。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "风之魔杖可以显著增强烈风法术, 从而对风本身进行更强的控制。"
+    }
+  ]
+}

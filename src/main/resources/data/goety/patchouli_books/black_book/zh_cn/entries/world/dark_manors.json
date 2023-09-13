@@ -1,0 +1,16 @@
+{
+  "name": "黑暗庄园",
+  "icon": "minecraft:dark_oak_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "与被动的表亲相比，刌民们是相当进步的。有些人在林地府邸外设立了一些庄园来研究世界及其各个方面."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/dark_manor.png"],
+      "border": true
+    }
+  ]
+}

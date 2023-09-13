@@ -1,0 +1,22 @@
+{
+  "name": "锻造仪式",
+  "icon": "minecraft:anvil",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)1 个锻造台 $(li)3 个熔炉或燃烧熔炉 $(li)4 个铁砧"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/forge_ritual.png"],
+      "border": true,
+      "text": "一个摆放仪式的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在黑暗祭坛周围创建一个锻造厂可以让你制作某些特殊物品并升级你的魔法武器库。"
+    }
+  ]
+}

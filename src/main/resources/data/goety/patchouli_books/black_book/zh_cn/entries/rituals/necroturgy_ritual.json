@@ -1,0 +1,22 @@
+{
+  "name": "死灵仪式",
+  "icon": "goety:rotting_focus",
+  "category": "goety:rituals",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)16 个非木质台阶 $(li)16 个幽匿块 $(li)8 个不是空的花盆 $(li)必须在夜晚"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "幽匿拥有大量的亡灵能量。通过用它们建造坟墓，你找到了一种收集更多亡灵能量用于仪式的方法."
+    }
+  ]
+}

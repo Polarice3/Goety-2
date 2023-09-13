@@ -10,6 +10,11 @@
           "name": "goety:buried_scroll"
         },
         {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "goety:front_scroll"
+        },
+        {
           "type": "minecraft:empty",
           "weight": 10
         }

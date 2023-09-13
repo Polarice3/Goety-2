@@ -1,0 +1,15 @@
+{
+  "name": "召集聚晶",
+  "icon": "goety:call_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然某些聚晶可以召唤所有相关的仆人向你靠近，但总会有仆人无法被召唤，或是你想召唤一个特定的仆人。召集聚晶可以让你做到这一点。只需右键点击仆人，它就会保存那个仆从，让你在用它施放时召唤他们。要取消保存，只需潜行用它右键点击空气。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/call_focus"
+    }
+  ]
+}

@@ -19,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -67,7 +66,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         super.registerGoals();
         this.goalSelector.addGoal(1, new CastingSpellGoal());
         this.summonSpells(1);
-        this.goalSelector.addGoal(2, AvoidTargetGoal.newGoal(this, 4.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(2, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 2, 4, 1.0D, 1.2D));
         this.projectileGoal(3);
     }
 
@@ -144,6 +143,14 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     public boolean spawnUndeadIdle(){
         return this.getNecromancerFlags(4);
+    }
+
+    public void setShooting(boolean shooting){
+        this.setNecromancerFlags(8, shooting);
+    }
+
+    public boolean isShooting(){
+        return this.getNecromancerFlags(8);
     }
 
     public void setSpellType(SpellType spellType) {
@@ -255,7 +262,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
         if (this.level.isClientSide){
             if (this.isAlive()){
-                if (!this.isAggressive() && !this.isSpellCasting()) {
+                if (!this.isShooting() && !this.isSpellCasting()) {
                     if (!this.isMoving()) {
                         this.idleAnimationState.startIfStopped(this.tickCount);
                         this.walkAnimationState.stop();
@@ -276,6 +283,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     }
                 }
             }
+        } else {
+            if (!this.isShooting()){
+                this.level.broadcastEntityEvent(this, (byte) 8);
+            }
         }
     }
 
@@ -283,8 +294,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
         Vec3 vector3d = this.getViewVector( 1.0F);
         SoulBolt soulBolt = new SoulBolt(this, vector3d.x, vector3d.y, vector3d.z, this.level);
-        soulBolt.setYRot(this.getYRot());
-        soulBolt.setXRot(this.getXRot());
         soulBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
         if (this.level.addFreshEntity(soulBolt)){
             this.playSound(ModSounds.CAST_SPELL.get());
@@ -387,8 +396,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         @Override
         public void stop() {
-            super.stop();
             AbstractNecromancer.this.setSpellCasting(false);
+            AbstractNecromancer.this.level.broadcastEntityEvent(AbstractNecromancer.this, (byte) 7);
         }
 
         public void tick() {
@@ -496,7 +505,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         @Nullable
         @Override
         protected SoundEvent getSpellPrepareSound() {
-            return SoundEvents.EVOKER_PREPARE_SUMMON;
+            return ModSounds.PREPARE_SUMMON.get();
         }
 
         @Override
@@ -515,7 +524,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     , predicate).size();
             if (AbstractNecromancer.this.getTarget() != null && AbstractNecromancer.this.getTarget().isAlive()){
                 return false;
-            } else if (AbstractNecromancer.this.isAggressive()){
+            } else if (AbstractNecromancer.this.isShooting()){
                 return false;
             } else if (AbstractNecromancer.this.isSpellCasting()) {
                 return false;
@@ -535,7 +544,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         public void start() {
             this.spellTime = 20;
             AbstractNecromancer.this.setSpellCooldown(100);
-            AbstractNecromancer.this.playSound(SoundEvents.EVOKER_PREPARE_SUMMON, 1.0F, 1.0F);
+            AbstractNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 1.0F, 1.0F);
             AbstractNecromancer.this.setSpellCasting(true);
             AbstractNecromancer.this.setSpellType(SpellType.ZOMBIE);
             AbstractNecromancer.this.level.broadcastEntityEvent(AbstractNecromancer.this, (byte) 6);
@@ -653,7 +662,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
 
         public void stop() {
-            this.mob.setAggressive(false);
+            this.mob.setShooting(false);
             this.target = null;
             this.seeTime = 0;
             this.attackTime = -1;
@@ -682,7 +691,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
                 --this.attackTime;
                 if (this.attackTime == 5) {
-                    this.mob.setAggressive(true);
+                    this.mob.setShooting(true);
                     this.mob.attackAnimationState.start(this.mob.tickCount);
                     this.mob.level.broadcastEntityEvent(this.mob, (byte) 4);
                 } else if (this.attackTime == 0) {
@@ -695,7 +704,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     this.mob.performRangedAttack(this.target, f1);
                     this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
                 } else if (this.attackTime < 0) {
-                    this.mob.setAggressive(false);
+                    this.mob.setShooting(false);
                     this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));
                 }
             }
@@ -715,6 +724,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             this.spellAnimationState.start(this.tickCount);
         } else if (p_21375_ == 7){
             this.stopAllAnimations();
+        } else if (p_21375_ == 8){
+            this.attackAnimationState.stop();
         } else {
             super.handleEntityEvent(p_21375_);
         }

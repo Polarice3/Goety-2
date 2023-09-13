@@ -1,0 +1,15 @@
+{
+  "name": "恼鬼聚晶",
+  "icon": "goety:vexing_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通过旧卷轴上的一些注释，你已经找到了召唤/创建自己的恼鬼所需的成分。奇怪的是，贝斯蒂里提到了下界中的魔鬼和小恶魔。这可真令人好奇..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vexing_focus"
+    }
+  ]
+}

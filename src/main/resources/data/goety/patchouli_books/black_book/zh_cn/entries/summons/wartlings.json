@@ -1,0 +1,19 @@
+{
+  "name": "疣蛛",
+  "icon": "minecraft:nether_wart",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "疣蛛具有与蜘蛛相同的特性，尽管它们要小得多，也要弱得多。疣蛛在死亡或返回使用者之前只能存在9秒，它会消失并治愈使用者的生命。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wartling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果使用者对他们使用了负面buff，下一个疣蛛将采取并“存储”这种效果，这将导致他们在死亡后留下存储效果的云。存储的效果不会影响它们，它们也不会受到与它们存储的相同效果的影响。这些疣蛛不会返回给使用者。"
+    }
+  ]
+}

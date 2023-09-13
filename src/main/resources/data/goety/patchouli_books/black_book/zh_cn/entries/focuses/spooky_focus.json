@@ -1,0 +1,15 @@
+{
+  "name": "骇人聚晶",
+  "icon": "goety:spooky_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽灵并不是最常见的不死生物，只是在最近才开始出现。使用一些精神不了，你可以召唤并命令一个幽灵。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/spooky_focus"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "闹鬼头颅",
+  "icon": "goety:haunted_skull_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "就像恼鬼一样，闹鬼头颅可以自由移动，但更脆弱，它只能通过爆炸对敌人造成伤害。他们的爆炸不会影响他们的召唤师和其他召唤物。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_skull"
+    }
+  ]
+}

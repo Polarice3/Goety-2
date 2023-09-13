@@ -1,0 +1,16 @@
+{
+  "name": "腐烂小屋",
+  "icon": "goety:rotten_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "关于腐烂的棚屋的传言传到了你的耳朵里。显然，古老而强大的女巫生活在这些破旧的巢穴中，研究和酝酿着各种黑暗的魔法。然而，当你进入这些棚屋时，你发现的不是古老的女巫，而是一个奇特的水晶球。。。你想知道如果你使用它会发生什么。。。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/blighted_shack.png"],
+      "border": true
+    }
+  ]
+}

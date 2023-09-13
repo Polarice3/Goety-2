@@ -66,6 +66,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> NECROMANCER_SERVANT_SPAWN_EGG = ITEMS.register("necromancer_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.NECROMANCER_SERVANT, 0x99896c, 0x0097c2, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> VANGUARD_SERVANT_SPAWN_EGG = ITEMS.register("vanguard_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.VANGUARD_SERVANT, 0xd6d0c9, 0xe8b42f, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("wraith_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH_SERVANT, 0x0e0d36, 0x2586d9, new Item.Properties().tab(Goety.TAB)));
 

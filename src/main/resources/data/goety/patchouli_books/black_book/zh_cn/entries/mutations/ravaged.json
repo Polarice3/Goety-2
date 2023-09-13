@@ -1,0 +1,21 @@
+{
+  "name": "蹂躏者",
+  "icon": "goety:savage_tooth",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "创造掠夺者的秘密已经向你揭示。正如你长期以来所怀疑的那样，掠夺者是由普通村民通过魔法手段制造的。然而，转换并不是瞬间的。村民变成了被称为“蹂躏者”的怪物，它需要消耗大量的肉才能变成一个完整的蹂躏者。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_villager_to_ravaged"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "蹂躏者可以通过向其投掷腐烂的肉来喂养，或者将它们寄生在任何村民或刌民身上，让他们杀死后者。不出所料，村民提供的肉比其他任何人都多。一旦蹂躏者发生了变化，它将需要一个专门的马鞍，使其不仅可以骑行，而且更强壮。"
+    }
+  ]
+}

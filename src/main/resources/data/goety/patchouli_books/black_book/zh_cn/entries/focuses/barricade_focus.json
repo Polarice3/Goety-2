@@ -1,0 +1,15 @@
+{
+  "name": "障碍聚晶",
+  "icon": "goety:barricade_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了焦点的力量，你可以通过在敌人面前召唤一排、正方形或随机放置的图腾墙来骚扰敌人，如果你潜行施法，可以在敌人周围召唤一枚或多枚图腾炸弹。如果不是潜行，并针对敌人，它只会召唤一排图腾墙。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/barricade_focus"
+    }
+  ]
+}

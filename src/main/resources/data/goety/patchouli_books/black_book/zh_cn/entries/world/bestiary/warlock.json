@@ -1,0 +1,21 @@
+{
+  "name": "邪术士",
+  "icon": "goety:snap_fungus",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_warlock",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "女巫的表兄弟，邪术士是通过召唤战灵攻击敌人的敌对生物。如果他们的目标靠近他们，他们会向空中扔一堆球状真菌，它们可能会击中目标."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock",
+      "text": "他们对爆炸拥有抗性."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果一个村民在哭泣的黑曜石方块的下面，他们有机会变身为邪术士."
+    }
+  ]
+}

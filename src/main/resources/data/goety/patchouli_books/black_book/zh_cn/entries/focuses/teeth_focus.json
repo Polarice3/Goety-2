@@ -1,0 +1,15 @@
+{
+  "name": "牙之聚晶",
+  "icon": "goety:teeth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在一个位置、目标或施法者上方召唤一颗强大的牙齿，如果坠落，它会撞到地面，并在周围召唤尖刺，导致被击中的目标会起飞，并大幅减速5秒。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/teeth_focus"
+    }
+  ]
+}

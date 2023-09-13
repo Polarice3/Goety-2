@@ -1,0 +1,20 @@
+{
+  "name": "灵魂吸收器",
+  "icon": "goety:soul_absorber",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_arca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你有了灵魂方舟之后, 你想知道应该如何处理你的灵魂图腾。将它丢进仓库当然是一个选项，但你也想知道，你是否有办法将里面残留的灵魂能量转移到你的灵魂方舟。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "有了灵魂吸收器，你不仅可以从你的灵魂图腾中吸取灵魂能量放入你的灵魂方舟，还可以对其他物品这么做，例如唤魔者的不死图腾和灵魂沙。灵魂吸收器会慢慢耗尽灵魂图腾储存的灵魂能量，而其他物品被吸收了灵魂能量后，就会燃烧并消失。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_absorber"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "风爆聚晶",
+  "icon": "goety:wind_blast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "风爆聚晶可以让你在你面前召唤一股风，击退你视线中的生物。不幸的是，爆炸不会造成伤害，但你可以从短距离将生物从围栏上扔下来！"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/wind_blast_focus"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "坟墓手套",
+  "icon": "goety:grave_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "镰刀很有趣，但它们攻速很慢，这让它们很难成为一种好武器。使用死去生物和死灵的残存力量，你制作了这种手套，使你能够更有效地挥舞镰刀，攻击速度提高50%。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grave_glove"
+    }
+  ]
+}

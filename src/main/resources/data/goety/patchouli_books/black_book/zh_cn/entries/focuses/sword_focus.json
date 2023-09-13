@@ -1,0 +1,15 @@
+{
+  "name": "魔力剑聚晶",
+  "icon": "goety:sword_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "就像恶妒者和灾厄大臣一样，你可以向你所看到的任何地方射出一把剑的克隆。你必须在主手或副手上都有一把剑才能施展这个咒语。施法会降低你的剑的耐久。聚晶可以强力施法，这将提高飞剑的速度。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sword_focus"
+    }
+  ]
+}

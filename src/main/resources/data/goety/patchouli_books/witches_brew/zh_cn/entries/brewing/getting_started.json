@@ -1,0 +1,30 @@
+{
+  "name": "Getting Started",
+  "icon": "minecraft:glass_bottle",
+  "category": "goety:brewing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "早上好，虫子！如果你在读这篇文章，你一定是一个幸运的小傻瓜，或者是一个真正的求知者！我有很多名字，但如果你觉得有礼貌的话，你可以叫我奶奶或Toefungus女士，呵呵！所以你想成为酿药大师，嗯？那就别指望那些酿造台了！一个真正的女巫用他们的坩埚来创造他们的艺术！"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_cauldron",
+      "text": "但不是任何一个大锅都可以！你需要一个真正的女巫坩埚！把它放在壁炉上，或者篝火上，或者那些岩浆块上，或者其他什么地方，然后装满水！"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "坩埚也需要精神世界的力量来辅助酿造，所以它必须有一些灵魂蜡烛，可以吸收周围死者的能量。."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cauldron_ladle",
+      "text": "你还需要一个坩埚巨勺才能正确酿造！酿造时，你要用勺子右键单击坩埚才能开始完成阶段!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果你的酿造失败了，或者你对它不满意，用魔杖右键点击坩埚，它会清除所有内容！"
+    }
+  ]
+}

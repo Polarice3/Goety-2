@@ -1,0 +1,15 @@
+{
+  "name": "地狱疣蛋",
+  "icon": "goety:wartful_egg",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用下界疣环绕一个蜘蛛卵，似乎产生了类似受精卵的东西，可以用来召唤疣蛛。生成疣蛛会对使用者造成少量伤害，因为它需要使用者的一点生命力。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wartful_egg"
+    }
+  ]
+}

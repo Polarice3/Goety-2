@@ -1,0 +1,16 @@
+{
+  "name": "熔岩炸弹聚晶",
+  "icon": "goety:lavaball_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你可以感觉到下界的力量正在环绕你。不像恶魂，你不会哭。毕竟，这是一种很好的苦恼。你的熔岩球在潜行施放时不会对环境造成破坏。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lavaball_focus"
+    }
+  ]
+}

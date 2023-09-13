@@ -1,0 +1,19 @@
+{
+  "name": "召集之钟",
+  "icon": "goety:hook_bell",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在袭击中，一些袭击者有掉进洞里、出现在地下深处之类的坏习惯。你已经设法通过多次研究改进了村庄的钟，使其不仅具有更大的揭露范围，而且如果有袭击者距离钟超过16格，可以将他们传送到钟附近！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hook_bell"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "不幸的是，任何形式的红石都对召集之钟不起作用，只能手动敲击，或通过玩家射出的弹射物激活。"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "狂暴之斧",
+  "icon": "goety:rampaging_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一把渴望鲜血和木材的斧头。当杀死一个生物或砍伐木头时，使用者会变得稍强壮一些，攻击速度也会更快，这一效果持续10秒。持续不断的杀戮/砍伐可以增强效果。如果使用者可以做到叠加效果5次，这样做得到的结果被形容为是有“爆炸性”的。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:rampaging_axe"
+    }
+  ]
+}

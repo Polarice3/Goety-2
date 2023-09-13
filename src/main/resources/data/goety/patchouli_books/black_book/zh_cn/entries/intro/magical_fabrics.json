@@ -1,0 +1,27 @@
+{
+  "name": "魔法织物",
+  "icon": "goety:dark_fabric",
+  "category": "goety:intro",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "青金石可以用来传导魔法。把它和一串绳子结合在一起，就形成了一根特殊的绳子，它比普通的绳子更能传递魔法。通过将这些特殊的细绳与染料或其他成分结合，你就能够创造出特殊的织物。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_fabric",
+      "recipe2": "goety:magic_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:occult_fabric",
+      "recipe2": "goety:spirit_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gale_fabric",
+      "recipe2": "goety:chill_fabric"
+    }
+  ]
+}

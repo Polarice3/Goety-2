@@ -1,0 +1,16 @@
+{
+  "name": "玉石矿",
+  "icon": "goety:jade_ore",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "玉是世界上发现的最虚幻的矿石之一。它们拥有风的力量，只有在山脉等高海拔地区才能找到，尤其是在尖鞘山峰上."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/jade_ore.png"],
+      "border": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Work Station",
+  "icon": "goety:witch_pole",
+  "category": "goety:brewing",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有一些方法可以改善您的酿造台，以减少能源使用！首先，确保你在沼泽里酿酒！这是一片美丽潮湿的土地，到处都是奇妙的虫子！"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_pole",
+      "text": "当放置在女巫坩锅的8个方块内时，女巫之杖有助于减少酿造药水所需的能量。只有多达3个女巫之杖才会产生效果。"
+    }
+  ]
+}

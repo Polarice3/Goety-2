@@ -1,0 +1,15 @@
+{
+  "name": "寻位眼镜",
+  "icon": "goety:targeting_monocle",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尝试用法术攻击你的敌人可能是一种折磨，因为他们只需迈开一步就可以躲避你的魔法攻击。有了寻位眼镜，当你用魔杖施法时，你的准心会自动锁定在你正在瞄准的生物，这样你就可以更准确地用法术击中他们。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:targeting_monocle"
+    }
+  ]
+}

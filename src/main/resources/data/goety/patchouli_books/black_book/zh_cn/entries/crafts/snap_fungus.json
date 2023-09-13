@@ -1,0 +1,23 @@
+{
+  "name": "砰砰疣",
+  "icon": "goety:snap_warts",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现了一种只能生长在绯红菌岩或诡异菌岩上的新型真菌，叫做砰砰疣。它是一个充满毒素的球，人们会忍不住将它扔到空中。接触到物体时，它们就会爆炸，有可能留下一小团药水云。奇怪的是，这种爆炸既不会影响投掷者，也不会影响他们的仆人。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:snap_warts"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你一次性能投掷多个砰砰疣，但这也带来了限制。你同时投出多个砰砰疣意味着接下来的几秒钟内你不能再使用砰砰疣。你还发现了一种方法，将4个砰砰疣与恶魂之泪结合，从而提高真菌的效力。这些爆炸菌团的爆炸半径更大，但它们不再留下任何药水云。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blast_fungus"
+    }
+  ]
+}

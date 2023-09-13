@@ -1,0 +1,22 @@
+{
+  "name": "巫婆",
+  "icon": "goety:crone_hat",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crone",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "年长、聪明但仍然恶毒的女巫，他们创造并使用了比他们的近亲多得多的药水。据说他们的帽子有助于制造额外的女巫药剂。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crone",
+      "text": "被击中时对攻击者造成伤害."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:crone_hat",
+      "text": "巫婆的帽子是一个强大的饰品，当戴上它时，有25%的几率不会使用掉药水，10%的几率不会使用掉女巫佳酿。它还提供了一个额外的装瓶的机会，如果佩戴者穿着女巫袍，可以额外装三瓶，而如果佩戴者戴着普通的女巫帽，则可以额外装两瓶。"
+    }
+  ]
+}

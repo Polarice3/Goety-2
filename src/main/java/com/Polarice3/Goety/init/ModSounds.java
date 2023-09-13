@@ -72,6 +72,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> NECROMANCER_STEP = create("necromancer_step");
     public static final RegistryObject<SoundEvent> NECROMANCER_DEATH = create("necromancer_death");
 
+    public static final RegistryObject<SoundEvent> VANGUARD_AMBIENT = create("vanguard_ambient");
+    public static final RegistryObject<SoundEvent> VANGUARD_HURT = create("vanguard_hurt");
+    public static final RegistryObject<SoundEvent> VANGUARD_SPEAR = create("vanguard_spear");
+    public static final RegistryObject<SoundEvent> VANGUARD_STEP = create("vanguard_step");
+    public static final RegistryObject<SoundEvent> VANGUARD_DEATH = create("vanguard_death");
+
     public static final RegistryObject<SoundEvent> HAUNTED_ARMOR_AMBIENT = create("haunted_armor_ambient");
     public static final RegistryObject<SoundEvent> HAUNTED_ARMOR_HURT = create("haunted_armor_hurt");
     public static final RegistryObject<SoundEvent> HAUNTED_ARMOR_STEP = create("haunted_armor_step");
@@ -90,7 +96,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_SUMMON = create("redstone_golem_summon");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_PRE_ATTACK = create("redstone_golem_pre_attack");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_ATTACK = create("redstone_golem_attack");
-    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_NOVELTY = create("redstone_golem_novelty");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_CHEST = create("redstone_golem_chest");
+    public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_GROWL = create("redstone_golem_growl");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_MINE_SPAWN = create("redstone_golem_mine_spawn");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_STEP = create("redstone_golem_step");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_DEATH = create("redstone_golem_death");
@@ -133,9 +140,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
     public static final RegistryObject<SoundEvent> SOUL_ARMOR = create("soul_armor");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
+    public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
+    public static final RegistryObject<SoundEvent> VANGUARD_SPELL = create("vanguard_spell");
+    public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
     public static final RegistryObject<SoundEvent> WIND = create("wind");

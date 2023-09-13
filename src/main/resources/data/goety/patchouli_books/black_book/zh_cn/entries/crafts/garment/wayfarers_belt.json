@@ -1,0 +1,15 @@
+{
+  "name": "旅人腰带",
+  "icon": "goety:wayfarers_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "旅人要到不仅可以让穿戴者移动得更快，还可以让他们在不跳跃的情况下走上一格高的方块。腰带还增加了穿戴者的跳跃高度，并使得摔落伤害减半。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wayfarers_belt"
+    }
+  ]
+}

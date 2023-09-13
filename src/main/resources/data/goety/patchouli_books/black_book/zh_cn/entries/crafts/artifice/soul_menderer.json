@@ -1,0 +1,15 @@
+{
+  "name": "灵魂修补器",
+  "icon": "goety:soul_mender",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "灵魂修补器是一个强大的设备，可以使用灵魂能量修复损坏的武器和工具。灵魂修补漆必须被放置在带有图腾或连接宝石的诅咒之笼上才能激活，然后它会缓慢地修复储存的物品。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_mender"
+    }
+  ]
+}

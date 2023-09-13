@@ -1,0 +1,16 @@
+{
+  "name": "A Strange Incident",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当你忙于你的日程时，你似乎被一个孤独的刌民攻击了，这个刌民似乎是一个唤魔者。与其他唤魔者不同，这一个似乎更强大，在充分利用他们的图腾。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "看来刌民们鄙视你如何设法探究他们认为属于他们的秘密。你会觉得这个唤魔者只是一个被你发现所说的秘密激怒了的人。你有一种感觉，你越是深入研究黑暗艺术，灾厄村民们就会越生气."
+    }
+  ]
+}

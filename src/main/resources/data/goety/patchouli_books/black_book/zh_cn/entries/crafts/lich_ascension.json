@@ -1,0 +1,25 @@
+{
+  "name": "超生为亡灵生物",
+  "icon": "goety:undeath_potion",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "成功地重建了被遗忘的卷轴之后，它的秘密最终被揭开。这是死灵的终极艺术，抛却死亡，成为亡灵之王。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要成为巫妖，需要酿造一种特殊的亡灵药剂——万灵药。在有了使徒的血液、几种其他成分，并献祭一个村民，你进行死灵仪式来酿造这种愚蠢的药剂。仪式需要大量的灵魂能量，远远大于灵魂图腾通常所能携带的能量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:undeath_potion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "然而，千万不要立即饮用酿造好的药剂！这种要必须在满月时饮用。你还必须准备好一个灵魂方舟，将你的灵魂与之绑定。喝下这个药剂，你就会死亡，但如果一切准确无误，你将以亡灵生物的身份重新站起来。（如果在极限模式，请确保你的图腾已经填充，或者在副手拿一个不死图腾！）"
+    }
+  ]
+}

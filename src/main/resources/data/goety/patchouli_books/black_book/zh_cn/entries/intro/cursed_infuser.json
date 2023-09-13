@@ -1,0 +1,37 @@
+{
+  "name": "诅咒注入器",
+  "icon": "goety:cursed_infuser",
+  "category": "goety:intro",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然使用灵魂图腾制作很方便，但有些物品可能需要大量资源，所以你想知道是否有办法更便宜地获得这些物品。在你的研究中，你发现青金石可以用来制造某种转移器。一种吸引某种神奇能量的方式"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通过一些实验和研究，你想出了一种设备的想法，称为“诅咒注入器”。这个装置会从下面的方块吸取魔法能量，并注入上面的任何物品。虽然有些物体含有一些魔法能量，但有一个物体似乎拥有无尽的魔法能量。刷怪笼..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_infuser",
+      "text": "通过将诅咒注入器放在刷怪笼身上，它将开始吸取刷怪笼的能量并注入某些物品。你不知道是什么给这些可怕的机器提供了燃料，但也许注入器会提供一些线索."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:cursed_infuser",
+          "S": "minecraft:spawner"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    }
+  ]
+}

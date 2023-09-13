@@ -1,0 +1,22 @@
+{
+  "name": "魔法仪式",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)16 个书架 $(li)2 个附魔台 $(li)1 个有书的讲台"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/magic_ritual.png"],
+      "border": true,
+      "text": "一个摆放仪式的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "用大量书籍围绕祭坛将有助于创造某些魔法物品。"
+    }
+  ]
+}

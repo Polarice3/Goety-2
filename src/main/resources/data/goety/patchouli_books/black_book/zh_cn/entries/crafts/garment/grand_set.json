@@ -1,0 +1,33 @@
+{
+  "name": "守卫套",
+  "icon": "goety:grand_turban",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "灾厄宰相也有时髦的长袍和头巾。有了他们的红宝石，你可以仿制这些衣服，并获得他们的一些特殊能力！"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你觉得自己也变得和他们一样！你已经适应了唤魔者的风格，为什么不在这个世界更上一层楼呢？"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_turban"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在佩戴头巾时受到伤害，你有50%的概率（若你的生命值不大于最大生命值的一半，则有100%的概率）产生一个忠诚的怒鬼来保护你。如果你在潜行的时候使用恼鬼法术，它会杀死你的怒鬼，每杀死一个可以治疗你一颗心。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "刚开始，守卫长袍似乎只是换了颜色的黑暗长袍，但当你用魔杖施法时，你发现这样做会让你获得灾厄宰相之盾，让你在施法时，受到的所有伤害减半。"
+    }
+  ]
+}

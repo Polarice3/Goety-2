@@ -1,0 +1,15 @@
+{
+  "name": "烈风长袍",
+  "icon": "goety:wind_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "烈风长袍可以让你的坠落变得缓慢（按住shift则不会这样），并使你免疫摔落伤害。然而，执行这个效果的每一秒，灵魂能量都会被消耗。穿上烈风长袍也会使烈风法术的灵魂消耗减半。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_robe"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "召唤风暴",
+  "icon": "minecraft:netherrack",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个简单而有力的仪式，让人想起风暴。对那些想让阳光躲起来的人有用."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_storm"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "骷髅仆人",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "骷髅仆人会试图杀死任何伤害你或附近的敌对生物。如果召唤师同时戴着亡灵头盔和战袍召唤它们，那么它们偶尔会射出虚弱药箭。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "试图在寒冷苔原中召唤骷髅仆人时，会产生一名流浪者仆人."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stray_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "骷髅仆人可以接受任何盔甲，但只能接受剑/弓，这意味着他们可以使用远程攻击，也可以使用近战攻击."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "幻术师长袍",
+  "icon": "goety:illusion_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使用神秘布料制作而成的幻术师蟾宫，会让你隐身，使你很难被敌对生物和其他玩家察觉。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:illusion_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这套长袍也为你的幻镜法术提供了增益，让你的分身的攻击能够对目标造成真实的伤害，虽然并不多。"
+    }
+  ]
+}

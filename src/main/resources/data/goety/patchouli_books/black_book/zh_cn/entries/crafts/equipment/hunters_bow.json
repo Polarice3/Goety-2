@@ -1,0 +1,15 @@
+{
+  "name": "猎人之弓",
+  "icon": "goety:hunters_bow",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一把为杀戮游戏而生的弓，任何被这把弓射出的箭杀死的动物，都会掉落比抢夺III的武器还要多的战利品。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunters_bow"
+    }
+  ]
+}

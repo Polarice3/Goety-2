@@ -24,4 +24,23 @@ public class AvoidTargetGoal<T extends LivingEntity> extends AvoidEntityGoal<T> 
         super.stop();
         this.pathNav.stop();
     }
+
+    public static class AvoidRadiusGoal<T extends LivingEntity> extends ModAvoidGoal<T>{
+        public AvoidRadiusGoal(PathfinderMob mob, Class<T> tClass, Predicate<LivingEntity> predicate, float avoidStart, int maxDist, int minDist, double walkSpeed, double runSpeed) {
+            super(mob, tClass, predicate, avoidStart, maxDist, minDist, walkSpeed, runSpeed, livingEntity -> mob.getTarget() == livingEntity);
+        }
+
+        public AvoidRadiusGoal(PathfinderMob mob, Class<T> tClass, float avoidStart, int maxDist, int minDist, double walkSpeed, double runSpeed) {
+            super(mob, tClass, avoidStart, maxDist, minDist, walkSpeed, runSpeed, livingEntity -> mob.getTarget() == livingEntity);
+        }
+
+        public static AvoidRadiusGoal<LivingEntity> newGoal(PathfinderMob pathfinderMob, float avoidStart, int maxDist, double minSpeed, double maxSpeed){
+            return new AvoidRadiusGoal<>(pathfinderMob, LivingEntity.class, avoidStart, maxDist, maxDist, minSpeed, maxSpeed);
+        }
+
+        public void stop() {
+            super.stop();
+            this.pathNav.stop();
+        }
+    }
 }

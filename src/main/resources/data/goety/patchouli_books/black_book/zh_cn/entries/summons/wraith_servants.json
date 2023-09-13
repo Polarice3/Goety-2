@@ -1,0 +1,16 @@
+{
+  "name": "幽灵仆人",
+  "icon": "goety:wraith_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些幽灵被你的意志召唤和约束，他们自己的冰束不会伤害你或你的盟友。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith_servant"
+    }
+  ]
+}

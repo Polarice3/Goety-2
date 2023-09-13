@@ -1,0 +1,15 @@
+{
+  "name": "冲击聚晶",
+  "icon": "goety:shockwave_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用这个聚晶施法会在你的位置引发灵魂能量的爆发，伤害附近的所有生物并将其弹射出去。爆炸造成魔法伤害，不会伤害施法者。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/shockwave_focus"
+    }
+  ]
+}

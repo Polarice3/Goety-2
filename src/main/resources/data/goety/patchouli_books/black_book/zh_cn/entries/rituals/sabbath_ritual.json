@@ -1,0 +1,30 @@
+{
+  "name": "安息仪式",
+  "icon": "minecraft:crying_obsidian",
+  "category": "goety:rituals",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需要: $(li)8 个哭泣黑曜石 $(li)16 个黑曜石 $(li)4 个灵魂火"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sabbath_ritual.png"],
+      "border": true,
+      "text": "一个正确摆放仪式的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你听说过一个强大的存在潜伏在下界之中的传言。有传言说，一个下界邪教阴谋集团在黑曜石怪圈中遇到了一个他们称之为“使徒”的人，他出现在他们面前，告诉了他们秘密。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_apostle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "也许，通过一些诡计、魔法和诱饵材料，你可以为自己的目的召唤一个使徒，尽管你不应该在下界中召唤，那是他们最强大的地方，如果你做好挑战的准备，它会给予你独特的掉落物。（推荐装备：附魔盔甲、亡灵杀手武器和效率镐）"
+    }
+  ]
+}

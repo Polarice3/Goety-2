@@ -1,0 +1,15 @@
+{
+  "name": "冰川聚晶",
+  "icon": "goety:iceology_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已经学会了灾厄魔法的一个分支：冰川。有了这个聚晶，你就可以在目标上方召唤出一块漂浮的冰，然后在一小段时间后将其砸向目标，冻结目标几秒钟。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/iceology_focus"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "回溯聚晶",
+  "icon": "goety:recall_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "回溯聚晶允许施法者传送回聚晶保存的位置。要使用焦点，它需要通过右键单击使用者拥有的灵魂方舟、床或重生锚来保存位置。按住Shift键并右键单击聚晶将清除任何保存的位置。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/recall_focus"
+    }
+  ]
+}

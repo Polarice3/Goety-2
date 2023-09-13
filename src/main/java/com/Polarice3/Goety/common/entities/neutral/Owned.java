@@ -204,6 +204,8 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
         if (compound.contains("isHostile")){
             this.setHostile(compound.getBoolean("isHostile"));
+        } else {
+            this.checkHostility();
         }
 
         if (compound.contains("isNatural")){
@@ -213,8 +215,6 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         if (compound.contains("LifeTicks")) {
             this.setLimitedLife(compound.getInt("LifeTicks"));
         }
-
-        this.checkHostility();
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

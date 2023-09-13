@@ -1,0 +1,17 @@
+{
+  "name": "幽匿传递站",
+  "icon": "goety:sculk_relay",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽匿转换器的工作场景可能会显得很混乱，因为它将幽匿块散布扩散在自己的四周。幽匿传递站可以改善这一点，幽匿转换器将会改为在幽匿传递站的周围扩散幽匿块！右键点击幽匿转换器可以显示它正在使用哪个幽匿传递站。幽匿传递站可以使用附魔精准采集的锄挖掘。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_relay",
+      "text": "幽匿转换器只会使用距离它最近的幽匿传递站。"
+    }
+  ]
+}

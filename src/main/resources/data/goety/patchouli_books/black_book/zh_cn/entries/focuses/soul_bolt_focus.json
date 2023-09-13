@@ -1,0 +1,15 @@
+{
+  "name": "灵魂束聚晶",
+  "icon": "goety:soul_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "拥有这个聚晶，你就能够迅速向你的敌人发射灵魂能量，造成击退和魔法伤害。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_bolt_focus"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "活力仪式",
+  "icon": "goety:animation_core",
+  "category": "goety:rituals",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求: $(li)15 个梯子 $(li)15 个铁轨 $(li)1 个雕刻南瓜"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/animalis_ritual.png"],
+      "border": true,
+      "text": "一个怎么摆放仪式的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "从你的研究中，你找到了一种围绕召唤和控制生物进行仪式的方法。栏杆和梯子象征着运动，南瓜象征着生命，因为雕刻的南瓜赋予了雪和铁生命。有趣的是，通过你的研究，你发现除了赋予生命之外，南瓜还有一种神奇的特性，如果你戴着南瓜盯着它们看，它会阻止末影人被激怒，而不是因为你在激怒它们"
+    }
+  ]
+}

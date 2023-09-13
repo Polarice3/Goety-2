@@ -389,24 +389,20 @@ public class MobUtil {
     /**
      * Target Codes based of codes from @TeamTwilight
      */
-    public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double radius) {
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius) {
         List<Entity> list = new ArrayList<>();
-        double vectorY = pSource.getY();
-        if (pSource instanceof Player){
-            vectorY = pSource.getEyeY();
-        }
-        Vec3 srcVec = new Vec3(pSource.getX(), vectorY, pSource.getZ());
+        Vec3 srcVec = pSource.getEyePosition();
         Vec3 lookVec = pSource.getViewVector(1.0F);
-        Vec3 rangeVec = new Vec3(lookVec.x * pRange, lookVec.y * pRange, lookVec.z * pRange);
-        Vec3 end = srcVec.add(rangeVec);
-        List<Entity> entities = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange).inflate(radius, radius, radius));
+        double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
+        Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
+        List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius));
         double hitDist = 0.0D;
 
-        for (Entity hit : entities) {
+        for (Entity hit : possibleList) {
             if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
                 float borderSize = hit.getPickRadius();
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
-                Optional<Vec3> interceptPos = collisionBB.clip(srcVec, end);
+                Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
                 if (collisionBB.contains(srcVec)) {
                     if (0.0D <= hitDist) {
                         list.add(hit);
@@ -934,8 +930,35 @@ public class MobUtil {
         }
     }
 
+    public static boolean canAttack(LivingEntity attacker, LivingEntity target){
+        return !attacker.isAlliedTo(target) && !target.isAlliedTo(attacker) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) && attacker.canAttack(target);
+    }
+
+    public static boolean mobCanAttack(Mob attacker, LivingEntity target){
+        if (attacker.getTarget() == target){
+            return EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target) && attacker.canAttack(target);
+        }
+        return canAttack(attacker, target);
+    }
+
+    public static boolean ownedCanAttack(Owned attacker, LivingEntity target){
+        if (attacker.getTrueOwner() != null){
+            LivingEntity owner = attacker.getTrueOwner();
+            if (owner instanceof Mob mob){
+                return mobCanAttack(mob, target);
+            } else {
+                return canAttack(owner, target);
+            }
+        }
+        return mobCanAttack(attacker, target);
+    }
+
     public static void sweepAttack(LivingEntity attacker, Entity target, DamageSource damageSource, float damage){
-        for(LivingEntity livingentity : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.0D, 0.25D, 1.0D))) {
+        sweepAttack(attacker, target, damageSource, 1.0D, damage);
+    }
+
+    public static void sweepAttack(LivingEntity attacker, Entity target, DamageSource damageSource, double radius, float damage){
+        for(LivingEntity livingentity : attacker.level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(radius, 0.25D, radius))) {
             if (livingentity != attacker && livingentity != target && !attacker.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand)livingentity).isMarker()) && attacker.canAttack(livingentity)) {
                 livingentity.knockback((double)0.4F, (double)Mth.sin(attacker.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(attacker.getYRot() * ((float)Math.PI / 180F))));
                 livingentity.hurt(damageSource, damage);
@@ -943,16 +966,23 @@ public class MobUtil {
         }
     }
 
-    public static boolean isCloseEnough(LivingEntity attacker, Entity entity, double dist) {
-        Vec3 eye = attacker.getEyePosition();
-        Vec3 targetCenter = entity.getPosition(1.0F).add(0, entity.getBbHeight() / 2, 0);
-        Optional<Vec3> hit = entity.getBoundingBox().clip(eye, targetCenter);
-        return (hit.map(eye::distanceToSqr).orElseGet(() -> attacker.distanceToSqr(entity))) < dist * dist;
+    /**
+     * Code based of @BobMowzies sweep codes. From Here
+     */
+    public static List<LivingEntity> getAttackableLivingEntitiesNearby(LivingEntity source, double distanceX, double distanceY, double distanceZ, double radius) {
+        return getLivingEntitiesNearby(source, distanceX, distanceY, distanceZ, radius).stream().filter(target -> canAttack(source, target)).toList();
     }
 
-    public static boolean inRadius(LivingEntity owner, LivingEntity target, float further, float closer){
-        return owner.distanceTo(target) >= further && owner.distanceTo(target) <= closer;
+    public static List<LivingEntity> getLivingEntitiesNearby(Entity source, double distanceX, double distanceY, double distanceZ, double radius) {
+        return getEntitiesNearby(source, LivingEntity.class, distanceX, distanceY, distanceZ, radius);
     }
+
+    public static <T extends Entity> List<T> getEntitiesNearby(Entity source, Class<T> entityClass, double dX, double dY, double dZ, double radius) {
+        return source.level.getEntitiesOfClass(entityClass, source.getBoundingBox().inflate(dX, dY, dZ), target -> target != source && source.distanceTo(target) <= radius + target.getBbWidth() / 2.0F && target.getY() <= (source.getY() + dY));
+    }
+    /**
+     * To Here
+    */
 
     public static WeightedRandomList<MobSpawnSettings.SpawnerData> mobsAt(ServerLevel p_220444_, StructureManager p_220445_, ChunkGenerator p_220446_, MobCategory p_220447_, BlockPos p_220448_, @Nullable Holder<Biome> p_220449_) {
         return net.minecraftforge.event.ForgeEventFactory.getPotentialSpawns(p_220444_, p_220447_, p_220448_, NaturalSpawner.isInNetherFortressBounds(p_220448_, p_220444_, p_220447_, p_220445_) ? p_220445_.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).getOrThrow(BuiltinStructures.FORTRESS).spawnOverrides().get(MobCategory.MONSTER).spawns() : p_220446_.getMobsAt(p_220449_ != null ? p_220449_ : p_220444_.getBiome(p_220448_), p_220445_, p_220447_, p_220448_));

@@ -1,0 +1,16 @@
+{
+  "name": "灵魂光聚晶",
+  "icon": "goety:soul_light_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你可以通过在一个方块上射出一道灵魂能量的闪电来制造一个神奇的光源。光线没有火把那么强烈，但它确实会把猪灵赶走，但有了一些萤石和下界岩，你的光线会更亮。如果生物被它击中，它也会发光。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_light_focus",
+      "recipe2": "goety:focus/glow_light_focus"
+    }
+  ]
+}

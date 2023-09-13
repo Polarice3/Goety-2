@@ -1,0 +1,16 @@
+{
+  "name": "飞翔聚晶",
+  "icon": "goety:flying_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:end/elytra",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "凭借优雅的巨龙的力量和鞘翅的控制，你成功地完善了发射聚晶，让你可以使用魔杖起飞（按住鼠标右键）。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flying_focus"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "进阶下界仪式",
+  "icon": "minecraft:blackstone",
+  "category": "goety:rituals",
+  "advancement": "minecraft:story/enter_the_nether",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求: $(li)在下界之中 $(li)8 个任何种类的玄武岩 $(li)16 个任何种类的黑石 $(li)4 萤石"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/adept_nether.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "下界是一个充满灵魂能量的维度，正如无尽数量的灵魂沙所示。然而，仍然需要结构来构建与下界相关的仪式，用以将丰富的内容集中到一个地方。黑石和玄武岩可以是任何种类的。"
+    }
+  ]
+}

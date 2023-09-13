@@ -1,0 +1,16 @@
+{
+  "name": "灵魂蜡烛",
+  "icon": "goety:soul_candlestick",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一些设备需要大量的灵魂能量，但无法直接从诅咒之笼中直接获取。进行了一些实验后，你找到了解决这一问题的方法，甚至还可以让这类设备从多于一个诅咒之笼中吸取灵魂能量。通常是在8格检测范围内，灵魂蜡烛越多，诅咒之笼填充的越满，设备运行得越快。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_candlestick",
+      "text": "在被充满的cursed cage上面放置一个。"
+    }
+  ]
+}

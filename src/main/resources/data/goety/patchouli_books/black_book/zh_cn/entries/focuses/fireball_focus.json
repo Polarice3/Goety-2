@@ -1,0 +1,16 @@
+{
+  "name": "火焰聚晶",
+  "icon": "goety:fireball_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "烈焰粉的力量现在就在你的指尖。你不再需要使用打火石，现在你就是打火石！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/fireball_focus"
+    }
+  ]
+}

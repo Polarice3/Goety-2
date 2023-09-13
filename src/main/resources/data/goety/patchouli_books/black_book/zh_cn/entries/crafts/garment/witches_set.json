@@ -1,0 +1,27 @@
+{
+  "name": "女巫套",
+  "icon": "goety:witch_hat",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "众所周知，女巫戴着巨大的帽子看起来很是光鲜。你学会了用黑暗布料制作女巫帽，穿戴它也会让你有小概率不消耗任何药剂。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_hat"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:witch_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你还发现了通过合成你自己的的女巫长袍来复现女巫的力量的方法。这套长袍实际上是一个便携式酿造台（你可以在穿着它的时候按下默认键位：V来打开）。它还能提供魔法伤害抗性。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在穿着女巫长袍的同时戴上女巫帽不仅可以使酿造药剂的速度更快，还可以使女巫和邪术师中立。你也可以用绿宝石右键女巫和邪术师来以物易物，但前提是他们没有被激怒，或已经拿着什么东西。与野蛮的猪灵不同，他们不会捡起扔给他们的绿宝石，你必须直接交给他们。"
+    }
+  ]
+}

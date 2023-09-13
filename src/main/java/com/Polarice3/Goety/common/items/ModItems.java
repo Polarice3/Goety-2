@@ -94,6 +94,7 @@ public class ModItems {
     public static final RegistryObject<Item> WARRED_SCROLL = ITEMS.register("warred_scroll", () -> new Scroll(ResearchList.WARRED));
     public static final RegistryObject<Item> BURIED_SCROLL = ITEMS.register("buried_scroll", () -> new Scroll(ResearchList.BURIED));
     public static final RegistryObject<Item> HAUNTING_SCROLL = ITEMS.register("haunting_scroll", () -> new Scroll(ResearchList.HAUNTING));
+    public static final RegistryObject<Item> FRONT_SCROLL = ITEMS.register("front_scroll", () -> new Scroll(ResearchList.FRONT));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
 
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
@@ -170,6 +171,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(new ZombieSpell()));
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(new SkeletonSpell()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
+    public static final RegistryObject<Item> VANGUARD_FOCUS = ITEMS.register("vanguard_focus", () -> new MagicFocus(new VanguardSpell()));
     public static final RegistryObject<Item> SKULL_FOCUS = ITEMS.register("skull_focus", () -> new MagicFocus(new HauntedSkullSpell()));
     public static final RegistryObject<Item> CALL_FOCUS = ITEMS.register("call_focus", CallFocus::new);
     public static final RegistryObject<Item> RECALL_FOCUS = ITEMS.register("recall_focus", RecallFocus::new);

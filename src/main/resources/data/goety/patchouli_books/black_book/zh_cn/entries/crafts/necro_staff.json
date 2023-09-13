@@ -1,0 +1,19 @@
+{
+  "name": "死灵魔杖",
+  "icon": "goety:necro_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽灵掉落的灵质启发了你。消耗一些诅咒金属锭，你制造了你的魔杖的升级版，它也是一把适合亡灵法师的魔杖。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "死灵魔杖增强了死灵法术的威力，例如每次施放时召唤一个以上的亡灵仆人。"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "充能聚晶",
+  "icon": "goety:charge_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一种需要施法者直接右键点击活体目标的咒语。这样做时，目标将变为带电，并在再次施放时获得电荷。1级充能使目标移动并造成额外10%的伤害。2级充能使目标移动速度加快25%，但造成的伤害减少25%。三级充能会使目标受到伤害并失去所有充能等级。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/charge_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "来自pvzfan的建议"
+    }
+  ]
+}

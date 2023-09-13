@@ -66,6 +66,7 @@ public class MagicFocus extends Item {
         if (stack.getItem() == ModItems.ROTTING_FOCUS.get()
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()
                 || stack.getItem() == ModItems.SPOOKY_FOCUS.get()
+                || stack.getItem() == ModItems.VANGUARD_FOCUS.get()
                 || stack.getItem() == ModItems.VEXING_FOCUS.get()
                 || stack.getItem() == ModItems.LAUNCH_FOCUS.get()
                 || stack.getItem() == ModItems.MAGIC_BOLT_FOCUS.get()) {

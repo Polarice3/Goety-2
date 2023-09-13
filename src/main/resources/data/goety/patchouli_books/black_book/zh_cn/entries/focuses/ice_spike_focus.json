@@ -1,0 +1,15 @@
+{
+  "name": "冰刺聚晶",
+  "icon": "goety:ice_spike_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "朝施法者的前方射出一道冰刺。被刺击的生物将在1到3秒内被冻结."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ice_spike_focus"
+    }
+  ]
+}

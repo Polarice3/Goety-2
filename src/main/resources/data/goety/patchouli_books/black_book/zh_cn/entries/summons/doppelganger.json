@@ -1,0 +1,15 @@
+{
+  "name": "替身",
+  "icon": "minecraft:player_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然与幻术师变出的替身相似，但这些替身会引起敌对生物的注意，一旦被击中或其召唤师被击中，他们就会消失。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他们的箭对敌人没有伤害，在一定时间后就会消失。"
+    }
+  ]
+}

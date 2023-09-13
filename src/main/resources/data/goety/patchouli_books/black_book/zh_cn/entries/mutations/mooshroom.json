@@ -1,0 +1,15 @@
+{
+  "name": "哞菇",
+  "icon": "minecraft:red_mushroom",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了一些红蘑菇和一头牛，你就可以把这头牛变成一只红色的哞菇，多么神奇."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_cow_to_mooshroom"
+    }
+  ]
+}

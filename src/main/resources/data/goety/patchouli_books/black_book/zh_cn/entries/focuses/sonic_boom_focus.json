@@ -1,0 +1,17 @@
+{
+  "name": "音爆聚晶",
+  "icon": "goety:sonic_boom_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了灵魂红宝石的力量，你已经成功地复制了监守者的音爆力量，让你可以利用它的能力来对付其他人!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sonic_boom_focus"
+    }
+  ]
+}

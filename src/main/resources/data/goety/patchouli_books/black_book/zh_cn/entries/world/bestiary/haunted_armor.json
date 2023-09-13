@@ -1,0 +1,29 @@
+{
+  "name": "闹鬼盔甲",
+  "icon": "goety:cursed_knight_helmet",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_haunted_armor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "墓穴的守护者和哨兵，无疑是通过亡灵魔法复活的。由于他们的本性是邪恶的，因此他们对几乎所有的负面效果都免疫，不会在火焰中燃烧。然而，它们仍然会在熔岩中融化，并受到亡灵杀手的更多伤害。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_armor{ArmorItems:[{Count:1,id:\"goety:cursed_knight_boots\"},{Count:1,id:\"goety:cursed_knight_leggings\"},{Count:1,id:\"goety:cursed_knight_chestplate\"},{Count:1,id:\"goety:cursed_knight_helmet\"}]}",
+      "text": "你可以使用斧头禁用他们的护盾."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:fell_blade",
+      "title": "堕落之刃",
+      "text": "闹鬼盔甲持有的刀刃有一个特殊的特性，他们有概率会将生物的护甲值减半。可以在铁砧上使用诅咒金属锭进行修复"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_knight_helmet",
+      "title": "诅咒骑士盔甲",
+      "text": "这件盔甲似乎或多或少是普通铁甲的华丽诅咒版，只有两个例外。第一，它提供了少量的韧性。第二，穿上全套盔甲可以获得额外的4点护甲。"
+    }
+  ]
+}

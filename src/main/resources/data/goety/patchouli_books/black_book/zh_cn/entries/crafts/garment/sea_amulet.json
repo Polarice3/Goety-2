@@ -1,0 +1,15 @@
+{
+  "name": "海洋护身符",
+  "icon": "goety:sea_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "海洋护身符会在穿戴者处于水下的时候，消耗自己内部储存的能量，向他们提供潮涌能量效果。如果要给它充能，穿戴者需要距离一个激活的潮涌核心8格或更近。只有穿戴者没有潮涌能量效果，或者前一次提供的效果剩余时间小于5秒时，海洋护身符才会提供效果。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sea_amulet"
+    }
+  ]
+}

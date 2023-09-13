@@ -1,0 +1,36 @@
+{
+  "name": "红石傀儡",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "翻阅古老的蓝图，你会发现一个强大的傀儡的蓝图，它在古代用于战争。傀儡看起来很强大，但是它需要一个由钻石和石砖制成的模具才能制造出如此可怕的野兽..."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem",
+      "text": "持有活力核心的时候对中心红石块单击鼠标右键."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "石砖可以用其他类似的砖代替，如深板岩石砖。事实证明，由此产生的傀儡远远优于铁傀儡，因为它不仅更强壮，而且可以通过魔杖/杖命令它跟随、徘徊或保持原位。它们可以用红石块右键单击进行修复。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_golem_skull",
+      "text": "如果傀儡从战斗或指挥中倒下，他们会掉下他们的“头骨”。骷髅可以用来以一种更便宜的方式复活傀儡。然而，它记得它最初的创造者和主人，复活的傀儡只会听从他们的命令。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem_revive",
+      "enable_visualize": false
+    }
+  ]
+}

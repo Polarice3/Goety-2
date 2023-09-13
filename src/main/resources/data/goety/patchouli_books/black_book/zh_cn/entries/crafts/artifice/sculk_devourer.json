@@ -1,0 +1,20 @@
+{
+  "name": "幽匿吞噬器",
+  "icon": "goety:sculk_devourer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽匿催发体非常迷人。它将经验转化为扩散在全世界的幽匿块，但通过一些改造，你已经成将幽匿催发体变成了一个灵魂能量收集器，可以将经验直接转化为灵魂能量。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_devourer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "转化得到的灵魂能量的量与经验的量相同。幽匿吞噬器可以附魔噬魂和半径魔咒。半径使得吸取经验的范围按照倍数增长，半径I范围将是两倍，而半径II范围将是三倍。噬魂增加经验转化而来的灵魂能量的数量。"
+    }
+  ]
+}

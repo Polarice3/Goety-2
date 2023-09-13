@@ -1,0 +1,17 @@
+{
+  "name": "死神之镰",
+  "icon": "goety:death_scythe",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "死神之镰是同类武器中的翘楚。它的刀刃如此锋利，以至于它的攻击波可以在空气中传播，命中距离使用者很远的生物，还能让被击中的生物更加脆弱。它通过吸收使用者的灵魂能量来自我修复。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:death_scythe"
+    }
+  ]
+}

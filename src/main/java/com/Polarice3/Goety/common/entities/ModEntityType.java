@@ -357,6 +357,11 @@ public class ModEntityType {
                     .sized(0.75F, 2.4875F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<VanguardServant>> VANGUARD_SERVANT = register("vanguard_servant",
+            EntityType.Builder.of(VanguardServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<WraithServant>> WRAITH_SERVANT = register("wraith_servant",
             EntityType.Builder.of(WraithServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)

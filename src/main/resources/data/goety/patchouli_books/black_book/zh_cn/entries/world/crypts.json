@@ -1,0 +1,16 @@
+{
+  "name": "墓穴",
+  "icon": "goety:crypt_stone_chiseled",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你曾听说过在地下挖掘的古代墓穴，扭曲了其邪恶结构之上的景观。有传言说这些墓穴藏着巨大的宝藏，被遗忘的秘密。。。和可怕的怪物。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/crypt.png"],
+      "border": true
+    }
+  ]
+}

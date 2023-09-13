@@ -1,0 +1,23 @@
+{
+  "name": "死灵套",
+  "icon": "goety:necro_cape",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "指挥僵尸和骷髅的力量听起来很棒，而有了死灵长袍的力量，你的死灵能力会进一步增强。穿上它，会让你的骷髅可以偶尔射出虚弱药箭，而你对僵尸会把自然生成的僵尸变成你的仆人。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "死灵王冠可以防止你的亡灵仆从们像脑鬼一样衰亡，并减少一半的施法时间，效果和黑暗帽子相同。"
+    }
+  ]
+}

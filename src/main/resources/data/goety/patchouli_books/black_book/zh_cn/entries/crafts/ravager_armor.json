@@ -1,0 +1,33 @@
+{
+  "name": "黑暗的劫掠兽盔甲",
+  "icon": "goety:iron_ravager_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在阅读有关劫掠兽的秘密的卷轴的时候，你想到了一个点子：制造特殊的盔甲来强化他们已有的带盔甲的马鞍。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "为这只巨兽制造盔甲需要大量的铁和金属，但它将为劫掠兽提供强力的保护。然而，在使用盔甲之前，劫掠兽必须已经装备了鞍。你听说过有传言说，你不是第一个想到给劫掠兽制作装备的人……"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_ravager_armor"
+    }
+  ]
+}
