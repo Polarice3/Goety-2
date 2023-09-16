@@ -213,7 +213,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                 if (source.getEntity() instanceof LivingEntity livingEntity){
                     double d0 = this.distanceTo(this.getTarget());
                     double d1 = this.distanceTo(livingEntity);
-                    if (MobUtil.ownedCanAttack(this, livingEntity)){
+                    if (MobUtil.ownedCanAttack(this, livingEntity) && livingEntity != this.getTrueOwner()){
                         if (d0 > d1){
                             this.setTarget(livingEntity);
                         }

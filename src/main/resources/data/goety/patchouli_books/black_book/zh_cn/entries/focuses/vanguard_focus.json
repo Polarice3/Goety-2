@@ -1,0 +1,16 @@
+{
+  "name": "先锋聚晶",
+  "icon": "goety:vanguard_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现了一种方法，可以用这个聚晶召唤忠诚的骷髅先锋。你感觉这个咒语是从一位古代国王那里偷来的，并且被重新改写了。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vanguard_focus"
+    }
+  ]
+}

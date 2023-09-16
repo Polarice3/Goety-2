@@ -52,19 +52,20 @@ public class RedstoneGolem extends Summoned {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
     public static float SUMMON_SECONDS_TIME = 5.15F;
     private int idleTime;
-    private int summonTick;
+    public int summonTick;
     private int summonCool;
     private int mineCount;
     public int attackTick;
     public int postAttackTick;
     public float getGlow;
-    public float glowAmount = 0.01F;
+    public float glowAmount = 0.03F;
     public int noveltyTick;
     public int deathTime = 0;
     public float deathRotation = 0.0F;
     public boolean markChanged = true;
     public boolean isNovelty = false;
     public boolean isPostAttack = false;
+    public boolean isFlash = false;
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState noveltyAnimationState = new AnimationState();
@@ -322,9 +323,9 @@ public class RedstoneGolem extends Summoned {
         }
         if (this.level.isClientSide()) {
             if (this.isAlive()) {
-                this.glow();
                 if (!this.isSummoning()){
                     this.summonAnimationState.stop();
+                    this.glow();
                 }
                 if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
                     this.walkAnimationState.stop();
@@ -352,9 +353,11 @@ public class RedstoneGolem extends Summoned {
                     ++this.attackTick;
                 }
                 if (this.summonTick > 0) {
+                    this.isFlash = this.summonTick < 60 && this.summonTick > 55 || this.summonTick < 52 && this.summonTick > 47 || this.summonTick < 45 && this.summonTick > 40 || this.summonTick < 38 && this.summonTick > 20;
                     --this.summonTick;
                 } else {
                     this.summonAnimationState.stop();
+                    this.isFlash = false;
                 }
             }
         }
@@ -381,7 +384,7 @@ public class RedstoneGolem extends Summoned {
                 }
                 if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving() && !this.isStaying()) {
                     ++this.idleTime;
-                    if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.minutesToTicks(5)) {
+                    if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.minutesToTicks(1)) {
                         this.idleTime = 0;
                         this.isNovelty = true;
                         this.level.broadcastEntityEvent(this, (byte) 9);
@@ -476,15 +479,17 @@ public class RedstoneGolem extends Summoned {
     }
 
     protected double getAttackReachSqr(LivingEntity enemy) {
-        return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth());
+        return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
     }
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){
-        return distToEnemySqr <= this.getAttackReachSqr(enemy) || RedstoneGolem.this.getBoundingBox().intersects(enemy.getBoundingBox());
+        double reach = this.getAttackReachSqr(enemy);
+        return distToEnemySqr <= reach || RedstoneGolem.this.getBoundingBox().intersects(enemy.getBoundingBox());
     }
 
     public boolean doHurtTarget(Entity entityIn) {
         if (!this.level.isClientSide && !this.isMeleeAttacking()) {
+            this.playSound(ModSounds.REDSTONE_GOLEM_PRE_ATTACK.get(), 1.5F, 1.0F);
             this.setMeleeAttacking(true);
         }
         return true;
@@ -530,19 +535,12 @@ public class RedstoneGolem extends Summoned {
      * Attack and Melee Goals based of @Infamous-Misadventures codes to make animation sync up: <a href="https://github.com/Infamous-Misadventures/Dungeons-Mobs/blob/1.19/src/main/java/com/infamous/dungeons_mobs/entities/redstone/RedstoneGolemEntity.java#L92">...</a>
      */
     class AttackGoal extends MeleeAttackGoal {
-        private int maxAttackTimer = 20;
         private final double moveSpeed;
         private int delayCounter;
-        private int attackTimer;
 
         public AttackGoal(double moveSpeed) {
             super(RedstoneGolem.this, moveSpeed, true);
             this.moveSpeed = moveSpeed;
-        }
-
-        public AttackGoal setMaxAttackTick(int max) {
-            this.maxAttackTimer = max;
-            return this;
         }
 
         @Override
@@ -571,27 +569,20 @@ public class RedstoneGolem extends Summoned {
                 return;
             }
 
-            RedstoneGolem.this.lookControl.setLookAt(livingentity, 30.0F, 30.0F);
+            RedstoneGolem.this.getLookControl().setLookAt(livingentity, RedstoneGolem.this.getMaxHeadYRot(), RedstoneGolem.this.getMaxHeadXRot());
 
             if (--this.delayCounter <= 0) {
                 this.delayCounter = 10;
                 RedstoneGolem.this.getNavigation().moveTo(livingentity, this.moveSpeed);
             }
 
-            this.attackTimer = Math.max(this.attackTimer - 1, 0);
             this.checkAndPerformAttack(livingentity, RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ()));
         }
 
         @Override
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr)) {
-                if (RedstoneGolem.this.summonCool > 10 && this.attackTimer == 5){
-                    RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_PRE_ATTACK.get(), 1.5F, 1.0F);
-                }
-                if (this.attackTimer <= 0) {
-                    this.attackTimer = this.maxAttackTimer;
-                    RedstoneGolem.this.doHurtTarget(enemy);
-                }
+            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr)  && !RedstoneGolem.this.isPostAttack) {
+                RedstoneGolem.this.doHurtTarget(enemy);
             }
         }
 
@@ -634,7 +625,7 @@ public class RedstoneGolem extends Summoned {
             if (RedstoneGolem.this.getTarget() != null && RedstoneGolem.this.getTarget().isAlive()) {
                 LivingEntity livingentity = RedstoneGolem.this.getTarget();
                 double d0 = RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                RedstoneGolem.this.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
+                RedstoneGolem.this.getLookControl().setLookAt(livingentity, RedstoneGolem.this.getMaxHeadYRot(), RedstoneGolem.this.getMaxHeadXRot());
                 if (RedstoneGolem.this.targetClose(livingentity, d0)){
                     RedstoneGolem.this.setYBodyRot(RedstoneGolem.this.getYHeadRot());
                     if (RedstoneGolem.this.attackTick == 1) {

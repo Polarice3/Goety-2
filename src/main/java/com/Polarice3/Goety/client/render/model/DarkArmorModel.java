@@ -46,13 +46,13 @@ public class DarkArmorModel extends HumanoidModel<LivingEntity> {
 		MeshDefinition meshdefinition = HumanoidModel.createMesh(cubeDeformation, 0.0F);
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 9.0F, new CubeDeformation(0.0F))
-				.texOffs(38, 0).addBox(-2.0F, -13.0F, -5.0F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -10.0F, -4.5F, 10.0F, 10.0F, 9.0F, new CubeDeformation(0.0F))
+				.texOffs(38, 0).addBox(-2.0F, -13.0F, -4.5F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition horns = head.addOrReplaceChild("horns", CubeListBuilder.create().texOffs(0, 0).addBox(5.0F, -9.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 0).addBox(-7.0F, -9.0F, -2.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 19).addBox(7.0F, -11.0F, -2.0F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 19).addBox(-8.0F, -11.0F, -2.0F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition horns = head.addOrReplaceChild("horns", CubeListBuilder.create().texOffs(0, 0).addBox(5.0F, -9.0F, -1.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-7.0F, -9.0F, -1.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 19).addBox(7.0F, -11.0F, -1.5F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 19).addBox(-8.0F, -11.0F, -1.5F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 24).addBox(-5.0F, 0.0F, -3.0F, 10.0F, 12.0F, 6.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 

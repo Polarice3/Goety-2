@@ -50,6 +50,7 @@ import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -109,9 +110,9 @@ public class ClientInitEvents {
 
     @SubscribeEvent
     public static void registerGUI(final RegisterGuiOverlaysEvent event){
-        event.registerAboveAll("soul_energy_hud", SoulEnergyGui.OVERLAY);
-        event.registerAboveAll("ravager_roar_hud", RavagerRoarGui.OVERLAY);
-        event.registerAboveAll("current_focus_hud", CurrentFocusGui.OVERLAY);
+        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "soul_energy_hud", SoulEnergyGui.OVERLAY);
+        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "ravager_roar_hud", RavagerRoarGui.OVERLAY);
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "current_focus_hud", CurrentFocusGui.OVERLAY);
     }
 
     @SubscribeEvent

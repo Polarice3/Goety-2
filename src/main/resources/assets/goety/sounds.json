@@ -1156,9 +1156,6 @@
       },
       {
         "name": "goety:redstone_golem/growl2"
-      },
-      {
-        "name": "goety:redstone_golem/growl3"
       }
     ],
     "subtitle": "subtitle.goety.redstone_golem_growl"

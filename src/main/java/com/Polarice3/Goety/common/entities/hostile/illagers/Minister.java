@@ -186,7 +186,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     }
 
     public static final Predicate<AbstractIllager> NOT_THEMSELVES = (p_20434_) -> {
-        return !(p_20434_ instanceof Minister);
+        return !(p_20434_ instanceof Minister) && !(p_20434_.getTarget() instanceof Minister);
     };
 
     public List<AbstractIllager> getNearbyIllagers(){
