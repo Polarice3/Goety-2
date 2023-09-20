@@ -439,6 +439,21 @@ public class PotionEvents {
     }
 
     @SubscribeEvent
+    public static void ExperienceEvents(LivingExperienceDropEvent event){
+        Player player = event.getAttackingPlayer();
+        LivingEntity living = event.getEntity();
+        if (player != null && living != null){
+            if (player.hasEffect(GoetyEffects.INSIGHT.get())){
+                MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.INSIGHT.get());
+                if (mobEffectInstance != null){
+                    int a = mobEffectInstance.getAmplifier() + 2;
+                    event.setDroppedExperience(event.getOriginalExperience() * a);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void DeathEvents(LivingDeathEvent event){
         if (event.getEntity() instanceof Player player){
             if (player.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){

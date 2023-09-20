@@ -19,7 +19,7 @@ public class PedestalBlockEntity extends RitualBlockEntity {
             () -> new ItemStackHandler(1) {
                 @Override
                 public int getSlotLimit(int slot) {
-                    return 64;
+                    return 1;
                 }
 
                 @Override

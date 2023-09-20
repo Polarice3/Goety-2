@@ -56,8 +56,8 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
 
         float breakChance = net.minecraftforge.common.ForgeHooks.onAnvilRepair(p_150474_, p_150475_, DarkAnvilMenu.this.inputSlots.getItem(0), DarkAnvilMenu.this.inputSlots.getItem(1));
 
-        if (breakChance > 0.5F) {
-            breakChance -= 0.5F;
+        if (breakChance > 0.05F) {
+            breakChance = 0.05F;
         }
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {

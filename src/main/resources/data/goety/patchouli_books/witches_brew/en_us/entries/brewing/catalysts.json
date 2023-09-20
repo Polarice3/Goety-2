@@ -181,12 +181,21 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.minecraft.health_boost"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.hunger"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.infest",
       "text": "Makes certain Stones and Stone Bricks infested with those adorable Silverfishes!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.insight",
+      "text": "I'm becoming SMARTER!"
     },
     {
       "type": "goety:catalyst",
@@ -222,6 +231,10 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.love",
       "text": "It's breedin time!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.luck"
     },
     {
       "type": "goety:catalyst",
@@ -346,6 +359,10 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.tripping",
       "text": "Careful where you walk kids! You might trip and be thrown off to a random direction! If the levels higher, you'll be tripping constantly!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.unluck"
     },
     {
       "type": "goety:catalyst",

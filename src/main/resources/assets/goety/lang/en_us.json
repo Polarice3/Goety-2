@@ -587,6 +587,8 @@
   "effect.goety.explosive.description": "Have a chance of unleashing an explosion when hurt; higher levels increases chance and explosion strength.",
   "effect.goety.swift_swim": "Swift Swim",
   "effect.goety.swift_swim.description": "Increase speed when swimming.",
+  "effect.goety.insight": "Insight",
+  "effect.goety.insight.description": "Doubles the amount of experience points dropped; higher levels increases yield.",
   "effect.goety.fire_trail": "Fire Trail",
   "effect.goety.fire_trail.description": "Walking sets the ground beneath on fire.",
   "effect.goety.fiery_aura": "Fiery Aura",

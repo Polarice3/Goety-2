@@ -83,7 +83,7 @@ public class RitualRequirements {
                     }
                 }
             case "forge":
-                if (pState.getBlock() instanceof SmithingTableBlock) {
+                if (pState.getBlock() instanceof LavaCauldronBlock) {
                     pTileEntity.first.add(pPos);
                 }
                 if (pState.getBlock() instanceof FurnaceBlock || pState.getBlock() instanceof BlastFurnaceBlock) {
@@ -166,13 +166,13 @@ public class RitualRequirements {
             }
             case "forge" -> {
                 first = 1;
-                second = 3;
-                third = 4;
+                second = 2;
+                third = 1;
             }
             case "magic" -> {
                 first = 16;
                 second = 1;
-                third = 2;
+                third = 1;
             }
             case "sabbath", "adept_nether" -> {
                 first = 8;

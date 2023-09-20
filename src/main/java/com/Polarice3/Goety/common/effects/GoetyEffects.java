@@ -138,6 +138,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> PHOTOSYNTHESIS = EFFECTS.register("photosynthesis",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xffec4f));
 
+    public static final RegistryObject<MobEffect> INSIGHT = EFFECTS.register("insight",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x59b057));
+
     public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));
 

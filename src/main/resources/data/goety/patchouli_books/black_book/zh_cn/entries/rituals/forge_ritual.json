@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需要: $(li)1 个锻造台 $(li)3 个熔炉或燃烧熔炉 $(li)4 个铁砧"
+      "text": "需要: $(li)1 充满熔岩的大锅 $(li)2 个熔炉或燃烧熔炉 $(li)1 个铁砧"
     },
     {
       "type": "patchouli:image",

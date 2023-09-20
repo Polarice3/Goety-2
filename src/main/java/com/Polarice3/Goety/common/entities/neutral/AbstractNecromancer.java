@@ -295,6 +295,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         Vec3 vector3d = this.getViewVector( 1.0F);
         SoulBolt soulBolt = new SoulBolt(this, vector3d.x, vector3d.y, vector3d.z, this.level);
         soulBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
+        soulBolt.rotateToMatchMovement();
         if (this.level.addFreshEntity(soulBolt)){
             this.playSound(ModSounds.CAST_SPELL.get());
             this.swing(InteractionHand.MAIN_HAND);

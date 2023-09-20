@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 
 public class BrewEffects {
@@ -22,6 +23,12 @@ public class BrewEffects {
     private final Map<Item, BrewEffect> catalyst = Maps.newHashMap();
     /** Made for external recipe viewers like Patchouli */
     private final Map<String, ItemStack> catalystInverted = Maps.newHashMap();
+    private final List<Item> forbiddenIngredients = List.of(Items.ENDER_EYE, Items.GUNPOWDER, Items.DRAGON_BREATH, ModItems.WIND_CORE.get(),
+            Items.REDSTONE, Items.PRISMARINE, Items.CHORUS_FLOWER, Items.GLOWSTONE_DUST, Items.BLAZE_ROD, ModItems.MYSTIC_CORE.get(),
+            Items.CHARCOAL, Items.FIREWORK_STAR, ModBlocks.TALL_SKULL_ITEM.get(), Items.HANGING_ROOTS, Items.BIG_DRIPLEAF, Items.SPORE_BLOSSOM,
+            Items.HONEY_BOTTLE, Items.GLOW_LICHEN, Items.TURTLE_EGG, Items.SNOWBALL, Items.BOW, Items.CROSSBOW, Items.CRIMSON_FUNGUS,
+            ModBlocks.SNAP_WARTS_ITEM.get(), ModItems.MAGIC_EMERALD.get(), ModItems.SOUL_EMERALD.get(), ModItems.SOUL_RUBY.get(),
+            Items.NETHER_WART);
 
     public BrewEffects(){
         //Vanilla
@@ -34,9 +41,11 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(MobEffects.HUNGER, BrewConfig.HungerCost.get(), 1800), Items.ROTTEN_FLESH);
         this.register(new PotionBrewEffect(MobEffects.HARM, BrewConfig.HarmingCost.get(), 1), Items.BRICK);
         this.register(new PotionBrewEffect(MobEffects.HEAL, BrewConfig.HealingCost.get(), 1), Items.GLISTERING_MELON_SLICE);
+        this.register(new PotionBrewEffect(MobEffects.HEALTH_BOOST, BrewConfig.HealthBoostCost.get(), 2, 1800), Items.ENCHANTED_GOLDEN_APPLE);
         this.register(new PotionBrewEffect(MobEffects.INVISIBILITY, BrewConfig.InvisibilityCost.get(), 3600), Items.GLASS_PANE);
         this.register(new PotionBrewEffect(MobEffects.JUMP, BrewConfig.JumpBoostCost.get(), 3600), Items.RABBIT_FOOT);
         this.register(new PotionBrewEffect(MobEffects.LEVITATION, BrewConfig.LevitationCost.get(), 2, 600), Items.SHULKER_SHELL);
+        this.register(new PotionBrewEffect(MobEffects.LUCK, BrewConfig.LuckCost.get(), 3600), Items.NAUTILUS_SHELL);
         this.register(new PotionBrewEffect(MobEffects.DIG_SLOWDOWN, BrewConfig.MiningFatigueCost.get(), 1800), Items.PRISMARINE_SHARD);
         this.register(new PotionBrewEffect(MobEffects.CONFUSION, BrewConfig.NauseaCost.get(), 900), ModItems.REFUSE_BOTTLE.get());
         this.register(new PotionBrewEffect(MobEffects.NIGHT_VISION, BrewConfig.NightVisionCost.get(), 3600), Items.GOLDEN_CARROT);
@@ -47,6 +56,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(MobEffects.MOVEMENT_SLOWDOWN, BrewConfig.SlownessCost.get(), 1800), Items.CHAIN);
         this.register(new PotionBrewEffect(MobEffects.MOVEMENT_SPEED, BrewConfig.SpeedCost.get(), 3600), Items.SUGAR);
         this.register(new PotionBrewEffect(MobEffects.DAMAGE_BOOST, BrewConfig.StrengthCost.get(), 3600), Items.BLAZE_POWDER);
+        this.register(new PotionBrewEffect(MobEffects.UNLUCK, BrewConfig.UnluckCost.get(), 3600), Items.POISONOUS_POTATO);
         this.register(new PotionBrewEffect(MobEffects.WATER_BREATHING, BrewConfig.WaterBreathingCost.get(), 3600), Items.PUFFERFISH);
         this.register(new PotionBrewEffect(MobEffects.WEAKNESS, BrewConfig.WeaknessCost.get(), 1800), Items.FERMENTED_SPIDER_EYE);
         this.register(new PotionBrewEffect(MobEffects.WITHER, BrewConfig.WitherCost.get(), 1, 900), Items.WITHER_ROSE);
@@ -68,6 +78,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.ARROWMANTIC.get(), BrewConfig.ArrowmanticCost.get(), 900), Items.TARGET);
         this.register(new PotionBrewEffect(GoetyEffects.FLAMMABLE.get(), BrewConfig.FlammableCost.get(), 1800), Items.GRASS);
+        this.register(new PotionBrewEffect(GoetyEffects.INSIGHT.get(), BrewConfig.InsightCost.get(), 3600), Items.WRITABLE_BOOK);
         this.register(new PotionBrewEffect(GoetyEffects.EXPLOSIVE.get(), BrewConfig.ExplosiveCost.get(), 2, 900), Items.CREEPER_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.FIERY_AURA.get(), BrewConfig.FieryAuraCost.get(), 2, 1800), Items.MAGMA_BLOCK);
         this.register(new PotionBrewEffect(GoetyEffects.FROSTY_AURA.get(), BrewConfig.FrostyAuraCost.get(), 2, 1800), Items.BLUE_ICE);

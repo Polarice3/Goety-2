@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需要: $(li)16 个书架 $(li)2 个附魔台 $(li)1 个有书的讲台"
+      "text": "需要: $(li)16 个书架 $(li)1 个附魔台 $(li)1 个有书的讲台"
     },
     {
       "type": "patchouli:image",

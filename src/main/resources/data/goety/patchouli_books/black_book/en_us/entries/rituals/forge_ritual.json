@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)1 Smithing Table $(li)3 Furnaces or Blast Furnaces $(li)4 Anvils"
+      "text": "Requirements: $(li)1 Cauldron full of Lava $(li)2 Furnaces or Blast Furnaces $(li)1 Anvils"
     },
     {
       "type": "patchouli:image",

@@ -78,6 +78,10 @@ public class SoulBolt extends AbstractHurtingProjectile {
         return TEXTURE_BY_TYPE.getOrDefault(this.getAnimation(), TEXTURE_BY_TYPE.get(0));
     }
 
+    public void rotateToMatchMovement() {
+        this.updateRotation();
+    }
+
     public int getAnimation() {
         return this.entityData.get(DATA_TYPE_ID);
     }

@@ -44,7 +44,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,24 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEventListener {
+    public long lastChangeTime;
+    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(
+            () -> new ItemStackHandler(1) {
+                @Override
+                public int getSlotLimit(int slot) {
+                    return 64;
+                }
+
+                @Override
+                protected void onContentsChanged(int slot) {
+                    assert DarkAltarBlockEntity.this.level != null;
+                    if (!DarkAltarBlockEntity.this.level.isClientSide) {
+                        DarkAltarBlockEntity.this.lastChangeTime = DarkAltarBlockEntity.this.level
+                                .getGameTime();
+                        DarkAltarBlockEntity.this.markNetworkDirty();
+                    }
+                }
+            });
     private CursedCageBlockEntity cursedCageTile;
     private final BlockPositionSource blockPosSource = new BlockPositionSource(this.worldPosition);
     public RitualRecipe currentRitualRecipe;
@@ -118,7 +138,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
     @Override
     public void readNetwork(CompoundTag compound) {
-        super.readNetwork(compound);
+        this.itemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
+        this.lastChangeTime = compound.getLong("lastChangeTime");
         if (compound.contains("currentRitual")) {
             this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
         }
@@ -134,6 +155,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
 
     @Override
     public CompoundTag writeNetwork(CompoundTag compound) {
+        this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
+        compound.putLong("lastChangeTime", this.lastChangeTime);
         RitualRecipe recipe = this.getCurrentRitualRecipe();
         if (recipe != null) {
             compound.putString("currentRitual", recipe.getId().toString());
@@ -144,7 +167,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         compound.putInt("currentTime", this.currentTime);
         compound.putInt("structureTime", this.structureTime);
         compound.putInt("convertTime", this.convertTime);
-        return super.writeNetwork(compound);
+        return compound;
     }
 
     public void tick() {

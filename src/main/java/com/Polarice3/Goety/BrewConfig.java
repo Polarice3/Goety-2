@@ -19,9 +19,11 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HungerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HarmingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HealingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HealthBoostCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> InvisibilityCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> JumpBoostCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LevitationCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LuckCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> MiningFatigueCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NauseaCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NightVisionCost;
@@ -33,6 +35,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SlownessCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpeedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> StrengthCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> UnluckCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WaterBreathingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WeaknessCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherCost;
@@ -53,6 +56,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SwiftSwimCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowmanticCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> InsightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostyAuraCost;
@@ -86,12 +90,16 @@ public class BrewConfig {
                 .defineInRange("harmingCost", 25, 1, Integer.MAX_VALUE);
         HealingCost = BUILDER.comment("Healing Soul Cost, Default: 25")
                 .defineInRange("healingCost", 25, 1, Integer.MAX_VALUE);
+        HealthBoostCost = BUILDER.comment("Health Boost Soul Cost, Default: 100")
+                .defineInRange("healthBoostCost", 100, 1, Integer.MAX_VALUE);
         InvisibilityCost = BUILDER.comment("Invisibility Soul Cost, Default: 25")
                 .defineInRange("invisibilityCost", 25, 1, Integer.MAX_VALUE);
         JumpBoostCost = BUILDER.comment("Jump Boost Soul Cost, Default: 25")
                 .defineInRange("jumpBoostCost", 25, 1, Integer.MAX_VALUE);
         LevitationCost = BUILDER.comment("Levitation Soul Cost, Default: 25")
                 .defineInRange("levitationCost", 25, 1, Integer.MAX_VALUE);
+        LuckCost = BUILDER.comment("Luck Soul Cost, Default: 25")
+                .defineInRange("luckCost", 25, 1, Integer.MAX_VALUE);
         MiningFatigueCost = BUILDER.comment("Mining Fatigue Soul Cost, Default: 10")
                 .defineInRange("miningFatigueCost", 10, 1, Integer.MAX_VALUE);
         NauseaCost = BUILDER.comment("Nausea Soul Cost, Default: 10")
@@ -114,6 +122,8 @@ public class BrewConfig {
                 .defineInRange("speedCost", 25, 1, Integer.MAX_VALUE);
         StrengthCost = BUILDER.comment("Strength Soul Cost, Default: 25")
                 .defineInRange("strengthCost", 25, 1, Integer.MAX_VALUE);
+        UnluckCost = BUILDER.comment("Unluck Soul Cost, Default: 25")
+                .defineInRange("unluckCost", 25, 1, Integer.MAX_VALUE);
         WaterBreathingCost = BUILDER.comment("Water Breathing Soul Cost, Default: 25")
                 .defineInRange("waterBreathingCost", 25, 1, Integer.MAX_VALUE);
         WeaknessCost = BUILDER.comment("Weakness Soul Cost, Default: 25")
@@ -154,6 +164,8 @@ public class BrewConfig {
                 .defineInRange("arrowmanticCost", 50, 1, Integer.MAX_VALUE);
         FlammableCost = BUILDER.comment("Flammable Soul Cost, Default: 50")
                 .defineInRange("flammableCost", 50, 1, Integer.MAX_VALUE);
+        InsightCost = BUILDER.comment("Insight Soul Cost, Default: 50")
+                .defineInRange("insightCost", 50, 1, Integer.MAX_VALUE);
         ExplosiveCost = BUILDER.comment("Explosive Soul Cost, Default: 50")
                 .defineInRange("explosiveCost", 50, 1, Integer.MAX_VALUE);
         FieryAuraCost = BUILDER.comment("Fiery Aura Soul Cost, Default: 50")

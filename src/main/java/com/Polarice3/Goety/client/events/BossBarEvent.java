@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Collections;
@@ -39,11 +38,7 @@ public class BossBarEvent {
                             event.setCanceled(true);
                             int k = i / 2 - 100;
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                            if (boss.getType().is(Tags.EntityTypes.BOSSES)) {
-                                drawBar(event.getPoseStack(), k, event.getY(), event.getPartialTick(), boss);
-                            } else {
-                                drawMiniBossBar(event.getPoseStack(), k, event.getY(), boss);
-                            }
+                            drawBar(event.getPoseStack(), k, event.getY(), event.getPartialTick(), boss);
                             Component itextcomponent = boss.getDisplayName();
                             int l = minecraft.font.width(itextcomponent);
                             int i1 = i / 2 - l / 2;
@@ -110,6 +105,8 @@ public class BossBarEvent {
             }
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX, pY, 0, 48, 200, 16, 256, 256);
+        } else {
+            drawMiniBossBar(pPoseStack, pX, pY, pEntity);
         }
     }
 

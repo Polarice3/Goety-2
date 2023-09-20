@@ -706,7 +706,7 @@ public class RedstoneGolem extends Summoned {
             super.start();
             RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get());
             RedstoneGolem.this.level.broadcastEntityEvent(RedstoneGolem.this, (byte) 4);
-            RedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) + 5);
+            RedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
             RedstoneGolem.this.summonCool = (int) MathHelper.secondsToTicks(10 + SUMMON_SECONDS_TIME);
             RedstoneGolem.this.mineCount = 14;
         }

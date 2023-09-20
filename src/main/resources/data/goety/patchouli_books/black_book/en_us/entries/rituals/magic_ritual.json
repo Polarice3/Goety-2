@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)16 Bookshelves $(li)2 Enchanting Tables $(li)1 Lectern with Book"
+      "text": "Requirements: $(li)16 Bookshelves $(li)1 Enchanting Table $(li)1 Lectern with Book"
     },
     {
       "type": "patchouli:image",
