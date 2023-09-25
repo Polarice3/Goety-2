@@ -1,26 +1,38 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
-    "fsf",
-    "ses",
-    "fsf"
-  ],
-  "key":
-  {
-    "e":
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:mystic_core"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
     {
-      "item": "goety:mystic_core"
+      "item": "goety:occult_fabric"
     },
-    "s":
+    {
+      "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "minecraft:fire_charge"
+    },
     {
       "item": "goety:ectoplasm"
     },
-    "f":
     {
       "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:occult_fabric"
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple"
     }
-  },
+  ],
   "result": {
     "item": "goety:magic_bolt_focus"
   }

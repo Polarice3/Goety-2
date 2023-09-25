@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Sculk Catalyst converts the dead into Sculk but it seems to devour the Soul Energies of the creature to convert them. With the use of the Soul Absorber, you are able to make the Catalyst absorb Soul Energy from the Cursed Cage and spread Sculk around it."
+      "text": "The Sculk Catalyst converts the dead into Sculk but it seems to devour the Soul Energies of the creature to convert them. With the use of the Soul Absorber, you are able to make the Catalyst absorb Soul Energy from the $(l:intro/cursed_cage)Cursed Cage$() and spread Sculk around it."
     },
     {
       "type": "patchouli:crafting",

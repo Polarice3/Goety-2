@@ -123,6 +123,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> REDSTONE_EXPLODE = PARTICLE_TYPES.register("redstone_explode",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> FAN_CLOUD = PARTICLE_TYPES.register("fan_cloud",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<ParticleType<BlockParticleOption>> FAST_DUST = PARTICLE_TYPES.register("fast_dust",
             () -> new ParticleType<>(false, BlockParticleOption.DESERIALIZER) {
                 @Override

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -58,12 +59,12 @@ public class VanguardServant extends AbstractSkeletonServant {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0F)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.VanguardServantHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 6.0F)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.VanguardServantDamage.get())
                 .add(Attributes.ATTACK_KNOCKBACK, 0.5F)
-                .add(Attributes.ARMOR, 9.0D);
+                .add(Attributes.ARMOR, AttributesConfig.VanguardServantArmor.get());
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){

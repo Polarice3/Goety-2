@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "After some research, you've found a way to create a more powerful and versatile version of the Cursed Cage. The Arca will store and distribute your Soul Energy making it so you won't need to use or carry a Totem of Souls anymore."
+      "text": "After some research, you've found a way to create a more powerful and versatile version of the $(l:intro/cursed_cage)Cursed Cage$(). The Arca will store and distribute your Soul Energy making it so you won't need to use or carry a Totem of Souls anymore."
     },
     {
       "type": "goety:ritual",
@@ -21,7 +21,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Due to this, one should use Transfer Gems to power one's Cursed Cages as trying to fill up a Totem with an Arca can be a tricky process."
+      "text": "Due to this, one should use $(l:crafts/soul_transfer_gem)Transfer Gems$() to power one's Cursed Cages as trying to fill up a Totem with an Arca can be a tricky process."
     },
     {
       "type": "patchouli:image",

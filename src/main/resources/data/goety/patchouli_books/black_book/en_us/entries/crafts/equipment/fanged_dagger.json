@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Added from pantman687's suggestion"
+      "text": "The dagger can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$(). Added from pantman687's suggestion"
     }
   ]
 }

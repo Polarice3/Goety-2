@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:graverobber_shovel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The shovel can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
     }
   ]
 }

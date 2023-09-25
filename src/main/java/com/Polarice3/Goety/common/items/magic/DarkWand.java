@@ -126,8 +126,12 @@ public class DarkWand extends Item {
         return entityLiving.hasEffect(GoetyEffects.SUMMON_DOWN.get());
     }
 
-    public boolean ReduceCastTime(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+    public boolean ReduceCastTime(LivingEntity entityLiving, ItemStack stack){
+        if (getSpell(stack) != null && getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
+            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get());
+        } else {
+            return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+        }
     }
 
     public int SoulCalculation(LivingEntity entityLiving, ItemStack stack){
@@ -156,7 +160,7 @@ public class DarkWand extends Item {
     }
 
     public int CastTime(LivingEntity entityLiving, ItemStack stack){
-        if (ReduceCastTime(entityLiving)){
+        if (ReduceCastTime(entityLiving, stack)){
             return CastDuration(stack)/2;
         } else {
             return CastDuration(stack);
@@ -350,6 +354,7 @@ public class DarkWand extends Item {
         }
     }
 
+    @Nullable
     public SoundEvent CastingSound(ItemStack stack) {
         if (this.getSpell(stack) != null) {
             return this.getSpell(stack).CastingSound();

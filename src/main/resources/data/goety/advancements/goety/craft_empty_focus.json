@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "goety:goety/craft_infuser",
+  "parent": "goety:goety/craft_totem_roots",
   "criteria": {
     "empty_focus": {
       "conditions": {

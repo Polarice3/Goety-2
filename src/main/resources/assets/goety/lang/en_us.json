@@ -497,6 +497,7 @@
   "block.goety.soul_mender": "Soul Menderer",
 
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
+  "block.goety.wind_blower": "Wind Blower",
   "block.goety.hook_bell": "Hook Bell",
   "block.goety.necro_brazier": "Necrotic Brazier",
   "block.goety.dark_anvil": "Dark Anvil",
@@ -662,7 +663,7 @@
 
   "key.goety.category": "Goety",
   "key.goety.wand": "Open Wand Focus Slot",
-  "key.goety.wandandbag": "Open Bag with Wand",
+  "key.goety.focusCircle": "Open Focus Circle",
   "key.goety.bag": "Open Focus Bag",
   "key.goety.ceaseFire": "Cease Fire",
 
@@ -762,6 +763,11 @@
   "tooltip.goety.brew.lingering": "Lingering %s",
   "tooltip.goety.brew.quaff": "Quaff %s",
   "tooltip.goety.brew.velocity": "Velocity %s",
+  "tooltip.goety.focusBag.bag": "Bag",
+  "tooltip.goety.focusBag.insert": "Insert",
+  "tooltip.goety.focusBag.swap": "Swap",
+  "tooltip.goety.focusBag.extract": "Extract",
+  "tooltip.goety.focusBag.empty": "Empty",
 
   "subtitle.goety.apostle_ambient": "Apostle mutters",
   "subtitle.goety.apostle_hurt": "Apostle hurts",
@@ -954,6 +960,8 @@
 
   "advancements.goety.root.title": "The Dark Arts",
   "advancements.goety.root.description": "Get started on your journey",
+  "advancements.goety.craft_totem_roots.title": "Starter Kit",
+  "advancements.goety.craft_totem_roots.description": "Craft a Totem of Roots, which can be used to craft basic components.",
   "advancements.goety.craft_infuser.title": "Cursed Elements",
   "advancements.goety.craft_infuser.description": "Put it on a Spawner to make it work.",
   "advancements.goety.craft_magic_emerald.title": "Secrets Of The Illagers",

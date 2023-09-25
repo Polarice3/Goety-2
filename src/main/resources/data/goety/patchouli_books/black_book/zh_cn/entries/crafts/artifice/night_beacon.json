@@ -1,0 +1,17 @@
+{
+  "name": "暗夜信标",
+  "icon": "goety:night_beacon",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "暗夜信标是村民传说中的一种古老装置。他们说，猪灵们把它放在了一个地狱传送门上，在那里它会让主世界永远处于黑暗之中。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "但传说中谈到了它的毁灭。也许你得到的是一个这样的奥术装置的复制品，一个很像古老传说的装置，那个可以给世界带来永恒夜晚的终极装置..."
+    }
+  ]
+}

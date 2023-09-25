@@ -1,0 +1,22 @@
+{
+  "name": "混杂之音",
+  "icon": "goety:cursed_cage",
+  "category": "goety:intro",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在黑魔法中，你会遇到各种需要灵魂能量来提供能量的神奇理论。诅咒之笼有助于将灵魂能量发送到这些设备，前提是它有一个图腾或灵魂能量支架的连接。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_cage"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "噬魂",
+      "text": "你还发现了一种新的魔法：噬魂。使用任何有噬魂魔咒的武器或工具，在杀死一个生物时都会翻倍增加其灵魂能量增益."
+    }
+  ]
+}

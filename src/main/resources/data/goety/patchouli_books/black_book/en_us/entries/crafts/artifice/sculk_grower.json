@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Sculk Grower requires a Cursed Cage on top of it, much like the Sculk Converter. Unlike the Sculk Converter, it will remain active with a constant Redstone signal, and it absorbs Soul Energy in bulk rather than slowly siphoning it. When it absorbs a bulk of Soul Energy, it gains 'Charges' which is used to speed up the growth of the surrounding crops."
+      "text": "The Sculk Grower requires a $(l:intro/cursed_cage)Cursed Cage$() on top of it, much like the Sculk Converter. Unlike the Sculk Converter, it will remain active with a constant Redstone signal, and it absorbs Soul Energy in bulk rather than slowly siphoning it. When it absorbs a bulk of Soul Energy, it gains 'Charges' which is used to speed up the growth of the surrounding crops."
     },
     {
       "type": "patchouli:text",

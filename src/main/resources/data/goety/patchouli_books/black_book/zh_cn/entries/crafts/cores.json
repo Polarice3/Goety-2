@@ -5,13 +5,13 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "魔法核心被用于制造各种法术和装备，可以通过各种仪式制作。特定类型的魔法核心也可以通过在工作台使用图腾之首来获得。 "
+      "text": "魔法核心被用于制造各种法术和装备，可以通过各种仪式制作。特定类型的魔法核心也可以通过在工作台使用图腾之首来获得."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:empty_focus",
       "title": "Empty Focus",
-      "text": "空白聚晶是各种魔法聚晶的核心。它通过将紫水晶碎片放入诅咒注入器来合成。"
+      "text": " $(l:intro/magical_components)空白聚晶$()是各种魔法聚晶的核心，它通过将紫水晶碎片放入诅咒注入器来合成."
     },
     {
       "type": "goety:ritual",

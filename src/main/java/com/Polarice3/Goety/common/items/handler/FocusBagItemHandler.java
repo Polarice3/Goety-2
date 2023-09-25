@@ -7,7 +7,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -76,20 +75,6 @@ public class FocusBagItemHandler extends ItemStackHandler {
     protected void onContentsChanged(int slot) {
         CompoundTag nbt = itemStack.getOrCreateTag();
         nbt.putBoolean("goety-dirty", !nbt.getBoolean("goety-dirty"));
-    }
-
-    public static FocusBagItemHandler orNull(ItemStack stack) {
-        return (FocusBagItemHandler) stack.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null);
-    }
-
-    public static LazyOptional<FocusBagItemHandler> getOptional(ItemStack stack) {
-        LazyOptional<IItemHandler> itemHandlerOpt = stack.getCapability(ForgeCapabilities.ITEM_HANDLER);
-        if (itemHandlerOpt.isPresent()) {
-            IItemHandler handler = itemHandlerOpt.orElse(null);
-            if (handler instanceof FocusBagItemHandler)
-                return LazyOptional.of(() -> (FocusBagItemHandler) handler);
-        }
-        return LazyOptional.empty();
     }
 
     public static FocusBagItemHandler get(ItemStack stack) {

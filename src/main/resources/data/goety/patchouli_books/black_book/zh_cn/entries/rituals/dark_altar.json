@@ -6,8 +6,7 @@
   "pages": [
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_altar",
-      "recipe2": "goety:cursed_cage"
+      "recipe": "goety:dark_altar"
     },
     {
       "type": "patchouli:crafting",

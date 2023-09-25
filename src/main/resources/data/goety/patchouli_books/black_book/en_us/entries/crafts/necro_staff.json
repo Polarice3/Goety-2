@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Ectoplasms dropped by the Wraiths gave you an idea. With some Cursed Ingots, you've managed to create an upgrade to your Wand and create a Staff fit for a Necromancer."
+      "text": "The Ectoplasms dropped by the Wraiths gave you an idea. With some $(l:intro/magical_components)Cursed Metal Ingots$(), you've managed to create an upgrade to your $(l:intro/dark_wand)Wand$() and create a Staff fit for a Necromancer."
     },
     {
       "type": "goety:ritual",

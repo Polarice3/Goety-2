@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.neutral.TotemicBomb;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -21,6 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import javax.annotation.Nullable;
 
 public class WandUtil {
 
@@ -48,6 +51,23 @@ public class WandUtil {
         }
 
         return foundStack;
+    }
+
+    public static ItemStack findFocusInInv(@Nullable Player player){
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (player != null) {
+            for (int i = 0; i < player.getInventory().items.size(); ++i) {
+                ItemStack inSlot = player.getInventory().getItem(i);
+                if (inSlot.getItem() instanceof MagicFocus) {
+                    foundStack = inSlot;
+                }
+            }
+        }
+        return foundStack;
+    }
+
+    public static boolean hasFocusInInv(@Nullable Player player){
+        return !findFocusInInv(player).isEmpty();
     }
 
     public static boolean enchantedFocus(LivingEntity playerEntity){

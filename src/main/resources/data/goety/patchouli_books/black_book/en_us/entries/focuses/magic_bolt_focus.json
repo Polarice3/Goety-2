@@ -1,0 +1,15 @@
+{
+  "name": "Magic Bolt Focus",
+  "icon": "goety:magic_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This focus allows you to shoot a bolt that Curses targets and produce a noxious ground of black magic."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magic_bolt_focus"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Ravager is a powerful beast, yet the one you have lacks its silver armor and saddle. With some Cursed Metal, you are able to recreate the armored saddle. Right-clicking on the poor naked Ravager will cause it to equip it, making it rideable and stronger."
+      "text": "The $(l:mutations/ravaged)Ravager$() is a powerful beast, yet the one you have lacks its silver armor and saddle. With some $(l:intro/magical_components)Cursed Metal$(), you are able to recreate the armored saddle. Right-clicking on the poor naked $(l:mutations/ravaged)Ravager$() will cause it to equip it, making it rideable and stronger."
     },
     {
       "type": "goety:ritual",

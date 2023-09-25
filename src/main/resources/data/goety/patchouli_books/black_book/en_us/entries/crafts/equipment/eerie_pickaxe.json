@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:eerie_pickaxe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The pickaxe can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
     }
   ]
 }

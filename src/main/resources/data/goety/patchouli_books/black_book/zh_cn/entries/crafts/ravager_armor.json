@@ -1,5 +1,5 @@
 {
-  "name": "黑暗的劫掠兽盔甲",
+  "name": "劫掠兽盔甲",
   "icon": "goety:iron_ravager_armor",
   "category": "goety:crafts",
   "advancement": "goety:goety/read_ravaging_scroll",
@@ -7,11 +7,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在阅读有关劫掠兽的秘密的卷轴的时候，你想到了一个点子：制造特殊的盔甲来强化他们已有的带盔甲的马鞍。"
+      "text": "在阅读 $(l:mutations/ravaged)劫掠兽的秘密的卷轴$()有关的时候, 你想到了一个点子：制造特殊的盔甲来强化他们已有的 $(l:crafts/ominous_saddle)带盔甲的马鞍$()."
     },
     {
       "type": "patchouli:text",
-      "text": "为这只巨兽制造盔甲需要大量的铁和金属，但它将为劫掠兽提供强力的保护。然而，在使用盔甲之前，劫掠兽必须已经装备了鞍。你听说过有传言说，你不是第一个想到给劫掠兽制作装备的人……"
+      "text": "为这只巨兽制造盔甲需要大量的铁和金属，但它将为 $(l:mutations/ravaged)劫掠兽$().提供强力的保护。然而，在使用盔甲之前， $(l:mutations/ravaged)劫掠兽$() 必须已经装备了 $(l:crafts/ominous_saddle)鞍$() . 你听说过有传言说，你不是第一个想到给劫掠兽制作装备的人...."
     },
     {
       "type": "goety:ritual",

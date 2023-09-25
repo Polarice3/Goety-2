@@ -1,0 +1,15 @@
+{
+  "name": "魔法束聚晶",
+  "icon": "goety:magic_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个焦点可以让你射出诅咒目标的球形闪电，并在地面上产生黑魔法诅咒"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magic_bolt_focus"
+    }
+  ]
+}

@@ -497,6 +497,7 @@
   "block.goety.soul_mender": "灵魂修补器",
 
   "block.goety.ice_bouquet_trap": "冰火收集器",
+  "block.goety.wind_blower": "鼓风机",
   "block.goety.hook_bell": "召集之钟",
   "block.goety.necro_brazier": "亡灵火炉",
   "block.goety.dark_anvil": "黑暗铁砧",
@@ -662,7 +663,7 @@
 
   "key.goety.category": "圣洁",
   "key.goety.wand": "打开法杖聚晶槽",
-  "key.goety.wandandbag": "打开聚晶包和法杖",
+  "key.goety.focusCircle": "打开聚晶圆环",
   "key.goety.bag": "打开聚晶包",
   "key.goety.ceaseFire": "停止施法",
 
@@ -762,6 +763,11 @@
   "tooltip.goety.brew.lingering": "滞留 %s",
   "tooltip.goety.brew.quaff": "豪饮 %s",
   "tooltip.goety.brew.velocity": "高速 %s",
+  "tooltip.goety.focusBag.bag": "聚晶包",
+  "tooltip.goety.focusBag.insert": "嵌入",
+  "tooltip.goety.focusBag.swap": "转换",
+  "tooltip.goety.focusBag.extract": "提取",
+  "tooltip.goety.focusBag.empty": "空的",
 
   "subtitle.goety.apostle_ambient": "使徒：低语",
   "subtitle.goety.apostle_hurt": "使徒：受伤",
@@ -954,6 +960,8 @@
 
   "advancements.goety.root.title": "黑暗艺术",
   "advancements.goety.root.description": "作为灾厄魔法师，开始您的旅程",
+  "advancements.goety.craft_totem_roots.title": "新手工具",
+  "advancements.goety.craft_totem_roots.description": "制作一个根之图腾，可以用来进行基本的仪式和魔法",
   "advancements.goety.craft_infuser.title": "受诅咒的元素",
   "advancements.goety.craft_infuser.description": "制作一个诅咒注入器，把它放在刷怪笼上，使其开始工作.",
   "advancements.goety.craft_magic_emerald.title": "灾厄村民的秘密",

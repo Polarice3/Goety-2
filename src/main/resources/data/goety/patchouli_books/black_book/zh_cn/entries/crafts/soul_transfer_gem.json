@@ -1,20 +1,20 @@
 {
-  "name": "连接宝石",
+  "name": "链接宝石",
   "icon": "goety:soul_transfer",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "诅咒之笼非常棒，但你已经开始因为需要不断地把你的宝贝图腾从上面取下来而感到厌倦了。"
+      "text": "$(l:intro/cursed_cage)诅咒之笼$() 非常棒，但你已经开始因为需要不断地把你的宝贝图腾从上面取下来而感到厌倦了."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:soul_transfer",
-      "text": "幸运的是，借助于激活的绿宝石的力量，存在着这样一种从灵魂方舟向诅咒之笼转移灵魂能量的方法。"
+      "text": "幸运的是，借助于激活的绿宝石的力量，存在着这样一种从 $(l:crafts/artifice/arca)灵魂方舟$() 讲能量转移到 $(l:intro/cursed_cage)诅咒之笼$()的方法."
     },
     {
       "type": "patchouli:text",
-      "text": "只需要简单地在灵魂方舟上右键使用连接宝石，它就会绑定那个灵魂方舟和使用者。然后，将它放置在诅咒之笼内，它就会将已绑定的灵魂方舟内的灵魂能量源源不断地输送过来。"
+      "text": "只需要简单地在 $(l:crafts/artifice/arca)灵魂方舟$() 上右键使用连接宝石 它就会绑定那个灵魂方舟和使用者。然后，将它放置在 $(l:intro/cursed_cage)诅咒之笼$() 内，它就会将已绑定的 $(l:crafts/artifice/arca)灵魂方舟$() 内的灵魂能量源源不断地输送过来."
     }
   ]
 }

@@ -42,6 +42,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemHealth;
@@ -145,6 +148,14 @@ public class AttributesConfig {
                         .defineInRange("skeletonServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 SkeletonServantDamage = BUILDER.comment("How much damage Skeleton Servants and variants deals, Default: 3.0")
                         .defineInRange("skeletonServantDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Vanguard Servant");
+                VanguardServantHealth = BUILDER.comment("How much Max Health Vanguard Servants have, Default: 20.0")
+                        .defineInRange("vanguardServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                VanguardServantArmor = BUILDER.comment("How much Armor Vanguard Servants have, Default: 9.0")
+                        .defineInRange("vanguardServantArmor", 9.0, 1.0, Double.MAX_VALUE);
+                VanguardServantDamage = BUILDER.comment("How much damage Vanguard Servants deals, Default: 6.0")
+                        .defineInRange("vanguardServantDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")

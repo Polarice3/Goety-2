@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
+import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +31,46 @@ public class TotemFinder {
         }
 
         return foundStack;
+    }
+
+    public static ItemStack findFocusInBag(Player player){
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (!findBag(player).isEmpty()){
+            FocusBagItemHandler focusBagItemHandler = FocusBagItemHandler.get(findBag(player));
+            for (int i = 1; i < focusBagItemHandler.getSlots(); ++i){
+                ItemStack itemStack = focusBagItemHandler.getStackInSlot(i);
+                if (itemStack.getItem() instanceof MagicFocus){
+                    foundStack = itemStack;
+                }
+            }
+        }
+        return foundStack;
+    }
+
+    public static int getFocusBagTotal(Player player){
+        int num = 0;
+        if (!findBag(player).isEmpty()){
+            FocusBagItemHandler focusBagItemHandler = FocusBagItemHandler.get(findBag(player));
+            for (int i = 1; i < focusBagItemHandler.getSlots(); ++i){
+                ItemStack itemStack = focusBagItemHandler.getStackInSlot(i);
+                if (itemStack.getItem() instanceof MagicFocus){
+                    ++num;
+                }
+            }
+        }
+        return num;
+    }
+
+    public static boolean hasEmptyBagSpace(Player player){
+        return getFocusBagTotal(player) < 10;
+    }
+
+    public static boolean hasFocusInBag(Player player){
+        return !findFocusInBag(player).isEmpty();
+    }
+
+    public static boolean canOpenWandCircle(Player player){
+        return hasFocusInBag(player) || WandUtil.hasFocusInInv(player) || !WandUtil.findFocus(player).isEmpty();
     }
 
     private static boolean isTotem(ItemStack itemStack) {

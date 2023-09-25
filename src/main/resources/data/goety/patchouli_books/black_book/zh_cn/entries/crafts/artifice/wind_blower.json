@@ -1,0 +1,16 @@
+{
+  "name": "鼓风机",
+  "icon": "goety:wind_blower",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "烈风核心的力量强大到可以用它来做鼓风机，它会把将所有的生物推到它面前，除了最强壮的生物。潜行会减少烈风对你的阻力，让你逆风而行。鼓风机的功率基于其接收到的红石能量，能量越高，功率越强。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wind_blower",
+      "text": "机器要通过红石信号激活."
+    }
+  ]
+}

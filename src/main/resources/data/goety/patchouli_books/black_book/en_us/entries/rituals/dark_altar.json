@@ -6,8 +6,7 @@
   "pages": [
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:dark_altar",
-      "recipe2": "goety:cursed_cage"
+      "recipe": "goety:dark_altar"
     },
     {
       "type": "patchouli:crafting",
@@ -16,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Dark Altar is the centerpiece of most Rituals. Before anything, the Altar must be placed above a Cursed Cage, and the Cage must have a Totem of Souls, that has Soul Energy, in it for the Altar to function."
+      "text": "The Dark Altar is the centerpiece of most Rituals. Before anything, the Altar must be placed above a $(l:intro/cursed_cage)Cursed Cage$(), and the Cage must have Soul Energy for the Altar to function."
     },
     {
       "type": "patchouli:multiblock",
@@ -40,7 +39,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "When the ritual is ongoing, the Altar will siphon Soul Energy from the Totem within the Cage, so you best fill up your Totem with some Soul Energy before enacting a Ritual!"
+      "text": "When the ritual is ongoing, the Altar will siphon Soul Energy from the Cage, so you best make sure it has enough of it before enacting a Ritual!"
     }
   ]
 }

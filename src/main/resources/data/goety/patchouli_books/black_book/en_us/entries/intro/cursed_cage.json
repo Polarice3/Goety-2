@@ -1,0 +1,22 @@
+{
+  "name": "Miscellaneous",
+  "icon": "goety:cursed_cage",
+  "category": "goety:intro",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Going through the dark arts, one will encounter all kinds of magical artifices that require Soul Energy to power. The Cursed Cage helps send Soul Energy to these devices, provided it has a Totem or some connection to a Soul Energy holder inserted in it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_cage"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Soul Eater",
+      "text": "You've also discovered a new enchantment: Soul Eater. Any weapon or tool enchanted with this, will increase the amount of Soul Energy gain when slaying a creature with it."
+    }
+  ]
+}

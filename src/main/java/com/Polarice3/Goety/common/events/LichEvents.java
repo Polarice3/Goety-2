@@ -241,9 +241,6 @@ public class LichEvents {
     public static void AttackEvent(LivingAttackEvent event){
         if (event.getEntity() instanceof Player player) {
             if (LichdomHelper.isLich(player)) {
-                if (!new Zombie(player.level).hurt(event.getSource(), event.getAmount())) {
-                    event.setCanceled(true);
-                }
                 if (event.getSource() == DamageSource.DROWN){
                     event.setCanceled(true);
                 }

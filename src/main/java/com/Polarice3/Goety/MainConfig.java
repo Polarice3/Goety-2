@@ -83,6 +83,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> PhilosophersMaceDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PhilosophersMaceEnchantability;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
@@ -98,6 +99,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShowRobeHoods;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
@@ -117,6 +119,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
@@ -169,6 +172,8 @@ public class MainConfig {
                 .defineInRange("focusGuiVertical", 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
         FirstPersonGloves = BUILDER.comment("Show gloves in first person, Default: true")
                 .define("firstPersonGloves", true);
+        ShowRobeHoods = BUILDER.comment("Show Hoods when wearing certain robes ie, Illusive Robes, Default: true")
+                .define("showRobeHoods", true);
         ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
                 .define("apocalypseMode", false);
         SpecialBossBar = BUILDER.comment("Bosses from the Mod has custom looking Boss Bars. Default: true")
@@ -238,6 +243,8 @@ public class MainConfig {
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
+        RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
+                .define("redstoneGolemCrack", false);
         BUILDER.pop();
         BUILDER.push("Items");
         DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
@@ -304,6 +311,8 @@ public class MainConfig {
                 .defineInRange("philosophersMaceDamage", 9.0, 1.0, Double.MAX_VALUE);
         PhilosophersMaceDurability = BUILDER.comment("How many uses before the Philosopher's Mace breaks, Default: 128")
                 .defineInRange("philosophersMaceDurability", 128, 1, Integer.MAX_VALUE);
+        PhilosophersMaceEnchantability = BUILDER.comment("Define the Enchantability for Philosopher's Mace, higher number the better, Default: 20")
+                .defineInRange("philosophersMaceEnchantability", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Villagers");
         VillagerHate = BUILDER.comment("Wearing a Dark Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")

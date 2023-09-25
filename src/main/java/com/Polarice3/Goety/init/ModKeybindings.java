@@ -11,7 +11,7 @@ public class ModKeybindings {
         keyBindings = new KeyMapping[12];
 
         keyBindings[0] = new KeyMapping("key.goety.wand", 90, "key.goety.category");
-        keyBindings[1] = new KeyMapping("key.goety.wandandbag", 88, "key.goety.category");
+        keyBindings[1] = new KeyMapping("key.goety.focusCircle", 88, "key.goety.category");
         keyBindings[2] = new KeyMapping("key.goety.bag", 67, "key.goety.category");
         keyBindings[3] = new KeyMapping("key.goety.witch.robe", 86, "key.goety.witch.category");
         keyBindings[4] = new KeyMapping("key.goety.ceaseFire", 66, "key.goety.category");
@@ -26,6 +26,10 @@ public class ModKeybindings {
         for (int i = 0; i < keyBindings.length; ++i) {
             Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, keyBindings[i]);
         }
+    }
+
+    public static KeyMapping wandCircle(){
+        return keyBindings[1];
     }
 
 

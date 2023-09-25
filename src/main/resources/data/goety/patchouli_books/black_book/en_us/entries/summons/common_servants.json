@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Undead Servants can teleport to their Summoner if their summoner has their Focus equipped to their wands and cast the spell when crouching. If the summoned Servant is not a Vex, right clicking on them with a Wand/Staff will either make them follow the Summoner or wander around the area."
+      "text": "Undead Servants can teleport to their Summoner if their summoner has their Focus equipped to their wands and cast the spell when crouching. If the summoned Servant is not a Vex, right clicking on them with a $(l:intro/dark_wand)Wand$()/Staff will either make them follow the Summoner or wander around the area."
     }
   ]
 }

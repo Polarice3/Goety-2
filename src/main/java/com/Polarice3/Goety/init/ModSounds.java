@@ -171,6 +171,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_THROW = create("blast_fungus_throw");
     public static final RegistryObject<SoundEvent> BLAST_FUNGUS_EXPLODE = create("blast_fungus_explode");
 
+    public static final RegistryObject<SoundEvent> FOCUS_PICK = create("focus_pick");
+
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_START = create("corrupt_beam_start");
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_LOOP = create("corrupt_beam_loop");
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_SOUL = create("corrupt_beam_soul");

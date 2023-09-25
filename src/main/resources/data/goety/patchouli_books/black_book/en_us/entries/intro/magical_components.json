@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With your primitive Totem in hand, you've discovered that you can use it to craft brand new items that can be used to create all kinds of magical contraptions and focus!"
+      "text": "With your primitive Totem in hand, you've discovered that you can use it to craft brand new items that can be used to create all kinds of magical contraptions and focus! Though surely there's a more $(l:intro/cursed_infuser)cheaper way$() of getting these items..."
     },
     {
       "type": "patchouli:crafting",
@@ -31,6 +31,7 @@
       "recipe": "goety:magic_emerald_craft"
     },
     {
+      "anchor": "totem",
       "type": "patchouli:crafting",
       "recipe": "goety:totem_of_souls",
       "text": "You've finally made a true simulacrum of the Evoker's Totem. This Totem can hold far more Soul Energy than the Totem of Roots."

@@ -120,7 +120,7 @@ public class ModItems {
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<Item> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
-    public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", MagicHatItem::new);
+    public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", SingleStackItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<Item> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);

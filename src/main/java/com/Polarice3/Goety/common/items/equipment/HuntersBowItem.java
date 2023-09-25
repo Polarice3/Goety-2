@@ -7,6 +7,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +17,10 @@ import net.minecraftforge.fml.common.Mod;
 public class HuntersBowItem extends BowItem {
     public HuntersBowItem() {
         super((new Item.Properties()).rarity(Rarity.UNCOMMON).defaultDurability(MainConfig.HuntersBowDurability.get()).tab(Goety.TAB));
+    }
+
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return pRepair.getItem() instanceof BowItem;
     }
 
     @SubscribeEvent

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.LoopSound;
+import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
@@ -17,10 +18,10 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.LichdomHelper;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -37,10 +38,12 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -185,15 +188,66 @@ public class ClientEvents {
         }
     }
 
+    /**
+     * From here, code is modified and based of @gigaherz ClientEvents codes: <a href="https://github.com/gigaherz/ToolBelt/blob/master/src/main/java/dev/gigaherz/toolbelt/client/ClientEvents.java">...</a>
+     * */
+    public static void wipeOpen()
+    {
+        while (ModKeybindings.wandCircle().consumeClick()) {
+        }
+    }
+
+    private static boolean toolMenuKeyWasDown = false;
+
+    @SubscribeEvent
+    public static void handleKeys(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.START) {
+            return;
+        }
+
+        Minecraft minecraft = Minecraft.getInstance();
+
+        if (minecraft.screen == null) {
+            boolean toolMenuKeyIsDown = ModKeybindings.wandCircle().isDown();
+            if (toolMenuKeyIsDown && !toolMenuKeyWasDown) {
+                while (ModKeybindings.wandCircle().consumeClick()) {
+                    if (minecraft.screen == null && minecraft.player != null) {
+                        ItemStack inHand = WandUtil.findWand(minecraft.player);
+                        if (!inHand.isEmpty() && ((TotemFinder.canOpenWandCircle(minecraft.player)))) {
+                            minecraft.setScreen(new FocusRadialMenuScreen());
+                        }
+                    }
+                }
+            }
+            toolMenuKeyWasDown = toolMenuKeyIsDown;
+        } else {
+            toolMenuKeyWasDown = true;
+        }
+    }
+
+    public static boolean isKeyDown(KeyMapping keybind) {
+        if (keybind.isUnbound()) {
+            return false;
+        }
+
+        boolean isDown =
+                switch (keybind.getKey().getType()) {
+                    case KEYSYM -> InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue());
+                    case MOUSE -> GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue()) == GLFW.GLFW_PRESS;
+                    default -> false;
+                };
+        return isDown && keybind.getKeyConflictContext().isActive() && keybind.getKeyModifier().isActive(keybind.getKeyConflictContext());
+    }
+    /**
+     * To Here
+     * */
+
     @SubscribeEvent
     public static void KeyInputs(InputEvent.Key event) {
         Minecraft MINECRAFT = Minecraft.getInstance();
 
         if (ModKeybindings.keyBindings[0].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandKeyPacket());
-        }
-        if (ModKeybindings.keyBindings[1].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CWandAndBagKeyPacket());
         }
         if (ModKeybindings.keyBindings[2].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CBagKeyPacket());

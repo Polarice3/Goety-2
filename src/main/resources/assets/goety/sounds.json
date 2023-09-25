@@ -1833,6 +1833,13 @@
     ],
     "subtitle": "subtitle.goety.blast_fungus_explode"
   },
+  "focus_pick": {
+    "sounds": [
+      {
+        "name": "goety:item/focus_pick"
+      }
+    ]
+  },
   "corrupt_beam_start": {
     "sounds": [
       {

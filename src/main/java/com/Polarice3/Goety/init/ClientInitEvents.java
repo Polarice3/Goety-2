@@ -204,6 +204,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SOUL_ABSORBER.get(), SoulAbsorberRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SOUL_MENDER.get(), SoulMenderRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ICE_BOUQUET_TRAP.get(), ModBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.WIND_BLOWER.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SCULK_DEVOURER.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FORBIDDEN_GRASS.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MAGIC_LIGHT.get(), ModBlockEntityRenderer::new);
@@ -380,6 +381,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
         event.register(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
+        event.register(ModParticleTypes.FAN_CLOUD.get(), FanCloudParticle.Provider::new);
         event.register(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
         event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);

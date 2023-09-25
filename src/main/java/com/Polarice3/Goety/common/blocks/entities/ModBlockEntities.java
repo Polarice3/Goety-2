@@ -34,6 +34,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<IceBouquetTrapBlockEntity>> ICE_BOUQUET_TRAP = BLOCK_ENTITY.register("ice_bouquet_trap",
             () -> BlockEntityType.Builder.of(IceBouquetTrapBlockEntity::new, ModBlocks.ICE_BOUQUET_TRAP.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<WindBlowerBlockEntity>> WIND_BLOWER = BLOCK_ENTITY.register("wind_blower",
+            () -> BlockEntityType.Builder.of(WindBlowerBlockEntity::new, ModBlocks.WIND_BLOWER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<SculkDevourerBlockEntity>> SCULK_DEVOURER = BLOCK_ENTITY.register("sculk_devourer",
             () -> BlockEntityType.Builder.of(SculkDevourerBlockEntity::new, ModBlocks.SCULK_DEVOURER.get()).build(null));
 

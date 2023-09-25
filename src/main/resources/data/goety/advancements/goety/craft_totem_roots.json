@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:totem_of_roots"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_totem_roots.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_totem_roots.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "totem_of_roots": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:totem_of_roots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "totem_of_roots"
+    ]
+  ]
+}

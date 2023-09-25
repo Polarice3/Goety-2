@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -45,8 +46,10 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class RedstoneGolem extends Summoned {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
@@ -709,6 +712,36 @@ public class RedstoneGolem extends Summoned {
             RedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
             RedstoneGolem.this.summonCool = (int) MathHelper.secondsToTicks(10 + SUMMON_SECONDS_TIME);
             RedstoneGolem.this.mineCount = 14;
+        }
+    }
+
+    public RedstoneGolem.Crackiness getCrackiness() {
+        return RedstoneGolem.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
+    }
+
+    public static enum Crackiness {
+        NONE(1.0F),
+        LOW(0.75F),
+        MEDIUM(0.5F),
+        HIGH(0.25F);
+
+        private static final List<RedstoneGolem.Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
+            return (double)p_28904_.fraction;
+        })).collect(ImmutableList.toImmutableList());
+        private final float fraction;
+
+        private Crackiness(float p_28900_) {
+            this.fraction = p_28900_;
+        }
+
+        public static RedstoneGolem.Crackiness byFraction(float p_28902_) {
+            for(RedstoneGolem.Crackiness irongolem$crackiness : BY_DAMAGE) {
+                if (p_28902_ < irongolem$crackiness.fraction) {
+                    return irongolem$crackiness;
+                }
+            }
+
+            return NONE;
         }
     }
 

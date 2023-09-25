@@ -9,28 +9,28 @@
   "duration": 30,
   "ingredients": [
     {
-      "item": "minecraft:sculk_catalyst"
-    },
-    {
-      "item": "goety:soul_emerald"
-    },
-    {
-      "item": "goety:shade_stone_chiseled"
-    },
-    {
       "item": "minecraft:anvil"
-    },
-    {
-      "item": "goety:shade_stone_chiseled"
-    },
-    {
-      "item": "minecraft:music_disc_5"
     },
     {
       "item": "minecraft:soul_campfire"
     },
     {
-      "item": "goety:cursed_ingot"
+      "item": "goety:shade_stone_chiseled"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "goety:shade_stone_chiseled"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "goety:dark_ingot"
     }
   ],
   "result": {

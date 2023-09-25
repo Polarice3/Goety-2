@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Arca resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you, you will be inflicted with a terrible Soul Hunger. The hunger will cause you to be weaker and slower, until your Soul Energy has reached the proper amount."
+      "text": "$(l:crafts/artifice/arca)Arca$() resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you, you will be inflicted with a terrible Soul Hunger. The hunger will cause you to be weaker and slower, until your Soul Energy has reached the proper amount."
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "name": "Wind Blower",
+  "icon": "goety:wind_blower",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The power of the Wind Core allows for the creation of powerful blowers, that pushes all but the sturdious of creatures in front of it. Crouching will reduce the push on you, allowing you to go against the wind. The power of the blower is based on the redstone power it receives, the higher, the stronger."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wind_blower",
+      "text": "The machine will activate with a redstone signal."
+    }
+  ]
+}

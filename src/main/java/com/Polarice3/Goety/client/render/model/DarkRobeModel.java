@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.MainConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -41,6 +42,7 @@ public class DarkRobeModel extends HumanoidModel<LivingEntity> {
     public void setupAnim(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.bodyParts().forEach((modelPart -> modelPart.visible = !entityIn.isInvisible()));
+        this.head.visible = MainConfig.ShowRobeHoods.get();
     }
 
     @Override

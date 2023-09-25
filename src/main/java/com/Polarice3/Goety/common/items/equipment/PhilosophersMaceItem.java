@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +22,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
@@ -61,11 +61,11 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
 
     public boolean isCorrectToolForDrops(BlockState pBlock) {
         Material material = pBlock.getMaterial();
-        return material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST || material == Material.SCULK || pBlock.is(Blocks.SNOW) || pBlock.is(Blocks.SNOW_BLOCK) || pBlock.is(Blocks.POWDER_SNOW);
+        return material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST || pBlock.is(BlockTags.MINEABLE_WITH_PICKAXE) || pBlock.is(BlockTags.MINEABLE_WITH_AXE) || pBlock.is(BlockTags.MINEABLE_WITH_HOE) || pBlock.is(BlockTags.MINEABLE_WITH_SHOVEL);
     }
 
     public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
-        float blockHard = p_41005_.getDestroySpeed(null, BlockPos.ZERO);
+        float blockHard = p_41005_.getBlock().defaultDestroyTime();
         if (this.isCorrectToolForDrops(p_41004_, p_41005_) && blockHard >= 1.0F) {
             return 8.0F * blockHard;
         } else {
@@ -74,11 +74,10 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public int getEnchantmentValue() {
-        return 15;
+        return MainConfig.PhilosophersMaceEnchantability.get();
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
-    {
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return (enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
@@ -86,8 +85,8 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.maceAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+        return equipmentSlot == EquipmentSlot.MAINHAND ? this.maceAttributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
 
     @Override

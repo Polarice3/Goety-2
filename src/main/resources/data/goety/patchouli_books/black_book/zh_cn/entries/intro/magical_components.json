@@ -1,12 +1,12 @@
 {
-  "name": "魔力组件",
+  "name": "神奇的绿宝石",
   "icon": "goety:magic_emerald",
   "category": "goety:intro",
   "sortnum": 3,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "有了你的原始图腾，你发现你可以用它来制作全新的物品，这些物品可以用来创造各种神奇的装置和法术聚晶！"
+      "text": "有了你的原始图腾，你发现你可以用它来制作全新的物品，这些物品可以用来创造各种神奇的装置和聚晶！ 尽管肯定还有更多 $(l:intro/cursed_infuser)更便宜的方式$() 去获得这些东西..."
     },
     {
       "type": "patchouli:crafting",
@@ -24,16 +24,17 @@
     },
     {
       "type": "patchouli:text",
-      "text": "唤魔者的图腾似乎在眼睛所在的地方放置了绿宝石。这种绿宝石与平常绿宝石不同...有没有办法“激活”它们？"
+      "text": "唤魔者的图腾似乎在眼睛所在的地方放置了绿宝石。这玩意跟平时的绿宝石完全不同...有没有办法“激活”它们？"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:magic_emerald_craft"
     },
     {
+      "anchor": "totem",
       "type": "patchouli:crafting",
       "recipe": "goety:totem_of_souls",
-      "text": "你终于制作出了一个真正的灵魂图腾。这个图腾可以比树根图腾拥有更多的灵魂能量."
+      "text": "你终于制作出了一个真正的不死图腾的赝品，尽管他是赝品，但是这个图腾可以比根之图腾拥有更多的灵魂能量，而且他比正品还要强大"
     }
   ]
 }
