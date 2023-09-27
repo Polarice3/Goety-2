@@ -146,8 +146,12 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         this.stunnedTick = p_33344_.getInt("StunTick");
         this.roarTick = p_33344_.getInt("RoarTick");
         this.roarCool = p_33344_.getInt("RoarCool");
-        this.setSaddle(p_33344_.getBoolean("Saddle"));
-        this.setAutonomous(p_33344_.getBoolean("AutoMode"));
+        if (p_33344_.contains("Saddle")) {
+            this.setSaddle(p_33344_.getBoolean("Saddle"));
+        }
+        if (p_33344_.contains("AutoMode")) {
+            this.setAutonomous(p_33344_.getBoolean("AutoMode"));
+        }
         if (p_33344_.contains("ArmorItem")) {
             CompoundTag armorItem = p_33344_.getCompound("ArmorItem");
             if (!armorItem.isEmpty()) {

@@ -698,6 +698,7 @@
 
   "info.goety.items.dark_scroll.desc": "Must be used within a Woodland Mansion.",
   "info.goety.items.dark_scroll.failure": "You are not within a Woodland Mansion!",
+  "info.goety.items.scroll": "Right-click to read the scroll.",
   "info.goety.items.ravaging": "An Evoker's ritual cheatsheet.",
   "info.goety.items.warred": "The template for ancient war machines.",
   "info.goety.items.buried": "Some sort of ancient manuscript of a nameless kingdom...",

@@ -488,24 +488,24 @@ public class Crone extends Cultist implements RangedAttackMob {
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        this.lastHitTime = MathHelper.secondsToTicks(15);
-
-        if (pAmount >= 15){
-            this.overwhelmed = MathHelper.secondsToTicks(15);
-        }
-
         if (this.getHealth() <= 10.0F){
             if (pSource == DamageSource.CACTUS || pSource == DamageSource.SWEET_BERRY_BUSH || pSource.isMagic()){
                 return false;
             }
         }
 
-        if (!pSource.isExplosion() && !pSource.isMagic() && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
-            float thorn = 2.0F;
-            if (this.level.getDifficulty() == Difficulty.HARD){
-                thorn *= 2.0F;
+        if (pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this){
+            this.lastHitTime = MathHelper.secondsToTicks(15);
+            if (!pSource.isExplosion() && !pSource.isMagic()) {
+                float thorn = 2.0F;
+                if (this.level.getDifficulty() == Difficulty.HARD){
+                    thorn *= 2.0F;
+                }
+                livingentity.hurt(DamageSource.thorns(this), thorn);
             }
-            livingentity.hurt(DamageSource.thorns(this), thorn);
+            if (pAmount >= 15){
+                this.overwhelmed = MathHelper.secondsToTicks(15);
+            }
         }
 
         return super.hurt(pSource, pAmount);

@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:dark_hat"
+    "item": "goety:soul_emerald"
   },
   "craftType": "necroturgy",
   "soulCost": 1,
@@ -27,7 +27,7 @@
       "tag": "forge:bones"
     },
     {
-      "item": "goety:soul_emerald"
+      "item": "goety:ectoplasm"
     }
   ],
   "result": {

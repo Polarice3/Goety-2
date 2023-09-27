@@ -1,21 +1,25 @@
 {
-  "name": "Dark Altar & Pedestals",
+  "name": "Performing Rituals",
   "icon": "goety:dark_altar",
   "category": "goety:rituals",
   "sortnum": 0,
   "pages": [
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:dark_altar"
+      "type": "patchouli:text",
+      "text": "The Dark Altar is the centerpiece of most Rituals. Before anything, the Altar must be placed above a $(l:intro/cursed_cage)Cursed Cage$(), and the Cage must have Soul Energy for the Altar to function."
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:pedestal",
-      "text": "Pedestals are used to hold items for peasants to balk at. Also to hold items that are required for the ritual."
+      "recipe": "goety:dark_altar",
+      "recipe2": "goety:pedestal"
     },
     {
       "type": "patchouli:text",
-      "text": "The Dark Altar is the centerpiece of most Rituals. Before anything, the Altar must be placed above a $(l:intro/cursed_cage)Cursed Cage$(), and the Cage must have Soul Energy for the Altar to function."
+      "text": "By using a Dark Altar, you may craft a certain item or summon a creature depending on the blocks and items surrounding the Altar. Unlike other schools of magic, these blocks do $(l)not$() need to be arranged in a certain order for the ritual to function. What matters is the certain amount of certain blocks are $(l)within$() the Altar's $(l)16 block radius.$()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To begin the ritual, you must filled the pedestals first with the required items $(l)before$() placing the Altar's item. When the ritual is ongoing, the Altar will siphon Soul Energy from the Cage, so you best make sure it has enough of it before enacting a Ritual! The Pedestals can be used for decoration."
     },
     {
       "type": "patchouli:multiblock",
@@ -32,14 +36,6 @@
         "symmetrical": true
       },
       "enable_visualize": false
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By using a Dark Altar, you may craft a certain item or summon a creature depending on the blocks and items surrounding the Altar. Unlike other schools of magic, these blocks do not need to be arranged in a certain order for the ritual to function. What matters is the certain amount of certain blocks are within the Altar's 16 block radius."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "When the ritual is ongoing, the Altar will siphon Soul Energy from the Cage, so you best make sure it has enough of it before enacting a Ritual!"
     }
   ]
 }

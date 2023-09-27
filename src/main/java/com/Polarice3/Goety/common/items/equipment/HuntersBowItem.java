@@ -32,7 +32,7 @@ public class HuntersBowItem extends BowItem {
                         if (livingEntity.getMainHandItem().getItem() instanceof HuntersBowItem) {
                             if (event.getDamageSource().getDirectEntity() instanceof AbstractArrow) {
                                 if (event.getEntity() instanceof Animal){
-                                    event.setLootingLevel(4);
+                                    event.setLootingLevel(event.getLootingLevel() + 4);
                                 }
                             }
                         }

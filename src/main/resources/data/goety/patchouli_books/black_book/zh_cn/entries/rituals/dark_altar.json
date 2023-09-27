@@ -1,21 +1,25 @@
 {
-  "name": "黑暗祭坛 & 祭坛基座",
+  "name": "举行仪式",
   "icon": "goety:dark_altar",
   "category": "goety:rituals",
   "sortnum": 0,
   "pages": [
     {
-      "type": "patchouli:crafting",
-      "recipe": "goety:dark_altar"
+      "type": "patchouli:text",
+      "text": "黑暗祭坛是大多数仪式的中心。在进行仪式之前，祭坛必须放置在诅咒之笼上方，笼中必须有一个灵魂图腾，里面必须有足够的灵魂能量，祭坛才能发挥作用。"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:pedestal",
-      "text": "基座可以用来放置一些土包子看一眼就望而却步的物品。也可以用来放置仪式所需的物品."
+      "recipe": "goety:dark_altar",
+      "recipe2": "goety:pedestal"
     },
     {
       "type": "patchouli:text",
-      "text": "黑暗祭坛是大多数仪式的中心。在进行仪式之前，祭坛必须放置在诅咒之笼上方，笼中必须有一个灵魂图腾，里面必须有足够的灵魂能量，祭坛才能发挥作用。"
+      "text": "通过使用黑暗祭坛，你可以根据祭坛周围的方块和物品制作特定物品或召唤生物。与其他流派不同，$(l)这些方块不需要按照特定的顺序排列。$()重要的是，$(l)祭坛的16个方块半径内必须要有一定数量的特定方块。$()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要开始仪式，您必须先将所需的物品填满基座，然后再放置祭坛的物品。 当仪式进行时，祭坛会从笼子里的图腾中吸取灵魂能量，所以在进行仪式之前，你最好先用一些灵魂能量填满图腾! 底座可用于装饰。"
     },
     {
       "type": "patchouli:multiblock",
@@ -32,14 +36,6 @@
         "symmetrical": true
       },
       "enable_visualize": false
-    },
-    {
-      "type": "patchouli:text",
-      "text": "通过使用黑暗祭坛，你可以根据祭坛周围的方块和物品制作特定物品或召唤生物。与其他流派不同，这些方块不需要按照特定的顺序排列。重要的是，祭坛的16个方块半径内必须要有一定数量的特定方块。"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "当仪式进行时，祭坛会从笼子里的图腾中吸取灵魂能量，所以在进行仪式之前，你最好先用一些灵魂能量填满图腾!"
     }
   ]
 }

@@ -24,5 +24,6 @@ public class Scroll extends ResearchScroll{
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(Component.translatable("info.goety.items." + research.getId()).withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.translatable("info.goety.items.scroll").withStyle(ChatFormatting.AQUA));
     }
 }
