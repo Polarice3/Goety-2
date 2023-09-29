@@ -37,7 +37,6 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CWandKeyPacket.class, CWandKeyPacket::encode, CWandKeyPacket::decode, CWandKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CBagKeyPacket.class, CBagKeyPacket::encode, CBagKeyPacket::decode, CBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CStopAttackPacket.class, CStopAttackPacket::encode, CStopAttackPacket::decode, CStopAttackPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
-        INSTANCE.registerMessage(nextID(), CWandAndBagKeyPacket.class, CWandAndBagKeyPacket::encode, CWandAndBagKeyPacket::decode, CWandAndBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CWitchRobePacket.class, CWitchRobePacket::encode, CWitchRobePacket::decode, CWitchRobePacket::consume);
         INSTANCE.registerMessage(nextID(), CAddWitchFuelKeyPacket.class, CAddWitchFuelKeyPacket::encode, CAddWitchFuelKeyPacket::decode, CAddWitchFuelKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CAddCatalystKeyPacket.class, CAddCatalystKeyPacket::encode, CAddCatalystKeyPacket::decode, CAddCatalystKeyPacket::consume);

@@ -14,6 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
@@ -22,7 +23,7 @@ public class SoulEnergyGui extends GuiComponent {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static boolean shouldDisplayBar(){
-        return SEHelper.getSoulsContainer(minecraft.player) && MainConfig.SoulGuiShow.get();
+        return SEHelper.getSoulsContainer(minecraft.player) && MainConfig.SoulGuiShow.get() && (minecraft.gameMode != null && minecraft.gameMode.getPlayerMode() != GameType.SPECTATOR);
     }
 
     public static Font getFont() {
@@ -57,6 +58,7 @@ public class SoulEnergyGui extends GuiComponent {
 
         int offset = (int) ((minecraft.player.tickCount + partialTicks) % 234);
 
+        //blit(MatrixStack pMatrixStack, int pX, int pY, float pUOffset, float pVOffset, int pWidth, int pHeight, int pTextureWidth, int pTextureHeight)
         if (SEHelper.getSEActive(minecraft.player)){
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
             blit(ms, i, height - 9, 0, 9, 128, 9, 128, 90);

@@ -1107,6 +1107,8 @@
   "death.attack.goety.indirectFreeze.item": "%1$s has been frozen by %2$s using %3$s",
   "death.attack.goety.shock": "%1$s was electrocuted",
   "death.attack.goety.shock.player": "%1$s was electrocuted whilst fighting %2$s",
+  "death.attack.goety.fireBreath": "%1$s has been burned by %2$s",
+  "death.attack.goety.fireBreath.item": "%1$s has been burned by %2$s using %3$s",
   "death.attack.goety.boiling": "%1$s was made into stew",
   "death.attack.goety.boiling.player": "%1$s was boiled whilst fighting %2$s",
   "death.attack.goety.phobia": "%1$s died of fear",

@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -70,6 +72,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (tileentity instanceof CursedCageBlockEntity) {
             ((CursedCageBlockEntity)tileentity).setItem(pStack.copy());
+            pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F, false);
             pLevel.setBlock(pPos, pState.setValue(POWERED, Boolean.TRUE), 2);
         }
     }
@@ -84,13 +87,15 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
                     pLevel.levelEvent(1010, pPos, 0);
                     cageTileEntity.clearContent();
                     float f = 0.7F;
-                    double d0 = (double)(pLevel.random.nextFloat() * 0.7F) + (double)0.15F;
-                    double d1 = (double)(pLevel.random.nextFloat() * 0.7F) + (double)0.060000002F + 0.6D;
-                    double d2 = (double)(pLevel.random.nextFloat() * 0.7F) + (double)0.15F;
+                    double d0 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
+                    double d1 = (double)(pLevel.random.nextFloat() * f) + (double)0.060000002F + 0.6D;
+                    double d2 = (double)(pLevel.random.nextFloat() * f) + (double)0.15F;
                     ItemStack itemstack1 = itemstack.copy();
                     ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + d0, (double)pPos.getY() + d1, (double)pPos.getZ() + d2, itemstack1);
                     itementity.setDefaultPickUpDelay();
-                    pLevel.addFreshEntity(itementity);
+                    if (pLevel.addFreshEntity(itementity)){
+                        pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                    }
                 }
             }
         }

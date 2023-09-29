@@ -8,7 +8,6 @@ import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
 import com.Polarice3.Goety.client.gui.screen.inventory.DarkAnvilScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusBagScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.SoulItemScreen;
-import com.Polarice3.Goety.client.gui.screen.inventory.WandandBagScreen;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
@@ -65,7 +64,6 @@ public class ClientInitEvents {
     public static void clientInit(FMLClientSetupEvent event){
         MenuScreens.register(ModContainerType.WAND.get(), SoulItemScreen::new);
         MenuScreens.register(ModContainerType.FOCUS_BAG.get(), FocusBagScreen::new);
-        MenuScreens.register(ModContainerType.WAND_AND_BAG.get(), WandandBagScreen::new);
         MenuScreens.register(ModContainerType.DARK_ANVIL.get(), DarkAnvilScreen::new);
         CuriosRenderer.register();
         ModKeybindings.init();

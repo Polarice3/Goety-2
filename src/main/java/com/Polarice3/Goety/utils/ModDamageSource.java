@@ -47,6 +47,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor().setMagic();
     }
 
+    public static DamageSource fireBreath(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("fireBreath"), pSource, pIndirectEntity).setIsFire();
+    }
+
     public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
         return (new NoKnockBackDamageSource("indirectMagic", pSource, pIndirectEntity)).bypassArmor().setMagic();
     }
