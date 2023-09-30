@@ -7,6 +7,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -57,12 +58,16 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
                                  InteractionHand hand, BlockHitResult hit) {
         BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity instanceof DarkAltarBlockEntity darkAltarTile) {
-            if (player.isShiftKeyDown() || player.isCrouching()){
-                darkAltarTile.removeItem();
-                return InteractionResult.SUCCESS;
-            } else {
-                return darkAltarTile.activate(world, pos, player, hand,
-                        hit.getDirection()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            if (darkAltarTile.itemStackHandler.isPresent()){
+                IItemHandler handler = darkAltarTile.itemStackHandler.orElseThrow(RuntimeException::new);
+                ItemStack itemStack = handler.getStackInSlot(0);
+                if (!itemStack.isEmpty()){
+                    darkAltarTile.removeItem();
+                    return InteractionResult.SUCCESS;
+                } else if (!player.getItemInHand(hand).isEmpty()){
+                    return darkAltarTile.activate(world, pos, player, hand,
+                            hit.getDirection()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                }
             }
         }
         return super.use(state, world, pos, player, hand, hit);

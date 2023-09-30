@@ -49,12 +49,14 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LichHealSeconds;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkAnvilRepairCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkAnvilSoulCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulMenderCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
+    public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
@@ -126,6 +128,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichSoulHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichDamageHelmet;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
@@ -325,9 +328,15 @@ public class MainConfig {
                 .define("villagerConvertToWarlock", true);
         BUILDER.pop();
         BUILDER.push("Lich");
-        LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per second if they've become a Lich, Default: 1")
-                .defineInRange("lichHealCost", 1, 0, Integer.MAX_VALUE);
-        LichNightVision = BUILDER.comment("Enable to get infinite Night Vision when being a Lich. If set true, wearing Fel Helm will no longer give Blindness during day, Default: true")
+        LichSoulHeal = BUILDER.comment("Enable Liches healing using Soul Energy, Default: true")
+                .define("lichSoulHeal", true);
+        LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per configured second if they've become a Lich, Default: 5")
+                .defineInRange("lichHealCost", 5, 0, Integer.MAX_VALUE);
+        LichHealSeconds = BUILDER.comment("How many seconds until Lich Players heals using Soul Energy, Default: 1")
+                .defineInRange("lichHealSeconds", 1, 0, Integer.MAX_VALUE);
+        LichHealAmount = BUILDER.comment("How much health Lich Players heals using Soul Energy, Default: 1.0")
+                .defineInRange("lichHealCost", 1.0, 0.0, Double.MAX_VALUE);
+        LichNightVision = BUILDER.comment("Enable to get infinite Night Vision when being a Lich, Default: true")
                 .define("lichNightVision", true);
         LichDamageHelmet = BUILDER.comment("Wearing Helmet in Sunlight as a Lich periodically damages it, Default: true")
                 .define("lichDamageHelmet", true);
@@ -339,8 +348,8 @@ public class MainConfig {
                 .define("lichPowerfulHostile", true);
         LichVillagerHate = BUILDER.comment("If Villagers provide negative Reputation to Liches and non-Player Iron Golems are automatically aggressive against them, Default: true")
                 .define("lichVillagerHate", true);
-        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: false")
-                .define("lichScrollRequirement", false);
+        LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
+                .define("lichScrollRequirement", true);
         BUILDER.pop();
         BUILDER.push("Illagers");
         IllagerAssault = BUILDER.comment("Special Illagers Spawning based of Player's Soul Energy amount, Default: true")

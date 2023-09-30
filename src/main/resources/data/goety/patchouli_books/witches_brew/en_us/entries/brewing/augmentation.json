@@ -26,7 +26,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(bold)Drinking Speed$()$(br)$(li)$(item)Honey Bottle$()$(li2)Increase Cost - x1.25 $(li)$(item)Grow Lichen$()$(li2)Increase Cost - x1.25 $(li)$(item)Turtle Egg$()$(li2)Increase Cost - x1.25"
+      "text": "$(bold)Drinking Speed$()$(br)$(li)$(item)Honey Bottle$()$(li2)Increase Cost - x1.25 $(li)$(item)Glow Lichen$()$(li2)Increase Cost - x1.25 $(li)$(item)Turtle Egg$()$(li2)Increase Cost - x1.25"
     },
     {
       "type": "patchouli:text",

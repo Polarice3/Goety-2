@@ -93,16 +93,18 @@ public class LichEvents {
                     player.removeEffect(GoetyEffects.SOUL_HUNGER.get());
                 }
             }
-            if (!player.isOnFire()) {
-                if (player.getHealth() < player.getMaxHealth()) {
-                    if (player.tickCount % 20 == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
-                        player.heal(1.0F);
-                        Vec3 vector3d = player.getDeltaMovement();
-                        if (!player.level.isClientSide){
-                            ServerLevel serverWorld = (ServerLevel) player.level;
-                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, player.getRandomX(0.5D), player.getRandomY(), player.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+            if (MainConfig.LichSoulHeal.get()) {
+                if (!player.isOnFire()) {
+                    if (player.getHealth() < player.getMaxHealth()) {
+                        if (player.tickCount % MathHelper.secondsToTicks(MainConfig.LichHealSeconds.get()) == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
+                            player.heal(MainConfig.LichHealAmount.get().floatValue());
+                            Vec3 vector3d = player.getDeltaMovement();
+                            if (!player.level.isClientSide) {
+                                ServerLevel serverWorld = (ServerLevel) player.level;
+                                serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, player.getRandomX(0.5D), player.getRandomY(), player.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                            }
+                            SEHelper.decreaseSouls(player, MainConfig.LichHealCost.get());
                         }
-                        SEHelper.decreaseSouls(player, MainConfig.LichHealCost.get());
                     }
                 }
             }
