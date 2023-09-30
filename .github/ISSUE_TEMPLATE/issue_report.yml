@@ -21,7 +21,7 @@ body:
       description: "A clear description of the issue you are having."
     validations:
       required: true
-  - type: input
+  - type: textarea
     attributes:
       label: Link or Post Log Files
       description: "Link or post any log files that can help debugging"
