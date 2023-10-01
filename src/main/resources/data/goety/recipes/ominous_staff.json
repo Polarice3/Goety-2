@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:dark_wand"
+    "item": "goety:ominous_orb"
   },
   "craftType": "magic",
   "soulCost": 1,
@@ -27,7 +27,7 @@
       "item": "goety:haunted_planks"
     },
     {
-      "item": "goety:ominous_orb"
+      "item": "goety:dark_wand"
     }
   ],
   "result": {

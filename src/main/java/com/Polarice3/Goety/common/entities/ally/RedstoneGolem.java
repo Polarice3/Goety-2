@@ -15,6 +15,8 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -42,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,6 +57,7 @@ import java.util.stream.Stream;
 public class RedstoneGolem extends Summoned {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
     public static float SUMMON_SECONDS_TIME = 5.15F;
+    private int activateTick;
     private int idleTime;
     public int summonTick;
     private int summonCool;
@@ -112,8 +116,31 @@ public class RedstoneGolem extends Summoned {
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
+    public Packet<?> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket((LivingEntity)this, this.hasPose(Pose.EMERGING) ? 1 : 0);
+    }
+
+    public void recreateFromPacket(ClientboundAddEntityPacket p_219420_) {
+        super.recreateFromPacket(p_219420_);
+        if (p_219420_.getData() == 1) {
+            this.setPose(Pose.EMERGING);
+        }
+
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
+        if (DATA_POSE.equals(p_219422_)) {
+            if (this.getPose() == Pose.EMERGING) {
+                this.activateAnimationState.start(this.tickCount);
+            }
+        }
+
+        super.onSyncedDataUpdated(p_219422_);
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("ActivateTick", this.activateTick);
         pCompound.putInt("SummonTick", this.summonTick);
         pCompound.putInt("CoolDown", this.summonCool);
         pCompound.putInt("MineCount", this.mineCount);
@@ -121,6 +148,9 @@ public class RedstoneGolem extends Summoned {
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("ActivateTick")) {
+            this.activateTick = pCompound.getInt("ActivateTick");
+        }
         if (pCompound.contains("SummonTick")) {
             this.summonTick = pCompound.getInt("SummonTick");
         }
@@ -136,8 +166,7 @@ public class RedstoneGolem extends Summoned {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         if (pReason == MobSpawnType.MOB_SUMMONED){
-            this.activateAnimationState.start(this.tickCount);
-            this.level.broadcastEntityEvent(this, (byte) 8);
+            this.setPose(Pose.EMERGING);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
@@ -204,11 +233,11 @@ public class RedstoneGolem extends Summoned {
     }
 
     protected boolean isImmobile() {
-        return super.isImmobile() || this.isSummoning();
+        return super.isImmobile() || this.isSummoning() || this.isActivating();
     }
 
     public boolean hasLineOfSight(Entity p_149755_) {
-        return this.summonTick <= 0 && super.hasLineOfSight(p_149755_);
+        return this.summonTick <= 0 && !this.isActivating() && super.hasLineOfSight(p_149755_);
     }
 
     public boolean isSummoning(){
@@ -305,14 +334,14 @@ public class RedstoneGolem extends Summoned {
         }
     }
 
+    private boolean isActivating() {
+        return this.hasPose(Pose.EMERGING);
+    }
+
     public void tick() {
         super.tick();
         if (this.isDeadOrDying()){
-            for (AnimationState animationState : this.getAnimations()){
-                if (animationState != this.deathAnimationState) {
-                    animationState.stop();
-                }
-            }
+            this.stopMostAnimations(this.deathAnimationState);
             this.setYRot(this.deathRotation);
             this.setYBodyRot(this.deathRotation);
         }
@@ -325,7 +354,7 @@ public class RedstoneGolem extends Summoned {
             this.markChanged = true;
         }
         if (this.level.isClientSide()) {
-            if (this.isAlive()) {
+            if (this.isAlive() && !this.isActivating()) {
                 if (!this.isSummoning()){
                     this.summonAnimationState.stop();
                     this.glow();
@@ -363,9 +392,15 @@ public class RedstoneGolem extends Summoned {
                     this.isFlash = false;
                 }
             }
+            if (this.hasPose(Pose.EMERGING)){
+                ++this.activateTick;
+                if (this.activateTick > 20){
+                    this.setPose(Pose.STANDING);
+                }
+            }
         }
         if (!this.level.isClientSide){
-            if (this.isAlive()) {
+            if (this.isAlive() && !this.isActivating()) {
                 if (this.isNovelty){
                     this.jumping = false;
                     this.xxa = 0.0F;
@@ -423,12 +458,16 @@ public class RedstoneGolem extends Summoned {
                         }
                     }
                 }
-                if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) - 10) && this.mineCount > 0) {
-                    int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) / 14);
+                if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
+                    int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
                     if (this.tickCount % time == 0 && this.isOnGround()) {
                         BlockPos blockPos = this.blockPosition();
                         blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
+                        BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
                         ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
+                        if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()){
+                            scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                        }
                         if (this.level.addFreshEntity(scatterMine)) {
                             if (this.level.random.nextBoolean()) {
                                 scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
@@ -719,7 +758,7 @@ public class RedstoneGolem extends Summoned {
         return RedstoneGolem.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
     }
 
-    public static enum Crackiness {
+    public enum Crackiness {
         NONE(1.0F),
         LOW(0.75F),
         MEDIUM(0.5F),
@@ -730,7 +769,7 @@ public class RedstoneGolem extends Summoned {
         })).collect(ImmutableList.toImmutableList());
         private final float fraction;
 
-        private Crackiness(float p_28900_) {
+        Crackiness(float p_28900_) {
             this.fraction = p_28900_;
         }
 

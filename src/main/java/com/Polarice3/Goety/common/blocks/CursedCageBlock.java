@@ -72,7 +72,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (tileentity instanceof CursedCageBlockEntity) {
             ((CursedCageBlockEntity)tileentity).setItem(pStack.copy());
-            pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+            pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
             pLevel.setBlock(pPos, pState.setValue(POWERED, Boolean.TRUE), 2);
         }
     }
@@ -94,7 +94,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
                     ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + d0, (double)pPos.getY() + d1, (double)pPos.getZ() + d2, itemstack1);
                     itementity.setDefaultPickUpDelay();
                     if (pLevel.addFreshEntity(itementity)){
-                        pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                        pLevel.playSound(null, pPos, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
                 }
             }

@@ -106,6 +106,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
@@ -198,6 +199,8 @@ public class MainConfig {
                 .define("darkAnvilCap", false);
         DarkAnvilTakePoints = BUILDER.comment("Whether Dark Anvils will take Experience Points instead of Levels, Default: false")
                 .define("darkAnvilTakePoints", false);
+        DarkAnvilIgnoreMaxLevels = BUILDER.comment("Whether Dark Anvils ignores enchantment max levels when combining same enchantments, Default: true")
+                .define("darkAnvilIgnoreMaxLevels", true);
         DarkAnvilSoulCost = BUILDER.comment("How much Soul Energy is required for the Dark Anvil to repair itself, Default: 1000")
                 .defineInRange("darkAnvilSoulCost", 1000, 0, Integer.MAX_VALUE);
         SoulMenderCost = BUILDER.comment("The amount of Soul Energy used up to repair Items per the configured amount of seconds, Default: 1")

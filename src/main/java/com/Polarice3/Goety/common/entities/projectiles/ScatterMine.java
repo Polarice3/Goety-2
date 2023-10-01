@@ -27,8 +27,11 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class ScatterMine extends Entity {
-    public float getGlow;
-    public float glowAmount = 0.01F;
+    public float getGlow = 1;
+    public float glowAmount = 0.0045F;
+    public float size = 3.0F;
+    public float radius = 0.75F;
+    public float radiusAmount = 0.025F;
     private LivingEntity owner;
     private UUID ownerUUID;
     public int lifeTicks = MathHelper.secondsToTicks(10);
@@ -111,12 +114,25 @@ public class ScatterMine extends Entity {
         }
     }
 
+    public boolean startGlow(){
+        return this.lifeTicks < MathHelper.secondsToTicks(10) - 5;
+    }
+
+    public boolean startShrink(){
+        return this.lifeTicks < MathHelper.secondsToTicks(10) - 2;
+    }
+
     @Override
     public void tick() {
         super.tick();
         --this.lifeTicks;
         if (this.level.isClientSide){
-            this.glow();
+            if (this.startGlow()) {
+                this.glow();
+            }
+            if (this.startShrink()){
+                this.shrink();
+            }
         }
         if (!this.level.isClientSide) {
             if (!this.isNoGravity()) {
@@ -127,10 +143,12 @@ public class ScatterMine extends Entity {
                 this.level.broadcastEntityEvent(this, (byte) 5);
                 this.discard();
             } else if (this.lifeTicks < MathHelper.secondsToTicks(9)){
+                this.radiusPulse();
                 if (this.level instanceof ServerLevel serverLevel){
-                    ServerParticleUtil.circularParticles(serverLevel, DustParticleOptions.REDSTONE, this.getX(), this.getY(), this.getZ(), 1.0F);
+                    ServerParticleUtil.addGroundAuraParticles(serverLevel, DustParticleOptions.REDSTONE, this, this.radius);
+                    ServerParticleUtil.circularParticles(serverLevel, DustParticleOptions.REDSTONE, this.getX(), this.getY(), this.getZ(), this.radius);
                 }
-                for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.3D, 0.3D, 0.3D))) {
+                for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.6D, 0.3D, 0.6D))) {
                     if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
                         if (this.getOwner() != null) {
                             if (!this.getOwner().isAlliedTo(livingentity) && !livingentity.isAlliedTo(this.getOwner()) && livingentity != this.getOwner()) {
@@ -145,11 +163,19 @@ public class ScatterMine extends Entity {
         }
     }
 
-    private void glow() {
-        this.getGlow = Mth.clamp(this.getGlow + this.glowAmount, 0, 1);
-        if (this.getGlow == 0 || this.getGlow == 1) {
-            this.glowAmount *= -1;
+    private void radiusPulse(){
+        this.radius = Mth.clamp(this.radius + this.radiusAmount, 0.75F, 1.25F);
+        if (this.radius == 0.75F || this.radius == 1.25F) {
+            this.radiusAmount *= -1;
         }
+    }
+
+    private void glow(){
+        this.getGlow = Mth.clamp(this.getGlow - this.glowAmount, 0, 1);
+    }
+
+    private void shrink(){
+        this.size = Mth.clamp(this.size - 0.5F, 1.25F, 3.0F);
     }
 
     public void explode(LivingEntity livingEntity) {

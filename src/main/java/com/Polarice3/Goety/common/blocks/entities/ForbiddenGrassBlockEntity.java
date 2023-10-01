@@ -142,7 +142,9 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
             WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(this.getLevel(), this.getLevel().structureManager(), this.getLevel().getChunkSource().getGenerator(), MobCategory.MONSTER, this.getBlockPos(), this.getLevel().getBiome(this.getBlockPos()));
             if (!spawners.isEmpty()) {
                 for (MobSpawnSettings.SpawnerData spawners1 : spawners.unwrap()) {
-                    addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
+                    if (spawners1.getWeight().asInt() < 2147483647L) {
+                        addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
+                    }
                 }
             }
         }

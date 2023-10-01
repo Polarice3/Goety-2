@@ -156,9 +156,14 @@ public class ServerParticleUtil {
         }
     }
 
-    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, LivingEntity livingEntity, float radius){
-        serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
-        serverLevel.sendParticles(particleOptions, livingEntity.getX() + Math.cos(livingEntity.tickCount * 0.25 + Math.PI) * radius, livingEntity.getY() + 0.5, livingEntity.getZ() + Math.sin(livingEntity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
+    public static void addGroundAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
+        serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25) * radius, entity.getY(), entity.getZ() + Math.sin(entity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25 + Math.PI) * radius, entity.getY(), entity.getZ() + Math.sin(entity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
+    }
+
+    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
+        serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25) * radius, entity.getY() + 0.5, entity.getZ() + Math.sin(entity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25 + Math.PI) * radius, entity.getY() + 0.5, entity.getZ() + Math.sin(entity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
     }
 
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){

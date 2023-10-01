@@ -27,8 +27,12 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
         pMatrixStack.pushPose();
         pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
-        pMatrixStack.scale(-1, -1, 1);
-        pMatrixStack.translate(0.0D, -1.5D, 0.0D);
+        float scale = pEntity.size;
+        if (!pEntity.startShrink()){
+            scale = 1.0F;
+        }
+        pMatrixStack.scale(-scale, -scale, scale);
+        pMatrixStack.translate(0.0D, -1.45D, 0.0D);
         this.model.renderToBuffer(pMatrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
         VertexConsumer vertexconsumer = bufferIn.getBuffer(RenderType.entityTranslucentEmissive(GLOW));
         this.model.renderToBuffer(pMatrixStack, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, pEntity.getGlow);
@@ -38,6 +42,9 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
 
     @Override
     public ResourceLocation getTextureLocation(T pEntity) {
+        if (!pEntity.startGlow()){
+            return GLOW;
+        }
         return TEXTURE;
     }
 }

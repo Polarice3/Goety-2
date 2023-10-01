@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-15T11:04:22.678848	Goety LootTables
+// 1.19.2	2023-10-01T00:26:38.6408746	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -64,6 +64,7 @@ b4af0313168be6328b415a03028780c556fa5582 data/goety/loot_tables/blocks/pedestal.
 0cad000b18e8a2e926843b90af267310d6b6d956 data/goety/loot_tables/blocks/pithos.json
 440edd16f0d8dae076160e846cc17579ff56c7b8 data/goety/loot_tables/blocks/potted_haunted_sapling.json
 498def89be53749cf521cc202e61b5251649a196 data/goety/loot_tables/blocks/potted_rotten_sapling.json
+b389276860cf20982b132e7730affa040e22c3ff data/goety/loot_tables/blocks/redstone_golem_skull.json
 fb4eaa592b28120574af84a6e475dde4195cb06a data/goety/loot_tables/blocks/rotten_bookshelf.json
 3fb155620d28e6a63f58b12322910ca5f31a3c20 data/goety/loot_tables/blocks/rotten_button.json
 d7407ccc35b6c7166d25bcaeceacbd3ec70dffff data/goety/loot_tables/blocks/rotten_chest.json
@@ -114,5 +115,6 @@ a575cbaf5855710af8df733dad3fe6aa41abf38f data/goety/loot_tables/blocks/stripped_
 b074adc9ce774c5d097f5178a1d75266eadbe738 data/goety/loot_tables/blocks/tall_skull.json
 ff2732c8e862bc38cae51d810c8f18fbcc72bc11 data/goety/loot_tables/blocks/trapped_haunted_chest.json
 0d6fd8f0fc3dab9ac3eedcb50e8e8e24e2bb4753 data/goety/loot_tables/blocks/trapped_rotten_chest.json
+7dba1958edef1656ec77c718e4afc766e4f45610 data/goety/loot_tables/blocks/wind_blower.json
 dbc604b3613797556c5d513051c76355f3769e9f data/goety/loot_tables/blocks/witch_cauldron.json
 710aa9aeb401ccf1ab250d15ba634dbdb6b7d33b data/goety/loot_tables/blocks/witch_pole.json

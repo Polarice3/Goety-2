@@ -103,7 +103,7 @@ public class WindBlowerBlockEntity extends BlockEntity {
             for (Entity entity : list) {
                 if (entity != null) {
                     if (facing.getAxis().isHorizontal()) {
-                        double strength = entity.isShiftKeyDown() ? 0.05D : 0.25D;
+                        double strength = entity.isShiftKeyDown() ? 0.005D : 0.25D;
                         MobUtil.push(entity, Mth.sin(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength, 0.0D, -Mth.cos(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength);
                     } else if (facing == Direction.UP) {
                         Vec3 vec3d = entity.getDeltaMovement();

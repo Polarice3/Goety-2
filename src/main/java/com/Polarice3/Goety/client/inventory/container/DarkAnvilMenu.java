@@ -187,25 +187,23 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                                 flag3 = true;
                             } else {
                                 flag2 = true;
-                                if (j2 > enchantment1.getMaxLevel()) {
+                                if (!MainConfig.DarkAnvilIgnoreMaxLevels.get() && j2 > enchantment1.getMaxLevel()) {
                                     j2 = enchantment1.getMaxLevel();
                                 }
 
-                                map.put(enchantment1, j2);
-                                int k3 = 0;
-                                switch (enchantment1.getRarity()) {
-                                    case COMMON:
-                                        k3 = 1;
-                                        break;
-                                    case UNCOMMON:
-                                        k3 = 2;
-                                        break;
-                                    case RARE:
-                                        k3 = 4;
-                                        break;
-                                    case VERY_RARE:
-                                        k3 = 8;
+                                int maxLevel = Math.max(map.getOrDefault(enchantment1, 0), map1.get(enchantment1));
+                                maxLevel = Math.max(maxLevel, j2);
+                                if (maxLevel != j2) {
+                                    j2 = maxLevel;
                                 }
+
+                                map.put(enchantment1, j2);
+                                int k3 = switch (enchantment1.getRarity()) {
+                                    case COMMON -> 1;
+                                    case UNCOMMON -> 2;
+                                    case RARE -> 4;
+                                    case VERY_RARE -> 8;
+                                };
 
                                 if (flag) {
                                     k3 = Math.max(1, k3 / 2);
