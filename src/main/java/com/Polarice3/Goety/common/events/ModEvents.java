@@ -819,9 +819,24 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void PlayerAttackEvent(AttackEntityEvent event){
-        if (SpellConfig.OwnerAttackCancel.get()) {
-            if (event.getTarget() instanceof IOwned){
-                if (((IOwned) event.getTarget()).getTrueOwner() == event.getEntity()) {
+        if (event.getTarget() instanceof IOwned iOwned){
+            if (iOwned.getTrueOwner() == event.getEntity()) {
+                if (SpellConfig.OwnerHitCommand.get()) {
+                    if (event.getEntity().getMainHandItem().getItem() instanceof DarkWand) {
+                        if (iOwned instanceof Summoned summonedEntity) {
+                            if (summonedEntity.getTrueOwner() == event.getEntity() || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == event.getEntity())) {
+                                if (event.getEntity().isShiftKeyDown() || event.getEntity().isCrouching()) {
+                                    summonedEntity.kill();
+                                } else {
+                                    if (summonedEntity.canUpdateMove()) {
+                                        summonedEntity.updateMoveMode(event.getEntity());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (SpellConfig.OwnerAttackCancel.get()) {
                     event.setCanceled(true);
                 }
             }

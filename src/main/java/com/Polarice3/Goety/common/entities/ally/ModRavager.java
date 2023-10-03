@@ -544,6 +544,11 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         }
     }
 
+    @Override
+    public boolean canUpdateMove() {
+        return true;
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!pPlayer.level.isClientSide) {
             if (pPlayer == this.getTrueOwner()) {
@@ -590,9 +595,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     if (this.spawnAtLocation(this.getArmor()) != null) {
                         this.setArmorEquipment(ItemStack.EMPTY, true);
                     }
-                } else if (!pPlayer.getItemInHand(pHand).interactLivingEntity(pPlayer, this, pHand).consumesAction()){
-                    this.updateMoveMode(pPlayer);
-                    return InteractionResult.SUCCESS;
                 }
             }
         }

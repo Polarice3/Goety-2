@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.items.RedstoneGolemSkullItem;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -353,6 +352,12 @@ public class RedstoneGolem extends Summoned {
             this.refreshDimensions();
             this.markChanged = true;
         }
+        if (this.hasPose(Pose.EMERGING)){
+            ++this.activateTick;
+            if (this.activateTick > 20){
+                this.setPose(Pose.STANDING);
+            }
+        }
         if (this.level.isClientSide()) {
             if (this.isAlive() && !this.isActivating()) {
                 if (!this.isSummoning()){
@@ -390,12 +395,6 @@ public class RedstoneGolem extends Summoned {
                 } else {
                     this.summonAnimationState.stop();
                     this.isFlash = false;
-                }
-            }
-            if (this.hasPose(Pose.EMERGING)){
-                ++this.activateTick;
-                if (this.activateTick > 20){
-                    this.setPose(Pose.STANDING);
                 }
             }
         }
@@ -537,16 +536,20 @@ public class RedstoneGolem extends Summoned {
         return true;
     }
 
+    @Override
+    public boolean canUpdateMove() {
+        return true;
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
             Item item = itemstack.getItem();
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner() && !pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()) {
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if ((item == Items.REDSTONE_BLOCK || item == Items.REDSTONE) && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-
                     if (item == Items.REDSTONE_BLOCK){
                         this.heal(this.getMaxHealth() / 4.0F);
                         this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.25F);
@@ -554,7 +557,6 @@ public class RedstoneGolem extends Summoned {
                         this.heal((this.getMaxHealth() / 4.0F) / 8.0F);
                         this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 0.25F, 1.0F);
                     }
-
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 7; ++i) {
                             double d0 = serverLevel.random.nextGaussian() * 0.02D;
@@ -563,9 +565,6 @@ public class RedstoneGolem extends Summoned {
                             serverLevel.sendParticles(DustParticleOptions.REDSTONE, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
-                    return InteractionResult.SUCCESS;
-                } else if (pPlayer.getMainHandItem().getItem() instanceof DarkWand) {
-                    this.updateMoveMode(pPlayer);
                     return InteractionResult.SUCCESS;
                 }
             }

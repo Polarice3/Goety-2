@@ -108,6 +108,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
@@ -213,6 +214,8 @@ public class MainConfig {
                 .defineInRange("sculkGrowerCharge", 100, 0, Integer.MAX_VALUE);
         SculkGrowerContinue = BUILDER.comment("Whether Sculk Grower continues to grow plants without Redstone if it still contains charges. Setting it to false will cause the Sculk Grower to slowly decay its charges, Default: true")
                 .define("sculkGrowerContinue", true);
+        SculkGrowerPotency = BUILDER.comment("Whether Sculk Grower can accept Potency enchantment, which allows the Grower to grow plants faster, Default: true")
+                .define("sculkGrowerPotency", true);
         BUILDER.pop();
         BUILDER.push("Soul Taken");
         UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")

@@ -17,10 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
@@ -150,6 +147,10 @@ public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchanted
     public void growPlants(){
         if (this.level != null && this.level instanceof ServerLevel serverLevel) {
             if (!this.growablePlantPos.isEmpty()) {
+                int potency = 1 + this.enchantments.getOrDefault(ModEnchantments.POTENCY.get(), 0);
+                if (!MainConfig.SculkGrowerPotency.get()){
+                    potency = 1;
+                }
                 int random = serverLevel.random.nextInt(this.growablePlantPos.size());
                 BlockPos blockPos = this.growablePlantPos.get(random);
                 BlockState blockState = serverLevel.getBlockState(blockPos);
@@ -159,7 +160,9 @@ public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchanted
                     float f5 = 0.15F + 0.02F * serverLevel.random.nextFloat();
                     float f = 0.4F + 0.3F * serverLevel.random.nextFloat();
                     ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(blockPos, SoundEvents.SCULK_BLOCK_CHARGE, f5, f));
-                    blockState.randomTick(serverLevel, blockPos, serverLevel.random);
+                    for (int i = 0; i < potency; ++i){
+                        blockState.randomTick(serverLevel, blockPos, serverLevel.random);
+                    }
                     this.decayTimer = 100;
                 }
             } else {
@@ -174,13 +177,18 @@ public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchanted
         assert this.level != null;
         BlockState blockState = this.level.getBlockState(blockPos);
         Block cropBlock = blockState.getBlock();
-        return cropBlock != Blocks.GRASS_BLOCK && !(cropBlock instanceof DoublePlantBlock) && cropBlock instanceof BonemealableBlock && ((BonemealableBlock) cropBlock).isValidBonemealTarget(this.level, blockPos, blockState, this.level.isClientSide);
+        return cropBlock != Blocks.GRASS_BLOCK && !(cropBlock instanceof DoublePlantBlock) && !(cropBlock instanceof TallGrassBlock) && cropBlock instanceof BonemealableBlock && ((BonemealableBlock) cropBlock).isValidBonemealTarget(this.level, blockPos, blockState, this.level.isClientSide);
     }
 
     private boolean takeSouls(){
         assert this.level != null;
-        if (this.getCursedCageTile().getSouls() > MainConfig.SculkGrowerCost.get()){
-            this.getCursedCageTile().decreaseSouls(MainConfig.SculkGrowerCost.get());
+        int potency = 1 + this.enchantments.getOrDefault(ModEnchantments.POTENCY.get(), 0);
+        if (!MainConfig.SculkGrowerPotency.get()){
+            potency = 1;
+        }
+        int cost = MainConfig.SculkGrowerCost.get() * potency;
+        if (this.getCursedCageTile().getSouls() > cost){
+            this.getCursedCageTile().decreaseSouls(cost);
             this.getCursedCageTile().generateManyParticles();
             return true;
         } else {

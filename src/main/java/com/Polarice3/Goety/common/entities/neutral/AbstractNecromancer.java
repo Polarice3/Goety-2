@@ -306,7 +306,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
             Item item = itemstack.getItem();
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner() && !pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()) {
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);

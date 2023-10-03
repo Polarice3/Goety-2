@@ -286,7 +286,7 @@ public class ZombieServant extends Summoned{
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
             Item item = itemstack.getItem();
             ItemStack itemstack2 = this.getMainHandItem();
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner() && !pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()) {
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if (item == Items.ROTTEN_FLESH && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);

@@ -135,7 +135,7 @@ public class Summoned extends Owned {
                 this.limitedLifespan = true;
             }
             if (this.getMobType() == MobType.UNDEAD) {
-                if (!this.isOnFire()) {
+                if (!this.isOnFire() && !this.isDeadOrDying()) {
                     if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
                         if (this.getTrueOwner() instanceof Player owner) {
                             if (CuriosFinder.hasUndeadCape(owner)) {
@@ -201,6 +201,8 @@ public class Summoned extends Owned {
             }
             pLevel.getLevel().sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
         }
+        this.setWandering(false);
+        this.setStaying(false);
         return pSpawnData;
     }
 
@@ -319,6 +321,10 @@ public class Summoned extends Owned {
         compound.putBoolean("Upgraded", this.upgraded);
         compound.putBoolean("wandering", this.isWandering());
         compound.putBoolean("staying", this.isStaying());
+    }
+
+    public boolean canUpdateMove(){
+        return this.getMobType() == MobType.UNDEAD;
     }
 
     public void updateMoveMode(Player player){

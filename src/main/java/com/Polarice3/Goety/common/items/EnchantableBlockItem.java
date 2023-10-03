@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +24,11 @@ public class EnchantableBlockItem extends BlockItemBase {
             return stack.getCount() == 1 && enchantment == ModEnchantments.POTENCY.get();
         }
         if (stack.getItem() == ModBlocks.SCULK_GROWER.get().asItem()){
-            return stack.getCount() == 1
-                    && enchantment == ModEnchantments.RADIUS.get();
+            if (MainConfig.SculkGrowerPotency.get()){
+                return stack.getCount() == 1 && (enchantment == ModEnchantments.POTENCY.get() || enchantment == ModEnchantments.RADIUS.get());
+            } else {
+                return stack.getCount() == 1 && enchantment == ModEnchantments.RADIUS.get();
+            }
         }
         return stack.getCount() == 1;
     }

@@ -31,6 +31,10 @@ public class RedstoneGolemAnimations {
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.25f, KeyframeAnimations.posVec(-5f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.6766666f, KeyframeAnimations.posVec(-3f, -3f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
             .addAnimation("right_arm",
@@ -75,7 +79,9 @@ public class RedstoneGolemAnimations {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.3433333f, KeyframeAnimations.posVec(8f, -3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
-                            new Keyframe(0.5f, KeyframeAnimations.posVec(10f, -3f, 0f),
+                            new Keyframe(0.5f, KeyframeAnimations.posVec(9f, -4f, -4f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.8343334f, KeyframeAnimations.posVec(1f, -3f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.posVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
@@ -91,7 +97,9 @@ public class RedstoneGolemAnimations {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.3433333f, KeyframeAnimations.degreeVec(-10f, -10f, -85f),
                                     AnimationChannel.Interpolations.CATMULLROM),
-                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(25f, -10f, -80f),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(28.48f, -23.71f, -82.75f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.8343334f, KeyframeAnimations.degreeVec(45f, -12.5f, -25f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
@@ -113,7 +121,11 @@ public class RedstoneGolemAnimations {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.3433333f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
-                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, 0f, -15f),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(12.5f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.6766666f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.8343334f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
@@ -179,7 +191,7 @@ public class RedstoneGolemAnimations {
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.5f, KeyframeAnimations.degreeVec(12.5f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
-                            new Keyframe(0.6766666f, KeyframeAnimations.degreeVec(-25f, 0f, 0f),
+                            new Keyframe(0.6766666f, KeyframeAnimations.degreeVec(-25f, -5f, -10f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
@@ -196,6 +208,10 @@ public class RedstoneGolemAnimations {
                             new Keyframe(0.25f, KeyframeAnimations.degreeVec(25f, 15f, 40f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.3433333f, KeyframeAnimations.degreeVec(35f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.8343334f, KeyframeAnimations.degreeVec(-15f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM)))
@@ -216,6 +232,12 @@ public class RedstoneGolemAnimations {
                             new Keyframe(0.20834334f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, 0f, 7.5f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM)))
+            .addAnimation("chest",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM))).build();

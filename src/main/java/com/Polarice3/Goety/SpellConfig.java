@@ -117,6 +117,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
@@ -298,7 +299,9 @@ public class SpellConfig {
                 .define("minionAttackCreepers", true);
         MinionsMasterImmune = BUILDER.comment("Whether Servants or their owner are immune to attacks made by other servants that are summoned by the same owner, Default: true")
                 .define("minionMasterImmune", true);
-        OwnerAttackCancel = BUILDER.comment("Owners can't attack their servants, Default: true")
+        OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
+                .define("ownerHitCommand", true);
+        OwnerAttackCancel = BUILDER.comment("Owners can't attack or hurt their servants, Default: true")
                 .define("ownerAttackCancel", true);
         MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
                 .define("mobSense", true);

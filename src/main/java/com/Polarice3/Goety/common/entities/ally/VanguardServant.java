@@ -206,17 +206,19 @@ public class VanguardServant extends AbstractSkeletonServant {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (this.hasShield() && !source.isBypassInvul()){
-            this.destroyShield();
-            return false;
-        } else {
-            if (this.getTarget() != null){
-                if (source.getEntity() instanceof LivingEntity livingEntity){
-                    double d0 = this.distanceTo(this.getTarget());
-                    double d1 = this.distanceTo(livingEntity);
-                    if (MobUtil.ownedCanAttack(this, livingEntity) && livingEntity != this.getTrueOwner()){
-                        if (d0 > d1){
-                            this.setTarget(livingEntity);
+        if (!this.level.isClientSide) {
+            if (this.hasShield() && !source.isBypassInvul()) {
+                this.destroyShield();
+                return false;
+            } else {
+                if (this.getTarget() != null) {
+                    if (source.getEntity() instanceof LivingEntity livingEntity) {
+                        double d0 = this.distanceTo(this.getTarget());
+                        double d1 = this.distanceTo(livingEntity);
+                        if (MobUtil.ownedCanAttack(this, livingEntity) && livingEntity != this.getTrueOwner()) {
+                            if (d0 > d1) {
+                                this.setTarget(livingEntity);
+                            }
                         }
                     }
                 }
@@ -282,7 +284,7 @@ public class VanguardServant extends AbstractSkeletonServant {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
             Item item = itemstack.getItem();
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner() && !pPlayer.isShiftKeyDown() && !pPlayer.isCrouching()) {
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);

@@ -57,9 +57,9 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 
 		PartDefinition right_arm = chest.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 52).addBox(-14.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-20.0F, -31.0F, 0.0F));
 
-		PartDefinition lower_right = right_arm.addOrReplaceChild("lower_right", CubeListBuilder.create().texOffs(3, 88).addBox(-5.25F, -0.25F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-10.75F, 16.25F, -0.75F));
+		PartDefinition lower_right = right_arm.addOrReplaceChild("lower_right", CubeListBuilder.create().texOffs(3, 88).addBox(-5.25F, 4.0F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-10.75F, 12.0F, -0.75F));
 
-		PartDefinition right_hand = lower_right.addOrReplaceChild("right_hand", CubeListBuilder.create(), PartPose.offset(0.75F, 21.75F, -1.25F));
+		PartDefinition right_hand = lower_right.addOrReplaceChild("right_hand", CubeListBuilder.create(), PartPose.offset(0.75F, 26.0F, -1.25F));
 
 		PartDefinition front_finger_R = right_hand.addOrReplaceChild("front_finger_R", CubeListBuilder.create().texOffs(97, 55).addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.5F, 0.0F, -1.0F));
 
@@ -69,9 +69,9 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 
 		PartDefinition left_arm = chest.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 52).mirror().addBox(0.0F, -8.0F, -6.0F, 14.0F, 24.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(20.0F, -31.0F, 0.0F));
 
-		PartDefinition lower_left = left_arm.addOrReplaceChild("lower_left", CubeListBuilder.create().texOffs(3, 88).mirror().addBox(-6.5F, -0.25F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(11.5F, 16.25F, -0.75F));
+		PartDefinition lower_left = left_arm.addOrReplaceChild("lower_left", CubeListBuilder.create().texOffs(3, 88).mirror().addBox(-6.5F, 4.0F, -5.25F, 11.0F, 22.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(11.5F, 12.0F, -0.75F));
 
-		PartDefinition left_hand = lower_left.addOrReplaceChild("left_hand", CubeListBuilder.create(), PartPose.offset(-1.5F, 21.75F, -0.25F));
+		PartDefinition left_hand = lower_left.addOrReplaceChild("left_hand", CubeListBuilder.create(), PartPose.offset(-1.5F, 26.0F, -0.25F));
 
 		PartDefinition front_finger_L = left_hand.addOrReplaceChild("front_finger_L", CubeListBuilder.create().texOffs(97, 55).mirror().addBox(-1.5F, -3.0F, -2.5F, 3.0F, 10.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.5F, 0.0F, -2.0F));
 

@@ -38,7 +38,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -170,16 +169,20 @@ public class DarkWand extends Item {
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
-        if (target instanceof Summoned summonedEntity){
-            if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)){
-                if (player.isShiftKeyDown() || player.isCrouching()){
-                    summonedEntity.kill();
-                } else {
-                    if (summonedEntity.getMobType() == MobType.UNDEAD) {
-                        summonedEntity.updateMoveMode(player);
+        if (!SpellConfig.OwnerHitCommand.get()) {
+            if (player.getMainHandItem() == stack) {
+                if (target instanceof Summoned summonedEntity) {
+                    if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)) {
+                        if (player.isShiftKeyDown() || player.isCrouching()) {
+                            summonedEntity.kill();
+                        } else {
+                            if (summonedEntity.canUpdateMove()) {
+                                summonedEntity.updateMoveMode(player);
+                            }
+                        }
+                        return InteractionResult.SUCCESS;
                     }
                 }
-                return InteractionResult.SUCCESS;
             }
         }
         if (this.getSpell(stack) instanceof TouchSpells touchSpells){

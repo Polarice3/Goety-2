@@ -17,8 +17,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public class ForbiddenGrassBlockEntity extends BlockEntity {
@@ -75,14 +77,16 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
                     if (this.getLevel().random.nextFloat() <= 0.005F) {
                         if (this.getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(above).inflate(1)).isEmpty()) {
                             EntityType<?> entityType = getRandomMonsterMob(this.getLevel().random);
-                            if (k <= 16) {
-                                if (SpawnPlacements.checkSpawnRules(entityType, this.getLevel(), MobSpawnType.SPAWNER, above, this.getLevel().random)) {
-                                    Entity entity = entityType.create(this.getLevel());
-                                    if (entity instanceof Mob mob) {
-                                        mob.setPos(above.getX() + 0.5F, above.getY(), above.getZ() + 0.5F);
-                                        if (this.getLevel().noCollision(entity) && this.getLevel().isUnobstructed(entity, this.getLevel().getBlockState(above).getShape(this.getLevel(), above))) {
-                                            mob.finalizeSpawn(this.getLevel(), this.getLevel().getCurrentDifficultyAt(this.worldPosition), MobSpawnType.SPAWNER, null, null);
-                                            this.getLevel().addFreshEntity(mob);
+                            if (entityType != null) {
+                                if (k <= 16) {
+                                    if (SpawnPlacements.checkSpawnRules(entityType, this.getLevel(), MobSpawnType.SPAWNER, above, this.getLevel().random)) {
+                                        Entity entity = entityType.create(this.getLevel());
+                                        if (entity instanceof Mob mob) {
+                                            mob.setPos(above.getX() + 0.5F, above.getY(), above.getZ() + 0.5F);
+                                            if (this.getLevel().noCollision(entity) && this.getLevel().isUnobstructed(entity, this.getLevel().getBlockState(above).getShape(this.getLevel(), above))) {
+                                                mob.finalizeSpawn(this.getLevel(), this.getLevel().getCurrentDifficultyAt(this.worldPosition), MobSpawnType.SPAWNER, null, null);
+                                                this.getLevel().addFreshEntity(mob);
+                                            }
                                         }
                                     }
                                 }
@@ -94,7 +98,7 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
         }
     }
 
-    public static float addMonsterMob(EntityType<?> type, int rarity) {
+    public static void addMonsterMob(EntityType<?> type, int rarity) {
         if (rarity <= 0) {
             rarity = 1;
         }
@@ -109,18 +113,36 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
             }
         }
 
-        monsterMobs.add(new MonsterMob(rarity, type));
-        return rarity;
-    }
-
-    public static EntityType<?> getRandomMonsterMob(RandomSource rand) {
-        Optional<MonsterMob> mob = WeightedRandom.getRandomItem(rand, monsterMobs);
-        if (mob.isPresent()){
-            return mob.get().type;
+        int totalWeight = WeightedRandom.getTotalWeight(monsterMobs);
+        if (totalWeight < 2147483647L) {
+            monsterMobs.add(new MonsterMob(rarity, type));
         }
-        return EntityType.ZOMBIE;
     }
 
+    @Nullable
+    public static EntityType<?> getRandomMonsterMob(RandomSource rand) {
+        Optional<MonsterMob> mob;
+        mob = getRandomItem(rand, monsterMobs);
+        return mob.<EntityType<?>>map(monsterMob -> monsterMob.type).orElse(null);
+    }
+
+    public static int getTotalWeight(List<? extends WeightedEntry> p_146313_) {
+        long i = 0L;
+
+        for(WeightedEntry weightedentry : p_146313_) {
+            i += (long)weightedentry.getWeight().asInt();
+        }
+
+        if (i > 2147483647L) {
+            return 0;
+        } else {
+            return (int)i;
+        }
+    }
+
+    public static <T extends WeightedEntry> Optional<T> getRandomItem(RandomSource p_216823_, List<T> p_216824_) {
+        return WeightedRandom.getRandomItem(p_216823_, p_216824_, getTotalWeight(p_216824_));
+    }
 
     public static class MonsterMob extends WeightedEntry.IntrusiveBase {
         public final EntityType<?> type;
@@ -138,13 +160,10 @@ public class ForbiddenGrassBlockEntity extends BlockEntity {
 
     public void getMobs(){
         if (this.getLevel() != null) {
-//            WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = this.getLevel().getBiome(this.getBlockPos()).get().getMobSettings().getMobs(MobCategory.MONSTER);
             WeightedRandomList<MobSpawnSettings.SpawnerData> spawners = MobUtil.mobsAt(this.getLevel(), this.getLevel().structureManager(), this.getLevel().getChunkSource().getGenerator(), MobCategory.MONSTER, this.getBlockPos(), this.getLevel().getBiome(this.getBlockPos()));
             if (!spawners.isEmpty()) {
                 for (MobSpawnSettings.SpawnerData spawners1 : spawners.unwrap()) {
-                    if (spawners1.getWeight().asInt() < 2147483647L) {
-                        addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
-                    }
+                    addMonsterMob(spawners1.type, spawners1.getWeight().asInt());
                 }
             }
         }
