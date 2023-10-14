@@ -102,6 +102,19 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_STEP = create("redstone_golem_step");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_DEATH = create("redstone_golem_death");
 
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_AMBIENT = create("grave_golem_ambient");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_HURT = create("grave_golem_hurt");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_AWAKEN = create("grave_golem_awaken");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_ARM = create("grave_golem_arm");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_BLAST = create("grave_golem_blast");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_GROWL = create("grave_golem_growl");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_STEP = create("grave_golem_step");
+    public static final RegistryObject<SoundEvent> GRAVE_GOLEM_DEATH = create("grave_golem_death");
+
+    public static final RegistryObject<SoundEvent> HAUNT_AMBIENT = create("haunt_ambient");
+    public static final RegistryObject<SoundEvent> HAUNT_HURT = create("haunt_hurt");
+    public static final RegistryObject<SoundEvent> HAUNT_FLY = create("haunt_fly");
+
     public static final RegistryObject<SoundEvent> MINISTER_AMBIENT = create("minister_ambient");
     public static final RegistryObject<SoundEvent> MINISTER_HURT = create("minister_hurt");
     public static final RegistryObject<SoundEvent> MINISTER_LAUGH = create("minister_laugh");

@@ -1,0 +1,25 @@
+{
+  "name": "Nameless Set",
+  "icon": "goety:nameless_cape",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After discovering the most hidden of necromantic ways, you've devised a new set of garb to showcase your mastery over the dark arts."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The set functions the same as the old Necro Set with some improvements."
+    }
+  ]
+}

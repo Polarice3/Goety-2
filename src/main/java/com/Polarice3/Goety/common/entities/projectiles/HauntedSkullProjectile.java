@@ -140,42 +140,46 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
 
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
-        Entity owner = this.getOwner();
-        float enchantment = 0;
-        boolean flaming = false;
-        boolean loot = false;
-        if (owner instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player)/2.5F;
-                if (WandUtil.getLevels(ModEnchantments.BURNING.get(), player) > 0){
-                    flaming = true;
+        if (!this.level.isClientSide) {
+            Entity owner = this.getOwner();
+            float enchantment = 0;
+            boolean flaming = false;
+            boolean loot = false;
+            if (owner instanceof Player player) {
+                if (WandUtil.enchantedFocus(player)) {
+                    enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player) / 2.5F;
+                    if (WandUtil.getLevels(ModEnchantments.BURNING.get(), player) > 0) {
+                        flaming = true;
+                    }
                 }
-            }
-            if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
-                if (CuriosFinder.findRing(player).isEnchanted()){
-                    float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
-                    if (wanting > 0){
-                        loot = true;
+                if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
+                    if (CuriosFinder.findRing(player).isEnchanted()) {
+                        float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
+                        if (wanting > 0) {
+                            loot = true;
+                        }
                     }
                 }
             }
-        }
-        Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.NONE;
-        if (this.isDangerous()){
-            if (this.getOwner() instanceof Player){
-                explodeMode = Explosion.BlockInteraction.DESTROY;
-            } else {
-                explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+            Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.NONE;
+            if (this.isDangerous()) {
+                if (this.getOwner() instanceof Player) {
+                    explodeMode = Explosion.BlockInteraction.DESTROY;
+                } else {
+                    explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+                }
             }
+            LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);
+            this.discard();
         }
-        LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-        ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);
-        this.discard();
-
     }
 
     protected boolean canHitEntity(Entity pEntity) {
         if (this.getOwner() != null){
+            if (pEntity == this.getOwner()){
+                return false;
+            }
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {

@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(bold)Capacity Order$()$(br)$(li)$(item)Crimson Fungus$() - +2 $(li)$(item)Snap Warts$() - +2 $(li)$(item)Activated Emerald$() - +2 $(li)$(item)Concentrated Emerald$() - +2 $(li)$(item)Ruby of Souls$() - +4"
+      "text": "$(bold)Capacity Order$()$(br)$(li)$(item)Crimson Fungus$() - +2 $(li)$(item)Snap Warts$() - +2 $(li)$(item)Awakened Emerald$() - +2 $(li)$(item)Concentrated Emerald$() - +2 $(li)$(item)Ruby of Souls$() - +4"
     }
   ]
 }

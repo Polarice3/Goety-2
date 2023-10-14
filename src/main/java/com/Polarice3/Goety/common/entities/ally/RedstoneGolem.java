@@ -313,7 +313,7 @@ public class RedstoneGolem extends Summoned {
 
     public EntityDimensions getDimensions(Pose p_29531_) {
         if (this.isSitting()) {
-            return super.getDimensions(p_29531_).scale(1.0F, 0.75F);
+            return super.getDimensions(p_29531_).scale(1.0F, 0.85F);
         } else {
             return super.getDimensions(p_29531_);
         }
@@ -456,22 +456,22 @@ public class RedstoneGolem extends Summoned {
                             serverLevel.sendParticles(ModParticleTypes.BIG_ELECTRIC.get(), this.getRandomX(0.5D), this.getEyeY() - serverLevel.random.nextInt(5), this.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
                         }
                     }
-                }
-                if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
-                    int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
-                    if (this.tickCount % time == 0 && this.isOnGround()) {
-                        BlockPos blockPos = this.blockPosition();
-                        blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                        BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                        ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
-                        if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()){
-                            scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
-                        }
-                        if (this.level.addFreshEntity(scatterMine)) {
-                            if (this.level.random.nextBoolean()) {
-                                scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                    if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
+                        int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
+                        if (this.tickCount % time == 0 && this.isOnGround()) {
+                            BlockPos blockPos = this.blockPosition();
+                            blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
+                            BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
+                            ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
+                            if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()){
+                                scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
                             }
-                            --this.mineCount;
+                            if (this.level.addFreshEntity(scatterMine)) {
+                                if (this.level.random.nextBoolean()) {
+                                    scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                                }
+                                --this.mineCount;
+                            }
                         }
                     }
                 }
@@ -622,7 +622,7 @@ public class RedstoneGolem extends Summoned {
 
         @Override
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr)  && !RedstoneGolem.this.isPostAttack) {
+            if (RedstoneGolem.this.targetClose(enemy, distToEnemySqr) && !RedstoneGolem.this.isPostAttack) {
                 RedstoneGolem.this.doHurtTarget(enemy);
             }
         }
@@ -745,7 +745,7 @@ public class RedstoneGolem extends Summoned {
         @Override
         public void start() {
             super.start();
-            RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get());
+            RedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get(), RedstoneGolem.this.getSoundVolume(), RedstoneGolem.this.getVoicePitch());
             RedstoneGolem.this.level.broadcastEntityEvent(RedstoneGolem.this, (byte) 4);
             RedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
             RedstoneGolem.this.summonCool = (int) MathHelper.secondsToTicks(10 + SUMMON_SECONDS_TIME);

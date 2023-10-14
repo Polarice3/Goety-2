@@ -1,0 +1,17 @@
+{
+  "name": "Ancient Technology",
+  "icon": "minecraft:redstone",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Whispers of war-machines used in ancient times that possesses great power have reached your ears. They say that these beasts were made of rock and redstone and have been used within $(l)ancient$() structures to defend and attack."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_warred_scroll",
+      "text": "They say that these monstrous machines were utilized in ancient cities and buried strongholds."
+    }
+  ]
+}

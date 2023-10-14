@@ -55,7 +55,7 @@ public class SLootingExplosionPacket {
             Player player = Goety.PROXY.getPlayer();
             if (player != null){
                 LootingExplosion explosion = new LootingExplosion(player.level, null, packet.x, packet.y, packet.z, packet.power, false, Explosion.BlockInteraction.NONE, LootingExplosion.Mode.REGULAR);
-                explosion.playEffects();
+                explosion.finalizeExplosion(true);
                 player.setDeltaMovement(player.getDeltaMovement().add(packet.knockbackX, packet.knockbackY, packet.knockbackZ));
             }
         });

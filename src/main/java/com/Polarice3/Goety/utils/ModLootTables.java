@@ -20,6 +20,7 @@ public class ModLootTables {
 
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
     public static final ResourceLocation WARLOCK_BARTER = register("gameplay/warlock_bartering");
+    public static final ResourceLocation CRONE_BARTER = register("gameplay/crone_bartering");
 
     private static ResourceLocation register(String pId) {
         return register(Goety.location(pId));

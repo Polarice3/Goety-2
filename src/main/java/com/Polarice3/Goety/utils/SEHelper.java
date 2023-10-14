@@ -108,10 +108,10 @@ public class SEHelper {
     }
 
     public static boolean getSoulsAmount(Player player, int souls){
-        if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) > souls){
+        if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) >= souls){
             return true;
         } else {
-            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) > souls;
+            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) >= souls;
         }
     }
 

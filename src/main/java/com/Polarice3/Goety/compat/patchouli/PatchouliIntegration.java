@@ -3,7 +3,9 @@ package com.Polarice3.Goety.compat.patchouli;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.compat.ICompatable;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.base.Suppliers;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -20,6 +22,7 @@ public class PatchouliIntegration implements ICompatable {
     public void setup(FMLCommonSetupEvent event) {
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
     }
 
     public static final Supplier<IMultiblock> REDSTONE_GOLEM = Suppliers.memoize(() -> {
@@ -91,6 +94,57 @@ public class PatchouliIntegration implements ICompatable {
                 'R', redstoneCore,
                 'M', magmaBlock,
                 '0', diamond
+        );
+    });
+
+    public static final Supplier<IMultiblock> GRAVE_GOLEM = Suppliers.memoize(() -> {
+        IStateMatcher stoneMold = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
+                state -> state.getBlock().getDescriptionId().contains("bricks") && !(state.getBlock() instanceof SlabBlock) && !(state.getBlock() instanceof StairBlock) && !(state.getBlock() instanceof WallBlock));
+        IStateMatcher darkMetalMold = PatchouliAPI.get().predicateMatcher(ModBlocks.DARK_METAL_BLOCK.get(),
+                state -> state.is(ModBlocks.DARK_METAL_BLOCK.get()));
+        IStateMatcher coarseDirt = PatchouliAPI.get().predicateMatcher(Blocks.COARSE_DIRT,
+                state -> state.is(Blocks.COARSE_DIRT));
+        IStateMatcher skullPiles = PatchouliAPI.get().predicateMatcher(ModBlocks.SKULL_PILE.get(),
+                state -> state.is(ModBlocks.SKULL_PILE.get()));
+        IStateMatcher shadeBody = PatchouliAPI.get().predicateMatcher(ModBlocks.SHADE_STONE_BLOCK.get(),
+                state -> state.is(ModTags.Blocks.SHADE_STONE));
+        IStateMatcher boneMold = PatchouliAPI.get().predicateMatcher(Blocks.BONE_BLOCK,
+                state -> state.is(Blocks.BONE_BLOCK));
+        IStateMatcher soulSand = PatchouliAPI.get().predicateMatcher(Blocks.SOUL_SAND,
+                state -> state.is(BlockTags.SOUL_FIRE_BASE_BLOCKS));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_________",
+                                "_DBBBBBD_",
+                                "_BLLLLLB_",
+                                "_BLOPOLB_",
+                                "_BLPPPLB_",
+                                "_BLOPOLB_",
+                                "_BLLLLLB_",
+                                "_DBBBBBD_",
+                                "_________",
+                        },
+                        {
+                                "_________",
+                                "_________",
+                                "__CCCCC__",
+                                "__CSLSC__",
+                                "__CL0LC__",
+                                "__CSLSC__",
+                                "__CCCCC__",
+                                "_________",
+                                "_________",
+                        }
+                },
+                'L', shadeBody,
+                'B', stoneMold,
+                'D', darkMetalMold,
+                'P', skullPiles,
+                'O', boneMold,
+                'C', coarseDirt,
+                'S', soulSand,
+                '0', shadeBody
         );
     });
 }

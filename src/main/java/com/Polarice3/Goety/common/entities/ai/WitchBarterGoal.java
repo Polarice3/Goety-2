@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ModLootTables;
@@ -54,6 +55,9 @@ public class WitchBarterGoal extends Goal {
                     LootTable loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WITCH_BARTER);
                     if (this.witch instanceof Warlock){
                         loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WARLOCK_BARTER);
+                    }
+                    if (this.witch instanceof Crone){
+                        loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.CRONE_BARTER);
                     }
                     List<ItemStack> list = loottable.getRandomItems((new LootContext.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withRandom(this.witch.level.random).create(LootContextParamSets.PIGLIN_BARTER));
                     for(ItemStack itemstack : list) {

@@ -3,7 +3,10 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SSetPlayerOwnerPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -18,7 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -51,13 +54,16 @@ public class IllusionSpell extends Spells {
         for (int i1 = 0; i1 < 4; ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
             summonedentity.setTrueOwner(entityLiving);
+            if (entityLiving instanceof Player) {
+                ModNetwork.sendToALL(new SSetPlayerOwnerPacket(summonedentity));
+            }
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
             summonedentity.setLimitedLife(1200);
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
-            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving));
-            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving) && entityLiving.getUseItem().is(ModItems.NAMELESS_STAFF.get()));
+            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
             HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
             if (rayTraceResult instanceof EntityHitResult) {
                 Entity target = ((EntityHitResult) rayTraceResult).getEntity();
@@ -99,13 +105,16 @@ public class IllusionSpell extends Spells {
         for (int i1 = 0; i1 < 4 + entityLiving.level.random.nextInt(4); ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
             summonedentity.setTrueOwner(entityLiving);
+            if (entityLiving instanceof Player) {
+                ModNetwork.sendToALL(new SSetPlayerOwnerPacket(summonedentity));
+            }
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
             MobUtil.moveDownToGround(summonedentity);
-            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving));
+            summonedentity.setUndeadClone(CuriosFinder.hasNamelessSet(entityLiving) && entityLiving.getUseItem().is(ModItems.NAMELESS_STAFF.get()));
             summonedentity.setLimitedLife(1200);
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
-            summonedentity.finalizeSpawn((ServerLevelAccessor) worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
             HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
             if (rayTraceResult instanceof EntityHitResult) {
                 Entity target = ((EntityHitResult) rayTraceResult).getEntity();

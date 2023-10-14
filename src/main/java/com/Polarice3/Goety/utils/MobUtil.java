@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.entities.ally.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -120,6 +122,14 @@ public class MobUtil {
     public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
         if (entity != null && entity1 != null) {
             return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity);
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean areFullAllies(@Nullable Entity entity, @Nullable Entity entity1){
+        if (entity != null && entity1 != null) {
+            return entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity);
         } else {
             return false;
         }
@@ -601,18 +611,31 @@ public class MobUtil {
                     double d14 = (double) getSeenPercent(vec3, entity);
                     double d10 = (1.0D - d12) * d14;
                     float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
-                    entity.hurt(damageSource, actualDamage);
-                    double d11 = d10;
-                    if (entity instanceof LivingEntity) {
-                        d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                    }
-                    if (damageSource.isMagic()){
-                        if (entity instanceof FireTornado fireTornado){
-                            fireTornado.trueRemove();
+                    boolean flag = true;
+                    if (damageSource.getEntity() != null){
+                        if (damageSource.getEntity() == entity || entity.isAlliedTo(damageSource.getEntity()) || damageSource.getEntity().isAlliedTo(entity)){
+                            flag = false;
                         }
                     }
+                    if (damageSource.isExplosion() && entity.ignoreExplosion()){
+                        flag = false;
+                    }
+                    if (flag) {
+                        entity.hurt(damageSource, actualDamage);
+                        double d11 = d10;
+                        if (entity instanceof LivingEntity) {
+                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                        }
+                        if (damageSource.isMagic()) {
+                            if (entity instanceof FireTornado fireTornado) {
+                                fireTornado.trueRemove();
+                            }
+                        }
 
-                    MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
+                        if (entity instanceof LivingEntity) {
+                            MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
+                        }
+                    }
                 }
             }
         }
@@ -763,6 +786,9 @@ public class MobUtil {
             summonedEntity.setOwnerId(player.getUUID());
             if (summonedEntity instanceof Summoned summoned){
                 summoned.setWandering(false);
+            }
+            if (summonedEntity instanceof RedstoneGolem || summonedEntity instanceof GraveGolem){
+                SEHelper.addSummon(player, summonedEntity);
             }
         }
     }
@@ -986,5 +1012,15 @@ public class MobUtil {
 
     public static WeightedRandomList<MobSpawnSettings.SpawnerData> mobsAt(ServerLevel p_220444_, StructureManager p_220445_, ChunkGenerator p_220446_, MobCategory p_220447_, BlockPos p_220448_, @Nullable Holder<Biome> p_220449_) {
         return net.minecraftforge.event.ForgeEventFactory.getPotentialSpawns(p_220444_, p_220447_, p_220448_, NaturalSpawner.isInNetherFortressBounds(p_220448_, p_220444_, p_220447_, p_220445_) ? p_220445_.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).getOrThrow(BuiltinStructures.FORTRESS).spawnOverrides().get(MobCategory.MONSTER).spawns() : p_220446_.getMobsAt(p_220449_ != null ? p_220449_ : p_220444_.getBiome(p_220448_), p_220445_, p_220447_, p_220448_));
+    }
+
+    public static Vec3 calculateViewVector(float p_20172_, float p_20173_) {
+        float f = p_20172_ * ((float)Math.PI / 180F);
+        float f1 = -p_20173_ * ((float)Math.PI / 180F);
+        float f2 = Mth.cos(f1);
+        float f3 = Mth.sin(f1);
+        float f4 = Mth.cos(f);
+        float f5 = Mth.sin(f);
+        return new Vec3((double)(f3 * f4), (double)(-f5), (double)(f2 * f4));
     }
 }

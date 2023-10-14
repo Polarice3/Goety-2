@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -37,7 +39,10 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
     private static final EntityDataAccessor<Optional<UUID>> SKULL_LORD = SynchedEntityData.defineId(BoneLord.class, EntityDataSerializers.OPTIONAL_UUID);
@@ -58,8 +63,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.BoneLordDamage.get())
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
-                .add(Attributes.ARMOR, 2.0D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){
@@ -68,10 +72,14 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
         super.populateDefaultEquipmentSlots(randomSource, pDifficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
+        if (pDifficulty.isHarderThan(Difficulty.EASY.ordinal())){
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.FROZEN_BLADE.get()));
+        } else {
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
+        }
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.CURSED_PALADIN_CHESTPLATE.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(ModItems.CURSED_PALADIN_LEGGINGS.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(ModItems.CURSED_PALADIN_BOOTS.get()));
         this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
     }
 
@@ -102,27 +110,38 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         }
     }
 
+    public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
+        return false;
+    }
+
     @Override
     public void tick() {
         super.tick();
-        if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying()){
-            if (this.tickCount % 20 == 0){
-                this.discard();
-            }
-        } else {
-            if (this.getSkullLord().isHalfHealth()){
-                this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1, false, false));
-                Objects.requireNonNull(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE)).setBaseValue(1.0D);
-            } else {
-                if (this.getAttributeBaseValue(Attributes.KNOCKBACK_RESISTANCE) > 0.0D) {
-                    Objects.requireNonNull(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE)).setBaseValue(0.0D);
+        if (!this.level.isClientSide) {
+            if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying()) {
+                if (this.tickCount % 20 == 0) {
+                    this.discard();
                 }
-            }
-            if (this.isInWall()){
-                this.moveTo(this.getSkullLord().position());
-            }
-            if (this.getSkullLord().getTarget() != null){
-                this.setTarget(this.getSkullLord().getTarget());
+            } else {
+                AttributeInstance knockResist = this.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
+                if (this.getSkullLord().isHalfHealth()) {
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1, false, false));
+                    if (knockResist != null) {
+                        knockResist.setBaseValue(1.0D);
+                    }
+                } else {
+                    if (knockResist != null) {
+                        if (knockResist.getBaseValue() > 0.0D) {
+                            knockResist.setBaseValue(0.0D);
+                        }
+                    }
+                }
+                if (this.isInWall()) {
+                    this.moveTo(this.getSkullLord().position());
+                }
+                if (this.getSkullLord().getTarget() != null) {
+                    this.setTarget(this.getSkullLord().getTarget());
+                }
             }
         }
     }

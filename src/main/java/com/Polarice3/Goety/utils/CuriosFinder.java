@@ -11,9 +11,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class CuriosFinder {
@@ -21,8 +22,10 @@ public class CuriosFinder {
     public static ItemStack findCurio(LivingEntity livingEntity, Predicate<ItemStack> filter){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(filter, livingEntity).map(
-                    ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, filter);
+            if (optional.isPresent()) {
+                foundStack = optional.get().stack();
+            }
         }
 
         return foundStack;
@@ -39,8 +42,10 @@ public class CuriosFinder {
     public static ItemStack findCurio(LivingEntity livingEntity, Item item){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(item, livingEntity).map(
-                    ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, item);
+            if (optional.isPresent()) {
+                foundStack = optional.get().stack();
+            }
         }
 
         return foundStack;
@@ -104,8 +109,10 @@ public class CuriosFinder {
     public static ItemStack findRing(Player playerEntity){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            foundStack = CuriosApi.getCuriosHelper().findEquippedCurio(CuriosFinder::isRing, playerEntity).map(
-                    ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(playerEntity, CuriosFinder::isRing);
+            if (optional.isPresent()) {
+                foundStack = optional.get().stack();
+            }
         } else {
             for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
                 ItemStack itemStack = playerEntity.getInventory().getItem(i);

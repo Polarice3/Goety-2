@@ -87,7 +87,7 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		if (!entity.isDeadOrDying()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
-			if (entity.isAggressive()) {
+			if (entity.isAggressive() || !entity.walkAnimationState.isStarted()) {
 				this.animateWalk(entity, limbSwing, limbSwingAmount);
 			}
 		}

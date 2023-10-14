@@ -105,27 +105,27 @@
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:diamond_sword"
+          "name": "goety:frozen_blade"
         },
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:diamond_chestplate"
+          "name": "goety:cursed_paladin_chestplate"
         },
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:diamond_helmet"
+          "name": "goety:cursed_paladin_helmet"
         },
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:diamond_leggings"
+          "name": "goety:cursed_paladin_leggings"
         },
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:iron_boots"
+          "name": "goety:cursed_paladin_boots"
         },
         {
           "type": "minecraft:item",

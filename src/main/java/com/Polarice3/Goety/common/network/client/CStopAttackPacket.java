@@ -25,9 +25,12 @@ public class CStopAttackPacket {
             if (playerEntity != null) {
                 if (playerEntity.level instanceof ServerLevel serverLevel){
                     for (Entity entity : serverLevel.getAllEntities()){
-                        if (entity instanceof Owned && ((Owned) entity).getTrueOwner() == playerEntity){
-                            if (((Owned) entity).getTarget() != null) {
-                                ((Owned) entity).setTarget(null);
+                        if (entity instanceof Owned owned && owned.getTrueOwner() == playerEntity){
+                            if (owned.getTarget() != null) {
+                                owned.setTarget(null);
+                                if (owned.getLastHurtByMob() != null){
+                                    owned.setLastHurtByMob(null);
+                                }
                                 entity.playSound(ModSounds.CAST_SPELL.get(), 1.0F, 1.0F);
                                 serverLevel.broadcastEntityEvent(entity, (byte) 20);
                             }

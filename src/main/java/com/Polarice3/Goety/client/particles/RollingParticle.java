@@ -33,7 +33,7 @@ public class RollingParticle extends TextureSheetParticle {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        if (this.age++ >= this.lifetime) {
+        if (++this.age >= this.lifetime) {
             this.remove();
         }
         this.oRoll = this.roll;

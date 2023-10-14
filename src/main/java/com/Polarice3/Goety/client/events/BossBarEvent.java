@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -34,7 +35,7 @@ public class BossBarEvent {
                 int i = minecraft.getWindow().getGuiScaledWidth();
                 for (Mob boss : BOSSES) {
                     if (boss != null) {
-                        if (event.getBossEvent().getId() == boss.getUUID()) {
+                        if (event.getBossEvent().getId() == boss.getUUID() || (boss instanceof IBoss boss1 && boss1.getBossInfoUUID().equals(event.getBossEvent().getId()))) {
                             event.setCanceled(true);
                             int k = i / 2 - 100;
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

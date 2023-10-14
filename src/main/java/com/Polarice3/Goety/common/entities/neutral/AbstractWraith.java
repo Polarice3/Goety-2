@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,10 +42,12 @@ public class AbstractWraith extends Summoned {
     public int teleportCooldown;
     public int teleportTime = 20;
     public int teleportTime2;
+    public int postTeleportTime;
     public double prevX;
     public double prevY;
     public double prevZ;
     public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState postTeleportAnimationState = new AnimationState();
     public AnimationState breathingAnimationState = new AnimationState();
 
     public AbstractWraith(EntityType<? extends Summoned> p_i48553_1_, Level p_i48553_2_) {
@@ -53,6 +56,7 @@ public class AbstractWraith extends Summoned {
         this.fireTick = 0;
         this.teleportTime2 = 0;
         this.teleportCooldown = 0;
+        this.postTeleportTime = 0;
     }
 
     protected void registerGoals() {
@@ -64,7 +68,7 @@ public class AbstractWraith extends Summoned {
     }
 
     public void targetSelectGoal(){
-        this.targetSelector.addGoal(1, new SummonTargetGoal<>(this, false, false));
+        this.targetSelector.addGoal(1, new SummonTargetGoal(this, false, false));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -177,6 +181,11 @@ public class AbstractWraith extends Summoned {
         }
     }
 
+    @Override
+    protected float nextStep() {
+        return this.moveDist + 2.0F;
+    }
+
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_, DamageSource damageSource) {
         return false;
     }
@@ -206,6 +215,10 @@ public class AbstractWraith extends Summoned {
     public void tick() {
         this.setGravity();
         super.tick();
+    }
+
+    public boolean isPostTeleporting(){
+        return this.postTeleportTime > 0;
     }
 
     public void setGravity(){
@@ -242,6 +255,10 @@ public class AbstractWraith extends Summoned {
 
         if (this.teleportCooldown > 0){
             --this.teleportCooldown;
+        }
+
+        if (this.postTeleportTime > 0){
+            --this.postTeleportTime;
         }
 
         if (this.isAlive()) {
@@ -284,33 +301,43 @@ public class AbstractWraith extends Summoned {
 
     public void attackAI(){
         if (!this.level.isClientSide) {
-            if (this.getTarget() != null) {
+            if (this.isPostTeleporting()){
+                this.getNavigation().stop();
+            }
+            if (this.getTarget() != null && !this.isPostTeleporting()) {
+                if (!this.isFiring()){
+                    this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
+                }
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
-                    if ((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
-                            && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) {
+                    if (((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
+                            && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) || this.isFiring()) {
                         ++this.fireTick;
-                        this.getNavigation().stop();
-                        this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
-                        double d2 = this.getTarget().getX() - this.getX();
-                        double d1 = this.getTarget().getZ() - this.getZ();
-                        this.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-                        this.yBodyRot = this.getYRot();
+                        if (this.isFiring()){
+                            this.getNavigation().stop();
+                            double d2 = this.getTarget().getX() - this.getX();
+                            double d1 = this.getTarget().getZ() - this.getZ();
+                            this.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                            this.yBodyRot = this.getYRot();
+                        }
                         if (this.fireTick > 10) {
                             this.startFiring();
                         } else {
                             this.movement();
                             this.stopFiring();
                         }
-                        if (this.fireTick > 20) {
-                            this.fireTick = -30;
+                        if (this.fireTick == 20) {
                             this.magicFire(this.getTarget());
+                        }
+                        if (this.fireTick > 44){
+                            this.fireTick = -30;
                         }
                     } else {
                         if (this.fireTick > 0) {
                             this.fireTick = 0;
                         }
                         this.stopFiring();
-                        if (!this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0) {
+                        if (!this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
+                            this.getNavigation().stop();
                             this.setIsTeleporting(true);
                         } else {
                             this.setIsTeleporting(false);
@@ -319,7 +346,8 @@ public class AbstractWraith extends Summoned {
                     }
                 } else {
                     if (MainConfig.WraithAggressiveTeleport.get()) {
-                        if (!this.isStaying() && this.teleportCooldown <= 0) {
+                        if (!this.isStaying() && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
+                            this.getNavigation().stop();
                             this.setIsTeleporting(true);
                         }
                     }
@@ -340,14 +368,16 @@ public class AbstractWraith extends Summoned {
     }
 
     public void movement(){
-        if (this.getTarget() != null && !this.isStaying()) {
-            Vec3 vector3d2 = null;
+        if (this.getTarget() != null && !this.isStaying() && !this.isPostTeleporting()) {
+            Vec3 vector3d2;
             if (this.getTarget().distanceToSqr(this) > Mth.square(this.halfFollowRange())){
                 vector3d2 = this.getTarget().position();
+            } else {
+                vector3d2 = LandRandomPos.getPos(this, 4, 4);
             }
             if (vector3d2 != null) {
                 Path path = this.getNavigation().createPath(vector3d2.x, vector3d2.y, vector3d2.z, 0);
-                if (path != null) {
+                if (path != null && this.getNavigation().isDone()) {
                     this.getNavigation().moveTo(path, 1.25F);
                 }
             }
@@ -373,7 +403,7 @@ public class AbstractWraith extends Summoned {
                                 this.teleportHits();
                                 this.setIsTeleporting(false);
                                 wraith.discard();
-                                this.getLookControl().setLookAt(this.getTarget(), 100.0F, 100.0F);
+                                MobUtil.instaLook(this, this.getTarget());
                                 break;
                             }
                         } else {
@@ -399,13 +429,15 @@ public class AbstractWraith extends Summoned {
                 this.teleportHits();
                 this.teleportCooldown = 100;
                 this.setIsTeleporting(false);
-                this.getLookControl().setLookAt(livingEntity, 100.0F, 100.0F);
+                MobUtil.instaLook(this, livingEntity);
                 break;
             }
         }
     }
 
     public void teleportHits(){
+        this.postTeleportTime = 38;
+        this.level.broadcastEntityEvent(this, (byte) 6);
         this.level.broadcastEntityEvent(this, (byte) 100);
         this.level.broadcastEntityEvent(this, (byte) 101);
         this.level.gameEvent(GameEvent.TELEPORT, this.position(), GameEvent.Context.of(this));
@@ -450,6 +482,14 @@ public class AbstractWraith extends Summoned {
         }
         if (pId == 5) {
             this.setIsFiring(false);
+            this.attackAnimationState.stop();
+        }
+        if (pId == 6){
+            this.postTeleportAnimationState.start(this.tickCount);
+            this.postTeleportTime = 38;
+        }
+        if (pId == 7){
+            this.postTeleportAnimationState.stop();
         }
         if (pId == 100){
             for(int j = 0; j < 6; ++j) {

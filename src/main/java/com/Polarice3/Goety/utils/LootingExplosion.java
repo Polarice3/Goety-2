@@ -120,20 +120,28 @@ public class LootingExplosion extends Explosion {
                             d9 = d9 / d13;
                             double d14 = (double) getSeenPercent(vector3d, entity);
                             double d10 = (1.0D - d12) * d14;
-                            if (flag){
-                                entity.hurt(DamageSource.explosion(this.getSourceMob()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                            } else {
-                                entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                            boolean hurt = true;
+                            if (this.getSourceMob() != null){
+                                if (MobUtil.areAllies(this.getSourceMob(), entity)){
+                                    hurt = false;
+                                }
                             }
-                            double d11 = d10;
-                            if (entity instanceof LivingEntity) {
-                                d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                            }
+                            if (hurt) {
+                                if (flag) {
+                                    entity.hurt(DamageSource.explosion(this.getSourceMob()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                                } else {
+                                    entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                                }
+                                double d11 = d10;
+                                if (entity instanceof LivingEntity) {
+                                    d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                                }
 
-                            entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
-                            if (entity instanceof Player player) {
-                                if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
-                                    this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                                entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                                if (entity instanceof Player player) {
+                                    if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
+                                        this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                                    }
                                 }
                             }
                         }
@@ -144,6 +152,8 @@ public class LootingExplosion extends Explosion {
     }
 
     public void finalizeExplosion(boolean pSpawnParticles) {
+
+        this.playEffects();
 
         boolean flag = this.blockInteraction != Explosion.BlockInteraction.NONE;
 
@@ -195,7 +205,7 @@ public class LootingExplosion extends Explosion {
             this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
         }
 
-        if (!(this.radius < 2.0F) && flag) {
+        if (this.radius >= 2.0F) {
             this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
         } else {
             this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);

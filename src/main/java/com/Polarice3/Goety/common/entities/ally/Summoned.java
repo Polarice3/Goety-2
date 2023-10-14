@@ -72,7 +72,7 @@ public class Summoned extends Owned {
     }
 
     public void targetSelectGoal(){
-        this.targetSelector.addGoal(1, new SummonTargetGoal<>(this));
+        this.targetSelector.addGoal(1, new SummonTargetGoal(this));
     }
 
     public void checkDespawn() {
@@ -142,7 +142,7 @@ public class Summoned extends Owned {
                                 int SoulCost = SpellConfig.UndeadMinionHealCost.get();
                                 if (SEHelper.getSoulsAmount(owner, SoulCost)){
                                     if (this.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
-                                        this.heal(this.getMaxHealth() * 0.025F);
+                                        this.heal(SpellConfig.UndeadMinionHealAmount.get().floatValue());
                                         Vec3 vector3d = this.getDeltaMovement();
                                         if (!this.level.isClientSide){
                                             ServerLevel serverWorld = (ServerLevel) this.level;

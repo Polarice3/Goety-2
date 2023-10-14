@@ -6,16 +6,22 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
+import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -42,11 +48,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Codger extends Cultist implements RangedAttackMob {
+public class Codger extends Cultist implements RangedAttackMob, IBoss {
     private int coolDown;
     private int totalCool;
     private int hitTimes;
@@ -56,7 +64,8 @@ public class Codger extends Cultist implements RangedAttackMob {
     private boolean isShaking;
     private float shakeAnim;
     private float shakeAnimO;
-    private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private UUID bossInfoUUID = bossInfo.getId();
     private NearestHealableRaiderTargetGoal<Raider> healRaidersGoal;
     private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
 
@@ -109,7 +118,6 @@ public class Codger extends Cultist implements RangedAttackMob {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     protected SoundEvent getAmbientSound() {
@@ -431,6 +439,22 @@ public class Codger extends Cultist implements RangedAttackMob {
             this.level.playSound((Player) null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 0.75F);
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 0.75F);
         }
+    }
+
+    @Override
+    public UUID getBossInfoUUID() {
+        return this.bossInfoUUID;
+    }
+
+    @Override
+    public void setBossInfoUUID(UUID bossInfoUUID) {
+        this.bossInfoUUID = bossInfoUUID;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     static class CodgerTeleportGoal extends Goal {

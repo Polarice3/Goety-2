@@ -46,6 +46,8 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
+    @Nullable
+    public LivingEntity owner = this.getTrueOwner();
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -85,7 +87,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     public void tick(){
         super.tick();
         if (this.getTarget() instanceof Owned ownedEntity){
-            if (ownedEntity.getTrueOwner() == this.getTrueOwner() && this.getTrueOwner() != null){
+            if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())){
                 this.setTarget(null);
                 if (this.getLastHurtByMob() == ownedEntity){
                     this.setLastHurtByMob(null);
@@ -119,6 +121,11 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         if (this.getTrueOwner() instanceof Mob mobOwner){
             if (mobOwner.getTarget() != null && this.getTarget() == null){
                 this.setTarget(mobOwner.getTarget());
+            }
+        }
+        if (this.getTarget() != null){
+            if (this.getTarget().isRemoved() || this.getTarget().isDeadOrDying()){
+                this.setTarget(null);
             }
         }
         for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {

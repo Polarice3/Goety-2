@@ -17,6 +17,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation SOUL_BOLT = register("soul_bolt");
     public static final ModelLayerLocation SCATTER_MINE = register("scatter_mine");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
+    public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
     public static final ModelLayerLocation MONOLITH = register("pillar");
@@ -30,6 +31,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
+    public static final ModelLayerLocation GRAVE_GOLEM = register("grave_golem");
+    public static final ModelLayerLocation HAUNT = register("haunt");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation WRAITH = register("wraith");
@@ -39,6 +42,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation VILLAGER_ARMOR_OUTER = registerOuterArmor("villager_armor");
     public static final ModelLayerLocation CURSED_KNIGHT_ARMOR_INNER = registerInnerArmor("cursed_knight_armor");
     public static final ModelLayerLocation CURSED_KNIGHT_ARMOR_OUTER = registerOuterArmor("cursed_knight_armor");
+    public static final ModelLayerLocation CURSED_PALADIN_ARMOR_INNER = registerInnerArmor("cursed_paladin_armor");
+    public static final ModelLayerLocation CURSED_PALADIN_ARMOR_OUTER = registerOuterArmor("cursed_paladin_armor");
     public static final ModelLayerLocation DARK_ARMOR_INNER = registerInnerArmor("dark_armor");
     public static final ModelLayerLocation DARK_ARMOR_OUTER = registerOuterArmor("dark_armor");
     public static final ModelLayerLocation MINION = register("minion");

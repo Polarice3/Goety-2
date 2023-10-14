@@ -3,11 +3,13 @@ package com.Polarice3.Goety.common.entities.util;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.players.OldUsersConverter;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -126,37 +129,45 @@ public class SkullLaser extends Mob {
     @Override
     public void tick() {
         super.tick();
-        if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying() || this.getSkullLord().isInvulnerable()){
-            if (this.tickCount % 20 == 0){
-                this.discard();
-            }
-        } else {
-            AttributeInstance gravity = this.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
-            if (gravity != null){
-                gravity.setBaseValue(0.8D);
-            }
-            if (this.getSkullLord().isHalfHealth()){
-                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.3D);
-                if (this.level.getDifficulty() == Difficulty.HARD){
-                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1, false, false));
-                }
-            }
-            if (this.getSkullLord().getTarget() != null){
-                this.setTarget(this.getSkullLord().getTarget());
-            } else {
-                if (this.tickCount % 20 == 0){
+        if (!this.level.isClientSide) {
+            if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying() || this.getSkullLord().isInvulnerable()) {
+                if (this.tickCount % 20 == 0) {
                     this.discard();
                 }
-            }
-            if (this.getTarget() != null){
-                if (this.tickCount >= 20) {
-                    if (this.tickCount % 2 == 0) {
-                        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
+            } else {
+                AttributeInstance gravity = this.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
+                if (gravity != null) {
+                    gravity.setBaseValue(0.8D);
+                }
+                if (this.getSkullLord().isHalfHealth()) {
+                    Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.3D);
+                    if (this.level.getDifficulty() == Difficulty.HARD) {
+                        this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1, false, false));
                     }
-                    this.moveControl.setWantedPosition(this.getTarget().getX(), this.getY(), this.getTarget().getZ(), 1.0F);
-                    for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0F))) {
-                        if (livingEntity != this.getSkullLord() && livingEntity != this) {
-                            if (this.getBoundingBox().intersects(livingEntity.getBoundingBox())) {
+                }
+                if (this.getSkullLord().getTarget() != null) {
+                    this.setTarget(this.getSkullLord().getTarget());
+                } else {
+                    if (this.tickCount % 20 == 0) {
+                        this.discard();
+                    }
+                }
+                if (this.getTarget() != null) {
+                    if (this.tickCount >= 20) {
+                        if (this.tickCount % 2 == 0) {
+                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
+                        }
+                        this.moveControl.setWantedPosition(this.getTarget().getX(), this.getY(), this.getTarget().getZ(), 1.0F);
+                        float f2 = 0.25F * 2.0F;
+                        int k1 = Mth.floor(this.getX() - (double)f2 - 1.0D);
+                        int l1 = Mth.floor(this.getX() + (double)f2 + 1.0D);
+                        int i2 = Mth.floor(this.getY() - (double)f2 - 1.0D);
+                        int i1 = Mth.floor(this.getY() + (double)f2 + 1.0D);
+                        int j2 = Mth.floor(this.getZ() - (double)f2 - 1.0D);
+                        int j1 = Mth.floor(this.getZ() + (double)f2 + 1.0D);
+                        AABB aabb = new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1);
+                        for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
+                            if (livingEntity != this.getSkullLord() && !MobUtil.areFullAllies(this.getSkullLord(), livingEntity) && livingEntity != this) {
                                 this.getTarget().hurt(DamageSource.indirectMagic(this, this.getSkullLord()), (float) this.getSkullLord().getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
                                 this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
                             }
@@ -164,12 +175,12 @@ public class SkullLaser extends Mob {
                     }
                 }
             }
-        }
-        if (this.tickCount >= this.getDuration()) {
-            if (this.getSkullLord() != null){
-                this.getSkullLord().boneLordRegen = (50 + this.random.nextInt(100));
+            if (this.tickCount >= this.getDuration()) {
+                if (this.getSkullLord() != null) {
+                    this.getSkullLord().boneLordRegen = (50 + this.random.nextInt(100));
+                }
+                this.discard();
             }
-            this.discard();
         }
     }
 

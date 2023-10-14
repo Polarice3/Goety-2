@@ -77,10 +77,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.SkeletonServantHealth.get())
-                .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SkeletonServantDamage.get())
-                .add(Attributes.ARMOR, 2.0D);
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SkeletonServantDamage.get());
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){

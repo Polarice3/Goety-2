@@ -65,7 +65,7 @@ public class AllyIrk extends Minion {
         this.goalSelector.addGoal(8, new AllyIrk.MoveRandomGoal());
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-        this.targetSelector.addGoal(1, new SummonTargetGoal<>(this));
+        this.targetSelector.addGoal(1, new SummonTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes(){

@@ -127,7 +127,7 @@ public class DarkWand extends Item {
 
     public boolean ReduceCastTime(LivingEntity entityLiving, ItemStack stack){
         if (getSpell(stack) != null && getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
-            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get());
+            return CuriosFinder.hasUndeadCrown(entityLiving);
         } else {
             return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         }

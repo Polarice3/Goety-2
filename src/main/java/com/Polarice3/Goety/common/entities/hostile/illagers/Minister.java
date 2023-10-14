@@ -4,11 +4,13 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
+import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
 import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
 import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Maps;
@@ -19,10 +21,14 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -48,15 +54,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
-public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
+public class Minister extends HuntingIllagerEntity implements RangedAttackMob, IBoss {
     private static final EntityDataAccessor<Boolean> HAS_STAFF = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
@@ -64,7 +68,8 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         map.put(1, Goety.location("textures/entity/illagers/minister/minister_2.png"));
         map.put(2, Goety.location("textures/entity/illagers/minister/minister_3.png"));
     });
-    private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private UUID bossInfoUUID = bossInfo.getId();
     public float staffDamage;
     public int coolDown;
     public int deathTime = 0;
@@ -158,7 +163,6 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     public int getOutfitType() {
@@ -495,6 +499,22 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         } else {
             super.handleEntityEvent(pId);
         }
+    }
+
+    @Override
+    public UUID getBossInfoUUID() {
+        return this.bossInfoUUID;
+    }
+
+    @Override
+    public void setBossInfoUUID(UUID bossInfoUUID) {
+        this.bossInfoUUID = bossInfoUUID;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     class CastingSpellGoal extends SpellcasterCastingSpellGoal {

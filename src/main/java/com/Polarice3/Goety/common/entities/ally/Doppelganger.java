@@ -4,11 +4,15 @@ import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -27,6 +31,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.BowItem;
@@ -35,12 +40,24 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class Doppelganger extends Summoned implements RangedAttackMob {
     private static final EntityDataAccessor<Byte> DOPPELGANGER_FLAGS = SynchedEntityData.defineId(Doppelganger.class, EntityDataSerializers.BYTE);
+    protected static final EntityDataAccessor<Byte> DATA_PLAYER_MODE_CUSTOMISATION = SynchedEntityData.defineId(Doppelganger.class, EntityDataSerializers.BYTE);
+    public float oBob;
+    public float bob;
+    public double xCloakO;
+    public double yCloakO;
+    public double zCloakO;
+    public double xCloak;
+    public double yCloak;
+    public double zCloak;
+    @Nullable
+    private PlayerInfo playerInfo;
 
     public Doppelganger(EntityType<? extends Doppelganger> type, Level worldIn) {
         super(type, worldIn);
@@ -59,6 +76,12 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
                 mob.setTarget(this);
             }
         }
+
+        this.oBob = this.bob;
+        float f = Math.min(0.1F, Mth.sqrt((float) getHorizontalDistanceSqr(this.getDeltaMovement())));
+        this.bob += (f - this.bob) * 0.4F;
+
+        this.moveCloak();
 
         if (this.getTrueOwner() != null){
             if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
@@ -79,6 +102,53 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             }
         }
         super.tick();
+    }
+
+    private void moveCloak() {
+        this.xCloakO = this.xCloak;
+        this.yCloakO = this.yCloak;
+        this.zCloakO = this.zCloak;
+        double d0 = this.getX() - this.xCloak;
+        double d1 = this.getY() - this.yCloak;
+        double d2 = this.getZ() - this.zCloak;
+        double d3 = 10.0D;
+        if (d0 > d3) {
+            this.xCloak = this.getX();
+            this.xCloakO = this.xCloak;
+        }
+
+        if (d2 > d3) {
+            this.zCloak = this.getZ();
+            this.zCloakO = this.zCloak;
+        }
+
+        if (d1 > d3) {
+            this.yCloak = this.getY();
+            this.yCloakO = this.yCloak;
+        }
+
+        if (d0 < -d3) {
+            this.xCloak = this.getX();
+            this.xCloakO = this.xCloak;
+        }
+
+        if (d2 < -d3) {
+            this.zCloak = this.getZ();
+            this.zCloakO = this.zCloak;
+        }
+
+        if (d1 < -d3) {
+            this.yCloak = this.getY();
+            this.yCloakO = this.yCloak;
+        }
+
+        this.xCloak += d0 * 0.25D;
+        this.zCloak += d2 * 0.25D;
+        this.yCloak += d1 * 0.25D;
+    }
+
+    public static double getHorizontalDistanceSqr(Vec3 pVector) {
+        return pVector.x * pVector.x + pVector.z * pVector.z;
     }
 
     @Override
@@ -129,6 +199,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DOPPELGANGER_FLAGS, (byte)0);
+        this.entityData.define(DATA_PLAYER_MODE_CUSTOMISATION, (byte)0);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -173,6 +244,49 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     public void setShot(boolean undeadClone){
         this.setDoppelgangerFlags(2, undeadClone);
+    }
+
+    public boolean isCapeLoaded() {
+        return this.getPlayerInfo() != null;
+    }
+
+    public boolean isModelPartShown(PlayerModelPart p_36171_) {
+        return (this.getEntityData().get(DATA_PLAYER_MODE_CUSTOMISATION) & p_36171_.getMask()) == p_36171_.getMask();
+    }
+
+    public ResourceLocation getSkinTextureLocation() {
+        PlayerInfo playerinfo = this.getPlayerInfo();
+        return playerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUUID()) : playerinfo.getSkinLocation();
+    }
+
+    public String getModelName() {
+        PlayerInfo playerinfo = this.getPlayerInfo();
+        return playerinfo == null ? DefaultPlayerSkin.getSkinModelName(this.getUUID()) : playerinfo.getModelName();
+    }
+
+    @Nullable
+    public ResourceLocation getCloakTextureLocation() {
+        PlayerInfo playerinfo = this.getPlayerInfo();
+        return playerinfo == null ? null : playerinfo.getCapeLocation();
+    }
+
+    @Nullable
+    protected PlayerInfo getPlayerInfo() {
+        if (this.playerInfo == null) {
+            if (this.getOwnerId() != null) {
+                this.playerInfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getOwnerId());
+            }
+        }
+
+        return this.playerInfo;
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        if (this.getTrueOwner() instanceof Player player){
+            return player.getMainArm() == HumanoidArm.RIGHT;
+        }
+        return super.isLeftHanded();
     }
 
     public boolean hurt(DamageSource source, float amount) {

@@ -1,29 +1,29 @@
 {
   "type": "goety:ritual",
-  "ritual_type": "goety:summon_tamed",
+  "ritual_type": "goety:convert_complete_tamed",
   "activation_item": {
-    "item": "minecraft:leather"
+    "tag": "forge:bones"
   },
   "craftType": "necroturgy",
-  "entity_to_sacrifice": {
+  "entity_to_convert": {
     "tag": "forge:horses",
     "display_name": "entity.minecraft.horse"
   },
-  "entity_to_summon": "minecraft:zombie_horse",
+  "entity_to_convert_into": "minecraft:skeleton_horse",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:rotten_flesh"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:rotten_flesh"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:rotten_flesh"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:rotten_flesh"
+      "tag": "forge:bones"
     }
   ],
   "result": {

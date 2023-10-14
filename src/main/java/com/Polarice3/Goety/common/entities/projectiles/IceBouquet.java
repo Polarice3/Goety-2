@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 public class IceBouquet extends GroundProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SOUL_EATING = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> CONCENTRATE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
 
     public IceBouquet(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
@@ -71,6 +72,7 @@ public class IceBouquet extends GroundProjectile {
         super.defineSynchedData();
         this.entityData.define(DATA_TYPE_ID, 0);
         this.entityData.define(SOUL_EATING, false);
+        this.entityData.define(CONCENTRATE, true);
     }
 
     public int getAnimation() {
@@ -89,11 +91,20 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.set(SOUL_EATING, soulEating);
     }
 
+    public boolean needsConcentrate(){
+        return this.entityData.get(CONCENTRATE);
+    }
+
+    public void setConcentrate(boolean concentrate){
+        this.entityData.set(CONCENTRATE, concentrate);
+    }
+
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setAnimation(pCompound.getInt("Animation"));
         this.setSoulEating(pCompound.getBoolean("soulEating"));
+        this.setConcentrate(pCompound.getBoolean("concentrate"));
     }
 
     @Override
@@ -101,6 +112,7 @@ public class IceBouquet extends GroundProjectile {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Animation", this.getAnimation());
         pCompound.putBoolean("soulEating", this.isSoulEating());
+        pCompound.putBoolean("concentrate", this.needsConcentrate());
     }
 
     public float getLightLevelDependentMagicValue() {
@@ -157,8 +169,11 @@ public class IceBouquet extends GroundProjectile {
 
             if (this.getOwner() != null){
                 if (this.getOwner() instanceof Mob){
-                    if (this.getOwner().hurtTime > 0 && this.tickCount < 10 && !this.getOwner().isDeadOrDying()){
-                        this.lifeTicks = 14;
+                    if (this.needsConcentrate()) {
+                        if (this.getOwner().hurtTime > 0 && this.tickCount < 10 && !this.getOwner().isDeadOrDying()) {
+                            this.lifeTicks = 14;
+                            this.level.broadcastEntityEvent(this, (byte) 7);
+                        }
                     }
                 }
             }
@@ -246,6 +261,9 @@ public class IceBouquet extends GroundProjectile {
             if (!this.isSilent()) {
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.FIRE_EXTINGUISH, this.getSoundSource(), 1.0F, 1.0F, false);
             }
+        }
+        if (pId == 7){
+            this.lifeTicks = 14;
         }
 
     }

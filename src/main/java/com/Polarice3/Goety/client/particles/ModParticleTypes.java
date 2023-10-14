@@ -81,6 +81,12 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> NECRO_FLAME = PARTICLE_TYPES.register("necro_flame",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BONE = PARTICLE_TYPES.register("bone",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> LASER_POINT = PARTICLE_TYPES.register("laser_point",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
             () -> new SimpleParticleType(false));
 

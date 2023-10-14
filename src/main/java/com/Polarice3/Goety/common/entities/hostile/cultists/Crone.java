@@ -9,10 +9,12 @@ import com.Polarice3.Goety.common.effects.brew.block.HarvestBlockEffect;
 import com.Polarice3.Goety.common.effects.brew.block.SweetBerriedEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
+import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.neutral.VampireBat;
 import com.Polarice3.Goety.common.entities.projectiles.ThrownBrew;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -21,9 +23,13 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -60,6 +66,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -67,7 +74,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Crone extends Cultist implements RangedAttackMob {
+public class Crone extends Cultist implements RangedAttackMob, IBoss {
     private static final UUID SPEED_MODIFIER_DRINKING_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier SPEED_MODIFIER_DRINKING = new AttributeModifier(SPEED_MODIFIER_DRINKING_UUID, "Drinking speed penalty", -0.25D, AttributeModifier.Operation.ADDITION);
     private static final EntityDataAccessor<Boolean> DATA_USING_ITEM = SynchedEntityData.defineId(Crone.class, EntityDataSerializers.BOOLEAN);
@@ -75,7 +82,8 @@ public class Crone extends Cultist implements RangedAttackMob {
     private int hitTimes;
     private int lastHitTime;
     private int overwhelmed;
-    private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private UUID bossInfoUUID = bossInfo.getId();
     private NearestHealableRaiderTargetGoal<Raider> healRaidersGoal;
     private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
 
@@ -135,7 +143,6 @@ public class Crone extends Cultist implements RangedAttackMob {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -165,21 +172,6 @@ public class Crone extends Cultist implements RangedAttackMob {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
-        if (!this.hasCustomName()){
-            if (this.getTarget() == null){
-                this.bossInfo.setVisible(false);
-            }
-            int random = this.random.nextInt(4);
-            int random2;
-            if (random == 0){
-                random2 = 12 + this.random.nextInt(6);
-            } else {
-                random2 = this.random.nextInt(12);
-            }
-            Component component = Component.translatable("title.goety.crone." + random);
-            Component component1 = Component.translatable("name.goety.crone." + random2);
-            this.setCustomName(Component.translatable(component.getString() + " " +  component1.getString()));
-        }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -559,6 +551,34 @@ public class Crone extends Cultist implements RangedAttackMob {
             this.level.playSound((Player) null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 0.75F);
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 0.75F);
         }
+    }
+
+    @Override
+    public UUID getBossInfoUUID() {
+        return this.bossInfoUUID;
+    }
+
+    @Override
+    public void setBossInfoUUID(UUID bossInfoUUID) {
+        this.bossInfoUUID = bossInfoUUID;
+        if (!this.hasCustomName()){
+            int random = this.random.nextInt(4);
+            int random2;
+            if (random == 0){
+                random2 = 12 + this.random.nextInt(6);
+            } else {
+                random2 = this.random.nextInt(12);
+            }
+            Component component = Component.translatable("title.goety.crone." + random);
+            Component component1 = Component.translatable("name.goety.crone." + random2);
+            this.setCustomName(Component.translatable(component.getString() + " " +  component1.getString()));
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     static class CroneTeleportGoal extends Goal {

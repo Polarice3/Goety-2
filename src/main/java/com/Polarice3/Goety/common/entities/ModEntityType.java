@@ -173,6 +173,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<SoulBomb>> SOUL_BOMB = register("soul_bomb",
+            EntityType.Builder.<SoulBomb>of(SoulBomb::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<SnapFungus>> SNAP_FUNGUS = register("snap_fungus",
             EntityType.Builder.<SnapFungus>of(SnapFungus::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -408,6 +414,17 @@ public class ModEntityType {
             EntityType.Builder.of(RedstoneGolem::new, MobCategory.MONSTER)
                     .sized(2.7F, 3.9F)
                     .fireImmune()
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<GraveGolem>> GRAVE_GOLEM = register("grave_golem",
+            EntityType.Builder.of(GraveGolem::new, MobCategory.MONSTER)
+                    .sized(2.7F, 3.9F)
+                    .fireImmune()
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<Haunt>> HAUNT = register("haunt",
+            EntityType.Builder.of(Haunt::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.5F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",

@@ -5,12 +5,14 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -18,9 +20,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -59,16 +65,18 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 @OnlyIn(
         value = Dist.CLIENT,
         _interface = PowerableMob.class
 )
-public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomAttributes {
+public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomAttributes, IBoss {
     private static final Predicate<Entity> field_213690_b = (p_213685_0_) -> {
         return p_213685_0_.isAlive() && !(p_213685_0_ instanceof Vizier);
     };
@@ -76,7 +84,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected static final EntityDataAccessor<Integer> CAST_TIMES = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CASTING = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CONFUSED = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
-    private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+    private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+    private UUID bossInfoUUID = bossInfo.getId();
     public float oBob;
     public float bob;
     public double xCloakO;
@@ -485,7 +494,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
         this.flyWarn = compound.getBoolean("FlyWarn");
     }
 
@@ -584,6 +592,22 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     @Override
     public boolean isPowered() {
         return this.isSpellcasting();
+    }
+
+    @Override
+    public UUID getBossInfoUUID() {
+        return this.bossInfoUUID;
+    }
+
+    @Override
+    public void setBossInfoUUID(UUID bossInfoUUID) {
+        this.bossInfoUUID = bossInfoUUID;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     class FangsSpellGoal extends Goal {

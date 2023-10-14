@@ -1,0 +1,17 @@
+{
+  "name": "Secret of Ravagers",
+  "icon": "goety:savage_tooth",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've pondered on the Ravagers and how the Illagers obtain them. Rumor has it that they're a result of the abhorrent dark magic. Perhaps the $(l)Woodland Mansions$() holds the answer to this question."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_ravaging_scroll",
+      "text": "Search through Woodland Mansions for any information."
+    }
+  ]
+}

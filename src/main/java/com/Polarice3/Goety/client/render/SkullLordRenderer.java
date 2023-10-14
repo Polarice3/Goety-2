@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -22,11 +21,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<SkullLord>> {
-    public static final ResourceLocation CONNECTION = new ResourceLocation(Goety.MOD_ID,"textures/entity/skull_lord/skull_lord_connection.png");
-    public static final ResourceLocation LASER_BEAM = new ResourceLocation(Goety.MOD_ID,"textures/entity/skull_lord/skull_lord_laser.png");
-    private static final ResourceLocation LOCATION = new ResourceLocation(Goety.MOD_ID,"textures/entity/skull_lord/skull_lord.png");
-    private static final ResourceLocation VULNERABLE = new ResourceLocation(Goety.MOD_ID,"textures/entity/skull_lord/skull_lord_vulnerable.png");
-    private static final ResourceLocation CHARGE = new ResourceLocation(Goety.MOD_ID,"textures/entity/skull_lord/skull_lord_charging.png");
+    public static final ResourceLocation CONNECTION = Goety.location("textures/entity/skull_lord/skull_lord_connection.png");
+    public static final ResourceLocation LASER_BEAM = Goety.location("textures/entity/skull_lord/skull_lord_laser.png");
+    private static final ResourceLocation LOCATION = Goety.location("textures/entity/skull_lord/skull_lord.png");
+    private static final ResourceLocation VULNERABLE = Goety.location("textures/entity/skull_lord/skull_lord_vulnerable.png");
+    private static final ResourceLocation CHARGE = Goety.location("textures/entity/skull_lord/skull_lord_charging.png");
     private static final RenderType CONNECTION_RENDER_TYPE = RenderType.entityCutoutNoCull(CONNECTION);
     private static final RenderType LASER_RENDER_TYPE = RenderType.entityCutoutNoCull(LASER_BEAM);
 
@@ -42,16 +41,16 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
         if (super.shouldRender(skullLord, camera, camX, camY, camZ)) {
             return true;
         } else {
-            if (skullLord.getBoneLord() != null) {
-                LivingEntity boneLord = skullLord.getBoneLord();
+            if (skullLord.getBoneLordClient() != null) {
+                LivingEntity boneLord = skullLord.getBoneLordClient();
                 if (boneLord != null) {
                     Vec3 vector3d = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.75D, 1.0F);
                     Vec3 vector3d1 = this.getPosition(skullLord, (double)skullLord.getBbHeight() * 0.5D, 1.0F);
                     return camera.isVisible(new AABB(vector3d1.x, vector3d1.y, vector3d1.z, vector3d.x, vector3d.y, vector3d.z));
                 }
             }
-            if (skullLord.getLaser() != null){
-                LivingEntity laser = skullLord.getLaser();
+            if (skullLord.getLaserClient() != null){
+                LivingEntity laser = skullLord.getLaserClient();
                 if (laser != null) {
                     Vec3 vector3d = this.getPosition(laser, (double)laser.getBbHeight() * 0.5D, 1.0F);
                     Vec3 vector3d1 = this.getPosition(skullLord, (double)skullLord.getBbHeight() * 0.5D, 1.0F);
@@ -72,21 +71,22 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
 
     public void render(SkullLord skullLord, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         super.render(skullLord, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        LivingEntity boneLord = skullLord.getBoneLord();
-        LivingEntity laser = skullLord.getLaser();
+        //Doesn't work for some reason, had to use Particles instead.
+        /*BoneLord boneLord = skullLord.getBoneLordClient();
+        SkullLaser skullLaser = skullLord.getLaserClient();
         if (boneLord != null && !boneLord.isDeadOrDying()) {
             float f1 = (float)skullLord.level.getGameTime() + partialTicks;
             float f2 = f1 * 0.5F % 1.0F;
             float f3 = skullLord.getBbHeight() * 0.5F;
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.0D, (double)f3, 0.0D);
-            Vec3 vector3d = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.75D, partialTicks);
-            Vec3 vector3d1 = this.getPosition(skullLord, (double)f3, partialTicks);
-            Vec3 vector3d2 = vector3d.subtract(vector3d1);
-            float f4 = (float)(vector3d2.length());
-            vector3d2 = vector3d2.normalize();
-            float f5 = (float)Math.acos(vector3d2.y);
-            float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
+            Vec3 vec3 = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.5D, partialTicks);
+            Vec3 vec31 = this.getPosition(skullLord, (double)f3, partialTicks);
+            Vec3 vec32 = vec3.subtract(vec31);
+            float f4 = (float)(vec32.length() + 1.0D);
+            vec32 = vec32.normalize();
+            float f5 = (float)Math.acos(vec32.y);
+            float f6 = (float)Math.atan2(vec32.z, vec32.x);
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((((float)Math.PI / 2F) - f6) * (180F / (float)Math.PI)));
             matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(f5 * (180F / (float)Math.PI)));
             float f7 = f1 * 0.05F * -1.5F;
@@ -112,42 +112,41 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
             float f28 = 0.4999F;
             float f29 = -1.0F + f2;
             float f30 = f4 * 2.5F + f29;
-            VertexConsumer ivertexbuilder = bufferIn.getBuffer(CONNECTION_RENDER_TYPE);
-            PoseStack.Pose matrixstack$entry = matrixStackIn.last();
-            Matrix4f matrix4f = matrixstack$entry.pose();
-            Matrix3f matrix3f = matrixstack$entry.normal();
-            vertex(ivertexbuilder, matrix4f, matrix3f, f19, f4, f20, f28, f30);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f19, f27, f20, f28, f29);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f21, f27, f22, f27, f29);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f21, f4, f22, f27, f30);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f23, f4, f24, f28, f30);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f23, f27, f24, f28, f29);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f25, f27, f26, f27, f29);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f25, f4, f26, f27, f30);
+            VertexConsumer vertexconsumer = bufferIn.getBuffer(CONNECTION_RENDER_TYPE);
+            PoseStack.Pose posestack$pose = matrixStackIn.last();
+            Matrix4f matrix4f = posestack$pose.pose();
+            Matrix3f matrix3f = posestack$pose.normal();
+            vertex(vertexconsumer, matrix4f, matrix3f, f19, f4, f20, f28, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f19, f27, f20, f28, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f21, f27, f22, f27, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f21, f4, f22, f27, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f23, f4, f24, f28, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f23, f27, f24, f28, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f25, f27, f26, f27, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f25, f4, f26, f27, f30);
             float f31 = 0.0F;
             if (skullLord.tickCount % 2 == 0) {
                 f31 = 0.5F;
             }
 
-            vertex(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, 0.5F, f31 + 0.5F);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, 1.0F, f31 + 0.5F);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, 1.0F, f31);
-            vertex(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, 0.5F, f31);
+            vertex(vertexconsumer, matrix4f, matrix3f, f11, f4, f12, 0.5F, f31 + 0.5F);
+            vertex(vertexconsumer, matrix4f, matrix3f, f13, f4, f14, 1.0F, f31 + 0.5F);
+            vertex(vertexconsumer, matrix4f, matrix3f, f17, f4, f18, 1.0F, f31);
+            vertex(vertexconsumer, matrix4f, matrix3f, f15, f4, f16, 0.5F, f31);
             matrixStackIn.popPose();
-        }
-        if (laser != null && !laser.isDeadOrDying()) {
+        } else if (skullLaser != null){
             float f1 = (float)skullLord.level.getGameTime() + partialTicks;
             float f2 = f1 * 0.5F % 1.0F;
-            float f3 = skullLord.getBbHeight() * 0.5F;
+            float f3 = skullLord.getEyeHeight();
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.0D, (double)f3, 0.0D);
-            Vec3 vector3d = this.getPosition(laser, (double)laser.getBbHeight() * 0.5D, partialTicks);
-            Vec3 vector3d1 = this.getPosition(skullLord, (double)f3, partialTicks);
-            Vec3 vector3d2 = vector3d.subtract(vector3d1);
-            float f4 = (float)(vector3d2.length());
-            vector3d2 = vector3d2.normalize();
-            float f5 = (float)Math.acos(vector3d2.y);
-            float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
+            Vec3 vec3 = this.getPosition(skullLaser, (double)skullLaser.getBbHeight() * 0.5D, partialTicks);
+            Vec3 vec31 = this.getPosition(skullLord, (double)f3, partialTicks);
+            Vec3 vec32 = vec3.subtract(vec31);
+            float f4 = (float)(vec32.length() + 1.0D);
+            vec32 = vec32.normalize();
+            float f5 = (float)Math.acos(vec32.y);
+            float f6 = (float)Math.atan2(vec32.z, vec32.x);
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((((float)Math.PI / 2F) - f6) * (180F / (float)Math.PI)));
             matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(f5 * (180F / (float)Math.PI)));
             float f7 = f1 * 0.05F * -1.5F;
@@ -173,29 +172,29 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
             float f28 = 0.4999F;
             float f29 = -1.0F + f2;
             float f30 = f4 * 2.5F + f29;
-            VertexConsumer ivertexbuilder = bufferIn.getBuffer(LASER_RENDER_TYPE);
-            PoseStack.Pose matrixstack$entry = matrixStackIn.last();
-            Matrix4f matrix4f = matrixstack$entry.pose();
-            Matrix3f matrix3f = matrixstack$entry.normal();
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f19, f4, f20, f28, f30);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f19, f27, f20, f28, f29);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f21, f27, f22, f27, f29);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f21, f4, f22, f27, f30);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f23, f4, f24, f28, f30);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f23, f27, f24, f28, f29);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f25, f27, f26, f27, f29);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f25, f4, f26, f27, f30);
+            VertexConsumer vertexconsumer = bufferIn.getBuffer(LASER_RENDER_TYPE);
+            PoseStack.Pose posestack$pose = matrixStackIn.last();
+            Matrix4f matrix4f = posestack$pose.pose();
+            Matrix3f matrix3f = posestack$pose.normal();
+            vertex2(vertexconsumer, matrix4f, matrix3f, f19, f4, f20, f28, f30);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f19, f27, f20, f28, f29);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f21, f27, f22, f27, f29);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f21, f4, f22, f27, f30);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f23, f4, f24, f28, f30);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f23, f27, f24, f28, f29);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f25, f27, f26, f27, f29);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f25, f4, f26, f27, f30);
             float f31 = 0.0F;
             if (skullLord.tickCount % 2 == 0) {
                 f31 = 0.5F;
             }
 
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, 0.5F, f31 + 0.5F);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, 1.0F, f31 + 0.5F);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, 1.0F, f31);
-            vertex2(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, 0.5F, f31);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f11, f4, f12, 0.5F, f31 + 0.5F);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f13, f4, f14, 1.0F, f31 + 0.5F);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f17, f4, f18, 1.0F, f31);
+            vertex2(vertexconsumer, matrix4f, matrix3f, f15, f4, f16, 0.5F, f31);
             matrixStackIn.popPose();
-        }
+        }*/
     }
 
     private static void vertex(VertexConsumer p_229108_0_, Matrix4f p_229108_1_, Matrix3f p_229108_2_, float p_229108_3_, float p_229108_4_, float p_229108_5_, float p_229108_9_, float p_229108_10_) {

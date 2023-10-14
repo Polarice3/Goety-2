@@ -1,0 +1,15 @@
+{
+  "name": "Zombie Horse",
+  "icon": "minecraft:zombie_horse_spawn_egg",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A rotten steed for a rotten wizard, these undead horses are much more docile and quicker than any Zombies you know."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_zombify_horse"
+    }
+  ]
+}

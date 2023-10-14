@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
+import com.Polarice3.Goety.common.items.armor.CursedPaladinArmor;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.brew.BrewApple;
 import com.Polarice3.Goety.common.items.brew.BrewItem;
@@ -183,6 +184,11 @@ public class ModItems {
     public static final RegistryObject<Item> CURSED_KNIGHT_LEGGINGS = ITEMS.register("cursed_knight_leggings", () -> new CursedKnightArmor(EquipmentSlot.LEGS));
     public static final RegistryObject<Item> CURSED_KNIGHT_BOOTS = ITEMS.register("cursed_knight_boots", () -> new CursedKnightArmor(EquipmentSlot.FEET));
 
+    public static final RegistryObject<Item> CURSED_PALADIN_HELMET = ITEMS.register("cursed_paladin_helmet", () -> new CursedPaladinArmor(EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> CURSED_PALADIN_CHESTPLATE = ITEMS.register("cursed_paladin_chestplate", () -> new CursedPaladinArmor(EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> CURSED_PALADIN_LEGGINGS = ITEMS.register("cursed_paladin_leggings", () -> new CursedPaladinArmor(EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> CURSED_PALADIN_BOOTS = ITEMS.register("cursed_paladin_boots", () -> new CursedPaladinArmor(EquipmentSlot.FEET));
+
     public static final RegistryObject<Item> DARK_HELMET = ITEMS.register("dark_helmet", () -> new DarkArmor(EquipmentSlot.HEAD));
     public static final RegistryObject<Item> DARK_CHESTPLATE = ITEMS.register("dark_chestplate", () -> new DarkArmor(EquipmentSlot.CHEST));
     public static final RegistryObject<Item> DARK_LEGGINGS = ITEMS.register("dark_leggings", () -> new DarkArmor(EquipmentSlot.LEGS));
@@ -208,6 +214,7 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_AXE = ITEMS.register("dark_axe", ModToolItems.DarkAxeItem::new);
     public static final RegistryObject<Item> DARK_HOE = ITEMS.register("dark_hoe", ModToolItems.DarkHoeItem::new);
     public static final RegistryObject<Item> FELL_BLADE = ITEMS.register("fell_blade", () -> new SwordItem(ModTiers.SPECIAL, 3, -2.4F, new Item.Properties().durability(256).tab(Goety.TAB)));
+    public static final RegistryObject<Item> FROZEN_BLADE = ITEMS.register("frozen_blade", () -> new SwordItem(ModTiers.SPECIAL, 4, -2.4F, new Item.Properties().tab(Goety.TAB)));
 
     //Discs
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.MUSIC_DISC_VIZIER, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) MathHelper.minutesToTicks(1.33F)));

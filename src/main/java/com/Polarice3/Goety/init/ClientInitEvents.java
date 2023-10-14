@@ -126,6 +126,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SOUL_BOLT, SoulBoltModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SCATTER_MINE, ScatterMineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLAST_FUNGUS, BlastFungusModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SOUL_BOMB, SoulBombModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MONOLITH, MonolithModel::createBodyLayer);
@@ -139,6 +140,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.RAVAGER, ModRavagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
         event.registerLayerDefinition(ModModelLayer.REDSTONE_GOLEM, RedstoneGolemModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.GRAVE_GOLEM, GraveGolemModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HAUNT, HauntModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
@@ -174,6 +177,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.VILLAGER_ARMOR_OUTER, VillagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ModModelLayer.CURSED_KNIGHT_ARMOR_INNER, CursedKnightArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.CURSED_KNIGHT_ARMOR_OUTER, CursedKnightArmorModel::createOuterLayer);
+        event.registerLayerDefinition(ModModelLayer.CURSED_PALADIN_ARMOR_INNER, CursedPaladinArmorModel::createInnerLayer);
+        event.registerLayerDefinition(ModModelLayer.CURSED_PALADIN_ARMOR_OUTER, CursedPaladinArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_INNER, DarkArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_OUTER, DarkArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
@@ -240,6 +245,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VICIOUS_PIKE.get(), ViciousPikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.CORRUPTED_BEAM.get(), CorruptedBeamRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCATTER_MINE.get(), ScatterMineRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SOUL_BOMB.get(), SoulBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
@@ -284,6 +290,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GRAVE_GOLEM.get(), GraveGolemRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HAUNT.get(), HauntRenderer::new);
         event.registerEntityRenderer(ModEntityType.ENVIOKER.get(), EnviokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
@@ -356,6 +364,8 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
+        event.register(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
+        event.register(ModParticleTypes.LASER_POINT.get(), ShortFlameParticle.Provider::new);
         event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
         event.register(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);

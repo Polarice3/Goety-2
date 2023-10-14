@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.CommonProxy;
 import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
+import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -207,6 +208,9 @@ public class Goety {
                             BlockState blockState = source.getLevel().getBlockState(blockpos);
                             if (blockState.is(ModBlocks.BREWING_CAULDRON.get())) {
                                 if (blockState.getValue(BrewCauldronBlock.LEVEL) == 3) {
+                                    if (source.getLevel().getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity blockEntity){
+                                        blockEntity.reset();
+                                    }
                                     this.setSuccess(source.getLevel().setBlockAndUpdate(blockpos, blockState.setValue(BrewCauldronBlock.LEVEL, 0)));
                                     return new ItemStack(Items.WATER_BUCKET);
                                 }
@@ -282,6 +286,8 @@ public class Goety {
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());
+        event.put(ModEntityType.GRAVE_GOLEM.get(), GraveGolem.setCustomAttributes().build());
+        event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());

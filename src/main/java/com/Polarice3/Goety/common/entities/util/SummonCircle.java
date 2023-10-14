@@ -30,6 +30,8 @@ public class SummonCircle extends Entity {
     public Entity entity;
     public boolean preMade;
     public boolean noPos;
+    public boolean noSpin = false;
+    public boolean noParticles = false;
     public int lifeSpan = 20;
 
     public SummonCircle(EntityType<?> pType, Level pLevel) {
@@ -81,6 +83,8 @@ public class SummonCircle extends Entity {
         }
         this.preMade = pCompound.getBoolean("preMade");
         this.noPos = pCompound.getBoolean("noPos");
+        this.setNoSpin(pCompound.getBoolean("noSpin"));
+        this.noParticles = pCompound.getBoolean("noParticles");
         this.lifeSpan = pCompound.getInt("lifeSpan");
     }
 
@@ -91,6 +95,12 @@ public class SummonCircle extends Entity {
         }
         pCompound.putBoolean("preMade", this.preMade);
         pCompound.putBoolean("noPos", this.noPos);
+        if (pCompound.contains("noSpin")) {
+            pCompound.putBoolean("noSpin", this.noSpin);
+        }
+        if (pCompound.contains("noParticles")) {
+            pCompound.putBoolean("noParticles", this.noParticles);
+        }
         pCompound.putInt("lifeSpan", this.lifeSpan);
     }
 
@@ -120,6 +130,15 @@ public class SummonCircle extends Entity {
         this.lifeSpan = lifeSpan;
     }
 
+    public void setNoSpin(boolean spin){
+        this.noSpin = spin;
+        if (spin){
+            this.level.broadcastEntityEvent(this, (byte) 4);
+        } else {
+            this.level.broadcastEntityEvent(this, (byte) 5);
+        }
+    }
+
     public int getLifeSpan() {
         if (this.lifeSpan == 0){
             return 20;
@@ -140,13 +159,15 @@ public class SummonCircle extends Entity {
             float f = 1.5F;
             float f5 = (float) Math.PI * f * f;
             if (this.tickCount == this.getLifeSpan()){
-                for (int j1 = 0; j1 < 16; ++j1) {
-                    for (int k1 = 0; (float) k1 < f5; ++k1) {
-                        float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
-                        float f7 = Mth.sqrt(this.random.nextFloat()) * f;
-                        float f8 = Mth.cos(f6) * f7;
-                        float f9 = Mth.sin(f6) * f7;
-                        serverWorld.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 0, 0, 0.5D, 0, 0.5F);
+                if (!this.noParticles) {
+                    for (int j1 = 0; j1 < 16; ++j1) {
+                        for (int k1 = 0; (float) k1 < f5; ++k1) {
+                            float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
+                            float f7 = Mth.sqrt(this.random.nextFloat()) * f;
+                            float f8 = Mth.cos(f6) * f7;
+                            float f9 = Mth.sin(f6) * f7;
+                            serverWorld.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 0, 0, 0.5D, 0, 0.5F);
+                        }
                     }
                 }
                 if (this.entity != null){
@@ -176,6 +197,17 @@ public class SummonCircle extends Entity {
         if (this.tickCount == this.getLifeSpan()){
             this.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
             this.discard();
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_19882_) {
+        if (p_19882_ == 4){
+            this.noSpin = true;
+        } else if (p_19882_ == 5){
+            this.noSpin = false;
+        } else {
+            super.handleEntityEvent(p_19882_);
         }
     }
 

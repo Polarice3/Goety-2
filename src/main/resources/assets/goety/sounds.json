@@ -1202,6 +1202,240 @@
     ],
     "subtitle": "subtitle.goety.redstone_golem_death"
   },
+  "grave_golem_ambient": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/idle1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle4",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle5",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle6",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/idle7",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_ambient"
+  },
+  "grave_golem_hurt": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/hurt3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/hurt4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_hurt"
+  },
+  "grave_golem_awaken": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/awaken",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_awaken"
+  },
+  "grave_golem_arm": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/arm1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/arm2",
+        "pitch": 0.75
+      }
+    ]
+  },
+  "grave_golem_blast": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/belch1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/belch2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:grave_golem/belch3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_blast"
+  },
+  "grave_golem_growl": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/short_growl",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_growl"
+  },
+  "grave_golem_step": {
+    "sounds": [
+      {
+        "name": "goety:redstone_golem/step1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_golem/step2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_golem/step3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_golem/step4",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:redstone_golem/step5",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_step"
+  },
+  "grave_golem_death": {
+    "sounds": [
+      {
+        "name": "goety:grave_golem/death",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.grave_golem_death"
+  },
+  "haunt_ambient": {
+    "sounds": [
+      {
+        "name": "enchant/soulspeed/soulspeed1",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed2",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed3",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed4",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed5",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed6",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed7",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed8",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed9",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed10",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed11",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed12",
+        "pitch": 0.75
+      },
+      {
+        "name": "enchant/soulspeed/soulspeed13",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.haunt_ambient"
+  },
+  "haunt_hurt": {
+    "sounds": [
+      {
+        "name": "goety:haunt/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:haunt/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:haunt/hurt3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.haunt_hurt"
+  },
+  "haunt_fly": {
+    "sounds": [
+      {
+        "name": "goety:wraith/fly1",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:wraith/fly2",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:wraith/fly3",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:wraith/fly4",
+        "pitch": 0.75
+      },
+      {
+        "name": "goety:wraith/fly5",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.haunt_fly"
+  },
   "vizier_ambient": {
     "sounds": [
       {

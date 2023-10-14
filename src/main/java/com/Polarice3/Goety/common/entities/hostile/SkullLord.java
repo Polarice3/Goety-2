@@ -8,28 +8,40 @@ import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
+import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
-import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -49,6 +61,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -56,11 +69,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SkullLord extends Monster implements ICustomAttributes{
+public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     protected static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Optional<UUID>> BONE_LORD = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Integer> BONE_LORD_CLIENT = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> LASER = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
-    private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private static final EntityDataAccessor<Integer> LASER_CLIENT = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
+    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
+    private UUID bossInfoUUID = bossInfo.getId();
+    @Nullable
+    private BoneLord clientSideCachedBoneLord;
+    @Nullable
+    private SkullLaser clientSideCachedLaser;
     @Nullable
     private BlockPos boundOrigin;
     private int shootTime;
@@ -135,10 +155,9 @@ public class SkullLord extends Monster implements ICustomAttributes{
             }
             ++this.hitTimes;
             if (this.hitTimes > 3 || pAmount >= 20){
-                return super.hurt(pSource, pAmount/2);
-            } else {
-                return super.hurt(pSource, pAmount);
+                pAmount /= 2;
             }
+            return super.hurt(pSource, pAmount);
         }
     }
 
@@ -192,6 +211,9 @@ public class SkullLord extends Monster implements ICustomAttributes{
             }
         }
         if (this.getLaser() != null){
+            if (this.getLaserClient() == null || this.getLaserID() != this.getLaser().getId()){
+                this.setLaserID(this.getLaser().getId());
+            }
             this.lookControl.setLookAt(this.getLaser(), 90.0F, 90.0F);
 
             if (!this.level.isClientSide) {
@@ -206,6 +228,7 @@ public class SkullLord extends Monster implements ICustomAttributes{
                     summonedentity.setTarget(this.getTarget());
                     this.level.addFreshEntity(summonedentity);
                 }
+                this.drawParticleBeam(this, this.getLaser());
             }
         }
         if (this.getPithos() != null){
@@ -218,106 +241,110 @@ public class SkullLord extends Monster implements ICustomAttributes{
             }
         }
         if (this.getTarget() != null) {
-            Vec3 vector3d1 = this.getTarget().getEyePosition(1.0F);
-            if (this.isOnGround() || this.getTarget().getY() > this.getY()) {
-                this.moveControl.setWantedPosition(this.getX(), this.getTarget().getY() + 1, this.getZ(), 1.0F);
-            }
-
-            if (!this.isInvulnerable()) {
-                if (!this.isLasering()) {
-                    int cooldown = this.isHalfHealth() ? 350 : 500;
-                    if (this.tickCount % cooldown == 0) {
-                        this.setLaserTime(true);
-                    }
-                }
+            if (this.getTarget().isDeadOrDying() || this.getTarget().isRemoved()){
+                this.setTarget(null);
             } else {
-                this.setLaserTime(false);
-            }
+                Vec3 vector3d1 = this.getTarget().getEyePosition(1.0F);
 
-            if (this.isLaserTime()){
-                if (!this.isCharging()) {
-                    ++this.laserTime;
-                    if (this.distanceTo(this.getTarget()) <= 4.0D) {
-                        double nx = this.getTarget().getX() - this.getX();
-                        double nz = this.getTarget().getZ() - this.getZ();
-                        this.moveControl.setWantedPosition(nx, vector3d1.y, nz, 1.0F);
-                    } else {
-                        this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 0.25F);
-                    }
-                    if (this.laserTime == 20) {
-                        this.playSound(ModSounds.SKULL_LORD_LASER_BEGIN.get(), 2.0F, 1.0F);
-                        if (this.level.getDifficulty() == Difficulty.HARD){
-                            this.spawnMobs();
+                if (!this.isInvulnerable()) {
+                    if (!this.isLasering()) {
+                        int cooldown = this.isHalfHealth() ? 350 : 500;
+                        if (this.tickCount % cooldown == 0) {
+                            this.setLaserTime(true);
                         }
-                    }
-                    if (this.laserTime >= 20){
-                        if (!this.level.isClientSide) {
-                            ServerLevel serverWorld = (ServerLevel) this.level;
-                            ServerParticleUtil.gatheringParticles(ModParticleTypes.LASER_GATHER.get(), this, serverWorld);
-                        }
-                    }
-                    if (this.laserTime >= MathHelper.secondsToTicks(5)) {
-                        SkullLaser skullLaser = ModEntityType.LASER.get().create(this.level);
-                        if (skullLaser != null) {
-                            this.playSound(ModSounds.SKULL_LORD_LASER_START.get(), 3.0F, 1.0F);
-                            this.setLaserTime(false);
-                            skullLaser.setSkullLord(this);
-                            skullLaser.setDuration(200);
-                            skullLaser.setPos(this.getX(), this.getY(), this.getZ());
-                            skullLaser.setTarget(this.getTarget());
-                            this.setLaser(skullLaser);
-                            this.level.addFreshEntity(skullLaser);
-                        }
-                    }
-                }
-            } else {
-                this.laserTime = 0;
-            }
-
-            boolean flag = false;
-
-            if ((this.xOld == this.getX() && this.yOld == this.getY() && this.zOld == this.getZ()) || this.isInWall()){
-                ++this.stuckTime;
-                if (this.stuckTime >= 100) {
-                    flag = true;
-                    Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-                    if (!this.isInvulnerable() && !this.isLasering() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-                        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, explosion$mode);
-                    }
-                    this.stuckTime = 0;
-                }
-            } else {
-                this.stuckTime = 0;
-            }
-
-            if (!this.level.getBlockState(this.blockPosition().relative(Direction.WEST)).isAir()
-            && !this.level.getBlockState(this.blockPosition().relative(Direction.NORTH)).isAir()) {
-                flag = true;
-            }
-            if (!this.level.getBlockState(this.blockPosition().relative(Direction.WEST)).isAir()
-                    && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
-                flag = true;
-            }
-            if (!this.level.getBlockState(this.blockPosition().relative(Direction.EAST)).isAir()
-                    && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
-                flag = true;
-            }
-            if (!this.level.getBlockState(this.blockPosition().relative(Direction.EAST)).isAir()
-                    && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
-                flag = true;
-            }
-
-            if (flag){
-                if (!this.isInvulnerable() || this.isLaserTime() || this.isLasering()) {
-                    if (this.distanceToSqr(this.getTarget()) > 4.0F) {
-                        this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 1.0F);
-                    } else {
-                        double nx = this.getTarget().getX() - this.getX();
-                        double nz = this.getTarget().getZ() - this.getZ();
-                        this.moveControl.setWantedPosition(nx, vector3d1.y, nz, 1.0F);
                     }
                 } else {
-                    this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 1.0F);
+                    this.setLaserTime(false);
+                }
+
+                if (this.isLaserTime()){
+                    if (!this.isCharging()) {
+                        ++this.laserTime;
+                        if (this.distanceTo(this.getTarget()) <= 4.0D) {
+                            double nx = this.getTarget().getX() - this.getX();
+                            double nz = this.getTarget().getZ() - this.getZ();
+                            this.moveControl.setWantedPosition(nx, vector3d1.y, nz, 0.25F);
+                        } else {
+                            this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 0.25F);
+                        }
+                        if (this.laserTime == 20) {
+                            this.playSound(ModSounds.SKULL_LORD_LASER_BEGIN.get(), 2.0F, 1.0F);
+                            if (this.level.getDifficulty() == Difficulty.HARD){
+                                this.spawnMobs();
+                            }
+                        }
+                        if (this.laserTime >= 20){
+                            if (!this.level.isClientSide) {
+                                ServerLevel serverWorld = (ServerLevel) this.level;
+                                ServerParticleUtil.gatheringParticles(ModParticleTypes.LASER_GATHER.get(), this, serverWorld);
+                            }
+                        }
+                        if (this.laserTime >= MathHelper.secondsToTicks(5)) {
+                            SkullLaser skullLaser = ModEntityType.LASER.get().create(this.level);
+                            if (skullLaser != null) {
+                                this.playSound(ModSounds.SKULL_LORD_LASER_START.get(), 3.0F, 1.0F);
+                                this.setLaserTime(false);
+                                skullLaser.setSkullLord(this);
+                                skullLaser.setDuration(200);
+                                skullLaser.setPos(this.getX(), this.getY(), this.getZ());
+                                skullLaser.setTarget(this.getTarget());
+                                this.setLaser(skullLaser);
+                                this.level.addFreshEntity(skullLaser);
+                            }
+                        }
+                    }
+                } else {
+                    if (this.isOnGround() || this.getTarget().getEyeY() > this.getY()) {
+                        this.moveControl.setWantedPosition(this.getX(), this.getTarget().getEyeY() + 1, this.getZ(), 1.0F);
+                    }
+                    this.laserTime = 0;
+                }
+
+                boolean flag = false;
+
+                if ((this.xOld == this.getX() && this.yOld == this.getY() && this.zOld == this.getZ()) || this.isInWall()){
+                    ++this.stuckTime;
+                    if (this.stuckTime >= 100) {
+                        flag = true;
+                        Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+                        if (!this.isInvulnerable() && !this.isLasering() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, explosion$mode);
+                        }
+                        this.stuckTime = 0;
+                    }
+                } else {
+                    this.stuckTime = 0;
+                }
+
+                if (!this.level.getBlockState(this.blockPosition().relative(Direction.WEST)).isAir()
+                        && !this.level.getBlockState(this.blockPosition().relative(Direction.NORTH)).isAir()) {
+                    flag = true;
+                }
+                if (!this.level.getBlockState(this.blockPosition().relative(Direction.WEST)).isAir()
+                        && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
+                    flag = true;
+                }
+                if (!this.level.getBlockState(this.blockPosition().relative(Direction.EAST)).isAir()
+                        && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
+                    flag = true;
+                }
+                if (!this.level.getBlockState(this.blockPosition().relative(Direction.EAST)).isAir()
+                        && !this.level.getBlockState(this.blockPosition().relative(Direction.SOUTH)).isAir()) {
+                    flag = true;
+                }
+
+                if (flag){
+                    if (!this.isInvulnerable() || this.isLaserTime() || this.isLasering()) {
+                        if (this.distanceToSqr(this.getTarget()) > 4.0F) {
+                            this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 1.0F);
+                        } else {
+                            double nx = this.getTarget().getX() - this.getX();
+                            double nz = this.getTarget().getZ() - this.getZ();
+                            this.moveControl.setWantedPosition(nx, vector3d1.y, nz, 1.0F);
+                        }
+                    } else {
+                        this.moveControl.setWantedPosition(vector3d1.x, vector3d1.y, vector3d1.z, 1.0F);
+                    }
                 }
             }
         } else {
@@ -345,9 +372,8 @@ public class SkullLord extends Monster implements ICustomAttributes{
             int i = this.blockPosition().getX();
             int j = this.blockPosition().getY();
             int k = this.blockPosition().getZ();
-            BlockPos spawn = new BlockPos(i, j, k);
-            List<Monster> list = this.level.getEntitiesOfClass(Monster.class, (new AABB(i, j, k, i, j - 4, k)).inflate(8.0D, 8.0D, 8.0D));
-            if (list.size() < 8 && this.spawnNumber < 10 && this.getTarget() != null && Monster.isDarkEnoughToSpawn(serverWorld, spawn, this.random)){
+            List<Owned> list = this.level.getEntitiesOfClass(Owned.class, (new AABB(i, j, k, i, j - 4, k)).inflate(8.0D, 8.0D, 8.0D), (owned -> owned.getTrueOwner() == this));
+            if (list.size() < 8 && this.getTarget() != null && !this.isLasering()){
                 if (this.spawnDelay > 0) {
                     --this.spawnDelay;
                 } else {
@@ -376,16 +402,21 @@ public class SkullLord extends Monster implements ICustomAttributes{
                     }
                 }
             } else {
-                if (this.getBoneLord().isDeadOrDying()){
-                    this.setBoneLordUUID(null);
-                } else {
-                    if (this.distanceToSqr(this.getBoneLord()) > 400) {
+                if (this.getBoneLord() != null){
+                    this.drawAttachParticleBeam(this, this.getBoneLord());
+                    if (this.getBoneLordClient() == null || this.getBoneLordID() != this.getBoneLord().getId()){
+                        this.setBoneLordID(this.getBoneLord().getId());
+                    }
+                    if (this.getBoneLord().getTarget() != null && this.getTarget() == null){
+                        this.setTarget(this.getBoneLord().getTarget());
+                    }
+                    if (this.distanceToSqr(this.getBoneLord()) > Mth.square(16)) {
                         this.moveTo(this.getBoneLord().position());
                     }
+                    this.setIsInvulnerable(true);
+                    this.hitTimes = 0;
+                    this.boneLordRegen = delay * 2;
                 }
-                this.setIsInvulnerable(true);
-                this.hitTimes = 0;
-                this.boneLordRegen = delay * 2;
             }
             if (this.isCharging()){
                 ++this.chargeTime;
@@ -412,36 +443,78 @@ public class SkullLord extends Monster implements ICustomAttributes{
         }
     }
 
+    private void drawAttachParticleBeam(LivingEntity pSource, LivingEntity pTarget) {
+        double d0 = pTarget.getX() - pSource.getX();
+        double d1 = pTarget.getEyeY() - pSource.getY();
+        double d2 = pTarget.getZ() - pSource.getZ();
+        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+        d0 = d0 / d3;
+        d1 = d1 / d3;
+        d2 = d2 / d3;
+        double d4 = pSource.level.random.nextDouble();
+        if (!pSource.level.isClientSide) {
+            ServerLevel serverWorld = (ServerLevel) pSource.level;
+            while (d4 < d3) {
+                d4 += 1.0D;
+                serverWorld.sendParticles(ModParticleTypes.BONE.get(), pSource.getX() + d0 * d4, pSource.getY() + d1 * d4, pSource.getZ() + d2 * d4, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
+        }
+    }
+
+    private void drawParticleBeam(LivingEntity pSource, LivingEntity pTarget) {
+        double d0 = pTarget.getX() - pSource.getX();
+        double d1 = (pTarget.getY() + (double) pTarget.getBbHeight() * 0.5F) - (pSource.getY() + (double) pSource.getBbHeight() * 0.5D);
+        double d2 = pTarget.getZ() - pSource.getZ();
+        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+        d0 = d0 / d3;
+        d1 = d1 / d3;
+        d2 = d2 / d3;
+        double d4 = pSource.level.random.nextDouble();
+        if (!pSource.level.isClientSide) {
+            ServerLevel serverWorld = (ServerLevel) pSource.level;
+            while (d4 < d3) {
+                d4 += 1.0D;
+                serverWorld.sendParticles(ModParticleTypes.LASER_POINT.get(), pSource.getX() + d0 * d4, pSource.getY() + d1 * d4 + (double) pSource.getEyeHeight() * 0.5D, pSource.getZ() + d2 * d4, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
+        }
+    }
+
     public void spawnMobs(){
         int spawnRange = 2;
         boolean random = this.level.random.nextBoolean();
         if (this.level instanceof ServerLevel serverLevel) {
-            for (int p = 0; p < 1 + serverLevel.random.nextInt(2); ++p) {
+            double d0 = (double) this.blockPosition().getX() + this.level.random.nextDouble();
+            double d1 = (double) this.blockPosition().getY() + this.level.random.nextDouble();
+            double d2 = (double) this.blockPosition().getZ() + this.level.random.nextDouble();
+            for (int p = 0; p < 4; ++p) {
+                serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, d0, d1, d2, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 1, 0.0D, 5.0E-4D, 0.0D, 5.0E-4D);
+            }
+            for (int i = 0; i < 1 + serverLevel.random.nextInt(2); ++i) {
                 double d3 = (double) this.blockPosition().getX() + (serverLevel.random.nextDouble() - serverLevel.random.nextDouble()) * (double) spawnRange + 0.5D;
                 double d4 = (double) (this.blockPosition().getY() + serverLevel.random.nextInt(3));
                 double d5 = (double) this.blockPosition().getZ() + (serverLevel.random.nextDouble() - serverLevel.random.nextDouble()) * (double) spawnRange + 0.5D;
-                Monster monster;
+                Owned owned;
                 if (this.isUnderWater()) {
-                    monster = EntityType.DROWNED.create(serverLevel);
+                    owned = ModEntityType.DROWNED_SERVANT.get().create(serverLevel);
                 } else {
                     if (random) {
-                        monster = EntityType.ZOMBIE.create(serverLevel);
+                        owned = ModEntityType.ZOMBIE_SERVANT.get().create(serverLevel);
                     } else {
-                        monster = EntityType.SKELETON.create(serverLevel);
+                        owned = ModEntityType.SKELETON_SERVANT.get().create(serverLevel);
                     }
                 }
-                if (monster != null) {
+                if (owned != null) {
                     BlockPos blockPos = new BlockPos(d3, d4, d5);
+                    owned.setTrueOwner(this);
+                    owned.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 100, 0, false, false));
                     if (!serverLevel.getBlockState(blockPos).isAir()) {
-                        monster.moveTo(this.blockPosition().getX(), this.blockPosition().getY(), this.blockPosition().getZ());
+                        owned.moveTo(this.blockPosition().getX(), this.blockPosition().getY(), this.blockPosition().getZ());
                     } else {
-                        monster.moveTo(d3, d4, d5);
+                        owned.moveTo(d3, d4, d5);
                     }
-                    monster.addTag(ConstantPaths.skullLordMinion());
-                    monster.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(monster.blockPosition()), MobSpawnType.SPAWNER, null, null);
-                    monster.spawnAnim();
-                    serverLevel.addFreshEntityWithPassengers(monster);
-                    ++this.spawnNumber;
+                    owned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(owned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    serverLevel.addFreshEntityWithPassengers(owned);
                 }
             }
         }
@@ -533,7 +606,7 @@ public class SkullLord extends Monster implements ICustomAttributes{
     public boolean isAlliedTo(Entity entityIn) {
         if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof Monster && ((Monster) entityIn).getMobType() == MobType.UNDEAD) {
+        } else if (entityIn instanceof Monster monster && monster.getMobType() == MobType.UNDEAD) {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;
@@ -544,7 +617,20 @@ public class SkullLord extends Monster implements ICustomAttributes{
         super.defineSynchedData();
         this.entityData.define(FLAGS, (byte)0);
         this.entityData.define(BONE_LORD, Optional.empty());
+        this.entityData.define(BONE_LORD_CLIENT, 0);
         this.entityData.define(LASER, Optional.empty());
+        this.entityData.define(LASER_CLIENT, 0);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_32834_) {
+        super.onSyncedDataUpdated(p_32834_);
+        if (BONE_LORD_CLIENT.equals(p_32834_)) {
+            this.clientSideCachedBoneLord = null;
+        }
+        if (LASER_CLIENT.equals(p_32834_)) {
+            this.clientSideCachedLaser = null;
+        }
+
     }
 
     private boolean geFlags(int mask) {
@@ -562,6 +648,7 @@ public class SkullLord extends Monster implements ICustomAttributes{
 
         this.entityData.set(FLAGS, (byte)(i & 255));
     }
+
     @Nullable
     public BlockPos getBoundOrigin() {
         return this.boundOrigin;
@@ -587,6 +674,25 @@ public class SkullLord extends Monster implements ICustomAttributes{
     }
 
     @Nullable
+    public BoneLord getBoneLordClient() {
+        if (this.level.isClientSide) {
+            if (this.clientSideCachedBoneLord != null) {
+                return this.clientSideCachedBoneLord;
+            } else {
+                Entity entity = this.level.getEntity(this.entityData.get(BONE_LORD_CLIENT));
+                if (entity instanceof BoneLord boneLord) {
+                    this.clientSideCachedBoneLord = boneLord;
+                    return this.clientSideCachedBoneLord;
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return this.getBoneLord();
+        }
+    }
+
+    @Nullable
     public UUID getBoneLordUUID() {
         return this.entityData.get(BONE_LORD).orElse(null);
     }
@@ -597,6 +703,15 @@ public class SkullLord extends Monster implements ICustomAttributes{
 
     public void setBoneLord(BoneLord boneLord){
         this.setBoneLordUUID(boneLord.getUUID());
+        this.setBoneLordID(boneLord.getId());
+    }
+
+    public int getBoneLordID(){
+        return this.entityData.get(BONE_LORD_CLIENT);
+    }
+
+    public void setBoneLordID(int p_32818_) {
+        this.entityData.set(BONE_LORD_CLIENT, p_32818_);
     }
 
     public boolean isLasering(){
@@ -619,6 +734,25 @@ public class SkullLord extends Monster implements ICustomAttributes{
     }
 
     @Nullable
+    public SkullLaser getLaserClient() {
+        if (this.level.isClientSide) {
+            if (this.clientSideCachedLaser != null) {
+                return this.clientSideCachedLaser;
+            } else {
+                Entity entity = this.level.getEntity(this.entityData.get(BONE_LORD_CLIENT));
+                if (entity instanceof SkullLaser skullLaser) {
+                    this.clientSideCachedLaser = skullLaser;
+                    return this.clientSideCachedLaser;
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return this.getLaser();
+        }
+    }
+
+    @Nullable
     public UUID getLaserUUID() {
         return this.entityData.get(LASER).orElse(null);
     }
@@ -629,6 +763,15 @@ public class SkullLord extends Monster implements ICustomAttributes{
 
     public void setLaser(SkullLaser laser){
         this.setLaserUUID(laser.getUUID());
+        this.setLaserID(laser.getId());
+    }
+
+    public int getLaserID(){
+        return this.entityData.get(LASER_CLIENT);
+    }
+
+    public void setLaserID(int p_32818_) {
+        this.entityData.set(LASER_CLIENT, p_32818_);
     }
 
     public boolean isCharging() {
@@ -705,7 +848,6 @@ public class SkullLord extends Monster implements ICustomAttributes{
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -773,10 +915,23 @@ public class SkullLord extends Monster implements ICustomAttributes{
             this.setBoneLord(boneLord);
             pLevel.addFreshEntity(boneLord);
         }
-        if (this.getTarget() == null){
-            this.bossInfo.setVisible(false);
-        }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    @Override
+    public UUID getBossInfoUUID() {
+        return this.bossInfoUUID;
+    }
+
+    @Override
+    public void setBossInfoUUID(UUID bossInfoUUID) {
+        this.bossInfoUUID = bossInfoUUID;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     class SoulSkullGoal extends Goal {
@@ -842,13 +997,12 @@ public class SkullLord extends Monster implements ICustomAttributes{
             if (SkullLord.this.getTarget() != null
                     && !SkullLord.this.getMoveControl().hasWanted()
                     && SkullLord.this.getBoneLord() == null
-                    && SkullLord.this.distanceToSqr(SkullLord.this.getTarget()) > 4.0D
                     && !SkullLord.this.isLaserTime()
                     && !SkullLord.this.isLasering()) {
                 if (!SkullLord.this.isHalfHealth()){
-                    return SkullLord.this.random.nextInt(15) == 0;
-                } else {
                     return SkullLord.this.random.nextInt(7) == 0;
+                } else {
+                    return SkullLord.this.random.nextInt(3) == 0;
                 }
             } else {
                 return false;
@@ -867,11 +1021,12 @@ public class SkullLord extends Monster implements ICustomAttributes{
 
         public void start() {
             LivingEntity livingentity = SkullLord.this.getTarget();
-            assert livingentity != null;
-            Vec3 vector3d = livingentity.getEyePosition(1.0F);
-            SkullLord.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, SkullLord.this.isHalfHealth() ? 1.25D : 1.0D);
-            SkullLord.this.setIsCharging(true);
-            SkullLord.this.playSound(ModSounds.SKULL_LORD_CHARGE.get(), 1.0F, 1.0F);
+            if (livingentity != null) {
+                Vec3 vector3d = livingentity.getEyePosition(1.0F);
+                SkullLord.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, SkullLord.this.isHalfHealth() ? 1.25D : 1.0D);
+                SkullLord.this.setIsCharging(true);
+                SkullLord.this.playSound(ModSounds.SKULL_LORD_CHARGE.get(), 1.0F, 1.0F);
+            }
         }
 
         public void stop() {
@@ -881,20 +1036,21 @@ public class SkullLord extends Monster implements ICustomAttributes{
         public void tick() {
             SkullLord skullLord = SkullLord.this;
             LivingEntity livingentity = SkullLord.this.getTarget();
-            assert livingentity != null;
-            if (skullLord.getBoundingBox().intersects(livingentity.getBoundingBox())) {
-                if (livingentity.hurt(DamageSource.indirectMagic(skullLord, skullLord), (float) skullLord.getAttributeValue(Attributes.ATTACK_DAMAGE))){
-                    if (skullLord.isOnFire()){
-                        livingentity.setSecondsOnFire(5);
+            if (livingentity != null) {
+                if (skullLord.getBoundingBox().intersects(livingentity.getBoundingBox())) {
+                    if (livingentity.hurt(DamageSource.indirectMagic(skullLord, skullLord), (float) skullLord.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                        if (skullLord.isOnFire()) {
+                            livingentity.setSecondsOnFire(5);
+                        }
+                        skullLord.level.explode(skullLord, skullLord.getX(), skullLord.getY(), skullLord.getZ(), skullLord.explosionRadius, Explosion.BlockInteraction.NONE);
+                        skullLord.setIsCharging(false);
                     }
-                    skullLord.level.explode(skullLord, skullLord.getX(), skullLord.getY(), skullLord.getZ(), skullLord.explosionRadius, Explosion.BlockInteraction.NONE);
-                    skullLord.setIsCharging(false);
-                }
-            } else {
-                double d0 = skullLord.distanceToSqr(livingentity);
-                if (d0 < 9.0D) {
-                    Vec3 vector3d = livingentity.getEyePosition(1.0F);
-                    skullLord.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, SkullLord.this.isHalfHealth() ? 1.25D : 1.0D);
+                } else {
+                    double d0 = skullLord.distanceToSqr(livingentity);
+                    if (d0 < 9.0D) {
+                        Vec3 vector3d = livingentity.getEyePosition(1.0F);
+                        skullLord.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, SkullLord.this.isHalfHealth() ? 1.25D : 1.0D);
+                    }
                 }
             }
 

@@ -113,7 +113,11 @@ public class SoulEnergyEvents {
         if (!world.isClientSide) {
             soulEnergy.grudgeList().removeIf(uuid -> {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                return entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved());
+                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
+            });
+            soulEnergy.summonList().removeIf(uuid -> {
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                return entity == null || !entity.isAlive() || entity.isRemoved();
             });
         }
         int s = soulEnergy.getSoulEnergy();

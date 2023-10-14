@@ -92,8 +92,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkullLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
@@ -313,6 +315,8 @@ public class SpellConfig {
                 .defineInRange("undeadMinionHealCost", 5, 0, Integer.MAX_VALUE);
         UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
                 .defineInRange("undeadMinionHealTime", 1, 0, Integer.MAX_VALUE);
+        UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 0.5")
+                .defineInRange("undeadMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
@@ -328,7 +332,9 @@ public class SpellConfig {
         SkullLimit = BUILDER.comment("Number of Haunted Skulls that can exist around the player without instantly dying, Default: 8")
                 .defineInRange("skullLimit", 8, 1, Integer.MAX_VALUE);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems a player can summon, Default: 2")
-                .defineInRange("redstoneGolemLimit", 2, 1, Integer.MAX_VALUE);
+                .defineInRange("redstoneGolemLimit", 2, 0, Integer.MAX_VALUE);
+        GraveGolemLimit = BUILDER.comment("Total number of Grave Golems a player can summon, Default: 2")
+                .defineInRange("graveGolemLimit", 2, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");
         MaxSoulEaterLevel = BUILDER.comment("Soul Eater Maximum Enchantment Level, Default: 5")

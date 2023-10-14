@@ -114,6 +114,26 @@
           "type": "minecraft:item",
           "functions": [
             {
+              "decoration": "mansion",
+              "function": "minecraft:exploration_map",
+              "destination": "goety:explorer_maps/blighted_shack",
+              "skip_existing_chunks": true,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.goety.blighted_shack"
+              }
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
               "function": "minecraft:set_potion",
               "id": "minecraft:regeneration"
             }

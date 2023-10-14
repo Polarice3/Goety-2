@@ -15,6 +15,9 @@ public enum ModArmorMaterials implements ArmorMaterial {
     CURSED_KNIGHT("cursed_knight", 15, new int[]{2, 5, 6, 2}, 15, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
+    CURSED_PALADIN("cursed_paladin", 30, new int[]{3, 6, 7, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {
+        return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
+    }),
     DARK("dark", 15, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.1F, () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     });

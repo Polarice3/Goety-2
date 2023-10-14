@@ -8,6 +8,8 @@ import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.effects.brew.BrewEffects;
 import com.Polarice3.Goety.common.effects.brew.PotionBrewEffect;
+import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
+import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
@@ -159,10 +161,14 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
 
     public Mode insertItem(ItemStack itemStack){
         if (this.level != null && !this.level.isClientSide){
+            Item ingredient = itemStack.getItem();
+            BrewModifier brewModifier = new BrewEffects().getModifier(ingredient);
+            int modLevel = brewModifier != null ? brewModifier.getLevel() : -1;
+            boolean activate = brewModifier instanceof CapacityModifier && brewModifier.getLevel() == 0;
             int firstEmpty = getFirstEmptySlot();
             if (firstEmpty != -1) {
                 this.setItem(firstEmpty, itemStack);
-                if (this.mode == Mode.IDLE && this.getCapacity() < 4 && itemStack.getItem() == Items.NETHER_WART) {
+                if (this.mode == Mode.IDLE && this.getCapacity() < 4 && activate) {
                     this.clearContent();
                     this.capacity = 4;
                     if (this.level instanceof ServerLevel serverLevel){
@@ -178,7 +184,6 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     return Mode.BREWING;
                 }
                 if (this.mode == Mode.BREWING) {
-                    Item ingredient = itemStack.getItem();
                     BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
                     BrewEffect brewEffect = new BrewEffects().getEffectFromCatalyst(ingredient);
                     if (this.hasNoAugmentation()) {
@@ -202,132 +207,146 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         }
                     }
 
-                    if (BrewUtils.hasEffect(this.getBrew())) {
-                        if (ingredient == Items.ENDER_EYE || ingredient == Items.GUNPOWDER || ingredient == Items.DRAGON_BREATH || ingredient == ModItems.WIND_CORE.get()){
-                            if (ingredient == Items.ENDER_EYE){
-                                this.addCost(10);
+                    if (brewModifier != null) {
+                        if (BrewUtils.hasEffect(this.getBrew())) {
+                            if (brewModifier.getId().equals(BrewModifier.HIDDEN) || brewModifier.getId().equals(BrewModifier.SPLASH) || brewModifier.getId().equals(BrewModifier.LINGERING) || brewModifier.getId().equals(BrewModifier.GAS)) {
+                                if (brewModifier.getId().equals(BrewModifier.HIDDEN)) {
+                                    this.addCost(10);
+                                }
+                                return Mode.BREWING;
                             }
-                            return Mode.BREWING;
-                        }
-                        if (this.getDuration() == 0 && ingredient == Items.REDSTONE) {
-                            this.duration++;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getDuration() == 1 && ingredient == Items.PRISMARINE) {
-                            this.duration++;
-                            this.multiplyCost(1.5F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getDuration() == 2 && ingredient == Items.CHORUS_FLOWER) {
-                            this.duration++;
-                            this.multiplyCost(2.0F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAmplifier() == 0 && ingredient == Items.GLOWSTONE_DUST) {
-                            this.amplifier++;
-                            this.multiplyCost(2.0F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAmplifier() == 1 && ingredient == Items.BLAZE_ROD) {
-                            this.amplifier++;
-                            this.multiplyCost(2.5F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAmplifier() == 2 && ingredient == ModItems.MYSTIC_CORE.get()) {
-                            this.amplifier++;
-                            this.multiplyCost(3.0F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAoE() == 0 && ingredient == Items.CHARCOAL) {
-                            this.aoe++;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAoE() == 1 && ingredient == Items.FIREWORK_STAR) {
-                            this.aoe++;
-                            this.multiplyCost(1.5F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getAoE() == 2 && ingredient == ModBlocks.TALL_SKULL_ITEM.get()) {
-                            this.aoe++;
-                            this.multiplyCost(2.0F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getLingering() == 0 && ingredient == Items.HANGING_ROOTS) {
-                            this.lingering++;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getLingering() == 1 && ingredient == Items.BIG_DRIPLEAF) {
-                            this.lingering++;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getLingering() == 2 && ingredient == Items.SPORE_BLOSSOM) {
-                            this.lingering++;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getQuaff() == 0 && ingredient == Items.HONEY_BOTTLE) {
-                            this.quaff += 8;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getQuaff() == 8 && ingredient == Items.GLOW_LICHEN) {
-                            this.quaff += 8;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getQuaff() == 16 && ingredient == Items.TURTLE_EGG) {
-                            this.quaff += 8;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getVelocity() == 0 && ingredient == Items.SNOWBALL){
-                            this.velocity += 0.1F;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getVelocity() == 0.1F && ingredient == Items.BOW){
-                            this.velocity += 0.2F;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                        if (this.getVelocity() == 0.3F && ingredient == Items.CROSSBOW){
-                            this.velocity += 0.2F;
-                            this.multiplyCost(1.25F);
-                            return Mode.BREWING;
-                        }
-                    } else {
-                        if (this.getCapacity() == 4 && ingredient == Items.CRIMSON_FUNGUS){
-                            this.capacity += 2;
-                            this.clearContent();
-                            return Mode.BREWING;
-                        }
-                        if (this.getCapacity() == 6 && ingredient == ModBlocks.SNAP_WARTS_ITEM.get()){
-                            this.capacity += 2;
-                            this.clearContent();
-                            return Mode.BREWING;
-                        }
-                        if (this.getCapacity() == 8 && ingredient == ModItems.MAGIC_EMERALD.get()){
-                            this.capacity += 2;
-                            this.clearContent();
-                            return Mode.BREWING;
-                        }
-                        if (this.getCapacity() == 10 && ingredient == ModItems.SOUL_EMERALD.get()){
-                            this.capacity += 2;
-                            this.clearContent();
-                            return Mode.BREWING;
-                        }
-                        if (this.getCapacity() == 12 && ingredient == ModItems.SOUL_RUBY.get()){
-                            this.capacity += 4;
-                            this.clearContent();
-                            return Mode.BREWING;
+                            if (brewModifier.getId().equals(BrewModifier.DURATION)) {
+                                if (this.getDuration() == 0 && modLevel == 0) {
+                                    this.duration++;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getDuration() == 1 && modLevel == 1) {
+                                    this.duration++;
+                                    this.multiplyCost(1.5F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getDuration() == 2 && modLevel == 2) {
+                                    this.duration++;
+                                    this.multiplyCost(2.0F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.AMPLIFIER)) {
+                                if (this.getAmplifier() == 0 && modLevel == 0) {
+                                    this.amplifier++;
+                                    this.multiplyCost(2.0F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getAmplifier() == 1 && modLevel == 1) {
+                                    this.amplifier++;
+                                    this.multiplyCost(2.5F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getAmplifier() == 2 && modLevel == 2) {
+                                    this.amplifier++;
+                                    this.multiplyCost(3.0F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.AOE)) {
+                                if (this.getAoE() == 0 && modLevel == 0) {
+                                    this.aoe++;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getAoE() == 1 && modLevel == 1) {
+                                    this.aoe++;
+                                    this.multiplyCost(1.5F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getAoE() == 2 && modLevel == 2) {
+                                    this.aoe++;
+                                    this.multiplyCost(2.0F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.LINGER)) {
+                                if (this.getLingering() == 0 && modLevel == 0) {
+                                    this.lingering++;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getLingering() == 1 && modLevel == 1) {
+                                    this.lingering++;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getLingering() == 2 && modLevel == 2) {
+                                    this.lingering++;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.QUAFF)) {
+                                if (this.getQuaff() == 0 && modLevel == 0) {
+                                    this.quaff += 8;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getQuaff() == 8 && modLevel == 1) {
+                                    this.quaff += 8;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getQuaff() == 16 && modLevel == 2) {
+                                    this.quaff += 8;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.VELOCITY)) {
+                                if (this.getVelocity() == 0 && modLevel == 0) {
+                                    this.velocity += 0.1F;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getVelocity() == 0.1F && modLevel == 1) {
+                                    this.velocity += 0.2F;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                                if (this.getVelocity() == 0.3F && modLevel == 2) {
+                                    this.velocity += 0.2F;
+                                    this.multiplyCost(1.25F);
+                                    return Mode.BREWING;
+                                }
+                            }
+                        } else if (brewModifier instanceof CapacityModifier capacityModifier) {
+                            if (this.getCapacity() == 4 && capacityModifier.getLevel() == 1) {
+                                this.capacity += 2;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
+                            if (this.getCapacity() == 6 && capacityModifier.getLevel() == 2) {
+                                this.capacity += 2;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
+                            if (this.getCapacity() == 8 && capacityModifier.getLevel() == 3) {
+                                this.capacity += 2;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
+                            if (this.getCapacity() == 10 && capacityModifier.getLevel() == 4) {
+                                this.capacity += 2;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
+                            if (this.getCapacity() == 12 && capacityModifier.getLevel() == 5) {
+                                this.capacity += 4;
+                                this.clearContent();
+                                return Mode.BREWING;
+                            }
                         }
                     }
                 }
-            } else if (this.mode == Mode.IDLE && this.getCapacity() < 4 && itemStack.getItem() == Items.NETHER_WART) {
+            } else if (this.mode == Mode.IDLE && this.getCapacity() < 4 && activate) {
                 this.clearContent();
                 this.capacity = 4;
                 if (this.level instanceof ServerLevel serverLevel){
@@ -425,6 +444,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             for (int i = 0; i < this.getCapacity(); i++) {
                 ItemStack itemStack = this.getItem(i);
                 Item item = itemStack.getItem();
+                BrewModifier brewModifier = new BrewEffects().getModifier(item);
                 BrewEffect brewEffect = new BrewEffects().getEffectFromCatalyst(item);
                 BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
                 if (brewingRecipe != null && effects.stream().noneMatch(effect -> effect.getEffect() == brewingRecipe.output)) {
@@ -435,14 +455,16 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     } else {
                         blockEffects.add(new BrewEffectInstance(brewEffect, 1));
                     }
-                } else if (item == Items.ENDER_EYE){
-                    hidden++;
-                } else if (item == Items.GUNPOWDER && brew.is(ModItems.BREW.get())){
-                    brew = new ItemStack(ModItems.SPLASH_BREW.get());
-                } else if (item == Items.DRAGON_BREATH && brew.is(ModItems.SPLASH_BREW.get())){
-                    brew = new ItemStack(ModItems.LINGERING_BREW.get());
-                } else if (item == ModItems.WIND_CORE.get() && brew.is(ModItems.LINGERING_BREW.get())){
-                    brew = new ItemStack(ModItems.GAS_BREW.get());
+                } else if (brewModifier != null) {
+                    if (brewModifier.getId().equals(BrewModifier.HIDDEN)) {
+                        hidden++;
+                    } else if (brewModifier.getId().equals(BrewModifier.SPLASH) && brew.is(ModItems.BREW.get())) {
+                        brew = new ItemStack(ModItems.SPLASH_BREW.get());
+                    } else if (brewModifier.getId().equals(BrewModifier.LINGERING) && brew.is(ModItems.SPLASH_BREW.get())) {
+                        brew = new ItemStack(ModItems.LINGERING_BREW.get());
+                    } else if (brewModifier.getId().equals(BrewModifier.GAS) && brew.is(ModItems.LINGERING_BREW.get())) {
+                        brew = new ItemStack(ModItems.GAS_BREW.get());
+                    }
                 }
             }
             for (int i = 0; i < effects.size(); i++) {

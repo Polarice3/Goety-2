@@ -4,6 +4,8 @@ import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.block.*;
+import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
+import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +17,6 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 
 public class BrewEffects {
@@ -23,14 +24,39 @@ public class BrewEffects {
     private final Map<Item, BrewEffect> catalyst = Maps.newHashMap();
     /** Made for external recipe viewers like Patchouli */
     private final Map<String, ItemStack> catalystInverted = Maps.newHashMap();
-    private final List<Item> forbiddenIngredients = List.of(Items.ENDER_EYE, Items.GUNPOWDER, Items.DRAGON_BREATH, ModItems.WIND_CORE.get(),
-            Items.REDSTONE, Items.PRISMARINE, Items.CHORUS_FLOWER, Items.GLOWSTONE_DUST, Items.BLAZE_ROD, ModItems.MYSTIC_CORE.get(),
-            Items.CHARCOAL, Items.FIREWORK_STAR, ModBlocks.TALL_SKULL_ITEM.get(), Items.HANGING_ROOTS, Items.BIG_DRIPLEAF, Items.SPORE_BLOSSOM,
-            Items.HONEY_BOTTLE, Items.GLOW_LICHEN, Items.TURTLE_EGG, Items.SNOWBALL, Items.BOW, Items.CROSSBOW, Items.CRIMSON_FUNGUS,
-            ModBlocks.SNAP_WARTS_ITEM.get(), ModItems.MAGIC_EMERALD.get(), ModItems.SOUL_EMERALD.get(), ModItems.SOUL_RUBY.get(),
-            Items.NETHER_WART);
+    private final Map<Item, BrewModifier> modifiers = Maps.newHashMap();
 
     public BrewEffects(){
+        //Modifiers
+        this.modifierRegister(new CapacityModifier(0), Items.NETHER_WART);
+        this.modifierRegister(new CapacityModifier(1), Items.CRIMSON_FUNGUS);
+        this.modifierRegister(new CapacityModifier(2), ModBlocks.SNAP_WARTS_ITEM.get());
+        this.modifierRegister(new CapacityModifier(3), ModItems.MAGIC_EMERALD.get());
+        this.modifierRegister(new CapacityModifier(4), ModItems.SOUL_EMERALD.get());
+        this.modifierRegister(new CapacityModifier(5), ModItems.SOUL_RUBY.get());
+        this.modifierRegister(new BrewModifier(BrewModifier.DURATION, 0), Items.REDSTONE);
+        this.modifierRegister(new BrewModifier(BrewModifier.DURATION, 1), Items.PRISMARINE);
+        this.modifierRegister(new BrewModifier(BrewModifier.DURATION, 2), Items.CHORUS_FLOWER);
+        this.modifierRegister(new BrewModifier(BrewModifier.AMPLIFIER, 0), Items.GLOWSTONE_DUST);
+        this.modifierRegister(new BrewModifier(BrewModifier.AMPLIFIER, 1), Items.BLAZE_ROD);
+        this.modifierRegister(new BrewModifier(BrewModifier.AMPLIFIER, 2), ModItems.MYSTIC_CORE.get());
+        this.modifierRegister(new BrewModifier(BrewModifier.AOE, 0), Items.CHARCOAL);
+        this.modifierRegister(new BrewModifier(BrewModifier.AOE, 1), Items.FIREWORK_STAR);
+        this.modifierRegister(new BrewModifier(BrewModifier.AOE, 2), ModBlocks.TALL_SKULL_ITEM.get());
+        this.modifierRegister(new BrewModifier(BrewModifier.LINGER, 0), Items.HANGING_ROOTS);
+        this.modifierRegister(new BrewModifier(BrewModifier.LINGER, 1), Items.BIG_DRIPLEAF);
+        this.modifierRegister(new BrewModifier(BrewModifier.LINGER, 2), Items.SPORE_BLOSSOM);
+        this.modifierRegister(new BrewModifier(BrewModifier.QUAFF, 0), Items.HONEY_BOTTLE);
+        this.modifierRegister(new BrewModifier(BrewModifier.QUAFF, 1), Items.GLOW_LICHEN);
+        this.modifierRegister(new BrewModifier(BrewModifier.QUAFF, 2), Items.TURTLE_EGG);
+        this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 0), Items.SNOWBALL);
+        this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 1), Items.BOW);
+        this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 2), Items.CROSSBOW);
+        this.modifierRegister(new BrewModifier(BrewModifier.HIDDEN), Items.ENDER_EYE);
+        this.modifierRegister(new BrewModifier(BrewModifier.SPLASH), Items.GUNPOWDER);
+        this.modifierRegister(new BrewModifier(BrewModifier.LINGERING), Items.DRAGON_BREATH);
+        this.modifierRegister(new BrewModifier(BrewModifier.GAS), ModItems.WIND_CORE.get());
+
         //Vanilla
         this.register(new PotionBrewEffect(MobEffects.ABSORPTION, BrewConfig.AbsorptionCost.get(), 1, 1800), Items.GOLDEN_APPLE);
         this.register(new PotionBrewEffect(MobEffects.BLINDNESS, BrewConfig.BlindnessCost.get(), 1800), Items.INK_SAC);
@@ -146,12 +172,22 @@ public class BrewEffects {
         }
     }
 
+    private void modifierRegister(BrewModifier modifier, Item ingredient){
+        if (!this.modifiers.containsKey(ingredient)){
+            this.modifiers.put(ingredient, modifier);
+        }
+    }
+
     public BrewEffect getEffectFromCatalyst(Item ingredient){
         return this.catalyst.get(ingredient);
     }
 
     public ItemStack getCatalystFromEffect(String string){
         return this.catalystInverted.get(string);
+    }
+
+    public BrewModifier getModifier(Item ingredient){
+        return this.modifiers.get(ingredient);
     }
 
     @Nullable
