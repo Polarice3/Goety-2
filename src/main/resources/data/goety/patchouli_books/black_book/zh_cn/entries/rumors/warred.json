@@ -1,0 +1,17 @@
+{
+  "name": "古代科技",
+  "icon": "minecraft:redstone",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "传闻上古之时，有人使用一种奇特的能力制作一种奇妙的傀儡，不同于铁傀儡，他们更加适合参与战争，他们说，这些野兽是由岩石和红石制成的，在 $(l)古代$() 的建筑中去防守和攻击."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_warred_scroll",
+      "text": "传言这些可怕的机器失传了，但是古城和埋藏的地牢或许记载他们的制造方法...."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "无名套",
+  "icon": "goety:nameless_cape",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在发现了死灵能量的遗忘之秘后，你设计了一套新的服装来展示你对黑暗艺术的精通."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "该套装的功能与旧的死灵套装相同，但有一些改进."
+    }
+  ]
+}

@@ -26,7 +26,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -126,20 +128,24 @@ public class SEHelper {
 
     public static int getSoulGiven(LivingEntity victim){
         if (victim != null){
-            boolean flag = victim instanceof Owned && !(victim instanceof Enemy);
+            boolean flag = victim instanceof Owned && !(victim instanceof Enemy) && !victim.isBaby();
             if (!flag) {
                 if (victim.getMobType() == MobType.UNDEAD) {
                     return MainConfig.UndeadSouls.get();
                 } else if (victim.getMobType() == MobType.ARTHROPOD) {
                     return MainConfig.AnthropodSouls.get();
+                } else if (victim instanceof Animal) {
+                    return MainConfig.AnimalSouls.get();
                 } else if (victim instanceof Raider) {
                     return MainConfig.IllagerSouls.get();
-                } else if (victim instanceof Villager && !victim.isBaby()) {
+                } else if (victim instanceof Villager) {
                     return MainConfig.VillagerSouls.get();
-                } else if (victim instanceof AbstractPiglin || victim instanceof TamableAnimal) {
+                } else if (victim instanceof AbstractPiglin) {
                     return MainConfig.PiglinSouls.get();
                 } else if (victim instanceof EnderDragon) {
                     return MainConfig.EnderDragonSouls.get();
+                } else if (victim instanceof EnderMan){
+                    return MainConfig.EndermanSouls.get();
                 } else if (victim instanceof Warden){
                     return MainConfig.WardenSouls.get();
                 } else if (victim instanceof Player) {

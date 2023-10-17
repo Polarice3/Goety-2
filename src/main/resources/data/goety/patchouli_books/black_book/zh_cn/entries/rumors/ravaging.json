@@ -1,0 +1,17 @@
+{
+  "name": "劫掠兽的秘密",
+  "icon": "goety:savage_tooth",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已经思索过了劫掠兽是如何出现的，以及刌民们是如何得到它们的。有传言说它们是可恶的黑暗魔法的结果。. 也许真相隐匿于 $(l)林地府邸$() 之中."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_ravaging_scroll",
+      "text": "Search through Woodland Mansions for any information."
+    }
+  ]
+}

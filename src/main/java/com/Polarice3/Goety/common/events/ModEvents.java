@@ -721,6 +721,8 @@ public class ModEvents {
             }
             AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("17cb060f-0465-412e-abe7-a9c397b2e548"), "Increase Armor", 4.0D, AttributeModifier.Operation.ADDITION);
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
+            AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("c3c510ca-76eb-4eb5-9f69-6763b7e40be2"), "Increase Toughness", 4.0D, AttributeModifier.Operation.ADDITION);
+            AttributeInstance toughness = livingEntity.getAttribute(Attributes.ARMOR_TOUGHNESS);
             if (armor != null){
                 if (ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_KNIGHT) || ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_PALADIN)){
                     if (!armor.hasModifier(attributemodifier)){
@@ -729,6 +731,17 @@ public class ModEvents {
                 } else {
                     if (armor.hasModifier(attributemodifier)){
                         armor.removeModifier(attributemodifier);
+                    }
+                }
+            }
+            if (toughness != null){
+                if (ItemHelper.armorSet(livingEntity, ModArmorMaterials.CURSED_PALADIN)){
+                    if (!toughness.hasModifier(attributemodifier1)){
+                        toughness.addPermanentModifier(attributemodifier1);
+                    }
+                } else {
+                    if (toughness.hasModifier(attributemodifier1)){
+                        toughness.removeModifier(attributemodifier1);
                     }
                 }
             }

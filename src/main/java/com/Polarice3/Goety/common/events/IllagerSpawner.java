@@ -18,6 +18,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
@@ -61,13 +62,13 @@ public class IllagerSpawner {
                     } else {
                         Player player = p_64570_.players().get(randomsource.nextInt(j));
                         int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(player), 0, MainConfig.IllagerAssaultSELimit.get());
-                        if (player.isSpectator()) {
+                        if (player.isSpectator() || player.isCreative()) {
                             return 0;
                         } else if (SEHelper.getRestPeriod(player) > 0){
                             return 0;
                         } else if (p_64570_.isCloseToVillage(player.blockPosition(), 2) && soulEnergy < MainConfig.IllagerAssaultSELimit.get()) {
                             return 0;
-                        } else if (soulEnergy > MainConfig.IllagerAssaultSEThreshold.get()) {
+                        } else if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get()) {
                             int k = (24 + randomsource.nextInt(24)) * (randomsource.nextBoolean() ? -1 : 1);
                             int l = (24 + randomsource.nextInt(24)) * (randomsource.nextBoolean() ? -1 : 1);
                             BlockPos.MutableBlockPos blockpos$mutable = player.blockPosition().mutable().move(k, 0, l);
@@ -194,7 +195,9 @@ public class IllagerSpawner {
                 if (random.nextInt(4) == 0){
                     illager.setRider(true);
                 }
-                illager.setTarget(player);
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+                    illager.setTarget(player);
+                }
                 this.upgradeIllagers(illager, infamy);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
@@ -220,7 +223,9 @@ public class IllagerSpawner {
                 if (random.nextInt(4) == 0){
                     illager.setRider(true);
                 }
-                illager.setTarget(player);
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+                    illager.setTarget(player);
+                }
                 this.upgradeIllagers(illager, infamy);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
@@ -246,7 +251,9 @@ public class IllagerSpawner {
                 if (random.nextInt(4) == 0){
                     illager.setRider(true);
                 }
-                illager.setTarget(player);
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+                    illager.setTarget(player);
+                }
                 this.upgradeIllagers(illager, infamy);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
@@ -272,7 +279,9 @@ public class IllagerSpawner {
                 if (random.nextInt(4) == 0){
                     illager.setRider(true);
                 }
-                illager.setTarget(player);
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+                    illager.setTarget(player);
+                }
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
             } else {
@@ -321,7 +330,9 @@ public class IllagerSpawner {
                 illager.setPos(p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ());
                 if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                illager.setTarget(player);
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+                    illager.setTarget(player);
+                }
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 this.upgradeIllagers(illager, infamy);
                 worldIn.addFreshEntityWithPassengers(illager);

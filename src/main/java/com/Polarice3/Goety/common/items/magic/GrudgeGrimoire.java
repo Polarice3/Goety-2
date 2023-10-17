@@ -77,18 +77,18 @@ public class GrudgeGrimoire extends Item {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.emptyTypes"), false);
                 } else {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.type"), false);
-                }
-                for (EntityType<?> entityType : SEHelper.getGrudgeEntityTypes(player)) {
-                    player.displayClientMessage(Component.translatable(entityType.getDescriptionId()), false);
+                    for (EntityType<?> entityType : SEHelper.getGrudgeEntityTypes(player)) {
+                        player.displayClientMessage(Component.translatable(entityType.getDescriptionId()), false);
+                    }
                 }
             } else {
                 if (SEHelper.getGrudgeEntities(player).isEmpty()){
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.empty"), false);
                 } else {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.grudges"), false);
-                }
-                for (Entity entity : SEHelper.getGrudgeEntities(player)) {
-                    player.displayClientMessage(entity.getDisplayName(), false);
+                    for (Entity entity : SEHelper.getGrudgeEntities(player)) {
+                        player.displayClientMessage(entity.getDisplayName(), false);
+                    }
                 }
             }
         }

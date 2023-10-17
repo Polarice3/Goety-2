@@ -1,0 +1,30 @@
+{
+  "name": "墓灵巨像",
+  "icon": "goety:skull_pile",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_and_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了古代战争机器的示意图和制作缠魂卜胄的方法，你思索有没有什么办法让他们也亡灵化。经过一些试错，你终于发现了一种创造终极不死仆人的方法：墓灵巨像."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:grave_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_golem",
+      "text": "在你拥有大量灵魂能量的情况下，右键具有活力核心的中心的骷髅堆."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "石砖可以用其他类似的方块代替，如深板岩石砖。巨像有各种各样的能力，例如类似红石巨兽的猛击地面，召唤缠魂飞颅到召唤墓灵来帮助它。巨像也可以通过魔杖/杖被命令跟随、徘徊附近或停滞在原位。它们可以用骨块或骨头右键点击修复，但如果召唤师穿上亡灵斗篷，它们会获得再生效果."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "巨像还拥有另一种特殊能力，如果他们的召唤师在他们附近的64个方块内死亡，他们的物品和装备将被巨像吸收。巨像会发出红橙色的光，表明它有自己包含的物品。要取回物品，召唤师只需用铲子右键点击即可。他们也会在被杀时丢弃所有的物品。当然，这需要召唤师在死亡时放下他们的物品。（来自JoTurtleGuy21建议）"
+    }
+  ]
+}

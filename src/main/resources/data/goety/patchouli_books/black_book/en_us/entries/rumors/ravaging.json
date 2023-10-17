@@ -11,7 +11,7 @@
     {
       "type": "patchouli:quest",
       "trigger": "goety:goety/read_ravaging_scroll",
-      "text": "Search through Woodland Mansions for any information."
+      "text": "Search through $(l)Woodland Mansions$() for any information."
     }
   ]
 }

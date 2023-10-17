@@ -145,6 +145,7 @@
   "entity.goety.chest_boat":"Boat with Chest",
 
   "entity.goety.haunted_armor_stand":"Haunted Armor Stand",
+  "entity.goety.haunted_painting":"Haunted Painting",
 
   "entity.goety.fire_blast_trap":"Fire Blast Trap",
   "entity.goety.lightning_trap":"Lightning Trap",
@@ -295,6 +296,7 @@
   "item.goety.rotten_chest_boat": "Rotten Chest Boat",
 
   "item.goety.haunted_armor_stand":"Haunted Armor Stand",
+  "item.goety.haunted_painting":"Haunted Painting",
 
   "item.goety.cursed_knight_helmet": "Cursed Knight Helmet",
   "item.goety.cursed_knight_chestplate": "Cursed Knight Chestplate",

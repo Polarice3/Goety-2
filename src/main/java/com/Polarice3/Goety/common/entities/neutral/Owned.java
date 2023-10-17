@@ -177,10 +177,8 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     public boolean isAlliedTo(Entity entityIn) {
         if (this.getTrueOwner() != null) {
             LivingEntity trueOwner = this.getTrueOwner();
-            return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner;
-        }
-        if (entityIn instanceof Owned owned){
-            return MobUtil.ownerStack(this, owned);
+            return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner
+                    || (entityIn instanceof Owned owned && MobUtil.ownerStack(this, owned));
         }
         return super.isAlliedTo(entityIn);
     }

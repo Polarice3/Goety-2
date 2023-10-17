@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.armor;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -11,40 +10,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum ModArmorMaterials implements ArmorMaterial {
+public enum DefaultArmorAttributes implements ArmorMaterial {
     //{feet, legs, chest, head}
 
-    CURSED_KNIGHT("cursed_knight", MainConfig.CursedKnightDurability.get(),
-            new int[]{MainConfig.CursedKnightFeet.get(),
-                    MainConfig.CursedKnightLegs.get(),
-                    MainConfig.CursedKnightChest.get(),
-                    MainConfig.CursedKnightHead.get()},
-            MainConfig.CursedKnightEnchantability.get(),
-            SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.CursedKnightToughness.get().floatValue(),
-            MainConfig.CursedKnightKnockResist.get().floatValue(), () -> {
+    CURSED_KNIGHT("cursed_knight", 15, new int[]{2, 5, 6, 2}, 15, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    CURSED_PALADIN("cursed_paladin", MainConfig.CursedPaladinDurability.get(),
-            new int[]{MainConfig.CursedPaladinFeet.get(),
-                    MainConfig.CursedPaladinLegs.get(),
-                    MainConfig.CursedPaladinChest.get(),
-                    MainConfig.CursedPaladinHead.get()},
-            MainConfig.CursedPaladinEnchantability.get(),
-            SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.CursedPaladinToughness.get().floatValue(),
-            MainConfig.CursedPaladinKnockResist.get().floatValue(), () -> {
+    CURSED_PALADIN("cursed_paladin", 30, new int[]{3, 6, 7, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    DARK("dark", MainConfig.DarkArmorDurability.get(),
-            new int[]{MainConfig.DarkArmorFeet.get(),
-                    MainConfig.DarkArmorLegs.get(),
-                    MainConfig.DarkArmorChest.get(),
-                    MainConfig.DarkArmorHead.get()},
-            MainConfig.DarkArmorEnchantability.get(),
-            SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.DarkArmorToughness.get().floatValue(),
-            MainConfig.DarkArmorKnockResist.get().floatValue(), () -> {
+    DARK("dark", 15, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.1F, () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     });
 
@@ -58,7 +33,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    ModArmorMaterials(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+    private DefaultArmorAttributes(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.slotProtections = slotProtections;
@@ -71,6 +46,10 @@ public enum ModArmorMaterials implements ArmorMaterial {
 
     public int getDurabilityForSlot(EquipmentSlot p_40484_) {
         return HEALTH_PER_SLOT[p_40484_.getIndex()] * this.durabilityMultiplier;
+    }
+
+    public int getDurabilityMultiplier(){
+        return this.durabilityMultiplier;
     }
 
     public int getDefenseForSlot(EquipmentSlot p_40487_) {

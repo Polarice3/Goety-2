@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:mystic_core"
+    "item": "goety:soul_bolt_focus"
   },
   "craftType": "magic",
   "soulCost": 1,
@@ -18,13 +18,13 @@
       "item": "minecraft:fire_charge"
     },
     {
-      "item": "goety:ectoplasm"
+      "item": "minecraft:creeper_head"
     },
     {
       "item": "minecraft:fire_charge"
     },
     {
-      "item": "goety:ectoplasm"
+      "item": "goety:mystic_core"
     },
     {
       "item": "goety:occult_fabric"

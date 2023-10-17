@@ -2,20 +2,20 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:biting_focus"
+    "item": "goety:barricade_focus"
   },
   "craftType": "magic",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [
     {
-      "item": "goety:barricade_focus"
+      "item": "goety:savage_tooth"
     },
     {
       "item": "goety:mystic_core"
     },
     {
-      "tag": "forge:storage_blocks/amethyst"
+      "item": "goety:savage_tooth"
     },
     {
       "tag": "forge:storage_blocks/amethyst"

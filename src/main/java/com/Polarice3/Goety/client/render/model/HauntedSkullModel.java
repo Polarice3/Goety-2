@@ -29,6 +29,17 @@ public class HauntedSkullModel<T extends Entity> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
+	public static LayerDefinition createFirelessLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create()
+						.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(1.0F)),
+				PartPose.offset(0.0F, 24.0F, 0.0F));
+
+		return LayerDefinition.create(meshdefinition, 64, 32);
+	}
+
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);

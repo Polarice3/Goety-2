@@ -11,7 +11,7 @@
     {
       "type": "patchouli:quest",
       "trigger": "goety:goety/read_warred_scroll",
-      "text": "They say that these monstrous machines were utilized in ancient cities and buried strongholds."
+      "text": "They say that these monstrous machines were utilized in $(l)ancient cities$() and buried $(l)strongholds.$()"
     }
   ]
 }

@@ -155,6 +155,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL, HauntedSkullModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL_FIRELESS, HauntedSkullModel::createFirelessLayer);
         event.registerLayerDefinition(ModModelLayer.SKULL_LORD, SkullLordModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER_ARMOR, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_HAT, DarkHatModel::createDarkHatLayer);
@@ -257,6 +258,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
+        event.registerEntityRenderer(ModEntityType.MOD_PAINTING.get(), ModPaintingRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_STAND.get(), HauntedArmorStandRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);

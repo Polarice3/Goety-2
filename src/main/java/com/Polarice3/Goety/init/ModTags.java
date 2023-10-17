@@ -1,9 +1,12 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -12,6 +15,7 @@ public class ModTags {
     public static void init () {
         ModTags.Blocks.init();
         ModTags.Items.init();
+        ModTags.Paintings.init();
     }
 
     public static class Blocks {
@@ -37,6 +41,21 @@ public class ModTags {
         private static TagKey<Item> tag(String name)
         {
             return ItemTags.create(Goety.location(name));
+        }
+    }
+
+    public static class Paintings {
+        private static void init(){}
+
+        public static final TagKey<PaintingVariant> MODDED_PAINTINGS = tag("placeable");
+
+        private static TagKey<PaintingVariant> tag(String name)
+        {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<PaintingVariant> create(ResourceLocation p_215874_) {
+            return TagKey.create(Registry.PAINTING_VARIANT_REGISTRY, p_215874_);
         }
     }
 }

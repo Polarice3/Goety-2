@@ -654,6 +654,7 @@ public class GraveGolem extends Summoned {
         soulSkull.setPos(this.getX() + x + (vector3d.x / 2), this.getY(0.75D), this.getZ() + z + (vector3d.z / 2));
         soulSkull.setYRot(this.getYRot());
         soulSkull.setXRot(this.getXRot());
+        soulSkull.setUpgraded(true);
         this.level.addFreshEntity(soulSkull);
         this.playSound(ModSounds.GRAVE_GOLEM_BLAST.get(), 1.0F, 1.0F);
     }
@@ -758,14 +759,9 @@ public class GraveGolem extends Summoned {
                 GraveGolem.this.playSound(SoundEvents.GENERIC_EXPLODE, 2.0F, 1.0F);
                 AABB aabb = makeAttackRange(GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2,
                         GraveGolem.this.getY(),
-                        GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 7, 5, 7);
-                if (GraveGolem.this.getTarget() != null){
-                    if (GraveGolem.this.targetClose(GraveGolem.this.getTarget())){
-                        this.hurtTarget(GraveGolem.this.getTarget());
-                    }
-                }
+                        GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 9, 7, 9);
                 for (LivingEntity target : GraveGolem.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
-                    if (target != GraveGolem.this.getTarget() && target != GraveGolem.this && !target.isAlliedTo(GraveGolem.this) && !GraveGolem.this.isAlliedTo(target)) {
+                    if (target != GraveGolem.this && !target.isAlliedTo(GraveGolem.this) && !GraveGolem.this.isAlliedTo(target)) {
                         this.hurtTarget(target);
                     }
                 }

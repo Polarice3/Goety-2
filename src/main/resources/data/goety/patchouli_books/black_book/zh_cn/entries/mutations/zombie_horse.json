@@ -1,0 +1,15 @@
+{
+  "name": "僵尸马",
+  "icon": "minecraft:zombie_horse_spawn_egg",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一匹腐烂的马！送给已经腐烂的巫师！这些不死的马比你认识的任何僵尸都要温顺和敏捷得多."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_zombify_horse"
+    }
+  ]
+}

@@ -109,31 +109,41 @@ public class ItemHelper {
     }
 
     public static boolean armorSet(LivingEntity living, ArmorMaterial material){
-        if (living.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem head) {
-            if (living.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem chest) {
-                if (living.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem legs){
-                    if (living.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem feet){
-                        return head.getMaterial() == material && chest.getMaterial() == material && legs.getMaterial() == material && feet.getMaterial() == material;
+        int i = 0;
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+            if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
+                if (living.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem armorItem){
+                    if (armorItem.getMaterial() == material){
+                        ++i;
                     }
                 }
             }
         }
-        return false;
+        return i >= 4;
     }
 
     public static boolean isFullArmored(LivingEntity living){
-        if (living.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem) {
-            if (living.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem) {
-                if (living.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem){
-                    return living.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem;
+        int i = 0;
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+            if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
+                if (living.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem){
+                    ++i;
                 }
             }
         }
-        return false;
+        return i >= 4;
     }
 
     public static boolean noArmor(LivingEntity living){
-        return living.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && living.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && living.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && living.getItemBySlot(EquipmentSlot.FEET).isEmpty();
+        int i = 0;
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+            if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
+                if (living.getItemBySlot(equipmentSlot).isEmpty()){
+                    ++i;
+                }
+            }
+        }
+        return i >= 4;
     }
 
     public static void repairTick(ItemStack stack, Entity entityIn, boolean isSelected){

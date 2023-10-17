@@ -113,6 +113,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTEN_CHEST_BOAT = ITEMS.register("rotten_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.ROTTEN, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
     public static final RegistryObject<Item> HAUNTED_ARMOR_STAND = ITEMS.register("haunted_armor_stand", HauntedArmorStandItem::new);
+    public static final RegistryObject<Item> MOD_PAINTING = ITEMS.register("haunted_painting", ModPaintingItem::new);
 
     //Curios
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);

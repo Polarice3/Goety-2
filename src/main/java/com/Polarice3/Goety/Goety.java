@@ -39,10 +39,7 @@ import com.Polarice3.Goety.common.world.ModMobSpawnBiomeModifier;
 import com.Polarice3.Goety.common.world.processors.ModProcessors;
 import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.OtherModCompat;
-import com.Polarice3.Goety.init.ModDispenserRegister;
-import com.Polarice3.Goety.init.ModProxy;
-import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.init.RaidAdditions;
+import com.Polarice3.Goety.init.*;
 import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
@@ -151,6 +148,7 @@ public class Goety {
         ModSpawnEggs.init();
         GoetyEffects.init();
         ModPotions.init();
+        ModPaintings.init();
         ModSounds.init();
     }
 

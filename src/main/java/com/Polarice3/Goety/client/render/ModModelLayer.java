@@ -48,6 +48,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation DARK_ARMOR_OUTER = registerOuterArmor("dark_armor");
     public static final ModelLayerLocation MINION = register("minion");
     public static final ModelLayerLocation HAUNTED_SKULL = register("cursed_skull");
+    public static final ModelLayerLocation HAUNTED_SKULL_FIRELESS = register("fireless_skull");
     public static final ModelLayerLocation SKULL_LORD = register("skull_lord");
     public static final ModelLayerLocation TORMENTOR = register("tormentor");
     public static final ModelLayerLocation INQUILLAGER = register("inquillager");

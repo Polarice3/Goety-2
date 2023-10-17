@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "goety:haunted_planks"
+  },
+  "base": {
+    "item": "minecraft:painting"
+  },
+  "result": {
+    "item": "goety:haunted_painting"
+  }
+}

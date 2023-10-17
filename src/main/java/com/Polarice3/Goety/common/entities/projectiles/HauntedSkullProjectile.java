@@ -37,6 +37,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     private int burning = 0;
     public float damage = SpellConfig.HauntedSkullDamage.get().floatValue();
     public boolean upgraded;
+    public boolean isPowered;
 
     public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {
         super(p_i50166_1_, p_i50166_2_);
@@ -74,6 +75,12 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             for(int j = 0; j < 2; ++j) {
                 this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 + this.random.nextGaussian() * (double)0.3F, d1 + this.random.nextGaussian() * (double)0.3F, d2 + this.random.nextGaussian() * (double)0.3F, 0.0D, 0.0D, 0.0D);
             }
+        } else {
+            if (this.upgraded){
+                this.level.broadcastEntityEvent(this, (byte) 4);
+            } else {
+                this.level.broadcastEntityEvent(this, (byte) 5);
+            }
         }
     }
 
@@ -95,6 +102,10 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
 
     public void setUpgraded(boolean upgraded) {
         this.upgraded = upgraded;
+    }
+
+    public boolean isPowered() {
+        return this.isPowered;
     }
 
     protected void onHitEntity(EntityHitResult pResult) {
@@ -252,5 +263,16 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             this.setDamage(pCompound.getFloat("Damage"));
         }
 
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_19882_) {
+        if (p_19882_ == 4){
+            this.isPowered = true;
+        } else if (p_19882_ == 5) {
+            this.isPowered = false;
+        } else {
+            super.handleEntityEvent(p_19882_);
+        }
     }
 }

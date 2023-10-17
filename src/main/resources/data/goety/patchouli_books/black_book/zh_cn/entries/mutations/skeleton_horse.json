@@ -1,0 +1,15 @@
+{
+  "name": "骷髅马",
+  "icon": "minecraft:skeleton_horse_spawn_egg",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尽管它是骨头做的，但它不仅能承受你自己，甚至还能扛住七个埃菲尔铁塔的重量而不会断裂，而且还能在水下骑行."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_horse"
+    }
+  ]
+}
