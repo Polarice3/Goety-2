@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells;
+package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;

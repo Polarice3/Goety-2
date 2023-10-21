@@ -78,6 +78,11 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNTED_ARMOR_STAND = register("haunted_armor_stand");
     public static final ModelLayerLocation HAS_INNER = registerInnerArmor("haunted_armor_stand");
     public static final ModelLayerLocation HAS_OUTER = registerOuterArmor("haunted_armor_stand");
+    public static final ModelLayerLocation SMALL_PAINTING = register("small_painting");
+    public static final ModelLayerLocation MEDIUM_PAINTING = register("medium_painting");
+    public static final ModelLayerLocation LARGE_PAINTING = register("large_painting");
+    public static final ModelLayerLocation TALL_PAINTING = register("tall_painting");
+    public static final ModelLayerLocation WIDE_PAINTING = register("wide_painting");
 
     private static ModelLayerLocation register(String p_171294_) {
         return register(p_171294_, "main");

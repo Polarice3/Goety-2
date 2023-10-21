@@ -34,7 +34,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -79,16 +78,6 @@ public class Summoned extends Owned {
         if (this.isHostile()){
             super.checkDespawn();
         }
-    }
-
-    protected boolean isSunBurnTick() {
-        if (this.level.isDay() && !this.level.isClientSide) {
-            float f = this.getLightLevelDependentMagicValue();
-            BlockPos blockpos = this.getVehicle() instanceof Boat ? (new BlockPos(this.getX(), (double)Math.round(this.getY()), this.getZ())).above() : new BlockPos(this.getX(), (double)Math.round(this.getY()), this.getZ());
-            return f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.level.canSeeSky(blockpos);
-        }
-
-        return false;
     }
 
     public ItemStack getProjectile(ItemStack pShootable) {

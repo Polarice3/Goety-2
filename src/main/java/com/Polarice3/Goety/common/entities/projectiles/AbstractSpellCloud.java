@@ -17,9 +17,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.network.NetworkHooks;
@@ -28,12 +26,13 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class AbstractSpellCloud extends Entity {
+    private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.PARTICLE);
     private LivingEntity owner;
     private UUID ownerUUID;
     public boolean activated;
-    public float radius = 3.0F;
     public int lifeSpan = 0;
+    public float extraDamage = 0.0F;
 
     public AbstractSpellCloud(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
@@ -57,6 +56,15 @@ public abstract class AbstractSpellCloud extends Entity {
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_PARTICLE, ParticleTypes.RAIN);
+        this.getEntityData().define(DATA_RADIUS, 2.0F);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_19729_) {
+        if (DATA_RADIUS.equals(p_19729_)) {
+            this.refreshDimensions();
+        }
+
+        super.onSyncedDataUpdated(p_19729_);
     }
 
     @Override
@@ -73,6 +81,9 @@ public abstract class AbstractSpellCloud extends Entity {
         if (p_20052_.contains("LifeSpan")) {
             this.lifeSpan = p_20052_.getInt("LifeSpan");
         }
+        if (p_20052_.contains("ExtraDamage")){
+            this.extraDamage = p_20052_.getFloat("ExtraDamage");
+        }
     }
 
     @Override
@@ -80,6 +91,7 @@ public abstract class AbstractSpellCloud extends Entity {
         p_20139_.putString("Particle", this.getRainParticle().writeToString());
         p_20139_.putBoolean("Activated", this.activated);
         p_20139_.putInt("LifeSpan", this.lifeSpan);
+        p_20139_.putFloat("ExtraDamage", this.extraDamage);
     }
 
     public void setOwner(@Nullable LivingEntity p_190549_1_) {
@@ -113,6 +125,10 @@ public abstract class AbstractSpellCloud extends Entity {
 
     public int getColor(){
         return 0xffffff;
+    }
+
+    public void setExtraDamage(float extraDamage){
+        this.extraDamage = extraDamage;
     }
 
     @Override
@@ -154,11 +170,21 @@ public abstract class AbstractSpellCloud extends Entity {
     }
 
     public void setRadius(float radius){
-        this.radius = radius;
+        if (!this.level.isClientSide) {
+            this.getEntityData().set(DATA_RADIUS, Mth.clamp(radius, 0.0F, 32.0F));
+        }
     }
 
-    public float getRadius(){
-        return this.radius;
+    public float getRadius() {
+        return this.getEntityData().get(DATA_RADIUS);
+    }
+
+    public void refreshDimensions() {
+        double d0 = this.getX();
+        double d1 = this.getY();
+        double d2 = this.getZ();
+        super.refreshDimensions();
+        this.setPos(d0, d1, d2);
     }
 
     public void cloudParticles(int color){
@@ -194,6 +220,10 @@ public abstract class AbstractSpellCloud extends Entity {
     }
 
     public void hurtEntities(LivingEntity livingEntity){
+    }
+
+    public EntityDimensions getDimensions(Pose p_19721_) {
+        return EntityDimensions.scalable(this.getRadius() * 2.0F, 0.5F);
     }
 
     @Override

@@ -78,6 +78,13 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> FREEZING = EFFECTS.register("freezing",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
+    public static final RegistryObject<MobEffect> STUNNED = EFFECTS.register("stunned",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffbc2e)
+                    .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "e4669259-9b6f-40d2-b253-46e65b1f3363",
+                            -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, "963d8748-941f-4f75-b4a6-a9c85013f27f",
+                            -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
     //Brew Exclusive
     public static final RegistryObject<MobEffect> PRESSURE = EFFECTS.register("pressure",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x007200));

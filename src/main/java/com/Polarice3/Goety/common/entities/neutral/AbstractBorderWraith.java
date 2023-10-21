@@ -33,9 +33,11 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putDouble("targetX", this.initial.x);
-        pCompound.putDouble("targetY", this.initial.y);
-        pCompound.putDouble("targetZ", this.initial.z);
+        if (this.initial != null) {
+            pCompound.putDouble("targetX", this.initial.x);
+            pCompound.putDouble("targetY", this.initial.y);
+            pCompound.putDouble("targetZ", this.initial.z);
+        }
         pCompound.putInt("breathTick", this.breathTick);
     }
 
@@ -54,33 +56,37 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
         if (!this.level.isClientSide) {
             if (this.getTarget() != null) {
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
-                    if ((this.getTarget().distanceToSqr(this) > Mth.square(4.0F) && !this.getNavigation().isInProgress() || this.isStaying())
-                            && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) {
-                        ++this.fireTick;
-                        this.getNavigation().stop();
-                        this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
-                        double d2 = this.getTarget().getX() - this.getX();
-                        double d1 = this.getTarget().getZ() - this.getZ();
-                        this.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-                        this.yBodyRot = this.getYRot();
-                        if (this.fireTick > 10) {
-                            this.startFiring();
+                    if (!this.isBreathing()) {
+                        if (((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
+                                && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) || this.isFiring()) {
+                            ++this.fireTick;
+                            if (this.isFiring()) {
+                                this.getNavigation().stop();
+                                double d2 = this.getTarget().getX() - this.getX();
+                                double d1 = this.getTarget().getZ() - this.getZ();
+                                this.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                                this.yBodyRot = this.getYRot();
+                            }
+                            if (this.fireTick > 10) {
+                                this.startFiring();
+                            } else {
+                                this.movement();
+                                this.stopFiring();
+                            }
+                            if (this.fireTick == 20) {
+                                this.magicFire(this.getTarget());
+                            }
+                            if (this.fireTick > 44) {
+                                this.fireTick = -30;
+                            }
                         } else {
-                            this.movement();
+                            if (this.fireTick > 0) {
+                                this.fireTick = 0;
+                            }
                             this.stopFiring();
-                        }
-                        if (this.fireTick > 20) {
-                            this.fireTick = -20;
-                            this.magicFire(this.getTarget());
+                            this.movement();
                         }
                     } else {
-                        if (this.fireTick > 0) {
-                            this.fireTick = 0;
-                        }
-                        this.stopFiring();
-                        this.movement();
-                    }
-                    if (this.isBreathing()){
                         this.getNavigation().stop();
                         this.fireTick = -20;
                         ++this.breathTick;
@@ -95,7 +101,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
 
                             this.initial = this.initial.add(vector3d.x * speed, vector3d.y * speed, vector3d.z * speed);
 
-                            this.level.broadcastEntityEvent(this, (byte) 8);
+                            this.level.broadcastEntityEvent(this, (byte) 10);
                             Entity entity = MobUtil.getSingleTarget(this.level, this, 8, 3.0F);
                             if (entity != null) {
                                 this.doBreathing(entity);
@@ -141,7 +147,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
     public void startBreathing(){
         if (!this.isBreathing()) {
             this.setBreathing(true);
-            this.level.broadcastEntityEvent(this, (byte) 6);
+            this.level.broadcastEntityEvent(this, (byte) 8);
             this.level.broadcastEntityEvent(this, (byte) 100);
             if (!this.isSilent()) {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), ModSounds.WRAITH_PUKE.get(), this.getSoundSource(), 1.0F, 1.0F);
@@ -154,19 +160,19 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
         if (this.isBreathing()) {
             this.setBreathing(false);
             this.breathTick = 0;
-            this.level.broadcastEntityEvent(this, (byte) 7);
+            this.level.broadcastEntityEvent(this, (byte) 9);
         }
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 6) {
+        if (pId == 8) {
             this.setBreathing(true);
             this.breathingAnimationState.start(this.tickCount);
         }
-        if (pId == 7) {
+        if (pId == 9) {
             this.setBreathing(false);
         }
-        if (pId == 8) {
+        if (pId == 10) {
             Vec3 look = this.getLookAngle();
 
             double dist = 0.9;
@@ -174,13 +180,13 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
             double py = this.getEyeY() + look.y() * dist;
             double pz = this.getZ() + look.z() * dist;
 
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 16; i++) {
                 double dx = look.x();
                 double dy = look.y();
                 double dz = look.z();
 
-                double spread = 10 + this.random.nextDouble() * 5;
-                double velocity = 0.3 + this.random.nextDouble() * 0.3;
+                double spread = 10.0D + this.random.nextDouble() * 5.0D;
+                double velocity = 0.45D + this.random.nextDouble() * 0.45D;
 
                 dx += this.getRandom().nextGaussian() * 0.0075D * spread;
                 dy += this.getRandom().nextGaussian() * 0.0075D * spread;
@@ -231,7 +237,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
         public void start() {
             super.start();
             this.wraith.fireTick = -30;
-            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 6);
+            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 8);
             this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 100);
             if (!this.wraith.isSilent()) {
                 this.wraith.level.playSound((Player) null, this.wraith.getX(), this.wraith.getY(), this.wraith.getZ(), ModSounds.WRAITH_PUKE.get(), this.wraith.getSoundSource(), 1.0F, 1.0F);
@@ -241,7 +247,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
 
         public void stop() {
             super.stop();
-            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 7);
+            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 9);
         }
     }
 }

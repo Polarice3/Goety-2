@@ -1,0 +1,16 @@
+{
+  "name": "Alarming Charm",
+  "icon": "goety:alarming_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When hunting you down, the Illagers tend to signal their approach by having rows of fangs below you, or a Tormentor charging at you. With how sneaky they are, you've managed to devise a charm that would signal their arrival towards you."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:alarming_charm"
+    }
+  ]
+}

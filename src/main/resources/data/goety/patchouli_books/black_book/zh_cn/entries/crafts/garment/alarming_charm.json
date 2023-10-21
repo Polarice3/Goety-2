@@ -1,0 +1,16 @@
+{
+  "name": "惊人的魅力",
+  "icon": "goety:alarming_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当追捕你时，掠夺者往往会通过在你下方放出一排尖牙，或者一个折磨者向你冲锋来表示他们的接近。鉴于他们的狡猾程度，你设法设计了一种符咒来表明他们正在接近你."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:alarming_charm"
+    }
+  ]
+}

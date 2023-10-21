@@ -1,5 +1,12 @@
 {
   "textures": [
-    "goety:bullet_effect3"
+    "goety:wraith_fire1",
+    "goety:wraith_fire2",
+    "goety:wraith_fire3",
+    "goety:wraith_fire4",
+    "goety:wraith_fire5",
+    "goety:wraith_fire6",
+    "goety:wraith_fire7",
+    "goety:wraith_fire8"
   ]
 }

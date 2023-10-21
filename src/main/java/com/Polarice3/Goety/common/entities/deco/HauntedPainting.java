@@ -23,21 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ModPainting extends Painting {
-    public ModPainting(EntityType<? extends Painting> p_31904_, Level p_31905_) {
+public class HauntedPainting extends Painting {
+    public HauntedPainting(EntityType<? extends Painting> p_31904_, Level p_31905_) {
         super(p_31904_, p_31905_);
     }
 
-    public ModPainting(EntityType<? extends Painting> p_31706_, Level p_31707_, BlockPos p_31708_) {
+    public HauntedPainting(EntityType<? extends Painting> p_31706_, Level p_31707_, BlockPos p_31708_) {
         this(p_31706_, p_31707_);
         this.pos = p_31708_;
     }
 
-    public ModPainting(Level p_218874_, BlockPos p_218875_) {
+    public HauntedPainting(Level p_218874_, BlockPos p_218875_) {
         this(ModEntityType.MOD_PAINTING.get(), p_218874_, p_218875_);
     }
 
-    public ModPainting(Level level, BlockPos blockPos, Direction direction, Holder<PaintingVariant> holder) {
+    public HauntedPainting(Level level, BlockPos blockPos, Direction direction, Holder<PaintingVariant> holder) {
         this(ModEntityType.MOD_PAINTING.get(), level);
         this.setVariant(holder);
         this.setDirection(direction);
@@ -48,8 +48,8 @@ public class ModPainting extends Painting {
         this.entityData.set(DATA_PAINTING_VARIANT_ID, p_218892_);
     }
 
-    public static Optional<ModPainting> createModded(Level p_218888_, BlockPos p_218889_, Direction p_218890_) {
-        ModPainting painting = new ModPainting(p_218888_, p_218889_);
+    public static Optional<HauntedPainting> createModded(Level p_218888_, BlockPos p_218889_, Direction p_218890_) {
+        HauntedPainting painting = new HauntedPainting(p_218888_, p_218889_);
         List<Holder<PaintingVariant>> list = new ArrayList<>();
         Registry.PAINTING_VARIANT.getTagOrEmpty(ModTags.Paintings.MODDED_PAINTINGS).forEach(list::add);
         if (list.isEmpty()) {
@@ -63,7 +63,7 @@ public class ModPainting extends Painting {
             if (list.isEmpty()) {
                 return Optional.empty();
             } else {
-                int i = list.stream().mapToInt(ModPainting::variantArea).max().orElse(0);
+                int i = list.stream().mapToInt(HauntedPainting::variantArea).max().orElse(0);
                 list.removeIf((p_218883_) -> {
                     return variantArea(p_218883_) < i;
                 });
@@ -92,11 +92,11 @@ public class ModPainting extends Painting {
                 }
             }
 
-            this.spawnAtLocation(ModItems.MOD_PAINTING.get());
+            this.spawnAtLocation(ModItems.HAUNTED_PAINTING.get());
         }
     }
 
     public ItemStack getPickResult() {
-        return new ItemStack(ModItems.MOD_PAINTING.get());
+        return new ItemStack(ModItems.HAUNTED_PAINTING.get());
     }
 }

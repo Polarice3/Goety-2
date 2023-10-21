@@ -5,7 +5,7 @@ import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
-import com.Polarice3.Goety.common.entities.deco.ModPainting;
+import com.Polarice3.Goety.common.entities.deco.HauntedPainting;
 import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
@@ -235,8 +235,8 @@ public class ModEntityType {
                     .sized(1.375F, 0.5625F)
                     .clientTrackingRange(10));
 
-    public static final RegistryObject<EntityType<ModPainting>> MOD_PAINTING = register("haunted_painting",
-            EntityType.Builder.<ModPainting>of(ModPainting::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<HauntedPainting>> MOD_PAINTING = register("haunted_painting",
+            EntityType.Builder.<HauntedPainting>of(HauntedPainting::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
@@ -550,8 +550,8 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
-    public static final RegistryObject<EntityType<FrostSpellCloud>> FROST_CLOUD = register("frost_cloud",
-            EntityType.Builder.<FrostSpellCloud>of(FrostSpellCloud::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<HailCloud>> HAIL_CLOUD = register("hail_cloud",
+            EntityType.Builder.<HailCloud>of(HailCloud::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)

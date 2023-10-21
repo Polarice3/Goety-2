@@ -32,7 +32,7 @@ import java.util.Arrays;
 import static net.minecraftforge.common.brewing.BrewingRecipeRegistry.canBrew;
 
 /**
- * Code based from @cnlimiter's Portable-Craft mod
+ * Code based from @cnlimiter's Portable-Craft mod: <a href="https://github.com/Nova-Committee/Portable-Craft/blob/1.18.2-forge/src/main/java/committee/nova/portablecraft/common/containers/BrewingStandInventory.java">...</a>
  */
 public class WitchRobeInventory extends SimpleContainer implements MenuProvider {
     /**

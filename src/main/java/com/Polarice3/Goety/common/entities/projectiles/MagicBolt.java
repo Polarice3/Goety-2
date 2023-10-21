@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -60,7 +61,7 @@ public class MagicBolt extends AbstractHurtingProjectile {
         Entity target = pResult.getEntity();
         Entity owner = this.getOwner();
         LivingEntity livingentity = owner instanceof LivingEntity ? (LivingEntity)owner : null;
-        float damage = 4.0F;
+        float damage = SpellConfig.MagicBoltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         boolean flag;
         if (livingentity != null) {
             if (livingentity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){

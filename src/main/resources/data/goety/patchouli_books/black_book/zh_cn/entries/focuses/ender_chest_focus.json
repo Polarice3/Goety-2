@@ -1,0 +1,15 @@
+{
+  "name": "末影箱聚晶",
+  "icon": "goety:ender_chest_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个简单的焦点，施放时可以让你从魔杖尖端进入末影箱"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ender_chest_focus"
+    }
+  ]
+}

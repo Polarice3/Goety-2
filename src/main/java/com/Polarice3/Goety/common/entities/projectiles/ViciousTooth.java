@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -124,7 +125,7 @@ public class ViciousTooth extends Entity {
     }
 
     public void damageTargets(LivingEntity livingEntity){
-        float damage = 12.0F;
+        float damage = SpellConfig.ViciousToothDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         damage += this.extraDamage;
         if (livingEntity != null) {
             if ((this.getOwner() != null && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)) || this.getOwner() == null) {

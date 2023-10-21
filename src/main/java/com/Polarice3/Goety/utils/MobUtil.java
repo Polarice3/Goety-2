@@ -1023,4 +1023,9 @@ public class MobUtil {
         float f5 = Mth.sin(f);
         return new Vec3((double)(f3 * f4), (double)(-f5), (double)(f2 * f4));
     }
+
+    public static void setRot(Entity entity, float p_19916_, float p_19917_) {
+        entity.setYRot(p_19916_ % 360.0F);
+        entity.setXRot(p_19917_ % 360.0F);
+    }
 }

@@ -187,6 +187,11 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.HAUNTED_ARMOR_STAND, HauntedArmorStandModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAS_INNER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(0.5F)));
         event.registerLayerDefinition(ModModelLayer.HAS_OUTER, () -> HauntedArmorStandArmorModel.createBodyLayer(new CubeDeformation(1.0F)));
+        event.registerLayerDefinition(ModModelLayer.SMALL_PAINTING, HauntedPaintingModel::createSmallFrameLayer);
+        event.registerLayerDefinition(ModModelLayer.MEDIUM_PAINTING, HauntedPaintingModel::createMediumFrameLayer);
+        event.registerLayerDefinition(ModModelLayer.LARGE_PAINTING, HauntedPaintingModel::createLargeFrameLayer);
+        event.registerLayerDefinition(ModModelLayer.TALL_PAINTING, HauntedPaintingModel::createTallFrameLayer);
+        event.registerLayerDefinition(ModModelLayer.WIDE_PAINTING, HauntedPaintingModel::createWideFrameLayer);
 
         LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
         LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);
@@ -258,7 +263,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));
         event.registerEntityRenderer(ModEntityType.MOD_CHEST_BOAT.get(), (render) -> new ModBoatRenderer(render, true));
-        event.registerEntityRenderer(ModEntityType.MOD_PAINTING.get(), ModPaintingRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOD_PAINTING.get(), HauntedPaintingRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_STAND.get(), HauntedArmorStandRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARLOCK.get(), WarlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
@@ -312,7 +317,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
-        event.registerEntityRenderer(ModEntityType.FROST_CLOUD.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HAIL_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.TUNNELING_FANG.get(), TrapRenderer::new);
@@ -383,7 +388,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
-        event.register(ModParticleTypes.WRAITH_FIRE.get(), FlameParticle.Provider::new);
+        event.register(ModParticleTypes.WRAITH_FIRE.get(), BreathParticle.Provider::new);
         event.register(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
         event.register(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);

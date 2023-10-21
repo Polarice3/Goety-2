@@ -85,7 +85,8 @@ public abstract class Spells {
         ILL("ill", ModItems.OMINOUS_STAFF.get()),
         FROST("frost", null),
         GEOMANCY("geomancy", null),
-        WIND("wind", ModItems.WIND_STAFF.get());
+        WIND("wind", ModItems.WIND_STAFF.get()),
+        VOID("void", null);
 
         private final Item staff;
         private final Component name;

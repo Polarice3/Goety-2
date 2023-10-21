@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.deco.ModPainting;
+import com.Polarice3.Goety.common.entities.deco.HauntedPainting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,8 +18,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.Optional;
 
-public class ModPaintingItem extends HangingEntityItem {
-    public ModPaintingItem() {
+public class HauntedPaintingItem extends HangingEntityItem {
+    public HauntedPaintingItem() {
         super(ModEntityType.MOD_PAINTING.get(), new Properties().tab(Goety.TAB));
     }
 
@@ -34,7 +34,7 @@ public class ModPaintingItem extends HangingEntityItem {
         } else {
             Level level = p_41331_.getLevel();
             HangingEntity hangingentity;
-            Optional<ModPainting> optional = ModPainting.createModded(level, blockpos1, direction);
+            Optional<HauntedPainting> optional = HauntedPainting.createModded(level, blockpos1, direction);
             if (optional.isEmpty()) {
                 return InteractionResult.CONSUME;
             }

@@ -1,0 +1,15 @@
+{
+  "name": "冰雹聚晶",
+  "icon": "goety:hail_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在目标物块或生物上方召唤一团雪云，降下冰雪，造成少量伤害并造成 五 秒的冰冻."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hail_focus"
+    }
+  ]
+}

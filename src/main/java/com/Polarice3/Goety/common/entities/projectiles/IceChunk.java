@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -157,7 +158,8 @@ public class IceChunk extends Entity {
         damage += this.extraDamage;
         if (livingEntity != null) {
             if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(5), 4));
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(5)));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(10)));
             }
         }
     }
@@ -285,7 +287,7 @@ public class IceChunk extends Entity {
     }
 
     protected boolean canHitEntity(Entity entity) {
-        if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics) {
+        if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics && !(entity instanceof IceChunk)) {
             Entity owner = this.getOwner();
             return owner == null || !owner.isPassengerOfSameVehicle(entity);
         } else {

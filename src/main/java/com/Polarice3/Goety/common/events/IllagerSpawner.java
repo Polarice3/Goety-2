@@ -7,11 +7,16 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -166,6 +171,9 @@ public class IllagerSpawner {
                                         if (!player.hasEffect(MobEffects.BAD_OMEN)) {
                                             player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 0, false, false));
                                         }
+                                    }
+                                    if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
                                     }
                                     return i1;
                                 }
@@ -518,6 +526,9 @@ public class IllagerSpawner {
                     blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                     blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     this.spawnMinister(world, blockpos$mutable, random, player);
+                }
+                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
                 }
                 this.nextTick += MainConfig.IllagerAssaultSpawnFreq.get();
             }
