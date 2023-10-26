@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class DarkArmor extends ArmorItem implements ISoulRepair {
-    public DarkArmor(EquipmentSlot p_40387_) {
+    public DarkArmor(ArmorItem.Type p_40387_) {
         super(ModArmorMaterials.DARK, p_40387_, ModItems.baseProperities());
     }
 
@@ -50,7 +50,7 @@ public class DarkArmor extends ArmorItem implements ISoulRepair {
         consumer.accept(new IClientItemExtensions() {
            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
-               ModelPart root = modelSet.bakeLayer(slot == EquipmentSlot.LEGS ? ModModelLayer.DARK_ARMOR_INNER : ModModelLayer.DARK_ARMOR_OUTER);
+               ModelPart root = modelSet.bakeLayer(equipmentSlot == EquipmentSlot.LEGS ? ModModelLayer.DARK_ARMOR_INNER : ModModelLayer.DARK_ARMOR_OUTER);
                DarkArmorModel model = new DarkArmorModel(root).animate(livingEntity);
                model.hat.visible = equipmentSlot == EquipmentSlot.HEAD;
                model.body.visible = equipmentSlot == EquipmentSlot.CHEST;

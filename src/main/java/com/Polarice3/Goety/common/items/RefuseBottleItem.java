@@ -1,12 +1,10 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +15,7 @@ import net.minecraft.world.level.Level;
 public class RefuseBottleItem extends Item {
 
    public RefuseBottleItem() {
-      super((new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).tab(Goety.TAB).stacksTo(16));
+      super((new Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16));
    }
 
    public ItemStack finishUsingItem(ItemStack p_41348_, Level p_41349_, LivingEntity p_41350_) {
@@ -25,7 +23,7 @@ public class RefuseBottleItem extends Item {
 
       if (!p_41349_.isClientSide) {
          p_41350_.addEffect(new MobEffectInstance(MobEffects.CONFUSION, MathHelper.secondsToTicks(15)));
-         p_41350_.hurt(DamageSource.MAGIC, 2.0F);
+         p_41350_.hurt(p_41349_.damageSources().magic(), 2.0F);
       }
 
       if (p_41348_.isEmpty()) {

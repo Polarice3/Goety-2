@@ -97,7 +97,7 @@ public class VampireBat extends Bat implements IOwned{
         }
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     public UUID getOwnerId() {
         return this.entityData.get(OWNER_UNIQUE_ID).orElse((UUID)null);
     }
@@ -119,7 +119,7 @@ public class VampireBat extends Bat implements IOwned{
         }
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     public UUID getTargetId() {
         return this.entityData.get(TARGET_ID).orElse((UUID)null);
     }
@@ -138,7 +138,7 @@ public class VampireBat extends Bat implements IOwned{
         if (!this.level.isClientSide){
             if (entity instanceof LivingEntity livingEntity){
                 if (!(livingEntity instanceof Bat) && livingEntity != this.getTrueOwner()){
-                    livingEntity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    livingEntity.hurt(this.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     this.callBats(livingEntity);
                 }
             }
@@ -180,10 +180,10 @@ public class VampireBat extends Bat implements IOwned{
 
         if (this.targetPosition == null || this.random.nextInt(30) == 0 || this.targetPosition.closerToCenterThan(this.position(), 2.0D)) {
             if (this.getTarget() != null && this.getTarget().isAlive()){
-                BlockPos blockPos = new BlockPos(this.getTarget().getEyePosition());
-                this.targetPosition = blockPos.offset((double)this.random.nextInt(2) - (double)this.random.nextInt(2), (double)this.random.nextInt(2), (double)this.random.nextInt(2) - (double)this.random.nextInt(2));
+                BlockPos blockPos = BlockPos.containing(this.getTarget().getEyePosition());
+                this.targetPosition = blockPos.offset(this.random.nextInt(2) - this.random.nextInt(2), this.random.nextInt(2), this.random.nextInt(2) - this.random.nextInt(2));
             } else {
-                this.targetPosition = new BlockPos(this.getX() + (double)this.random.nextInt(7) - (double)this.random.nextInt(7), this.getY() + (double)this.random.nextInt(6) - 2.0D, this.getZ() + (double)this.random.nextInt(7) - (double)this.random.nextInt(7));
+                this.targetPosition = BlockPos.containing(this.getX() + (double)this.random.nextInt(7) - (double)this.random.nextInt(7), this.getY() + (double)this.random.nextInt(6) - 2.0D, this.getZ() + (double)this.random.nextInt(7) - (double)this.random.nextInt(7));
             }
         }
 

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.deco.HauntedPainting;
 import net.minecraft.core.BlockPos;
@@ -10,7 +9,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.HangingEntityItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -18,9 +16,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.Optional;
 
-public class HauntedPaintingItem extends HangingEntityItem {
+public class HauntedPaintingItem extends ModHangingEntityItem {
     public HauntedPaintingItem() {
-        super(ModEntityType.MOD_PAINTING.get(), new Properties().tab(Goety.TAB));
+        super(ModEntityType.MOD_PAINTING::get, new Properties());
     }
 
     public InteractionResult useOn(UseOnContext p_41331_) {

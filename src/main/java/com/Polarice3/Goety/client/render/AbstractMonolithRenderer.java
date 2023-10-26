@@ -4,7 +4,7 @@ import com.Polarice3.Goety.client.render.model.MonolithModel;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -28,7 +28,7 @@ public abstract class AbstractMonolithRenderer extends EntityRenderer<AbstractMo
     public void render(AbstractMonolith pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         float f = Math.min(AbstractMonolith.getEmergingTime(), pEntity.getAge());
         pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(pEntity.getYRot()));
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees(pEntity.getYRot()));
         pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
         pMatrixStack.translate(0.0D, 0.0D, 0.0D);
         pMatrixStack.scale(1.0F, 1.0F, 1.0F);

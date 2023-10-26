@@ -87,14 +87,7 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		if (!entity.isDeadOrDying()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
-			if (this.riding) {
-				this.rightLeg.xRot = -1.4137167F;
-				this.rightLeg.yRot = ((float)Math.PI / 10F);
-				this.rightLeg.zRot = 0.07853982F;
-				this.leftLeg.xRot = -1.4137167F;
-				this.leftLeg.yRot = (-(float)Math.PI / 10F);
-				this.leftLeg.zRot = -0.07853982F;
-			} else if (entity.isAggressive() || !entity.walkAnimationState.isStarted()) {
+			if (entity.isAggressive()) {
 				this.animateWalk(entity, limbSwing, limbSwingAmount);
 			}
 		}

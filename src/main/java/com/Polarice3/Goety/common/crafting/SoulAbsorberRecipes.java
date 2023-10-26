@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.crafting;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +29,7 @@ public class SoulAbsorberRecipes implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pInv, RegistryAccess pAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -51,7 +52,7 @@ public class SoulAbsorberRecipes implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pAccess) {
         return ItemStack.EMPTY;
     }
 

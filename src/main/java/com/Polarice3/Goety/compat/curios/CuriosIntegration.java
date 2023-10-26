@@ -6,7 +6,6 @@ import com.Polarice3.Goety.compat.ICompatable;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,7 +56,6 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.TOTEM_OF_ROOTS.get(), "charm")
             .put(ModItems.TOTEM_OF_SOULS.get(), "charm")
             .put(ModItems.WARDING_CHARM.get(), "charm")
-            .put(ModItems.ALARMING_CHARM.get(), "charm")
             .put(ModItems.FOCUS_BAG.get(), "belt")
             .put(ModItems.WARLOCK_SASH.get(), "belt")
             .put(ModItems.WAYFARERS_BELT.get(), "belt")
@@ -79,8 +77,8 @@ public class CuriosIntegration implements ICompatable {
             event.addCapability(new ResourceLocation(Goety.MOD_ID, "curios"), new ICapabilityProvider() {
                 private final LazyOptional<ICurio> curio = LazyOptional.of(() -> new ICurio() {
                     @Override
-                    public void curioTick(String identifier, int index, LivingEntity livingEntity) {
-                        stack.getItem().inventoryTick(stack, livingEntity.level, livingEntity, -1, false);
+                    public void curioTick(SlotContext slotContext) {
+                        stack.getItem().inventoryTick(stack, slotContext.entity().level, slotContext.entity(), -1, false);
 
                     }
 
@@ -95,7 +93,7 @@ public class CuriosIntegration implements ICompatable {
                     }
 
                     @Override
-                    public boolean canSync(String identifier, int index, LivingEntity livingEntity) {
+                    public boolean canSync(SlotContext slotContext) {
                         return true;
                     }
                 });

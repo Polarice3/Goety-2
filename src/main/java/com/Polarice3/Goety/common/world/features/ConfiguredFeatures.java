@@ -1,8 +1,9 @@
 package com.Polarice3.Goety.common.world.features;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,14 +21,15 @@ import java.util.OptionalInt;
 
 public class ConfiguredFeatures {
 
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_HAUNTED_TREE =
-            FeatureUtils.register("haunted_tree_sapling", Feature.TREE, createHaunted().ignoreVines().build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SAPLING_HAUNTED_TREE = FeatureUtils.createKey("haunted_tree_sapling");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SAPLING_ROTTEN_TREE = FeatureUtils.createKey("rotten_tree_sapling");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SAPLING_FANCY_ROTTEN_TREE = FeatureUtils.createKey("fancy_rotten_tree_sapling");
 
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_ROTTEN_TREE =
-            FeatureUtils.register("rotten_tree_sapling", Feature.TREE, createRotten().ignoreVines().build());
-
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_FANCY_ROTTEN_TREE =
-            FeatureUtils.register("fancy_rotten_tree_sapling", Feature.TREE, createFancyRotten().build());
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> p_256171_) {
+        FeatureUtils.register(p_256171_, SAPLING_HAUNTED_TREE, Feature.TREE, createHaunted().ignoreVines().build());
+        FeatureUtils.register(p_256171_, SAPLING_ROTTEN_TREE, Feature.TREE, createRotten().ignoreVines().build());
+        FeatureUtils.register(p_256171_, SAPLING_FANCY_ROTTEN_TREE, Feature.TREE, createFancyRotten().build());
+    }
 
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {
         return (new TreeConfiguration

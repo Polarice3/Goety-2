@@ -16,6 +16,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -216,9 +217,9 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                             f += EnchantmentHelper.getDamageBonus(this.weapon, ((LivingEntity) entity).getMobType());
                         }
                         if (this.getTrueOwner() instanceof Player player) {
-                            boolean attack = entity.hurt(DamageSource.playerAttack(player), f);
+                            boolean attack = entity.hurt(entity.damageSources().playerAttack(player), f);
                             if (entity instanceof EnderDragon enderDragonEntity){
-                                attack = enderDragonEntity.hurt(DamageSource.playerAttack(player), f);
+                                attack = enderDragonEntity.hurt(entity.damageSources().playerAttack(player), f);
                             }
                             if (attack && entity instanceof LivingEntity) {
                                 int enchantment = this.weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
@@ -226,10 +227,10 @@ public class ScytheSlash extends AbstractHurtingProjectile {
                                 SEHelper.increaseSouls(player, MainConfig.DarkScytheSouls.get() * soulEater);
                             }
                         } else {
-                            entity.hurt(DamageSource.mobAttack(this.getTrueOwner()), f);
+                            entity.hurt(entity.damageSources().mobAttack(this.getTrueOwner()), f);
                         }
                     } else {
-                        entity.hurt(DamageSource.GENERIC, f);
+                        entity.hurt(entity.damageSources().generic(), f);
                     }
                 }
             }
@@ -258,7 +259,7 @@ public class ScytheSlash extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

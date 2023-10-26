@@ -4,9 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.entities.NightBeaconBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -15,6 +13,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class NightBeaconRenderer implements BlockEntityRenderer<NightBeaconBlock
         float f1 = p_112192_ < 0 ? f : -f;
         float f2 = Mth.frac(f1 * 0.2F - (float)Mth.floor(f1 * 0.1F));
         p_112185_.pushPose();
-        p_112185_.mulPose(Vector3f.YP.rotationDegrees(f * 2.25F - 45.0F));
+        p_112185_.mulPose(Axis.YP.rotationDegrees(f * 2.25F - 45.0F));
         float f6 = 0.0F;
         float f8 = 0.0F;
         float f9 = -p_112194_;

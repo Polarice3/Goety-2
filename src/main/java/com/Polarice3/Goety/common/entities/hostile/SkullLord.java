@@ -52,7 +52,6 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -294,7 +293,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                         }
                     }
                 } else {
-                    if (this.isOnGround() || this.getTarget().getEyeY() > this.getY()) {
+                    if (this.onGround() || this.getTarget().getEyeY() > this.getY()) {
                         this.moveControl.setWantedPosition(this.getX(), this.getTarget().getEyeY() + 1, this.getZ(), 1.0F);
                     }
                     this.laserTime = 0;
@@ -306,9 +305,8 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                     ++this.stuckTime;
                     if (this.stuckTime >= 100) {
                         flag = true;
-                        Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
                         if (!this.isInvulnerable() && !this.isLasering() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, explosion$mode);
+                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, Level.ExplosionInteraction.MOB);
                         }
                         this.stuckTime = 0;
                     }
@@ -423,7 +421,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                 for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0F))){
                     if (!(livingEntity instanceof BoneLord) && livingEntity != this && livingEntity != this.getTarget()) {
                         if (this.getBoundingBox().intersects(livingEntity.getBoundingBox())) {
-                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionRadius, Explosion.BlockInteraction.NONE);
+                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionRadius, Level.ExplosionInteraction.NONE);
                             if (this.random.nextFloat() < 0.25F){
                                 this.setIsCharging(false);
                             }
@@ -431,7 +429,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                     }
                 }
                 if (this.horizontalCollision || this.verticalCollision){
-                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionRadius, Explosion.BlockInteraction.NONE);
+                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionRadius, Level.ExplosionInteraction.NONE);
                     this.setIsCharging(false);
                 }
                 if (this.chargeTime >= 200){
@@ -505,7 +503,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                     }
                 }
                 if (owned != null) {
-                    BlockPos blockPos = new BlockPos(d3, d4, d5);
+                    BlockPos blockPos = BlockPos.containing(d3, d4, d5);
                     owned.setTrueOwner(this);
                     owned.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 100, 0, false, false));
                     if (!serverLevel.getBlockState(blockPos).isAir()) {
@@ -542,7 +540,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     }
 
     @Override
-    public void remove(Entity.RemovalReason p_146834_) {
+    public void remove(RemovalReason p_146834_) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
         }
@@ -1038,11 +1036,11 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
             LivingEntity livingentity = SkullLord.this.getTarget();
             if (livingentity != null) {
                 if (skullLord.getBoundingBox().intersects(livingentity.getBoundingBox())) {
-                    if (livingentity.hurt(DamageSource.indirectMagic(skullLord, skullLord), (float) skullLord.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                    if (livingentity.hurt(skullLord.damageSources().indirectMagic(skullLord, skullLord), (float) skullLord.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                         if (skullLord.isOnFire()) {
                             livingentity.setSecondsOnFire(5);
                         }
-                        skullLord.level.explode(skullLord, skullLord.getX(), skullLord.getY(), skullLord.getZ(), skullLord.explosionRadius, Explosion.BlockInteraction.NONE);
+                        skullLord.level.explode(skullLord, skullLord.getX(), skullLord.getY(), skullLord.getZ(), skullLord.explosionRadius, Level.ExplosionInteraction.NONE);
                         skullLord.setIsCharging(false);
                     }
                 } else {

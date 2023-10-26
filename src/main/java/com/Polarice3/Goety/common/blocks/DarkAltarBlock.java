@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -38,7 +38,8 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public DarkAltarBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_BLACK)
                 .strength(5.0F, 9.0F)
                 .sound(SoundType.STONE)
                 .noOcclusion()

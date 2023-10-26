@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.model.ViciousPikeModel;
 import com.Polarice3.Goety.common.entities.projectiles.ViciousPike;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -29,7 +29,7 @@ public class ViciousPikeRenderer extends EntityRenderer<ViciousPike> {
                 f1 *= (1.0F - f) / 0.1F;
             }
             pMatrixStack.pushPose();
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
             pMatrixStack.scale(-f1, -f1, f1);
             pMatrixStack.translate(0.0D, -0.73D, 0.0D);

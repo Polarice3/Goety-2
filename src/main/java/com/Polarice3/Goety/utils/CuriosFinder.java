@@ -22,9 +22,10 @@ public class CuriosFinder {
     public static ItemStack findCurio(LivingEntity livingEntity, Predicate<ItemStack> filter){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, filter);
-            if (optional.isPresent()) {
-                foundStack = optional.get().stack();
+            Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(livingEntity).map(inv -> inv.findFirstCurio(filter))
+                    .orElse(Optional.empty());
+            if (slotResult.isPresent()) {
+                foundStack = slotResult.get().stack();
             }
         }
 
@@ -42,9 +43,10 @@ public class CuriosFinder {
     public static ItemStack findCurio(LivingEntity livingEntity, Item item){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, item);
-            if (optional.isPresent()) {
-                foundStack = optional.get().stack();
+            Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(livingEntity).map(inv -> inv.findFirstCurio(item))
+                    .orElse(Optional.empty());
+            if (slotResult.isPresent()) {
+                foundStack = slotResult.get().stack();
             }
         }
 
@@ -109,9 +111,10 @@ public class CuriosFinder {
     public static ItemStack findRing(Player playerEntity){
         ItemStack foundStack = ItemStack.EMPTY;
         if (CuriosLoaded.CURIOS.isLoaded()) {
-            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(playerEntity, CuriosFinder::isRing);
-            if (optional.isPresent()) {
-                foundStack = optional.get().stack();
+            Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(playerEntity).map(inv -> inv.findFirstCurio(CuriosFinder::isRing))
+                    .orElse(Optional.empty());
+            if (slotResult.isPresent()) {
+                foundStack = slotResult.get().stack();
             }
         } else {
             for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {

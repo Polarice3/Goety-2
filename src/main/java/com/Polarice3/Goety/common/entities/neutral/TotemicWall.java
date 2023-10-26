@@ -6,6 +6,7 @@ import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -53,10 +54,10 @@ public class TotemicWall extends AbstractMonolith{
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.isBypassArmor()) {
+        if (!pSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
             this.playSound(ModSounds.WALL_HIT.get());
         }
-        return pSource.isBypassInvul();
+        return pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
     }
 
     @Override

@@ -18,7 +18,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import java.util.function.Consumer;
 
 public class CursedKnightArmor extends ArmorItem {
-    public CursedKnightArmor(EquipmentSlot p_40387_) {
+    public CursedKnightArmor(ArmorItem.Type p_40387_) {
         super(ModArmorMaterials.CURSED_KNIGHT, p_40387_, ModItems.baseProperities());
     }
 
@@ -37,7 +37,7 @@ public class CursedKnightArmor extends ArmorItem {
         consumer.accept(new IClientItemExtensions() {
            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
-               ModelPart root = modelSet.bakeLayer(slot == EquipmentSlot.LEGS ? ModModelLayer.CURSED_KNIGHT_ARMOR_INNER : ModModelLayer.CURSED_KNIGHT_ARMOR_OUTER);
+               ModelPart root = modelSet.bakeLayer(equipmentSlot == EquipmentSlot.LEGS ? ModModelLayer.CURSED_KNIGHT_ARMOR_INNER : ModModelLayer.CURSED_KNIGHT_ARMOR_OUTER);
                CursedKnightArmorModel model = new CursedKnightArmorModel(root);
                model.hat.visible = equipmentSlot == EquipmentSlot.HEAD;
                model.body.visible = equipmentSlot == EquipmentSlot.CHEST;

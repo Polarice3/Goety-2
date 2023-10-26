@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.magic.construct.GraveGolemMold;
 import com.Polarice3.Goety.common.magic.construct.RedstoneGolemMold;
 import net.minecraft.world.InteractionResult;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AnimationCore extends Item {
     public AnimationCore() {
-        super(new Properties().tab(Goety.TAB));
+        super(new Properties());
     }
 
     @NotNull

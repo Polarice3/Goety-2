@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -39,8 +38,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -88,7 +86,8 @@ public class BrewCauldronBlock extends BaseEntityBlock{
     public static final BooleanProperty FAILED = ModStateProperties.FAILED;
 
     public BrewCauldronBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_PURPLE)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_PURPLE)
                 .requiresCorrectToolForDrops()
                 .strength(2.0F)
                 .noOcclusion());
@@ -180,7 +179,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
             if (blockEntity != null) {
                 if (pLevel.getBlockState(pPos).getValue(LEVEL) > 0 && pEntity instanceof LivingEntity && this.isEntityInsideContent(pState, pPos, pEntity)) {
                     if (blockEntity.isHeated() && !pEntity.fireImmune()) {
-                        pEntity.hurt(ModDamageSource.BOILING, 1.0F);
+                        pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.BOILING), 1.0F);
                     }
                 }
                 if (pLevel.getBlockState(pPos).getValue(LEVEL) == 3 && blockEntity.mode != BrewCauldronBlockEntity.Mode.COMPLETED && pEntity instanceof ItemEntity itemEntity) {

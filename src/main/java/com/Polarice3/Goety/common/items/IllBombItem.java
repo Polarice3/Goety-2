@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,9 +13,9 @@ import net.minecraft.world.level.Level;
 
 public class IllBombItem extends Item {
     public IllBombItem() {
-        super(new Item.Properties()
+        super(new Properties()
                 .stacksTo(16)
-                .tab(Goety.TAB));
+                );
     }
 
     public InteractionResultHolder<ItemStack> use(Level p_41128_, Player p_41129_, InteractionHand p_41130_) {

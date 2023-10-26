@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render.layer;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -49,9 +49,9 @@ public class IllusionCapeLayer extends RenderLayer<Doppelganger, PlayerModel<Dop
                f1 += 25.0F;
             }
 
-            p_116615_.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
-            p_116615_.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
-            p_116615_.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
+            p_116615_.mulPose(Axis.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
+            p_116615_.mulPose(Axis.ZP.rotationDegrees(f3 / 2.0F));
+            p_116615_.mulPose(Axis.YP.rotationDegrees(180.0F - f3 / 2.0F));
             VertexConsumer vertexconsumer = p_116616_.getBuffer(RenderType.entitySolid(p_116618_.getCloakTextureLocation()));
             this.getParentModel().renderCloak(p_116615_, vertexconsumer, p_116617_, OverlayTexture.NO_OVERLAY);
             p_116615_.popPose();

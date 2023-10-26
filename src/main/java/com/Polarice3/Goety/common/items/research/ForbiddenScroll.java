@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.research;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;
@@ -22,7 +21,6 @@ import java.util.List;
 public class ForbiddenScroll extends Item {
     public ForbiddenScroll(){
         super(new Properties()
-                .tab(Goety.TAB)
                 .rarity(Rarity.EPIC)
                 .setNoRepair()
                 .stacksTo(1)

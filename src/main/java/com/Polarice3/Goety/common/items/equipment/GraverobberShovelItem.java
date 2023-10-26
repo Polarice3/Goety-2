@@ -1,21 +1,22 @@
 package com.Polarice3.Goety.common.items.equipment;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.BlockHitResult;
@@ -24,7 +25,7 @@ import java.util.Objects;
 
 public class GraverobberShovelItem extends ShovelItem {
     public GraverobberShovelItem() {
-        super(ModTiers.SPECIAL, 1.5F, -3.0F, (new Item.Properties()).rarity(Rarity.UNCOMMON).tab(Goety.TAB));
+        super(ModTiers.SPECIAL, 1.5F, -3.0F, (new Properties()).rarity(Rarity.UNCOMMON));
     }
 
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
@@ -46,14 +47,14 @@ public class GraverobberShovelItem extends ShovelItem {
                 double d0 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
                 double d1 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
                 double d2 = (double) (pLevel.random.nextFloat() * 0.5F) + 0.25D;
-                LootTable loottable = pLevel.getServer().getLootTables().get(EntityType.SKELETON.getDefaultLootTable());
+                LootTable loottable = pLevel.getServer().getLootData().getLootTable(EntityType.SKELETON.getDefaultLootTable());
                 if ((pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND))){
                     if (pLevel.random.nextFloat() <= 0.1F){
                         if (pLevel.random.nextBoolean()){
-                            loottable = pLevel.getServer().getLootTables().get(EntityType.ZOMBIE.getDefaultLootTable());
+                            loottable = pLevel.getServer().getLootData().getLootTable(EntityType.ZOMBIE.getDefaultLootTable());
                         }
-                        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(DamageSource.GENERIC, pEntityLiving);
-                        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                        LootParams.Builder lootcontext$builder = MobUtil.createLootContext(pLevel.damageSources().generic(), pEntityLiving);
+                        LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
                         loottable.getRandomItems(ctx).forEach((loot) -> {
                             ItemEntity itemEntity = new ItemEntity(pLevel, pPos.getX() + d0, pPos.getY() + d1, pPos.getZ() + d2, loot);
                             if (pState.is(BlockTags.SAND)) {
@@ -66,8 +67,8 @@ public class GraverobberShovelItem extends ShovelItem {
                     }
                 } else if (pState.is(BlockTags.WITHER_SUMMON_BASE_BLOCKS)){
                     if (pLevel.random.nextFloat() <= 0.1F){
-                        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(DamageSource.GENERIC, pEntityLiving);
-                        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                        LootParams.Builder lootcontext$builder = MobUtil.createLootContext(pLevel.damageSources().generic(), pEntityLiving);
+                        LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
                         loottable.getRandomItems(ctx).forEach((loot) -> {
                             ItemEntity itemEntity = new ItemEntity(pLevel, pPos.getX() + d0, pPos.getY() + d1, pPos.getZ() + d2, loot);
                             pLevel.addFreshEntity(itemEntity);

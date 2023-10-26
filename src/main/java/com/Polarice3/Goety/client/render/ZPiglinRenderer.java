@@ -19,7 +19,7 @@ public class ZPiglinRenderer extends HumanoidMobRenderer<ZPiglinServant, ZPiglin
 
     public ZPiglinRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, createModel(entityRendererManager.getModelSet()), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_INNER_ARMOR)), new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_OUTER_ARMOR))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_INNER_ARMOR)), new HumanoidModel<>(entityRendererManager.bakeLayer(ModelLayers.ZOMBIFIED_PIGLIN_OUTER_ARMOR)), entityRendererManager.getModelManager()));
         this.addLayer(new ZPiglinBandsLayer<>(this, entityRendererManager.getModelSet()));
     }
 

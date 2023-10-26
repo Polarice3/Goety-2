@@ -110,7 +110,7 @@ public class Minion extends Owned{
 
     public class VexRandomMoveGoal extends Goal {
         public VexRandomMoveGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
@@ -143,7 +143,7 @@ public class Minion extends Owned{
 
     public class VexChargeAttackGoal extends Goal {
         public VexChargeAttackGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {

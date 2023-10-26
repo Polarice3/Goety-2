@@ -2,6 +2,6 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "goety:item/research_scroll",
-    "layer1": "goety:research/ravaging_research"
+    "layer1": "goety:item/research/ravaging_research"
   }
 }

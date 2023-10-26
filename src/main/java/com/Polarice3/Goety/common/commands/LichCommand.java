@@ -37,7 +37,7 @@ public class LichCommand {
             if (!isLich) {
                 lichdom.setLichdom(true);
                 LichdomHelper.sendLichUpdatePacket(player);
-                pSource.sendSuccess(Component.translatable("commands.lich.turnlich.success", player.getDisplayName()), false);
+                pSource.sendSuccess(() -> Component.translatable("commands.lich.turnlich.success", player.getDisplayName()), false);
             } else {
                 throw ERROR_ALREADY_LICH.create();
             }
@@ -55,7 +55,7 @@ public class LichCommand {
                     player.removeEffect(MobEffects.NIGHT_VISION);
                 }
                 LichdomHelper.sendLichUpdatePacket(player);
-                pSource.sendSuccess(Component.translatable("commands.lich.delich.success", player.getDisplayName()), false);
+                pSource.sendSuccess(() -> Component.translatable("commands.lich.delich.success", player.getDisplayName()), false);
             } else {
                 throw ERROR_ALREADY_NOT_LICH.create();
             }
@@ -67,9 +67,9 @@ public class LichCommand {
         ILichdom lichdom = LichdomHelper.getCapability(pPlayer);
         boolean isLich = lichdom.getLichdom();
         if (isLich){
-            pSource.sendSuccess(Component.translatable("commands.lich.query.true", pPlayer.getDisplayName()), false);
+            pSource.sendSuccess(() -> Component.translatable("commands.lich.query.true", pPlayer.getDisplayName()), false);
         } else {
-            pSource.sendSuccess(Component.translatable("commands.lich.query.false", pPlayer.getDisplayName()), false);
+            pSource.sendSuccess(() -> Component.translatable("commands.lich.query.false", pPlayer.getDisplayName()), false);
         }
         return 0;
     }

@@ -409,7 +409,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
                 AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
                 this.castSpell();
-                AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
+                AbstractNecromancer.this.setSpellType(SpellType.NONE);
             }
         }
 
@@ -431,7 +431,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             return ModSounds.SUMMON_SPELL.get();
         }
 
-        protected abstract AbstractNecromancer.SpellType getSpellType();
+        protected abstract SpellType getSpellType();
     }
 
     public class SummonZombieSpell extends UseSpellGoal {
@@ -562,7 +562,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             --this.spellTime;
             if (this.spellTime == 0) {
                 AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
-                AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
+                AbstractNecromancer.this.setSpellType(SpellType.NONE);
                 if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
                     Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
                     if (AbstractNecromancer.this.random.nextFloat() <= 0.25F){
@@ -645,7 +645,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             this.attackIntervalMax = attackMax;
             this.attackRadius = attackRadius;
             this.attackRadiusSqr = attackRadius * attackRadius;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -745,8 +745,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             this.particleSpeed = color;
         }
 
-        public static AbstractNecromancer.SpellType getFromId(int idIn) {
-            for(AbstractNecromancer.SpellType spellType : values()) {
+        public static SpellType getFromId(int idIn) {
+            for(SpellType spellType : values()) {
                 if (idIn == spellType.id) {
                     return spellType;
                 }

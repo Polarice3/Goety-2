@@ -7,7 +7,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -99,11 +98,12 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
 		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 		this.animate(entity.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-		this.animate(entity.walkAnimationState, RedstoneGolemAnimations.WALK, ageInTicks, groundSpeed * 20);
+		if (entity.walkAnimationState.isStarted()) {
+			this.animateWalk(RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		}
 		this.animate(entity.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 		this.animate(entity.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 		this.animate(entity.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);

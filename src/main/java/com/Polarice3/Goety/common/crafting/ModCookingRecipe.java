@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.crafting;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +33,7 @@ public abstract class ModCookingRecipe implements Recipe<Container> {
         return this.ingredient.test(pInv.getItem(0));
     }
 
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pInv, RegistryAccess pAccess) {
         return this.result.copy();
     }
 
@@ -50,7 +51,7 @@ public abstract class ModCookingRecipe implements Recipe<Container> {
         return this.experience;
     }
 
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pAccess) {
         return this.result;
     }
 

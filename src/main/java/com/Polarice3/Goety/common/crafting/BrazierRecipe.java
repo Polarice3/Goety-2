@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class BrazierRecipe implements Recipe<Container> {
-    public static BrazierRecipe.Serializer SERIALIZER = new BrazierRecipe.Serializer();
+    public static Serializer SERIALIZER = new Serializer();
     private final ResourceLocation id;
     private final ItemStack result;
     private final NonNullList<Ingredient> ingredients;
@@ -63,13 +64,13 @@ public class BrazierRecipe implements Recipe<Container> {
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return this.ingredients;
+    public ItemStack assemble(Container p_44001_, RegistryAccess pAccess) {
+        return this.result.copy();
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_) {
-        return this.result.copy();
+    public NonNullList<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
     @Override
@@ -78,7 +79,7 @@ public class BrazierRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pAccess) {
         return this.result;
     }
 

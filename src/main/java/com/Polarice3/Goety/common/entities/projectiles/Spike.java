@@ -1,9 +1,10 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -84,7 +85,7 @@ public class Spike extends GroundProjectile {
         LivingEntity livingentity = this.getOwner();
         if (target.isAlive() && !target.isInvulnerable() && target != livingentity) {
             if (livingentity == null) {
-                if (target.hurt(DamageSource.MAGIC, 1.0F)){
+                if (target.hurt(ModDamageSource.spike(this, this), 1.0F)){
                     this.level.broadcastEntityEvent(target, (byte) 44);
                 }
             } else {
@@ -94,7 +95,7 @@ public class Spike extends GroundProjectile {
                 if (livingentity.isAlliedTo(target)) {
                     return;
                 }
-                if (target.hurt(DamageSource.indirectMagic(this, livingentity), 1.0F)){
+                if (target.hurt(ModDamageSource.spike(this, livingentity), 1.0F)){
                     this.level.broadcastEntityEvent(target, (byte) 44);
                 }
             }
@@ -109,7 +110,7 @@ public class Spike extends GroundProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

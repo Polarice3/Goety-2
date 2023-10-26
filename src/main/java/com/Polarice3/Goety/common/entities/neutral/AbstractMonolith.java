@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -103,7 +104,7 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public boolean isInvulnerableTo(DamageSource p_219427_) {
-        return this.isEmerging() && !p_219427_.isBypassInvul() || super.isInvulnerableTo(p_219427_);
+        return this.isEmerging() && !p_219427_.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || super.isInvulnerableTo(p_219427_);
     }
 
     public static float getEmergingTime(){
@@ -188,8 +189,8 @@ public abstract class AbstractMonolith extends Owned{
         return entitydimensions.scale(1, i);
     }
 
-    public AbstractMonolith.Crackiness getCrackiness() {
-        return AbstractMonolith.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
+    public Crackiness getCrackiness() {
+        return Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
     }
 
     public static enum Crackiness {
@@ -198,7 +199,7 @@ public abstract class AbstractMonolith extends Owned{
         MEDIUM(0.5F),
         HIGH(0.25F);
 
-        private static final List<AbstractMonolith.Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
+        private static final List<Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
             return (double)p_28904_.fraction;
         })).collect(ImmutableList.toImmutableList());
         private final float fraction;
@@ -207,8 +208,8 @@ public abstract class AbstractMonolith extends Owned{
             this.fraction = p_28900_;
         }
 
-        public static AbstractMonolith.Crackiness byFraction(float p_28902_) {
-            for(AbstractMonolith.Crackiness irongolem$crackiness : BY_DAMAGE) {
+        public static Crackiness byFraction(float p_28902_) {
+            for(Crackiness irongolem$crackiness : BY_DAMAGE) {
                 if (p_28902_ < irongolem$crackiness.fraction) {
                     return irongolem$crackiness;
                 }

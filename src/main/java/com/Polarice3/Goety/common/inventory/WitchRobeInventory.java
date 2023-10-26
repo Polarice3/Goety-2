@@ -32,7 +32,7 @@ import java.util.Arrays;
 import static net.minecraftforge.common.brewing.BrewingRecipeRegistry.canBrew;
 
 /**
- * Code based from @cnlimiter's Portable-Craft mod: <a href="https://github.com/Nova-Committee/Portable-Craft/blob/1.18.2-forge/src/main/java/committee/nova/portablecraft/common/containers/BrewingStandInventory.java">...</a>
+ * Code based from @cnlimiter's Portable-Craft mod
  */
 public class WitchRobeInventory extends SimpleContainer implements MenuProvider {
     /**
@@ -279,8 +279,12 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
         }
     }
 
+    public boolean sameItem(ItemStack first, ItemStack second) {
+        return !second.isEmpty() && first.is(second.getItem());
+    }
+
     public void addBottlesOrCatalyst(ItemStack itemStack){
-        if (canPlaceItem(3, itemStack) && (isAirOrEmpty(this.items.get(3)) || itemStack.sameItem(this.items.get(3)) && this.items.get(3).getCount() < 64)){
+        if (canPlaceItem(3, itemStack) && (isAirOrEmpty(this.items.get(3)) || sameItem(itemStack, this.items.get(3)) && this.items.get(3).getCount() < 64)){
             this.items.set(3, itemStack.copy());
             itemStack.shrink(1);
             this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC);

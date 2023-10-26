@@ -18,7 +18,10 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -31,7 +34,7 @@ public class FangedDaggerItem extends TieredItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public FangedDaggerItem() {
-        super(ModTiers.SPECIAL, (new Item.Properties()).rarity(Rarity.UNCOMMON).tab(Goety.TAB));
+        super(ModTiers.SPECIAL, (new Properties()).rarity(Rarity.UNCOMMON));
         this.attackDamage = ModTiers.SPECIAL.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));

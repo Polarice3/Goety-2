@@ -37,6 +37,7 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -203,7 +204,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 }
             }
         } else {
-            if (!this.getTarget().isOnGround()){
+            if (!this.getTarget().onGround()){
                 ++this.airBound;
             } else {
                 this.airBound = 0;
@@ -353,11 +354,11 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.playSound(ModSounds.VIZIER_SCREAM.get(), 4.0F, 1.0F);
         if (!MainConfig.VizierMinion.get()) {
             for (Irk ally : Vizier.this.level.getEntitiesOfClass(Irk.class, Vizier.this.getBoundingBox().inflate(64.0D), field_213690_b)) {
-                ally.hurt(DamageSource.STARVE, 200.0F);
+                ally.hurt(ally.damageSources().starve(), 200.0F);
             }
         } else {
             for (Vex ally : Vizier.this.level.getEntitiesOfClass(Vex.class, Vizier.this.getBoundingBox().inflate(64.0D), field_213690_b)) {
-                ally.hurt(DamageSource.STARVE, 200.0F);
+                ally.hurt(ally.damageSources().starve(), 200.0F);
             }
         }
 
@@ -407,7 +408,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     @Override
-    public void remove(Entity.RemovalReason removalReason) {
+    public void remove(RemovalReason removalReason) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
         }
@@ -416,7 +417,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public boolean hurt(DamageSource pSource, float pAmount) {
         LivingEntity livingEntity = this.getTarget();
-        if (this.getInvulnerableTicks() > 0 && pSource != DamageSource.OUT_OF_WORLD){
+        if (this.getInvulnerableTicks() > 0 && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
             return false;
         }
         if (livingEntity != null){
@@ -700,7 +701,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         }
 
         private void spawnFangs(double p_190876_1_, double p_190876_3_, double p_190876_5_, double p_190876_7_, float p_190876_9_, int p_190876_10_) {
-            BlockPos blockpos = new BlockPos(p_190876_1_, p_190876_7_, p_190876_3_);
+            BlockPos blockpos = BlockPos.containing(p_190876_1_, p_190876_7_, p_190876_3_);
             boolean flag = false;
             double d0 = 0.0D;
 
@@ -776,7 +777,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                     if (ally instanceof Vex || ally instanceof Irk){
                         Vizier.this.heal(ally.getHealth());
                         ++i;
-                        ally.hurt(DamageSource.STARVE, 200.0F);
+                        ally.hurt(ally.damageSources().starve(), 200.0F);
                     }
                 }
                 if (i != 0) {
@@ -924,7 +925,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         }
 
         private void createSpellEntity(double p_190876_1_, double p_190876_3_, double p_190876_5_, double p_190876_7_, float p_190876_9_, int p_190876_10_) {
-            BlockPos blockpos = new BlockPos(p_190876_1_, p_190876_7_, p_190876_3_);
+            BlockPos blockpos = BlockPos.containing(p_190876_1_, p_190876_7_, p_190876_3_);
             boolean flag = false;
             double d0 = 0.0D;
 
@@ -993,7 +994,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     class DoNothingGoal extends Goal {
         public DoNothingGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
         }
 
         public boolean canUse() {

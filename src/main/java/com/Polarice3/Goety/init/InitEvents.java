@@ -25,7 +25,7 @@ public class InitEvents {
     public static void onRegisterCommandEvent(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
         LichCommand.register(commandDispatcher);
-        GoetyCommand.register(commandDispatcher);
+        GoetyCommand.register(commandDispatcher, event.getBuildContext());
     }
 
     @SubscribeEvent

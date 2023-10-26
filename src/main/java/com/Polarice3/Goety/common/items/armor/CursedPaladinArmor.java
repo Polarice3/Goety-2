@@ -18,7 +18,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import java.util.function.Consumer;
 
 public class CursedPaladinArmor extends ArmorItem {
-    public CursedPaladinArmor(EquipmentSlot p_40387_) {
+    public CursedPaladinArmor(ArmorItem.Type p_40387_) {
         super(ModArmorMaterials.CURSED_PALADIN, p_40387_, ModItems.baseProperities());
     }
 
@@ -37,7 +37,7 @@ public class CursedPaladinArmor extends ArmorItem {
         consumer.accept(new IClientItemExtensions() {
            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
-               ModelPart root = modelSet.bakeLayer(slot == EquipmentSlot.LEGS ? ModModelLayer.CURSED_PALADIN_ARMOR_INNER : ModModelLayer.CURSED_PALADIN_ARMOR_OUTER);
+               ModelPart root = modelSet.bakeLayer(equipmentSlot == EquipmentSlot.LEGS ? ModModelLayer.CURSED_PALADIN_ARMOR_INNER : ModModelLayer.CURSED_PALADIN_ARMOR_OUTER);
                CursedPaladinArmorModel model = new CursedPaladinArmorModel(root).animate(livingEntity);
                model.hat.visible = equipmentSlot == EquipmentSlot.HEAD;
                model.body.visible = equipmentSlot == EquipmentSlot.CHEST;

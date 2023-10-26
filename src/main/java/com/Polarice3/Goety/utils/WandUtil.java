@@ -83,7 +83,7 @@ public class WandUtil {
     }
 
     public static void spawnFangs(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp) {
-        BlockPos blockpos = new BlockPos(pPosX, pOPosY, pPosZ);
+        BlockPos blockpos = BlockPos.containing(pPosX, pOPosY, pPosZ);
         boolean flag = false;
         double d0 = 0.0D;
 
@@ -274,14 +274,14 @@ public class WandUtil {
     }
 
     private static BlockPos createCenteredBlockPosOnTarget(Entity targetEntity) {
-        return new BlockPos(
+        return BlockPos.containing(
                 Math.floor(targetEntity.getX()),
                 Math.floor(targetEntity.getY()),
                 Math.floor(targetEntity.getZ()));
     }
 
     public static void summonMonolith(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> wallEntityType, double xshift, double zshift, int extra) {
-        targetPos = targetPos.offset(xshift, 1, zshift);
+        targetPos = targetPos.offset((int) xshift, 1, (int) zshift);
         Level level = casterEntity.level;
         AbstractMonolith monolith = wallEntityType.create(level);
         if (monolith != null) {

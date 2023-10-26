@@ -91,4 +91,9 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(ModSignBlockEntity::new,
                     ModBlocks.HAUNTED_SIGN.get(), ModBlocks.HAUNTED_WALL_SIGN.get(),
                     ModBlocks.ROTTEN_SIGN.get(), ModBlocks.ROTTEN_WALL_SIGN.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> HANGING_SIGN_BLOCK_ENTITIES = BLOCK_ENTITY.register("hanging_sign",
+            () -> BlockEntityType.Builder.of(ModHangingSignBlockEntity::new,
+                    ModBlocks.HAUNTED_HANGING_SIGN.get(), ModBlocks.HAUNTED_WALL_HANGING_SIGN.get(),
+                    ModBlocks.ROTTEN_HANGING_SIGN.get(), ModBlocks.ROTTEN_WALL_HANGING_SIGN.get()).build(null));
 }

@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.model.IceChunkModel;
 import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -26,7 +26,7 @@ public class IceChunkRenderer extends EntityRenderer<IceChunk> {
 
     public void render(IceChunk pEntity, float entityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn) {
         pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
         float f;
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
         if (pEntity.isStarting()){

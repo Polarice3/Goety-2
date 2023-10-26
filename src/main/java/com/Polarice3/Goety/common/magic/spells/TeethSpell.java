@@ -58,7 +58,7 @@ public class TeethSpell extends Spells {
         }
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
             blockpos$mutable.move(Direction.UP);
         }
         if (worldIn.noCollision(new AABB(blockpos$mutable))){
@@ -97,7 +97,7 @@ public class TeethSpell extends Spells {
                 blockPos = blockPos.offset(-2 + entityLiving.getRandom().nextInt(4), 0, -2 + entityLiving.getRandom().nextInt(4));
                 BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
                     blockpos$mutable.move(Direction.UP);
                 }
 
@@ -118,7 +118,7 @@ public class TeethSpell extends Spells {
     public void surroundTeeth(LivingEntity livingEntity, BlockPos blockPos, float damage, boolean isStaff){
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-        while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !livingEntity.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+        while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !livingEntity.level.getBlockState(blockpos$mutable).blocksMotion()) {
             blockpos$mutable.move(Direction.UP);
         }
 

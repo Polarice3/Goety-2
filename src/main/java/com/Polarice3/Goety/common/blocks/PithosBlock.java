@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
@@ -38,7 +38,10 @@ public class PithosBlock extends BaseEntityBlock {
     public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
     public PithosBlock() {
-        super(BlockBehaviour.Properties.of(Material.STONE)
+        super(Properties.of()
+                .forceSolidOn()
+                .pushReaction(PushReaction.BLOCK)
+                .mapColor(MapColor.STONE)
                 .strength(2.5F, 3600000.0F)
                 .sound(SoundType.BONE_BLOCK));
         this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, Boolean.FALSE).setValue(LOCKED, Boolean.TRUE).setValue(TRIGGERED, Boolean.FALSE));

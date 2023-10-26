@@ -1,11 +1,8 @@
 package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Tuple;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,10 +15,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
 
 import javax.annotation.Nullable;
-import java.util.Queue;
 
 public class DroughtBlockEffect extends BrewEffect {
     public DroughtBlockEffect() {
@@ -40,58 +35,53 @@ public class DroughtBlockEffect extends BrewEffect {
         }
     }
 
-    private boolean removeWaterBreadthFirstSearch(Level pLevel, BlockPos pPos, int pAreaOfEffect) {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
-        queue.add(new Tuple<>(pPos, 0));
-        int i = 0;
-        BlockState state = pLevel.getBlockState(pPos);
+    private boolean removeWaterBreadthFirstSearch(Level p_56808_, BlockPos p_56809_, int pAreaOfEffect) {
+        BlockState spongeState = p_56808_.getBlockState(p_56809_);
+        Direction[] ALL_DIRECTIONS = Direction.values();
+        return BlockPos.breadthFirstTraversal(p_56809_, 6 * (pAreaOfEffect + 1), 65 * (pAreaOfEffect + 1), (p_277519_, p_277492_) -> {
+            for(Direction direction : ALL_DIRECTIONS) {
+                p_277492_.accept(p_277519_.relative(direction));
+            }
 
-        while(!queue.isEmpty()) {
-            Tuple<BlockPos, Integer> tuple = queue.poll();
-            BlockPos blockpos = tuple.getA();
-            int j = tuple.getB();
-
-            for(Direction direction : Direction.values()) {
-                BlockPos blockpos1 = blockpos.relative(direction);
-                BlockState blockstate = pLevel.getBlockState(blockpos1);
-                FluidState fluidstate = pLevel.getFluidState(blockpos1);
-                Material material = blockstate.getMaterial();
-                if (state.canBeHydrated(pLevel, pPos, fluidstate, blockpos1)) {
-                    if (blockstate.getBlock() instanceof BucketPickup && !((BucketPickup)blockstate.getBlock()).pickupBlock(pLevel, blockpos1, blockstate).isEmpty()) {
-                        ++i;
-                        if (j < 6 * (pAreaOfEffect + 1)) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
-                        }
-                    } else if (blockstate.getBlock() instanceof LiquidBlock) {
-                        pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
-                        ++i;
-                        if (j < 6 * (pAreaOfEffect + 1)) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
-                        }
-                    } else if (material == Material.WATER_PLANT || material == Material.REPLACEABLE_WATER_PLANT) {
-                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(blockpos1) : null;
-                        Block.dropResources(blockstate, pLevel, blockpos1, blockentity);
-                        pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
-                        ++i;
-                        if (j < 6 * (pAreaOfEffect + 1)) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
+        }, (p_279054_) -> {
+            if (p_279054_.equals(p_56809_)) {
+                return true;
+            } else {
+                BlockState blockstate = p_56808_.getBlockState(p_279054_);
+                FluidState fluidstate = p_56808_.getFluidState(p_279054_);
+                if (!spongeState.canBeHydrated(p_56808_, p_56809_, fluidstate, p_279054_)) {
+                    return false;
+                } else {
+                    Block block = blockstate.getBlock();
+                    if (block instanceof BucketPickup) {
+                        BucketPickup bucketpickup = (BucketPickup)block;
+                        if (!bucketpickup.pickupBlock(p_56808_, p_279054_, blockstate).isEmpty()) {
+                            return true;
                         }
                     }
+
+                    if (blockstate.getBlock() instanceof LiquidBlock) {
+                        p_56808_.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                    } else {
+                        if (!blockstate.is(Blocks.KELP) && !blockstate.is(Blocks.KELP_PLANT) && !blockstate.is(Blocks.SEAGRASS) && !blockstate.is(Blocks.TALL_SEAGRASS)) {
+                            return false;
+                        }
+
+                        BlockEntity blockentity = blockstate.hasBlockEntity() ? p_56808_.getBlockEntity(p_279054_) : null;
+                        Block.dropResources(blockstate, p_56808_, p_279054_, blockentity);
+                        p_56808_.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                    }
+
+                    return true;
                 }
             }
-
-            if (i > (64 * (pAreaOfEffect + 1))) {
-                break;
-            }
-        }
-
-        return i > 0;
+        }) > 1;
     }
 
     @Override
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, int pAmplifier){
         if (pTarget.getMobType() == MobType.WATER){
-            pTarget.hurt(DamageSource.DRY_OUT, pAmplifier + 5.0F);
+            pTarget.hurt(pTarget.damageSources().dryOut(), pAmplifier + 5.0F);
         }
     }
 }

@@ -12,14 +12,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.extensions.IForgeBlock;
@@ -29,10 +28,12 @@ import javax.annotation.Nullable;
 public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
 
     public ArcaBlock() {
-        super(Block.Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_PURPLE)
                 .strength(100.0F, 2400.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()
+                .forceSolidOn()
                 .noOcclusion()
         );
     }

@@ -249,7 +249,7 @@ public class AbstractWraith extends Summoned {
         }
 
         Vec3 vector3d = this.getDeltaMovement();
-        if (!this.onGround && vector3d.y < 0.0D && !this.isNoGravity()) {
+        if (!this.onGround()&& vector3d.y < 0.0D && !this.isNoGravity()) {
             this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
         }
 
@@ -391,7 +391,7 @@ public class AbstractWraith extends Summoned {
                     double d3 = this.getTarget().getX() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
                     double d4 = this.getTarget().getY();
                     double d5 = this.getTarget().getZ() + (this.getRandom().nextDouble() - 0.5D) * this.getFollowRange();
-                    BlockPos blockPos1 = new BlockPos(d3, d4, d5);
+                    BlockPos blockPos1 = BlockPos.containing(d3, d4, d5);
                     if (!(this.level.canSeeSky(blockPos1) && this.level.isDay()
                             && !(this.fireImmune() || this.hasEffect(MobEffects.FIRE_RESISTANCE)))) {
                         /*Makes it so that the Wraith teleports to a position where they can see its target.*/

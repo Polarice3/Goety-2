@@ -1,7 +1,7 @@
 {
 	"parent": "goety:item/template_explosive_fungus",
 	"textures": {
-		"fungus": "goety:entity/projectiles/snap_fungus"
+		"fungus": "goety:item/fungus/snap_fungus"
 	},
 	"display": {
 		"thirdperson_righthand": {

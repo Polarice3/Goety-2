@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -135,7 +136,7 @@ public class Inquillager extends HuntingIllagerEntity{
     }
 
     public boolean hurt(@Nonnull DamageSource source, float amount) {
-        if (source.isMagic()){
+        if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)){
             return false;
         } else {
             return super.hurt(source, amount);

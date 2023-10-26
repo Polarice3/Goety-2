@@ -23,13 +23,11 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,10 +58,12 @@ public class HookBellBlock extends BaseEntityBlock {
     private static final VoxelShape CEILING_SHAPE = Shapes.or(BELL_SHAPE, Block.box(7.0D, 13.0D, 7.0D, 9.0D, 16.0D, 9.0D));
 
     public HookBellBlock() {
-        super(BlockBehaviour.Properties
-                .of(Material.METAL, MaterialColor.COLOR_GREEN)
+        super(Properties.of()
+                .forceSolidOn()
+                .mapColor(MapColor.COLOR_GREEN)
                 .requiresCorrectToolForDrops()
                 .strength(5.0F)
+                .pushReaction(PushReaction.DESTROY)
                 .sound(SoundType.ANVIL));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHMENT, BellAttachType.FLOOR).setValue(POWERED, Boolean.valueOf(false)));
     }

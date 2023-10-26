@@ -15,10 +15,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -28,7 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RampagingAxeItem extends AxeItem {
     public RampagingAxeItem() {
-        super(ModTiers.SPECIAL, 5.0F, -3.0F, (new Item.Properties()).rarity(Rarity.UNCOMMON).tab(Goety.TAB));
+        super(ModTiers.SPECIAL, 5.0F, -3.0F, (new Properties()).rarity(Rarity.UNCOMMON));
     }
 
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
@@ -69,7 +67,7 @@ public class RampagingAxeItem extends AxeItem {
                             serverLevel.sendParticles(new ShockwaveParticleOption(0), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
                             serverLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 1.0D, 0.0D, 0.0D, 0.5F);
                         }
-                        world.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F, Explosion.BlockInteraction.NONE);
+                        world.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F, Level.ExplosionInteraction.NONE);
                     }
                 }
             }

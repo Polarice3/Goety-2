@@ -47,7 +47,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
 
     public DrownedServant(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
-        this.maxUpStep = 1.0F;
+        this.setMaxUpStep(1.0F);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
@@ -210,7 +210,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
             this.mob = p_i48910_1_;
             this.speedModifier = p_i48910_2_;
             this.level = p_i48910_1_.level;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
@@ -277,7 +277,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
-                if (this.operation != MoveControl.Operation.MOVE_TO || this.drowned.getNavigation().isDone()) {
+                if (this.operation != Operation.MOVE_TO || this.drowned.getNavigation().isDone()) {
                     this.drowned.setSpeed(0.0F);
                     return;
                 }
@@ -295,7 +295,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
                 this.drowned.setSpeed(f2);
                 this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)f2 * d0 * 0.005D, (double)f2 * d1 * 0.1D, (double)f2 * d2 * 0.005D));
             } else {
-                if (!this.drowned.onGround) {
+                if (!this.drowned.onGround()) {
                     this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
                 }
 

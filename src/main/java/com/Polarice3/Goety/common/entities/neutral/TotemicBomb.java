@@ -7,6 +7,7 @@ import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -15,7 +16,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -68,10 +68,10 @@ public class TotemicBomb extends AbstractMonolith{
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.isBypassArmor()) {
+        if (!pSource.is(DamageTypeTags.BYPASSES_ARMOR)) {
             this.playSound(ModSounds.BOMB_SPARKLE.get());
         }
-        return pSource.isBypassInvul();
+        return pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class TotemicBomb extends AbstractMonolith{
                 serverLevel.sendParticles(new ShockwaveParticleOption(0), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
             }
             this.dead = true;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, Level.ExplosionInteraction.NONE);
             this.discard();
         }
     }

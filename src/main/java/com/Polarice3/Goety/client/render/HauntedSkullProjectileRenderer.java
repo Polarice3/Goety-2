@@ -30,7 +30,7 @@ public class HauntedSkullProjectileRenderer extends LayeredEntityRenderer<Haunte
         pMatrixStack.pushPose();
         pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
         pMatrixStack.translate(0.0D, -1.5D, 0.0D);
-        float f = Mth.rotlerp(pEntity.yRotO, pEntity.getYRot(), pPartialTicks);
+        float f = Mth.rotLerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot());
         float f1 = Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot());
         VertexConsumer ivertexbuilder = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
         this.model.setupAnim(0.0F, f, f1);
@@ -57,7 +57,7 @@ public class HauntedSkullProjectileRenderer extends LayeredEntityRenderer<Haunte
             p_116970_.scale(-1.0F, -1.0F, 1.0F);
             p_116970_.translate(0.0D, -1.5D, 0.0D);
             if (pEntity.isPowered()) {
-                float f = Mth.rotlerp(pEntity.yRotO, pEntity.getYRot(), pPartialTicks);
+                float f = Mth.rotLerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot());
                 float f0 = (float)pEntity.tickCount + pPartialTicks;
                 float f1 = Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot());
                 VertexConsumer vertexconsumer = p_116971_.getBuffer(RenderType.energySwirl(TEXTURE, this.xOffset(f0) % 1.0F, f0 * 0.01F % 1.0F));

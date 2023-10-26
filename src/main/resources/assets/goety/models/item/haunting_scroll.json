@@ -2,6 +2,6 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "goety:item/old_research_scroll",
-    "layer1": "goety:research/haunting_research"
+    "layer1": "goety:item/research/haunting_research"
   }
 }

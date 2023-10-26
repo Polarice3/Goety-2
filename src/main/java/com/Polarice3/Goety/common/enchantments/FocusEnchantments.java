@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public abstract class FocusEnchantments extends Enchantment {
-    public FocusEnchantments(Enchantment.Rarity pRarity, EquipmentSlot... pApplicableSlots) {
+    public FocusEnchantments(Rarity pRarity, EquipmentSlot... pApplicableSlots) {
         super(pRarity, ModEnchantments.FOCUS, pApplicableSlots);
     }
 

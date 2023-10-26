@@ -4,10 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,6 +12,10 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 /**
  * Beam render codes based on BeamEntityRenderer on @Thelnfamous1's Dungeon Gears
@@ -42,8 +43,8 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
         MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
         pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees((Mth.lerp(ticks, boundDegrees(-entity.getYRot()), boundDegrees(-entity.yRotO)))));
-        pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(ticks, boundDegrees(entity.getXRot()), boundDegrees(entity.xRotO))));
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees((Mth.lerp(ticks, boundDegrees(-entity.getYRot()), boundDegrees(-entity.yRotO)))));
+        pMatrixStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(ticks, boundDegrees(entity.getXRot()), boundDegrees(entity.xRotO))));
 
         PoseStack.Pose matrixstack$entry = pMatrixStack.last();
         Matrix3f matrixNormal = matrixstack$entry.normal();
@@ -65,7 +66,7 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
 
     private static void drawBeam(VertexConsumer builder, Matrix4f positionMatrix, Matrix3f matrixNormalIn, float thickness, double distance, double v1, double v2, float ticks, float alpha) {
         Vector3f vector3f = new Vector3f(0.0f, 1.0f, 0.0f);
-        vector3f.transform(matrixNormalIn);
+        matrixNormalIn.transform(vector3f);
         float xMin = -thickness;
         float xMax = thickness;
         float yMin = -thickness - 0.115f;
@@ -74,49 +75,49 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
         float zMax = (float) distance;
 
         Vector4f vec1 = new Vector4f(xMin, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         Vector4f vec2 = new Vector4f(xMin, yMin, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         Vector4f vec3 = new Vector4f(xMin, yMax, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         Vector4f vec4 = new Vector4f(xMin, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMax, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(xMax, yMin, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(xMax, yMax, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMin, yMax, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(xMin, yMax, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(xMax, yMax, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMin, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(xMin, yMin, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(xMax, yMin, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMin, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
     }
 
     private static void drawClosingBeam(VertexConsumer builder, Matrix4f positionMatrix, Matrix3f matrixNormalIn, float thickness, double distance, double v1, double v2, float ticks, float alpha) {
         Vector3f vector3f = new Vector3f(0.0f, 1.0f, 0.0f);
-        vector3f.transform(matrixNormalIn);
+        matrixNormalIn.transform(vector3f);
 
         float xMin = -thickness;
         float xMax = thickness;
@@ -126,43 +127,43 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
         float zMax = (float) distance;
 
         Vector4f vec1 = new Vector4f(xMin, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         Vector4f vec2 = new Vector4f(0, 0, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         Vector4f vec3 = new Vector4f(0, 0, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         Vector4f vec4 = new Vector4f(xMin, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMax, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(0, 0, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(0, 0, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMin, yMax, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(0, 0, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(0, 0, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMax, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
 
         vec1 = new Vector4f(xMin, yMin, zMin, 1.0F);
-        vec1.transform(positionMatrix);
+        positionMatrix.transform(vec1);
         vec2 = new Vector4f(0, 0, zMax, 1.0F);
-        vec2.transform(positionMatrix);
+        positionMatrix.transform(vec2);
         vec3 = new Vector4f(0, 0, zMax, 1.0F);
-        vec3.transform(positionMatrix);
+        positionMatrix.transform(vec3);
         vec4 = new Vector4f(xMax, yMin, zMin, 1.0F);
-        vec4.transform(positionMatrix);
+        positionMatrix.transform(vec4);
         drawQuad(builder, (float) v1, (float) v2, alpha, vector3f, vec1, vec2, vec3, vec4);
     }
 

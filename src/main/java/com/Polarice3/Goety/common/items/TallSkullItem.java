@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -10,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class TallSkullItem extends StandingAndWallBlockItem {
     public TallSkullItem(Block pStandingBlock, Block pWallBlock, Properties pProperties) {
-        super(pStandingBlock, pWallBlock, pProperties);
+        super(pStandingBlock, pWallBlock, pProperties, Direction.DOWN);
     }
 
 

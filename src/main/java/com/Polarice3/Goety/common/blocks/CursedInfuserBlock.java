@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -43,7 +42,8 @@ public class CursedInfuserBlock extends BaseEntityBlock implements SimpleWaterlo
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public CursedInfuserBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.STONE)
                 .strength(3.5F)
                 .sound(SoundType.STONE)
                 .lightLevel(litBlockEmission())
@@ -95,7 +95,7 @@ public class CursedInfuserBlock extends BaseEntityBlock implements SimpleWaterlo
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (!pEntity.fireImmune() && pState.getValue(LIT) && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)pEntity)) {
-            pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
+            pEntity.hurt(pEntity.damageSources().inFire(), 1.0F);
         }
 /*        BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (tileentity instanceof CursedInfuserBlockEntity blockEntity) {

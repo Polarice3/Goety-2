@@ -7,7 +7,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -105,9 +105,9 @@ public record WearRenderer(ResourceLocation texture,
                             matrixStack.translate(0.0D, 0.1D, 0.0D);
                         }
 
-                        matrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
-                        matrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
-                        matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
+                        matrixStack.mulPose(Axis.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
+                        matrixStack.mulPose(Axis.ZP.rotationDegrees(f3 / 2.0F));
+                        matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - f3 / 2.0F));
                         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(getTexture()));
                         new DarkRobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayer.DARK_ROBE)).renderCape(matrixStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY);
                         matrixStack.popPose();

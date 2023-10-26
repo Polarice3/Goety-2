@@ -14,15 +14,14 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 public class NightBeaconBlock extends BaseEntityBlock implements BeaconBeamBlock{
     public NightBeaconBlock() {
-        super(BlockBehaviour.Properties.of(Material.GLASS, MaterialColor.COLOR_BLACK)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_BLACK)
                 .strength(3.0F)
                 .lightLevel((p_152688_) -> {
                     return 15;

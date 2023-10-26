@@ -6,15 +6,15 @@ import com.Polarice3.Goety.common.blocks.RedstoneGolemSkullBlock;
 import com.Polarice3.Goety.common.blocks.TallSkullBlock;
 import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
@@ -39,17 +39,17 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
     }
 
     @Override
-    public void renderByItem(ItemStack pStack, ItemTransforms.TransformType pCamera, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pLight, int pOverlay) {
+    public void renderByItem(ItemStack pStack, ItemDisplayContext pCamera, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pLight, int pOverlay) {
         Item item = pStack.getItem();
 
         if (item instanceof BlockItem) {
             Block block = ((BlockItem) item).getBlock();
             if (block instanceof TallSkullBlock) {
-                if(pCamera == ItemTransforms.TransformType.GUI) {
+                if(pCamera == ItemDisplayContext.GUI) {
                     pMatrixStack.pushPose();
                     pMatrixStack.translate(0.5F, 0.5F, 0.5F);
-                    pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(30));
-                    pMatrixStack.mulPose(Vector3f.YN.rotationDegrees(-45));
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
                     pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
                     pMatrixStack.translate(0.0F, 0.25F, 0.0F);
                     TallSkullBlockEntityRenderer.renderSkull(null, 180.0F, pMatrixStack, pBuffer, pLight);
@@ -59,11 +59,11 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                     TallSkullBlockEntityRenderer.renderSkull(null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
             } else if (block instanceof RedstoneGolemSkullBlock){
-                if(pCamera == ItemTransforms.TransformType.GUI) {
+                if(pCamera == ItemDisplayContext.GUI) {
                     pMatrixStack.pushPose();
                     pMatrixStack.translate(0.5F, 0.5F, 0.5F);
-                    pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(30));
-                    pMatrixStack.mulPose(Vector3f.YN.rotationDegrees(-45));
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
                     pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
                     pMatrixStack.translate(0.0F, 0.25F, 0.0F);
                     RedstoneGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);

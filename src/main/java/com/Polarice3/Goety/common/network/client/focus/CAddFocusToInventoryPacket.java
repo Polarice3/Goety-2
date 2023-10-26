@@ -4,7 +4,7 @@ import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.game.ClientboundCustomSoundPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +48,7 @@ public class CAddFocusToInventoryPacket {
                     }
                 }
                 if (player instanceof ServerPlayer serverPlayer){
-                    serverPlayer.connection.send(new ClientboundCustomSoundPacket(ModSounds.FOCUS_PICK.getId(), SoundSource.PLAYERS, serverPlayer.position(), 1.0F, 1.0F, serverPlayer.getLevel().getRandom().nextLong()));
+                    serverPlayer.connection.send(new ClientboundSoundPacket(ModSounds.FOCUS_PICK.getHolder().get(), SoundSource.PLAYERS, serverPlayer.position().x, serverPlayer.position().y, serverPlayer.position().z, 1.0F, 1.0F, serverPlayer.level().getRandom().nextLong()));
                 }
             }
         });

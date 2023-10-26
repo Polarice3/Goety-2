@@ -29,7 +29,7 @@ public class CraftItemRitual extends Ritual{
             world.addParticle(ParticleTypes.POOF, d0, d1, d2, 0, 0, 0);
         }
 
-        ItemStack result = this.recipe.getResultItem().copy();
+        ItemStack result = this.recipe.getResultItem(world.registryAccess()).copy();
         result.onCraftedBy(world, castingPlayer, 1);
         IItemHandler handler = tileEntity.itemStackHandler.orElseThrow(RuntimeException::new);
         handler.insertItem(0, result, false);

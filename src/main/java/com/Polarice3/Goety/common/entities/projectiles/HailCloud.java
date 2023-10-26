@@ -30,7 +30,7 @@ public class HailCloud extends AbstractSpellCloud{
         if (pTarget != null){
             BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(pTarget.getX(), pTarget.getY(), pTarget.getZ());
 
-            while(blockpos$mutable.getY() < pTarget.getY() + 4.0D && !this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+            while(blockpos$mutable.getY() < pTarget.getY() + 4.0D && !this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                 blockpos$mutable.move(Direction.UP);
             }
             this.setPos(pTarget.getX(), blockpos$mutable.getY(), pTarget.getZ());

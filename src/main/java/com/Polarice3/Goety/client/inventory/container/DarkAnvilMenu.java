@@ -4,6 +4,8 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModTags;
+import net.minecraft.SharedConstants;
+import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 public class DarkAnvilMenu extends ItemCombinerMenu {
@@ -35,6 +39,14 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
 
     public DarkAnvilMenu(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
         this(i, inventory, ContainerLevelAccess.NULL);
+    }
+
+    protected ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
+        return ItemCombinerMenuSlotDefinition.create().withSlot(0, 27, 47, (p_266635_) -> {
+            return true;
+        }).withSlot(1, 76, 47, (p_266634_) -> {
+            return true;
+        }).withResultSlot(2, 134, 47).build();
     }
 
     protected boolean isValidBlock(BlockState p_39019_) {
@@ -280,18 +292,30 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
         return repairCost + 1;
     }
 
-    public void setItemName(String p_39021_) {
-        this.itemName = p_39021_;
-        if (this.getSlot(2).hasItem()) {
-            ItemStack itemstack = this.getSlot(2).getItem();
-            if (StringUtils.isBlank(p_39021_)) {
-                itemstack.resetHoverName();
-            } else {
-                itemstack.setHoverName(Component.literal(this.itemName));
+    public boolean setItemName(String p_288970_) {
+        String s = validateName(p_288970_);
+        if (s != null && !s.equals(this.itemName)) {
+            this.itemName = s;
+            if (this.getSlot(2).hasItem()) {
+                ItemStack itemstack = this.getSlot(2).getItem();
+                if (Util.isBlank(s)) {
+                    itemstack.resetHoverName();
+                } else {
+                    itemstack.setHoverName(Component.literal(s));
+                }
             }
-        }
 
-        this.createResult();
+            this.createResult();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Nullable
+    private static String validateName(String p_288995_) {
+        String s = SharedConstants.filterText(p_288995_);
+        return s.length() <= 50 ? s : null;
     }
 
     public int getCost() {

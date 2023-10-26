@@ -26,7 +26,7 @@ public class SPlayPlayerSoundPacket {
     }
 
     public static SPlayPlayerSoundPacket decode(FriendlyByteBuf buffer) {
-        return new SPlayPlayerSoundPacket(new SoundEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
+        return new SPlayPlayerSoundPacket(SoundEvent.createVariableRangeEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
     }
 
     public static void consume(SPlayPlayerSoundPacket packet, Supplier<NetworkEvent.Context> ctx) {

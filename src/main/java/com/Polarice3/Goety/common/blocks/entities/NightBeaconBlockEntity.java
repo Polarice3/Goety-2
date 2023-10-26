@@ -70,7 +70,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
             float[] afloat = blockstate.getBeaconColorMultiplier(p_155108_, blockpos, p_155109_);
             if (afloat != null) {
                 if (p_155111_.checkingBeamSections.size() <= 1) {
-                    beaconblockentity$beaconbeamsection = new NightBeaconBlockEntity.BeaconBeamSection();
+                    beaconblockentity$beaconbeamsection = new BeaconBeamSection();
                     p_155111_.checkingBeamSections.add(beaconblockentity$beaconbeamsection);
                 } else if (beaconblockentity$beaconbeamsection != null) {
                     beaconblockentity$beaconbeamsection.increaseHeight();

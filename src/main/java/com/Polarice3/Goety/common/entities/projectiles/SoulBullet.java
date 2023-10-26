@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -35,12 +36,12 @@ public class SoulBullet extends AbstractHurtingProjectile {
         Entity entity1 = this.getOwner();
         LivingEntity livingentity = entity1 instanceof LivingEntity ? (LivingEntity)entity1 : null;
         if (livingentity != null && livingentity.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
-            boolean flag = entity.hurt(DamageSource.indirectMagic(this, livingentity).setProjectile(), (float) livingentity.getAttributeValue(Attributes.ATTACK_DAMAGE));
+            boolean flag = entity.hurt(entity.damageSources().mobProjectile(this, livingentity), (float) livingentity.getAttributeValue(Attributes.ATTACK_DAMAGE));
             if (flag) {
                 this.doEnchantDamageEffects(livingentity, entity);
             }
         } else {
-            entity.hurt(DamageSource.MAGIC.setProjectile(), 4.0F);
+            entity.hurt(entity.damageSources().mobProjectile(this, livingentity), 4.0F);
         }
 
     }
@@ -83,7 +84,7 @@ public class SoulBullet extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 public class BlastFungusItem extends Item {
     public BlastFungusItem() {
-        super(new Properties().tab(Goety.TAB));
+        super(new Properties());
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

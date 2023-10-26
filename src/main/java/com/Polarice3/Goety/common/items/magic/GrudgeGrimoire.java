@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.client.resources.language.I18n;
@@ -23,7 +22,6 @@ import javax.annotation.Nonnull;
 public class GrudgeGrimoire extends Item {
     public GrudgeGrimoire() {
         super(new Properties()
-                .tab(Goety.TAB)
                 .stacksTo(1)
                 .rarity(Rarity.RARE));
     }
@@ -77,18 +75,18 @@ public class GrudgeGrimoire extends Item {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.emptyTypes"), false);
                 } else {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.type"), false);
-                    for (EntityType<?> entityType : SEHelper.getGrudgeEntityTypes(player)) {
-                        player.displayClientMessage(Component.translatable(entityType.getDescriptionId()), false);
-                    }
+                }
+                for (EntityType<?> entityType : SEHelper.getGrudgeEntityTypes(player)) {
+                    player.displayClientMessage(Component.translatable(entityType.getDescriptionId()), false);
                 }
             } else {
                 if (SEHelper.getGrudgeEntities(player).isEmpty()){
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.empty"), false);
                 } else {
                     player.displayClientMessage(Component.translatable("info.goety.grimoire.grudges"), false);
-                    for (Entity entity : SEHelper.getGrudgeEntities(player)) {
-                        player.displayClientMessage(entity.getDisplayName(), false);
-                    }
+                }
+                for (Entity entity : SEHelper.getGrudgeEntities(player)) {
+                    player.displayClientMessage(entity.getDisplayName(), false);
                 }
             }
         }

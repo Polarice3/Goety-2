@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -16,6 +15,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -123,7 +123,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         }
 
         recipeLayout.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 15)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItem(null));
 
         recipeLayout.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
                 .addItemStack(this.darkAltar);
@@ -162,7 +162,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics stack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(stack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
@@ -210,8 +210,8 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         return actualX + width;
     }
 
-    protected void drawStringCentered(PoseStack matrixStack, Font fontRenderer, String text, int x, int y) {
-        fontRenderer.draw(matrixStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
+    protected void drawStringCentered(GuiGraphics matrixStack, Font fontRenderer, String text, int x, int y) {
+        matrixStack.drawString(fontRenderer, text, (int) (x - fontRenderer.width(text) / 2.0f), y, 0, false);
     }
 
 }

@@ -36,9 +36,9 @@ public class NecroCapeModel<T extends LivingEntity> extends HumanoidModel<T> {
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition pants = body.addOrReplaceChild("pants", CubeListBuilder.create().texOffs(16, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 12.0F, 0.0F));
+        PartDefinition pants = body.addOrReplaceChild("pants", CubeListBuilder.create().texOffs(16, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, 12.0F, 0.0F));
 
-        PartDefinition middle = pants.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(60, 36).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -2.0F));
+        PartDefinition middle = pants.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(60, 36).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 10.0F, 0.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, 0.0F, -2.0F));
 
         PartDefinition cape = body.addOrReplaceChild("cape", CubeListBuilder.create().texOffs(24, 64).addBox(-8.0F, 0.0F, -2.0F, 16.0F, 24.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -177,8 +177,8 @@ public class NecroCapeModel<T extends LivingEntity> extends HumanoidModel<T> {
         this.cape.xRot = MathHelper.modelDegrees(10.0F) + Mth.abs(Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f);
         if (pEntity.getVehicle() != null){
             if (pEntity.getVehicle().isAlive() && pEntity.getVehicle() instanceof LivingEntity livingEntity) {
-                float f8 = Mth.lerp(Minecraft.getInstance().getPartialTick(), livingEntity.animationSpeedOld, livingEntity.animationSpeed);
-                float f5 = livingEntity.animationPosition - livingEntity.animationSpeed * (1.0F - Minecraft.getInstance().getPartialTick());
+                float f8 = livingEntity.walkAnimation.speed(Minecraft.getInstance().getPartialTick());
+                float f5 = livingEntity.walkAnimation.position(Minecraft.getInstance().getPartialTick());
                 if (livingEntity.isBaby()) {
                     f5 *= 3.0F;
                 }

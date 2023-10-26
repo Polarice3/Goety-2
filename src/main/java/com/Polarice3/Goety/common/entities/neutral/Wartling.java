@@ -264,11 +264,11 @@ public class Wartling extends Summoned {
                 }
                 this.discard();
             } else if (this.searchTime >= MathHelper.secondsToTicks(5)){
-                this.hurt(DamageSource.STARVE, this.getMaxHealth());
+                this.hurt(this.damageSources().starve(), this.getMaxHealth());
             }
         } else {
             this.limitedLifeTicks = 20;
-            this.hurt(DamageSource.STARVE, this.getMaxHealth());
+            this.hurt(this.damageSources().starve(), this.getMaxHealth());
         }
     }
 
@@ -371,7 +371,7 @@ public class Wartling extends Summoned {
             this.walkSpeedModifier = p_25044_;
             this.sprintSpeedModifier = p_25045_;
             this.pathNav = p_25040_.getNavigation();
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {

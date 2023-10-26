@@ -31,7 +31,7 @@ public class SPlayWorldSoundPacket {
     }
 
     public static SPlayWorldSoundPacket decode(FriendlyByteBuf buffer) {
-        return new SPlayWorldSoundPacket(buffer.readBlockPos(), new SoundEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
+        return new SPlayWorldSoundPacket(buffer.readBlockPos(), SoundEvent.createVariableRangeEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
     }
 
     public static void consume(SPlayWorldSoundPacket packet, Supplier<NetworkEvent.Context> ctx) {

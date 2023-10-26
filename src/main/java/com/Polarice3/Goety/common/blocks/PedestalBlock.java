@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -40,7 +40,8 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_BASE_2, SHAPE_PILLAR, SHAPE_HOLDER);
 
     public PedestalBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.STONE)
                 .strength(5.0F, 9.0F)
                 .sound(SoundType.STONE)
                 .noOcclusion()

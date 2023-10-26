@@ -67,9 +67,9 @@ public class GraveGolemRenderer<T extends GraveGolem> extends MobRenderer<T, Gra
 
     public static class GGEmissiveLayer<T extends GraveGolem, M extends GraveGolemModel<T>> extends RenderLayer<T, M> {
         private final ResourceLocation texture;
-        private final GGEmissiveLayer.AlphaFunction<T> alphaFunction;
+        private final AlphaFunction<T> alphaFunction;
 
-        public GGEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, GGEmissiveLayer.AlphaFunction<T> p_234887_) {
+        public GGEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, AlphaFunction<T> p_234887_) {
             super(p_234885_);
             this.texture = p_234886_;
             this.alphaFunction = p_234887_;

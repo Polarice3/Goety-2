@@ -68,10 +68,10 @@ public class Irk extends Minion implements Enemy {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new Irk.OutofBoundsGoal());
-        this.goalSelector.addGoal(2, new Irk.FollowOwnerGoal(this, 0.5D, 6.0f, 3.0f, true));
-        this.goalSelector.addGoal(4, new Irk.ChargeAttackGoal());
-        this.goalSelector.addGoal(8, new Irk.MoveRandomGoal());
+        this.goalSelector.addGoal(1, new OutofBoundsGoal());
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 0.5D, 6.0f, 3.0f, true));
+        this.goalSelector.addGoal(4, new ChargeAttackGoal());
+        this.goalSelector.addGoal(8, new MoveRandomGoal());
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
@@ -379,7 +379,7 @@ public class Irk extends Minion implements Enemy {
                     double z = Mth.floor(this.owner.getZ()) - 2;
                     for(int l = 0; l <= 4; ++l) {
                         for(int i1 = 0; i1 <= 4; ++i1) {
-                            if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.ValidPosition(new BlockPos(x + l, y + 2, z + i1))){
+                            if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.ValidPosition(BlockPos.containing(x + l, y + 2, z + i1))){
                                 float a = (float) ((x + l) + 0.5F);
                                 float b = (float) ((z + i1) + 0.5F);
                                 this.summonedEntity.getMoveControl().setWantedPosition(a, y, b, this.followSpeed);

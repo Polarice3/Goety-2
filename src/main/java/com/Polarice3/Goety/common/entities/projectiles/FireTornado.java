@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -219,15 +220,15 @@ public class FireTornado extends AbstractHurtingProjectile {
     public void hurtMobs(LivingEntity living){
         if (this.getTrueOwner() != null) {
             if (this.getTrueOwner() instanceof Apostle) {
-                if (living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F)){
+                if (living.hurt(this.damageSources().indirectMagic(this, this.getTrueOwner()), AttributesConfig.ApostleMagicDamage.get().floatValue() / 1.5F)){
                     living.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                 }
             } else {
-                living.hurt(DamageSource.indirectMagic(this, this.getTrueOwner()), 4.0F);
+                living.hurt(this.damageSources().indirectMagic(this, this.getTrueOwner()), 4.0F);
             }
         } else {
             if (!living.fireImmune()) {
-                living.hurt(DamageSource.IN_FIRE, 4.0F);
+                living.hurt(this.damageSources().inFire(), 4.0F);
             }
         }
         if (living instanceof Player player){
@@ -300,7 +301,7 @@ public class FireTornado extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -6,8 +6,8 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AnimationState;
@@ -116,9 +116,9 @@ public class ViciousPike extends Entity {
                 if (livingentity.isAlliedTo(target)) {
                     return;
                 }
-                target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
+                target.hurt(damageSources().indirectMagic(this, livingentity), baseDamage);
             } else {
-                target.hurt(DamageSource.MAGIC, baseDamage);
+                target.hurt(damageSources().magic(), baseDamage);
             }
             if (!target.hasImpulse) {
                 MobUtil.push(target, 0, 1, 0);
@@ -143,7 +143,7 @@ public class ViciousPike extends Entity {
         return i <= 0 ? 1.0F : 1.0F - ((float)i - p_36937_) / 20.0F;
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

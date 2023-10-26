@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -207,7 +208,7 @@ public class VanguardServant extends AbstractSkeletonServant {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!this.level.isClientSide) {
-            if (this.hasShield() && !source.isBypassInvul()) {
+            if (this.hasShield() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                 this.destroyShield();
                 return false;
             } else {
@@ -259,7 +260,7 @@ public class VanguardServant extends AbstractSkeletonServant {
             p_21372_.setSecondsOnFire(i * 4);
         }
 
-        boolean flag = p_21372_.hurt(DamageSource.mobAttack(this), f);
+        boolean flag = p_21372_.hurt(this.damageSources().mobAttack(this), f);
         if (flag) {
             if (f1 > 0.0F && p_21372_ instanceof LivingEntity living) {
                 living.knockback((double)(f1 * 0.5F), (double)Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
@@ -369,7 +370,7 @@ public class VanguardServant extends AbstractSkeletonServant {
 
     class MeleeGoal extends Goal {
         public MeleeGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE));
         }
 
         @Override

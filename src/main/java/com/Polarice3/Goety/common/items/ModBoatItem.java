@@ -24,7 +24,7 @@ public class ModBoatItem extends Item {
     private final ModBoat.Type type;
     private final boolean hasChest;
 
-    public ModBoatItem(boolean p_220013_, ModBoat.Type pType, Item.Properties pProperties) {
+    public ModBoatItem(boolean p_220013_, ModBoat.Type pType, Properties pProperties) {
         super(pProperties);
         this.hasChest = p_220013_;
         this.type = pType;

@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.layer.DrownedServantOuterLayer;
 import com.Polarice3.Goety.client.render.model.DrownedServantModel;
 import com.Polarice3.Goety.common.entities.ally.DrownedServant;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +27,7 @@ public class DrownedServantRenderer extends AbstractZombieServantRenderer<Drowne
       super.setupRotations(p_114109_, p_114110_, p_114111_, p_114112_, p_114113_);
       float f = p_114109_.getSwimAmount(p_114113_);
       if (f > 0.0F) {
-         p_114110_.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(f, p_114109_.getXRot(), -10.0F - p_114109_.getXRot())));
+         p_114110_.mulPose(Axis.XP.rotationDegrees(Mth.lerp(f, p_114109_.getXRot(), -10.0F - p_114109_.getXRot())));
       }
 
    }

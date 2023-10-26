@@ -1,9 +1,8 @@
 package com.Polarice3.Goety.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -14,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class SwordProjectileRenderer<T extends AbstractArrow & ItemSupplier> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
@@ -39,14 +39,14 @@ public class SwordProjectileRenderer<T extends AbstractArrow & ItemSupplier> ext
         if (pEntity.tickCount >= 2) {
             pMatrixStack.pushPose();
             pMatrixStack.scale(this.scale, this.scale, this.scale);
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot()) - 90.0F));
-            pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot()) - 45.0F));
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot()) - 90.0F));
+            pMatrixStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot()) - 45.0F));
             float f9 = (float)pEntity.shakeTime - pPartialTicks;
             if (f9 > 0.0F) {
                 float f10 = -Mth.sin(f9 * 5.0F) * f9;
-                pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f10));
+                pMatrixStack.mulPose(Axis.ZP.rotationDegrees(f10));
             }
-            this.itemRenderer.renderStatic(pEntity.getItem(), ItemTransforms.TransformType.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, 0);
+            this.itemRenderer.renderStatic(pEntity.getItem(), ItemDisplayContext.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, pEntity.level, 0);
             pMatrixStack.popPose();
             super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         }

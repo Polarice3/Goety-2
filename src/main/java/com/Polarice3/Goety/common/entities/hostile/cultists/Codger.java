@@ -26,10 +26,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -160,7 +162,7 @@ public class Codger extends Cultist implements RangedAttackMob, IBoss {
     }
 
     @Override
-    public void remove(Entity.RemovalReason p_146834_) {
+    public void remove(RemovalReason p_146834_) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
         }
@@ -171,7 +173,7 @@ public class Codger extends Cultist implements RangedAttackMob, IBoss {
     public void aiStep() {
         super.aiStep();
 
-        if (!this.level.isClientSide && this.isSpecial && !this.isShaking && !this.isPathFinding() && this.onGround) {
+        if (!this.level.isClientSide && this.isSpecial && !this.isShaking && !this.isPathFinding() && this.onGround()) {
             this.isShaking = true;
             this.shakeAnim = 0.0F;
             this.shakeAnimO = 0.0F;
@@ -313,7 +315,7 @@ public class Codger extends Cultist implements RangedAttackMob, IBoss {
             damage = 0.0F;
         }
 
-        if (damageSource.isExplosion()) {
+        if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
             damage *= 0.15F;
         }
 
@@ -328,17 +330,17 @@ public class Codger extends Cultist implements RangedAttackMob, IBoss {
         }
 
         if (this.getHealth() <= 10.0F){
-            if (pSource.isExplosion()){
+            if (pSource.is(DamageTypeTags.IS_EXPLOSION)){
                 return false;
             }
         }
 
-        if (!pSource.isExplosion() && !pSource.isMagic() && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
+        if (!pSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !pSource.is(DamageTypes.THORNS) && pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this) {
             float thorn = 2.0F;
             if (this.level.getDifficulty() == Difficulty.HARD){
                 thorn *= 2.0F;
             }
-            livingentity.hurt(DamageSource.thorns(this), thorn);
+            livingentity.hurt(this.damageSources().thorns(this), thorn);
         }
 
         return super.hurt(pSource, pAmount);

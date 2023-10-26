@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -32,7 +31,8 @@ public class GlowLightBlock extends BaseEntityBlock implements SimpleWaterlogged
     protected static final VoxelShape SHAPE = Block.box(5.0D, 5.0D, 5.0D, 11.0D, 11.0D, 11.0D);
 
     public GlowLightBlock() {
-        super(Properties.of(Material.DECORATION)
+        super(Properties.of()
+                .pushReaction(PushReaction.DESTROY)
                 .instabreak()
                 .sound(SoundType.WOOL)
                 .noCollission()

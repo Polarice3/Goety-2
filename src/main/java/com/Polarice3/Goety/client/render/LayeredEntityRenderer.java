@@ -28,7 +28,7 @@ public abstract class LayeredEntityRenderer<T extends Entity, M extends EntityMo
 
     public void render(T p_115308_, float p_115309_, float p_115310_, PoseStack p_115311_, MultiBufferSource p_115312_, int p_115313_) {
         p_115311_.pushPose();
-        float f = Mth.rotlerp(p_115308_.yRotO, p_115308_.getYRot(), p_115310_);
+        float f = Mth.rotLerp(p_115308_.yRotO, p_115308_.getYRot(), p_115310_);
         float f6 = Mth.lerp(p_115310_, p_115308_.xRotO, p_115308_.getXRot());
         float f7 = p_115308_.tickCount + p_115310_;
         for(RenderLayer<T, M> renderlayer : this.layers) {

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
@@ -13,13 +12,13 @@ import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
-import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
+import com.Polarice3.Goety.common.magic.spells.RecallSpell;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
@@ -69,7 +68,7 @@ public class DarkWand extends Item {
     private static final String SECONDS = "Seconds";
 
     public DarkWand() {
-        super(new Properties().tab(Goety.TAB).stacksTo(1).setNoRepair().rarity(Rarity.RARE));
+        super(new Properties().stacksTo(1).setNoRepair().rarity(Rarity.RARE));
     }
 
     @Override
@@ -127,7 +126,7 @@ public class DarkWand extends Item {
 
     public boolean ReduceCastTime(LivingEntity entityLiving, ItemStack stack){
         if (getSpell(stack) != null && getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
-            return CuriosFinder.hasUndeadCrown(entityLiving);
+            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get());
         } else {
             return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         }
@@ -170,18 +169,16 @@ public class DarkWand extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
         if (!SpellConfig.OwnerHitCommand.get()) {
-            if (player.getMainHandItem() == stack) {
-                if (target instanceof Summoned summonedEntity) {
-                    if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)) {
-                        if (player.isShiftKeyDown() || player.isCrouching()) {
-                            summonedEntity.kill();
-                        } else {
-                            if (summonedEntity.canUpdateMove()) {
-                                summonedEntity.updateMoveMode(player);
-                            }
+            if (target instanceof Summoned summonedEntity) {
+                if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)) {
+                    if (player.isShiftKeyDown() || player.isCrouching()) {
+                        summonedEntity.kill();
+                    } else {
+                        if (summonedEntity.canUpdateMove()) {
+                            summonedEntity.updateMoveMode(player);
                         }
-                        return InteractionResult.SUCCESS;
                     }
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -560,7 +557,7 @@ public class DarkWand extends Item {
         consumer.accept(new IClientItemExtensions() {
 
             private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
-                float f5 = entity.animationPosition - entity.animationSpeed * (1.0F - Minecraft.getInstance().getPartialTick());
+                float f5 = entity.walkAnimation.position(Minecraft.getInstance().getPartialTick());
                 if (arm == HumanoidArm.RIGHT) {
                     model.rightArm.xRot -= MathHelper.modelDegrees(105);
                     model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.25F;
@@ -588,9 +585,9 @@ public class DarkWand extends Item {
                 if (player.isUsingItem()) {
                     applyItemArmTransform(poseStack, arm, equipProcess);
                     poseStack.translate((double)((float)i * -0.2785682F), (double)0.18344387F, (double)0.15731531F);
-                    poseStack.mulPose(Vector3f.XP.rotationDegrees(-13.935F));
-                    poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * 35.3F));
-                    poseStack.mulPose(Vector3f.ZP.rotationDegrees((float)i * -9.785F));
+                    poseStack.mulPose(Axis.XP.rotationDegrees(-13.935F));
+                    poseStack.mulPose(Axis.YP.rotationDegrees((float)i * 35.3F));
+                    poseStack.mulPose(Axis.ZP.rotationDegrees((float)i * -9.785F));
                     float f8 = (float)itemInHand.getUseDuration() - ((float)player.getUseItemRemainingTicks() - partialTick + 1.0F);
                     float f12 = f8 / 20.0F;
                     f12 = (f12 * f12 + f12 * 2.0F) / 3.0F;
@@ -607,7 +604,7 @@ public class DarkWand extends Item {
 
                     poseStack.translate((double)(f12 * 0.0F), (double)(f12 * 0.0F), (double)(f12 * 0.04F));
                     poseStack.scale(1.0F, 1.0F, 1.0F + f12 * 0.2F);
-                    poseStack.mulPose(Vector3f.YN.rotationDegrees((float)i * 45.0F));
+                    poseStack.mulPose(Axis.YN.rotationDegrees((float)i * 45.0F));
                 } else {
                     float f5 = -0.4F * Mth.sin(Mth.sqrt(swingProcess) * (float)Math.PI);
                     float f6 = 0.2F * Mth.sin(Mth.sqrt(swingProcess) * ((float)Math.PI * 2F));
@@ -627,11 +624,11 @@ public class DarkWand extends Item {
             private void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm humanoidArm, float swingProcess) {
                 int i = humanoidArm == HumanoidArm.RIGHT ? 1 : -1;
                 float f = Mth.sin(swingProcess * swingProcess * (float)Math.PI);
-                poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * (45.0F + f * -20.0F)));
+                poseStack.mulPose(Axis.YP.rotationDegrees((float)i * (45.0F + f * -20.0F)));
                 float f1 = Mth.sin(Mth.sqrt(swingProcess) * (float)Math.PI);
-                poseStack.mulPose(Vector3f.ZP.rotationDegrees((float)i * f1 * -20.0F));
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(f1 * -80.0F));
-                poseStack.mulPose(Vector3f.YP.rotationDegrees((float)i * -45.0F));
+                poseStack.mulPose(Axis.ZP.rotationDegrees((float)i * f1 * -20.0F));
+                poseStack.mulPose(Axis.XP.rotationDegrees(f1 * -80.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees((float)i * -45.0F));
             }
         });
     }

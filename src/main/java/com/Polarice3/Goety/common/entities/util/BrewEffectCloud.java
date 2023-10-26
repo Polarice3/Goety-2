@@ -10,9 +10,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.ParticleArgument;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -334,7 +336,7 @@ public class BrewEffectCloud extends Entity {
 
         if (p_19727_.contains("Particle", 8)) {
             try {
-                this.setParticle(ParticleArgument.readParticle(new StringReader(p_19727_.getString("Particle"))));
+                this.setParticle(ParticleArgument.readParticle(new StringReader(p_19727_.getString("Particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup()));
             } catch (CommandSyntaxException ignored) {
             }
         }
@@ -421,7 +423,7 @@ public class BrewEffectCloud extends Entity {
         return PushReaction.IGNORE;
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 

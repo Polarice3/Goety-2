@@ -18,6 +18,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -242,7 +243,7 @@ public class Summoned extends Owned {
             for(EquipmentSlot equipmentSlotType : EquipmentSlot.values()) {
                 if (equipmentSlotType.getType() == EquipmentSlot.Type.ARMOR) {
                     ItemStack itemstack = this.getItemBySlot(equipmentSlotType);
-                    if ((!pDamageSource.isFire() || !itemstack.getItem().isFireResistant()) && itemstack.getItem() instanceof ArmorItem) {
+                    if ((!pDamageSource.is(DamageTypeTags.IS_FIRE) || !itemstack.getItem().isFireResistant()) && itemstack.getItem() instanceof ArmorItem) {
                         itemstack.hurtAndBreak((int) pDamage, this, (p_214023_1_) -> {
                             p_214023_1_.broadcastBreakEvent(equipmentSlotType);
                         });

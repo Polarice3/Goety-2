@@ -16,7 +16,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -146,7 +145,7 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
             for(LivingEntity livingentity : list) {
                 double d0 = this.distanceToSqr(livingentity);
                 if (d0 < areaSqr && livingentity.isSensitiveToWater()) {
-                    livingentity.hurt(DamageSource.indirectMagic(this, this.getOwner()), 1.0F);
+                    livingentity.hurt(damageSources().indirectMagic(this, this.getOwner()), 1.0F);
                 }
             }
         }
@@ -242,7 +241,7 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
         ItemStack itemstack = this.getItem();
         int h = BrewUtils.getAreaOfEffect(itemstack);
         int i = (int) BrewUtils.getLingering(itemstack);
-        BlockPos blockPos = new BlockPos(hitResult.getLocation());
+        BlockPos blockPos = BlockPos.containing(hitResult.getLocation());
         if (hitResult.getType() == HitResult.Type.ENTITY){
             EntityHitResult entityHitResult = (EntityHitResult) hitResult;
             blockPos = entityHitResult.getEntity().blockPosition();

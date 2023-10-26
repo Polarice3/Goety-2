@@ -6,7 +6,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> {
@@ -126,10 +125,11 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
 		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.activateAnimationState, GraveGolemAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, GraveGolemAnimations.IDLE, ageInTicks);
-		this.animate(entity.walkAnimationState, GraveGolemAnimations.WALK, ageInTicks, groundSpeed * 30);
+		if (entity.walkAnimationState.isStarted()) {
+			this.animateWalk(GraveGolemAnimations.WALK, limbSwing, limbSwingAmount, 6.0F, 20.0F);
+		}
 		this.animate(entity.attackAnimationState, GraveGolemAnimations.SMASH, ageInTicks);
 		this.animate(entity.summonAnimationState, GraveGolemAnimations.SUMMON, ageInTicks);
 		this.animate(entity.sitAnimationState, GraveGolemAnimations.SIT, ageInTicks);

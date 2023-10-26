@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.inventory.container.FocusBagContainer;
 import com.Polarice3.Goety.common.items.capability.FocusBagItemCapability;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
@@ -26,7 +25,6 @@ import javax.annotation.Nullable;
 public class FocusBag extends Item {
     public FocusBag(){
         super(new Properties()
-                .tab(Goety.TAB)
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)

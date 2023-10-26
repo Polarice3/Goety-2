@@ -168,7 +168,7 @@ public class HauntedSkull extends Minion {
             }
         }
         LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-        ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower, false, Explosion.BlockInteraction.NONE, lootMode);
+        ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower, false, Explosion.BlockInteraction.KEEP, lootMode);
         this.discard();
     }
 
@@ -225,7 +225,7 @@ public class HauntedSkull extends Minion {
 
     public class RandomMoveGoal extends Goal {
         public RandomMoveGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
@@ -239,16 +239,16 @@ public class HauntedSkull extends Minion {
         public void tick() {
             BlockPos blockpos = HauntedSkull.this.blockPosition();
             if (HauntedSkull.this.getTrueOwner() != null){
-                blockpos = new BlockPos(HauntedSkull.this.getTrueOwner().getEyePosition());
+                blockpos = BlockPos.containing(HauntedSkull.this.getTrueOwner().getEyePosition());
             } else if (HauntedSkull.this.getTarget() != null){
-                blockpos = new BlockPos(HauntedSkull.this.getTarget().getEyePosition());
+                blockpos = BlockPos.containing(HauntedSkull.this.getTarget().getEyePosition());
             } else if (HauntedSkull.this.getBoundOrigin() != null){
                 blockpos = HauntedSkull.this.getBoundOrigin();
             }
 
             if (blockpos != null) {
                 if (HauntedSkull.this.getTrueOwner() != null && HauntedSkull.this.distanceTo(HauntedSkull.this.getTrueOwner()) > 8.0D){
-                    blockpos = new BlockPos(HauntedSkull.this.getTrueOwner().getEyePosition());
+                    blockpos = BlockPos.containing(HauntedSkull.this.getTrueOwner().getEyePosition());
                     HauntedSkull.this.moveControl.setWantedPosition((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D, 1.0D);
                 } else {
                     for (int i = 0; i < 3; ++i) {
@@ -269,7 +269,7 @@ public class HauntedSkull extends Minion {
 
     public class ChargeGoal extends Goal {
         public ChargeGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {

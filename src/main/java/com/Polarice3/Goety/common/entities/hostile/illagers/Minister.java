@@ -33,6 +33,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
@@ -282,10 +283,10 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
                 }
                 this.playSound(SoundEvents.ITEM_BREAK, 4.0F, 1.0F);
                 return false;
-            } else if (!p_37849_.isBypassInvul()
-                    && !p_37849_.isBypassMagic()
-                    && !p_37849_.isBypassEnchantments()
-                    && !p_37849_.isExplosion()
+            } else if (!p_37849_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                    && !p_37849_.is(DamageTypeTags.BYPASSES_EFFECTS)
+                    && !p_37849_.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)
+                    && !p_37849_.is(DamageTypeTags.IS_EXPLOSION)
                     && !p_37849_.isCreativePlayer()
                     && p_37849_.getEntity() != null){
                 Vec3 vec32 = p_37849_.getSourcePosition();
@@ -389,7 +390,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
     }
 
     @Override
-    public void remove(Entity.RemovalReason p_146834_) {
+    public void remove(RemovalReason p_146834_) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
         }
@@ -603,7 +604,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
                         blockPos = blockPos.offset(-2 + Minister.this.getRandom().nextInt(4), 0, -2 + Minister.this.getRandom().nextInt(4));
                         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                             blockpos$mutable.move(Direction.UP);
                         }
 
@@ -629,7 +630,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
                 BlockPos blockPos = Minister.this.blockPosition();
                 BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+                while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !Minister.this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                     blockpos$mutable.move(Direction.UP);
                 }
 
@@ -839,7 +840,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
             this.attackIntervalMax = attackMax;
             this.attackRadius = attackRadius;
             this.attackRadiusSqr = attackRadius * attackRadius;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {

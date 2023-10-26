@@ -109,7 +109,7 @@ public class Haunt extends Summoned{
         super.tick();
         this.setYHeadRot(this.getYRot());
         Vec3 vector3d = this.getDeltaMovement();
-        if (!this.onGround && vector3d.y < 0.0D && !this.isNoGravity()) {
+        if (!this.onGround() && vector3d.y < 0.0D && !this.isNoGravity()) {
             this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
         }
     }

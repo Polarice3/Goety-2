@@ -12,7 +12,7 @@ public class ZombieVillagerServantRenderer extends HumanoidMobRenderer<ZombieVil
 
     public ZombieVillagerServantRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new VillagerServantModel<>(entityRendererManager.bakeLayer(ModModelLayer.ZOMBIE_VILLAGER_SERVANT)),0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), entityRendererManager.getModelManager()));
     }
 
     @Override

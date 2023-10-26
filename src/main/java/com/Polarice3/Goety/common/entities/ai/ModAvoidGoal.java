@@ -42,7 +42,7 @@ public class ModAvoidGoal<T extends LivingEntity> extends Goal {
         this.sprintSpeedModifier = p_25045_;
         this.predicateOnAvoidEntity = p_25046_;
         this.pathNav = p_25040_.getNavigation();
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
         this.avoidEntityTargeting = TargetingConditions.forCombat().range(maxDist).selector(p_25046_.and(p_25042_));
     }
 

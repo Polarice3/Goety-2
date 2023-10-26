@@ -33,8 +33,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
@@ -45,7 +43,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -54,8 +51,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -76,12 +71,13 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
 
     public ModRavager(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
+        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(4, new ModRavager.RavagerMeleeAttackGoal());
+        this.goalSelector.addGoal(4, new RavagerMeleeAttackGoal());
         this.goalSelector.addGoal(5, new WanderGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -190,10 +186,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         return this.entityData.get(AUTO_MODE);
     }
 
-    protected PathNavigation createNavigation(Level p_33348_) {
-        return new ModRavager.RavagerNavigation(this, p_33348_);
-    }
-
     public int getMaxHeadYRot() {
         return 45;
     }
@@ -203,9 +195,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     }
 
     @Nullable
-    public Entity getControllingPassenger() {
+    public LivingEntity getControllingPassenger() {
         Entity entity = this.getFirstPassenger();
-        return entity != null && this.canBeControlledBy(entity) ? entity : null;
+        return entity instanceof LivingEntity livingEntity && this.canBeControlledBy(livingEntity) ? livingEntity : null;
     }
 
     public boolean isControlledByLocalInstance() {
@@ -379,7 +371,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         if (this.isAlive()) {
             for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), NO_RAVAGER_AND_ALIVE)) {
                 if (livingentity != this.getTrueOwner() && !livingentity.isAlliedTo(this.getTrueOwner())) {
-                    livingentity.hurt(DamageSource.mobAttack(this), 6.0F);
+                    livingentity.hurt(this.damageSources().mobAttack(this), 6.0F);
                 }
 
                 this.strongKnockback(livingentity);
@@ -530,14 +522,13 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     }
                 }
 
-                this.flyingSpeed = this.getSpeed() * 0.1F;
                 if (this.isControlledByLocalInstance() || livingentity instanceof Player) {
                     this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     super.travel(new Vec3(f, pTravelVector.y, f1));
                     this.lerpSteps = 0;
                 }
 
-                this.calculateEntityAnimation(this, false);
+                this.calculateEntityAnimation(false);
             } else {
                 super.travel(pTravelVector);
             }
@@ -626,23 +617,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         protected double getAttackReachSqr(LivingEntity p_33377_) {
             float f = ModRavager.this.getBbWidth() - 0.1F;
             return (double)(f * 2.0F * f * 2.0F + p_33377_.getBbWidth());
-        }
-    }
-
-    static class RavagerNavigation extends GroundPathNavigation {
-        public RavagerNavigation(Mob p_33379_, Level p_33380_) {
-            super(p_33379_, p_33380_);
-        }
-
-        protected PathFinder createPathFinder(int p_33382_) {
-            this.nodeEvaluator = new ModRavager.RavagerNodeEvaluator();
-            return new PathFinder(this.nodeEvaluator, p_33382_);
-        }
-    }
-
-    static class RavagerNodeEvaluator extends WalkNodeEvaluator {
-        protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
-            return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.equipment;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ISoulRepair;
@@ -23,13 +22,12 @@ import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepair {
     private final Multimap<Attribute, AttributeModifier> maceAttributes;
 
     public PhilosophersMaceItem() {
-        super(new Properties().rarity(Rarity.UNCOMMON).durability(MainConfig.PhilosophersMaceDurability.get()).tab(Goety.TAB).fireResistant());
+        super(new Properties().rarity(Rarity.UNCOMMON).durability(MainConfig.PhilosophersMaceDurability.get()).fireResistant());
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", MainConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-2.4F, AttributeModifier.Operation.ADDITION));
@@ -60,8 +58,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public boolean isCorrectToolForDrops(BlockState pBlock) {
-        Material material = pBlock.getMaterial();
-        return material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST || pBlock.is(BlockTags.MINEABLE_WITH_PICKAXE) || pBlock.is(BlockTags.MINEABLE_WITH_AXE) || pBlock.is(BlockTags.MINEABLE_WITH_HOE) || pBlock.is(BlockTags.MINEABLE_WITH_SHOVEL);
+        return pBlock.is(BlockTags.MINEABLE_WITH_PICKAXE) || pBlock.is(BlockTags.MINEABLE_WITH_AXE) || pBlock.is(BlockTags.MINEABLE_WITH_HOE) || pBlock.is(BlockTags.MINEABLE_WITH_SHOVEL);
     }
 
     public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {

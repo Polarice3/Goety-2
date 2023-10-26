@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.EvokerFangsModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -30,7 +30,7 @@ public class FangsRenderer extends EntityRenderer<Fangs> {
             }
 
             p_114531_.pushPose();
-            p_114531_.mulPose(Vector3f.YP.rotationDegrees(90.0F - p_114528_.getYRot()));
+            p_114531_.mulPose(Axis.YP.rotationDegrees(90.0F - p_114528_.getYRot()));
             p_114531_.scale(-f1, -f1, f1);
             float f2 = 0.03125F;
             p_114531_.translate(0.0D, -0.626D, 0.0D);

@@ -1,11 +1,9 @@
 package com.Polarice3.Goety.client.gui.radial;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 
-public record DrawingContext(PoseStack matrixStack, int width, int height, float x, float y, float z, Font fontRenderer,
-                             ItemRenderer itemRenderer, IDrawingHelper drawingHelper) {
+public record DrawingContext(GuiGraphics guiGraphics, int width, int height, float x, float y, float z, Font fontRenderer, IDrawingHelper drawingHelper) {
 }
 /*
  * Copyright (c) 2015, David Quintana <gigaherz@gmail.com>

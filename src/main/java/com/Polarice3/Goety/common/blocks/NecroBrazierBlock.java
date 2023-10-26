@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -32,7 +31,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -52,7 +51,8 @@ public class NecroBrazierBlock extends BaseEntityBlock implements SimpleWaterlog
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public NecroBrazierBlock() {
-        super(Properties.of(Material.METAL)
+        super(Properties.of()
+                .mapColor(MapColor.METAL)
                 .strength(3.5F)
                 .sound(SoundType.CHAIN)
                 .lightLevel(litBlockEmission())
@@ -101,7 +101,7 @@ public class NecroBrazierBlock extends BaseEntityBlock implements SimpleWaterlog
         if (pState.getValue(LIT)) {
             if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getMobType() != MobType.UNDEAD && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
                     && pEntity.getY() >= pPos.getY() + 0.5F) {
-                pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
+                pEntity.hurt(pEntity.damageSources().inFire(), 1.0F);
             }
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
             if (tileentity instanceof NecroBrazierBlockEntity blockEntity) {

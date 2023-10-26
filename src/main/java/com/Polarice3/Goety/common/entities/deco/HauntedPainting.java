@@ -7,7 +7,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -44,14 +44,14 @@ public class HauntedPainting extends Painting {
         this.pos = blockPos;
     }
 
-    private void setVariant(Holder<PaintingVariant> p_218892_) {
+    public void setVariant(Holder<PaintingVariant> p_218892_) {
         this.entityData.set(DATA_PAINTING_VARIANT_ID, p_218892_);
     }
 
     public static Optional<HauntedPainting> createModded(Level p_218888_, BlockPos p_218889_, Direction p_218890_) {
         HauntedPainting painting = new HauntedPainting(p_218888_, p_218889_);
         List<Holder<PaintingVariant>> list = new ArrayList<>();
-        Registry.PAINTING_VARIANT.getTagOrEmpty(ModTags.Paintings.MODDED_PAINTINGS).forEach(list::add);
+        BuiltInRegistries.PAINTING_VARIANT.getTagOrEmpty(ModTags.Paintings.MODDED_PAINTINGS).forEach(list::add);
         if (list.isEmpty()) {
             return Optional.empty();
         } else {

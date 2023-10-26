@@ -1,63 +1,116 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.common.entities.neutral.Minion;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import net.minecraft.client.model.HumanoidModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemStack;
 
-public class MinionModel<T extends Minion> extends HumanoidModel<T> {
-    private final ModelPart leftWing;
+public class MinionModel<T extends Minion> extends HierarchicalModel<T> implements ArmedModel {
+    private final ModelPart root;
+    private final ModelPart body;
+    private final ModelPart rightArm;
+    private final ModelPart leftArm;
     private final ModelPart rightWing;
+    private final ModelPart leftWing;
+    private final ModelPart head;
 
     public MinionModel(ModelPart p_171045_) {
-        super(p_171045_);
-        this.leftLeg.visible = false;
-        this.hat.visible = false;
-        this.rightWing = p_171045_.getChild("right_wing");
-        this.leftWing = p_171045_.getChild("left_wing");
+        super(RenderType::entityTranslucent);
+        this.root = p_171045_.getChild("root");
+        this.body = this.root.getChild("body");
+        this.rightArm = this.body.getChild("right_arm");
+        this.leftArm = this.body.getChild("left_arm");
+        this.rightWing = this.body.getChild("right_wing");
+        this.leftWing = this.body.getChild("left_wing");
+        this.head = this.root.getChild("head");
     }
 
     public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+        MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(32, 0).addBox(-1.0F, -1.0F, -2.0F, 6.0F, 10.0F, 4.0F), PartPose.offset(-1.9F, 12.0F, 0.0F));
-        partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 32).addBox(-20.0F, 0.0F, 0.0F, 20.0F, 12.0F, 1.0F), PartPose.ZERO);
-        partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).mirror().addBox(0.0F, 0.0F, 0.0F, 20.0F, 12.0F, 1.0F), PartPose.ZERO);
-        return LayerDefinition.create(meshdefinition, 64, 64);
-    }
-
-    protected Iterable<ModelPart> bodyParts() {
-        return Iterables.concat(super.bodyParts(), ImmutableList.of(this.rightWing, this.leftWing));
+        PartDefinition partdefinition1 = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, -2.5F, 0.0F));
+        partdefinition1.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
+        PartDefinition partdefinition2 = partdefinition1.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 10).addBox(-1.5F, 0.0F, -1.0F, 3.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(0, 16).addBox(-1.5F, 1.0F, -1.0F, 3.0F, 5.0F, 2.0F, new CubeDeformation(-0.2F)), PartPose.offset(0.0F, 20.0F, 0.0F));
+        partdefinition2.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(23, 0).addBox(-1.25F, -0.5F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(-1.75F, 0.25F, 0.0F));
+        partdefinition2.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(23, 6).addBox(-0.75F, -0.5F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(1.75F, 0.25F, 0.0F));
+        partdefinition2.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(16, 14).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.5F, 1.0F, 1.0F));
+        partdefinition2.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(16, 14).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 1.0F, 1.0F));
+        return LayerDefinition.create(meshdefinition, 32, 32);
     }
 
     public void setupAnim(T p_104028_, float p_104029_, float p_104030_, float p_104031_, float p_104032_, float p_104033_) {
-        super.setupAnim(p_104028_, p_104029_, p_104030_, p_104031_, p_104032_, p_104033_);
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.head.yRot = p_104032_ * ((float)Math.PI / 180F);
+        this.head.xRot = p_104033_ * ((float)Math.PI / 180F);
+        float f = Mth.cos(p_104031_ * 5.5F * ((float)Math.PI / 180F)) * 0.1F;
+        this.rightArm.zRot = ((float)Math.PI / 5F) + f;
+        this.leftArm.zRot = -(((float)Math.PI / 5F) + f);
         if (p_104028_.isCharging()) {
-            if (p_104028_.getMainHandItem().isEmpty()) {
-                this.rightArm.xRot = ((float)Math.PI * 1.5F);
-                this.leftArm.xRot = ((float)Math.PI * 1.5F);
-            } else if (p_104028_.getMainArm() == HumanoidArm.RIGHT) {
-                this.rightArm.xRot = 3.7699115F;
-            } else {
-                this.leftArm.xRot = 3.7699115F;
-            }
+            this.body.xRot = 0.0F;
+            this.setArmsCharging(p_104028_.getMainHandItem(), p_104028_.getOffhandItem(), f);
+        } else {
+            this.body.xRot = 0.15707964F;
         }
 
-        this.rightLeg.xRot += ((float)Math.PI / 5F);
-        this.rightWing.z = 2.0F;
-        this.leftWing.z = 2.0F;
-        this.rightWing.y = 1.0F;
-        this.leftWing.y = 1.0F;
-        this.rightWing.yRot = 0.47123894F + Mth.cos(p_104031_ * 45.836624F * ((float)Math.PI / 180F)) * (float)Math.PI * 0.05F;
-        this.leftWing.yRot = -this.rightWing.yRot;
-        this.leftWing.zRot = -0.47123894F;
-        this.leftWing.xRot = 0.47123894F;
-        this.rightWing.xRot = 0.47123894F;
-        this.rightWing.zRot = 0.47123894F;
+        this.leftWing.yRot = 1.0995574F + Mth.cos(p_104031_ * 45.836624F * ((float)Math.PI / 180F)) * ((float)Math.PI / 180F) * 16.2F;
+        this.rightWing.yRot = -this.leftWing.yRot;
+        this.leftWing.xRot = 0.47123888F;
+        this.leftWing.zRot = -0.47123888F;
+        this.rightWing.xRot = 0.47123888F;
+        this.rightWing.zRot = 0.47123888F;
+    }
+
+    private void setArmsCharging(ItemStack p_265484_, ItemStack p_265329_, float p_265125_) {
+        if (p_265484_.isEmpty() && p_265329_.isEmpty()) {
+            this.rightArm.xRot = -1.2217305F;
+            this.rightArm.yRot = 0.2617994F;
+            this.rightArm.zRot = -0.47123888F - p_265125_;
+            this.leftArm.xRot = -1.2217305F;
+            this.leftArm.yRot = -0.2617994F;
+            this.leftArm.zRot = 0.47123888F + p_265125_;
+        } else {
+            if (!p_265484_.isEmpty()) {
+                this.rightArm.xRot = 3.6651914F;
+                this.rightArm.yRot = 0.2617994F;
+                this.rightArm.zRot = -0.47123888F - p_265125_;
+            }
+
+            if (!p_265329_.isEmpty()) {
+                this.leftArm.xRot = 3.6651914F;
+                this.leftArm.yRot = -0.2617994F;
+                this.leftArm.zRot = 0.47123888F + p_265125_;
+            }
+
+        }
+    }
+
+    public ModelPart root() {
+        return this.root;
+    }
+
+    public void translateToHand(HumanoidArm p_259770_, PoseStack p_260351_) {
+        boolean flag = p_259770_ == HumanoidArm.RIGHT;
+        ModelPart modelpart = flag ? this.rightArm : this.leftArm;
+        this.root.translateAndRotate(p_260351_);
+        this.body.translateAndRotate(p_260351_);
+        modelpart.translateAndRotate(p_260351_);
+        p_260351_.scale(0.55F, 0.55F, 0.55F);
+        this.offsetStackPosition(p_260351_, flag);
+    }
+
+    private void offsetStackPosition(PoseStack p_263343_, boolean p_263414_) {
+        if (p_263414_) {
+            p_263343_.translate(0.046875D, -0.15625D, 0.078125D);
+        } else {
+            p_263343_.translate(-0.046875D, -0.15625D, 0.078125D);
+        }
+
     }
 }

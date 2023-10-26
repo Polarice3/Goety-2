@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.effects.brew.PotionBrewEffect;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -15,7 +16,7 @@ public class BrewingCatalystProcessor implements IComponentProcessor {
     private String extraText = "";
 
     @Override
-    public void setup(IVariableProvider variables) {
+    public void setup(Level level, IVariableProvider variables) {
         String effectId = variables.get("recipe").asString();
         this.brewEffect = new BrewEffects().getBrewEffect(effectId);
         if (variables.has("text")) {
@@ -24,7 +25,7 @@ public class BrewingCatalystProcessor implements IComponentProcessor {
     }
 
     @Override
-    public IVariable process(String key) {
+    public IVariable process(Level level, String key) {
         if (this.brewEffect == null)
             return IVariable.empty();
 

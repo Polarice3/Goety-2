@@ -44,7 +44,7 @@ public class Malghast extends OwnedFlying {
 
     public Malghast(EntityType<? extends OwnedFlying> type, Level p_i48578_2_) {
         super(type, p_i48578_2_);
-        this.moveControl = new Malghast.MoveHelperController(this);
+        this.moveControl = new MoveHelperController(this);
     }
 
     protected void registerGoals() {
@@ -276,7 +276,7 @@ public class Malghast extends OwnedFlying {
 
         public LookAroundGoal(Malghast p_i45839_1_) {
             this.ghast = p_i45839_1_;
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -309,7 +309,7 @@ public class Malghast extends OwnedFlying {
         }
 
         public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
+            if (this.operation == Operation.MOVE_TO) {
                 if (this.floatDuration-- <= 0) {
                     this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
                     Vec3 vector3d = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
@@ -319,7 +319,7 @@ public class Malghast extends OwnedFlying {
                         if (this.canReach(vector3d, Mth.ceil(d0))) {
                             this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(vector3d.scale(0.1D)));
                         } else {
-                            this.operation = MoveControl.Operation.WAIT;
+                            this.operation = Operation.WAIT;
                         }
                     } else {
                         this.ghast.setDeltaMovement(Vec3.ZERO);
@@ -348,7 +348,7 @@ public class Malghast extends OwnedFlying {
 
         public FlyingGoal(Malghast p_i45836_1_) {
             this.ghast = p_i45836_1_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {

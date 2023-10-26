@@ -1,12 +1,10 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Rotations;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -26,11 +25,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.Consumer;
+
 public class HauntedArmorStandItem extends Item {
    public HauntedArmorStandItem() {
-      super(new Item.Properties()
-              .stacksTo(16)
-              .tab(Goety.TAB));
+      super(new Properties()
+              .stacksTo(16));
    }
 
    public InteractionResult useOn(UseOnContext p_40510_) {
@@ -46,7 +46,8 @@ public class HauntedArmorStandItem extends Item {
          AABB aabb = ModEntityType.HAUNTED_ARMOR_STAND.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
          if (level.noCollision((Entity)null, aabb) && level.getEntities((Entity)null, aabb).isEmpty()) {
             if (level instanceof ServerLevel serverlevel) {
-               HauntedArmorStand armorStand = ModEntityType.HAUNTED_ARMOR_STAND.get().create(serverlevel, itemstack.getTag(), (Component)null, p_40510_.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
+               Consumer<HauntedArmorStand> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, p_40510_.getPlayer());
+               HauntedArmorStand armorStand = ModEntityType.HAUNTED_ARMOR_STAND.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
                if (armorStand == null) {
                   return InteractionResult.FAIL;
                }

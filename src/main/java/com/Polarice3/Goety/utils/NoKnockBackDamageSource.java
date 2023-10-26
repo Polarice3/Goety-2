@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.utils;
 
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +16,8 @@ public class NoKnockBackDamageSource extends DamageSource {
     @Nullable
     private final Entity owner;
 
-    public NoKnockBackDamageSource(String pMessageId, @Nullable Entity pSource, @Nullable Entity pIndirectEntity) {
-        super(pMessageId);
+    public NoKnockBackDamageSource(Holder<DamageType> pDamageType, @Nullable Entity pSource, @Nullable Entity pIndirectEntity) {
+        super(pDamageType);
         this.entity = pSource;
         this.owner = pIndirectEntity;
     }
@@ -31,7 +33,7 @@ public class NoKnockBackDamageSource extends DamageSource {
     }
 
     public Component getLocalizedDeathMessage(LivingEntity pLivingEntity) {
-        String s = "death.attack." + this.msgId;
+        String s = "death.attack." + this.type().msgId();
         if (this.entity != null){
             Component itextcomponent = this.owner == null ? this.entity.getDisplayName() : this.owner.getDisplayName();
             ItemStack itemstack = this.owner instanceof LivingEntity ? ((LivingEntity)this.owner).getMainHandItem() : ItemStack.EMPTY;

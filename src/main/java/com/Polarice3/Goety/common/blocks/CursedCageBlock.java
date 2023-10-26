@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.extensions.IForgeBlock;
@@ -35,7 +35,8 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public CursedCageBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.STONE)
                 .strength(5.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()

@@ -29,7 +29,7 @@ public class LichKissCantrip {
                 } else {
                     this.drawParticleBeam(pPlayer, livingEntity);
                 }
-                if (livingEntity.hurt(ModDamageSource.soulLeech(null, pPlayer), 1.0F)) {
+                if (livingEntity.hurt(ModDamageSource.soulLeech(pPlayer, pPlayer), 1.0F)) {
                     int souls = SEHelper.getSoulGiven(livingEntity) < 5 ? SEHelper.getSoulGiven(livingEntity) : (int)SEHelper.getSoulGiven(livingEntity)/5;
                     SEHelper.increaseSouls(pPlayer, souls);
                     pPlayer.playSound(ModSounds.SOUL_EAT.get(), 1.0F, 1.0F);

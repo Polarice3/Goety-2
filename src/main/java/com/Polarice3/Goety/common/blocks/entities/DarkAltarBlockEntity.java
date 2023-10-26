@@ -424,7 +424,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                     recipe.getRitual().finish(this.level, this.worldPosition, this, this.castingPlayer, activationItem);
                     if (recipe.getEntityToSummon() == ModEntityType.SUMMON_APOSTLE.get()){
                         if (this.level instanceof ServerLevel serverLevel) {
-                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 1.0F, 1.0F));
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD.get(), 1.0F, 1.0F));
                             Warden.applyDarknessAround(serverLevel, Vec3.atCenterOf(this.worldPosition), (Entity)null, 32);
                         }
                         for (int i = -8; i <= 8; ++i) {
@@ -481,11 +481,10 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         return Ritual.SACRIFICE_DETECTION_RANGE;
     }
 
-    public boolean handleGameEvent(ServerLevel serverLevel, GameEvent.Message message) {
+    public boolean handleGameEvent(ServerLevel serverLevel, GameEvent p_282184_, GameEvent.Context p_283014_, Vec3 p_282350_) {
         if (!this.isRemoved()) {
-            GameEvent.Context gameevent$context = message.context();
-            if (message.gameEvent() == GameEvent.ENTITY_DIE) {
-                Entity sourceEntity = gameevent$context.sourceEntity();
+            if (p_282184_ == GameEvent.ENTITY_DIE) {
+                Entity sourceEntity = p_283014_.sourceEntity();
                 if (sourceEntity instanceof LivingEntity livingEntity) {
                     if (this.getCurrentRitualRecipe() != null && this.getCurrentRitualRecipe().getRitual().isValidSacrifice(livingEntity)) {
                         this.notifySacrifice(livingEntity);

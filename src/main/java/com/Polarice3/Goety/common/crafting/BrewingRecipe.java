@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.crafting;
 
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BrewingRecipe implements Recipe<Container> {
-    public static BrewingRecipe.Serializer SERIALIZER = new BrewingRecipe.Serializer();
+    public static Serializer SERIALIZER = new Serializer();
     private final ResourceLocation id;
     public final Ingredient input;
     public final MobEffect output;
@@ -38,7 +39,7 @@ public class BrewingRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_) {
+    public ItemStack assemble(Container p_44001_, RegistryAccess p_267052_) {
         return ItemStack.EMPTY;
     }
 
@@ -68,7 +69,7 @@ public class BrewingRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess p_267052_) {
         return ItemStack.EMPTY;
     }
 

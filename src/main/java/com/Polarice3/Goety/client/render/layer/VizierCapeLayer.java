@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.model.VizierModel;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -51,9 +51,9 @@ public class VizierCapeLayer extends RenderLayer<Vizier, VizierModel> {
                     f1 += 25.0F;
                 }
 
-                pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
-                pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
-                pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
+                pMatrixStack.mulPose(Axis.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
+                pMatrixStack.mulPose(Axis.ZP.rotationDegrees(f3 / 2.0F));
+                pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - f3 / 2.0F));
                 VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
                 this.getParentModel().renderCape(pMatrixStack, ivertexbuilder, pPackedLight, OverlayTexture.NO_OVERLAY);
                 pMatrixStack.popPose();

@@ -5,8 +5,6 @@ import com.Polarice3.Goety.client.render.model.SkullLordModel;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -19,6 +17,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<SkullLord>> {
     public static final ResourceLocation CONNECTION = Goety.location("textures/entity/skull_lord/skull_lord_connection.png");

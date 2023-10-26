@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import net.minecraft.ChatFormatting;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class DarkScrollItem extends Item {
     public DarkScrollItem() {
-        super(new Properties().tab(Goety.TAB).stacksTo(1));
+        super(new Properties().stacksTo(1));
     }
 
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {

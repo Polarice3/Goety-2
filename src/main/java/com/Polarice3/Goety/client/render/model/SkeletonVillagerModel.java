@@ -4,7 +4,6 @@ import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServ
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -35,14 +34,14 @@ public class SkeletonVillagerModel<T extends Owned> extends VillagerServantModel
     }
 
     public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick) {
-        this.rightArmPose = HumanoidModel.ArmPose.EMPTY;
-        this.leftArmPose = HumanoidModel.ArmPose.EMPTY;
+        this.rightArmPose = ArmPose.EMPTY;
+        this.leftArmPose = ArmPose.EMPTY;
         ItemStack itemstack = pEntity.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemstack.getItem() == Items.BOW && pEntity.isAggressive()) {
             if (pEntity.getMainArm() == HumanoidArm.RIGHT) {
-                this.rightArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+                this.rightArmPose = ArmPose.BOW_AND_ARROW;
             } else {
-                this.leftArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+                this.leftArmPose = ArmPose.BOW_AND_ARROW;
             }
         }
         if (pEntity instanceof SkeletonVillagerServant skeletonVillagerMinion){

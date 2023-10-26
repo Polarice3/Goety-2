@@ -15,9 +15,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -35,7 +34,8 @@ public class UrnBlock extends BaseEntityBlock {
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_URN, SHAPE_TOP);
 
     public UrnBlock() {
-        super(BlockBehaviour.Properties.of(Material.EGG)
+        super(Properties.of()
+                .pushReaction(PushReaction.DESTROY)
                 .sound(SoundType.GLASS)
                 .strength(0.1F, 0));
     }

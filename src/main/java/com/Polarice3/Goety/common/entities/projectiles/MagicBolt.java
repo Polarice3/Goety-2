@@ -13,6 +13,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -69,12 +70,12 @@ public class MagicBolt extends AbstractHurtingProjectile {
             } else if (WandUtil.enchantedFocus(livingentity)){
                 damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
             }
-            flag = target.hurt(ModDamageSource.magicBolt(this, livingentity).setProjectile(), damage);
+            flag = target.hurt(ModDamageSource.magicBolt(this, livingentity), damage);
             if (flag) {
                 this.doEnchantDamageEffects(livingentity, target);
             }
         } else {
-            flag = target.hurt(DamageSource.MAGIC.setProjectile(), 4.0F);
+            flag = target.hurt(ModDamageSource.magicBolt(this, this), 4.0F);
         }
 
         int duration = 100;
@@ -160,7 +161,7 @@ public class MagicBolt extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items.research;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -19,7 +18,6 @@ public abstract class ResearchScroll extends Item {
 
     public ResearchScroll(Research research){
         super(new Properties()
-                .tab(Goety.TAB)
                 .rarity(Rarity.EPIC)
                 .setNoRepair()
                 .stacksTo(1)

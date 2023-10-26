@@ -155,7 +155,7 @@ public class SkullLaser extends Mob {
                 if (this.getTarget() != null) {
                     if (this.tickCount >= 20) {
                         if (this.tickCount % 2 == 0) {
-                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
+                            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0.25F, Level.ExplosionInteraction.NONE);
                         }
                         this.moveControl.setWantedPosition(this.getTarget().getX(), this.getY(), this.getTarget().getZ(), 1.0F);
                         float f2 = 0.25F * 2.0F;
@@ -168,7 +168,7 @@ public class SkullLaser extends Mob {
                         AABB aabb = new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1);
                         for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                             if (livingEntity != this.getSkullLord() && !MobUtil.areFullAllies(this.getSkullLord(), livingEntity) && livingEntity != this) {
-                                this.getTarget().hurt(DamageSource.indirectMagic(this, this.getSkullLord()), (float) this.getSkullLord().getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
+                                this.getTarget().hurt(damageSources().indirectMagic(this, this.getSkullLord()), (float) this.getSkullLord().getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
                                 this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
                             }
                         }

@@ -4,7 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.HauntedArmorStandArmorModel;
 import com.Polarice3.Goety.client.render.model.HauntedArmorStandModel;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -23,7 +23,7 @@ public class HauntedArmorStandRenderer<T extends ArmorStand> extends LivingEntit
 
    public HauntedArmorStandRenderer(EntityRendererProvider.Context p_173915_) {
       super(p_173915_, new HauntedArmorStandModel<>(p_173915_.bakeLayer(ModModelLayer.HAUNTED_ARMOR_STAND)), 0.0F);
-      this.addLayer(new HumanoidArmorLayer<>(this, new HauntedArmorStandArmorModel<>(p_173915_.bakeLayer(ModModelLayer.HAS_INNER)), new HauntedArmorStandArmorModel<>(p_173915_.bakeLayer(ModModelLayer.HAS_OUTER))));
+      this.addLayer(new HumanoidArmorLayer<>(this, new HauntedArmorStandArmorModel<>(p_173915_.bakeLayer(ModModelLayer.HAS_INNER)), new HauntedArmorStandArmorModel<>(p_173915_.bakeLayer(ModModelLayer.HAS_OUTER)), p_173915_.getModelManager()));
       this.addLayer(new ItemInHandLayer<>(this, p_173915_.getItemInHandRenderer()));
       this.addLayer(new ElytraLayer<>(this, p_173915_.getModelSet()));
       this.addLayer(new CustomHeadLayer<>(this, p_173915_.getModelSet(), p_173915_.getItemInHandRenderer()));
@@ -34,10 +34,10 @@ public class HauntedArmorStandRenderer<T extends ArmorStand> extends LivingEntit
    }
 
    protected void setupRotations(T p_113800_, PoseStack p_113801_, float p_113802_, float p_113803_, float p_113804_) {
-      p_113801_.mulPose(Vector3f.YP.rotationDegrees(180.0F - p_113803_));
+      p_113801_.mulPose(Axis.YP.rotationDegrees(180.0F - p_113803_));
       float f = (float)(p_113800_.level.getGameTime() - p_113800_.lastHit) + p_113804_;
       if (f < 5.0F) {
-         p_113801_.mulPose(Vector3f.YP.rotationDegrees(Mth.sin(f / 1.5F * (float)Math.PI) * 3.0F));
+         p_113801_.mulPose(Axis.YP.rotationDegrees(Mth.sin(f / 1.5F * (float)Math.PI) * 3.0F));
       }
 
    }

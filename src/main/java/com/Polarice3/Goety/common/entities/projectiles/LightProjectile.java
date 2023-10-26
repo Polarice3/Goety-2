@@ -122,7 +122,7 @@ public abstract class LightProjectile extends Arrow {
         super.onHitBlock(pResult);
         BlockPos pos = pResult.getBlockPos().relative(pResult.getDirection());
         if (this.getOwner() != null) {
-            if (this.level.getBlockState(pos).getMaterial().isReplaceable() && this.level.isUnobstructed(LightBlock().defaultBlockState(), pos, CollisionContext.of(this.getOwner()))) {
+            if (this.level.getBlockState(pos).canBeReplaced() && this.level.isUnobstructed(LightBlock().defaultBlockState(), pos, CollisionContext.of(this.getOwner()))) {
                 this.level.setBlockAndUpdate(pos, LightBlock().defaultBlockState());
             }
         }

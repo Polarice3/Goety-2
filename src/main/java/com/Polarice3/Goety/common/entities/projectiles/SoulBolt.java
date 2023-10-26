@@ -15,6 +15,7 @@ import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -119,14 +120,14 @@ public class SoulBolt extends AbstractHurtingProjectile {
                         baseDamage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
                 }
-                flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
+                flag = entity.hurt(entity.damageSources().indirectMagic(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     }
                 }
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, baseDamage);
+                flag = entity.hurt(entity.damageSources().magic(), baseDamage);
             }
 
             if (flag && entity instanceof LivingEntity) {
@@ -214,7 +215,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

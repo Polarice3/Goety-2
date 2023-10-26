@@ -5,7 +5,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -59,11 +58,11 @@ public class BiggerJigsawStructure extends Structure {
             }
 
             int i = b0;
-            return p_227638_.maxDistanceFromCenter + i > 512 ? DataResult.error("Structure size including terrain adaptation must not exceed 512") : DataResult.success(p_227638_);
+            return p_227638_.maxDistanceFromCenter + i > 512 ? DataResult.error(() -> "Structure size including terrain adaptation must not exceed 512") : DataResult.success(p_227638_);
         };
     }
 
-    public BiggerJigsawStructure(Structure.StructureSettings p_227627_, Holder<StructureTemplatePool> p_227628_, Optional<ResourceLocation> p_227629_, int p_227630_, HeightProvider p_227631_, Optional<Heightmap.Types> p_227633_, int p_227634_) {
+    public BiggerJigsawStructure(StructureSettings p_227627_, Holder<StructureTemplatePool> p_227628_, Optional<ResourceLocation> p_227629_, int p_227630_, HeightProvider p_227631_, Optional<Heightmap.Types> p_227633_, int p_227634_) {
         super(p_227627_);
         this.startPool = p_227628_;
         this.startJigsawName = p_227629_;
@@ -73,11 +72,10 @@ public class BiggerJigsawStructure extends Structure {
         this.maxDistanceFromCenter = p_227634_;
     }
 
-    public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext p_227636_) {
+    public Optional<GenerationStub> findGenerationPoint(GenerationContext p_227636_) {
         ChunkPos chunkpos = p_227636_.chunkPos();
         int i = this.startHeight.sample(p_227636_.random(), new WorldGenerationContext(p_227636_.chunkGenerator(), p_227636_.heightAccessor()));
         BlockPos blockpos = new BlockPos(chunkpos.getMinBlockX(), i, chunkpos.getMinBlockZ());
-        Pools.forceBootstrap();
         return JigsawPlacement.addPieces(p_227636_, this.startPool, this.startJigsawName, this.maxDepth, blockpos, false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
     }
 

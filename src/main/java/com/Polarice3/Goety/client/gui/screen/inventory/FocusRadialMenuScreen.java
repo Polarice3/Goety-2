@@ -14,11 +14,10 @@ import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.utils.TotemFinder;
 import com.Polarice3.Goety.utils.WandUtil;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,11 +46,6 @@ public class FocusRadialMenuScreen extends Screen {
     private final TextRadialMenuItem extractMenuItem;
     private final GenericRadialMenu menu;
 
-    private ItemRenderer getItemRenderer()
-    {
-        return itemRenderer;
-    }
-
     public FocusRadialMenuScreen() {
         super(Component.literal("RADIAL MENU"));
 
@@ -59,8 +53,8 @@ public class FocusRadialMenuScreen extends Screen {
         this.focusBagHandler = this.stackEquipped.getCount() > 0 ? FocusBagItemHandler.get(this.stackEquipped) : null;
         this.menu = new GenericRadialMenu(Minecraft.getInstance(), Goety.location("textures/gui/focus_wheel.png"), new IRadialMenuHost() {
             @Override
-            public void renderTooltip(PoseStack matrixStack, ItemStack stack, int mouseX, int mouseY) {
-                FocusRadialMenuScreen.this.renderTooltip(matrixStack, stack, mouseX, mouseY);
+            public void renderTooltip(GuiGraphics matrixStack, ItemStack stack, int mouseX, int mouseY) {
+                matrixStack.renderTooltip(font, stack, mouseX, mouseY);
             }
 
             @Override
@@ -73,10 +67,6 @@ public class FocusRadialMenuScreen extends Screen {
                 return font;
             }
 
-            @Override
-            public ItemRenderer getItemRenderer() {
-                return FocusRadialMenuScreen.this.getItemRenderer();
-            }
         }) {
             @Override
             public void onClickOutside() {
@@ -173,10 +163,10 @@ public class FocusRadialMenuScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        matrixStack.pushPose();
+    public void render(GuiGraphics matrixStack, int mouseX, int mouseY, float partialTicks) {
+        matrixStack.pose().pushPose();
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        matrixStack.popPose();
+        matrixStack.pose().popPose();
 
         Player player = Minecraft.getInstance().player;
 

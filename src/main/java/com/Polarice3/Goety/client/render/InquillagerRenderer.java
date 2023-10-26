@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.model.InquillagerModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -29,7 +29,7 @@ public class InquillagerRenderer<T extends Inquillager> extends MobRenderer<T, I
             }
         });
         this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
-        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), renderManagerIn.getModelManager()));
     }
 
     protected void scale(T entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
@@ -41,7 +41,7 @@ public class InquillagerRenderer<T extends Inquillager> extends MobRenderer<T, I
         super.setupRotations(pEntityLiving, pMatrixStack, pAgeInTicks, pRotationYaw, pPartialTicks);
         float f = pEntityLiving.getSwimAmount(pPartialTicks);
         if (f > 0.0F) {
-            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(f, pEntityLiving.getXRot(), -10.0F - pEntityLiving.getXRot())));
+            pMatrixStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(f, pEntityLiving.getXRot(), -10.0F - pEntityLiving.getXRot())));
         }
 
     }

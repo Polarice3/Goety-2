@@ -22,7 +22,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.entity.monster.SpellcasterIllager;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.EvokerFangs;
@@ -170,7 +169,7 @@ public class Envioker extends HuntingIllagerEntity {
         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
     }
 
-    class AttackSpellGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {
+    class AttackSpellGoal extends SpellcasterUseSpellGoal {
         private AttackSpellGoal() {
         }
 
@@ -225,7 +224,7 @@ public class Envioker extends HuntingIllagerEntity {
         }
 
         private void createSpellEntity(double p_190876_1_, double p_190876_3_, double p_190876_5_, double p_190876_7_, float p_190876_9_, int p_190876_10_) {
-            BlockPos blockpos = new BlockPos(p_190876_1_, p_190876_7_, p_190876_3_);
+            BlockPos blockpos = BlockPos.containing(p_190876_1_, p_190876_7_, p_190876_3_);
             boolean flag = false;
             double d0 = 0.0D;
 

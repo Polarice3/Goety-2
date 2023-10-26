@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -71,7 +72,7 @@ public class ObsidianMonolith extends AbstractMonolith {
         int efficiency = 0;
         boolean damage = false;
         if (!this.level.isClientSide && !this.isEmerging()) {
-            if (pSource.isExplosion() || pSource.isFire()){
+            if (pSource.is(DamageTypeTags.IS_EXPLOSION) || pSource.is(DamageTypeTags.IS_FIRE)){
                 return false;
             }
             if (ModDamageSource.physicalAttacks(pSource)) {
@@ -105,7 +106,7 @@ public class ObsidianMonolith extends AbstractMonolith {
             for (Owned owned : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(16))){
                 if (owned.getTrueOwner() == this.getTrueOwner()){
                     if (!(owned instanceof ObsidianMonolith)) {
-                        if (owned.hurt(DamageSource.MAGIC, this.level.random.nextInt(10) + 5.0F)){
+                        if (owned.hurt(this.damageSources().magic(), this.level.random.nextInt(10) + 5.0F)){
                             owned.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 16000, 4));
                             this.launch(owned, this);
                         }
@@ -120,7 +121,7 @@ public class ObsidianMonolith extends AbstractMonolith {
     }
 
     public void die(DamageSource cause) {
-        this.playSound(SoundEvents.RESPAWN_ANCHOR_DEPLETE, 5.0F, 0.5F);
+        this.playSound(SoundEvents.RESPAWN_ANCHOR_DEPLETE.get(), 5.0F, 0.5F);
         this.playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, 5.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
         this.silentDie(cause);
     }
@@ -195,7 +196,7 @@ public class ObsidianMonolith extends AbstractMonolith {
             }
             if (this.getTrueOwner() instanceof Apostle apostle) {
                 if (apostle.isDeadOrDying()){
-                    this.silentDie(DamageSource.STARVE);
+                    this.silentDie(this.damageSources().starve());
                 }
                 if (this.distanceTo(apostle) > 32){
                     this.teleportTowards(apostle);

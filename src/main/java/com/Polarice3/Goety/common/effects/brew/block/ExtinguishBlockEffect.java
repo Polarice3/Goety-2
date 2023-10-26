@@ -36,7 +36,7 @@ public class ExtinguishBlockEffect extends BrewEffect {
     @Override
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity source, @Nullable Entity pIndirectSource, int pAmplifier){
         if (pTarget instanceof Blaze){
-            DamageSource source1 = source != null ? DamageSource.indirectMagic(source, pIndirectSource) : DamageSource.MAGIC;
+            DamageSource source1 = source != null ? pTarget.damageSources().indirectMagic(source, pIndirectSource) : pTarget.damageSources().magic();
             pTarget.hurt(source1, pAmplifier + 2.0F);
         }
     }

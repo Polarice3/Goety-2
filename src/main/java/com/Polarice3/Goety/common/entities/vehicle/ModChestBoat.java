@@ -9,7 +9,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.SlotAccess;
@@ -68,7 +67,7 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
         this.chestVehicleDestroyed(p_219892_, this.level, this);
     }
 
-    public void remove(Entity.RemovalReason p_219894_) {
+    public void remove(RemovalReason p_219894_) {
         if (!this.level.isClientSide && p_219894_.shouldDestroy()) {
             Containers.dropContents(this.level, this, this);
         }
@@ -77,7 +76,17 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
     }
 
     public InteractionResult interact(Player p_219898_, InteractionHand p_219899_) {
-        return this.canAddPassenger(p_219898_) && !p_219898_.isSecondaryUseActive() ? super.interact(p_219898_, p_219899_) : this.interactWithChestVehicle(this::gameEvent, p_219898_);
+        if (this.canAddPassenger(p_219898_) && !p_219898_.isSecondaryUseActive()) {
+            return super.interact(p_219898_, p_219899_);
+        } else {
+            InteractionResult interactionresult = this.interactWithContainerVehicle(p_219898_);
+            if (interactionresult.consumesAction()) {
+                this.gameEvent(GameEvent.CONTAINER_OPEN, p_219898_);
+                PiglinAi.angerNearbyPiglins(p_219898_, true);
+            }
+
+            return interactionresult;
+        }
     }
 
     public void openCustomInventoryScreen(Player p_219906_) {

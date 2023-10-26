@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,7 +16,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -53,7 +53,7 @@ public class Lavaball extends ExplosiveProjectile {
                 }
             }
             boolean flag = this.isDangerous();
-            this.level.explode(owner, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+            this.level.explode(owner, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flag, flag ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
             this.discard();
         }
 
@@ -135,7 +135,7 @@ public class Lavaball extends ExplosiveProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

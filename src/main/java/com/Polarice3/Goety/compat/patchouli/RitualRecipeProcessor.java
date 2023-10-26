@@ -7,6 +7,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -17,7 +18,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
     protected ItemStack pedestal;
 
     @Override
-    public void setup(IVariableProvider iVariableProvider) {
+    public void setup(Level level, IVariableProvider iVariableProvider) {
         String recipeId = iVariableProvider.get("recipe").asString();
         this.recipe = (RitualRecipe) Minecraft.getInstance().level.getRecipeManager()
                 .byKey(new ResourceLocation(recipeId)).orElse(null);
@@ -25,7 +26,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
     }
 
     @Override
-    public IVariable process(String key) {
+    public IVariable process(Level level, String key) {
         if (this.recipe == null)
             return IVariable.empty();
 
@@ -58,8 +59,8 @@ public class RitualRecipeProcessor implements IComponentProcessor {
         }
 
         if (key.equals("output")) {
-            if (this.recipe.getResultItem().getItem() != ModItems.JEI_DUMMY_NONE.get()) {
-                return IVariable.from(this.recipe.getResultItem());
+            if (this.recipe.getResultItem(level.registryAccess()).getItem() != ModItems.JEI_DUMMY_NONE.get()) {
+                return IVariable.from(this.recipe.getResultItem(level.registryAccess()));
             } else {
                 return IVariable.from(new ItemStack(ModItems.JEI_DUMMY_NONE.get()));
             }

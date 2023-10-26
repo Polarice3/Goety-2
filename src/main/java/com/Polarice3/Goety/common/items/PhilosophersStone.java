@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -10,7 +9,7 @@ import javax.annotation.Nonnull;
 
 public class PhilosophersStone extends Item implements IForgeItem, ISoulRepair {
     public PhilosophersStone(){
-        super(new Properties().tab(Goety.TAB).durability(64));
+        super(new Properties().durability(64));
     }
 
     @Override

@@ -6,11 +6,11 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -46,7 +46,7 @@ public class NetherMeteor extends ExplosiveProjectile {
         super.onHit(result);
         if (!this.level.isClientSide) {
             boolean flag = this.isDangerous();
-            Explosion.BlockInteraction mode = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+            Level.ExplosionInteraction mode = flag ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionPower, flag, mode);
             this.discard();
         }
@@ -117,7 +117,7 @@ public class NetherMeteor extends ExplosiveProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

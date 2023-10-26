@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.effects.brew.block;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,7 +34,7 @@ public class FloodBlockEffect extends BrewEffect {
     @Override
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, int pAmplifier){
         if (pTarget.isSensitiveToWater()){
-            pTarget.hurt(DamageSource.DROWN, pAmplifier + 5.0F);
+            pTarget.hurt(pTarget.damageSources().drown(), pAmplifier + 5.0F);
         }
     }
 }

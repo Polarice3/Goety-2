@@ -75,7 +75,7 @@ public class WindBlowerBlockEntity extends BlockEntity {
             int distance;
             for (distance = 1; distance < state.getValue(WindBlowerBlock.POWER); distance++) {
                 BlockState state2 = this.level.getBlockState(getBlockPos().relative(facing, distance));
-                if (state2.getMaterial().isSolidBlocking() || state2.getMaterial().isLiquid()) {
+                if (state2.isSolid() || state2.liquid()) {
                     break;
                 }
             }

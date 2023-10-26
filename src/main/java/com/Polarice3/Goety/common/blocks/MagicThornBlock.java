@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,14 +15,14 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -37,7 +36,9 @@ public class MagicThornBlock extends Block implements IPlantable, SimpleWaterlog
    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
    public MagicThornBlock() {
-      super(BlockBehaviour.Properties.of(Material.WOOD)
+      super(Properties.of()
+              .pushReaction(PushReaction.DESTROY)
+              .mapColor(MapColor.WOOD)
               .strength(2.0F)
               .randomTicks()
               .noOcclusion()
@@ -96,12 +97,12 @@ public class MagicThornBlock extends Block implements IPlantable, SimpleWaterlog
             return false;
          }
       }
-      return (p_51154_.getBlockState(p_51155_.below()).isSolidRender(p_51154_, p_51155_.below()) || p_51154_.getBlockState(p_51155_.below()).is(this)) && !p_51154_.getBlockState(p_51155_.above()).getMaterial().isLiquid();
+      return (p_51154_.getBlockState(p_51155_.below()).isSolidRender(p_51154_, p_51155_.below()) || p_51154_.getBlockState(p_51155_.below()).is(this)) && !p_51154_.getBlockState(p_51155_.above()).liquid();
    }
 
    public void entityInside(BlockState p_51148_, Level p_51149_, BlockPos p_51150_, Entity p_51151_) {
       if (p_51151_ instanceof LivingEntity) {
-         p_51151_.hurt(DamageSource.SWEET_BERRY_BUSH, 1.0F);
+         p_51151_.hurt(p_51151_.damageSources().sweetBerryBush(), 1.0F);
       }
    }
 
@@ -122,7 +123,7 @@ public class MagicThornBlock extends Block implements IPlantable, SimpleWaterlog
       return false;
    }
 
-   public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
+   public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
       return state.getBlock() instanceof MagicThornBlock;
    }
 

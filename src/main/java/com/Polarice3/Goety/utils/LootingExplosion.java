@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -38,12 +37,12 @@ import java.util.Set;
 public class LootingExplosion extends Explosion {
     public Mode lootMode;
 
-    public LootingExplosion(Level p_46041_, @Nullable Entity p_46042_, double p_46043_, double p_46044_, double p_46045_, float p_46046_, boolean p_46047_, Explosion.BlockInteraction p_46048_, Mode pLootMode, List<BlockPos> p_46049_) {
+    public LootingExplosion(Level p_46041_, @Nullable Entity p_46042_, double p_46043_, double p_46044_, double p_46045_, float p_46046_, boolean p_46047_, BlockInteraction p_46048_, Mode pLootMode, List<BlockPos> p_46049_) {
         this(p_46041_, p_46042_, p_46043_, p_46044_, p_46045_, p_46046_, p_46047_, p_46048_, pLootMode);
         this.toBlow.addAll(p_46049_);
     }
 
-    public LootingExplosion(Level pLevel, @Nullable Entity pSource, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction, Mode pLootMode) {
+    public LootingExplosion(Level pLevel, @Nullable Entity pSource, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire, BlockInteraction pBlockInteraction, Mode pLootMode) {
         super(pLevel, pSource, null, null, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
         this.lootMode = pLootMode;
     }
@@ -70,7 +69,7 @@ public class LootingExplosion extends Explosion {
                         double d8 = this.z;
 
                         for(float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
-                            BlockPos blockpos = new BlockPos(d4, d6, d8);
+                            BlockPos blockpos = BlockPos.containing(d4, d6, d8);
                             BlockState blockstate = this.level.getBlockState(blockpos);
                             FluidState fluidstate = this.level.getFluidState(blockpos);
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this, this.level, blockpos, blockstate, fluidstate);
@@ -120,28 +119,20 @@ public class LootingExplosion extends Explosion {
                             d9 = d9 / d13;
                             double d14 = (double) getSeenPercent(vector3d, entity);
                             double d10 = (1.0D - d12) * d14;
-                            boolean hurt = true;
-                            if (this.getSourceMob() != null){
-                                if (MobUtil.areAllies(this.getSourceMob(), entity)){
-                                    hurt = false;
-                                }
+                            if (flag){
+                                entity.hurt(entity.damageSources().explosion(this.getDirectSourceEntity(), this.getIndirectSourceEntity()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                            } else {
+                                entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
                             }
-                            if (hurt) {
-                                if (flag) {
-                                    entity.hurt(DamageSource.explosion(this.getSourceMob()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                                } else {
-                                    entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                                }
-                                double d11 = d10;
-                                if (entity instanceof LivingEntity) {
-                                    d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                                }
+                            double d11 = d10;
+                            if (entity instanceof LivingEntity) {
+                                d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                            }
 
-                                entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
-                                if (entity instanceof Player player) {
-                                    if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
-                                        this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
-                                    }
+                            entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                            if (entity instanceof Player player) {
+                                if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
+                                    this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
                                 }
                             }
                         }
@@ -155,7 +146,7 @@ public class LootingExplosion extends Explosion {
 
         this.playEffects();
 
-        boolean flag = this.blockInteraction != Explosion.BlockInteraction.NONE;
+        boolean flag = this.blockInteraction != BlockInteraction.KEEP;
 
         if (flag) {
             ObjectArrayList<Pair<ItemStack, BlockPos>> objectarraylist = new ObjectArrayList<>();
@@ -169,8 +160,8 @@ public class LootingExplosion extends Explosion {
                     this.level.getProfiler().push("explosion_blocks");
                     if (blockstate.canDropFromExplosion(this.level, blockpos, this) && this.level instanceof ServerLevel) {
                         BlockEntity tileentity = blockstate.hasBlockEntity() ? this.level.getBlockEntity(blockpos) : null;
-                        LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) this.level)).withRandom(this.level.random).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockpos)).withParameter(LootContextParams.TOOL, ItemStack.EMPTY).withOptionalParameter(LootContextParams.BLOCK_ENTITY, tileentity).withOptionalParameter(LootContextParams.THIS_ENTITY, this.source);
-                        if (this.blockInteraction == Explosion.BlockInteraction.DESTROY) {
+                        LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockpos)).withParameter(LootContextParams.TOOL, ItemStack.EMPTY).withOptionalParameter(LootContextParams.BLOCK_ENTITY, tileentity).withOptionalParameter(LootContextParams.THIS_ENTITY, this.source);
+                        if (this.blockInteraction == BlockInteraction.DESTROY) {
                             lootcontext$builder.withParameter(LootContextParams.EXPLOSION_RADIUS, this.radius);
                         }
 
@@ -199,13 +190,13 @@ public class LootingExplosion extends Explosion {
     }
 
     public void playEffects(){
-        boolean flag = this.blockInteraction != Explosion.BlockInteraction.NONE;
+        boolean flag = this.blockInteraction != BlockInteraction.KEEP;
 
         if (this.level.isClientSide()) {
             this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
         }
 
-        if (this.radius >= 2.0F) {
+        if (!(this.radius < 2.0F) && flag) {
             this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
         } else {
             this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
@@ -32,12 +32,12 @@ public class FlayingBrewEffect extends BrewEffect {
 
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
         LivingEntity livingEntity = pIndirectSource instanceof LivingEntity living ? living : null;
-        DamageSource damageSource = livingEntity != null ? DamageSource.mobAttack(livingEntity) : DamageSource.SWEET_BERRY_BUSH;
+        DamageSource damageSource = livingEntity != null ? pTarget.damageSources().mobAttack(livingEntity) : pTarget.damageSources().sweetBerryBush();
         if (pTarget instanceof Animal animal){
             if (animal.level.getServer() != null) {
-                LootTable loottable = animal.level.getServer().getLootTables().get(animal.getLootTable());
-                LootContext.Builder lootcontext$builder = MobUtil.createLootContext(damageSource, animal).withLuck(pAmplifier);
-                LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                LootTable loottable = animal.level.getServer().getLootData().getLootTable(animal.getLootTable());
+                LootParams.Builder lootcontext$builder = MobUtil.createLootContext(damageSource, animal).withLuck(pAmplifier);
+                LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
                 for (int i = 0; i < pAmplifier + 1; ++i) {
                     for (ItemStack itemStack : loottable.getRandomItems(ctx)) {
                         if (!itemStack.getItem().isEdible() && !itemStack.isEmpty()) {

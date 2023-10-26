@@ -33,11 +33,13 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -213,7 +215,7 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
     }
 
     @Override
-    public void remove(Entity.RemovalReason p_146834_) {
+    public void remove(RemovalReason p_146834_) {
         if (this.level.isClientSide) {
             Goety.PROXY.removeBoss(this);
         }
@@ -255,18 +257,18 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
                 }
                 List<MobEffectInstance> mobEffectInstance = new ArrayList<>();
                 List<BrewEffectInstance> brewEffectInstance = new ArrayList<>();
-                if (this.random.nextFloat() < 0.15F && (this.isInWall() || (this.getLastDamageSource() != null && this.getLastDamageSource() == DamageSource.IN_WALL))){
+                if (this.random.nextFloat() < 0.15F && (this.isInWall() || (this.getLastDamageSource() != null && this.getLastDamageSource().is(DamageTypes.IN_WALL)))){
                     brewEffectInstance.add(new BrewEffectInstance(new BlindJumpBrewEffect(0), 1, amp));
-                } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource() == DamageSource.CACTUS || this.getLastDamageSource() == DamageSource.SWEET_BERRY_BUSH)){
+                } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && (this.getLastDamageSource().is(DamageTypes.CACTUS) || this.getLastDamageSource().is(DamageTypes.SWEET_BERRY_BUSH))){
                     brewEffectInstance.add(new BrewEffectInstance(new HarvestBlockEffect()));
                 } else if (this.random.nextFloat() < 0.15F && this.getHealth() < this.getMaxHealth() && (this.getTarget() == null || this.lastHitTime == 0)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.HEAL, 1, amp));
                 } else if (this.random.nextFloat() < 0.15F && this.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) && !this.hasEffect(MobEffects.WATER_BREATHING)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.WATER_BREATHING, 3600));
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.SWIFT_SWIM.get(), 3600));
-                } else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().isFire()) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
+                } else if (this.random.nextFloat() < 0.15F && (this.isOnFire() || this.getLastDamageSource() != null && this.getLastDamageSource().is(DamageTypeTags.IS_FIRE)) && !this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3600));
-                } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && this.getLastDamageSource().isFall() && !this.hasEffect(MobEffects.SLOW_FALLING)){
+                } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && this.getLastDamageSource().is(DamageTypeTags.IS_FALL) && !this.hasEffect(MobEffects.SLOW_FALLING)){
                     mobEffectInstance.add(new MobEffectInstance(MobEffects.SLOW_FALLING, 3600));
                 } else if (this.random.nextFloat() < 0.15F && this.getLastDamageSource() != null && ModDamageSource.physicalAttacks(this.getLastDamageSource()) && !this.hasEffect(GoetyEffects.REPULSIVE.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.REPULSIVE.get(), 1800 / (amp + 1), amp));
@@ -355,7 +357,7 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
             p_34150_ = 0.0F;
         }
 
-        if (p_34149_.isMagic()) {
+        if (p_34149_.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
             p_34150_ *= 0.15F;
         }
 
@@ -389,7 +391,7 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
                 this.setTarget(null);
             } else if (d3 >= 8.0D && !target.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                 mobEffectInstance.add(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1800 / (amp + 1), amp));
-                if (this.random.nextFloat() <= 0.25F && target.isOnGround()){
+                if (this.random.nextFloat() <= 0.25F && target.onGround()){
                     brewEffectInstance.add(new BrewEffectInstance(new SweetBerriedEffect(), 1, amp));
                 }
                 if (this.random.nextFloat() <= 0.25F && this.noBrewMinions(target)){
@@ -433,7 +435,7 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
                 if (this.random.nextFloat() <= 0.05F){
                     brewEffectInstance.add(new BrewEffectInstance(new StripBrewEffect(0, 0)));
                 } else if (this.random.nextFloat() <= 0.25F){
-                    if (target.isOnGround()) {
+                    if (target.onGround()) {
                         brewEffectInstance.add(new BrewEffectInstance(new ThornTrapBrewEffect(0), 1, amp));
                     } else if (!target.hasEffect(MobEffects.LEVITATION)){
                         mobEffectInstance.add(new MobEffectInstance(GoetyEffects.PLUNGE.get(), 900 / (amp + 1), amp));
@@ -481,19 +483,19 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
 
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.getHealth() <= 10.0F){
-            if (pSource == DamageSource.CACTUS || pSource == DamageSource.SWEET_BERRY_BUSH || pSource.isMagic()){
+            if (pSource.is(DamageTypes.CACTUS) || pSource.is(DamageTypes.SWEET_BERRY_BUSH) || pSource.is(DamageTypeTags.WITCH_RESISTANT_TO)){
                 return false;
             }
         }
 
         if (pSource.getEntity() instanceof LivingEntity livingentity && livingentity != this){
             this.lastHitTime = MathHelper.secondsToTicks(15);
-            if (!pSource.isExplosion() && !pSource.isMagic()) {
+            if (!pSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !pSource.is(DamageTypes.THORNS)) {
                 float thorn = 2.0F;
                 if (this.level.getDifficulty() == Difficulty.HARD){
                     thorn *= 2.0F;
                 }
-                livingentity.hurt(DamageSource.thorns(this), thorn);
+                livingentity.hurt(this.damageSources().thorns(this), thorn);
             }
             if (pAmount >= 15){
                 this.overwhelmed = MathHelper.secondsToTicks(15);

@@ -17,6 +17,7 @@ import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.phys.Vec3;
 
 public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEventListener, IEnchantedBlock {
     private final BlockPositionSource blockPosSource = new BlockPositionSource(this.worldPosition);
@@ -54,11 +55,10 @@ public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEv
         return radius;
     }
 
-    public boolean handleGameEvent(ServerLevel p_222777_, GameEvent.Message p_222778_) {
+    public boolean handleGameEvent(ServerLevel p_222777_, GameEvent p_282184_, GameEvent.Context p_283014_, Vec3 p_282350_) {
         if (!this.isRemoved()) {
-            GameEvent.Context gameevent$context = p_222778_.context();
-            if (p_222778_.gameEvent() == GameEvent.ENTITY_DIE) {
-                Entity $$4 = gameevent$context.sourceEntity();
+            if (p_282184_ == GameEvent.ENTITY_DIE) {
+                Entity $$4 = p_283014_.sourceEntity();
                 if ($$4 instanceof LivingEntity livingentity) {
                     if (!livingentity.wasExperienceConsumed() && this.getPlayer() != null && SEHelper.getSoulsContainer(this.getPlayer())) {
                         int i = livingentity.getExperienceReward();

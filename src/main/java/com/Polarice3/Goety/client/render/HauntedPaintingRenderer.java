@@ -5,8 +5,7 @@ import com.Polarice3.Goety.client.render.model.HauntedPaintingModel;
 import com.Polarice3.Goety.common.entities.deco.HauntedPainting;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,10 +14,12 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import org.joml.Quaternionf;
+
 /**
  * Based on @Terrarium's codes: <a href="https://github.com/terrarium-earth/Handcrafted/blob/1.19.2/common/src/main/java/earth/terrarium/handcrafted/client/entity/fancypainting/FancyPaintingRenderer.java">...</a>
  * */
@@ -82,8 +83,8 @@ public class HauntedPaintingRenderer extends EntityRenderer<HauntedPainting> {
 
       try (var ignored = new CloseablePoseStack(poseStack)) {
          poseStack.translate(0.0F, 0.875F, 0.0F);
-         poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.getOpposite().toYRot()));
-         poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
+         poseStack.mulPose(Axis.YN.rotationDegrees(direction.getOpposite().toYRot()));
+         poseStack.mulPose(Axis.XP.rotationDegrees(180));
          model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entitySolid(frameTexture)), packedLight, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
 
          poseStack.translate(0.0F, 0.0F, 0.01F);
@@ -116,7 +117,7 @@ public class HauntedPaintingRenderer extends EntityRenderer<HauntedPainting> {
 
    @Override
    public ResourceLocation getTextureLocation(HauntedPainting entity) {
-      return Goety.location("textures/painting/" + Registry.PAINTING_VARIANT.getKey(entity.getVariant().value()).getPath() + ".png");
+      return Goety.location("textures/painting/" + BuiltInRegistries.PAINTING_VARIANT.getKey(entity.getVariant().value()).getPath() + ".png");
    }
 
    public class CloseablePoseStack implements AutoCloseable {
@@ -136,7 +137,7 @@ public class HauntedPaintingRenderer extends EntityRenderer<HauntedPainting> {
          stack.scale(f, g, h);
       }
 
-      public void mulPose(Quaternion quaternion) {
+      public void mulPose(Quaternionf quaternion) {
          stack.mulPose(quaternion);
       }
 

@@ -10,9 +10,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -102,7 +102,7 @@ public class CorruptedBeam extends Entity implements IEntityAdditionalSpawnData 
                         damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), this.getOwner()) / 2.0F;
                     }
                 }
-                entity.hurt(DamageSource.indirectMagic(owner, owner), damage);
+                entity.hurt(entity.damageSources().indirectMagic(owner, owner), damage);
                 entity.setDeltaMovement(deltaMovement);
             }
         }
@@ -220,7 +220,7 @@ public class CorruptedBeam extends Entity implements IEntityAdditionalSpawnData 
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

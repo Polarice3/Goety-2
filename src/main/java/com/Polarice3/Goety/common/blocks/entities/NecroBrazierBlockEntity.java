@@ -234,7 +234,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                     if (finished) {
                         ItemStack itemstack1 = this.level.getRecipeManager()
                                 .getRecipeFor(ModRecipeSerializer.BRAZIER_TYPE.get(), this.getContainer(), this.level)
-                                .map((recipes) -> recipes.assemble(this.getContainer())).orElse(ItemStack.EMPTY);
+                                .map((recipes) -> recipes.assemble(this.getContainer(), this.level.registryAccess())).orElse(ItemStack.EMPTY);
                         BlockPos blockpos = this.getBlockPos();
                         dropItemStack(this.level, blockpos.getX(), blockpos.getY() + 1, blockpos.getZ(), itemstack1);
                         this.level.playSound(null, this.getBlockPos(), ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);

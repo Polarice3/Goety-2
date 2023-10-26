@@ -4,8 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -18,6 +17,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class ArcaRenderer implements BlockEntityRenderer<ArcaBlockEntity> {
     public static final ResourceLocation GLASS_CAGE_TEXTURE = Goety.location("textures/entity/arca/cage.png");
@@ -50,16 +51,16 @@ public class ArcaRenderer implements BlockEntityRenderer<ArcaBlockEntity> {
         f2 = f2 * f2 + f2;
         pMatrixStack.pushPose();
         pMatrixStack.translate(0.5D, 0.4F + f2 * 0.1F, 0.5D);
-        Vector3f vector3f = new Vector3f(0.5F, 1.0F, 0.5F);
+        Vector3f vector3f = (new Vector3f(0.5F, 1.0F, 0.5F)).normalize();
         vector3f.normalize();
-        pMatrixStack.mulPose(new Quaternion(vector3f, f1, true));
+        pMatrixStack.mulPose((new Quaternionf()).rotationAxis(f1 * ((float)Math.PI / 180F), vector3f));
         VertexConsumer ivertexbuilder = pBuffer.getBuffer(GLASS_CAGE_RENDER);
         this.cage.render(pMatrixStack, ivertexbuilder, pCombinedLight, pCombinedOverlay);
         pMatrixStack.popPose();
         pMatrixStack.pushPose();
         pMatrixStack.translate(0.5D, 0.4F + f2 * 0.1F, 0.5D);
         pMatrixStack.scale(0.5F, 0.5F, 0.5F);
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(3 * f));
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees(3 * f));
         VertexConsumer ivertexbuilder2 = pBuffer.getBuffer(CORE_RENDER);
         this.core.render(pMatrixStack, ivertexbuilder2, pCombinedLight, pCombinedOverlay);
         pMatrixStack.popPose();

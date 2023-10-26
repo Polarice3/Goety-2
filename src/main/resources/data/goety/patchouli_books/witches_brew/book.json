@@ -6,7 +6,8 @@
   "model": "goety:witches_brew",
   "show_toasts": false,
   "show_progress": false,
-  "creative_tab": "goetyTab",
+  "creative_tab": "goety",
   "text_overflow_mode": "overflow",
+  "use_resource_pack": true,
   "i18n": true
 }

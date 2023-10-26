@@ -5,9 +5,9 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
@@ -25,7 +25,7 @@ public class SculkBubbleParticleOption implements ParticleOptions {
             return p_235980_.arrivalInTicks;
         })).apply(p_235978_, SculkBubbleParticleOption::new);
     });
-    public static final ParticleOptions.Deserializer<SculkBubbleParticleOption> DESERIALIZER = new ParticleOptions.Deserializer<SculkBubbleParticleOption>() {
+    public static final Deserializer<SculkBubbleParticleOption> DESERIALIZER = new Deserializer<SculkBubbleParticleOption>() {
         public SculkBubbleParticleOption fromCommand(ParticleType<SculkBubbleParticleOption> p_175859_, StringReader p_175860_) throws CommandSyntaxException {
             p_175860_.expect(' ');
             float f = (float)p_175860_.readDouble();
@@ -35,7 +35,7 @@ public class SculkBubbleParticleOption implements ParticleOptions {
             float f2 = (float)p_175860_.readDouble();
             p_175860_.expect(' ');
             int i = p_175860_.readInt();
-            BlockPos blockpos = new BlockPos((double)f, (double)f1, (double)f2);
+            BlockPos blockpos = BlockPos.containing((double)f, (double)f1, (double)f2);
             return new SculkBubbleParticleOption(new BlockPositionSource(blockpos), i);
         }
 
@@ -63,7 +63,7 @@ public class SculkBubbleParticleOption implements ParticleOptions {
         double d0 = vec3.x();
         double d1 = vec3.y();
         double d2 = vec3.z();
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %d", Registry.PARTICLE_TYPE.getKey(this.getType()), d0, d1, d2, this.arrivalInTicks);
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %d", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), d0, d1, d2, this.arrivalInTicks);
     }
 
     public ParticleType<SculkBubbleParticleOption> getType() {

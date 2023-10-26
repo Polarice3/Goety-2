@@ -16,7 +16,7 @@ public class SkeletonVillagerServantRenderer extends HumanoidMobRenderer<Skeleto
 
     public SkeletonVillagerServantRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new SkeletonVillagerModel<>(entityRendererManager.bakeLayer(ModModelLayer.SKELETON_VILLAGER_SERVANT)),0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(entityRendererManager.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), entityRendererManager.getModelManager()));
         this.addLayer(new ItemInHandLayer<>(this, entityRendererManager.getItemInHandRenderer()));
     }
 

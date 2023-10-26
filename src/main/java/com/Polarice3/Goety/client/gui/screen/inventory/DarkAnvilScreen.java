@@ -1,10 +1,8 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.inventory.container.DarkAnvilMenu;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.network.chat.Component;
@@ -34,7 +32,6 @@ public class DarkAnvilScreen extends ItemCombinerScreen<DarkAnvilMenu> {
    }
 
    protected void subInit() {
-      this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
       int i = (this.width - this.imageWidth) / 2;
       int j = (this.height - this.imageHeight) / 2;
       this.name = new EditBox(this.font, i + 62, j + 24, 103, 12, Component.translatable("container.repair"));
@@ -56,11 +53,6 @@ public class DarkAnvilScreen extends ItemCombinerScreen<DarkAnvilMenu> {
       this.name.setValue(s);
    }
 
-   public void removed() {
-      super.removed();
-      this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
-   }
-
    public boolean keyPressed(int p_97878_, int p_97879_, int p_97880_) {
       if (p_97878_ == 256) {
          this.minecraft.player.closeContainer();
@@ -70,26 +62,27 @@ public class DarkAnvilScreen extends ItemCombinerScreen<DarkAnvilMenu> {
    }
 
    private void onNameChanged(String p_97899_) {
-      if (!p_97899_.isEmpty()) {
+      Slot slot = this.menu.getSlot(0);
+      if (slot.hasItem()) {
          String s = p_97899_;
-         Slot slot = this.menu.getSlot(0);
-         if (slot != null && slot.hasItem() && !slot.getItem().hasCustomHoverName() && p_97899_.equals(slot.getItem().getHoverName().getString())) {
+         if (!slot.getItem().hasCustomHoverName() && p_97899_.equals(slot.getItem().getHoverName().getString())) {
             s = "";
          }
 
-         this.menu.setItemName(s);
-         this.minecraft.player.connection.send(new ServerboundRenameItemPacket(s));
+         if (this.menu.setItemName(s)) {
+            this.minecraft.player.connection.send(new ServerboundRenameItemPacket(s));
+         }
+
       }
    }
 
-   protected void renderLabels(PoseStack p_97890_, int p_97891_, int p_97892_) {
-      RenderSystem.disableBlend();
-      super.renderLabels(p_97890_, p_97891_, p_97892_);
+   protected void renderLabels(GuiGraphics p_281442_, int p_282417_, int p_283022_) {
+      super.renderLabels(p_281442_, p_282417_, p_283022_);
       int i = this.menu.getCost();
       if (i > 0) {
          int j = 8453920;
          Component component;
-         if (MainConfig.DarkAnvilCap.get() && i >= MainConfig.DarkAnvilRepairCost.get() && !this.minecraft.player.getAbilities().instabuild) {
+         if (i >= 40 && !this.minecraft.player.getAbilities().instabuild) {
             component = TOO_EXPENSIVE_TEXT;
             j = 16736352;
          } else if (!this.menu.getSlot(2).hasItem()) {
@@ -104,15 +97,27 @@ public class DarkAnvilScreen extends ItemCombinerScreen<DarkAnvilMenu> {
          if (component != null) {
             int k = this.imageWidth - 8 - this.font.width(component) - 2;
             int l = 69;
-            fill(p_97890_, k - 2, 67, this.imageWidth - 8, 79, 1325400064);
-            this.font.drawShadow(p_97890_, component, (float)k, 69.0F, j);
+            p_281442_.fill(k - 2, 67, this.imageWidth - 8, 79, 1325400064);
+            p_281442_.drawString(this.font, component, k, 69, j);
          }
       }
 
    }
 
-   public void renderFg(PoseStack p_97894_, int p_97895_, int p_97896_, float p_97897_) {
-      this.name.render(p_97894_, p_97895_, p_97896_, p_97897_);
+   protected void renderBg(GuiGraphics p_283345_, float p_283412_, int p_282871_, int p_281306_) {
+      super.renderBg(p_283345_, p_283412_, p_282871_, p_281306_);
+      p_283345_.blit(ANVIL_LOCATION, this.leftPos + 59, this.topPos + 20, 0, this.imageHeight + (this.menu.getSlot(0).hasItem() ? 0 : 16), 110, 16);
+   }
+
+   public void renderFg(GuiGraphics p_283449_, int p_283263_, int p_281526_, float p_282957_) {
+      this.name.render(p_283449_, p_283263_, p_281526_, p_282957_);
+   }
+
+   protected void renderErrorIcon(GuiGraphics p_282905_, int p_283237_, int p_282237_) {
+      if ((this.menu.getSlot(0).hasItem() || this.menu.getSlot(1).hasItem()) && !this.menu.getSlot(this.menu.getResultSlot()).hasItem()) {
+         p_282905_.blit(ANVIL_LOCATION, p_283237_ + 99, p_282237_ + 45, this.imageWidth, 0, 28, 21);
+      }
+
    }
 
    public void slotChanged(AbstractContainerMenu p_97882_, int p_97883_, ItemStack p_97884_) {

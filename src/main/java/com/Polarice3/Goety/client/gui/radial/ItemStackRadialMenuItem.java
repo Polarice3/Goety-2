@@ -29,11 +29,11 @@ public class ItemStackRadialMenuItem extends TextRadialMenuItem {
         if (stack.getCount() > 0) {
             PoseStack viewModelPose = RenderSystem.getModelViewStack();
             viewModelPose.pushPose();
-            viewModelPose.mulPoseMatrix(context.matrixStack().last().pose());
+            viewModelPose.mulPoseMatrix(context.guiGraphics().pose().last().pose());
             viewModelPose.translate(-8, -8, context.z());
             RenderSystem.applyModelViewMatrix();
-            context.itemRenderer().renderAndDecorateItem(stack, (int) context.x(), (int) context.y());
-            context.itemRenderer().renderGuiItemDecorations(context.fontRenderer(), stack, (int) context.x(), (int) context.y(), "");
+            context.guiGraphics().renderFakeItem(stack, (int) context.x(), (int) context.y());
+            context.guiGraphics().renderItemDecorations(context.fontRenderer(), stack, (int) context.x(), (int) context.y(), "");
             viewModelPose.popPose();
             RenderSystem.applyModelViewMatrix();
         } else {
@@ -44,7 +44,7 @@ public class ItemStackRadialMenuItem extends TextRadialMenuItem {
     @Override
     public void drawTooltips(DrawingContext context) {
         if (stack.getCount() > 0) {
-            context.drawingHelper().renderTooltip(context.matrixStack(), stack, (int) context.x(), (int) context.y());
+            context.drawingHelper().renderTooltip(context.guiGraphics(), stack, (int) context.x(), (int) context.y());
         } else {
             super.drawTooltips(context);
         }

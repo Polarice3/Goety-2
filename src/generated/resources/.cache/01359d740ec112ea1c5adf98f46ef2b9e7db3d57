@@ -1,0 +1,7 @@
+// 1.20.1	2023-10-24T17:59:13.7206665	Tags for minecraft:damage_type mod id goety
+4686477aab11e9b37f4ed5df872a1570686cc393 data/goety/tags/damage_type/no_knockback.json
+c70ee64a43373076171cde10bac4c3593ca93268 data/minecraft/tags/damage_type/bypasses_armor.json
+44cac629124d5921ca0e9cf2d7c0420ad4b38f7b data/minecraft/tags/damage_type/is_fire.json
+0bd8ff70a3a98b0c7e45fdf552d4a6674edcd8be data/minecraft/tags/damage_type/is_freezing.json
+f95f5e0b8e4de2efdaab4d6a48fba262dbe8dad5 data/minecraft/tags/damage_type/is_projectile.json
+47e25d0f4029811fd0b207103ae4bac7a1a78e93 data/minecraft/tags/damage_type/witch_resistant_to.json

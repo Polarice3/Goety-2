@@ -1,0 +1,52 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/haunted/trapped_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/normal"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/normal_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/normal_right"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/trapped"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/trapped_left"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "goety:entity/chest/rotten/trapped_right"
+    }
+  ]
+}

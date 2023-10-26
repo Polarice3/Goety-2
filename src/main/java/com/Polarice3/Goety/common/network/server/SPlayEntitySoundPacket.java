@@ -33,7 +33,7 @@ public class SPlayEntitySoundPacket {
     }
 
     public static SPlayEntitySoundPacket decode(FriendlyByteBuf buffer) {
-        return new SPlayEntitySoundPacket(buffer.readUUID(), new SoundEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
+        return new SPlayEntitySoundPacket(buffer.readUUID(), SoundEvent.createVariableRangeEvent(buffer.readResourceLocation()), buffer.readFloat(), buffer.readFloat());
     }
 
     public static void consume(SPlayEntitySoundPacket packet, Supplier<NetworkEvent.Context> ctx) {

@@ -21,7 +21,7 @@ public class HauntedArmorRenderer extends HumanoidMobRenderer<AbstractHauntedArm
 
     public HauntedArmorRenderer(EntityRendererProvider.Context p_174557_) {
         super(p_174557_, new HauntedArmorModel(p_174557_.bakeLayer(ModelLayers.PLAYER)), 0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), p_174557_.getModelManager()));
     }
 
     public void render(AbstractHauntedArmor pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {

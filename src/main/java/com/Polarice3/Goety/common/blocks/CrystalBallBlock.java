@@ -28,8 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -49,7 +48,8 @@ public class CrystalBallBlock extends Block {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public CrystalBallBlock() {
-        super(Properties.of(Material.METAL, MaterialColor.GOLD)
+        super(Properties.of()
+                .mapColor(MapColor.GOLD)
                 .strength(3.0F, 6.0F)
                 .sound(SoundType.GLASS)
                 .noOcclusion());

@@ -27,7 +27,7 @@ public class SoulBombRenderer extends EntityRenderer<SoulBomb> {
         p_116180_.pushPose();
         p_116180_.translate(0.0F, -0.55F, -0.125F);
         p_116180_.scale(0.5F, 0.5F, 0.5F);
-        float f = Mth.rotlerp(p_116177_.yRotO, p_116177_.getYRot(), p_116179_);
+        float f = Mth.rotLerp(p_116179_, p_116177_.yRotO, p_116177_.getYRot());
         float f1 = Mth.lerp(p_116179_, p_116177_.xRotO, p_116177_.getXRot());
         VertexConsumer vertexconsumer = p_116181_.getBuffer(RenderType.eyes(this.getTextureLocation(p_116177_)));
         this.model.setupAnim(f, f1);

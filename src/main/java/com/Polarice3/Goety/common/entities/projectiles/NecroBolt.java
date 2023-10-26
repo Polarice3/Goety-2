@@ -55,14 +55,14 @@ public class NecroBolt extends AbstractHurtingProjectile {
                 if (WandUtil.enchantedFocus(livingentity)){
                     baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
                 }
-                flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
+                flag = entity.hurt(entity.damageSources().indirectMagic(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     }
                 }
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, baseDamage);
+                flag = entity.hurt(entity.damageSources().magic(), baseDamage);
             }
 
             if (flag && entity instanceof LivingEntity) {

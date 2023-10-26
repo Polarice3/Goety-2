@@ -7,7 +7,6 @@ import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
-import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,7 +30,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -42,6 +40,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -56,7 +55,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new Raider.HoldGroundAttackGoal(this, 10.0F));
+        this.goalSelector.addGoal(2, new HoldGroundAttackGoal(this, 10.0F));
         this.goalSelector.addGoal(3, new BackawayCrossbowGoal<>(this, 1.0D, 16.0F));
     }
 

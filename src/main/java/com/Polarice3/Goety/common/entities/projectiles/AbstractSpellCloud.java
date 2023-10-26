@@ -10,8 +10,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,7 +48,7 @@ public abstract class AbstractSpellCloud extends Entity {
         if (pTarget != null){
             BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(pTarget.getX(), pTarget.getY(), pTarget.getZ());
 
-            while(blockpos$mutable.getY() < pTarget.getY() + 4.0D && !this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+            while(blockpos$mutable.getY() < pTarget.getY() + 4.0D && !this.level.getBlockState(blockpos$mutable).blocksMotion()) {
                 blockpos$mutable.move(Direction.UP);
             }
             this.setPos(pTarget.getX(), blockpos$mutable.getY(), pTarget.getZ());
@@ -71,7 +73,7 @@ public abstract class AbstractSpellCloud extends Entity {
     protected void readAdditionalSaveData(CompoundTag p_20052_) {
         if (p_20052_.contains("Particle", 8)) {
             try {
-                this.setRainParticle(ParticleArgument.readParticle(new StringReader(p_20052_.getString("Particle"))));
+                this.setRainParticle(ParticleArgument.readParticle(new StringReader(p_20052_.getString("Particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup()));
             } catch (CommandSyntaxException ignored) {
             }
         }
@@ -142,7 +144,7 @@ public abstract class AbstractSpellCloud extends Entity {
                     this.rainParticles(this.getRainParticle());
                     AABB below = this.getBoundingBox().move(0, -16, 0).inflate(0, 16, 0);
 
-                    for (LivingEntity livingEntity : this.getLevel().getEntitiesOfClass(LivingEntity.class, below)) {
+                    for (LivingEntity livingEntity : this.level().getEntitiesOfClass(LivingEntity.class, below)) {
                         boolean flag = false;
                         if (this.getOwner() != null) {
                             if (livingEntity != this.getOwner() && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)){
@@ -227,7 +229,7 @@ public abstract class AbstractSpellCloud extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -43,7 +43,8 @@ public class SoulCandlestickBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public SoulCandlestickBlock() {
-        super(Properties.of(Material.METAL)
+        super(Properties.of()
+                .mapColor(MapColor.METAL)
                 .strength(0.1F)
                 .sound(SoundType.CANDLE)
                 .lightLevel(litBlockEmission())

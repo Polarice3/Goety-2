@@ -24,7 +24,7 @@ public class FireRainTrap extends AbstractTrap {
         super.tick();
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(this.getX(), this.getY(), this.getZ());
 
-        while(blockpos$mutable.getY() < this.getY() + 32.0D && !this.level.getBlockState(blockpos$mutable).getMaterial().blocksMotion()) {
+        while(blockpos$mutable.getY() < this.getY() + 32.0D && !this.level.getBlockState(blockpos$mutable).blocksMotion()) {
             blockpos$mutable.move(Direction.UP);
         }
         if (this.getOwner() != null) {

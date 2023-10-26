@@ -13,7 +13,6 @@ import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -160,7 +159,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
     public void lifeSpanDamage(){
         this.limitedLifeTicks = 20;
-        this.hurt(DamageSource.STARVE, 1.0F);
+        this.hurt(this.damageSources().starve(), 1.0F);
     }
 
     public Team getTeam() {
@@ -364,7 +363,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
         public OwnerHurtTargetGoal(Owned summonedEntity) {
             super(summonedEntity, false);
-            this.setFlags(EnumSet.of(Goal.Flag.TARGET));
+            this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
         public boolean canUse() {

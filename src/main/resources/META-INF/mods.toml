@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[43,)"
+loaderVersion="[47,)"
 license="All rights reserved"
 [[mods]]
 modId="goety"
@@ -13,29 +13,29 @@ description='''
 Goety adds a bunch of new Mobs that can help or hinder players and a magic system that can provides a player a different way of combat!
 '''
 [[dependencies.goety]] #optional
-    modId="forge" #mandatory
+modId="forge" #mandatory
 
-    mandatory=true #mandatory
+mandatory=true #mandatory
 
-    versionRange="[43,)" #mandatory
+versionRange="${neo_version_range}" #mandatory
 
-    ordering="NONE"
+ordering="NONE"
 
-    side="BOTH"
-
-[[dependencies.goety]]
-    modId = "curios"
-    mandatory = true
-    versionRange = "[1.19-5.1.0.4,)"
-    side = "BOTH"
+side="BOTH"
 
 [[dependencies.goety]]
-    modId="minecraft"
+modId = "curios"
+mandatory = true
+versionRange = "[1.20-5.3.4,)"
+side = "BOTH"
 
-    mandatory=true
+[[dependencies.goety]]
+modId="minecraft"
 
-    versionRange="[1.19.2,1.20)"
+mandatory=true
 
-    ordering="NONE"
+versionRange="${minecraft_version_range}"
 
-    side="BOTH"
+ordering="NONE"
+
+side="BOTH"

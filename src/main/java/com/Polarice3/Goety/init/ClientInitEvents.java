@@ -17,7 +17,6 @@ import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
 import com.Polarice3.Goety.client.render.layer.PlayerSpellShieldLayer;
 import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.blocks.ModChestBlock;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
@@ -31,12 +30,14 @@ import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -48,14 +49,16 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientInitEvents {
@@ -193,12 +196,9 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.TALL_PAINTING, HauntedPaintingModel::createTallFrameLayer);
         event.registerLayerDefinition(ModModelLayer.WIDE_PAINTING, HauntedPaintingModel::createWideFrameLayer);
 
-        LayerDefinition layerdefinition18 = BoatModel.createBodyModel(false);
-        LayerDefinition layerdefinition19 = BoatModel.createBodyModel(true);
-
-        for(ModBoat.Type boat$type : ModBoat.Type.values()) {
-            event.registerLayerDefinition(ModModelLayer.createBoatModelName(boat$type), () -> layerdefinition18);
-            event.registerLayerDefinition(ModModelLayer.createChestBoatModelName(boat$type), () ->  layerdefinition19);
+        for(ModBoat.Type boatType : ModBoat.Type.values()) {
+            event.registerLayerDefinition(ModBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
+            event.registerLayerDefinition(ModBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
         }
     }
 
@@ -226,6 +226,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_CHEST.get(), ModChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_TRAPPED_CHEST.get(), ModChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
         event.registerEntityRenderer(ModEntityType.NETHER_METEOR.get(), NetherMeteorRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_FIREBALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 0.75F, true));
         event.registerEntityRenderer(ModEntityType.LAVABALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 3.0F, true));
@@ -350,65 +351,50 @@ public class ClientInitEvents {
     }
 
     @SubscribeEvent
-    public static void textureStitching(TextureStitchEvent.Pre event){
-        if (event.getAtlas().location() == Sheets.CHEST_SHEET) {
-            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block ->
-            {
-                if (block instanceof ModChestBlock){
-                    ModChestRenderer.stitchChests(event, block);
-                }
-            });
-        }
-    }
-
-    @SubscribeEvent
     public static void registerFactories(RegisterParticleProvidersEvent event) {
-        event.register(ModParticleTypes.NONE.get(), NoneParticle.Provider::new);
-        event.register(ModParticleTypes.TOTEM_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
-        event.register(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
-        event.register(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
-        event.register(ModParticleTypes.LASER_POINT.get(), ShortFlameParticle.Provider::new);
-        event.register(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
-        event.register(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
-        event.register(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);
-        event.register(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
-        event.register(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
-        event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
-        event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
-        event.register(ModParticleTypes.GLOW_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
-        event.register(ModParticleTypes.LASER_GATHER.get(), GatheringParticle.Provider::new);
-        event.register(ModParticleTypes.BURNING.get(), FlameParticle.Provider::new);
-        event.register(ModParticleTypes.SOUL_EXPLODE_BITS.get(), FlameParticle.Provider::new);
-        event.register(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
-        event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
-        event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
-        event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
-        event.register(ModParticleTypes.WRAITH_FIRE.get(), BreathParticle.Provider::new);
-        event.register(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
-        event.register(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
-        event.register(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
-        event.register(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
-        event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
-        event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
-        event.register(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
-        event.register(ModParticleTypes.FAN_CLOUD.get(), FanCloudParticle.Provider::new);
-        event.register(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
-        event.register(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
-        event.register(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
-        event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
-        event.register(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);
-        event.register(ModParticleTypes.SUMMON.get(), SoulExplodeParticle.SummonProvider::new);
-        event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.SOUL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.SHOUT.get(), ShoutParticle.RedProvider::new);
-        event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
-        event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.NONE.get(), NoneParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.TOTEM_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
+        event.registerSpriteSet(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.ELECTRIC.get(), GlowParticle.ElectricSparkProvider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_ELECTRIC.get(), BigElectricParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.GLOW_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.LASER_GATHER.get(), GatheringParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BURNING.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE_BITS.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
+        event.registerSpriteSet(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.WRAITH_FIRE.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
+        event.registerSpriteSet(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.FAN_CLOUD.get(), FanCloudParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
+        event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
+        event.registerSpecial(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
+        event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SUMMON.get(), SoulExplodeParticle.SummonProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SOUL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
     }
 
 }

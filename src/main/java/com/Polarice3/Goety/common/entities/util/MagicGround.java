@@ -4,7 +4,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -58,13 +57,13 @@ public class MagicGround extends AbstractTrap{
         }
         if (!targets.isEmpty()){
             for (LivingEntity livingEntity : targets) {
-                livingEntity.hurt(DamageSource.MAGIC, 4.0F);
+                livingEntity.hurt(damageSources().magic(), 4.0F);
                 if (this.owner != null){
                     float damage = 4.0F;
                     if (this.owner instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         damage = (float) (mob.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F);
                     }
-                    livingEntity.hurt(DamageSource.indirectMagic(this, this.owner), damage);
+                    livingEntity.hurt(damageSources().indirectMagic(this, this.owner), damage);
                 }
             }
         }

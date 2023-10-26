@@ -4,7 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ArcaBlock;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
-import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
+import com.Polarice3.Goety.common.magic.spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.init.ModTags;
@@ -99,8 +99,8 @@ public class RecallFocus extends MagicFocus{
                         Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos);
                         if (optional.isPresent()) {
                             player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
-                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(new BlockPos(player.xo, player.yo, player.zo), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(new BlockPos(optional.get()), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(player.xo, player.yo, player.zo), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(optional.get()), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             return true;
                         }
                     } else {

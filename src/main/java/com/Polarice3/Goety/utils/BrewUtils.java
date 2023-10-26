@@ -44,9 +44,6 @@ public class BrewUtils {
         pStack.getOrCreateTag().putInt(AOE_ID, aoe);
     }
 
-    /**
-     * I can't remember why I made this float and not int, lol.
-     */
     public static float getLingering(ItemStack p_43576_) {
         CompoundTag compoundtag = p_43576_.getTag();
         if (compoundtag != null && compoundtag.contains(LINGERING_ID)) {
@@ -71,11 +68,11 @@ public class BrewUtils {
 
     public static int getQuaffLevel(ItemStack itemStack){
         int quaff = getQuaff(itemStack);
-        if (quaff == 8){
+        if (quaff == 4){
             return 1;
-        } else if (quaff == 16){
+        } else if (quaff == 8){
             return 2;
-        } else if (quaff >= 24){
+        } else if (quaff >= 16){
             return 3;
         }
         return 0;
@@ -213,16 +210,16 @@ public class BrewUtils {
                 }
             }
             if (BrewUtils.getAreaOfEffect(itemStack) > 0){
-                p_43557_.add(Component.translatable("tooltip.goety.brew.area", Component.translatable("potion.potency." + (BrewUtils.getAreaOfEffect(itemStack) - 1))).withStyle(ChatFormatting.BLUE));
+                p_43557_.add(Component.translatable("tooltip.goety.brew.area", Component.translatable("potion.potency." + BrewUtils.getAreaOfEffect(itemStack))).withStyle(ChatFormatting.BLUE));
             }
             if (BrewUtils.getLingering(itemStack) > 0){
-                p_43557_.add(Component.translatable("tooltip.goety.brew.lingering", Component.translatable("potion.potency." + ((int)BrewUtils.getLingering(itemStack) - 1))).withStyle(ChatFormatting.BLUE));
+                p_43557_.add(Component.translatable("tooltip.goety.brew.lingering", Component.translatable("potion.potency." + (int)BrewUtils.getLingering(itemStack))).withStyle(ChatFormatting.BLUE));
             }
             if (BrewUtils.getQuaffLevel(itemStack) > 0){
-                p_43557_.add(Component.translatable("tooltip.goety.brew.quaff", Component.translatable("potion.potency." + (BrewUtils.getQuaffLevel(itemStack) - 1))).withStyle(ChatFormatting.BLUE));
+                p_43557_.add(Component.translatable("tooltip.goety.brew.quaff", Component.translatable("potion.potency." + BrewUtils.getQuaffLevel(itemStack))).withStyle(ChatFormatting.BLUE));
             }
             if (BrewUtils.getVelocityLevel(itemStack) > 0){
-                p_43557_.add(Component.translatable("tooltip.goety.brew.velocity", Component.translatable("potion.potency." + (BrewUtils.getVelocityLevel(itemStack) - 1))).withStyle(ChatFormatting.BLUE));
+                p_43557_.add(Component.translatable("tooltip.goety.brew.velocity", Component.translatable("potion.potency." + BrewUtils.getVelocityLevel(itemStack))).withStyle(ChatFormatting.BLUE));
             }
             if (!list1.isEmpty()) {
                 p_43557_.add(CommonComponents.EMPTY);

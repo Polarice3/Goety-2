@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -41,7 +41,8 @@ public class SoulAbsorberBlock extends BaseEntityBlock implements SimpleWaterlog
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public SoulAbsorberBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of()
+                .mapColor(MapColor.STONE)
                 .strength(3.5F)
                 .sound(SoundType.STONE)
                 .lightLevel(litBlockEmission())

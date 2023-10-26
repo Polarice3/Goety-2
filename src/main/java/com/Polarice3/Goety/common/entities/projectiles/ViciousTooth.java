@@ -12,11 +12,11 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -129,7 +129,7 @@ public class ViciousTooth extends Entity {
         damage += this.extraDamage;
         if (livingEntity != null) {
             if ((this.getOwner() != null && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)) || this.getOwner() == null) {
-                livingEntity.hurt(DamageSource.indirectMagic(this, this.getOwner()), damage);
+                livingEntity.hurt(damageSources().indirectMagic(this, this.getOwner()), damage);
             }
         }
     }
@@ -144,7 +144,7 @@ public class ViciousTooth extends Entity {
         super.tick();
         if (!this.level.isClientSide){
             ++this.hovering;
-            HitResult result = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            HitResult result = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
             if (result.getType() != HitResult.Type.MISS) {
                 if (result.getType() == HitResult.Type.ENTITY){
                     EntityHitResult result1 = (EntityHitResult) result;
@@ -154,7 +154,7 @@ public class ViciousTooth extends Entity {
                 }
                 this.onHit();
             }
-            if (this.isOnGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
+            if (this.onGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
                 this.onHit();
             }
         } else {
@@ -183,8 +183,8 @@ public class ViciousTooth extends Entity {
     }
 
     @Override
-    protected Entity.MovementEmission getMovementEmission() {
-        return Entity.MovementEmission.NONE;
+    protected MovementEmission getMovementEmission() {
+        return MovementEmission.NONE;
     }
 
     @Override
@@ -211,7 +211,7 @@ public class ViciousTooth extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

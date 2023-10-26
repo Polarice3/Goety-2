@@ -20,7 +20,7 @@ public class ModServerBossInfo extends BossEvent {
     private boolean visible = true;
     private UUID id;
 
-    public ModServerBossInfo(UUID uuid, Component p_i46839_1_, BossEvent.BossBarColor p_i46839_2_, BossEvent.BossBarOverlay p_i46839_3_) {
+    public ModServerBossInfo(UUID uuid, Component p_i46839_1_, BossBarColor p_i46839_2_, BossBarOverlay p_i46839_3_) {
         super(uuid, p_i46839_1_, p_i46839_2_, p_i46839_3_);
         this.setId(uuid);
     }
@@ -42,7 +42,7 @@ public class ModServerBossInfo extends BossEvent {
 
     }
 
-    public void setColor(BossEvent.BossBarColor p_8307_) {
+    public void setColor(BossBarColor p_8307_) {
         if (p_8307_ != this.color) {
             super.setColor(p_8307_);
             this.broadcast(ClientboundBossEventPacket::createUpdateStylePacket);
@@ -50,7 +50,7 @@ public class ModServerBossInfo extends BossEvent {
 
     }
 
-    public void setOverlay(BossEvent.BossBarOverlay p_8309_) {
+    public void setOverlay(BossBarOverlay p_8309_) {
         if (p_8309_ != this.overlay) {
             super.setOverlay(p_8309_);
             this.broadcast(ClientboundBossEventPacket::createUpdateStylePacket);

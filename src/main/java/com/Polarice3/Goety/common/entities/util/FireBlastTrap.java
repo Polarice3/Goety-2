@@ -9,6 +9,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,7 +17,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -128,12 +128,12 @@ public class FireBlastTrap extends Entity {
                             MobUtil.push(livingEntity, 0, 0.25, 0);
                             if (this.owner instanceof Apostle) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
-                                livingEntity.hurt(DamageSource.indirectMagic(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
+                                livingEntity.hurt(damageSources().indirectMagic(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
                             } else {
                                 if (this.owner != null){
-                                    livingEntity.hurt(DamageSource.indirectMagic(this, this.owner), 5.0F);
+                                    livingEntity.hurt(damageSources().indirectMagic(this, this.owner), 5.0F);
                                 } else {
-                                    livingEntity.hurt(DamageSource.MAGIC, 5.0F);
+                                    livingEntity.hurt(damageSources().magic(), 5.0F);
                                 }
                             }
                             if (!livingEntity.fireImmune()){
@@ -160,7 +160,7 @@ public class FireBlastTrap extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 }

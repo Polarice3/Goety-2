@@ -18,6 +18,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -25,12 +26,11 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -53,11 +53,13 @@ public class DarkAnvilBlock extends FallingBlock {
    private static final Component CONTAINER_TITLE = Component.translatable("container.repair");
 
    public DarkAnvilBlock() {
-      super(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.COLOR_BLACK)
+      super(Properties.of()
+              .mapColor(MapColor.COLOR_BLACK)
               .requiresCorrectToolForDrops()
               .randomTicks()
               .strength(5.0F, 1200.0F)
-              .sound(SoundType.ANVIL));
+              .sound(SoundType.ANVIL)
+              .pushReaction(PushReaction.BLOCK));
       this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
    }
 
@@ -123,8 +125,8 @@ public class DarkAnvilBlock extends FallingBlock {
 
    }
 
-   public DamageSource getFallDamageSource() {
-      return DamageSource.ANVIL;
+   public DamageSource getFallDamageSource(Entity p_254036_) {
+      return p_254036_.damageSources().anvil(p_254036_);
    }
 
    @Nullable

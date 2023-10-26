@@ -17,10 +17,10 @@ import java.util.List;
 
 public class RGEmissiveLayer<T extends RedstoneGolem, M extends RedstoneGolemModel<T>> extends RenderLayer<T, M> {
     private final ResourceLocation texture;
-    private final RGEmissiveLayer.AlphaFunction<T> alphaFunction;
-    private final RGEmissiveLayer.DrawSelector<T, M> drawSelector;
+    private final AlphaFunction<T> alphaFunction;
+    private final DrawSelector<T, M> drawSelector;
 
-    public RGEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, RGEmissiveLayer.AlphaFunction<T> p_234887_, RGEmissiveLayer.DrawSelector<T, M> p_234888_) {
+    public RGEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, AlphaFunction<T> p_234887_, DrawSelector<T, M> p_234888_) {
         super(p_234885_);
         this.texture = p_234886_;
         this.alphaFunction = p_234887_;

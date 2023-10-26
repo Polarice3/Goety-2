@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class PotencyEnchantment extends FocusEnchantments {
-    public PotencyEnchantment(Enchantment.Rarity pRarity, EquipmentSlot... pApplicableSlots) {
+    public PotencyEnchantment(Rarity pRarity, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pApplicableSlots);
     }
 

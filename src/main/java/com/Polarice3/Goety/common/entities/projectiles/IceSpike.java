@@ -10,11 +10,11 @@ import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -76,14 +76,14 @@ public class IceSpike extends AbstractArrow {
                 if (WandUtil.enchantedFocus(livingentity)){
                     baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
                 }
-                flag = entity.hurt(ModDamageSource.indirectFreeze(this, livingentity).setProjectile(), baseDamage);
+                flag = entity.hurt(ModDamageSource.iceSpike(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     }
                 }
             } else {
-                flag = entity.hurt(DamageSource.FREEZE.setProjectile(), baseDamage);
+                flag = entity.hurt(ModDamageSource.iceSpike(this, this), baseDamage);
             }
 
             if (flag && entity instanceof LivingEntity livingEntity) {
@@ -139,7 +139,7 @@ public class IceSpike extends AbstractArrow {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

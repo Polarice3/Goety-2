@@ -9,7 +9,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -49,7 +51,7 @@ public class LichEvents {
             boolean burn = false;
             if (!world.isClientSide && world.isDay()) {
                 float f = player.getLightLevelDependentMagicValue();
-                BlockPos blockpos = player.getVehicle() instanceof Boat ? (new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ())).above() : new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ());
+                BlockPos blockpos = player.getVehicle() instanceof Boat ? (BlockPos.containing(player.getX(), (double) Math.round(player.getY()), player.getZ())).above() : BlockPos.containing(player.getX(), (double) Math.round(player.getY()), player.getZ());
                 if (f > 0.5F && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
                     burn = true;
                 }
@@ -193,15 +195,15 @@ public class LichEvents {
                         event.setAmount((float) (EnchantmentHelper.getDamageBonus(weapon, MobType.UNDEAD) + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE)));
                     }
                 }
-                if (event.getSource() == DamageSource.DROWN){
+                if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
                     event.setCanceled(true);
                 }
                 if (MainConfig.LichMagicResist.get()) {
-                    if (event.getSource().isMagic()) {
+                    if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)) {
                         event.setAmount(event.getAmount() * 0.15F);
                     }
                 }
-                if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
+                if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource().is(DamageTypeTags.IS_FREEZING)){
                     event.setAmount(event.getAmount()/2);
                 }
                 if (MainConfig.LichUndeadFriends.get()) {
@@ -243,7 +245,7 @@ public class LichEvents {
     public static void AttackEvent(LivingAttackEvent event){
         if (event.getEntity() instanceof Player player) {
             if (LichdomHelper.isLich(player)) {
-                if (event.getSource() == DamageSource.DROWN){
+                if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
                     event.setCanceled(true);
                 }
             }

@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -47,7 +46,7 @@ public class IllusionSpell extends Spells {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger) {
                 if (((Doppelganger) entity).getTrueOwner() == entityLiving) {
-                    ((Doppelganger) entity).die(DamageSource.STARVE);
+                    ((Doppelganger) entity).die(entityLiving.damageSources().starve());
                 }
             }
         }
@@ -98,7 +97,7 @@ public class IllusionSpell extends Spells {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger) {
                 if (((Doppelganger) entity).getTrueOwner() == entityLiving) {
-                    ((Doppelganger) entity).die(DamageSource.STARVE);
+                    ((Doppelganger) entity).die(entityLiving.damageSources().starve());
                 }
             }
         }

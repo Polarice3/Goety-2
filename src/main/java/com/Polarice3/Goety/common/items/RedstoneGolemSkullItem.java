@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class RedstoneGolemSkullItem extends StandingAndWallBlockItem {
     
     public RedstoneGolemSkullItem(Properties p_43250_) {
-        super(ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get(), ModBlocks.WALL_REDSTONE_GOLEM_SKULL_BLOCK.get(), p_43250_);
+        super(ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get(), ModBlocks.WALL_REDSTONE_GOLEM_SKULL_BLOCK.get(), p_43250_, Direction.DOWN);
     }
 
     @Override

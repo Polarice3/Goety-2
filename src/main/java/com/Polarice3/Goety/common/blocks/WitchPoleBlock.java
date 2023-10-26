@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -52,7 +52,10 @@ public class WitchPoleBlock extends Block implements SimpleWaterloggedBlock {
                     11.0D, 6.0D, 6.0D));
 
     public WitchPoleBlock() {
-        super(Properties.of(Material.WOOD)
+        super(Properties.of()
+                .mapColor(MapColor.WOOD)
+                .ignitedByLava()
+                .pushReaction(PushReaction.DESTROY)
                 .strength(2.5F)
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.WOOD)

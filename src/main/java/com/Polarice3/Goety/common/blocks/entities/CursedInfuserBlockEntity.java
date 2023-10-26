@@ -62,7 +62,7 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
                 assert this.level != null;
                 ItemStack itemstack1 = this.level.getRecipeManager()
                         .getRecipeFor(ModRecipeSerializer.CURSED_INFUSER.get(), iinventory, this.level)
-                        .map((recipes) -> recipes.assemble(iinventory)).orElse(itemstack);
+                        .map((recipes) -> recipes.assemble(iinventory, this.level.registryAccess())).orElse(itemstack);
                 if (itemstack != itemstack1){
                     this.cookingProgress[i]++;
                 }

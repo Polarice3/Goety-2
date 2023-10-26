@@ -13,16 +13,19 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.CompoundTagArgument;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.commands.arguments.EntitySummonArgument;
+import net.minecraft.commands.arguments.ResourceArgument;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.Collection;
 
@@ -52,7 +56,7 @@ public class GoetyCommand {
         return SharedSuggestionProvider.suggestResource(collection.stream().map(Research::getLocation), p_136345_);
     };
 
-    public static void register(CommandDispatcher<CommandSourceStack> pDispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> pDispatcher, CommandBuildContext p_250122_) {
         pDispatcher.register(Commands.literal("goety")
                 .requires((p_198442_0_) -> {
                     return p_198442_0_.hasPermission(2);
@@ -94,54 +98,54 @@ public class GoetyCommand {
                                                 }))))))
                 .then(Commands.literal("map")
                         .then(Commands.literal("summon_noai")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                    return spawnNoAIEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), false, true);
+                                .then(Commands.argument("entity", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE)).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                    return spawnNoAIEntity(p_198738_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), false, true);
                                 })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                            return spawnNoAIEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), false, true);
+                                            return spawnNoAIEntity(p_198735_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), false, true);
                                         })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnNoAIEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false, false);
+                                                    return spawnNoAIEntity(p_198739_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false, false);
                                                 })))))
                         .then(Commands.literal("summon_noai_gen")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                            return spawnNoAIEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true, true);
+                                .then(Commands.argument("entity", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE)).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                            return spawnNoAIEntity(p_198738_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true, true);
                                         })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                                    return spawnNoAIEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true, true);
+                                                    return spawnNoAIEntity(p_198735_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true, true);
                                                 })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnNoAIEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), true, false);
+                                                    return spawnNoAIEntity(p_198739_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), true, false);
                                                 })))))
                         .then(Commands.literal("summon_persist")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                    return spawnPersistEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
+                                .then(Commands.argument("entity", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE)).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                    return spawnPersistEntity(p_198738_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
                                 })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                            return spawnPersistEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
+                                            return spawnPersistEntity(p_198735_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
                                         })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnPersistEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
+                                                    return spawnPersistEntity(p_198739_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
                                                 })))))
                         .then(Commands.literal("summon_tamed")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                            return spawnTamedEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
+                                .then(Commands.argument("entity", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE)).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                            return spawnTamedEntity(p_198738_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
                                         })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                                    return spawnTamedEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
+                                                    return spawnTamedEntity(p_198735_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
                                                 })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnTamedEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
+                                                    return spawnTamedEntity(p_198739_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
                                                 })))))
                         .then(Commands.literal("summon_hostile")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                            return spawnHostileEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
+                                .then(Commands.argument("entity", ResourceArgument.resource(p_250122_, Registries.ENTITY_TYPE)).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
+                                            return spawnHostileEntity(p_198738_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
                                         })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                                    return spawnHostileEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
+                                                    return spawnHostileEntity(p_198735_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
                                                 })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnHostileEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
+                                                    return spawnHostileEntity(p_198739_0_.getSource(), ResourceArgument.getSummonableEntityType(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
                                                 }))))))
                 .then(Commands.literal("research")
                         .then(Commands.literal("get").executes((p_198352_0_) -> {
@@ -180,9 +184,9 @@ public class GoetyCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.goety.soul.add"+ ".success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.soul.add"+ ".success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
         } else {
-            pSource.sendSuccess(Component.translatable("commands.goety.soul.add" + ".success.multiple", pAmount, pTargets.size()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.soul.add" + ".success.multiple", pAmount, pTargets.size()), true);
         }
 
         return pTargets.size();
@@ -204,9 +208,9 @@ public class GoetyCommand {
             throw ERROR_SET_POINTS_INVALID.create();
         } else {
             if (pTargets.size() == 1) {
-                pSource.sendSuccess(Component.translatable("commands.goety.soul.set" + ".success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.soul.set" + ".success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
             } else {
-                pSource.sendSuccess(Component.translatable("commands.goety.soul.set" + ".success.multiple", pAmount, pTargets.size()), true);
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.soul.set" + ".success.multiple", pAmount, pTargets.size()), true);
             }
 
             return pTargets.size();
@@ -216,9 +220,9 @@ public class GoetyCommand {
     private static int spawnIllagers(CommandSourceStack pSource, ServerPlayer pPlayer) {
         int i = SEHelper.getSoulAmountInt(pPlayer);
         if (i > MainConfig.IllagerAssaultSEThreshold.get()){
-            pSource.sendSuccess(Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
             IllagerSpawner illagerSpawner = new IllagerSpawner();
-            illagerSpawner.forceSpawn(pPlayer.getLevel(), pPlayer);
+            illagerSpawner.forceSpawn(pPlayer.serverLevel(), pPlayer);
             return 1;
         } else {
             pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure", pPlayer.getDisplayName()));
@@ -228,7 +232,7 @@ public class GoetyCommand {
 
     private static int getRestPeriod(CommandSourceStack pSource, ServerPlayer pPlayer){
         int i = SEHelper.getRestPeriod(pPlayer);
-        pSource.sendSuccess(Component.translatable("commands.goety.illager.rest.get.success", pPlayer.getDisplayName(), StringUtil.formatTickDuration(i)), false);
+        pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.rest.get.success", pPlayer.getDisplayName(), StringUtil.formatTickDuration(i)), false);
         return 1;
     }
 
@@ -238,9 +242,9 @@ public class GoetyCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.goety.illager.rest.add.success.single", tick, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.rest.add.success.single", tick, pTargets.iterator().next().getDisplayName()), true);
         } else {
-            pSource.sendSuccess(Component.translatable("commands.goety.illager.rest.add.success.multiple", tick, pTargets.size()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.rest.add.success.multiple", tick, pTargets.size()), true);
         }
 
         return pTargets.size();
@@ -258,22 +262,22 @@ public class GoetyCommand {
             throw ERROR_SET_POINTS_INVALID2.create();
         } else {
             if (pTargets.size() == 1) {
-                pSource.sendSuccess(Component.translatable("commands.goety.illager.rest.set.success.single", tick, pTargets.iterator().next().getDisplayName()), true);
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.rest.set.success.single", tick, pTargets.iterator().next().getDisplayName()), true);
             } else {
-                pSource.sendSuccess(Component.translatable("commands.goety.illager.rest.set.success.multiple", tick, pTargets.size()), true);
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.rest.set.success.multiple", tick, pTargets.size()), true);
             }
 
             return pTargets.size();
         }
     }
 
-    private static int spawnNoAIEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean tagged, boolean pRandomizeProperties) throws CommandSyntaxException {
-        BlockPos blockpos = new BlockPos(pPos);
+    private static int spawnNoAIEntity(CommandSourceStack pSource, Holder.Reference<EntityType<?>> pType, Vec3 pPos, CompoundTag pNbt, boolean tagged, boolean pRandomizeProperties) throws CommandSyntaxException {
+        BlockPos blockpos = BlockPos.containing(pPos);
         if (!Level.isInSpawnableBounds(blockpos)) {
             throw INVALID_POSITION.create();
         } else {
             CompoundTag compoundnbt = pNbt.copy();
-            compoundnbt.putString("id", pType.toString());
+            compoundnbt.putString("id", pType.key().location().toString());
             ServerLevel serverworld = pSource.getLevel();
             Entity entity = EntityType.loadEntityRecursive(compoundnbt, serverworld, (p_218914_1_) -> {
                 p_218914_1_.moveTo(pPos.x, pPos.y, pPos.z, p_218914_1_.getYRot(), p_218914_1_.getXRot());
@@ -289,27 +293,27 @@ public class GoetyCommand {
                         mob.addTag(ConstantPaths.giveAI());
                     }
                     if (pRandomizeProperties){
-                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
+                        ForgeEventFactory.onFinalizeSpawn(mob, pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                 }
 
                 if (!serverworld.tryAddFreshEntityWithPassengers(entity)) {
                     throw ERROR_DUPLICATE_UUID.create();
                 } else {
-                    pSource.sendSuccess(Component.translatable("commands.summon_noai.success", entity.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.summon_noai.success", entity.getDisplayName()), true);
                     return 1;
                 }
             }
         }
     }
 
-    private static int spawnPersistEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
-        BlockPos blockpos = new BlockPos(pPos);
+    private static int spawnPersistEntity(CommandSourceStack pSource, Holder.Reference<EntityType<?>> pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
+        BlockPos blockpos = BlockPos.containing(pPos);
         if (!Level.isInSpawnableBounds(blockpos)) {
             throw INVALID_POSITION.create();
         } else {
             CompoundTag compoundnbt = pNbt.copy();
-            compoundnbt.putString("id", pType.toString());
+            compoundnbt.putString("id", pType.key().location().toString());
             ServerLevel serverworld = pSource.getLevel();
             Entity entity = EntityType.loadEntityRecursive(compoundnbt, serverworld, (p_218914_1_) -> {
                 p_218914_1_.moveTo(pPos.x, pPos.y, pPos.z, p_218914_1_.getYRot(), p_218914_1_.getXRot());
@@ -321,27 +325,27 @@ public class GoetyCommand {
                 if (entity instanceof Mob mob){
                     mob.setPersistenceRequired();
                     if (pRandomizeProperties){
-                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
+                        ForgeEventFactory.onFinalizeSpawn(mob, pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                 }
 
                 if (!serverworld.tryAddFreshEntityWithPassengers(entity)) {
                     throw ERROR_DUPLICATE_UUID.create();
                 } else {
-                    pSource.sendSuccess(Component.translatable("commands.summon_persist.success", entity.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.summon_persist.success", entity.getDisplayName()), true);
                     return 1;
                 }
             }
         }
     }
 
-    private static int spawnTamedEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
-        BlockPos blockpos = new BlockPos(pPos);
+    private static int spawnTamedEntity(CommandSourceStack pSource, Holder.Reference<EntityType<?>> pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
+        BlockPos blockpos = BlockPos.containing(pPos);
         if (!Level.isInSpawnableBounds(blockpos)) {
             throw INVALID_POSITION.create();
         } else {
             CompoundTag compoundnbt = pNbt.copy();
-            compoundnbt.putString("id", pType.toString());
+            compoundnbt.putString("id", pType.key().location().toString());
             ServerLevel serverworld = pSource.getLevel();
             Entity entity = EntityType.loadEntityRecursive(compoundnbt, serverworld, (p_218914_1_) -> {
                 p_218914_1_.moveTo(pPos.x, pPos.y, pPos.z, p_218914_1_.getYRot(), p_218914_1_.getXRot());
@@ -353,27 +357,27 @@ public class GoetyCommand {
                 if (entity instanceof Mob mob){
                     MobUtil.summonTame(mob, pSource.getPlayerOrException());
                     if (pRandomizeProperties){
-                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
+                        ForgeEventFactory.onFinalizeSpawn(mob, pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                 }
 
                 if (!serverworld.tryAddFreshEntityWithPassengers(entity)) {
                     throw ERROR_DUPLICATE_UUID.create();
                 } else {
-                    pSource.sendSuccess(Component.translatable("commands.summon_tame.success", entity.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.summon_tame.success", entity.getDisplayName()), true);
                     return 1;
                 }
             }
         }
     }
 
-    private static int spawnHostileEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
-        BlockPos blockpos = new BlockPos(pPos);
+    private static int spawnHostileEntity(CommandSourceStack pSource, Holder.Reference<EntityType<?>> pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
+        BlockPos blockpos = BlockPos.containing(pPos);
         if (!Level.isInSpawnableBounds(blockpos)) {
             throw INVALID_POSITION.create();
         } else {
             CompoundTag compoundnbt = pNbt.copy();
-            compoundnbt.putString("id", pType.toString());
+            compoundnbt.putString("id", pType.key().location().toString());
             ServerLevel serverworld = pSource.getLevel();
             Entity entity = EntityType.loadEntityRecursive(compoundnbt, serverworld, (p_218914_1_) -> {
                 p_218914_1_.moveTo(pPos.x, pPos.y, pPos.z, p_218914_1_.getYRot(), p_218914_1_.getXRot());
@@ -385,7 +389,7 @@ public class GoetyCommand {
                 if (entity instanceof Mob mob){
                     mob.setPersistenceRequired();
                     if (pRandomizeProperties){
-                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
+                        ForgeEventFactory.onFinalizeSpawn(mob, pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         if (mob instanceof Owned owned){
@@ -399,7 +403,7 @@ public class GoetyCommand {
                 if (!serverworld.tryAddFreshEntityWithPassengers(entity)) {
                     throw ERROR_DUPLICATE_UUID.create();
                 } else {
-                    pSource.sendSuccess(Component.translatable("commands.summon_hostile.success", entity.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.summon_hostile.success", entity.getDisplayName()), true);
                     return 1;
                 }
             }
@@ -410,10 +414,10 @@ public class GoetyCommand {
         if (SEHelper.getResearch(pPlayer).isEmpty()){
             pSource.sendFailure(Component.translatable("commands.goety.research.get.empty", pPlayer.getDisplayName()));
         } else {
-            pSource.sendSuccess(Component.translatable("commands.goety.research.get", pPlayer.getDisplayName()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.research.get", pPlayer.getDisplayName()), true);
         }
         for (Research research : SEHelper.getResearch(pPlayer)){
-            pSource.sendSuccess(Component.literal(research.getId()), true);
+            pSource.sendSuccess(() -> Component.literal(research.getId()), true);
         }
         return 1;
     }
@@ -426,7 +430,7 @@ public class GoetyCommand {
                     pSource.sendFailure(Component.translatable("commands.goety.research.add.failure", serverPlayer.getDisplayName()));
                 } else {
                     SEHelper.addResearch(serverPlayer, research);
-                    pSource.sendSuccess(Component.translatable("commands.goety.research.add.success", serverPlayer.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.goety.research.add.success", serverPlayer.getDisplayName()), true);
                 }
             }
         }
@@ -442,7 +446,7 @@ public class GoetyCommand {
                     pSource.sendFailure(Component.translatable("commands.goety.research.remove.failure", serverPlayer.getDisplayName()));
                 } else {
                     SEHelper.removeResearch(serverPlayer, research);
-                    pSource.sendSuccess(Component.translatable("commands.goety.research.remove.success", serverPlayer.getDisplayName()), true);
+                    pSource.sendSuccess(() -> Component.translatable("commands.goety.research.remove.success", serverPlayer.getDisplayName()), true);
                 }
             }
         }
@@ -457,7 +461,7 @@ public class GoetyCommand {
                     SEHelper.addResearch(serverPlayer, research);
                 }
             }
-            pSource.sendSuccess(Component.translatable("commands.goety.research.addAll", serverPlayer.getDisplayName()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.research.addAll", serverPlayer.getDisplayName()), true);
         }
 
         return 1;
@@ -470,7 +474,7 @@ public class GoetyCommand {
                     SEHelper.removeResearch(serverPlayer, research);
                 }
             }
-            pSource.sendSuccess(Component.translatable("commands.goety.research.removeAll", serverPlayer.getDisplayName()), true);
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.research.removeAll", serverPlayer.getDisplayName()), true);
         }
 
         return 1;

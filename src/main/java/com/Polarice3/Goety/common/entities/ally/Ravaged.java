@@ -286,8 +286,8 @@ public class Ravaged extends Summoned {
         super.handleEntityEvent(p_33335_);
     }
 
-    public boolean wasKilled(ServerLevel p_219160_, LivingEntity p_219161_) {
-        boolean flag = super.wasKilled(p_219160_, p_219161_);
+    public boolean killedEntity(ServerLevel p_219160_, LivingEntity p_219161_) {
+        boolean flag = super.killedEntity(p_219160_, p_219161_);
         if (p_219161_ instanceof AbstractVillager){
             this.cannibalize(this.random.nextInt(5) + 1);
         }
@@ -391,7 +391,7 @@ public class Ravaged extends Summoned {
                     }
                 } else {
                     PathNavigation pathnavigation = Ravaged.this.getNavigation();
-                    Path path = pathnavigation.createPath(new BlockPos(this.food.position()), 0, 8);
+                    Path path = pathnavigation.createPath(BlockPos.containing(this.food.position()), 0, 8);
                     Ravaged.this.getNavigation().moveTo(path, 1.5F);
                 }
             }

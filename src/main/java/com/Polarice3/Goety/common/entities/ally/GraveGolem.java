@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -83,10 +84,10 @@ public class GraveGolem extends Summoned {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new SummonGoal());
-        this.goalSelector.addGoal(2, new GraveGolem.MeleeGoal());
+        this.goalSelector.addGoal(2, new MeleeGoal());
 //        this.goalSelector.addGoal(3, new GraveGolem.BelchGoal(this));
         this.goalSelector.addGoal(3, new GolemRangedGoal(this, 1.0D, 32.0F));
-        this.goalSelector.addGoal(5, new GraveGolem.AttackGoal(1.0D));
+        this.goalSelector.addGoal(5, new AttackGoal(1.0D));
         this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -112,7 +113,7 @@ public class GraveGolem extends Summoned {
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this, this.hasPose(Pose.EMERGING) ? 1 : 0);
     }
 
@@ -717,7 +718,7 @@ public class GraveGolem extends Summoned {
         private float yRot;
 
         public MeleeGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE));
         }
 
         @Override
@@ -777,7 +778,7 @@ public class GraveGolem extends Summoned {
             if (target instanceof LivingEntity livingEntity){
                 f += (livingEntity.getMaxHealth() * 0.08F);
             }
-            boolean flag = target.hurt(DamageSource.mobAttack(GraveGolem.this), f);
+            boolean flag = target.hurt(GraveGolem.this.damageSources().mobAttack(GraveGolem.this), f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > GraveGolem.this.getBoundingBox().getSize()){
@@ -813,7 +814,7 @@ public class GraveGolem extends Summoned {
 
         public BelchGoal(GraveGolem mob) {
             this.mob = mob;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -906,7 +907,7 @@ public class GraveGolem extends Summoned {
             this.speedModifier = speed;
             this.attackRadius = attackRadius;
             this.attackRadiusSqr = attackRadius * attackRadius;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -979,7 +980,7 @@ public class GraveGolem extends Summoned {
             LivingEntity livingentity = GraveGolem.this.getTarget();
             int i = GraveGolem.this.level.getEntitiesOfClass(Haunt.class, GraveGolem.this.getBoundingBox().inflate(32)).size();
             if (livingentity != null && livingentity.isAlive()) {
-                return GraveGolem.this.summonCool <= 0 && i < 3 && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching() && GraveGolem.this.isOnGround() && GraveGolem.this.distanceTo(livingentity) < 16;
+                return GraveGolem.this.summonCool <= 0 && i < 3 && !GraveGolem.this.isShooting() && !GraveGolem.this.isBelching() && GraveGolem.this.onGround() && GraveGolem.this.distanceTo(livingentity) < 16;
             } else {
                 return false;
             }

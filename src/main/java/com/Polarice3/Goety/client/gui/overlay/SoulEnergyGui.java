@@ -8,17 +8,16 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-public class SoulEnergyGui extends GuiComponent {
+public class SoulEnergyGui {
     public static final IGuiOverlay OVERLAY = SoulEnergyGui::drawHUD;
     private static final Minecraft minecraft = Minecraft.getInstance();
 
@@ -30,7 +29,7 @@ public class SoulEnergyGui extends GuiComponent {
         return minecraft.font;
     }
 
-    public static void drawHUD(ForgeGui gui, PoseStack ms, float partialTicks, int screenWidth, int screenHeight) {
+    public static void drawHUD(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int screenWidth, int screenHeight) {
         if(!shouldDisplayBar()) {
             return;
         }
@@ -58,27 +57,22 @@ public class SoulEnergyGui extends GuiComponent {
 
         int offset = (int) ((minecraft.player.tickCount + partialTicks) % 234);
 
-        //blit(MatrixStack pMatrixStack, int pX, int pY, float pUOffset, float pVOffset, int pWidth, int pHeight, int pTextureWidth, int pTextureHeight)
         if (SEHelper.getSEActive(minecraft.player)){
-            RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i, height - 9, 0, 9, 128, 9, 128, 90);
-            RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i + 9, height - 9, 9, 18, maxenergy, 9, 128, 90);
+            guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i, height - 9, 0, 9, 128, 9, 128, 90);
+            guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i + 9, height - 9, 9, 18, maxenergy, 9, 128, 90);
         } else {
             int height1 = stack.getItem() instanceof TotemOfRoots ? 36 : 0;
-            RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i, height - 9, 0, height1, 128, 9, 128, 90);
+            guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i, height - 9, 0, height1, 128, 9, 128, 90);
         }
         RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy_bar.png"));
-        blit(ms, i + 9, height - 7, offset, 0, energylength, 5, 234, 5);
+        guiGraphics.blit(Goety.location("textures/gui/soul_energy_bar.png"), i + 9, height - 7, offset, 0, energylength, 5, 234, 5);
 
         if (MobUtil.isSpellCasting(minecraft.player)){
             int useDuration = minecraft.player.getUseItem().getUseDuration();
             int remain = minecraft.player.getUseItemRemainingTicks();
             float useTime0 = (float) (useDuration - remain) / useDuration;
             int useTime = (int) (117 * useTime0);
-            RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
-            blit(ms, i + 9, height - 9, 9, 27, useTime, 9, 128, 90);
+            guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i + 9, height - 9, 9, 27, useTime, 9, 128, 90);
         }
 
         if (MainConfig.ShowNum.get()) {
@@ -86,7 +80,7 @@ public class SoulEnergyGui extends GuiComponent {
             String s = "" + SoulEnergy + "/" + "" + SoulEnergyTotal;
             int i1 = i + 36;
             int j1 = height - 8;
-            getFont().draw(ms, s, (float) i1, (float) j1, 16777215);
+            guiGraphics.drawString(getFont(), s, i1, j1, 16777215);
             minecraft.getProfiler().pop();
         }
     }

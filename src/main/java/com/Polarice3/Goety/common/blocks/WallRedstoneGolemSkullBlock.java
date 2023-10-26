@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -34,7 +34,8 @@ public class WallRedstoneGolemSkullBlock extends BaseEntityBlock {
             Direction.WEST, Block.box(6.0D, 4.0D, 0.0D, 16.0D, 20.0D, 16.0D)));
 
     public WallRedstoneGolemSkullBlock() {
-        super(Properties.of(Material.DECORATION)
+        super(Properties.of()
+                .pushReaction(PushReaction.DESTROY)
                 .strength(1.0F)
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

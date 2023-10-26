@@ -283,22 +283,22 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
                     ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.HEAD) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.HELMET) {
                         this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.HEAD);
                         this.spawnAtLocation(helmet);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.CHEST) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.CHESTPLATE) {
                         this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.CHEST);
                         this.spawnAtLocation(chestplate);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.LEGS) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.LEGGINGS) {
                         this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.LEGS);
                         this.spawnAtLocation(legging);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.FEET) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.BOOTS) {
                         this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.FEET);
                         this.spawnAtLocation(boots);

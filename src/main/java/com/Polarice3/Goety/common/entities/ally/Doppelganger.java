@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -85,7 +86,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
         if (this.getTrueOwner() != null){
             if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
-                this.die(DamageSource.STARVE);
+                this.die(this.damageSources().starve());
             }
         }
 
@@ -98,7 +99,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
         if (this.hasShot()){
             if ((this.tickCount % 40 == 0 && this.random.nextFloat() <= 0.25F) || this.tickCount % 100 == 0){
-                this.die(DamageSource.STARVE);
+                this.die(this.damageSources().starve());
             }
         }
         super.tick();
@@ -291,7 +292,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     public boolean hurt(DamageSource source, float amount) {
         if (this.isUndeadClone()){
-            return source.isBypassInvul() || (source.isBypassArmor() && source.isBypassMagic());
+            return source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || (source.is(DamageTypeTags.BYPASSES_ARMOR) && source.is(DamageTypeTags.BYPASSES_EFFECTS));
         }
         return super.hurt(source, amount);
     }
@@ -383,7 +384,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
         public NecroBoltGoal(Doppelganger p_25773_) {
             this.rangedAttackMob = p_25773_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {

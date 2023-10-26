@@ -211,7 +211,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BOSS_POST = create("boss_post");
 
     static RegistryObject<SoundEvent> create(String name) {
-        SoundEvent event = new SoundEvent(Goety.location(name));
+        SoundEvent event = SoundEvent.createVariableRangeEvent(Goety.location(name));
         return SOUNDS.register(name, () -> event);
     }
 }

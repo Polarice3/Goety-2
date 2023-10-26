@@ -3,7 +3,8 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.TallSkullBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Wearable;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -15,21 +16,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TallSkullBlock extends BaseEntityBlock implements Wearable {
+public class TallSkullBlock extends BaseEntityBlock implements Equipable {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
 
     public TallSkullBlock() {
-        super(Properties.of(Material.DECORATION)
+        super(Properties.of()
+                .pushReaction(PushReaction.DESTROY)
                 .strength(1.0F)
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
+    }
+
+    public EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.HEAD;
     }
 
     public VoxelShape getShape(BlockState p_56331_, BlockGetter p_56332_, BlockPos p_56333_, CollisionContext p_56334_) {

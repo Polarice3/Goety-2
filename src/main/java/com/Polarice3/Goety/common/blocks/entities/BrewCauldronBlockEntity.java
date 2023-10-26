@@ -36,13 +36,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.MagmaBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.LavaFluid;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -406,7 +404,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             this.capacity = 0;
             this.soulTime = 0;
             this.totalCost = 0;
-            this.level.playSound(null, this.worldPosition, SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 5.0F, 0.75F);
+            this.level.playSound(null, this.worldPosition, SoundEvents.NOTE_BLOCK_SNARE.get(), SoundSource.BLOCKS, 5.0F, 0.75F);
             this.markUpdated();
         }
         return Mode.FAILED;
@@ -724,7 +722,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         assert this.level != null;
         BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
         BlockState blockState = this.level.getBlockState(pos);
-        return blockState.getMaterial() == Material.FIRE || blockState.getMaterial() == Material.LAVA || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
+        return blockState.getBlock() instanceof BaseFireBlock || blockState.getBlock() instanceof LiquidBlock liquidBlock && liquidBlock.getFluid() instanceof LavaFluid || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
     }
 
     public void findWitchPoles(){

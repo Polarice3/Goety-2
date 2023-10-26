@@ -8,7 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,10 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -49,7 +47,7 @@ public class RitualRecipe extends ModShapelessRecipe {
                         ItemStack result, EntityType<?> entityToSummon, EntityType<?> entityToConvertInto, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int summonLife, int pSoulCost,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName,
                         TagKey<EntityType<?>> entityToConvert, String entityToConvertDisplayName, String research) {
-        super(id, group, result, input);
+        super(id, group, CraftingBookCategory.MISC, result, input);
         this.craftType = pCraftType;
         this.soulCost = pSoulCost;
         this.entityToSummon = entityToSummon;
@@ -102,7 +100,7 @@ public class RitualRecipe extends ModShapelessRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer inventoryCrafting) {
+    public ItemStack assemble(CraftingContainer inventoryCrafting, RegistryAccess pAccess) {
         return null;
     }
 
@@ -193,7 +191,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             String entityToSacrificeDisplayName = "";
             if (json.has("entity_to_sacrifice")) {
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
-                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
 
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
             }
@@ -204,7 +202,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             String research = "";
             if (json.has("entity_to_convert")){
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_convert"), "tag"));
-                entityToConvert = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToConvert = TagKey.create(Registries.ENTITY_TYPE, tagRL);
 
                 entityToConvertDisplayName = json.getAsJsonObject("entity_to_convert").get("display_name").getAsString();
             }
@@ -255,7 +253,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
                 var tagRL = buffer.readResourceLocation();
-                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
                 entityToSacrificeDisplayName = buffer.readUtf();
             }
 
@@ -264,7 +262,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             String entityToConvertDisplayName = "";
             if (buffer.readBoolean()) {
                 var tagRL = buffer.readResourceLocation();
-                entityToConvert = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToConvert = TagKey.create(Registries.ENTITY_TYPE, tagRL);
                 entityToConvertDisplayName = buffer.readUtf();
             }
 
@@ -277,7 +275,7 @@ public class RitualRecipe extends ModShapelessRecipe {
             }
 
             assert recipe != null;
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), craftType, ritualType, recipe.getResultItem(), entityToSummon, entityToConvertInto,
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), craftType, ritualType, recipe.getResultItem(null), entityToSummon, entityToConvertInto,
                     activationItem, recipe.getIngredients(), duration, summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName, entityToConvert, entityToConvertDisplayName, research);
         }
 

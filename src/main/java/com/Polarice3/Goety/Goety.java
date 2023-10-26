@@ -51,6 +51,7 @@ import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -118,6 +119,7 @@ public class Goety {
         ModRituals.RITUALS.register(modEventBus);
         ModStructureTypes.STRUCTURE_TYPE.register(modEventBus);
         ModProcessors.STRUCTURE_PROCESSOR.register(modEventBus);
+        ModCreativeTab.CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupEntityAttributeCreation);
@@ -232,7 +234,7 @@ public class Goety {
 
     private void finalLoad(FMLLoadCompleteEvent event){
         event.enqueueWork(() -> {
-                ModDispenserRegister.getSortedAlternativeDispenseBehaviors().forEach(ModDispenserRegister.AlternativeDispenseBehavior::register);
+            ModDispenserRegister.getSortedAlternativeDispenseBehaviors().forEach(ModDispenserRegister.AlternativeDispenseBehavior::register);
         });
     }
 
@@ -331,11 +333,4 @@ public class Goety {
     public void onServerStopped(ServerStoppedEvent event) {
         ModSaveInventory.resetInstance();
     }
-
-    public static final CreativeModeTab TAB = new CreativeModeTab("goetyTab") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(ModItems.TOTEM_OF_SOULS.get());
-        }
-    };
 }

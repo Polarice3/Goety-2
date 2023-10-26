@@ -60,11 +60,13 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -95,13 +97,12 @@ import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
@@ -117,7 +118,6 @@ import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -374,13 +374,13 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void CheckSpawnEvents(LivingSpawnEvent.CheckSpawn event){
+    public static void CheckSpawnEvents(MobSpawnEvent.FinalizeSpawn event){
         if (event.getEntity() instanceof SpellcasterIllager || event.getEntity() instanceof Witch || event.getEntity() instanceof Cultist){
-            if (event.getSpawnReason() == MobSpawnType.STRUCTURE){
+            if (event.getSpawnType() == MobSpawnType.STRUCTURE){
                 event.getEntity().addTag(ConstantPaths.structureMob());
             }
         }
-        if (event.getSpawnReason() == MobSpawnType.STRUCTURE) {
+        if (event.getSpawnType() == MobSpawnType.STRUCTURE) {
             if (event.getEntity().getTags().contains(ConstantPaths.giveAI())) {
                 if (event.getEntity().isNoAi()) {
                     event.getEntity().setNoAi(false);
@@ -390,8 +390,8 @@ public class ModEvents {
         if (event.getEntity() instanceof Cultist cultist){
             if (event.getLevel() instanceof ServerLevel serverLevel) {
                 if (serverLevel.getRaidAt(cultist.blockPosition()) != null) {
-                    if (event.getSpawnReason() == MobSpawnType.NATURAL || event.getSpawnReason() == MobSpawnType.CHUNK_GENERATION) {
-                        event.setResult(Event.Result.DENY);
+                    if (event.getSpawnType() == MobSpawnType.NATURAL || event.getSpawnType() == MobSpawnType.CHUNK_GENERATION) {
+                        event.setSpawnCancelled(true);
                     }
                 }
             }
@@ -435,7 +435,7 @@ public class ModEvents {
                             ++zombies;
                             if (zombies > SpellConfig.ZombieLimit.get()){
                                 if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                    summonedEntity.hurt(summonedEntity.damageSources().starve(), summonedEntity.getMaxHealth()/4);
                                 }
                             }
                         }
@@ -443,7 +443,7 @@ public class ModEvents {
                             ++skeletons;
                             if (skeletons > SpellConfig.SkeletonLimit.get()){
                                 if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                    summonedEntity.hurt(summonedEntity.damageSources().starve(), summonedEntity.getMaxHealth()/4);
                                 }
                             }
                         }
@@ -451,7 +451,7 @@ public class ModEvents {
                             ++wraith;
                             if (wraith > SpellConfig.WraithLimit.get()){
                                 if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                    summonedEntity.hurt(summonedEntity.damageSources().starve(), summonedEntity.getMaxHealth()/4);
                                 }
                             }
                         }
@@ -459,7 +459,7 @@ public class ModEvents {
                             ++skull;
                             if (skull > SpellConfig.SkullLimit.get()){
                                 if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/2);
+                                    summonedEntity.hurt(summonedEntity.damageSources().starve(), summonedEntity.getMaxHealth()/2);
                                 }
                             }
                         }
@@ -581,7 +581,7 @@ public class ModEvents {
                 if (player.hasEffect(MobEffects.SLOW_FALLING)){
                     player.removeEffect(MobEffects.SLOW_FALLING);
                 }
-                if (!player.isOnGround() && vector3d.y < 0.0D
+                if (!player.onGround() && vector3d.y < 0.0D
                         && !player.isNoGravity()
                         && !player.getAbilities().flying
                         && !player.onClimbable()
@@ -696,7 +696,7 @@ public class ModEvents {
                             if (villager.getRandom().nextFloat() < 7.5E-4F && serverLevel.getDifficulty() != Difficulty.PEACEFUL) {
                                 if (net.minecraftforge.event.ForgeEventFactory.canLivingConvert(villager, ModEntityType.WARLOCK.get(), (timer) -> {
                                 })) {
-                                    serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Explosion.BlockInteraction.NONE);
+                                    serverLevel.explode(villager, villager.getX(), villager.getY(), villager.getZ(), 0.1F, Level.ExplosionInteraction.NONE);
                                     Warlock witch = ModEntityType.WARLOCK.get().create(serverLevel);
                                     if (witch != null) {
                                         witch.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
@@ -976,21 +976,21 @@ public class ModEvents {
             }
         }
         if(CuriosFinder.hasCurio(victim, ModItems.FROST_ROBE.get())){
-            if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
+            if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource().is(DamageTypes.FREEZE)){
                 event.setAmount(event.getAmount() * 0.15F);
             }
         }
         if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
-                    if (event.getSource().isMagic()){
+                    if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)){
                         event.setAmount(event.getAmount() * 0.15F);
                     }
                 }
             }
         }
         if (CuriosFinder.hasWarlockRobe(victim)){
-            if (event.getSource().isExplosion()){
+            if (event.getSource().is(DamageTypeTags.IS_EXPLOSION)){
                 event.setAmount(event.getAmount() * 0.15F);
             }
         }
@@ -1039,8 +1039,8 @@ public class ModEvents {
             if (CuriosFinder.hasCurio(victim, ModItems.SPITEFUL_BELT.get())) {
                 int a = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.THORNS, CuriosFinder.findCurio(victim, ModItems.SPITEFUL_BELT.get()));
                 if (SEHelper.getSoulsAmount(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
-                    if (!event.getSource().isExplosion() && !event.getSource().isMagic() && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
-                        livingentity.hurt(DamageSource.thorns(victim), 2.0F + a);
+                    if (!event.getSource().is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !event.getSource().is(DamageTypes.THORNS) && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
+                        livingentity.hurt(livingentity.damageSources().thorns(victim), 2.0F + a);
                         SEHelper.decreaseSouls(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1));
                     }
                 }
@@ -1120,7 +1120,7 @@ public class ModEvents {
                     if (zombievillager != null) {
                         zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
                         zombievillager.setVillagerData(villager.getVillagerData());
-                        zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                        zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
                         zombievillager.setTradeOffers(villager.getOffers().createTag());
                         zombievillager.setVillagerXp(villager.getVillagerXp());
                         net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, zombievillager);
@@ -1256,9 +1256,9 @@ public class ModEvents {
             if (living instanceof Player player){
                 if (CuriosFinder.hasWitchSet(player)){
                     if (living.level.getServer() != null) {
-                        LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.PLAYER_WITCH);
-                        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
-                        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                        LootTable loottable = living.level.getServer().getLootData().getLootTable(ModLootTables.PLAYER_WITCH);
+                        LootParams.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
+                        LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
                         loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
                     }
                 }
@@ -1295,10 +1295,10 @@ public class ModEvents {
                 if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
                     if (living instanceof AbstractVillager || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
                         if (living.level.getServer() != null) {
-                            LootTable loottable = living.level.getServer().getLootTables().get(ModLootTables.TALL_SKULL);
-                            LootContext.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
-                            LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
-                            loottable.getRandomItems(ctx).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
+                            LootTable loottable = living.level.getServer().getLootData().getLootTable(ModLootTables.TALL_SKULL);
+                            LootParams.Builder lootcontext$builder = MobUtil.createLootContext(event.getSource(), living);
+                            LootParams lootparams = lootcontext$builder.create(LootContextParamSets.ENTITY);
+                            loottable.getRandomItems(lootparams).forEach((loot) -> event.getDrops().add(ItemHelper.itemEntityDrop(living, loot)));
                         }
                     }
                 }
@@ -1366,11 +1366,11 @@ public class ModEvents {
     public static void ExplosionDetonateEvent(ExplosionEvent.Detonate event){
         if (event.getExplosion() != null) {
             event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModItems.UNHOLY_BLOOD.get()));
-            if (event.getExplosion().getSourceMob() != null) {
-                if (event.getExplosion().getSourceMob() instanceof Apostle) {
-                    event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || (entity == event.getExplosion().getSourceMob()));
+            if (event.getExplosion().getIndirectSourceEntity() != null) {
+                if (event.getExplosion().getIndirectSourceEntity() instanceof Apostle) {
+                    event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || (entity == event.getExplosion().getIndirectSourceEntity()));
                 }
-                if (event.getExplosion().getSourceMob() instanceof IOwned sourceMob) {
+                if (event.getExplosion().getIndirectSourceEntity() instanceof IOwned sourceMob) {
                     if (sourceMob.getTrueOwner() instanceof Apostle) {
                         event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || entity == sourceMob.getTrueOwner());
                     }

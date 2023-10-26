@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +27,8 @@ public class SculkGrowerBlock extends EnchanteableBlock {
     public static final BooleanProperty CHARGED = BooleanProperty.create("charged");
 
     public SculkGrowerBlock() {
-        super(Properties.of(Material.SCULK)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_BLACK)
                 .strength(3.0F, 3.0F)
                 .sound(SoundType.SCULK_CATALYST)
                 .lightLevel((blockState) -> 6));

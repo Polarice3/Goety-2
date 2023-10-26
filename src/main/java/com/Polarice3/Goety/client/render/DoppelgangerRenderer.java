@@ -4,7 +4,7 @@ import com.Polarice3.Goety.client.render.layer.IllusionCapeLayer;
 import com.Polarice3.Goety.client.render.layer.NamelessSetLayer;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -33,7 +33,7 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
         this.slimModel = new PlayerModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_SLIM), true);
         this.addLayer(new IllusionCapeLayer(this));
         this.addLayer(new NamelessSetLayer<>(this, p_174557_.getModelSet()));
-        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_INNER_ARMOR : ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_OUTER_ARMOR : ModelLayers.PLAYER_OUTER_ARMOR))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_INNER_ARMOR : ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_OUTER_ARMOR : ModelLayers.PLAYER_OUTER_ARMOR)), p_174557_.getModelManager()));
     }
 
     public void render(Doppelganger pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
@@ -121,7 +121,7 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
             float f1 = (float)p_117802_.getFallFlyingTicks() + p_117806_;
             float f2 = Mth.clamp(f1 * f1 / 100.0F, 0.0F, 1.0F);
             if (!p_117802_.isAutoSpinAttack()) {
-                p_117803_.mulPose(Vector3f.XP.rotationDegrees(f2 * (-90.0F - p_117802_.getXRot())));
+                p_117803_.mulPose(Axis.XP.rotationDegrees(f2 * (-90.0F - p_117802_.getXRot())));
             }
 
             Vec3 vec3 = p_117802_.getViewVector(p_117806_);
@@ -131,13 +131,13 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
             if (d0 > 0.0D && d1 > 0.0D) {
                 double d2 = (vec31.x * vec3.x + vec31.z * vec3.z) / Math.sqrt(d0 * d1);
                 double d3 = vec31.x * vec3.z - vec31.z * vec3.x;
-                p_117803_.mulPose(Vector3f.YP.rotation((float)(Math.signum(d3) * Math.acos(d2))));
+                p_117803_.mulPose(Axis.YP.rotation((float)(Math.signum(d3) * Math.acos(d2))));
             }
         } else if (f > 0.0F) {
             super.setupRotations(p_117802_, p_117803_, p_117804_, p_117805_, p_117806_);
             float f3 = p_117802_.isInWater() || p_117802_.isInFluidType((fluidType, height) -> p_117802_.canSwimInFluidType(fluidType)) ? -90.0F - p_117802_.getXRot() : -90.0F;
             float f4 = Mth.lerp(f, 0.0F, f3);
-            p_117803_.mulPose(Vector3f.XP.rotationDegrees(f4));
+            p_117803_.mulPose(Axis.XP.rotationDegrees(f4));
             if (p_117802_.isVisuallySwimming()) {
                 p_117803_.translate(0.0D, -1.0D, (double)0.3F);
             }

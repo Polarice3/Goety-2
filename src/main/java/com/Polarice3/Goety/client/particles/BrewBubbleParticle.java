@@ -29,7 +29,7 @@ public class BrewBubbleParticle extends TextureSheetParticle {
          this.xd *= (double)0.85F;
          this.yd *= (double)0.85F;
          this.zd *= (double)0.85F;
-         if (!this.level.getBlockState(new BlockPos(this.x, this.y, this.z)).is(ModBlocks.BREWING_CAULDRON.get())) {
+         if (!this.level.getBlockState(BlockPos.containing(this.x, this.y, this.z)).is(ModBlocks.BREWING_CAULDRON.get())) {
             this.remove();
          }
 

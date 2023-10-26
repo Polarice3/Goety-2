@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/charge_spell"
+    "layer0": "goety:item/spell_icons/charge_spell"
   }
 }

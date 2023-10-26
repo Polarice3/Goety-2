@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.init.ModSounds;
@@ -37,7 +36,6 @@ import java.util.Objects;
 public class SoulJar extends Item {
     public SoulJar(){
         super(new Properties()
-                .tab(Goety.TAB)
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)

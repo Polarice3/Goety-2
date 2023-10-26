@@ -1,15 +1,14 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spells;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 
@@ -17,13 +16,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MagicFocus extends Item {
-    public static final String SOUL_COST = "Soul Cost";
     public Spells spell;
     public int soulCost;
 
     public MagicFocus(Spells spell){
         super(new Properties()
-                .tab(Goety.TAB)
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)
@@ -43,8 +40,7 @@ public class MagicFocus extends Item {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
     {
         if (stack.getItem() == ModItems.ICEOLOGY_FOCUS.get()
-                || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()
-                || stack.getItem() == ModItems.TEETH_FOCUS.get()){
+                || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get();
         }
@@ -99,12 +95,6 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.DURATION.get();
         }
-        if (stack.getItem() == ModItems.HAIL_FOCUS.get()){
-            return enchantment == ModEnchantments.POTENCY.get()
-                    || enchantment == ModEnchantments.RANGE.get()
-                    || enchantment == ModEnchantments.DURATION.get()
-                    || enchantment == ModEnchantments.RADIUS.get();
-        }
         if (stack.getItem() == ModItems.SOUL_BOLT_FOCUS.get()
                 || stack.getItem() == ModItems.SWORD_FOCUS.get()
                 || stack.getItem() == ModItems.ICE_SPIKE_FOCUS.get()
@@ -113,31 +103,11 @@ public class MagicFocus extends Item {
                 || stack.getItem() == ModItems.CORRUPTION_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get();
         }
-        if (stack.getItem() == ModItems.BLINK_FOCUS.get()){
-            return enchantment == ModEnchantments.RANGE.get();
-        }
         return false;
     }
 
     public Spells getSpell(){
         return this.spell;
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
-        if (this.allowedIn(pGroup)){
-            ItemStack stack = new ItemStack(this);
-            CompoundTag compound = stack.getOrCreateTag();
-            compound.putInt(SOUL_COST, soulCost);
-            pItems.add(stack);
-        }
-    }
-
-    @Override
-    public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        CompoundTag compound = pStack.getOrCreateTag();
-        compound.putInt(SOUL_COST, soulCost);
-        super.onCraftedBy(pStack, pLevel, pPlayer);
     }
 
     @Override

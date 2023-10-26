@@ -2,10 +2,9 @@ package com.Polarice3.Goety.common.enchantments;
 
 import com.Polarice3.Goety.SpellConfig;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantment;
 
 public class RadiusEnchantment extends FocusEnchantments {
-    public RadiusEnchantment(Enchantment.Rarity pRarity, EquipmentSlot... pApplicableSlots) {
+    public RadiusEnchantment(Rarity pRarity, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pApplicableSlots);
     }
 

@@ -6,8 +6,8 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
@@ -17,8 +17,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
-
-import static net.minecraft.client.gui.GuiComponent.blit;
 
 public class BossBarEvent {
 
@@ -39,11 +37,11 @@ public class BossBarEvent {
                             event.setCanceled(true);
                             int k = i / 2 - 100;
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                            drawBar(event.getPoseStack(), k, event.getY(), event.getPartialTick(), boss);
+                            drawBar(event.getGuiGraphics(), k, event.getY(), event.getPartialTick(), boss);
                             Component itextcomponent = boss.getDisplayName();
                             int l = minecraft.font.width(itextcomponent);
                             int i1 = i / 2 - l / 2;
-                            minecraft.font.drawShadow(event.getPoseStack(), itextcomponent, (float) i1, (float) event.getY() - 9, 16777215);
+                            event.getGuiGraphics().drawString(minecraft.font, itextcomponent, i1, event.getY() - 9, 16777215);
                             if (event.getY() >= minecraft.getWindow().getGuiScaledHeight() / 3) {
                                 break;
                             }
@@ -57,7 +55,7 @@ public class BossBarEvent {
 
     }
 
-    private static void drawBar(PoseStack pPoseStack, int pX, int pY, float partialTicks, Mob pEntity) {
+    private static void drawBar(GuiGraphics guiGraphics, int pX, int pY, float partialTicks, Mob pEntity) {
         float percent = pEntity.getHealth() / pEntity.getMaxHealth();
         int i = (int) (percent * 182.0F);
         int pX2 = pX + 9;
@@ -73,62 +71,52 @@ public class BossBarEvent {
             int shake = 0;
             int damage = 36;
             if (i > 0) {
-                RenderSystem.setShaderTexture(0, BOSS_BAR_1);
-                blit(pPoseStack, pX2, pY2, offset, 0, i, 8, 364, 64);
+                guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 0, i, 8, 364, 64);
                 if (pEntity.hurtTime >= 5) {
                     damage = 32 + pEntity.getRandom().nextInt(pEntity.hurtTime);
                     shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
                     RenderSystem.setShaderTexture(0, TEXTURE);
-                    blit(pPoseStack, pX2, pY2, shake, damage, i, 8, 256, 256);
+                    guiGraphics.blit(TEXTURE, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
                 if (apostleEntity.isSmited()){
                     float smite = 1.0F - ((float) apostleEntity.getAntiRegen() / apostleEntity.getAntiRegenTotal());
-                    RenderSystem.setShaderTexture(0, BOSS_BAR_1);
-                    blit(pPoseStack, pX2, pY2, offset, 16, i, 8, 364, 64);
-                    RenderSystem.setShaderTexture(0, BOSS_BAR_1);
-                    blit(pPoseStack, pX2, pY2, offset, 0, (int)(smite * i), 8, 364, 64);
+                    guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 16, i, 8, 364, 64);
+                    guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 0, (int)(smite * i), 8, 364, 64);
                 }
             }
-            RenderSystem.setShaderTexture(0, TEXTURE);
-            blit(pPoseStack, pX, pY, 0, flag ? 16 : 0, 200, 16, 256, 256);
+            guiGraphics.blit(TEXTURE, pX, pY, 0, flag ? 16 : 0, 200, 16, 256, 256);
         } else if (pEntity instanceof Vizier) {
             int shake = 0;
             int damage = 100;
             if (i > 0) {
-                RenderSystem.setShaderTexture(0, BOSS_BAR_1);
-                blit(pPoseStack, pX2, pY2, offset, 8, i, 8, 364, 64);
+                guiGraphics.blit(BOSS_BAR_1, pX2, pY2, offset, 8, i, 8, 364, 64);
                 if (pEntity.hurtTime >= 5) {
                     damage = 64 + pEntity.getRandom().nextInt(pEntity.hurtTime);
                     shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
-                    RenderSystem.setShaderTexture(0, TEXTURE);
-                    blit(pPoseStack, pX2, pY2, shake, damage, i, 8, 256, 256);
+                    guiGraphics.blit(TEXTURE, pX2, pY2, shake, damage, i, 8, 256, 256);
                 }
             }
             RenderSystem.setShaderTexture(0, TEXTURE);
-            blit(pPoseStack, pX, pY, 0, 48, 200, 16, 256, 256);
+            guiGraphics.blit(TEXTURE, pX, pY, 0, 48, 200, 16, 256, 256);
         } else {
-            drawMiniBossBar(pPoseStack, pX, pY, pEntity);
+            drawMiniBossBar(guiGraphics, pX, pY, pEntity);
         }
     }
 
-    private static void drawMiniBossBar(PoseStack pPoseStack, int pX, int pY, Mob pEntity) {
+    private static void drawMiniBossBar(GuiGraphics guiGraphics, int pX, int pY, Mob pEntity) {
         float percent = pEntity.getHealth() / pEntity.getMaxHealth();
         int i = (int) (percent * 128.0F);
         int j = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int j1 = j / 2 - 62;
         if (i > 0) {
             if (pEntity.isInvulnerable()){
-                RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
-                blit(pPoseStack, j1, pY, 0, 24, i, 8, 128, 128);
+                guiGraphics.blit(MINI_BOSS_BAR, j1, pY, 0, 24, i, 8, 128, 128);
             } else {
-                RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
-                blit(pPoseStack, j1, pY, 0, 8, i, 8, 128, 128);
+                guiGraphics.blit(MINI_BOSS_BAR, j1, pY, 0, 8, i, 8, 128, 128);
             }
         }
-        RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
-        blit(pPoseStack, j1 - 11, pY, 0, 16, 9, 8, 128, 128);
-        RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
-        blit(pPoseStack, j1, pY, 0, 0, 128, 8, 128, 128);
+        guiGraphics.blit(MINI_BOSS_BAR, j1 - 11, pY, 0, 16, 9, 8, 128, 128);
+        guiGraphics.blit(MINI_BOSS_BAR, j1, pY, 0, 0, 128, 8, 128, 128);
     }
 
     public static void addBoss(Mob mob){

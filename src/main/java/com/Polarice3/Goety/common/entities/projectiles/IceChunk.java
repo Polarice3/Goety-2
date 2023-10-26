@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.Mth;
@@ -184,7 +185,7 @@ public class IceChunk extends Entity {
         if (!this.level.isClientSide){
             ++this.hovering;
             ServerLevel serverWorld = (ServerLevel) this.level;
-            HitResult result = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            HitResult result = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
             if (result.getType() != HitResult.Type.MISS) {
                 if (result.getType() == HitResult.Type.ENTITY){
                     EntityHitResult result1 = (EntityHitResult) result;
@@ -201,7 +202,7 @@ public class IceChunk extends Entity {
                 }
                 this.onHit();
             }
-            if (this.isOnGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
+            if (this.onGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
                 this.onHit();
             }
             if (!this.isStarting()) {
@@ -227,7 +228,7 @@ public class IceChunk extends Entity {
         } else {
             ++this.hovering;
         }
-        if (this.hovering == 1 && !(this.isInWall() || this.isOnGround())){
+        if (this.hovering == 1 && !(this.isInWall() || this.onGround())){
             this.playSound(ModSounds.ICE_CHUNK_IDLE.get(), 1.0F, 1.0F);
         }
         int hoverTime = MathHelper.secondsToTicks(5);
@@ -268,8 +269,8 @@ public class IceChunk extends Entity {
     }
 
     @Override
-    protected Entity.MovementEmission getMovementEmission() {
-        return Entity.MovementEmission.NONE;
+    protected MovementEmission getMovementEmission() {
+        return MovementEmission.NONE;
     }
 
     @Override
@@ -296,7 +297,7 @@ public class IceChunk extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

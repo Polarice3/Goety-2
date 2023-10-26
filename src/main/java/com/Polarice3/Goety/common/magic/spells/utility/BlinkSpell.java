@@ -42,7 +42,7 @@ public class BlinkSpell extends InstantCastSpells {
                 enchantment = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
             }
             Vec3 vec3 = findTeleportLocation(worldIn, player, 32 + enchantment);
-            BlockPos blockPos = new BlockPos(vec3);
+            BlockPos blockPos = BlockPos.containing(vec3);
             enderTeleportEvent(entityLiving, worldIn, blockPos);
             worldIn.broadcastEntityEvent(player, (byte) 46);
         }
@@ -63,7 +63,7 @@ public class BlinkSpell extends InstantCastSpells {
 
         Vec3 correctedPos = new Vec3(pos.getX(), ledgeY, pos.getZ());
 
-        boolean isAir = level.getBlockState(new BlockPos(correctedPos)).isAir();
+        boolean isAir = level.getBlockState(BlockPos.containing(correctedPos)).isAir();
         boolean los = level.clip(new ClipContext(bbImpact, bbImpact.add(0.0D, ledgeY - pos.getY(), 0.0D), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, livingEntity)).getType() == HitResult.Type.MISS;
 
         if (isAir && los && Math.abs(ledgeY - pos.getY()) <= 3) {

@@ -19,7 +19,7 @@ public class StealTotemGoal<T extends HuntingIllagerEntity> extends Goal {
 
     public StealTotemGoal(T p_i50572_2_) {
         this.mob = p_i50572_2_;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     public boolean canUse() {

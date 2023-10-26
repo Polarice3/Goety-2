@@ -28,7 +28,7 @@ public class SoulBoltRenderer extends EntityRenderer<SoulBolt> {
    public void render(SoulBolt p_116484_, float p_116485_, float p_116486_, PoseStack p_116487_, MultiBufferSource p_116488_, int p_116489_) {
       p_116487_.pushPose();
       p_116487_.scale(-1.25F, -1.25F, 1.25F);
-      float f = Mth.rotlerp(p_116484_.yRotO, p_116484_.getYRot(), p_116486_);
+      float f = Mth.rotLerp(p_116486_, p_116484_.yRotO, p_116484_.getYRot());
       float f1 = Mth.lerp(p_116486_, p_116484_.xRotO, p_116484_.getXRot());
       VertexConsumer vertexconsumer = p_116488_.getBuffer(RenderType.eyes(this.getTextureLocation(p_116484_)));
       this.model.setupAnim(0.0F, f, f1);

@@ -8,13 +8,13 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -184,7 +184,7 @@ public class Fangs extends Entity {
         float baseDamage = SpellConfig.FangDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (target.isAlive() && !target.isInvulnerable() && target != livingentity) {
             if (livingentity == null) {
-                target.hurt(DamageSource.MAGIC, baseDamage);
+                target.hurt(this.damageSources().magic(), 6.0F);
             } else {
                 if (target.isAlliedTo(livingentity)){
                     return;
@@ -194,7 +194,7 @@ public class Fangs extends Entity {
                 }
                 if (livingentity instanceof Player player){
                     if (this.isTotemSpawned()){
-                        target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage + damage);
+                        target.hurt(target.damageSources().indirectMagic(this, livingentity), baseDamage + damage);
                         if (burning > 0){
                             target.setSecondsOnFire(5 * burning);
                         }
@@ -205,7 +205,7 @@ public class Fangs extends Entity {
                             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                             burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
                         }
-                        if (target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage + enchantment)){
+                        if (target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage + enchantment)){
                             int soulEater = Mth.clamp(this.getSoulEater(), 0, 10);
                             SEHelper.increaseSouls(player, SpellConfig.FangGainSouls.get() * soulEater);
                             if (burning > 0){
@@ -214,7 +214,7 @@ public class Fangs extends Entity {
                         }
                     }
                 } else {
-                    target.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
+                    target.hurt(this.damageSources().indirectMagic(this, livingentity), baseDamage);
                 }
             }
         }
@@ -240,7 +240,7 @@ public class Fangs extends Entity {
         }
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

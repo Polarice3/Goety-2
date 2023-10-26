@@ -34,7 +34,7 @@ import java.util.List;
 
 public class BrewItem extends Item {
     public BrewItem() {
-        super(new Item.Properties().stacksTo(16));
+        super(new Properties().stacksTo(16));
     }
 
     public ItemStack getDefaultInstance() {

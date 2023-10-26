@@ -15,14 +15,14 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.BlockLightEngine;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 
 import javax.annotation.Nullable;
 
 public class ForbiddenGrassBlock extends SnowyDirtBlock implements EntityBlock {
     public ForbiddenGrassBlock() {
-        super(Properties.of(Material.GRASS, MaterialColor.COLOR_PURPLE)
+        super(Properties.of()
+                .mapColor(MapColor.COLOR_PURPLE)
                 .randomTicks()
                 .strength(0.6F)
                 .sound(SoundType.GRASS));

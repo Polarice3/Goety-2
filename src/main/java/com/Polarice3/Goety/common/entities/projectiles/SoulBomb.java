@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SSoulExplodePacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -40,7 +39,7 @@ public class SoulBomb extends ThrowableProjectile {
             if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                 damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
             }
-            MobUtil.explosionDamage(this.level, this, DamageSource.indirectMagic(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), 2.0F, damage);
+            MobUtil.explosionDamage(this.level, this, this.damageSources().indirectMagic(this, this.getOwner()), this.getX(), this.getY(), this.getZ(), 2.0F, damage);
             ModNetwork.sendToALL(new SSoulExplodePacket(this.blockPosition(), 2));
             this.discard();
         }

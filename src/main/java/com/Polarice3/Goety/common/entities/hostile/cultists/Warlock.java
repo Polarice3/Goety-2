@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -100,7 +101,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
     }
 
     @Override
-    public void remove(Entity.RemovalReason p_146834_) {
+    public void remove(RemovalReason p_146834_) {
         if (this.isPassenger() && this.getVehicle() != null){
             if (this.getVehicle() instanceof AbstractHorse donkey){
                 if (donkey.getOwnerUUID() != null && donkey.getOwnerUUID() == this.getUUID()){
@@ -202,7 +203,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
             damage = 0.0F;
         }
 
-        if (damageSource.isExplosion()) {
+        if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
             damage *= 0.15F;
         }
 

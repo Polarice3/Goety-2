@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.init.ModSounds;
@@ -35,7 +34,7 @@ import java.util.Objects;
 public class FlameCaptureItem extends Item {
 
     public FlameCaptureItem() {
-        super(new Item.Properties().tab(Goety.TAB).stacksTo(1));
+        super(new Properties().stacksTo(1));
     }
 
     @Nonnull
@@ -57,7 +56,7 @@ public class FlameCaptureItem extends Item {
                             level.setBlockAndUpdate(pos, Blocks.SPAWNER.defaultBlockState());
                             BlockEntity blockentity = level.getBlockEntity(pos);
                             if (blockentity instanceof SpawnerBlockEntity) {
-                                ((SpawnerBlockEntity) blockentity).getSpawner().setEntityId(this.getEntity(stack, level).getType());
+                                ((SpawnerBlockEntity) blockentity).getSpawner().setEntityId(this.getEntity(stack, level).getType(), level, level.random, pos);
                             }
                         }
                         this.clearEntity(stack);
@@ -75,7 +74,7 @@ public class FlameCaptureItem extends Item {
                 if (!level.isClientSide()) {
                     BlockEntity blockentity = level.getBlockEntity(pos);
                     if (blockentity instanceof SpawnerBlockEntity) {
-                        Entity entity = ((SpawnerBlockEntity) blockentity).getSpawner().getOrCreateDisplayEntity(level);
+                        Entity entity = ((SpawnerBlockEntity) blockentity).getSpawner().getOrCreateDisplayEntity(level, level.random, blockentity.getBlockPos());
                         if (entity != null) {
                             this.setEntity(entity, stack);
                             level.destroyBlock(pos, false);

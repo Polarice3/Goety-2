@@ -20,7 +20,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class BrewApple extends Item {
     public BrewApple() {
-        super((new Item.Properties()).food(Foods.APPLE));
+        super((new Properties()).food(Foods.APPLE));
     }
 
     public ItemStack finishUsingItem(ItemStack pStack, Level p_42985_, LivingEntity p_42986_) {

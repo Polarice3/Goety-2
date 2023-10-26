@@ -1,20 +1,21 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.CursedCageBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,26 +33,25 @@ public class TotemOfSouls extends Item {
     public static final int MAX_SOULS = MainConfig.MaxSouls.get();
 
     public TotemOfSouls() {
-        super(new Properties().tab(Goety.TAB).stacksTo(1).rarity(Rarity.RARE));
+        super(new Properties().stacksTo(1).rarity(Rarity.RARE));
     }
 
     public int getMaxSouls(){
         return MAX_SOULS;
     }
 
-    @Override
-    public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
-        if (this.allowedIn(pGroup)){
-            ItemStack emptySouls = new ItemStack(this);
-            setSoulsamount(emptySouls, 0);
-            setMaxSoulAmount(emptySouls, this.getMaxSouls());
-            pItems.add(emptySouls);
+    public ItemStack getEmptyTotem(){
+        ItemStack emptySouls = new ItemStack(this);
+        setSoulsamount(emptySouls, 0);
+        setMaxSoulAmount(emptySouls, this.getMaxSouls());
+        return emptySouls;
+    }
 
-            ItemStack maxSouls = new ItemStack(this);
-            setSoulsamount(maxSouls, this.getMaxSouls());
-            setMaxSoulAmount(maxSouls, this.getMaxSouls());
-            pItems.add(maxSouls);
-        }
+    public ItemStack getFilledTotem(){
+        ItemStack maxSouls = new ItemStack(this);
+        setSoulsamount(maxSouls, this.getMaxSouls());
+        setMaxSoulAmount(maxSouls, this.getMaxSouls());
+        return maxSouls;
     }
 
     public int getBarColor(ItemStack stack) {

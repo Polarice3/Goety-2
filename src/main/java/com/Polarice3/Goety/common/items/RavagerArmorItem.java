@@ -12,7 +12,7 @@ public class RavagerArmorItem extends Item {
    private final ResourceLocation texture;
 
    public RavagerArmorItem(int protection, String material) {
-      this(protection, Goety.location("textures/entity/servants/ravager/armor/ravager_armor_" + material + ".png"), new Item.Properties().stacksTo(1).tab(Goety.TAB));
+      this(protection, Goety.location("textures/entity/servants/ravager/armor/ravager_armor_" + material + ".png"), new Properties().stacksTo(1));
    }
 
    public RavagerArmorItem(int protection, String material, Properties properties) {

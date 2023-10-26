@@ -26,9 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -110,10 +108,10 @@ public class SEHelper {
     }
 
     public static boolean getSoulsAmount(Player player, int souls){
-        if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) >= souls){
+        if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) > souls){
             return true;
         } else {
-            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) >= souls;
+            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) > souls;
         }
     }
 
@@ -128,24 +126,20 @@ public class SEHelper {
 
     public static int getSoulGiven(LivingEntity victim){
         if (victim != null){
-            boolean flag = victim instanceof Owned && !(victim instanceof Enemy) && !victim.isBaby();
+            boolean flag = victim instanceof Owned && !(victim instanceof Enemy);
             if (!flag) {
                 if (victim.getMobType() == MobType.UNDEAD) {
                     return MainConfig.UndeadSouls.get();
                 } else if (victim.getMobType() == MobType.ARTHROPOD) {
                     return MainConfig.AnthropodSouls.get();
-                } else if (victim instanceof Animal) {
-                    return MainConfig.AnimalSouls.get();
                 } else if (victim instanceof Raider) {
                     return MainConfig.IllagerSouls.get();
-                } else if (victim instanceof Villager) {
+                } else if (victim instanceof Villager && !victim.isBaby()) {
                     return MainConfig.VillagerSouls.get();
-                } else if (victim instanceof AbstractPiglin) {
+                } else if (victim instanceof AbstractPiglin || victim instanceof TamableAnimal) {
                     return MainConfig.PiglinSouls.get();
                 } else if (victim instanceof EnderDragon) {
                     return MainConfig.EnderDragonSouls.get();
-                } else if (victim instanceof EnderMan){
-                    return MainConfig.EndermanSouls.get();
                 } else if (victim instanceof Warden){
                     return MainConfig.WardenSouls.get();
                 } else if (victim instanceof Player) {
@@ -253,7 +247,7 @@ public class SEHelper {
     public static boolean teleportToArca(Player player){
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         BlockPos blockPos = SEHelper.getArcaBlock(player);
-        BlockPos blockPos1 = new BlockPos(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
+        BlockPos blockPos1 = BlockPos.containing(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
         if (soulEnergy.getArcaBlockDimension() == player.level.dimension()) {
             Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos1);
             if (optional.isPresent()) {
@@ -498,7 +492,7 @@ public class SEHelper {
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         if (tag.contains("grudgeList", 9)) {
             ListTag listtag = tag.getList("grudgeList", 11);
-            for (net.minecraft.nbt.Tag value : listtag) {
+            for (Tag value : listtag) {
                 soulEnergy.addGrudge(NbtUtils.loadUUID(value));
             }
         }
@@ -522,7 +516,7 @@ public class SEHelper {
         }
         if (tag.contains("summonList", Tag.TAG_LIST)) {
             ListTag listtag = tag.getList("summonList", Tag.TAG_INT_ARRAY);
-            for (net.minecraft.nbt.Tag value : listtag) {
+            for (Tag value : listtag) {
                 soulEnergy.addSummon(NbtUtils.loadUUID(value));
             }
         }

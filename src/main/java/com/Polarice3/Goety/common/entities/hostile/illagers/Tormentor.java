@@ -60,12 +60,12 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(4, new Tormentor.ChargeAttackGoal());
-        this.goalSelector.addGoal(8, new Tormentor.MoveRandomGoal());
+        this.goalSelector.addGoal(4, new ChargeAttackGoal());
+        this.goalSelector.addGoal(8, new MoveRandomGoal());
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
-        this.targetSelector.addGoal(2, new Tormentor.CopyOwnerTargetGoal(this));
+        this.targetSelector.addGoal(2, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -86,12 +86,12 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
         this.setNoGravity(true);
         if (this.hasLimitedLife && --this.limitedLifeTicks <= 0) {
             this.limitedLifeTicks = 20;
-            this.hurt(DamageSource.STARVE, 1.0F);
+            this.hurt(this.damageSources().starve(), 1.0F);
         }
         if (this.hasActiveRaid()){
             if (this.getOwner() == null || this.getOwner().isDeadOrDying()){
                 if (this.tickCount % 20 == 0) {
-                    this.hurt(DamageSource.STARVE, this.getMaxHealth() / 4);
+                    this.hurt(this.damageSources().starve(), this.getMaxHealth() / 4);
                 }
             }
         }
@@ -224,7 +224,7 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
 
     class ChargeAttackGoal extends Goal {
         public ChargeAttackGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
@@ -288,7 +288,7 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
 
     class MoveRandomGoal extends Goal {
         public MoveRandomGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {

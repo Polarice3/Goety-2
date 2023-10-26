@@ -21,6 +21,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -108,79 +109,80 @@ public class ClientEvents {
         if (player != null) {
             HitResult hitResult = minecraft.hitResult;
             Font fontRenderer = minecraft.font;
+            PoseStack poseStack = event.getGuiGraphics().pose();
             if (minecraft.level != null) {
                 if (hitResult instanceof BlockHitResult blockRayTraceResult) {
                     BlockEntity blockEntity = minecraft.level.getBlockEntity(blockRayTraceResult.getBlockPos());
                     if (blockEntity instanceof ArcaBlockEntity arcaTile) {
                         if ((player.isShiftKeyDown() || player.isCrouching())) {
                             if (arcaTile.getPlayer() == player && SEHelper.getSEActive(player)) {
-                                event.getPoseStack().pushPose();
-                                event.getPoseStack().translate((float) (minecraft.getWindow().getGuiScaledWidth() / 2), (float) (minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                                poseStack.pushPose();
+                                poseStack.translate((float) (minecraft.getWindow().getGuiScaledWidth() / 2), (float) (minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
                                 int SoulEnergy = SEHelper.getSESouls(player);
                                 int SoulEnergyTotal = MainConfig.MaxArcaSouls.get();
                                 String s = "Soul Energy: " + SoulEnergy + "/" + "" + SoulEnergyTotal;
                                 int l = fontRenderer.width(s);
-                                fontRenderer.drawShadow(event.getPoseStack(), s, (float) (-l / 2), -4.0F, 0xFFFFFF);
+                                event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
-                                event.getPoseStack().popPose();
+                                poseStack.popPose();
                             } else if (arcaTile.getPlayer() != null) {
-                                event.getPoseStack().pushPose();
-                                event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                                poseStack.pushPose();
+                                poseStack.translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
                                 String s = "Owner:" + arcaTile.getPlayer().getDisplayName().getString();
                                 int l = fontRenderer.width(s);
-                                fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                                event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
-                                event.getPoseStack().popPose();
+                                poseStack.popPose();
                             }
                         }
                     } else if (blockEntity instanceof OwnedBlockEntity ownedBlock && ownedBlock.screenView()){
                         if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
-                            event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            poseStack.pushPose();
+                            poseStack.translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = "Owner: " + ownedBlock.getPlayer().getDisplayName().getString();
                             int l = fontRenderer.width(s);
-                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
-                            event.getPoseStack().popPose();
+                            poseStack.popPose();
                         }
                     } else if (blockEntity instanceof CursedCageBlockEntity cageBlockEntity){
                         if (player.isShiftKeyDown() || player.isCrouching() && !cageBlockEntity.getItem().isEmpty()){
-                            event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            poseStack.pushPose();
+                            poseStack.translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = "Soul Energy: " + cageBlockEntity.getSouls();
                             int l = fontRenderer.width(s);
-                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
-                            event.getPoseStack().popPose();
+                            poseStack.popPose();
                         }
                     } else if (blockEntity instanceof BrewCauldronBlockEntity cauldronBlock){
                         if (player.isShiftKeyDown() || player.isCrouching()){
-                            event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 60), 0.0F);
+                            poseStack.pushPose();
+                            poseStack.translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 60), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s1 = "Capacity: " + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
                             int l2 = fontRenderer.width(s1);
-                            fontRenderer.drawShadow(event.getPoseStack(), s1, (float)(-l2 / 2), -4.0F, 0xFFFFFF);
+                            event.getGuiGraphics().drawCenteredString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
-                            event.getPoseStack().popPose();
-                            event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            poseStack.popPose();
+                            poseStack.pushPose();
+                            poseStack.translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = "Soul Cost: " + (cauldronBlock.getBrewCost() - cauldronBlock.soulTime);
                             int l = fontRenderer.width(s);
-                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
-                            event.getPoseStack().popPose();
+                            poseStack.popPose();
                         }
                     }
                 }

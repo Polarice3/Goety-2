@@ -3,9 +3,9 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -216,7 +216,7 @@ public class BlockFinder {
     }
 
     public static boolean findStructure(ServerLevel serverLevel, LivingEntity livingEntity, ResourceKey<Structure> resourceKey){
-        Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).get(resourceKey);
+        Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registries.STRUCTURE).get(resourceKey);
         if (structure != null) {
             StructureStart structureStart = serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), structure);
             if (!structureStart.getPieces().isEmpty()) {

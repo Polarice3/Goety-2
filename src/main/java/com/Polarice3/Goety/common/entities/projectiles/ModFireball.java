@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -51,7 +52,7 @@ public class ModFireball extends Fireball {
                 }
                 int i = entity.getRemainingFireTicks() + flaming;
                 entity.setSecondsOnFire(5 + flaming);
-                boolean flag = entity.hurt(DamageSource.fireball(this, entity1), damage + enchantment);
+                boolean flag = entity.hurt(entity.damageSources().fireball(this, entity1), damage + enchantment);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else if (entity1 instanceof LivingEntity) {
@@ -93,7 +94,7 @@ public class ModFireball extends Fireball {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

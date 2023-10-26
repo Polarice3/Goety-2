@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.crafting.CursedInfuserRecipes;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -18,6 +17,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +72,7 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
     }
 
     @Override
-    public void draw(CursedInfuserRecipes recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+    public void draw(CursedInfuserRecipes recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics stack, double mouseX, double mouseY) {
         IDrawableAnimated arrow = getArrow(recipe);
         arrow.draw(stack, 24, 8);
         drawCookTime(recipe, stack, 35);
@@ -86,7 +86,7 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
         return this.cachedArrows.getUnchecked(cookTime);
     }
 
-    protected void drawCookTime(CursedInfuserRecipes recipe, PoseStack matrixStack, int y) {
+    protected void drawCookTime(CursedInfuserRecipes recipe, GuiGraphics matrixStack, int y) {
         int cookTime = recipe.getCookingTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -94,7 +94,7 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
+            matrixStack.drawString(fontRenderer, timeString, background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
@@ -104,6 +104,6 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
                 .addIngredients(recipe.getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 9)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItem(null));
     }
 }

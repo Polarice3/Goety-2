@@ -1,7 +1,5 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.common.entities.ally.GraveGolem;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -13,7 +11,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -30,6 +28,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -51,7 +50,10 @@ import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.PowderSnowBlock;
@@ -62,7 +64,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -156,8 +158,8 @@ public class MobUtil {
 
     public static boolean isInWeb(LivingEntity livingEntity){
         AABB axisalignedbb = livingEntity.getBoundingBox();
-        BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
-        BlockPos blockpos1 = new BlockPos(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
+        BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
+        BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
         if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
             for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
@@ -177,8 +179,8 @@ public class MobUtil {
 
     public static void WebMovement(LivingEntity livingEntity){
         AABB axisalignedbb = livingEntity.getBoundingBox();
-        BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
-        BlockPos blockpos1 = new BlockPos(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
+        BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
+        BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
         if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
             for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
@@ -197,8 +199,8 @@ public class MobUtil {
 
     public static void PowderedSnowMovement(LivingEntity livingEntity){
         AABB axisalignedbb = livingEntity.getBoundingBox();
-        BlockPos blockpos = new BlockPos(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
-        BlockPos blockpos1 = new BlockPos(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
+        BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
+        BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
         if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
             for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
@@ -217,23 +219,23 @@ public class MobUtil {
 
     public static void dropFromLootTable(LivingEntity living, float luck) {
         ResourceLocation resourcelocation = living.getLootTable();
-        LootTable loottable = living.level.getServer().getLootTables().get(resourcelocation);
-        LootContext.Builder lootcontext$builder = MobUtil.createLootContext(DamageSource.GENERIC, living, luck);
-        LootContext ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
+        LootTable loottable = living.level.getServer().getLootData().getLootTable(resourcelocation);
+        LootParams.Builder lootcontext$builder = MobUtil.createLootContext(living.damageSources().generic(), living, luck);
+        LootParams ctx = lootcontext$builder.create(LootContextParamSets.ENTITY);
         loottable.getRandomItems(ctx).forEach(living::spawnAtLocation);
     }
 
-    public static LootContext.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity, float luck) {
-        return (new LootContext.Builder((ServerLevel) livingEntity.level)).withRandom(livingEntity.getRandom()).withParameter(LootContextParams.THIS_ENTITY, livingEntity).withParameter(LootContextParams.ORIGIN, livingEntity.position()).withParameter(LootContextParams.DAMAGE_SOURCE, pDamageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, pDamageSource.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, pDamageSource.getDirectEntity()).withLuck(luck);
+    public static LootParams.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity, float luck) {
+        return (new LootParams.Builder((ServerLevel) livingEntity.level)).withParameter(LootContextParams.THIS_ENTITY, livingEntity).withParameter(LootContextParams.ORIGIN, livingEntity.position()).withParameter(LootContextParams.DAMAGE_SOURCE, pDamageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, pDamageSource.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, pDamageSource.getDirectEntity()).withLuck(luck);
     }
 
-    public static LootContext.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity) {
-        LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) livingEntity.level)).withRandom(livingEntity.getRandom()).withParameter(LootContextParams.THIS_ENTITY, livingEntity).withParameter(LootContextParams.ORIGIN, livingEntity.position()).withParameter(LootContextParams.DAMAGE_SOURCE, pDamageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, pDamageSource.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, pDamageSource.getDirectEntity());
+    public static LootParams.Builder createLootContext(DamageSource pDamageSource, LivingEntity livingEntity) {
+        LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel)livingEntity.level())).withParameter(LootContextParams.THIS_ENTITY, livingEntity).withParameter(LootContextParams.ORIGIN, livingEntity.position()).withParameter(LootContextParams.DAMAGE_SOURCE, pDamageSource).withOptionalParameter(LootContextParams.KILLER_ENTITY, pDamageSource.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, pDamageSource.getDirectEntity());
         if (livingEntity.getLastHurtByMob() != null && livingEntity.getLastHurtByMob() instanceof Player player) {
-            lootcontext$builder = lootcontext$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player).withLuck(player.getLuck());
+            lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player).withLuck(player.getLuck());
         }
 
-        return lootcontext$builder;
+        return lootparams$builder;
     }
 
     public static void knockBack(LivingEntity knocked, Entity knocker, double xPower, double yPower, double zPower) {
@@ -265,7 +267,7 @@ public class MobUtil {
             knocked.hasImpulse = true;
             Vec3 vec3 = knocked.getDeltaMovement();
             Vec3 vec31 = (new Vec3(ratioX, 0.0D, ratioZ)).normalize().scale(strength);
-            knocked.setDeltaMovement(vec3.x / 2.0D - vec31.x, knocked.isOnGround() ? Math.min(0.4D, vec3.y / 2.0D + strength) : vec3.y, vec3.z / 2.0D - vec31.z);
+            knocked.setDeltaMovement(vec3.x / 2.0D - vec31.x, knocked.onGround() ? Math.min(0.4D, vec3.y / 2.0D + strength) : vec3.y, vec3.z / 2.0D - vec31.z);
         }
     }
 
@@ -319,11 +321,11 @@ public class MobUtil {
         }
 
         public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
+            if (this.operation == Operation.MOVE_TO) {
                 Vec3 vector3d = new Vec3(this.wantedX - this.mob.getX(), this.wantedY - this.mob.getY(), this.wantedZ - this.mob.getZ());
                 double d0 = vector3d.length();
                 if (d0 < this.mob.getBoundingBox().getSize()) {
-                    this.operation = MoveControl.Operation.WAIT;
+                    this.operation = Operation.WAIT;
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0.5D));
                 } else {
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(vector3d.scale(this.speedModifier * 0.05D / d0)));
@@ -350,11 +352,11 @@ public class MobUtil {
 
         public void tick() {
             if (this.mob.isNoGravity()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO) {
+                if (this.operation == Operation.MOVE_TO) {
                     Vec3 vector3d = new Vec3(this.wantedX - this.mob.getX(), this.wantedY - this.mob.getY(), this.wantedZ - this.mob.getZ());
                     double d0 = vector3d.length();
                     if (d0 < this.mob.getBoundingBox().getSize()) {
-                        this.operation = MoveControl.Operation.WAIT;
+                        this.operation = Operation.WAIT;
                         this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0.5D));
                     } else {
                         this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(vector3d.scale(this.speedModifier * 0.05D / d0)));
@@ -378,7 +380,7 @@ public class MobUtil {
 
     public static boolean isInRain(Entity pEntity){
         BlockPos blockpos = pEntity.blockPosition();
-        return pEntity.level.isRainingAt(blockpos) || pEntity.level.isRainingAt(new BlockPos((double)blockpos.getX(), pEntity.getBoundingBox().maxY, (double)blockpos.getZ()));
+        return pEntity.level.isRainingAt(blockpos) || pEntity.level.isRainingAt(BlockPos.containing((double)blockpos.getX(), pEntity.getBoundingBox().maxY, (double)blockpos.getZ()));
     }
 
     public static boolean healthIsHalved(LivingEntity livingEntity){
@@ -611,31 +613,18 @@ public class MobUtil {
                     double d14 = (double) getSeenPercent(vec3, entity);
                     double d10 = (1.0D - d12) * d14;
                     float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
-                    boolean flag = true;
-                    if (damageSource.getEntity() != null){
-                        if (damageSource.getEntity() == entity || entity.isAlliedTo(damageSource.getEntity()) || damageSource.getEntity().isAlliedTo(entity)){
-                            flag = false;
+                    entity.hurt(damageSource, actualDamage);
+                    double d11 = d10;
+                    if (entity instanceof LivingEntity) {
+                        d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                    }
+                    if (damageSource.is(DamageTypes.MAGIC)){
+                        if (entity instanceof FireTornado fireTornado){
+                            fireTornado.trueRemove();
                         }
                     }
-                    if (damageSource.isExplosion() && entity.ignoreExplosion()){
-                        flag = false;
-                    }
-                    if (flag) {
-                        entity.hurt(damageSource, actualDamage);
-                        double d11 = d10;
-                        if (entity instanceof LivingEntity) {
-                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                        }
-                        if (damageSource.isMagic()) {
-                            if (entity instanceof FireTornado fireTornado) {
-                                fireTornado.trueRemove();
-                            }
-                        }
 
-                        if (entity instanceof LivingEntity) {
-                            MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
-                        }
-                    }
+                    MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
                 }
             }
         }
@@ -748,7 +737,7 @@ public class MobUtil {
                         if (originalMob instanceof Villager villager && newMob instanceof ZombieVillager zombievillager) {
                             zombievillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(zombievillager.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), (CompoundTag) null);
                             zombievillager.setVillagerData(villager.getVillagerData());
-                            zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                            zombievillager.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
                             zombievillager.setTradeOffers(villager.getOffers().createTag());
                             zombievillager.setVillagerXp(villager.getVillagerXp());
                             if (!originalMob.isSilent()) {
@@ -787,17 +776,13 @@ public class MobUtil {
             if (summonedEntity instanceof Summoned summoned){
                 summoned.setWandering(false);
             }
-            if (summonedEntity instanceof RedstoneGolem || summonedEntity instanceof GraveGolem){
-                SEHelper.addSummon(player, summonedEntity);
-            }
         }
     }
 
     public static void explodeCreeper(Creeper creeper) {
         if (!creeper.level.isClientSide) {
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(creeper.level, creeper) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
             float f = creeper.isPowered() ? 2.0F : 1.0F;
-            creeper.level.explode(creeper, creeper.getX(), creeper.getY(), creeper.getZ(), 3.0F * f, explosion$blockinteraction);
+            creeper.level.explode(creeper, creeper.getX(), creeper.getY(), creeper.getZ(), 3.0F * f, Level.ExplosionInteraction.MOB);
             creeper.discard();
             spawnLingeringCloud(creeper);
         }
@@ -831,7 +816,7 @@ public class MobUtil {
     }
 
     public static boolean isMoving(LivingEntity livingEntity){
-        return livingEntity.isOnGround() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F;
+        return livingEntity.onGround() && livingEntity.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F;
     }
 
     public static boolean hasVisualLineOfSight(LivingEntity looker, Entity target) {
@@ -855,7 +840,7 @@ public class MobUtil {
 
     public static boolean isInSunlight(LivingEntity livingEntity){
         float f = livingEntity.getLightLevelDependentMagicValue();
-        BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
+        BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (BlockPos.containing(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : BlockPos.containing(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
         return f > 0.5F && livingEntity.level.canSeeSky(blockpos);
     }
 
@@ -1011,7 +996,7 @@ public class MobUtil {
     */
 
     public static WeightedRandomList<MobSpawnSettings.SpawnerData> mobsAt(ServerLevel p_220444_, StructureManager p_220445_, ChunkGenerator p_220446_, MobCategory p_220447_, BlockPos p_220448_, @Nullable Holder<Biome> p_220449_) {
-        return net.minecraftforge.event.ForgeEventFactory.getPotentialSpawns(p_220444_, p_220447_, p_220448_, NaturalSpawner.isInNetherFortressBounds(p_220448_, p_220444_, p_220447_, p_220445_) ? p_220445_.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).getOrThrow(BuiltinStructures.FORTRESS).spawnOverrides().get(MobCategory.MONSTER).spawns() : p_220446_.getMobsAt(p_220449_ != null ? p_220449_ : p_220444_.getBiome(p_220448_), p_220445_, p_220447_, p_220448_));
+        return net.minecraftforge.event.ForgeEventFactory.getPotentialSpawns(p_220444_, p_220447_, p_220448_, NaturalSpawner.isInNetherFortressBounds(p_220448_, p_220444_, p_220447_, p_220445_) ? p_220445_.registryAccess().registryOrThrow(Registries.STRUCTURE).getOrThrow(BuiltinStructures.FORTRESS).spawnOverrides().get(MobCategory.MONSTER).spawns() : p_220446_.getMobsAt(p_220449_ != null ? p_220449_ : p_220444_.getBiome(p_220448_), p_220445_, p_220447_, p_220448_));
     }
 
     public static Vec3 calculateViewVector(float p_20172_, float p_20173_) {

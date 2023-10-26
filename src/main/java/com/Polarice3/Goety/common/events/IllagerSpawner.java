@@ -173,7 +173,7 @@ public class IllagerSpawner {
                                         }
                                     }
                                     if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
-                                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
+                                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
                                     }
                                     return i1;
                                 }
@@ -197,7 +197,6 @@ public class IllagerSpawner {
             Envioker illager = ModEntityType.ENVIOKER.get().create(worldIn);
             if (illager != null) {
                 illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (random.nextInt(4) == 0){
@@ -225,7 +224,6 @@ public class IllagerSpawner {
             Inquillager illager = ModEntityType.INQUILLAGER.get().create(worldIn);
             if (illager != null) {
                 illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (random.nextInt(4) == 0){
@@ -253,7 +251,6 @@ public class IllagerSpawner {
             Conquillager illager = ModEntityType.CONQUILLAGER.get().create(worldIn);
             if (illager != null) {
                 illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (random.nextInt(4) == 0){
@@ -281,7 +278,6 @@ public class IllagerSpawner {
             Minister illager = ModEntityType.MINISTER.get().create(worldIn);
             if (illager != null) {
                 illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (random.nextInt(4) == 0){
@@ -336,7 +332,6 @@ public class IllagerSpawner {
             }
             if (illager != null) {
                 illager.setPos(p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                 illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
                     illager.setTarget(player);
@@ -528,7 +523,7 @@ public class IllagerSpawner {
                     this.spawnMinister(world, blockpos$mutable, random, player);
                 }
                 if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
-                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
+                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
                 }
                 this.nextTick += MainConfig.IllagerAssaultSpawnFreq.get();
             }

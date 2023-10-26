@@ -15,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
 public class ShockwaveSpell extends Spells {
@@ -57,6 +56,6 @@ public class ShockwaveSpell extends Spells {
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
         ModNetwork.sendToALL(new SSoulExplodePacket(entityLiving.blockPosition(), radius));
         ModNetwork.sendToALL(new SPlayWorldSoundPacket(entityLiving.blockPosition(), ModSounds.SOUL_EXPLODE.get(), 4.0F, 1.0F));
-        MobUtil.explosionDamage(worldIn, entityLiving, DamageSource.indirectMagic(entityLiving, entityLiving), entityLiving.blockPosition(), radius, trueDamage);
+        MobUtil.explosionDamage(worldIn, entityLiving, worldIn.damageSources().indirectMagic(entityLiving, entityLiving), entityLiving.blockPosition(), radius, trueDamage);
     }
 }

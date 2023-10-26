@@ -2,9 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -13,6 +11,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.Projectile;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends EntityRenderer<T> {
 
@@ -28,7 +28,7 @@ public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends 
         matrixStackIn.pushPose();
         matrixStackIn.scale(this.scale(), this.scale(), this.scale());
         matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F));
         PoseStack.Pose matrixstack$entry = matrixStackIn.last();
         Matrix4f matrix4f = matrixstack$entry.pose();
         Matrix3f matrix3f = matrixstack$entry.normal();

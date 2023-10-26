@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +26,7 @@ import java.util.Set;
 public class FungusExplosion extends Explosion {
 
     public FungusExplosion(Level pLevel, @Nullable Entity pSource, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire) {
-        super(pLevel, pSource, null, null, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, BlockInteraction.NONE);
+        super(pLevel, pSource, null, null, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, BlockInteraction.KEEP);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class FungusExplosion extends Explosion {
                         double d8 = this.z;
 
                         for(float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
-                            BlockPos blockpos = new BlockPos(d4, d6, d8);
+                            BlockPos blockpos = BlockPos.containing(d4, d6, d8);
                             BlockState blockstate = this.level.getBlockState(blockpos);
                             FluidState fluidstate = this.level.getFluidState(blockpos);
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this, this.level, blockpos, blockstate, fluidstate);
@@ -100,8 +99,8 @@ public class FungusExplosion extends Explosion {
                             d9 = d9 / d13;
                             double d14 = (double) getSeenPercent(vector3d, entity);
                             double d10 = (1.0D - d12) * d14;
-                            if (this.getSourceMob() != null) {
-                                entity.hurt(DamageSource.explosion(this.getSourceMob()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                            if (this.getIndirectSourceEntity() != null) {
+                                entity.hurt(entity.damageSources().explosion(this.getDirectSourceEntity(), this.getIndirectSourceEntity()), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
                             } else {
                                 entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
                             }

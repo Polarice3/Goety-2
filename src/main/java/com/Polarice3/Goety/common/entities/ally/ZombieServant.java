@@ -230,8 +230,8 @@ public class ZombieServant extends Summoned{
 
     }
 
-    public boolean wasKilled(ServerLevel world, LivingEntity killedEntity) {
-        boolean flag = super.wasKilled(world, killedEntity);
+    public boolean killedEntity(ServerLevel world, LivingEntity killedEntity) {
+        boolean flag = super.killedEntity(world, killedEntity);
         float random = this.level.random.nextFloat();
         if (this.isUpgraded() && killedEntity instanceof Zombie zombieEntity && random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_SERVANT.get(), (timer) -> {})) {
             EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_SERVANT.get();
@@ -360,22 +360,22 @@ public class ZombieServant extends Summoned{
                     ItemStack legging = this.getItemBySlot(EquipmentSlot.LEGS);
                     ItemStack boots = this.getItemBySlot(EquipmentSlot.FEET);
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.HEAD) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.HELMET) {
                         this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.HEAD);
                         this.spawnAtLocation(helmet);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.CHEST) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.CHESTPLATE) {
                         this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.CHEST);
                         this.spawnAtLocation(chestplate);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.LEGS) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.LEGGINGS) {
                         this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.LEGS);
                         this.spawnAtLocation(legging);
                     }
-                    if (((ArmorItem) item).getSlot() == EquipmentSlot.FEET) {
+                    if (((ArmorItem) item).getType() == ArmorItem.Type.BOOTS) {
                         this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
                         this.setGuaranteedDrop(EquipmentSlot.FEET);
                         this.spawnAtLocation(boots);

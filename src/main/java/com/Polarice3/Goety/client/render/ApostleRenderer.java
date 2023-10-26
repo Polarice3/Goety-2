@@ -8,8 +8,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -19,6 +18,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -31,7 +31,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
 
     public ApostleRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ApostleModel<>(renderManagerIn.bakeLayer(ModModelLayer.APOSTLE)), 0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
+        this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER)), renderManagerIn.getModelManager()));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
             public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Apostle p_116355_, float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_, float p_116361_) {
                 if (p_116355_.getArmPose() != Cultist.CultistArmPose.CROSSED) {
@@ -76,12 +76,12 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
                     pMatrixStack.translate(0.0D, 1.0D, 0.0D);
 
                     for (int i = 0; (float) i < (f5 + f5 * f5) / 2.0F * 10.0F; ++i) {
-                        pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360.0F));
-                        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360.0F));
-                        pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360.0F));
-                        pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360.0F));
-                        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360.0F));
-                        pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360.0F + f5 * 90.0F));
+                        pMatrixStack.mulPose(Axis.XP.rotationDegrees(random.nextFloat() * 360.0F));
+                        pMatrixStack.mulPose(Axis.YP.rotationDegrees(random.nextFloat() * 360.0F));
+                        pMatrixStack.mulPose(Axis.ZP.rotationDegrees(random.nextFloat() * 360.0F));
+                        pMatrixStack.mulPose(Axis.XP.rotationDegrees(random.nextFloat() * 360.0F));
+                        pMatrixStack.mulPose(Axis.YP.rotationDegrees(random.nextFloat() * 360.0F));
+                        pMatrixStack.mulPose(Axis.ZP.rotationDegrees(random.nextFloat() * 360.0F + f5 * 90.0F));
                         float f3 = random.nextFloat() * 2.0F + 5.0F + f7 * 10.0F;
                         float f4 = random.nextFloat() + 1.0F + f7;
                         Matrix4f matrix4f = pMatrixStack.last().pose();

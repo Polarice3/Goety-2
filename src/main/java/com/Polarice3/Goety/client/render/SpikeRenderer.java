@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.render.model.SpikeModel;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -30,7 +30,7 @@ public class SpikeRenderer extends EntityRenderer<Spike> {
             }
 
             pMatrixStack.pushPose();
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
             pMatrixStack.scale(-f1, -f1, f1);
             float f2 = 0.03125F;
             pMatrixStack.translate(0.0D, (double)-0.626F, 0.0D);

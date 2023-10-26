@@ -11,11 +11,11 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -189,7 +189,7 @@ public class ScatterMine extends Entity {
                     damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE)/* / 1.666667F*/);
                 }
             }
-            livingEntity.hurt(DamageSource.explosion(owner), damage);
+            livingEntity.hurt(livingEntity.damageSources().explosion(owner, owner), damage);
             this.discard();
         }
     }
@@ -225,7 +225,7 @@ public class ScatterMine extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

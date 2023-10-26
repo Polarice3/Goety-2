@@ -16,12 +16,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -275,7 +277,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
 
         if (this.isEffectiveAi()) {
             if (!this.hasItemInSlot(EquipmentSlot.HEAD) && !this.hasItemInSlot(EquipmentSlot.CHEST) && !this.hasItemInSlot(EquipmentSlot.LEGS) && !this.hasItemInSlot(EquipmentSlot.FEET)) {
-                this.die(DamageSource.STARVE);
+                this.die(this.damageSources().starve());
             }
         }
 
@@ -296,7 +298,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
                     this.hurtCurrentlyUsedShield(amount);
                 }
                 amount -= ev.getBlockedDamage();
-                if (!source.isProjectile()) {
+                if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
                     Entity entity = source.getDirectEntity();
                     if (entity instanceof LivingEntity) {
                         this.blockUsingShield((LivingEntity)entity);
@@ -306,7 +308,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 flag = true;
             }
         }
-        if (source.isFire() && source != DamageSource.LAVA){
+        if (source.is(DamageTypeTags.IS_FIRE) && !source.is(DamageTypes.LAVA)){
             return false;
         }
         if (flag) {
@@ -316,7 +318,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 return false;
             }
         }
-        if (!this.isGuarding() && this.coolTime > 0 && !this.canDisableShield(source) && !source.isBypassArmor()){
+        if (!this.isGuarding() && this.coolTime > 0 && !this.canDisableShield(source) && !source.is(DamageTypeTags.BYPASSES_ARMOR)){
             this.coolTime -= amount * 10;
         }
         if (this.level instanceof ServerLevel serverLevel && !this.isDamageSourceBlocked(source)){

@@ -107,8 +107,8 @@ public class DarkArmorModel extends HumanoidModel<LivingEntity> {
 
 	public DarkArmorModel animate(LivingEntity entity){
 		float partialTick = Minecraft.getInstance().getFrameTime();
-		float limbSwingAmount = entity.animationSpeedOld + (entity.animationSpeed - entity.animationSpeedOld) * partialTick;
-		float limbSwing = entity.animationPosition + partialTick;
+		float limbSwingAmount = entity.walkAnimation.speed(partialTick);
+		float limbSwing = entity.walkAnimation.position(partialTick);
 		float f = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		float f1 = Mth.cos((float) (limbSwing * 0.6662F + Math.PI)) * 1.4F * limbSwingAmount;
 		float f2 = Math.min(f, f1);

@@ -2,27 +2,22 @@ package com.Polarice3.Goety.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -39,7 +34,9 @@ public class SpiderNestBlock extends Block {
     protected static final VoxelShape EAST_SHAPE = Block.box(0.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D);
 
     public SpiderNestBlock() {
-        super(BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_WHITE)
+        super(Properties.of()
+                .mapColor(MapColor.TERRACOTTA_WHITE)
+                .ignitedByLava()
                 .randomTicks()
                 .strength(0.2F, 3.0F)
                 .sound(SoundType.WART_BLOCK)
@@ -66,9 +63,9 @@ public class SpiderNestBlock extends Block {
                 double d2 = (double) p_221002_.getZ() + (p_221003_.nextDouble() - p_221003_.nextDouble()) * (double) 4 + 0.5D;
 
                 if (p_221001_.noCollision(EntityType.SPIDER.getAABB(d0, d1, d2))) {
-                    BlockPos blockpos = new BlockPos(d0, d1, d2);
+                    BlockPos blockpos = BlockPos.containing(d0, d1, d2);
                     if (SpawnPlacements.checkSpawnRules(EntityType.SPIDER, p_221001_, MobSpawnType.SPAWNER, blockpos, p_221001_.getRandom())) {
-                        EntityType.SPIDER.spawn(p_221001_, (CompoundTag) null, (Component) null, (Player) null, blockpos, MobSpawnType.SPAWNER, false, false);
+                        EntityType.SPIDER.spawn(p_221001_, blockpos, MobSpawnType.SPAWNER);
                     }
                 }
             }

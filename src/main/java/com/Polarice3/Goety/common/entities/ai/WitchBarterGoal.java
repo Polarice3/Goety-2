@@ -14,7 +14,7 @@ import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -52,14 +52,14 @@ public class WitchBarterGoal extends Goal {
             Vec3 vec3 = trader != null ? trader.position() : this.witch.position();
             if (!this.witch.level.isClientSide) {
                 if (this.witch.level.getServer() != null) {
-                    LootTable loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WITCH_BARTER);
+                    LootTable loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WITCH_BARTER);
                     if (this.witch instanceof Warlock){
-                        loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.WARLOCK_BARTER);
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.WARLOCK_BARTER);
                     }
                     if (this.witch instanceof Crone){
-                        loottable = this.witch.level.getServer().getLootTables().get(ModLootTables.CRONE_BARTER);
+                        loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.CRONE_BARTER);
                     }
-                    List<ItemStack> list = loottable.getRandomItems((new LootContext.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withRandom(this.witch.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+                    List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).create(LootContextParamSets.PIGLIN_BARTER));
                     for(ItemStack itemstack : list) {
                         BehaviorUtils.throwItem(this.witch, itemstack, vec3.add(0.0D, 1.0D, 0.0D));
                     }

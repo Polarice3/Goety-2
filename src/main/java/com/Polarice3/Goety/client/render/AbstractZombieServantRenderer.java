@@ -14,7 +14,7 @@ public abstract class AbstractZombieServantRenderer<T extends ZombieServant, M e
 
    protected AbstractZombieServantRenderer(EntityRendererProvider.Context p_173910_, M p_173911_, M p_173912_, M p_173913_) {
       super(p_173910_, p_173911_, 0.5F);
-      this.addLayer(new HumanoidArmorLayer<>(this, p_173912_, p_173913_));
+      this.addLayer(new HumanoidArmorLayer<>(this, p_173912_, p_173913_, p_173910_.getModelManager()));
    }
 
    public ResourceLocation getTextureLocation(ZombieServant p_113771_) {

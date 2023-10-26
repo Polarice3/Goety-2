@@ -17,7 +17,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
@@ -177,7 +180,7 @@ public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchanted
         assert this.level != null;
         BlockState blockState = this.level.getBlockState(blockPos);
         Block cropBlock = blockState.getBlock();
-        return cropBlock != Blocks.GRASS_BLOCK && !(cropBlock instanceof DoublePlantBlock) && !(cropBlock instanceof TallGrassBlock) && cropBlock instanceof BonemealableBlock && ((BonemealableBlock) cropBlock).isValidBonemealTarget(this.level, blockPos, blockState, this.level.isClientSide);
+        return cropBlock != Blocks.GRASS_BLOCK && !(cropBlock instanceof DoublePlantBlock) && cropBlock instanceof BonemealableBlock && ((BonemealableBlock) cropBlock).isValidBonemealTarget(this.level, blockPos, blockState, this.level.isClientSide);
     }
 
     private boolean takeSouls(){

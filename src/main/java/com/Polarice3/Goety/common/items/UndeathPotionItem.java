@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.utils.LichdomHelper;
@@ -15,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,8 +23,7 @@ import net.minecraft.world.level.Level;
 
 public class UndeathPotionItem extends Item {
     public UndeathPotionItem() {
-        super(new Item.Properties()
-                .tab(Goety.TAB)
+        super(new Properties()
                 .rarity(Rarity.EPIC)
                 .craftRemainder(Items.GLASS_BOTTLE)
                 .setNoRepair()
@@ -55,14 +52,14 @@ public class UndeathPotionItem extends Item {
                         player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20, 1));
                         player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 0.5F);
                         player.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F, 0.5F);
-                        player.hurt(DamageSource.WITHER, 50.0F);
+                        player.hurt(player.damageSources().wither(), 50.0F);
                     } else {
                         player.heal(20.0F);
                     }
                 } else {
                     if (!isLich) {
                         player.displayClientMessage(Component.translatable("info.goety.lichdom.fail"), true);
-                        player.hurt(DamageSource.MAGIC, 50.0F);
+                        player.hurt(player.damageSources().magic(), 50.0F);
                     } else {
                         player.heal(20.0F);
                     }

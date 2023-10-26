@@ -4,7 +4,7 @@ import com.Polarice3.Goety.client.render.model.IceBouquetModel;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -32,7 +32,7 @@ public class IceBouquetRenderer extends EntityRenderer<IceBouquet> {
             }
             f1 *= 0.8F;
             pMatrixStack.pushPose();
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F - pEntity.getYRot()));
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F - pEntity.getYRot()));
             pMatrixStack.scale(-f1, -1.25F, f1);
             pMatrixStack.translate(0.0D, -1.45D, 0.0D);
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));

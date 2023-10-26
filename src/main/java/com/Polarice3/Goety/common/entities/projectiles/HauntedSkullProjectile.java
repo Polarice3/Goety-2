@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -129,7 +130,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                         this.damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
                 }
-                flag = target.hurt(DamageSource.indirectMagic(this, livingentity), this.damage + enchantment);
+                flag = target.hurt(this.damageSources().indirectMagic(this, livingentity), this.damage + enchantment);
                 if (livingentity instanceof SkullLord){
                     if (target instanceof BoneLord){
                         flag = false;
@@ -146,7 +147,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     }
                 }
             } else {
-                target.hurt(DamageSource.MAGIC, this.damage);
+                target.hurt(this.damageSources().magic(), this.damage);
             }
         }
     }
@@ -174,12 +175,12 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     }
                 }
             }
-            Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.NONE;
+            Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.KEEP;
             if (this.isDangerous()) {
                 if (this.getOwner() instanceof Player) {
                     explodeMode = Explosion.BlockInteraction.DESTROY;
                 } else {
-                    explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+                    explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
                 }
             }
             LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
@@ -279,7 +280,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -115,7 +116,7 @@ public class RedstoneGolem extends Summoned {
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket((LivingEntity)this, this.hasPose(Pose.EMERGING) ? 1 : 0);
     }
 
@@ -458,7 +459,7 @@ public class RedstoneGolem extends Summoned {
                     }
                     if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
                         int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
-                        if (this.tickCount % time == 0 && this.isOnGround()) {
+                        if (this.tickCount % time == 0 && this.onGround()) {
                             BlockPos blockPos = this.blockPosition();
                             blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
                             BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
@@ -631,7 +632,7 @@ public class RedstoneGolem extends Summoned {
 
     class MeleeGoal extends Goal {
         public MeleeGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE));
         }
 
         @Override
@@ -686,7 +687,7 @@ public class RedstoneGolem extends Summoned {
         public void hurtTarget(Entity target) {
             float f = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f1 = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-            boolean flag = target.hurt(DamageSource.mobAttack(RedstoneGolem.this), f);
+            boolean flag = target.hurt(RedstoneGolem.this.damageSources().mobAttack(RedstoneGolem.this), f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > RedstoneGolem.this.getBoundingBox().getSize()){
@@ -736,7 +737,7 @@ public class RedstoneGolem extends Summoned {
             LivingEntity livingentity = RedstoneGolem.this.getTarget();
             if (livingentity != null && livingentity.isAlive()) {
                 double d0 = RedstoneGolem.this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                return RedstoneGolem.this.summonCool <= 0 && RedstoneGolem.this.isOnGround() && RedstoneGolem.this.targetClose(livingentity, d0);
+                return RedstoneGolem.this.summonCool <= 0 && RedstoneGolem.this.onGround() && RedstoneGolem.this.targetClose(livingentity, d0);
             } else {
                 return false;
             }
@@ -753,8 +754,8 @@ public class RedstoneGolem extends Summoned {
         }
     }
 
-    public RedstoneGolem.Crackiness getCrackiness() {
-        return RedstoneGolem.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
+    public Crackiness getCrackiness() {
+        return Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
     }
 
     public enum Crackiness {
@@ -763,7 +764,7 @@ public class RedstoneGolem extends Summoned {
         MEDIUM(0.5F),
         HIGH(0.25F);
 
-        private static final List<RedstoneGolem.Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
+        private static final List<Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
             return (double)p_28904_.fraction;
         })).collect(ImmutableList.toImmutableList());
         private final float fraction;
@@ -772,8 +773,8 @@ public class RedstoneGolem extends Summoned {
             this.fraction = p_28900_;
         }
 
-        public static RedstoneGolem.Crackiness byFraction(float p_28902_) {
-            for(RedstoneGolem.Crackiness irongolem$crackiness : BY_DAMAGE) {
+        public static Crackiness byFraction(float p_28902_) {
+            for(Crackiness irongolem$crackiness : BY_DAMAGE) {
                 if (p_28902_ < irongolem$crackiness.fraction) {
                     return irongolem$crackiness;
                 }

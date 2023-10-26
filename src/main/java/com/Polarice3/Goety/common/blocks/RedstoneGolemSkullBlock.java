@@ -23,11 +23,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
-import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -44,8 +43,9 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
     @Nullable
     private BlockPattern redstoneGolemFull;
     public RedstoneGolemSkullBlock() {
-        super(Properties.of(Material.DECORATION)
+        super(Properties.of()
                 .strength(1.0F)
+                .pushReaction(PushReaction.DESTROY)
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
     }
@@ -179,7 +179,9 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
                     .where('$', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.MAGMA_BLOCK)))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.DIAMOND_BLOCK)))
-                    .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))).build();
+                    .where('~', (p_284869_) -> {
+                        return p_284869_.getState().isAir();
+                    }).build();
         }
 
         return this.redstoneGolemBase;
@@ -194,7 +196,9 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
                     .where('$', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.MAGMA_BLOCK)))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.DIAMOND_BLOCK)))
-                    .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR))).build();
+                    .where('~', (p_284869_) -> {
+                        return p_284869_.getState().isAir();
+                    }).build();
         }
 
         return this.redstoneGolemFull;

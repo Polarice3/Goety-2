@@ -93,7 +93,7 @@ public class MinionFollowGoal extends Goal {
                 double z = Mth.floor(this.owner.getZ()) - 2;
                 for(int l = 0; l <= 4; ++l) {
                     for(int i1 = 0; i1 <= 4; ++i1) {
-                        if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.ValidPosition(new BlockPos(x + l, y + 2, z + i1))){
+                        if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.ValidPosition(BlockPos.containing(x + l, y + 2, z + i1))){
                             float a = (float) ((x + l) + 0.5F);
                             float b = (float) ((z + i1) + 0.5F);
                             this.summonedEntity.getMoveControl().setWantedPosition(a, y, b, this.followSpeed);

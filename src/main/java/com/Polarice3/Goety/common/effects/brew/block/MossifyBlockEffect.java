@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.effects.brew.block;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -24,7 +25,11 @@ public class MossifyBlockEffect extends BrewEffect {
                 BlockState blockState = serverLevel.getBlockState(blockPos);
                 if (blockState.is(BlockTags.MOSS_REPLACEABLE) || blockState.is(Blocks.MOSS_BLOCK)) {
                     if (serverLevel.getBlockState(blockPos.above()).isAir()) {
-                        CaveFeatures.MOSS_PATCH_BONEMEAL.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.random, blockPos.above());
+                        serverLevel.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((p_258973_) -> {
+                            return p_258973_.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL);
+                        }).ifPresent((p_255669_) -> {
+                            p_255669_.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.random, blockPos.above());
+                        });
                     }
                 } else if (blockState.is(Blocks.COBBLESTONE)){
                     serverLevel.setBlockAndUpdate(blockPos, Blocks.MOSSY_COBBLESTONE.defaultBlockState());

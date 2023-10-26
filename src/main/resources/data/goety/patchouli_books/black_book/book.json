@@ -5,7 +5,8 @@
   "version": 1,
   "model": "goety:black_book",
   "show_toasts": true,
-  "creative_tab": "goetyTab",
+  "creative_tab": "goety",
   "text_overflow_mode": "overflow",
+  "use_resource_pack": true,
   "i18n": true
 }

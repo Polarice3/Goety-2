@@ -11,13 +11,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -35,7 +35,10 @@ public class SnapWartsBlock extends Block implements BonemealableBlock {
    protected static final VoxelShape[] DOWN_AABB = new VoxelShape[]{Block.box(6.0D, 0.0D, 6.0D, 10.0D, 2.0D, 10.0D), Block.box(5.0D, 0.0D, 5.0D, 11.0D, 3.0D, 11.0D), Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D)};
 
    public SnapWartsBlock() {
-      super(BlockBehaviour.Properties.of(Material.PLANT)
+      super(Properties.of()
+              .mapColor(MapColor.PLANT)
+              .noCollission()
+              .pushReaction(PushReaction.DESTROY)
               .randomTicks()
               .strength(0.2F, 3.0F)
               .sound(SoundType.FUNGUS)
@@ -108,8 +111,9 @@ public class SnapWartsBlock extends Block implements BonemealableBlock {
       return p_51772_ == p_51771_.getValue(FACING) && !p_51771_.canSurvive(p_51774_, p_51775_) ? Blocks.AIR.defaultBlockState() : super.updateShape(p_51771_, p_51772_, p_51773_, p_51774_, p_51775_, p_51776_);
    }
 
-   public boolean isValidBonemealTarget(BlockGetter p_51752_, BlockPos p_51753_, BlockState p_51754_, boolean p_51755_) {
-      return p_51754_.getValue(AGE) < 2;
+   @Override
+   public boolean isValidBonemealTarget(LevelReader p_256559_, BlockPos p_50898_, BlockState p_50899_, boolean p_50900_) {
+      return p_50899_.getValue(AGE) < 2;
    }
 
    public boolean isBonemealSuccess(Level p_220995_, RandomSource p_220996_, BlockPos p_220997_, BlockState p_220998_) {

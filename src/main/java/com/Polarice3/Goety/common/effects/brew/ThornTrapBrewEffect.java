@@ -26,7 +26,7 @@ public class ThornTrapBrewEffect extends BrewEffect{
         for (Direction direction : Direction.values()) {
             if (direction.getAxis().isHorizontal()){
                 BlockPos blockPos = pTarget.blockPosition().relative(direction);
-                BlockPos blockPos1 = new BlockPos(blockPos.getX(), BlockFinder.moveBlockDownToGround(level, blockPos), blockPos.getZ());
+                BlockPos blockPos1 = BlockPos.containing(blockPos.getX(), BlockFinder.moveBlockDownToGround(level, blockPos), blockPos.getZ());
                 if (ModBlocks.MAGIC_THORN.get().defaultBlockState().canSurvive(level, blockPos1)) {
                     for (int i = 0; i < pAmplifier + 1; ++i) {
                         BlockPos blockPos2 = blockPos1.offset(0, i, 0);

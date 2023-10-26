@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
@@ -46,7 +45,7 @@ public class SonicBoomSpell extends Spells {
             }
 
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.WARDEN_SONIC_BOOM, this.getSoundSource(), 3.0F, 1.0F);
-            livingEntity.hurt(DamageSource.sonicBoom(entityLiving), damage);
+            livingEntity.hurt(entityLiving.damageSources().sonicBoom(entityLiving), damage);
             double d1 = 0.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
             double d0 = 2.5D * (1.0D - livingEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
             livingEntity.push(vec32.x() * d0, vec32.y() * d1, vec32.z() * d0);
@@ -60,7 +59,7 @@ public class SonicBoomSpell extends Spells {
             }
             if (MobUtil.getSingleTarget(worldIn, entityLiving, 15.0D, 3.0D) != null){
                 if (MobUtil.getSingleTarget(worldIn, entityLiving, 15.0D, 3.0D) instanceof LivingEntity target1) {
-                    target1.hurt(DamageSource.sonicBoom(entityLiving), damage);
+                    target1.hurt(entityLiving.damageSources().sonicBoom(entityLiving), damage);
                     double d0 = target1.getX() - entityLiving.getX();
                     double d1 = target1.getZ() - entityLiving.getZ();
                     double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);

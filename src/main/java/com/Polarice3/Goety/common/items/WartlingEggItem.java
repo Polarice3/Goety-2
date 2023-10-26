@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Wartling;
 import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
@@ -10,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 public class WartlingEggItem extends Item {
     public WartlingEggItem() {
-        super(new Properties().tab(Goety.TAB));
+        super(new Properties());
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -42,7 +40,7 @@ public class WartlingEggItem extends Item {
             wartling.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             if (!CuriosFinder.hasCurio(player, itemStack1 -> itemStack1.getItem() instanceof WarlockGarmentItem)) {
                 if (player.level.addFreshEntity(wartling)) {
-                    player.hurt(DamageSource.GENERIC, 2.0F);
+                    player.hurt(player.damageSources().generic(), 2.0F);
                 }
             } else {
                 player.level.addFreshEntity(wartling);

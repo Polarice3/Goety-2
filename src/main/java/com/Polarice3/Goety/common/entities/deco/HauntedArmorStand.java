@@ -13,6 +13,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -69,11 +70,11 @@ public class HauntedArmorStand extends ArmorStand {
 
     public boolean hurt(DamageSource p_31579_, float p_31580_) {
         if (!this.level.isClientSide && !this.isRemoved()) {
-            if (DamageSource.OUT_OF_WORLD.equals(p_31579_)) {
+            if (p_31579_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                 this.kill();
                 return false;
             } else if (!this.isInvulnerableTo(p_31579_) && !this.isInvisible() && !this.isMarker()) {
-                if (p_31579_.isExplosion()) {
+                if (p_31579_.is(DamageTypeTags.IS_EXPLOSION)) {
                     this.brokenByAnything(p_31579_);
                     this.kill();
                     return false;

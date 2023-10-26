@@ -9,14 +9,16 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -37,7 +39,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -149,7 +150,7 @@ public class PotionEvents {
                     if (livingEntity.level.getLightLevelDependentMagicValue(livingEntity.blockPosition()) < 0.1 || livingEntity.hasEffect(MobEffects.DARKNESS)) {
                         if (j > 0) {
                             if (livingEntity.tickCount % j == 0) {
-                                livingEntity.hurt(ModDamageSource.PHOBIA, 1.0F);
+                                livingEntity.hurt(ModDamageSource.getDamageSource(livingEntity.level, ModDamageSource.PHOBIA), 1.0F);
                             }
                         }
                     }
@@ -217,7 +218,7 @@ public class PotionEvents {
                 if (mobEffectInstance != null){
                     int a = mobEffectInstance.getAmplifier();
                     for (AbstractArrow abstractArrow : world.getEntitiesOfClass(AbstractArrow.class, livingEntity.getBoundingBox().inflate(2.0F + a))){
-                        if (!abstractArrow.isOnGround()){
+                        if (!abstractArrow.onGround()){
                             double d0 = livingEntity.getX() - abstractArrow.getX();
                             double d1 = livingEntity.getY(0.3333333333333333D) - abstractArrow.getY();
                             double d2 = livingEntity.getZ() - abstractArrow.getZ();
@@ -304,7 +305,7 @@ public class PotionEvents {
                     if (MobUtil.isPushed(livingEntity)) {
                         if (livingEntity.getRandom().nextInt(100 - (a * 10)) == 0) {
                             if (!livingEntity.level.isClientSide) {
-                                livingEntity.level.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F + (a / 2.0F), Explosion.BlockInteraction.DESTROY);
+                                livingEntity.level.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F + (a / 2.0F), Level.ExplosionInteraction.BLOCK);
                                 livingEntity.removeEffect(GoetyEffects.EXPLOSIVE.get());
                             }
                         }
@@ -319,9 +320,9 @@ public class PotionEvents {
                         int j = Mth.floor(livingEntity.getY());
                         int k = Mth.floor(livingEntity.getZ());
                         BlockPos blockpos = new BlockPos(i, j, k);
-                        Biome biome = livingEntity.level.getBiome(blockpos).value();
-                        if (biome.shouldSnowGolemBurn(blockpos)) {
-                            livingEntity.hurt(DamageSource.ON_FIRE, 1.0F);
+                        Holder<Biome> biome = livingEntity.level.getBiome(blockpos);
+                        if (biome.is(BiomeTags.SNOW_GOLEM_MELTS)) {
+                            livingEntity.hurt(livingEntity.damageSources().onFire(), 1.0F);
                         }
 
                         livingEntity.setIsInPowderSnow(false);
@@ -421,7 +422,7 @@ public class PotionEvents {
                 int a = mobEffectInstance.getAmplifier() + 1;
                 if (victim.getRandom().nextInt(5 - a) == 0) {
                     if (!victim.level.isClientSide) {
-                        victim.level.explode(victim, victim.getX(), victim.getY(), victim.getZ(), 3.0F + (a / 2.0F), Explosion.BlockInteraction.DESTROY);
+                        victim.level.explode(victim, victim.getX(), victim.getY(), victim.getZ(), 3.0F + (a / 2.0F), Level.ExplosionInteraction.BLOCK);
                         victim.removeEffect(GoetyEffects.EXPLOSIVE.get());
                     }
                 }
@@ -431,7 +432,7 @@ public class PotionEvents {
             MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.FLAMMABLE.get());
             if (mobEffectInstance != null){
                 int a = mobEffectInstance.getAmplifier() + 2;
-                if (event.getSource().isFire()) {
+                if (event.getSource().is(DamageTypeTags.IS_FIRE)) {
                     event.setAmount(event.getAmount() * a);
                 }
             }
