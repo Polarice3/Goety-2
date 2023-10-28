@@ -6,6 +6,7 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> {
@@ -16,6 +17,10 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 	private final ModelPart headJaw;
 	private final ModelPart upper;
 	private final ModelPart body;
+	private final ModelPart graves;
+	private final ModelPart leftGrave;
+	private final ModelPart middleGrave;
+	private final ModelPart rightGrave;
 	private final ModelPart pelvis;
 	private final ModelPart rightArm;
 	private final ModelPart leftArm;
@@ -33,6 +38,10 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 		this.golem = root.getChild("golem");
 		this.upper = this.golem.getChild("upper");
 		this.body = this.upper.getChild("body");
+		this.graves = this.body.getChild("graves");
+		this.leftGrave = this.graves.getChild("left_grave");
+		this.middleGrave = this.graves.getChild("middle_grave");
+		this.rightGrave = this.graves.getChild("right_grave");
 		this.head = this.upper.getChild("head");
 		this.headTop = this.head.getChild("top");
 		this.headJaw = this.head.getChild("bottom");
@@ -59,15 +68,19 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 
 		PartDefinition body = upper.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-22.5F, -60.0F, -12.0F, 45.0F, 33.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 25.5F, 0.0F));
 
-		PartDefinition graves = body.addOrReplaceChild("graves", CubeListBuilder.create().texOffs(163, 14).addBox(-19.5F, -72.0F, 6.0F, 9.0F, 12.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(165, 0).addBox(-19.5F, -62.0F, -7.5F, 9.0F, 2.0F, 12.0F, new CubeDeformation(0.0F))
-		.texOffs(139, 16).addBox(10.5F, -69.0F, 6.0F, 9.0F, 9.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(165, 0).addBox(10.5F, -62.0F, -7.5F, 9.0F, 2.0F, 12.0F, new CubeDeformation(0.0F))
-		.texOffs(187, 14).addBox(-6.0F, -78.0F, 6.0F, 12.0F, 18.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(114, 0).addBox(-6.0F, -62.0F, -9.0F, 12.0F, 2.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition graves = body.addOrReplaceChild("graves", CubeListBuilder.create(), PartPose.offset(0.0F, -62.0F, 0.0F));
+
+		PartDefinition left_grave = graves.addOrReplaceChild("left_grave", CubeListBuilder.create().texOffs(139, 16).addBox(-4.5F, -7.0F, 6.0F, 9.0F, 9.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(165, 0).addBox(-4.5F, 0.0F, -7.5F, 9.0F, 2.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(15.0F, 0.0F, 0.0F));
+
+		PartDefinition middle_grave = graves.addOrReplaceChild("middle_grave", CubeListBuilder.create().texOffs(187, 14).addBox(-6.0F, -16.0F, 6.0F, 12.0F, 18.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(114, 0).addBox(-6.0F, 0.0F, -9.0F, 12.0F, 2.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		
+		PartDefinition right_grave = graves.addOrReplaceChild("right_grave", CubeListBuilder.create().texOffs(163, 14).addBox(-4.5F, -10.0F, 6.0F, 9.0F, 12.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(165, 0).addBox(-4.5F, 0.0F, -7.5F, 9.0F, 2.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-15.0F, 0.0F, 0.0F));
 
 		PartDefinition tomb = body.addOrReplaceChild("tomb", CubeListBuilder.create().texOffs(214, 29).addBox(-5.5F, -57.0F, 12.0F, 15.0F, 27.0F, 6.0F, new CubeDeformation(0.0F))
-		.texOffs(218, 62).addBox(-6.5F, -58.0F, 18.0F, 17.0F, 29.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 0.0F, 0.0F));
+				.texOffs(218, 62).addBox(-6.5F, -58.0F, 18.0F, 17.0F, 29.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 0.0F, 0.0F));
 
 		PartDefinition head = upper.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, -19.5F, -10.5F));
 
@@ -86,9 +99,9 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 		PartDefinition cube_r2 = right_roof.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(160, 101).addBox(-13.0F, -11.0F, -0.5F, 24.0F, 20.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.7854F, 0.0F, 0.0F));
 
 		PartDefinition right_middle = right_shoulder.addOrReplaceChild("right_middle", CubeListBuilder.create().texOffs(62, 73).addBox(1.0F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(62, 73).addBox(1.0F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(62, 73).addBox(-6.5F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(62, 73).addBox(-6.5F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-10.5F, 9.75F, 0.0F));
+				.texOffs(62, 73).addBox(1.0F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(62, 73).addBox(-6.5F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(62, 73).addBox(-6.5F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-10.5F, 9.75F, 0.0F));
 
 		PartDefinition right_hand = right_middle.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(138, 35).addBox(-9.0F, 0.0F, -9.0F, 18.0F, 15.0F, 18.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.5F, 0.0F));
 
@@ -103,9 +116,9 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 		PartDefinition cube_r4 = left_roof.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(160, 101).addBox(-13.0F, -11.0F, -0.5F, 24.0F, 20.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.7854F, 0.0F, 0.0F));
 
 		PartDefinition left_middle = left_shoulder.addOrReplaceChild("left_middle", CubeListBuilder.create().texOffs(62, 73).mirror().addBox(1.5F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(62, 73).mirror().addBox(1.5F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(62, 73).mirror().addBox(-6.0F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(62, 73).mirror().addBox(-6.0F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(10.5F, 9.75F, 0.0F));
+				.texOffs(62, 73).mirror().addBox(1.5F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(62, 73).mirror().addBox(-6.0F, -1.5F, -6.0F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(62, 73).mirror().addBox(-6.0F, -1.5F, 1.5F, 5.0F, 18.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(10.5F, 9.75F, 0.0F));
 
 		PartDefinition left_hand = left_middle.addOrReplaceChild("left_hand", CubeListBuilder.create().texOffs(142, 68).addBox(-9.0F, 0.0F, -9.0F, 18.0F, 15.0F, 18.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.5F, 0.0F));
 
@@ -125,9 +138,10 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
 		Vec3 velocity = entity.getDeltaMovement();
+		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.activateAnimationState, GraveGolemAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, GraveGolemAnimations.IDLE, ageInTicks);
-		if (entity.walkAnimationState.isStarted()) {
+		if (entity.canAnimateMove()) {
 			this.animateWalk(GraveGolemAnimations.WALK, limbSwing, limbSwingAmount, 6.0F, 20.0F);
 		}
 		this.animate(entity.attackAnimationState, GraveGolemAnimations.SMASH, ageInTicks);

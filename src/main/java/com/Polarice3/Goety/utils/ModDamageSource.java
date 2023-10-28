@@ -146,6 +146,10 @@ public class ModDamageSource extends DamageSource {
         return noKnockbackDamageSource(pSource.level, SOUL_LEECH, pSource, pIndirectEntity);
     }
 
+    public static DamageSource modWitherSkull(Entity pSource, Entity pIndirectEntity) {
+        return indirectEntityDamageSource(pSource.level, DamageTypes.WITHER_SKULL, pSource, pIndirectEntity);
+    }
+
     public static String source(String source){
         return "goety." + source;
     }

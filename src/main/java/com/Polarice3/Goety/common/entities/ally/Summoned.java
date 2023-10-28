@@ -66,9 +66,13 @@ public class Summoned extends Owned {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(8, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.followGoal();
         this.targetSelectGoal();
+    }
+
+    public void followGoal(){
+        this.goalSelector.addGoal(8, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
     }
 
     public void targetSelectGoal(){

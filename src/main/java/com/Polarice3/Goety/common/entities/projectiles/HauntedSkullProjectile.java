@@ -252,6 +252,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         pCompound.putInt("Burning", this.burning);
         pCompound.putBoolean("Upgraded", this.upgraded);
         pCompound.putFloat("Damage", this.damage);
+        pCompound.putFloat("ExplosionPower", this.explosionPower);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -265,7 +266,9 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         if (pCompound.contains("Damage")) {
             this.setDamage(pCompound.getFloat("Damage"));
         }
-
+        if (pCompound.contains("ExplosionPower")) {
+            this.setExplosionPower(pCompound.getFloat("ExplosionPower"));
+        }
     }
 
     @Override

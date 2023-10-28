@@ -1,13 +1,12 @@
 {
-  "replace": false,
   "values": [
     "goety:armored_ravager",
+    "goety:warlock",
+    "goety:crone",
     "goety:envioker",
     "goety:inquillager",
     "goety:conquillager",
     "goety:minister",
-    "goety:warlock",
-    "goety:crone",
     "goety:vizier"
   ]
 }

@@ -101,7 +101,7 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 		this.animate(entity.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 		this.animate(entity.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-		if (entity.walkAnimationState.isStarted()) {
+		if (entity.canAnimateMove()) {
 			this.animateWalk(RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 		}
 		this.animate(entity.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);

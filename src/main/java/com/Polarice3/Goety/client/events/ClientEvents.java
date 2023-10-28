@@ -124,7 +124,7 @@ public class ClientEvents {
                                 int SoulEnergyTotal = MainConfig.MaxArcaSouls.get();
                                 String s = "Soul Energy: " + SoulEnergy + "/" + "" + SoulEnergyTotal;
                                 int l = fontRenderer.width(s);
-                                event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
                             } else if (arcaTile.getPlayer() != null) {
@@ -134,7 +134,7 @@ public class ClientEvents {
                                 RenderSystem.defaultBlendFunc();
                                 String s = "Owner:" + arcaTile.getPlayer().getDisplayName().getString();
                                 int l = fontRenderer.width(s);
-                                event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                                event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 poseStack.popPose();
                             }
@@ -147,7 +147,7 @@ public class ClientEvents {
                             RenderSystem.defaultBlendFunc();
                             String s = "Owner: " + ownedBlock.getPlayer().getDisplayName().getString();
                             int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
                             poseStack.popPose();
                         }
@@ -159,7 +159,7 @@ public class ClientEvents {
                             RenderSystem.defaultBlendFunc();
                             String s = "Soul Energy: " + cageBlockEntity.getSouls();
                             int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
                             poseStack.popPose();
                         }
@@ -171,7 +171,7 @@ public class ClientEvents {
                             RenderSystem.defaultBlendFunc();
                             String s1 = "Capacity: " + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
                             int l2 = fontRenderer.width(s1);
-                            event.getGuiGraphics().drawCenteredString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
+                            event.getGuiGraphics().drawString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
                             poseStack.popPose();
                             poseStack.pushPose();
@@ -180,7 +180,7 @@ public class ClientEvents {
                             RenderSystem.defaultBlendFunc();
                             String s = "Soul Cost: " + (cauldronBlock.getBrewCost() - cauldronBlock.soulTime);
                             int l = fontRenderer.width(s);
-                            event.getGuiGraphics().drawCenteredString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
                             RenderSystem.disableBlend();
                             poseStack.popPose();
                         }

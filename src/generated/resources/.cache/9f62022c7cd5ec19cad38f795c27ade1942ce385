@@ -1,0 +1,6 @@
+// 1.20.1	2023-10-28T17:21:33.2644357	Tags for minecraft:entity_type mod id goety
+b0cf1a5a756bbe68023043ed64e9d395c1f8df09 data/minecraft/tags/entity_types/arrows.json
+928fb50040c776f8747a3de92160555314ac6554 data/minecraft/tags/entity_types/freeze_immune_entity_types.json
+712fe660755461de5cdb9400e90285d11712dbbe data/minecraft/tags/entity_types/impact_projectiles.json
+b1e13b425fe0312a446228efa5f2efbb8b0e4236 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json
+54f6d8a54f77bdbae0b29a7958c931da3b2db3cb data/minecraft/tags/entity_types/raiders.json

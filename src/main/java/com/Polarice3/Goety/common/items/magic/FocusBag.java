@@ -18,17 +18,23 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class FocusBag extends Item {
+public class FocusBag extends Item implements ICurioItem {
     public FocusBag(){
         super(new Properties()
                 .rarity(Rarity.UNCOMMON)
                 .setNoRepair()
                 .stacksTo(1)
         );
+    }
+
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        return slotContext.entity().isCrouching();
     }
 
     @Nonnull

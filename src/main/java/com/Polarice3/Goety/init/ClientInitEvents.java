@@ -237,6 +237,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SCYTHE.get(), ScytheSlashRenderer::new);
         event.registerEntityRenderer(ModEntityType.GRAND_LAVABALL.get(), GrandLavaballRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL_SHOT.get(), HauntedSkullProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOD_WITHER_SKULL.get(), ModWitherSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.GLOW_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BULLET.get(), SoulBulletRenderer::new);

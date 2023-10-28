@@ -89,6 +89,10 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+mixin {
+    add sourceSets.main, "goety.refmap.json"
+}
+
 repositories {
     maven {
         name = "CurseForge"

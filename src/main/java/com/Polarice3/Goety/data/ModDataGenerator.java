@@ -31,5 +31,6 @@ public class ModDataGenerator {
         CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
         generator.addProvider(event.includeServer(), datapackProvider);
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(generator.getPackOutput(), lookupProvider, event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(generator.getPackOutput(), lookupProvider, event.getExistingFileHelper()));
     }
 }
