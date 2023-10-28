@@ -1,0 +1,43 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:soul_emerald"
+  },
+  "craftType": "lich",
+  "entity_to_sacrifice": {
+    "tag": "goety:phantoms",
+    "display_name": "entity.minecraft.phantom"
+  },
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "minecraft:clock"
+    },
+    {
+      "item": "minecraft:daylight_detector"
+    },
+    {
+      "tag": "minecraft:beds"
+    }
+  ],
+  "result": {
+    "item": "goety:heart_of_the_night"
+  }
+}

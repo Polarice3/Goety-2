@@ -1,11 +1,11 @@
 {
-  "replace": false,
   "values": [
     "goety:wraith",
+    "goety:wraith_servant",
     "goety:border_wraith",
+    "goety:stray_servant",
     "goety:cairn_necromancer",
     "goety:haunted_armor",
-    "goety:stray_servant",
-    "goety:wraith_servant"
+    "goety:haunted_armor_servant"
   ]
 }

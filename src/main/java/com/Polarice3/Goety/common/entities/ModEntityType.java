@@ -81,6 +81,11 @@ public class ModEntityType {
                     .sized(0.5f,0.5f)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<ModWitherSkull>> MOD_WITHER_SKULL = register("wither_skull",
+            EntityType.Builder.<ModWitherSkull>of(ModWitherSkull::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<SoulLight>> SOUL_LIGHT = register("soul_light",
             EntityType.Builder.<SoulLight>of(SoulLight::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)

@@ -4,7 +4,6 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBomb;
@@ -52,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class GraveGolem extends Summoned {
+public class GraveGolem extends AbstractGolemServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(GraveGolem.class, EntityDataSerializers.BYTE);
     public static float SUMMON_SECONDS_TIME = 4.7F;
     private int activateTick;
@@ -213,14 +212,6 @@ public class GraveGolem extends Summoned {
         this.getGlow = Mth.clamp(this.getGlow - 0.05F, 0, 1);
     }
 
-    public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
-        return false;
-    }
-
-    public int getAmbientSoundInterval() {
-        return 120;
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -284,14 +275,6 @@ public class GraveGolem extends Summoned {
 
     public boolean isBelching(){
         return this.getGolemFlag(4);
-    }
-
-    protected int decreaseAirSupply(int p_28882_) {
-        return p_28882_;
-    }
-
-    public boolean canBeCollidedWith() {
-        return true;
     }
 
     public List<AnimationState> getAnimations(){
@@ -383,25 +366,8 @@ public class GraveGolem extends Summoned {
         }
     }
 
-    protected void doPush(Entity p_28839_) {
-        if (p_28839_ instanceof LivingEntity livingEntity && SummonTargetGoal.predicate(this).test(livingEntity) && this.getRandom().nextInt(20) == 0) {
-            this.setTarget(livingEntity);
-        }
-
-        super.doPush(p_28839_);
-    }
-
     private boolean isActivating() {
         return this.hasPose(Pose.EMERGING);
-    }
-
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
     public void tick() {
@@ -582,7 +548,7 @@ public class GraveGolem extends Summoned {
         return MobUtil.calculateViewVector(0, livingEntity.getYRot() + 90);
     }
 
-    protected double getAttackReachSqr(LivingEntity enemy) {
+    public double getAttackReachSqr(LivingEntity enemy) {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
     }
 
@@ -600,11 +566,6 @@ public class GraveGolem extends Summoned {
             this.setMeleeAttacking(true);
             this.level.broadcastEntityEvent(GraveGolem.this, (byte) 17);
         }
-        return true;
-    }
-
-    @Override
-    public boolean canUpdateMove() {
         return true;
     }
 

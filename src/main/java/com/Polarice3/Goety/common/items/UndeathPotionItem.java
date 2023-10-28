@@ -56,8 +56,11 @@ public class UndeathPotionItem extends Item {
                         player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 0.5F);
                         player.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F, 0.5F);
                         player.hurt(DamageSource.WITHER, 50.0F);
-                    } else {
+                    } else if (isLich) {
                         player.heal(20.0F);
+                    } else {
+                        player.displayClientMessage(Component.translatable("info.goety.lichdom.fail"), true);
+                        player.hurt(DamageSource.MAGIC, 50.0F);
                     }
                 } else {
                     if (!isLich) {

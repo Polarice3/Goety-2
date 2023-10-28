@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.items.RedstoneGolemSkullItem;
@@ -53,7 +52,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RedstoneGolem extends Summoned {
+public class RedstoneGolem extends AbstractGolemServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
     public static float SUMMON_SECONDS_TIME = 5.15F;
     private int activateTick;
@@ -170,14 +169,6 @@ public class RedstoneGolem extends Summoned {
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
-    public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
-        return false;
-    }
-
-    public int getAmbientSoundInterval() {
-        return 120;
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -227,10 +218,6 @@ public class RedstoneGolem extends Summoned {
         this.level.broadcastEntityEvent(this, (byte) 5);
     }
 
-    protected int decreaseAirSupply(int p_28882_) {
-        return p_28882_;
-    }
-
     protected boolean isImmobile() {
         return super.isImmobile() || this.isSummoning() || this.isActivating();
     }
@@ -241,27 +228,6 @@ public class RedstoneGolem extends Summoned {
 
     public boolean isSummoning(){
         return this.summonTick > 0;
-    }
-
-    public boolean canBeCollidedWith() {
-        return true;
-    }
-
-    protected void doPush(Entity p_28839_) {
-        if (p_28839_ instanceof LivingEntity livingEntity && SummonTargetGoal.predicate(this).test(livingEntity) && this.getRandom().nextInt(20) == 0) {
-            this.setTarget(livingEntity);
-        }
-
-        super.doPush(p_28839_);
-    }
-
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
     public boolean isSitting(){
@@ -519,7 +485,7 @@ public class RedstoneGolem extends Summoned {
         }
     }
 
-    protected double getAttackReachSqr(LivingEntity enemy) {
+    public double getAttackReachSqr(LivingEntity enemy) {
         return (double)(this.getBbWidth() * 6.0F + enemy.getBbWidth()) + 1.0D;
     }
 
@@ -533,11 +499,6 @@ public class RedstoneGolem extends Summoned {
             this.playSound(ModSounds.REDSTONE_GOLEM_PRE_ATTACK.get(), 1.5F, 1.0F);
             this.setMeleeAttacking(true);
         }
-        return true;
-    }
-
-    @Override
-    public boolean canUpdateMove() {
         return true;
     }
 

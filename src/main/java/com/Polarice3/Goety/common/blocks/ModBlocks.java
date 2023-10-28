@@ -360,7 +360,7 @@ public class ModBlocks {
 
     public static BlockBehaviour.Properties ShadeStoneProperties(){
         return BlockBehaviour.Properties.of(Material.STONE)
-                .strength(5.0F, 9.0F)
+                .strength(5.0F, 100.0F)
                 .sound(SoundType.STONE);
     }
 

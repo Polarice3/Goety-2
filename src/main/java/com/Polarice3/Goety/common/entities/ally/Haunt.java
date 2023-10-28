@@ -33,6 +33,10 @@ public class Haunt extends Summoned{
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
+    public void followGoal(){
+        this.goalSelector.addGoal(8, new FollowOwnerGoal(this, 1.0D, 20.0F, 2.0F));
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)

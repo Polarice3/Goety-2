@@ -39,7 +39,7 @@ public class SoulMenderBlock extends BaseEntityBlock implements SimpleWaterlogge
 
     public SoulMenderBlock() {
         super(Properties.of(Material.STONE)
-                .strength(5.0F, 9.0F)
+                .strength(5.0F, 100.0F)
                 .sound(SoundType.STONE)
                 .lightLevel(litBlockEmission())
                 .noOcclusion()

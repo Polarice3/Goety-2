@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
 import com.Polarice3.Goety.common.commands.GoetyCommand;
 import com.Polarice3.Goety.common.commands.LichCommand;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
@@ -34,7 +35,7 @@ public class InitEvents {
             event.addCapability(new ResourceLocation(Goety.MOD_ID, "soulenergy"), new SEProvider());
             event.addCapability(new ResourceLocation(Goety.MOD_ID, "lichdom"), new LichProvider());
         }
-        if (event.getObject() instanceof Witch || event.getObject() instanceof Warlock){
+        if (event.getObject() instanceof Witch || event.getObject() instanceof Warlock || event.getObject() instanceof Crone){
             event.addCapability(Goety.location("witchbarter"), new WitchBarterProvider());
         }
     }
