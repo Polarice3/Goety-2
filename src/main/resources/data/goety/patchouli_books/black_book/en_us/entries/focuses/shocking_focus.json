@@ -1,0 +1,15 @@
+{
+  "name": "Shocking Focus",
+  "icon": "goety:shocking_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The power of electricity shoots out from you, shocking any creature in front of you."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shocking_focus"
+    }
+  ]
+}

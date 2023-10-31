@@ -1,0 +1,15 @@
+{
+  "name": "Fire Breath Focus",
+  "icon": "goety:fire_breath_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Like a mythic Red Dragons of old, you breath flames out in front of you, burning any creature in its path."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/fire_breath_focus"
+    }
+  ]
+}

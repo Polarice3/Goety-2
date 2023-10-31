@@ -122,6 +122,18 @@ public class ItemHelper {
         return i >= 4;
     }
 
+    public static boolean isFullEquipped(LivingEntity living){
+        int i = 0;
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+            if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
+                if (!living.getItemBySlot(equipmentSlot).isEmpty()){
+                    ++i;
+                }
+            }
+        }
+        return i >= 4;
+    }
+
     public static boolean isFullArmored(LivingEntity living){
         int i = 0;
         for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){

@@ -10,20 +10,20 @@
   {
     "e":
     {
-      "item": "goety:frost_breath_focus"
+      "item": "goety:empty_focus"
     },
     "f":
     {
-      "item": "minecraft:snowball"
+      "item": "minecraft:quartz"
     },
     "s":
     {
-      "item": "minecraft:blue_ice"
+      "tag": "forge:ingots/copper"
     }
   },
   "result":
   {
-    "item": "goety:ice_spike_focus",
+    "item": "goety:shocking_focus",
     "count": 1
   }
 }

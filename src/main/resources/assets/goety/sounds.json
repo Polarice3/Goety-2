@@ -1938,6 +1938,14 @@
     ],
     "subtitle": "subtitle.goety.impale"
   },
+  "ice_spike_cast": {
+    "sounds": [
+      {
+        "name": "goety:spell/ice_cast"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_spike_cast"
+  },
   "ice_spike_hit": {
     "sounds": [
       {

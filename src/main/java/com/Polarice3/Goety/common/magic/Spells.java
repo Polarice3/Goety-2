@@ -51,6 +51,14 @@ public abstract class Spells {
         }
     }
 
+    protected HitResult rayTraceCollide(Level worldIn, LivingEntity livingEntity, int range, double radius) {
+        if (this.entityCollideResult(worldIn, livingEntity, range, radius) == null){
+            return this.blockResult(worldIn, livingEntity, range);
+        } else {
+            return this.entityCollideResult(worldIn, livingEntity, range, radius);
+        }
+    }
+
     protected BlockHitResult blockResult(Level worldIn, LivingEntity livingEntity, double range) {
         float f = livingEntity.getXRot();
         float f1 = livingEntity.getYRot();
@@ -71,6 +79,14 @@ public abstract class Spells {
         Vec3 destVec = srcVec.add(lookVec.x * range, lookVec.y * range, lookVec.z * range);
         AABB axisalignedbb = livingEntity.getBoundingBox().expandTowards(lookVec.scale(range)).inflate(radius, radius, radius);
         return ProjectileUtil.getEntityHitResult(worldIn, livingEntity, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable());
+    }
+
+    protected EntityHitResult entityCollideResult(Level worldIn, LivingEntity livingEntity, int range, double radius){
+        Vec3 srcVec = livingEntity.getEyePosition(1.0F);
+        Vec3 lookVec = livingEntity.getViewVector(1.0F);
+        Vec3 destVec = srcVec.add(lookVec.x * range, lookVec.y * range, lookVec.z * range);
+        AABB axisalignedbb = livingEntity.getBoundingBox().expandTowards(lookVec.scale(range)).inflate(radius, radius, radius);
+        return ProjectileUtil.getEntityHitResult(worldIn, livingEntity, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && livingEntity.hasLineOfSight(entity) && !entity.isSpectator() && entity.isPickable());
     }
 
     public SoundSource getSoundSource(){

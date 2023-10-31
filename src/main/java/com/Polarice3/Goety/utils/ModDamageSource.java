@@ -51,6 +51,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("fireBreath"), pSource, pIndirectEntity).setIsFire();
     }
 
+    public static DamageSource frostBreath(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("frostBreath"), pSource, pIndirectEntity).bypassArmor();
+    }
+
     public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
         return (new NoKnockBackDamageSource("indirectMagic", pSource, pIndirectEntity)).bypassArmor().setMagic();
     }
@@ -69,7 +73,7 @@ public class ModDamageSource extends DamageSource {
 
     public static boolean freezeAttacks(DamageSource source){
         return source.getMsgId().equals(source("indirectFreeze")) || source.getMsgId().equals(source("directFreeze"))
-        || source.getMsgId().equals(source("iceBouquet"));
+        || source.getMsgId().equals(source("iceBouquet")) || source.getMsgId().equals(source("frostBreath"));
     }
 
     public static boolean physicalAttacks(DamageSource source){

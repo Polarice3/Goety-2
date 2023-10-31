@@ -2,9 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "type": "forge:nbt",
-    "item": "goety:flame_capture",
-    "nbt": "{\"mob\":\"minecraft:blaze\"}"
+    "item": "goety:fire_breath_focus"
   },
   "craftType": "adept_nether",
   "soulCost": 1,
@@ -14,13 +12,13 @@
       "item": "minecraft:fire_charge"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:rods/blaze"
     },
     {
       "item": "minecraft:fire_charge"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:rods/blaze"
     },
     {
       "item": "minecraft:fire_charge"
@@ -29,10 +27,10 @@
       "item": "minecraft:dispenser"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:rods/blaze"
     },
     {
-      "item": "minecraft:dispenser"
+      "tag": "forge:rods/blaze"
     }
   ],
   "result": {

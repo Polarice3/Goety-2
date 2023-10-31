@@ -10,20 +10,20 @@
   {
     "e":
     {
-      "item": "goety:frost_breath_focus"
+      "item": "goety:empty_focus"
     },
     "f":
     {
-      "item": "minecraft:snowball"
+      "tag": "minecraft:coals"
     },
     "s":
     {
-      "item": "minecraft:blue_ice"
+      "item": "minecraft:blaze_powder"
     }
   },
   "result":
   {
-    "item": "goety:ice_spike_focus",
+    "item": "goety:fire_breath_focus",
     "count": 1
   }
 }

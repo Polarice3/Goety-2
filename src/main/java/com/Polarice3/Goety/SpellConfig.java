@@ -20,6 +20,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WitherSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
@@ -30,6 +31,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireBreathCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostBreathCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShockingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCost;
@@ -76,6 +80,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FireballDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> LavaballDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FireBreathDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrostBreathDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ShockingDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HauntedSkullDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulBoltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> IceSpikeDamage;
@@ -152,8 +159,10 @@ public class SpellConfig {
                 .defineInRange("wraithCost", 24, 0, Integer.MAX_VALUE);
         VanguardCost = BUILDER.comment("Vanguard Spell Cost, Default: 24")
                 .defineInRange("vanguardCost", 24, 0, Integer.MAX_VALUE);
-        HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 24")
+        HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")
                 .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
+        WitherSkullCost = BUILDER.comment("Wither Skull Spell Cost, Default: 24")
+                .defineInRange("witherSkullCost", 24, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                 .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
         TeethCost = BUILDER.comment("Teeth Spell Cost, Default: 8")
@@ -174,6 +183,12 @@ public class SpellConfig {
                 .defineInRange("chargeCost", 4, 0, Integer.MAX_VALUE);
         IllusionCost = BUILDER.comment("Illusion Spell Cost, Default: 20")
                 .defineInRange("illusionCost", 20, 0, Integer.MAX_VALUE);
+        FireBreathCost = BUILDER.comment("Fire Breath Spell Cost per second, Default: 2")
+                .defineInRange("fireBreathCost", 2, 0, Integer.MAX_VALUE);
+        FrostBreathCost = BUILDER.comment("Frost Breath Spell Cost per second, Default: 2")
+                .defineInRange("frostBreathCost", 2, 0, Integer.MAX_VALUE);
+        ShockingCost = BUILDER.comment("Shocking Spell Cost per second, Default: 4")
+                .defineInRange("shockingCost", 4, 0, Integer.MAX_VALUE);
         SoulLightCost = BUILDER.comment("Soul Light Spell Cost, Default: 1")
                 .defineInRange("soulLightCost", 1, 0, Integer.MAX_VALUE);
         GlowLightCost = BUILDER.comment("Glow Light Spell Cost, Default: 2")
@@ -202,8 +217,8 @@ public class SpellConfig {
                 .defineInRange("enderChestCost", 16, 0, Integer.MAX_VALUE);
         BlinkCost = BUILDER.comment("Blink Spell Cost, Default: 8")
                 .defineInRange("blinkCost", 8, 0, Integer.MAX_VALUE);
-        ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 40")
-                .defineInRange("shockwaveCost", 40, 0, Integer.MAX_VALUE);
+        ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")
+                .defineInRange("shockwaveCost", 80, 0, Integer.MAX_VALUE);
         SoulArmorCost = BUILDER.comment("Soul Armor Spell Cost, Default: 50")
                 .defineInRange("soulArmorCost", 50, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
@@ -234,8 +249,8 @@ public class SpellConfig {
                 .defineInRange("lavaBombTime", 20, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")
                 .defineInRange("illusionTime", 40, 0, 72000);
-        IceSpikeDuration = BUILDER.comment("Time to cast Ice Spike Spell, Default: 40")
-                .defineInRange("iceSpikeDuration", 40, 0, 72000);
+        IceSpikeDuration = BUILDER.comment("Time to cast Ice Spike Spell, Default: 10")
+                .defineInRange("iceSpikeDuration", 10, 0, 72000);
         IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 100")
                 .defineInRange("iceChunkTime", 100, 0, 72000);
         HailDuration = BUILDER.comment("Time to cast Hail Spell, Default: 40")
@@ -252,8 +267,8 @@ public class SpellConfig {
                 .defineInRange("callTime", 100, 0, 72000);
         RecallDuration = BUILDER.comment("Time to cast Recall Spell, Default: 160")
                 .defineInRange("recallTime", 160, 0, 72000);
-        ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 80")
-                .defineInRange("shockwaveTime", 80, 0, 72000);
+        ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 20")
+                .defineInRange("shockwaveTime", 20, 0, 72000);
         SoulArmorDuration = BUILDER.comment("Time to cast Soul Armor Spell, Default: 40")
                 .defineInRange("soulArmorTime", 40, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
@@ -282,6 +297,12 @@ public class SpellConfig {
                 .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
         LavaballDamage = BUILDER.comment("How much base damage Lavaballs deal when directly hitting a mob, Default: 6.0")
                 .defineInRange("lavaballDamage", 6.0, 1.0, Double.MAX_VALUE);
+        FireBreathDamage = BUILDER.comment("How much base damage Fire Breath deals, Default: 2.0")
+                .defineInRange("fireBreathDamage", 2.0, 1.0, Double.MAX_VALUE);
+        FrostBreathDamage = BUILDER.comment("How much base damage Frost Breath deals, Default: 1.0")
+                .defineInRange("frostBreathDamage", 1.0, 1.0, Double.MAX_VALUE);
+        ShockingDamage = BUILDER.comment("How much base damage Shocking Sparks deals, Default: 2.0")
+                .defineInRange("shockingDamage", 2.0, 1.0, Double.MAX_VALUE);
         HauntedSkullDamage = BUILDER.comment("How much base damage Haunted Skulls deal when directly hitting a mob, Default: 5.0")
                 .defineInRange("hauntedSkullDamage", 5.0, 1.0, Double.MAX_VALUE);
         SoulBoltDamage = BUILDER.comment("How much base damage Soul Bolts deals, Default: 4.0")

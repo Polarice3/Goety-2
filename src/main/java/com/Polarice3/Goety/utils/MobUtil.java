@@ -409,7 +409,7 @@ public class MobUtil {
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
+            if (hit.isPickable() && pSource.hasLineOfSight(hit) && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
                 float borderSize = hit.getPickRadius();
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);

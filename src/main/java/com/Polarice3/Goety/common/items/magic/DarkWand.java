@@ -540,6 +540,16 @@ public class DarkWand extends Item {
         if (stack.getTag() != null) {
             int SoulUse = stack.getTag().getInt(SOULUSE);
             tooltip.add(Component.translatable("info.goety.wand.cost", SoulUse));
+            if (getSpell(stack) != null) {
+                if (!(getSpell(stack) instanceof InstantCastSpells) && !(getSpell(stack) instanceof ChargingSpells)) {
+                    int CastTime = stack.getTag().getInt(CASTTIME);
+                    if (SpellConfig.WandCooldown.get()) {
+                        tooltip.add(Component.translatable("info.goety.wand.coolDown", CastTime / 20.0F));
+                    } else {
+                        tooltip.add(Component.translatable("info.goety.wand.castTime", CastTime / 20.0F));
+                    }
+                }
+            }
         } else {
             tooltip.add(Component.translatable("info.goety.wand.cost", SoulCost(stack)));
         }
