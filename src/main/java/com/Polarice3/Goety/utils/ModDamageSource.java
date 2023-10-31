@@ -33,6 +33,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> WIND_BLAST = create("wind_blast");
     public static ResourceKey<DamageType> ICE_BOUQUET = create("ice_bouquet");
     public static ResourceKey<DamageType> FIRE_BREATH = create("fire_breath");
+    public static ResourceKey<DamageType> FROST_BREATH = create("frost_breath");
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
     public static ResourceKey<DamageType> SOUL_LEECH = create("soul_leech");
     public static ResourceKey<DamageType> SPIKE = create("spike");
@@ -107,6 +108,10 @@ public class ModDamageSource extends DamageSource {
         return noKnockbackDamageSource(pSource.level, FIRE_BREATH, pSource, pIndirectEntity);
     }
 
+    public static DamageSource frostBreath(Entity pSource, @Nullable Entity pIndirectEntity){
+        return noKnockbackDamageSource(pSource.level, FROST_BREATH, pSource, pIndirectEntity);
+    }
+
     public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
         return noKnockbackDamageSource(pSource.level, MAGIC_BOLT, pSource, pIndirectEntity);
     }
@@ -125,7 +130,7 @@ public class ModDamageSource extends DamageSource {
 
     public static boolean freezeAttacks(DamageSource source){
         return source.getMsgId().equals(source("indirectFreeze")) || source.getMsgId().equals(source("directFreeze"))
-        || source.getMsgId().equals(source("iceBouquet"));
+        || source.getMsgId().equals(source("iceBouquet")) || source.getMsgId().equals(source("frostBreath"));
     }
 
     public static boolean physicalAttacks(DamageSource source){
@@ -189,6 +194,7 @@ public class ModDamageSource extends DamageSource {
         context.register(WIND_BLAST, new DamageType("goety.windBlast", 0.0F));
         context.register(ICE_BOUQUET, new DamageType("goety.iceBouquet", 0.0F, DamageEffects.FREEZING));
         context.register(FIRE_BREATH, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
+        context.register(FROST_BREATH, new DamageType("goety.frostBreath", 0.0F, DamageEffects.FREEZING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
         context.register(SOUL_LEECH, new DamageType("goety.soulLeech", 0.0F));
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));

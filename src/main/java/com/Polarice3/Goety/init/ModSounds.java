@@ -168,6 +168,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
     public static final RegistryObject<SoundEvent> TOOTH_SPAWN = create("tooth_spawn");
     public static final RegistryObject<SoundEvent> IMPALE = create("impale");
+    public static final RegistryObject<SoundEvent> ICE_SPIKE_CAST = create("ice_spike_cast");
     public static final RegistryObject<SoundEvent> ICE_SPIKE_HIT = create("ice_spike_hit");
     public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");

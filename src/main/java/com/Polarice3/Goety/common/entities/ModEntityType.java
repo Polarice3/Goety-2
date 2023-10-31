@@ -76,6 +76,11 @@ public class ModEntityType {
                     .sized(1.0f,1.0f)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<ModDragonFireball>> MOD_DRAGON_FIREBALL = register("dragon_fireball",
+            EntityType.Builder.<ModDragonFireball>of(ModDragonFireball::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<HauntedSkullProjectile>> HAUNTED_SKULL_SHOT = register("haunted_skull_shot",
             EntityType.Builder.<HauntedSkullProjectile>of(HauntedSkullProjectile::new, MobCategory.MISC)
                     .sized(0.5f,0.5f)
@@ -84,7 +89,8 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<ModWitherSkull>> MOD_WITHER_SKULL = register("wither_skull",
             EntityType.Builder.<ModWitherSkull>of(ModWitherSkull::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
-                    .clientTrackingRange(4));
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
 
     public static final RegistryObject<EntityType<SoulLight>> SOUL_LIGHT = register("soul_light",
             EntityType.Builder.<SoulLight>of(SoulLight::new, MobCategory.MISC)

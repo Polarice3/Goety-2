@@ -6,16 +6,10 @@
   },
   "craftType": "necroturgy",
   "soulCost": 5,
-  "duration": 30,
+  "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:echo_shard"
-    },
-    {
       "item": "goety:ectoplasm"
-    },
-    {
-      "item": "minecraft:echo_shard"
     },
     {
       "tag": "minecraft:soul_fire_base_blocks"
@@ -25,12 +19,6 @@
     },
     {
       "item": "minecraft:wither_skeleton_skull"
-    },
-    {
-      "item": "minecraft:echo_shard"
-    },
-    {
-      "item": "goety:ectoplasm"
     }
   ],
   "result": {

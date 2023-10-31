@@ -44,7 +44,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
@@ -411,7 +410,7 @@ public class MobUtil {
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
+            if (hit.isPickable() && pSource.hasLineOfSight(hit) && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
                 float borderSize = hit.getPickRadius();
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
@@ -839,9 +838,14 @@ public class MobUtil {
     }
 
     public static boolean isInSunlight(LivingEntity livingEntity){
-        float f = livingEntity.getLightLevelDependentMagicValue();
-        BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (BlockPos.containing(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : BlockPos.containing(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
-        return f > 0.5F && livingEntity.level.canSeeSky(blockpos);
+        if (livingEntity.level().isDay() && !livingEntity.level().isClientSide) {
+            float f = livingEntity.getLightLevelDependentMagicValue();
+            BlockPos blockpos = BlockPos.containing(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
+            boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
+            return f > 0.5F && livingEntity.getRandom().nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !flag && livingEntity.level().canSeeSky(blockpos);
+        }
+
+        return false;
     }
 
 

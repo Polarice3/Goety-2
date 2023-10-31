@@ -21,7 +21,7 @@ public class IceSpikeSpell extends Spells {
     }
 
     public SoundEvent CastingSound() {
-        return ModSounds.PREPARE_SPELL.get();
+        return ModSounds.ICE_SPIKE_CAST.get();
     }
 
     public SpellType getSpellType() {

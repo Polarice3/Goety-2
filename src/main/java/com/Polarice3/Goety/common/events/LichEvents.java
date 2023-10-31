@@ -5,7 +5,6 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -46,14 +44,7 @@ public class LichEvents {
         if (LichdomHelper.isLich(player)){
             player.getFoodData().setFoodLevel(17);
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-            boolean burn = false;
-            if (!world.isClientSide && world.isDay()) {
-                float f = player.getLightLevelDependentMagicValue();
-                BlockPos blockpos = player.getVehicle() instanceof Boat ? (BlockPos.containing(player.getX(), (double) Math.round(player.getY()), player.getZ())).above() : BlockPos.containing(player.getX(), (double) Math.round(player.getY()), player.getZ());
-                if (f > 0.5F && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
-                    burn = true;
-                }
-            }
+            boolean burn = MobUtil.isInSunlight(player);
 
             if (burn){
                 ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -125,7 +116,7 @@ public class LichEvents {
             if (player.isAlive()){
                 player.setAirSupply(player.getMaxAirSupply());
                 if (MainConfig.LichNightVision.get()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
+                    player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 0, false, false, false));
                 }
             }
         }

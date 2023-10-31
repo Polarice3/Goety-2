@@ -74,6 +74,15 @@ public class ClientEvents {
         }
     }
 
+    public static float PARTIAL_TICK = 0;
+
+    @SubscribeEvent
+    public static void clientTick(TickEvent.RenderTickEvent event){
+        if (event.phase == TickEvent.Phase.START){
+            PARTIAL_TICK = event.renderTickTime;
+        }
+    }
+
     @SubscribeEvent
     public static void renderGlove(RenderArmEvent event){
         if (event.isCanceled() || !MainConfig.FirstPersonGloves.get()){

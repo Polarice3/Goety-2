@@ -46,7 +46,7 @@ public class HauntedArmorStand extends ArmorStand {
         ItemStack itemStack = playerIn.getItemInHand(p_31596_);
         if (itemStack.getItem() instanceof AnimationCore){
             if (SEHelper.hasResearch(playerIn, ResearchList.HAUNTING)) {
-                if (ItemHelper.isFullArmored(this)) {
+                if (ItemHelper.isFullEquipped(this)) {
                     HauntedArmorServant hauntedArmorServant = new HauntedArmorServant(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), playerIn.level);
                     for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
                         hauntedArmorServant.setItemSlot(equipmentSlot, this.getItemBySlot(equipmentSlot));

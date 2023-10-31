@@ -1,8 +1,9 @@
-// 1.20.1	2023-10-24T21:36:12.6852117	Registries
+// 1.20.1	2023-10-29T21:43:12.1034756	Registries
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
 bc278868e02ced496ad91c969737876aed8862ee data/goety/damage_type/direct_shock.json
 7ec7c63d33e38e3aea9083b6fc4853268a50c767 data/goety/damage_type/fire_breath.json
+5297bb8dc663ecae0ee9611d0049c6388f7d9798 data/goety/damage_type/frost_breath.json
 ffd981f8c18252576f6e595dedc580e5a71badd5 data/goety/damage_type/ice_bouquet.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/ice_spike.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/indirect_freeze.json

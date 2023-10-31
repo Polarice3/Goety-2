@@ -157,13 +157,7 @@ public class PotionEvents {
                 }
             }
             if (livingEntity.hasEffect(GoetyEffects.SUN_ALLERGY.get())){
-                boolean burn = false;
-                if (!world.isClientSide && world.isDay()) {
-                    float f = livingEntity.getLightLevelDependentMagicValue();
-                    if (MobUtil.isInSunlight(livingEntity) && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                        burn = true;
-                    }
-                }
+                boolean burn = MobUtil.isInSunlight(livingEntity);
 
                 if (burn){
                     ItemStack helmet = livingEntity.getItemBySlot(EquipmentSlot.HEAD);
@@ -185,17 +179,14 @@ public class PotionEvents {
                 }
             }
             if (livingEntity.hasEffect(GoetyEffects.PHOTOSYNTHESIS.get())){
-                if (!world.isClientSide && world.isDay()) {
+                if (MobUtil.isInSunlight(livingEntity)) {
                     MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.PHOTOSYNTHESIS.get());
                     if (mobEffectInstance != null) {
                         int a = mobEffectInstance.getAmplifier();
                         int j = 50 >> a;
                         if (j > 0){
-                            float f = livingEntity.getLightLevelDependentMagicValue();
-                            if (MobUtil.isInSunlight(livingEntity) && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                                if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
-                                    livingEntity.heal(1.0F);
-                                }
+                            if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
+                                livingEntity.heal(1.0F);
                             }
                         }
                     }

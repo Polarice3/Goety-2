@@ -996,8 +996,11 @@ public class ModEvents {
         }
         if (ModDamageSource.shockAttacks(event.getSource())){
             if (victim.level instanceof ServerLevel serverLevel){
-                for (int i = 0; i < 20; ++i) {
-                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.ELECTRIC.get(), victim);
+                for (int i = 0; i < 5; ++i) {
+                    double d0 = serverLevel.random.nextGaussian() * 0.02D;
+                    double d1 = serverLevel.random.nextGaussian() * 0.02D;
+                    double d2 = serverLevel.random.nextGaussian() * 0.02D;
+                    serverLevel.sendParticles(ModParticleTypes.BIG_ELECTRIC.get(), victim.getRandomX(0.5D), victim.getRandomY(), victim.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
                 }
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), ModSounds.ZAP.get(), 2.0F, 1.0F));
             }
@@ -1366,6 +1369,7 @@ public class ModEvents {
     public static void ExplosionDetonateEvent(ExplosionEvent.Detonate event){
         if (event.getExplosion() != null) {
             event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModItems.UNHOLY_BLOOD.get()));
+            event.getAffectedEntities().removeIf(entity -> (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == ModBlocks.NIGHT_BEACON_ITEM.get()));
             if (event.getExplosion().getIndirectSourceEntity() != null) {
                 if (event.getExplosion().getIndirectSourceEntity() instanceof Apostle) {
                     event.getAffectedEntities().removeIf(entity -> (entity instanceof IOwned && ((IOwned) entity).getTrueOwner() instanceof Apostle) || (entity == event.getExplosion().getIndirectSourceEntity()));

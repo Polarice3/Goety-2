@@ -71,7 +71,7 @@ public class ModBlocks {
                     .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
             true, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
-    public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new);
+    public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
     public static final RegistryObject<Block> WALL_TALL_SKULL_BLOCK = register("wall_tall_skull", WallTallSkullBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> REDSTONE_GOLEM_SKULL_BLOCK = register("redstone_golem_skull", RedstoneGolemSkullBlock::new, false, LootTableType.EMPTY);
@@ -249,6 +249,8 @@ public class ModBlocks {
                     .noOcclusion()));
 
     //Custom Items
+    public static final RegistryObject<Item> NIGHT_BEACON_ITEM = ModItems.ITEMS.register("night_beacon",
+            () -> new BlockItem(ModBlocks.NIGHT_BEACON.get(), (new Item.Properties().fireResistant())));
     public static final RegistryObject<Item> HAUNTED_SIGN_ITEM = ModItems.ITEMS.register("haunted_sign",
             () -> new SignItem(new Item.Properties().stacksTo(16), HAUNTED_SIGN.get(), HAUNTED_WALL_SIGN.get()));
     public static final RegistryObject<Item> HAUNTED_HANGING_SIGN_ITEM = ModItems.ITEMS.register("haunted_hanging_sign",
