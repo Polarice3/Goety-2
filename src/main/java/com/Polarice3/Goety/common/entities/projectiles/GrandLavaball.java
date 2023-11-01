@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,6 +12,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -69,18 +71,20 @@ public class GrandLavaball extends ExplosiveProjectile{
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() instanceof Owned owner){
-            if (pEntity instanceof Owned entity){
-                if (owner.getTrueOwner() == entity.getTrueOwner()){
-                    return false;
-                }
-            }
-            if (owner.getTrueOwner() == pEntity){
+        if (this.getOwner() != null){
+            if (pEntity == this.getOwner()){
                 return false;
             }
-        }
-        if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
-            return false;
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                    return false;
+                }
+                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
         }
         return super.canHitEntity(pEntity);
     }

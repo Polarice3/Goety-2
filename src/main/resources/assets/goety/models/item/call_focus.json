@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:item/spell_icons/call_spell"
+    "layer0": "goety:item/focus/call_spell"
   },
   "overrides": [
     {
