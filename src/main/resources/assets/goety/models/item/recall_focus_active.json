@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/recall_spell_anim"
+    "layer0": "goety:item/focus/recall_spell_anim"
   }
 }

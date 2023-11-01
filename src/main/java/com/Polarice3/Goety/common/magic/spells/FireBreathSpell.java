@@ -54,7 +54,7 @@ public class FireBreathSpell extends BreathingSpells {
 
     @Override
     public ParticleOptions getParticle() {
-        return ParticleTypes.FLAME;
+        return ParticleTypes.SOUL_FIRE_FLAME;
     }
 
     @Override

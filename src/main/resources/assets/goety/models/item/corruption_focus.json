@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/corrupted_beam_spell"
+    "layer0": "goety:item/focus/corrupted_beam_spell"
   }
 }

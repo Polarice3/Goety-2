@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/vanguard_spell"
+    "layer0": "goety:item/focus/vanguard_spell"
   }
 }

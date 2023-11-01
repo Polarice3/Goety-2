@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/teeth_spell"
+    "layer0": "goety:item/focus/teeth_spell"
   }
 }

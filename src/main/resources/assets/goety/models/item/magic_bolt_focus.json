@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "goety:spellicons/magic_bolt_spell"
+    "layer0": "goety:item/focus/magic_bolt_spell"
   }
 }

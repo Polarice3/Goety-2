@@ -332,7 +332,7 @@ public class Goety {
         ModSaveInventory.resetInstance();
     }
 
-    public static final CreativeModeTab TAB = new CreativeModeTab("goetyTab") {
+    public static final CreativeModeTab TAB = new CreativeModeTab("goety") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(ModItems.TOTEM_OF_SOULS.get());

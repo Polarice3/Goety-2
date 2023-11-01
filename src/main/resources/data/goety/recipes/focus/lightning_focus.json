@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:wind_core"
+    "item": "goety:shocking_focus"
   },
   "craftType": "storm",
   "soulCost": 1,
