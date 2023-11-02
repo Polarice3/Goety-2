@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一个简单的焦点，施放时可以让你从魔杖尖端进入末影箱"
+      "text": "一个简单的法术聚晶，施放时可以让你直接打开末影箱"
     },
     {
       "type": "goety:ritual",

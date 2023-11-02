@@ -1,0 +1,15 @@
+{
+  "name": "霜呼聚晶",
+  "icon": "goety:frost_breath_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "只需一口气，你面前的生物就会颤抖着走向坟墓."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/frost_breath_focus"
+    }
+  ]
+}

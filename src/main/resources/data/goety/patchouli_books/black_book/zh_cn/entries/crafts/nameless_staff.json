@@ -1,0 +1,25 @@
+{
+  "name": "无名权杖",
+  "icon": "goety:nameless_staff",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在发现了死灵能量的遗忘之秘后，你设计了一套新的服装来展示你对黑暗艺术的精通."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:heart_of_the_night"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:focuses/soul_bolt_focus)灵魂束$() 会被这个套装扭曲成死灵束. 释放 $(l:focuses/illusion_focus)镜像法术$() 同时穿着 $(l:crafts/garment/nameless_set)无名套$() 将会对你的目标发射死灵束."
+    }
+  ]
+}

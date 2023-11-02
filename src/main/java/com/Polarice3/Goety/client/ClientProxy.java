@@ -35,7 +35,14 @@ public class ClientProxy implements ModProxy {
         spawnSoulExplosion(Minecraft.getInstance().level, blockPos, radius);
     }
 
-    public void shock(Level level, Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
+    public void shock(Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
+        shock(Minecraft.getInstance().level, vectorStart, vectorEnd, lifespan);
+    }
+
+    public void shock(Level level, Vec3 vectorStart, Vec3 vectorEnd, int lifespan){
+        if (!(level instanceof ClientLevel)){
+            return;
+        }
         LightningEffect.INSTANCE.add(level, new LightningParticleOptions(vectorStart, vectorEnd, lifespan).size(0.08F), ClientEvents.PARTIAL_TICK);
     }
 

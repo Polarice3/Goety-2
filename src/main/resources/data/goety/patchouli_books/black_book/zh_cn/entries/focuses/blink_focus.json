@@ -1,11 +1,11 @@
 {
-  "name": "眨聚晶",
+  "name": "炫目聚晶",
   "icon": "goety:blink_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "此焦点允许您传送到您正在查看的位置，前提是该位置在范围内."
+      "text": "此聚晶允许您传送到您鼠标中心对准的位置，前提是它没有超过传送范围."
     },
     {
       "type": "goety:ritual",

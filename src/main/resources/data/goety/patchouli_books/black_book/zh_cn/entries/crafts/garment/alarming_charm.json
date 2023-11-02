@@ -1,12 +1,12 @@
 {
-  "name": "惊人的魅力",
+  "name": "警示护符",
   "icon": "goety:alarming_charm",
   "category": "goety:crafts/garment",
   "advancement": "goety:goety/kill_a_envioker",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "当追捕你时，掠夺者往往会通过在你下方放出一排尖牙，或者一个折磨者向你冲锋来表示他们的接近。鉴于他们的狡猾程度，你设法设计了一种符咒来表明他们正在接近你."
+      "text": "当追捕你时，灾厄村民们对你使用尖牙法术，或者释放一个折磨向你冲来，这预示者他们的接近。多么狡猾，但你已经设法设计出了一种护符，让他们放马过来。"
     },
     {
       "type": "goety:ritual",
