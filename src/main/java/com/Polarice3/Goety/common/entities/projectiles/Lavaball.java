@@ -77,7 +77,7 @@ public class Lavaball extends ExplosiveProjectile {
             entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage + enchantment);
 
             if (flaming != 0){
-                entity.setSecondsOnFire(5 + flaming);
+                entity.setSecondsOnFire(5 * flaming);
             }
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);

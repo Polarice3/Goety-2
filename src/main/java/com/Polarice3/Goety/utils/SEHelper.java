@@ -113,7 +113,7 @@ public class SEHelper {
         if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) >= souls){
             return true;
         } else {
-            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) >= souls;
+            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) >= souls && !SEHelper.getSEActive(player);
         }
     }
 
@@ -164,6 +164,7 @@ public class SEHelper {
 
     public static void rawHandleKill(LivingEntity killer, LivingEntity victim, int soulEater) {
         Player player = null;
+        int multi = Mth.clamp(MainConfig.SoulTakenMultiplier.get(), 1, Integer.MAX_VALUE);
         if (killer instanceof Player){
             player = (Player) killer;
         } else if (killer instanceof IOwned summonedEntity){
@@ -178,7 +179,7 @@ public class SEHelper {
                     || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)){
                 soulEater *= 1.5;
             }
-            increaseSouls(player, getSoulGiven(victim) * soulEater);
+            increaseSouls(player, (getSoulGiven(victim) * soulEater) * multi);
         }
     }
 

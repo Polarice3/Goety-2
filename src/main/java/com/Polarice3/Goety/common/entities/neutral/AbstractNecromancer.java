@@ -448,23 +448,26 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
                 int i = AbstractNecromancer.this.level.getEntitiesOfClass(Owned.class, AbstractNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                         , predicate).size();
-                for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(7 - i); ++i1) {
-                    Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
-                    if (AbstractNecromancer.this.hasAlternateSummon()){
-                        if (serverLevel.random.nextBoolean()){
-                            summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
+                if (i < 7) {
+                    int j = 7 - i;
+                    for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(j); ++i1) {
+                        Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
+                        if (AbstractNecromancer.this.hasAlternateSummon()){
+                            if (serverLevel.random.nextBoolean()){
+                                summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
+                            }
                         }
-                    }
-                    BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
-                    summonedentity.setTrueOwner(AbstractNecromancer.this);
-                    summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
-                    MobUtil.moveDownToGround(summonedentity);
-                    summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
-                    summonedentity.setPersistenceRequired();
-                    summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
-                    if (serverLevel.addFreshEntity(summonedentity)){
-                        summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
+                        BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this, serverLevel);
+                        summonedentity.setTrueOwner(AbstractNecromancer.this);
+                        summonedentity.moveTo(blockPos, AbstractNecromancer.this.getYRot(), AbstractNecromancer.this.getXRot());
+                        MobUtil.moveDownToGround(summonedentity);
+                        summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
+                        summonedentity.setPersistenceRequired();
+                        summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                        this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
+                        if (serverLevel.addFreshEntity(summonedentity)){
+                            summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
+                        }
                     }
                 }
             }

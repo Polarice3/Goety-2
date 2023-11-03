@@ -2,19 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "sfs",
-    "fef",
-    "sfs"
+    " s ",
+    "ses",
+    " s "
   ],
   "key":
   {
     "e":
     {
       "item": "goety:frost_breath_focus"
-    },
-    "f":
-    {
-      "item": "minecraft:snowball"
     },
     "s":
     {

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The power of electricity shoots out from you, shocking any creature in front of you."
+      "text": "The power of electricity shoots out from you, shocking any creature in front of you. When not casted from Wind Staff, the electricity will go towards the closest Lightning Rod."
     },
     {
       "type": "patchouli:crafting",

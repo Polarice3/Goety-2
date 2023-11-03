@@ -441,6 +441,9 @@ public class DarkWand extends Item {
                             }
                         }
                     }
+                    if (!this.getSpell(stack).conditionsMet(serverWorld, caster)){
+                        spent = false;
+                    }
                     if (spent){
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
                         SEHelper.sendSEUpdatePacket(playerEntity);

@@ -8,7 +8,7 @@
       "text": "The Fanged Dagger might not seem impressive, but provides high attack speed compared to Swords and poisons targets. When a creature is killed, the bearer gains more Soul Energy than before."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:fanged_dagger"
     },
     {
