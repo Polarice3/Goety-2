@@ -61,6 +61,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleMagicDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> CroneHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> MinisterHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> MinisterDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleDamageCap;
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleBowDamage;
@@ -182,6 +184,12 @@ public class AttributesConfig {
                 BUILDER.push("Crone");
                 CroneHealth = BUILDER.comment("How much Max Health Crones have, Default: 130.0")
                         .defineInRange("croneHealth", 130.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Minister");
+                MinisterHealth = BUILDER.comment("How much Max Health Ministers have, Default: 128.0")
+                        .defineInRange("ministerHealth", 128.0, 1.0, Double.MAX_VALUE);
+                MinisterDamage = BUILDER.comment("How much damage Ministers deals, Default: 5.0")
+                        .defineInRange("ministerDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Skull Lord");
                 SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 100.0")

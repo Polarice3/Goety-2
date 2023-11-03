@@ -40,7 +40,6 @@ public class MagicFocus extends Item {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
     {
         if (stack.getItem() == ModItems.ICEOLOGY_FOCUS.get()
-                || stack.getItem() == ModItems.SHOCKING_FOCUS.get()
                 || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()
                 || stack.getItem() == ModItems.TEETH_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
@@ -93,7 +92,8 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.RADIUS.get()
                     || enchantment == ModEnchantments.BURNING.get();
         }
-        if (stack.getItem() == ModItems.FIRE_BREATH_FOCUS.get()){
+        if (stack.getItem() == ModItems.FIRE_BREATH_FOCUS.get()
+                || stack.getItem() == ModItems.SHOCKING_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.BURNING.get();

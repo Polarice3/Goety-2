@@ -43,6 +43,10 @@ public abstract class Spells {
         return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
     }
 
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
+        return true;
+    }
+
     protected HitResult rayTrace(Level worldIn, LivingEntity livingEntity, int range, double radius) {
         if (this.entityResult(worldIn, livingEntity, range, radius) == null){
             return this.blockResult(worldIn, livingEntity, range);

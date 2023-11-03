@@ -15,6 +15,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.material.FluidState;
@@ -35,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BlockFinder {
@@ -416,5 +420,16 @@ public class BlockFinder {
 
     public static boolean canBeReplaced(Level pLevel, BlockPos pReplaceablePos, BlockPos pReplacedBlockPos){
         return pLevel.getBlockState(pReplaceablePos).canBeReplaced(new DirectionalPlaceContext(pLevel, pReplacedBlockPos, Direction.DOWN, ItemStack.EMPTY, Direction.UP));
+    }
+
+    public static Optional<BlockPos> findLightningRod(ServerLevel serverLevel, BlockPos blockPos) {
+        return findLightningRod(serverLevel, blockPos, 128);
+    }
+
+    public static Optional<BlockPos> findLightningRod(ServerLevel serverLevel, BlockPos blockPos, int range) {
+        Optional<BlockPos> optional = serverLevel.getPoiManager().findClosest(
+                (poiTypeHolder) -> poiTypeHolder.is(PoiTypes.LIGHTNING_ROD),
+                (blockPos1) -> blockPos1.getY() == serverLevel.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos1.getX(), blockPos1.getZ()) - 1, blockPos, range, PoiManager.Occupancy.ANY);
+        return optional.map((blockPos1) -> blockPos1.above(1));
     }
 }

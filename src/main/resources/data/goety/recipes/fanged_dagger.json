@@ -1,30 +1,32 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "goety:savage_tooth"
-  },
-  "craftType": "forge",
-  "soulCost": 1,
-  "duration": 10,
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sf ",
+    " c ",
+    "  r"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "goety:savage_tooth"
+    },
+    "f":
     {
       "item": "goety:venomous_fang"
     },
+    "c":
     {
-      "item": "goety:venomous_fang"
+      "item": "goety:cursed_ingot"
     },
-    {
-      "item": "goety:occult_fabric"
-    },
-    {
-      "tag": "forge:gems/diamond"
-    },
+    "r":
     {
       "tag": "forge:rods/wooden"
     }
-  ],
-  "result": {
+  },
+  "result":
+  {
     "item": "goety:fanged_dagger"
   }
 }

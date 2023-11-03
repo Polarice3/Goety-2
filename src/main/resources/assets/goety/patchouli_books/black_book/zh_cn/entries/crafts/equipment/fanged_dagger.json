@@ -8,7 +8,7 @@
       "text": "毒牙匕首似乎并不令人印象深刻，但与剑和中毒药剂相比，它有很高的攻击速度。当用它杀死生物时，持有者会获得比以前更多的灵魂能量。"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:fanged_dagger"
     },
     {

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +17,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 public class LightningSpell extends Spells {
 
@@ -33,10 +37,10 @@ public class LightningSpell extends Spells {
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.GEOMANCY;
+        return SpellType.WIND;
     }
 
-    public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){
+    public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range, boolean staff){
         double radius = 2.0D;
         float damage = SpellConfig.LightningDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(entityLiving)) {
@@ -44,34 +48,46 @@ public class LightningSpell extends Spells {
             damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, radius);
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            if (target instanceof LivingEntity) {
+        Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(worldIn, BlockPos.containing(rayTraceResult.getLocation()));
+        if (lightningRod.isPresent() && !staff){
+            BlockPos blockPos = lightningRod.get();
+            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
+            lightningBolt.setDamage(damage);
+            lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
+            if (entityLiving instanceof ServerPlayer serverPlayer) {
+                lightningBolt.setCause(serverPlayer);
+            }
+            worldIn.addFreshEntity(lightningBolt);
+        } else {
+            if (rayTraceResult instanceof EntityHitResult){
+                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+                if (target instanceof LivingEntity) {
+                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
+                    lightningBolt.setDamage(damage);
+                    lightningBolt.setPos(target.position());
+                    if (entityLiving instanceof ServerPlayer serverPlayer) {
+                        lightningBolt.setCause(serverPlayer);
+                    }
+                    worldIn.addFreshEntity(lightningBolt);
+                }
+            } else if (rayTraceResult instanceof BlockHitResult){
+                BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
                 LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
                 lightningBolt.setDamage(damage);
-                lightningBolt.setPos(target.position());
+                lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
                 if (entityLiving instanceof ServerPlayer serverPlayer) {
                     lightningBolt.setCause(serverPlayer);
                 }
                 worldIn.addFreshEntity(lightningBolt);
             }
-        } else if (rayTraceResult instanceof BlockHitResult){
-            BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
-            lightningBolt.setDamage(damage);
-            lightningBolt.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            if (entityLiving instanceof ServerPlayer serverPlayer) {
-                lightningBolt.setCause(serverPlayer);
-            }
-            worldIn.addFreshEntity(lightningBolt);
         }
     }
 
     public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 16);
+        commonResult(worldIn, entityLiving, 16, false);
     }
 
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 32);
+        commonResult(worldIn, entityLiving, 16, true);
     }
 }

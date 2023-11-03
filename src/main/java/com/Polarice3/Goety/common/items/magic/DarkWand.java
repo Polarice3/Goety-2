@@ -12,7 +12,7 @@ import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
-import com.Polarice3.Goety.common.magic.spells.RecallSpell;
+import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -437,6 +437,9 @@ public class DarkWand extends Item {
                                 stack.getTag().putInt(SECONDS, 0);
                             }
                         }
+                    }
+                    if (!this.getSpell(stack).conditionsMet(serverWorld, caster)){
+                        spent = false;
                     }
                     if (spent){
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));

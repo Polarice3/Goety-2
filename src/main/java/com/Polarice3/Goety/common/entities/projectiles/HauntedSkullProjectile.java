@@ -118,14 +118,9 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             Entity owner = this.getOwner();
             boolean flag;
             float enchantment = 0;
-            int flaming = 0;
+            int flaming = this.burning;
             if (owner instanceof LivingEntity livingentity) {
-                if (livingentity instanceof Player player){
-                    if (WandUtil.enchantedFocus(player)){
-                        enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                        flaming = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                    }
-                } else if (livingentity instanceof Mob mob){
+                if (livingentity instanceof Mob mob){
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         this.damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
@@ -140,7 +135,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                     if (target.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, target);
                         if (flaming != 0) {
-                            target.setSecondsOnFire(5 + flaming);
+                            target.setSecondsOnFire(5 * flaming);
                         }
                     } else {
                         livingentity.heal(1.0F);

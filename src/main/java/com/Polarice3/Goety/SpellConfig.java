@@ -124,6 +124,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRadiusLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRangeLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
@@ -391,6 +392,8 @@ public class SpellConfig {
                 .defineInRange("maxRangeLevel", 10, 1, 10);
         MaxDurationLevel = BUILDER.comment("Duration Maximum Enchantment Level, Default: 3")
                 .defineInRange("maxDurationLevel", 3, 1, 10);
+        MaxBurningLevel = BUILDER.comment("Burning Maximum Enchantment Level, Default: 3")
+                .defineInRange("maxBurningLevel", 3, 1, 10);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

@@ -23,6 +23,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiHorizontal;
     public static final ForgeConfigSpec.ConfigValue<Integer> FocusGuiVertical;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulTakenMultiplier;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnthropodSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> AnimalSouls;
@@ -247,6 +248,8 @@ public class MainConfig {
                 .define("sculkGrowerPotency", true);
         BUILDER.pop();
         BUILDER.push("Soul Taken");
+        SoulTakenMultiplier = BUILDER.comment("Multiplies the amount of Souls taken by this amount, Default: 2")
+                .defineInRange("soulTakenMultiplier", 2, 1, Integer.MAX_VALUE);
         UndeadSouls = BUILDER.comment("Undead Killed, Default: 5")
                 .defineInRange("undeadSouls", 5, 0, Integer.MAX_VALUE);
         AnthropodSouls = BUILDER.comment("Anthropods Killed, Default: 5")

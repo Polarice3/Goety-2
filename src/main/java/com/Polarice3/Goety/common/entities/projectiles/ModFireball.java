@@ -51,7 +51,7 @@ public class ModFireball extends Fireball {
                     damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                 }
                 int i = entity.getRemainingFireTicks() + flaming;
-                entity.setSecondsOnFire(5 + flaming);
+                entity.setSecondsOnFire(5 * flaming);
                 boolean flag = entity.hurt(entity.damageSources().fireball(this, entity1), damage + enchantment);
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
