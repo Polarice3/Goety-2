@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -35,10 +36,10 @@ public class Haunt extends Summoned{
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.HauntHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D);
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.HauntDamage.get());
     }
 
     public AttributeSupplier.Builder getConfiguredAttributes(){

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerLevel;
@@ -83,7 +84,7 @@ public abstract class SummonSpells extends Spells{
         HitResult rayTraceResult = this.rayTrace(serverLevel, source, 16, 3);
         if (rayTraceResult instanceof EntityHitResult){
             Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            if (target instanceof LivingEntity living) {
+            if (target instanceof LivingEntity living && !MobUtil.areFullAllies(source, living)) {
                 summoned.setTarget(living);
             }
         }

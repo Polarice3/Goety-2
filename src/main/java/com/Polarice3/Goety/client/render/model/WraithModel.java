@@ -45,15 +45,15 @@ public class WraithModel<T extends LivingEntity> extends HierarchicalModel<T> {
 
         PartDefinition right_arm = Ghost.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
-        PartDefinition right_robe = right_arm.addOrReplaceChild("right_robe", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_robe = right_arm.addOrReplaceChild("right_robe", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_bone = right_arm.addOrReplaceChild("right_bone", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_bone = right_arm.addOrReplaceChild("right_bone", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(-0.01F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition left_arm = Ghost.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(6.0F, -22.0F, 0.0F));
 
-        PartDefinition left_robe = left_arm.addOrReplaceChild("left_robe", CubeListBuilder.create().texOffs(16, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_robe = left_arm.addOrReplaceChild("left_robe", CubeListBuilder.create().texOffs(16, 33).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_bone = left_arm.addOrReplaceChild("left_bone", CubeListBuilder.create().texOffs(0, 16).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_bone = left_arm.addOrReplaceChild("left_bone", CubeListBuilder.create().texOffs(0, 16).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 12.0F, 1.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -24.0F, 0.0F));
 

@@ -211,7 +211,7 @@ public class SoulEnergyEvents {
                                     player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
                                     player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
                                 } else {
-                                    player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 12000, 4, false, false));
+                                    player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), MathHelper.minutesToTicks(2), 4, false, false));
                                 }
                                 player.playSound(SoundEvents.WITHER_DEATH, 1.0F, 1.0F);
                                 ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.WITHER_DEATH, 1.0F, 1.0F));

@@ -97,7 +97,7 @@ public class VanguardSpell extends SummonSpells {
     public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-            for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(5); ++i1) {
+            for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(6); ++i1) {
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
                 VanguardServant summonedentity = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), worldIn);
                 summonedentity.setTrueOwner(entityLiving);

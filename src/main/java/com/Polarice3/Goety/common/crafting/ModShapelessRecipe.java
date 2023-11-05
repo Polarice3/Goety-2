@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class ModShapelessRecipe implements CraftingRecipe {
+public class ModShapelessRecipe implements Recipe<CraftingContainer> {
     private final ResourceLocation id;
     final String group;
     final CraftingBookCategory category;
@@ -38,6 +38,11 @@ public class ModShapelessRecipe implements CraftingRecipe {
 
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializer.SHAPELESS_RECIPE;
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return RecipeType.CRAFTING;
     }
 
     public String getGroup() {

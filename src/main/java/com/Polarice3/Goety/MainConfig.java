@@ -449,7 +449,7 @@ public class MainConfig {
         LichHealSeconds = BUILDER.comment("How many seconds until Lich Players heals using Soul Energy, Default: 1")
                 .defineInRange("lichHealSeconds", 1, 0, Integer.MAX_VALUE);
         LichHealAmount = BUILDER.comment("How much health Lich Players heals using Soul Energy, Default: 1.0")
-                .defineInRange("lichHealCost", 1.0, 0.0, Double.MAX_VALUE);
+                .defineInRange("lichHealAmount", 1.0, 0.0, Double.MAX_VALUE);
         LichNightVision = BUILDER.comment("Enable to get infinite Night Vision when being a Lich, Default: true")
                 .define("lichNightVision", true);
         LichDamageHelmet = BUILDER.comment("Wearing Helmet in Sunlight as a Lich periodically damages it, Default: true")

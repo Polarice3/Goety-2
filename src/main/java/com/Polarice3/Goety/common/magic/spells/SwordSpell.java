@@ -6,13 +6,11 @@ import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.magic.InstantCastSpells;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -29,6 +27,10 @@ public class SwordSpell extends InstantCastSpells {
 
     public SpellType getSpellType() {
         return SpellType.ILL;
+    }
+
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
+        return entityLiving.getMainHandItem().getItem() instanceof SwordItem || entityLiving.getOffhandItem().getItem() instanceof SwordItem;
     }
 
     @Override
@@ -48,9 +50,6 @@ public class SwordSpell extends InstantCastSpells {
             }
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
         } else {
-            if (entityLiving instanceof Player player) {
-                SEHelper.increaseSouls(player, this.SoulCost());
-            }
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.FIRE_EXTINGUISH, this.getSoundSource(), 1.0F, 1.0F);
         }
     }

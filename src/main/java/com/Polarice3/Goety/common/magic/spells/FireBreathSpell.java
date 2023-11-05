@@ -43,8 +43,9 @@ public class FireBreathSpell extends BreathingSpells {
             for (Entity target : getTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (!target.fireImmune()) {
-                        target.setSecondsOnFire(5 * burning);
-                        target.hurt(ModDamageSource.fireBreath(entityLiving, entityLiving), damage + enchantment);
+                        if (target.hurt(ModDamageSource.fireBreath(entityLiving, entityLiving), damage + enchantment)){
+                            target.setSecondsOnFire(5 * burning);
+                        }
                     }
                 }
             }

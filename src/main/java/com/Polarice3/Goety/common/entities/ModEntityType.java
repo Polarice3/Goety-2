@@ -236,6 +236,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<ModFallingBlock>> FALLING_BLOCK = register("falling_block",
+            EntityType.Builder.<ModFallingBlock>of(ModFallingBlock::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<ModBoat>> MOD_BOAT = register("boat",
             EntityType.Builder.<ModBoat>of(ModBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)

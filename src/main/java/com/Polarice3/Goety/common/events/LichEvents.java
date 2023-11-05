@@ -220,7 +220,7 @@ public class LichEvents {
             if (LichdomHelper.isLich(player)){
                 if (ModDamageSource.physicalAttacks(event.getSource()) && event.getEntity() != player){
                     if (player.getMainHandItem().isEmpty()) {
-                        event.getEntity().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1200));
+                        event.getEntity().addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900));
                     }
                     if (event.getEntity().getMobType() != MobType.UNDEAD && player.getMainHandItem().is(ModTags.Items.LICH_WITHER_ITEMS)){
                         event.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, MathHelper.secondsToTicks(5)));

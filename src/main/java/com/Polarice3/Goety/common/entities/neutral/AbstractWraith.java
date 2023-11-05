@@ -259,6 +259,8 @@ public class AbstractWraith extends Summoned {
 
         if (this.postTeleportTime > 0){
             --this.postTeleportTime;
+        } else {
+            this.level.broadcastEntityEvent(this, (byte) 7);
         }
 
         if (this.isAlive()) {

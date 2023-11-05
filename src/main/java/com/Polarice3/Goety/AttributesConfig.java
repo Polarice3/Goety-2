@@ -51,6 +51,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> GraveGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> GraveGolemDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> HauntHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HauntDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordDamage;
@@ -176,8 +178,12 @@ public class AttributesConfig {
                 BUILDER.push("Grave Golem");
                 GraveGolemHealth = BUILDER.comment("How much Max Health Grave Golems have, Default: 180.0")
                         .defineInRange("graveGolemHealth", 180.0, 1.0, Double.MAX_VALUE);
-                GraveGolemDamage = BUILDER.comment("How much damage Redstone Golems deals, Default: 16.0")
+                GraveGolemDamage = BUILDER.comment("How much damage Grave Golems deals, Default: 16.0")
                         .defineInRange("graveGolemDamage", 16.0, 1.0, Double.MAX_VALUE);
+                HauntHealth = BUILDER.comment("How much Max Health Haunts have, Default: 6.0")
+                        .defineInRange("hauntHealth", 6.0, 1.0, Double.MAX_VALUE);
+                HauntDamage = BUILDER.comment("How much damage Haunts deals, Default: 2.0")
+                        .defineInRange("hauntDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Mini-Bosses");

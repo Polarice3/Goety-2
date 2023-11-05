@@ -43,7 +43,7 @@ public class ClientProxy implements ModProxy {
         if (!(level instanceof ClientLevel)){
             return;
         }
-        LightningEffect.INSTANCE.add(level, new LightningParticleOptions(vectorStart, vectorEnd, lifespan).size(0.08F), ClientEvents.PARTIAL_TICK);
+        LightningEffect.INSTANCE.add(level, new LightningParticleOptions(vectorStart, vectorEnd, lifespan).size(0.04F), ClientEvents.PARTIAL_TICK);
     }
 
     public void spawnSoulExplosion(Level level, BlockPos blockPos, int radius){

@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -175,10 +176,12 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
 
     public void setAutonomous(boolean p_20850_) {
         this.entityData.set(AUTO_MODE, p_20850_);
-        this.playSound(SoundEvents.ARROW_HIT_PLAYER);
-        if (!this.isWandering()){
-            this.setWandering(true);
-            this.setStaying(false);
+        if (p_20850_) {
+            this.playSound(SoundEvents.ARROW_HIT_PLAYER);
+            if (!this.isWandering()) {
+                this.setWandering(true);
+                this.setStaying(false);
+            }
         }
     }
 
@@ -370,7 +373,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     private void roar() {
         if (this.isAlive()) {
             for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D), NO_RAVAGER_AND_ALIVE)) {
-                if (livingentity != this.getTrueOwner() && !livingentity.isAlliedTo(this.getTrueOwner())) {
+                if (!MobUtil.areAllies(this, livingentity)) {
                     livingentity.hurt(this.damageSources().mobAttack(this), 6.0F);
                 }
 
@@ -547,6 +550,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     this.doPlayerRide(pPlayer);
                     this.setStaying(false);
                     this.setWandering(false);
+                    return InteractionResult.SUCCESS;
                 } else if (pPlayer.getItemInHand(pHand).is(ModItems.OMINOUS_SADDLE.get()) && !this.hasSaddle()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         pPlayer.getItemInHand(pHand).shrink(1);
@@ -585,11 +589,12 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                 } else if (pPlayer.getItemInHand(pHand).is(Items.STICK) && !this.getArmor().isEmpty()){
                     if (this.spawnAtLocation(this.getArmor()) != null) {
                         this.setArmorEquipment(ItemStack.EMPTY, true);
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 
     public boolean isFood(ItemStack p_30440_) {

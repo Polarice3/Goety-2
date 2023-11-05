@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " s ",
+    "asa",
     "ses",
-    " s "
+    "asa"
   ],
   "key":
   {
@@ -15,6 +15,10 @@
     "s":
     {
       "item": "minecraft:blue_ice"
+    },
+    "a":
+    {
+      "item": "minecraft:arrow"
     }
   },
   "result":

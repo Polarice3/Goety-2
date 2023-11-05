@@ -464,7 +464,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (random2 == 1){
                 this.setHealth(this.getMaxHealth());
             }
-            this.setCustomName(Component.translatable(component.getString() + " " + "the" + " " + component1.getString()));
+            this.setCustomName(Component.translatable(component.getString() + component1.getString()));
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }

@@ -146,6 +146,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> HAUNTED_SAPLING = register("haunted_sapling", () -> sapling(new HauntedTree()));
     public static final RegistryObject<Block> POTTED_HAUNTED_SAPLING = register("potted_haunted_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.HAUNTED_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.DROP);
+    public static final RegistryObject<Block> DARK_PRESSURE_PLATE = register("dark_pressure_plate",
+            () -> new DarkPressurePlateBlock(BlockBehaviour.Properties.of().mapColor(HAUNTED_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
 
     //Rotten
     public static final RegistryObject<Block> ROTTEN_PLANKS = register("rotten_planks",
@@ -297,7 +299,7 @@ public class ModBlocks {
     private static Block fireProofLog(MapColor p_285125_) {
         return new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor((p_152620_) -> {
             return p_285125_;
-        }).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM));
+        }).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD));
     }
 
     private static RotatedPillarBlock log(MapColor p_285370_, MapColor p_285126_) {
