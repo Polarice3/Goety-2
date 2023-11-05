@@ -405,12 +405,13 @@ public class MobUtil {
         Vec3 lookVec = pSource.getViewVector(1.0F);
         double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
         Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
-        List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius));
+        List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
+                EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (hit.isPickable() && pSource.hasLineOfSight(hit) && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
-                float borderSize = hit.getPickRadius();
+            if (hit.isPickable() && pSource.hasLineOfSight(hit) && hit != pSource) {
+                float borderSize = Math.max(0.8F, hit.getPickRadius());
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
                 if (collisionBB.contains(srcVec)) {
@@ -432,23 +433,24 @@ public class MobUtil {
     }
 
     @Nullable
-    public static Entity getSingleTarget(Level level, LivingEntity pSource, double pRange, double pRadius) {
+    public static Entity getSingleTarget(Level pLevel, LivingEntity pSource, double pRange, double pRadius) {
         Entity target = null;
         Vec3 srcVec = pSource.getEyePosition();
         Vec3 lookVec = pSource.getViewVector(1.0F);
         double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
         Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
-        List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius));
-        double hitDist = 0;
+        List<Entity> possibleList = pLevel.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
+                EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+        double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (hit.isPickable() && hit != pSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).test(hit)) {
-                float borderSize = hit.getPickRadius();
+            if (hit.isPickable() && pSource.hasLineOfSight(pSource) && hit != pSource) {
+                float borderSize = Math.max(0.8F, hit.getPickRadius());
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize, borderSize, borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
 
                 if (collisionBB.contains(srcVec)) {
-                    if (0.0D < hitDist || hitDist == 0.0D) {
+                    if (0.0D <= hitDist) {
                         target = hit;
                         hitDist = 0.0D;
                     }
@@ -459,6 +461,26 @@ public class MobUtil {
                         target = hit;
                         hitDist = possibleDist;
                     }
+                }
+            }
+        }
+        return target;
+    }
+
+    @Nullable
+    public static Entity getNearbyTarget(Level pLevel, LivingEntity pSource, double pRange, double pRadius) {
+        Entity target = null;
+        if (getSingleTarget(pLevel, pSource, pRange, pRadius) != null){
+            target = getSingleTarget(pLevel, pSource, pRange, pRadius);
+        } else {
+            Vec3 lookVec = pSource.getViewVector(1.0F);
+            double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
+            List<Entity> possibleList = pLevel.getEntities(pSource, pSource.getBoundingBox().move(lookVec.x / 2, 0, lookVec.z / 2).expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
+                    EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+
+            for (Entity hit : possibleList) {
+                if (hit.isPickable() && pSource.hasLineOfSight(pSource)) {
+                    target = hit;
                 }
             }
         }

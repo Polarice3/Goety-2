@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -163,7 +164,7 @@ public abstract class LightProjectile extends Arrow {
 
     @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return null;
+        return SoundEvents.SNOW_GOLEM_AMBIENT;
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "goety:block/dark_pressure_plate"
+    },
+    "powered=true": {
+      "model": "goety:block/dark_pressure_plate_down"
+    }
+  }
+}

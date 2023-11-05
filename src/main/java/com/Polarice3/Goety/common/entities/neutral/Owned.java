@@ -46,8 +46,6 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
-    @Nullable
-    public LivingEntity owner = this.getTrueOwner();
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
