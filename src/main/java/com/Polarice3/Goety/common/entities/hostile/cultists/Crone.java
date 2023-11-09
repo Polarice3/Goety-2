@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.neutral.VampireBat;
 import com.Polarice3.Goety.common.entities.projectiles.ThrownBrew;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
@@ -121,8 +122,8 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.CroneHealth.get());
     }
 
     protected void defineSynchedData() {
@@ -310,6 +311,12 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
                         this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_DRINK, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
                     }
 
+                    AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+                    attributeinstance.removeModifier(SPEED_MODIFIER_DRINKING);
+                    attributeinstance.addTransientModifier(SPEED_MODIFIER_DRINKING);
+                } else if (this.getMainHandItem().getItem() instanceof BrewItem){
+                    this.usingTime = this.overwhelmed > 0 ? this.getMainHandItem().getUseDuration() / 2 : this.getMainHandItem().getUseDuration();
+                    this.setUsingItem(true);
                     AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
                     attributeinstance.removeModifier(SPEED_MODIFIER_DRINKING);
                     attributeinstance.addTransientModifier(SPEED_MODIFIER_DRINKING);

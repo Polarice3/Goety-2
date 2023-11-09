@@ -81,8 +81,10 @@ public class MagicBolt extends AbstractHurtingProjectile {
         int duration = 100;
         if (flag){
             if (target instanceof LivingEntity livingTarget){
-                if (WandUtil.enchantedFocus(livingentity)){
-                    duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), livingentity) + 1;
+                if (livingentity != null) {
+                    if (WandUtil.enchantedFocus(livingentity)) {
+                        duration *= WandUtil.getLevels(ModEnchantments.DURATION.get(), livingentity) + 1;
+                    }
                 }
                 livingTarget.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), duration));
             }

@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class SoulArmorSpell extends Spells {
 
@@ -29,8 +30,7 @@ public class SoulArmorSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         int enchantment = 0;
         int duration = 1;
         if (WandUtil.enchantedFocus(entityLiving)) {

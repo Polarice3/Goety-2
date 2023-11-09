@@ -3,6 +3,7 @@
   "icon": "goety:magic_emerald",
   "category": "goety:intro",
   "sortnum": 3,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

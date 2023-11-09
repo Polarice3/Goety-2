@@ -103,8 +103,9 @@ public class GraveGolem extends AbstractGolemServant {
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.GraveGolemHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.GraveGolemDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -718,7 +719,7 @@ public class GraveGolem extends AbstractGolemServant {
             GraveGolem.this.yBodyRot = this.yRot;
             GraveGolem.this.getNavigation().stop();
             if (GraveGolem.this.attackTick == 1) {
-                GraveGolem.this.playSound(ModSounds.GRAVE_GOLEM_GROWL.get());
+                GraveGolem.this.playSound(ModSounds.GRAVE_GOLEM_GROWL.get(), 5.0F, 1.0F);
                 GraveGolem.this.level.broadcastEntityEvent(GraveGolem.this, (byte) 6);
             }
             if (GraveGolem.this.attackTick == 22) {

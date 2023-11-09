@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
+import net.minecraft.world.item.ItemStack;
 
 public class EnderChestSpell extends InstantCastSpells {
     private static final Component CONTAINER_TITLE = Component.translatable("container.enderchest");
@@ -31,7 +32,7 @@ public class EnderChestSpell extends InstantCastSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         if (entityLiving instanceof Player player){
             PlayerEnderChestContainer playerenderchestcontainer = player.getEnderChestInventory();
             player.openMenu(new SimpleMenuProvider((p_53124_, p_53125_, p_53126_) -> {

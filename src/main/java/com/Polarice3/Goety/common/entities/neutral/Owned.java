@@ -15,7 +15,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -48,7 +47,6 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
 
     protected Owned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
-        ICustomAttributes.applyAttributesForEntity(type, this);
         this.checkHostility();
     }
 
@@ -58,8 +56,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return null;
+    public void setConfigurableAttributes(){
     }
 
     public void checkHostility() {
@@ -217,6 +214,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         if (compound.contains("LifeTicks")) {
             this.setLimitedLife(compound.getInt("LifeTicks"));
         }
+        this.setConfigurableAttributes();
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

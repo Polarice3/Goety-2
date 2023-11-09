@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -26,12 +27,13 @@ public class ZPiglinBruteServant extends ZPiglinServant {
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ZPiglinBruteServantHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.23F)
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.ZPiglinServantDamage.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.ZPiglinBruteServantDamage.get())
                 .add(Attributes.ARMOR, 2.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ZPiglinBruteServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.ZPiglinBruteServantDamage.get());
     }
 
     @Override

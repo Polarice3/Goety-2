@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.EntityFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -49,7 +50,6 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
 
     public BoneLord(EntityType<? extends AbstractSkeleton> type, Level p_i48555_2_) {
         super(type, p_i48555_2_);
-        ICustomAttributes.applyAttributesForEntity(type, this);
     }
 
     protected void registerGoals() {
@@ -66,8 +66,9 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.BoneLordHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.BoneLordDamage.get());
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
@@ -228,6 +229,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
             } catch (Throwable ignored) {
             }
         }
+        this.setConfigurableAttributes();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {

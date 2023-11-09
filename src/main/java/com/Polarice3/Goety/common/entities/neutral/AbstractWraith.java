@@ -80,8 +80,9 @@ public class AbstractWraith extends Summoned {
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WraithDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WraithHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WraithDamage.get());
     }
 
     protected void defineSynchedData() {

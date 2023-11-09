@@ -68,8 +68,10 @@ public class VanguardServant extends AbstractSkeletonServant {
                 .add(Attributes.ARMOR, AttributesConfig.VanguardServantArmor.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.VanguardServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.VanguardServantDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.VanguardServantArmor.get());
     }
 
     @Override
@@ -202,6 +204,8 @@ public class VanguardServant extends AbstractSkeletonServant {
         }
         if (this.isMeleeAttacking()) {
             ++this.attackTick;
+        } else if (this.attackTick > 20){
+            this.setMeleeAttacking(false);
         }
     }
 

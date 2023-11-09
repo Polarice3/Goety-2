@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -81,8 +82,9 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SkeletonServantDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SkeletonServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SkeletonServantDamage.get());
     }
 
     public void reassessWeaponGoal() {

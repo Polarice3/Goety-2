@@ -1,0 +1,17 @@
+{
+  "name": "ワークステーション",
+  "icon": "goety:witch_pole",
+  "category": "goety:brewing",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エネルギー使用量を削減するために醸造ステーションを改善する方法があります。 まず、沼地で醸造していることを確認してください。 素敵な虫たちがたくさんいる、しっとりとした素敵な土地です！"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:witch_pole",
+      "text": "魔女のポールは、魔女の大釜から 8 ブロック以内に配置すると、ビールを作るのに必要なエネルギーの量を減らすのに役立ちます。 最大 3 極までのみ効果が得られます。"
+    }
+  ]
+}

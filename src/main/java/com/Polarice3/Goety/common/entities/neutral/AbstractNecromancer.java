@@ -88,8 +88,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 .add(Attributes.ARMOR, 2.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.NecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.NecromancerDamage.get());
     }
 
     protected void defineSynchedData() {

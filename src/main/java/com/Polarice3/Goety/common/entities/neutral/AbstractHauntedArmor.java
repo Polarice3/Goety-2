@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -79,8 +80,8 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.HauntedArmorHealth.get());
     }
 
     protected void defineSynchedData() {
@@ -188,6 +189,8 @@ public abstract class AbstractHauntedArmor extends Summoned {
                 || armorItem.getMaterial().getEquipSound() == SoundEvents.ARMOR_EQUIP_GENERIC){
                     return SoundEvents.GENERIC_HURT;
                 }
+            } else {
+                return SoundEvents.GENERIC_HURT;
             }
             return ModSounds.HAUNTED_ARMOR_HURT.get();
         } else {

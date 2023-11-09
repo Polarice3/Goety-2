@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class FrostBreathSpell extends BreathingSpells {
     public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
@@ -36,8 +37,7 @@ public class FrostBreathSpell extends BreathingSpells {
         return SpellType.FROST;
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         float enchantment = 0;
         int duration = 1;
         int range = 0;
@@ -48,7 +48,7 @@ public class FrostBreathSpell extends BreathingSpells {
                 range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
             }
         }
-        float damage = this.damage;
+        float damage = this.damage + enchantment;
         if (!worldIn.isClientSide) {
             for (Entity target : getTarget(entityLiving, range + 15)) {
                 if (target != null) {
@@ -56,7 +56,7 @@ public class FrostBreathSpell extends BreathingSpells {
                         if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
                             damage *= 2.0F;
                         }
-                        if (livingTarget.hurt(ModDamageSource.frostBreath(entityLiving, entityLiving), damage + enchantment)) {
+                        if (livingTarget.hurt(ModDamageSource.frostBreath(entityLiving, entityLiving), damage)) {
                             livingTarget.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1) * duration));
                         }
                     }

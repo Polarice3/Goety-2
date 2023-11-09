@@ -638,7 +638,7 @@ public class ModEvents {
                 }
             }
             if (livingEntity instanceof Raider witch) {
-                if (livingEntity instanceof Warlock || livingEntity instanceof Witch) {
+                if (livingEntity instanceof Cultist || livingEntity instanceof Witch) {
                     if (WitchBarterHelper.getTimer(witch) > 0) {
                         WitchBarterHelper.decreaseTimer(witch);
                     }
@@ -772,7 +772,7 @@ public class ModEvents {
                     if (mobAttacker.getLastHurtByMob() instanceof IOwned && !(mobAttacker instanceof Apostle)){
                         event.setNewTarget(mobAttacker.getLastHurtByMob());
                     }
-                    if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock){
+                    if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock || mobAttacker instanceof Crone){
                         if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasWarlockRobe(target)){
                             if (mobAttacker.getLastHurtByMob() != target){
                                 event.setNewTarget(null);

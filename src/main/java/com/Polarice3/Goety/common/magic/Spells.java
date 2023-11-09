@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
@@ -25,11 +26,7 @@ public abstract class Spells {
 
     public abstract SoundEvent CastingSound();
 
-    public abstract void RegularResult(ServerLevel worldIn, LivingEntity entityLiving);
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        this.RegularResult(worldIn, entityLiving);
-    }
+    public abstract void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 
     public SpellType getSpellType(){
         return SpellType.NONE;
@@ -45,6 +42,10 @@ public abstract class Spells {
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
         return true;
+    }
+
+    public boolean rightStaff(ItemStack staff){
+        return getSpellType().getStaff() != null && staff.is(getSpellType().getStaff());
     }
 
     protected HitResult rayTrace(Level worldIn, LivingEntity livingEntity, int range, double radius) {
@@ -100,7 +101,6 @@ public abstract class Spells {
     public enum SpellType{
         NONE("none", null),
         NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
-        LICH("lich", ModItems.NAMELESS_STAFF.get()),
         NETHER("nether", null),
         ILL("ill", ModItems.OMINOUS_STAFF.get()),
         FROST("frost", null),

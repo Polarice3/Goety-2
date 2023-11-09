@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class ShockwaveSpell extends Spells {
 
@@ -34,8 +35,7 @@ public class ShockwaveSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         int radius = 3;
         float damage = SpellConfig.ShockwaveDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         float maxDamage = SpellConfig.ShockwaveMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();

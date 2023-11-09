@@ -6,6 +6,7 @@ import com.Polarice3.Goety.compat.ICompatable;
 import com.Polarice3.Goety.init.ModTags;
 import com.google.common.base.Suppliers;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -23,6 +24,14 @@ public class PatchouliIntegration implements ICompatable {
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
+    }
+
+    public static ItemStack getBlackBook(){
+        return PatchouliAPI.get().getBookStack(Goety.location("black_book"));
+    }
+
+    public static ItemStack getWitchesBrew(){
+        return PatchouliAPI.get().getBookStack(Goety.location("witches_brew"));
     }
 
     public static final Supplier<IMultiblock> REDSTONE_GOLEM = Suppliers.memoize(() -> {

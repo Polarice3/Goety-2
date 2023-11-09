@@ -32,6 +32,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -1038,5 +1039,11 @@ public class MobUtil {
     public static void setRot(Entity entity, float p_19916_, float p_19917_) {
         entity.setYRot(p_19916_ % 360.0F);
         entity.setXRot(p_19917_ % 360.0F);
+    }
+
+    public static void setBaseAttributes(AttributeInstance attribute, double value){
+        if (attribute != null){
+            attribute.setBaseValue(value);
+        }
     }
 }

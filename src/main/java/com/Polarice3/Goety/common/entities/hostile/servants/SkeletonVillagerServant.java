@@ -4,6 +4,7 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -77,8 +78,9 @@ public class SkeletonVillagerServant extends Owned implements CrossbowAttackMob,
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SkeletonVillagerServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SkeletonVillagerServantDamage.get());
     }
 
     public void reassessWeaponGoal() {

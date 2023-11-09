@@ -16,6 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.*;
 
 public class TeethSpell extends Spells {
@@ -37,7 +38,7 @@ public class TeethSpell extends Spells {
         return SpellType.ILL;
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         Player playerEntity = (Player) entityLiving;
         int range = 16;
         double radius = 2.0D;
@@ -48,67 +49,56 @@ public class TeethSpell extends Spells {
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, playerEntity, range, radius);
         BlockPos blockPos = entityLiving.blockPosition();
-        if (this.isShifting(entityLiving)){
-            blockPos = entityLiving.blockPosition();
-        } else if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            blockPos = target.blockPosition();
-        } else if (rayTraceResult instanceof BlockHitResult) {
-            blockPos = ((BlockHitResult) rayTraceResult).getBlockPos().above();
-        }
-        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        if (rightStaff(staff)) {
+            if (this.isShifting(entityLiving)) {
+                this.surroundTeeth(entityLiving, blockPos, damage, true);
+            } else {
+                if (rayTraceResult instanceof EntityHitResult) {
+                    Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+                    blockPos = target.blockPosition();
+                } else if (rayTraceResult instanceof BlockHitResult) {
+                    blockPos = ((BlockHitResult) rayTraceResult).getBlockPos().above();
+                }
+                for (int length = 0; length < 16; length++) {
+                    blockPos = blockPos.offset(-2 + entityLiving.getRandom().nextInt(4), 0, -2 + entityLiving.getRandom().nextInt(4));
+                    BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-        while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
-            blockpos$mutable.move(Direction.UP);
-        }
-        if (worldIn.noCollision(new AABB(blockpos$mutable))){
-            ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), worldIn);
-            viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
-            viciousTooth.setOwner(entityLiving);
-            viciousTooth.setExtraDamage(damage);
-            if (worldIn.addFreshEntity(viciousTooth)) {
-                viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
+                    while (blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
+                        blockpos$mutable.move(Direction.UP);
+                    }
+
+                    if (worldIn.noCollision(new AABB(blockpos$mutable))) {
+                        ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), worldIn);
+                        viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
+                        viciousTooth.setOwner(entityLiving);
+                        viciousTooth.setExtraDamage(damage);
+                        if (worldIn.addFreshEntity(viciousTooth)) {
+                            viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
+                        }
+                    }
+                }
             }
-        }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        Player playerEntity = (Player) entityLiving;
-        int range = 16;
-        double radius = 2.0D;
-        float damage = 0.0F;
-        if (WandUtil.enchantedFocus(entityLiving)){
-            range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
-        }
-        HitResult rayTraceResult = this.rayTrace(worldIn, playerEntity, range, radius);
-        BlockPos blockPos = entityLiving.blockPosition();
-        if (this.isShifting(entityLiving)){
-            this.surroundTeeth(entityLiving, blockPos, damage, true);
         } else {
-            if (rayTraceResult instanceof EntityHitResult){
+            if (this.isShifting(entityLiving)){
+                blockPos = entityLiving.blockPosition();
+            } else if (rayTraceResult instanceof EntityHitResult){
                 Entity target = ((EntityHitResult) rayTraceResult).getEntity();
                 blockPos = target.blockPosition();
             } else if (rayTraceResult instanceof BlockHitResult) {
                 blockPos = ((BlockHitResult) rayTraceResult).getBlockPos().above();
             }
-            for (int length = 0; length < 16; length++) {
-                blockPos = blockPos.offset(-2 + entityLiving.getRandom().nextInt(4), 0, -2 + entityLiving.getRandom().nextInt(4));
-                BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
-                    blockpos$mutable.move(Direction.UP);
-                }
-
-                if (worldIn.noCollision(new AABB(blockpos$mutable))){
-                    ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), worldIn);
-                    viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
-                    viciousTooth.setOwner(entityLiving);
-                    viciousTooth.setExtraDamage(damage);
-                    if (worldIn.addFreshEntity(viciousTooth)) {
-                        viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
-                    }
+            while(blockpos$mutable.getY() < blockPos.getY() + 8.0D && !worldIn.getBlockState(blockpos$mutable).blocksMotion()) {
+                blockpos$mutable.move(Direction.UP);
+            }
+            if (worldIn.noCollision(new AABB(blockpos$mutable))){
+                ViciousTooth viciousTooth = new ViciousTooth(ModEntityType.VICIOUS_TOOTH.get(), worldIn);
+                viciousTooth.setPos(Vec3.atCenterOf(blockpos$mutable));
+                viciousTooth.setOwner(entityLiving);
+                viciousTooth.setExtraDamage(damage);
+                if (worldIn.addFreshEntity(viciousTooth)) {
+                    viciousTooth.playSound(ModSounds.TOOTH_SPAWN.get());
                 }
             }
         }

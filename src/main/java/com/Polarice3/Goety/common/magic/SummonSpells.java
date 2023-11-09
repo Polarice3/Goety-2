@@ -47,8 +47,8 @@ public abstract class SummonSpells extends Spells{
             if (owner.hasEffect(GoetyEffects.SUMMON_DOWN.get())) {
                 MobEffectInstance effectinstance = owner.getEffect(GoetyEffects.SUMMON_DOWN.get());
                 if (effectinstance != null) {
-                    summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Integer.MAX_VALUE, effectinstance.getAmplifier()));
-                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), Integer.MAX_VALUE, effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, -1, effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), -1, effectinstance.getAmplifier()));
                 }
             }
         }

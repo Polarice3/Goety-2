@@ -101,7 +101,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public Vizier(EntityType<? extends Vizier> type, Level worldIn) {
         super(type, worldIn);
-        ICustomAttributes.applyAttributesForEntity(type, this);
         this.moveControl = new MobUtil.MinionMoveControl(this);
         this.xpReward = 50;
         if (this.level.isClientSide){
@@ -293,8 +292,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.VizierHealth.get());
     }
 
     protected void defineSynchedData() {
@@ -496,6 +495,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             this.bossInfo.setName(this.getDisplayName());
         }
         this.flyWarn = compound.getBoolean("FlyWarn");
+        this.setConfigurableAttributes();
     }
 
     public void setCustomName(@Nullable Component name) {

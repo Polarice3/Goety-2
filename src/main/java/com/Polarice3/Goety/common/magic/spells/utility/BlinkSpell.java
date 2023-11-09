@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -35,7 +36,7 @@ public class BlinkSpell extends InstantCastSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         if (entityLiving instanceof Player player) {
             int enchantment = 0;
             if (WandUtil.enchantedFocus(player)) {

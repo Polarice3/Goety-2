@@ -7,10 +7,7 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ExplosionUtil;
-import com.Polarice3.Goety.utils.LootingExplosion;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -72,8 +69,8 @@ public class HauntedSkull extends Minion {
                 .add(Attributes.ATTACK_DAMAGE, SpellConfig.HauntedSkullDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), SpellConfig.HauntedSkullDamage.get());
     }
 
     public void tick() {

@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public class LaunchSpell extends InstantCastSpells {
@@ -31,7 +32,7 @@ public class LaunchSpell extends InstantCastSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         if (entityLiving instanceof Player player){
             int enchantment = 0;
             int duration = 1;
@@ -44,30 +45,8 @@ public class LaunchSpell extends InstantCastSpells {
                 player.setOnGround(false);
             }
             Vec3 vector3d = player.getLookAngle();
-            double d0 = 2.5D + (double) (enchantment/2);
-            player.setDeltaMovement(vector3d.x * d0, vector3d.y * d0, vector3d.z * d0);
-            player.hasImpulse = true;
-            player.fallDistance = 0;
-            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20 * duration));
-        }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
-    }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        if (entityLiving instanceof Player player){
-            int enchantment = 0;
-            int duration = 1;
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
-            }
-            player.hurtMarked = true;
-            if (!player.level.isClientSide){
-                player.setOnGround(false);
-            }
-            Vec3 vector3d = player.getLookAngle();
-            double d0 = 5.0D + (double) (enchantment/2);
+            double power = rightStaff(staff) ? 5.0D : 2.5D;
+            double d0 = power + (double) (enchantment/2);
             player.setDeltaMovement(vector3d.x * d0, vector3d.y * d0, vector3d.z * d0);
             player.hasImpulse = true;
             player.fallDistance = 0;

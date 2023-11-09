@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -68,8 +69,9 @@ public class Inquillager extends HuntingIllagerEntity{
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.InquillagerDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.InquillagerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.InquillagerDamage.get());
     }
 
     protected void defineSynchedData() {

@@ -3,6 +3,7 @@
   "icon": "goety:cursed_infuser",
   "category": "goety:intro",
   "sortnum": 4,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

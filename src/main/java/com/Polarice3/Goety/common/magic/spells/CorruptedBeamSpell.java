@@ -8,6 +8,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -23,8 +24,7 @@ public class CorruptedBeamSpell extends EverChargeSpells {
         return ModSounds.CORRUPT_BEAM_START.get();
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         List<CorruptedBeam> entities = worldIn.getEntitiesOfClass(CorruptedBeam.class, entityLiving.getBoundingBox().inflate(2.0F),
                 corruptedBeam -> corruptedBeam.getOwner() == entityLiving);
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);

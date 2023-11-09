@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -30,7 +31,7 @@ public class FireballSpell extends InstantCastSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         ModFireball smallFireballEntity = new ModFireball(worldIn,
                 entityLiving.getX() + vector3d.x / 2,
@@ -41,31 +42,18 @@ public class FireballSpell extends InstantCastSpells {
                 vector3d.z);
         smallFireballEntity.setOwner(entityLiving);
         worldIn.addFreshEntity(smallFireballEntity);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
-    }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        ModFireball smallFireballEntity = new ModFireball(worldIn,
-                entityLiving.getX() + vector3d.x / 2,
-                entityLiving.getEyeY() - 0.2,
-                entityLiving.getZ() + vector3d.z / 2,
-                vector3d.x,
-                vector3d.y,
-                vector3d.z);
-        smallFireballEntity.setOwner(entityLiving);
-        worldIn.addFreshEntity(smallFireballEntity);
-        for(int i = 0; i < 2; ++i) {
-            ModFireball smallFireballEntity2 = new ModFireball(worldIn,
-                    entityLiving.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
-                    entityLiving.getEyeY() - 0.2,
-                    entityLiving.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
-                    vector3d.x,
-                    vector3d.y,
-                    vector3d.z);
-            smallFireballEntity2.setOwner(entityLiving);
-            worldIn.addFreshEntity(smallFireballEntity2);
+        if (rightStaff(staff)) {
+            for (int i = 0; i < 2; ++i) {
+                ModFireball smallFireballEntity2 = new ModFireball(worldIn,
+                        entityLiving.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
+                        entityLiving.getEyeY() - 0.2,
+                        entityLiving.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
+                        vector3d.x,
+                        vector3d.y,
+                        vector3d.z);
+                smallFireballEntity2.setOwner(entityLiving);
+                worldIn.addFreshEntity(smallFireballEntity2);
+            }
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }

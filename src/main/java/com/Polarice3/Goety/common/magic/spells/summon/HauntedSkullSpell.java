@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class HauntedSkullSpell extends SummonSpells {
     public int burning = 0;
@@ -68,38 +69,14 @@ public class HauntedSkullSpell extends SummonSpells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-            BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
-            HauntedSkull summonedentity = new HauntedSkull(ModEntityType.HAUNTED_SKULL.get(), worldIn);
-            summonedentity.setOwnerId(entityLiving.getUUID());
-            summonedentity.moveTo(blockpos, 0.0F, 0.0F);
-            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-            summonedentity.setBoundOrigin(blockpos);
-            summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
-            if (enchantment > 0){
-                int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+            int i = 1;
+            if (rightStaff(staff)) {
+                i = 3;
             }
-            if (radius > 0){
-                summonedentity.setExplosionPower(1.0F + radius/4.0F);
-            }
-            if (burning > 0){
-                summonedentity.setBurning(burning);
-            }
-            this.setTarget(worldIn, entityLiving, summonedentity);
-            summonedentity.setUpgraded(this.NecroPower(entityLiving));
-            worldIn.addFreshEntity(summonedentity);
-            this.summonAdvancement(entityLiving, summonedentity);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, this.getSoundSource(), 1.0F, 1.0F);
-        }
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving);
-        if (!isShifting(entityLiving)) {
-            for (int i1 = 0; i1 < 3; ++i1) {
+            for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                 HauntedSkull summonedentity = new HauntedSkull(ModEntityType.HAUNTED_SKULL.get(), worldIn);
                 summonedentity.setOwnerId(entityLiving.getUUID());
@@ -107,14 +84,14 @@ public class HauntedSkullSpell extends SummonSpells {
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summonedentity.setBoundOrigin(blockpos);
                 summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
-                if (enchantment > 0){
+                if (enchantment > 0) {
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
                     summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
                 }
-                if (radius > 0){
-                    summonedentity.setExplosionPower(1.0F + radius/4.0F);
+                if (radius > 0) {
+                    summonedentity.setExplosionPower(1.0F + radius / 4.0F);
                 }
-                if (burning > 0){
+                if (burning > 0) {
                     summonedentity.setBurning(burning);
                 }
                 this.setTarget(worldIn, entityLiving, summonedentity);

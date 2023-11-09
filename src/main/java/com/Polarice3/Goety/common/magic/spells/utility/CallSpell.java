@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class CallSpell extends Spells {
     @Override
@@ -32,7 +33,7 @@ public class CallSpell extends Spells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         if (entityLiving instanceof ServerPlayer player) {
             if (!CallFocus.hasSummon(WandUtil.findFocus(player))){
                 player.displayClientMessage(Component.translatable("info.goety.focus.noSummon"), true);

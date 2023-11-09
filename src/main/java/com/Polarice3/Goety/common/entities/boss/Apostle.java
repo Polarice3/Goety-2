@@ -106,7 +106,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private static final AttributeModifier SPEED_MODIFIER_CASTING = new AttributeModifier(SPEED_MODIFIER_CASTING_UUID, "Casting speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
     protected static final EntityDataAccessor<Byte> BOSS_FLAGS = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Float> SPIN = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Boolean> HAT = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.BOOLEAN);
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true).setCreateWorldFog(true);
     public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
         return (owned instanceof ZombieVillagerServant || owned instanceof ZPiglinServant) && owned.getTrueOwner() == this;
@@ -168,15 +167,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 .add(Attributes.ATTACK_DAMAGE, 3.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ApostleHealth.get());
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BOSS_FLAGS, (byte)0);
         this.entityData.define(SPIN, 0.0F);
-        this.entityData.define(HAT, true);
     }
 
     private boolean getBossFlag(int mask) {
@@ -227,6 +225,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return pPotioneffect.getEffect() != GoetyEffects.BURN_HEX.get() && pPotioneffect.getEffect() != MobEffects.WITHER && super.canBeAffected(pPotioneffect);
     }
 
+    public int getExperienceReward() {
+        if (this.level.dimension() == Level.NETHER){
+            return this.xpReward * 12;
+        } else {
+            return this.xpReward;
+        }
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("firing", this.f);
@@ -243,7 +249,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         pCompound.putBoolean("secondPhase", this.isSecondPhase());
         pCompound.putBoolean("settingSecondPhase", this.isSettingUpSecond());
         pCompound.putBoolean("regen", this.regen);
-        pCompound.putBoolean("hat", this.hasHat());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -260,7 +265,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.moddedInvul = pCompound.getInt("moddedInvul");
         this.fireArrows = pCompound.getBoolean("fireArrows");
         this.regen = pCompound.getBoolean("regen");
-        this.setHat(pCompound.getBoolean("hat"));
         this.setTitleNumber(this.titleNumber);
         this.TitleEffect(this.titleNumber);
         this.setSecondPhase(pCompound.getBoolean("secondPhase"));
@@ -488,9 +492,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             case 7 -> this.setArrowEffect(MobEffects.HUNGER);
             case 8 -> this.setArrowEffect(MobEffects.MOVEMENT_SLOWDOWN);
             case 9 ->
-                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1, false, false), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, -1, 1, false, false), this);
             case 10 ->
-                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, -1, 0, false, false), this);
             case 11 -> this.setArrowEffect(GoetyEffects.SAPPED.get());
         }
     }
@@ -557,14 +561,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public float getSpin(){
         return this.entityData.get(SPIN);
-    }
-
-    public void setHat(boolean hat){
-        this.entityData.set(HAT, hat);
-    }
-
-    public boolean hasHat(){
-        return this.entityData.get(HAT);
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
@@ -702,7 +698,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         float trueAmount = this.level.dimension() == Level.NETHER ? pAmount / 2 : pAmount;
 
-        if (pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
+        if (pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && pSource.getEntity() == null){
             this.discard();
         }
 
@@ -725,7 +721,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {
-//        this.moddedInvul = 20;
+        if (p_21240_.is(DamageTypeTags.BYPASSES_COOLDOWN) || (p_21240_.is(DamageTypes.FELL_OUT_OF_WORLD) && p_21240_.getEntity() != null)) {
+            this.moddedInvul = 20;
+        }
         super.actuallyHurt(p_21240_, p_21241_);
     }
 
@@ -833,9 +831,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 } else {
                     this.setSpin(-3.14F);
                 }
-            }
-            if (this.isSecondPhase() && this.getHealth() < this.getMaxHealth()/2 && this.hasHat()){
-                this.setHat(false);
             }
             if (this.isSettingUpSecond()){
                 for(int i = 0; i < 40; ++i) {
@@ -1165,6 +1160,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
             if (this.getTarget() != null && this.getArrowEffect() == MobEffects.HARM && this.getTarget().isInvertedHealAndHarm()){
                 mobEffect = MobEffects.HEAL;
+            }
+            if (this.isSecondPhase() && this.getArrowEffect() == MobEffects.DARKNESS){
+                mobEffect = MobEffects.BLINDNESS;
             }
             deathArrow.addEffect(new MobEffectInstance(mobEffect, mobEffect.isInstantenous() ? 1 : 200, amp));
         }

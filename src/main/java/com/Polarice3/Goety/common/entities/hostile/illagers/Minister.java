@@ -129,8 +129,9 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.MinisterDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.MinisterHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.MinisterDamage.get());
     }
 
     @Override

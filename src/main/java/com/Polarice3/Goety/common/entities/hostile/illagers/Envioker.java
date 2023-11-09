@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -64,8 +65,9 @@ public class Envioker extends HuntingIllagerEntity {
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.EnviokerDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.EnviokerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.EnviokerDamage.get());
     }
 
     protected void defineSynchedData() {

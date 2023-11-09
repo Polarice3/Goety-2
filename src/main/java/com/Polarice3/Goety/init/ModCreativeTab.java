@@ -3,6 +3,8 @@ package com.Polarice3.Goety.init;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModSpawnEggs;
+import com.Polarice3.Goety.compat.patchouli.PatchouliIntegration;
+import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +29,10 @@ public class ModCreativeTab {
             .icon(() -> ModItems.TOTEM_OF_SOULS.get().getDefaultInstance())
             .title(Component.translatable("itemGroup.goety"))
             .displayItems((parameters, output) -> {
+                if (PatchouliLoaded.PATCHOULI.isLoaded()){
+                    output.accept(PatchouliIntegration.getBlackBook());
+                    output.accept(PatchouliIntegration.getWitchesBrew());
+                }
                 output.accept(ModItems.TOTEM_OF_SOULS.get().getEmptyTotem());
                 output.accept(ModItems.TOTEM_OF_SOULS.get().getFilledTotem());
                 output.accept(ModItems.TOTEM_OF_ROOTS.get().getEmptyTotem());

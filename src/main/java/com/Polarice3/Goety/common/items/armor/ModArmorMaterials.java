@@ -2,24 +2,27 @@ package com.Polarice3.Goety.common.items.armor;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.items.ModItems;
+import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
     //{feet, legs, chest, head}
 
     CURSED_KNIGHT("cursed_knight", MainConfig.CursedKnightDurability.get(),
-            new int[]{MainConfig.CursedKnightFeet.get(),
-                    MainConfig.CursedKnightLegs.get(),
-                    MainConfig.CursedKnightChest.get(),
-                    MainConfig.CursedKnightHead.get()},
+            Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+                p_266652_.put(ArmorItem.Type.BOOTS, MainConfig.CursedKnightFeet.get());
+                p_266652_.put(ArmorItem.Type.LEGGINGS, MainConfig.CursedKnightLegs.get());
+                p_266652_.put(ArmorItem.Type.CHESTPLATE, MainConfig.CursedKnightChest.get());
+                p_266652_.put(ArmorItem.Type.HELMET, MainConfig.CursedKnightHead.get());
+            }),
             MainConfig.CursedKnightEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
             MainConfig.CursedKnightToughness.get().floatValue(),
@@ -27,10 +30,12 @@ public enum ModArmorMaterials implements ArmorMaterial {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
     CURSED_PALADIN("cursed_paladin", MainConfig.CursedPaladinDurability.get(),
-            new int[]{MainConfig.CursedPaladinFeet.get(),
-                    MainConfig.CursedPaladinLegs.get(),
-                    MainConfig.CursedPaladinChest.get(),
-                    MainConfig.CursedPaladinHead.get()},
+            Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+                p_266652_.put(ArmorItem.Type.BOOTS, MainConfig.CursedPaladinFeet.get());
+                p_266652_.put(ArmorItem.Type.LEGGINGS, MainConfig.CursedPaladinLegs.get());
+                p_266652_.put(ArmorItem.Type.CHESTPLATE, MainConfig.CursedPaladinChest.get());
+                p_266652_.put(ArmorItem.Type.HELMET, MainConfig.CursedPaladinHead.get());
+            }),
             MainConfig.CursedPaladinEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
             MainConfig.CursedPaladinToughness.get().floatValue(),
@@ -38,10 +43,12 @@ public enum ModArmorMaterials implements ArmorMaterial {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
     DARK("dark", MainConfig.DarkArmorDurability.get(),
-            new int[]{MainConfig.DarkArmorFeet.get(),
-                    MainConfig.DarkArmorLegs.get(),
-                    MainConfig.DarkArmorChest.get(),
-                    MainConfig.DarkArmorHead.get()},
+            Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+                p_266652_.put(ArmorItem.Type.BOOTS, MainConfig.DarkArmorFeet.get());
+                p_266652_.put(ArmorItem.Type.LEGGINGS, MainConfig.DarkArmorLegs.get());
+                p_266652_.put(ArmorItem.Type.CHESTPLATE, MainConfig.DarkArmorChest.get());
+                p_266652_.put(ArmorItem.Type.HELMET, MainConfig.DarkArmorHead.get());
+            }),
             MainConfig.DarkArmorEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
             MainConfig.DarkArmorToughness.get().floatValue(),
@@ -50,19 +57,25 @@ public enum ModArmorMaterials implements ArmorMaterial {
     });
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
+    private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {
+        p_266653_.put(ArmorItem.Type.BOOTS, 13);
+        p_266653_.put(ArmorItem.Type.LEGGINGS, 15);
+        p_266653_.put(ArmorItem.Type.CHESTPLATE, 16);
+        p_266653_.put(ArmorItem.Type.HELMET, 11);
+    });
     private final String name;
     private final int durabilityMultiplier;
-    private final int[] slotProtections;
+    private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
     private final int enchantmentValue;
     private final SoundEvent sound;
     private final float toughness;
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    ModArmorMaterials(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+    ModArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
-        this.slotProtections = slotProtections;
+        this.protectionFunctionForType = protectionFunctionForType;
         this.enchantmentValue = enchantmentValue;
         this.sound = soundEvent;
         this.toughness = toughness;
@@ -70,22 +83,14 @@ public enum ModArmorMaterials implements ArmorMaterial {
         this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
     }
 
-    public int getDurabilityForSlot(EquipmentSlot p_40484_) {
-        return HEALTH_PER_SLOT[p_40484_.getIndex()] * this.durabilityMultiplier;
-    }
-
-    public int getDefenseForSlot(EquipmentSlot p_40487_) {
-        return this.slotProtections[p_40487_.getIndex()];
+    @Override
+    public int getDurabilityForType(ArmorItem.Type p_266745_) {
+        return HEALTH_FUNCTION_FOR_TYPE.get(p_266745_) * this.durabilityMultiplier;
     }
 
     @Override
-    public int getDurabilityForType(ArmorItem.Type p_266807_) {
-        return 0;
-    }
-
-    @Override
-    public int getDefenseForType(ArmorItem.Type p_267168_) {
-        return 0;
+    public int getDefenseForType(ArmorItem.Type p_266752_) {
+        return this.protectionFunctionForType.get(p_266752_);
     }
 
     public int getEnchantmentValue() {

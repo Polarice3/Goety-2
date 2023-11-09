@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -34,7 +35,7 @@ public class IceChunkSpell extends Spells {
         return SpellType.FROST;
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         int range = 16;
         double radius = 2.0D;
         float damage = 0.0F;

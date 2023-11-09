@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -63,11 +64,7 @@ public class UpdraftSpell extends Spells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 16);
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 32);
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
+        commonResult(worldIn, entityLiving, rightStaff(staff) ? 32 : 16);
     }
 }

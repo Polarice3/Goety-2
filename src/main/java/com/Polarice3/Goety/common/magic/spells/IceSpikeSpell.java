@@ -9,6 +9,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class IceSpikeSpell extends Spells {
 
@@ -28,8 +29,7 @@ public class IceSpikeSpell extends Spells {
         return SpellType.FROST;
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         float enchantment = 0;
         if (WandUtil.enchantedFocus(entityLiving)) {
             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 3.0F;

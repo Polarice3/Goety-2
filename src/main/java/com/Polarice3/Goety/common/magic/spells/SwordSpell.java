@@ -33,8 +33,7 @@ public class SwordSpell extends InstantCastSpells {
         return entityLiving.getMainHandItem().getItem() instanceof SwordItem || entityLiving.getOffhandItem().getItem() instanceof SwordItem;
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         float enchantment = 0;
         if (WandUtil.enchantedFocus(entityLiving)) {
             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 3.0F;

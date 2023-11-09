@@ -18,10 +18,6 @@ public class BurySpell extends TouchSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
-    }
-
-    @Override
     public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target) {
         target.setPos(target.getX(), target.getY() - target.getBbHeight(), target.getZ());
         worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);

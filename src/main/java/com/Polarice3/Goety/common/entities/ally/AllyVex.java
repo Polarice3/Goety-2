@@ -4,6 +4,7 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.MinionFollowGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -59,8 +60,9 @@ public class AllyVex extends Minion {
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SummonedVexDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SummonedVexHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SummonedVexDamage.get());
     }
 
     protected SoundEvent getAmbientSound() {

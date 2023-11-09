@@ -7,6 +7,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public class MagicBoltSpell extends InstantCastSpells {
@@ -21,8 +22,7 @@ public class MagicBoltSpell extends InstantCastSpells {
         return ModSounds.CAST_SPELL.get();
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         MagicBolt soulBolt = new MagicBolt(worldIn,
                 entityLiving.getX() + vector3d.x / 2,

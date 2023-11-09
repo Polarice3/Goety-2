@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class SoulLightSpell extends InstantCastSpells {
 
@@ -20,8 +21,7 @@ public class SoulLightSpell extends InstantCastSpells {
         return SoundEvents.EGG_THROW;
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         SoulLight soulLightEntity = new SoulLight(worldIn, entityLiving);
         soulLightEntity.setOwner(entityLiving);
         soulLightEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.5F, 1.0F);

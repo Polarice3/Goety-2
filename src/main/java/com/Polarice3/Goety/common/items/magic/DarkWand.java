@@ -126,7 +126,7 @@ public class DarkWand extends Item {
 
     public boolean ReduceCastTime(LivingEntity entityLiving, ItemStack stack){
         if (getSpell(stack) != null && getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
-            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get());
+            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get()) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         } else {
             return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         }
@@ -417,11 +417,7 @@ public class DarkWand extends Item {
             if (this.getSpell(stack) != null) {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
-                        if (hasAppropriateStaff(stack)) {
-                            this.getSpell(stack).StaffResult(serverWorld, caster);
-                        } else {
-                            this.getSpell(stack).RegularResult(serverWorld, caster);
-                        }
+                        this.getSpell(stack).SpellResult(serverWorld, caster, stack);
                         if (SpellConfig.WandCooldown.get()){
                             playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
                         }
@@ -453,11 +449,7 @@ public class DarkWand extends Item {
                         }
                     }
                     if (stack.getTag() != null) {
-                        if (hasAppropriateStaff(stack)) {
-                            this.getSpell(stack).StaffResult(serverWorld, caster);
-                        } else {
-                            this.getSpell(stack).RegularResult(serverWorld, caster);
-                        }
+                        this.getSpell(stack).SpellResult(serverWorld, caster, stack);
                         if (SpellConfig.WandCooldown.get()){
                             playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
                         }

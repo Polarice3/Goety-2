@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -83,11 +84,7 @@ public class LightningSpell extends Spells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 16, false);
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        commonResult(worldIn, entityLiving, 16, true);
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
+        commonResult(worldIn, entityLiving, 16, rightStaff(staff));
     }
 }
