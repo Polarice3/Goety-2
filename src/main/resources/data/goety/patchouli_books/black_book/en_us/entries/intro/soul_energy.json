@@ -3,6 +3,7 @@
   "icon": "goety:totem_of_roots",
   "category": "goety:intro",
   "sortnum": 2,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

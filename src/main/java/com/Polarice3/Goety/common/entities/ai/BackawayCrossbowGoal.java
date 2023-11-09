@@ -93,7 +93,7 @@ public class BackawayCrossbowGoal<T extends PathfinderMob & RangedAttackMob & Cr
             if (this.strafingTime > -1) {
                 this.strafingBackwards = (d0 < (double)(this.attackRadiusSqr * 0.25F));
 
-                this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.75F : (float) this.speedModifier, 0.0F);
+                this.mob.getMoveControl().strafe(this.strafingBackwards ? (float) -this.speedModifier : (float) this.speedModifier, 0.0F);
                 this.mob.lookAt(livingentity, 30.0F, 30.0F);
             } else {
                 this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);

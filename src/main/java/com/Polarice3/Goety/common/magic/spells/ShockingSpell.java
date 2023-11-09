@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
@@ -76,12 +77,7 @@ public class ShockingSpell extends EverChargeSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving, 16, false);
-    }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving, 16, true);
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
+        this.commonResult(worldIn, entityLiving, 16, rightStaff(staff));
     }
 }

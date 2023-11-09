@@ -105,8 +105,9 @@ public class RedstoneGolem extends AbstractGolemServant {
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.RedstoneGolemHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.RedstoneGolemDamage.get());
     }
 
     protected void defineSynchedData() {

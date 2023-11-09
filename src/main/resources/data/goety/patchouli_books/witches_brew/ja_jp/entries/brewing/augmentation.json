@@ -1,0 +1,40 @@
+{
+  "name": "増強",
+  "icon": "minecraft:glowstone_dust",
+  "category": "goety:brewing",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ビールを強化する方法はたくさんあります。 初心者は、レッドストーンを追加すると持続時間が長くなり、グロウストーンが威力を高めることを知っておく必要がありますが、それだけではありません。 容量と同じように、材料も順番に並べる必要があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)間隔$()$(br)$(li)$(item)レッドストーンダスト$()$(li2)コストの増加 - x1.25 $(li)$(item)プリズマリンブロック$()$(li2)コストの増加 - x1.5 $(li)$(item)コーラスフラワー$()$(li2)コストの増加 - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)エフェクトを増幅する$()$(br)$(li)$(item)グロウストーンダスト$()$(li2)コストの増加 - x2 $(li)$(item)ブレイズロッド$()$(li2)コストの増加 - x2.5 $(li)$(item)ミスティックコア$()$(li2)コストの増加 - x3"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)効果範囲$()$(br)$(li)$(item)Charcoal$()$(li2)コストの増加 - x1.25 $(li)$(item)Firework Star$()$(li2)コストの増加 - x1.5 $(li)$(item)トールスカル$()$(li2)コストの増加 - x2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)長引く$()$(br)$(li)$(item)垂れ根$()$(li2)コストの増加 - x1.25 $(li)$(item)レッドストーンダスト$()$(li2)コストの増加 - x1.25 $(li)$(item)Spore Blossom$()$(li2)コストの増加 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)飲酒速度$()$(br)$(li)$(item)はちみつ入りの瓶$()$(li2)コストの増加 - x1.25 $(li)$(item)グロー・リチェン$()$(li2)コストの増加 - x1.25 $(li)$(item)Turtle Egg$()$(li2)コストの増加 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)投げる速度$()$(br)$(li)$(item)雪玉$()$(li2)コストの増加 - x1.25 $(li)$(item)Bow$()$(li2)コストの増加 - x1.25 $(li)$(item)クロスボウ$()$(li2)コストの増加 - x1.25"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)追加l$()$(br)$(li)$(item)火薬$()$(li2)ブリュースプラッシュを作る $(li)$(item)ドラゴンブレス$()$(li2)作る Brew Lingering $(li2)Brew は事前に Splash に切り替える必要があります。 $(li)$(item)ウィンド コア$()$(li2)醸造をガス状にする $(li2)事前に醸造を残留に切り替える必要があります。 $(li)$(item)エンダーアイ$()$(li2)エフェクト パーティクルを非表示にします。"
+    }
+  ]
+}

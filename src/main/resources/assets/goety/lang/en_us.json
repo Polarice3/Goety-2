@@ -779,7 +779,6 @@
 
   "spell.goety.none": "§eMagic§e",
   "spell.goety.necromancy": "§2Necromancy§2",
-  "spell.goety.lich": "§eMagic§e",
   "spell.goety.nether": "§4Nether§4",
   "spell.goety.ill": "§eMagic§e",
   "spell.goety.frost": "§9Frost§9",
@@ -824,6 +823,8 @@
   "painting.goety.mraeg_joey.title": "Mraeg Joey",
   "painting.goety.revelation.author": "Unknown",
   "painting.goety.revelation.title": "Revelation",
+  "painting.goety.ruby.author": "Alexander P.",
+  "painting.goety.ruby.title": "Ruby",
   "painting.goety.stonedrake.author": "Yog",
   "painting.goety.stonedrake.title": "The Stone Drake",
   "painting.goety.thepants.author": "Polarice",

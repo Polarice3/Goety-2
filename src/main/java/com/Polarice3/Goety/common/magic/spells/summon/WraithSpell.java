@@ -18,6 +18,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.ItemStack;
 
 public class WraithSpell extends SummonSpells {
 
@@ -62,54 +63,33 @@ public class WraithSpell extends SummonSpells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving);
-        if (!isShifting(entityLiving))  {
-            WraithServant summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), worldIn);
-            summonedentity.setOwnerId(entityLiving.getUUID());
-            summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
-            MobUtil.moveDownToGround(summonedentity);
-            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-            summonedentity.setPersistenceRequired();
-            summonedentity.setUpgraded(this.NecroPower(entityLiving));
-            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-            if (enchantment > 0){
-                int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
-            }
-            this.SummonSap(entityLiving, summonedentity);
-            this.setTarget(worldIn, entityLiving, summonedentity);
-            worldIn.addFreshEntity(summonedentity);
-            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
-            this.SummonDown(entityLiving);
-            this.summonAdvancement(entityLiving, entityLiving);
-
-        }
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-                for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(4); ++i1) {
-                    WraithServant summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), worldIn);
-                    summonedentity.setOwnerId(entityLiving.getUUID());
-                    summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
-                    MobUtil.moveDownToGround(summonedentity);
-                    summonedentity.setPersistenceRequired();
-                    summonedentity.setUpgraded(this.NecroPower(entityLiving));
-                    summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                    summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    if (enchantment > 0){
-                        int boost = Mth.clamp(enchantment - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
-                    }
-                    this.SummonSap(entityLiving, summonedentity);
-                    this.setTarget(worldIn, entityLiving, summonedentity);
-                    worldIn.addFreshEntity(summonedentity);
-                    this.summonAdvancement(entityLiving, entityLiving);
-                }
-                this.SummonDown(entityLiving);
-                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            int i = 1;
+            if (rightStaff(staff)){
+                i = 2 + entityLiving.level.random.nextInt(4);
             }
+            for (int i1 = 0; i1 < i; ++i1) {
+                WraithServant summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), worldIn);
+                summonedentity.setOwnerId(entityLiving.getUUID());
+                summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
+                MobUtil.moveDownToGround(summonedentity);
+                summonedentity.setPersistenceRequired();
+                summonedentity.setUpgraded(this.NecroPower(entityLiving));
+                summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
+                summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                if (enchantment > 0){
+                    int boost = Mth.clamp(enchantment - 1, 0, 10);
+                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                }
+                this.SummonSap(entityLiving, summonedentity);
+                this.setTarget(worldIn, entityLiving, summonedentity);
+                worldIn.addFreshEntity(summonedentity);
+                this.summonAdvancement(entityLiving, entityLiving);
+            }
+            this.SummonDown(entityLiving);
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+        }
     }
 }

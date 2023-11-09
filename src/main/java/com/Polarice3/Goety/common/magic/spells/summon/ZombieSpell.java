@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraftforge.common.Tags;
@@ -72,53 +74,16 @@ public class ZombieSpell extends SummonSpells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-            Summoned summonedentity;
-            BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
-            if (entityLiving.isUnderWater()){
-                blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
+            int i = 1;
+            if (staff.is(ModItems.NAMELESS_STAFF.get())){
+                i = 7;
+            } else if (rightStaff(staff)){
+                i = 2 + entityLiving.level.random.nextInt(6);
             }
-            if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
-                summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
-            } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_DESERT) && worldIn.canSeeSky(blockPos)){
-                summonedentity = new HuskServant(ModEntityType.HUSK_SERVANT.get(), worldIn);
-            } else if (worldIn.dimension() == Level.NETHER){
-                Summoned summoned = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
-                if (worldIn.random.nextFloat() <= 0.25F && BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.BASTION_REMNANT)){
-                    summoned = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), worldIn);
-                }
-                summonedentity = summoned;
-            } else {
-                summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
-            }
-            summonedentity.setOwnerId(entityLiving.getUUID());
-            summonedentity.moveTo(blockPos, 0.0F, 0.0F);
-            if (summonedentity.getType() != ModEntityType.DROWNED_SERVANT.get()){
-                MobUtil.moveDownToGround(summonedentity);
-            }
-            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-            summonedentity.setPersistenceRequired();
-            summonedentity.setUpgraded(this.NecroPower(entityLiving));
-            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED,null,null);
-            if (enchantment > 0){
-                int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
-            }
-            this.SummonSap(entityLiving, summonedentity);
-            this.setTarget(worldIn, entityLiving, summonedentity);
-            worldIn.addFreshEntity(summonedentity);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
-            this.SummonDown(entityLiving);
-            this.summonAdvancement(entityLiving, entityLiving);
-        }
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving);
-        if (!isShifting(entityLiving)) {
-            for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(4); ++i1) {
+            for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity;
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
                 if (entityLiving.isUnderWater()){

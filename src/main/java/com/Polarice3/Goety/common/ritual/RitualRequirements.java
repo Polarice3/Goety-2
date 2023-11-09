@@ -93,7 +93,7 @@ public class RitualRequirements {
                     pTileEntity.third.add(pPos);
                 }
             case "magic":
-                if (pState.is(Tags.Blocks.BOOKSHELVES)) {
+                if (pState.is(Tags.Blocks.BOOKSHELVES) || pState.getBlock().getDescriptionId().contains("bookshelf")) {
                     pTileEntity.first.add(pPos);
                 }
                 if (pState.getBlock() instanceof LecternBlock) {

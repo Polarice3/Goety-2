@@ -2,11 +2,11 @@ package com.Polarice3.Goety.common.entities.hostile.cultists;
 
 import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -26,7 +26,6 @@ public class Cultist extends Raider implements ICustomAttributes {
 
     protected Cultist(EntityType<? extends Cultist> type, Level worldIn) {
         super(type, worldIn);
-        ICustomAttributes.applyAttributesForEntity(type, this);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
         this.getNavigation().setCanFloat(true);
@@ -43,8 +42,12 @@ public class Cultist extends Raider implements ICustomAttributes {
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, Witch.class)).setAlertOthers());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return null;
+    public void setConfigurableAttributes(){
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setConfigurableAttributes();
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {

@@ -99,8 +99,8 @@ public class Codger extends Cultist implements RangedAttackMob, IBoss {
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.CroneHealth.get());
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {

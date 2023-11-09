@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class RecallSpell extends Spells {
     @Override
@@ -31,8 +32,7 @@ public class RecallSpell extends Spells {
         return RecallFocus.isValid(worldIn, WandUtil.findFocus(entityLiving));
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         if (entityLiving instanceof ServerPlayer player) {
             if (RecallFocus.isValid(worldIn, WandUtil.findFocus(player))) {
                 RecallFocus.recall(player, WandUtil.findFocus(player));

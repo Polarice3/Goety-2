@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.VanguardServant;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class VanguardSpell extends SummonSpells {
 
@@ -69,35 +71,16 @@ public class VanguardSpell extends SummonSpells {
         }
     }
 
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
-            BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
-            VanguardServant summonedentity = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), worldIn);
-            summonedentity.setTrueOwner(entityLiving);
-            summonedentity.moveTo(blockPos, 0.0F, 0.0F);
-            MobUtil.moveDownToGround(summonedentity);
-            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-            summonedentity.setPersistenceRequired();
-            summonedentity.setUpgraded(this.NecroPower(entityLiving));
-            if (enchantment > 0){
-                int boost = Mth.clamp(enchantment - 1, 0, 10);
-                summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
+            int i = 1;
+            if (staff.is(ModItems.NAMELESS_STAFF.get())){
+                i = 7;
+            } else if (rightStaff(staff)){
+                i = 2 + entityLiving.level.random.nextInt(6);
             }
-            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-            this.SummonSap(entityLiving, summonedentity);
-            this.setTarget(worldIn, entityLiving, summonedentity);
-            worldIn.addFreshEntity(summonedentity);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.VANGUARD_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
-            this.SummonDown(entityLiving);
-            this.summonAdvancement(entityLiving, summonedentity);
-        }
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.commonResult(worldIn, entityLiving);
-        if (!isShifting(entityLiving)) {
-            for (int i1 = 0; i1 < 2 + entityLiving.level.random.nextInt(6); ++i1) {
+            for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
                 VanguardServant summonedentity = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), worldIn);
                 summonedentity.setTrueOwner(entityLiving);

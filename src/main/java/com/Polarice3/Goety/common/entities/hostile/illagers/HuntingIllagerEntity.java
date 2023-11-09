@@ -12,7 +12,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -39,7 +38,6 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager implements
 
     protected HuntingIllagerEntity(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i48551_1_, this);
     }
 
     protected void registerGoals() {
@@ -55,8 +53,7 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager implements
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return null;
+    public void setConfigurableAttributes(){
     }
 
     public void tick(){
@@ -152,6 +149,7 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager implements
         }
 
         this.setCanPickUpLoot(true);
+        this.setConfigurableAttributes();
     }
 
     public void pickUpItem(ItemEntity pItemEntity) {

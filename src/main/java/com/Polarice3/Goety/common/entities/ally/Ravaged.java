@@ -80,10 +80,6 @@ public class Ravaged extends Summoned {
                 .add(Attributes.ARMOR, 2.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ID_SIZE, 0);

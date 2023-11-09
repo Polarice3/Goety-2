@@ -67,10 +67,6 @@ public class Warlock extends Cultist implements RangedAttackMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
-    }
-
     public void addAdditionalSaveData(CompoundTag p_33353_) {
         super.addAdditionalSaveData(p_33353_);
         p_33353_.putInt("CoolDown", this.coolDown);

@@ -95,7 +95,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
 
     public SkullLord(EntityType<? extends SkullLord> p_i50190_1_, Level p_i50190_2_) {
         super(p_i50190_1_, p_i50190_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i50190_1_, this);
         this.navigation = this.createNavigation(p_i50190_2_);
         this.shootTime = 0;
         this.moveControl = new MobUtil.MinionMoveControl(this);
@@ -123,8 +122,9 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                 .add(Attributes.MAX_HEALTH, AttributesConfig.SkullLordHealth.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SkullLordHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SkullLordDamage.get());
     }
 
     public void move(MoverType typeIn, Vec3 pos) {
@@ -848,6 +848,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
+        this.setConfigurableAttributes();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {

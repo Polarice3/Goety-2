@@ -24,10 +24,6 @@ public class ChargeSpell extends TouchSpells {
     }
 
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
-    }
-
-    @Override
     public void touchResult(ServerLevel worldIn, LivingEntity caster, LivingEntity target) {
         if (!target.hasEffect(GoetyEffects.CHARGED.get())) {
             worldIn.playSound(null, target.getX(), target.getY(), target.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 0.5F);

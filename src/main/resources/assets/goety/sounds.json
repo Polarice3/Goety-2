@@ -1205,32 +1205,25 @@
   "grave_golem_ambient": {
     "sounds": [
       {
-        "name": "goety:grave_golem/idle1",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle1"
       },
       {
-        "name": "goety:grave_golem/idle2",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle2"
       },
       {
-        "name": "goety:grave_golem/idle3",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle3"
       },
       {
-        "name": "goety:grave_golem/idle4",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle4"
       },
       {
-        "name": "goety:grave_golem/idle5",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle5"
       },
       {
-        "name": "goety:grave_golem/idle6",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle6"
       },
       {
-        "name": "goety:grave_golem/idle7",
-        "pitch": 0.75
+        "name": "goety:grave_golem/idle7"
       }
     ],
     "subtitle": "subtitle.goety.grave_golem_ambient"
@@ -1238,20 +1231,16 @@
   "grave_golem_hurt": {
     "sounds": [
       {
-        "name": "goety:grave_golem/hurt1",
-        "pitch": 0.75
+        "name": "goety:grave_golem/hurt1"
       },
       {
-        "name": "goety:grave_golem/hurt2",
-        "pitch": 0.75
+        "name": "goety:grave_golem/hurt2"
       },
       {
-        "name": "goety:grave_golem/hurt3",
-        "pitch": 0.75
+        "name": "goety:grave_golem/hurt3"
       },
       {
-        "name": "goety:grave_golem/hurt4",
-        "pitch": 0.75
+        "name": "goety:grave_golem/hurt4"
       }
     ],
     "subtitle": "subtitle.goety.grave_golem_hurt"
@@ -1297,8 +1286,7 @@
   "grave_golem_growl": {
     "sounds": [
       {
-        "name": "goety:grave_golem/short_growl",
-        "pitch": 0.75
+        "name": "goety:grave_golem/short_growl"
       }
     ],
     "subtitle": "subtitle.goety.grave_golem_growl"

@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public class FlyingSpell extends EverChargeSpells {
@@ -48,12 +49,11 @@ public class FlyingSpell extends EverChargeSpells {
         }
     }
 
-    @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        this.CommonResult(worldIn, entityLiving, 0.5D);
-    }
-
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving){
-        this.CommonResult(worldIn, entityLiving, 1.0D);
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
+        double d = 0.5D;
+        if (rightStaff(staff)){
+            d = 1.0D;
+        }
+        this.CommonResult(worldIn, entityLiving, d);
     }
 }

@@ -88,8 +88,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 .add(Attributes.ARMOR, 2.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.NecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.NecromancerDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -409,7 +410,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
                 AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
                 this.castSpell();
-                AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
+                AbstractNecromancer.this.setSpellType(SpellType.NONE);
             }
         }
 
@@ -431,7 +432,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             return ModSounds.SUMMON_SPELL.get();
         }
 
-        protected abstract AbstractNecromancer.SpellType getSpellType();
+        protected abstract SpellType getSpellType();
     }
 
     public class SummonZombieSpell extends UseSpellGoal {
@@ -452,8 +453,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     int j = 7 - i;
                     for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(j); ++i1) {
                         Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
-                        if (AbstractNecromancer.this.hasAlternateSummon()){
-                            if (serverLevel.random.nextBoolean()){
+                        if (AbstractNecromancer.this.hasAlternateSummon()) {
+                            if (serverLevel.random.nextBoolean()) {
                                 summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
                             }
                         }
@@ -465,7 +466,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         summonedentity.setPersistenceRequired();
                         summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(AbstractNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                         this.populateDefaultEquipmentSlots(summonedentity, serverLevel.random);
-                        if (serverLevel.addFreshEntity(summonedentity)){
+                        if (serverLevel.addFreshEntity(summonedentity)) {
                             summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
                         }
                     }
@@ -565,7 +566,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             --this.spellTime;
             if (this.spellTime == 0) {
                 AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
-                AbstractNecromancer.this.setSpellType(AbstractNecromancer.SpellType.NONE);
+                AbstractNecromancer.this.setSpellType(SpellType.NONE);
                 if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
                     Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
                     if (AbstractNecromancer.this.random.nextFloat() <= 0.25F){
@@ -748,8 +749,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             this.particleSpeed = color;
         }
 
-        public static AbstractNecromancer.SpellType getFromId(int idIn) {
-            for(AbstractNecromancer.SpellType spellType : values()) {
+        public static SpellType getFromId(int idIn) {
+            for(SpellType spellType : values()) {
                 if (idIn == spellType.id) {
                     return spellType;
                 }

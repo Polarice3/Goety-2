@@ -3,6 +3,7 @@
   "icon": "goety:cursed_cage",
   "category": "goety:intro",
   "sortnum": 7,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

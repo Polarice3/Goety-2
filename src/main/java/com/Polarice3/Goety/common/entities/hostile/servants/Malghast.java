@@ -4,6 +4,7 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.ExplosiveProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.GrandLavaball;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -139,8 +140,8 @@ public class Malghast extends OwnedFlying {
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.MalghastHealth.get());
     }
 
     protected SoundEvent getAmbientSound() {

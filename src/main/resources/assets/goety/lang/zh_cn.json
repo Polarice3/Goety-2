@@ -141,6 +141,7 @@
   "entity.goety.blast_fungus":"爆破菌团",
   "entity.goety.berserk_fungus":"狂暴菌团",
   "entity.goety.fire_tornado":"燃烧龙卷风",
+  "entity.goety.falling_block": "坠落的方块",
   "entity.goety.corrupted_beam":"腐化光束",
 
   "entity.goety.boat":"船",
@@ -778,7 +779,6 @@
 
   "spell.goety.none": "§e魔法§e",
   "spell.goety.necromancy": "§2死灵§2",
-  "spell.goety.lich": "§e魔法§e",
   "spell.goety.nether": "§4下界§4",
   "spell.goety.ill": "§e魔法§e",
   "spell.goety.frost": "§9霜冻§9",
@@ -823,6 +823,8 @@
   "painting.goety.mraeg_joey.title": "Mraeg Joey",
   "painting.goety.revelation.author": "Unknown",
   "painting.goety.revelation.title": "Revelation",
+  "painting.goety.ruby.author": "Alexander P.",
+  "painting.goety.ruby.title": "Ruby",
   "painting.goety.stonedrake.author": "Yog",
   "painting.goety.stonedrake.title": "The Stone Drake",
   "painting.goety.thepants.author": "Polarice",

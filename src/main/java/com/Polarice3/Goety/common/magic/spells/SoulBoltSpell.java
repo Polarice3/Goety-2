@@ -3,11 +3,14 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.InstantCastSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -25,37 +28,29 @@ public class SoulBoltSpell extends InstantCastSpells {
         return ModSounds.CAST_SPELL.get();
     }
 
-    public SpellType getSpellType(){
-        return SpellType.LICH;
-    }
-
     @Override
-    public void RegularResult(ServerLevel worldIn, LivingEntity entityLiving) {
+    public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        SoulBolt soulBolt = new SoulBolt(
+        SoundEvent soundEvent = ModSounds.CAST_SPELL.get();
+        AbstractHurtingProjectile soulBolt = new SoulBolt(
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
                 entityLiving.getZ() + vector3d.z / 2,
                 vector3d.x,
                 vector3d.y,
                 vector3d.z, worldIn);
+        if (staff.is(ModItems.NAMELESS_STAFF.get())) {
+            soulBolt = new NecroBolt(
+                    entityLiving.getX() + vector3d.x / 2,
+                    entityLiving.getEyeY() - 0.2,
+                    entityLiving.getZ() + vector3d.z / 2,
+                    vector3d.x,
+                    vector3d.y,
+                    vector3d.z, worldIn);
+            soundEvent = ModSounds.NECRO_CAST.get();
+        }
         soulBolt.setOwner(entityLiving);
         worldIn.addFreshEntity(soulBolt);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
-    }
-
-    @Override
-    public void StaffResult(ServerLevel worldIn, LivingEntity entityLiving) {
-        Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        NecroBolt soulBolt = new NecroBolt(
-                entityLiving.getX() + vector3d.x / 2,
-                entityLiving.getEyeY() - 0.2,
-                entityLiving.getZ() + vector3d.z / 2,
-                vector3d.x,
-                vector3d.y,
-                vector3d.z, worldIn);
-        soulBolt.setOwner(entityLiving);
-        worldIn.addFreshEntity(soulBolt);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.NECRO_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F);
     }
 }

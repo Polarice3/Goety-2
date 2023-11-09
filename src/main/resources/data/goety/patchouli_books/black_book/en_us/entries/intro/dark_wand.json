@@ -3,6 +3,7 @@
   "icon": "goety:dark_wand",
   "category": "goety:intro",
   "sortnum": 6,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

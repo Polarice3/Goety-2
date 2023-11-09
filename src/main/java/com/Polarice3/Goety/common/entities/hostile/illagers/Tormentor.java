@@ -47,7 +47,6 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
 
     public Tormentor(EntityType<? extends AbstractIllager> p_i50190_1_, Level p_i50190_2_) {
         super(p_i50190_1_, p_i50190_2_);
-        ICustomAttributes.applyAttributesForEntity(p_i50190_1_, this);
         this.moveControl = new MobUtil.MinionMoveControl(this);
         this.xpReward = 6;
     }
@@ -75,8 +74,9 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.TormentorDamage.get());
     }
 
-    public AttributeSupplier.Builder getConfiguredAttributes(){
-        return setCustomAttributes();
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.TormentorHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.TormentorDamage.get());
     }
 
     public void tick() {
@@ -137,7 +137,7 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
         if (pCompound.contains("LifeTicks")) {
             this.setLimitedLife(pCompound.getInt("LifeTicks"));
         }
-
+        this.setConfigurableAttributes();
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
