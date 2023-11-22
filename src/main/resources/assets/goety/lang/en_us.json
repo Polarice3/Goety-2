@@ -107,6 +107,8 @@
   "entity.goety.tormentor":"Tormentor",
   "entity.goety.inquillager":"Inquillager",
   "entity.goety.conquillager":"Conquillager",
+  "entity.goety.piker":"Piker",
+  "entity.goety.preacher":"Preacher",
 
   "entity.goety.minister":"Minister",
 
@@ -186,6 +188,8 @@
   "item.goety.tormentor_spawn_egg": "Tormentor Spawn Egg",
   "item.goety.inquillager_spawn_egg": "Inquillager Spawn Egg",
   "item.goety.conquillager_spawn_egg": "Conquillager Spawn Egg",
+  "item.goety.piker_spawn_egg": "Piker Spawn Egg",
+  "item.goety.preacher_spawn_egg": "Preacher Spawn Egg",
   "item.goety.minister_spawn_egg": "Minister Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
@@ -866,6 +870,18 @@
   "subtitle.goety.conquillager_celebrate": "Conquillager cheers",
   "subtitle.goety.conquillager_death": "Conquillager dies",
 
+  "subtitle.goety.piker_ambient": "Piker pikes",
+  "subtitle.goety.piker_hurt": "Piker hurts",
+  "subtitle.goety.piker_swing": "Piker swing",
+  "subtitle.goety.piker_pike": "Piker stabs",
+  "subtitle.goety.piker_celebrate": "Piker cheers",
+  "subtitle.goety.piker_death": "Piker dies",
+
+  "subtitle.goety.preacher_ambient": "Preacher preaches",
+  "subtitle.goety.preacher_hurt": "Preacher hurts",
+  "subtitle.goety.preacher_cast": "Preacher heals",
+  "subtitle.goety.preacher_death": "Preacher dies",
+
   "subtitle.goety.minister_ambient": "Minister ministers",
   "subtitle.goety.minister_hurt": "Minister hurts",
   "subtitle.goety.minister_laugh": "Minister mockingly laughs",
@@ -988,6 +1004,7 @@
   "subtitle.goety.vanguard_summon": "Summon Spell",
   "subtitle.goety.bolt_impact": "Soul Bolt Impact",
   "subtitle.goety.soul_explode": "Soul Explosion",
+  "subtitle.goety.heal_spell": "Heal Spell",
   "subtitle.goety.wind": "Wind Blast",
   "subtitle.goety.updraft_blast": "Updraft Blast",
   "subtitle.goety.zap": "Thunder Zap",

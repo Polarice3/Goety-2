@@ -1,0 +1,15 @@
+{
+  "name": "お化けの頭蓋骨",
+  "icon": "goety:haunted_skull_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ヴェックスと同様に、お化けの頭蓋骨は地形を移動できますが、より脆く、敵に爆発することによってのみダメージを与えることができます。 彼らの爆発は召喚者にも召喚にも影響を与えません。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_skull"
+    }
+  ]
+}

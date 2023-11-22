@@ -150,6 +150,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.PIKER, PikerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.PREACHER, PreacherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINISTER, MinisterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
@@ -306,6 +308,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.TORMENTOR.get(), TormentorRenderer::new);
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CONQUILLAGER.get(), ConquillagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.PIKER.get(), PikerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.PREACHER.get(), PreacherRenderer::new);
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
@@ -382,6 +386,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.BREW_BUBBLE.get(), BrewBubbleParticle.Provider::new);
         event.register(ModParticleTypes.WIND_BLAST.get(), SonicBoomParticle.Provider::new);
         event.register(ModParticleTypes.HEAL_EFFECT.get(), HeartParticle.Provider::new);
+        event.register(ModParticleTypes.HEAL_EFFECT_2.get(), SoulExplodeParticle.SummonProvider::new);
         event.register(ModParticleTypes.SOUL_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
         event.register(ModParticleTypes.GLOW_LIGHT_EFFECT.get(), GlowingParticle.Provider::new);
         event.register(ModParticleTypes.LASER_GATHER.get(), GatheringParticle.Provider::new);

@@ -1,0 +1,19 @@
+{
+  "name": "幻影魔女のローブ",
+  "icon": "goety:illusion_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "狂信者の布を使用すると、作成すると透明になるイリューシブローブのセットを作成でき、Mob や同種の他の人々から非常に検出されにくくなります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:illusion_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ローブはまた、ドッペルゲンガーの攻撃がターゲットに実際にダメージを与えることで、ミラーの呪文をバフしますが、それほど大きくはありません。"
+    }
+  ]
+}

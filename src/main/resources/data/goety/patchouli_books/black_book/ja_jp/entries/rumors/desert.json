@@ -1,0 +1,17 @@
+{
+  "name": "砂の洞察",
+  "icon": "minecraft:sand",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは死霊術の力を向上させることに取り組んでいたとき、何かを聞きました。 砂漠の中には、おそらく $(l)ピラミッド$() の中に、あなたの知識を増やすことができる何かがあります。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_front_scroll",
+      "text": "神隠しの知識が砂の中に隠されているという噂がある。"
+    }
+  ]
+}

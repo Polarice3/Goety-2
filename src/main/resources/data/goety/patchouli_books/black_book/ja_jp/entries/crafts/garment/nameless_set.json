@@ -1,0 +1,25 @@
+{
+  "name": "名も無き者セット",
+  "icon": "goety:nameless_cape",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "最も隠された死霊術の方法を発見した後、あなたは闇の芸術に対する熟練度を示すための新しい服装を考案しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "このセットの機能は古いネクロセットと同じですが、いくつかの改良が加えられています。"
+    }
+  ]
+}

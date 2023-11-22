@@ -1,0 +1,40 @@
+{
+  "name": "魔法の部品",
+  "icon": "goety:magic_emerald",
+  "category": "goety:intro",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "原始的なトーテムを手にしたら、それを使って、あらゆる種類の魔法のからくりや集中力を生み出す新しいアイテムを作成できることがわかりました。 確かにこれらのアイテムを $(l:intro/cursed_infuser)$() 安く手に入れる方法はありますが..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_ingot_craft",
+      "recipe2": "goety:empty_focus_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_stone_craft",
+      "recipe2": "goety:haunted/haunted_sapling_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:savage_tooth_craft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "エヴォーカーのトーテムには目の位置にエメラルドが配置されているようです。 いつもと違うエメラルドを感じますね。 それらを「アクティブ化」する方法はあるでしょうか?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:magic_emerald_craft"
+    },
+    {
+      "anchor": "totem",
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_souls",
+      "text": "ついにエヴォーカーのトーテムの真の模倣物を作成しました。 このトーテムは、ルーツのトーテムよりもはるかに多くの魂のエネルギーを保持できます。"
+    }
+  ]
+}

@@ -124,10 +124,9 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
             }
         }
         for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
-            if (target.getTrueOwner() != this.getTrueOwner()
+            if (this.getTrueOwner() != null
                     && this.getTrueOwner() != target.getTrueOwner()
-                    && target.getTarget() == this.getTrueOwner()
-                    && this.getTrueOwner() != null){
+                    && target.getTarget() == this.getTrueOwner()){
                 this.setTarget(target);
             }
         }

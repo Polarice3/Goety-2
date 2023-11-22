@@ -1,0 +1,17 @@
+{
+  "name": "ネクロマンサー",
+  "icon": "goety:necro_cape",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この巻物には、長い間病んでいた人々に知性を与える、あるいは呼び出すことに関する指示が含まれており、これによってスケルトンからアンデッドのネクロマンサーを作成し、指揮できるようになります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_to_necromancer"
+    }
+  ]
+}

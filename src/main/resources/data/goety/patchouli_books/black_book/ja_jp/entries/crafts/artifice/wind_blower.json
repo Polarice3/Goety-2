@@ -1,0 +1,16 @@
+{
+  "name": "ウィンドブロワー",
+  "icon": "goety:wind_blower",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ウィンドコアの力により、屈強な生き物以外のすべてをその前に押し出す強力な送風機の作成が可能になります。 しゃがむことで体への圧力が軽減され、風に逆らって進むことができます。 送風機の力は受け取るレッドストーンの力に基づいており、高ければ高いほど強力です。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wind_blower",
+      "text": "Tマシンはレッドストーン信号で起動します。"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "不気味なフォーカス",
+  "icon": "goety:spooky_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "レイスはアンデッドの生き物の中で最も一般的なわけではありませんが、出現し始めたのは最近になってからです。 いくつかの魂の布を使用すると、魂の布を召喚してコマンドにバインドすることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/spooky_focus"
+    }
+  ]
+}

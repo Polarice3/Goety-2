@@ -1,0 +1,31 @@
+{
+  "name": "ゾンビの従者",
+  "icon": "minecraft:zombie_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ゾンビ・サーヴァントはその機能が単純で、あなたを傷つける者や敵対的な生き物を殺し、飼いならされたオオカミと同じようにあなたに従いますが、背が高くて臭いだけです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ゾンビサーヴァントは召喚したり、さまざまな変異体に変換したりできます。 空に露出した砂漠で腐りし者のフォーカスをキャストするとハスクの従者が召喚され、水中にキャストするとドラウンドの従者が召喚されます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:husk_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:drowned_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ドラウンドのサーヴァントはトライデントを受け入れることができ、通常のドラウンドと同じ方法で攻撃します。 すべてのバリエーションのゾンビ サーヴァントはあらゆる鎧を受け入れることができますが、受け入れられるのは剣または斧のみです。"
+    }
+  ]
+}

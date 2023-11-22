@@ -1,0 +1,17 @@
+{
+  "name": "腐敗のフォーカス",
+  "icon": "goety:corruption_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ナイトビーコンには途方もない力があり、ソウルエネルギーを供給することで、夜を変身させてビームをより破壊的なものに変えることができると信じています。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/corruption_focus"
+    }
+  ]
+}

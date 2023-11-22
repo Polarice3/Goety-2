@@ -30,6 +30,11 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> TormentorDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> InquillagerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> InquillagerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> PikerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> PikerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> PikerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> PreacherHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> PreacherHeal;
     public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Double> WraithHealth;
@@ -121,6 +126,20 @@ public class AttributesConfig {
                 InquillagerDamage = BUILDER.comment("How much damage Inquillager deals, Default: 5.0")
                         .defineInRange("inquillagerDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Piker");
+                PikerHealth = BUILDER.comment("How much Max Health Pikers have, Default: 24.0")
+                        .defineInRange("pikerHealth", 24.0, 1.0, Double.MAX_VALUE);
+                PikerArmor = BUILDER.comment("How much Armor Pikers have, Default: 4.0")
+                        .defineInRange("pikerArmor", 4.0, 1.0, Double.MAX_VALUE);
+                PikerDamage = BUILDER.comment("How much damage Pikers deals, Default: 9.0")
+                        .defineInRange("pikerDamage", 9.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Preacher");
+                PreacherHealth = BUILDER.comment("How much Max Health Preachers have, Default: 24.0")
+                        .defineInRange("preacherHealth", 24.0, 1.0, Double.MAX_VALUE);
+                PreacherHeal = BUILDER.comment("How much health Preachers heal, Default: 6.0")
+                        .defineInRange("preacherHeal", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
             ConquillagerHealth = BUILDER.comment("How much Max Health Conquillager have, Default: 24.0")
                     .defineInRange("conquillagerHealth", 24.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
@@ -160,8 +179,8 @@ public class AttributesConfig {
                         .defineInRange("vanguardServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 VanguardServantArmor = BUILDER.comment("How much Armor Vanguard Servants have, Default: 9.0")
                         .defineInRange("vanguardServantArmor", 9.0, 1.0, Double.MAX_VALUE);
-                VanguardServantDamage = BUILDER.comment("How much damage Vanguard Servants deals, Default: 6.0")
-                        .defineInRange("vanguardServantDamage", 6.0, 1.0, Double.MAX_VALUE);
+                VanguardServantDamage = BUILDER.comment("How much damage Vanguard Servants deals, Default: 7.0")
+                        .defineInRange("vanguardServantDamage", 7.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")

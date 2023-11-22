@@ -1,0 +1,15 @@
+{
+  "name": "ソウルボルトフォーカス",
+  "icon": "goety:soul_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この焦点を合わせると、敵に向かってソウル エネルギーのボルトを急速に発射し、ノックバックと魔法のダメージを与えることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_bolt_focus"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "闇の金床",
+  "icon": "goety:dark_anvil",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "金床は扱いが非常に面倒です。 彼らは壊れるだけでなく、多くの経験を要求し、取得できる経験にも限界があります。 闇鉄を使用すると、より優れた金床を作成できます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_anvil"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "闇の金床は、$(l:intro/cursed_cage)呪いの檻$() の上に置くと自分自身を修復することができます。通常、自分自身を修復するには大量のソウル エネルギーが必要になります。 Dark Anvil を使用すると、アイテムの修理コストは 2 倍にはなりませんが、1 加算されます。レベル コストが高すぎるとアイテムの修理/エンチャントができなくなる代わりに、コストはレベル制限に留まり、 関係なく金床で使用するアイテム。"
+    }
+  ]
+}

@@ -24,6 +24,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> HEAL_EFFECT = PARTICLE_TYPES.register("heal",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> HEAL_EFFECT_2 = PARTICLE_TYPES.register("heal2",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BULLET_EFFECT = PARTICLE_TYPES.register("bullet_effect",
             () -> new SimpleParticleType(false));
 

@@ -1,0 +1,15 @@
+{
+  "name": "スカルフォーカス",
+  "icon": "goety:skull_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この焦点を合わせると、幽霊に取り憑かれたスカルを向こうから呼び出すことができます。スカルはあなたを追いかけ、近くの敵対的な暴徒に突撃し、衝撃で爆発します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/skull_focus"
+    }
+  ]
+}

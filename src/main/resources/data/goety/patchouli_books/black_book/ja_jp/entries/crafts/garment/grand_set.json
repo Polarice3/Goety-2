@@ -1,0 +1,33 @@
+{
+  "name": "グランドセット",
+  "icon": "goety:grand_turban",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "宰相はおしゃれなローブを着ていて、見栄えの良いターバンも持っています。 ルビーを使用すると、これらの衣服を複製し、特別な能力を得ることができます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "あなたもそうかもしれないと感じています！ あなたはすでにエヴォーカーのスタイルを取り入れていますが、さらに上の世界に進んでみてはいかがでしょうか？"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_turban"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ターバンをかぶっているときにダメージを受けると、50%、または最大体力の半分以下の場合は 100% で、あなたを守る忠実な インクが生成されます。 しゃがみながら Vexing Spell を使用すると、インクが殺され、殺されるたびにハートが回復します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grand_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "最初は、ローブはダーク ローブの単なる色変更のように見えますが、杖を通して呪文を唱えると、宰相の盾が得られ、呪文を唱えている間は受けるダメージがすべて半分になることがわかりました。"
+    }
+  ]
+}

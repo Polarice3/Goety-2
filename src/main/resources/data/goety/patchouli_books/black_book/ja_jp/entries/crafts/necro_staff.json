@@ -1,0 +1,19 @@
+{
+  "name": "ネクロの杖",
+  "icon": "goety:necro_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "レイスが落としたエクトプラズムがあなたにアイデアを与えてくれました。 $(l:intro/magical_components)呪われた鉄インゴット$() をいくつか使って、$(l:intro/dark_wand)Wand$() のアップグレードを作成し、ネクロマンサーに適したスタッフを作成することができました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ネクロの杖は ネクロマンティック呪文を強化し、たとえば、キャストごとに 1 つ以上のアンデッド サーヴァントを召喚できるようにします。"
+    }
+  ]
+}

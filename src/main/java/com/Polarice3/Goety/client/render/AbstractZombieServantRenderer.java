@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.render.model.ZombieServantModel;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,7 +19,7 @@ public abstract class AbstractZombieServantRenderer<T extends ZombieServant, M e
    }
 
    public ResourceLocation getTextureLocation(ZombieServant p_113771_) {
-      if (p_113771_.isHostile()){
+      if (p_113771_.isHostile() || !MainConfig.CustomServantTexture.get()){
          return ZOMBIE_LOCATION;
       } else {
          return TEXTURE;

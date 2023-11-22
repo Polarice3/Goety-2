@@ -674,7 +674,7 @@ public class PotionEvents {
             }
         }
         if (event.getEffectInstance().getEffect() == GoetyEffects.FREEZING.get()){
-            if (event.getEntity().hasEffect(GoetyEffects.SNOW_SKIN.get())){
+            if (event.getEntity().hasEffect(GoetyEffects.SNOW_SKIN.get()) || event.getEntity().getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                 event.setResult(Event.Result.DENY);
             }
         }

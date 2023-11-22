@@ -1,0 +1,15 @@
+{
+  "name": "風の魔女のローブ",
+  "icon": "goety:wind_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "風の魔女のローブを使用すると、ゆっくりと落下し (シフトを押しているときはそれほどゆっくりではありません)、落下によるダメージを受けなくなります。 ただし、ローブが落下を遅らせる毎秒、ソウル エネルギーが消費されます。 ローブを着用すると、風の呪文のソウルコストも半分になります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_robe"
+    }
+  ]
+}

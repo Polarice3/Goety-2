@@ -1,0 +1,15 @@
+{
+  "name": "追尾牙のフォーカス",
+  "icon": "goety:feast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エンダー パールとハンガー コアの力により、周囲のあらゆる生き物の底にあるファングを呼び出すことができます。 ただし、クリーチャーが動かない場合に限りますが、平均的な 牙のフォーカスよりも正確です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/feast_focus"
+    }
+  ]
+}

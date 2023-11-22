@@ -1,0 +1,15 @@
+{
+  "name": "ドッペルゲンガー",
+  "icon": "minecraft:player_head",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "イリュージョナーによって呼び出されたクローンと似ていますが、これらのドッペルゲンガーは敵対的なクリーチャーの注意を引きつけ、攻撃されるか召喚者が攻撃を受けると消滅します。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "彼らの矢は敵にダメージを与えず、一定時間が経過すると消滅します。"
+    }
+  ]
+}

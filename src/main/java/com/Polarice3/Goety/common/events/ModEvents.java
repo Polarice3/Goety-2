@@ -19,9 +19,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
-import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
+import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -229,26 +227,22 @@ public class ModEvents {
                                     if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)){
                                         pillager = world.random.nextInt(3);
                                     }
-                                    if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 3)){
-                                        if (raid.getGroupsSpawned() >= 7) {
-                                            if (entity == raid.getLeader(raider.getWave())) {
-                                                Minister minister = new Minister(ModEntityType.MINISTER.get(), serverLevel);
-                                                minister.setPos(entity.position());
-                                                minister.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                serverLevel.addFreshEntity(minister);
-                                            }
+                                    if (SEHelper.getSoulAmountInt(player) < (MainConfig.IllagerAssaultSEThreshold.get() * 5)){
+                                        if (raider instanceof Minister) {
+                                            raid.removeFromRaid(raider, true);
+                                            event.setCanceled(true);
                                         }
                                     }
                                     if (pillager == 0) {
                                         if (raider.getType() == EntityType.PILLAGER) {
-                                            HuntingIllagerEntity illager = ModEntityType.CONQUILLAGER.get().create(world);
-                                            if (illager != null) {
+                                            HuntingIllagerEntity conquillager = ModEntityType.CONQUILLAGER.get().create(world);
+                                            if (conquillager != null) {
                                                 if (world.random.nextInt(4) == 0) {
-                                                    illager.setRider(true);
+                                                    conquillager.setRider(true);
                                                 }
-                                                illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                illager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                serverLevel.addFreshEntity(illager);
+                                                conquillager.moveTo(raider.getX(), raider.getY(), raider.getZ());
+                                                conquillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
+                                                serverLevel.addFreshEntity(conquillager);
                                             }
                                         }
                                         if (raider.getType() == EntityType.EVOKER) {
@@ -275,6 +269,14 @@ public class ModEvents {
                                                 }
                                             }
                                         }
+                                        if (raider.getType() == EntityType.EVOKER) {
+                                            Preacher illager = ModEntityType.PREACHER.get().create(world);
+                                            if (illager != null) {
+                                                illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
+                                                illager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
+                                                serverLevel.addFreshEntity(illager);
+                                            }
+                                        }
                                         if (raider instanceof Ravager) {
                                             Envioker envioker = ModEntityType.ENVIOKER.get().create(world);
                                             if (envioker != null) {
@@ -286,6 +288,11 @@ public class ModEvents {
                                                 serverLevel.addFreshEntity(envioker);
                                             }
                                         }
+                                    }
+                                } else {
+                                    if (raider instanceof Piker){
+                                        raid.removeFromRaid(raider, true);
+                                        event.setCanceled(true);
                                     }
                                 }
                             }
@@ -781,7 +788,7 @@ public class ModEvents {
                             }
                         }
                     }
-                    if (CuriosFinder.hasNecroSet(target)){
+                    if (CuriosFinder.hasUndeadSet(target)){
                         boolean undead = mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy));
                         if (undead){
                             if (mobAttacker.getLastHurtByMob() != target){

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items.magic;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -14,6 +15,9 @@ import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
 import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -44,6 +48,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -169,6 +175,26 @@ public class DarkWand extends Item {
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
+        if (getFocus(stack).getItem() instanceof CallFocus) {
+            if (target instanceof Owned owned) {
+                if (owned.getTrueOwner() == player) {
+                    if (!CallFocus.hasSummon(getFocus(stack))) {
+                        SoulUsingItemHandler soulUsingItemHandler = SoulUsingItemHandler.get(stack);
+                        ItemStack itemStack = new ItemStack(ModItems.CALL_FOCUS.get());
+                        CompoundTag compoundTag = itemStack.getOrCreateTag();
+                        CallFocus.setSummon(compoundTag, owned);
+                        itemStack.setTag(compoundTag);
+                        player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                        if (!player.level.isClientSide) {
+                            ModNetwork.sendToALL(new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                        }
+                        soulUsingItemHandler.extractItem();
+                        soulUsingItemHandler.insertItem(itemStack);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
         if (!SpellConfig.OwnerHitCommand.get()) {
             if (player.getMainHandItem() == stack) {
                 if (target instanceof Summoned summonedEntity) {
@@ -196,16 +222,37 @@ public class DarkWand extends Item {
 
     }
 
-    public InteractionResult useOn(UseOnContext p_220235_) {
-        Level level = p_220235_.getLevel();
-        BlockPos blockpos = p_220235_.getClickedPos();
-        Player player = p_220235_.getPlayer();
-        ItemStack itemstack = p_220235_.getItemInHand();
+    public InteractionResult useOn(UseOnContext pContext) {
+        Level level = pContext.getLevel();
+        BlockPos blockpos = pContext.getClickedPos();
+        Player player = pContext.getPlayer();
+        ItemStack stack = pContext.getItemInHand();
         if (player != null) {
+            if (getFocus(stack).getItem() instanceof RecallFocus recallFocus){
+                CompoundTag compoundTag = getFocus(stack).getOrCreateTag();
+                if (!RecallFocus.hasRecall(getFocus(stack))){
+                    BlockEntity tileEntity = level.getBlockEntity(blockpos);
+                    if (tileEntity instanceof ArcaBlockEntity arcaTile) {
+                        if (pContext.getPlayer() == arcaTile.getPlayer() && arcaTile.getLevel() != null) {
+                            recallFocus.addRecallTags(arcaTile.getLevel().dimension(), arcaTile.getBlockPos(), compoundTag);
+                            getFocus(stack).setTag(compoundTag);
+                            player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                            return InteractionResult.sidedSuccess(level.isClientSide);
+                        }
+                    }
+                    BlockState blockstate = level.getBlockState(blockpos);
+                    if (blockstate.is(ModTags.Blocks.RECALL_BLOCKS)) {
+                        recallFocus.addRecallTags(level.dimension(), blockpos, compoundTag);
+                        getFocus(stack).setTag(compoundTag);
+                        player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                        return InteractionResult.sidedSuccess(level.isClientSide);
+                    }
+                }
+            }
             if (!level.isClientSide) {
                 if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
                     if (MobUtil.isShifting(player)) {
-                        if (itemstack.getItem() instanceof DarkWand){
+                        if (stack.getItem() instanceof DarkWand){
                             cauldronBlock.fullReset();
                             level.playSound(null, blockpos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -215,7 +262,7 @@ public class DarkWand extends Item {
                 }
             }
         }
-        return super.useOn(p_220235_);
+        return super.useOn(pContext);
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {

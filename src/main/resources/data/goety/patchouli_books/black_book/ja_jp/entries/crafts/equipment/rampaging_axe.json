@@ -1,0 +1,19 @@
+{
+  "name": "ランピングアックス",
+  "icon": "goety:rampaging_axe",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "血と木の両方に飢えた斧。 生き物を殺したり、木を切り倒したりすると、ユーザーはわずかに強くなり、10秒間手の動きが速くなります。 継続的に殺害/切断すると効果が増幅されます。 ユーザーが効果を 5 回増幅した場合、その結果は「爆発的」であると表現されています。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:rampaging_axe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "斧は $(l:intro/magical_components)呪われた鉄インゴット$() を使って金床で修理できます。"
+    }
+  ]
+}

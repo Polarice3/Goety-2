@@ -48,7 +48,7 @@ public class HauntModel<T extends Haunt> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float pLimbSwingAmount, float pAgeInTicks, float netHeadYaw, float headPitch) {
 		float f = pAgeInTicks * 0.0025F;
-		this.haunt.y = Mth.sin(f * 40.0F) + 12.0F;
+		this.haunt.y = Mth.sin(f * 40.0F) + 22.0F;
 		float f4 = Math.min(pLimbSwingAmount / 0.3F, 1.0F);
 		this.haunt.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.haunt.xRot = headPitch * ((float)Math.PI / 180F);

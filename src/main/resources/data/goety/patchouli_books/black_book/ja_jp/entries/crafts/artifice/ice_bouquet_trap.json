@@ -1,0 +1,17 @@
+{
+  "name": "氷炎の罠",
+  "icon": "goety:ice_bouquet_trap",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらのレイスが落としたエクトプラズムを使えば、彼らの神秘的な炎を利用して、どんな生き物でも焼き尽くす機械を作ることができます。 上のクリーチャーを燃やすと、炎が消えてソウルエネルギーが失われるようですが、活性化されたエメラルドはエネルギーをブロックの配置に移すことを可能にします。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:ice_bouquet_trap",
+      "text": "機械はレッドストーン信号で作動します。 火は砂利を傷つけません"
+    }
+  ]
+}

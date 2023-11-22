@@ -41,16 +41,16 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
         if (super.shouldRender(skullLord, camera, camX, camY, camZ)) {
             return true;
         } else {
-            if (skullLord.getBoneLordClient() != null) {
-                LivingEntity boneLord = skullLord.getBoneLordClient();
+            if (skullLord.getBoneLord() != null) {
+                LivingEntity boneLord = skullLord.getBoneLord();
                 if (boneLord != null) {
                     Vec3 vector3d = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.75D, 1.0F);
                     Vec3 vector3d1 = this.getPosition(skullLord, (double)skullLord.getBbHeight() * 0.5D, 1.0F);
                     return camera.isVisible(new AABB(vector3d1.x, vector3d1.y, vector3d1.z, vector3d.x, vector3d.y, vector3d.z));
                 }
             }
-            if (skullLord.getLaserClient() != null){
-                LivingEntity laser = skullLord.getLaserClient();
+            if (skullLord.getLaser() != null){
+                LivingEntity laser = skullLord.getLaser();
                 if (laser != null) {
                     Vec3 vector3d = this.getPosition(laser, (double)laser.getBbHeight() * 0.5D, 1.0F);
                     Vec3 vector3d1 = this.getPosition(skullLord, (double)skullLord.getBbHeight() * 0.5D, 1.0F);
@@ -71,16 +71,15 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
 
     public void render(SkullLord skullLord, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         super.render(skullLord, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        //Doesn't work for some reason, had to use Particles instead.
-        /*BoneLord boneLord = skullLord.getBoneLordClient();
-        SkullLaser skullLaser = skullLord.getLaserClient();
+/*        BoneLord boneLord = skullLord.getBoneLord();
+        SkullLaser skullLaser = skullLord.getLaser();
         if (boneLord != null && !boneLord.isDeadOrDying()) {
             float f1 = (float)skullLord.level.getGameTime() + partialTicks;
             float f2 = f1 * 0.5F % 1.0F;
             float f3 = skullLord.getBbHeight() * 0.5F;
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.0D, (double)f3, 0.0D);
-            Vec3 vec3 = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.5D, partialTicks);
+            Vec3 vec3 = this.getPosition(boneLord, (double)boneLord.getBbHeight() * 0.75D, partialTicks);
             Vec3 vec31 = this.getPosition(skullLord, (double)f3, partialTicks);
             Vec3 vec32 = vec3.subtract(vec31);
             float f4 = (float)(vec32.length() + 1.0D);

@@ -1,0 +1,16 @@
+{
+  "name": "ソウルキャンドルスティック",
+  "icon": "goety:soul_candlestick",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "特定のデバイスはソウル エネルギーの大部分を必要としますが、$(l:intro/cursed_cage)呪いの檻$() からエネルギーを直接取得することはできません。 いくつかの実験の後、あなたはそのようなデバイスが 1 つではなく複数の)呪いの檻からエネルギーを吸い上げる方法を発見しました。 このようなデバイスは通常、周囲にあるローソク足と満たされたケージ (通常は 8 ブロック) が多いほど、処理が速くなります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_candlestick",
+      "text": "満たされた $(l:intro/cursed_cage)呪いの檻$() の上に 1 つを置きます。"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "スカルクコンバーター",
+  "icon": "goety:sculk_converter",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "スカルク触媒は死者をスカルクに変換しますが、それらを変換するために生き物の魂のエネルギーを貪り食うようです。 ソウル アブソーバーを使用すると、触媒に $(l:intro/cursed_cage)呪われた檻$() からソウル エネルギーを吸収させ、その周りにスカルクを広げることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_converter",
+      "text": "スカルクコンバーターには、ソウルエネルギーを吸収してスカルクを拡散させるためにレッドストーン信号が必要です。"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:cursed_cage",
+          "S": "goety:sculk_converter"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    },
+    {
+      "type": "patchouli:text",
+      "text": "スカルクコンバーターには、より多くのソウルエネルギーを吸収し、より多くのスカルクを拡散させる効力を付与することもできます。 この奇妙なオブジェクトをいじくり回すと、近くの生き物が死亡したときにスカルクの拡散が停止されるようです。"
+    }
+  ]
+}

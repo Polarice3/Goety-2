@@ -47,7 +47,7 @@ public class FocusBag extends Item implements ICurioItem {
                     (id, inventory, player) -> new FocusBagContainer(id, inventory, FocusBagItemHandler.get(itemstack), itemstack), getName(itemstack));
             NetworkHooks.openScreen((ServerPlayer) playerIn, provider, (buffer) -> {});
         }
-        return InteractionResultHolder.pass(itemstack);
+        return InteractionResultHolder.success(itemstack);
     }
 
     /**

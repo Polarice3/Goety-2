@@ -1,0 +1,16 @@
+{
+  "name": "憂慮すべき魅力",
+  "icon": "goety:alarming_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたを追い詰めるとき、邪悪な村人は、あなたの下に牙を並べたり、トーメンターがあなたに向かって突進したりすることで、彼らの接近を知らせる傾向があります。 彼らがどれほど卑劣であるかを考えて、あなたは彼らがあなたに近づいてくることを知らせるお守りを考案することに成功しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:alarming_charm"
+    }
+  ]
+}

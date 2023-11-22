@@ -53,6 +53,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation TORMENTOR = register("tormentor");
     public static final ModelLayerLocation INQUILLAGER = register("inquillager");
     public static final ModelLayerLocation CONQUILLAGER = register("conquillager");
+    public static final ModelLayerLocation PIKER = register("piker");
+    public static final ModelLayerLocation PREACHER = register("preacher");
     public static final ModelLayerLocation MINISTER = register("minister");
     public static final ModelLayerLocation VIZIER = register("vizier");
     public static final ModelLayerLocation IRK = register("irk");

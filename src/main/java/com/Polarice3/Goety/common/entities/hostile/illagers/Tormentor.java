@@ -88,11 +88,9 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
             this.limitedLifeTicks = 20;
             this.hurt(DamageSource.STARVE, 1.0F);
         }
-        if (this.hasActiveRaid()){
-            if (this.getOwner() == null || this.getOwner().isDeadOrDying()){
-                if (this.tickCount % 20 == 0) {
-                    this.hurt(DamageSource.STARVE, this.getMaxHealth() / 4);
-                }
+        if (this.getOwner() == null || this.getOwner().isDeadOrDying()){
+            if (this.tickCount % 20 == 0) {
+                this.hurt(DamageSource.STARVE, this.getMaxHealth() / 4);
             }
         }
         if (!this.isCharging()){

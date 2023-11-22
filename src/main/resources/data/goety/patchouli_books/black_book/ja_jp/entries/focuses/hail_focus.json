@@ -1,0 +1,15 @@
+{
+  "name": "曇のフォーカス",
+  "icon": "goety:hail_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ターゲットのブロックまたはクリーチャーの上空に雪の雲を召喚し、そこに凍りつくような雪が降り注ぎ、小さなダメージを与え、5秒間の凍結を与えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hail_focus"
+    }
+  ]
+}

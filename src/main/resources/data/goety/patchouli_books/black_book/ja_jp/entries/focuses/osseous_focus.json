@@ -1,0 +1,15 @@
+{
+  "name": "骨密度のフォーカス",
+  "icon": "goety:osseous_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "シールドを持ち歩く忍耐力のない人にとって、スケルトンは非常に迷惑な存在になる可能性があります。 これで、あなたは自分を召喚し、他のものを糸巻きに変えるように命令する力を手に入れました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/osseous_focus"
+    }
+  ]
+}

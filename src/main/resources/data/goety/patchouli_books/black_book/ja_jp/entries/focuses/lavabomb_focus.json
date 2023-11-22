@@ -1,0 +1,16 @@
+{
+  "name": "溶岩爆弾のフォーカス",
+  "icon": "goety:lavaball_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネザーの力があなたを圧倒するのを感じることができます。 ガストと違って、あなたは泣きません。 やっぱり、いい痛みですね。溶岩爆弾は、しゃがみながらキャストしても環境ダメージを与えません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lavaball_focus"
+    }
+  ]
+}

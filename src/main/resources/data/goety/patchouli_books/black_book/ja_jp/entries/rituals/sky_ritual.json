@@ -1,0 +1,16 @@
+{
+  "name": "空の儀式",
+  "icon": "minecraft:feather",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)儀式はは 128 ブロック以上でなければならない"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "祭壇を空中高く設置することで、風と空そのものを利用して魔法を発動することができます"
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
@@ -46,6 +46,8 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
             } else {
                 return (target) ->
                         (target instanceof Enemy
+                                && !(target.getMobType() == MobType.UNDEAD && ownedEntity.getTrueOwner() != null && LichdomHelper.isLich(ownedEntity.getTrueOwner()) && MainConfig.LichUndeadFriends.get())
+                                && !(target.getMobType() == MobType.UNDEAD && ownedEntity.getTrueOwner() instanceof Player && CuriosFinder.hasUndeadSet(ownedEntity.getTrueOwner()) && SpellConfig.NecroRobeUndead.get())
                                 && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && SpellConfig.MinionsAttackCreepers.get())
                                 && !(target instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) target).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) target).getTarget() != ownedEntity))
                                 && !(target instanceof IOwned && ownedEntity.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == ownedEntity.getTrueOwner()))

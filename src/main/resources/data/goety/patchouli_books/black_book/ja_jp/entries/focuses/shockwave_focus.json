@@ -1,0 +1,15 @@
+{
+  "name": "ショックウェーブフォーカス",
+  "icon": "goety:shockwave_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この焦点を合わせてキャストすると、あなたの位置でソウル エネルギーの爆発が発生し、近くのすべてのクリーチャーにダメージを与え、吹き飛ばします。 爆発は魔法ダメージを与えますが、術者にはダメージを与えません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/shockwave_focus"
+    }
+  ]
+}

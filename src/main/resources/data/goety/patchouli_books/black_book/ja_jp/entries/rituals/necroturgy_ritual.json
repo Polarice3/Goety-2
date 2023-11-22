@@ -1,0 +1,22 @@
+{
+  "name": "ネクロマンシーの儀式",
+  "icon": "goety:rotting_focus",
+  "category": "goety:rituals",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li) 非木製ハーフブロック 16 個 $(li) スカルクブロック 16 個 $(li) 空でない植木鉢 8 個 $(li) 夜間に行う必要があります"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "スカルクは大量の壊死性エネルギーを保持しています。 彼らを使って墓を建設することで、儀式に使用するより多くの死滅エネルギーを集める方法を見つけました。"
+    }
+  ]
+}

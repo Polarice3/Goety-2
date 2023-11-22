@@ -1,0 +1,15 @@
+{
+  "name": "ターゲティングモノクル",
+  "icon": "goety:targeting_monocle",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "敵があなたの魔法の牙を一歩で避けてしまう可能性があるため、あなたの呪文で敵を攻撃しようとすることは試練になる可能性があります。 この片眼鏡を使用すると、杖と杖を通して呪文を唱えるときに、見ている生き物に頭が自動的にロックされ、より正確に呪文を当てることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:targeting_monocle"
+    }
+  ]
+}

@@ -84,11 +84,15 @@ public class TotemFinder {
                     ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
         }
 
-        for (int i = 0; i <= 9; i++) {
-            ItemStack itemStack = playerEntity.getInventory().getItem(i);
-            if (!itemStack.isEmpty() && isTotem(itemStack)) {
-                foundStack = itemStack;
-                break;
+        if (isTotem(playerEntity.getOffhandItem())){
+            foundStack = playerEntity.getOffhandItem();
+        } else {
+            for (int i = 0; i <= 9; i++) {
+                ItemStack itemStack = playerEntity.getInventory().getItem(i);
+                if (!itemStack.isEmpty() && isTotem(itemStack)) {
+                    foundStack = itemStack;
+                    break;
+                }
             }
         }
         return foundStack;

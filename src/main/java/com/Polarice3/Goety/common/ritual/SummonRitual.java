@@ -51,7 +51,7 @@ public class SummonRitual extends Ritual {
                 this.spawnEntity(living, world);
 
             } else {
-                entity.absMoveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(),
+                entity.absMoveTo(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F,
                         world.random.nextInt(360), 0);
                 this.spawnEntity(entity, world);
             }

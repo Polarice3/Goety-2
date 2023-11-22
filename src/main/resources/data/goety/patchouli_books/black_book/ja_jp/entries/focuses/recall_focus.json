@@ -1,0 +1,15 @@
+{
+  "name": "リコールフォーカス",
+  "icon": "goety:recall_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "リコールフォーカスを使用すると、キャスターはフォーカスによって保存された場所にテレポートして戻ることができます。 フォーカスを使用するには、キャスターが所有する $(l:crafts/artifice/arca)アルカ$()、ベッド、またはリスポーン アンカーのいずれかを右クリックして位置を保存する必要があります。 Shift キーを押しながらフォーカスを右クリックすると、保存された場所がクリアされます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/recall_focus"
+    }
+  ]
+}

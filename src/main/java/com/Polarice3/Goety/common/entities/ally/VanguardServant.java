@@ -46,6 +46,7 @@ public class VanguardServant extends AbstractSkeletonServant {
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState stayingAnimationState = new AnimationState();
 
     public VanguardServant(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
@@ -169,6 +170,7 @@ public class VanguardServant extends AbstractSkeletonServant {
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.walkAnimationState);
         animationStates.add(this.attackAnimationState);
+        animationStates.add(this.stayingAnimationState);
         return animationStates;
     }
 
@@ -189,21 +191,30 @@ public class VanguardServant extends AbstractSkeletonServant {
                 if (!this.isMeleeAttacking()) {
                     this.attackAnimationState.stop();
                     if (!this.isMoving()) {
-                        this.idleAnimationState.startIfStopped(this.tickCount);
                         this.walkAnimationState.stop();
+                        if (this.isStaying()) {
+                            this.idleAnimationState.stop();
+                            this.stayingAnimationState.startIfStopped(this.tickCount);
+                        } else {
+                            this.idleAnimationState.startIfStopped(this.tickCount);
+                            this.stayingAnimationState.stop();
+                        }
                     } else {
                         this.idleAnimationState.stop();
+                        this.stayingAnimationState.stop();
                         this.walkAnimationState.startIfStopped(this.tickCount);
                     }
                 } else {
                     this.idleAnimationState.stop();
                     this.walkAnimationState.stop();
+                    this.stayingAnimationState.stop();
                 }
             }
         }
         if (this.isMeleeAttacking()) {
             ++this.attackTick;
-        } else if (this.attackTick > 20){
+        }
+        if (this.attackTick > 20){
             this.setMeleeAttacking(false);
         }
     }

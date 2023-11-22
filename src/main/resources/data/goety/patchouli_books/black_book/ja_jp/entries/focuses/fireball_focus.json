@@ -1,0 +1,16 @@
+{
+  "name": "ファイアボールフォーカス",
+  "icon": "goety:fireball_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ブレイズのパワーをあなたの指先で手に入れましょう。 ディスペンサーやファイアチャージを使用する必要はなくなり、あなたもディスペンサーになれます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/fireball_focus"
+    }
+  ]
+}

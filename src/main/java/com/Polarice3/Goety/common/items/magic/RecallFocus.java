@@ -143,7 +143,7 @@ public class RecallFocus extends MagicFocus{
         return Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, p_40728_.get(TAG_DIMENSION)).result();
     }
 
-    private void addRecallTags(ResourceKey<Level> p_40733_, BlockPos p_40734_, CompoundTag p_40735_) {
+    public void addRecallTags(ResourceKey<Level> p_40733_, BlockPos p_40734_, CompoundTag p_40735_) {
         p_40735_.put(TAG_POS, NbtUtils.writeBlockPos(p_40734_));
         Level.RESOURCE_KEY_CODEC.encodeStart(NbtOps.INSTANCE, p_40733_).resultOrPartial(Goety.LOGGER::error).ifPresent((p_40731_) -> {
             p_40735_.put(TAG_DIMENSION, p_40731_);

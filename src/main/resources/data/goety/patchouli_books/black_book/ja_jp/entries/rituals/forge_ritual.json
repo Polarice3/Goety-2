@@ -1,0 +1,22 @@
+{
+  "name": "鍛冶場の儀式",
+  "icon": "minecraft:anvil",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)1 溶岩で満たされた大釜 $(li)2 かまどまたは溶鉱炉 $(li)1 金床"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/forge_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "闇の祭壇の周りに鍛冶場を作成すると、特定のアイテムを作成し、魔法の武器をアップグレードできるようになります。"
+    }
+  ]
+}

@@ -62,7 +62,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGER_CORE = ITEMS.register("hunger_core", ItemBase::new);
     public static final RegistryObject<Item> WIND_CORE = ITEMS.register("wind_core", ItemBase::new);
     public static final RegistryObject<Item> MYSTIC_CORE = ITEMS.register("mystic_core", ItemBase::new);
-    public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", RepeatCraftItem::new);
+    public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", () -> new RepeatCraftItem(new Item.Properties().tab(Goety.TAB)));
     public static final RegistryObject<Item> HEART_OF_THE_NIGHT = ITEMS.register("heart_of_the_night", ItemBase::new);
     public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", ItemBase::new);
     public static final RegistryObject<Item> OMINOUS_SADDLE = ITEMS.register("ominous_saddle", ItemBase::new);
@@ -127,7 +127,7 @@ public class ModItems {
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<Item> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);
-    public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", SingleStackItem::new);
+    public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", () -> new RepeatCraftItem(new Item.Properties().tab(Goety.TAB).stacksTo(1)));
     public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);

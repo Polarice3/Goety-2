@@ -1,0 +1,16 @@
+{
+  "name": "荒廃した小屋",
+  "icon": "goety:rotten_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古くて朽ち果てた掘っ立て小屋の噂があなたの耳に届きました。 どうやら、老朽化した洞窟の中に年老いた強力な魔女たちが住んでおり、あらゆる種類の闇の魔法を研究し、醸造しているようです。 しかし、これらの小屋に出会ったとき、あなたは古代の魔女ではなく、奇妙な水晶玉を見つけました...それを使ったらどうなるだろうと思います..."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/blighted_shack.png"],
+      "border": true
+    }
+  ]
+}

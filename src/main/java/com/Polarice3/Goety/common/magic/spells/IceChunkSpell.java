@@ -56,7 +56,7 @@ public class IceChunkSpell extends Spells {
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             IceChunk iceChunkEntity = new IceChunk(worldIn, entityLiving, null);
             iceChunkEntity.setExtraDamage(damage);
-            iceChunkEntity.setPos(blockPos.getX(), blockPos.getY() + 4, blockPos.getZ());
+            iceChunkEntity.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(iceChunkEntity);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
         }

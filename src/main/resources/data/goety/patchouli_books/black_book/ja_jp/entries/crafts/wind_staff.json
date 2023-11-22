@@ -1,0 +1,19 @@
+{
+  "name": "風の杖",
+  "icon": "goety:wind_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは聖域とその風の制御と実験の物語、そして杖を使ってどのようにして現存者に風を制御することができるかを学びました。 研究と実験を行った結果、古代の杖を複製する方法を発見しました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "風の杖は明らかに風の呪文を強化し、風自体をより強力に制御できるようにします。"
+    }
+  ]
+}

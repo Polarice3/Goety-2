@@ -292,6 +292,8 @@ public class Goety {
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());
         event.put(ModEntityType.CONQUILLAGER.get(), Conquillager.setCustomAttributes().build());
+        event.put(ModEntityType.PIKER.get(), Piker.setCustomAttributes().build());
+        event.put(ModEntityType.PREACHER.get(), Preacher.setCustomAttributes().build());
         event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());

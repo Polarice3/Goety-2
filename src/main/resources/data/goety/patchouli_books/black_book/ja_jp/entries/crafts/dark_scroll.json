@@ -1,0 +1,21 @@
+{
+  "name": "闇のスクロール",
+  "icon": "goety:dark_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_totem",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは、高位の邪悪な村人のささやきや、彼らが時折他の邪悪な村人に命令やアドバイスを求めたり、呼びかけに応じたりする様子を聞いたことがあるでしょう。 あなたは、彼らがあなたの魔法の力を高めることができる非常に強力な何かを持っていると信じています。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_scroll",
+      "text": "エヴォーカーのトーテムを使用すると、これらの邪悪な村人の 1 人をだまして電話に応答させることができます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "(Recommended Equipment: Enchanted Armor)"
+    }
+  ]
+}

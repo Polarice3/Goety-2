@@ -151,8 +151,11 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CustomServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantBands;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
 
@@ -288,6 +291,10 @@ public class MainConfig {
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
+        CustomServantTexture = BUILDER.comment("Whether certain servants have different textures than their regular counterpart, does not apply to bands/strips that are just added on to the regular texture, Default: true")
+                .define("customServantTexture", true);
+        ServantBands = BUILDER.comment("Whether certain servants have bands/strips attached to differentiate them from their regular counterpart, Default: true")
+                .define("servantBands", true);
         RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
                 .define("redstoneGolemCrack", false);
         BUILDER.pop();
@@ -486,6 +493,8 @@ public class MainConfig {
                 .define("specialIllagerRaid", true);
         ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                 .define("armoredRavagerRaid", true);
+        WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
+                .define("warlockRaid", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

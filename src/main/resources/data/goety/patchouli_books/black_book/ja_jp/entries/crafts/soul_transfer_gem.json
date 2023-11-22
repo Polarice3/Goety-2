@@ -1,0 +1,20 @@
+{
+  "name": "ジェムの転送器",
+  "icon": "goety:soul_transfer",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:intro/cursed_cage)呪われた檻$()は立派でダンディですが、貴重なトーテムを絶えず出し入れすることにうんざりし始めています。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_transfer",
+      "text": "幸いなことに、活性化されたエメラルドの力で、ソウルエネルギーを$(l:crafts/artifice/arca)Arca$()から$(l:intro/cursed_cage)呪いの檻$()に転送する方法を見つけました。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/artifice/arca)Arca$() の転送 ジェム を右クリックするだけで、その ジェムの転送器 とその所有者にバインドされます。次に、転送ジェムを$(l:intro/cursed_cage)呪いの檻$()内に置くと、使用時に$(l:crafts/artifice/arca)アルカトラズ$()からソウルエネルギーを吸い上げます。"
+    }
+  ]
+}

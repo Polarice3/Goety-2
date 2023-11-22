@@ -78,7 +78,7 @@ public class RedstoneGolemRenderer<T extends RedstoneGolem> extends MobRenderer<
     }
 
     public static class RedstoneGolemCrackinessLayer<T extends RedstoneGolem> extends RenderLayer<T, RedstoneGolemModel<T>> {
-        private static final Map<RedstoneGolem.Crackiness, ResourceLocation> resourceLocations = ImmutableMap.of(RedstoneGolem.Crackiness.LOW, Goety.location("textures/entity/redstone_golem/redstone_golem_damage_minor.png"), RedstoneGolem.Crackiness.MEDIUM, Goety.location("textures/entity/redstone_golem/redstone_golem_damage_moderate.png"), RedstoneGolem.Crackiness.HIGH, Goety.location("textures/entity/redstone_golem/redstone_golem_damage_heavy.png"));
+        private static final Map<RedstoneGolem.Crackiness, ResourceLocation> resourceLocations = ImmutableMap.of(RedstoneGolem.Crackiness.LOW, Goety.location("textures/entity/servants/redstone_golem/redstone_golem_damage_minor.png"), RedstoneGolem.Crackiness.MEDIUM, Goety.location("textures/entity/servants/redstone_golem/redstone_golem_damage_moderate.png"), RedstoneGolem.Crackiness.HIGH, Goety.location("textures/entity/servants/redstone_golem/redstone_golem_damage_heavy.png"));
 
         public RedstoneGolemCrackinessLayer(RenderLayerParent<T, RedstoneGolemModel<T>> p_117135_) {
             super(p_117135_);

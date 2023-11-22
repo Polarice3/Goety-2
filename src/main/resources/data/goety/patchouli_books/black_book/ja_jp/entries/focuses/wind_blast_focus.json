@@ -1,0 +1,15 @@
+{
+  "name": "ウィンドブラストフォーカス",
+  "icon": "goety:wind_blast_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ウィンドブラストフォーカスを使用すると、目の前に風を起こし、視線内の生き物をノックバックできます。 残念ながら、爆発はダメージを与えませんが、明らかに短い距離からクリーチャーを棚から投げ落とすことができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/wind_blast_focus"
+    }
+  ]
+}

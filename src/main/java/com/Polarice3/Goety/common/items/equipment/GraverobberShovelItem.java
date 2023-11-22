@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -91,5 +92,13 @@ public class GraverobberShovelItem extends ShovelItem {
         return BlockPos.betweenClosed(
                 blockPos.offset(start),
                 blockPos.offset(end));
+    }
+
+    public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
+        if (p_41005_.getBlock() instanceof AbstractSkullBlock) {
+            return 8.0F;
+        } else {
+            return super.getDestroySpeed(p_41004_, p_41005_);
+        }
     }
 }

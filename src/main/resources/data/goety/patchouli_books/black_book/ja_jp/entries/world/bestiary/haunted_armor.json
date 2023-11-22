@@ -1,0 +1,29 @@
+{
+  "name": "お化けの鎧",
+  "icon": "goety:cursed_knight_helmet",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_haunted_armor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "地下室の守護者と見張りは、間違いなくネクロタージック魔法によって命を吹き込まれました。 不浄な構造物としての性質により、それらはほとんどすべてのデバフの影響を受けず、炎で燃えることもありません。 ただし、それでも溶岩に溶け、アンデット特効からより多くのダメージを受けます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_armor{ArmorItems:[{Count:1,id:\"goety:cursed_knight_boots\"},{Count:1,id:\"goety:cursed_knight_leggings\"},{Count:1,id:\"goety:cursed_knight_chestplate\"},{Count:1,id:\"goety:cursed_knight_helmet\"}]}",
+      "text": "彼らのシールドは斧を通じて無効にすることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:fell_blade",
+      "title": "Fell Blade",
+      "text": "お化けの鎧が持つ剣には、 モブの装甲を半分にする可能性がある特別な特性があります。 金床の呪われた鉄インゴットを使用して修理できます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_knight_helmet",
+      "title": "呪われた騎士の鎧",
+      "text": "この鎧は、2 つの例外を除いて、多かれ少なかれ、通常の鉄鎧の華麗な呪われた金属バージョンのようです。 1 つは、少量の靭性を提供することです。 2 つ目は、防具のフルセットを着用すると、追加の 4 防具ポイントが与えられます。"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "魔法の剣のフォーカス",
+  "icon": "goety:sword_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エンビウォッカーや 宰相 と同じように、見ている場所に向かって剣のコピーを発射することができます。 この呪文を唱えるには、メインハンドまたはオフハンドのいずれかに剣が必要です。 この呪文を唱えると剣の耐久性が消費されます。 フォーカスには飛行剣の速度を増加させる効力を付与することができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sword_focus"
+    }
+  ]
+}

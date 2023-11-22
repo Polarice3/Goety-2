@@ -1,0 +1,20 @@
+{
+  "name": "ソウルアブソーバー",
+  "icon": "goety:soul_absorber",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_arca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/artifice/arca)アルカ$() を使用すると、古い魂のトーテムをどうすればよいか疑問に思います。 それを隠しておくという選択肢もありますが、その中のすべてのソウルエネルギーを何らかの方法でアルカに転送できないか疑問に思いました。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ソウルアブソーバーを使用すると、魂のトーテムだけでなく、エヴォーカーのトーテムやソウルサンドなどの他のアイテムからソウル エネルギーを吸い上げて $(l:crafts/artifice/arca)アルカ$() に入れることができます。 。ソウルアブソーバーはゆっくりとトーテムオブソウルを排出しますが、他のアイテムはソウルエネルギーを吸収すると単純に燃え尽きて消えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_absorber"
+    }
+  ]
+}

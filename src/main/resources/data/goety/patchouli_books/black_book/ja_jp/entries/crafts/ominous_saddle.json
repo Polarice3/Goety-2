@@ -1,0 +1,17 @@
+{
+  "name": "不気味な鞍",
+  "icon": "goety:ominous_saddle",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:mutations/ravated)ラヴェジャー$() は強力な獣ですが、あなたが持っているものには銀の鎧と鞍がありません。 $(l:intro/magical_components)Cursed Metal$() を使用すると、装甲鞍を再作成できます。 かわいそうな裸の $(l:mutations/ravated)Ravager$() を右クリックすると装備され、乗れるようになり、より強くなります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_saddle"
+    }
+  ]
+}

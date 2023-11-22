@@ -213,7 +213,7 @@ public class Envioker extends HuntingIllagerEntity {
                     this.createSpellEntity(Envioker.this.getX() + (double)Mth.cos(f2) * 3.5D, Envioker.this.getZ() + (double)Mth.sin(f2) * 3.5D, d0, d1, f2, 6);
                 }
             } else {
-                float radius = 0.4F;
+                float radius = 0.2F;
                 for(int l = 0; l < 32; ++l) {
                     double d2 = 1.25D * (double)(l + 1);
                     float fleft = f + radius;
@@ -290,11 +290,11 @@ public class Envioker extends HuntingIllagerEntity {
         }
 
         protected int getCastingTime() {
-            return 5;
+            return 10;
         }
 
         protected int getCastingInterval() {
-            return 5;
+            return 10;
         }
 
         protected void performSpellCasting() {
@@ -337,7 +337,7 @@ public class Envioker extends HuntingIllagerEntity {
                 return false;
             } else {
                 int i = Envioker.this.level.getNearbyEntities(Tormentor.class, this.vexCountTargeting, Envioker.this, Envioker.this.getBoundingBox().inflate(16.0D)).size();
-                return i < 3 && Envioker.this.isMagic();
+                return i < 1 && Envioker.this.isMagic();
             }
         }
 

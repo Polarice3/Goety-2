@@ -10,13 +10,13 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,6 +25,8 @@ import net.minecraft.world.phys.Vec3;
 public class Haunt extends Summoned{
     public Haunt(EntityType<? extends Summoned> type, Level worldIn) {
         super(type, worldIn);
+        this.setNoGravity(true);
+        this.moveControl = new FlyingMoveControl(this, 20, true);
     }
 
     protected void registerGoals() {
@@ -43,13 +45,51 @@ public class Haunt extends Summoned{
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.HauntHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.25F)
+                .add(Attributes.MOVEMENT_SPEED, 0.15D)
+                .add(Attributes.FLYING_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.HauntDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.HauntHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.HauntDamage.get());
+    }
+
+    protected PathNavigation createNavigation(Level pLevel) {
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel) {
+            public boolean isStableDestination(BlockPos blockPos) {
+                return !this.level.getBlockState(blockPos.below()).isAir();
+            }
+
+            public void tick() {
+                super.tick();
+            }
+        };
+        flyingpathnavigation.setCanOpenDoors(false);
+        flyingpathnavigation.setCanFloat(true);
+        flyingpathnavigation.setCanPassDoors(true);
+        return flyingpathnavigation;
+    }
+
+    @Override
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
+            if (this.isInWater()) {
+                this.moveRelative(0.02F, pTravelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
+            } else if (this.isInLava()) {
+                this.moveRelative(0.02F, pTravelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+            } else {
+                this.moveRelative(this.getSpeed(), pTravelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.9F));
+            }
+        }
+
+        this.calculateEntityAnimation(this, false);
     }
 
     @Override
@@ -115,9 +155,10 @@ public class Haunt extends Summoned{
     public void tick() {
         super.tick();
         this.setYHeadRot(this.getYRot());
-        Vec3 vector3d = this.getDeltaMovement();
-        if (!this.onGround && vector3d.y < 0.0D && !this.isNoGravity()) {
-            this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
-        }
     }
+
+    public boolean isNoGravity() {
+        return true;
+    }
+
 }

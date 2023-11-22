@@ -138,6 +138,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:puzzles-lib-495476:4600775")
     runtimeOnly fg.deobf("curse.maven:mutant-monsters-852665:4569847")
     runtimeOnly fg.deobf("curse.maven:mob-battle-mod-268746:3952789")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:4462837")
 }
 
 jar {

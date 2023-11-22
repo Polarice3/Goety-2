@@ -1,0 +1,24 @@
+{
+  "name": "スカルクグロワー",
+  "icon": "goety:sculk_grower",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "スカルクがソウル エネルギーを使用して成長する方法を考えると、それを自分自身だけでなく作物を育てるために使用できないか疑問に思います。 スカルクグロワーに入ります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:sculk_grower"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " スカルクコンバータは、スカルクコンバーターと同様に、その上に $(l:intro/cursed_cage)呪いの檻$() を必要とします。 スカルクコンバータとは異なり、一定のレッドストーン信号でアクティブのままであり、ソウルエネルギーをゆっくり吸い上げるのではなく、大量に吸収します。 大量のソウルエネルギーを吸収すると、周囲の作物の成長を加速するために使用される「チャージ」を獲得します。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通常、Sculk Grower は周囲の 8 x 4 x 8 ブロックからランダムな作物を育てますが、グロワー は 半径 でエンチャントすることができます (ただし、スカルクを貪る者 とは異なり、半径 は増やすのではなく追加します)。 レッドストーンが供給されていない場合でも、栽培者はチャージがなくなるまで作物を栽培します。 Grower の周囲に作物がない場合 (または Continuous Growth Config が無効になっている場合)、その Charge は内部で減衰します。"
+    }
+  ]
+}

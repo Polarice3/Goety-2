@@ -1,0 +1,21 @@
+{
+  "name": "ウォーロック",
+  "icon": "goety:snap_fungus",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_warlock",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "魔女のいとこであるウォーロックは、敵にイボリングを召喚して攻撃する敵対的な生き物です。 ターゲットが近づくと、大量のスナップイボを空中に投げ、ターゲットに当たる可能性があります。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:warlock",
+      "text": "彼らは爆発に対して耐性があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "村人が泣く黒曜石ブロックの下にいる場合、彼らはウォーロックに変身する可能性があります。"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "魔法の儀式",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "必要条件: 本棚 $(li)16 本棚 $(li)1 エンチャントテーブル $(li)1 本のある書見台"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/magic_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "祭壇を大量の本で囲むと、特定の魔法のアイテムを作成するのに役立ちます。"
+    }
+  ]
+}

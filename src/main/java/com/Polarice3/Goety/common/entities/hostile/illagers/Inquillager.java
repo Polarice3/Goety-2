@@ -25,6 +25,7 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -177,8 +178,8 @@ public class Inquillager extends HuntingIllagerEntity{
             return true;
         } else if (super.isAlliedTo(pEntity)) {
             return true;
-        } else if (pEntity instanceof Vex) {
-            return this.isAlliedTo(((Vex)pEntity).getOwner());
+        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
+            return this.isAlliedTo(vex.getOwner());
         } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
             return this.getTeam() == null && pEntity.getTeam() == null;
         } else {
@@ -247,7 +248,7 @@ public class Inquillager extends HuntingIllagerEntity{
         }
 
         protected int getCastingTime() {
-            return 5;
+            return 20;
         }
 
         protected int getCastingInterval() {
@@ -295,10 +296,13 @@ public class Inquillager extends HuntingIllagerEntity{
         @Override
         public boolean canUse() {
             if (this.inquillager.getTarget() != null){
-                LivingEntity entity = this.inquillager.getTarget();
-                return this.inquillager.distanceTo(entity) > 4.0
-                        && this.inquillager.distanceTo(entity) <= 10
-                        && this.inquillager.getSensing().hasLineOfSight(entity);
+                LivingEntity livingEntity = this.inquillager.getTarget();
+                boolean noRaiders = livingEntity.level.getEntitiesOfClass(Raider.class, livingEntity.getBoundingBox().inflate(5.0D), (entity) -> !(entity instanceof Inquillager) && !(entity instanceof Tormentor)).isEmpty();
+                boolean noRaiders2 = this.inquillager.level.getEntitiesOfClass(Raider.class, this.inquillager.getBoundingBox().inflate(5.0D), (entity) -> !(entity instanceof Inquillager) && !(entity instanceof Tormentor)).isEmpty();
+                return this.inquillager.distanceTo(livingEntity) > 4.0
+                        && this.inquillager.distanceTo(livingEntity) <= 10
+                        && this.inquillager.getSensing().hasLineOfSight(livingEntity)
+                        && noRaiders && noRaiders2;
             } else {
                 return false;
             }

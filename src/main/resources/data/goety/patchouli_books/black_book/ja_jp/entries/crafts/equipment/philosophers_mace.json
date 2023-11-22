@@ -1,0 +1,21 @@
+{
+  "name": "賢者のメイス",
+  "icon": "goety:philosophers_mace",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "賢者のメイスは、敵を粉々に砕くだけでなく、つるはしやシャベルのようにブロックを採掘することもできる、究極の武器/ツールです。 ターゲットがメイスで攻撃されると、ゴールドタッチ効果が得られ、死亡時に金塊をドロップします。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_mace"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この武器/ツールの鍛造に使用されたネザライトにより、メイスは耐火性になり、火や溶岩の中で破壊されるのを防ぎます。"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "フォーカスエンチャント",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:focuses",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスには独自の特殊なエンチャントがありますが、すべてのフォーカスがエンチャントできるわけではなく、すべてのエンチャントを受け入れるわけでもありません。 特定のフォーカス、効力、半径、燃焼、範囲、ライフ吸収にのみ適用できるエンチャントが 5 つあります。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Potency",
+      "text": "Potency increases the damage of your spells."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Duration",
+      "text": "呪文と召喚の持続時間が長くなります。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Radius",
+      "text": "呪文の範囲を広げます。これは一般に、爆発性呪文の爆発範囲がより大きくなることを意味します。 特定の呪文では、半径を使用すると、呪文が攻撃する最も近い敵をより正確に見つけることができます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Burning",
+      "text": "あなたの呪文はターゲットに火をつけたり、ターゲットが燃え続ける時間を延長します。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Range",
+      "text": "あなたの呪文はさらに遠ざかります。 レベルごとに 1 つのブロックで最大 10 レベルに到達できます。 最も一般的なエンチャント。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "Life Absorb",
+      "text": "あなたの呪文はヒットするとターゲットから体力を吸収します。 非常にレアであり、ポテンシーと互換性がありません"
+    }
+  ]
+}

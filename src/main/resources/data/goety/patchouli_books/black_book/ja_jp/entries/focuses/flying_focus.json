@@ -1,0 +1,16 @@
+{
+  "name": "フライトフォーカス",
+  "icon": "goety:flying_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:end/elytra",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "優雅なドラゴンの力とエリトラのコントロールを使って、(マウスの右ボタンを押したままにすることで) 杖や杖の中を適切に飛行できるように、発射フォーカスを改良することができました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flying_focus"
+    }
+  ]
+}

@@ -57,6 +57,19 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CONQUILLAGER_CELEBRATE = create("conquillager_celebrate");
     public static final RegistryObject<SoundEvent> CONQUILLAGER_DEATH = create("conquillager_death");
 
+    public static final RegistryObject<SoundEvent> PIKER_AMBIENT = create("piker_ambient");
+    public static final RegistryObject<SoundEvent> PIKER_HURT = create("piker_hurt");
+    public static final RegistryObject<SoundEvent> PIKER_SWING = create("piker_swing");
+    public static final RegistryObject<SoundEvent> PIKER_PIKE = create("piker_pike");
+    public static final RegistryObject<SoundEvent> PIKER_CELEBRATE = create("piker_celebrate");
+    public static final RegistryObject<SoundEvent> PIKER_STEP = create("piker_step");
+    public static final RegistryObject<SoundEvent> PIKER_DEATH = create("piker_death");
+
+    public static final RegistryObject<SoundEvent> PREACHER_AMBIENT = create("preacher_ambient");
+    public static final RegistryObject<SoundEvent> PREACHER_HURT = create("preacher_hurt");
+    public static final RegistryObject<SoundEvent> PREACHER_CAST = create("preacher_cast");
+    public static final RegistryObject<SoundEvent> PREACHER_DEATH = create("preacher_death");
+
     public static final RegistryObject<SoundEvent> WRAITH_AMBIENT = create("wraith_ambient");
     public static final RegistryObject<SoundEvent> WRAITH_HURT = create("wraith_hurt");
     public static final RegistryObject<SoundEvent> WRAITH_FLY = create("wraith_fly");
@@ -161,6 +174,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
+    public static final RegistryObject<SoundEvent> HEAL_SPELL = create("heal_spell");
     public static final RegistryObject<SoundEvent> WIND = create("wind");
     public static final RegistryObject<SoundEvent> UPDRAFT_BLAST = create("updraft_blast");
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");

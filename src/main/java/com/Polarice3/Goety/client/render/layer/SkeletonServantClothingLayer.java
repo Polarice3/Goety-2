@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.StrayServant;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,7 +26,7 @@ public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M e
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!entitylivingbaseIn.isHostile()) {
+        if ((!entitylivingbaseIn.isHostile() && MainConfig.ServantBands.get()) || entitylivingbaseIn instanceof StrayServant) {
             ResourceLocation resourceLocation = TEXTURES;
             if (entitylivingbaseIn instanceof StrayServant) {
                 resourceLocation = STRAY;

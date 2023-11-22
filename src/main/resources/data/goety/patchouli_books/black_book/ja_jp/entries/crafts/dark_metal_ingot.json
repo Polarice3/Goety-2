@@ -1,0 +1,31 @@
+{
+  "name": "ダークメタルインゴット",
+  "icon": "goety:dark_ingot",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたはやった、ディープ・ダークのエネルギーを、ソウル・エネルギーを使って自らを修復する金属に導くことに成功した。 1 つのインゴットを作るのに必要なソウル エネルギーの量は非常に多くなりますが、それでもなんとかなりました。 この金属はダイヤモンドと同じくらい丈夫な素材であり、金とほぼ同じくらい魅惑的な素材であるようです。 また、攻撃を受けた生き物の速度が低下し、弱体化するようです。"
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_hoe"
+    }
+  ]
+}

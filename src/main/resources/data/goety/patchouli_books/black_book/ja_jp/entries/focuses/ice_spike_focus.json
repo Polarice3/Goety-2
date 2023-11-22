@@ -1,0 +1,15 @@
+{
+  "name": "アイススパイクフォーカス",
+  "icon": "goety:ice_spike_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "術者の視線に向かって氷のスパイクを発射する。 スパイクに当たったクリーチャーは 1 ～ 3 秒間凍結状態になります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ice_spike_focus"
+    }
+  ]
+}

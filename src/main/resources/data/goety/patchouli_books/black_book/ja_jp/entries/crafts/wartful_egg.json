@@ -1,0 +1,15 @@
+{
+  "name": "いぼだらけの卵",
+  "icon": "goety:wartful_egg",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "クモの卵をウォートで囲むと、イボリングを生み出す受精卵が生成されるようです。 イボリングを生成すると、ユーザーから生命力が少し奪われるため、ユーザーは少し傷つくでしょう。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wartful_egg"
+    }
+  ]
+}

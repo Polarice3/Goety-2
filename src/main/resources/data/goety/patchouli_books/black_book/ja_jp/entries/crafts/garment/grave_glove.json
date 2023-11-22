@@ -1,0 +1,15 @@
+{
+  "name": "墓の手袋",
+  "icon": "goety:grave_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "大鎌はとても楽しいものですが、扱いが非常に遅いため、実用的な武器になるのは困難です。 死者の残骸とネクロタージーを使用して、鎌をより効率的に扱える手袋を作成し、攻撃速度を 50% 増加させました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grave_glove"
+    }
+  ]
+}

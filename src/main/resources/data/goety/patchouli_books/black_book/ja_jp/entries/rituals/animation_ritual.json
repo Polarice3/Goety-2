@@ -1,0 +1,22 @@
+{
+  "name": "アニメーションの儀式",
+  "icon": "goety:animation_core",
+  "category": "goety:rituals",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "必要条件: $(li)15 はしご $(li)15 レール $(li)1くりぬかれたカボチャ"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/animalis_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "あなたは研究から、生き物の召喚と制御に関する儀式を作成する方法を見つけ出しました。 レールやはしごは動きを意味し、カボチャは生命を意味します。彫刻されたカボチャは雪と鉄に命を与えるものだからです。 面白いことに、研究を通じて、カボチャには命を与えるだけでなく、カボチャをかぶっているときにじっと見つめるとエンダーマンの激怒を止めるという魔法の特性があることがわかりました。それは、カボチャをだましているからではありません。 "
+    }
+  ]
+}
