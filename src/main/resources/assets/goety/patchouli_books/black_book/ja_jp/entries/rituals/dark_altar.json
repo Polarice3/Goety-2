@@ -1,0 +1,41 @@
+{
+  "name": "儀式の実行",
+  "icon": "goety:dark_altar",
+  "category": "goety:rituals",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "闇の祭壇は、ほとんどの儀式の中心です。 何よりもまず、祭壇は $(l:intro/cursed_cage)呪われた檻$() の上に配置する必要があり、祭壇が機能するにはその檻にソウル エネルギーがなければなりません。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_altar",
+      "recipe2": "goety:pedestal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "闇の祭壇を使用すると、祭壇の周囲のブロックやアイテムに応じて、特定のアイテムを作成したり、クリーチャーを召喚したりできます。 他の魔法の流派とは異なり、これらのブロックは、儀式が機能するために特定の順序で配置する必要がありません。 重要なのは、一定量の特定のブロックが祭壇の $(l)16 ブロック半径 $(l) 内にあるということです。$()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "儀式を開始するには、祭壇のアイテムを配置する $(l)前に $() まず台座に必要なアイテムを詰める必要があります。 儀式の進行中、祭壇は檻から魂のエネルギーを吸い上げます。そのため、儀式を実行する前に、魂のエネルギーが十分にあることを確認するのが最善です。 台座は装飾用としてもお使いいただけます。"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "C" ],
+          [ "S" ],
+          [ "0" ]
+        ],
+        "mapping": {
+          "C": "goety:dark_altar",
+          "S": "goety:cursed_cage"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": false
+    }
+  ]
+}

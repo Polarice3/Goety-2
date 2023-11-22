@@ -1,0 +1,19 @@
+{
+  "name": "狩人の弓",
+  "icon": "goety:hunters_bow",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "殺人ゲームに適した弓。この弓から放たれた矢で動物を殺した場合、Looting III の武器よりも多くの戦利品がドロップされます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunters_bow"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "弓はどの弓と組み合わせても金床で修理できます。"
+    }
+  ]
+}

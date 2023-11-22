@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-28T17:21:33.2594484	Loot Tables
+// 1.20.1	2023-11-22T14:14:02.7194028	Loot Tables
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 914d54d2df0b738691c21b3792e79c30b1a39c0c data/goety/loot_tables/blocks/brick_brazier.json
@@ -32,6 +32,7 @@ fff865226994e4c1c81dafb7d5896bfc42cfb570 data/goety/loot_tables/blocks/cursed_ba
 8199d52a96609b3d3436a488323a2a3cad26b94b data/goety/loot_tables/blocks/dark_altar.json
 1dce3ee34c7ffc16eafa858de1657a383c026667 data/goety/loot_tables/blocks/dark_anvil.json
 ed30b0bdc50c587cc9376c3dc35a6728c0130f5f data/goety/loot_tables/blocks/dark_metal_block.json
+d96970541510b1dcbf0c98c17655b736c5d90010 data/goety/loot_tables/blocks/dark_pressure_plate.json
 9f38bc6343636994f7caec7bcc2f1d748b99e4ce data/goety/loot_tables/blocks/deepslate_brazier.json
 e224c00e808f8c2c592ca7cde376c8a940d1d280 data/goety/loot_tables/blocks/forbidden_grass.json
 6a456ba851c5116c487a5e85803f53872d45c8e0 data/goety/loot_tables/blocks/haunted_bookshelf.json

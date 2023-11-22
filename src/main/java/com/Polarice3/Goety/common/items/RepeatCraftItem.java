@@ -7,8 +7,8 @@ import net.minecraftforge.common.extensions.IForgeItem;
 import javax.annotation.Nonnull;
 
 public class RepeatCraftItem extends Item implements IForgeItem {
-    public RepeatCraftItem(){
-        super(new Properties());
+    public RepeatCraftItem(Properties properties){
+        super(properties);
     }
 
     @Override

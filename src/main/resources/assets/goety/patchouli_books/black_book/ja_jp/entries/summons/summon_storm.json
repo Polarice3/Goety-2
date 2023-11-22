@@ -1,0 +1,15 @@
+{
+  "name": "竜巻の儀式",
+  "icon": "minecraft:netherrack",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "雷雨を呼び起こすシンプルかつ強力な儀式。 日差しを避けたい方に便利です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_storm"
+    }
+  ]
+}

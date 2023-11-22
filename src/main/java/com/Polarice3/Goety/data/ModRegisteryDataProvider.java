@@ -2,6 +2,7 @@ package com.Polarice3.Goety.data;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.world.features.ConfiguredFeatures;
+import com.Polarice3.Goety.init.ModTrimMaterials;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -19,7 +20,8 @@ public class ModRegisteryDataProvider extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
-            .add(Registries.DAMAGE_TYPE, ModDamageSource::bootstrap);
+            .add(Registries.DAMAGE_TYPE, ModDamageSource::bootstrap)
+            .add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
 
     public ModRegisteryDataProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
         super(output, provider, BUILDER, Set.of("minecraft", Goety.MOD_ID));

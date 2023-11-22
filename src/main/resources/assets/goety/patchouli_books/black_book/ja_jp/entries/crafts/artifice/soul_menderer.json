@@ -1,0 +1,17 @@
+{
+  "name": "ソウルメンダラー",
+  "icon": "goety:soul_mender",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ソウルメンダラーは、ソウル エネルギーを使用して損傷した武器や道具を修復する強力な装置です。 ソウルメンダラーを起動するには、トーテムまたは $(l:crafts/soul_transfer_gem)Transfer Gem$() が入った $(l:intro/cursed_cage)Cursed Cage$() の上に置く必要があります。その後、ゆっくりと起動します。 アイテム自体を修復します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_mender"
+    }
+  ]
+}

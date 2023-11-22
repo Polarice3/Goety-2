@@ -56,7 +56,7 @@ public class RampagingAxeItem extends AxeItem {
                 if (!livingEntity.hasEffect(GoetyEffects.RAMPAGE.get())){
                     livingEntity.addEffect(new MobEffectInstance(GoetyEffects.RAMPAGE.get(), MathHelper.secondsToTicks(10)));
                 } else if (effectinstance1 != null){
-                    int random = killed.getMaxHealth() > 20 ? 0 : world.random.nextInt(4);
+                    int random = killed.getMaxHealth() >= 20 ? 0 : world.random.nextInt(4);
                     if (effectinstance1.getAmplifier() < 4) {
                         if (random == 0) {
                             EffectsUtil.amplifyEffect(livingEntity, GoetyEffects.RAMPAGE.get(), MathHelper.secondsToTicks(10));

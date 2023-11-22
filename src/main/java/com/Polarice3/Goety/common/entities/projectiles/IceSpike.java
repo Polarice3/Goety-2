@@ -87,7 +87,7 @@ public class IceSpike extends AbstractArrow {
             }
 
             if (flag && entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1 + livingEntity.getRandom().nextInt(2))));
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(3 + livingEntity.getRandom().nextInt(2))));
                 this.playSound(ModSounds.ICE_SPIKE_HIT.get(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 if (livingEntity.level instanceof ServerLevel serverLevel){
                     ServerParticleUtil.addParticlesAroundSelf(serverLevel, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.PACKED_ICE.defaultBlockState()), livingEntity);

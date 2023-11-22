@@ -1,0 +1,52 @@
+{
+  "name": "邪悪な村人ハンター",
+  "icon": "minecraft:crossbow",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_hunting_illagers",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "知識を盗んだとしてあなたを殺しに来た大勢の邪悪な村人を殺した後、あなたはこれまで遭遇したことのない邪悪な村人を記録することに成功しました。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの村人たちは、森の邸宅や前哨基地には駐留していないため、秘密を発見したり盗んだりした者だけを追いかけているようで、発見者がその村にいる場合にのみ襲撃に参加しているようでした。確かなことは、これらの者たちが襲撃に参加することであるということです。 邪悪な村人のブランドは、ラヴェジャーさえも追いかけるほど高いランクにあります。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:envioker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "強力なエヴォーカーで、魔法を強化するために頭に奇妙なルビーの破片を使用しているようです。 彼らのトーテムは贈られたか、他人から奪われたかのどちらかです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:tormentor"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ヴェックスとヴィンディケーターの間の実験の結果のようで、これらの存在はターゲットに向かって突進していないときは見えないままです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "予期せぬ邪悪な村人は、魔法のユーザーが呪文の影響を受けないため、魔法のユーザーを攻撃するように訓練されました。 彼らは炎の剣を振り回し、有害なポーションを投げます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:conquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "文明を滅ぼす疫病を外国人に広める、病気に侵された貴族たち。 幸いなことに、彼らは野蛮な近接攻撃を行うよりも遠くから射撃することを好みます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "襲撃に参加するとき、通常はコンキラジャーが最初に現れ、審問官は3ウェーブ後に現れ始め、エンビウォーカーはラヴェジャーやエヴォーカーと並んで現れ始めます。"
+    }
+  ]
+}

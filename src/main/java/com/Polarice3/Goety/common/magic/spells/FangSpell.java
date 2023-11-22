@@ -58,8 +58,8 @@ public class FangSpell extends Spells {
                 double d2 = 1.25D * (double)(l + 1);
                 WandUtil.spawnFangs(entityLiving,entityLiving.getX() + (double)Mth.cos(f) * d2, entityLiving.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l);
                 if (rightStaff(staff)) {
-                    float fleft = f + 0.4F;
-                    float fright = f - 0.4F;
+                    float fleft = f + 0.2F;
+                    float fright = f - 0.2F;
                     WandUtil.spawnFangs(entityLiving, entityLiving.getX() + (double) Mth.cos(fleft) * d2, entityLiving.getZ() + (double) Mth.sin(fleft) * d2, d0, d1, fleft, l);
                     WandUtil.spawnFangs(entityLiving, entityLiving.getX() + (double) Mth.cos(fright) * d2, entityLiving.getZ() + (double) Mth.sin(fright) * d2, d0, d1, fright, l);
                 }

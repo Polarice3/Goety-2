@@ -1,0 +1,18 @@
+{
+  "name": "禁断の草ブロック",
+  "icon": "goety:forbidden_grass",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "禁断の草ブロックは、ブロックが配置されているバイオーム内を歩き回る夜の生き物を呼び出します。モブはブロック上でより速くスポーンしますが、通常、スポーン方法のルールに従います。 ライトレベル。 ブロックは太陽光で燃え、隣接するブロックから発火して土に戻ります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_grass",
+      "text": "ブロックはシルクタッチで収集しないと土としてドロップします。"
+    }
+  ]
+}

@@ -280,7 +280,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
 
         if (this.isEffectiveAi()) {
             if (!this.hasItemInSlot(EquipmentSlot.HEAD) && !this.hasItemInSlot(EquipmentSlot.CHEST) && !this.hasItemInSlot(EquipmentSlot.LEGS) && !this.hasItemInSlot(EquipmentSlot.FEET)) {
-                this.die(this.damageSources().starve());
+                this.kill();
             }
         }
 
@@ -325,9 +325,11 @@ public abstract class AbstractHauntedArmor extends Summoned {
             this.coolTime -= amount * 10;
         }
         if (this.level instanceof ServerLevel serverLevel && !this.isDamageSourceBlocked(source)){
-            int j = (int) Math.min(amount, 20);
-            for(int i = 0; i < j; ++i) {
-                ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, this.getItemBySlot(EquipmentSlot.CHEST)), this);
+            if (!this.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
+                int j = (int) Math.min(amount, 20);
+                for (int i = 0; i < j; ++i) {
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, this.getItemBySlot(EquipmentSlot.CHEST)), this);
+                }
             }
         }
         return super.hurt(source, amount);

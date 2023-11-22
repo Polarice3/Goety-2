@@ -1,0 +1,9 @@
+{
+  "asset_name": "ecto",
+  "description": {
+    "color": "#00C2D6",
+    "translate": "trim_material.goety.ecto"
+  },
+  "ingredient": "goety:ectoplasm",
+  "item_model_index": 0.8
+}

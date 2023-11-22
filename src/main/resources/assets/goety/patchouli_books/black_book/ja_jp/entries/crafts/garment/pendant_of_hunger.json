@@ -1,0 +1,15 @@
+{
+  "name": "飢餓のペンダント",
+  "icon": "goety:pendant_of_hunger",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "飢餓のペンダントは、インベントリ内の腐った肉を吸収して内部に保管し、小腹が空いたときに自動的に餌を与えるために使用します。 もちろん、そのような食べ物を食べると、以前よりも空腹になります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:pendant_of_hunger"
+    }
+  ]
+}

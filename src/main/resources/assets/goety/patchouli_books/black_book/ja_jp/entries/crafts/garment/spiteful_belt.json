@@ -1,0 +1,15 @@
+{
+  "name": "悪意のあるベルト",
+  "icon": "goety:spiteful_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ダメージを受けたときに攻撃者を傷つけることに特化したベルトを作成しました。 トゲの鎧エンチャントが鎧に行うように磨耗することはありませんが、これを行う際には着用者のソウル エネルギーを使用します。 ダメージを増加させるためにトゲの鎧を付呪することができます"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:spiteful_belt"
+    }
+  ]
+}

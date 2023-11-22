@@ -1,0 +1,15 @@
+{
+  "name": "歯のフォーカス",
+  "icon": "goety:teeth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "場所、ターゲット、または術者の上に強力な歯を召喚し、移動すると地面に激突し、その周りにパイクを召喚し、生き物を空中に飛び上がらせ、5秒間大幅に減速させます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/teeth_focus"
+    }
+  ]
+}

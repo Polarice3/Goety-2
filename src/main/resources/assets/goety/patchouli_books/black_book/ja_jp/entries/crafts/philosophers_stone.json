@@ -1,0 +1,17 @@
+{
+  "name": "賢者の石",
+  "icon": "goety:philosophers_stone",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使徒の血を使用すると、神話上の賢者の石を作成できます。 これにより、この石を金のインゴットに置くことで金を複製することができます。 そうすると石の耐久度は減りますが、ソウルエネルギーを使って修復することができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_stone"
+    }
+  ]
+}

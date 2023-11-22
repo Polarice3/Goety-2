@@ -1,0 +1,20 @@
+{
+  "name": "スカルロード",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_skull_lord",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "壮大な墓の壺を冒涜して開けようとしたことで、かつてこの建造物を支配していた激怒した領主が解き放たれました。 彼らは一生の間に完成させることができなかった闇の魔法を持っているようです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skull_lord"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "トレジャーハンターや魔術師にとっては残念なことに、地下室の闇の支配者は彼らの宝物を守るためになんとか物質世界に縛られ続けました。 彼らの頭は彼らの力と知性の源であり、鎧を着て白骨化した体を再構築するたびに保護されます。"
+    }
+  ]
+}

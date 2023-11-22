@@ -1,0 +1,15 @@
+{
+  "name": "氷魔女のローブ",
+  "icon": "goety:frost_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "氷魔女のローブは、着用者に冷たいものすべての力を吹き込みます。 着用者は決して凍ることはなく、凍結攻撃に耐性があり、粉雪の中を自由に移動できます。 ローブを使用するとフロストスペルも安くなります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:frost_robe"
+    }
+  ]
+}

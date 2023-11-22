@@ -1,0 +1,15 @@
+{
+  "name": "ヴェックスのフォーカス",
+  "icon": "goety:vexing_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古い獣寓話とアレイに関するいくつかのメモを通じて、あなたは自分のヴェックスを召喚/作成するために必要な材料を見つけました。 奇妙なことに、動物寓話にはネザーのデーモンとインプについて言及されています。 好奇心旺盛..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vexing_focus"
+    }
+  ]
+}

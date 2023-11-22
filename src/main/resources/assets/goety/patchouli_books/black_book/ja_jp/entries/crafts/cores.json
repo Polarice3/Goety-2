@@ -1,0 +1,29 @@
+{
+  "name": "魔法のコア",
+  "icon": "goety:empty_focus",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "マジカルコアはあらゆる種類の呪文や装備の作成に使用され、あらゆる種類の儀式を通じて作成できます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:empty_focus",
+      "title": "Empty Focus",
+      "text": "$(l:intro/magical_components)空のフォーカス$() はすべての魔法のフォーカスのコアです."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animation_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunger_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wind_core"
+    }
+  ]
+}

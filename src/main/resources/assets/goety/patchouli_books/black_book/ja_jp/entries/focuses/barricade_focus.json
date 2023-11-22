@@ -1,0 +1,15 @@
+{
+  "name": "バリケードフォーカス",
+  "icon": "goety:barricade_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスの力を利用すると、敵の前に列、正方形、またはランダムに配置されたトーテミカル ウォールを召喚するか、呪文詠唱中にしゃがんでいる場合は、周囲に単一または複数のトーテミカル ボムを召喚して、敵を嫌がらせることができます。 彼ら。 しゃがんでいない場合、敵をターゲットにしていない場合は常にトーテミック ウォールの列を召喚します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/barricade_focus"
+    }
+  ]
+}

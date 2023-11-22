@@ -1,0 +1,17 @@
+{
+  "name": "ケルンネクロマンサー",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_cairn_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "遠い昔に死んだ役人たちがアンデッドとして復活し、アンデッドの使用人たちとともに地下室を維持し、守った。 彼らは寒さの力を利用する、砂漠の古代のネクロマンサーの派生のようです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer",
+      "text": "複数のスケルトンを召喚し、アイススパイクを発射します。"
+    }
+  ]
+}

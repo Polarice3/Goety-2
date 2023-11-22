@@ -75,7 +75,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         }
     }
 
-    public class SummonServantSpell extends UseSpellGoal {
+    public class SummonServantSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;

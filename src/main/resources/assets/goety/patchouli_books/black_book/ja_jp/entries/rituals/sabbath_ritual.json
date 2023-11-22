@@ -1,0 +1,30 @@
+{
+  "name": "安息日の儀式",
+  "icon": "minecraft:crying_obsidian",
+  "category": "goety:rituals",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)8 泣く黒曜石$(li)16 黒曜石 $(li)4魂の炎"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sabbath_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ネザーに潜む強力な存在の噂を聞いたことがあるでしょう。 噂によると、ネザーカルト信者の陰謀団が黒曜石の輪の中で彼らが「使徒」と呼ぶ存在に会い、そこで彼らの前に現れて秘密を語ったという。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_apostle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "おそらく、いくつかの策略、魔法、おとり材料を使えば、自分の目的のために召喚することができますが、彼らが最も強力なネザー内で召喚するべきではありません。 （推奨装備：エンチャントアーマー、アンデット特効、効率ツルハシ）"
+    }
+  ]
+}

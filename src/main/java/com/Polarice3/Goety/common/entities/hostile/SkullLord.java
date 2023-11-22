@@ -71,15 +71,9 @@ import java.util.UUID;
 public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     protected static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Optional<UUID>> BONE_LORD = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Integer> BONE_LORD_CLIENT = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> LASER = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Integer> LASER_CLIENT = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
     private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
     private UUID bossInfoUUID = bossInfo.getId();
-    @Nullable
-    private BoneLord clientSideCachedBoneLord;
-    @Nullable
-    private SkullLaser clientSideCachedLaser;
     @Nullable
     private BlockPos boundOrigin;
     private int shootTime;
@@ -210,9 +204,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
             }
         }
         if (this.getLaser() != null){
-            if (this.getLaserClient() == null || this.getLaserID() != this.getLaser().getId()){
-                this.setLaserID(this.getLaser().getId());
-            }
             this.lookControl.setLookAt(this.getLaser(), 90.0F, 90.0F);
 
             if (!this.level.isClientSide) {
@@ -384,6 +375,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                     --this.boneLordRegen;
                 }
                 this.setIsInvulnerable(false);
+                this.level.broadcastEntityEvent(this, (byte) 5);
                 for (BoneLord boneLord : this.level.getEntitiesOfClass(BoneLord.class, this.getBoundingBox().inflate(32))){
                     if (boneLord.getSkullLord() == this){
                         this.setBoneLord(boneLord);
@@ -402,9 +394,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
             } else {
                 if (this.getBoneLord() != null){
                     this.drawAttachParticleBeam(this, this.getBoneLord());
-                    if (this.getBoneLordClient() == null || this.getBoneLordID() != this.getBoneLord().getId()){
-                        this.setBoneLordID(this.getBoneLord().getId());
-                    }
                     if (this.getBoneLord().getTarget() != null && this.getTarget() == null){
                         this.setTarget(this.getBoneLord().getTarget());
                     }
@@ -412,6 +401,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
                         this.moveTo(this.getBoneLord().position());
                     }
                     this.setIsInvulnerable(true);
+                    this.level.broadcastEntityEvent(this, (byte) 4);
                     this.hitTimes = 0;
                     this.boneLordRegen = delay * 2;
                 }
@@ -615,20 +605,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
         super.defineSynchedData();
         this.entityData.define(FLAGS, (byte)0);
         this.entityData.define(BONE_LORD, Optional.empty());
-        this.entityData.define(BONE_LORD_CLIENT, 0);
         this.entityData.define(LASER, Optional.empty());
-        this.entityData.define(LASER_CLIENT, 0);
-    }
-
-    public void onSyncedDataUpdated(EntityDataAccessor<?> p_32834_) {
-        super.onSyncedDataUpdated(p_32834_);
-        if (BONE_LORD_CLIENT.equals(p_32834_)) {
-            this.clientSideCachedBoneLord = null;
-        }
-        if (LASER_CLIENT.equals(p_32834_)) {
-            this.clientSideCachedLaser = null;
-        }
-
     }
 
     private boolean geFlags(int mask) {
@@ -672,25 +649,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     }
 
     @Nullable
-    public BoneLord getBoneLordClient() {
-        if (this.level.isClientSide) {
-            if (this.clientSideCachedBoneLord != null) {
-                return this.clientSideCachedBoneLord;
-            } else {
-                Entity entity = this.level.getEntity(this.entityData.get(BONE_LORD_CLIENT));
-                if (entity instanceof BoneLord boneLord) {
-                    this.clientSideCachedBoneLord = boneLord;
-                    return this.clientSideCachedBoneLord;
-                } else {
-                    return null;
-                }
-            }
-        } else {
-            return this.getBoneLord();
-        }
-    }
-
-    @Nullable
     public UUID getBoneLordUUID() {
         return this.entityData.get(BONE_LORD).orElse(null);
     }
@@ -701,15 +659,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
 
     public void setBoneLord(BoneLord boneLord){
         this.setBoneLordUUID(boneLord.getUUID());
-        this.setBoneLordID(boneLord.getId());
-    }
-
-    public int getBoneLordID(){
-        return this.entityData.get(BONE_LORD_CLIENT);
-    }
-
-    public void setBoneLordID(int p_32818_) {
-        this.entityData.set(BONE_LORD_CLIENT, p_32818_);
     }
 
     public boolean isLasering(){
@@ -732,25 +681,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     }
 
     @Nullable
-    public SkullLaser getLaserClient() {
-        if (this.level.isClientSide) {
-            if (this.clientSideCachedLaser != null) {
-                return this.clientSideCachedLaser;
-            } else {
-                Entity entity = this.level.getEntity(this.entityData.get(BONE_LORD_CLIENT));
-                if (entity instanceof SkullLaser skullLaser) {
-                    this.clientSideCachedLaser = skullLaser;
-                    return this.clientSideCachedLaser;
-                } else {
-                    return null;
-                }
-            }
-        } else {
-            return this.getLaser();
-        }
-    }
-
-    @Nullable
     public UUID getLaserUUID() {
         return this.entityData.get(LASER).orElse(null);
     }
@@ -761,15 +691,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
 
     public void setLaser(SkullLaser laser){
         this.setLaserUUID(laser.getUUID());
-        this.setLaserID(laser.getId());
-    }
-
-    public int getLaserID(){
-        return this.entityData.get(LASER_CLIENT);
-    }
-
-    public void setLaserID(int p_32818_) {
-        this.entityData.set(LASER_CLIENT, p_32818_);
     }
 
     public boolean isCharging() {
@@ -931,6 +852,17 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss{
     @SuppressWarnings("unchecked")
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_21375_) {
+        if (p_21375_ == 4){
+            this.setIsInvulnerable(true);
+        } else if (p_21375_ == 5){
+            this.setIsInvulnerable(false);
+        } else {
+            super.handleEntityEvent(p_21375_);
+        }
     }
 
     class SoulSkullGoal extends Goal {

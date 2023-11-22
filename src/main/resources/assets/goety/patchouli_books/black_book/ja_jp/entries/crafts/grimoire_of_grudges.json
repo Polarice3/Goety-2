@@ -1,0 +1,24 @@
+{
+  "name": "恨みのグリモワール",
+  "icon": "goety:grimoire_of_grudges",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "時々、あなたは特定の存在に対して激しい恨みを持っているように感じますが、それでもあなたの召使は彼らを無理由に攻撃しません。 幸いなことに、あなたは恐ろしい本を発明しました。それは、その存在を攻撃すると記録されるというものです。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "このグリモワールに記録されたものはすべて、あなたのすべての召使を自動的にその存在に対して敵対的にします。 グリモアには、村人からあなたのような存在まで、複数の存在を記録できます。 それだけではなく、あなたの恨みが種にまで及ぶ場合、しゃがんだ状態でその存在を攻撃すると、その存在の種が記録されます。 たとえば、しゃがんでグリモワールで村人を殴ると、すべての従者がすべての村人に対して敵対的になります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grimoire_of_grudges",
+      "text": "Right clicking in the air shows who you're grudging against. Shift right click to see the species."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ただし、許したい気分で恨みを消したい場合は、恨みを持っている存在を右クリックするか、種族全体に対して恨みを持っている場合は、 シフトキーを押して右クリックすると、恨みが消えます。 グリモアから。 もう一度殴るまでは。"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "スケルトンの従者",
+  "icon": "minecraft:skeleton_skull",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "スケルトンの従者は、あなたを傷つける者や近くにいる敵対的な生き物を殺そうとします。 サモナーがネクロヘルムとローブの両方を着用しているときに召喚されると、時折弱体化の矢を発射します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "空にさらされた極寒のツンドラでスケルトンの従者を召喚しようとすると、代わりにストレイの従者が出現します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:stray_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "スケルトンの従者はあらゆる鎧を受け入れることができますが、剣/弓のみを受け入れることができます。つまり、遠距離攻撃者または近接攻撃者になることができます。"
+    }
+  ]
+}

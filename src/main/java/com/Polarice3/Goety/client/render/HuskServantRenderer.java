@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -22,7 +23,7 @@ public class HuskServantRenderer extends ZombieServantRenderer {
    }
 
    public ResourceLocation getTextureLocation(ZombieServant p_114905_) {
-      if (p_114905_.isHostile()){
+      if (p_114905_.isHostile() || !MainConfig.CustomServantTexture.get()){
          return ZOMBIE_LOCATION;
       } else {
          return TEXTURE;

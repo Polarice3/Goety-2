@@ -59,7 +59,7 @@ public class UpdraftSpell extends Spells {
             UpdraftBlast updraftBlast = new UpdraftBlast(ModEntityType.UPDRAFT_BLAST.get(), worldIn);
             updraftBlast.setDamage(damage);
             updraftBlast.setAreaOfEffect((float) radius);
-            updraftBlast.setPos(blockPos.getX(), blockPos.getY() + 1.0F, blockPos.getZ());
+            updraftBlast.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 1.0F, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(updraftBlast);
         }
     }

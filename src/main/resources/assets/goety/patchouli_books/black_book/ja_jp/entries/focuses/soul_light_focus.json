@@ -1,0 +1,16 @@
+{
+  "name": "ソウルライトのフォーカス",
+  "icon": "goety:soul_light_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ソウルエネルギーのボルトをブロックに発射することで、魔法の光源を作ることができます。 最初は、光はトーチほど強力ではありませんが、ピグリンを追い払いますが、グロウストーンとネザーラックを使用すると、光はより明るく輝きます。 また、クリーチャーが当たった場合も光ります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_light_focus",
+      "recipe2": "goety:focus/glow_light_focus"
+    }
+  ]
+}

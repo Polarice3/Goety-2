@@ -1,0 +1,33 @@
+{
+  "name": "ラヴェジャーアーマー",
+  "icon": "goety:iron_ravager_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:mutations/ravated)Ravagers$() の秘密に関する巻物を読んでいるときに、あなたはすでに $(l:crafts/ominous_saddle) 装甲サドル$() を強化する特殊な装甲を作成するというアイデアを思いつきました。 "
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この巨大な獣の鎧を作成するには大量の鉄と金属が必要ですが、新しく変身した $(l:mutations/ravated)ラヴェジャー$() を大量に保護することができます。 ただし、鎧を適用する前に $(l:mutations/ravagged)ラヴェジャー$() を $(l:crafts/ominous_saddle)Saddled$() にする必要があります。 ラヴェジャーの装備を強化することを考えたのはあなたが最初ではないという噂を聞いたことがあります..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_ravager_armor"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "エンダーチェストのフォーカス",
+  "icon": "goety:ender_chest_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "シンプルなフォーカスで、キャストすると杖の先端からエンダーチェストにアクセスできるようになります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ender_chest_focus"
+    }
+  ]
+}

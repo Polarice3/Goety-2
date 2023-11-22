@@ -1,0 +1,22 @@
+{
+  "name": "その他",
+  "icon": "goety:cursed_cage",
+  "category": "goety:intro",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "闇の芸術を通過すると、力を与えるために魂のエネルギーを必要とするあらゆる種類の魔法の芸術に出会うでしょう。  呪われた檻は、トーテムまたはソウル エネルギー ホルダーへの何らかの接続が挿入されている場合、ソウル エネルギーをこれらのデバイスに送信するのに役立ちます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_cage"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:enchanted_book",
+      "title": "ソウルイーター",
+      "text": "新しいエンチャント、ソウルイーターも発見しました。 これでエンチャントされた武器やツールは、それを使ってMOBを殺したときに獲得するソウルエネルギーの量を増加させます。"
+    }
+  ]
+}

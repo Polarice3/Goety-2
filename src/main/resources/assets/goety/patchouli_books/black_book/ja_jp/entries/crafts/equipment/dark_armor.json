@@ -1,0 +1,33 @@
+{
+  "name": "闇の鎧",
+  "icon": "goety:dark_helmet",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "闇鉄は通常の道具の作成に使用できますが、鎧に関しては、より複雑な方法で作成する必要があるようです。 この鎧はあなたが作った他の鎧とは似ても似つかず、より精巧でありながら威圧的に見えますが、それでもダイヤモンドレベルの保護と靭性、そしてある程度のノックバック耐性を備えています。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "各アーマーピースは、呪文の詠唱、召使いの回復、特定のアイテムの修理に使用されるかどうかにかかわらず、ソウルエネルギーの使用に割引を与えます。 残念ながら、クラフトや儀式での使用が割引になるわけではありません。 フルセットを着用すると、満腹度以下の場合でも受動的な再生が可能になり、召喚獣が暴徒を倒すときにソウルエネルギーを付与できるようになります。 ヘルメットは着用者を暗闇や失明の影響から守ります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_boots"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "暗い邸宅",
+  "icon": "minecraft:dark_oak_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "邪悪な村人は、消極的な従兄弟たちに比べてかなり進歩的です。 世界とその側面を研究するために、邸宅の外にいくつかの邸宅を設立した人もいます。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/dark_manor.png"],
+      "border": true
+    }
+  ]
+}

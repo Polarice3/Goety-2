@@ -1,0 +1,32 @@
+{
+  "name": "宰相",
+  "icon": "goety:soul_ruby",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_vizier",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "すべての邪悪な村人の中で最高ランクの 1 つである宰相は、呪文と魔法を増幅する強力なルビーを所有しているようです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vizier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "戦闘では、彼らは鉄の剣でターゲットに何度も突撃し、その後足元にファングを召喚します。 負傷すると、ヴェックスの従兄弟であるイルクが主人を守るために召喚されます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:irk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "十分に負傷するか、周囲に多くのイルクが存在すると、宰相は周囲のすべてのイルクの生命力を吸い上げ、その過程で彼らを治癒する呪文を唱えます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "殺されると、彼らの殺人者は最高レベルの不吉な予感で攻撃されます。 宰相が特定の宰相に強力なルビーの破片を与えるという噂があります。"
+    }
+  ]
+}

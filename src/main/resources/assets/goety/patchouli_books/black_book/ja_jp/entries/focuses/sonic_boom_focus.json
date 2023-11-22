@@ -1,0 +1,17 @@
+{
+  "name": "ソニックブームフォーカス",
+  "icon": "goety:sonic_boom_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ルビーの力で、あなたはウォーデンのソニックブームの力を複製することに成功し、その能力を他の人に対して使用できるようになりました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sonic_boom_focus"
+    }
+  ]
+}

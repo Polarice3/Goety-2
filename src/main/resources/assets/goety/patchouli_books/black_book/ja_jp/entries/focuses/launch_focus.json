@@ -1,0 +1,15 @@
+{
+  "name": "ローンチのフォーカス",
+  "icon": "goety:launch_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "いくつかのいじくりと実験の結果、あなたは空中に推進する呪文を作成することができ、粗雑ではあるが効果的な方法で飛行できるようになりました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/launch_focus"
+    }
+  ]
+}

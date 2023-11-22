@@ -1,0 +1,16 @@
+{
+  "name": "レイスの従者",
+  "icon": "goety:wraith_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらの幽霊は呼び出され、自分のアイスブーケがあなたにもあなたの同盟者にも触れないようにあなたの意志によって拘束されます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith_servant"
+    }
+  ]
+}

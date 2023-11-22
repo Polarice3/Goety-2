@@ -1,0 +1,25 @@
+{
+  "name": "名も無き杖",
+  "icon": "goety:nameless_staff",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "禁じられた文書を使用して、あなたは夜の力を利用する方法を発見し、ネクロマンシーでの優位性をもたらす強力な杖を作成できるようになりました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:heart_of_the_night"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この杖から発射される$(l:focuses/soul_bolt_focus)ソウルボルト$()は、より強力なネクロボルトに変わります。$(l:focuses/illusion_focus)ミラースペル$()を同時に発動すると、$(l: crafts/garment/nameless_set)名もなきセットで$() を実行すると、代わりにターゲットにネクロ ボルトを 1 本発射します。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "熟練のネザー儀式",
+  "icon": "minecraft:nether_bricks",
+  "category": "goety:rituals",
+  "advancement": "minecraft:story/enter_the_nether",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)ネザーに作る必要がある $(li)4 ウィザースケルトンの頭蓋骨 $(li)32 ネザー/赤いネザーレンガ $(li)8 ネザーウォート"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/expert_nether.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ウィザー スケルトンは、要塞の元の住民、ネザー カルト信者が「ネフィリム」と呼んだ、彼ら自身の燃える創造物に裏切られた黒焦げの残骸です。 死んでも彼らはまだ魔法の力を保持しており、おそらく高度な魔法のためのいくつかの難解な知識さえ保持しています。 おそらく、呪われた人々の苦痛から成長したイボには、犠牲者の知識の一部も含まれているのでしょう。"
+    }
+  ]
+}

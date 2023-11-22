@@ -1,0 +1,17 @@
+{
+  "name": "古代の技術",
+  "icon": "minecraft:redstone",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古代に使われた強大な力を持つ戦闘機械のささやきがあなたの耳に届きます。 彼らは、これらの獣は岩とレッドストーンで作られており、防御と攻撃のために $(l)古代$() の構造内で使用されてきたと言います。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_warred_scroll",
+      "text": "彼らは、これらの巨大な機械が$(l)古代都市$()や$(l)エンド要塞$()で使っていたらしい"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "噛みつきフォーカス",
+  "icon": "goety:biting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "目の前に魔法の牙の列を召喚し、ターゲットの鎧を無視するダメージを与えます（エンチャントされていない場合）。 しゃがむと、周囲に牙の輪が召喚されます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/biting_focus"
+    }
+  ]
+}

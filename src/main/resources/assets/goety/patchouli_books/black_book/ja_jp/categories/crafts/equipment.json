@@ -1,0 +1,7 @@
+{
+  "name": "ツールとエンチャント",
+  "description": "闇の魔法使いのための暗くて強力なツール。",
+  "icon": "goety:eerie_pickaxe",
+  "parent": "goety:crafts",
+  "sortnum": 1
+}

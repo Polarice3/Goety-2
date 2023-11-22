@@ -442,7 +442,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<Haunt>> HAUNT = register("haunt",
             EntityType.Builder.of(Haunt::new, MobCategory.MONSTER)
-                    .sized(0.6F, 1.5F)
+                    .sized(0.6F, 0.8F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",
@@ -466,6 +466,18 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<Conquillager>> CONQUILLAGER = register("conquillager",
             EntityType.Builder.of(Conquillager::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Piker>> PIKER = register("piker",
+            EntityType.Builder.of(Piker::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Preacher>> PREACHER = register("preacher",
+            EntityType.Builder.of(Preacher::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));

@@ -1,0 +1,15 @@
+{
+  "name": "ショッキングフォーカス",
+  "icon": "goety:shocking_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたから電気の力が飛び出し、目の前の生き物を驚かせます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shocking_focus"
+    }
+  ]
+}

@@ -133,6 +133,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
@@ -342,6 +343,8 @@ public class SpellConfig {
                 .define("vexTeleport", true);
         MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")
                 .define("minionAttackCreepers", true);
+        NecroRobeUndead = BUILDER.comment("Whether Servants can attack Undead mobs if owner wears a full Necro Set, Default: false")
+                .define("necroRobeUndead", false);
         MinionsMasterImmune = BUILDER.comment("Whether Servants or their owner are immune to attacks made by other servants that are summoned by the same owner, Default: true")
                 .define("minionMasterImmune", true);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")

@@ -198,7 +198,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.moveCloak();
         if (this.getTarget() == null){
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(32.0F), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                if (livingEntity instanceof Player || livingEntity instanceof AbstractVillager || livingEntity instanceof IronGolem){
+                if ((livingEntity instanceof Player || livingEntity instanceof AbstractVillager || livingEntity instanceof IronGolem) && canAttack(livingEntity)){
                     this.setTarget(livingEntity);
                 }
             }
@@ -208,14 +208,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             } else {
                 this.airBound = 0;
             }
-/*            if (!this.getTarget().hasLineOfSight(this)){
-                BlockPos blockPos = new BlockPos(this.getTarget().getX() - 2, this.getTarget().getY() + 2.0D, this.getTarget().getZ() - 2);
-                if (this.isFree(blockPos.getX(), blockPos.getY(), blockPos.getZ())){
-                    this.moveControl.setWantedPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F);
-                } else {
-                    this.moveControl.setWantedPosition(this.getTarget().getX(), this.getTarget().getY(), this.getTarget().getZ(), 1.0F);
-                }
-            }*/
         }
     }
 
@@ -818,10 +810,12 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
         public void start() {
             LivingEntity livingentity = Vizier.this.getTarget();
-            Vec3 vector3d = livingentity.position();
-            Vizier.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, 1.0D);
-            Vizier.this.setCharging(true);
-            Vizier.this.playSound(ModSounds.VIZIER_CELEBRATE.get(), 1.0F, 1.0F);
+            if (livingentity != null) {
+                Vec3 vector3d = livingentity.position();
+                Vizier.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, 1.0D);
+                Vizier.this.setCharging(true);
+                Vizier.this.playSound(ModSounds.VIZIER_CELEBRATE.get(), 1.0F, 1.0F);
+            }
         }
 
         public void stop() {
@@ -830,18 +824,19 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
         public void tick() {
             LivingEntity livingentity = Vizier.this.getTarget();
-            Vizier.this.getLookControl().setLookAt(livingentity.position());
-            if (Vizier.this.getBoundingBox().inflate(1.0D).intersects(livingentity.getBoundingBox())) {
-                Vizier.this.doHurtTarget(livingentity);
-                Vizier.this.setCharging(false);
-            } else {
-                double d0 = Vizier.this.distanceToSqr(livingentity);
-                if (d0 < 9.0D) {
-                    Vec3 vector3d = livingentity.getEyePosition(1.0F);
-                    Vizier.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, 1.0D);
+            if (livingentity != null) {
+                Vizier.this.getLookControl().setLookAt(livingentity.position());
+                if (Vizier.this.getBoundingBox().inflate(1.0D).intersects(livingentity.getBoundingBox())) {
+                    Vizier.this.doHurtTarget(livingentity);
+                    Vizier.this.setCharging(false);
+                } else {
+                    double d0 = Vizier.this.distanceToSqr(livingentity);
+                    if (d0 < 9.0D) {
+                        Vec3 vector3d = livingentity.getEyePosition(1.0F);
+                        Vizier.this.moveControl.setWantedPosition(vector3d.x, vector3d.y, vector3d.z, 1.0D);
+                    }
                 }
             }
-
         }
     }
 

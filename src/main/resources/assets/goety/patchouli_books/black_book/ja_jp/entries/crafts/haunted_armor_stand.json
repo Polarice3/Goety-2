@@ -1,0 +1,23 @@
+{
+  "name": "幽霊の防具立て",
+  "icon": "goety:haunted_armor_stand",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽霊の防具立ては通常の防具立てとは若干異なり、後者とは異なり、防具立てには武器やアイテムを保持するためのアームが付属しています。 ホーンテッド・プランクで作られているため、防具立ては火の影響を受けません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_armor_stand"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:animation_core",
+      "title": "お化けの鎧",
+      "text": "このスタンドを本当に特別なものにしているのは、スタンドが完全に鎧を着ている場合、その上のアニメーション コアを右クリックすると、スタンドが忠実なホーンテッド アーマーに変わることです。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ネクロマンサーセット",
+  "icon": "goety:necro_cape",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ゾンビやスケルトンを指揮する力は素晴らしく聞こえますが、ネクロ ケープの力でネクロチュルジックの能力がさらに強化されます。 これを着用すると、スケルトンが時折弱点の矢を放つようになり、ゾンビは自然のゾンビをあなたに従うより多くのサーヴァントに変えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:necro_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ネクロクラウンは、アンデッドの大群がヴェックスのように腐敗するのを防ぎ、ネクロマンシー呪文を唱える時間を半分に短縮します。"
+    }
+  ]
+}

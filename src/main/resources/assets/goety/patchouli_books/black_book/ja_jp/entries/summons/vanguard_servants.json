@@ -1,0 +1,20 @@
+{
+  "name": "ヴァンガードの従者",
+  "icon": "goety:vanguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらの古代の戦士はかつて、闇の魔法の一部を盗んだ死霊術師に仕えていました。 彼らの剣はほとんどの剣よりも遠くまで届き、目の前の複数の敵にダメージを与えることができます。 彼らの盾は一撃で壊れるかもしれませんが、その攻撃は完全に吸収されます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vanguard_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "彼らがシールドを持たない場合は、攻撃していないときに木の板で右クリックしてシールドを返します。"
+    }
+  ]
+}

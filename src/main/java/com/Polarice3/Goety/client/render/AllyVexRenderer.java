@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.render.model.MinionModel;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -43,7 +44,9 @@ public class AllyVexRenderer extends MobRenderer<AllyVex, MinionModel<AllyVex>> 
 
         @Override
         public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, AllyVex pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1.0F, 1.0F, 1.0F);
+            if (MainConfig.ServantBands.get()) {
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1.0F, 1.0F, 1.0F);
+            }
         }
     }
 }

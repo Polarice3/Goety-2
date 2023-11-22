@@ -1,0 +1,19 @@
+{
+  "name": "墓荒らしのシャベル",
+  "icon": "goety:graverobber_shovel",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "墓掘りや墓荒らしに適したシャベルで、土などのブロックを壊すときに1つではなく2つのブロックを壊すため、その場で墓を掘ることができます。 その名前の理由は、シャベルが土や砂などのブロックを壊すときに 10% の確率で遺跡を掘り出すことに由来しています。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:graverobber_shovel"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "シャベルは$(l:intro/magical_components)を使って金床で修理できます$()."
+    }
+  ]
+}

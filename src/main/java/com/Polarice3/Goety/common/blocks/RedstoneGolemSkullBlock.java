@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.HitResult;
@@ -45,6 +46,7 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
     public RedstoneGolemSkullBlock() {
         super(Properties.of()
                 .strength(1.0F)
+                .instrument(NoteBlockInstrument.CUSTOM_HEAD)
                 .pushReaction(PushReaction.DESTROY)
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));

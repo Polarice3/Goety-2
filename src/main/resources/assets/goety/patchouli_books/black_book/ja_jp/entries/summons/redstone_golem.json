@@ -1,0 +1,36 @@
+{
+  "name": "レッドストーンゴーレム",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古い建築物を略奪すると、古代に戦争に使用された強力なゴーレムの設計図のようなものを見つけました。 ゴーレムは強そうに見えますが、このような恐ろしい獣を作成するにはダイヤモンドと石レンガで作られた型が必要です。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem",
+      "text": "アニメーション コアのある中央のレッドストーン ブロックを右クリックします。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Stone Bricks は、Deepslate Bricks などの他の同様のブロックで置き換えることができます。 出来上がったゴーレムは、より強いだけでなく、杖や杖を使って追いかけたり、さまよったり、その場にとどまるように命令できるため、アイアンゴーレムよりもはるかに優れていることがわかります。 レッドストーンダストまたはブロックを右クリックして修復できます。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:redstone_golem_skull",
+      "text": "ゴーレムが戦闘または指揮から落ちた場合、彼らは「頭」を落とします。 スカルを使用すると、より安価な方法でゴーレムを復活させることができます。 しかし、スカルは元の創造主であり主人であることを覚えており、復活したゴーレムは彼らの命令にのみ従うでしょう。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_golem_revive",
+      "enable_visualize": false
+    }
+  ]
+}

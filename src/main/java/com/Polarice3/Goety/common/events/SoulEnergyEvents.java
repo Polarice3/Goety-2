@@ -27,6 +27,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
@@ -177,9 +178,11 @@ public class SoulEnergyEvents {
                 }
             }
 
-            if (CuriosFinder.hasCurio(victim, itemStack -> itemStack.getItem() instanceof TotemOfSouls)){
-                ItemStack itemStack = CuriosFinder.findCurio(victim, itemStack1 -> itemStack1.getItem() instanceof TotemOfSouls);
-                TotemOfSouls.increaseSouls(itemStack, SEHelper.getSoulGiven(victim) * 2);
+            if (victim != killer) {
+                if (CuriosFinder.hasCurio(victim, itemStack -> itemStack.getItem() instanceof TotemOfSouls)) {
+                    ItemStack itemStack = CuriosFinder.findCurio(victim, itemStack1 -> itemStack1.getItem() instanceof TotemOfSouls);
+                    TotemOfSouls.increaseSouls(itemStack, SEHelper.getSoulGiven(victim) * 2);
+                }
             }
 
             if (!(victim instanceof Player) || !MainConfig.TotemUndying.get()) {
@@ -245,6 +248,9 @@ public class SoulEnergyEvents {
                     TotemOfSouls.setSoulsamount(TotemFinder.FindTotem(player), 0);
                 }
                 event.setCanceled(true);
+            }
+            if (killer instanceof AbstractIllager){
+                soulEnergy.setRestPeriod(MathHelper.minecraftDayToTicks(1));
             }
         }
 

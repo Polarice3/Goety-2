@@ -1,0 +1,15 @@
+{
+  "name": "旅人のベルト",
+  "icon": "goety:wayfarers_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "旅人のベルトトを使用すると、着用者は少し速く移動できるだけでなく、ジャンプせずに 1 つのブロックを歩くこともできます。 また、ベルトを装着するとジャンプの高さが上がり、高所からの落下によるダメージが半減します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wayfarers_belt"
+    }
+  ]
+}

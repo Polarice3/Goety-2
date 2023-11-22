@@ -1,0 +1,22 @@
+{
+  "name": "嵐の儀式",
+  "icon": "minecraft:lightning_rod",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)祭壇は 128 以上のブロック、高いところにある必要があります $(li)Altar は嵐にさらされている必要があります $(li)4 避雷針 $(li)20 チェーン $(li)12 銅ブロック （その他派生も可）。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/storm_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "嵐の力はあなたの魔法のスキルを他に類を見ないほど強化します! 銅ブロックはどのような種類でも構いません。"
+    }
+  ]
+}

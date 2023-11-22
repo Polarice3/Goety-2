@@ -1,0 +1,20 @@
+{
+  "name": "ファイアスポーンケージ",
+  "icon": "goety:flame_capture",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "モンスタースポナーの周囲に拠点を構築しない限り、ブロックを行ったり来たりするのは非常に面倒です。 残念ながら、この難解なデバイスを簡単に手に取って、どこにでも持ち運べるわけではありません。 ない限り..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:flame_capture",
+      "text": "ケージはスポナーの燃えるコアを捕らえ、その過程でブロックを壊すことができます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ケージがスポナーのコアを捕捉したら、空の $(l:intro/cursed_cage)呪いの檻$() を右クリックすると、元のスポナーのコピーに変換され、Cursed Infusion プロセスと Mob が作成されます。 農業をもっと便利に！ ただし、これを行うと途中でアイテムが破壊されます。"
+    }
+  ]
+}

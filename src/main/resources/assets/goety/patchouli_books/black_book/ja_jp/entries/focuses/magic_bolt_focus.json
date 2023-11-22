@@ -1,0 +1,15 @@
+{
+  "name": "マジックボルトフォーカス",
+  "icon": "goety:magic_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この焦点により、呪い のターゲットとなるボルトを発射し、有害な黒魔術の地面を生成することができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magic_bolt_focus"
+    }
+  ]
+}

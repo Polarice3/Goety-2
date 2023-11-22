@@ -1,0 +1,15 @@
+{
+  "name": "アメジストのネックレス",
+  "icon": "goety:amethyst_necklace",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "アメジストは、ジオマンティックの魔法への強力な導管です。 このネックレスを作成して着用すると、ジオマテック術の呪文のソウルコストが半分になるだけでなく、バリケードの呪文を唱えるときにより多くのトーテミックボムが出現する可能性が高くなります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:amethyst_necklace"
+    }
+  ]
+}

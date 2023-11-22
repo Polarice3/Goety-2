@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "type": "paletted_permutations",
+      "textures": [
+        "trims/items/leggings_trim",
+        "trims/items/chestplate_trim",
+        "trims/items/helmet_trim",
+        "trims/items/boots_trim"
+      ],
+      "palette_key": "trims/color_palettes/trim_palette",
+      "permutations": {
+        "cursed": "goety:trims/color_palettes/cursed",
+        "dark": "goety:trims/color_palettes/dark",
+        "ecto": "goety:trims/color_palettes/ecto",
+        "jade": "goety:trims/color_palettes/jade"
+      }
+    }
+  ]
+}

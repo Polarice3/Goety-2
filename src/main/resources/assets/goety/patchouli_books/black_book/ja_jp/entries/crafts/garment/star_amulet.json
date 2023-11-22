@@ -1,0 +1,15 @@
+{
+  "name": "ソウル シールド アミュレット",
+  "icon": "goety:star_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ソウル シールド アミュレットは、力が弱まったときにウィザーのシールドを模倣します。 着用者の体力が最大値の半分以下の場合、矢は跳ね返されます。 クリエイティブ状態にならずにクリエイティブ飛行が可能な場合、シールドが上がっているときに自分自身が接地していることに気づくでしょう。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:star_amulet"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "ライトニングフォーカス",
+  "icon": "goety:lightning_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ついに、このフォーカスを手に入れて、敵や場所に天の怒りを呼び起こすことができるようになりました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lightning_focus"
+    }
+  ]
+}

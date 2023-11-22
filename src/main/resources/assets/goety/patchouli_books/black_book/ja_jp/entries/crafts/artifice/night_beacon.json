@@ -1,0 +1,17 @@
+{
+  "name": "ナイトビーコン",
+  "icon": "goety:night_beacon",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ナイトビーコンは、村人の伝説の中で語られる古代の装置です。 彼らは、ピグリンがそれをネザーポータルに置き、そこでオーバーワールドを永遠の夜にさせたと言います。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "しかし、伝説ではその破壊について語られていました。 おそらくあなたが手に入れたのは、古い伝説によく似た、世界に永遠の夜をもたらす、そのような難解な装置のレプリカだったのでしょう。"
+    }
+  ]
+}

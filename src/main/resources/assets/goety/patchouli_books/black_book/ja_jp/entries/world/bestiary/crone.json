@@ -1,0 +1,22 @@
+{
+  "name": "老婆",
+  "icon": "goety:crone_hat",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crone",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "年老いて賢くなったが、それでも悪意のある魔女は、下位の親戚よりもはるかに優れたビールを作成し、利用しています。 彼らの帽子は、余分な魔女のビールを作るのに役立つと言われています。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crone",
+      "text": "Deals damage when getting hit."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:crone_hat",
+      "text": "老婆の帽子は強力なアイテムで、かぶるとポーションを使い果たさない確率が 25%、ビールを使い果たさない確率が 10% になります。 また、着用者が通常の魔女の帽子をかぶっていた場合は 2 杯ではなく、着用者が魔女のローブを着ている場合は最大 3 杯の追加のビールを瓶詰めするチャンスも与えられます。"
+    }
+  ]
+}

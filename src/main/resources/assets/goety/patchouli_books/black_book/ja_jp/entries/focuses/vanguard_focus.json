@@ -1,0 +1,16 @@
+{
+  "name": "ヴァンガードフォーカス",
+  "icon": "goety:vanguard_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスを使用して、墓の向こうから忠実な衛兵を召喚する方法を発見しました。 この呪文は古代の王から盗まれて再利用されたような気がします。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vanguard_focus"
+    }
+  ]
+}

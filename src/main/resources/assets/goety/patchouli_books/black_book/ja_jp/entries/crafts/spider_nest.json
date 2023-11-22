@@ -1,0 +1,16 @@
+{
+  "name": "蜘蛛の巣",
+  "icon": "goety:spider_nest",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生肉の周りにクモの卵をたくさん置くと、クモの巣を作ることができます。 巣には、より小さくて無害なクモがいます。周囲にブロックがない場合、巣の周りに定期的にクモの巣を生成します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:spider_nest",
+      "text": "クモの巣は明るい場所ではクモの巣を作りません。 まれに、クモの巣からクモが発生することがあります。"
+    }
+  ]
+}

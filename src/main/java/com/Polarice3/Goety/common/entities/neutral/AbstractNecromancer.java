@@ -361,10 +361,10 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
     }
 
-    public abstract class UseSpellGoal extends Goal {
+    public abstract class SummoningSpellGoal extends Goal {
         protected int spellTime;
 
-        protected UseSpellGoal() {
+        protected SummoningSpellGoal() {
         }
 
         public boolean canUse() {
@@ -381,8 +381,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
 
         public boolean canContinueToUse() {
-            LivingEntity livingentity = AbstractNecromancer.this.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.spellTime > 0;
+            return this.spellTime > 0;
         }
 
         public void start() {
@@ -404,7 +403,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         public void tick() {
             --this.spellTime;
-            if (this.spellTime == 5) {
+            if (this.spellTime == 10) {
                 if (this.getCastSound() != null) {
                     AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
                 }
@@ -417,7 +416,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         protected abstract void castSpell();
 
         protected int getCastingTime() {
-            return 12;
+            return 20;
         }
 
         protected int getCastingInterval(){
@@ -435,7 +434,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         protected abstract SpellType getSpellType();
     }
 
-    public class SummonZombieSpell extends UseSpellGoal {
+    public class SummonZombieSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;

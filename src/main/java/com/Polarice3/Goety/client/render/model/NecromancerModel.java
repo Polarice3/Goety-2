@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.client.render.model;
 
-
 import com.Polarice3.Goety.client.render.animation.NecromancerAnimations;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.utils.MathHelper;

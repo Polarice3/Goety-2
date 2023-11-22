@@ -1,0 +1,6 @@
+{
+  "name": "フォーカス",
+  "description": "フォーカスは、杖または杖に挿入すると呪文を唱えるために使用されます。",
+  "icon": "goety:dark_wand",
+  "sortnum": 2
+}

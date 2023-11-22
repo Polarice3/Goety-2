@@ -1,0 +1,23 @@
+{
+  "name": "熟練したネザーの儀式",
+  "icon": "minecraft:blackstone",
+  "category": "goety:rituals",
+  "advancement": "minecraft:story/enter_the_nether",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要件: $(li)ネザー$(li)8玄武岩（その他派生も可）$(li)16 ブラックストーン（その他派生も可）$(li)4 グロウストーン"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/adept_nether.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ネザーは、領域に散らばる無限の量のソウルサンドで示されるように、ソウルエネルギーに満ちた次元です。 ただし、豊富さを 1 か所に集中させるためにネザー関連のアーティファクトを作成するための構造がまだ必要です。 ブラックストーンと玄武岩はどんな種類のものでも構いません。"
+    }
+  ]
+}

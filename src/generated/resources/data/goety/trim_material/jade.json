@@ -1,0 +1,9 @@
+{
+  "asset_name": "jade",
+  "description": {
+    "color": "#00FA68",
+    "translate": "trim_material.goety.jade"
+  },
+  "ingredient": "goety:jade",
+  "item_model_index": 0.7
+}

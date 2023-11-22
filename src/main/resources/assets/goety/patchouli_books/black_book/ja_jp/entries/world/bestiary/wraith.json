@@ -1,0 +1,23 @@
+{
+  "name": "レイス",
+  "icon": "goety:ectoplasm",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ターゲットの足元に炎を呼び起こし、むしろ熱く、魂を凍らせる神秘的な色合い。 彼らはテレポートする能力もありますが、それを行うのはターゲットが近くにある場合のみです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith",
+      "text": "彼らの炎の力にもかかわらず、彼らは火の影響を受けないわけではありません。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:ectoplasm",
+      "title": "Ectoplasm",
+      "text": "レイスはエクトプラズムをドロップする可能性があります。 エクトプラズムは、ネクロティックのアーティファクトや呪文を作成するのに役立ちます。"
+    }
+  ]
+}

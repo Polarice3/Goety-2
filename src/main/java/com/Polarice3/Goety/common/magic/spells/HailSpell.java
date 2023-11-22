@@ -64,7 +64,7 @@ public class HailSpell extends Spells {
             hailCloud.setExtraDamage(damage);
             hailCloud.setRadius((float) radius);
             hailCloud.setLifeSpan(duration);
-            hailCloud.setPos(blockPos.getX(), blockPos.getY() + 4, blockPos.getZ());
+            hailCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(hailCloud);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.PLAYER_HURT_FREEZE, this.getSoundSource(), 1.0F, 1.0F);
         }

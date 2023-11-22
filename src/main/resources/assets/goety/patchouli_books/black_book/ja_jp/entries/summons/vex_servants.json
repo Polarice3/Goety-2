@@ -1,0 +1,19 @@
+{
+  "name": "ヴェックスの従者",
+  "icon": "minecraft:vex_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなた自身のヴェックスのグループ。 これらのヴェックスはエヴォーカー ヴェックスとほとんど同じように行動しますが、あなたを追いかけてあなたに代わって攻撃するだけです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ally_vex"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他の肉厚なサーヴァントとは異なり、ヴェックスは歩き回ったり、あなたに従うのをやめたりすることはなく、武器や防具が大きすぎるため受け入れません。"
+    }
+  ]
+}

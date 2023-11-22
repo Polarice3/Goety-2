@@ -1,0 +1,20 @@
+{
+  "name": "スカルクを貪る者",
+  "icon": "goety:sculk_devourer",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "スカルクカタリストは魅力的なものです。 それは経験を世界中に広がるスカルクに変換しますが、少し工夫することで、カタリストを経験を直接ソウルエネルギーに変換するソウルエネルギーコレクターに変えることができました。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:sculk_devourer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "提供されるソウルエネルギーの量は、ドロップされた経験値と同じ量です。貪る者は ソウルイーターと 半径 でエンチャントできます。 半径 は経験値が吸収される領域を倍増します。つまり、半径 I は領域を 2 倍、半径 II は 3 倍になります。 ソウルイーターは経験から集めたソウルエネルギーの量を倍増します。"
+    }
+  ]
+}

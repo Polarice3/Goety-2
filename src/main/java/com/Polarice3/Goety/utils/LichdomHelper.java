@@ -9,12 +9,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
+import javax.annotation.Nullable;
+
 public class LichdomHelper {
     public static ILichdom getCapability(Player player) {
         return player.getCapability(LichProvider.CAPABILITY).orElse(new LichImp());
     }
 
-    public static boolean isLich(Entity livingEntity) {
+    public static boolean isLich(@Nullable Entity livingEntity) {
         if (livingEntity instanceof Player player){
             return isLich(player);
         } else {

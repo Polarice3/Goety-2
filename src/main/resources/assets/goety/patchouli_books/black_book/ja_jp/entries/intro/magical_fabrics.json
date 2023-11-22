@@ -1,0 +1,27 @@
+{
+  "name": "魔法の生地",
+  "icon": "goety:dark_fabric",
+  "category": "goety:intro",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ラピスラズリは魔法を利用するための主成分のようです。 これを多数の文字列と組み合わせると、ありふれた文字列よりも魔法をうまく伝える特別な文字列が作成されます。 これらの特別な糸を染料やその他の成分と組み合わせることで、特別な生地を作ることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_fabric",
+      "recipe2": "goety:magic_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:occult_fabric",
+      "recipe2": "goety:spirit_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gale_fabric",
+      "recipe2": "goety:chill_fabric"
+    }
+  ]
+}

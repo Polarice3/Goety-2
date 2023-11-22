@@ -1,0 +1,9 @@
+{
+  "asset_name": "dark",
+  "description": {
+    "color": "#1F1F1F",
+    "translate": "trim_material.goety.dark"
+  },
+  "ingredient": "goety:dark_ingot",
+  "item_model_index": 0.3
+}

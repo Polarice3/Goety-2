@@ -39,6 +39,8 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.ENVIOKER.get(),
                 ModEntityType.INQUILLAGER.get(),
                 ModEntityType.CONQUILLAGER.get(),
+                ModEntityType.PIKER.get(),
+                ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
                 ModEntityType.VIZIER.get());
         this.tag(EntityTypeTags.ARROWS).add(ModEntityType.DEATH_ARROW.get());

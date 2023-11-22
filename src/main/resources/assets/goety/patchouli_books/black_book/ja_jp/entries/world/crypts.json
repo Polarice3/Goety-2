@@ -1,0 +1,16 @@
+{
+  "name": "地下室",
+  "icon": "goety:crypt_stone_chiseled",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古代の地下室が地下に掘られ、その不浄な建造物の上の風景を歪めているという話を聞いたことがあるでしょう。 噂によると、これらの地下室には莫大な財宝、禁断の秘密、そして恐ろしい怪物が眠っているという。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/crypt.png"],
+      "border": true
+    }
+  ]
+}

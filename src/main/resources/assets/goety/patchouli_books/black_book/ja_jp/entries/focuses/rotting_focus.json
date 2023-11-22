@@ -1,0 +1,15 @@
+{
+  "name": "腐りし者のフォーカス",
+  "icon": "goety:rotting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネクロタージーへの真の第一歩は、ゾンビを召喚して命令することです。 ゾンビには複数のバリエーションがあり、フォーカスを使用すると、呪文が唱えられる場所や環境に応じてバリエーションを呼び出すことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rotting_focus"
+    }
+  ]
+}

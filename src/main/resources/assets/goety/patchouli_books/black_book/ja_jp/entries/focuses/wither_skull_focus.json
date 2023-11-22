@@ -1,0 +1,17 @@
+{
+  "name": "ウィザースカルフォーカス",
+  "icon": "goety:wither_skull_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネザーの使者の不浄な血により、スカル フォーカスをアップグレードしてウィザーの頭蓋骨を再現できるようになります。 その破壊的な能力に注意してください！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/wither_skull_focus"
+    }
+  ]
+}

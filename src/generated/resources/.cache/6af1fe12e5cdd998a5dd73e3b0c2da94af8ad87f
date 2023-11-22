@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-25T20:38:20.046045	Item Models: goety
+// 1.20.1	2023-11-22T14:14:02.7243882	Item Models: goety
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/apostle_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/border_wraith_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/cairn_necromancer_spawn_egg.json
@@ -13,8 +13,11 @@
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/husk_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/inquillager_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/irk_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/malghast_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/minister_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/necromancer_servant_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/piker_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/preacher_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/redstone_golem_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/skeleton_servant_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/goety/models/item/skull_lord_spawn_egg.json
