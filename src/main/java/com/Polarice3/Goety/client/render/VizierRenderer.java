@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.render.layer.VizierAuraLayer;
 import com.Polarice3.Goety.client.render.layer.VizierCapeLayer;
 import com.Polarice3.Goety.client.render.model.VizierModel;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,8 +15,10 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/illagers/vizier.png");
-    protected static final ResourceLocation DYING = new ResourceLocation(Goety.MOD_ID, "textures/entity/illagers/vizier_dying.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/illagers/vizier.png");
+    protected static final ResourceLocation DYING = Goety.location("textures/entity/illagers/vizier_dying.png");
+    protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier.png");
+    protected static final ResourceLocation CHRISTMAS_DYING = Goety.location("textures/entity/illagers/vizier_dying.png");
 
     public VizierRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new VizierModel(renderManagerIn.bakeLayer(ModModelLayer.VIZIER)), 1.0F);
@@ -33,9 +37,9 @@ public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     @Override
     public ResourceLocation getTextureLocation(Vizier entity) {
         if (entity.isDeadOrDying() || !entity.isAlive()){
-            return DYING;
+            return HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get() ? CHRISTMAS_DYING : DYING;
         } else {
-            return TEXTURE;
+            return HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
         }
     }
 }

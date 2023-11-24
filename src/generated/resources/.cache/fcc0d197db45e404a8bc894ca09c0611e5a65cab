@@ -1,6 +1,6 @@
-// 1.19.2	2023-11-19T23:02:57.5800839	Tags for minecraft:entity_type
+// 1.19.2	2023-11-24T10:03:58.227076	Tags for minecraft:entity_type
 b0cf1a5a756bbe68023043ed64e9d395c1f8df09 data/minecraft/tags/entity_types/arrows.json
 928fb50040c776f8747a3de92160555314ac6554 data/minecraft/tags/entity_types/freeze_immune_entity_types.json
 712fe660755461de5cdb9400e90285d11712dbbe data/minecraft/tags/entity_types/impact_projectiles.json
 b1e13b425fe0312a446228efa5f2efbb8b0e4236 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json
-3d55c158ac88c883ddc7780e4d2f50050ca3b20a data/minecraft/tags/entity_types/raiders.json
+797df4b35b55cf617a671e543f192c25b7d46147 data/minecraft/tags/entity_types/raiders.json

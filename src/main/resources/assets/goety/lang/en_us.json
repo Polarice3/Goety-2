@@ -795,6 +795,7 @@
   "tooltip.goety.arca_not_bound": "Has yet to be bound to an Arca.",
   "tooltip.goety.customName": "Name: ",
   "tooltip.goety.entity": "Entity",
+  "tooltip.goety.disabled": "Disabled",
   "tooltip.goety.brew.area": "Area Of Effect %s",
   "tooltip.goety.brew.lingering": "Lingering %s",
   "tooltip.goety.brew.quaff": "Quaff %s",

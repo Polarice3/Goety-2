@@ -127,20 +127,21 @@ public class Summoned extends Owned {
             } else if (this.limitedLifeTicks > 0){
                 this.limitedLifespan = true;
             }
-            if (this.getMobType() == MobType.UNDEAD) {
-                if (!this.isOnFire() && !this.isDeadOrDying()) {
-                    if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
-                        if (this.getTrueOwner() instanceof Player owner) {
-                            if (CuriosFinder.hasUndeadCape(owner)) {
-                                int SoulCost = SpellConfig.UndeadMinionHealCost.get();
-                                if (SEHelper.getSoulsAmount(owner, SoulCost)){
-                                    if (this.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
-                                        this.heal(SpellConfig.UndeadMinionHealAmount.get().floatValue());
-                                        Vec3 vector3d = this.getDeltaMovement();
-                                        if (!this.level.isClientSide){
-                                            ServerLevel serverWorld = (ServerLevel) this.level;
-                                            SEHelper.decreaseSouls(owner, SoulCost);
-                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+            if (!this.level.isClientSide) {
+                if (this.getMobType() == MobType.UNDEAD) {
+                    if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
+                        if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
+                            if (this.getTrueOwner() instanceof Player owner) {
+                                if (CuriosFinder.hasUndeadCape(owner)) {
+                                    int SoulCost = SpellConfig.UndeadMinionHealCost.get();
+                                    if (SEHelper.getSoulsAmount(owner, SoulCost)) {
+                                        if (this.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
+                                            this.heal(SpellConfig.UndeadMinionHealAmount.get().floatValue());
+                                            Vec3 vector3d = this.getDeltaMovement();
+                                            if (this.level instanceof ServerLevel serverWorld) {
+                                                SEHelper.decreaseSouls(owner, SoulCost);
+                                                serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                                            }
                                         }
                                     }
                                 }

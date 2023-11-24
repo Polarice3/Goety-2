@@ -26,7 +26,10 @@ import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
+import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
+import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
+import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
 import com.Polarice3.Goety.common.entities.util.TunnelingFang;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
@@ -166,6 +169,21 @@ public class Goety {
             DispenserBlock.registerBehavior(ModItems.ILL_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
                     return new IllBomb(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.SNAP_FUNGUS.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
+                    return new SnapFungus(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.BLAST_FUNGUS.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
+                    return new BlastFungus(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.BERSERK_FUNGUS.get(), new AbstractProjectileDispenseBehavior() {
+                protected Projectile getProjectile(Level p_123468_, Position p_123469_, ItemStack p_123470_) {
+                    return new BerserkFungus(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
                 }
             });
             DispenserBlock.registerBehavior(ModItems.HAUNTED_ARMOR_STAND.get(), new DefaultDispenseItemBehavior() {

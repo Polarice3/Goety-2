@@ -1,7 +1,10 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.render.model.MinisterModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
+import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,6 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class MinisterRenderer<T extends Minister> extends MobRenderer<T, MinisterModel<T>> {
+    private static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/minister/minister_christmas.png");
+
     public MinisterRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new MinisterModel<>(renderManagerIn.bakeLayer(ModModelLayer.MINISTER)), 0.5F);
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
@@ -40,6 +45,9 @@ public class MinisterRenderer<T extends Minister> extends MobRenderer<T, Ministe
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
+        if (HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get()){
+            return CHRISTMAS;
+        }
         return entity.getResourceLocation();
     }
 }
