@@ -50,6 +50,6 @@ public class ClientProxy implements ModProxy {
         if (!(level instanceof ClientLevel)){
             return;
         }
-        Minecraft.getInstance().particleEngine.add(new ShockwaveParticle.Explosion((ClientLevel) level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0, radius, Minecraft.getInstance().particleEngine));
+        Minecraft.getInstance().particleEngine.add(new ShockwaveParticle.Explosion((ClientLevel) level, blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F, 0, 0, 0, radius, Minecraft.getInstance().particleEngine));
     }
 }

@@ -24,6 +24,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:wind_core"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:mystic_core"
     }
   ]
 }

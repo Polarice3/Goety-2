@@ -40,7 +40,7 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
     public DarkAltarBlock() {
         super(Properties.of()
                 .mapColor(MapColor.COLOR_BLACK)
-                .strength(5.0F, 9.0F)
+                .strength(5.0F, 100.0F)
                 .sound(SoundType.STONE)
                 .noOcclusion()
         );

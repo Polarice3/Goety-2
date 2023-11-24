@@ -107,6 +107,12 @@ public class ClientInitEvents {
             playerRenderer.addLayer(new PlayerSoulShieldLayer(playerRenderer, event.getEntityModels()));
             playerRenderer.addLayer(new PlayerSpellShieldLayer(playerRenderer, event.getEntityModels()));
         }
+        PlayerRenderer playerRenderer2 = event.getSkin("slim");
+        if (playerRenderer2 != null){
+            playerRenderer2.addLayer(new PlayerSoulArmorLayer(playerRenderer2, event.getEntityModels()));
+            playerRenderer2.addLayer(new PlayerSoulShieldLayer(playerRenderer2, event.getEntityModels()));
+            playerRenderer2.addLayer(new PlayerSpellShieldLayer(playerRenderer2, event.getEntityModels()));
+        }
     }
 
     @SubscribeEvent

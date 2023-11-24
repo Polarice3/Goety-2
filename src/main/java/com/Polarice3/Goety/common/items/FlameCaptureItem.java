@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.init.ModSounds;
@@ -70,21 +71,23 @@ public class FlameCaptureItem extends Item {
                 }
             }
         } else {
-            if (level.getBlockState(pos).getBlock() == Blocks.SPAWNER){
-                if (!level.isClientSide()) {
-                    BlockEntity blockentity = level.getBlockEntity(pos);
-                    if (blockentity instanceof SpawnerBlockEntity) {
-                        Entity entity = ((SpawnerBlockEntity) blockentity).getSpawner().getOrCreateDisplayEntity(level, level.random, blockentity.getBlockPos());
-                        if (entity != null) {
-                            this.setEntity(entity, stack);
-                            level.destroyBlock(pos, false);
+            if (MainConfig.FireSpawnCage.get()) {
+                if (level.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
+                    if (!level.isClientSide()) {
+                        BlockEntity blockentity = level.getBlockEntity(pos);
+                        if (blockentity instanceof SpawnerBlockEntity) {
+                            Entity entity = ((SpawnerBlockEntity) blockentity).getSpawner().getOrCreateDisplayEntity(level, level.random, blockentity.getBlockPos());
+                            if (entity != null) {
+                                this.setEntity(entity, stack);
+                                level.destroyBlock(pos, false);
+                            }
                         }
                     }
+                    if (player != null) {
+                        player.playSound(ModSounds.FLAME_CAPTURE_CATCH.get());
+                    }
+                    return InteractionResult.sidedSuccess(level.isClientSide());
                 }
-                if (player != null) {
-                    player.playSound(ModSounds.FLAME_CAPTURE_CATCH.get());
-                }
-                return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
 
@@ -93,17 +96,24 @@ public class FlameCaptureItem extends Item {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        if (level != null && this.getEntity(stack, level) != null)  {
-            Entity entity = this.getEntity(stack, level);
+        if (MainConfig.FireSpawnCage.get()) {
+            if (level != null && this.getEntity(stack, level) != null) {
+                Entity entity = this.getEntity(stack, level);
 
-            if (entity == null) {
-                return;
+                if (entity == null) {
+                    return;
+                }
+
+                MutableComponent textComponent = Component.translatable("tooltip.goety.entity")
+                        .append(": ")
+                        .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()))
+                        .withStyle(ChatFormatting.GREEN);
+
+                tooltip.add(textComponent);
             }
-
-            MutableComponent textComponent = Component.translatable("tooltip.goety.entity")
-                    .append(": ")
-                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()))
-                    .withStyle(ChatFormatting.GREEN);
+        } else {
+            MutableComponent textComponent = Component.translatable("tooltip.goety.disabled")
+                    .withStyle(ChatFormatting.DARK_RED);
 
             tooltip.add(textComponent);
         }

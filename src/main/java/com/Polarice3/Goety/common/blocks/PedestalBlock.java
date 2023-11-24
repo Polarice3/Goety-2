@@ -42,7 +42,7 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
     public PedestalBlock() {
         super(Properties.of()
                 .mapColor(MapColor.STONE)
-                .strength(5.0F, 9.0F)
+                .strength(5.0F, 100.0F)
                 .sound(SoundType.STONE)
                 .noOcclusion()
         );

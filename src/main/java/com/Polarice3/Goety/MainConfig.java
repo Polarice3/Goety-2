@@ -157,8 +157,10 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CustomServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ServantBands;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
@@ -182,7 +184,7 @@ public class MainConfig {
                 .defineInRange("maxArcaSouls", 100000, 10, Integer.MAX_VALUE);
         SoulRepair = BUILDER.comment("Certain Items repair themselves using Soul Energy, Default: true")
                 .define("soulRepair", true);
-        TotemUndying = BUILDER.comment("Totem of Souls will save the Player if full of Soul Energy and its in Curio Slot or inventory, Default: true")
+        TotemUndying = BUILDER.comment("Totem of Souls will save the Player if full of Soul Energy and its in Curio Slot, hotbar or off-hand, Default: true")
                 .define("totemUndying", true);
         ArcaUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count, Default: true")
                 .define("arcaUndying", true);
@@ -297,18 +299,22 @@ public class MainConfig {
                 .define("servantBands", true);
         RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
                 .define("redstoneGolemCrack", false);
+        HolidaySkins = BUILDER.comment("If certain mobs have a different texture during some holiday months, Default: true")
+                .define("holidaySkins", true);
         BUILDER.pop();
         BUILDER.push("Items");
         DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
                 .defineInRange("darkScytheSouls", 1, 1, Integer.MAX_VALUE);
         ScytheSlashBreaks = BUILDER.comment("Scythe Slashes from Death Scythe breaks blocks that regular Scythes easily breaks, Default: true")
                 .define("scytheSlashBreaks", true);
+        FireSpawnCage = BUILDER.comment("Fire Spawn Cage are enabled, Default: true")
+                .define("fireSpawnCage", true);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")
                 .defineInRange("itemsRepairSouls", 5, 1, Integer.MAX_VALUE);
         SpitefulBeltUseAmount = BUILDER.comment("Amount of Souls needed to use Spiteful Belt functionality, Default: 5")
                 .defineInRange("spitefulBeltUseAmount", 5, 1, Integer.MAX_VALUE);
-        PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 256")
-                .defineInRange("pendantOfHungerLimit", 256, 1, Integer.MAX_VALUE);
+        PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 1024")
+                .defineInRange("pendantOfHungerLimit", 1024, 1, Integer.MAX_VALUE);
         SeaAmuletChargeConsume = BUILDER.comment("How much Charges the Sea Amulet needs to consume to function, Default: 1")
                 .defineInRange("seaAmuletChargeConsume", 1, 1, Integer.MAX_VALUE);
         SeaAmuletMax = BUILDER.comment("The total amount of Charges a Sea Amulet can hold, Default: 256")

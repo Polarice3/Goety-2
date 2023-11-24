@@ -275,7 +275,6 @@ public class Preacher extends HuntingIllagerEntity{
             if (this.target != null && !this.target.isDeadOrDying()){
                 MobUtil.instaLook(this.preacher, this.target);
                 if (this.preacher.healTick == 10){
-                    this.preacher.healCool = 20;
                     this.target.heal(AttributesConfig.PreacherHeal.get().floatValue());
                     if (!this.preacher.level.isClientSide) {
                         ServerLevel serverWorld = (ServerLevel) this.preacher.level;
@@ -284,6 +283,7 @@ public class Preacher extends HuntingIllagerEntity{
                         }
                         this.target.playSound(ModSounds.HEAL_SPELL.get(), this.preacher.getSoundVolume(), this.preacher.getVoicePitch());
                     }
+                    this.preacher.healCool = 20;
                 }
             }
         }
