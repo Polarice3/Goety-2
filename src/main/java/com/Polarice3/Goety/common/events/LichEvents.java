@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
@@ -122,12 +123,21 @@ public class LichEvents {
                     }
                 }
             }
+            if (LichdomHelper.isInLichMode(player)) {
+                if (player.tickCount % 5 == 0) {
+                    if (world.isClientSide) {
+                        world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+            }
             if (player.isAlive()){
                 player.setAirSupply(player.getMaxAirSupply());
                 if (MainConfig.LichNightVision.get()) {
                     player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
                 }
             }
+        } else {
+            LichdomHelper.setLichMode(player, false);
         }
     }
 

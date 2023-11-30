@@ -37,7 +37,7 @@ public class WindBlastSpell extends Spells {
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 srcVec = new Vec3(entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ());
         Vec3 lookVec = entityLiving.getViewVector(1.0F);
-        int i0 = rightStaff(staff) ? 6 : 3;
+        int i0 = rightStaff(staff) ? 16 : 8;
         for(int i = 1; i < i0; ++i) {
             Vec3 vector3d2 = srcVec.add(lookVec.scale((double)i));
             worldIn.sendParticles(ModParticleTypes.WIND_BLAST.get(), vector3d2.x, vector3d2.y, vector3d2.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);

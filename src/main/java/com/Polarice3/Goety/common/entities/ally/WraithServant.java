@@ -68,7 +68,7 @@ public class WraithServant extends AbstractWraith {
                 return actionresulttype;
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public void handleEntityEvent(byte pId) {

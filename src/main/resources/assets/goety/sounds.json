@@ -1966,6 +1966,14 @@
     ],
     "subtitle": "subtitle.goety.vanguard_summon"
   },
+  "command": {
+    "sounds": [
+      {
+        "name": "goety:spell/command"
+      }
+    ],
+    "subtitle": "subtitle.goety.command"
+  },
   "bolt_impact": {
     "sounds": [
       {

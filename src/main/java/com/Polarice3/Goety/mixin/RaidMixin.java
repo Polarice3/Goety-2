@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.mixin;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -21,7 +21,7 @@ public class RaidMixin {
 
     @ModifyVariable(at = @At(value = "STORE", ordinal = 0), method = "spawnGroup")
     private Raider spawnCustomRaider(Raider raider, BlockPos blockPos) {
-        if (MainConfig.ArmoredRavagerRaid.get()){
+        if (MobsConfig.ArmoredRavagerRaid.get()){
             if (this.level.random.nextFloat() < (0.25F + this.level.getCurrentDifficultyAt(raider.blockPosition()).getSpecialMultiplier())) {
                 if (raider.getType() == EntityType.RAVAGER){
                     raider = ModEntityType.ARMORED_RAVAGER.get().create(this.level);

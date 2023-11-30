@@ -69,6 +69,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation NECRO_SET = register("necro_set");
     public static final ModelLayerLocation NAMELESS_CROWN = register("nameless_crown");
     public static final ModelLayerLocation NAMELESS_SET = register("nameless_set");
+    public static final ModelLayerLocation LICH = register("lich");
     public static final ModelLayerLocation GLOVE = register("glove");
     public static final ModelLayerLocation FOCUS_BAG = register("focus_bag");
     public static final ModelLayerLocation AMULET = register("amulet");

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBullet;
 import net.minecraft.core.BlockPos;
@@ -388,7 +388,7 @@ public class Irk extends Minion implements Enemy {
                         }
                     }
                 }
-                if (this.summonedEntity.distanceToSqr(this.owner) > 144.0 && SpellConfig.VexTeleport.get()){
+                if (this.summonedEntity.distanceToSqr(this.owner) > 144.0 && MobsConfig.VexTeleport.get()){
                     this.tryToTeleportNearEntity();
                 }
             }

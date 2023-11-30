@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.VizierAuraLayer;
 import com.Polarice3.Goety.client.render.layer.VizierCapeLayer;
 import com.Polarice3.Goety.client.render.model.VizierModel;
@@ -37,9 +37,9 @@ public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     @Override
     public ResourceLocation getTextureLocation(Vizier entity) {
         if (entity.isDeadOrDying() || !entity.isAlive()){
-            return HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get() ? CHRISTMAS_DYING : DYING;
+            return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS_DYING : DYING;
         } else {
-            return HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
+            return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
         }
     }
 }

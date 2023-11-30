@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.StrayServant;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,7 +25,7 @@ public class StrayServantBandsLayer<T extends AbstractSkeletonServant, M extends
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entitylivingbaseIn instanceof StrayServant && !entitylivingbaseIn.isHostile() && MainConfig.ServantBands.get()) {
+        if (entitylivingbaseIn instanceof StrayServant && !entitylivingbaseIn.isHostile() && MobsConfig.StrayServantTexture.get()) {
             coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
         }
     }

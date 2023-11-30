@@ -11,6 +11,7 @@ import com.Polarice3.Goety.common.effects.brew.PotionBrewEffect;
 import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
 import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -692,7 +693,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
             } else if (mode == Mode.COMPLETED) {
                 if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
-                    boolean hat = CuriosFinder.hasCurio(player, ModItems.WITCH_HAT.get()), croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()), robe = CuriosFinder.hasWitchRobe(player);
+                    boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem), croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()), robe = CuriosFinder.hasWitchRobe(player);
                     float chance = 1.0F;
                     int times = 0;
                     if (croneHat){

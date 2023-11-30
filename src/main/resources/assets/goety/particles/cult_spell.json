@@ -1,12 +1,12 @@
 {
   "textures": [
-    "goety:cult_spell_7",
-    "goety:cult_spell_6",
-    "goety:cult_spell_5",
-    "goety:cult_spell_4",
-    "goety:cult_spell_3",
-    "goety:cult_spell_2",
+    "goety:cult_spell_0",
     "goety:cult_spell_1",
-    "goety:cult_spell_0"
+    "goety:cult_spell_2",
+    "goety:cult_spell_3",
+    "goety:cult_spell_4",
+    "goety:cult_spell_5",
+    "goety:cult_spell_6",
+    "goety:cult_spell_7"
   ]
 }

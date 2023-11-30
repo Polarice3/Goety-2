@@ -377,7 +377,7 @@ public class Crone extends Cultist implements RangedAttackMob, IBoss {
             double d2 = target.getZ() + vec3.z - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             int amp = 0;
-            if (this.level.random.nextFloat() <= 0.05F && this.level.getDifficulty() == Difficulty.NORMAL){
+            if (this.level.random.nextFloat() <= 0.05F && this.level.getDifficulty() != Difficulty.EASY){
                 amp = 2;
             } else if (this.level.random.nextFloat() <= 0.25F){
                 amp = 1;

@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "goety:witch_robe_hedge"
+  },
+  "result": "goety:witch_robe",
+  "cookingTime": 60
+}

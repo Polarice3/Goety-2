@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.events;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.HuntDownPlayerGoal;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
@@ -46,7 +46,7 @@ public class IllagerSpawner {
     private int nextTick;
 
     public int tick(ServerLevel world) {
-        if (!MainConfig.IllagerAssault.get()) {
+        if (!MobsConfig.IllagerAssault.get()) {
             return 0;
         } else {
             RandomSource random = world.random;
@@ -54,8 +54,8 @@ public class IllagerSpawner {
             if (this.nextTick > 0) {
                 return 0;
             } else {
-                this.nextTick += MainConfig.IllagerAssaultSpawnFreq.get();
-                if (random.nextInt(MainConfig.IllagerAssaultSpawnChance.get()) != 0) {
+                this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
+                if (random.nextInt(MobsConfig.IllagerAssaultSpawnChance.get()) != 0) {
                     return 0;
                 } else {
                     int j = world.players().size();
@@ -63,14 +63,14 @@ public class IllagerSpawner {
                         return 0;
                     } else {
                         Player player = world.players().get(random.nextInt(j));
-                        int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(player), 0, MainConfig.IllagerAssaultSELimit.get());
+                        int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(player), 0, MobsConfig.IllagerAssaultSELimit.get());
                         if (player.isSpectator() || player.isCreative()) {
                             return 0;
                         } else if (SEHelper.getRestPeriod(player) > 0){
                             return 0;
-                        } else if (world.isCloseToVillage(player.blockPosition(), 2) && soulEnergy < MainConfig.IllagerAssaultSELimit.get()) {
+                        } else if (world.isCloseToVillage(player.blockPosition(), 2) && soulEnergy < MobsConfig.IllagerAssaultSELimit.get()) {
                             return 0;
-                        } else if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get()) {
+                        } else if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get()) {
                             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
                             int l = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
                             BlockPos.MutableBlockPos blockpos$mutable = player.blockPosition().mutable().move(k, 0, l);
@@ -85,7 +85,7 @@ public class IllagerSpawner {
                                 } else {
                                     int i1 = 0;
                                     int j1 = soulEnergy / 2;
-                                    int e1 = Mth.clamp(j1 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                                    int e1 = Mth.clamp(j1 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
                                     int e15 = world.random.nextInt(e1);
                                     for (int k1 = 0; k1 < e15; ++k1) {
                                         ++i1;
@@ -101,9 +101,9 @@ public class IllagerSpawner {
                                         blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
                                         int j2 = soulEnergy/2;
-                                        int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                                         int e25 = world.random.nextInt(e2) + 3;
                                         for (int k1 = 0; k1 < e25; ++k1) {
                                             ++i1;
@@ -121,9 +121,9 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
                                         int j2 = soulEnergy/2;
-                                        int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
                                         int e25 = world.random.nextInt(e2);
                                         for (int k1 = 0; k1 < e25; ++k1) {
                                             ++i1;
@@ -141,9 +141,9 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
                                         int j2 = (int) (soulEnergy/2.5);
-                                        int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                                         int e25 = world.random.nextInt(e2);
                                         for (int k1 = 0; k1 < e25; ++k1) {
                                             ++i1;
@@ -160,9 +160,9 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
                                         int j2 = (int) (soulEnergy/2.5);
-                                        int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                                         int e25 = world.random.nextInt(e2);
                                         for (int k1 = 0; k1 < e25; ++k1) {
                                             ++i1;
@@ -179,9 +179,9 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 3) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
                                         int j2 = (int) (soulEnergy/3);
-                                        int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                                         int e25 = world.random.nextInt(e2);
                                         for (int k1 = 0; k1 < e25; ++k1) {
                                             ++i1;
@@ -198,13 +198,13 @@ public class IllagerSpawner {
                                             blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
                                         blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                                         blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         this.spawnMinister(world, blockpos$mutable, random, player);
                                     }
-                                    if (soulEnergy >= MainConfig.IllagerAssaultSELimit.get() && MainConfig.SoulEnergyBadOmen.get()) {
+                                    if (soulEnergy >= MobsConfig.IllagerAssaultSELimit.get() && MobsConfig.SoulEnergyBadOmen.get()) {
                                         if (!player.hasEffect(MobEffects.BAD_OMEN)) {
                                             player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 0, false, false));
                                         }
@@ -401,7 +401,7 @@ public class IllagerSpawner {
             int i = 0;
             switch (r) {
                 case 0, 1, 2 -> {
-                    if (infamy >= MainConfig.IllagerAssaultSEThreshold.get() * 3){
+                    if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3){
                         if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
                             illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
                         } else {
@@ -412,7 +412,7 @@ public class IllagerSpawner {
                     }
                 }
                 case 3, 4 -> {
-                    if (infamy >= MainConfig.IllagerAssaultSEThreshold.get() * 3){
+                    if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3){
                         if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
                             illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
                         } else {
@@ -463,7 +463,7 @@ public class IllagerSpawner {
 
     public void upgradeIllagers(Raider raider, int infamy){
         Level world = raider.level;
-        if (infamy >= MainConfig.IllagerAssaultSEThreshold.get() * 5) {
+        if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5) {
             if (raider instanceof Pillager){
                 ItemStack itemstack = new ItemStack(Items.CROSSBOW);
                 Map<Enchantment, Integer> map = Maps.newHashMap();
@@ -537,13 +537,13 @@ public class IllagerSpawner {
     public void forceSpawn(ServerLevel world, Player player){
         RandomSource random = world.random;
         int soulEnergy = SEHelper.getSoulAmountInt(player);
-        if (soulEnergy > MainConfig.IllagerAssaultSEThreshold.get()) {
+        if (soulEnergy > MobsConfig.IllagerAssaultSEThreshold.get()) {
             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
             int l = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
             BlockPos.MutableBlockPos blockpos$mutable = player.blockPosition().mutable().move(k, 0, l);
             if (world.hasChunksAt(blockpos$mutable.getX() - 10, blockpos$mutable.getY() - 10, blockpos$mutable.getZ() - 10, blockpos$mutable.getX() + 10, blockpos$mutable.getY() + 10, blockpos$mutable.getZ() + 10)) {
                 int j0 = soulEnergy/2;
-                int e1 = Mth.clamp(j0 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                int e1 = Mth.clamp(j0 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
                 int e15 = world.random.nextInt(e1);
                 for (int k1 = 0; k1 < e15; ++k1) {
                     blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
@@ -558,9 +558,9 @@ public class IllagerSpawner {
                     blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                     blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
                     int j2 = soulEnergy/2;
-                    int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                     int e25 = world.random.nextInt(e2) + 3;
                     for (int k1 = 0; k1 < e25; ++k1) {
                         int random1 = world.random.nextInt(15);
@@ -577,9 +577,9 @@ public class IllagerSpawner {
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
                     int j2 = soulEnergy/2;
-                    int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
                     int e25 = Mth.clamp(world.random.nextInt(e2) - 1, 0, 5);
                     for (int k1 = 0; k1 < e25; ++k1) {
                         int random1 = world.random.nextInt(5);
@@ -596,9 +596,9 @@ public class IllagerSpawner {
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
                     int j2 = (int) (soulEnergy/2.5);
-                    int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                     int e25 = world.random.nextInt(e2);
                     for (int k1 = 0; k1 < e25; ++k1) {
                         blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
@@ -614,9 +614,9 @@ public class IllagerSpawner {
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
                     int j2 = (int) (soulEnergy/2.5);
-                    int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                     int e25 = world.random.nextInt(e2);
                     for (int k1 = 0; k1 < e25; ++k1) {
                         blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
@@ -632,9 +632,9 @@ public class IllagerSpawner {
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 3) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
                     int j2 = (int) (soulEnergy/3);
-                    int e2 = Mth.clamp(j2 / MainConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
                     int e25 = world.random.nextInt(e2);
                     for (int k1 = 0; k1 < e25; ++k1) {
                         blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
@@ -650,7 +650,7 @@ public class IllagerSpawner {
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
                 }
-                if (soulEnergy >= MainConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
+                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
                     blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                     blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                     blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
@@ -659,7 +659,7 @@ public class IllagerSpawner {
                 if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
                     ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
                 }
-                this.nextTick += MainConfig.IllagerAssaultSpawnFreq.get();
+                this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
             }
         }
     }

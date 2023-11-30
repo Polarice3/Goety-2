@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.magic.*;
 import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -186,7 +187,7 @@ public class DarkWand extends Item {
                         itemStack.setTag(compoundTag);
                         player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                         if (!player.level.isClientSide) {
-                            ModNetwork.sendToALL(new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                         }
                         soulUsingItemHandler.extractItem();
                         soulUsingItemHandler.insertItem(itemStack);
@@ -194,20 +195,47 @@ public class DarkWand extends Item {
                     }
                 }
             }
-        }
-        if (!SpellConfig.OwnerHitCommand.get()) {
-            if (player.getMainHandItem() == stack) {
-                if (target instanceof Summoned summonedEntity) {
-                    if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)) {
-                        if (player.isShiftKeyDown() || player.isCrouching()) {
-                            summonedEntity.kill();
-                        } else {
-                            if (summonedEntity.canUpdateMove()) {
-                                summonedEntity.updateMoveMode(player);
-                            }
+        } else if (getFocus(stack).getItem() instanceof CommandFocus) {
+            if (target instanceof Summoned targetSummon){
+                if (targetSummon.getTrueOwner() == player){
+                    if (!CommandFocus.hasServant(getFocus(stack))) {
+                        SoulUsingItemHandler soulUsingItemHandler = SoulUsingItemHandler.get(stack);
+                        ItemStack itemStack = new ItemStack(ModItems.COMMAND_FOCUS.get());
+                        CompoundTag compoundTag = itemStack.getOrCreateTag();
+                        CommandFocus.setServant(compoundTag, targetSummon);
+                        itemStack.setTag(compoundTag);
+                        player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                        if (!player.level.isClientSide) {
+                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                         }
+                        soulUsingItemHandler.extractItem();
+                        soulUsingItemHandler.insertItem(itemStack);
                         return InteractionResult.SUCCESS;
                     }
+                }
+            }
+            if (CommandFocus.getServant(getFocus(stack)) instanceof Summoned summoned && summoned != target){
+                if (summoned.getTrueOwner() == player && summoned.distanceTo(player) <= 64){
+                    summoned.setCommandPosEntity(target);
+                    player.playSound(ModSounds.COMMAND.get(), 1.0F, 0.45F);
+                    if (!player.level.isClientSide) {
+                        ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), ModSounds.COMMAND.get(), 1.0F, 0.45F));
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (!SpellConfig.OwnerHitCommand.get()) {
+            if (target instanceof Summoned summonedEntity) {
+                if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == player)) {
+                    if (player.isShiftKeyDown() || player.isCrouching()) {
+                        summonedEntity.kill();
+                    } else {
+                        if (summonedEntity.canUpdateMove()) {
+                            summonedEntity.updateMoveMode(player);
+                        }
+                    }
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -237,6 +265,9 @@ public class DarkWand extends Item {
                             recallFocus.addRecallTags(arcaTile.getLevel().dimension(), arcaTile.getBlockPos(), compoundTag);
                             getFocus(stack).setTag(compoundTag);
                             player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                            if (!level.isClientSide) {
+                                ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                            }
                             return InteractionResult.sidedSuccess(level.isClientSide);
                         }
                     }
@@ -245,7 +276,31 @@ public class DarkWand extends Item {
                         recallFocus.addRecallTags(level.dimension(), blockpos, compoundTag);
                         getFocus(stack).setTag(compoundTag);
                         player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                        if (!level.isClientSide) {
+                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                        }
                         return InteractionResult.sidedSuccess(level.isClientSide);
+                    }
+                }
+            } else if (getFocus(stack).getItem() instanceof CommandFocus){
+                if (CommandFocus.hasServant(getFocus(stack)) && CommandFocus.getServant(getFocus(stack)) instanceof Summoned summoned){
+                    if (summoned.getTrueOwner() == player && summoned.distanceTo(player) <= 64) {
+                        BlockPos above = blockpos.above();
+                        boolean flag = false;
+                        if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)){
+                            summoned.setCommandPos(blockpos);
+                            flag = true;
+                        } else if (!level.getBlockState(above).isSolidRender(level, above)){
+                            summoned.setCommandPos(above);
+                            flag = true;
+                        }
+                        if (flag) {
+                            player.playSound(ModSounds.COMMAND.get(), 1.0F, 0.45F);
+                            if (!level.isClientSide) {
+                                ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), ModSounds.COMMAND.get(), 1.0F, 0.45F));
+                            }
+                            return InteractionResult.sidedSuccess(level.isClientSide);
+                        }
                     }
                 }
             }
@@ -329,7 +384,16 @@ public class DarkWand extends Item {
     @Nonnull
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (this.getSpell(itemstack) != null) {
+        if (getFocus(itemstack).getItem() instanceof CommandFocus && playerIn.isCrouching()){
+            if (CommandFocus.hasServant(getFocus(itemstack)) && getFocus(itemstack).getTag() != null){
+                getFocus(itemstack).getTag().remove(CommandFocus.TAG_ENTITY);
+                playerIn.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                if (!worldIn.isClientSide) {
+                    ModNetwork.sendTo(playerIn, new SPlayEntitySoundPacket(playerIn.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                }
+            }
+            return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
+        } else if (this.getSpell(itemstack) != null) {
             if (!(this.getSpell(itemstack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()){
                 if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).SoulCost()) || playerIn.getAbilities().instabuild) {
                     playerIn.startUsingItem(handIn);
@@ -490,10 +554,10 @@ public class DarkWand extends Item {
                     if (spent){
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
                         SEHelper.sendSEUpdatePacket(playerEntity);
-                        if (MainConfig.VillagerHateSpells.get() > 0) {
+                        if (MobsConfig.VillagerHateSpells.get() > 0) {
                             for (Villager villager : caster.level.getEntitiesOfClass(Villager.class, caster.getBoundingBox().inflate(16.0D))) {
                                 if (villager.hasLineOfSight(caster)) {
-                                    villager.getGossips().add(caster.getUUID(), GossipType.MINOR_NEGATIVE, MainConfig.VillagerHateSpells.get());
+                                    villager.getGossips().add(caster.getUUID(), GossipType.MINOR_NEGATIVE, MobsConfig.VillagerHateSpells.get());
                                 }
                             }
                         }

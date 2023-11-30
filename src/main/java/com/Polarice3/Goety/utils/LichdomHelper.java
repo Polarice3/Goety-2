@@ -24,6 +24,14 @@ public class LichdomHelper {
         }
     }
 
+    public static boolean isInLichMode(Player player){
+        return getCapability(player).isLichMode();
+    }
+
+    public static void setLichMode(Player player, boolean lichMode){
+        getCapability(player).setLichMode(lichMode);
+    }
+
     public static boolean isLich(Player player) {
         return getCapability(player).getLichdom();
     }
@@ -34,11 +42,13 @@ public class LichdomHelper {
 
     public static CompoundTag save(CompoundTag tag, ILichdom lichdom) {
         tag.putBoolean("lichdom", lichdom.getLichdom());
+        tag.putBoolean("lichMode", lichdom.isLichMode());
         return tag;
     }
 
     public static ILichdom load(CompoundTag tag, ILichdom lichdom) {
         lichdom.setLichdom(tag.getBoolean("lichdom"));
+        lichdom.setLichMode(tag.getBoolean("lichMode"));
         return lichdom;
     }
 }

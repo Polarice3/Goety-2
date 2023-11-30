@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.MinisterModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
 import com.Polarice3.Goety.utils.HolidayUtil;
@@ -45,7 +45,7 @@ public class MinisterRenderer<T extends Minister> extends MobRenderer<T, Ministe
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        if (HolidayUtil.isChristmasMonth() && MainConfig.HolidaySkins.get()){
+        if (HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get()){
             return CHRISTMAS;
         }
         return entity.getResourceLocation();

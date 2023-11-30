@@ -5,6 +5,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
@@ -66,7 +67,9 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
 
     public float getDestroySpeed(ItemStack p_41004_, BlockState p_41005_) {
         float blockHard = p_41005_.getBlock().defaultDestroyTime();
-        if (this.isCorrectToolForDrops(p_41004_, p_41005_) && blockHard >= 1.0F) {
+        if (p_41005_.is(ModTags.Blocks.PHILOSOPHERS_MACE_HARD)){
+            return 1.0F;
+        } else if (this.isCorrectToolForDrops(p_41004_, p_41005_) && blockHard >= 1.0F) {
             return 8.0F * blockHard;
         } else {
             return 8.0F;

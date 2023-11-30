@@ -36,11 +36,6 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PlayerSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DefaultSouls;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
-    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
-    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
-    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSELimit;
-
     public static final ForgeConfigSpec.ConfigValue<Integer> CraftingSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkScytheSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> PendantOfHungerLimit;
@@ -50,7 +45,6 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ItemsRepairAmount;
     public static final ForgeConfigSpec.ConfigValue<Integer> SpitefulBeltUseAmount;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LichHealSeconds;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkAnvilRepairCost;
@@ -60,9 +54,6 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
-
-    public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
-    public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
 
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
@@ -141,30 +132,9 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerAssault;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulEnergyBadOmen;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagueSpread;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
-
-    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerConvertWarlock;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> CustomServantTexture;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> ServantBands;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
-
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichSoulHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichDamageHelmet;
@@ -173,8 +143,6 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichVillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
-
-    public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
 
     static {
         BUILDER.push("General");
@@ -214,8 +182,6 @@ public class MainConfig {
                 .define("firstPersonGloves", true);
         ShowRobeHoods = BUILDER.comment("Show Hoods when wearing certain robes ie, Illusive Robes, Default: true")
                 .define("showRobeHoods", true);
-        ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
-                .define("apocalypseMode", false);
         SpecialBossBar = BUILDER.comment("Bosses from the Mod has custom looking Boss Bars. Default: true")
                 .define("specialBossBar", true);
         BossMusic = BUILDER.comment("Bosses from the Mod has custom Music Playing. Default: true")
@@ -277,30 +243,6 @@ public class MainConfig {
                 .defineInRange("playerSouls", 100, 0, Integer.MAX_VALUE);
         DefaultSouls = BUILDER.comment("Others Killed, Default: 5")
                 .defineInRange("otherSouls", 5, 0, Integer.MAX_VALUE);
-        BUILDER.pop();
-        BUILDER.push("Mobs");
-        VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
-                .define("vizierMinion", false);
-        FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
-                .define("fancierApostleDeath", false);
-        InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
-                .define("interDimensionalMobs", false);
-        WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")
-                .defineInRange("warlockSpawnWeight", 5, 0, Integer.MAX_VALUE);
-        WraithSpawnWeight = BUILDER.comment("Spawn Weight for Wraith, Default: 20")
-                .defineInRange("wraithSpawnWeight", 20, 0, Integer.MAX_VALUE);
-        TallSkullDrops = BUILDER.comment("Whether Mobs with Tall Heads(ie. Villagers, Illagers, etc.) will drop Tall Skulls, Default: true")
-                .define("tallSkullDrop", true);
-        WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
-                .define("wraithAggressiveTeleport", true);
-        CustomServantTexture = BUILDER.comment("Whether certain servants have different textures than their regular counterpart, does not apply to bands/strips that are just added on to the regular texture, Default: true")
-                .define("customServantTexture", true);
-        ServantBands = BUILDER.comment("Whether certain servants have bands/strips attached to differentiate them from their regular counterpart, Default: true")
-                .define("servantBands", true);
-        RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
-                .define("redstoneGolemCrack", false);
-        HolidaySkins = BUILDER.comment("If certain mobs have a different texture during some holiday months, Default: true")
-                .define("holidaySkins", true);
         BUILDER.pop();
         BUILDER.push("Items");
         DarkScytheSouls = BUILDER.comment("Amount of Soul Energy Dark Scythe gives when hitting mob(s), Default: 1")
@@ -444,16 +386,6 @@ public class MainConfig {
                     .defineInRange("darkArmorKnockResist", 0.1, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
         BUILDER.pop();
-        BUILDER.push("Villagers");
-        VillagerHate = BUILDER.comment("Wearing a Dark Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")
-                .define("villagerHate", false);
-        VillagerHateRavager = BUILDER.comment("Having an owned Ravaged or Ravager, causes Villagers around the Player to have a negative Reputation, Default: false")
-                .define("villagerHateRavager", false);
-        VillagerHateSpells = BUILDER.comment("Casting Spell in the presence of Villagers will cause the Player to lose a number of Reputation, set 0 to disable, Default: 0")
-                .defineInRange("villagerHateSpells", 0, 0, Integer.MAX_VALUE);
-        VillagerConvertWarlock = BUILDER.comment("Villagers have a chance of converting into Warlocks if they're underneath a Block of Crying Obsidian, Default: true")
-                .define("villagerConvertToWarlock", true);
-        BUILDER.pop();
         BUILDER.push("Lich");
         LichSoulHeal = BUILDER.comment("Enable Liches healing using Soul Energy, Default: true")
                 .define("lichSoulHeal", true);
@@ -477,30 +409,6 @@ public class MainConfig {
                 .define("lichVillagerHate", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
                 .define("lichScrollRequirement", true);
-        BUILDER.pop();
-        BUILDER.push("Illagers");
-        IllagerAssault = BUILDER.comment("Special Illagers Spawning based of Player's Soul Energy amount, Default: true")
-                .define("illagerAssault", true);
-        IllagerAssaultSpawnFreq = BUILDER.comment("Spawn Frequency for Illagers Hunting the Player, Default: 12000")
-                .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
-        IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Spawn Frequency, the lower the more likelier, Default: 5")
-                .defineInRange("illagerAssaultSpawnChance", 5, 0, Integer.MAX_VALUE);
-        IllagerAssaultSEThreshold = BUILDER.comment("How much Soul Energy the Player has is required for Special Illagers to spawn, Default: 2500")
-                .defineInRange("illagerAssaultThreshold", 2500, 0, Integer.MAX_VALUE);
-        IllagerAssaultSELimit = BUILDER.comment("The maximum amount of Soul Energy the Player has that is taken consideration for the Assaults, Default: 30000")
-                .defineInRange("illagerAssaultLimit", 30000, 0, Integer.MAX_VALUE);
-        SoulEnergyBadOmen = BUILDER.comment("Hitting the Illager Assault Limit of Soul Energy have a chance of giving Player Bad Omen effect, Default: true")
-                .define("soulEnergyBadOmen", true);
-        IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
-                .define("illagueSpread", true);
-        IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")
-                .define("illagerSteal", true);
-        IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers, Conquillagers and Ministers can join Raids, Default: true")
-                .define("specialIllagerRaid", true);
-        ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
-                .define("armoredRavagerRaid", true);
-        WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
-                .define("warlockRaid", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

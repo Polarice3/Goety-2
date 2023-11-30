@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -24,7 +24,7 @@ public class StealTotemGoal<T extends HuntingIllagerEntity> extends Goal {
 
     public boolean canUse() {
         List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(16.0D, 8.0D, 16.0D), ALLOWED_ITEMS);
-        if (!list.isEmpty() && this.mob.inventory.canAddItem(list.get(0).getItem()) && MainConfig.IllagerSteal.get()) {
+        if (!list.isEmpty() && this.mob.inventory.canAddItem(list.get(0).getItem()) && MobsConfig.IllagerSteal.get()) {
             return this.mob.getNavigation().moveTo(list.get(0), 1.15F);
         } else {
             return false;

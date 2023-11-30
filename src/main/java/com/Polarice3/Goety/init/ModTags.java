@@ -23,6 +23,7 @@ public class ModTags {
 
         public static final TagKey<Block> HAUNTED_LOGS = tag("haunted_logs");
         public static final TagKey<Block> SHADE_STONE = tag("shade_stone");
+        public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
 
@@ -37,6 +38,7 @@ public class ModTags {
 
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
         public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");
+        public static final TagKey<Item> WITCH_BETTER_CURRENCY = tag("witch_better_currency");
 
         private static TagKey<Item> tag(String name)
         {

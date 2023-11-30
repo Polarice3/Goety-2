@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.commands;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.Polarice3.Goety.common.research.Research;
@@ -215,7 +215,7 @@ public class GoetyCommand {
 
     private static int spawnIllagers(CommandSourceStack pSource, ServerPlayer pPlayer) {
         int i = SEHelper.getSoulAmountInt(pPlayer);
-        if (i > MainConfig.IllagerAssaultSEThreshold.get()){
+        if (i > MobsConfig.IllagerAssaultSEThreshold.get()){
             pSource.sendSuccess(Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
             IllagerSpawner illagerSpawner = new IllagerSpawner();
             illagerSpawner.forceSpawn(pPlayer.getLevel(), pPlayer);

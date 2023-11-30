@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.boss;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.IBoss;
@@ -180,7 +180,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             this.setCasting(0);
         }
         int i = Vizier.this.level.getEntitiesOfClass(Irk.class, Vizier.this.getBoundingBox().inflate(64)).size();
-        if (MainConfig.VizierMinion.get()){
+        if (MobsConfig.VizierMinion.get()){
             i = Vizier.this.level.getEntitiesOfClass(Vex.class, Vizier.this.getBoundingBox().inflate(64)).size();
         }
         if (this.getCastTimes() == 1){
@@ -342,7 +342,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public void die(DamageSource cause) {
         this.playSound(ModSounds.VIZIER_SCREAM.get(), 4.0F, 1.0F);
-        if (!MainConfig.VizierMinion.get()) {
+        if (!MobsConfig.VizierMinion.get()) {
             for (Irk ally : Vizier.this.level.getEntitiesOfClass(Irk.class, Vizier.this.getBoundingBox().inflate(64.0D), field_213690_b)) {
                 ally.hurt(DamageSource.STARVE, 200.0F);
             }
@@ -414,7 +414,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             if (pSource.getEntity() instanceof Irk){
                 return false;
             } else {
-                if (!MainConfig.VizierMinion.get()) {
+                if (!MobsConfig.VizierMinion.get()) {
                     int irks = this.level.getEntitiesOfClass(Irk.class, this.getBoundingBox().inflate(32)).size();
                     if ((this.level.random.nextBoolean() || this.getHealth() < this.getMaxHealth()/2) && irks < 16) {
                         Irk irk = new Irk(ModEntityType.IRK.get(), this.level);

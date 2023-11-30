@@ -192,7 +192,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                     this.attackAnimationState.stop();
                     if (!this.isMoving()) {
                         this.walkAnimationState.stop();
-                        if (this.isStaying()) {
+                        if (this.isStaying() && !this.isPassenger()) {
                             this.idleAnimationState.stop();
                             this.stayingAnimationState.startIfStopped(this.tickCount);
                         } else {
@@ -324,7 +324,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                 }
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, p_230254_2_);
     }
 
     class VanguardAttackGoal extends MeleeAttackGoal {

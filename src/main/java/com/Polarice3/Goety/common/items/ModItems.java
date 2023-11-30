@@ -126,13 +126,15 @@ public class ModItems {
     public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", SingleStackItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<Item> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
-    public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", SingleStackItem::new);
+    public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", WitchHatItem::new);
+    public static final RegistryObject<Item> WITCH_HAT_HEDGE = ITEMS.register("witch_hat_hedge", WitchHatItem::new);
     public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", () -> new RepeatCraftItem(new Item.Properties().tab(Goety.TAB).stacksTo(1)));
     public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
     public static final RegistryObject<Item> NAMELESS_CAPE = ITEMS.register("nameless_cape", SingleStackItem::new);
-    public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", SingleStackItem::new);
+    public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", IllusionRobeItem::new);
+    public static final RegistryObject<Item> ILLUSION_ROBE_MIRROR = ITEMS.register("illusion_robe_mirror", IllusionRobeItem::new);
     public static final RegistryObject<Item> FROST_ROBE = ITEMS.register("frost_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WIND_ROBE = ITEMS.register("wind_robe", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_ROBE = ITEMS.register("witch_robe", WitchRobeItem::new);
@@ -185,6 +187,7 @@ public class ModItems {
     public static final RegistryObject<Item> WITHER_SKULL_FOCUS = ITEMS.register("wither_skull_focus", () -> new MagicFocus(new WitherSkullSpell()));
     public static final RegistryObject<Item> CALL_FOCUS = ITEMS.register("call_focus", CallFocus::new);
     public static final RegistryObject<Item> RECALL_FOCUS = ITEMS.register("recall_focus", RecallFocus::new);
+    public static final RegistryObject<Item> COMMAND_FOCUS = ITEMS.register("command_focus", CommandFocus::new);
     public static final RegistryObject<Item> ENDER_CHEST_FOCUS = ITEMS.register("ender_chest_focus", () -> new MagicFocus(new EnderChestSpell()));
     public static final RegistryObject<Item> CORRUPTION_FOCUS = ITEMS.register("corruption_focus", () -> new MagicFocus(new CorruptedBeamSpell()));
 

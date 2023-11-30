@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.RGEmissiveLayer;
 import com.Polarice3.Goety.client.render.model.RedstoneGolemModel;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
@@ -85,7 +85,7 @@ public class RedstoneGolemRenderer<T extends RedstoneGolem> extends MobRenderer<
         }
 
         public void render(PoseStack p_117148_, MultiBufferSource p_117149_, int p_117150_, T p_117151_, float p_117152_, float p_117153_, float p_117154_, float p_117155_, float p_117156_, float p_117157_) {
-            if (MainConfig.RedstoneGolemCrack.get()) {
+            if (MobsConfig.RedstoneGolemCrack.get()) {
                 if (!p_117151_.isInvisible()) {
                     RedstoneGolem.Crackiness irongolem$crackiness = p_117151_.getCrackiness();
                     if (irongolem$crackiness != RedstoneGolem.Crackiness.NONE) {

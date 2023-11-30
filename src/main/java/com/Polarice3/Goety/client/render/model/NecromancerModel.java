@@ -101,7 +101,16 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 		Vec3 velocity = entity.getDeltaMovement();
 		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.idleAnimationState, NecromancerAnimations.IDLE, ageInTicks);
-		this.animate(entity.walkAnimationState, NecromancerAnimations.WALK, ageInTicks, groundSpeed * 10);
+		if (this.riding){
+			this.rightLeg.xRot = -1.4137167F;
+			this.rightLeg.yRot = ((float)Math.PI / 10F);
+			this.rightLeg.zRot = 0.07853982F;
+			this.leftLeg.xRot = -1.4137167F;
+			this.leftLeg.yRot = (-(float)Math.PI / 10F);
+			this.leftLeg.zRot = -0.07853982F;
+		} else {
+			this.animate(entity.walkAnimationState, NecromancerAnimations.WALK, ageInTicks, groundSpeed * 10);
+		}
 		this.animate(entity.attackAnimationState, NecromancerAnimations.ATTACK, ageInTicks);
 		this.animate(entity.summonAnimationState, NecromancerAnimations.SUMMON, ageInTicks);
 		this.animate(entity.spellAnimationState, NecromancerAnimations.SPELL, ageInTicks);

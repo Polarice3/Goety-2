@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -38,7 +38,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
-public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
+public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICustomAttributes{
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> HOSTILE = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
@@ -130,7 +130,7 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
                 this.setTarget(target);
             }
         }
-        if (SpellConfig.MobSense.get()) {
+        if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
                     if (this.getTarget() instanceof Mob mob && mob.getTarget() == null) {
@@ -172,7 +172,8 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         if (this.getTrueOwner() != null) {
             LivingEntity trueOwner = this.getTrueOwner();
             return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner
-                    || (entityIn instanceof Owned owned && MobUtil.ownerStack(this, owned));
+                    || (entityIn instanceof Owned owned && MobUtil.ownerStack(this, owned))
+                    || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner);
         }
         return super.isAlliedTo(entityIn);
     }
@@ -267,6 +268,16 @@ public class Owned extends PathfinderMob implements IOwned, ICustomAttributes{
         } else {
             return null;
         }
+    }
+
+    @Nullable
+    @Override
+    public UUID getOwnerUUID() {
+        return this.getOwnerId();
+    }
+
+    public Entity getOwner() {
+        return this.getTrueOwner();
     }
 
     @Nullable

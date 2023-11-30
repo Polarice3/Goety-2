@@ -107,9 +107,6 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SkullLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
-    public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
-    public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
-    public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
@@ -127,19 +124,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
-    public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WandCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
 
     static {
         BUILDER.push("General");
@@ -147,6 +135,8 @@ public class SpellConfig {
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
         WandCooldown = BUILDER.comment("Turns Casting Time into Cooldowns that prevent Players from using Wands/Staffs for the duration and allows Spells with Casting Time be casted instantly, Default: false")
                 .define("wandCooldown", false);
+        OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
+                .define("ownerHitCommand", true);
         BUILDER.pop();
         BUILDER.push("Spell Costs");
         VexCost = BUILDER.comment("Vex Spell Cost, Default: 18")
@@ -336,35 +326,9 @@ public class SpellConfig {
         CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 1.0")
                 .defineInRange("corruptedBeamDamage", 1.0, 0.0, Double.MAX_VALUE);
         BUILDER.pop();
-        BUILDER.push("Minions");
-        UndeadTeleport = BUILDER.comment("Whether Undead Servants can teleport to Players, Default: false")
-                .define("undeadTeleport", false);
-        VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
-                .define("vexTeleport", true);
-        MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")
-                .define("minionAttackCreepers", true);
-        NecroRobeUndead = BUILDER.comment("Whether Servants can attack Undead mobs if owner wears a full Necro Set, Default: false")
-                .define("necroRobeUndead", false);
-        MinionsMasterImmune = BUILDER.comment("Whether Servants or their owner are immune to attacks made by other servants that are summoned by the same owner, Default: true")
-                .define("minionMasterImmune", true);
-        OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
-                .define("ownerHitCommand", true);
-        OwnerAttackCancel = BUILDER.comment("Owners can't attack or hurt their servants, Default: true")
-                .define("ownerAttackCancel", true);
-        MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
-                .define("mobSense", true);
+        BUILDER.push("Servant Limits");
         RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
                 .define("redstoneGolemMold", true);
-        UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
-                .define("undeadMinionHeal", true);
-        UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
-                .defineInRange("undeadMinionHealCost", 5, 0, Integer.MAX_VALUE);
-        UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
-                .defineInRange("undeadMinionHealTime", 1, 0, Integer.MAX_VALUE);
-        UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 0.5")
-                .defineInRange("undeadMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
-        RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
-                .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
                 .defineInRange("wandVexLimit", 8, 1, Integer.MAX_VALUE);
         StaffVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a staff, without instantly dying, around the player, Default: 16")
