@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.SkeletonServantClothingLayer;
 import com.Polarice3.Goety.client.render.layer.StrayServantBandsLayer;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
@@ -33,7 +33,7 @@ public class SkeletonServantRenderer extends HumanoidMobRenderer<AbstractSkeleto
    public ResourceLocation getTextureLocation(AbstractSkeletonServant p_115941_) {
       if (p_115941_ instanceof StrayServant){
          return STRAY;
-      } else if (p_115941_.isHostile() || !MainConfig.CustomServantTexture.get()){
+      } else if (p_115941_.isHostile() || !MobsConfig.SkeletonServantTexture.get()){
          return SKELETON_LOCATION;
       } else {
          return TEXTURES;

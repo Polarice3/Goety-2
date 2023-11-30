@@ -20,6 +20,10 @@
     {
       "type": "patchouli:text",
       "text": "$(l:crafts/artifice/arca)Arca$() resurrections are initiated no matter the amount of Soul Energy is within it. However, should the number of Soul Energy be less that the usual number needed to revive you, you will be inflicted with a terrible Soul Hunger. The hunger will cause you to be weaker and slower, until your Soul Energy has reached the proper amount."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can also regain your living form by pressing the Lich Form key (Default: N). The form somehow does not fool anyone, but at least you have your former looks back."
     }
   ]
 }

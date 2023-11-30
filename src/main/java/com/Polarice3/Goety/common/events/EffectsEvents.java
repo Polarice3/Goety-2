@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.events;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EffectsUtil;
@@ -33,7 +33,7 @@ public class EffectsEvents {
     public void Illague(ServerLevel level, LivingEntity infected){
         int duration = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getDuration() + 1;
         int amplifier = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getAmplifier();
-        if (MainConfig.IllagueSpread.get()) {
+        if (MobsConfig.IllagueSpread.get()) {
             for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, infected.getBoundingBox().inflate(8.0D))) {
                 if (!(livingEntity instanceof PatrollingMonster) && livingEntity.getMobType() != MobType.UNDEAD && !livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
                     if (livingEntity.tickCount % 100 == 0 && livingEntity.getRandom().nextInt(20) == 0){

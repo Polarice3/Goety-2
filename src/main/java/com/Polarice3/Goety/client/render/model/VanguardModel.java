@@ -38,8 +38,10 @@ public class VanguardModel<T extends VanguardServant> extends HierarchicalModel<
 		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -10.0F, 0.0F));
 
 		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(0, 32).addBox(-5.0F, -9.0F, -5.0F, 10.0F, 8.0F, 10.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 32).addBox(-1.0F, -10.0F, -6.0F, 2.0F, 6.0F, 1.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 32).addBox(-1.0F, -10.0F, 5.0F, 2.0F, 6.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 32).addBox(-1.0F, -12.0F, -6.0F, 2.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition helmet2 = helmet.addOrReplaceChild("helmet2", CubeListBuilder.create().texOffs(58, 0).addBox(-1.0F, -10.0F, -6.0F, 2.0F, 6.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(58, 0).addBox(-1.0F, -10.0F, 5.0F, 2.0F, 6.0F, 1.0F, new CubeDeformation(0.0F))
 				.texOffs(40, 0).addBox(-1.0F, -10.0F, -5.0F, 2.0F, 1.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition armor = body.addOrReplaceChild("armor", CubeListBuilder.create().texOffs(0, 50).addBox(-5.0F, 0.0F, -3.0F, 10.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
@@ -52,19 +54,36 @@ public class VanguardModel<T extends VanguardServant> extends HierarchicalModel<
 		PartDefinition cube_r1 = shield.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(32, 66).addBox(-1.0F, 13.0F, 12.0F, 16.0F, 21.0F, 0.0F, new CubeDeformation(0.0F))
 				.texOffs(32, 87).addBox(-1.0F, 13.0F, 13.0F, 16.0F, 21.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-7.0F, 23.0F, -22.0F, 1.5708F, 0.0F, 0.0F));
 
-		PartDefinition ridge = shield.addOrReplaceChild("ridge", CubeListBuilder.create().texOffs(2, 54).addBox(-6.0F, -0.5F, 5.625F, 0.0F, 1.0F, 8.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 62).addBox(-7.0F, -0.5F, 5.625F, 1.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 51).addBox(-7.0F, -0.5F, -5.375F, 0.0F, 1.0F, 11.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 51).addBox(7.0F, -0.5F, -5.375F, 0.0F, 1.0F, 11.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 62).addBox(6.0F, -0.5F, 5.625F, 1.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
-				.texOffs(2, 54).addBox(6.0F, -0.5F, 5.625F, 0.0F, 1.0F, 8.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 62).addBox(-6.0F, -0.5F, 13.625F, 12.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 10.5F, -1.625F));
+		PartDefinition ridge = shield.addOrReplaceChild("ridge", CubeListBuilder.create().texOffs(0, 60).addBox(-5.0F, -0.5F, 3.625F, 0.0F, 1.0F, 10.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(-8.0F, -0.5F, 3.625F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 65).addBox(-8.0F, -0.5F, -1.375F, 0.0F, 1.0F, 5.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(-8.0F, -0.5F, -1.375F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 66).addBox(-6.0F, -0.5F, -5.375F, 0.0F, 1.0F, 4.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(-6.0F, -0.5F, -5.375F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 68).addBox(-3.0F, -0.5F, -7.375F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(-3.0F, -0.5F, -7.375F, 6.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 68).addBox(3.0F, -0.5F, -7.375F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(3.0F, -0.5F, -5.375F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 66).addBox(6.0F, -0.5F, -5.375F, 0.0F, 1.0F, 4.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(5.0F, -0.5F, -1.375F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 65).addBox(8.0F, -0.5F, -1.375F, 0.0F, 1.0F, 5.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(5.0F, -0.5F, 3.625F, 3.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 60).addBox(5.0F, -0.5F, 3.625F, 0.0F, 1.0F, 10.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 70).addBox(-5.0F, -0.5F, 13.625F, 10.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 10.5F, -1.625F));
 
-		PartDefinition top = ridge.addOrReplaceChild("top", CubeListBuilder.create().texOffs(0, 62).addBox(-11.5F, -0.5F, 0.0F, 4.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 60).addBox(-7.5F, -0.5F, -2.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 62).addBox(-7.5F, -0.5F, -2.0F, 6.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 60).addBox(-1.5F, -0.5F, -2.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
-				.texOffs(0, 62).addBox(-1.5F, -0.5F, 0.0F, 4.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F)), PartPose.offset(4.5F, 0.0F, -5.375F));
+		PartDefinition ridge2 = shield.addOrReplaceChild("ridge2", CubeListBuilder.create().texOffs(2, 75).addBox(-6.0F, -0.5F, 5.625F, 0.0F, 1.0F, 8.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 83).addBox(-7.0F, -0.5F, 5.625F, 1.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 72).addBox(-7.0F, -0.5F, -5.375F, 0.0F, 1.0F, 11.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 72).addBox(7.0F, -0.5F, -5.375F, 0.0F, 1.0F, 11.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 83).addBox(6.0F, -0.5F, 5.625F, 1.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(2, 75).addBox(6.0F, -0.5F, 5.625F, 0.0F, 1.0F, 8.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 83).addBox(-6.0F, -0.5F, 13.625F, 12.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 10.5F, -1.625F));
+
+		PartDefinition top = ridge2.addOrReplaceChild("top", CubeListBuilder.create().texOffs(0, 83).addBox(-11.5F, -0.5F, 0.0F, 4.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 81).addBox(-7.5F, -0.5F, -2.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 83).addBox(-7.5F, -0.5F, -2.0F, 6.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 81).addBox(-1.5F, -0.5F, -2.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(-0.01F))
+				.texOffs(0, 83).addBox(-1.5F, -0.5F, 0.0F, 4.0F, 1.0F, 0.0F, new CubeDeformation(-0.01F)), PartPose.offset(4.5F, 0.0F, -5.375F));
 
 		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -8.0F, 0.0F));
 
@@ -123,7 +142,16 @@ public class VanguardModel<T extends VanguardServant> extends HierarchicalModel<
 		Vec3 velocity = entity.getDeltaMovement();
 		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.idleAnimationState, VanguardAnimations.IDLE, ageInTicks);
-		this.animate(entity.walkAnimationState, VanguardAnimations.WALK, ageInTicks, groundSpeed * 10);
+		if (this.riding){
+			this.rightLeg.xRot = -1.4137167F;
+			this.rightLeg.yRot = ((float)Math.PI / 10F);
+			this.rightLeg.zRot = 0.07853982F;
+			this.leftLeg.xRot = -1.4137167F;
+			this.leftLeg.yRot = (-(float)Math.PI / 10F);
+			this.leftLeg.zRot = -0.07853982F;
+		} else {
+			this.animate(entity.walkAnimationState, VanguardAnimations.WALK, ageInTicks, groundSpeed * 10);
+		}
 		this.animate(entity.attackAnimationState, VanguardAnimations.ATTACK, ageInTicks);
 		this.animate(entity.stayingAnimationState, VanguardAnimations.STAYING, ageInTicks);
 		this.shield.visible = entity.hasShield();

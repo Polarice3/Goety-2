@@ -20,20 +20,28 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
 
 public class NecroBolt extends AbstractHurtingProjectile {
+    private final float rotSpeed;
+    public float roll;
+    public float oRoll;
 
     public NecroBolt(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
+        this.rotSpeed = 0.05F;
+        this.roll = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
     public NecroBolt(double pX, double pY, double pZ, double pXPower, double pYPower, double pZPower, Level pLevel) {
         super(ModEntityType.NECRO_BOLT.get(), pX, pY, pZ, pXPower, pYPower, pZPower, pLevel);
+        this.rotSpeed = 0.05F;
+        this.roll = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
     public NecroBolt(LivingEntity pShooter, double pXPower, double pYPower, double pZPower, Level pLevel) {
         super(ModEntityType.NECRO_BOLT.get(), pShooter, pXPower, pYPower, pZPower, pLevel);
+        this.rotSpeed = 0.05F;
+        this.roll = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
     protected float getInertia() {
@@ -95,16 +103,10 @@ public class NecroBolt extends AbstractHurtingProjectile {
 
     public void tick() {
         super.tick();
+        this.oRoll = this.roll;
+        this.roll += (float)Math.PI * this.rotSpeed * 2.0F;
         if (this.tickCount >= MathHelper.secondsToTicks(20)){
             this.discard();
-        }
-        Entity entity = this.getOwner();
-        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double d0 = this.getX() - vec3.x;
-            double d1 = this.getY() - vec3.y;
-            double d2 = this.getZ() - vec3.z;
-            this.level.addParticle(ModParticleTypes.SUMMON.get(), d0, d1 + 0.3D, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -128,7 +130,7 @@ public class NecroBolt extends AbstractHurtingProjectile {
     }
 
     protected ParticleOptions getTrailParticle() {
-        return ModParticleTypes.NECRO_BOLT.get();
+        return ModParticleTypes.SUMMON.get();
     }
 
     public boolean isPickable() {

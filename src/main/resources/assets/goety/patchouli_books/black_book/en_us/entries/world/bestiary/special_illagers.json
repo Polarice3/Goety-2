@@ -30,11 +30,19 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:inquillager"
+      "entity": "goety:piker"
     },
     {
       "type": "patchouli:text",
-      "text": "An unexpected Illager trained to attack magic users as they're immune to their spells. They wield flaming swords and throw Harming Potions."
+      "text": "Greater than the average Pillagers, lesser but more reaching than Vindicators, these disciplined foot-soldiers might've been inspired by the scrolls of the desert."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:preacher"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Like Enchanters, Preachers are a rare type of Illager that work to support their brethren rather than fighting head on. These Illagers will follow and heal any nearby injured raider."
     },
     {
       "type": "patchouli:entity",
@@ -43,6 +51,14 @@
     {
       "type": "patchouli:text",
       "text": "Disease-ridden aristocrats that spread civilization-ending pestilence to foreigners. Fortunately, they prefer to shoot from afar than go into barbaric melee."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inquillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An unexpected Illager trained to attack magic users as they're immune to their spells. They wield flaming swords and throw Harming Potions."
     },
     {
       "type": "patchouli:text",

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.DrownedServantOuterLayer;
 import com.Polarice3.Goety.client.render.model.DrownedServantModel;
 import com.Polarice3.Goety.common.entities.ally.DrownedServant;
@@ -22,7 +22,7 @@ public class DrownedServantRenderer extends AbstractZombieServantRenderer<Drowne
    }
 
    public ResourceLocation getTextureLocation(DrownedServant p_114115_) {
-      if (p_114115_.isHostile() || !MainConfig.CustomServantTexture.get()){
+      if (p_114115_.isHostile() || !MobsConfig.DrownedServantTexture.get()){
          return DROWNED_LOCATION;
       } else {
          return TEXTURE;

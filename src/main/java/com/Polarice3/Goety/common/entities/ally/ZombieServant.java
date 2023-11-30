@@ -393,14 +393,9 @@ public class ZombieServant extends Summoned{
                     }
                     EntityFinder.sendEntityUpdatePacket(pPlayer, this);
                     return InteractionResult.CONSUME;
-                } else {
-                    return InteractionResult.PASS;
                 }
-            } else {
-                return InteractionResult.PASS;
             }
-        } else {
-            return InteractionResult.PASS;
         }
+        return super.mobInteract(pPlayer, p_230254_2_);
     }
 }

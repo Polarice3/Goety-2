@@ -179,6 +179,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.NECRO_SET, NecroCapeModel::createNecromancerLayer);
         event.registerLayerDefinition(ModModelLayer.NAMELESS_CROWN, NecroCapeModel::createBigHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NAMELESS_SET, NecroCapeModel::createNamelessLayer);
+        event.registerLayerDefinition(ModModelLayer.LICH, () -> LayerDefinition.create(LichModeModel.createMesh(CubeDeformation.NONE), 64, 64));
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FOCUS_BAG, MiscCuriosModel::createFocusBagLayer);
         event.registerLayerDefinition(ModModelLayer.AMULET, MiscCuriosModel::createAmuletLayer);
@@ -251,7 +252,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.GLOW_LIGHT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BULLET.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.SOUL_BOLT.get(), SoulBoltRenderer::new);
-        event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), SoulBulletRenderer::new);
+        event.registerEntityRenderer(ModEntityType.NECRO_BOLT.get(), NecroBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGIC_BOLT.get(), SoulBulletRenderer::new);
         event.registerEntityRenderer(ModEntityType.FANG.get(), FangsRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
@@ -372,6 +373,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GLOW_EFFECT.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.LICH.get(), BigSpellParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WARLOCK.get(), SpellParticle.WitchProvider::new);
         event.registerSpriteSet(ModParticleTypes.BONE.get(), ShortFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.LEECH.get(), FlameParticle.Provider::new);

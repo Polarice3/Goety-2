@@ -316,14 +316,9 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     }
                     EntityFinder.sendEntityUpdatePacket(pPlayer, this);
                     return InteractionResult.CONSUME;
-                } else {
-                    return InteractionResult.PASS;
                 }
-            } else {
-                return InteractionResult.PASS;
             }
-        } else {
-            return InteractionResult.PASS;
         }
+        return super.mobInteract(pPlayer, p_230254_2_);
     }
 }

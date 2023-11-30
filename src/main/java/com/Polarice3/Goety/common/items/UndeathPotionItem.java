@@ -46,6 +46,7 @@ public class UndeathPotionItem extends Item {
                             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
                         }
                         lichdom.setLichdom(true);
+                        lichdom.setLichMode(true);
                         LichdomHelper.sendLichUpdatePacket(player);
                         player.displayClientMessage(Component.translatable("info.goety.lichdom.success"), true);
                         player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 20, 1));

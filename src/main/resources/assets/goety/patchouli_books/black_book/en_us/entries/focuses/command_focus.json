@@ -1,0 +1,23 @@
+{
+  "name": "Command Focus",
+  "icon": "goety:command_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The command focus allows the caster to command a servant to move towards a position. If used on a creature, it will move to the creature's location, but if the creature is a mount, most servants can ride on it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/command_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To use the command focus, it must be equipped in a wand/staff. Then the caster must right click the wand/staff on a servant to start commanding it. The caster can shift-right click into the air to remove the servant from the command focus."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The servant can still move, even if it's on Standing By mode. To dismount a mounted servant, shift-right click on the mount itself."
+    }
+  ]
+}

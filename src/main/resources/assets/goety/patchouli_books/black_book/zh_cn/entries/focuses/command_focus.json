@@ -1,0 +1,23 @@
+{
+  "name": "命令聚晶",
+  "icon": "goety:command_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "命令聚晶允许施法者命令仆人向某个位置移动。如果用在一个生物身上，它会移动到该生物的位置，但如果该生物可以骑乘，那么仆从可以选择骑在上面。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/command_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要使用命令聚晶，必须将其配备在魔杖中。然后施法者必须右键点击仆从才能开始指挥。施法者可以空点，这样会将已选择的仆从从命令聚晶上移除."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "仆从仍然可以移动，即使它处于待命模式。如果你要让仆从下马，请右键点击坐骑本身。"
+    }
+  ]
+}

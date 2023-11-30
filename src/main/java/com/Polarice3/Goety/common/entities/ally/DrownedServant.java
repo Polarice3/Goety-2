@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -459,7 +459,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
                 this.pathedTargetY = this.owner.getY();
                 this.pathedTargetZ = this.owner.getZ();
                 this.ticksUntilNextPathRecalculation = 4 + this.summonedEntity.getRandom().nextInt(7);
-                if (d0 > 144.0D && SpellConfig.UndeadTeleport.get()){
+                if (d0 > 144.0D && MobsConfig.UndeadTeleport.get()){
                     this.tryToTeleportNearEntity();
                 }
                 if (d0 > 1024.0D) {

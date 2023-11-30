@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "item": "minecraft:note_block"
+    },
+    "s":
+    {
+      "item": "goety:cursed_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "goety:command_focus",
+    "count": 1
+  }
+}

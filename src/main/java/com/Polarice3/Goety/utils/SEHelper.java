@@ -159,6 +159,7 @@ public class SEHelper {
     public static void rawHandleKill(LivingEntity killer, LivingEntity victim, int soulEater) {
         Player player = null;
         int multi = Mth.clamp(MainConfig.SoulTakenMultiplier.get(), 1, Integer.MAX_VALUE);
+        float extra = soulEater;
         if (killer instanceof Player){
             player = (Player) killer;
         } else if (killer instanceof IOwned summonedEntity){
@@ -171,9 +172,9 @@ public class SEHelper {
             Item item = itemStack.getItem();
             if (item == ModItems.FANGED_DAGGER.get()
                     || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)){
-                soulEater *= 1.5;
+                extra *= 1.5F;
             }
-            increaseSouls(player, (getSoulGiven(victim) * soulEater) * multi);
+            increaseSouls(player, Mth.floor(getSoulGiven(victim) * extra) * multi);
         }
     }
 

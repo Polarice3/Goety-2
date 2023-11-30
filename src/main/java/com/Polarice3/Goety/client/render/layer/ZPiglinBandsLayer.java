@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.ZPiglinModel;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -24,7 +24,7 @@ public class ZPiglinBandsLayer<T extends Summoned> extends RenderLayer<T, ZPigli
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entitylivingbaseIn.getTrueOwner() instanceof Player && MainConfig.ServantBands.get()) {
+        if (entitylivingbaseIn.getTrueOwner() instanceof Player && MobsConfig.ZPiglinServantTexture.get()) {
             coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
         }
     }

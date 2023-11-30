@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -33,6 +34,7 @@ import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
+import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
@@ -220,14 +222,14 @@ public class ModEvents {
                     if (raid != null && raid.isActive() && !raid.isBetweenWaves() && !raid.isOver() && !raid.isStopped()) {
                         Player player = EntityFinder.getNearbyPlayer(world, raid.getCenter());
                         if (player != null) {
-                            if (MainConfig.IllagerRaid.get()) {
-                                if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 2)) {
+                            if (MobsConfig.IllagerRaid.get()) {
+                                if (SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 2)) {
                                     int badOmen = Mth.clamp(raid.getBadOmenLevel(), 0, 5) + 1;
                                     int pillager = world.random.nextInt((int) 12 / badOmen);
-                                    if (SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)){
+                                    if (SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 4)){
                                         pillager = world.random.nextInt(3);
                                     }
-                                    if (SEHelper.getSoulAmountInt(player) < (MainConfig.IllagerAssaultSEThreshold.get() * 5)){
+                                    if (SEHelper.getSoulAmountInt(player) < (MobsConfig.IllagerAssaultSEThreshold.get() * 5)){
                                         if (raider instanceof Minister) {
                                             raid.removeFromRaid(raider, true);
                                             event.setCanceled(true);
@@ -256,7 +258,7 @@ public class ModEvents {
                                     }
                                     int vindicator = world.random.nextInt((int) 12 / badOmen);
                                     if (vindicator == 0) {
-                                        if (raid.getGroupsSpawned() > 3 || SEHelper.getSoulAmountInt(player) >= (MainConfig.IllagerAssaultSEThreshold.get() * 4)) {
+                                        if (raid.getGroupsSpawned() > 3 || SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 4)) {
                                             if (raider.getType() == EntityType.VINDICATOR) {
                                                 HuntingIllagerEntity illager = ModEntityType.INQUILLAGER.get().create(world);
                                                 if (illager != null) {
@@ -474,7 +476,7 @@ public class ModEvents {
                 }
             }
         }
-        if (SEHelper.getSoulAmountInt(player) > MainConfig.IllagerAssaultSEThreshold.get() * 2){
+        if (SEHelper.getSoulAmountInt(player) > MobsConfig.IllagerAssaultSEThreshold.get() * 2){
             for (Raider pillagerEntity : player.level.getEntitiesOfClass(Raider.class, player.getBoundingBox().inflate(32))){
                 if (pillagerEntity.getTarget() == player) {
                     if (!pillagerEntity.isAggressive()) {
@@ -493,7 +495,7 @@ public class ModEvents {
             }
         }
 
-        if (MainConfig.VillagerHate.get()){
+        if (MobsConfig.VillagerHate.get()){
             if (CuriosFinder.hasCurio(player, ModItems.DARK_ROBE.get())) {
                 for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
                     if (villager.hasLineOfSight(player)) {
@@ -507,7 +509,7 @@ public class ModEvents {
             }
         }
 
-        if (MainConfig.VillagerHateRavager.get()) {
+        if (MobsConfig.VillagerHateRavager.get()) {
             for (Owned owned : player.level.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(16.0D))) {
                 if (owned instanceof Ravaged || owned instanceof ModRavager) {
                     if (owned.getTrueOwner() == player || owned.getMasterOwner() == player) {
@@ -657,11 +659,11 @@ public class ModEvents {
                     if (living instanceof Player owner) {
                         if (horse.getMobType() == MobType.UNDEAD) {
                             if (!horse.isOnFire() && !horse.isDeadOrDying()) {
-                                if (SpellConfig.UndeadMinionHeal.get() && horse.getHealth() < horse.getMaxHealth()) {
+                                if (MobsConfig.UndeadMinionHeal.get() && horse.getHealth() < horse.getMaxHealth()) {
                                     if (CuriosFinder.hasUndeadCape(owner)) {
-                                        int SoulCost = SpellConfig.UndeadMinionHealCost.get();
+                                        int SoulCost = MobsConfig.UndeadMinionHealCost.get();
                                         if (SEHelper.getSoulsAmount(owner, SoulCost)){
-                                            if (horse.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
+                                            if (horse.tickCount % MathHelper.secondsToTicks(MobsConfig.UndeadMinionHealTime.get()) == 0) {
                                                 horse.heal(horse.getMaxHealth() * 0.025F);
                                                 Vec3 vector3d = horse.getDeltaMovement();
                                                 if (!horse.level.isClientSide){
@@ -696,7 +698,7 @@ public class ModEvents {
                     }
                 }
             }
-            if (MainConfig.VillagerConvertWarlock.get()) {
+            if (MobsConfig.VillagerConvertWarlock.get()) {
                 if (livingEntity instanceof Villager villager) {
                     if (villager.level instanceof ServerLevel serverLevel) {
                         if (BlockFinder.getVerticalBlock(serverLevel, villager.blockPosition(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), 16, true)) {
@@ -823,7 +825,7 @@ public class ModEvents {
                     event.modifyVisibility(0.5);
                 }
             }
-            if (CuriosFinder.hasCurio(entity, ModItems.ILLUSION_ROBE.get())){
+            if (CuriosFinder.hasIllusionRobe(entity)){
                 if (looker.getArmorCoverPercentage() < 0.1F){
                     event.modifyVisibility(0.0);
                 }
@@ -833,13 +835,14 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
+        Player player = event.getEntity();
         if (!event.getLevel().isClientSide) {
-            if (CuriosFinder.hasWitchSet(event.getEntity()) || CuriosFinder.hasWarlockRobe(event.getEntity())) {
+            if (CuriosFinder.hasWitchSet(player) || CuriosFinder.hasWarlockRobe(player)) {
                 if (event.getTarget() instanceof Raider witch) {
                     if (event.getTarget() instanceof Witch || event.getTarget() instanceof Warlock || event.getTarget() instanceof Crone) {
                         if (!witch.isAggressive()) {
                             if (WitchBarterHelper.getTimer(witch) <= 0) {
-                                if (witch.getMainHandItem().isEmpty() && event.getItemStack().is(ModTags.Items.WITCH_CURRENCY)) {
+                                if (witch.getMainHandItem().isEmpty() && (event.getItemStack().is(ModTags.Items.WITCH_CURRENCY) || event.getItemStack().is(ModTags.Items.WITCH_BETTER_CURRENCY))) {
                                     event.setCanceled(true);
                                     event.setCancellationResult(InteractionResult.SUCCESS);
                                     if (witch instanceof Witch) {
@@ -850,16 +853,24 @@ public class ModEvents {
                                         witch.playSound(ModSounds.CRONE_AMBIENT.get());
                                     }
                                     ItemStack itemstack1;
-                                    if (event.getEntity().isCreative()){
+                                    if (player.isCreative()){
                                         itemstack1 = event.getItemStack();
                                     } else {
                                         itemstack1 = event.getItemStack().split(1);
                                     }
                                     witch.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
-                                    WitchBarterHelper.setTrader(witch, event.getEntity());
+                                    WitchBarterHelper.setTrader(witch, player);
                                 }
                             }
                         }
+                    }
+                }
+            }
+            if (event.getTarget().isVehicle() && player.isCrouching()){
+                Entity entity = event.getTarget().getControllingPassenger();
+                if (entity instanceof Summoned summoned){
+                    if (summoned.getTrueOwner() == player){
+                        summoned.stopRiding();
                     }
                 }
             }
@@ -878,14 +889,14 @@ public class ModEvents {
             }
         }
 
-        if (SpellConfig.MinionsMasterImmune.get()){
+        if (MobsConfig.MinionsMasterImmune.get()){
             if (attacker instanceof IOwned){
                 if (((IOwned) attacker).getTrueOwner() == victim){
                     event.setCanceled(true);
                 }
             }
         }
-        if (SpellConfig.OwnerAttackCancel.get()){
+        if (MobsConfig.OwnerAttackCancel.get()){
             if (attacker != null) {
                 if (victim instanceof IOwned) {
                     if (((IOwned) victim).getTrueOwner() == attacker) {
@@ -935,23 +946,21 @@ public class ModEvents {
     @SubscribeEvent
     public static void PlayerAttackEvent(AttackEntityEvent event){
         if (event.getTarget() instanceof IOwned iOwned){
-            if (iOwned.getTrueOwner() == event.getEntity()) {
+            if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == event.getEntity())) {
                 if (SpellConfig.OwnerHitCommand.get()) {
                     if (event.getEntity().getMainHandItem().getItem() instanceof DarkWand) {
                         if (iOwned instanceof Summoned summonedEntity) {
-                            if (summonedEntity.getTrueOwner() == event.getEntity() || (summonedEntity.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == event.getEntity())) {
-                                if (event.getEntity().isShiftKeyDown() || event.getEntity().isCrouching()) {
-                                    summonedEntity.kill();
-                                } else {
-                                    if (summonedEntity.canUpdateMove()) {
-                                        summonedEntity.updateMoveMode(event.getEntity());
-                                    }
+                            if (event.getEntity().isShiftKeyDown() || event.getEntity().isCrouching()) {
+                                summonedEntity.kill();
+                            } else {
+                                if (summonedEntity.canUpdateMove()) {
+                                    summonedEntity.updateMoveMode(event.getEntity());
                                 }
                             }
                         }
                     }
                 }
-                if (SpellConfig.OwnerAttackCancel.get()) {
+                if (MobsConfig.OwnerAttackCancel.get()) {
                     event.setCanceled(true);
                 }
             }
@@ -1161,7 +1170,7 @@ public class ModEvents {
                                 if (killed.getType() == EntityType.WITHER_SKELETON) {
                                     killed.spawnAtLocation(new ItemStack(Items.WITHER_SKELETON_SKULL));
                                 }
-                                if (MainConfig.TallSkullDrops.get()) {
+                                if (MobsConfig.TallSkullDrops.get()) {
                                     if (killed instanceof Villager || killed instanceof AbstractIllager) {
                                         killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
                                     }
@@ -1301,7 +1310,7 @@ public class ModEvents {
                     }
                 }
             }
-            if (MainConfig.TallSkullDrops.get()) {
+            if (MobsConfig.TallSkullDrops.get()) {
                 if (living.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
                     if (living instanceof AbstractVillager || living instanceof AbstractIllager || living instanceof Witch || living instanceof Cultist) {
                         if (living.level.getServer() != null) {
@@ -1341,7 +1350,7 @@ public class ModEvents {
                     event.setResultStack(event.getItem());
                 }
             }
-        }else if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WITCH_HAT.get())){
+        } else if (CuriosFinder.hasCurio(event.getEntity(), itemStack -> itemStack.getItem() instanceof WitchHatItem)){
             if (event.getEntity().level.random.nextFloat() <= 0.1F){
                 if (event.getItem().getItem() instanceof PotionItem){
                     event.setResultStack(event.getItem());

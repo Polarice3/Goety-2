@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.AttributesConfig;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
@@ -348,7 +348,7 @@ public class AbstractWraith extends Summoned {
                         }
                     }
                 } else {
-                    if (MainConfig.WraithAggressiveTeleport.get()) {
+                    if (MobsConfig.WraithAggressiveTeleport.get()) {
                         if (!this.isStaying() && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
                             this.getNavigation().stop();
                             this.setIsTeleporting(true);

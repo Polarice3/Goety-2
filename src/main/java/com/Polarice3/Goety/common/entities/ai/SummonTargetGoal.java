@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -47,8 +47,8 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
                 return (target) ->
                         (target instanceof Enemy
                                 && !(target.getMobType() == MobType.UNDEAD && ownedEntity.getTrueOwner() != null && LichdomHelper.isLich(ownedEntity.getTrueOwner()) && MainConfig.LichUndeadFriends.get())
-                                && !(target.getMobType() == MobType.UNDEAD && ownedEntity.getTrueOwner() instanceof Player && CuriosFinder.hasUndeadSet(ownedEntity.getTrueOwner()) && SpellConfig.NecroRobeUndead.get())
-                                && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && SpellConfig.MinionsAttackCreepers.get())
+                                && !(target.getMobType() == MobType.UNDEAD && ownedEntity.getTrueOwner() instanceof Player && CuriosFinder.hasUndeadSet(ownedEntity.getTrueOwner()) && MobsConfig.NecroRobeUndead.get())
+                                && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
                                 && !(target instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) target).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) target).getTarget() != ownedEntity))
                                 && !(target instanceof IOwned && ownedEntity.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == ownedEntity.getTrueOwner()))
                         || (target instanceof Owned owned

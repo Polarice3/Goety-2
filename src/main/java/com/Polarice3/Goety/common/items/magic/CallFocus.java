@@ -77,23 +77,28 @@ public class CallFocus extends MagicFocus{
         if (hasSummon(stack) && stack.getTag() != null) {
             CompoundTag compoundTag = stack.getTag();
             LivingEntity livingEntity = getSummon(compoundTag);
-            if (livingEntity != null && !livingEntity.isDeadOrDying()){
-                BlockPos blockPos = BlockFinder.SummonRadius(player, player.level);
-                if (livingEntity.level.dimension() == player.level.dimension()) {
-                    livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                    MobUtil.moveDownToGround(livingEntity);
-                    ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                    ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                    return true;
-                } else if (player.getServer() != null) {
-                    ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
-                    if (serverWorld != null) {
-                        Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                        livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
+            if (livingEntity != null){
+                if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle){
+                    livingEntity = vehicle;
+                }
+                if (!livingEntity.isDeadOrDying()) {
+                    BlockPos blockPos = BlockFinder.SummonRadius(player, player.level);
+                    if (livingEntity.level.dimension() == player.level.dimension()) {
                         livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         MobUtil.moveDownToGround(livingEntity);
                         ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                        ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                         return true;
+                    } else if (player.getServer() != null) {
+                        ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
+                        if (serverWorld != null) {
+                            Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                            livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
+                            livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                            MobUtil.moveDownToGround(livingEntity);
+                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            return true;
+                        }
                     }
                 }
             }

@@ -1,16 +1,15 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -34,6 +33,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -59,6 +59,9 @@ public class Summoned extends Owned {
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("9c47949c-b896-4802-8e8a-f08c50791a8a");
     private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Staying speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
     public boolean upgraded;
+    public LivingEntity commandPosEntity;
+    public BlockPos commandPos;
+    public int commandTick;
 
     protected Summoned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -117,6 +120,38 @@ public class Summoned extends Owned {
                 }
             }
         }
+        if (this.isCommanded()){
+            if (this.getNavigation().isStableDestination(this.commandPos) || this.commandPosEntity != null){
+                --this.commandTick;
+                if (this.commandPosEntity != null){
+                    this.getNavigation().moveTo(this.commandPosEntity, 1.25D);
+                } else {
+                    this.getNavigation().moveTo(this.commandPos.getX() + 0.5D, this.commandPos.getY(), this.commandPos.getZ() + 0.5D, 1.25D);
+                }
+
+                if (this.getNavigation().isStuck() || this.commandTick <= 0){
+                    this.commandPosEntity = null;
+                    this.commandPos = null;
+                } else if (this.commandPos.closerToCenterThan(
+                        this.getControlledVehicle() != null ? this.getControlledVehicle().position() : this.position(), 1.25D)){
+                    if (this.commandPosEntity != null &&
+                            this.getBoundingBox().inflate(1.25D).intersects(this.commandPosEntity.getBoundingBox())){
+                        if (this.canRide(this.commandPosEntity)) {
+                            if (this.startRiding(this.commandPosEntity)) {
+                                if (this.getTrueOwner() instanceof Player player){
+                                    player.displayClientMessage(Component.translatable("info.goety.servant.dismount"), true);
+                                }
+                            }
+                        }
+                        this.commandPosEntity = null;
+                    }
+                    this.moveTo(this.commandPos, this.getYRot(), this.getXRot());
+                    this.commandPos = null;
+                }
+            } else {
+                this.commandPos = null;
+            }
+        }
         if (this.isWandering()){
             if (this.isStaying()) {
                 this.setStaying(false);
@@ -131,13 +166,13 @@ public class Summoned extends Owned {
             if (!this.level.isClientSide) {
                 if (this.getMobType() == MobType.UNDEAD) {
                     if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
-                        if (SpellConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
+                        if (MobsConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
                             if (this.getTrueOwner() instanceof Player owner) {
                                 if (CuriosFinder.hasUndeadCape(owner)) {
-                                    int SoulCost = SpellConfig.UndeadMinionHealCost.get();
+                                    int SoulCost = MobsConfig.UndeadMinionHealCost.get();
                                     if (SEHelper.getSoulsAmount(owner, SoulCost)) {
-                                        if (this.tickCount % MathHelper.secondsToTicks(SpellConfig.UndeadMinionHealTime.get()) == 0) {
-                                            this.heal(SpellConfig.UndeadMinionHealAmount.get().floatValue());
+                                        if (this.tickCount % MathHelper.secondsToTicks(MobsConfig.UndeadMinionHealTime.get()) == 0) {
+                                            this.heal(MobsConfig.UndeadMinionHealAmount.get().floatValue());
                                             Vec3 vector3d = this.getDeltaMovement();
                                             if (this.level instanceof ServerLevel serverWorld) {
                                                 SEHelper.decreaseSouls(owner, SoulCost);
@@ -171,6 +206,22 @@ public class Summoned extends Owned {
                 this.setSecondsOnFire(8);
             }
         }
+    }
+
+    public boolean canRide(LivingEntity livingEntity){
+        if (!(this instanceof PlayerRideable)
+                && !(this instanceof AbstractGolemServant)
+                && livingEntity instanceof PlayerRideable
+                && livingEntity.getFirstPassenger() == null){
+            if (livingEntity instanceof AbstractHorse horse){
+                return horse.isTamed();
+            } else if (livingEntity instanceof OwnableEntity ownable && this.getTrueOwner() != null){
+                return ownable.getOwner() == this.getTrueOwner();
+            } else if (livingEntity instanceof IOwned owned && this.getTrueOwner() != null){
+                return owned.getTrueOwner() == this.getTrueOwner();
+            }
+        }
+        return false;
     }
 
     public void stayingPosition(){
@@ -209,7 +260,7 @@ public class Summoned extends Owned {
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        if (SpellConfig.MinionsMasterImmune.get()) {
+        if (MobsConfig.MinionsMasterImmune.get()) {
             if (source.getEntity() instanceof Summoned summoned) {
                 if (!summoned.isHostile() && !this.isHostile()) {
                     if (summoned.getTrueOwner() == this.getTrueOwner() && this.getTrueOwner() != null) {
@@ -289,7 +340,7 @@ public class Summoned extends Owned {
     }
 
     public boolean isStaying(){
-        return this.getFlag(2);
+        return this.getFlag(2) && !this.isCommanded() && !this.isVehicle();
     }
 
     public void setStaying(boolean staying){
@@ -309,6 +360,15 @@ public class Summoned extends Owned {
         if (compound.contains("staying")) {
             this.setStaying(compound.getBoolean("staying"));
         }
+        if (compound.contains("commandPos")){
+            this.commandPos = NbtUtils.readBlockPos(compound.getCompound("commandPos"));
+        }
+        if (compound.contains("commandPosEntity")){
+            if (EntityFinder.getLivingEntityByUuiD(compound.getUUID("commandPosEntity")) != null) {
+                this.commandPosEntity = EntityFinder.getLivingEntityByUuiD(compound.getUUID("commandPosEntity"));
+            }
+        }
+
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -316,6 +376,13 @@ public class Summoned extends Owned {
         compound.putBoolean("Upgraded", this.upgraded);
         compound.putBoolean("wandering", this.isWandering());
         compound.putBoolean("staying", this.isStaying());
+        if (this.commandPos != null){
+            compound.put("commandPos", NbtUtils.writeBlockPos(this.commandPos));
+        }
+        if (this.commandPosEntity != null) {
+            compound.putUUID("commandPosEntity", this.commandPosEntity.getUUID());
+        }
+        compound.putInt("commandTick", this.commandTick);
     }
 
     public boolean canUpdateMove(){
@@ -347,6 +414,39 @@ public class Summoned extends Owned {
     public void setUpgraded(boolean upgraded) {
         this.upgraded = upgraded;
     }
+
+    public void setCommandPos(BlockPos blockPos){
+        this.setCommandPos(blockPos, true);
+    }
+
+    public void setCommandPos(BlockPos blockPos, boolean removeEntity){
+        if (removeEntity) {
+            this.commandPosEntity = null;
+        }
+        this.commandPos = blockPos;
+        this.commandTick = MathHelper.secondsToTicks(10);
+    }
+
+    public void setCommandPosEntity(LivingEntity living){
+        this.commandPosEntity = living;
+        this.setCommandPos(living.blockPosition(), false);
+    }
+
+    public boolean isCommanded(){
+        return this.commandPos != null;
+    }
+
+/*    public InteractionResult mobInteract(Player p_21472_, InteractionHand p_21473_) {
+        if (!this.level.isClientSide) {
+            if (p_21472_.isCrouching() && p_21472_.getItemInHand(p_21473_).isEmpty()) {
+                if (this.isPassenger()) {
+                    this.stopRiding();
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return super.mobInteract(p_21472_, p_21473_);
+    }*/
 
     public static class FollowOwnerGoal extends Goal {
         private final Summoned summonedEntity;
@@ -380,7 +480,7 @@ public class Summoned extends Owned {
                 return false;
             } else if (this.summonedEntity.distanceToSqr(livingentity) < (double)(Mth.square(this.startDistance))) {
                 return false;
-            } else if (this.summonedEntity.isWandering() || this.summonedEntity.isStaying()) {
+            } else if (this.summonedEntity.isWandering() || this.summonedEntity.isStaying() || this.summonedEntity.isCommanded()) {
                 return false;
             } else if (this.summonedEntity.getTarget() != null) {
                 return false;
@@ -415,15 +515,19 @@ public class Summoned extends Owned {
         public void tick() {
             if (this.owner != null) {
                 this.summonedEntity.getLookControl().setLookAt(this.owner, 10.0F, (float) this.summonedEntity.getMaxHeadXRot());
-                if (--this.timeToRecalcPath <= 0) {
+                if (this.summonedEntity.getControlledVehicle() != null){
+                    this.navigation.moveTo(this.owner, this.followSpeed + 0.25D);
+                    if (this.summonedEntity.getControlledVehicle() instanceof Mob mob){
+                        mob.getNavigation().moveTo(this.owner, this.followSpeed + 0.25D);
+                    }
+                } else if (--this.timeToRecalcPath <= 0) {
                     this.timeToRecalcPath = 10;
                     if (!this.summonedEntity.isLeashed() && !this.summonedEntity.isPassenger()) {
-                        if (this.summonedEntity.distanceToSqr(this.owner) >= 144.0D && SpellConfig.UndeadTeleport.get()) {
+                        if (this.summonedEntity.distanceToSqr(this.owner) >= 144.0D && MobsConfig.UndeadTeleport.get()) {
                             this.tryToTeleportNearEntity();
                         } else {
                             this.navigation.moveTo(this.owner, this.followSpeed);
                         }
-
                     }
                 }
             }
@@ -500,7 +604,7 @@ public class Summoned extends Owned {
 
         public boolean canUse() {
             if (super.canUse()){
-                return !Summoned.this.isStaying() || Summoned.this.getTrueOwner() == null || Summoned.this.getNavigation() instanceof WaterBoundPathNavigation;
+                return !Summoned.this.isStaying() && !Summoned.this.isCommanded() || Summoned.this.getTrueOwner() == null || Summoned.this.getNavigation() instanceof WaterBoundPathNavigation;
             } else {
                 return false;
             }

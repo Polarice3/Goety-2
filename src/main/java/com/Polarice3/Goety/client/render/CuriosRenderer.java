@@ -20,10 +20,12 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.DARK_HAT.get(), () -> new WearRenderer(render("dark_hat.png"), new DarkHatModel(bakeLayer(ModModelLayer.DARK_HAT))));
         CuriosRendererRegistry.register(ModItems.GRAND_TURBAN.get(), () -> new WearRenderer(render("grand_turban.png"), new DarkHatModel(bakeLayer(ModModelLayer.GRAND_TURBAN))));
         CuriosRendererRegistry.register(ModItems.WITCH_HAT.get(), () -> new WearRenderer(render("witch_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
+        CuriosRendererRegistry.register(ModItems.WITCH_HAT_HEDGE.get(), () -> new WearRenderer(render("witch_hat_hedge.png"), new WitchHatModel(bakeLayer(ModModelLayer.WITCH_HAT))));
         CuriosRendererRegistry.register(ModItems.CRONE_HAT.get(), () -> new WearRenderer(render("crone_hat.png"), new WitchHatModel(bakeLayer(ModModelLayer.CRONE_HAT))));
         CuriosRendererRegistry.register(ModItems.DARK_ROBE.get(), () -> new WearRenderer(render("dark_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.GRAND_ROBE.get(), () -> new WearRenderer(render("grand_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE.get(), () -> new WearRenderer(render("illusion_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE_MIRROR.get(), () -> new WearRenderer(render("illusion_robe_mirror.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.FROST_ROBE.get(), () -> new WearRenderer(render("frost_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WIND_ROBE.get(), () -> new WearRenderer(render("wind_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));

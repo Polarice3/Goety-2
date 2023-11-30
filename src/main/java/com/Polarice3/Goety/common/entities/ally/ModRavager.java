@@ -1,11 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
+import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -18,7 +19,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -91,7 +91,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     }
 
     protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger().getType().is(EntityTypeTags.RAIDERS);
+        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
         boolean flag1 = !(this.getVehicle() instanceof Boat);
         this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
         this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
@@ -199,16 +199,18 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
 
     @Nullable
     public LivingEntity getControllingPassenger() {
-        Entity entity = this.getFirstPassenger();
-        return entity instanceof LivingEntity livingEntity && this.canBeControlledBy(livingEntity) ? livingEntity : null;
+        if (!this.isNoAi()) {
+            Entity entity = this.getFirstPassenger();
+            if (entity instanceof LivingEntity) {
+                return (LivingEntity)entity;
+            }
+        }
+
+        return null;
     }
 
     public boolean isControlledByLocalInstance() {
-        return super.isControlledByLocalInstance() && !this.isAutonomous();
-    }
-
-    private boolean canBeControlledBy(Entity p_219063_) {
-        return !this.isNoAi() && p_219063_ instanceof LivingEntity;
+        return super.isControlledByLocalInstance() && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
     }
 
     public ItemStack getArmor() {
@@ -317,6 +319,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                 }
             }
 
+            if (this.getControllingPassenger() instanceof Summoned summoned) {
+                this.setTarget(summoned.getTarget());
+            }
         }
     }
 
@@ -434,7 +439,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     }
 
     public static int getRoarCoolMax(){
-        return MathHelper.secondsToTicks(SpellConfig.RavagerRoarCooldown.get());
+        return MathHelper.secondsToTicks(MobsConfig.RavagerRoarCooldown.get());
     }
 
     public boolean doHurtTarget(Entity p_33328_) {
@@ -499,7 +504,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     public void travel(Vec3 pTravelVector) {
         if (this.isAlive()) {
             LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-            if (this.isVehicle() && this.hasSaddle() && livingentity != null && !this.isAutonomous()) {
+            if (this.isVehicle() && this.hasSaddle() && livingentity instanceof Player && !this.isAutonomous()) {
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(livingentity.getXRot() * 0.5F);
@@ -525,11 +530,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     }
                 }
 
-                if (this.isControlledByLocalInstance() || livingentity instanceof Player) {
-                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    super.travel(new Vec3(f, pTravelVector.y, f1));
-                    this.lerpSteps = 0;
-                }
+                this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                super.travel(new Vec3(f, pTravelVector.y, f1));
+                this.lerpSteps = 0;
 
                 this.calculateEntityAnimation(false);
             } else {
@@ -540,17 +543,20 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
 
     @Override
     public boolean canUpdateMove() {
-        return true;
+        return !(this.getControllingPassenger() instanceof Mob);
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!pPlayer.level.isClientSide) {
             if (pPlayer == this.getTrueOwner()) {
                 if (this.hasSaddle() && !pPlayer.isCrouching()) {
-                    this.doPlayerRide(pPlayer);
-                    this.setStaying(false);
-                    this.setWandering(false);
-                    return InteractionResult.SUCCESS;
+                    if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
+                        this.getFirstPassenger().stopRiding();
+                        return InteractionResult.SUCCESS;
+                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof DarkWand)){
+                        this.doPlayerRide(pPlayer);
+                        return InteractionResult.SUCCESS;
+                    }
                 } else if (pPlayer.getItemInHand(pHand).is(ModItems.OMINOUS_SADDLE.get()) && !this.hasSaddle()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         pPlayer.getItemInHand(pHand).shrink(1);
@@ -594,7 +600,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                 }
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public boolean isFood(ItemStack p_30440_) {

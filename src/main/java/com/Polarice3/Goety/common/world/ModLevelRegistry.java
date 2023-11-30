@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.world;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
@@ -18,11 +18,11 @@ public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (biome.containsTag(BiomeTags.IS_OVERWORLD) && !biome.containsTag(Tags.Biomes.IS_MUSHROOM) && !biome.is(Biomes.DEEP_DARK)){
-            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MainConfig.WarlockSpawnWeight.get(), 1, 1));
-            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MainConfig.WraithSpawnWeight.get(), 1, 1));
+            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MobsConfig.WarlockSpawnWeight.get(), 1, 1));
+            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
         }
         if (biome.is(Biomes.SOUL_SAND_VALLEY)){
-            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MainConfig.WraithSpawnWeight.get(), 1, 1));
+            builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
             builder.getMobSpawnSettings().addMobCharge(ModEntityType.WRAITH.get(), 0.7D, 0.15D);
         }
     }

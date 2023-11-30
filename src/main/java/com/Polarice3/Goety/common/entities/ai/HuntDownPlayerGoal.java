@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,7 +27,7 @@ public class HuntDownPlayerGoal<T extends PathfinderMob> extends Goal {
     public boolean canUse() {
         List<Player> list = this.mob.level.getNearbyEntities(Player.class, this.target, this.mob, this.mob.getBoundingBox().inflate(64.0D, 32.0D, 64.0D));
         for (Player player : list){
-            if (SEHelper.getSoulsAmount(player, MainConfig.IllagerAssaultSEThreshold.get())) {
+            if (SEHelper.getSoulsAmount(player, MobsConfig.IllagerAssaultSEThreshold.get())) {
                 this.mob.setTarget(player);
             }
         }

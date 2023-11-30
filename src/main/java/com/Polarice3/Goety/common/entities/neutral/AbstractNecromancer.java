@@ -82,7 +82,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.NecromancerHealth.get())
-                .add(Attributes.FOLLOW_RANGE, 35.0D)
+                .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.NecromancerDamage.get())
                 .add(Attributes.ARMOR, 2.0D);
@@ -332,7 +332,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 }
             }
         }
-        return InteractionResult.PASS;
+        return super.mobInteract(pPlayer, p_230254_2_);
     }
 
     public class CastingSpellGoal extends Goal {

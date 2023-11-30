@@ -2,10 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
-import com.Polarice3.Goety.common.items.curios.RingItem;
-import com.Polarice3.Goety.common.items.curios.WarlockRobeItem;
-import com.Polarice3.Goety.common.items.curios.WitchRobeItem;
+import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -58,11 +55,11 @@ public class CuriosFinder {
     }
 
     public static boolean hasIllusionRobe(LivingEntity livingEntity){
-        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() == ModItems.ILLUSION_ROBE.get()));
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof IllusionRobeItem));
     }
 
     public static boolean hasWitchHat(LivingEntity livingEntity){
-        return hasCurio(livingEntity, ModItems.WITCH_HAT.get()) || hasCurio(livingEntity, ModItems.CRONE_HAT.get());
+        return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WitchHatItem) || hasCurio(livingEntity, ModItems.CRONE_HAT.get());
     }
 
     public static boolean hasWitchRobe(LivingEntity livingEntity){

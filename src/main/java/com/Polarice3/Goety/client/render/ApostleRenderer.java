@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.ApostleModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -58,7 +58,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
             pMatrixStack.translate(0.0D, (double)-1.501F, 0.0D);
             this.model.prepareMobModel(pEntity, 0.0F, 0.0F, pPartialTicks);
             this.model.setupAnim(pEntity, 0.0F, 0.0F, f71, f2, f6);
-            float f8 = MainConfig.FancierApostleDeath.get() || pEntity.level.dimension() == Level.NETHER ? 300.0F : 30.0F;
+            float f8 = MobsConfig.FancierApostleDeath.get() || pEntity.level.dimension() == Level.NETHER ? 300.0F : 30.0F;
             float f9 = (float)pEntity.deathTime / f8;
             VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.dragonExplosionAlpha(EXPLODE));
             this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, f9);
@@ -66,7 +66,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
             this.model.renderToBuffer(pMatrixStack, ivertexbuilder1, pPackedLight, OverlayTexture.pack(0.0F, flag), 1.0F, 1.0F, 1.0F, 1.0F);
             pMatrixStack.popPose();
 
-            if (MainConfig.FancierApostleDeath.get() || pEntity.level.dimension() == Level.NETHER) {
+            if (MobsConfig.FancierApostleDeath.get() || pEntity.level.dimension() == Level.NETHER) {
                 if (pEntity.deathTime > 20) {
                     float f5 = ((float) pEntity.deathTime + pPartialTicks) / 200.0F;
                     float f7 = Math.min(f5 > 0.8F ? (f5 - 0.8F) / 0.2F : 0.0F, 1.0F);

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.DrownedServantModel;
 import com.Polarice3.Goety.common.entities.ally.DrownedServant;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -24,7 +24,7 @@ public class DrownedServantOuterLayer<T extends DrownedServant> extends RenderLa
 
    public void render(PoseStack p_116924_, MultiBufferSource p_116925_, int p_116926_, T p_116927_, float p_116928_, float p_116929_, float p_116930_, float p_116931_, float p_116932_, float p_116933_) {
       ResourceLocation resourceLocation = TEXTURES;
-      if (p_116927_.isHostile() || !MainConfig.CustomServantTexture.get()){
+      if (p_116927_.isHostile() || !MobsConfig.DrownedServantTexture.get()){
          resourceLocation = DROWNED_OUTER_LAYER_LOCATION;
       }
       coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model, resourceLocation, p_116924_, p_116925_, p_116926_, p_116927_, p_116928_, p_116929_, p_116931_, p_116932_, p_116933_, p_116930_, 1.0F, 1.0F, 1.0F);

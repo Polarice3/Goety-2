@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.boss;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -159,8 +160,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ApostleHealth.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
-                .add(Attributes.ARMOR, 12.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 6.0D)
+                .add(Attributes.ARMOR, AttributesConfig.ApostleArmor.get())
+                .add(Attributes.ARMOR_TOUGHNESS, AttributesConfig.ApostleToughness.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F)
@@ -169,6 +170,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ApostleHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ApostleArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR_TOUGHNESS), AttributesConfig.ApostleToughness.get());
     }
 
     protected void defineSynchedData() {
@@ -326,8 +329,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
             this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         }
-        if (MainConfig.FancierApostleDeath.get() || this.level.dimension() == Level.NETHER) {
+        if (MobsConfig.FancierApostleDeath.get() || this.level.dimension() == Level.NETHER) {
             this.setNoGravity(true);
+            if (this.getKillCredit() instanceof Player){
+                this.lastHurtByPlayerTime = 100;
+            }
             if (this.deathTime < 180) {
                 if (this.deathTime > 20) {
                     this.move(MoverType.SELF, new Vec3(0.0D, 0.1D, 0.0D));
@@ -943,7 +949,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         double d3 = -900.0D;
                         double d4 = (random.nextInt(trueRange) * e);
                         NetherMeteor fireball = new NetherMeteor(this.level, this, d2, d3, d4);
-                        fireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(this.level, this) && MainConfig.ApocalypseMode.get());
+                        fireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(this.level, this) && MobsConfig.ApocalypseMode.get());
                         fireball.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         this.level.addFreshEntity(fireball);
                     }

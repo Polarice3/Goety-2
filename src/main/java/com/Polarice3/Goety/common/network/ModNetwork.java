@@ -46,6 +46,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CScytheStrikePacket.class, CScytheStrikePacket::encode, CScytheStrikePacket::decode, CScytheStrikePacket::consume);
         INSTANCE.registerMessage(nextID(), CLichKissPacket.class, CLichKissPacket::encode, CLichKissPacket::decode, CLichKissPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMagnetPacket.class, CMagnetPacket::encode, CMagnetPacket::decode, CMagnetPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CSetLichMode.class, CSetLichMode::encode, CSetLichMode::decode, CSetLichMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CBeamPacket.class, CBeamPacket::encode, CBeamPacket::decode, CBeamPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusPacket.class, CSwapFocusPacket::encode, CSwapFocusPacket::decode, CSwapFocusPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusTwoPacket.class, CSwapFocusTwoPacket::encode, CSwapFocusTwoPacket::decode, CSwapFocusTwoPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

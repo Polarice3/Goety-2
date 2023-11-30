@@ -1,5 +1,5 @@
 {
-  "name": "巫妖常识",
+  "name": "巫妖之准则",
   "icon": "minecraft:skeleton_skull",
   "category": "goety:intro",
   "advancement": "goety:goety/become_lich",
@@ -19,7 +19,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:crafts/artifice/arca)Arca$() 无论灵魂能量的多少，奥术复活都会被启动。然而，如果灵魂能量的数量少于复活你所需的通常数量，你将遭受可怕的灵魂饥饿。饥饿会让你变得越来越弱，越来越慢，直到你的灵魂能量达到合适的数量。"
+      "text": "无论灵魂能量的多少$(l:crafts/artifice/arca)奥术复活$()都会被启动。然而，如果灵魂能量的数量少于复活你所需的通常数量，你将遭受可怕的灵魂饥饿。饥饿会让你变得越来越弱，越来越慢，直到你的灵魂能量允许你进行一次奥术复活。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你也可以通过按下巫妖形态键（默认值：N）来恢复你的现今的生命形态。这种形式骗不了任何人，但至少你知道自己变成了什么。"
     }
   ]
 }

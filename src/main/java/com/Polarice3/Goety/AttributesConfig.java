@@ -11,8 +11,6 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> OverrideAttributes;
-
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVillagerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVillagerServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonVillagerServantHealth;
@@ -65,6 +63,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BoneLordDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ApostleArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> ApostleToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> ApostleMagicDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> VizierHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> CroneHealth;
@@ -76,10 +76,6 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VizierDamageCap;
 
     static {
-        BUILDER.push("General");
-        OverrideAttributes = BUILDER.comment("Allows newly Configured Attributes to override pre-existing ones, Default: true")
-                        .define("overrideAttributes", true);
-        BUILDER.pop();
         BUILDER.push("Attributes");
             BUILDER.push("Cultists");
             MalghastHealth = BUILDER.comment("How much Max Health Malghast have, Default: 20.0")
@@ -237,6 +233,10 @@ public class AttributesConfig {
                 BUILDER.push("Apostle");
                 ApostleHealth = BUILDER.comment("How much Max Health Apostles have, Default: 320.0")
                         .defineInRange("apostleHealth", 320.0, 100.0, Double.MAX_VALUE);
+                ApostleArmor = BUILDER.comment("How much natural Armor Points Apostles have, Default: 12.0")
+                        .defineInRange("apostleArmor", 12.0, 0.0, Double.MAX_VALUE);
+                ApostleToughness = BUILDER.comment("How much natural Toughness Points Apostles have, Default: 6.0")
+                        .defineInRange("apostleToughness", 6.0, 0.0, Double.MAX_VALUE);
                 ApostleDamageCap = BUILDER.comment("The maximum amount of damage an Apostle can attain per hit, Default: 20")
                         .defineInRange("apostleDamageCap", 20, 1, Integer.MAX_VALUE);
                 ApostleBowDamage = BUILDER.comment("Multiplies Apostle's Bow damage, Default: 4")
