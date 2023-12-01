@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.VizierModel;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -18,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class VizierCapeLayer extends RenderLayer<Vizier, VizierModel> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/illagers/vizier.png");
+    protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier_christmas.png");
 
     public VizierCapeLayer(RenderLayerParent<Vizier, VizierModel> p_117135_) {
         super(p_117135_);
@@ -54,10 +57,14 @@ public class VizierCapeLayer extends RenderLayer<Vizier, VizierModel> {
                 pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
                 pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
                 pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
-                VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+                VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(this.getCapeTexture()));
                 this.getParentModel().renderCape(pMatrixStack, ivertexbuilder, pPackedLight, OverlayTexture.NO_OVERLAY);
                 pMatrixStack.popPose();
             }
         }
+    }
+
+    public ResourceLocation getCapeTexture() {
+        return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
     }
 }
