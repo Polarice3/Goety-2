@@ -440,10 +440,10 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             }
         }
 
-        if (pAmount > (float) AttributesConfig.VizierDamageCap.get()){
+        if (pAmount > (float) AttributesConfig.VizierDamageCap.get() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
             return super.hurt(pSource, (float) AttributesConfig.VizierDamageCap.get());
         } else {
-            if (this.isSpellcasting()){
+            if (this.isSpellcasting() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
                 return super.hurt(pSource, pAmount/2);
             } else {
                 return super.hurt(pSource, pAmount);

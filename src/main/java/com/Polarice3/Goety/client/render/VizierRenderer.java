@@ -17,8 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/illagers/vizier.png");
     protected static final ResourceLocation DYING = Goety.location("textures/entity/illagers/vizier_dying.png");
-    protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier.png");
-    protected static final ResourceLocation CHRISTMAS_DYING = Goety.location("textures/entity/illagers/vizier_dying.png");
+    protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier_christmas.png");
+    protected static final ResourceLocation CHRISTMAS_DYING = Goety.location("textures/entity/illagers/vizier_christmas_dying.png");
 
     public VizierRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new VizierModel(renderManagerIn.bakeLayer(ModModelLayer.VIZIER)), 1.0F);
