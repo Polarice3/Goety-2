@@ -1853,6 +1853,14 @@
     ],
     "subtitle": "subtitle.goety.spider_bite"
   },
+  "ghast_disappear": {
+    "sounds": [
+      {
+        "name": "goety:random/ghast_disappear"
+      }
+    ],
+    "subtitle": "subtitle.goety.ghast_disappear"
+  },
   "roar_spell": {
     "sounds": [
       {

@@ -33,6 +33,11 @@ public class TremorSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return 0;
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.GEOMANCY;
     }

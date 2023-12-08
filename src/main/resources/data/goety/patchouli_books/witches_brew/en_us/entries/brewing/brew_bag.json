@@ -1,0 +1,17 @@
+{
+  "name": "Brew Bag",
+  "icon": "goety:brew_bag",
+  "category": "goety:brewing",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Too many brews to hold in your hands?! Well, how 'bout you make a bag for it? A Brew Bag! I'll show ya how to make one since I'm feeling nice, though I gotta warn ya, the bag can only hold $(bold)throwable brews$()!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:brew_bag",
+      "text": "Press Open Brew Bag key (Default: H) to open bag's inventory, Open Brew Circle key (Default: J) to throw a brew from it."
+    }
+  ]
+}

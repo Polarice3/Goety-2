@@ -213,7 +213,15 @@ public class GenericRadialMenu {
             if (!this.getCentralItem().isEmpty()) {
                 int textX = (owner.width - 16) / 2;
                 int textY = (owner.height - 16) / 2;
-                itemRenderer.renderGuiItem(this.getCentralItem(), textX, textY);
+                PoseStack viewModelPose = RenderSystem.getModelViewStack();
+                viewModelPose.pushPose();
+                viewModelPose.mulPoseMatrix(matrixStack.last().pose());
+                viewModelPose.translate(0.0D, 0.0D, 0.0D);
+                RenderSystem.applyModelViewMatrix();
+                itemRenderer.renderAndDecorateItem(this.getCentralItem(), (int) textX, (int) textY);
+                itemRenderer.renderGuiItemDecorations(fontRenderer, this.getCentralItem(), (int) textX, (int) textY);
+                viewModelPose.popPose();
+                RenderSystem.applyModelViewMatrix();
             }
 
             matrixStack.pushPose();

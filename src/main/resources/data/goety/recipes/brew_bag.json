@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ele",
+    "lbl",
+    "ele"
+  ],
+  "key":
+  {
+    "l":
+    {
+      "tag": "forge:leather"
+    },
+    "e":
+    {
+      "item": "goety:occult_fabric"
+    },
+    "b":
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result":
+  {
+    "item": "goety:brew_bag",
+    "count": 1
+  }
+}

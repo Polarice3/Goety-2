@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.LoopSound;
+import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.WearRenderer;
@@ -18,6 +19,7 @@ import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
+import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.mixin.PlayerRendererAccessor;
@@ -303,6 +305,8 @@ public class ClientEvents {
     {
         while (ModKeybindings.wandCircle().consumeClick()) {
         }
+        while (ModKeybindings.brewCircle().consumeClick()) {
+        }
     }
 
     private static boolean toolMenuKeyWasDown = false;
@@ -316,13 +320,25 @@ public class ClientEvents {
         Minecraft minecraft = Minecraft.getInstance();
 
         if (minecraft.screen == null) {
-            boolean toolMenuKeyIsDown = ModKeybindings.wandCircle().isDown();
+            boolean toolMenuKeyIsDown = ModKeybindings.wandCircle().isDown() || ModKeybindings.brewCircle().isDown();
+            boolean wandCircle = ModKeybindings.wandCircle().isDown();
+            boolean brewCircle = ModKeybindings.brewCircle().isDown();
             if (toolMenuKeyIsDown && !toolMenuKeyWasDown) {
-                while (ModKeybindings.wandCircle().consumeClick()) {
-                    if (minecraft.screen == null && minecraft.player != null) {
-                        ItemStack inHand = WandUtil.findWand(minecraft.player);
-                        if (!inHand.isEmpty() && ((TotemFinder.canOpenWandCircle(minecraft.player)))) {
-                            minecraft.setScreen(new FocusRadialMenuScreen());
+                if (wandCircle) {
+                    while (ModKeybindings.wandCircle().consumeClick()) {
+                        if (minecraft.screen == null && minecraft.player != null) {
+                            ItemStack inHand = WandUtil.findWand(minecraft.player);
+                            if (!inHand.isEmpty() && ((TotemFinder.canOpenWandCircle(minecraft.player)))) {
+                                minecraft.setScreen(new FocusRadialMenuScreen());
+                            }
+                        }
+                    }
+                } else if (brewCircle){
+                    while (ModKeybindings.brewCircle().consumeClick()) {
+                        if (minecraft.screen == null && minecraft.player != null) {
+                            if (CuriosFinder.hasBrewInBag(minecraft.player)) {
+                                minecraft.setScreen(new BrewRadialMenuScreen());
+                            }
                         }
                     }
                 }
@@ -373,13 +389,10 @@ public class ClientEvents {
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CMagnetPacket());
         }
         if (ModKeybindings.keyBindings[7].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CAddWitchFuelKeyPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CExtractPotionKeyPacket());
         }
         if (ModKeybindings.keyBindings[8].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CAddCatalystKeyPacket());
-        }
-        if (ModKeybindings.keyBindings[9].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CExtractPotionKeyPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CBrewBagKeyPacket());
         }
         if (ModKeybindings.keyBindings[10].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CRavagerRoarPacket());

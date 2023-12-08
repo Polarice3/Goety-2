@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nullable;
 
@@ -31,7 +32,7 @@ public class CombustBlockEffect extends BrewEffect {
         for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 2)){
             if (BlockFinder.canBeReplaced(pLevel, blockPos)
                     && pLevel.getFluidState(blockPos).isEmpty()
-                    && pLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())) {
+                    && Blocks.FIRE.defaultBlockState().canSurvive(pLevel, blockPos)) {
                 pLevel.setBlockAndUpdate(blockPos, BaseFireBlock.getState(pLevel, blockPos));
             }
         }

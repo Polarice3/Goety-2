@@ -53,7 +53,7 @@ public class FocusRadialMenuScreen extends Screen {
     }
 
     public FocusRadialMenuScreen() {
-        super(Component.literal("RADIAL MENU"));
+        super(Component.literal("FOCUS RADIAL MENU"));
 
         this.stackEquipped = TotemFinder.findBag(Minecraft.getInstance().player);
         this.focusBagHandler = this.stackEquipped.getCount() > 0 ? FocusBagItemHandler.get(this.stackEquipped) : null;

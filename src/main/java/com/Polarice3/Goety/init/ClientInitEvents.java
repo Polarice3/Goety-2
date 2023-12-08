@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.events.BossBarEvent;
 import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
 import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
 import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
+import com.Polarice3.Goety.client.gui.screen.inventory.BrewBagScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.DarkAnvilScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusBagScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.SoulItemScreen;
@@ -64,6 +65,7 @@ public class ClientInitEvents {
     public static void clientInit(FMLClientSetupEvent event){
         MenuScreens.register(ModContainerType.WAND.get(), SoulItemScreen::new);
         MenuScreens.register(ModContainerType.FOCUS_BAG.get(), FocusBagScreen::new);
+        MenuScreens.register(ModContainerType.BREW_BAG.get(), BrewBagScreen::new);
         MenuScreens.register(ModContainerType.DARK_ANVIL.get(), DarkAnvilScreen::new);
         CuriosRenderer.register();
         ModKeybindings.init();
@@ -150,6 +152,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.HAUNT, HauntModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZPIGLIN_SERVANT, ZPiglinModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MINI_GHAST, MiniGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECROMANCER, NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VANGUARD, VanguardModel::createBodyLayer);
@@ -179,6 +182,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.LICH, () -> LayerDefinition.create(LichModeModel.createMesh(CubeDeformation.NONE), 64, 64));
         event.registerLayerDefinition(ModModelLayer.GLOVE, GloveModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FOCUS_BAG, MiscCuriosModel::createFocusBagLayer);
+        event.registerLayerDefinition(ModModelLayer.BREW_BAG, MiscCuriosModel::createBrewBagLayer);
         event.registerLayerDefinition(ModModelLayer.AMULET, MiscCuriosModel::createAmuletLayer);
         event.registerLayerDefinition(ModModelLayer.AMETHYST_NECKLACE, MiscCuriosModel::createAmethystNecklaceLayer);
         event.registerLayerDefinition(ModModelLayer.BELT, MiscCuriosModel::createBeltLayer);
@@ -304,6 +308,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
+        event.registerEntityRenderer(ModEntityType.MINI_GHAST.get(), MiniGhastRenderer::new);
         event.registerEntityRenderer(ModEntityType.RAVAGED.get(), RavagedRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_RAVAGER.get(), ModRavagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ARMORED_RAVAGER.get(), ModRavagerRenderer::new);
@@ -409,6 +414,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
         event.register(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
         event.register(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
+        event.register(ModParticleTypes.DRAGON_FLAME.get(), FireParticle.DragonProvider::new);
         event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
         event.register(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);

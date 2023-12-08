@@ -31,11 +31,16 @@ public class WraithSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.WraithCooldown.get();
+        return SpellConfig.WraithSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.WraithCoolDown.get();
     }
 
     @Override

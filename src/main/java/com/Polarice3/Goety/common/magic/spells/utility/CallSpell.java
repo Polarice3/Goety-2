@@ -28,6 +28,11 @@ public class CallSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.CallCoolDown.get();
+    }
+
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
         return CallFocus.hasSummon(WandUtil.findFocus(entityLiving));
     }

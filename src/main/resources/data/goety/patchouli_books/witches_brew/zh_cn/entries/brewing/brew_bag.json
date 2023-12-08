@@ -1,0 +1,17 @@
+{
+  "name": "药酿袋",
+  "icon": "goety:brew_bag",
+  "category": "goety:brewing",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "药酿太多了，你却告诉我你手里拿不住？！好吧，你给它做个袋子怎么样？一个完美的药酿袋！我会教你如何做一个，因为没有女巫会愚笨到把自己变成牛羊的！尽管我必须警告你，这个袋子只能装$(bold)投掷型药酿$()!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:brew_bag",
+      "text": "按“打开药酿袋”键（默认：H）打开袋子的背包，按“打开药酿圆环”键（缺省值：J）从袋子中取出一些药酿。"
+    }
+  ]
+}

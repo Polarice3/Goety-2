@@ -173,6 +173,20 @@ public class DarkWand extends Item {
         }
     }
 
+    public boolean isOnCooldown(LivingEntity livingEntity, ItemStack stack){
+        if (livingEntity instanceof Player player){
+            if (getFocus(stack) != null){
+                Item item = getFocus(stack).getItem();
+                return SEHelper.getFocusCoolDown(player).isOnCooldown(item);
+            }
+        }
+        return false;
+    }
+
+    public boolean isNotInstant(Spells spells){
+        return spells.CastDuration() > 0;
+    }
+
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
@@ -321,7 +335,10 @@ public class DarkWand extends Item {
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        if (!(this.getSpell(stack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()) {
+        if (this.isOnCooldown(livingEntityIn, stack)){
+            return;
+        }
+        if (this.isNotInstant(this.getSpell(stack))) {
             SoundEvent soundevent = this.CastingSound(stack);
             int CastTime = stack.getUseDuration() - count;
             if (CastTime == 1) {
@@ -351,14 +368,10 @@ public class DarkWand extends Item {
     }
 
     public int getUseDuration(ItemStack stack) {
-        if (!SpellConfig.WandCooldown.get()) {
-            if (stack.getTag() != null) {
-                return stack.getTag().getInt(CASTTIME);
-            } else {
-                return this.CastDuration(stack);
-            }
+        if (stack.getTag() != null) {
+            return stack.getTag().getInt(CASTTIME);
         } else {
-            return 0;
+            return this.CastDuration(stack);
         }
     }
 
@@ -370,7 +383,7 @@ public class DarkWand extends Item {
     @Nonnull
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         super.finishUsingItem(stack, worldIn, entityLiving);
-        if (!(this.getSpell(stack) instanceof ChargingSpells) || !(this.getSpell(stack) instanceof InstantCastSpells) || SpellConfig.WandCooldown.get()){
+        if (!(this.getSpell(stack) instanceof ChargingSpells) || this.isNotInstant(this.getSpell(stack))){
             this.MagicResults(stack, worldIn, entityLiving);
         }
         if (stack.getTag() != null) {
@@ -394,7 +407,9 @@ public class DarkWand extends Item {
             }
             return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
         } else if (this.getSpell(itemstack) != null) {
-            if (!(this.getSpell(itemstack) instanceof InstantCastSpells) && !SpellConfig.WandCooldown.get()){
+            if (this.isOnCooldown(playerIn, itemstack)){
+                return InteractionResultHolder.pass(itemstack);
+            } else if (this.isNotInstant(this.getSpell(itemstack))){
                 if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).SoulCost()) || playerIn.getAbilities().instabuild) {
                     playerIn.startUsingItem(handIn);
                     if (worldIn.isClientSide) {
@@ -509,7 +524,7 @@ public class DarkWand extends Item {
     public boolean canCastTouch(ItemStack stack, Level worldIn, LivingEntity caster){
         Player playerEntity = (Player) caster;
         if (!worldIn.isClientSide) {
-            if (this.getSpell(stack) != null) {
+            if (this.getSpell(stack) != null && !this.isOnCooldown(caster, stack)) {
                 if (playerEntity.isCreative()){
                     return stack.getTag() != null;
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
@@ -532,9 +547,7 @@ public class DarkWand extends Item {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
                         this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        if (SpellConfig.WandCooldown.get()){
-                            playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
-                        }
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     boolean spent = true;
@@ -564,9 +577,7 @@ public class DarkWand extends Item {
                     }
                     if (stack.getTag() != null) {
                         this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        if (SpellConfig.WandCooldown.get()){
-                            playerEntity.getCooldowns().addCooldown(stack.getItem(), this.CastTime(playerEntity, stack));
-                        }
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
                     }
                 } else {
                     worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -647,13 +658,12 @@ public class DarkWand extends Item {
             int SoulUse = stack.getTag().getInt(SOULUSE);
             tooltip.add(Component.translatable("info.goety.wand.cost", SoulUse));
             if (getSpell(stack) != null) {
-                if (!(getSpell(stack) instanceof InstantCastSpells) && !(getSpell(stack) instanceof ChargingSpells)) {
+                if (this.isNotInstant(getSpell(stack)) && !(getSpell(stack) instanceof ChargingSpells)) {
                     int CastTime = stack.getTag().getInt(CASTTIME);
-                    if (SpellConfig.WandCooldown.get()) {
-                        tooltip.add(Component.translatable("info.goety.wand.coolDown", CastTime / 20.0F));
-                    } else {
-                        tooltip.add(Component.translatable("info.goety.wand.castTime", CastTime / 20.0F));
-                    }
+                    tooltip.add(Component.translatable("info.goety.wand.castTime", CastTime / 20.0F));
+                }
+                if (getSpell(stack).SpellCooldown() > 0){
+                    tooltip.add(Component.translatable("info.goety.wand.coolDown", getSpell(stack).SpellCooldown() / 20.0F));
                 }
             }
         } else {

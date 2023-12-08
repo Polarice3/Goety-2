@@ -11,8 +11,12 @@ public class RaidAdditions {
             Raid.RaiderType.create("WARLOCK", ModEntityType.WARLOCK.get(), new int[]{0, 0, 0, 0, 1, 2, 0, 1});
         }
         if (MobsConfig.IllagerRaid.get()) {
-            Raid.RaiderType.create("PIKER", ModEntityType.PIKER.get(), new int[]{0, 4, 3, 3, 4, 4, 4, 2});
-            Raid.RaiderType.create("MINISTER", ModEntityType.MINISTER.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
+            if (MobsConfig.PikerRaid.get()) {
+                Raid.RaiderType.create("PIKER", ModEntityType.PIKER.get(), new int[]{0, 4, 3, 3, 4, 4, 4, 2});
+            }
+            if (MobsConfig.MinisterRaid.get()) {
+                Raid.RaiderType.create("MINISTER", ModEntityType.MINISTER.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
+            }
         }
     }
 }

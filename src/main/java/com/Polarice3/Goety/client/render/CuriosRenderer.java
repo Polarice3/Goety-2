@@ -41,6 +41,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(render("wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
         CuriosRendererRegistry.register(ModItems.SPITEFUL_BELT.get(), () -> new WearRenderer(render("spiteful_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
         CuriosRendererRegistry.register(ModItems.FOCUS_BAG.get(), () -> new WearRenderer(render("focus_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.FOCUS_BAG))));
+        CuriosRendererRegistry.register(ModItems.BREW_BAG.get(), () -> new WearRenderer(render("brew_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BREW_BAG))));
         CuriosRendererRegistry.register(ModItems.AMETHYST_NECKLACE.get(), () -> new WearRenderer(render("amethyst_necklace.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMETHYST_NECKLACE))));
         CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(render("targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
         CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(render("grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));

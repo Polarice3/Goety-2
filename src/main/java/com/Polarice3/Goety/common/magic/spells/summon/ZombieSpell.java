@@ -42,11 +42,16 @@ public class ZombieSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.ZombieCooldown.get();
+        return SpellConfig.ZombieSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.ZombieCoolDown.get();
     }
 
     @Override
@@ -81,7 +86,7 @@ public class ZombieSpell extends SummonSpells {
             if (staff.is(ModItems.NAMELESS_STAFF.get())){
                 i = 7;
             } else if (rightStaff(staff)){
-                i = 2 + entityLiving.level.random.nextInt(6);
+                i = 2 + entityLiving.level.random.nextInt(4);
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity;

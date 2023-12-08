@@ -39,6 +39,11 @@ public class IllusionSpell extends Spells {
         return SoundEvents.ILLUSIONER_PREPARE_MIRROR;
     }
 
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.IllusionCoolDown.get();
+    }
+
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Doppelganger) {

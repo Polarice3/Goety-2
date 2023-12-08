@@ -29,6 +29,11 @@ public class WindBlastSpell extends Spells {
         return ModSounds.PREPARE_SPELL.get();
     }
 
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.WindBlastCoolDown.get();
+    }
+
     public SpellType getSpellType(){
         return SpellType.WIND;
     }

@@ -8,7 +8,7 @@
       "text": "Summons a mighty tooth above a location, a target or the caster, if shifting, that crashes to the ground and summons pikes around it, causing creatures to fly up in the air and be slowed massively for 5 seconds."
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/teeth_focus"
     }
   ]

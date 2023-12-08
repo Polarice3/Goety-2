@@ -27,6 +27,7 @@ public class CurrentFocusGui extends GuiComponent {
         ms.scale(1.0F, 1.0F, 1.0F);
         if (WandUtil.findFocus(minecraft.player) != null) {
             minecraft.getItemRenderer().renderGuiItem(WandUtil.findFocus(minecraft.player), ((screenWidth - 16) / 2) + MainConfig.FocusGuiHorizontal.get(), (screenHeight - 52) + MainConfig.FocusGuiVertical.get());
+            minecraft.getItemRenderer().renderGuiItemDecorations(minecraft.font, WandUtil.findFocus(minecraft.player), ((screenWidth - 16) / 2) + MainConfig.FocusGuiHorizontal.get(), (screenHeight - 52) + MainConfig.FocusGuiVertical.get());
         }
         ms.popPose();
     }

@@ -37,6 +37,11 @@ public class LightningSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.LightningCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.WIND;
     }

@@ -1,8 +1,11 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.IllusionCapeLayer;
 import com.Polarice3.Goety.client.render.layer.NamelessSetLayer;
+import com.Polarice3.Goety.client.render.model.LichModeModel;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.model.HumanoidModel;
@@ -26,11 +29,14 @@ import net.minecraft.world.phys.Vec3;
 public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, PlayerModel<Doppelganger>> {
     private final PlayerModel<Doppelganger> normalModel;
     private final PlayerModel<Doppelganger> slimModel;
+    private final PlayerModel<Doppelganger> lichModel;
+    private static final ResourceLocation TEXTURE = Goety.location("textures/entity/lich.png");
 
     public DoppelgangerRenderer(EntityRendererProvider.Context p_174557_, boolean p_174558_) {
         super(p_174557_, new PlayerModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER), p_174558_), 0.5F);
         this.normalModel = this.getModel();
         this.slimModel = new PlayerModel<>(p_174557_.bakeLayer(ModelLayers.PLAYER_SLIM), true);
+        this.lichModel = new LichModeModel<>(p_174557_.bakeLayer(ModModelLayer.LICH));
         this.addLayer(new IllusionCapeLayer(this));
         this.addLayer(new NamelessSetLayer<>(this, p_174557_.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_INNER_ARMOR : ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(p_174557_.bakeLayer(p_174558_ ? ModelLayers.PLAYER_SLIM_OUTER_ARMOR : ModelLayers.PLAYER_OUTER_ARMOR))));
@@ -38,7 +44,9 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
 
     public void render(Doppelganger pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         this.setModelProperties(pEntity);
-        if (pEntity.getModelName().equals("slim")) {
+        if (LichdomHelper.isInLichMode(pEntity.getTrueOwner())){
+            this.model = lichModel;
+        } else if (pEntity.getModelName().equals("slim")) {
             this.model = slimModel;
         } else {
             this.model = normalModel;
@@ -52,6 +60,9 @@ public class DoppelgangerRenderer extends HumanoidMobRenderer<Doppelganger, Play
     }
 
     public ResourceLocation getTextureLocation(Doppelganger entity) {
+        if (LichdomHelper.isInLichMode(entity.getTrueOwner())){
+            return TEXTURE;
+        }
         return entity.getSkinTextureLocation();
     }
 

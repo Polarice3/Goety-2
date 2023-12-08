@@ -26,6 +26,11 @@ public class SonicBoomSpell extends Spells {
         return SpellConfig.SonicBoomDuration.get();
     }
 
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.SonicBoomCoolDown.get();
+    }
+
     public SoundEvent CastingSound() {
         return SoundEvents.WARDEN_SONIC_CHARGE;
     }

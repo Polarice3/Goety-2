@@ -16,6 +16,9 @@ public class ModContainerType {
     public static final RegistryObject<MenuType<FocusBagContainer>> FOCUS_BAG = CONTAINER_TYPE.register("focus_bag",
             () -> IForgeMenuType.create(FocusBagContainer::createContainerClientSide));
 
+    public static final RegistryObject<MenuType<BrewBagContainer>> BREW_BAG = CONTAINER_TYPE.register("brew_bag",
+            () -> IForgeMenuType.create(BrewBagContainer::createContainerClientSide));
+
     public static final RegistryObject<MenuType<DarkAnvilMenu>> DARK_ANVIL = CONTAINER_TYPE.register("dark_anvil",
             () -> IForgeMenuType.create(DarkAnvilMenu::new));
 }

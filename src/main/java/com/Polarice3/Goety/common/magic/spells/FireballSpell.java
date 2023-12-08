@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Learned you could use this method for better projectile accuracy from codes by @Yunus1903
  */
-public class FireballSpell extends InstantCastSpells {
+public class FireballSpell extends Spells {
 
     @Override
     public int SoulCost() {
@@ -21,8 +21,18 @@ public class FireballSpell extends InstantCastSpells {
     }
 
     @Override
+    public int CastDuration() {
+        return SpellConfig.FireballDuration.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return SoundEvents.BLAZE_SHOOT;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.FireballCoolDown.get();
     }
 
     @Override

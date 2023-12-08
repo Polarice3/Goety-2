@@ -1,30 +1,33 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "goety:barricade_focus"
-  },
-  "craftType": "magic",
-  "soulCost": 1,
-  "duration": 10,
-  "ingredients": [
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sbs",
+    "beb",
+    "fff"
+  ],
+  "key":
+  {
+    "b":
     {
-      "item": "goety:savage_tooth"
+      "item": "minecraft:bone_block"
     },
+    "e":
     {
       "item": "goety:mystic_core"
     },
-    {
-      "item": "goety:savage_tooth"
-    },
-    {
-      "tag": "forge:storage_blocks/amethyst"
-    },
+    "f":
     {
       "item": "goety:magic_emerald"
+    },
+    "s":
+    {
+      "item": "goety:savage_tooth"
     }
-  ],
-  "result": {
-    "item": "goety:teeth_focus"
+  },
+  "result":
+  {
+    "item": "goety:teeth_focus",
+    "count": 1
   }
 }

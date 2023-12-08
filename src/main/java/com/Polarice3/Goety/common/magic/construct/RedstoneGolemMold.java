@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.construct;
 
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
@@ -224,7 +225,7 @@ public class RedstoneGolemMold {
 
     public static void removeBlocks(Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            if (SpellConfig.RedstoneGolemMold.get()) {
+            if (MobsConfig.RedstoneGolemMold.get()) {
                 for (BlockPos blockPos1 : MAGMA_BLOCK_LOCATIONS) {
                     BlockPos blockPos2 = blockPos.offset(blockPos1);
                     if (level.getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK)) {

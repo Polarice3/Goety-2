@@ -39,6 +39,11 @@ public class BarricadeSpell extends Spells {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
     }
 
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.BarricadeCoolDown.get();
+    }
+
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         int range = 16;
         int potency = 0;

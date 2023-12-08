@@ -50,10 +50,18 @@ public class Malghast extends OwnedFlying {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new FlyingGoal(this));
         this.goalSelector.addGoal(7, new LookAroundGoal(this));
-        this.goalSelector.addGoal(7, new FireballAttackGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.addFlyingGoal();
+        this.addFireballGoal();
+    }
+
+    public void addFlyingGoal(){
+        this.goalSelector.addGoal(5, new FlyingGoal(this));
+    }
+
+    public void addFireballGoal(){
+        this.goalSelector.addGoal(7, new FireballAttackGoal(this));
     }
 
     public void tick() {
@@ -222,7 +230,7 @@ public class Malghast extends OwnedFlying {
         public void tick() {
             LivingEntity livingentity = this.ghast.getTarget();
             float d0 = 64.0F;
-            if (livingentity.distanceToSqr(this.ghast) < Mth.square(d0) && this.ghast.hasLineOfSight(livingentity)) {
+            if (livingentity != null && livingentity.distanceToSqr(this.ghast) < Mth.square(d0) && this.ghast.hasLineOfSight(livingentity)) {
                 Level world = this.ghast.level;
                 ++this.chargeTime;
                 if (this.chargeTime == 10) {

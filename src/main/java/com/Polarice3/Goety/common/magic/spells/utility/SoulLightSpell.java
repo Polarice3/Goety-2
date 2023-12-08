@@ -2,18 +2,28 @@ package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.SoulLight;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class SoulLightSpell extends InstantCastSpells {
+public class SoulLightSpell extends Spells {
 
     @Override
     public int SoulCost() {
         return SpellConfig.SoulLightCost.get();
+    }
+
+    @Override
+    public int CastDuration() {
+        return SpellConfig.SoulLightDuration.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.SoulLightCoolDown.get();
     }
 
     @Override

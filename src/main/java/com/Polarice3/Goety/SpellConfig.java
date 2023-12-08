@@ -21,6 +21,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherSkullCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireballCost;
@@ -49,7 +50,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EnderChestCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
-    public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IronHideCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionCost;
 
@@ -60,22 +61,68 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WitherSkullDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireballDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LavaballDuration;
-    public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MagicBoltDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwordDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HailDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LaunchDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EnderChestDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlinkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
-    public static final ForgeConfigSpec.ConfigValue<Integer> SoulArmorDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IronHideDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> VexCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FangCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WitherSkullCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhastCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TeethCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireballCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LavaballCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulBoltCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MagicBoltCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwordCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GlowLightCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceChunkCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HailCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CallCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RecallCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EnderChestCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IronHideCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FireballDamage;
@@ -108,12 +155,13 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> VexCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> WraithCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCooldown;
-    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCooldown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VexSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ZombieSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WraithSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhastSummonDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSoulEaterLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxWantingLevel;
@@ -125,16 +173,17 @@ public class SpellConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
 
-    public static final ForgeConfigSpec.ConfigValue<Boolean> WandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FireballGriefing;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LavaballGriefing;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HauntedSkullGriefing;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WitherSkullGriefing;
 
     static {
         BUILDER.push("General");
         SpellDamageMultiplier = BUILDER.comment("Multiplies the damage of spells by this amount, Default: 1")
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
-        WandCooldown = BUILDER.comment("Turns Casting Time into Cooldowns that prevent Players from using Wands/Staffs for the duration and allows Spells with Casting Time be casted instantly, Default: false")
-                .define("wandCooldown", false);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
                 .define("ownerHitCommand", true);
         BUILDER.pop();
@@ -155,6 +204,8 @@ public class SpellConfig {
                 .defineInRange("hauntedSkullCost", 16, 0, Integer.MAX_VALUE);
         WitherSkullCost = BUILDER.comment("Wither Skull Spell Cost, Default: 24")
                 .defineInRange("witherSkullCost", 24, 0, Integer.MAX_VALUE);
+        GhastCost = BUILDER.comment("Ghastly Spell Cost, Default: 24")
+                .defineInRange("ghastCost", 24, 0, Integer.MAX_VALUE);
         FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                 .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
         TeethCost = BUILDER.comment("Teeth Spell Cost, Default: 8")
@@ -211,7 +262,7 @@ public class SpellConfig {
                 .defineInRange("blinkCost", 8, 0, Integer.MAX_VALUE);
         ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")
                 .defineInRange("shockwaveCost", 80, 0, Integer.MAX_VALUE);
-        SoulArmorCost = BUILDER.comment("Soul Armor Spell Cost, Default: 50")
+        IronHideCost = BUILDER.comment("Soul Armor Spell Cost, Default: 50")
                 .defineInRange("soulArmorCost", 50, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
@@ -233,52 +284,146 @@ public class SpellConfig {
                 .defineInRange("vanguardTime", 180, 0, 72000);
         HauntedSkullDuration = BUILDER.comment("Time to cast Haunted Skull Spell, Default: 20")
                 .defineInRange("hauntedSkullTime", 20, 0, 72000);
+        WitherSkullDuration = BUILDER.comment("Time to cast Wither Skull Spell, Default: 0")
+                .defineInRange("witherSkullTime", 0, 0, 72000);
+        GhastDuration = BUILDER.comment("Time to cast Ghastly Spell, Default: 100")
+                .defineInRange("ghastDuration", 100, 0, 72000);
         FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
                 .defineInRange("feastTime", 20, 0, 72000);
         TeethDuration = BUILDER.comment("Time to cast Teeth Spell, Default: 60")
                 .defineInRange("teethTime", 60, 0, 72000);
-        LavaballDuration = BUILDER.comment("Time to cast Lava Bomb Spell, Default: 20")
-                .defineInRange("lavaBombTime", 20, 0, 72000);
+        FireballDuration = BUILDER.comment("Time to cast Fireball Spell, Default: 0")
+                .defineInRange("fireballTime", 0, 0, 72000);
+        LavaballDuration = BUILDER.comment("Time to cast Lava Bomb Spell, Default: 40")
+                .defineInRange("lavaBombTime", 40, 0, 72000);
+        SoulBoltDuration = BUILDER.comment("Time to cast Soul Bolt Spell, Default: 0")
+                .defineInRange("soulBoltTime", 0, 0, 72000);
+        MagicBoltDuration = BUILDER.comment("Time to cast Magic Bolt Spell, Default: 0")
+                .defineInRange("magicBoltTime", 0, 0, 72000);
+        SwordDuration = BUILDER.comment("Time to cast Flying Sword Spell, Default: 0")
+                .defineInRange("swordTime", 0, 0, 72000);
+        IceSpikeDuration = BUILDER.comment("Time to cast Ice Spike Spell, Default: 0")
+                .defineInRange("iceSpikeTime", 0, 0, 72000);
         IllusionDuration = BUILDER.comment("Time to cast Illusion Spell, Default: 40")
                 .defineInRange("illusionTime", 40, 0, 72000);
-        IceSpikeDuration = BUILDER.comment("Time to cast Ice Spike Spell, Default: 10")
-                .defineInRange("iceSpikeDuration", 10, 0, 72000);
-        IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 100")
-                .defineInRange("iceChunkTime", 100, 0, 72000);
+        SoulLightDuration = BUILDER.comment("Time to cast Soul Light Spell, Default: 0")
+                .defineInRange("soulLightTime", 0, 0, 72000);
+        GlowLightDuration = BUILDER.comment("Time to cast Glow Light Spell, Default: 0")
+                .defineInRange("glowLightTime", 0, 0, 72000);
+        IceChunkDuration = BUILDER.comment("Time to cast Ice Chunk Spell, Default: 0")
+                .defineInRange("iceChunkTime", 0, 0, 72000);
         HailDuration = BUILDER.comment("Time to cast Hail Spell, Default: 40")
                 .defineInRange("hailTime", 40, 0, 72000);
-        BarricadeDuration = BUILDER.comment("Time to cast Barricade Spell, Default: 60")
-                .defineInRange("barricadeTime", 60, 0, 72000);
-        UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 20")
-                .defineInRange("updraftTime", 20, 0, 72000);
-        WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 20")
-                .defineInRange("windBlastTime", 20, 0, 72000);
+        BarricadeDuration = BUILDER.comment("Time to cast Barricade Spell, Default: 0")
+                .defineInRange("barricadeTime", 0, 0, 72000);
+        LaunchDuration = BUILDER.comment("Time to cast Launching Spell, Default: 0")
+                .defineInRange("launchTime", 0, 0, 72000);
+        UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 0")
+                .defineInRange("updraftTime", 0, 0, 72000);
+        WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 0")
+                .defineInRange("windBlastTime", 0, 0, 72000);
         LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
                 .defineInRange("lightningTime", 60, 0, 72000);
         CallDuration = BUILDER.comment("Time to cast Call Spell, Default: 100")
                 .defineInRange("callTime", 100, 0, 72000);
         RecallDuration = BUILDER.comment("Time to cast Recall Spell, Default: 160")
                 .defineInRange("recallTime", 160, 0, 72000);
-        ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 20")
-                .defineInRange("shockwaveTime", 20, 0, 72000);
-        SoulArmorDuration = BUILDER.comment("Time to cast Soul Armor Spell, Default: 40")
-                .defineInRange("soulArmorTime", 40, 0, 72000);
+        EnderChestDuration = BUILDER.comment("Time to cast Ender Chest Spell, Default: 0")
+                .defineInRange("enderChestDuration", 0, 0, 72000);
+        BlinkDuration = BUILDER.comment("Time to cast Blink Spell, Default: 0")
+                .defineInRange("blinkDuration", 0, 0, 72000);
+        ShockwaveDuration = BUILDER.comment("Time to cast Shockwave Spell, Default: 0")
+                .defineInRange("shockwaveTime", 0, 0, 72000);
+        IronHideDuration = BUILDER.comment("Time to cast Iron Hide Spell, Default: 60")
+                .defineInRange("ironHideTime", 60, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();
+        BUILDER.push("Spell Cooldown");
+        VexCoolDown = BUILDER.comment("Vex Spell Cooldown, Default: 340")
+                .defineInRange("vexCoolDown", 340, 0, Integer.MAX_VALUE);
+        FangCoolDown = BUILDER.comment("Fang Spell Cooldown, Default: 100")
+                .defineInRange("fangCoolDown", 100, 0, Integer.MAX_VALUE);
+        ZombieCoolDown = BUILDER.comment("Rotting Spell Cooldown, Default: 100")
+                .defineInRange("zombieCoolDown", 100, 0, Integer.MAX_VALUE);
+        SkeletonCoolDown = BUILDER.comment("Osseous Spell Cooldown, Default: 100")
+                .defineInRange("skeletonCoolDown", 100, 0, Integer.MAX_VALUE);
+        WraithCoolDown = BUILDER.comment("Spooky Spell Cooldown, Default: 100")
+                .defineInRange("wraithCoolDown", 100, 0, Integer.MAX_VALUE);
+        VanguardCoolDown = BUILDER.comment("Vanguard Spell Cooldown, Default: 100")
+                .defineInRange("vanguardCoolDown", 100, 0, Integer.MAX_VALUE);
+        HauntedSkullCoolDown = BUILDER.comment("Skull Spell Cooldown, Default: 20")
+                .defineInRange("hauntedSkullCoolDown", 20, 0, Integer.MAX_VALUE);
+        WitherSkullCoolDown = BUILDER.comment("Wither Skull Spell Cooldown, Default: 0")
+                .defineInRange("witherSkullCoolDown", 0, 0, Integer.MAX_VALUE);
+        GhastCoolDown = BUILDER.comment("Ghastly Spell Cooldown, Default: 200")
+                .defineInRange("ghastCoolDown", 200, 0, Integer.MAX_VALUE);
+        TeethCoolDown = BUILDER.comment("Teeth Spell Cooldown, Default: 20")
+                .defineInRange("teethCoolDown", 20, 0, Integer.MAX_VALUE);
+        FireballCoolDown = BUILDER.comment("Fireball Spell Cooldown, Default: 0")
+                .defineInRange("fireballCoolDown", 0, 0, Integer.MAX_VALUE);
+        LavaballCoolDown = BUILDER.comment("Lava Bomb Spell Cooldown, Default: 40")
+                .defineInRange("lavaBombCoolDown", 40, 0, Integer.MAX_VALUE);
+        SoulBoltCoolDown = BUILDER.comment("Soul Bolt Spell Cooldown, Default: 0")
+                .defineInRange("soulBoltCoolDown", 0, 0, Integer.MAX_VALUE);
+        MagicBoltCoolDown = BUILDER.comment("Magic Bolt Spell Cooldown, Default: 20")
+                .defineInRange("magicBoltCoolDown", 20, 0, Integer.MAX_VALUE);
+        SwordCoolDown = BUILDER.comment("Sword Spell Cooldown, Default: 20")
+                .defineInRange("swordCoolDown", 20, 0, Integer.MAX_VALUE);
+        IceSpikeCoolDown = BUILDER.comment("Ice Spike Spell Cooldown, Default: 20")
+                .defineInRange("iceSpikeCoolDown", 20, 0, Integer.MAX_VALUE);
+        ChargeCoolDown = BUILDER.comment("Charge Spell Cooldown, Default: 4")
+                .defineInRange("chargeCoolDown", 20, 0, Integer.MAX_VALUE);
+        IllusionCoolDown = BUILDER.comment("Illusion Spell Cooldown, Default: 340")
+                .defineInRange("illusionCoolDown", 340, 0, Integer.MAX_VALUE);
+        SoulLightCoolDown = BUILDER.comment("Soul Light Spell Cooldown, Default: 10")
+                .defineInRange("soulLightCoolDown", 10, 0, Integer.MAX_VALUE);
+        GlowLightCoolDown = BUILDER.comment("Glow Light Spell Cooldown, Default: 10")
+                .defineInRange("glowLightCoolDown", 10, 0, Integer.MAX_VALUE);
+        IceChunkCoolDown = BUILDER.comment("Ice Chunk Spell Cooldown, Default: 300")
+                .defineInRange("iceChunkCoolDown", 300, 0, Integer.MAX_VALUE);
+        HailCoolDown = BUILDER.comment("Hail Spell Cooldown, Default: 20")
+                .defineInRange("hailCoolDown", 20, 0, Integer.MAX_VALUE);
+        BarricadeCoolDown = BUILDER.comment("Barricade Spell Cooldown, Default: 100")
+                .defineInRange("barricadeCoolDown", 100, 0, Integer.MAX_VALUE);
+        LaunchCoolDown = BUILDER.comment("Launch Spell Cooldown, Default: 0")
+                .defineInRange("launchCoolDown", 0, 0, Integer.MAX_VALUE);
+        UpdraftCoolDown = BUILDER.comment("Updraft Spell Cooldown, Default: 20")
+                .defineInRange("updraftCoolDown", 20, 0, Integer.MAX_VALUE);
+        WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 20")
+                .defineInRange("windBlastCoolDown", 20, 0, Integer.MAX_VALUE);
+        LightningCoolDown = BUILDER.comment("Lightning Spell Cooldown, Default: 100")
+                .defineInRange("lightningCoolDown", 100, 0, Integer.MAX_VALUE);
+        CallCoolDown = BUILDER.comment("Call Spell Cooldown, Default: 0")
+                .defineInRange("callCoolDown", 0, 0, Integer.MAX_VALUE);
+        RecallCoolDown = BUILDER.comment("Recall Spell Cooldown, Default: 100")
+                .defineInRange("recallCoolDown", 100, 0, Integer.MAX_VALUE);
+        EnderChestCoolDown = BUILDER.comment("Ender Chest Spell Cooldown, Default: 20")
+                .defineInRange("enderChestCoolDown", 20, 0, Integer.MAX_VALUE);
+        BlinkCoolDown = BUILDER.comment("Blink Spell Cooldown, Default: 20")
+                .defineInRange("blinkCoolDown", 20, 0, Integer.MAX_VALUE);
+        ShockwaveCoolDown = BUILDER.comment("Shockwave Spell Cooldown, Default: 80")
+                .defineInRange("shockwaveCoolDown", 80, 0, Integer.MAX_VALUE);
+        IronHideCoolDown = BUILDER.comment("Iron Hide Spell Cooldown, Default: 100")
+                .defineInRange("ironHideCoolDown", 100, 0, Integer.MAX_VALUE);
+        SonicBoomCoolDown = BUILDER.comment("Sonic Boom Spell Cooldown, Default: 40")
+                .defineInRange("sonicBoomCoolDown", 40, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
         BUILDER.push("Summon Down Duration");
-        VexCooldown = BUILDER.comment("Vex Spell Cooldown, Default: 340")
-                .defineInRange("vexCooldown", 340, 0, 72000);
-        ZombieCooldown = BUILDER.comment("Rotting Spell Cooldown, Default: 120")
-                .defineInRange("zombieCooldown", 120, 0, 72000);
-        SkeletonCooldown = BUILDER.comment("Osseous Spell Cooldown, Default: 280")
-                .defineInRange("skeletonCooldown", 280, 0, 72000);
-        WraithCooldown = BUILDER.comment("Spooky Spell Cooldown, Default: 300")
-                .defineInRange("wraithCooldown", 300, 0, 72000);
-        VanguardCooldown = BUILDER.comment("Vanguard Spell Cooldown, Default: 300")
-                .defineInRange("vanguardCooldown", 300, 0, 72000);
-        HauntedSkullCooldown = BUILDER.comment("Skull Spell Cooldown, Default: 0")
-                .defineInRange("hauntedSkullCooldown", 0, 0, 72000);
+        VexSummonDown = BUILDER.comment("Vex Spell Cooldown, Default: 340")
+                .defineInRange("vexSummonDown", 340, 0, 72000);
+        ZombieSummonDown = BUILDER.comment("Rotting Spell Cooldown, Default: 120")
+                .defineInRange("zombieSummonDown", 120, 0, 72000);
+        SkeletonSummonDown = BUILDER.comment("Osseous Spell Cooldown, Default: 280")
+                .defineInRange("skeletonSummonDown", 280, 0, 72000);
+        WraithSummonDown = BUILDER.comment("Spooky Spell Cooldown, Default: 300")
+                .defineInRange("wraithSummonDown", 300, 0, 72000);
+        VanguardSummonDown = BUILDER.comment("Vanguard Spell Cooldown, Default: 300")
+                .defineInRange("vanguardSummonDown", 300, 0, 72000);
+        HauntedSkullSummonDown = BUILDER.comment("Skull Spell Cooldown, Default: 0")
+                .defineInRange("hauntedSkullSummonDown", 0, 0, 72000);
+        GhastSummonDown = BUILDER.comment("Ghastly Spell Cooldown, Default: 0")
+                .defineInRange("ghastSummonDown", 300, 300, 72000);
         BUILDER.pop();
         BUILDER.push("Spell Power");
         FangDamage = BUILDER.comment("How much base damage Magic Fangs deals, Default: 6.0")
@@ -326,9 +471,17 @@ public class SpellConfig {
         CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 1.0")
                 .defineInRange("corruptedBeamDamage", 1.0, 0.0, Double.MAX_VALUE);
         BUILDER.pop();
+        BUILDER.push("Spell Griefing");
+        FireballGriefing = BUILDER.comment("Enable Fireball projectile griefing, Default: true")
+                .define("fireballGriefing", true);
+        LavaballGriefing = BUILDER.comment("Enable Lavaball projectile griefing, Default: true")
+                .define("lavaballGriefing", true);
+        HauntedSkullGriefing = BUILDER.comment("Enable Haunted Skull projectile griefing, Default: true")
+                .define("hauntedSkullGriefing", true);
+        WitherSkullGriefing = BUILDER.comment("Enable Wither Skull projectile griefing, Default: true")
+                .define("witherSkullGriefing", true);
+        BUILDER.pop();
         BUILDER.push("Servant Limits");
-        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
-                .define("redstoneGolemMold", true);
         WandVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a wand, without instantly dying, around the player, Default: 8")
                 .defineInRange("wandVexLimit", 8, 1, Integer.MAX_VALUE);
         StaffVexLimit = BUILDER.comment("Number of Vex Servants that can be spawn with a staff, without instantly dying, around the player, Default: 16")

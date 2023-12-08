@@ -172,7 +172,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.NONE;
             if (this.isDangerous()) {
                 if (this.getOwner() instanceof Player) {
-                    explodeMode = Explosion.BlockInteraction.DESTROY;
+                    explodeMode = SpellConfig.HauntedSkullGriefing.get() ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
                 } else {
                     explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
                 }

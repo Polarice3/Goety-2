@@ -1,0 +1,15 @@
+{
+  "name": "铁皮聚晶",
+  "icon": "goety:iron_hide_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶可以增强你的皮肤抗性，用以抵挡物理攻击，暂时增加你的护甲值。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/iron_hide_focus"
+    }
+  ]
+}

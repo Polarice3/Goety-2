@@ -35,11 +35,16 @@ public class SkeletonSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.SkeletonCooldown.get();
+        return SpellConfig.SkeletonSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.SkeletonCoolDown.get();
     }
 
     @Override
@@ -73,7 +78,7 @@ public class SkeletonSpell extends SummonSpells {
         if (staff.is(ModItems.NAMELESS_STAFF.get())){
             i = 7;
         } else if (rightStaff(staff)){
-            i = 2 + entityLiving.level.random.nextInt(6);
+            i = 2 + entityLiving.level.random.nextInt(4);
         }
         if (!isShifting(entityLiving)) {
             for (int i1 = 0; i1 < i; ++i1) {

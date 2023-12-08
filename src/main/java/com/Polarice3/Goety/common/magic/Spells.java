@@ -44,6 +44,10 @@ public abstract class Spells {
         return true;
     }
 
+    public int SpellCooldown(){
+        return 0;
+    }
+
     public boolean rightStaff(ItemStack staff){
         return getSpellType().getStaff() != null && staff.is(getSpellType().getStaff());
     }

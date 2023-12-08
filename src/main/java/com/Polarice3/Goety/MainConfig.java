@@ -120,6 +120,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterWitchBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShowWandCooldown;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowRobeHoods;
@@ -168,6 +169,8 @@ public class MainConfig {
                 .define("soulGuiShow", true);
         FocusGuiShow = BUILDER.comment("Show currently equipped focus on Wand/Staff in Gui, Default: true")
                 .define("focusGuiShow", true);
+        ShowWandCooldown = BUILDER.comment("Whether Wands and Staffs show cooldown if the focus it's equipped with is, Default: true")
+                .define("showWandCooldown", true);
         ShowNum = BUILDER.comment("Show numerical amount of Souls on the Soul Energy Bar, Default: false")
                 .define("showNumber", false);
         SoulGuiHorizontal = BUILDER.comment("Horizontal Position of where the Soul Energy Bar is located, Default: 100")

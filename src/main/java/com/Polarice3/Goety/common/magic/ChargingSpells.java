@@ -7,4 +7,9 @@ public abstract class ChargingSpells extends Spells{
     public int CastDuration() {
         return 72000;
     }
+
+    @Override
+    public int SpellCooldown() {
+        return 0;
+    }
 }

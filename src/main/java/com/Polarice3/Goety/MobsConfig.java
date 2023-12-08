@@ -61,6 +61,12 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagueSpread;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PikerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PreacherRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ConquillagerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> InquillagerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EnviokerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MinisterRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
 
@@ -72,6 +78,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
 
     static {
         BUILDER.push("Textures");
@@ -127,6 +134,8 @@ public class MobsConfig {
             UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 0.5")
                     .defineInRange("undeadServantsHealAmount", 0.5, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
+        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
+                .define("redstoneGolemMold", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
                 .define("vexTeleport", true);
         MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")
@@ -142,7 +151,7 @@ public class MobsConfig {
         BUILDER.pop();
         BUILDER.push("Illagers");
             BUILDER.push("Illager Assaults");
-            IllagerAssault = BUILDER.comment("Special Illagers Spawning based of Player's Soul Energy amount, Default: true")
+            IllagerAssault = BUILDER.comment("Modded Illagers Spawning based of Player's Soul Energy amount, Default: true")
                     .define("illagerAssault", true);
             IllagerAssaultSpawnFreq = BUILDER.comment("Spawn Frequency for Illagers Hunting the Player, Default: 12000")
                     .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
@@ -154,17 +163,31 @@ public class MobsConfig {
                     .defineInRange("illagerAssaultLimit", 30000, 0, Integer.MAX_VALUE);
             SoulEnergyBadOmen = BUILDER.comment("Hitting the Illager Assault Limit of Soul Energy have a chance of giving Player Bad Omen effect, Default: true")
                     .define("soulEnergyBadOmen", true);
-            IllagerRaid = BUILDER.comment("Whether Enviokers, Inquillagers, Conquillagers and Ministers can join Raids, Default: true")
+            BUILDER.pop();
+            BUILDER.push("Raid");
+            IllagerRaid = BUILDER.comment("Whether Modded Illagers appears in Raids, Default: true")
                     .define("specialIllagerRaid", true);
+            PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
+                    .define("pikerRaid", true);
+            PreacherRaid = BUILDER.comment("Whether Preachers appear in Raids, Default: true")
+                    .define("preacherRaid", true);
+            ConquillagerRaid = BUILDER.comment("Whether Conquillagers appear in Raids, Default: true")
+                    .define("conquillagerRaid", true);
+            InquillagerRaid = BUILDER.comment("Whether Inquillagers appear in Raids, Default: true")
+                    .define("inquillagerRaid", true);
+            EnviokerRaid = BUILDER.comment("Whether Enviokers appear in Raids, Default: true")
+                    .define("enviokerRaid", true);
+            MinisterRaid = BUILDER.comment("Whether Ministers appear in Raids, Default: true")
+                    .define("ministerRaid", true);
+            ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
+                    .define("armoredRavagerRaid", true);
+            WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
+                    .define("warlockRaid", true);
             BUILDER.pop();
         IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
                 .define("illagueSpread", true);
         IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")
                 .define("illagerSteal", true);
-        ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
-                .define("armoredRavagerRaid", true);
-        WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
-                .define("warlockRaid", true);
         BUILDER.pop();
         BUILDER.push("Villagers");
         VillagerHate = BUILDER.comment("Wearing a Dark Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")

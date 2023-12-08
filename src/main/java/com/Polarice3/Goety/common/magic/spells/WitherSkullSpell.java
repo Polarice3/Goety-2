@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.ModWitherSkull;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class WitherSkullSpell extends InstantCastSpells {
+public class WitherSkullSpell extends Spells {
 
     @Override
     public int SoulCost() {
@@ -18,8 +18,18 @@ public class WitherSkullSpell extends InstantCastSpells {
     }
 
     @Override
+    public int CastDuration() {
+        return SpellConfig.WitherSkullDuration.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return SoundEvents.WITHER_SHOOT;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.WitherSkullCoolDown.get();
     }
 
     @Override

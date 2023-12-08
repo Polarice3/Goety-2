@@ -20,6 +20,7 @@ public class SEImp implements ISoulEnergy{
     private List<EntityType<?>> grudgeTypeList = new ArrayList<>();
     private List<Research> researchList = new ArrayList<>();
     private Set<UUID> summonList = new HashSet<>();
+    private FocusCooldown cooldowns = new FocusCooldown();
 
     @Override
     public BlockPos getArcaBlock() {
@@ -169,5 +170,15 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void removeSummon(UUID uuid) {
         this.summonList.remove(uuid);
+    }
+
+    @Override
+    public FocusCooldown cooldowns() {
+        return this.cooldowns;
+    }
+
+    @Override
+    public void setCooldowns(FocusCooldown cooldowns){
+        this.cooldowns = cooldowns;
     }
 }

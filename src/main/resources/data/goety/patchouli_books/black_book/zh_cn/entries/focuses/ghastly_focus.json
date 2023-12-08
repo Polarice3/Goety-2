@@ -1,0 +1,16 @@
+{
+  "name": "悚人聚晶",
+  "icon": "goety:ghastly_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶可以让你召唤出迷你恶魂，它们虽然破坏性较小，但仍然是强大的地狱轰炸机."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghastly_focus"
+    }
+  ]
+}

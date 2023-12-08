@@ -22,12 +22,18 @@ public class IceChunkSpell extends Spells {
         return SpellConfig.IceChunkCost.get();
     }
 
+    @Override
     public int CastDuration() {
         return SpellConfig.IceChunkDuration.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SPELL.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.IceChunkCoolDown.get();
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -83,7 +85,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
         this.moveCloak();
 
-        if (this.getTrueOwner() != null){
+        if (this.getTrueOwner() != null && !this.isUndeadClone()){
             if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
                 this.die(DamageSource.STARVE);
             }
@@ -94,11 +96,21 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             if (this.getTarget() != null){
                 this.getLookControl().setLookAt(this.getTarget());
             }
+            if (this.getTrueOwner().isDeadOrDying() || this.getTrueOwner() == null){
+                this.die(DamageSource.STARVE);
+            }
         }
 
         if (this.hasShot()){
             if ((this.tickCount % 40 == 0 && this.random.nextFloat() <= 0.25F) || this.tickCount % 100 == 0){
                 this.die(DamageSource.STARVE);
+            }
+        }
+        if (LichdomHelper.isInLichMode(this.getTrueOwner())) {
+            if (this.tickCount % 5 == 0) {
+                if (this.level.isClientSide) {
+                    this.level.addParticle(ModParticleTypes.LICH.get(), this.getRandomX(0.5D), this.getY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                }
             }
         }
         super.tick();

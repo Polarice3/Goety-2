@@ -39,4 +39,6 @@ public interface ISoulEnergy {
     Set<UUID> summonList();
     void addSummon(UUID uuid);
     void removeSummon(UUID uuid);
+    FocusCooldown cooldowns();
+    void setCooldowns(FocusCooldown cooldowns);
 }
