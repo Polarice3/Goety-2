@@ -6,7 +6,7 @@
   },
   "craftType": "adept_nether",
   "soulCost": 1,
-  "duration": 30,
+  "duration": 10,
   "ingredients": [
     {
       "item": "minecraft:fire_charge"

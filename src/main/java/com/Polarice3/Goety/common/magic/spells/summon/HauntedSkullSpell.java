@@ -35,11 +35,16 @@ public class HauntedSkullSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.HauntedSkullCooldown.get();
+        return SpellConfig.HauntedSkullSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.HauntedSkullCoolDown.get();
     }
 
     @Override

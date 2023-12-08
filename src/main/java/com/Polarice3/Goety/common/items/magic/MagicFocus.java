@@ -62,11 +62,13 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.ABSORB.get()
                     || (SpellConfig.FangGainSouls.get() > 0 && enchantment == ModEnchantments.SOUL_EATER.get());
         }
-        if (stack.getItem() == ModItems.ROTTING_FOCUS.get()
+        if (stack.getItem() == ModItems.IRON_HIDE_FOCUS.get()
+                || stack.getItem() == ModItems.ROTTING_FOCUS.get()
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()
                 || stack.getItem() == ModItems.SPOOKY_FOCUS.get()
                 || stack.getItem() == ModItems.VANGUARD_FOCUS.get()
                 || stack.getItem() == ModItems.VEXING_FOCUS.get()
+                || stack.getItem() == ModItems.GHASTLY_FOCUS.get()
                 || stack.getItem() == ModItems.LAUNCH_FOCUS.get()
                 || stack.getItem() == ModItems.MAGIC_BOLT_FOCUS.get()) {
             return enchantment == ModEnchantments.POTENCY.get()

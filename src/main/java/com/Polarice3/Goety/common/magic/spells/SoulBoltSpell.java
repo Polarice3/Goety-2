@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -16,11 +16,21 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Learned you could use this method for better projectile accuracy from codes by @Yunus1903
  */
-public class SoulBoltSpell extends InstantCastSpells {
+public class SoulBoltSpell extends Spells {
 
     @Override
     public int SoulCost() {
         return SpellConfig.SoulBoltCost.get();
+    }
+
+    @Override
+    public int CastDuration() {
+        return SpellConfig.SoulBoltDuration.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.SoulBoltCoolDown.get();
     }
 
     @Override

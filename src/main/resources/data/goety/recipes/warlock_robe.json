@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:wartful_egg"
+    "item": "goety:warlock_sash"
   },
   "craftType": "adept_nether",
   "soulCost": 1,
@@ -21,10 +21,10 @@
       "item": "goety:occult_fabric"
     },
     {
-      "item": "goety:warlock_sash"
+      "item": "minecraft:crimson_fungus"
     },
     {
-      "tag": "forge:mushrooms"
+      "item": "minecraft:warped_fungus"
     },
     {
       "tag": "forge:mushrooms"

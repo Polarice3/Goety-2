@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -10,11 +10,21 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class MagicBoltSpell extends InstantCastSpells {
+public class MagicBoltSpell extends Spells {
 
     @Override
     public int SoulCost() {
         return SpellConfig.MagicBoltCost.get();
+    }
+
+    @Override
+    public int CastDuration() {
+        return SpellConfig.MagicBoltDuration.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.MagicBoltCoolDown.get();
     }
 
     @Override

@@ -48,6 +48,7 @@ public class SoulEnergyEvents {
         Player player = event.player;
         Level world = player.level;
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
+        SEHelper.getFocusCoolDown(player).tick();
         if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
             if (!world.isClientSide){
                 player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));
@@ -178,7 +179,7 @@ public class SoulEnergyEvents {
                 }
             }
 
-            if (victim != killer) {
+            if (victim != killer && killer instanceof LivingEntity) {
                 if (CuriosFinder.hasCurio(victim, itemStack -> itemStack.getItem() instanceof TotemOfSouls)) {
                     ItemStack itemStack = CuriosFinder.findCurio(victim, itemStack1 -> itemStack1.getItem() instanceof TotemOfSouls);
                     TotemOfSouls.increaseSouls(itemStack, SEHelper.getSoulGiven(victim) * 2);

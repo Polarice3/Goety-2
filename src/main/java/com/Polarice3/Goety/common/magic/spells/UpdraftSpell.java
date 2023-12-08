@@ -32,6 +32,11 @@ public class UpdraftSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.UpdraftCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.WIND;
     }

@@ -3,10 +3,7 @@ package com.Polarice3.Goety.client.gui.radial;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -213,7 +210,15 @@ public class GenericRadialMenu {
             if (!this.getCentralItem().isEmpty()) {
                 int textX = (owner.width - 16) / 2;
                 int textY = (owner.height - 16) / 2;
-                guiGraphics.renderFakeItem(this.getCentralItem(), textX, textY);
+                PoseStack viewModelPose = RenderSystem.getModelViewStack();
+                viewModelPose.pushPose();
+                viewModelPose.mulPoseMatrix(guiGraphics.pose().last().pose());
+                viewModelPose.translate(0.0D, 0.0D, 0.0D);
+                RenderSystem.applyModelViewMatrix();
+                guiGraphics.renderFakeItem(this.getCentralItem(), (int) textX, (int) textY);
+                guiGraphics.renderItemDecorations(fontRenderer, this.getCentralItem(), (int) textX, (int) textY);
+                viewModelPose.popPose();
+                RenderSystem.applyModelViewMatrix();
             }
 
             guiGraphics.pose().pushPose();

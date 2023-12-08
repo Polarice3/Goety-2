@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -119,6 +120,8 @@ public class ModWitherSkull extends ExplosiveProjectile {
          Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.DESTROY;
          if (!(this.getOwner() instanceof Player)) {
             explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
+         } else if (!SpellConfig.WitherSkullGriefing.get()){
+            explodeMode = Explosion.BlockInteraction.KEEP;
          }
          LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
          ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);

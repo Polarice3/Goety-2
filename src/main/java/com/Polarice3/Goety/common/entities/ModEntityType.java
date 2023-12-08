@@ -408,6 +408,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .fireImmune());
 
+    public static final RegistryObject<EntityType<MiniGhast>> MINI_GHAST = register("mini_ghast",
+            EntityType.Builder.of(MiniGhast::new, MobCategory.MONSTER)
+                    .sized(1.2F, 1.2F)
+                    .clientTrackingRange(10)
+                    .fireImmune());
+
     public static final RegistryObject<EntityType<Ravaged>> RAVAGED = register("ravaged",
             EntityType.Builder.of(Ravaged::new, MobCategory.MONSTER)
                     .sized(1.0F, 1.0F)

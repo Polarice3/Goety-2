@@ -37,9 +37,6 @@ public class FocusRadialMenuScreen extends Screen {
     private ItemStack stackEquipped;
     private IItemHandler focusBagHandler;
 
-/*    private boolean keyCycleBeforeL = false;
-    private boolean keyCycleBeforeR = false;*/
-
     private boolean needsRecheckStacks = true;
     private final List<ItemStackRadialMenuItem> cachedMenuItems = Lists.newArrayList();
     private final TextRadialMenuItem insertMenuItem;
@@ -47,7 +44,7 @@ public class FocusRadialMenuScreen extends Screen {
     private final GenericRadialMenu menu;
 
     public FocusRadialMenuScreen() {
-        super(Component.literal("RADIAL MENU"));
+        super(Component.literal("FOCUS RADIAL MENU"));
 
         this.stackEquipped = TotemFinder.findBag(Minecraft.getInstance().player);
         this.focusBagHandler = this.stackEquipped.getCount() > 0 ? FocusBagItemHandler.get(this.stackEquipped) : null;
@@ -139,11 +136,6 @@ public class FocusRadialMenuScreen extends Screen {
             }
 
             if (!ClientEvents.isKeyDown(ModKeybindings.wandCircle())) {
-/*            if (ConfigData.releaseToSwap) {
-                processClick();
-            } else {
-                menu.close();
-            }*/
                 processClick();
             }
         } else {
@@ -227,8 +219,6 @@ public class FocusRadialMenuScreen extends Screen {
                 this.menu.setCentralItem(ItemStack.EMPTY);
             }
 
-//        checkCycleKeybinds();
-
             this.menu.draw(matrixStack, partialTicks, mouseX, mouseY);
         } else {
             this.menu.close();
@@ -277,26 +267,6 @@ public class FocusRadialMenuScreen extends Screen {
 
         this.menu.close();
         return true;
-    }
-
-    private void checkCycleKeybinds() {
-/*        if (ClientEvents.isKeyDown(ClientEvents.CYCLE_TOOL_MENU_LEFT_KEYBIND)) {
-            if (!this.keyCycleBeforeL) {
-                this.menu.cyclePrevious();
-            }
-            this.keyCycleBeforeL = true;
-        } else {
-            this.keyCycleBeforeL = false;
-        }
-
-        if (ClientEvents.isKeyDown(ClientEvents.CYCLE_TOOL_MENU_RIGHT_KEYBIND)) {
-            if (!this.keyCycleBeforeR) {
-                this.menu.cycleNext();
-            }
-            this.keyCycleBeforeR = true;
-        } else {
-            this.keyCycleBeforeR = false;
-        }*/
     }
 
     @Override

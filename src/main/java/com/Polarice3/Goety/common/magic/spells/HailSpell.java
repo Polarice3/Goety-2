@@ -32,6 +32,11 @@ public class HailSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.HailCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.FROST;
     }

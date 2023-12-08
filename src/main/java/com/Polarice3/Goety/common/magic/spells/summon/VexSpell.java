@@ -41,11 +41,16 @@ public class VexSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.VexCooldown.get();
+        return SpellConfig.VexSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return SoundEvents.EVOKER_PREPARE_SUMMON;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.VexCoolDown.get();
     }
 
     @Override

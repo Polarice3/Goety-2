@@ -24,6 +24,11 @@ public class RecallSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.RecallCoolDown.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return SoundEvents.PORTAL_TRIGGER;
     }

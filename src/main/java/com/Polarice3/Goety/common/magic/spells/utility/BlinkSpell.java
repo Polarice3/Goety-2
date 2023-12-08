@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class BlinkSpell extends InstantCastSpells {
+public class BlinkSpell extends Spells {
 
     @Override
     public int SoulCost() {
@@ -26,8 +26,18 @@ public class BlinkSpell extends InstantCastSpells {
     }
 
     @Override
+    public int CastDuration() {
+        return SpellConfig.BlinkDuration.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return SoundEvents.ENDERMAN_TELEPORT;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.BlinkCoolDown.get();
     }
 
     @Override

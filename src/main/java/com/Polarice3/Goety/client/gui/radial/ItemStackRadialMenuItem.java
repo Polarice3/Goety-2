@@ -33,7 +33,7 @@ public class ItemStackRadialMenuItem extends TextRadialMenuItem {
             viewModelPose.translate(-8, -8, context.z());
             RenderSystem.applyModelViewMatrix();
             context.guiGraphics().renderFakeItem(stack, (int) context.x(), (int) context.y());
-            context.guiGraphics().renderItemDecorations(context.fontRenderer(), stack, (int) context.x(), (int) context.y(), "");
+            context.guiGraphics().renderItemDecorations(context.fontRenderer(), stack, (int) context.x(), (int) context.y());
             viewModelPose.popPose();
             RenderSystem.applyModelViewMatrix();
         } else {

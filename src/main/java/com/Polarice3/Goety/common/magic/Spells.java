@@ -26,6 +26,8 @@ public abstract class Spells {
 
     public abstract SoundEvent CastingSound();
 
+    public abstract int SpellCooldown();
+
     public abstract void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 
     public SpellType getSpellType(){

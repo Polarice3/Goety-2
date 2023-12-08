@@ -42,11 +42,16 @@ public class ZombieSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.ZombieCooldown.get();
+        return SpellConfig.ZombieSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.ZombieCoolDown.get();
     }
 
     @Override

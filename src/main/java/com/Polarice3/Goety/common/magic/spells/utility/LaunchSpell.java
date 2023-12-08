@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class LaunchSpell extends InstantCastSpells {
+public class LaunchSpell extends Spells {
 
     @Override
     public int SoulCost() {
@@ -22,8 +22,18 @@ public class LaunchSpell extends InstantCastSpells {
     }
 
     @Override
+    public int CastDuration() {
+        return SpellConfig.LaunchDuration.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.WIND.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.LaunchCoolDown.get();
     }
 
     @Override

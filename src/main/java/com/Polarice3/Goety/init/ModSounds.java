@@ -162,6 +162,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> SPIDER_BITE = create("spider_bite");
 
+    public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
+
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
     public static final RegistryObject<SoundEvent> SOUL_ARMOR = create("soul_armor");

@@ -2,10 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
-import com.Polarice3.Goety.common.capabilities.soulenergy.SEImp;
-import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
-import com.Polarice3.Goety.common.capabilities.soulenergy.SEUpdatePacket;
+import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -420,6 +417,18 @@ public class SEHelper {
         return getResearch(player).contains(research);
     }
 
+    public static FocusCooldown getFocusCoolDown(Player player){
+        return getCapability(player).cooldowns();
+    }
+
+    public static void addCooldown(Player player, Item item, int duration){
+        getFocusCoolDown(player).addCooldown(player.level, item, duration);
+    }
+
+    public static FocusCooldown.CooldownInstance getCooldownInstance(Player player, Item item){
+        return getFocusCoolDown(player).getInstance(item);
+    }
+
     public static void sendSEUpdatePacket(Player player) {
         if (!player.level.isClientSide()) {
             ModNetwork.sendTo(player, new SEUpdatePacket(player));
@@ -482,6 +491,12 @@ public class SEHelper {
                 tag.put("summonList", listTag);
             }
         }
+
+        if (soulEnergy.cooldowns() != null){
+            ListTag listTag = new ListTag();
+            soulEnergy.cooldowns().save(listTag);
+            tag.put("coolDowns", listTag);
+        }
         return tag;
     }
 
@@ -521,6 +536,10 @@ public class SEHelper {
             for (Tag value : listtag) {
                 soulEnergy.addSummon(NbtUtils.loadUUID(value));
             }
+        }
+        if (tag.contains("coolDowns", Tag.TAG_LIST)){
+            ListTag listTag = (ListTag) tag.get("coolDowns");
+            soulEnergy.cooldowns().load(listTag);
         }
         return soulEnergy;
     }

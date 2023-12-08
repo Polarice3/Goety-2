@@ -31,6 +31,11 @@ public class FangSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.FangCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.ILL;
     }

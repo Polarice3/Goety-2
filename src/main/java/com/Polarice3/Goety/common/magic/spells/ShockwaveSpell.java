@@ -31,6 +31,11 @@ public class ShockwaveSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.ShockwaveCoolDown.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SPELL.get();
     }

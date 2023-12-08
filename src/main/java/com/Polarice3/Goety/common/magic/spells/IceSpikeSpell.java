@@ -17,12 +17,18 @@ public class IceSpikeSpell extends Spells {
         return SpellConfig.IceSpikeCost.get();
     }
 
+    @Override
     public int CastDuration() {
         return SpellConfig.IceSpikeDuration.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.ICE_SPIKE_CAST.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.IceSpikeCoolDown.get();
     }
 
     public SpellType getSpellType() {

@@ -46,13 +46,15 @@ public class Lavaball extends ExplosiveProjectile {
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             float enchantment = 0;
-            if (owner instanceof Player){
-                Player player = (Player) owner;
+            boolean flag = this.isDangerous();
+            if (owner instanceof Player player){
                 if (WandUtil.enchantedFocus(player)){
                     enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player)/2.5F;
                 }
+                if (!SpellConfig.LavaballGriefing.get()){
+                    flag = false;
+                }
             }
-            boolean flag = this.isDangerous();
             this.level.explode(owner, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flag, flag ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
             this.discard();
         }

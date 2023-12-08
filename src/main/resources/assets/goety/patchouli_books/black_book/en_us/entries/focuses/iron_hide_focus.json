@@ -1,0 +1,15 @@
+{
+  "name": "Iron Hide Focus",
+  "icon": "goety:iron_hide_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus strengthens your skin against physical attacks, temporarily increasing your armor points."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/iron_hide_focus"
+    }
+  ]
+}

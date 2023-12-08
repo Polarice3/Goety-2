@@ -2,7 +2,9 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
+import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -59,7 +61,7 @@ public class CuriosFinder {
     }
 
     public static boolean hasWitchHat(LivingEntity livingEntity){
-        return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WitchHatItem) || hasCurio(livingEntity, ModItems.CRONE_HAT.get());
+        return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WitchHatItem);
     }
 
     public static boolean hasWitchRobe(LivingEntity livingEntity){
@@ -120,6 +122,66 @@ public class CuriosFinder {
                     foundStack = itemStack;
                     break;
                 }
+            }
+        }
+
+        return foundStack;
+    }
+
+    public static ItemStack findBrewInBag(Player player){
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (!findBrewBag(player).isEmpty()){
+            BrewBagItemHandler brewBagItemHandler = BrewBagItemHandler.get(findBrewBag(player));
+            for (int i = 1; i < brewBagItemHandler.getSlots(); ++i){
+                ItemStack itemStack = brewBagItemHandler.getStackInSlot(i);
+                if (itemStack.getItem() instanceof ThrowableBrewItem){
+                    foundStack = itemStack;
+                }
+            }
+        }
+        return foundStack;
+    }
+
+    public static int getBrewBagTotal(Player player){
+        int num = 0;
+        if (!findBrewBag(player).isEmpty()){
+            BrewBagItemHandler brewBagItemHandler = BrewBagItemHandler.get(findBrewBag(player));
+            for (int i = 1; i < brewBagItemHandler.getSlots(); ++i){
+                ItemStack itemStack = brewBagItemHandler.getStackInSlot(i);
+                if (itemStack.getItem() instanceof ThrowableBrewItem){
+                    ++num;
+                }
+            }
+        }
+        return num;
+    }
+
+    public static boolean hasEmptyBrewBagSpace(Player player){
+        return getBrewBagTotal(player) < 10;
+    }
+
+    public static boolean hasBrewInBag(Player player){
+        return !findBrewInBag(player).isEmpty();
+    }
+
+    private static boolean isBrewBag(ItemStack itemStack) {
+        return itemStack.getItem() == ModItems.BREW_BAG.get();
+    }
+
+    public static ItemStack findBrewBag(Player playerEntity) {
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (CuriosLoaded.CURIOS.isLoaded()) {
+            Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(playerEntity).map(inv -> inv.findFirstCurio(CuriosFinder::isBrewBag))
+                    .orElse(Optional.empty());
+            if (slotResult.isPresent()) {
+                foundStack = slotResult.get().stack();
+            }
+        }
+        for (int i = 0; i < playerEntity.getInventory().getContainerSize(); i++) {
+            ItemStack itemStack = playerEntity.getInventory().getItem(i);
+            if (!itemStack.isEmpty() && isBrewBag(itemStack)) {
+                foundStack = itemStack;
+                break;
             }
         }
 

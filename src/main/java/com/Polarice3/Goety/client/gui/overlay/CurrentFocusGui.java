@@ -26,6 +26,7 @@ public class CurrentFocusGui {
         guiGraphics.pose().scale(1.0F, 1.0F, 1.0F);
         if (WandUtil.findFocus(minecraft.player) != null) {
             guiGraphics.renderFakeItem(WandUtil.findFocus(minecraft.player), ((screenWidth - 16) / 2) + MainConfig.FocusGuiHorizontal.get(), (screenHeight - 52) + MainConfig.FocusGuiVertical.get());
+            guiGraphics.renderItemDecorations(minecraft.font, WandUtil.findFocus(minecraft.player), ((screenWidth - 16) / 2) + MainConfig.FocusGuiHorizontal.get(), (screenHeight - 52) + MainConfig.FocusGuiVertical.get());
         }
         guiGraphics.pose().popPose();
     }

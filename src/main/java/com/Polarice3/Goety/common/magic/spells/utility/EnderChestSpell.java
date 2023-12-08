@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -13,7 +13,7 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
 
-public class EnderChestSpell extends InstantCastSpells {
+public class EnderChestSpell extends Spells {
     private static final Component CONTAINER_TITLE = Component.translatable("container.enderchest");
 
     @Override
@@ -22,8 +22,18 @@ public class EnderChestSpell extends InstantCastSpells {
     }
 
     @Override
+    public int CastDuration() {
+        return SpellConfig.EnderChestDuration.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return SoundEvents.ENDER_CHEST_OPEN;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.EnderChestCoolDown.get();
     }
 
     @Override

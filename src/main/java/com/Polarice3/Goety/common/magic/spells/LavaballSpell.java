@@ -27,6 +27,11 @@ public class LavaballSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.LavaballCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.NETHER;
     }

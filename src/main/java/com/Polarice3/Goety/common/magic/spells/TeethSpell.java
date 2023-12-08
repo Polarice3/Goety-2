@@ -34,6 +34,11 @@ public class TeethSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return SpellConfig.TeethCoolDown.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.ILL;
     }

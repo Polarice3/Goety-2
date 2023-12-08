@@ -34,11 +34,16 @@ public class VanguardSpell extends SummonSpells {
     }
 
     public int SummonDownDuration() {
-        return SpellConfig.VanguardCooldown.get();
+        return SpellConfig.VanguardSummonDown.get();
     }
 
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SUMMON.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.VanguardCoolDown.get();
     }
 
     @Override
@@ -63,11 +68,6 @@ public class VanguardSpell extends SummonSpells {
                 worldIn.sendParticles(ParticleTypes.POOF, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
             }
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.VANGUARD_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
-        }
-        if (!SpellConfig.WandCooldown.get()) {
-            if (entityLiving instanceof Player player) {
-                player.getCooldowns().addCooldown(WandUtil.findWand(player).getItem(), 50);
-            }
         }
     }
 

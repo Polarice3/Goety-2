@@ -13,16 +13,21 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class SoulArmorSpell extends Spells {
+public class IronHideSpell extends Spells {
 
     @Override
     public int SoulCost() {
-        return SpellConfig.SoulArmorCost.get();
+        return SpellConfig.IronHideCost.get();
     }
 
     @Override
     public int CastDuration() {
-        return SpellConfig.SoulArmorDuration.get();
+        return SpellConfig.IronHideDuration.get();
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.IronHideCoolDown.get();
     }
 
     @Override
@@ -37,7 +42,7 @@ public class SoulArmorSpell extends Spells {
             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving);
         }
-        entityLiving.addEffect(new MobEffectInstance(GoetyEffects.SOUL_ARMOR.get(), MathHelper.minutesToTicks(duration), enchantment, false, false, true));
+        entityLiving.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), MathHelper.minutesToTicks(duration), enchantment, false, false, true));
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SOUL_ARMOR.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

@@ -7,11 +7,11 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.List;
 
-public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalModel<T> {
+public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart golem;
 	private final ModelPart head;
@@ -94,20 +94,21 @@ public class RedstoneGolemModel<T extends RedstoneGolem> extends HierarchicalMod
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		if (!entity.isSummoning() && !entity.isDeadOrDying()){
-			this.animateHeadLookTarget(netHeadYaw, headPitch);
+		if (entity instanceof RedstoneGolem redstoneGolem) {
+			if (!redstoneGolem.isSummoning() && !redstoneGolem.isDeadOrDying()){
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+			}
+			this.animate(redstoneGolem.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
+			this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
+			this.animate(redstoneGolem.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
+			if (redstoneGolem.canAnimateMove()) {
+				this.animateWalk(RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
+			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
+			this.animate(redstoneGolem.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);
+			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
 		}
-		Vec3 velocity = entity.getDeltaMovement();
-		this.animate(entity.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
-		this.animate(entity.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
-		this.animate(entity.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-		if (entity.canAnimateMove()) {
-			this.animateWalk(RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
-		}
-		this.animate(entity.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
-		this.animate(entity.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
-		this.animate(entity.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);
-		this.animate(entity.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
 	}
 
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {

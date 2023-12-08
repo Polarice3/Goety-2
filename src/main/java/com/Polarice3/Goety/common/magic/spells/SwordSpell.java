@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
-import com.Polarice3.Goety.common.magic.InstantCastSpells;
+import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -15,14 +15,24 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 
-public class SwordSpell extends InstantCastSpells {
+public class SwordSpell extends Spells {
 
     public int SoulCost() {
         return SpellConfig.SwordCost.get();
     }
 
+    @Override
+    public int CastDuration() {
+        return SpellConfig.SwordDuration.get();
+    }
+
     public SoundEvent CastingSound() {
         return SoundEvents.DROWNED_SHOOT;
+    }
+
+    @Override
+    public int SpellCooldown() {
+        return SpellConfig.SwordCoolDown.get();
     }
 
     public SpellType getSpellType() {

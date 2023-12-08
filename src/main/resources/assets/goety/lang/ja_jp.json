@@ -42,6 +42,7 @@
   "name.goety.crone.8" : "ボーンワグル",
   "name.goety.crone.9" : "フレイムトゥース",
   "name.goety.crone.10" : "グレイブスピッター",
+
   "name.goety.crone.11" : "マックバック",
   "name.goety.crone.12" : "ゾフチ",
   "name.goety.crone.13" : "ディッカ",
@@ -95,6 +96,7 @@
   "entity.goety.haunted_armor_servant":"幽霊の鎧の従者",
   "entity.goety.haunted_skull":"幽霊の頭蓋骨",
   "entity.goety.doppelganger":"ドッペルゲンガー",
+  "entity.goety.mini_ghast":"ミニガスト",
 
   "entity.goety.totemic_wall":"トーテミックウォール",
   "entity.goety.totemic_bomb":"トーテミックボム",
@@ -166,6 +168,7 @@
   "entity.goety.tunneling_fang":"トンネルの牙",
 
   "item.goety.focus_bag": "フォーカスバッグ",
+  "item.goety.brew_bag": "醸造バッグ",
 
   "item.goety.apostle_spawn_egg": "使徒のスポーンエッグ",
   "item.goety.warlock_spawn_egg": "ウォーロックのスポーンエッグ",
@@ -367,6 +370,7 @@
   "item.goety.vanguard_focus": "ヴァンガードのフォーカス",
   "item.goety.skull_focus": "スカルのフォーカス",
   "item.goety.wither_skull_focus": "ウィザースカルのフォーカス",
+  "item.goety.ghastly_focus": "凄惨なフォーカス",
   "item.goety.iceology_focus": "氷学のフォーカス",
   "item.goety.barricade_focus": "バリケードのフォーカス",
   "item.goety.illusion_focus": "鏡のフォーカス",
@@ -391,6 +395,7 @@
   "item.goety.blink_focus": "まばたきのフォーカス",
   "item.goety.soul_light_focus": "魂の光のフォーカス",
   "item.goety.glow_light_focus": "発光のフォーカス",
+  "item.goety.iron_hide_focus": "アイアンハイドのフォーカス",
   "item.goety.launch_focus": "打ち上げのフォーカス",
   "item.goety.flying_focus": "飛行のフォーカス",
   "item.goety.call_focus": "コールのフォーカス",
@@ -440,6 +445,7 @@
   "block.goety.shade_tiles": "シェードタイル",
   "block.goety.shade_tiles_slab": "シェードタイルのハーフブロック",
   "block.goety.shade_tiles_stairs": "シェードタイルの階段",
+
   "block.goety.crypt_stone": "クリプトストーン",
   "block.goety.crypt_stone_slab": "クリプトストーンのハーフブロック",
   "block.goety.crypt_stone_stairs": "クリプトストーンの階段",
@@ -591,6 +597,8 @@
   "effect.goety.cursed.description": "再生または治癒を防ぎます。",
   "effect.goety.soul_armor": "ソウルアーマー",
   "effect.goety.soul_armor.description": "防御力が2増加します。影響を受けるエンティティがアーマーを着用していない場合、防御力は3倍になります。",
+  "effect.goety.iron_hide": "アイアンハイド",
+  "effect.goety.iron_hide.description": "アーマーポイントが4増加します。",
   "effect.goety.pressure": "圧力",
   "effect.goety.pressure.description": "この効果により、クリーパーはターゲットに向かってほぼ瞬時に爆発します。",
   "effect.goety.charged": "チャージ済み",
@@ -714,9 +722,9 @@
 
   "key.goety.witch.category": "goetyウィッチ",
   "key.goety.witch.robe": "魔女スイッチのローブを開く",
-  "key.goety.witch.addFuel": "燃料を追加",
-  "key.goety.witch.addCatalyst": "ボトルまたは触媒を追加",
   "key.goety.witch.extractPotions": "ポーションを抽出",
+  "key.goety.witch.brewBag": "醸造バックを開ける",
+  "key.goety.witch.brewCircle": "オープン ブリュー サークル",
 
   "key.goety.ravager.category": "goetyラヴェジャー",
   "key.goety.ravager.roar": "ラヴェジャーの咆哮",
@@ -760,6 +768,32 @@
 
   "info.goety.hunger_pendent.amount": "§2腐った肉:§2 %d",
   "info.goety.sea_amulet.amount": "§3導管料金:§3 %d",
+
+  "info.goety.dark_hat": "すべての呪文の詠唱時間が半分になります。",
+  "info.goety.grand_turban": "ダメージを受けると味方のインクを生成する可能性があります。",
+  "info.goety.witch_hat": "魔女のローブの内側の醸造スタンドを高速化します。",
+  "info.goety.necro_crown": "アンデッドの従者は存続します。",
+  "info.goety.necro_crown_cast": "ネクロマンシー呪文の詠唱時間が半分になります。",
+  "info.goety.amethyst_necklace": "バリケード呪文を唱える際にトーテミックボムを 4 つ召喚する確率 +20%。",
+  "info.goety.amethyst_necklace_discount": "ジオマンシー呪文のソウルコストが半分になります。",
+  "info.goety.dark_robe": "すべての呪文のソウルコストが半分になります。",
+  "info.goety.grand_robe": "杖や杖を使って詠唱する際に受ける攻撃を半減します。",
+  "info.goety.necro_cape": "アンデッドのしもべがソウルエネルギーを使って回復できるようにします。",
+  "info.goety.necro_cape_power": "特定の新しく召喚されたアンデッドの従者は追加の能力を獲得します。",
+  "info.goety.illusion_robe": "鏡のスペルを改造します。",
+  "info.goety.frost_robe": "凍結ダメージに対する耐性 +85%、粉雪に対する耐性。",
+  "info.goety.frost_robe_discount": "フロスト呪文のソウルコストが半分になる。",
+  "info.goety.wind_robe": "ソウルエネルギーを犠牲にしてゆっくりと落下し、落下ダメージに対する耐性を与えます。",
+  "info.goety.wind_robe_discount": "風魔法のソウルコストが半分になる。",
+  "info.goety.witch_robe": "魔法ダメージに対する耐性 +85%。",
+  "info.goety.witch_robe_brew": "風魔法のソウルコストが半分になる。",
+  "info.goety.warlock_garment": "マイナス効果を受けると自動的にいぼだらけの卵を使用します。",
+  "info.goety.warlock_robe": "爆発に対する耐性 +85%。",
+  "info.goety.grave_gloves": "サイスの攻撃速度 +50%。",
+  "info.goety.wayfarers_belt": "移動速度と水泳速度、ステップとジャンプの高さが増加します。",
+  "info.goety.spiteful_belt": "ダメージを受けると棘ダメージで攻撃者を傷つけます。",
+  "info.goety.star_amulet": "最大体力の半分未満の場合、矢から保護します。",
+  "info.goety.alarming_charm": "邪悪な村人の襲撃が発生した場合に警告します。",
 
   "info.goety.ritual.fail": "この儀式を適切に開始する方法がわかりません!",
   "info.goety.ritual.structure.fail": "非効率的なブロック要件!",
@@ -1005,6 +1039,8 @@
   "subtitle.goety.bomb_sparkle": "トーテミックボムの輝き",
 
   "subtitle.goety.spider_bite": "蜘蛛に噛まれた",
+
+  "subtitle.goety.ghast_disappear": "ガストが消える",
 
   "subtitle.goety.evil_laugh": "邪悪な笑い",
   "subtitle.goety.roar_spell": "大音響",

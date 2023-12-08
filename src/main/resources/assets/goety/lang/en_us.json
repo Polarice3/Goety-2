@@ -96,6 +96,7 @@
   "entity.goety.haunted_armor_servant":"Haunted Armor Servant",
   "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
+  "entity.goety.mini_ghast":"Mini Ghast",
 
   "entity.goety.totemic_wall":"Totemic Wall",
   "entity.goety.totemic_bomb":"Totemic Bomb",
@@ -167,6 +168,7 @@
   "entity.goety.tunneling_fang":"Tunneling Fang",
 
   "item.goety.focus_bag": "Focus Bag",
+  "item.goety.brew_bag": "Brew Bag",
 
   "item.goety.apostle_spawn_egg": "Apostle Spawn Egg",
   "item.goety.warlock_spawn_egg": "Warlock Spawn Egg",
@@ -368,6 +370,7 @@
   "item.goety.vanguard_focus": "Vanguard Focus",
   "item.goety.skull_focus": "Skull Focus",
   "item.goety.wither_skull_focus": "Wither Skull Focus",
+  "item.goety.ghastly_focus": "Ghastly Focus",
   "item.goety.iceology_focus": "Iceology Focus",
   "item.goety.barricade_focus": "Barricade Focus",
   "item.goety.illusion_focus": "Mirror Focus",
@@ -392,6 +395,7 @@
   "item.goety.blink_focus": "Blink Focus",
   "item.goety.soul_light_focus": "Soul Light Focus",
   "item.goety.glow_light_focus": "Glow Light Focus",
+  "item.goety.iron_hide_focus": "Iron Hide Focus",
   "item.goety.launch_focus": "Launching Focus",
   "item.goety.flying_focus": "Flight Focus",
   "item.goety.call_focus": "Call Focus",
@@ -593,6 +597,8 @@
   "effect.goety.cursed.description": "Prevents regeneration or healing.",
   "effect.goety.soul_armor": "Soul Armor",
   "effect.goety.soul_armor.description": "Increases armor points by 2. Triples armor points if affected entities does not wear any armor.",
+  "effect.goety.iron_hide": "Iron Hide",
+  "effect.goety.iron_hide.description": "Increases armor points by 4.",
   "effect.goety.pressure": "Pressure",
   "effect.goety.pressure.description": "Creepers will explode nigh-instantly towards targets with this effect.",
   "effect.goety.charged": "Charged",
@@ -716,9 +722,9 @@
 
   "key.goety.witch.category": "Goety Witch",
   "key.goety.witch.robe": "Open Witches Robe",
-  "key.goety.witch.addFuel": "Add Fuel",
-  "key.goety.witch.addCatalyst": "Add Bottles or Catalyst",
   "key.goety.witch.extractPotions": "Extract Potions",
+  "key.goety.witch.brewBag": "Open Brew Bag",
+  "key.goety.witch.brewCircle": "Open Brew Circle",
 
   "key.goety.ravager.category": "Goety Ravager",
   "key.goety.ravager.roar": "Ravager Roar",
@@ -762,6 +768,32 @@
 
   "info.goety.hunger_pendent.amount": "§2Rotten Flesh:§2 %d",
   "info.goety.sea_amulet.amount": "§3Conduit Charges:§3 %d",
+
+  "info.goety.dark_hat": "Halves casting time for all spells.",
+  "info.goety.grand_turban": "Have a chance of spawning an allied Irk when taking damage.",
+  "info.goety.witch_hat": "Speeds up witches robes inner brewing stand.",
+  "info.goety.necro_crown": "Undead servants will persists.",
+  "info.goety.necro_crown_cast": "Halves casting time for necromancy spells.",
+  "info.goety.amethyst_necklace": "+20% chance summoning four Totemic Bombs casting Barricade spell.",
+  "info.goety.amethyst_necklace_discount": "Halves soul cost of geomancy spells.",
+  "info.goety.dark_robe": "Halves soul cost of all spells.",
+  "info.goety.grand_robe": "Halves incoming attacks when casting with wand or staff.",
+  "info.goety.necro_cape": "Allows undead servants heal using soul energy.",
+  "info.goety.necro_cape_power": "Certain newly summoned undead servants gain extra abilities.",
+  "info.goety.illusion_robe": "Improves the Mirror spell.",
+  "info.goety.frost_robe": "+85% resistance to freezing damage, immunity to powder snow.",
+  "info.goety.frost_robe_discount": "Halves soul cost of frost spells.",
+  "info.goety.wind_robe": "Provides slow fall at a cost of soul energy, immunity to fall damage.",
+  "info.goety.wind_robe_discount": "Halves soul cost of wind spells.",
+  "info.goety.witch_robe": "+85% resistance to magical damage.",
+  "info.goety.witch_robe_brew": "Press %s to open robe brewing stand.",
+  "info.goety.warlock_garment": "Automatically uses Wartful Eggs when afflicted with negative effect.",
+  "info.goety.warlock_robe": "+85% resistance to explosions.",
+  "info.goety.grave_gloves": "+50% attack speed for Scythes.",
+  "info.goety.wayfarers_belt": "Increases movement and swimming speed, step and jump height.",
+  "info.goety.spiteful_belt": "Hurt attackers with thorn damage when taking damage.",
+  "info.goety.star_amulet": "Protects against arrows when below half the max health.",
+  "info.goety.alarming_charm": "Warns when an Illager assault has appeared.",
 
   "info.goety.ritual.fail": "You do not know how to properly start this ritual!",
   "info.goety.ritual.structure.fail": "Inefficient Block Requirements!",
@@ -1007,6 +1039,8 @@
   "subtitle.goety.bomb_sparkle": "Totemic Bomb sparkles",
 
   "subtitle.goety.spider_bite": "Spider bites",
+
+  "subtitle.goety.ghast_disappear": "Ghast disappears",
 
   "subtitle.goety.evil_laugh": "Evil Laugh",
   "subtitle.goety.roar_spell": "Loud Roar",

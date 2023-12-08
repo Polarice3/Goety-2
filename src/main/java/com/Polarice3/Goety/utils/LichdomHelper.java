@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.capabilities.lichdom.LichUpdatePacket;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
@@ -19,6 +20,14 @@ public class LichdomHelper {
     public static boolean isLich(@Nullable Entity livingEntity) {
         if (livingEntity instanceof Player player){
             return isLich(player);
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isInLichMode(LivingEntity livingEntity){
+        if (livingEntity instanceof Player player){
+            return isInLichMode(player);
         } else {
             return false;
         }

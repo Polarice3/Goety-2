@@ -96,6 +96,7 @@
   "entity.goety.haunted_armor_servant":"缠魂仆胄",
   "entity.goety.haunted_skull":"缠魂飞颅",
   "entity.goety.doppelganger":"替身",
+  "entity.goety.mini_ghast":"迷你恶魂",
 
   "entity.goety.totemic_wall":"图腾墙",
   "entity.goety.totemic_bomb":"图腾炸弹",
@@ -167,6 +168,7 @@
   "entity.goety.tunneling_fang":"Tunneling Fang",
 
   "item.goety.focus_bag": "聚晶包",
+  "item.goety.brew_bag": "药酿包",
 
   "item.goety.apostle_spawn_egg": "使徒刷怪蛋",
   "item.goety.warlock_spawn_egg": "术士刷怪蛋",
@@ -368,6 +370,7 @@
   "item.goety.vanguard_focus": "先锋聚晶",
   "item.goety.skull_focus": "头颅聚晶",
   "item.goety.wither_skull_focus": "凋灵聚晶",
+  "item.goety.ghastly_focus": "阴森聚晶",
   "item.goety.iceology_focus": "冰川聚晶",
   "item.goety.barricade_focus": "障碍聚晶",
   "item.goety.illusion_focus": "幻象聚晶",
@@ -392,6 +395,7 @@
   "item.goety.blink_focus": "瞬闪聚晶",
   "item.goety.soul_light_focus": "灵魂光聚晶",
   "item.goety.glow_light_focus": "发光聚晶",
+  "item.goety.iron_hide_focus": "铁皮聚晶",
   "item.goety.launch_focus": "发射聚晶",
   "item.goety.flying_focus": "飞翔聚晶",
   "item.goety.call_focus": "召集聚晶",
@@ -593,6 +597,8 @@
   "effect.goety.cursed.description": "移除再生效果和治疗效果。",
   "effect.goety.soul_armor": "灵魂护甲",
   "effect.goety.soul_armor.description": "护甲值增加2。如果有此增益的实体没有穿戴任何护甲，则会使护甲值增加三倍。",
+  "effect.goety.iron_hide": "铁皮",
+  "effect.goety.iron_hide.description": "护甲值增加 4 点.",
   "effect.goety.pressure": "压力",
   "effect.goety.pressure.description": "有了这个效果，苦力怕几乎会立即向目标爆炸。",
   "effect.goety.charged": "充能",
@@ -716,9 +722,9 @@
 
   "key.goety.witch.category": "诡厄巫法 女巫",
   "key.goety.witch.robe": "打开女巫袍",
-  "key.goety.witch.addFuel": "添加燃料",
-  "key.goety.witch.addCatalyst": "添加瓶子或催化剂",
   "key.goety.witch.extractPotions": "提取药剂",
+  "key.goety.witch.brewBag": "打开药酿包",
+  "key.goety.witch.brewCircle": "打开药酿圆环",
 
   "key.goety.ravager.category": "诡厄巫法 劫掠兽",
   "key.goety.ravager.roar": "劫掠兽：咆哮",
@@ -762,6 +768,32 @@
 
   "info.goety.hunger_pendent.amount": "§2腐肉:§2 %d",
   "info.goety.sea_amulet.amount": "§3潮涌充能:§3 %d",
+
+  "info.goety.dark_hat": "全法术施法时间减半.",
+  "info.goety.grand_turban": "受伤时有概率生成一个友好的怒鬼.",
+  "info.goety.witch_hat": "加速女巫长袍内的药剂酿造.",
+  "info.goety.necro_crown": "使亡灵仆从存续永恒.",
+  "info.goety.necro_crown_cast": "亡灵魔法施法时间减半.",
+  "info.goety.amethyst_necklace": "在使用障碍聚晶时，提高20％召唤四枚图腾炸弹的概率。",
+  "info.goety.amethyst_necklace_discount": "减半所有占卜类法术的灵魂消耗.",
+  "info.goety.dark_robe": "减半所有法术的灵魂消耗.",
+  "info.goety.grand_robe": "使用魔杖施法期间，减半所有受到的伤害.",
+  "info.goety.necro_cape": "允许亡灵仆从使用主人的灵魂能量治愈自身.",
+  "info.goety.necro_cape_power": "赋予某些新召唤的亡灵仆从以新能力.",
+  "info.goety.illusion_robe": "完善幻象法术.",
+  "info.goety.frost_robe": "+85%的冰冻抗性，免疫细雪.",
+  "info.goety.frost_robe_discount": "减半霜冻法术的灵魂消耗",
+  "info.goety.wind_robe": "以灵魂能量为代价提供缓降，完全免疫坠落伤害.",
+  "info.goety.wind_robe_discount": "减半烈风法术的灵魂消耗。.",
+  "info.goety.witch_robe": "+85% 魔法伤害抗性.",
+  "info.goety.witch_robe_brew": "“按 %s 用以打开女巫袍内部酿造台.",
+  "info.goety.warlock_garment": "被负面效果影响时自动使用地狱疣蛋.",
+  "info.goety.warlock_robe": "+85% 爆炸抗性.",
+  "info.goety.grave_gloves": "+50% 镰刀攻速.",
+  "info.goety.wayfarers_belt": "增加游泳速度，移动速度，跳跃高度，以及使你可以直接迈上一格高的方块.",
+  "info.goety.spiteful_belt": "荆棘反伤攻击者.",
+  "info.goety.star_amulet": "半血以下禁止飞行，且无视所有箭类攻击.",
+  "info.goety.alarming_charm": "灾厄猎杀发生时发出警报.",
 
   "info.goety.ritual.fail": "你还不知道如何正确地开始这个仪式!",
   "info.goety.ritual.structure.fail": "无效的仪式!",
@@ -1008,6 +1040,8 @@
   "subtitle.goety.bomb_sparkle": "图腾炸弹：闪烁",
 
   "subtitle.goety.spider_bite": "蜘蛛撕咬",
+
+  "subtitle.goety.ghast_disappear": "恶魂：消亡",
 
   "subtitle.goety.evil_laugh": "邪恶的大笑",
   "subtitle.goety.roar_spell": "大声嘶吼",

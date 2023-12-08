@@ -35,6 +35,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HAUNT = register("haunt");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
+    public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");
     public static final ModelLayerLocation VANGUARD = register("vanguard");
@@ -72,6 +73,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation LICH = register("lich");
     public static final ModelLayerLocation GLOVE = register("glove");
     public static final ModelLayerLocation FOCUS_BAG = register("focus_bag");
+    public static final ModelLayerLocation BREW_BAG = register("brew_bag");
     public static final ModelLayerLocation AMULET = register("amulet");
     public static final ModelLayerLocation BELT = register("belt");
     public static final ModelLayerLocation MONOCLE = register("monocle");

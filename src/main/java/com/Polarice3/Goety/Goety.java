@@ -103,6 +103,13 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static net.minecraftforge.fml.loading.LogMarkers.CORE;
+
 @Mod(Goety.MOD_ID)
 public class Goety {
     public static final String MOD_ID = "goety";
@@ -132,20 +139,21 @@ public class Goety {
         modEventBus.addListener(this::enqueueIMC);
         modEventBus.addListener(EventPriority.LOWEST, this::finalLoad);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MainConfig.SPEC, "goety.toml");
-        MainConfig.loadConfig(MainConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety.toml").toString());
+        getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve("goety"), "goety");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MainConfig.SPEC, "goety/goety.toml");
+        MainConfig.loadConfig(MainConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety.toml").toString());
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AttributesConfig.SPEC, "goety-attributes.toml");
-        AttributesConfig.loadConfig(AttributesConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-attributes.toml").toString());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AttributesConfig.SPEC, "goety/goety-attributes.toml");
+        AttributesConfig.loadConfig(AttributesConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-attributes.toml").toString());
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SpellConfig.SPEC, "goety-spells.toml");
-        SpellConfig.loadConfig(SpellConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-spells.toml").toString());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SpellConfig.SPEC, "goety/goety-spells.toml");
+        SpellConfig.loadConfig(SpellConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-spells.toml").toString());
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BrewConfig.SPEC, "goety-brews.toml");
-        BrewConfig.loadConfig(BrewConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-brews.toml").toString());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BrewConfig.SPEC, "goety/goety-brews.toml");
+        BrewConfig.loadConfig(BrewConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-brews.toml").toString());
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MobsConfig.SPEC, "goety-mobs.toml");
-        MobsConfig.loadConfig(MobsConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety-mobs.toml").toString());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MobsConfig.SPEC, "goety/goety-mobs.toml");
+        MobsConfig.loadConfig(MobsConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-mobs.toml").toString());
 
         final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Goety.MOD_ID);
         biomeModifiers.register(modEventBus);
@@ -160,6 +168,30 @@ public class Goety {
         ModPotions.init();
         ModPaintings.init();
         ModSounds.init();
+    }
+
+    public static Path getOrCreateDirectory(Path dirPath, String dirLabel) {
+        if (!Files.isDirectory(dirPath.getParent())) {
+            getOrCreateDirectory(dirPath.getParent(), "parent of "+dirLabel);
+        }
+        if (!Files.isDirectory(dirPath))
+        {
+            LOGGER.debug(CORE, "Making {} directory : {}", dirLabel, dirPath);
+            try {
+                Files.createDirectory(dirPath);
+            } catch (IOException e) {
+                if (e instanceof FileAlreadyExistsException) {
+                    LOGGER.error(CORE, "Failed to create {} directory - there is a file in the way", dirLabel);
+                } else {
+                    LOGGER.error(CORE, "Problem with creating {} directory (Permissions?)", dirLabel, e);
+                }
+                throw new RuntimeException("Problem creating directory", e);
+            }
+            LOGGER.debug(CORE, "Created {} directory : {}", dirLabel, dirPath);
+        } else {
+            LOGGER.debug(CORE, "Found existing {} directory : {}", dirLabel, dirPath);
+        }
+        return dirPath;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -304,6 +336,7 @@ public class Goety {
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());
+        event.put(ModEntityType.MINI_GHAST.get(), MiniGhast.setCustomAttributes().build());
         event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());

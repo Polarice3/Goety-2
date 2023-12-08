@@ -40,21 +40,41 @@ public abstract class BreathingSpells extends EverChargeSpells{
         }
 
         for (int i = 0; i < pParticleAmount; i++) {
-            double dx = look.x;
-            double dy = look.y;
-            double dz = look.z;
-
             double spread = pSpread + entityLiving.getRandom().nextDouble() * (pSpread/2);
             double velocity = pVelocity + entityLiving.getRandom().nextDouble() * pVelocity;
 
-            dx += entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread;
-            dy += entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread;
-            dz += entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread;
-            dx *= velocity;
-            dy *= velocity;
-            dz *= velocity;
+            Vec3 vecSpread = new Vec3(
+                    entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread,
+                    entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread,
+                    entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread);
+            Vec3 vec3 = look.add(vecSpread).multiply(velocity, velocity, velocity);
+            entityLiving.level.addAlwaysVisibleParticle(getParticle(), px, py, pz, vec3.x, vec3.y, vec3.z);
+        }
+    }
 
-            entityLiving.level.addAlwaysVisibleParticle(getParticle(), px, py, pz, dx, dy, dz);
+    public void dragonBreathAttack(LivingEntity entityLiving, double pVelocity){
+        this.dragonBreathAttack(entityLiving, 10, pVelocity);
+    }
+
+    public void dragonBreathAttack(LivingEntity entityLiving, int pParticleAmount, double pVelocity){
+        Vec3 look = entityLiving.getLookAngle();
+
+        double dist = 0.9D;
+        double px = entityLiving.getX() + look.x * dist;
+        double py = entityLiving.getEyeY() + look.y * dist;
+        double pz = entityLiving.getZ() + look.z * dist;
+
+        double velocity = pVelocity + entityLiving.getRandom().nextDouble() * pVelocity;
+        for (int i = 0; i < pParticleAmount; i++) {
+            double offset = 0.15D;
+            double dx = entityLiving.getRandom().nextDouble() * 2.0D * offset - offset;
+            double dy = entityLiving.getRandom().nextDouble() * 2.0D * offset - offset;
+            double dz = entityLiving.getRandom().nextDouble() * 2.0D * offset - offset;
+
+            double angle = 0.5D;
+            Vec3 randomVec = new Vec3(entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle).normalize();
+            Vec3 result = (look.normalize().scale(3.0D).add(randomVec)).normalize().scale(velocity);
+            entityLiving.level.addAlwaysVisibleParticle(getParticle(), px + dx, py + dy, pz + dz, result.x, result.y, result.z);
         }
     }
 }

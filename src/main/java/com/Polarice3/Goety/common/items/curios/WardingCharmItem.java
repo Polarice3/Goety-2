@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.spells.SoulArmorSpell;
+import com.Polarice3.Goety.common.magic.spells.IronHideSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -38,11 +38,11 @@ public class WardingCharmItem extends SingleStackItem{
     public int SoulCalculation(LivingEntity entityLiving){
         if (SoulCostUp(entityLiving)){
             int amp = Objects.requireNonNull(entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
-            return new SoulArmorSpell().SoulCost() * amp;
+            return new IronHideSpell().SoulCost() * amp;
         } else if (SoulDiscount(entityLiving)){
-            return new SoulArmorSpell().SoulCost() / 2;
+            return new IronHideSpell().SoulCost() / 2;
         } else {
-            return new SoulArmorSpell().SoulCost();
+            return new IronHideSpell().SoulCost();
         }
     }
 

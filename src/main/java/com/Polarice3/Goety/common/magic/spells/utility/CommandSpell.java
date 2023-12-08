@@ -24,6 +24,11 @@ public class CommandSpell extends Spells {
     }
 
     @Override
+    public int SpellCooldown() {
+        return 0;
+    }
+
+    @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
     }
 }
