@@ -341,6 +341,16 @@ public class LightningParticleOptions {
             );
         }
 
+        public static BoltRenderInfo thunderBolt(ColorUtil colorUtil){
+            return new BoltRenderInfo(
+                    0.1F, 0.1F, 0.0F, 0.0F,
+                    colorUtil,
+                    RandomFunction.GAUSSIAN,
+                    SpreadFunction.LINEAR_ASCENT,
+                    SegmentSpreader.NO_MEMORY
+            );
+        }
+
         public BoltRenderInfo noise(float parallelNoise, float spreadFactor) {
             return new BoltRenderInfo(
                     parallelNoise,

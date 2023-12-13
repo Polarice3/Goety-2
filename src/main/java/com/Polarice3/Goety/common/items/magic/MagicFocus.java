@@ -67,6 +67,7 @@ public class MagicFocus extends Item {
                     || (SpellConfig.FangGainSouls.get() > 0 && enchantment == ModEnchantments.SOUL_EATER.get());
         }
         if (stack.getItem() == ModItems.IRON_HIDE_FOCUS.get()
+                || stack.getItem() == ModItems.BULWARK_FOCUS.get()
                 || stack.getItem() == ModItems.ROTTING_FOCUS.get()
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()
                 || stack.getItem() == ModItems.SPOOKY_FOCUS.get()
@@ -125,6 +126,11 @@ public class MagicFocus extends Item {
         }
         if (stack.getItem() == ModItems.BLINK_FOCUS.get()){
             return enchantment == ModEnchantments.RANGE.get();
+        }
+        if (stack.getItem() == ModItems.CUSHION_FOCUS.get()){
+            return enchantment == ModEnchantments.RANGE.get()
+                    || enchantment == ModEnchantments.DURATION.get()
+                    || enchantment == ModEnchantments.RADIUS.get();
         }
         return false;
     }

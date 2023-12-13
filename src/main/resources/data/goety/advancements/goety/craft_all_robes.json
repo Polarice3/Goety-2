@@ -31,12 +31,27 @@
           },
           {
             "items": [
+              "goety:frost_robe"
+            ]
+          },
+          {
+            "items": [
               "goety:witch_robe"
             ]
           },
           {
             "items": [
+              "goety:warlock_robe"
+            ]
+          },
+          {
+            "items": [
               "goety:wind_robe"
+            ]
+          },
+          {
+            "items": [
+              "goety:grand_robe"
             ]
           }
         ]

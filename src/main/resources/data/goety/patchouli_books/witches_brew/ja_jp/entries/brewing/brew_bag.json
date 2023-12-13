@@ -1,0 +1,17 @@
+{
+  "name": "Brew Bag",
+  "icon": "goety:brew_bag",
+  "category": "goety:brewing",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ビールが多すぎて手に持てない?! そうだ、それ用のバッグを作ってみてはどうだろうか？ ビールバッグ！ このバッグには $(bold)投げられるビールしか入りません$()"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:brew_bag",
+      "text": "醸造バックを開けるキー (デフォルト: H) を押してバッグのインベントリを開き、オープン ブリューサークルキー (デフォルト: J) を押してそこから醸造をスローします。"
+    }
+  ]
+}

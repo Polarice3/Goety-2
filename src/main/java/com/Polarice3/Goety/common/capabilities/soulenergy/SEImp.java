@@ -21,6 +21,9 @@ public class SEImp implements ISoulEnergy{
     private List<Research> researchList = new ArrayList<>();
     private Set<UUID> summonList = new HashSet<>();
     private FocusCooldown cooldowns = new FocusCooldown();
+    private int shields = 0;
+    private int shieldTime = 0;
+    private int shieldCool = 0;
 
     @Override
     public BlockPos getArcaBlock() {
@@ -180,5 +183,55 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setCooldowns(FocusCooldown cooldowns){
         this.cooldowns = cooldowns;
+    }
+
+    @Override
+    public int shieldsLeft() {
+        return this.shields;
+    }
+
+    @Override
+    public void breakShield() {
+        --this.shields;
+    }
+
+    @Override
+    public void increaseShields() {
+        ++this.shields;
+    }
+
+    @Override
+    public void setShields(int amount) {
+        this.shields = amount;
+    }
+
+    @Override
+    public int shieldTime(){
+        return this.shieldTime;
+    }
+
+    @Override
+    public void setShieldTime(int time) {
+        this.shieldTime = time;
+    }
+
+    @Override
+    public void decreaseShieldTime() {
+        --this.shieldTime;
+    }
+
+    @Override
+    public int shieldCool() {
+        return this.shieldCool;
+    }
+
+    @Override
+    public void setShieldCool(int cool) {
+        this.shieldCool = cool;
+    }
+
+    @Override
+    public void decreaseShieldCool() {
+        --this.shieldCool;
     }
 }

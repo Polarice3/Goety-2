@@ -1,0 +1,15 @@
+{
+  "name": "雷霆聚晶",
+  "icon": "goety:thunderbolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶并不会让你发射一个连锁的闪电，而是一个更强大的闪电。如果释放魔法时使用的不是风之魔杖时，雷电会受到避雷针的影响。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/thunderbolt_focus"
+    }
+  ]
+}

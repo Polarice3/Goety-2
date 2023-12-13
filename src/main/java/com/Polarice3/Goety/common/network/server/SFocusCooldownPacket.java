@@ -1,12 +1,11 @@
 package com.Polarice3.Goety.common.network.server;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.SEHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -31,14 +30,12 @@ public class SFocusCooldownPacket {
 
     public static void consume(SFocusCooldownPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                LocalPlayer localPlayer = Minecraft.getInstance().player;
-                if (localPlayer != null) {
-                    if (packet.duration == 0) {
-                        SEHelper.getFocusCoolDown(localPlayer).removeCooldown(localPlayer.level, packet.item);
-                    } else {
-                        SEHelper.addCooldown(localPlayer, packet.item, packet.duration);
-                    }
+            Player player = Goety.PROXY.getPlayer();
+            if (player != null) {
+                if (packet.duration == 0) {
+                    SEHelper.getFocusCoolDown(player).removeCooldown(player.level, packet.item);
+                } else {
+                    SEHelper.addCooldown(player, packet.item, packet.duration);
                 }
             }
         });

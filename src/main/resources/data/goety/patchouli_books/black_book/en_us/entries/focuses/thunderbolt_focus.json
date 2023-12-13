@@ -1,0 +1,15 @@
+{
+  "name": "Thunderbolt Focus",
+  "icon": "goety:thunderbolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Instead of multiple electric sparks, you shoot one big spark that deals more damage. When not casted from Wind Staff, the thunderbolt will be affected by Lightning Rods."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/thunderbolt_focus"
+    }
+  ]
+}

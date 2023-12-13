@@ -1,0 +1,16 @@
+{
+  "name": "凄惨なフォーカス",
+  "icon": "goety:ghastly_focus",
+  "category": "goety:focuses",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスを使用すると、破壊力は低いものの、依然として強力な火を噴く小型のガストを呼び出すことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghastly_focus"
+    }
+  ]
+}

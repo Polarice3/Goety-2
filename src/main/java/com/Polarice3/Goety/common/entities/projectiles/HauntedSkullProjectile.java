@@ -37,7 +37,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.INT);
     public float explosionPower = 1.0F;
     private int burning = 0;
-    public float damage = SpellConfig.HauntedSkullDamage.get().floatValue();
+    public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
     public boolean upgraded;
     public boolean isPowered;
 

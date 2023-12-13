@@ -1,0 +1,15 @@
+{
+  "name": "壁垒聚晶",
+  "icon": "goety:bulwark_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶会召唤四个魔法护盾围绕你旋转，每个护盾可以完全抵消一次攻击的伤害，并且击退攻击者。过一段时间，护盾就会自己消失。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bulwark_focus"
+    }
+  ]
+}

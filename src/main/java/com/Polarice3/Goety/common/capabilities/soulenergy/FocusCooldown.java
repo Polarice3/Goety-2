@@ -31,7 +31,7 @@ public class FocusCooldown {
         }
     }
 
-    public void tick() {
+    public void tick(Level level) {
         if (!this.cooldowns.isEmpty()) {
             Iterator<Map.Entry<Item, CooldownInstance>> iterator = this.cooldowns.entrySet().iterator();
 
@@ -40,7 +40,9 @@ public class FocusCooldown {
                 entry.getValue().decreaseTime();
                 if (entry.getValue().time <= 0) {
                     iterator.remove();
-                    this.onCooldownEnded(entry.getKey());
+                    if (!level.isClientSide) {
+                        this.onCooldownEnded(entry.getKey());
+                    }
                 }
             }
         }

@@ -175,10 +175,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VANGUARD_SPELL = create("vanguard_spell");
     public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
     public static final RegistryObject<SoundEvent> COMMAND = create("command");
+    public static final RegistryObject<SoundEvent> SHIELD_UP = create("shield_up");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
     public static final RegistryObject<SoundEvent> HEAL_SPELL = create("heal_spell");
     public static final RegistryObject<SoundEvent> WIND = create("wind");
+    public static final RegistryObject<SoundEvent> THUNDERBOLT = create("thunderbolt");
     public static final RegistryObject<SoundEvent> UPDRAFT_BLAST = create("updraft_blast");
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");

@@ -557,6 +557,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<Cushion>> CUSHION = register("cushion",
+            EntityType.Builder.<Cushion>of(Cushion::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<MagicGround>> MAGIC_GROUND = register("magic_ground",
             EntityType.Builder.<MagicGround>of(MagicGround::new, MobCategory.MISC)
                     .fireImmune()

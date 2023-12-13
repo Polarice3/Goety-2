@@ -31,22 +31,12 @@
           },
           {
             "items": [
-              "goety:rotting_focus"
+              "goety:feast_focus"
             ]
           },
           {
             "items": [
-              "goety:osseous_focus"
-            ]
-          },
-          {
-            "items": [
-              "goety:spooky_focus"
-            ]
-          },
-          {
-            "items": [
-              "goety:skull_focus"
+              "goety:teeth_focus"
             ]
           },
           {
@@ -56,12 +46,17 @@
           },
           {
             "items": [
+              "goety:barricade_focus"
+            ]
+          },
+          {
+            "items": [
               "goety:illusion_focus"
             ]
           },
           {
             "items": [
-              "goety:feast_focus"
+              "goety:fire_breath_focus"
             ]
           },
           {
@@ -81,12 +76,37 @@
           },
           {
             "items": [
-              "goety:updraft_focus"
+              "goety:magic_bolt_focus"
             ]
           },
           {
             "items": [
-              "goety:wind_blast_focus"
+              "goety:sword_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:frost_breath_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:ice_spike_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:hail_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:charge_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:shocking_focus"
             ]
           },
           {
@@ -96,7 +116,37 @@
           },
           {
             "items": [
+              "goety:shockwave_focus"
+            ]
+          },
+          {
+            "items": [
               "goety:sonic_boom_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:blink_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:launch_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:flying_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:updraft_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:wind_blast_focus"
             ]
           },
           {
@@ -111,12 +161,67 @@
           },
           {
             "items": [
-              "goety:launch_focus"
+              "goety:iron_hide_focus"
             ]
           },
           {
             "items": [
-              "goety:flying_focus"
+              "goety:rotting_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:osseous_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:spooky_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:vanguard_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:skull_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:wither_skull_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:ghastly_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:call_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:recall_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:command_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:ender_chest_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:corruption_focus"
             ]
           }
         ]

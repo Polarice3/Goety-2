@@ -13,6 +13,7 @@ import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
+import com.Polarice3.Goety.client.render.layer.MagicShieldLayer;
 import com.Polarice3.Goety.client.render.layer.PlayerSoulArmorLayer;
 import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
 import com.Polarice3.Goety.client.render.layer.PlayerSpellShieldLayer;
@@ -102,12 +103,14 @@ public class ClientInitEvents {
     public static void addLayers(EntityRenderersEvent.AddLayers event){
         PlayerRenderer playerRenderer = event.getSkin("default");
         if (playerRenderer != null){
+            playerRenderer.addLayer(new MagicShieldLayer<>(playerRenderer));
             playerRenderer.addLayer(new PlayerSoulArmorLayer(playerRenderer, event.getEntityModels()));
             playerRenderer.addLayer(new PlayerSoulShieldLayer(playerRenderer, event.getEntityModels()));
             playerRenderer.addLayer(new PlayerSpellShieldLayer(playerRenderer, event.getEntityModels()));
         }
         PlayerRenderer playerRenderer2 = event.getSkin("slim");
         if (playerRenderer2 != null){
+            playerRenderer2.addLayer(new MagicShieldLayer<>(playerRenderer2));
             playerRenderer2.addLayer(new PlayerSoulArmorLayer(playerRenderer2, event.getEntityModels()));
             playerRenderer2.addLayer(new PlayerSoulShieldLayer(playerRenderer2, event.getEntityModels()));
             playerRenderer2.addLayer(new PlayerSpellShieldLayer(playerRenderer2, event.getEntityModels()));
@@ -333,6 +336,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LIGHTNING_TRAP.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CUSHION.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
@@ -378,6 +382,11 @@ public class ClientInitEvents {
                 }
             });
         }
+    }
+
+    @SubscribeEvent
+    public static void registerModels(ModelEvent.RegisterAdditional event){
+        event.register(MagicShieldLayer.SHIELD);
     }
 
     @SubscribeEvent

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.LightningEffect;
 import com.Polarice3.Goety.client.particles.LightningParticleOptions;
 import com.Polarice3.Goety.client.particles.ShockwaveParticle;
 import com.Polarice3.Goety.init.ModProxy;
+import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -44,6 +45,17 @@ public class ClientProxy implements ModProxy {
             return;
         }
         LightningEffect.INSTANCE.add(level, new LightningParticleOptions(vectorStart, vectorEnd, lifespan).size(0.04F), ClientEvents.PARTIAL_TICK);
+    }
+
+    public void thunderBolt(Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
+        thunderBolt(Minecraft.getInstance().level, vectorStart, vectorEnd, lifespan);
+    }
+
+    public void thunderBolt(Level level, Vec3 vectorStart, Vec3 vectorEnd, int lifespan){
+        if (!(level instanceof ClientLevel)){
+            return;
+        }
+        LightningEffect.INSTANCE.add(level, new LightningParticleOptions(LightningParticleOptions.BoltRenderInfo.thunderBolt(new ColorUtil(177, 235, 220, 1.0F)), vectorStart, vectorEnd, lifespan).size(0.5F), ClientEvents.PARTIAL_TICK);
     }
 
     public void spawnSoulExplosion(Level level, BlockPos blockPos, int radius){
