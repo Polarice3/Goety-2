@@ -40,6 +40,7 @@ public class MagicFocus extends Item {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
     {
         if (stack.getItem() == ModItems.ICEOLOGY_FOCUS.get()
+                || stack.getItem() == ModItems.SHOCKING_FOCUS.get()
                 || stack.getItem() == ModItems.LIGHTNING_FOCUS.get()
                 || stack.getItem() == ModItems.TEETH_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
@@ -63,6 +64,7 @@ public class MagicFocus extends Item {
                     || (SpellConfig.FangGainSouls.get() > 0 && enchantment == ModEnchantments.SOUL_EATER.get());
         }
         if (stack.getItem() == ModItems.IRON_HIDE_FOCUS.get()
+                || stack.getItem() == ModItems.BULWARK_FOCUS.get()
                 || stack.getItem() == ModItems.ROTTING_FOCUS.get()
                 || stack.getItem() == ModItems.OSSEOUS_FOCUS.get()
                 || stack.getItem() == ModItems.SPOOKY_FOCUS.get()
@@ -94,8 +96,7 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.RADIUS.get()
                     || enchantment == ModEnchantments.BURNING.get();
         }
-        if (stack.getItem() == ModItems.FIRE_BREATH_FOCUS.get()
-                || stack.getItem() == ModItems.SHOCKING_FOCUS.get()){
+        if (stack.getItem() == ModItems.FIRE_BREATH_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get()
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.BURNING.get();
@@ -106,6 +107,12 @@ public class MagicFocus extends Item {
                     || enchantment == ModEnchantments.RANGE.get()
                     || enchantment == ModEnchantments.DURATION.get();
         }
+        if (stack.getItem() == ModItems.HAIL_FOCUS.get()){
+            return enchantment == ModEnchantments.POTENCY.get()
+                    || enchantment == ModEnchantments.RANGE.get()
+                    || enchantment == ModEnchantments.DURATION.get()
+                    || enchantment == ModEnchantments.RADIUS.get();
+        }
         if (stack.getItem() == ModItems.SOUL_BOLT_FOCUS.get()
                 || stack.getItem() == ModItems.SWORD_FOCUS.get()
                 || stack.getItem() == ModItems.ICE_SPIKE_FOCUS.get()
@@ -113,6 +120,14 @@ public class MagicFocus extends Item {
                 || stack.getItem() == ModItems.SONIC_BOOM_FOCUS.get()
                 || stack.getItem() == ModItems.CORRUPTION_FOCUS.get()){
             return enchantment == ModEnchantments.POTENCY.get();
+        }
+        if (stack.getItem() == ModItems.BLINK_FOCUS.get()){
+            return enchantment == ModEnchantments.RANGE.get();
+        }
+        if (stack.getItem() == ModItems.CUSHION_FOCUS.get()){
+            return enchantment == ModEnchantments.RANGE.get()
+                    || enchantment == ModEnchantments.DURATION.get()
+                    || enchantment == ModEnchantments.RADIUS.get();
         }
         return false;
     }

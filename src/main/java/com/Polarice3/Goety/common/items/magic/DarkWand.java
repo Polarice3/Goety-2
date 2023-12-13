@@ -13,7 +13,7 @@ import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.*;
-import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
+import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.init.ModSounds;
@@ -172,6 +172,18 @@ public class DarkWand extends Item {
         }
     }
 
+    public boolean cannotCast(LivingEntity livingEntity, ItemStack stack){
+        boolean flag = false;
+        if (livingEntity.level instanceof ServerLevel serverLevel){
+            if (this.getSpell(stack) != null){
+                if (!this.getSpell(stack).conditionsMet(serverLevel, livingEntity)){
+                    flag = true;
+                }
+            }
+        }
+        return this.isOnCooldown(livingEntity, stack) || flag;
+    }
+
     public boolean isOnCooldown(LivingEntity livingEntity, ItemStack stack){
         if (livingEntity instanceof Player player){
             if (getFocus(stack) != null){
@@ -316,6 +328,15 @@ public class DarkWand extends Item {
                         }
                     }
                 }
+            } else if (this.getSpell(stack) instanceof BlockSpells blockSpells){
+                if (player.level instanceof ServerLevel serverLevel) {
+                    if (blockSpells.rightBlock(serverLevel, player, blockpos)) {
+                        if (this.canCastTouch(stack, level, player)) {
+                            blockSpells.blockResult(serverLevel, player, blockpos);
+                        }
+                        return InteractionResult.sidedSuccess(level.isClientSide);
+                    }
+                }
             }
             if (!level.isClientSide) {
                 if (level.getBlockEntity(blockpos) instanceof BrewCauldronBlockEntity cauldronBlock) {
@@ -334,7 +355,7 @@ public class DarkWand extends Item {
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        if (this.isOnCooldown(livingEntityIn, stack)){
+        if (this.cannotCast(livingEntityIn, stack)){
             return;
         }
         if (this.isNotInstant(this.getSpell(stack))) {
@@ -406,7 +427,7 @@ public class DarkWand extends Item {
             }
             return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
         } else if (this.getSpell(itemstack) != null) {
-            if (this.isOnCooldown(playerIn, itemstack)){
+            if (this.cannotCast(playerIn, itemstack)){
                 return InteractionResultHolder.pass(itemstack);
             } else if (this.isNotInstant(this.getSpell(itemstack))){
                 if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).SoulCost()) || playerIn.getAbilities().instabuild) {
@@ -523,7 +544,7 @@ public class DarkWand extends Item {
     public boolean canCastTouch(ItemStack stack, Level worldIn, LivingEntity caster){
         Player playerEntity = (Player) caster;
         if (!worldIn.isClientSide) {
-            if (this.getSpell(stack) != null && !this.isOnCooldown(caster, stack)) {
+            if (this.getSpell(stack) != null && !this.cannotCast(caster, stack)) {
                 if (playerEntity.isCreative()){
                     return stack.getTag() != null;
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
@@ -559,9 +580,6 @@ public class DarkWand extends Item {
                                 stack.getTag().putInt(SECONDS, 0);
                             }
                         }
-                    }
-                    if (!this.getSpell(stack).conditionsMet(serverWorld, caster)){
-                        spent = false;
                     }
                     if (spent){
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));

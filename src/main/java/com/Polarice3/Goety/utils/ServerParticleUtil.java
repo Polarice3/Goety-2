@@ -166,6 +166,10 @@ public class ServerParticleUtil {
         serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25 + Math.PI) * radius, entity.getY() + 0.5, entity.getZ() + Math.sin(entity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
     }
 
+    public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
+        circularParticles(serverLevel, particleOptions, entity.getX(), entity.getY(), entity.getZ(), radius);
+    }
+
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){
         float f5 = (float) Math.PI * radius * radius;
         for (int k1 = 0; (float) k1 < f5; ++k1) {

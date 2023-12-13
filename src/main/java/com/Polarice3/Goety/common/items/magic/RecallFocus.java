@@ -4,7 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ArcaBlock;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
-import com.Polarice3.Goety.common.magic.spells.utility.RecallSpell;
+import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.init.ModTags;

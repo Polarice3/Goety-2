@@ -1982,6 +1982,14 @@
     ],
     "subtitle": "subtitle.goety.command"
   },
+  "shield_up": {
+    "sounds": [
+      {
+        "name": "goety:spell/shield_up"
+      }
+    ],
+    "subtitle": "subtitle.goety.shield_up"
+  },
   "bolt_impact": {
     "sounds": [
       {
@@ -2059,6 +2067,20 @@
       }
     ],
     "subtitle": "subtitle.goety.wind"
+  },
+  "thunderbolt": {
+    "sounds": [
+      {
+        "name": "goety:spell/thunderbolt1"
+      },
+      {
+        "name": "goety:spell/thunderbolt2"
+      },
+      {
+        "name": "goety:spell/thunderbolt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.thunderbolt"
   },
   "updraft_blast": {
     "sounds": [

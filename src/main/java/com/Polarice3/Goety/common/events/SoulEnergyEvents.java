@@ -15,12 +15,14 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,7 +51,22 @@ public class SoulEnergyEvents {
         Player player = event.player;
         Level world = player.level;
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
-        SEHelper.getFocusCoolDown(player).tick();
+        SEHelper.getFocusCoolDown(player).tick(world);
+        if (SEHelper.getShieldTime(player) > 0){
+            if (SEHelper.getShields(player) <= 0){
+                SEHelper.setShieldTime(player, 0);
+            } else {
+                SEHelper.decreaseShieldTime(player);
+            }
+        } else if (SEHelper.getShields(player) > 0){
+            SEHelper.setShields(player, 0);
+            if (!world.isClientSide){
+                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F));
+            }
+        }
+        if (SEHelper.getShieldCool(player) > 0){
+            SEHelper.decreaseShieldCool(player);
+        }
         if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
             if (!world.isClientSide){
                 player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));
@@ -134,6 +152,24 @@ public class SoulEnergyEvents {
             if (event.getItemStack().getItem() instanceof GrudgeGrimoire) {
                 if (event.getTarget() instanceof Merchant && event.getTarget() instanceof LivingEntity living) {
                     event.getItemStack().getItem().interactLivingEntity(event.getItemStack(), event.getEntity(), living, event.getHand());
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingAttackEvent(LivingAttackEvent event){
+        if (!event.getEntity().level.isClientSide) {
+            if (event.getEntity() instanceof Player player) {
+                if (SEHelper.getShields(player) > 0 && !event.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)){
+                    if (SEHelper.getShieldCool(player) <= 0) {
+                        SEHelper.decreaseShields(player);
+                        SEHelper.setShieldCool(player, 10);
+                        if (event.getSource().getEntity() instanceof LivingEntity livingEntity){
+                            MobUtil.knockBack(livingEntity, player, 1.0D, 0.2D, 1.0D);
+                        }
+                    }
+                    event.setCanceled(true);
                 }
             }
         }
@@ -252,6 +288,10 @@ public class SoulEnergyEvents {
             }
             if (killer instanceof AbstractIllager){
                 soulEnergy.setRestPeriod(MathHelper.minecraftDayToTicks(1));
+            }
+            if (!event.isCanceled()){
+                SEHelper.setShields(player, 0);
+                SEHelper.setShieldTime(player, 0);
             }
         }
 

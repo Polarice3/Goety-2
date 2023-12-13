@@ -42,8 +42,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CushionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCost;
@@ -51,6 +53,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IronHideCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionCost;
 
@@ -78,8 +81,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HailDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CushionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallDuration;
@@ -87,6 +92,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IronHideDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VexCoolDown;
@@ -113,8 +119,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HailCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CushionCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> CallCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> RecallCoolDown;
@@ -122,6 +130,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> IronHideCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
@@ -139,12 +148,16 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> IceChunkDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HailDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> UpdraftBlastDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ThunderboltDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> LightningDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockwaveMaxDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ViciousToothDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkShieldAmount;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BulwarkShieldTime;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WandVexLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> StaffVexLimit;
@@ -174,7 +187,6 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
-
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireballGriefing;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LavaballGriefing;
@@ -247,10 +259,14 @@ public class SpellConfig {
                 .defineInRange("launchCost", 4, 0, Integer.MAX_VALUE);
         FlyingCost = BUILDER.comment("Flight Spell Cost, Default: 4")
                 .defineInRange("flightCost", 4, 0, Integer.MAX_VALUE);
+        CushionCost = BUILDER.comment("Cushion Spell Cost, Default: 16")
+                .defineInRange("cushionCost", 16, 0, Integer.MAX_VALUE);
         UpdraftCost = BUILDER.comment("Updraft Spell Cost, Default: 8")
                 .defineInRange("updraftCost", 8, 0, Integer.MAX_VALUE);
         WindBlastCost = BUILDER.comment("Wind Blast Spell Cost, Default: 4")
                 .defineInRange("windBlastCost", 4, 0, Integer.MAX_VALUE);
+        ThunderboltCost = BUILDER.comment("Thunderbolt Spell Cost, Default: 8")
+                .defineInRange("thunderboltCost", 8, 0, Integer.MAX_VALUE);
         LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                 .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
         CallCost = BUILDER.comment("Call Spell Cost, Default: 16")
@@ -263,8 +279,10 @@ public class SpellConfig {
                 .defineInRange("blinkCost", 8, 0, Integer.MAX_VALUE);
         ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")
                 .defineInRange("shockwaveCost", 80, 0, Integer.MAX_VALUE);
-        IronHideCost = BUILDER.comment("Soul Armor Spell Cost, Default: 50")
-                .defineInRange("soulArmorCost", 50, 0, Integer.MAX_VALUE);
+        IronHideCost = BUILDER.comment("Iron Hide Spell Cost, Default: 24")
+                .defineInRange("ironHideCost", 24, 0, Integer.MAX_VALUE);
+        BulwarkCost = BUILDER.comment("Bulwark Spell Cost, Default: 100")
+                .defineInRange("bulwarkCost", 100, 0, Integer.MAX_VALUE);
         SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")
                 .defineInRange("sonicBoomCost", 16, 0, Integer.MAX_VALUE);
         CorruptionCost = BUILDER.comment("Corruption Spell Cost, Default: 4500")
@@ -319,10 +337,14 @@ public class SpellConfig {
                 .defineInRange("barricadeTime", 0, 0, 72000);
         LaunchDuration = BUILDER.comment("Time to cast Launching Spell, Default: 0")
                 .defineInRange("launchTime", 0, 0, 72000);
+        CushionDuration = BUILDER.comment("Time to cast Cushion Spell, Default: 0")
+                .defineInRange("cushionTime", 0, 0, 72000);
         UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 0")
                 .defineInRange("updraftTime", 0, 0, 72000);
         WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 0")
                 .defineInRange("windBlastTime", 0, 0, 72000);
+        ThunderboltDuration = BUILDER.comment("Time to cast Thunderbolt Spell, Default: 20")
+                .defineInRange("thunderboltTime", 20, 0, 72000);
         LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
                 .defineInRange("lightningTime", 60, 0, 72000);
         CallDuration = BUILDER.comment("Time to cast Call Spell, Default: 100")
@@ -337,6 +359,8 @@ public class SpellConfig {
                 .defineInRange("shockwaveTime", 0, 0, 72000);
         IronHideDuration = BUILDER.comment("Time to cast Iron Hide Spell, Default: 60")
                 .defineInRange("ironHideTime", 60, 0, 72000);
+        BulwarkDuration = BUILDER.comment("Time to cast Bulwark Spell, Default: 100")
+                .defineInRange("bulwarkDuration", 100, 0, 72000);
         SonicBoomDuration = BUILDER.comment("Time to cast Sonic Boom Spell, Default: 60")
                 .defineInRange("sonicBoomTime", 60, 0, 72000);
         BUILDER.pop();
@@ -389,10 +413,14 @@ public class SpellConfig {
                 .defineInRange("barricadeCoolDown", 100, 0, Integer.MAX_VALUE);
         LaunchCoolDown = BUILDER.comment("Launch Spell Cooldown, Default: 0")
                 .defineInRange("launchCoolDown", 0, 0, Integer.MAX_VALUE);
+        CushionCoolDown = BUILDER.comment("Cushion Spell Cooldown, Default: 40")
+                .defineInRange("cushionCoolDown", 40, 0, Integer.MAX_VALUE);
         UpdraftCoolDown = BUILDER.comment("Updraft Spell Cooldown, Default: 20")
                 .defineInRange("updraftCoolDown", 20, 0, Integer.MAX_VALUE);
         WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 20")
                 .defineInRange("windBlastCoolDown", 20, 0, Integer.MAX_VALUE);
+        ThunderboltCoolDown = BUILDER.comment("Thunderbolt Spell Cooldown, Default: 0")
+                .defineInRange("thunderboltCoolDown", 0, 0, Integer.MAX_VALUE);
         LightningCoolDown = BUILDER.comment("Lightning Spell Cooldown, Default: 100")
                 .defineInRange("lightningCoolDown", 100, 0, Integer.MAX_VALUE);
         CallCoolDown = BUILDER.comment("Call Spell Cooldown, Default: 0")
@@ -405,8 +433,10 @@ public class SpellConfig {
                 .defineInRange("blinkCoolDown", 20, 0, Integer.MAX_VALUE);
         ShockwaveCoolDown = BUILDER.comment("Shockwave Spell Cooldown, Default: 80")
                 .defineInRange("shockwaveCoolDown", 80, 0, Integer.MAX_VALUE);
-        IronHideCoolDown = BUILDER.comment("Iron Hide Spell Cooldown, Default: 100")
-                .defineInRange("ironHideCoolDown", 100, 0, Integer.MAX_VALUE);
+        IronHideCoolDown = BUILDER.comment("Iron Hide Spell Cooldown, Default: 500")
+                .defineInRange("ironHideCoolDown", 500, 0, Integer.MAX_VALUE);
+        BulwarkCoolDown = BUILDER.comment("Bulwark Spell Cooldown, Default: 6000")
+                .defineInRange("bulwarkCoolDown", 6000, 0, Integer.MAX_VALUE);
         SonicBoomCoolDown = BUILDER.comment("Sonic Boom Spell Cooldown, Default: 40")
                 .defineInRange("sonicBoomCoolDown", 40, 0, Integer.MAX_VALUE);
         BUILDER.pop();
@@ -459,12 +489,18 @@ public class SpellConfig {
                 .defineInRange("hailDamage", 1.0, 1.0, Double.MAX_VALUE);
         UpdraftBlastDamage = BUILDER.comment("How much base damage Updraft Blasts deals, Default: 5.0")
                 .defineInRange("updraftBlastDamage", 5.0, 1.0, Double.MAX_VALUE);
+        ThunderboltDamage = BUILDER.comment("How much base damage Thunderbolts deals, Default: 5.0")
+                .defineInRange("thunderboltDamage", 5.0, 1.0, Double.MAX_VALUE);
         LightningDamage = BUILDER.comment("How much base damage Lightning from the spell deals, Default: 5.0")
                 .defineInRange("lightningDamage", 5.0, 1.0, Double.MAX_VALUE);
         ShockwaveDamage = BUILDER.comment("How much base minimum damage Shockwave Spell deals, Default: 5.0")
                 .defineInRange("shockwaveMinDamage", 5.0, 1.0, Double.MAX_VALUE);
         ShockwaveMaxDamage = BUILDER.comment("How much base maximum damage Shockwave Spell deals, Default: 24.0")
                 .defineInRange("shockwaveMaxDamage", 24.0, 2.0, Double.MAX_VALUE);
+        BulwarkShieldAmount = BUILDER.comment("Initial amount of shields the Bulwark Spell summons, Default: 4")
+                .defineInRange("bulwarkShieldAmount", 4, 1, Integer.MAX_VALUE);
+        BulwarkShieldTime = BUILDER.comment("Initial lifespan of the Bulwark Spell's shields, count in ticks, Default: 1500")
+                .defineInRange("bulwarkShieldTime", 1500, 1, Integer.MAX_VALUE);
         SonicBoomDamage = BUILDER.comment("How much base damage Sonic Boom Spell deals, Default: 10.0")
                 .defineInRange("sonicBoomDamage", 10.0, 1.0, Double.MAX_VALUE);
         ViciousToothDamage = BUILDER.comment("How much base damage Vicious Tooth deals, Default: 12.0")

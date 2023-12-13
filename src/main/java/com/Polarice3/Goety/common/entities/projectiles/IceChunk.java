@@ -159,8 +159,8 @@ public class IceChunk extends Entity {
         damage += this.extraDamage;
         if (livingEntity != null) {
             if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
-                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(5)));
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(10)));
+                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2)));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(5)));
             }
         }
     }

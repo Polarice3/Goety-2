@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
@@ -429,6 +431,55 @@ public class SEHelper {
         return getFocusCoolDown(player).getInstance(item);
     }
 
+    public static int getShields(Player player){
+        return getCapability(player).shieldsLeft();
+    }
+
+    public static void setShields(Player player, int amount){
+        getCapability(player).setShields(amount);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void increaseShields(Player player){
+        getCapability(player).increaseShields();
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void decreaseShields(Player player){
+        getCapability(player).breakShield();
+        SEHelper.sendSEUpdatePacket(player);
+        if (!player.level.isClientSide){
+            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.SHIELD_BREAK, 1.0F, 1.0F));
+        }
+    }
+
+    public static int getShieldTime(Player player){
+        return getCapability(player).shieldTime();
+    }
+
+    public static void setShieldTime(Player player, int time){
+        getCapability(player).setShieldTime(time);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void decreaseShieldTime(Player player){
+        getCapability(player).decreaseShieldTime();
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static int getShieldCool(Player player){
+        return getCapability(player).shieldCool();
+    }
+
+    public static void setShieldCool(Player player, int cool){
+        getCapability(player).setShieldCool(cool);
+    }
+
+    public static void decreaseShieldCool(Player player){
+        getCapability(player).decreaseShieldCool();
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
     public static void sendSEUpdatePacket(Player player) {
         if (!player.level.isClientSide()) {
             ModNetwork.sendTo(player, new SEUpdatePacket(player));
@@ -440,6 +491,9 @@ public class SEHelper {
         tag.putInt("soulEnergy", soulEnergy.getSoulEnergy());
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
+        tag.putInt("shields", soulEnergy.shieldsLeft());
+        tag.putInt("shieldTime", soulEnergy.shieldTime());
+        tag.putInt("shieldCool", soulEnergy.shieldCool());
         if (soulEnergy.getArcaBlock() != null) {
             tag.putInt("arcax", soulEnergy.getArcaBlock().getX());
             tag.putInt("arcay", soulEnergy.getArcaBlock().getY());
@@ -506,6 +560,9 @@ public class SEHelper {
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
+        soulEnergy.setShields(tag.getInt("shields"));
+        soulEnergy.setShieldTime(tag.getInt("shieldTime"));
+        soulEnergy.setShieldCool(tag.getInt("shieldCool"));
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         if (tag.contains("grudgeList", 9)) {
             ListTag listtag = tag.getList("grudgeList", 11);

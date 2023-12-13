@@ -1,0 +1,15 @@
+{
+  "name": "云垫聚晶",
+  "icon": "goety:cushion_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个聚晶会召唤一团云，当一个生物落在云上时，它会抵消所有的掉落伤害。这团云会自动将自己定位在地面上。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/cushion_focus"
+    }
+  ]
+}

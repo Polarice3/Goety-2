@@ -96,7 +96,7 @@ public class CorruptedBeam extends Entity implements IEntityAdditionalSpawnData 
             for (LivingEntity entity : entities) {
                 entity.invulnerableTime = 0;
                 Vec3 deltaMovement = entity.getDeltaMovement();
-                float damage = SpellConfig.CorruptedBeamDamage.get().floatValue();
+                float damage = SpellConfig.CorruptedBeamDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                 if (this.getOwner() != null){
                     if (WandUtil.enchantedFocus(this.getOwner())){
                         damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), this.getOwner()) / 2.0F;

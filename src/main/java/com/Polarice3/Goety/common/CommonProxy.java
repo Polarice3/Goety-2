@@ -28,4 +28,8 @@ public class CommonProxy implements ModProxy {
     public void shock(Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
     }
 
+    @Override
+    public void thunderBolt(Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
+    }
+
 }

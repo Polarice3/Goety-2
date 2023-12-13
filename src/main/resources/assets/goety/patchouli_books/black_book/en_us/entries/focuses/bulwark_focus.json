@@ -1,0 +1,15 @@
+{
+  "name": "Bulwark Focus",
+  "icon": "goety:bulwark_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus will initially summon four magical shields to orbit around you, each absorbing an attack before breaking, knocking back the attacker. After a while, the shields will disappear."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bulwark_focus"
+    }
+  ]
+}
