@@ -1,0 +1,15 @@
+{
+  "name": "治疗聚晶",
+  "icon": "goety:soul_heal_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个聚晶可以让你通过灵魂能量治愈自身。然而，治疗量并非恒定的。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/soul_heal_focus"
+    }
+  ]
+}

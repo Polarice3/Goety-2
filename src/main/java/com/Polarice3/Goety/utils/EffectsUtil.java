@@ -16,7 +16,7 @@ public class EffectsUtil {
         int i = 1;
         if (MobEffectInstance1 != null) {
             i += MobEffectInstance1.getAmplifier();
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         } else {
             --i;
         }
@@ -35,7 +35,7 @@ public class EffectsUtil {
         int a = 0;
         if (MobEffectInstance1 != null) {
             a = MobEffectInstance1.getAmplifier();
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         }
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, duration, a, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);
@@ -48,7 +48,7 @@ public class EffectsUtil {
         if (MobEffectInstance1 != null) {
             a = MobEffectInstance1.getAmplifier();
             i = MobEffectInstance1.getDuration() + duration;
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         }
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, i, a);
         infected.addEffect(MobEffectInstance);
@@ -61,7 +61,7 @@ public class EffectsUtil {
         if (MobEffectInstance1 != null) {
             a = MobEffectInstance1.getAmplifier();
             i = MobEffectInstance1.getDuration() - duration;
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         }
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, (int) i, a, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);
@@ -77,10 +77,10 @@ public class EffectsUtil {
         if (MobEffectInstance1 != null) {
             int amp = MobEffectInstance1.getAmplifier();
             i = amp - 1;
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         }
 
-        i = Mth.clamp(i, 0, 4);
+        i = Math.max(0, i);
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, duration, i, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);
     }
@@ -94,7 +94,7 @@ public class EffectsUtil {
         int a = 0;
         if (MobEffectInstance1 != null) {
             a = MobEffectInstance1.getAmplifier();
-            infected.removeEffectNoUpdate(effect);
+            infected.removeEffect(effect);
         }
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, duration/2, a, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);

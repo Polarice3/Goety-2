@@ -111,6 +111,12 @@ public class SingleStackItem extends Item {
                     tooltip.add(Component.translatable("info.goety.warlock_robe").withStyle(secondary));
                 }
             }
+            if (stack.is(ModItems.RING_OF_WANT.get())){
+                tooltip.add(Component.translatable("info.goety.ring_of_want").withStyle(secondary));
+            }
+            if (stack.is(ModItems.RING_OF_THE_DRAGON.get())){
+                tooltip.add(Component.translatable("info.goety.ring_of_the_dragon").withStyle(secondary));
+            }
             if (stack.is(ModItems.GRAVE_GLOVE.get())) {
                 tooltip.add(Component.translatable("info.goety.grave_gloves").withStyle(secondary));
             }

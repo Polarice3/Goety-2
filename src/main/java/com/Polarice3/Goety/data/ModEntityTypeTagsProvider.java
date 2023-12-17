@@ -42,6 +42,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.PIKER.get(),
                 ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
+                ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),
                 ModEntityType.VIZIER.get());
         this.tag(EntityTypeTags.ARROWS).add(ModEntityType.DEATH_ARROW.get());
         this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(ModEntityType.SOUL_BOLT.get(),

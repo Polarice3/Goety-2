@@ -67,6 +67,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> InquillagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnviokerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinisterRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneGolemRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
 
@@ -179,6 +180,8 @@ public class MobsConfig {
                     .define("enviokerRaid", true);
             MinisterRaid = BUILDER.comment("Whether Ministers appear in Raids, Default: true")
                     .define("ministerRaid", true);
+            HostileRedstoneGolemRaid = BUILDER.comment("Whether Hostile Redstone Golems appear in Raids, Default: false")
+                    .define("hostileRedstoneGolemRaid", false);
             ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                     .define("armoredRavagerRaid", true);
             WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")

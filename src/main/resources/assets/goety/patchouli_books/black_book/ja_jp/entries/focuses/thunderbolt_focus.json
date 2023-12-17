@@ -1,0 +1,15 @@
+{
+  "name": "サンダーボルトフォーカス",
+  "icon": "goety:thunderbolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "複数の電気スパークの代わりに、より大きなダメージを与える 1 つの大きなスパークを発射します。 風の杖からキャストされていない場合、サンダーボルトは避雷針の影響を受けます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/thunderbolt_focus"
+    }
+  ]
+}

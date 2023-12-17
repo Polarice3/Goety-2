@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Instead of multiple electric sparks, you shoot one big spark that deals more damage. When not casted from Wind Staff, the thunderbolt will be affected by Lightning Rods."
+      "text": "Instead of multiple electric sparks, you shoot one big spark that deals more damage. When not casted from Storm Staff, the thunderbolt will be affected by Lightning Rods."
     },
     {
       "type": "patchouli:crafting",

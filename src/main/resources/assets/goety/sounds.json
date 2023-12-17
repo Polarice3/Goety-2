@@ -1869,6 +1869,13 @@
     ],
     "subtitle": "subtitle.goety.roar_spell"
   },
+  "fire_breath_start": {
+    "sounds": [
+      {
+        "name": "goety:spell/fire_breath_start"
+      }
+    ]
+  },
   "fire_breath": {
     "sounds": [
       {
@@ -1876,6 +1883,13 @@
       }
     ],
     "subtitle": "subtitle.goety.fire_breath"
+  },
+  "flight": {
+    "sounds": [
+      {
+        "name": "goety:spell/flight"
+      }
+    ]
   },
   "soul_armor": {
     "sounds": [
@@ -1890,6 +1904,14 @@
       }
     ],
     "subtitle": "subtitle.goety.soul_armor"
+  },
+  "soul_heal": {
+    "sounds": [
+      {
+        "name": "goety:spell/soul_heal"
+      }
+    ],
+    "subtitle": "subtitle.goety.soul_heal"
   },
   "prepare_spell": {
     "sounds": [

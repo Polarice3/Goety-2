@@ -1,0 +1,15 @@
+{
+  "name": "瓦解聚晶",
+  "icon": "goety:pulverize_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在魔杖上装备这个聚晶时，你右键点击某个方块，会将某些方块粉碎成裂纹状态，进一步会被粉碎成砾石，直至变成沙子。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/pulverize_focus"
+    }
+  ]
+}

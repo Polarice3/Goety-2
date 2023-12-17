@@ -30,6 +30,7 @@ public class CuriosIntegration implements ICompatable {
 
     private static final Map<Item, String> TYPES = ImmutableMap.<Item, String>builder()
             .put(ModItems.RING_OF_WANT.get(), "ring")
+            .put(ModItems.RING_OF_THE_DRAGON.get(), "ring")
             .put(ModItems.DARK_HAT.get(), "head")
             .put(ModItems.GRAND_TURBAN.get(), "head")
             .put(ModItems.WITCH_HAT.get(), "head")

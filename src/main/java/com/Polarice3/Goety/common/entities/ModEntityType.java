@@ -494,6 +494,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<HostileRedstoneGolem>> HOSTILE_REDSTONE_GOLEM = register("hostile_redstone_golem",
+            EntityType.Builder.of(HostileRedstoneGolem::new, MobCategory.MONSTER)
+                    .sized(2.7F, 3.9F)
+                    .fireImmune()
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<Vizier>> VIZIER = register("vizier",
             EntityType.Builder.of(Vizier::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)

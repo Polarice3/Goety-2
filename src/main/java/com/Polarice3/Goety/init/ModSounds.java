@@ -165,8 +165,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
+    public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
-    public static final RegistryObject<SoundEvent> SOUL_ARMOR = create("soul_armor");
+    public static final RegistryObject<SoundEvent> FLIGHT = create("flight");
+    public static final RegistryObject<SoundEvent> IRON_HIDE = create("soul_armor");
+    public static final RegistryObject<SoundEvent> SOUL_HEAL = create("soul_heal");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");

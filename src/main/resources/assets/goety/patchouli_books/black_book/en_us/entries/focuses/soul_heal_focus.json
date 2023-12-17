@@ -1,0 +1,15 @@
+{
+  "name": "Soul Heal Focus",
+  "icon": "goety:soul_heal_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This focus allows you to heal wounds through soul energy. However, the healing amount is not consistent, having a chance of healing a large portion or a little."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/soul_heal_focus"
+    }
+  ]
+}

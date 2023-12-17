@@ -173,6 +173,14 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<RisingCircleParticleOption>> SOUL_HEAL = PARTICLE_TYPES.register("soul_heal",
+            () -> new ParticleType<>(false, RisingCircleParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return RisingCircleParticleOption.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<SculkBubbleParticleOption>> SCULK_BUBBLE = PARTICLE_TYPES.register("sculk_bubble",
             () -> new ParticleType<>(false, SculkBubbleParticleOption.DESERIALIZER) {
                 @Override

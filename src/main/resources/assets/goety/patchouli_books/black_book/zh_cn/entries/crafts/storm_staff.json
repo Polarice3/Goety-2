@@ -1,0 +1,15 @@
+{
+  "name": "风暴魔杖",
+  "icon": "goety:storm_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "风暴和闪电的力量都蕴含其中。有了它，风暴法术不再受避雷针的影响。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_staff"
+    }
+  ]
+}

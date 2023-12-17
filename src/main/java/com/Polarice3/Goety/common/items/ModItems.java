@@ -18,11 +18,15 @@ import com.Polarice3.Goety.common.magic.spells.frost.HailSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceSpikeSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.BarricadeSpell;
+import com.Polarice3.Goety.common.magic.spells.geomancy.PulverizeSpell;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.common.magic.spells.nether.FireballSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.GhastSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.LavaballSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.WitherSkullSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.LightningSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.ShockingSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.ThunderboltSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.GlowLightSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.SoulLightSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.BlinkSpell;
@@ -129,6 +133,7 @@ public class ModItems {
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
     public static final RegistryObject<Item> BREW_BAG = ITEMS.register("brew_bag", BrewBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
+    public static final RegistryObject<Item> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
     public static final RegistryObject<Item> PENDANT_OF_ROT = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
@@ -165,7 +170,7 @@ public class ModItems {
     public static final RegistryObject<Item> FEAST_FOCUS = ITEMS.register("feast_focus", () -> new MagicFocus(new FeastSpell()));
     public static final RegistryObject<Item> TEETH_FOCUS = ITEMS.register("teeth_focus", () -> new MagicFocus(new TeethSpell()));
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
-//    public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
+    public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(new IllusionSpell()));
     public static final RegistryObject<Item> FIRE_BREATH_FOCUS = ITEMS.register("fire_breath_focus", () -> new MagicFocus(new FireBreathSpell()));
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
@@ -193,6 +198,7 @@ public class ModItems {
     public static final RegistryObject<Item> GLOW_LIGHT_FOCUS = ITEMS.register("glow_light_focus", () -> new MagicFocus(new GlowLightSpell()));
     public static final RegistryObject<Item> IRON_HIDE_FOCUS = ITEMS.register("iron_hide_focus", () -> new MagicFocus(new IronHideSpell()));
     public static final RegistryObject<Item> BULWARK_FOCUS = ITEMS.register("bulwark_focus", () -> new MagicFocus(new BulwarkSpell()));
+    public static final RegistryObject<Item> SOUL_HEAL_FOCUS = ITEMS.register("soul_heal_focus", () -> new MagicFocus(new SoulHealSpell()));
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(new ZombieSpell()));
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(new SkeletonSpell()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
@@ -227,6 +233,7 @@ public class ModItems {
     public static final RegistryObject<Item> OMINOUS_STAFF = ITEMS.register("ominous_staff", () -> new DarkStaff(MainConfig.OminousStaffDamage.get()));
     public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", () -> new DarkStaff(MainConfig.NecroStaffDamage.get()));
     public static final RegistryObject<Item> WIND_STAFF = ITEMS.register("wind_staff", () -> new DarkStaff(MainConfig.WindStaffDamage.get()));
+    public static final RegistryObject<Item> STORM_STAFF = ITEMS.register("storm_staff", () -> new DarkStaff(MainConfig.WindStaffDamage.get()));
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(MainConfig.NamelessStaffDamage.get()));
     public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);

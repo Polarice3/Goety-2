@@ -1,11 +1,11 @@
 {
-  "name": "雷霆聚晶",
+  "name": "Lightning Focus",
   "icon": "goety:lightning_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "最后，有了这个聚晶，你现在可以在敌人身上或某个地方召唤来自天堂的愤怒! 当不是用风之杖施放时，召唤的闪电将受到避雷针的影响."
+      "text": "终于，有了这个聚晶，你现在可以向敌人泼洒天堂之怒！ 如果没有使用风暴魔杖施法，那么雷电会被避雷针吸引。"
     },
     {
       "type": "goety:ritual",

@@ -24,6 +24,11 @@ public class FlyingSpell extends EverChargeSpells {
     }
 
     @Override
+    public SoundEvent loopSound() {
+        return ModSounds.FLIGHT.get();
+    }
+
+    @Override
     public SpellType getSpellType() {
         return SpellType.WIND;
     }

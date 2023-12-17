@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
+import com.Polarice3.Goety.client.audio.ItemLoopSound;
 import com.Polarice3.Goety.client.audio.LoopSound;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
@@ -17,6 +18,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
+import com.Polarice3.Goety.common.magic.EverChargeSpells;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
@@ -60,6 +62,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -99,6 +102,19 @@ public class ClientEvents {
     public static void clientTick(TickEvent.RenderTickEvent event){
         if (event.phase == TickEvent.Phase.START){
             PARTIAL_TICK = event.renderTickTime;
+        }
+    }
+
+    @SubscribeEvent
+    public static void onItemUse(LivingEntityUseItemEvent.Start event){
+        if (event.getEntity().level instanceof ClientLevel){
+            Minecraft minecraft = Minecraft.getInstance();
+            SoundManager soundHandler = minecraft.getSoundManager();
+            if (WandUtil.getSpell(event.getEntity()) instanceof EverChargeSpells spells){
+                if (spells.loopSound() != null) {
+                    soundHandler.play(new ItemLoopSound(spells.loopSound(), event.getEntity()));
+                }
+            }
         }
     }
 

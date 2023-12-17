@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneGolemAnimations;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneGolem;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -107,6 +108,18 @@ public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalMode
 			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 			this.animate(redstoneGolem.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);
+			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
+		} else if (entity instanceof HostileRedstoneGolem redstoneGolem){
+			if (!redstoneGolem.isSummoning() && !redstoneGolem.isDeadOrDying()){
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+			}
+			this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
+			this.animate(redstoneGolem.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
+			if (redstoneGolem.canAnimateMove()) {
+				this.animateWalk(RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			}
+			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
+			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
 		}
 	}

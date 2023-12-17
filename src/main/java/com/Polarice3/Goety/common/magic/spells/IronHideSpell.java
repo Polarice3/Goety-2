@@ -43,6 +43,6 @@ public class IronHideSpell extends Spells {
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving);
         }
         entityLiving.addEffect(new MobEffectInstance(GoetyEffects.IRON_HIDE.get(), MathHelper.minutesToTicks(duration), enchantment, false, false, true));
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SOUL_ARMOR.get(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.IRON_HIDE.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

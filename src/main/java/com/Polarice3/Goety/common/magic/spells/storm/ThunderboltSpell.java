@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells.wind;
+package com.Polarice3.Goety.common.magic.spells.storm;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -46,7 +46,7 @@ public class ThunderboltSpell extends Spells {
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.WIND;
+        return SpellType.STORM;
     }
 
     @Override

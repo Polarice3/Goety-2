@@ -1,0 +1,15 @@
+{
+  "name": "クッションフォーカス",
+  "icon": "goety:cushion_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "モブがその上に落ちると、すべての落下ダメージを無効にする雲を呼び出します。 クラウドは自動的に地面に位置します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/cushion_focus"
+    }
+  ]
+}

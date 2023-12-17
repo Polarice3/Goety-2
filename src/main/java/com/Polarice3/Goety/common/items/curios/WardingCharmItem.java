@@ -75,7 +75,7 @@ public class WardingCharmItem extends SingleStackItem{
                                     duration += this.getEnchantmentLevel(stack, ModEnchantments.DURATION.get());
                                 }
                                 player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_ARMOR.get(), MathHelper.minutesToTicks(duration), enchantment, false, false, true));
-                                worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.SOUL_ARMOR.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                                worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.IRON_HIDE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                             }
                         }
                     }

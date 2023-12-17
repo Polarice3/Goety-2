@@ -289,6 +289,19 @@ public class MobUtil {
         pEntity.hasImpulse = true;
     }
 
+    public static void forcePush(Entity pEntity, double pX, double pY, double pZ) {
+        if (pEntity instanceof Player player) {
+            if (MobUtil.playerValidity(player, false)) {
+                player.hurtMarked = true;
+                if (!player.level.isClientSide){
+                    player.setOnGround(false);
+                }
+            }
+        }
+        pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pX, pY, pZ));
+        pEntity.hasImpulse = true;
+    }
+
     public static void twister(Entity pEntity, double pX, double pY, double pZ){
         pEntity.setDeltaMovement(pX, pY, pZ);
         pEntity.hasImpulse = true;

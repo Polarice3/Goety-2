@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Finally, with this focus in your hands, you can now summon the fury of the heavens on a foe or a location! When not casted from Wind Staff, the summoned lightning will be affected by Lightning Rods."
+      "text": "Finally, with this focus in your hands, you can now summon the fury of the heavens on a foe or a location! When not casted from Storm Staff, the summoned lightning will be affected by Lightning Rods."
     },
     {
       "type": "goety:ritual",
