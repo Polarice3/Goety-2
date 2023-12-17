@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
+import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -64,6 +65,15 @@ public class WandUtil {
             }
         }
         return foundStack;
+    }
+
+    public static Spells getSpell(LivingEntity livingEntity){
+        if (WandUtil.findFocus(livingEntity).getItem() instanceof MagicFocus magicFocus){
+            if (magicFocus.getSpell() != null){
+                return magicFocus.getSpell();
+            }
+        }
+        return null;
     }
 
     public static boolean hasFocusInInv(@Nullable Player player){

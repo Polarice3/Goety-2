@@ -199,6 +199,10 @@ public class DarkWand extends Item {
         return spells.CastDuration() > 0;
     }
 
+    public boolean notTouch(Spells spells){
+        return !(spells instanceof TouchSpells) && !(spells instanceof BlockSpells);
+    }
+
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
@@ -335,7 +339,7 @@ public class DarkWand extends Item {
                         if (this.canCastTouch(stack, level, player)) {
                             blockSpells.blockResult(serverLevel, player, blockpos);
                         }
-                        return InteractionResult.sidedSuccess(level.isClientSide);
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }
@@ -404,7 +408,7 @@ public class DarkWand extends Item {
     @Nonnull
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         super.finishUsingItem(stack, worldIn, entityLiving);
-        if (!(this.getSpell(stack) instanceof ChargingSpells) || this.isNotInstant(this.getSpell(stack))){
+        if (!(this.getSpell(stack) instanceof ChargingSpells) || this.isNotInstant(this.getSpell(stack)) || this.notTouch(this.getSpell(stack))){
             this.MagicResults(stack, worldIn, entityLiving);
         }
         if (stack.getTag() != null) {
@@ -438,7 +442,7 @@ public class DarkWand extends Item {
                         playerIn.startUsingItem(handIn);
                     }
                 }
-            } else {
+            } else if (this.notTouch(this.getSpell(itemstack))){
                 playerIn.swing(handIn);
                 this.MagicResults(itemstack, worldIn, playerIn);
             }
@@ -527,31 +531,17 @@ public class DarkWand extends Item {
         }
     }
 
-    public Item getStaff(ItemStack stack){
-        return this.getSpell(stack).getSpellType().getStaff();
-    }
-
-    public boolean hasAppropriateStaff(ItemStack stack){
-        if (this.getStaff(stack) != null) {
-            if (this.getSpell(stack).getSpellType() == Spells.SpellType.NECROMANCY){
-                return stack.getItem() == this.getStaff(stack) || stack.getItem() == ModItems.NAMELESS_STAFF.get();
-            } else {
-                return stack.getItem() == this.getStaff(stack);
-            }
-        } else {
-            return false;
-        }
-    }
-
     public boolean canCastTouch(ItemStack stack, Level worldIn, LivingEntity caster){
         Player playerEntity = (Player) caster;
         if (!worldIn.isClientSide) {
             if (this.getSpell(stack) != null && !this.cannotCast(caster, stack)) {
                 if (playerEntity.isCreative()){
+                    SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
                     return stack.getTag() != null;
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (stack.getTag() != null) {
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
                         SEHelper.sendSEUpdatePacket(playerEntity);
                         return true;
                     }

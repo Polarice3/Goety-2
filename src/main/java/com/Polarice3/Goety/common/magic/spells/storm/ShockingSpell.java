@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.magic.spells.wind;
+package com.Polarice3.Goety.common.magic.spells.storm;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -36,7 +36,7 @@ public class ShockingSpell extends EverChargeSpells {
 
     @Override
     public SpellType getSpellType() {
-        return SpellType.WIND;
+        return SpellType.STORM;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range, boolean staff){

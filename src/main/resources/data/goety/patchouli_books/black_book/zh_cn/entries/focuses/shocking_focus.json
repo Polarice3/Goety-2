@@ -1,11 +1,11 @@
 {
-  "name": "震撼聚晶",
+  "name": "Shocking Focus",
   "icon": "goety:shocking_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "雷电的力量就流淌在你的魔杖之上，用以震撼所有妄图亵渎的生灵. 当不是从风之杖施放时，电力将流向最近的避雷针."
+      "text": "雷电的力量就流淌在你的魔杖之上 用以震撼任何胆敢靠近你的生物. 如果你不使用风暴魔杖进行施法，那么电会被避雷针吸引。"
     },
     {
       "type": "patchouli:crafting",

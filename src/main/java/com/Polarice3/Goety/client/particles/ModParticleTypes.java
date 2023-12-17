@@ -173,11 +173,11 @@ public class ModParticleTypes {
                 }
             });
 
-    public static final RegistryObject<ParticleType<ShoutParticleOption>> SHOUT = PARTICLE_TYPES.register("shout",
-            () -> new ParticleType<>(false, ShoutParticleOption.DESERIALIZER) {
+    public static final RegistryObject<ParticleType<RisingCircleParticleOption>> SOUL_HEAL = PARTICLE_TYPES.register("soul_heal",
+            () -> new ParticleType<>(false, RisingCircleParticleOption.DESERIALIZER) {
                 @Override
                 public Codec codec() {
-                    return ShoutParticleOption.CODEC;
+                    return RisingCircleParticleOption.CODEC;
                 }
             });
 

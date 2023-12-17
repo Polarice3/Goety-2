@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneGolemAnimations;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneGolem;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -109,6 +110,18 @@ public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalMode
 			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 			this.animate(redstoneGolem.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);
+			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
+		} else if (entity instanceof HostileRedstoneGolem redstoneGolem) {
+			if (!redstoneGolem.isSummoning() && !redstoneGolem.isDeadOrDying()){
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+			}
+			Vec3 velocity = redstoneGolem.getDeltaMovement();
+			float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
+			this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
+			this.animate(redstoneGolem.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
+			this.animate(redstoneGolem.walkAnimationState, RedstoneGolemAnimations.WALK, ageInTicks, groundSpeed * 20);
+			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
+			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
 		}
 	}

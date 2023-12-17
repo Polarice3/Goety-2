@@ -1,0 +1,16 @@
+{
+  "name": "Ring of the Dragon",
+  "icon": "goety:ring_of_the_dragon",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:end/dragon_breath",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Ring of the Dragon, when worn, powers up the breath spells, $(l:focuses/fire_breath_focus)Fire$() and $(l:focuses/frost_breath_focus)Frost$(), that not only increases their damage, but also affects the terrain itself!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_the_dragon"
+    }
+  ]
+}

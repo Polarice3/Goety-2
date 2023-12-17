@@ -101,7 +101,11 @@ public class ModFireball extends Fireball {
         if (!this.level.isClientSide) {
             Entity entity = this.getOwner();
             if (this.isDangerous()) {
-                if (((entity instanceof Player || (entity instanceof IOwned iOwned && iOwned.getTrueOwner() instanceof Player)) && SpellConfig.FireballGriefing.get()) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner())) {
+                boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
+                if (entity instanceof Player || (entity instanceof IOwned iOwned && iOwned.getTrueOwner() instanceof Player)){
+                    flag = SpellConfig.FireballGriefing.get();
+                }
+                if (flag) {
                     BlockPos blockpos = p_230299_1_.getBlockPos().relative(p_230299_1_.getDirection());
                     if (this.level.isEmptyBlock(blockpos)) {
                         this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));

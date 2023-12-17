@@ -108,6 +108,7 @@ public abstract class Spells {
         FROST("frost", null),
         GEOMANCY("geomancy", null),
         WIND("wind", ModItems.WIND_STAFF.get()),
+        STORM("storm", ModItems.STORM_STAFF.get()),
         VOID("void", null);
 
         private final Item staff;

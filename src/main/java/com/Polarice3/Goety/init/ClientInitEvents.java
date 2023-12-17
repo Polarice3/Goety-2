@@ -34,6 +34,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.*;
@@ -101,20 +102,19 @@ public class ClientInitEvents {
 
     @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event){
-        PlayerRenderer playerRenderer = event.getSkin("default");
-        if (playerRenderer != null){
-            playerRenderer.addLayer(new MagicShieldLayer<>(playerRenderer));
-            playerRenderer.addLayer(new PlayerSoulArmorLayer(playerRenderer, event.getEntityModels()));
-            playerRenderer.addLayer(new PlayerSoulShieldLayer(playerRenderer, event.getEntityModels()));
-            playerRenderer.addLayer(new PlayerSpellShieldLayer(playerRenderer, event.getEntityModels()));
-        }
-        PlayerRenderer playerRenderer2 = event.getSkin("slim");
-        if (playerRenderer2 != null){
-            playerRenderer2.addLayer(new MagicShieldLayer<>(playerRenderer2));
-            playerRenderer2.addLayer(new PlayerSoulArmorLayer(playerRenderer2, event.getEntityModels()));
-            playerRenderer2.addLayer(new PlayerSoulShieldLayer(playerRenderer2, event.getEntityModels()));
-            playerRenderer2.addLayer(new PlayerSpellShieldLayer(playerRenderer2, event.getEntityModels()));
-        }
+        event.getSkins().forEach(renderer -> {
+            PlayerRenderer playerRenderer = event.getSkin(renderer);
+            if (playerRenderer != null) {
+                addPlayerLayers(playerRenderer, event.getEntityModels());
+            }
+        });
+    }
+
+    private static void addPlayerLayers(PlayerRenderer renderer, EntityModelSet entityModelSet) {
+        renderer.addLayer(new MagicShieldLayer<>(renderer));
+        renderer.addLayer(new PlayerSoulArmorLayer(renderer, entityModelSet));
+        renderer.addLayer(new PlayerSoulShieldLayer(renderer, entityModelSet));
+        renderer.addLayer(new PlayerSpellShieldLayer(renderer, entityModelSet));
     }
 
     @SubscribeEvent
@@ -326,6 +326,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.PIKER.get(), PikerRenderer::new);
         event.registerEntityRenderer(ModEntityType.PREACHER.get(), PreacherRenderer::new);
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKULL_LORD.get(), SkullLordRenderer::new);
@@ -437,7 +438,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.register(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.SHOUT.get(), ShoutParticle.RedProvider::new);
+        event.register(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
     }

@@ -1,0 +1,15 @@
+{
+  "name": "Pulverize Focus",
+  "icon": "goety:pulverize_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Equipping this focus on a wand or staff allows you to pulverize certain blocks into cracked versions, or into gravel and then to sand, by right-clicking on a block."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/pulverize_focus"
+    }
+  ]
+}

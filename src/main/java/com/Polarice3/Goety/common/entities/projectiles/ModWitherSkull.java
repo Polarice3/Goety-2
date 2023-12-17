@@ -30,6 +30,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class ModWitherSkull extends ExplosiveProjectile {
    public float explosionPower = 1.0F;
+   public float damage = SpellConfig.WitherSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
    public ModWitherSkull(EntityType<? extends ExplosiveProjectile> p_37598_, Level p_37599_) {
       super(p_37598_, p_37599_);
@@ -69,7 +70,7 @@ public class ModWitherSkull extends ExplosiveProjectile {
                   enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
                }
             }
-            flag = entity.hurt(ModDamageSource.modWitherSkull(this, livingentity), 8.0F + enchantment);
+            flag = entity.hurt(ModDamageSource.modWitherSkull(this, livingentity), this.damage + enchantment);
             if (flag) {
                if (entity.isAlive()) {
                   this.doEnchantDamageEffects(livingentity, entity);
@@ -116,11 +117,9 @@ public class ModWitherSkull extends ExplosiveProjectile {
                }
             }
          }
-         Explosion.BlockInteraction explodeMode = Explosion.BlockInteraction.DESTROY;
-         if (!(this.getOwner() instanceof Player)) {
-            explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-         } else if (!SpellConfig.WitherSkullGriefing.get()){
-            explodeMode = Explosion.BlockInteraction.NONE;
+         Explosion.BlockInteraction explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+         if (this.getOwner() instanceof Player) {
+            explodeMode = SpellConfig.WitherSkullGriefing.get() ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
          }
          LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
          ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);

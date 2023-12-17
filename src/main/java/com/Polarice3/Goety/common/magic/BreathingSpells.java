@@ -19,9 +19,11 @@ public abstract class BreathingSpells extends EverChargeSpells{
 
     public abstract ParticleOptions getParticle();
 
-    public abstract void showWandBreath(LivingEntity entityLiving);
+    public ParticleOptions getDragonParticle(LivingEntity livingEntity){
+        return this.getParticle();
+    }
 
-    public abstract void showStaffBreath(LivingEntity entityLiving);
+    public abstract void showWandBreath(LivingEntity entityLiving);
 
     public void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
         this.breathAttack(entityLiving, 2, pVelocity, pSpread);
@@ -74,7 +76,7 @@ public abstract class BreathingSpells extends EverChargeSpells{
             double angle = 0.5D;
             Vec3 randomVec = new Vec3(entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle).normalize();
             Vec3 result = (look.normalize().scale(3.0D).add(randomVec)).normalize().scale(velocity);
-            entityLiving.level.addAlwaysVisibleParticle(getParticle(), px + dx, py + dy, pz + dz, result.x, result.y, result.z);
+            entityLiving.level.addAlwaysVisibleParticle(getDragonParticle(entityLiving), px + dx, py + dy, pz + dz, result.x, result.y, result.z);
         }
     }
 }

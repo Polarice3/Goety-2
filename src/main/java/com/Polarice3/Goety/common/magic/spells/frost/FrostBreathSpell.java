@@ -3,21 +3,30 @@ package com.Polarice3.Goety.common.magic.spells.frost;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.BreathingSpells;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 public class FrostBreathSpell extends BreathingSpells {
     public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
@@ -50,6 +59,32 @@ public class FrostBreathSpell extends BreathingSpells {
         }
         float damage = this.damage + enchantment;
         if (!worldIn.isClientSide) {
+            if (CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
+                damage *= 2.0F;
+                if (SpellConfig.DragonFrostGriefing.get()) {
+                    float flameRange = 15.0F * ((float) Math.PI / 180.0F);
+                    for (int i = 0; i < 3; i++) {
+                        Vec3 cast = entityLiving.getLookAngle().normalize().xRot(worldIn.random.nextFloat() * flameRange * 2 - flameRange).yRot(worldIn.random.nextFloat() * flameRange * 2 - flameRange);
+                        HitResult hitResult = worldIn.clip(new ClipContext(entityLiving.getEyePosition(), entityLiving.getEyePosition().add(cast.scale(10)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entityLiving));
+                        if (hitResult.getType() == HitResult.Type.BLOCK) {
+                            Vec3 pos = hitResult.getLocation().subtract(cast.scale(0.5D));
+                            BlockPos blockPos = new BlockPos(pos.x, pos.y, pos.z);
+                            if ((worldIn.getBlockState(blockPos).isAir() ||
+                                    (BlockFinder.canBeReplaced(worldIn, blockPos)
+                                            && worldIn.getFluidState(blockPos).isEmpty()))
+                                    && worldIn.getBlockState(blockPos.below()).isSolidRender(worldIn, blockPos.below())) {
+                                worldIn.setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());
+                            }
+                            BlockState blockstate = Blocks.FROSTED_ICE.defaultBlockState();
+                            boolean isFull = worldIn.getBlockState(blockPos).getBlock() == Blocks.WATER && worldIn.getBlockState(blockPos).getValue(LiquidBlock.LEVEL) == 0;
+                            if (worldIn.getBlockState(blockPos).getMaterial() == Material.WATER && isFull && blockstate.canSurvive(worldIn, blockPos) && worldIn.isUnobstructed(blockstate, blockPos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(entityLiving, net.minecraftforge.common.util.BlockSnapshot.create(worldIn.dimension(), worldIn, blockPos), net.minecraft.core.Direction.UP)) {
+                                worldIn.setBlockAndUpdate(blockPos, blockstate);
+                                worldIn.scheduleTick(blockPos, Blocks.FROSTED_ICE, Mth.nextInt(worldIn.getRandom(), 60, 120));
+                            }
+                        }
+                    }
+                }
+            }
             for (Entity target : getTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target instanceof LivingEntity livingTarget) {
@@ -79,10 +114,10 @@ public class FrostBreathSpell extends BreathingSpells {
                 range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
             }
         }
-        this.breathAttack(entityLiving, 0.3F + ((double) range / 10), 5);
-    }
-
-    @Override
-    public void showStaffBreath(LivingEntity entityLiving) {
+        if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
+            this.breathAttack(entityLiving, 0.3F + ((double) range / 10), 5);
+        } else {
+            this.dragonBreathAttack(entityLiving, 0.3F + ((double) range / 10));
+        }
     }
 }

@@ -51,7 +51,7 @@ public class GhastSpell extends SummonSpells {
     }
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
-        return ghastLimit(entityLiving) < 8;
+        return ghastLimit(entityLiving) < SpellConfig.GhastLimit.get();
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

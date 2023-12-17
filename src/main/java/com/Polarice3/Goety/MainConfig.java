@@ -58,6 +58,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WindStaffDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> StormStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
@@ -277,6 +278,8 @@ public class MainConfig {
                     .defineInRange("necroStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             WindStaffDamage = BUILDER.comment("How much base damage Wind Staffs deals, Default: 4.0")
                     .defineInRange("windStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+            StormStaffDamage = BUILDER.comment("How much base damage Storm Staffs deals, Default: 4.0")
+                    .defineInRange("stormStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")
                     .defineInRange("namelessStaffDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
