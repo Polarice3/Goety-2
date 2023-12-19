@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
-import com.Polarice3.Goety.common.items.ISoulRepair;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import net.minecraft.world.item.*;

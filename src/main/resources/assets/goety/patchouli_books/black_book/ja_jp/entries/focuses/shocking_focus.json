@@ -1,11 +1,11 @@
 {
-  "name": "ショッキングフォーカス",
+  "name": "ショッキングのフォーカス",
   "icon": "goety:shocking_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "あなたから電気の力が飛び出し、目の前の生き物を驚かせます。"
+      "text": "あなたから電気の力が飛び出し、目の前の生き物を驚かせます。 ストームスタッフからキャストされていない場合、電気は最も近い避雷針に向かって流れます。"
     },
     {
       "type": "patchouli:crafting",

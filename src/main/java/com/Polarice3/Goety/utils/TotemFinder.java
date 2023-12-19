@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.items.magic.IFocus;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
-import com.Polarice3.Goety.common.items.magic.MagicFocus;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +44,7 @@ public class TotemFinder {
             FocusBagItemHandler focusBagItemHandler = FocusBagItemHandler.get(findBag(player));
             for (int i = 1; i < focusBagItemHandler.getSlots(); ++i){
                 ItemStack itemStack = focusBagItemHandler.getStackInSlot(i);
-                if (itemStack.getItem() instanceof MagicFocus){
+                if (itemStack.getItem() instanceof IFocus){
                     foundStack = itemStack;
                 }
             }
@@ -58,7 +58,7 @@ public class TotemFinder {
             FocusBagItemHandler focusBagItemHandler = FocusBagItemHandler.get(findBag(player));
             for (int i = 1; i < focusBagItemHandler.getSlots(); ++i){
                 ItemStack itemStack = focusBagItemHandler.getStackInSlot(i);
-                if (itemStack.getItem() instanceof MagicFocus){
+                if (itemStack.getItem() instanceof IFocus){
                     ++num;
                 }
             }
@@ -79,7 +79,7 @@ public class TotemFinder {
     }
 
     private static boolean isTotem(ItemStack itemStack) {
-        return itemStack.getItem() instanceof TotemOfSouls;
+        return itemStack.getItem() instanceof ITotem;
     }
 
     public static ItemStack FindTotem(Player playerEntity){

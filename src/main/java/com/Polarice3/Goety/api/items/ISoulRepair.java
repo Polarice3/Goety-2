@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.api.items;
 
 import com.Polarice3.Goety.utils.ItemHelper;
 import net.minecraft.world.entity.Entity;

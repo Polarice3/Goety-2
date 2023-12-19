@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -74,22 +74,22 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
                     }
                 }
             }
-            if (this.item.getItem() instanceof TotemOfSouls) {
+            if (this.item.getItem() instanceof ITotem) {
                 assert this.item.getTag() != null;
-                return this.item.getTag().getInt(TotemOfSouls.SOULS_AMOUNT);
+                return this.item.getTag().getInt(ITotem.SOULS_AMOUNT);
             }
         }
         return 0;
     }
 
     public void decreaseSouls(int souls) {
-        if (this.item.getItem() instanceof TotemOfSouls) {
+        if (this.item.getItem() instanceof ITotem) {
             assert this.item.getTag() != null;
-            int Soulcount = this.item.getTag().getInt(TotemOfSouls.SOULS_AMOUNT);
+            int Soulcount = this.item.getTag().getInt(ITotem.SOULS_AMOUNT);
             if (!this.item.isEmpty()) {
                 if (Soulcount > 0){
                     Soulcount -= souls;
-                    this.item.getTag().putInt(TotemOfSouls.SOULS_AMOUNT, Soulcount);
+                    this.item.getTag().putInt(ITotem.SOULS_AMOUNT, Soulcount);
                     this.generateParticles();
                 }
             }

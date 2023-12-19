@@ -2,8 +2,7 @@ package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.MobsConfig;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -28,7 +27,7 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
 
     public boolean canUse() {
         boolean flag = super.canUse();
-        if (this.mob instanceof Owned owned){
+        if (this.mob instanceof IOwned owned){
             if (owned.getTrueOwner() != null && this.target == owned.getTrueOwner()){
                 return false;
             }
@@ -41,7 +40,7 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
 
     public static Predicate<LivingEntity> predicate(LivingEntity attacker){
         if (attacker instanceof IOwned ownedEntity){
-            if (ownedEntity.getTrueOwner() instanceof Enemy || ownedEntity instanceof Enemy || (ownedEntity instanceof Owned && ((Owned)ownedEntity).isHostile())){
+            if (ownedEntity.getTrueOwner() instanceof Enemy || (ownedEntity.getTrueOwner() instanceof IOwned owned && owned.isHostile()) || ownedEntity instanceof Enemy || ownedEntity.isHostile()){
                 return (target) -> target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
             } else {
                 return (target) ->
@@ -51,8 +50,8 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
                                 && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
                                 && !(target instanceof NeutralMob && ((ownedEntity.getTrueOwner() != null && ((NeutralMob) target).getTarget() != ownedEntity.getTrueOwner()) || ((NeutralMob) target).getTarget() != ownedEntity))
                                 && !(target instanceof IOwned && ownedEntity.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == ownedEntity.getTrueOwner()))
-                        || (target instanceof Owned owned
-                                && !(ownedEntity instanceof Owned && ((Owned)ownedEntity).isHostile())
+                        || (target instanceof IOwned owned
+                                && !(ownedEntity.isHostile())
                                 && owned.isHostile())
                         || (ownedEntity.getTrueOwner() instanceof Player player
                                 && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))

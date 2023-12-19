@@ -3,17 +3,16 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SAddBossPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -23,7 +22,6 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,8 +51,10 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.UUID;
 
 public class HostileRedstoneGolem extends HostileGolem implements IBoss {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(HostileRedstoneGolem.class, EntityDataSerializers.BYTE);
@@ -199,11 +199,6 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
             Goety.PROXY.removeBoss(this);
         }
         super.remove(p_146834_);
-    }
-
-    @Override
-    protected ResourceLocation getDefaultLootTable() {
-        return ModEntityType.REDSTONE_GOLEM.get().getDefaultLootTable();
     }
 
     @Override
@@ -694,36 +689,6 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
             HostileRedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
             HostileRedstoneGolem.this.summonCool = (int) MathHelper.secondsToTicks(10 + SUMMON_SECONDS_TIME);
             HostileRedstoneGolem.this.mineCount = 14;
-        }
-    }
-
-    public Crackiness getCrackiness() {
-        return Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
-    }
-
-    public enum Crackiness {
-        NONE(1.0F),
-        LOW(0.75F),
-        MEDIUM(0.5F),
-        HIGH(0.25F);
-
-        private static final List<Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
-            return (double)p_28904_.fraction;
-        })).collect(ImmutableList.toImmutableList());
-        private final float fraction;
-
-        Crackiness(float p_28900_) {
-            this.fraction = p_28900_;
-        }
-
-        public static Crackiness byFraction(float p_28902_) {
-            for(Crackiness irongolem$crackiness : BY_DAMAGE) {
-                if (p_28902_ < irongolem$crackiness.fraction) {
-                    return irongolem$crackiness;
-                }
-            }
-
-            return NONE;
         }
     }
 }

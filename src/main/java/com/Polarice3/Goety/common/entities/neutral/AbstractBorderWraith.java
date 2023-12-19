@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.api.entities.IBreathing;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.BreathingAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-public class AbstractBorderWraith extends AbstractWraith implements IBreathing{
+public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
     public Vec3 initial;
     public int breathTick;
 

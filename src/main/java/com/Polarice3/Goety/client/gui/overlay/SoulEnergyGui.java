@@ -2,8 +2,8 @@ package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.items.magic.TotemOfRoots;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;
@@ -42,9 +42,9 @@ public class SoulEnergyGui {
             SoulEnergyTotal = MainConfig.MaxArcaSouls.get();
         } else if (!stack.isEmpty()) {
             if (stack.getTag() != null) {
-                SoulEnergy = TotemOfSouls.currentSouls(stack);
-                if (stack.getTag().contains(TotemOfSouls.MAX_SOUL_AMOUNT)) {
-                    SoulEnergyTotal = TotemOfSouls.maximumSouls(stack);
+                SoulEnergy = ITotem.currentSouls(stack);
+                if (stack.getTag().contains(ITotem.MAX_SOUL_AMOUNT)) {
+                    SoulEnergyTotal = ITotem.maximumSouls(stack);
                 }
             }
         }

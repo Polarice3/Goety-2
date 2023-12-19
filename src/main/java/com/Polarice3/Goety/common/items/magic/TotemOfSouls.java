@@ -1,12 +1,11 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.CursedCageBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
@@ -27,10 +26,7 @@ import java.util.List;
 /**
  * Learned how to make Totem of Souls gain Soul Energy from codes by @Ipsis
  */
-public class TotemOfSouls extends Item {
-    public static final String SOULS_AMOUNT = "Souls";
-    public static final String MAX_SOUL_AMOUNT = "Max Souls";
-    public static final int MAX_SOULS = MainConfig.MaxSouls.get();
+public class TotemOfSouls extends Item implements ITotem {
 
     public TotemOfSouls() {
         super(new Properties().stacksTo(1).rarity(Rarity.RARE));
@@ -42,15 +38,15 @@ public class TotemOfSouls extends Item {
 
     public ItemStack getEmptyTotem(){
         ItemStack emptySouls = new ItemStack(this);
-        setSoulsamount(emptySouls, 0);
-        setMaxSoulAmount(emptySouls, this.getMaxSouls());
+        ITotem.setSoulsamount(emptySouls, 0);
+        ITotem.setMaxSoulAmount(emptySouls, this.getMaxSouls());
         return emptySouls;
     }
 
     public ItemStack getFilledTotem(){
         ItemStack maxSouls = new ItemStack(this);
-        setSoulsamount(maxSouls, this.getMaxSouls());
-        setMaxSoulAmount(maxSouls, this.getMaxSouls());
+        ITotem.setSoulsamount(maxSouls, this.getMaxSouls());
+        ITotem.setMaxSoulAmount(maxSouls, this.getMaxSouls());
         return maxSouls;
     }
 
@@ -76,8 +72,8 @@ public class TotemOfSouls extends Item {
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        setSoulsamount(pStack, 0);
-        setMaxSoulAmount(pStack, this.getMaxSouls());
+        ITotem.setSoulsamount(pStack, 0);
+        ITotem.setMaxSoulAmount(pStack, this.getMaxSouls());
         super.onCraftedBy(pStack, pLevel, pPlayer);
     }
 
@@ -87,7 +83,7 @@ public class TotemOfSouls extends Item {
         ItemStack container = itemStack.copy();
         if (container.getTag() != null) {
             if (container.getTag().getInt(SOULS_AMOUNT) > MainConfig.CraftingSouls.get()) {
-                TotemOfSouls.decreaseSouls(container, MainConfig.CraftingSouls.get());
+                ITotem.decreaseSouls(container, MainConfig.CraftingSouls.get());
                 return container;
             } else {
                 return new ItemStack(ModItems.SPENT_TOTEM.get());
@@ -99,105 +95,12 @@ public class TotemOfSouls extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (stack.getTag() == null){
-            CompoundTag compound = stack.getOrCreateTag();
-            compound.putInt(SOULS_AMOUNT, 0);
-            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
-        }
-        if (!stack.getTag().contains(MAX_SOUL_AMOUNT)){
-            CompoundTag compound = stack.getOrCreateTag();
-            compound.putInt(MAX_SOUL_AMOUNT, this.getMaxSouls());
-        }
-        if (stack.getTag().getInt(SOULS_AMOUNT) > stack.getTag().getInt(MAX_SOUL_AMOUNT)){
-            stack.getTag().putInt(SOULS_AMOUNT, stack.getTag().getInt(MAX_SOUL_AMOUNT));
-        }
-        if (stack.getTag().getInt(SOULS_AMOUNT) < 0){
-            stack.getTag().putInt(SOULS_AMOUNT, 0);
-        }
+        this.setTagTick(stack);
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     public static boolean isActivated(ItemStack itemStack){
         return itemStack.getTag() != null;
-    }
-
-    private static boolean isFull(ItemStack itemStack) {
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        int MaxSouls = itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        return Soulcount == MaxSouls;
-    }
-
-    private static boolean isEmpty(ItemStack itemStack) {
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        return Soulcount == 0;
-    }
-
-    public static boolean UndyingEffect(Player player){
-        ItemStack itemStack = TotemFinder.FindTotem(player);
-        if (!itemStack.isEmpty()) {
-            if (itemStack.getTag() != null) {
-                if (MainConfig.TotemUndying.get()) {
-                    return itemStack.getTag().getInt(SOULS_AMOUNT) == MAX_SOULS;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static int currentSouls(ItemStack itemStack){
-        if (itemStack.getTag() != null){
-            return itemStack.getTag().getInt(SOULS_AMOUNT);
-        } else {
-            return 0;
-        }
-    }
-
-    public static int maximumSouls(ItemStack itemStack){
-        if (itemStack.getTag() != null){
-            return itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        } else {
-            return 0;
-        }
-    }
-
-    public static void setSoulsamount(ItemStack itemStack, int souls){
-        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
-            return;
-        }
-        itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, souls);
-    }
-
-    public static void setMaxSoulAmount(ItemStack itemStack, int souls){
-        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
-            return;
-        }
-        itemStack.getOrCreateTag().putInt(MAX_SOUL_AMOUNT, souls);
-    }
-
-    public static void increaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
-            return;
-        }
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        if (!isFull(itemStack)) {
-            Soulcount += souls;
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, Soulcount);
-        }
-    }
-
-    public static void decreaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof TotemOfSouls)) {
-            return;
-        }
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        if (!isEmpty(itemStack)) {
-            Soulcount -= souls;
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, Soulcount);
-        }
     }
 
     @Override

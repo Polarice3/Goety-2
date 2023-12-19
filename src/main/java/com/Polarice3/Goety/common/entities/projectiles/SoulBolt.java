@@ -2,10 +2,10 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -190,7 +190,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
                 if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
                     return false;
                 }
-                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
                     return !MobUtil.ownerStack(owned0, owned1);
                 }
             }

@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.network.protocol.Packet;
@@ -88,15 +88,13 @@ public class Lavaball extends ExplosiveProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() instanceof Owned){
-            Owned owner = (Owned) this.getOwner();
-            if (pEntity instanceof Owned){
-                Owned entity = (Owned) pEntity;
-                if (owner.getTrueOwner() == entity.getTrueOwner()){
+        if (this.getOwner() instanceof IOwned owned){
+            if (pEntity instanceof IOwned owned1){
+                if (owned.getTrueOwner() == owned1.getTrueOwner()){
                     return false;
                 }
             }
-            if (owner.getTrueOwner() == pEntity){
+            if (owned.getTrueOwner() == pEntity){
                 return false;
             }
         }

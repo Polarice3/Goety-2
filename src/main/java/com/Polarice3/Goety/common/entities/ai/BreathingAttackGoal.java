@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.common.entities.neutral.IBreathing;
+import com.Polarice3.Goety.api.entities.IBreathing;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;

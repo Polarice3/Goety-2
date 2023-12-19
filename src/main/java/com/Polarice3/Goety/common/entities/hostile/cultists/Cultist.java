@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
-import com.Polarice3.Goety.common.entities.neutral.ICustomAttributes;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.api.entities.ICustomAttributes;
+import com.Polarice3.Goety.api.entities.IOwned;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -100,7 +100,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         } else if (entityIn instanceof AbstractPiglin){
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
-            return entityIn instanceof Owned && ((Owned) entityIn).getTrueOwner() instanceof Cultist;
+            return entityIn instanceof IOwned && ((IOwned) entityIn).getTrueOwner() instanceof Cultist;
         }
     }
 

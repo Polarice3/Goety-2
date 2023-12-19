@@ -166,6 +166,16 @@
           },
           {
             "items": [
+              "goety:bulwark_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:soul_heal_focus"
+            ]
+          },
+          {
+            "items": [
               "goety:rotting_focus"
             ]
           },

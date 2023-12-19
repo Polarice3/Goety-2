@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -15,7 +16,7 @@ public class TargetHostileOwnedGoal<T extends LivingEntity> extends NearestAttac
 
     public static Predicate<LivingEntity> predicate(){
         return (entity) ->
-                entity instanceof Owned
+                entity instanceof IOwned
                         && ((Owned) entity).isHostile();
     }
 }

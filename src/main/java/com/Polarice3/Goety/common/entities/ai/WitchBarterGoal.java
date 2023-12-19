@@ -62,7 +62,7 @@ public class WitchBarterGoal extends Goal {
                     if (this.witch instanceof Crone){
                         loottable = this.witch.level.getServer().getLootData().getLootTable(ModLootTables.CRONE_BARTER);
                     }
-                    List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withLuck(luck).create(LootContextParamSets.PIGLIN_BARTER));
+                    List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.witch.level)).withParameter(LootContextParams.THIS_ENTITY, this.witch).withParameter(LootContextParams.ORIGIN, this.witch.position()).withLuck(luck).create(LootContextParamSets.GIFT));
                     for(ItemStack itemstack : list) {
                         BehaviorUtils.throwItem(this.witch, itemstack, vec3.add(0.0D, 1.0D, 0.0D));
                     }

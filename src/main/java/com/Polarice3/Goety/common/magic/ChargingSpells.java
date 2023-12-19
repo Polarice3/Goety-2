@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.magic;
 
-public abstract class ChargingSpells extends Spells{
+import com.Polarice3.Goety.api.magic.IChargingSpell;
+
+public abstract class ChargingSpells extends Spells implements IChargingSpell {
 
     public abstract int Cooldown();
 

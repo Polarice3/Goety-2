@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.common.magic.Tremor;

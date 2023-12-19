@@ -1,12 +1,14 @@
 package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AllyIrk;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -27,6 +29,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class VexSpell extends SummonSpells {
@@ -56,6 +60,19 @@ public class VexSpell extends SummonSpells {
     @Override
     public SpellType getSpellType() {
         return SpellType.ILL;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        return list;
+    }
+
+    @Override
+    public ColorUtil particleColors(LivingEntity entityLiving) {
+        return new ColorUtil(0.7F, 0.7F, 0.8F);
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

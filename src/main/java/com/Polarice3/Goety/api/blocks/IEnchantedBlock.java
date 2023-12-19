@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.blocks.entities;
+package com.Polarice3.Goety.api.blocks;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.nbt.CompoundTag;

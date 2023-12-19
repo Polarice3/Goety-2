@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.wind;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.util.UpdraftBlast;
@@ -13,9 +14,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdraftSpell extends Spells {
 
@@ -39,6 +44,15 @@ public class UpdraftSpell extends Spells {
     @Override
     public SpellType getSpellType() {
         return SpellType.WIND;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.RANGE.get());
+        list.add(ModEnchantments.RADIUS.get());
+        return list;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range){

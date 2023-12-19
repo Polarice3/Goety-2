@@ -1,13 +1,13 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.items.magic.IFocus;
+import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.entities.neutral.TotemicBomb;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
-import com.Polarice3.Goety.common.items.magic.MagicFocus;
-import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -59,7 +59,7 @@ public class WandUtil {
         if (player != null) {
             for (int i = 0; i < player.getInventory().items.size(); ++i) {
                 ItemStack inSlot = player.getInventory().getItem(i);
-                if (inSlot.getItem() instanceof MagicFocus) {
+                if (inSlot.getItem() instanceof IFocus) {
                     foundStack = inSlot;
                 }
             }
@@ -67,8 +67,8 @@ public class WandUtil {
         return foundStack;
     }
 
-    public static Spells getSpell(LivingEntity livingEntity){
-        if (WandUtil.findFocus(livingEntity).getItem() instanceof MagicFocus magicFocus){
+    public static ISpell getSpell(LivingEntity livingEntity){
+        if (WandUtil.findFocus(livingEntity).getItem() instanceof IFocus magicFocus){
             if (magicFocus.getSpell() != null){
                 return magicFocus.getSpell();
             }

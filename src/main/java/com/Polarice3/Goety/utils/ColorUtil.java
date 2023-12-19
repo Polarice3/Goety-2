@@ -13,6 +13,13 @@ public class ColorUtil {
         this.alpha = alpha;
     }
 
+    public ColorUtil(float red, float green, float blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = 1.0F;
+    }
+
     public ColorUtil(int red, int green, int blue, float alpha) {
         this.red = red / 255.0F;
         this.green = green / 255.0F;

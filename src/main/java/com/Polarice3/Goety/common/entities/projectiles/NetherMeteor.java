@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -66,8 +67,8 @@ public class NetherMeteor extends ExplosiveProjectile {
     }
 
     protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() instanceof Owned owner){
-            if (pEntity instanceof Owned entity){
+        if (this.getOwner() instanceof IOwned owner){
+            if (pEntity instanceof IOwned entity){
                 if (owner.getTrueOwner() == entity.getTrueOwner()){
                     return false;
                 }
@@ -76,7 +77,7 @@ public class NetherMeteor extends ExplosiveProjectile {
                 return false;
             }
         }
-        if (pEntity instanceof Owned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
+        if (pEntity instanceof IOwned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
             return false;
         }
         return super.canHitEntity(pEntity);

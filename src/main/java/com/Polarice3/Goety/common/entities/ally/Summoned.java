@@ -1,9 +1,10 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -54,7 +55,7 @@ import java.util.EnumSet;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Summoned extends Owned {
+public class Summoned extends Owned implements IServant {
     protected static final EntityDataAccessor<Byte> SUMMONED_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("9c47949c-b896-4802-8e8a-f08c50791a8a");
     private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Staying speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
@@ -133,7 +134,8 @@ public class Summoned extends Owned {
                     this.commandPosEntity = null;
                     this.commandPos = null;
                 } else if (this.commandPos.closerToCenterThan(
-                        this.getControlledVehicle() != null ? this.getControlledVehicle().position() : this.position(), 1.25D)){
+                        this.getControlledVehicle() != null ? this.getControlledVehicle().position() : this.position(),
+                        this.getControlledVehicle() != null ? this.getControlledVehicle().getBbWidth() + 1.0D : this.getBbWidth() + 1.0D)){
                     if (this.commandPosEntity != null &&
                             this.getBoundingBox().inflate(1.25D).intersects(this.commandPosEntity.getBoundingBox())){
                         if (this.canRide(this.commandPosEntity)) {
@@ -347,10 +349,6 @@ public class Summoned extends Owned {
         this.setFlags(2, staying);
     }
 
-    public boolean isFollowing(){
-        return !this.isWandering() && !this.isStaying();
-    }
-
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setUpgraded(compound.getBoolean("Upgraded"));
@@ -435,18 +433,6 @@ public class Summoned extends Owned {
     public boolean isCommanded(){
         return this.commandPos != null;
     }
-
-/*    public InteractionResult mobInteract(Player p_21472_, InteractionHand p_21473_) {
-        if (!this.level.isClientSide) {
-            if (p_21472_.isCrouching() && p_21472_.getItemInHand(p_21473_).isEmpty()) {
-                if (this.isPassenger()) {
-                    this.stopRiding();
-                    return InteractionResult.SUCCESS;
-                }
-            }
-        }
-        return super.mobInteract(p_21472_, p_21473_);
-    }*/
 
     public static class FollowOwnerGoal extends Goal {
         private final Summoned summonedEntity;

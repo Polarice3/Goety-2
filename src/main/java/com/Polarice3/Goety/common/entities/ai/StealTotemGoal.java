@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class StealTotemGoal<T extends HuntingIllagerEntity> extends Goal {
     private static final Predicate<ItemEntity> ALLOWED_ITEMS = (itemEntity) -> !itemEntity.hasPickUpDelay()
             && itemEntity.isAlive()
-            && (itemEntity.getItem().getItem() instanceof TotemOfSouls || itemEntity.getItem().getItem() == Items.TOTEM_OF_UNDYING);
+            && (itemEntity.getItem().getItem() instanceof ITotem || itemEntity.getItem().getItem() == Items.TOTEM_OF_UNDYING);
     private final T mob;
 
     public StealTotemGoal(T p_i50572_2_) {

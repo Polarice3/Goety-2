@@ -80,6 +80,7 @@ public class ZombieRavager extends ModRavager {
         return ModSounds.ZOMBIE_RAVAGER_ROAR.get();
     }
 
+    @Override
     public void convertNewEquipment(Entity entity){
         if (!this.level.isClientSide) {
             if (entity instanceof Ravager) {

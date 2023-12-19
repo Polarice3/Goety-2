@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.items.armor;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.DarkArmorModel;
-import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

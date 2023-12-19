@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.blocks.IEnchantedBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SculkGrowerBlock;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -27,7 +28,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.List;
 
-public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchantedBlock{
+public class SculkGrowerBlockEntity extends ModBlockEntity implements IEnchantedBlock {
     private CursedCageBlockEntity cursedCageTile;
     private int growCharges = -1;
     private int decayTimer = 100;

@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.entities.neutral;
+package com.Polarice3.Goety.api.entities;
 
 /**
  * Customizable Attribute codes based from @AlexModGuy
