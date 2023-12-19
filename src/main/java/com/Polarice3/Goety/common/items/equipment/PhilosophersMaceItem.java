@@ -2,8 +2,8 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.ImmutableMultimap;

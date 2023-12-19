@@ -11,6 +11,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BulwarkSpell extends Spells {
     @Override
@@ -35,15 +39,23 @@ public class BulwarkSpell extends Spells {
 
     @Override
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        if (entityLiving instanceof Player player){
+        if (entityLiving instanceof Player player) {
             return SEHelper.getShields(player) <= 0;
         }
         return false;
     }
 
     @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        return list;
+    }
+
+    @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
-        if (entityLiving instanceof Player player){
+        if (entityLiving instanceof Player player) {
             int amount = SpellConfig.BulwarkShieldAmount.get();
             int duration = SpellConfig.BulwarkShieldTime.get();
             if (WandUtil.enchantedFocus(entityLiving)) {

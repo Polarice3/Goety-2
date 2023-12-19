@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -19,6 +20,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WraithSpell extends SummonSpells {
 
@@ -46,6 +51,14 @@ public class WraithSpell extends SummonSpells {
     @Override
     public SpellType getSpellType() {
         return SpellType.NECROMANCY;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        return list;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

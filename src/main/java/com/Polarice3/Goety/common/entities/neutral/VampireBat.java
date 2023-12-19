@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class VampireBat extends Bat implements IOwned{
+public class VampireBat extends Bat implements IOwned {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(VampireBat.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Optional<UUID>> TARGET_ID = SynchedEntityData.defineId(VampireBat.class, EntityDataSerializers.OPTIONAL_UUID);
     @Nullable
@@ -108,6 +110,15 @@ public class VampireBat extends Bat implements IOwned{
 
     public void setTrueOwner(LivingEntity livingEntity){
         this.setOwnerId(livingEntity.getUUID());
+    }
+
+    @Override
+    public void setHostile(boolean hostile) {
+    }
+
+    @Override
+    public boolean isHostile() {
+        return !(this.getTrueOwner() instanceof Player);
     }
 
     public LivingEntity getTarget() {

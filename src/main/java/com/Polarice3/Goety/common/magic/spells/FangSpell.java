@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -12,9 +14,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FangSpell extends Spells {
 
@@ -38,6 +44,24 @@ public class FangSpell extends Spells {
     @Override
     public SpellType getSpellType() {
         return SpellType.ILL;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.RANGE.get());
+        list.add(ModEnchantments.BURNING.get());
+        list.add(ModEnchantments.ABSORB.get());
+        if (SpellConfig.FangGainSouls.get() > 0){
+            list.add(ModEnchantments.SOUL_EATER.get());
+        }
+        return list;
+    }
+
+    @Override
+    public ColorUtil particleColors(LivingEntity entityLiving) {
+        return new ColorUtil(0.4F, 0.3F, 0.35F);
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){

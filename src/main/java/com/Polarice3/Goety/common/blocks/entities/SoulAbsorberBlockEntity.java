@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SoulAbsorberBlock;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.crafting.SoulAbsorberRecipes;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,12 +58,12 @@ public class SoulAbsorberBlockEntity extends ModBlockEntity implements Clearable
     private void work() {
         if (!this.itemStack.isEmpty()) {
             assert this.level != null;
-            if (this.itemStack.getItem() instanceof TotemOfSouls){
-                if (TotemOfSouls.currentSouls(this.itemStack) != 0){
+            if (this.itemStack.getItem() instanceof ITotem){
+                if (ITotem.currentSouls(this.itemStack) != 0){
                     this.cookingProgress++;
                     if (this.getArcaOwner() != null){
                         SEHelper.increaseSouls(this.getArcaOwner(), 1);
-                        TotemOfSouls.decreaseSouls(this.itemStack, 1);
+                        ITotem.decreaseSouls(this.itemStack, 1);
                     }
                 } else {
                     this.itemStack.shrink(1);

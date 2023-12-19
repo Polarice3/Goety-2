@@ -12,6 +12,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IronHideSpell extends Spells {
 
@@ -33,6 +37,14 @@ public class IronHideSpell extends Spells {
     @Override
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SPELL.get();
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        return list;
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){

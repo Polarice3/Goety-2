@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.entities.SoulAbsorberBlockEntity;
 import com.Polarice3.Goety.common.crafting.SoulAbsorberRecipes;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -66,8 +66,8 @@ public class SoulAbsorberBlock extends BaseEntityBlock implements SimpleWaterlog
 
                 return InteractionResult.CONSUME;
             }
-            if (itemstack.getItem() instanceof TotemOfSouls){
-                if (TotemOfSouls.currentSouls(itemstack) > 0){
+            if (itemstack.getItem() instanceof ITotem){
+                if (ITotem.currentSouls(itemstack) > 0){
                     if (!pLevel.isClientSide && burnerTileEntity.placeItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack, 9999)) {
                         return InteractionResult.SUCCESS;
                     }

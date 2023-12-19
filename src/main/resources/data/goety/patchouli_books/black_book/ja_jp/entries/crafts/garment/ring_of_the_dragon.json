@@ -1,0 +1,16 @@
+{
+  "name": "ドラゴンの指輪",
+  "icon": "goety:ring_of_the_dragon",
+  "category": "goety:crafts/garment",
+  "advancement": "minecraft:end/dragon_breath",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ドラゴンの指輪を着用すると、ブレス呪文 $(l:focuses/fire_breath_focus)炎$() と $(l:focuses/frost_breath_focus)氷$() がパワーアップし、ダメージが増加するだけでなく、 地形自体に影響を与えます！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_the_dragon"
+    }
+  ]
+}

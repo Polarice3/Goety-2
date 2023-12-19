@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.entities.neutral;
+package com.Polarice3.Goety.api.entities;
 
 import net.minecraft.world.entity.Entity;
 

@@ -1,0 +1,15 @@
+{
+  "name": "粉砕のフォーカス",
+  "icon": "goety:pulverize_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ワンドまたはスタッフにこのフォーカスを装備すると、ブロックを右クリックして、特定のブロックをひびの入ったバージョンに粉砕したり、砂利にしてから砂にすることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/pulverize_focus"
+    }
+  ]
+}

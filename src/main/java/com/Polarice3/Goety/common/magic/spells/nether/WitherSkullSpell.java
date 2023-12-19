@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.ModWitherSkull;
 import com.Polarice3.Goety.common.magic.Spells;
 import net.minecraft.server.level.ServerLevel;
@@ -8,7 +10,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WitherSkullSpell extends Spells {
 
@@ -35,6 +41,16 @@ public class WitherSkullSpell extends Spells {
     @Override
     public SpellType getSpellType() {
         return SpellType.NETHER;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        list.add(ModEnchantments.BURNING.get());
+        list.add(ModEnchantments.RADIUS.get());
+        return list;
     }
 
     @Override

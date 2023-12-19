@@ -32,22 +32,23 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     public void tick() {
         boolean flag = this.checkCage();
-        assert this.level != null;
-        if (!this.level.isClientSide) {
-            if (flag) {
-                if (!this.itemStack.isEmpty()) {
-                    int i = 1;
-                    if (!this.itemStack.getAllEnchantments().isEmpty()) {
-                        i += this.itemStack.getAllEnchantments().size();
+        if (this.level != null) {
+            if (!this.level.isClientSide) {
+                if (flag) {
+                    if (!this.itemStack.isEmpty()) {
+                        int i = 1;
+                        if (!this.itemStack.getAllEnchantments().isEmpty()) {
+                            i += this.itemStack.getAllEnchantments().size();
+                        }
+                        if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
+                            this.makeWorkParticles();
+                        }
                     }
-                    if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
-                        this.makeWorkParticles();
-                    }
+                    this.work();
                 }
-                this.work();
             }
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DarkAltarBlock.LIT, flag), 3);
         }
-        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DarkAltarBlock.LIT, flag), 3);
     }
 
     private void work() {
@@ -111,7 +112,7 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        if (this.level.getBlockEntity(this.worldPosition) != this) {
+        if (this.level == null || this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
             return pPlayer.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
@@ -138,15 +139,13 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     private void makeWorkParticles() {
         BlockPos blockpos = this.getBlockPos();
-        ServerLevel serverLevel = (ServerLevel) this.level;
-
-        if (serverLevel != null) {
+        if (this.level instanceof ServerLevel serverLevel) {
             long t = serverLevel.getGameTime();
             if (t % 20 == 0) {
                 for (int p = 0; p < 6; ++p) {
-                    double d0 = (double)blockpos.getX() + serverLevel.random.nextDouble();
-                    double d1 = (double)blockpos.getY() + serverLevel.random.nextDouble();
-                    double d2 = (double)blockpos.getZ() + serverLevel.random.nextDouble();
+                    double d0 = (double) blockpos.getX() + serverLevel.random.nextDouble();
+                    double d1 = (double) blockpos.getY() + serverLevel.random.nextDouble();
+                    double d2 = (double) blockpos.getZ() + serverLevel.random.nextDouble();
                     serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, d0, d1, d2, 1, 0, 0, 0, 0);
                 }
             }
@@ -154,32 +153,31 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
     }
 
     public boolean placeItem(ItemStack pStack) {
-        if (this.itemStack.isEmpty()) {
-            this.itemStack = pStack.split(1);
-            assert this.level != null;
-            this.level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 1.0F, 0.5F);
-            this.markUpdated();
-            return true;
+        if (this.level != null) {
+            if (this.itemStack.isEmpty()) {
+                this.itemStack = pStack.split(1);
+                this.level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 1.0F, 0.5F);
+                this.markUpdated();
+                return true;
+            }
         }
 
         return false;
     }
 
     private boolean checkCage() {
-        assert this.level != null;
-        BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
-        BlockState blockState = this.level.getBlockState(pos);
-        if (blockState.is(ModBlocks.CURSED_CAGE_BLOCK.get())){
-            BlockEntity tileentity = this.level.getBlockEntity(pos);
-            if (tileentity instanceof CursedCageBlockEntity){
-                this.cursedCageTile = (CursedCageBlockEntity) tileentity;
-                return !cursedCageTile.getItem().isEmpty();
-            } else {
-                return false;
+        if (this.level != null) {
+            BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
+            BlockState blockState = this.level.getBlockState(pos);
+            if (blockState.is(ModBlocks.CURSED_CAGE_BLOCK.get())) {
+                BlockEntity tileentity = this.level.getBlockEntity(pos);
+                if (tileentity instanceof CursedCageBlockEntity) {
+                    this.cursedCageTile = (CursedCageBlockEntity) tileentity;
+                    return !cursedCageTile.getItem().isEmpty();
+                }
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void readNetwork(CompoundTag compoundNBT) {
@@ -208,10 +206,13 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        if (!pItemStack.isDamaged() && !pItemStack.isRepairable()) return false;
-        if (this.cursedCageTile == null) return false;
-        assert this.level != null;
-        return !this.level.isClientSide && this.placeItem(pItemStack);
+        if (!pItemStack.isDamaged() && !pItemStack.isRepairable()) {
+            return false;
+        }
+        if (this.cursedCageTile == null) {
+            return false;
+        }
+        return this.level != null && !this.level.isClientSide && this.placeItem(pItemStack);
     }
 
     @Override

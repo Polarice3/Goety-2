@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.entities.hostile;
+package com.Polarice3.Goety.api.entities.hostile;
 
 import java.util.UUID;
 

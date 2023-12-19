@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.handler;
 
-import com.Polarice3.Goety.common.items.magic.MagicFocus;
+import com.Polarice3.Goety.api.items.magic.IFocus;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -36,7 +36,7 @@ public class FocusBagItemHandler extends ItemStackHandler {
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack)
     {
-        return stack.getItem() instanceof MagicFocus;
+        return stack.getItem() instanceof IFocus;
     }
 
     @Override

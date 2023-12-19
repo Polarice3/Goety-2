@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.common.entities.projectiles.ScytheSlash;
-import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.CScytheStrikePacket;

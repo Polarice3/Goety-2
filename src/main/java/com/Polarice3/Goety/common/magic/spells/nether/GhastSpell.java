@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
@@ -20,6 +21,10 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GhastSpell extends SummonSpells {
     private final TargetingConditions ghastCountTargeting = TargetingConditions.DEFAULT.range(64.0D).ignoreInvisibilityTesting();
@@ -52,6 +57,14 @@ public class GhastSpell extends SummonSpells {
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
         return ghastLimit(entityLiving) < SpellConfig.GhastLimit.get();
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.DURATION.get());
+        return list;
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

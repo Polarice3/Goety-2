@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SSetPlayerOwnerPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -42,6 +43,11 @@ public class IllusionSpell extends Spells {
     @Override
     public int SpellCooldown() {
         return SpellConfig.IllusionCoolDown.get();
+    }
+
+    @Override
+    public ColorUtil particleColors(LivingEntity entityLiving) {
+        return new ColorUtil(0.3F, 0.3F, 0.8F);
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {

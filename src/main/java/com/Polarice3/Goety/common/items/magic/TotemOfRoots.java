@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -17,7 +18,7 @@ public class TotemOfRoots extends TotemOfSouls{
         ItemStack container = itemStack.copy();
         if (container.getTag() != null) {
             if (container.getTag().getInt(SOULS_AMOUNT) > MainConfig.CraftingSouls.get()) {
-                TotemOfSouls.decreaseSouls(container, MainConfig.CraftingSouls.get());
+                ITotem.decreaseSouls(container, MainConfig.CraftingSouls.get());
                 return container;
             } else {
                 return ItemStack.EMPTY;

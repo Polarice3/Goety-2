@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.magic.BlockSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ItemHelper;

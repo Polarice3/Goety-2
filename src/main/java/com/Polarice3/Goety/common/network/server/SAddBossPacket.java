@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.network.server;
 
-import com.Polarice3.Goety.common.entities.hostile.IBoss;
+import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;

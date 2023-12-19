@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.IEnchantedBlock;
 import com.Polarice3.Goety.client.particles.SculkBubbleParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SculkConverterBlock;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.phys.Vec3;
 
-public class SculkConverterBlockEntity extends ModBlockEntity implements IEnchantedBlock{
+public class SculkConverterBlockEntity extends ModBlockEntity implements IEnchantedBlock {
     private final SculkSpreader sculkSpreader = SculkSpreader.createLevelSpreader();
     private BlockPos nearbyRelay;
     private CursedCageBlockEntity cursedCageTile;

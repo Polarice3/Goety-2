@@ -4,6 +4,9 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
@@ -22,13 +25,11 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
-import com.Polarice3.Goety.common.items.ISoulRepair;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
@@ -207,7 +208,7 @@ public class ModEvents {
     public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         Level world = event.getLevel();
-        if (entity instanceof LivingEntity && !world.isClientSide()) {
+        if (entity instanceof LivingEntity livingEntity && !world.isClientSide()) {
             if (entity instanceof Player player) {
                 SEHelper.sendSEUpdatePacket(player);
                 LichdomHelper.sendLichUpdatePacket(player);
@@ -218,10 +219,10 @@ public class ModEvents {
             if (entity instanceof AbstractGolem golemEntity && !(entity instanceof Enemy)){
                 golemEntity.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(golemEntity, Owned.class));
             }
-            if (entity instanceof Owned owned){
+            if (entity instanceof IOwned owned){
                 if (owned instanceof RedstoneGolem || owned instanceof GraveGolem){
                     if (owned.getTrueOwner() instanceof Player player){
-                        SEHelper.addSummon(player, owned);
+                        SEHelper.addSummon(player, livingEntity);
                     }
                 }
             }
@@ -465,37 +466,37 @@ public class ModEvents {
                 }
             }
             for (Entity entity : serverLevel.getAllEntities()){
-                if (entity instanceof Owned summonedEntity){
-                    if (summonedEntity.getTrueOwner() == player && summonedEntity.isAlive()){
+                if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
+                    if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
                         if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
                             ++zombies;
                             if (zombies > SpellConfig.ZombieLimit.get()){
-                                if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                if (livingEntity.tickCount % 20 == 0){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
                                 }
                             }
                         }
                         if (summonedEntity instanceof AbstractSkeletonServant){
                             ++skeletons;
                             if (skeletons > SpellConfig.SkeletonLimit.get()){
-                                if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                if (livingEntity.tickCount % 20 == 0){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
                                 }
                             }
                         }
                         if (summonedEntity instanceof AbstractWraith){
                             ++wraith;
                             if (wraith > SpellConfig.WraithLimit.get()){
-                                if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/4);
+                                if (livingEntity.tickCount % 20 == 0){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
                                 }
                             }
                         }
                         if (summonedEntity instanceof HauntedSkull){
                             ++skull;
                             if (skull > SpellConfig.SkullLimit.get()){
-                                if (summonedEntity.tickCount % 20 == 0){
-                                    summonedEntity.hurt(DamageSource.STARVE, summonedEntity.getMaxHealth()/2);
+                                if (livingEntity.tickCount % 20 == 0){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
                                 }
                             }
                         }
@@ -907,9 +908,9 @@ public class ModEvents {
             }
             if (event.getTarget().isVehicle() && player.isCrouching()){
                 Entity entity = event.getTarget().getControllingPassenger();
-                if (entity instanceof Summoned summoned){
+                if (entity instanceof IServant summoned){
                     if (summoned.getTrueOwner() == player){
-                        summoned.stopRiding();
+                        entity.stopRiding();
                     }
                 }
             }
@@ -962,7 +963,7 @@ public class ModEvents {
         if (direct instanceof AbstractArrow arrowEntity){
             if (arrowEntity.getTags().contains(ConstantPaths.rainArrow()) || arrowEntity.getOwner() instanceof Apostle){
                 if (arrowEntity.getOwner() != null) {
-                    if (victim instanceof Owned ownedEntity) {
+                    if (victim instanceof IOwned ownedEntity) {
                         if (ownedEntity.getTrueOwner() != null) {
                             if (ownedEntity.getTrueOwner() == arrowEntity.getOwner()) {
                                 event.setCanceled(true);
@@ -985,12 +986,12 @@ public class ModEvents {
     @SubscribeEvent
     public static void PlayerAttackEvent(AttackEntityEvent event){
         if (event.getTarget() instanceof IOwned iOwned){
-            if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof Owned owned && owned.getTrueOwner() == event.getEntity())) {
+            if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == event.getEntity())) {
                 if (SpellConfig.OwnerHitCommand.get()) {
                     if (event.getEntity().getMainHandItem().getItem() instanceof DarkWand) {
-                        if (iOwned instanceof Summoned summonedEntity) {
+                        if (iOwned instanceof IServant summonedEntity) {
                             if (event.getEntity().isShiftKeyDown() || event.getEntity().isCrouching()) {
-                                summonedEntity.kill();
+                                event.getTarget().kill();
                             } else {
                                 if (summonedEntity.canUpdateMove()) {
                                     summonedEntity.updateMoveMode(event.getEntity());

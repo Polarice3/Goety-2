@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:barter",
+  "type": "minecraft:gift",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -114,8 +114,8 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "decoration": "mansion",
               "function": "minecraft:exploration_map",
+              "decoration": "mansion",
               "destination": "goety:explorer_maps/blighted_shack",
               "skip_existing_chunks": true,
               "zoom": 1

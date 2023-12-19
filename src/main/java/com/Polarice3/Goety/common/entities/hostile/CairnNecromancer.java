@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
@@ -78,8 +78,8 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
     public class SummonServantSpell extends SummoningSpellGoal {
 
         public boolean canUse() {
-            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof Owned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
-            int i = CairnNecromancer.this.level.getEntitiesOfClass(Owned.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
+            Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
+            int i = CairnNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
             return super.canUse() && i < 2;
         }

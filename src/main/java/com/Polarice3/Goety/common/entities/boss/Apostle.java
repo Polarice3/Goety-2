@@ -4,6 +4,7 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -13,7 +14,6 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
@@ -992,7 +992,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             }
         }
         for (LivingEntity living : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(32))){
-            if (!(living instanceof Cultist) && !(living instanceof Witch) && !(living instanceof Owned && ((Owned) living).getTrueOwner() == this)){
+            if (!(living instanceof Cultist) && !(living instanceof Witch) && !(living instanceof IOwned && ((Owned) living).getTrueOwner() == this)){
                 if (living.isInWater()){
                     living.hurt(DamageSource.HOT_FLOOR, 1.0F);
                 }

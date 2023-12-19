@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.client.gui.radial.*;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
-import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.focus.CAddFocusToBagPacket;
 import com.Polarice3.Goety.common.network.client.focus.CAddFocusToInventoryPacket;
@@ -207,7 +207,7 @@ public class FocusRadialMenuScreen extends Screen {
                 }
                 for (int i = 0; i < player.getInventory().items.size(); i++) {
                     ItemStack inSlot = player.getInventory().getItem(i);
-                    if (inSlot.getItem() instanceof MagicFocus) {
+                    if (inSlot.getItem() instanceof IFocus) {
                         ItemStackRadialMenuItem item = new ItemStackRadialMenuItem(menu, i, inSlot, Component.translatable("tooltip.goety.focusBag.empty")) {
                             @Override
                             public boolean onClick() {

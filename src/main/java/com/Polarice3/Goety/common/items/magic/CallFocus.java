@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.void_spells.CallSpell;
@@ -42,12 +42,12 @@ public class CallFocus extends MagicFocus{
 
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity entity, InteractionHand hand) {
         if (stack.getItem() instanceof CallFocus) {
-            if (entity instanceof Owned owned){
+            if (entity instanceof IOwned owned){
                 if (owned.getTrueOwner() == playerIn){
                     if (!hasSummon(stack)) {
                         ItemStack itemStack = new ItemStack(ModItems.CALL_FOCUS.get());
                         CompoundTag compoundTag = itemStack.getOrCreateTag();
-                        setSummon(compoundTag, owned);
+                        setSummon(compoundTag, entity);
                         itemStack.setTag(compoundTag);
                         playerIn.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                         ModNetwork.sendToALL(new SPlayEntitySoundPacket(playerIn.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));

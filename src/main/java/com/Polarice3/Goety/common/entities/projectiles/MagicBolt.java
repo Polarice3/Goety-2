@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.util.MagicGround;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -115,7 +115,7 @@ public class MagicBolt extends AbstractHurtingProjectile {
                 if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
                     return false;
                 }
-                if (pEntity instanceof Owned owned0 && this.getOwner() instanceof Owned owned1){
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
                     return !MobUtil.ownerStack(owned0, owned1);
                 }
             }

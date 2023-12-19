@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.entities.ICustomAttributes;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -38,7 +40,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
-public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICustomAttributes{
+public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICustomAttributes {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> HOSTILE = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
@@ -65,6 +67,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
             if (this.getTrueOwner() instanceof Enemy){
                 this.setHostile(true);
             }
+            if (this.getTrueOwner() instanceof IOwned owned){
+                if (owned.isHostile()){
+                    this.setHostile(true);
+                }
+            }
             if (this instanceof Enemy){
                 this.setHostile(true);
             }
@@ -81,7 +88,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public void tick(){
         super.tick();
-        if (this.getTarget() instanceof Owned ownedEntity){
+        if (this.getTarget() instanceof IOwned ownedEntity){
             if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())){
                 this.setTarget(null);
                 if (this.getLastHurtByMob() == ownedEntity){
@@ -101,8 +108,8 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 }
             }
         }
-        if (this.getTrueOwner() instanceof Owned owned){
-            if (owned.isDeadOrDying() || !owned.isAlive()){
+        if (this.getTrueOwner() instanceof IOwned owned){
+            if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()){
                 if (owned.getTrueOwner() != null){
                     this.setTrueOwner(owned.getTrueOwner());
                 } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()){
@@ -172,7 +179,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         if (this.getTrueOwner() != null) {
             LivingEntity trueOwner = this.getTrueOwner();
             return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner
-                    || (entityIn instanceof Owned owned && MobUtil.ownerStack(this, owned))
+                    || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
                     || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner);
         }
         return super.isAlliedTo(entityIn);
@@ -239,6 +246,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         this.limitedLifeTicks = limitedLifeTicksIn;
     }
 
+    @Override
     public void convertNewEquipment(Entity entity){
         this.populateDefaultEquipmentSlots(this.random, this.level.getCurrentDifficultyAt(this.blockPosition()));
     }

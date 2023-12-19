@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.commands;
 
 import com.Polarice3.Goety.MobsConfig;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -388,7 +388,7 @@ public class GoetyCommand {
                         mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
-                        if (mob instanceof Owned owned){
+                        if (mob instanceof IOwned owned){
                             owned.setHostile(true);
                         } else {
                             mob.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(mob, Player.class, true));

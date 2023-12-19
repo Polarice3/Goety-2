@@ -2,16 +2,15 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
-import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
@@ -74,7 +73,7 @@ public class SEHelper {
             SEHelper.setSESouls(player, souls);
             SEHelper.sendSEUpdatePacket(player);
         } else if (!TotemFinder.FindTotem(player).isEmpty()){
-            TotemOfSouls.setSoulsamount(TotemFinder.FindTotem(player), souls);
+            ITotem.setSoulsamount(TotemFinder.FindTotem(player), souls);
         }
     }
 
@@ -112,7 +111,7 @@ public class SEHelper {
         if (SEHelper.getSEActive(player) && SEHelper.getSESouls(player) >= souls){
             return true;
         } else {
-            return !TotemFinder.FindTotem(player).isEmpty() && TotemOfSouls.currentSouls(TotemFinder.FindTotem(player)) >= souls && !SEHelper.getSEActive(player);
+            return !TotemFinder.FindTotem(player).isEmpty() && ITotem.currentSouls(TotemFinder.FindTotem(player)) >= souls && !SEHelper.getSEActive(player);
         }
     }
 
@@ -120,14 +119,14 @@ public class SEHelper {
         if (SEHelper.getSEActive(player)){
             return SEHelper.getSESouls(player);
         } else if (!TotemFinder.FindTotem(player).isEmpty()){
-            return TotemOfSouls.currentSouls(TotemFinder.FindTotem(player));
+            return ITotem.currentSouls(TotemFinder.FindTotem(player));
         }
         return 0;
     }
 
     public static int getSoulGiven(LivingEntity victim){
         if (victim != null){
-            boolean flag = victim instanceof Owned && !(victim instanceof Enemy) && !victim.isBaby();
+            boolean flag = victim instanceof IOwned && !(victim instanceof Enemy) && !victim.isBaby();
             if (!flag) {
                 if (victim.getMobType() == MobType.UNDEAD) {
                     return MainConfig.UndeadSouls.get();
@@ -194,7 +193,7 @@ public class SEHelper {
         } else {
             ItemStack foundStack = TotemFinder.FindTotem(player);
             if (foundStack != null){
-                TotemOfSouls.increaseSouls(foundStack, souls);
+                ITotem.increaseSouls(foundStack, souls);
             }
         }
     }
@@ -220,7 +219,7 @@ public class SEHelper {
         } else {
             ItemStack foundStack = TotemFinder.FindTotem(player);
             if (foundStack != null){
-                TotemOfSouls.decreaseSouls(foundStack, souls);
+                ITotem.decreaseSouls(foundStack, souls);
             }
         }
     }

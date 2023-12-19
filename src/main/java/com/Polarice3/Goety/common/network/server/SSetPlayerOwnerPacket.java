@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.network.server;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.neutral.IOwned;
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

@@ -1,8 +1,9 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ally.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
@@ -790,7 +791,7 @@ public class MobUtil {
                             if (!originalMob.isSilent()) {
                                 serverLevel.levelEvent((Player)null, 1026, originalMob.blockPosition(), 0);
                             }
-                        } else if (newEquip && newMob instanceof Owned owned){
+                        } else if (newEquip && newMob instanceof IOwned owned){
                             owned.convertNewEquipment(originalEntity);
                         }
                     }
@@ -817,14 +818,14 @@ public class MobUtil {
         } else if (entity instanceof AbstractHorse horse){
             horse.setTamed(true);
             horse.setOwnerUUID(player.getUUID());
-        } else if (entity instanceof Owned summonedEntity) {
-            summonedEntity.setPersistenceRequired();
+        } else if (entity instanceof IOwned summonedEntity && entity instanceof Mob mob) {
+            mob.setPersistenceRequired();
             summonedEntity.setOwnerId(player.getUUID());
-            if (summonedEntity instanceof Summoned summoned){
+            if (summonedEntity instanceof IServant summoned){
                 summoned.setWandering(false);
             }
             if (summonedEntity instanceof RedstoneGolem || summonedEntity instanceof GraveGolem){
-                SEHelper.addSummon(player, summonedEntity);
+                SEHelper.addSummon(player, mob);
             }
         }
     }
@@ -899,7 +900,7 @@ public class MobUtil {
     /**
      * Mind Bending, lol.
      */
-    public static boolean ownerStack(Owned owned0, Owned owned1){
+    public static boolean ownerStack(IOwned owned0, IOwned owned1){
         LivingEntity masterOwner0 = owned0.getMasterOwner();
         LivingEntity masterOwner1 = owned1.getMasterOwner();
         LivingEntity trueOwner0 = owned0.getTrueOwner();
