@@ -24,17 +24,17 @@ import java.util.List;
 public class SoulBoltSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.SoulBoltCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.SoulBoltDuration.get();
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.SoulBoltCoolDown.get();
     }
 

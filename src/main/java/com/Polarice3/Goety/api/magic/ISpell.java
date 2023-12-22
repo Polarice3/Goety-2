@@ -1,9 +1,15 @@
 package com.Polarice3.Goety.api.magic;
 
+import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.MagicHatItem;
+import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -12,16 +18,47 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public interface ISpell {
-    int SoulCost();
+    int defaultSoulCost();
 
-    int CastDuration();
+    default int soulCost(LivingEntity entityLiving){
+        return SoulCalculation(entityLiving);
+    }
+
+    default int SoulCalculation(LivingEntity entityLiving){
+        if (SoulDiscount(entityLiving)){
+            return defaultSoulCost() / 2;
+        } else if (FrostSoulDiscount(entityLiving) && this.getSpellType() == SpellType.FROST){
+            return defaultSoulCost() / 2;
+        } else if (WindSoulDiscount(entityLiving) && this.getSpellType() == SpellType.WIND){
+            return defaultSoulCost() / 2;
+        } else if (GeoSoulDiscount(entityLiving) && this.getSpellType() == SpellType.GEOMANCY){
+            return defaultSoulCost() / 2;
+        } else {
+            return defaultSoulCost() * SoulCostUp(entityLiving);
+        }
+    }
+
+    int defaultCastDuration();
+
+    default int castDuration(LivingEntity entityLiving){
+        if (ReduceCastTime(entityLiving)){
+            return defaultCastDuration() / 2;
+        } else {
+            return defaultCastDuration();
+        }
+    }
 
     SoundEvent CastingSound();
 
-    int SpellCooldown();
+    int defaultSpellCooldown();
+
+    default int spellCooldown(){
+        return defaultSpellCooldown();
+    }
 
     void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 
@@ -63,5 +100,42 @@ public interface ISpell {
         Vec3 destVec = srcVec.add(lookVec.x * range, lookVec.y * range, lookVec.z * range);
         AABB axisalignedbb = livingEntity.getBoundingBox().expandTowards(lookVec.scale(range)).inflate(radius, radius, radius);
         return ProjectileUtil.getEntityHitResult(worldIn, livingEntity, srcVec, destVec, axisalignedbb, entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable());
+    }
+
+    default boolean ReduceCastTime(LivingEntity entityLiving){
+        if (this.getSpellType() == SpellType.NECROMANCY){
+            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get()) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+        } else {
+            return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+        }
+    }
+
+    @Nullable
+    default MobEffectInstance summonDownEffect(LivingEntity livingEntity){
+        return livingEntity.getEffect(GoetyEffects.SUMMON_DOWN.get());
+    }
+
+    default int SoulCostUp(LivingEntity entityLiving){
+        MobEffectInstance mobEffectInstance = summonDownEffect(entityLiving);
+        if (mobEffectInstance != null){
+            return mobEffectInstance.getAmplifier() + 2;
+        }
+        return 1;
+    }
+
+    default boolean SoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicRobeItem);
+    }
+
+    default boolean FrostSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.FROST_ROBE.get());
+    }
+
+    default boolean WindSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.WIND_ROBE.get());
+    }
+
+    default boolean GeoSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.AMETHYST_NECKLACE.get());
     }
 }

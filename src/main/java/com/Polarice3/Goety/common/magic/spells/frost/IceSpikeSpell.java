@@ -18,12 +18,12 @@ import java.util.List;
 
 public class IceSpikeSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.IceSpikeCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.IceSpikeDuration.get();
     }
 
@@ -32,7 +32,7 @@ public class IceSpikeSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.IceSpikeCoolDown.get();
     }
 

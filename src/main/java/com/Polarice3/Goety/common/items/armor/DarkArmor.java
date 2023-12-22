@@ -2,10 +2,10 @@ package com.Polarice3.Goety.common.items.armor;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.items.ISoulRepair;
+import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.DarkArmorModel;
 import com.Polarice3.Goety.common.items.ModItems;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class DarkArmor extends ArmorItem implements ISoulRepair {
+public class DarkArmor extends ArmorItem implements ISoulRepair, ISoulDiscount {
     public DarkArmor(EquipmentSlot p_40387_) {
         super(ModArmorMaterials.DARK, p_40387_, ModItems.baseProperities());
     }
@@ -40,7 +40,7 @@ public class DarkArmor extends ArmorItem implements ISoulRepair {
         }
     }
 
-    public static int getSoulDiscount(){
+    public int getSoulDiscount(EquipmentSlot equipmentSlot){
         return 5;
     }
 
@@ -80,6 +80,6 @@ public class DarkArmor extends ArmorItem implements ISoulRepair {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.literal(String.valueOf(getSoulDiscount())).append("% ").append(Component.translatable("info.goety.armor.discount")).withStyle(ChatFormatting.DARK_AQUA));
+        tooltip.add(this.soulDiscountTooltip(stack));
     }
 }

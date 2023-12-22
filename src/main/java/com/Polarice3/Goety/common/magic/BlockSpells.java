@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 public abstract class BlockSpells extends Spells implements IBlockSpell {
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return 0;
     }
 

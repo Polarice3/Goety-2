@@ -26,12 +26,12 @@ import java.util.List;
 public class BlinkSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.BlinkCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.BlinkDuration.get();
     }
 
@@ -41,7 +41,7 @@ public class BlinkSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.BlinkCoolDown.get();
     }
 

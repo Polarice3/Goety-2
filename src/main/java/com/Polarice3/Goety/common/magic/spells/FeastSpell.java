@@ -20,7 +20,7 @@ import java.util.List;
 
 public class FeastSpell extends ChargingSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FeastCost.get();
     }
 

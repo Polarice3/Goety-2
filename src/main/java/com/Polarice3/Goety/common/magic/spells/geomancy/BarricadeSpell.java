@@ -25,12 +25,12 @@ import java.util.List;
 
 public class BarricadeSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.BarricadeCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.BarricadeDuration.get();
     }
 
@@ -45,7 +45,7 @@ public class BarricadeSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.BarricadeCoolDown.get();
     }
 

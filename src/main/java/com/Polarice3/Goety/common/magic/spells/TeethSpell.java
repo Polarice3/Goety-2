@@ -26,11 +26,11 @@ import java.util.List;
 
 public class TeethSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.TeethCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.TeethDuration.get();
     }
 
@@ -39,7 +39,7 @@ public class TeethSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.TeethCoolDown.get();
     }
 

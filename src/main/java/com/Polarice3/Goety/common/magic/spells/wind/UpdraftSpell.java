@@ -24,11 +24,11 @@ import java.util.List;
 
 public class UpdraftSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.UpdraftCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.UpdraftDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class UpdraftSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.UpdraftCoolDown.get();
     }
 

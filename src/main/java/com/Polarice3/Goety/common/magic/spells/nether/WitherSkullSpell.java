@@ -19,12 +19,12 @@ import java.util.List;
 public class WitherSkullSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.WitherSkullCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.WitherSkullDuration.get();
     }
 
@@ -34,7 +34,7 @@ public class WitherSkullSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.WitherSkullCoolDown.get();
     }
 

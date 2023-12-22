@@ -23,12 +23,12 @@ import java.util.List;
 
 public class IceChunkSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.IceChunkCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.IceChunkDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class IceChunkSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.IceChunkCoolDown.get();
     }
 

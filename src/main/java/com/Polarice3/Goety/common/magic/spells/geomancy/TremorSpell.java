@@ -19,12 +19,12 @@ import java.util.List;
 public class TremorSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return 0;
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return 20;
     }
 
@@ -34,7 +34,7 @@ public class TremorSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return 0;
     }
 

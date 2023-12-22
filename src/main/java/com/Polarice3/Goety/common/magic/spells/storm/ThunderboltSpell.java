@@ -29,12 +29,12 @@ import java.util.Optional;
 
 public class ThunderboltSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.ThunderboltCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.ThunderboltDuration.get();
     }
 
@@ -44,7 +44,7 @@ public class ThunderboltSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.ThunderboltCoolDown.get();
     }
 

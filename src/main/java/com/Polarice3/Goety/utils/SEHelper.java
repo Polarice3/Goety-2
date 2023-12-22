@@ -3,6 +3,7 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -202,8 +203,8 @@ public class SEHelper {
         float init = 1.0F;
         for (ItemStack itemStack : living.getArmorSlots()){
             if (itemStack.getItem() instanceof ArmorItem armorItem){
-                if (armorItem.getMaterial() == ModArmorMaterials.DARK){
-                    init -= (DarkArmor.getSoulDiscount() / 100.0F);
+                if (armorItem instanceof ISoulDiscount soulDiscount){
+                    init -= (soulDiscount.getSoulDiscount(armorItem.getEquipmentSlot(itemStack)) / 100.0F);
                 }
             }
         }

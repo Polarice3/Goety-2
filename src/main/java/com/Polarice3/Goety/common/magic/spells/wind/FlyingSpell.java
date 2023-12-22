@@ -20,7 +20,7 @@ import java.util.List;
 
 public class FlyingSpell extends EverChargeSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FlyingCost.get();
     }
 

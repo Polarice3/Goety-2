@@ -29,7 +29,7 @@ import java.util.Optional;
 
 public class ShockingSpell extends EverChargeSpells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.ShockingCost.get();
     }
 

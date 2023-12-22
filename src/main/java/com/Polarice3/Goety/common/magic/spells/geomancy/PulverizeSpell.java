@@ -18,7 +18,7 @@ import net.minecraftforge.common.Tags;
 
 public class PulverizeSpell extends BlockSpells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.PulverizeCost.get();
     }
 
@@ -28,7 +28,7 @@ public class PulverizeSpell extends BlockSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.PulverizeCoolDown.get();
     }
 

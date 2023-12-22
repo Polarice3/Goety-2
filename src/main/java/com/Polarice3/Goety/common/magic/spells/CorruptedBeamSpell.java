@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CorruptedBeamSpell extends EverChargeSpells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.CorruptionCost.get();
     }
 

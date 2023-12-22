@@ -28,11 +28,11 @@ import java.util.Optional;
 
 public class LightningSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.LightningCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.LightningDuration.get();
     }
 
@@ -41,7 +41,7 @@ public class LightningSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.LightningCoolDown.get();
     }
 

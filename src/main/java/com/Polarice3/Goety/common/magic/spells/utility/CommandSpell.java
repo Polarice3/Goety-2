@@ -9,12 +9,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class CommandSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return 0;
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return 0;
     }
 
@@ -24,7 +24,7 @@ public class CommandSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return 0;
     }
 

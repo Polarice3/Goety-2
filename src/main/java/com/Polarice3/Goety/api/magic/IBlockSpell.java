@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 public interface IBlockSpell extends ISpell{
-    default int CastDuration() {
+    default int defaultCastDuration() {
         return 0;
     }
 

@@ -19,17 +19,17 @@ import java.util.List;
 public class SoulHealSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.SoulHealCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.SoulHealDuration.get();
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.SoulHealCoolDown.get();
     }
 

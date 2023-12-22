@@ -31,11 +31,11 @@ public class HauntedSkullSpell extends SummonSpells {
     public int burning = 0;
     public int radius = 0;
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.HauntedSkullCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.HauntedSkullDuration.get();
     }
 
@@ -48,7 +48,7 @@ public class HauntedSkullSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.HauntedSkullCoolDown.get();
     }
 

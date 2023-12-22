@@ -22,12 +22,12 @@ import java.util.List;
 public class FireballSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FireballCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.FireballDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class FireballSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.FireballCoolDown.get();
     }
 

@@ -12,17 +12,17 @@ import net.minecraft.world.item.ItemStack;
 public class GlowLightSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.GlowLightCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.GlowLightDuration.get();
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.GlowLightCoolDown.get();
     }
 

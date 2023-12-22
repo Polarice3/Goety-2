@@ -22,16 +22,16 @@ import java.util.List;
 
 public class SonicBoomSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.SonicBoomCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.SonicBoomDuration.get();
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.SonicBoomCoolDown.get();
     }
 

@@ -24,11 +24,11 @@ import java.util.List;
 
 public class HailSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.HailCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.HailDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class HailSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.HailCoolDown.get();
     }
 

@@ -36,11 +36,11 @@ import java.util.Map;
 public class VexSpell extends SummonSpells {
     private final TargetingConditions vexCountTargeting = TargetingConditions.DEFAULT.range(16.0D).ignoreInvisibilityTesting();
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.VexCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.VexDuration.get();
     }
 
@@ -53,7 +53,7 @@ public class VexSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.VexCoolDown.get();
     }
 

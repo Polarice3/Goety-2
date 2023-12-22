@@ -9,18 +9,14 @@ import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
-import com.Polarice3.Goety.common.items.curios.MagicHatItem;
-import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -87,17 +83,17 @@ public class DarkWand extends Item {
             if (stack.getTag() == null) {
                 compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
                 compound.putInt(SOULCOST, 0);
-                compound.putInt(CASTTIME, CastTime(livingEntity, stack));
+                compound.putInt(CASTTIME, CastDuration(stack));
                 compound.putInt(COOL, 0);
                 compound.putInt(SECONDS, 0);
             }
             if (this.getSpell(stack) != null) {
-                this.setSpellConditions(this.getSpell(stack), stack);
+                this.setSpellConditions(this.getSpell(stack), stack, livingEntity);
             } else {
-                this.setSpellConditions(null, stack);
+                this.setSpellConditions(null, stack, livingEntity);
             }
             compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
-            compound.putInt(CASTTIME, CastTime(livingEntity, stack));
+            compound.putInt(CASTTIME, CastDuration(stack));
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
@@ -107,70 +103,17 @@ public class DarkWand extends Item {
         CompoundTag compound = pStack.getOrCreateTag();
         compound.putInt(SOULUSE, SoulUse(pPlayer, pStack));
         compound.putInt(SOULCOST, 0);
-        compound.putInt(CASTTIME, CastTime(pPlayer, pStack));
+        compound.putInt(CASTTIME, CastDuration(pStack));
         compound.putInt(COOL, 0);
         compound.putInt(SECONDS, 0);
-        this.setSpellConditions(null, pStack);
-    }
-
-    public boolean SoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicRobeItem);
-    }
-
-    public boolean FrostSoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.FROST_ROBE.get());
-    }
-
-    public boolean WindSoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.WIND_ROBE.get());
-    }
-
-    public boolean GeoSoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.AMETHYST_NECKLACE.get());
-    }
-
-    public boolean SoulCostUp(LivingEntity entityLiving){
-        return entityLiving.hasEffect(GoetyEffects.SUMMON_DOWN.get());
-    }
-
-    public boolean ReduceCastTime(LivingEntity entityLiving, ItemStack stack){
-        if (getSpell(stack) != null && getSpell(stack).getSpellType() == SpellType.NECROMANCY){
-            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get()) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
-        } else {
-            return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
-        }
-    }
-
-    public int SoulCalculation(LivingEntity entityLiving, ItemStack stack){
-        if (SoulCostUp(entityLiving)){
-            int amp = Objects.requireNonNull(entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
-            return SoulCost(stack) * amp;
-        } else if (SoulDiscount(entityLiving)){
-            return SoulCost(stack)/2;
-        } else if (FrostSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == SpellType.FROST){
-            return SoulCost(stack)/2;
-        } else if (WindSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == SpellType.WIND){
-            return SoulCost(stack)/2;
-        } else if (GeoSoulDiscount(entityLiving) && this.getSpell(stack) != null && this.getSpell(stack).getSpellType() == SpellType.GEOMANCY){
-            return SoulCost(stack)/2;
-        } else {
-            return SoulCost(stack);
-        }
+        this.setSpellConditions(null, pStack, pPlayer);
     }
 
     public int SoulUse(LivingEntity entityLiving, ItemStack stack){
         if (getFocus(stack).isEnchanted()){
-            return (int) (SoulCalculation(entityLiving, stack) * 2 * SEHelper.soulDiscount(entityLiving));
+            return (int) (SoulCost(stack) * 2 * SEHelper.soulDiscount(entityLiving));
         } else {
-            return (int) (SoulCalculation(entityLiving, stack) * SEHelper.soulDiscount(entityLiving));
-        }
-    }
-
-    public int CastTime(LivingEntity entityLiving, ItemStack stack){
-        if (ReduceCastTime(entityLiving, stack)){
-            return CastDuration(stack)/2;
-        } else {
-            return CastDuration(stack);
+            return (int) (SoulCost(stack) * SEHelper.soulDiscount(entityLiving));
         }
     }
 
@@ -197,7 +140,7 @@ public class DarkWand extends Item {
     }
 
     public boolean isNotInstant(ISpell spells){
-        return spells != null && spells.CastDuration() > 0;
+        return spells != null && spells.defaultCastDuration() > 0;
     }
 
     public boolean notTouch(ISpell spells){
@@ -390,7 +333,7 @@ public class DarkWand extends Item {
                 }
 
                 if (livingEntityIn instanceof Player player){
-                    if (!SEHelper.getSoulsAmount(player, this.getSpell(stack).SoulCost()) && !player.isCreative()){
+                    if (!SEHelper.getSoulsAmount(player, this.getSpell(stack).soulCost(player)) && !player.isCreative()){
                         player.stopUsingItem();
                     }
                 }
@@ -443,7 +386,7 @@ public class DarkWand extends Item {
             if (this.cannotCast(playerIn, itemstack)){
                 return InteractionResultHolder.pass(itemstack);
             } else if (this.isNotInstant(this.getSpell(itemstack))){
-                if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).SoulCost()) || playerIn.getAbilities().instabuild) {
+                if (SEHelper.getSoulsAmount(playerIn, this.getSpell(itemstack).soulCost(playerIn)) || playerIn.getAbilities().instabuild) {
                     if (!worldIn.isClientSide) {
                         playerIn.startUsingItem(handIn);
                     }
@@ -470,11 +413,11 @@ public class DarkWand extends Item {
         worldIn.addParticle(ParticleTypes.ENTITY_EFFECT, livingEntity.getX(), livingEntity.getBoundingBox().maxY + 0.5D, livingEntity.getZ(), d0, d1, d2);
     }
 
-    public void setSpellConditions(@Nullable ISpell spell, ItemStack stack){
+    public void setSpellConditions(@Nullable ISpell spell, ItemStack stack, LivingEntity livingEntity){
         if (stack.getTag() != null) {
             if (spell != null) {
-                stack.getTag().putInt(SOULCOST, spell.SoulCost());
-                stack.getTag().putInt(DURATION, spell.CastDuration());
+                stack.getTag().putInt(SOULCOST, spell.soulCost(livingEntity));
+                stack.getTag().putInt(DURATION, spell.castDuration(livingEntity));
                 if (spell instanceof IChargingSpell) {
                     stack.getTag().putInt(COOLDOWN, ((IChargingSpell) spell).Cooldown());
                 } else {
@@ -547,12 +490,12 @@ public class DarkWand extends Item {
         if (!worldIn.isClientSide) {
             if (this.getSpell(stack) != null && !this.cannotCast(caster, stack)) {
                 if (playerEntity.isCreative()){
-                    SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
+                    SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
                     return stack.getTag() != null;
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     if (stack.getTag() != null) {
                         SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
-                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
                         SEHelper.sendSEUpdatePacket(playerEntity);
                         return true;
                     }
@@ -570,7 +513,7 @@ public class DarkWand extends Item {
                 if (playerEntity.isCreative()){
                     if (stack.getTag() != null) {
                         this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
                     }
                 } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                     boolean spent = true;
@@ -597,7 +540,7 @@ public class DarkWand extends Item {
                     }
                     if (stack.getTag() != null) {
                         this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).SpellCooldown());
+                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
                     }
                 } else {
                     worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -682,8 +625,8 @@ public class DarkWand extends Item {
                     int CastTime = stack.getTag().getInt(CASTTIME);
                     tooltip.add(Component.translatable("info.goety.wand.castTime", CastTime / 20.0F));
                 }
-                if (getSpell(stack).SpellCooldown() > 0){
-                    tooltip.add(Component.translatable("info.goety.wand.coolDown", getSpell(stack).SpellCooldown() / 20.0F));
+                if (getSpell(stack).spellCooldown() > 0){
+                    tooltip.add(Component.translatable("info.goety.wand.coolDown", getSpell(stack).spellCooldown() / 20.0F));
                 }
             }
         } else {
