@@ -31,11 +31,11 @@ import java.util.List;
 
 public class SkeletonSpell extends SummonSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.SkeletonCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.SkeletonDuration.get();
     }
 
@@ -48,7 +48,7 @@ public class SkeletonSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.SkeletonCoolDown.get();
     }
 

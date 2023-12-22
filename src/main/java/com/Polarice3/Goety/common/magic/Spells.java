@@ -25,13 +25,13 @@ public abstract class Spells implements ISpell {
     public Spells(){
     }
 
-    public abstract int SoulCost();
+    public abstract int defaultSoulCost();
 
-    public abstract int CastDuration();
+    public abstract int defaultCastDuration();
 
     public abstract SoundEvent CastingSound();
 
-    public abstract int SpellCooldown();
+    public abstract int defaultSpellCooldown();
 
     public abstract void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 

@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class ChargeSpell extends TouchSpells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.ChargeCost.get();
     }
 
@@ -24,7 +24,7 @@ public class ChargeSpell extends TouchSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.ChargeCoolDown.get();
     }
 

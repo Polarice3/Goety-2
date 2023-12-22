@@ -29,11 +29,11 @@ import java.util.List;
 public class GhastSpell extends SummonSpells {
     private final TargetingConditions ghastCountTargeting = TargetingConditions.DEFAULT.range(64.0D).ignoreInvisibilityTesting();
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.GhastCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.GhastDuration.get();
     }
 
@@ -42,7 +42,7 @@ public class GhastSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.GhastCoolDown.get();
     }
 

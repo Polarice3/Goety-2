@@ -167,6 +167,7 @@ public class Goety {
         GoetyEffects.init();
         ModPotions.init();
         ModPaintings.init();
+        ModPotPatterns.init();
         ModSounds.init();
     }
 
@@ -283,6 +284,7 @@ public class Goety {
             WoodType.register(ModWoodType.HAUNTED);
             WoodType.register(ModWoodType.ROTTEN);
             RaidAdditions.addRaiders();
+            ModPotPatterns.addPatterns();
             addBrewingRecipes();
         });
     }

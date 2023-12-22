@@ -38,11 +38,11 @@ public class WardingCharmItem extends SingleStackItem{
     public int SoulCalculation(LivingEntity entityLiving){
         if (SoulCostUp(entityLiving)){
             int amp = Objects.requireNonNull(entityLiving.getEffect(GoetyEffects.SUMMON_DOWN.get())).getAmplifier() + 2;
-            return new IronHideSpell().SoulCost() * amp;
+            return new IronHideSpell().defaultSoulCost() * amp;
         } else if (SoulDiscount(entityLiving)){
-            return new IronHideSpell().SoulCost() / 2;
+            return new IronHideSpell().defaultSoulCost() / 2;
         } else {
-            return new IronHideSpell().SoulCost();
+            return new IronHideSpell().defaultSoulCost();
         }
     }
 

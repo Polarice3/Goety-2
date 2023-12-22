@@ -149,6 +149,34 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
 
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
+        this.explode();
+    }
+
+    protected boolean canHitEntity(Entity pEntity) {
+        if (this.getOwner() != null){
+            if (pEntity == this.getOwner()){
+                return false;
+            }
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
+        }
+        if (this.upgraded){
+            if (pEntity instanceof AbstractHurtingProjectile){
+                return false;
+            }
+        }
+        return super.canHitEntity(pEntity);
+    }
+
+    public void explode(){
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
             float enchantment = 0;
@@ -184,30 +212,6 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         }
     }
 
-    protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null){
-            if (pEntity == this.getOwner()){
-                return false;
-            }
-            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
-                return super.canHitEntity(pEntity);
-            } else {
-                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
-                    return false;
-                }
-                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
-                    return !MobUtil.ownerStack(owned0, owned1);
-                }
-            }
-        }
-        if (this.upgraded){
-            if (pEntity instanceof AbstractHurtingProjectile){
-                return false;
-            }
-        }
-        return super.canHitEntity(pEntity);
-    }
-
     public boolean isOnFire() {
         return false;
     }
@@ -221,7 +225,13 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        return false;
+        if (this.upgraded) {
+            return false;
+        } else {
+            this.explode();
+            this.markHurt();
+            return !this.isInvulnerableTo(source);
+        }
     }
 
     protected ParticleOptions getTrailParticle() {

@@ -18,12 +18,12 @@ public class EnderChestSpell extends Spells {
     private static final Component CONTAINER_TITLE = Component.translatable("container.enderchest");
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.EnderChestCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.EnderChestDuration.get();
     }
 
@@ -33,7 +33,7 @@ public class EnderChestSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.EnderChestCoolDown.get();
     }
 

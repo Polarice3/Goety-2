@@ -38,11 +38,11 @@ import java.util.List;
 
 public class ZombieSpell extends SummonSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.ZombieCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.ZombieDuration.get();
     }
 
@@ -55,7 +55,7 @@ public class ZombieSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.ZombieCoolDown.get();
     }
 

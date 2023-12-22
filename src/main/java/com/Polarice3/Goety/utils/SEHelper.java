@@ -3,14 +3,13 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
-import com.Polarice3.Goety.common.items.armor.DarkArmor;
-import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
@@ -196,8 +195,8 @@ public class SEHelper {
         float init = 1.0F;
         for (ItemStack itemStack : living.getArmorSlots()){
             if (itemStack.getItem() instanceof ArmorItem armorItem){
-                if (armorItem.getMaterial() == ModArmorMaterials.DARK){
-                    init -= (DarkArmor.getSoulDiscount() / 100.0F);
+                if (armorItem instanceof ISoulDiscount soulDiscount){
+                    init -= (soulDiscount.getSoulDiscount(armorItem.getEquipmentSlot()) / 100.0F);
                 }
             }
         }

@@ -27,11 +27,11 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class IllusionSpell extends Spells {
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.IllusionCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.IllusionDuration.get();
     }
 
@@ -40,7 +40,7 @@ public class IllusionSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.IllusionCoolDown.get();
     }
 

@@ -251,6 +251,13 @@ public class ModItems {
     public static final RegistryObject<Item> FELL_BLADE = ITEMS.register("fell_blade", () -> new SwordItem(ModTiers.SPECIAL, 3, -2.4F, new Item.Properties().durability(256)));
     public static final RegistryObject<Item> FROZEN_BLADE = ITEMS.register("frozen_blade", () -> new SwordItem(ModTiers.SPECIAL, 4, -2.4F, new Item.Properties()));
 
+    //Sherds
+    public static final RegistryObject<Item> CROSS_POTTERY_SHERD = ITEMS.register("cross_pottery_sherd", ItemBase::new);
+    public static final RegistryObject<Item> DEAD_POTTERY_SHERD = ITEMS.register("dead_pottery_sherd", ItemBase::new);
+    public static final RegistryObject<Item> HAUNT_POTTERY_SHERD = ITEMS.register("haunt_pottery_sherd", ItemBase::new);
+    public static final RegistryObject<Item> NIGHT_POTTERY_SHERD = ITEMS.register("night_pottery_sherd", ItemBase::new);
+    public static final RegistryObject<Item> SOUL_POTTERY_SHERD = ITEMS.register("soul_pottery_sherd", ItemBase::new);
+
     //Discs
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.MUSIC_DISC_VIZIER, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE), (int) MathHelper.minutesToTicks(1.33F)));
     public static final RegistryObject<Item> MUSIC_DISC_APOSTLE = ITEMS.register("music_disc_apostle", () -> new RecordItem(15, ModSounds.MUSIC_DISC_APOSTLE, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE),(int) MathHelper.minutesToTicks(2.41F)));

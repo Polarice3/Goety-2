@@ -30,11 +30,11 @@ import java.util.List;
 
 public class VanguardSpell extends SummonSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.VanguardCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.VanguardDuration.get();
     }
 
@@ -47,7 +47,7 @@ public class VanguardSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.VanguardCoolDown.get();
     }
 

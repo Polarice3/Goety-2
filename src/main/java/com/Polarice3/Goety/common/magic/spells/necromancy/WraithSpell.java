@@ -27,11 +27,11 @@ import java.util.List;
 
 public class WraithSpell extends SummonSpells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.WraithCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.WraithDuration.get();
     }
 
@@ -44,7 +44,7 @@ public class WraithSpell extends SummonSpells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.WraithCoolDown.get();
     }
 

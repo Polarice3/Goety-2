@@ -24,11 +24,11 @@ import java.util.List;
 
 public class FangSpell extends Spells {
 
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FangCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.FangDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class FangSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.FangCoolDown.get();
     }
 

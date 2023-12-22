@@ -18,12 +18,12 @@ import java.util.List;
 
 public class BulwarkSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.BulwarkCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.BulwarkDuration.get();
     }
 
@@ -33,7 +33,7 @@ public class BulwarkSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.BulwarkCoolDown.get();
     }
 

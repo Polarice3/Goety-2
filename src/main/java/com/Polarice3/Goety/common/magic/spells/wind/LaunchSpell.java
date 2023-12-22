@@ -22,12 +22,12 @@ import java.util.List;
 public class LaunchSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.LaunchCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.LaunchDuration.get();
     }
 
@@ -37,7 +37,7 @@ public class LaunchSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.LaunchCoolDown.get();
     }
 

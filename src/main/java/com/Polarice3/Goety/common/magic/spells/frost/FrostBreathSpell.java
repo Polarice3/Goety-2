@@ -36,7 +36,7 @@ public class FrostBreathSpell extends BreathingSpells {
     public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FrostBreathCost.get();
     }
 

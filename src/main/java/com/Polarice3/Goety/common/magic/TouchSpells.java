@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 
 public abstract class TouchSpells extends Spells implements ITouchSpell {
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return 0;
     }
 

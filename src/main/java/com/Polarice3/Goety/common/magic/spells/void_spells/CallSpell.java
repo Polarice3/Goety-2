@@ -15,12 +15,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class CallSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.CallCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.CallDuration.get();
     }
 
@@ -30,7 +30,7 @@ public class CallSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.CallCoolDown.get();
     }
 

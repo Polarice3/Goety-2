@@ -6,12 +6,12 @@ public abstract class ChargingSpells extends Spells implements IChargingSpell {
 
     public abstract int Cooldown();
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return 72000;
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return 0;
     }
 }

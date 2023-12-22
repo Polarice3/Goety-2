@@ -33,7 +33,7 @@ public class FireBreathSpell extends BreathingSpells {
     public float damage = SpellConfig.FireBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.FireBreathCost.get();
     }
 

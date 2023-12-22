@@ -24,7 +24,7 @@ public class MagicFocus extends Item implements IFocus {
                 .stacksTo(1)
         );
         this.spell = spell;
-        this.soulCost = spell.SoulCost();
+        this.soulCost = spell.defaultSoulCost();
     }
 
     public boolean isEnchantable(ItemStack pStack) {

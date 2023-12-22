@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:cross_pottery_sherd",
+    "goety:dead_pottery_sherd",
+    "goety:haunt_pottery_sherd",
+    "goety:night_pottery_sherd",
+    "goety:soul_pottery_sherd"
+  ]
+}

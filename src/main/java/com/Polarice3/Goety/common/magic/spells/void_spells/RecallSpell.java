@@ -14,17 +14,17 @@ import net.minecraft.world.item.ItemStack;
 
 public class RecallSpell extends Spells {
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.RecallCost.get();
     }
 
     @Override
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.RecallDuration.get();
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.RecallCoolDown.get();
     }
 

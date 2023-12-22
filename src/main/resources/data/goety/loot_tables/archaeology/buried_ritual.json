@@ -1,0 +1,68 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": {
+        "type": "minecraft:uniform",
+        "max": 0.0,
+        "min": 0.0
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "goety:cross_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:dead_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:haunt_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:night_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:soul_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:occult_fabric",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:cursed_ingot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:empty_focus",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goety:forbidden_piece"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 1.0
+      }
+    }
+  ]
+}

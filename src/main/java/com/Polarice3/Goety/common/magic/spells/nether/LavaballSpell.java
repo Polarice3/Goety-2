@@ -20,11 +20,11 @@ import java.util.List;
 public class LavaballSpell extends Spells {
 
     @Override
-    public int SoulCost() {
+    public int defaultSoulCost() {
         return SpellConfig.LavaballCost.get();
     }
 
-    public int CastDuration() {
+    public int defaultCastDuration() {
         return SpellConfig.LavaballDuration.get();
     }
 
@@ -34,7 +34,7 @@ public class LavaballSpell extends Spells {
     }
 
     @Override
-    public int SpellCooldown() {
+    public int defaultSpellCooldown() {
         return SpellConfig.LavaballCoolDown.get();
     }
 
