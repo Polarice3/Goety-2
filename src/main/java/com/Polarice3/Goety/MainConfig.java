@@ -100,6 +100,15 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CursedPaladinToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> CursedPaladinKnockResist;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronFeet;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronLegs;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronChest;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronHead;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackIronEnchantability;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackIronToughness;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackIronKnockResist;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorDurability;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorFeet;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorLegs;
@@ -371,6 +380,26 @@ public class MainConfig {
             CursedPaladinKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
                     .defineInRange("cursedPaladinKnockResist", 0.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Black Iron Armor");
+                BUILDER.push("Armor Points");
+                BlackIronFeet = BUILDER.comment("Define how much armor points wearing the Boots provides, Default: 2")
+                        .defineInRange("blackIronFeet", 2, 1, Integer.MAX_VALUE);
+                BlackIronLegs = BUILDER.comment("Define how much armor points wearing the Leggings provides, Default: 5")
+                        .defineInRange("blackIronLegs", 5, 1, Integer.MAX_VALUE);
+                BlackIronChest = BUILDER.comment("Define how much armor points wearing the Chestplate provides, Default: 6")
+                        .defineInRange("blackIronChest", 6, 1, Integer.MAX_VALUE);
+                BlackIronHead = BUILDER.comment("Define how much armor points wearing the Helmet provides, Default: 2")
+                        .defineInRange("blackIronHead", 2, 1, Integer.MAX_VALUE);
+                BUILDER.pop();
+            BlackIronDurability = BUILDER.comment("Define the Durability Multiplier for the armor, higher number the better, Default: 15")
+                        .defineInRange("blackIronDurability", 30, 1, Integer.MAX_VALUE);
+            BlackIronEnchantability = BUILDER.comment("Define the Enchantability for the armor, higher number the better, Default: 20")
+                        .defineInRange("blackIronEnchantability", 20, 1, Integer.MAX_VALUE);
+            BlackIronToughness = BUILDER.comment("Define the toughness for each armor piece, Default: 2.0")
+                        .defineInRange("blackIronToughness", 2.0, 0.0, Double.MAX_VALUE);
+            BlackIronKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.0")
+                        .defineInRange("blackIronKnockResist", 0.0, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Dark Armor");
                 BUILDER.push("Armor Points");
                 DarkArmorFeet = BUILDER.comment("Define how much armor points wearing the Boots provides, Default: 3")
@@ -388,8 +417,8 @@ public class MainConfig {
                     .defineInRange("darkArmorEnchantability", 20, 1, Integer.MAX_VALUE);
             DarkArmorToughness = BUILDER.comment("Define the toughness for each armor piece, Default: 2.0")
                 .defineInRange("darkArmorToughness", 2.0, 0.0, Double.MAX_VALUE);
-            DarkArmorKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.1")
-                    .defineInRange("darkArmorKnockResist", 0.1, 0.0, Double.MAX_VALUE);
+            DarkArmorKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.3")
+                    .defineInRange("darkArmorKnockResist", 0.3, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Lich");

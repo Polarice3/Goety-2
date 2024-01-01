@@ -13,7 +13,6 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.SpellCastingCultist;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
-import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
@@ -109,7 +108,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private static final EntityDataAccessor<Float> SPIN = SynchedEntityData.defineId(Apostle.class, EntityDataSerializers.FLOAT);
     private final ModServerBossInfo bossInfo = new ModServerBossInfo(this.getUUID(), this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true).setCreateWorldFog(true);
     public Predicate<Owned> ZOMBIE_MINIONS = (owned) -> {
-        return (owned instanceof ZombieVillagerServant || owned instanceof ZPiglinServant) && owned.getTrueOwner() == this;
+        return owned instanceof ZPiglinServant && owned.getTrueOwner() == this;
     };
     private final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
         return livingEntity instanceof ObsidianMonolith monolith && monolith.getTrueOwner() == this;

@@ -45,6 +45,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation CURSED_KNIGHT_ARMOR_OUTER = registerOuterArmor("cursed_knight_armor");
     public static final ModelLayerLocation CURSED_PALADIN_ARMOR_INNER = registerInnerArmor("cursed_paladin_armor");
     public static final ModelLayerLocation CURSED_PALADIN_ARMOR_OUTER = registerOuterArmor("cursed_paladin_armor");
+    public static final ModelLayerLocation BLACK_IRON_ARMOR_INNER = registerInnerArmor("black_iron_armor");
+    public static final ModelLayerLocation BLACK_IRON_ARMOR_OUTER = registerOuterArmor("black_iron_armor");
     public static final ModelLayerLocation DARK_ARMOR_INNER = registerInnerArmor("dark_armor");
     public static final ModelLayerLocation DARK_ARMOR_OUTER = registerOuterArmor("dark_armor");
     public static final ModelLayerLocation MINION = register("minion");

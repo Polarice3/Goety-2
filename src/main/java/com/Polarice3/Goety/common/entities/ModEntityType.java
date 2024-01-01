@@ -13,7 +13,6 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
-import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
@@ -286,11 +285,6 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
-    public static final RegistryObject<EntityType<ZombieVillagerServant>> ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant",
-            EntityType.Builder.of(ZombieVillagerServant::new, MobCategory.MONSTER)
-                    .sized(0.6F, 1.95F)
-                    .clientTrackingRange(8));
-
     public static final RegistryObject<EntityType<SkeletonVillagerServant>> SKELETON_VILLAGER_SERVANT = register("skeleton_villager_servant",
             EntityType.Builder.of(SkeletonVillagerServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -389,6 +383,16 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<WraithServant>> WRAITH_SERVANT = register("wraith_servant",
             EntityType.Builder.of(WraithServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<SkeletonPillager>> SKELETON_PILLAGER = register("skeleton_pillager",
+            EntityType.Builder.of(SkeletonPillager::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<ZombieVindicator>> ZOMBIE_VINDICATOR = register("zombie_vindicator",
+            EntityType.Builder.of(ZombieVindicator::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<HauntedArmorServant>> HAUNTED_ARMOR_SERVANT = register("haunted_armor_servant",

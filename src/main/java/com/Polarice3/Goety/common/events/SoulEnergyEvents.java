@@ -197,7 +197,7 @@ public class SoulEnergyEvents {
                 if (owner != null){
                     if (owner instanceof IOwned ownedOwner){
                         if (ownedOwner.getTrueOwner() instanceof Player player){
-                            if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(player, ModArmorMaterials.DARK)) {
+                            if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK)) {
                                 if (!(player instanceof FakePlayer)) {
                                     SEHelper.handleKill(player, victim);
                                 }
@@ -205,7 +205,7 @@ public class SoulEnergyEvents {
                         }
                     }
                     if (owner instanceof Player) {
-                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
+                        if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
                             Player playerEntity = (Player) owner;
                             if (!(playerEntity instanceof FakePlayer)) {
                                 SEHelper.handleKill(playerEntity, victim);

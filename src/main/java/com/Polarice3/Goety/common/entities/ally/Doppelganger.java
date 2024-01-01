@@ -97,7 +97,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             if (this.getTarget() != null){
                 this.getLookControl().setLookAt(this.getTarget());
             }
-            if (this.getTrueOwner().isDeadOrDying() || this.getTrueOwner() == null){
+            if (this.getTrueOwner() == null || (this.getTrueOwner() != null && this.getTrueOwner().isDeadOrDying())){
                 this.die(this.damageSources().starve());
             }
         }

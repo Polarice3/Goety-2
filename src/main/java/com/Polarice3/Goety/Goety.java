@@ -24,7 +24,6 @@ import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
-import com.Polarice3.Goety.common.entities.hostile.servants.ZombieVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -315,7 +314,6 @@ public class Goety {
         event.put(ModEntityType.WARLOCK.get(), Warlock.setCustomAttributes().build());
         event.put(ModEntityType.WARTLING.get(), Wartling.setCustomAttributes().build());
         event.put(ModEntityType.CRONE.get(), Crone.setCustomAttributes().build());
-        event.put(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinServant.setCustomAttributes().build());
         event.put(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), ZPiglinBruteServant.setCustomAttributes().build());
@@ -335,6 +333,8 @@ public class Goety {
         event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
+        event.put(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillager.setCustomAttributes().build());
+        event.put(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicator.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());

@@ -1,0 +1,31 @@
+{
+  "name": "黒き鎧",
+  "icon": "goety:black_iron_chestplate",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "呪いの鉄インゴットは通常の鉄インゴットと同じ特性を持っているようで、これに基づいて防具セットを作成するのは不要です。 ただし、少し工夫すれば、インゴットを使用して通常の鉄の鎧をより良いものにアップグレードできます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "耐久性を提供するだけでなく、各ピースは魔法、火、爆発によるダメージをいくらか軽減します。 各ピースは、呪文の詠唱、使用人の回復、特定のアイテムの修理に使用されるかどうかにかかわらず、ソウル エネルギーの使用に対する割引も提供します。 残念ながら、クラフトや儀式での使用が割引になるわけではありません。 着用すると、召喚獣がモブを殺したときにソウルエネルギーを与えることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_boots"
+    }
+  ]
+}

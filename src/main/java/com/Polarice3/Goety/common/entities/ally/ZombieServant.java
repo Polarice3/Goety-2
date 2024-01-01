@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
@@ -220,7 +221,12 @@ public class ZombieServant extends Summoned{
         this.populateDefaultEquipmentSlots(worldIn.getRandom(), difficultyIn);
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         this.handleAttributes(f);
+        this.setBaby(getSpawnAsBabyOdds(worldIn.getRandom()));
         return spawnDataIn;
+    }
+
+    public static boolean getSpawnAsBabyOdds(RandomSource p_219163_) {
+        return p_219163_.nextFloat() < MobsConfig.ZombieServantBabyChance.get();
     }
 
     protected void handleAttributes(float difficulty) {
@@ -307,8 +313,8 @@ public class ZombieServant extends Summoned{
                     if (item instanceof SwordItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                        this.spawnAtLocation(itemstack2);
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
                             double d1 = this.random.nextGaussian() * 0.02D;
@@ -324,8 +330,8 @@ public class ZombieServant extends Summoned{
                     if (item instanceof AxeItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                        this.spawnAtLocation(itemstack2);
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
                             double d1 = this.random.nextGaussian() * 0.02D;
@@ -341,8 +347,8 @@ public class ZombieServant extends Summoned{
                     if (item instanceof TridentItem && this instanceof DrownedServant) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                        this.spawnAtLocation(itemstack2);
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
                             double d1 = this.random.nextGaussian() * 0.02D;
@@ -364,23 +370,23 @@ public class ZombieServant extends Summoned{
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     if (((ArmorItem) item).getType() == ArmorItem.Type.HELMET) {
                         this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.HEAD, helmet);
                         this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                        this.spawnAtLocation(helmet);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.CHESTPLATE) {
                         this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.CHEST, chestplate);
                         this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                        this.spawnAtLocation(chestplate);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.LEGGINGS) {
                         this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.LEGS, legging);
                         this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                        this.spawnAtLocation(legging);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.BOOTS) {
                         this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.FEET, boots);
                         this.setGuaranteedDrop(EquipmentSlot.FEET);
-                        this.spawnAtLocation(boots);
                     }
                     for (int i = 0; i < 7; ++i) {
                         double d0 = this.random.nextGaussian() * 0.02D;

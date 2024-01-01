@@ -37,8 +37,9 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.WARLOCK_ROBE.get(), () -> new WearRenderer(render("warlock_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WARLOCK_ROBE_DARK.get(), () -> new WearRenderer(render("warlock_robe_dark.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WARLOCK_SASH.get(), () -> new WearRenderer(render("warlock_sash.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.PENDANT_OF_HUNGER.get(), () -> new WearRenderer(render("pendant_of_hunger.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMULET))));
         CuriosRendererRegistry.register(ModItems.SEA_AMULET.get(), () -> new WearRenderer(render("sea_amulet.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMULET))));
-        CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(render("wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
+        CuriosRendererRegistry.register(ModItems.STAR_AMULET.get(), () -> new WearRenderer(render("star_amulet.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMULET))));        CuriosRendererRegistry.register(ModItems.WAYFARERS_BELT.get(), () -> new WearRenderer(render("wayfarers_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
         CuriosRendererRegistry.register(ModItems.SPITEFUL_BELT.get(), () -> new WearRenderer(render("spiteful_belt.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BELT))));
         CuriosRendererRegistry.register(ModItems.FOCUS_BAG.get(), () -> new WearRenderer(render("focus_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.FOCUS_BAG))));
         CuriosRendererRegistry.register(ModItems.BREW_BAG.get(), () -> new WearRenderer(render("brew_bag.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.BREW_BAG))));

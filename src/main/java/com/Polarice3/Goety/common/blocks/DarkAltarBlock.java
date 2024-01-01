@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -38,10 +36,7 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public DarkAltarBlock() {
-        super(Properties.of()
-                .mapColor(MapColor.COLOR_BLACK)
-                .strength(5.0F, 100.0F)
-                .sound(SoundType.STONE)
+        super(ModBlocks.ShadeStoneProperties()
                 .noOcclusion()
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, Boolean.FALSE));

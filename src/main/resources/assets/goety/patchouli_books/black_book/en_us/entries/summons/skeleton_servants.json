@@ -21,7 +21,19 @@
     },
     {
       "type": "patchouli:text",
+      "text": "Casting the spell at a Pillager Outpost will summon forth a loyal Skeleton Pillager, which has more health than regular Skeletons and wields a crossbow."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_pillager"
+    },
+    {
+      "type": "patchouli:text",
       "text": "Skeleton Servants can accept any Armor but only Swords/Bows meaning they can either be range or melee attackers."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Curiously, the spell cannot call forth a loyal Wither Skeleton when cast within a Nether Fortress. The charred skeletons seems to hold great magical power and a great loyalty towards their home to be summoned frivolously..."
     }
   ]
 }

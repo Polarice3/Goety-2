@@ -43,7 +43,7 @@ import java.time.temporal.ChronoField;
 
 public abstract class AbstractSkeletonServant extends Summoned implements RangedAttackMob {
     private final CreatureBowAttackGoal<AbstractSkeletonServant> bowGoal = new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F);
-    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2D, false) {
+    public final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2D, false) {
 
         public void stop() {
             super.stop();
@@ -247,8 +247,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     if (item instanceof SwordItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                        this.spawnAtLocation(itemstack2);
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
                             double d1 = this.random.nextGaussian() * 0.02D;
@@ -264,8 +264,8 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     if (item instanceof BowItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.MAINHAND, itemstack2);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
-                        this.spawnAtLocation(itemstack2);
                         for (int i = 0; i < 7; ++i) {
                             double d0 = this.random.nextGaussian() * 0.02D;
                             double d1 = this.random.nextGaussian() * 0.02D;
@@ -287,23 +287,23 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     if (((ArmorItem) item).getType() == ArmorItem.Type.HELMET) {
                         this.setItemSlot(EquipmentSlot.HEAD, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.HEAD, helmet);
                         this.setGuaranteedDrop(EquipmentSlot.HEAD);
-                        this.spawnAtLocation(helmet);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.CHESTPLATE) {
                         this.setItemSlot(EquipmentSlot.CHEST, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.CHEST, chestplate);
                         this.setGuaranteedDrop(EquipmentSlot.CHEST);
-                        this.spawnAtLocation(chestplate);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.LEGGINGS) {
                         this.setItemSlot(EquipmentSlot.LEGS, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.LEGS, legging);
                         this.setGuaranteedDrop(EquipmentSlot.LEGS);
-                        this.spawnAtLocation(legging);
                     }
                     if (((ArmorItem) item).getType() == ArmorItem.Type.BOOTS) {
                         this.setItemSlot(EquipmentSlot.FEET, itemstack.copy());
+                        this.dropEquipment(EquipmentSlot.FEET, boots);
                         this.setGuaranteedDrop(EquipmentSlot.FEET);
-                        this.spawnAtLocation(boots);
                     }
                     for (int i = 0; i < 7; ++i) {
                         double d0 = this.random.nextGaussian() * 0.02D;

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.magic.ISpell;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +32,7 @@ public class MagicFocus extends Item implements IFocus {
         return pStack.getCount() == 1;
     }
 
-    public int getEnchantmentValue() {
+    public int getEnchantmentValue(ItemStack stack) {
         return 1;
     }
 
@@ -59,6 +60,8 @@ public class MagicFocus extends Item implements IFocus {
             tooltip.add(Component.translatable("info.goety.focus.cost", 0));
         }
         tooltip.add(Component.translatable("info.goety.focus.spellType", spell.getSpellType().getName()));
+        tooltip.add(Component.translatable("item.goety.focus.info").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.UNDERLINE));
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".info").withStyle(ChatFormatting.GRAY));
     }
 
 }

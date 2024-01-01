@@ -265,7 +265,7 @@ public class Summoned extends Owned implements IServant {
         if (MobsConfig.MinionsMasterImmune.get()) {
             if (source.getEntity() instanceof Summoned summoned) {
                 if (!summoned.isHostile() && !this.isHostile()) {
-                    if (summoned.getTrueOwner() == this.getTrueOwner() && this.getTrueOwner() != null) {
+                    if (this.getTrueOwner() != null && summoned.getTrueOwner() == this.getTrueOwner()) {
                         return false;
                     }
                 }
@@ -432,6 +432,12 @@ public class Summoned extends Owned implements IServant {
 
     public boolean isCommanded(){
         return this.commandPos != null;
+    }
+
+    public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){
+        if (this.getEquipmentDropChance(equipmentSlot) > 0.0F) {
+            this.spawnAtLocation(stack);
+        }
     }
 
     public static class FollowOwnerGoal extends Goal {

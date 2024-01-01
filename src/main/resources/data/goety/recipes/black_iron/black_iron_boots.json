@@ -1,0 +1,27 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "minecraft:iron_boots"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:cursed_ingot"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:leather"
+    }
+  ],
+  "result": {
+    "item": "goety:black_iron_boots"
+  }
+}

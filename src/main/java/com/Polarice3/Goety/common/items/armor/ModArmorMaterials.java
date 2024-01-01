@@ -42,6 +42,19 @@ public enum ModArmorMaterials implements ArmorMaterial {
             MainConfig.CursedPaladinKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
+    BLACK_IRON("black_iron", MainConfig.BlackIronDurability.get(),
+            Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+                p_266652_.put(ArmorItem.Type.BOOTS, MainConfig.BlackIronFeet.get());
+                p_266652_.put(ArmorItem.Type.LEGGINGS, MainConfig.BlackIronLegs.get());
+                p_266652_.put(ArmorItem.Type.CHESTPLATE, MainConfig.BlackIronChest.get());
+                p_266652_.put(ArmorItem.Type.HELMET, MainConfig.BlackIronHead.get());
+            }),
+            MainConfig.BlackIronEnchantability.get(),
+            SoundEvents.ARMOR_EQUIP_IRON,
+            MainConfig.BlackIronToughness.get().floatValue(),
+            MainConfig.BlackIronKnockResist.get().floatValue(), () -> {
+        return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
+    }),
     DARK("dark", MainConfig.DarkArmorDurability.get(),
             Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
                 p_266652_.put(ArmorItem.Type.BOOTS, MainConfig.DarkArmorFeet.get());
@@ -50,7 +63,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
                 p_266652_.put(ArmorItem.Type.HELMET, MainConfig.DarkArmorHead.get());
             }),
             MainConfig.DarkArmorEnchantability.get(),
-            SoundEvents.ARMOR_EQUIP_IRON,
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
             MainConfig.DarkArmorToughness.get().floatValue(),
             MainConfig.DarkArmorKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());

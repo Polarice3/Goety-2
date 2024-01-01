@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.AnimationUtils;
@@ -26,10 +25,12 @@ public class SkeletonVillagerModel<T extends Owned> extends VillagerServantModel
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = VillagerServantModel.createMesh();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(42, 46).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-5.0F, 2.0F, 0.0F));
-        partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(42, 46).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(5.0F, 2.0F, 0.0F));
-        partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(28, 46).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-2.0F, 12.0F, 0.0F));
-        partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(28, 46).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(2.0F, 12.0F, 0.0F));
+        partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 46).addBox(-0.9F, -1.9F, -1.0F, 2.0F, 12.0F, 2.0F)
+                .texOffs(48, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F), PartPose.offset(-5.0F, 2.0F, 0.0F));
+        partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 46).mirror().addBox(-1.1F, -1.9F, -1.0F, 2.0F, 12.0F, 2.0F)
+                .texOffs(48, 16).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F), PartPose.offset(5.0F, 2.0F, 0.0F));
+        partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-2.0F, 12.0F, 0.0F));
+        partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(2.0F, 12.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
@@ -44,19 +45,17 @@ public class SkeletonVillagerModel<T extends Owned> extends VillagerServantModel
                 this.leftArmPose = ArmPose.BOW_AND_ARROW;
             }
         }
-        if (pEntity instanceof SkeletonVillagerServant skeletonVillagerMinion){
-            if (skeletonVillagerMinion.isAggressive()) {
-                if (itemstack.getItem() == Items.CROSSBOW) {
-                    if (skeletonVillagerMinion.getMainArm() == HumanoidArm.RIGHT) {
-                        this.rightArmPose = ArmPose.CROSSBOW_HOLD;
-                        if (skeletonVillagerMinion.isCharging()) {
-                            this.rightArmPose = ArmPose.CROSSBOW_CHARGE;
-                        }
-                    } else {
-                        this.leftArmPose = ArmPose.CROSSBOW_HOLD;
-                        if (skeletonVillagerMinion.isCharging()) {
-                            this.leftArmPose = ArmPose.CROSSBOW_CHARGE;
-                        }
+        if (pEntity.isAggressive()) {
+            if (itemstack.getItem() == Items.CROSSBOW) {
+                if (pEntity.getMainArm() == HumanoidArm.RIGHT) {
+                    this.rightArmPose = ArmPose.CROSSBOW_HOLD;
+                    if (pEntity.isChargingCrossbow()) {
+                        this.rightArmPose = ArmPose.CROSSBOW_CHARGE;
+                    }
+                } else {
+                    this.leftArmPose = ArmPose.CROSSBOW_HOLD;
+                    if (pEntity.isChargingCrossbow()) {
+                        this.leftArmPose = ArmPose.CROSSBOW_CHARGE;
                     }
                 }
             }

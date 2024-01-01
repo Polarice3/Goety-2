@@ -55,17 +55,11 @@ public class EffectsEvents {
         }
         int i1 = Mth.clamp((amplifier * 50) * 10, 0, 2500);
         int i2 = amplifier + 1;
-        int c = switch (level.getDifficulty()) {
-            case PEACEFUL -> 10000;
-            case EASY -> 6000;
-            case NORMAL -> 4000;
-            case HARD -> 2550;
-        };
         int k = 600 >> amplifier;
         if (k > 0) {
             if ((infected.tickCount % k == 0) && level.getDifficulty() != Difficulty.PEACEFUL) {
                 int r = level.random.nextInt(8);
-                int r2 = level.random.nextInt(c - i1);
+                int r2 = level.random.nextInt(6000 - i1);
                 int r3 = level.random.nextInt(i2);
                 int r4 = r3 + 1;
                 if (r2 == 0) {

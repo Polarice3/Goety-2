@@ -199,6 +199,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.CURSED_KNIGHT_ARMOR_OUTER, CursedKnightArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.CURSED_PALADIN_ARMOR_INNER, CursedPaladinArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.CURSED_PALADIN_ARMOR_OUTER, CursedPaladinArmorModel::createOuterLayer);
+        event.registerLayerDefinition(ModModelLayer.BLACK_IRON_ARMOR_INNER, BlackIronArmorModel::createInnerLayer);
+        event.registerLayerDefinition(ModModelLayer.BLACK_IRON_ARMOR_OUTER, BlackIronArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_INNER, DarkArmorModel::createInnerLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ARMOR_OUTER, DarkArmorModel::createOuterLayer);
         event.registerLayerDefinition(ModModelLayer.SOUL_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.5F), false), 64, 64));
@@ -289,7 +291,6 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WARTLING.get(), WartlingRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRONE.get(), CroneRenderer::new);
         event.registerEntityRenderer(ModEntityType.APOSTLE.get(), ApostleRenderer::new);
-        event.registerEntityRenderer(ModEntityType.ZOMBIE_VILLAGER_SERVANT.get(), ZombieVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_VILLAGER_SERVANT.get(), SkeletonVillagerServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZPIGLIN_SERVANT.get(), ZPiglinRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), ZPiglinRenderer::new);
@@ -309,6 +310,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicatorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));

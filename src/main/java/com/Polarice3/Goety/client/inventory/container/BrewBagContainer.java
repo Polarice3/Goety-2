@@ -1,13 +1,18 @@
 package com.Polarice3.Goety.client.inventory.container;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class BrewBagContainer extends AbstractContainerMenu {
     private final ItemStack stack;
@@ -20,10 +25,18 @@ public class BrewBagContainer extends AbstractContainerMenu {
         super(ModContainerType.BREW_BAG.get(), id);
         this.stack = stack;
         for (int i = 0; i < 5; i++) {
-            addSlot(new SlotItemHandler(handler, i + 1, 62 - 18 + i * 18, 25));
+            addSlot(new SlotItemHandler(handler, i + 1, 62 - 18 + i * 18, 25){
+                public @NotNull Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+                    return Pair.of(InventoryMenu.BLOCK_ATLAS, Goety.location("item/empty_slot_brew"));
+                }
+            });
         }
         for (int i = 0; i < 5; i++) {
-            addSlot(new SlotItemHandler(handler,6 + i, 62 - 18 + i * 18, 43));
+            addSlot(new SlotItemHandler(handler,6 + i, 62 - 18 + i * 18, 43){
+                public @NotNull Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+                    return Pair.of(InventoryMenu.BLOCK_ATLAS, Goety.location("item/empty_slot_brew"));
+                }
+            });
         }
 
         for(int i = 0; i < 3; ++i) {

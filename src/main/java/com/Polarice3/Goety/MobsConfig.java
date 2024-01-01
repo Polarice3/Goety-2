@@ -15,6 +15,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
+    public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantBabyChance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
@@ -134,6 +135,8 @@ public class MobsConfig {
                     .defineInRange("undeadServantsHealTime", 1, 0, Integer.MAX_VALUE);
             UndeadMinionHealAmount = BUILDER.comment("How much Health Undead Servants heal, numerically, Default: 0.5")
                     .defineInRange("undeadServantsHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            ZombieServantBabyChance = BUILDER.comment("Chance that a zombie (or subclass) servant is summoned as a baby, Default: 0.05")
+                    .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
             BUILDER.pop();
         RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
                 .define("redstoneGolemMold", true);

@@ -93,10 +93,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PotionItem;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
@@ -1138,6 +1135,31 @@ public class ModEvents {
             if (fangEntity.getOwner() instanceof Player player) {
                 if (fangEntity.isAbsorbing()) {
                     player.heal(event.getAmount());
+                }
+            }
+        }
+        if (event.getAmount() > 0.0F){
+            float damageAmount = event.getAmount();
+            for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+                if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
+                    ItemStack itemStack = entity.getItemBySlot(equipmentSlot);
+                    if (itemStack.getItem() instanceof ArmorItem armorItem){
+                        if (armorItem.getMaterial() == ModArmorMaterials.BLACK_IRON
+                                || armorItem.getMaterial() == ModArmorMaterials.DARK) {
+                            float reduction = 0;
+                            if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)) {
+                                reduction = armorItem.getDefense() / 25.0F;
+                            } else if (event.getSource().is(DamageTypeTags.IS_FIRE) || event.getSource().is(DamageTypeTags.IS_EXPLOSION)) {
+                                reduction = armorItem.getDefense() / 10.0F;
+                            }
+                            float reducedDamage = event.getAmount() * reduction;
+                            damageAmount -= reducedDamage;
+                            if (reducedDamage > 0) {
+                                ItemHelper.hurtAndBreak(itemStack, (int) Math.max(1, reducedDamage), entity);
+                            }
+                            event.setAmount(damageAmount);
+                        }
+                    }
                 }
             }
         }

@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "minecraft:iron_leggings"
+    "item": "goety:black_iron_leggings"
   },
   "craftType": "forge",
   "soulCost": 5,

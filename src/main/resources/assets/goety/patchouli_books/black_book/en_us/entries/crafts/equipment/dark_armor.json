@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Each armor pieces gives a discount on using Soul Energy, whether it's used to cast spells, heal servants and repairing certain items. It doesn't discount usage in crafting or rituals unfortunately. Wearing the full set also allows passive regeneration even when below full hunger and allows summons to grant Soul Energy when they kill a mob. The Helmet protects the wearer from the Darkness and Blindness Effect."
+      "text": "Much like the Black Iron Armor set, the armor also provides discount on Soul Energy, but also slightly mitigates magic, fire and explosive damage."
     },
     {
       "type": "goety:ritual",

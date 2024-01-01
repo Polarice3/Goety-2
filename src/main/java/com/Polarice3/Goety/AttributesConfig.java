@@ -11,8 +11,6 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<Double> ZombieVillagerServantHealth;
-    public static final ForgeConfigSpec.ConfigValue<Double> ZombieVillagerServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonVillagerServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonVillagerServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinServantHealth;
@@ -48,6 +46,10 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
@@ -82,12 +84,6 @@ public class AttributesConfig {
             BUILDER.push("Cultists");
             MalghastHealth = BUILDER.comment("How much Max Health Malghast have, Default: 20.0")
                     .defineInRange("malghastHealth", 20.0, 1.0, Double.MAX_VALUE);
-                BUILDER.push("Zombie Villager Servant");
-                ZombieVillagerServantHealth = BUILDER.comment("How much Max Health Zombie Villager Servants have, Default: 20.0")
-                        .defineInRange("zombieVillagerServantHealth", 20.0, 1.0, Double.MAX_VALUE);
-                ZombieVillagerServantDamage = BUILDER.comment("How much damage Zombie Villager Servants deals, Default: 3.0")
-                        .defineInRange("zombieVillagerServantDamage", 3.0, 1.0, Double.MAX_VALUE);
-                BUILDER.pop();
                 BUILDER.push("Skeleton Villager Servant");
                 SkeletonVillagerServantHealth = BUILDER.comment("How much Max Health Skeleton Villager Servants have, Default: 20.0")
                         .defineInRange("skeletonVillagerServantHealth", 20.0, 1.0, Double.MAX_VALUE);
@@ -179,6 +175,18 @@ public class AttributesConfig {
                         .defineInRange("vanguardServantArmor", 9.0, 1.0, Double.MAX_VALUE);
                 VanguardServantDamage = BUILDER.comment("How much damage Vanguard Servants deals, Default: 7.0")
                         .defineInRange("vanguardServantDamage", 7.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Skeleton Pillager");
+                SkeletonPillagerHealth = BUILDER.comment("How much Max Health Skeleton Pillagers have, Default: 24.0")
+                        .defineInRange("skeletonPillagerHealth", 24.0, 1.0, Double.MAX_VALUE);
+                SkeletonPillagerDamage = BUILDER.comment("How much damage Skeleton Pillagers deals, Default: 5.0")
+                        .defineInRange("skeletonPillagerDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Zombie Vindicator");
+                ZombieVindicatorHealth = BUILDER.comment("How much Max Health Zombie Vindicators have, Default: 24.0")
+                        .defineInRange("zombieVindicatorHealth", 24.0, 1.0, Double.MAX_VALUE);
+                ZombieVindicatorDamage = BUILDER.comment("How much damage Zombie Vindicators deals, Default: 5.0")
+                        .defineInRange("zombieVindicatorDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")
