@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
+import com.Polarice3.Goety.common.items.armor.BlackIronArmor;
 import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
 import com.Polarice3.Goety.common.items.armor.CursedPaladinArmor;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
@@ -135,7 +136,7 @@ public class ModItems {
     public static final RegistryObject<Item> BREW_BAG = ITEMS.register("brew_bag", BrewBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
     public static final RegistryObject<Item> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
-    public static final RegistryObject<Item> PENDANT_OF_ROT = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
+    public static final RegistryObject<Item> PENDANT_OF_HUNGER = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<Item> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
@@ -223,6 +224,11 @@ public class ModItems {
     public static final RegistryObject<Item> CURSED_PALADIN_CHESTPLATE = ITEMS.register("cursed_paladin_chestplate", () -> new CursedPaladinArmor(EquipmentSlot.CHEST));
     public static final RegistryObject<Item> CURSED_PALADIN_LEGGINGS = ITEMS.register("cursed_paladin_leggings", () -> new CursedPaladinArmor(EquipmentSlot.LEGS));
     public static final RegistryObject<Item> CURSED_PALADIN_BOOTS = ITEMS.register("cursed_paladin_boots", () -> new CursedPaladinArmor(EquipmentSlot.FEET));
+
+    public static final RegistryObject<Item> BLACK_IRON_HELMET = ITEMS.register("black_iron_helmet", () -> new BlackIronArmor(EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> BLACK_IRON_CHESTPLATE = ITEMS.register("black_iron_chestplate", () -> new BlackIronArmor(EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> BLACK_IRON_LEGGINGS = ITEMS.register("black_iron_leggings", () -> new BlackIronArmor(EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> BLACK_IRON_BOOTS = ITEMS.register("black_iron_boots", () -> new BlackIronArmor(EquipmentSlot.FEET));
 
     public static final RegistryObject<Item> DARK_HELMET = ITEMS.register("dark_helmet", () -> new DarkArmor(EquipmentSlot.HEAD));
     public static final RegistryObject<Item> DARK_CHESTPLATE = ITEMS.register("dark_chestplate", () -> new DarkArmor(EquipmentSlot.CHEST));

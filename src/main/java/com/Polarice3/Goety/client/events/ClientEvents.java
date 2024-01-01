@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.magic.IEverChargeSpell;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.ItemLoopSound;
@@ -14,7 +15,6 @@ import com.Polarice3.Goety.client.render.model.LichModeModel;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
-import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
@@ -263,7 +263,7 @@ public class ClientEvents {
                                 event.getPoseStack().popPose();
                             }
                         }
-                    } else if (blockEntity instanceof OwnedBlockEntity ownedBlock && ownedBlock.screenView()){
+                    } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.screenView()){
                         if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
                             event.getPoseStack().pushPose();
                             event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);

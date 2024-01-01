@@ -372,6 +372,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         return pLevel.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pReason, pPos, pRandom);
     }
 
+    public boolean isChargingCrossbow() {
+        return false;
+    }
+
     public class OwnerHurtTargetGoal extends TargetGoal {
         private LivingEntity attacker;
         private int timestamp;

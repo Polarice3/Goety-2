@@ -36,13 +36,24 @@ public enum ModArmorMaterials implements ArmorMaterial {
             MainConfig.CursedPaladinKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
+    BLACK_IRON("black_iron", MainConfig.BlackIronDurability.get(),
+            new int[]{MainConfig.BlackIronFeet.get(),
+                    MainConfig.BlackIronLegs.get(),
+                    MainConfig.BlackIronChest.get(),
+                    MainConfig.BlackIronHead.get()},
+            MainConfig.BlackIronEnchantability.get(),
+            SoundEvents.ARMOR_EQUIP_IRON,
+            MainConfig.BlackIronToughness.get().floatValue(),
+            MainConfig.BlackIronKnockResist.get().floatValue(), () -> {
+        return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
+    }),
     DARK("dark", MainConfig.DarkArmorDurability.get(),
             new int[]{MainConfig.DarkArmorFeet.get(),
                     MainConfig.DarkArmorLegs.get(),
                     MainConfig.DarkArmorChest.get(),
                     MainConfig.DarkArmorHead.get()},
             MainConfig.DarkArmorEnchantability.get(),
-            SoundEvents.ARMOR_EQUIP_IRON,
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
             MainConfig.DarkArmorToughness.get().floatValue(),
             MainConfig.DarkArmorKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());

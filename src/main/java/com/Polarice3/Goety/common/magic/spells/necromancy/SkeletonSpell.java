@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.SkeletonPillager;
 import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.StrayServant;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
@@ -72,8 +74,8 @@ public class SkeletonSpell extends SummonSpells {
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof SkeletonServant) {
-                    if (((SkeletonServant) entity).getTrueOwner() == entityLiving) {
+                if (entity instanceof AbstractSkeletonServant skeletonServant) {
+                    if (skeletonServant.getTrueOwner() == entityLiving) {
                         entity.moveTo(entityLiving.position());
                     }
                 }
@@ -99,6 +101,8 @@ public class SkeletonSpell extends SummonSpells {
                 AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
                 if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
+                } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
+                    summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
                 }
                 summonedentity.setOwnerId(entityLiving.getUUID());
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);

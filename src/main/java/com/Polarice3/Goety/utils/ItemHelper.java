@@ -39,6 +39,17 @@ public class ItemHelper {
         itemStack.hurtAndBreak(pAmount, pEntity, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
+    public static void hurtNoEntity(ItemStack itemStack, int pAmount, Level level){
+        if (!level.isClientSide) {
+            if (itemStack.isDamageableItem()) {
+                if (itemStack.hurt(pAmount, level.getRandom(), null)) {
+                    itemStack.shrink(1);
+                    itemStack.setDamageValue(0);
+                }
+            }
+        }
+    }
+
     public static ItemEntity itemEntityDrop(LivingEntity livingEntity, ItemStack itemStack){
         return new ItemEntity(livingEntity.level, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), itemStack);
     }

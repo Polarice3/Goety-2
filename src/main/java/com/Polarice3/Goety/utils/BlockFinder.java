@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -228,6 +229,10 @@ public class BlockFinder {
             }
         }
         return false;
+    }
+
+    public static boolean findStructure(ServerLevel serverLevel, BlockPos blockPos, TagKey<Structure> structureTagKey){
+        return serverLevel.structureManager().getStructureWithPieceAt(blockPos, structureTagKey).isValid();
     }
 
     public static boolean isEmptyBox(Level level, BlockPos p_46860_){

@@ -26,4 +26,11 @@ public class ZombieRavagerRenderer<T extends Mob & IRavager> extends MobRenderer
          return UNARMORED_LOCATION;
       }
    }
+
+   protected boolean isShaking(T p_116561_) {
+      if (p_116561_ instanceof ZombieRavager zombieRavager){
+         return zombieRavager.isConverting() || super.isShaking(p_116561_);
+      }
+      return super.isShaking(p_116561_);
+   }
 }

@@ -19,7 +19,10 @@ public enum DefaultArmorAttributes implements ArmorMaterial {
     CURSED_PALADIN("cursed_paladin", 30, new int[]{3, 6, 7, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    DARK("dark", 15, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.1F, () -> {
+    BLACK_IRON("black_iron", 30, new int[]{3, 6, 7, 3}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> {
+        return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
+    }),
+    DARK("dark", 15, new int[]{4, 7, 9, 4}, 20, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.3F, () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     });
 

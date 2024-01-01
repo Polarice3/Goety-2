@@ -13,11 +13,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Zombie Servants can be summoned or converted into different variants. Casting the Rotting Focus in a Desert exposed to the sky will summon a Husk Servant, casting it underwater summons a Drowned Servant."
+      "text": "Zombie Servants can be summoned or converted into different variants. Casting the Rotting Focus in a Desert exposed to the sky will summon a Husk Servant."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:husk_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting it underwater summons a Drowned Servant. Drowned Servants can accept Tridents and will attack the same way as a regular Drowned."
     },
     {
       "type": "patchouli:entity",
@@ -25,7 +29,31 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Drowned Servants can accept Tridents and will attack the same way as a regular Drowned. Zombie Servants in all variants can accept any Armor but only accept Swords or Axes."
+      "text": "Within the mansions of the Illagers, casting the spell will summon forth loyal Zombie Vindicators instead of regular zombies. It appears that many Vindicators are buried within their homes, still clutching their axes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_vindicator"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Nether is full of Zombified Piglins that it comes to no surprised that casting the spell within the abominable realm will call forth one that's loyal towards you. Fire-resistant and scares Piglins like any other of its kind."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zpiglin_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Brutish guardians of the bastions rarely, if ever, leave their home, and most have their bodies burnt by the surrounding lava. Nonetheless, there's still a chance of summoning a Zombified version when casting within their holds."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zpiglin_brute_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Zombie Servants in all variants can accept any Armor but only accept Swords or Axes."
     }
   ]
 }

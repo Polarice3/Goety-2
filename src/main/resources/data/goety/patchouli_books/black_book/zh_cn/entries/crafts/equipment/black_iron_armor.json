@@ -1,0 +1,31 @@
+{
+  "name": "黑铁护甲",
+  "icon": "goety:black_iron_chestplate",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "诅咒金属锭似乎与普通铁锭具有相同的特性，因此用诅咒金属锭直接制作盔甲是多余的。然而，经过一些修补，诅咒金属锭可以用来将普通铁甲升级为更好的盔甲."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "它不仅提供了盔甲韧性，而且每一件都在一定程度上减轻了魔法、火焰和爆炸伤害。每件物品还提供使用灵魂能量的折扣，无论是用于施法、治疗仆从还是修复某些物品。不幸的是，它并没有忽视在手工制作或仪式中的使用。当随从杀死生物时，允许给予佩戴者灵魂能量。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_boots"
+    }
+  ]
+}

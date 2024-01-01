@@ -40,7 +40,10 @@ public class SummonTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
 
     public static Predicate<LivingEntity> predicate(LivingEntity attacker){
         if (attacker instanceof IOwned ownedEntity){
-            if (ownedEntity.getTrueOwner() instanceof Enemy || (ownedEntity.getTrueOwner() instanceof IOwned owned && owned.isHostile()) || ownedEntity instanceof Enemy || ownedEntity.isHostile()){
+            if (ownedEntity.getTrueOwner() instanceof Enemy
+                    || (ownedEntity.getTrueOwner() instanceof IOwned owned && owned.isHostile())
+                    || ownedEntity instanceof Enemy
+                    || ownedEntity.isHostile()){
                 return (target) -> target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
             } else {
                 return (target) ->

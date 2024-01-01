@@ -94,6 +94,9 @@ public class DarkWand extends Item {
             }
             compound.putInt(SOULUSE, SoulUse(livingEntity, stack));
             compound.putInt(CASTTIME, CastDuration(stack));
+            if (getFocus(stack) != null){
+                getFocus(stack).inventoryTick(worldIn, entityIn, itemSlot, isSelected);
+            }
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class OwnedBlockEntity extends BlockEntity {
+public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBlock {
     private UUID ownerUUID;
 
     public OwnedBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {

@@ -10,8 +10,6 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
-import com.Polarice3.Goety.common.items.armor.DarkArmor;
-import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
@@ -34,7 +32,6 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
@@ -202,10 +199,8 @@ public class SEHelper {
     public static float soulDiscount(LivingEntity living){
         float init = 1.0F;
         for (ItemStack itemStack : living.getArmorSlots()){
-            if (itemStack.getItem() instanceof ArmorItem armorItem){
-                if (armorItem instanceof ISoulDiscount soulDiscount){
-                    init -= (soulDiscount.getSoulDiscount(armorItem.getEquipmentSlot(itemStack)) / 100.0F);
-                }
+            if (itemStack.getItem() instanceof ISoulDiscount soulDiscount){
+                init -= (soulDiscount.getSoulDiscount(LivingEntity.getEquipmentSlotForItem(itemStack)) / 100.0F);
             }
         }
 

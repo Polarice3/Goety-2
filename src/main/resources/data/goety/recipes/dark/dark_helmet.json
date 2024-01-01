@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "minecraft:iron_helmet"
+    "item": "goety:black_iron_helmet"
   },
   "craftType": "forge",
   "soulCost": 5,

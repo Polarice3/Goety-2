@@ -5,10 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.DrownedServant;
-import com.Polarice3.Goety.common.entities.ally.HuskServant;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -21,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -117,6 +115,8 @@ public class ZombieSpell extends SummonSpells {
                         summoned = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), worldIn);
                     }
                     summonedentity = summoned;
+                } else if (BlockFinder.findStructure(worldIn, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)){
+                    summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
                 } else {
                     summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
                 }

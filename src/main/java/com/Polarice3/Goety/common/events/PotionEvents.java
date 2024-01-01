@@ -47,7 +47,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -604,37 +603,8 @@ public class PotionEvents {
     @SubscribeEvent
     public static void finishItemEvents(LivingEntityUseItemEvent.Finish event){
         if (event.getItem().getItem() == Items.MILK_BUCKET){
-            if (event.getEntity().hasEffect(GoetyEffects.ILLAGUE.get())){
-                int duration = Objects.requireNonNull(event.getEntity().getEffect(GoetyEffects.ILLAGUE.get())).getDuration();
-                int amp = Objects.requireNonNull(event.getEntity().getEffect(GoetyEffects.ILLAGUE.get())).getAmplifier();
-                if (duration > 0){
-                    if (amp <= 0) {
-                        EffectsUtil.halveDuration(event.getEntity(), GoetyEffects.ILLAGUE.get(), duration, false, false);
-                    } else {
-                        EffectsUtil.deamplifyEffect(event.getEntity(), GoetyEffects.ILLAGUE.get(), duration, false, false);
-                    }
-                }
-            }
             if (event.getEntity().hasEffect(GoetyEffects.SOUL_ARMOR.get())){
                 event.getEntity().removeEffect(GoetyEffects.SOUL_ARMOR.get());
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void SleepEvents(PlayerWakeUpEvent event){
-        Player player = event.getEntity();
-        if (player.isSleepingLongEnough()) {
-            if (player.hasEffect(GoetyEffects.ILLAGUE.get())) {
-                int duration = Objects.requireNonNull(player.getEffect(GoetyEffects.ILLAGUE.get())).getDuration();
-                int amp = Objects.requireNonNull(player.getEffect(GoetyEffects.ILLAGUE.get())).getAmplifier();
-                if (duration > 0){
-                    if (amp <= 0) {
-                        EffectsUtil.halveDuration(player, GoetyEffects.ILLAGUE.get(), duration, false, false);
-                    } else {
-                        EffectsUtil.deamplifyEffect(player, GoetyEffects.ILLAGUE.get(), duration, false, false);
-                    }
-                }
             }
         }
     }

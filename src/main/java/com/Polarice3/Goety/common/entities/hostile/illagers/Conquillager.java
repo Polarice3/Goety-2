@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -81,11 +80,9 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                 if (this.tickCount % 100 == 0 && this.getRandom().nextInt(20) == 0) {
                     if (entity instanceof Player) {
                         if (!((Player) entity).isCreative()) {
-                            entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 6000, 0, false, false));
+                            entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 2000, 0, false, false));
 
                         }
-                    } else if (entity instanceof AbstractVillager) {
-                        entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 6000, 0, false, false));
                     } else {
                         entity.addEffect(new MobEffectInstance(GoetyEffects.ILLAGUE.get(), 2000, 0, false, false));
                     }
