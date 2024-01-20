@@ -75,7 +75,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         }
         if (this.getMineBlocks(pState)){
             pLevel.playSound((Player) null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.SCYTHE_HIT.get(), pEntityLiving.getSoundSource(), 1.0F, 1.0F);
-            for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 2, 1, 2)){
+            for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 2, 2, 2)){
                 BlockState blockstate = pLevel.getBlockState(blockPos);
                 if (this.getMineBlocks(blockstate)){
                     if (pLevel.destroyBlock(blockPos, true, pEntityLiving)){

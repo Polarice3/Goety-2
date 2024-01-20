@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "goety:block/windswept_leaves"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Anchoring Experimentation",
+  "icon": "minecraft:respawn_anchor",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These Respawn Anchors hold the ability to bring the dead back to the Nether without Bedastrophic consequences. You begin to wonder what other abilities these blocks possess..."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/respawn_miniboss",
+      "text": "What happens if one were to use the anchor on a crypt lord's $(l)plundered jar$() or used $(l)crystal ball$() within their $(l)original locations$()?"
+    }
+  ]
+}

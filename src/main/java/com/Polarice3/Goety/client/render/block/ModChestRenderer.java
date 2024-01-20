@@ -86,7 +86,8 @@ public class ModChestRenderer<T extends ModChestBlockEntity> extends ChestRender
     public enum ChestToString {
 
         HAUNTED(ModBlocks.HAUNTED_CHEST.get(), ModBlocks.TRAPPED_HAUNTED_CHEST.get(), "haunted"),
-        ROTTEN(ModBlocks.ROTTEN_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(), "rotten");
+        ROTTEN(ModBlocks.ROTTEN_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(), "rotten"),
+        WINDSWEPT(ModBlocks.WINDSWEPT_CHEST.get(), ModBlocks.TRAPPED_WINDSWEPT_CHEST.get(), "windswept");
 
         private final Block chest;
         private final Block trappedChest;

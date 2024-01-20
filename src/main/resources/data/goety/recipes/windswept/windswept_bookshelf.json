@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XBX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:windswept_planks"
+    },
+    "B": {
+      "item": "minecraft:bookshelf"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "goety:windswept_bookshelf",
+    "count": 2
+  }
+}

@@ -285,7 +285,10 @@ public class Envioker extends HuntingIllagerEntity {
             if (!super.canUse()) {
                 return false;
             } else {
-                return Envioker.this.isMagic() && Envioker.this.getMainHandItem().getItem() instanceof SwordItem;
+                return Envioker.this.getTarget() != null
+                        && Envioker.this.isMagic()
+                        && Envioker.this.getMainHandItem().getItem() instanceof SwordItem
+                        && Envioker.this.hasLineOfSight(Envioker.this.getTarget());
             }
         }
 
@@ -337,7 +340,9 @@ public class Envioker extends HuntingIllagerEntity {
                 return false;
             } else {
                 int i = Envioker.this.level.getNearbyEntities(Tormentor.class, this.vexCountTargeting, Envioker.this, Envioker.this.getBoundingBox().inflate(16.0D)).size();
-                return i < 1 && Envioker.this.isMagic();
+                return Envioker.this.getTarget() != null
+                        && i < 1 && Envioker.this.isMagic()
+                        && Envioker.this.hasLineOfSight(Envioker.this.getTarget());
             }
         }
 

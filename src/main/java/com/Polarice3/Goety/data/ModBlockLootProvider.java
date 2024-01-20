@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.data;
 
+import com.Polarice3.Goety.common.blocks.LampBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
 import com.Polarice3.Goety.common.blocks.WitchPoleBlock;
@@ -75,6 +76,8 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
                     this.add(block, BlockLoot::createSlabItemTable);
                 } else if (block instanceof WitchPoleBlock) {
                     this.add(block, bl -> createSinglePropConditionTable(bl, WitchPoleBlock.HALF, DoubleBlockHalf.LOWER));
+                } else if (block instanceof LampBlock) {
+                    this.add(block, bl -> createSinglePropConditionTable(bl, LampBlock.HALF, DoubleBlockHalf.LOWER));
                 } else {
                     this.dropSelf(block);
                 }
@@ -87,6 +90,7 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
             this.dropWhenSilkTouch(ModBlocks.SCULK_RELAY.get());
             this.dropPottedContents(ModBlocks.POTTED_HAUNTED_SAPLING.get());
             this.dropPottedContents(ModBlocks.POTTED_ROTTEN_SAPLING.get());
+            this.dropPottedContents(ModBlocks.POTTED_WINDSWEPT_SAPLING.get());
             this.add(ModBlocks.JADE_ORE.get(), (p_124076_) -> {
                 return createOreDrop(p_124076_, ModItems.JADE.get());
             });
@@ -97,6 +101,12 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
                 return createRottenLeavesDrops(p_124094_, ModBlocks.ROTTEN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
             });
             this.add(ModBlocks.ROTTEN_BOOKSHELF.get(), (p_124233_) -> {
+                return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
+            });
+            this.add(ModBlocks.WINDSWEPT_LEAVES.get(), (p_124094_) -> {
+                return createLeavesDrops(p_124094_, ModBlocks.WINDSWEPT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+            });
+            this.add(ModBlocks.WINDSWEPT_BOOKSHELF.get(), (p_124233_) -> {
                 return createSingleItemTableWithSilkTouch(p_124233_, Items.BOOK, ConstantValue.exactly(3.0F));
             });
             this.add(ModBlocks.CRYPT_BOOKSHELF.get(), (p_124233_) -> {

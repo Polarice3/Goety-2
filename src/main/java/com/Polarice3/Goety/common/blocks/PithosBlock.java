@@ -1,11 +1,18 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.ModLootTables;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -50,7 +57,18 @@ public class PithosBlock extends BaseEntityBlock {
         } else {
             if (!pState.getValue(LOCKED)) {
                 BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-                if (tileentity instanceof PithosBlockEntity) {
+                if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.PithosRespawn.get() && pLevel instanceof ServerLevel serverLevel && BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.CRYPT_KEY)){
+                    ItemStack itemStack = pPlayer.getItemInHand(pHand);
+                    if (tileentity instanceof PithosBlockEntity pithosBlock) {
+                        pithosBlock.setLootTable(ModLootTables.CRYPT_TOMB, pLevel.random.nextLong());
+                    }
+                    if (pPlayer instanceof ServerPlayer serverPlayer){
+                        CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);
+                    }
+                    pLevel.setBlock(pPos, pState.setValue(LOCKED, Boolean.TRUE).setValue(TRIGGERED, Boolean.FALSE), 4);
+                    itemStack.shrink(1);
+                    pLevel.playSound(null, pPos , SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                } else if (tileentity instanceof PithosBlockEntity) {
                     pPlayer.openMenu((PithosBlockEntity) tileentity);
                 }
             } else {
@@ -61,7 +79,7 @@ public class PithosBlock extends BaseEntityBlock {
                     if (skullLord != null){
                         skullLord.setBoundOrigin(pPos);
                         skullLord.setPos(pPos.getX(), pPos.getY() + 1.0F, pPos.getZ());
-                        pLevel.playSound(null, skullLord.blockPosition() , SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1.0F, 1.0F);
+                        pLevel.playSound(null, pPos , SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1.0F, 1.0F);
                         pLevel.addFreshEntity(skullLord);
                     }
                     pLevel.setBlock(pPos, pState.setValue(TRIGGERED, Boolean.TRUE), 4);

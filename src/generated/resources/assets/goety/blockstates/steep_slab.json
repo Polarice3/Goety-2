@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/steep_slab"
+    },
+    "type=double": {
+      "model": "goety:block/steep_planks"
+    },
+    "type=top": {
+      "model": "goety:block/steep_slab_top"
+    }
+  }
+}

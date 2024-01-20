@@ -51,6 +51,11 @@
           },
           {
             "items": [
+              "goety:pulverize_focus"
+            ]
+          },
+          {
+            "items": [
               "goety:illusion_focus"
             ]
           },
@@ -107,6 +112,11 @@
           {
             "items": [
               "goety:shocking_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:thunderbolt_focus"
             ]
           },
           {
@@ -172,6 +182,11 @@
           {
             "items": [
               "goety:soul_heal_focus"
+            ]
+          },
+          {
+            "items": [
+              "goety:telekinesis_focus"
             ]
           },
           {

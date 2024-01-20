@@ -1,0 +1,24 @@
+{
+  "name": "大理石のブロックとそのバリエーション",
+  "icon": "goety:marble",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "大理石は、世界の最高峰にある派手な見た目のブロックです。 残念ながら、そのような頂上はあなたの手の届く範囲をはるかに超えていますが、魂のエネルギー、呪われた注入器、方解石 を使えば、これらの素晴らしいブロックを自分で手に入れることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_craft",
+      "recipe2": "goety:marble/slate_marble"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "インデントされたゴールドブロックは、完全なゴールドブロックよりも光沢がありませんが、それでも純粋な贅沢と富の象徴となることができます。 古代の聖域として聞いたことがあるものとは異なる、奇妙な構成要素です。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:indented_gold/indented_gold"
+    }
+  ]
+}

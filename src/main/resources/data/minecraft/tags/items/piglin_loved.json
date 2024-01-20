@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:indented_gold_blocks",
+    "goety:gold_arch_marble",
+    "goety:gold_banded_marble",
+    "goety:gold_plated_marble",
+    "goety:studded_steep_wood",
+    "goety:studded_steep_wall"
+  ]
+}

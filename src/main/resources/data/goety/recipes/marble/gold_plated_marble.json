@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "g",
+    "m"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:marble"
+    },
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result":
+  {
+    "item": "goety:gold_plated_marble",
+    "count": 1
+  }
+}

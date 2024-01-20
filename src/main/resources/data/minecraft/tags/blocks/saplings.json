@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "goety:haunted_sapling",
-    "goety:rotten_sapling"
+    "goety:rotten_sapling",
+    "goety:windswept_sapling"
   ]
 }

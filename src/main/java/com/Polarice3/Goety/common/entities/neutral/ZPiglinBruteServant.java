@@ -26,13 +26,14 @@ public class ZPiglinBruteServant extends ZPiglinServant {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ZPiglinBruteServantHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.23F)
+                .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.ZPiglinBruteServantDamage.get())
-                .add(Attributes.ARMOR, 2.0D);
+                .add(Attributes.ARMOR, AttributesConfig.ZPiglinBruteServantArmor.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ZPiglinBruteServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ZPiglinBruteServantArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.ZPiglinBruteServantDamage.get());
     }
 

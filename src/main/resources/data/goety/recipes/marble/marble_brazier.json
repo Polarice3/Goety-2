@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bcb",
+    "sms"
+  ],
+  "key": {
+    "b": {
+      "tag": "forge:ingots/gold"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    },
+    "s": {
+      "tag": "goety:marble_slabs"
+    },
+    "m": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "result": {
+    "item": "goety:marble_brazier"
+  }
+}

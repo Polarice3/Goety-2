@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ggg",
+    "gmg",
+    "ggg"
+  ],
+  "key":
+  {
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    },
+    "m":
+    {
+      "item": "goety:marble"
+    }
+  },
+  "result":
+  {
+    "item": "goety:indented_gold",
+    "count": 1
+  }
+}

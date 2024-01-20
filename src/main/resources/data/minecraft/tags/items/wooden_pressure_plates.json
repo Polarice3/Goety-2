@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "goety:haunted_pressure_plate",
-    "goety:rotten_pressure_plate"
+    "goety:rotten_pressure_plate",
+    "goety:windswept_pressure_plate"
   ]
 }

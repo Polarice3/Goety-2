@@ -21,6 +21,7 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
                 ModEntityType.BORDER_WRAITH.get(),
+                ModEntityType.FROZEN_ZOMBIE_SERVANT.get(),
                 ModEntityType.STRAY_SERVANT.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),

@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WraithSecretLayer<T extends WraithServant> extends RenderLayer<T, WraithModel<T>> {
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID, "textures/entity/wraith_secret.png");
+    private static final ResourceLocation TEXTURES = Goety.location("textures/entity/wraith/wraith_secret.png");
     private final WraithModel<T> layerModel;
 
     public WraithSecretLayer(RenderLayerParent<T, WraithModel<T>> p_i50919_1_, EntityModelSet p_174555_) {

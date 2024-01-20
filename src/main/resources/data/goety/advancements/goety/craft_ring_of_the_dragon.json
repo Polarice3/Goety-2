@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:ring_of_the_dragon"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_ring_of_the_dragon.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_ring_of_the_dragon.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "ring_of_the_dragon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:ring_of_the_dragon"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "ring_of_the_dragon"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  }
+}

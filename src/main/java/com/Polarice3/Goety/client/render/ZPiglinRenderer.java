@@ -14,8 +14,8 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class ZPiglinRenderer extends HumanoidMobRenderer<ZPiglinServant, ZPiglinModel<ZPiglinServant>> {
-    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zpiglin_servant.png");
-    protected static final ResourceLocation TEXTURE2 = Goety.location("textures/entity/servants/zpiglin_brute_servant.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zombie/zpiglin_servant.png");
+    protected static final ResourceLocation TEXTURE2 = Goety.location("textures/entity/servants/zombie/zpiglin_brute_servant.png");
 
     public ZPiglinRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, createModel(entityRendererManager.getModelSet()), 0.5F, 1.0019531F, 1.0F, 1.0019531F);

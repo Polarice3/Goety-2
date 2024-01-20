@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "goety:marble",
+    "goety:slate_marble",
+    "goety:slate_connected_marble",
+    "goety:slate_patterned_marble",
+    "goety:gold_arch_marble",
+    "goety:gold_banded_marble",
+    "goety:gold_holder_marble",
+    "goety:gold_plated_marble",
+    "goety:marble_slab",
+    "goety:smooth_marble_slab",
+    "goety:slate_marble_slab"
+  ]
+}

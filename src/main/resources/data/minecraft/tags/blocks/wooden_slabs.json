@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "goety:haunted_slab",
-    "goety:rotten_slab"
+    "goety:rotten_slab",
+    "goety:windswept_slab",
+    "goety:steep_slab"
   ]
 }

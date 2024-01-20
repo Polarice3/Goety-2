@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -179,17 +181,51 @@ public class BlockFinder {
         }
     }
 
+    public static BlockPos SummonPosition(LivingEntity livingEntity, BlockPos blockPos){
+        return SummonPosition(livingEntity, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    }
+
+    public static BlockPos SummonPosition(LivingEntity livingEntity, double x, double y, double z){
+        double d3 = y;
+        boolean flag = false;
+        BlockPos blockpos = new BlockPos(x, y, z);
+        Level level = livingEntity.level;
+        if (level.hasChunkAt(blockpos)) {
+            boolean flag1 = false;
+
+            while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = blockpos.below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.getMaterial().blocksMotion()) {
+                    flag1 = true;
+                } else {
+                    --d3;
+                    blockpos = blockpos1;
+                }
+            }
+
+            if (flag1) {
+                if (level.noCollision(livingEntity) && !level.containsAnyLiquid(livingEntity.getBoundingBox())) {
+                    flag = true;
+                }
+            }
+        }
+        if (!flag) {
+            return blockpos;
+        } else {
+            return new BlockPos(x, d3, z);
+        }
+    }
+
     public static BlockPos SummonRadius(LivingEntity livingEntity, Level world){
         BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable().move(0, 0, 0);
         blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(5) - world.random.nextInt(5));
-        blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
+        blockpos$mutable.setY(livingEntity.getBlockY());
         blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(5) - world.random.nextInt(5));
-        if (hasChunksAt(livingEntity)
-                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)
-                && world.getBlockState(blockpos$mutable.below()).isCollisionShapeFullBlock(world, blockpos$mutable.below())){
-            return blockpos$mutable;
+        if (world.noCollision(livingEntity) && !world.containsAnyLiquid(livingEntity.getBoundingBox())) {
+            return SummonPosition(livingEntity, blockpos$mutable);
         } else {
-            return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.moveDownToGround(livingEntity), 0);
+            return livingEntity.blockPosition();
         }
     }
 
@@ -198,12 +234,10 @@ public class BlockFinder {
         blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(9) - world.random.nextInt(9));
         blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
         blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(9) - world.random.nextInt(9));
-        if (hasChunksAt(livingEntity)
-                && isEmptyBlock(world, blockpos$mutable, world.getBlockState(blockpos$mutable), world.getFluidState(blockpos$mutable), livingEntity.getType(), false)
-                && world.getBlockState(blockpos$mutable.below()).isCollisionShapeFullBlock(world, blockpos$mutable.below())){
-            return blockpos$mutable;
+        if (world.noCollision(livingEntity) && !world.containsAnyLiquid(livingEntity.getBoundingBox())) {
+            return SummonPosition(livingEntity, blockpos$mutable);
         } else {
-            return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.moveDownToGround(livingEntity), 0);
+            return livingEntity.blockPosition();
         }
     }
 
@@ -436,5 +470,19 @@ public class BlockFinder {
                 (poiTypeHolder) -> poiTypeHolder.is(PoiTypes.LIGHTNING_ROD),
                 (blockPos1) -> blockPos1.getY() == serverLevel.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos1.getX(), blockPos1.getZ()) - 1, blockPos, range, PoiManager.Occupancy.ANY);
         return optional.map((blockPos1) -> blockPos1.above(1));
+    }
+
+    public static void preventCreativeDropFromBottomPart(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+        DoubleBlockHalf doubleblockhalf = pState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
+        if (doubleblockhalf == DoubleBlockHalf.UPPER) {
+            BlockPos blockpos = pPos.below();
+            BlockState blockstate = pLevel.getBlockState(blockpos);
+            if (blockstate.is(pState.getBlock()) && blockstate.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
+                BlockState blockstate1 = blockstate.hasProperty(BlockStateProperties.WATERLOGGED) && blockstate.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                pLevel.setBlock(blockpos, blockstate1, 35);
+                pLevel.levelEvent(pPlayer, 2001, blockpos, Block.getId(blockstate));
+            }
+        }
+
     }
 }

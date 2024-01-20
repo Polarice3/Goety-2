@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "goety:windswept_log",
+    "goety:windswept_wood",
+    "goety:windswept_planks",
+    "goety:compacted_windswept_planks",
+    "goety:thatched_windswept_planks",
+    "goety:windswept_door",
+    "goety:windswept_fence",
+    "goety:windswept_fence_gate",
+    "goety:windswept_slab",
+    "goety:windswept_stairs",
+    "goety:windswept_trapdoor",
+    "goety:windswept_button",
+    "goety:windswept_pressure_plate",
+    "goety:windswept_bookshelf",
+    "goety:windswept_sign",
+    "goety:windswept_wall_sign",
+    "goety:stripped_windswept_log",
+    "goety:stripped_windswept_wood"
+  ]
+}

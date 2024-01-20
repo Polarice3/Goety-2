@@ -1,0 +1,24 @@
+{
+  "name": "大理石方块与其变体",
+  "icon": "goety:marble",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "大理石是世界上超高峰上发现的一种外观奇特的石块。不幸的是，这种高度的山峰远远超出了你的能力，但有了灵魂能量、诅咒注入和方解石，你可以自己获得这些奇妙的方块。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_craft",
+      "recipe2": "goety:marble/slate_marble"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "平滑金块虽然没有完整的金块那么闪亮，但仍然能够成为纯粹富裕和财富的象征。这是一个奇怪的建筑块，你听说一个古老的圣地曾经使用过它。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:indented_gold/indented_gold"
+    }
+  ]
+}

@@ -76,11 +76,12 @@ public class ZombieServant extends Summoned{
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.23F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.ZombieServantDamage.get())
-                .add(Attributes.ARMOR, 2.0D);
+                .add(Attributes.ARMOR, AttributesConfig.ZombieServantArmor.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ZombieServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ZombieServantArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.ZombieServantDamage.get());
     }
 

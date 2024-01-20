@@ -1,15 +1,20 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -18,6 +23,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -60,31 +66,43 @@ public class CrystalBallBlock extends Block {
         return !pState.getValue(POWERED) ? 3.0F : -1.0F;
     }
 
-    public InteractionResult use(BlockState p_49722_, Level p_49723_, BlockPos p_49724_, Player p_49725_, InteractionHand p_49726_, BlockHitResult p_49727_) {
-        if (!p_49723_.isClientSide && p_49723_.getDifficulty() != Difficulty.PEACEFUL) {
-            if (p_49723_ instanceof ServerLevel serverLevel) {
-                if (p_49722_.getValue(POWERED)) {
-                    Crone crone = new Crone(ModEntityType.CRONE.get(), p_49723_);
-                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(p_49725_, p_49723_);
-                    if (!serverLevel.getBlockState(blockPos.below()).isSolidRender(p_49723_, blockPos.below())) {
-                        blockPos = BlockFinder.SummonRadius(p_49725_, p_49723_);
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (!pLevel.isClientSide && pLevel.getDifficulty() != Difficulty.PEACEFUL) {
+            if (pLevel instanceof ServerLevel serverLevel) {
+                if (pState.getValue(POWERED)) {
+                    Crone crone = new Crone(ModEntityType.CRONE.get(), pLevel);
+                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(pPlayer, pLevel);
+                    if (!serverLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())) {
+                        blockPos = BlockFinder.SummonRadius(pPlayer, pLevel);
                     }
                     crone.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                    if (!CuriosFinder.hasWitchSet(p_49725_) && MobUtil.validEntity(p_49725_)){
-                        crone.setTarget(p_49725_);
+                    if (!CuriosFinder.hasWitchSet(pPlayer) && MobUtil.validEntity(pPlayer)){
+                        crone.setTarget(pPlayer);
                     }
-                    crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(p_49724_), MobSpawnType.MOB_SUMMONED, null, null);
+                    crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
                     crone.setPersistenceRequired();
-                    if (p_49723_.addFreshEntity(crone)) {
-                        p_49723_.playSound(null, crone.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
-                        p_49723_.playSound(null, p_49724_, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.75F);
-                        ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, p_49724_.getX() + 0.5F, p_49724_.getY() + 0.5F, p_49724_.getZ() + 0.5F, serverLevel);
-                        p_49723_.setBlockAndUpdate(p_49724_, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));
+                    if (pLevel.addFreshEntity(crone)) {
+                        pLevel.playSound(null, crone.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
+                        pLevel.playSound(null, pPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.75F);
+                        ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, serverLevel);
+                        pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));
+                    }
+                } else if (MainConfig.CrystalBallRespawn.get()) {
+                    if (BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.BLIGHTED_SHACK_KEY)) {
+                        if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS)) {
+                            ItemStack itemStack = pPlayer.getItemInHand(pHand);
+                            if (pPlayer instanceof ServerPlayer serverPlayer) {
+                                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);
+                            }
+                            pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, Boolean.TRUE));
+                            itemStack.shrink(1);
+                            pLevel.playSound(null, pPos, SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
                     }
                 }
             }
         }
-        return InteractionResult.sidedSuccess(p_49723_.isClientSide);
+        return InteractionResult.sidedSuccess(pLevel.isClientSide);
     }
 
     public RenderShape getRenderShape(BlockState state) {

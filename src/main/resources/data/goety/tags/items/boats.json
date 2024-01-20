@@ -3,6 +3,7 @@
   "values": [
     "#minecraft:boats",
     "goety:haunted_boat",
-    "goety:rotten_boat"
+    "goety:rotten_boat",
+    "goety:windswept_boat"
   ]
 }

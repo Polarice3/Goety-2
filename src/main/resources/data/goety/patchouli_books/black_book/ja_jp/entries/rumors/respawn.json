@@ -1,0 +1,17 @@
+{
+  "name": "アンカリング実験",
+  "icon": "minecraft:respawn_anchor",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "これらのリスポーンアンカーは、ベッドデストロフィックな影響を与えることなく死者をネザーに戻す能力を持っています。 これらのブロックには他にどんな能力があるのか気になり始めます..."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/respawn_miniboss",
+      "text": "地下室の領主の $(l)略奪した壷$() にアンカーを使用したり、 $(l)水晶玉$()を使用したりしたらどうなるでしょうか?"
+    }
+  ]
+}

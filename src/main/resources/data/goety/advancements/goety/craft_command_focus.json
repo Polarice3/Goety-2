@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:command_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_command_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_command_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "command_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:command_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "command_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

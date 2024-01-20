@@ -30,9 +30,13 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZombieServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DrownedServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HuskServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FrozenZombieServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> JungleZombieServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StrayServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MossySkeletonServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SunkenSkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VanguardServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithServantTexture;
@@ -94,12 +98,20 @@ public class MobsConfig {
                         .define("drownedServantTexture", true);
                 HuskServantTexture = BUILDER.comment("If Husk Servants have custom textures, Default: true")
                         .define("huskServantTexture", true);
+                FrozenZombieServantTexture = BUILDER.comment("If Frozen Zombie Servants have custom textures, Default: true")
+                        .define("frozenZombieServantTexture", true);
+                JungleZombieServantTexture = BUILDER.comment("If Jungle Zombie Servants have custom textures, Default: true")
+                        .define("jungleZombieServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Skeleton Servants");
                 SkeletonServantTexture = BUILDER.comment("If Skeleton Servants have custom textures, Default: true")
                         .define("skeletonServantTexture", true);
                 StrayServantTexture = BUILDER.comment("If Stray Servants have custom textures, Default: true")
                         .define("strayServantTexture", true);
+                MossySkeletonServantTexture = BUILDER.comment("If Mossy Skeleton Servants have custom textures, Default: true")
+                        .define("mossySkeletonServantTexture", true);
+                SunkenSkeletonServantTexture = BUILDER.comment("If Sunken Skeleton Servants have custom textures, Default: true")
+                        .define("sunkenSkeletonServantTexture", true);
                 VanguardServantTexture = BUILDER.comment("If Vanguard Servants have custom textures, Default: true")
                         .define("vanguardServantTexture", true);
                 BUILDER.pop();

@@ -80,6 +80,7 @@ public class ClientInitEvents {
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.HAUNTED);
             Sheets.addWoodType(ModWoodType.ROTTEN);
+            Sheets.addWoodType(ModWoodType.WINDSWEPT);
         });
 
         ItemProperties.register(ModItems.TOTEM_OF_SOULS.get(), new ResourceLocation("souls"),
@@ -134,6 +135,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModBlockLayer.TALL_SKULL, TallSkullModel::createBodyLayer);
         event.registerLayerDefinition(ModBlockLayer.REDSTONE_GOLEM_SKULL, RedstoneGolemSkullModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SPIKE, SpikeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.HARPOON, HarpoonModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_BOUQUET, IceBouquetModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_CHUNK, IceChunkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VICIOUS_TOOTH, ViciousToothModel::createBodyLayer);
@@ -161,6 +163,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.MALGHAST, ModGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINI_GHAST, MiniGhastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WRAITH, WraithModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.SUNKEN_SKELETON, SunkenSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECROMANCER, NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VANGUARD, VanguardModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
@@ -254,6 +257,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SWORD.get(), (rendererManager) -> new SwordProjectileRenderer<>(rendererManager, itemRenderer, 1.25F, true));
         event.registerEntityRenderer(ModEntityType.ICE_SPIKE.get(), IceSpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.DEATH_ARROW.get(), DeathArrowRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HARPOON.get(), HarpoonRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntityType.SCYTHE.get(), ScytheSlashRenderer::new);
         event.registerEntityRenderer(ModEntityType.GRAND_LAVABALL.get(), GrandLavaballRenderer::new);
@@ -308,8 +312,12 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HUSK_SERVANT.get(), HuskServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.DROWNED_SERVANT.get(), DrownedServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), FrozenZombieRenderer::new);
+        event.registerEntityRenderer(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), JungleZombieRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.STRAY_SERVANT.get(), SkeletonServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MOSSY_SKELETON_SERVANT.get(), SkeletonServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
@@ -367,7 +375,7 @@ public class ClientInitEvents {
                 (state, lightReader, pos, color) ->
                         lightReader != null && pos != null ?
                                 BiomeColors.getAverageFoliageColor(lightReader, pos) :
-                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
+                                FoliageColor.getDefaultColor(), ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get(), ModBlocks.WINDSWEPT_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -377,7 +385,7 @@ public class ClientInitEvents {
         event.register((itemStack, i) -> {
             BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, i);
-        }, ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get());
+        }, ModBlocks.HARDENED_LEAVES.get(), ModBlocks.ROTTEN_LEAVES.get(), ModBlocks.WINDSWEPT_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -436,6 +444,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.BURNING.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_EXPLODE_BITS.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
+        event.register(ModParticleTypes.BIG_CULT_SPELL.get(), BigSpellParticle.MobProvider::new);
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH.get(), WraithParticle.Provider::new);
         event.register(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);

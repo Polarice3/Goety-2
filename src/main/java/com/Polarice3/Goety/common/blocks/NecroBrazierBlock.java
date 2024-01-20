@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.NecroBrazierBlockEntity;
 import com.Polarice3.Goety.utils.ConstantPaths;
+import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -99,7 +100,11 @@ public class NecroBrazierBlock extends BaseEntityBlock implements SimpleWaterlog
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pState.getValue(LIT)) {
-            if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && ((LivingEntity) pEntity).getMobType() != MobType.UNDEAD && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
+            if (!pEntity.fireImmune()
+                    && pEntity instanceof LivingEntity livingEntity
+                    && livingEntity.getMobType() != MobType.UNDEAD
+                    && !LichdomHelper.isInLichMode(livingEntity)
+                    && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
                     && pEntity.getY() >= pPos.getY() + 0.5F) {
                 pEntity.hurt(DamageSource.IN_FIRE, 1.0F);
             }

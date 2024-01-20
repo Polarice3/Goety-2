@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:respawn_anchor"
+    },
+    "title": {
+      "translate": "advancements.goety.respawn_miniboss.title"
+    },
+    "description": {
+      "translate": "advancements.goety.respawn_miniboss.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "respawn": {
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:respawn_anchor"
+          ]
+        },
+        "location": {
+          "block": {
+            "blocks": [
+              "goety:pithos",
+              "goety:crystal_ball"
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    ["respawn"]
+  ]
+}

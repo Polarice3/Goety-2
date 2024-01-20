@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class ZombieVindicatorRenderer extends HumanoidMobRenderer<ZombieVindicator, VillagerServantModel<ZombieVindicator>> {
-    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zombie_vindicator.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zombie/zombie_vindicator.png");
 
     public ZombieVindicatorRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new VillagerServantModel<>(entityRendererManager.bakeLayer(ModModelLayer.ZOMBIE_VILLAGER_SERVANT)),0.5F);

@@ -10,6 +10,7 @@ import java.util.Set;
 public class ModModelLayer {
     private static final Set<ModelLayerLocation> ALL_MODELS = Sets.newHashSet();
     public static final ModelLayerLocation SPIKE = register("spike");
+    public static final ModelLayerLocation HARPOON = register("harpoon");
     public static final ModelLayerLocation ICE_BOUQUET = register("ice_bouquet");
     public static final ModelLayerLocation ICE_CHUNK = register("ice_chunk");
     public static final ModelLayerLocation VICIOUS_TOOTH = register("vicious_tooth");
@@ -37,6 +38,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
     public static final ModelLayerLocation WRAITH = register("wraith");
+    public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");
     public static final ModelLayerLocation VANGUARD = register("vanguard");
     public static final ModelLayerLocation VILLAGER_ARMOR_INNER = registerInnerArmor("villager_armor");

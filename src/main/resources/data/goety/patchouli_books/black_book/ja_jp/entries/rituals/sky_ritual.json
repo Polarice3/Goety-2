@@ -6,11 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "要件: $(li)儀式はは 128 ブロック以上でなければならない"
+      "text": "要件: $(li)128 ブロック以上の高さの祭壇 $(br)$(l)OR$()$() $(li)8 大理石ブロック $(li)16 翡翠タイル $(li)4 凹んだ金ブロック"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sky_ritual.png"],
+      "border": true,
+      "text": "儀式を高さレベルより下に配置した場合の配置例。"
     },
     {
       "type": "patchouli:text",
-      "text": "祭壇を空中高く設置することで、風と空そのものを利用して魔法を発動することができます"
+      "text": "祭壇を空中高く設置することで、風と空そのものを利用して魔法を発動することができます。"
     }
   ]
 }

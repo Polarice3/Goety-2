@@ -243,10 +243,14 @@ public class Goety {
             AxeItem.STRIPPABLES.put(ModBlocks.HAUNTED_WOOD.get(), ModBlocks.STRIPPED_HAUNTED_WOOD.get());
             AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_LOG.get(), ModBlocks.STRIPPED_ROTTEN_LOG.get());
             AxeItem.STRIPPABLES.put(ModBlocks.ROTTEN_WOOD.get(), ModBlocks.STRIPPED_ROTTEN_WOOD.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_LOG.get(), ModBlocks.STRIPPED_WINDSWEPT_LOG.get());
+            AxeItem.STRIPPABLES.put(ModBlocks.WINDSWEPT_WOOD.get(), ModBlocks.STRIPPED_WINDSWEPT_WOOD.get());
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.HAUNTED_SAPLING.getId(), ModBlocks.POTTED_HAUNTED_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.ROTTEN_SAPLING.getId(), ModBlocks.POTTED_ROTTEN_SAPLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.WINDSWEPT_SAPLING.getId(), ModBlocks.POTTED_WINDSWEPT_SAPLING);
             WoodType.register(ModWoodType.HAUNTED);
             WoodType.register(ModWoodType.ROTTEN);
+            WoodType.register(ModWoodType.WINDSWEPT);
             RaidAdditions.addRaiders();
             addBrewingRecipes();
         });
@@ -292,8 +296,12 @@ public class Goety {
         event.put(ModEntityType.ZOMBIE_SERVANT.get(), ZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.HUSK_SERVANT.get(), HuskServant.setCustomAttributes().build());
         event.put(ModEntityType.DROWNED_SERVANT.get(), DrownedServant.setCustomAttributes().build());
+        event.put(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), FrozenZombieServant.setCustomAttributes().build());
+        event.put(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), JungleZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_SERVANT.get(), SkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
+        event.put(ModEntityType.MOSSY_SKELETON_SERVANT.get(), MossySkeletonServant.setCustomAttributes().build());
+        event.put(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());

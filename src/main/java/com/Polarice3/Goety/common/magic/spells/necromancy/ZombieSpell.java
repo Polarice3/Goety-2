@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -117,6 +118,10 @@ public class ZombieSpell extends SummonSpells {
                     summonedentity = summoned;
                 } else if (BlockFinder.findStructure(worldIn, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)){
                     summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
+                } else if (worldIn.getBiome(blockPos).get().coldEnoughToSnow(blockPos)){
+                    summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
+                } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){
+                    summonedentity = new JungleZombieServant(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), worldIn);
                 } else {
                     summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
                 }

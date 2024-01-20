@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "goety:block/steep_log",
+    "bottom": "goety:block/indented_gold",
+    "side": "goety:block/rimmed_steep_log"
+  }
+}

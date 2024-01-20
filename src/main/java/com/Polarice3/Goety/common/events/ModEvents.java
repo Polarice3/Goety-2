@@ -346,7 +346,7 @@ public class ModEvents {
             }
             if (MainConfig.StarterTotem.get()) {
                 if (!data.getBoolean("goety:gotTotem")) {
-                    event.getEntity().addItem(new ItemStack(ModItems.TOTEM_OF_SOULS.get()));
+                    event.getEntity().addItem(new ItemStack(ModItems.TOTEM_OF_ROOTS.get()));
                     data.putBoolean("goety:gotTotem", true);
                     playerData.put(Player.PERSISTED_NBT_TAG, data);
                 }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:indented_gold_slab"
+    }
+  },
+  "result": {
+    "item": "goety:chiseled_indented_gold"
+  }
+}

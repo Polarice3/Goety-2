@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class DrownedServantRenderer extends AbstractZombieServantRenderer<DrownedServant, DrownedServantModel<DrownedServant>> {
-   protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/servants/drowned_servant.png");
+   protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/zombie/drowned_servant.png");
    private static final ResourceLocation DROWNED_LOCATION = new ResourceLocation("textures/entity/zombie/drowned.png");
 
    public DrownedServantRenderer(EntityRendererProvider.Context p_173964_) {

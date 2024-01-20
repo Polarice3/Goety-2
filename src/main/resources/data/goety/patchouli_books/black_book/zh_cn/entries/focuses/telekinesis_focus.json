@@ -1,0 +1,15 @@
+{
+  "name": "原力聚晶",
+  "icon": "goety:telekinesis_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使目标物品或生物朝施法者的十字准线悬浮，但前提是目标体型不大于施法者的体型，并且该聚晶没有被附魔强效。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/telekinesis_focus"
+    }
+  ]
+}

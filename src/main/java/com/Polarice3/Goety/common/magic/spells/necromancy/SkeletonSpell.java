@@ -4,10 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.SkeletonPillager;
-import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.StrayServant;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.init.ModSounds;
@@ -19,6 +16,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -98,15 +96,24 @@ public class SkeletonSpell extends SummonSpells {
         if (!isShifting(entityLiving)) {
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
+                if (entityLiving.isUnderWater()){
+                    blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
+                }
                 AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
                 if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                 } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
                     summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
+                } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){
+                    summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
+                } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
+                    summonedentity = new SunkenSkeletonServant(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), worldIn);
                 }
                 summonedentity.setOwnerId(entityLiving.getUUID());
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
-                MobUtil.moveDownToGround(summonedentity);
+                if (summonedentity.getType() != ModEntityType.SUNKEN_SKELETON_SERVANT.get()){
+                    MobUtil.moveDownToGround(summonedentity);
+                }
                 summonedentity.setPersistenceRequired();
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);

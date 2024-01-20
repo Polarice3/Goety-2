@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SkeletonPillagerRenderer extends HumanoidMobRenderer<SkeletonPillager, SkeletonVillagerModel<SkeletonPillager>> {
-    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton_pillager.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton/skeleton_pillager.png");
 
     public SkeletonPillagerRenderer(EntityRendererProvider.Context entityRendererManager) {
         super(entityRendererManager, new SkeletonVillagerModel<>(entityRendererManager.bakeLayer(ModModelLayer.SKELETON_VILLAGER_SERVANT)),0.5F);
