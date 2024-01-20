@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_right_open",
-  "textures": {
-    "top": "goety:block/haunted_door_top",
-    "bottom": "goety:block/haunted_door_bottom"
-  },
-  "render_type": "translucent"
-}

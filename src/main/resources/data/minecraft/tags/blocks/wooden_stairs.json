@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "goety:haunted_stairs",
-    "goety:rotten_stairs"
+    "goety:rotten_stairs",
+    "goety:windswept_stairs",
+    "goety:steep_stairs"
   ]
 }

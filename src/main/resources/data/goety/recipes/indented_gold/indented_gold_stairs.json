@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:indented_gold"
+    }
+  },
+  "result": {
+    "item": "goety:indented_gold_stairs",
+    "count": 4
+  }
+}

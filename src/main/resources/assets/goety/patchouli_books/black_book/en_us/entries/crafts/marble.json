@@ -1,0 +1,24 @@
+{
+  "name": "Marble Blocks & Variants",
+  "icon": "goety:marble",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Marble is a fancy looking block found on the highest peaks of the world. Unfortunately, such peaks are far beyond your reach, but with Soul Energy, Cursed Infusion and Calcite, you can get these wondrous blocks for yourself."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_craft",
+      "recipe2": "goety:marble/slate_marble"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Indented Gold blocks, while less shiny than a full Block of Gold, are still capable of being symbols of pure opulence and wealth. An odd building block for what you've heard as an ancient sanctum."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:indented_gold/indented_gold"
+    }
+  ]
+}

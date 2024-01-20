@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
 public class BorderWraithRenderer extends AbstractWraithRenderer {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/border_wraith.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/wraith/border_wraith.png");
 
     public BorderWraithRenderer(EntityRendererProvider.Context renderManagerIn){
         super(renderManagerIn, new WraithModel<>(renderManagerIn.bakeLayer(ModModelLayer.WRAITH)), 0.5F);
@@ -24,7 +24,7 @@ public class BorderWraithRenderer extends AbstractWraithRenderer {
     }
 
     public static class GlowLayer<T extends Mob, M extends WraithModel<T>> extends EyesLayer<T, M> {
-        private static final RenderType RENDER_TYPE = ModRenderType.wraith(new ResourceLocation(Goety.MOD_ID, "textures/entity/border_wraith_glow.png"));
+        private static final RenderType RENDER_TYPE = ModRenderType.wraith(Goety.location("textures/entity/wraith/border_wraith_glow.png"));
 
         public GlowLayer(RenderLayerParent<T, M> p_i50919_1_) {
             super(p_i50919_1_);

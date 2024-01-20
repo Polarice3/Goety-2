@@ -57,6 +57,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> CULT_SPELL = PARTICLE_TYPES.register("cult_spell",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BIG_CULT_SPELL = PARTICLE_TYPES.register("big_cult_spell",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> LICH = PARTICLE_TYPES.register("lich",
             () -> new SimpleParticleType(true));
 

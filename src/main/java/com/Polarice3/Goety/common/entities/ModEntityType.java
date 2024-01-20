@@ -59,6 +59,11 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(20));
 
+    public static final RegistryObject<EntityType<Harpoon>> HARPOON = register("harpoon",
+            EntityType.Builder.<Harpoon>of(Harpoon::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<ThrownBrew>> BREW = register("brew",
             EntityType.Builder.<ThrownBrew>of(ThrownBrew::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -360,6 +365,16 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<FrozenZombieServant>> FROZEN_ZOMBIE_SERVANT = register("frozen_zombie_servant",
+            EntityType.Builder.of(FrozenZombieServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<JungleZombieServant>> JUNGLE_ZOMBIE_SERVANT = register("jungle_zombie_servant",
+            EntityType.Builder.of(JungleZombieServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<SkeletonServant>> SKELETON_SERVANT = register("skeleton_servant",
             EntityType.Builder.of(SkeletonServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -367,6 +382,16 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<StrayServant>> STRAY_SERVANT = register("stray_servant",
             EntityType.Builder.of(StrayServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<MossySkeletonServant>> MOSSY_SKELETON_SERVANT = register("mossy_skeleton_servant",
+            EntityType.Builder.of(MossySkeletonServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<SunkenSkeletonServant>> SUNKEN_SKELETON_SERVANT = register("sunken_skeleton_servant",
+            EntityType.Builder.of(SunkenSkeletonServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 

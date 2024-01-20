@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/indented_gold_slab"
+    },
+    "type=double": {
+      "model": "goety:block/indented_gold"
+    },
+    "type=top": {
+      "model": "goety:block/indented_gold_slab_top"
+    }
+  }
+}

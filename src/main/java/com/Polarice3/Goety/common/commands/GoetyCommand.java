@@ -220,9 +220,8 @@ public class GoetyCommand {
     private static int spawnIllagers(CommandSourceStack pSource, ServerPlayer pPlayer) {
         int i = SEHelper.getSoulAmountInt(pPlayer);
         if (i > MobsConfig.IllagerAssaultSEThreshold.get()){
-            pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
             IllagerSpawner illagerSpawner = new IllagerSpawner();
-            illagerSpawner.forceSpawn(pPlayer.serverLevel(), pPlayer);
+            illagerSpawner.forceSpawn(pPlayer.serverLevel(), pPlayer, pSource);
             return 1;
         } else {
             pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure", pPlayer.getDisplayName()));

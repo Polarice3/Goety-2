@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_top_right_open",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "goety:block/windswept_door_bottom",
+    "top": "goety:block/windswept_door_top"
+  }
+}

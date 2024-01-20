@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -122,6 +123,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         if (this.getTrueOwner() instanceof Mob mobOwner){
             if (mobOwner.getTarget() != null && this.getTarget() == null){
                 this.setTarget(mobOwner.getTarget());
+            }
+            if (mobOwner instanceof IBoss) {
+                if (mobOwner.isRemoved() ||mobOwner.isDeadOrDying()){
+                    this.kill();
+                }
             }
         }
         if (this.getTarget() != null){

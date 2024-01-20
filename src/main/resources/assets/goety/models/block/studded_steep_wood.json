@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/studded_steep_log",
+    "side": "goety:block/studded_steep_log"
+  }
+}

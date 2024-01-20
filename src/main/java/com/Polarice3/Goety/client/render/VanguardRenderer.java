@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class VanguardRenderer<T extends VanguardServant> extends MobRenderer<T, VanguardModel<T>> {
-   private static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/vanguard.png");
-   private static final ResourceLocation TEXTURE_2 = Goety.location("textures/entity/servants/vanguard_original.png");
+   private static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton/vanguard.png");
+   private static final ResourceLocation TEXTURE_2 = Goety.location("textures/entity/servants/skeleton/vanguard_original.png");
 
    public VanguardRenderer(EntityRendererProvider.Context p_174443_) {
       super(p_174443_, new VanguardModel<>(p_174443_.bakeLayer(ModModelLayer.VANGUARD)), 0.5F);

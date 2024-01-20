@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +32,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -514,21 +517,15 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
 
     public void multiplyCost(float cost){
         this.totalCost *= cost;
-        int size = Mth.clamp(this.witchPoles.size(), 0, 3);
-        if (size > 0) {
-            for (int i = 0; i < size; ++i) {
-                totalCost *= 0.99F;
-            }
-        }
-        if (this.level != null){
-            if (this.level.getBiome(this.worldPosition).is(BiomeTags.HAS_SWAMP_HUT)){
-                totalCost *= 0.99F;
-            }
-        }
+        this.discountCost();
     }
 
     public void addCost(float cost){
         this.totalCost += cost;
+        this.discountCost();
+    }
+
+    public void discountCost(){
         int size = Mth.clamp(this.witchPoles.size(), 0, 3);
         if (size > 0) {
             for (int i = 0; i < size; ++i) {
@@ -691,7 +688,12 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
             } else if (mode == Mode.COMPLETED) {
                 if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
-                    boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem), croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()), robe = CuriosFinder.hasWitchRobe(player);
+                    boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),
+                            croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()),
+                            robe = CuriosFinder.hasWitchRobe(player);
+                    boolean blackCat = !player.level.getEntitiesOfClass(Cat.class,
+                            player.getBoundingBox().inflate(16, 8, 16),
+                            cat -> cat.getVariant() == BuiltInRegistries.CAT_VARIANT.get(CatVariant.ALL_BLACK) && cat.getOwner() == player).isEmpty();
                     float chance = 1.0F;
                     int times = 0;
                     if (croneHat){
@@ -702,6 +704,10 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         chance -= 0.25F;
                     }
                     if (robe){
+                        times += 1;
+                        chance -= 0.25F;
+                    }
+                    if (blackCat){
                         times += 1;
                         chance -= 0.25F;
                     }

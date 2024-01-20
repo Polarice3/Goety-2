@@ -6,7 +6,13 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Altar must be at 128 or above Blocks High up"
+      "text": "Requirements: $(li)Altar at equal or above 128 Blocks height $(br)$(l)OR$()$() $(li)8 Marble Blocks $(li)16 Jade Tiles $(li)4 Indented Gold Blocks"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sky_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed if placed below height level."
     },
     {
       "type": "patchouli:text",

@@ -159,7 +159,8 @@ public class MobUtil {
         }
     }
 
-    public static boolean isInWeb(LivingEntity livingEntity){
+    public static List<BlockState> surroundingBlocks(LivingEntity livingEntity, Predicate<BlockState> blockPredicate){
+        List<BlockState> blockStates = new ArrayList<>();
         AABB axisalignedbb = livingEntity.getBoundingBox();
         BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
         BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
@@ -170,53 +171,33 @@ public class MobUtil {
                     for(int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
                         blockpos$mutable.set(i, j, k);
                         BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutable);
-                        if (blockstate.getBlock() instanceof WebBlock){
-                            return true;
+                        if (blockPredicate.test(blockstate)){
+                            blockStates.add(blockstate);
                         }
                     }
                 }
             }
         }
-        return false;
+        return blockStates;
+    }
+
+    public static boolean isInBlock(LivingEntity livingEntity, Predicate<BlockState> blockPredicate){
+        return !surroundingBlocks(livingEntity, blockPredicate).isEmpty();
+    }
+
+    public static boolean isInWeb(LivingEntity livingEntity){
+        return isInBlock(livingEntity, blockState -> blockState.getBlock() instanceof WebBlock);
     }
 
     public static void WebMovement(LivingEntity livingEntity){
-        AABB axisalignedbb = livingEntity.getBoundingBox();
-        BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
-        BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
-        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
-        if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
-            for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
-                for(int j = blockpos.getY(); j <= blockpos1.getY(); ++j) {
-                    for(int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
-                        blockpos$mutable.set(i, j, k);
-                        BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutable);
-                        if (blockstate.getBlock() instanceof WebBlock){
-                            livingEntity.makeStuckInBlock(blockstate, Vec3.ZERO);
-                        }
-                    }
-                }
-            }
+        for (BlockState blockState : surroundingBlocks(livingEntity, blockState -> blockState.getBlock() instanceof WebBlock)){
+            livingEntity.makeStuckInBlock(blockState, Vec3.ZERO);
         }
     }
 
     public static void PowderedSnowMovement(LivingEntity livingEntity){
-        AABB axisalignedbb = livingEntity.getBoundingBox();
-        BlockPos blockpos = BlockPos.containing(axisalignedbb.minX + 0.001D, axisalignedbb.minY + 0.001D, axisalignedbb.minZ + 0.001D);
-        BlockPos blockpos1 = BlockPos.containing(axisalignedbb.maxX - 0.001D, axisalignedbb.maxY - 0.001D, axisalignedbb.maxZ - 0.001D);
-        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
-        if (livingEntity.level.hasChunksAt(blockpos, blockpos1)) {
-            for(int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
-                for(int j = blockpos.getY(); j <= blockpos1.getY(); ++j) {
-                    for(int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
-                        blockpos$mutable.set(i, j, k);
-                        BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutable);
-                        if (blockstate.getBlock() instanceof PowderSnowBlock){
-                            livingEntity.makeStuckInBlock(blockstate, Vec3.ZERO);
-                        }
-                    }
-                }
-            }
+        for (BlockState blockState : surroundingBlocks(livingEntity, blockState -> blockState.getBlock() instanceof PowderSnowBlock)){
+            livingEntity.makeStuckInBlock(blockState, Vec3.ZERO);
         }
     }
 
@@ -452,17 +433,22 @@ public class MobUtil {
 
     @Nullable
     public static Entity getSingleTarget(Level pLevel, LivingEntity pSource, double pRange, double pRadius) {
+        return getSingleTarget(pLevel, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource) && entity.isPickable()));
+    }
+
+    @Nullable
+    public static Entity getSingleTarget(Level pLevel, LivingEntity pSource, double pRange, double pRadius, Predicate<? super Entity> predicate) {
         Entity target = null;
         Vec3 srcVec = pSource.getEyePosition();
         Vec3 lookVec = pSource.getViewVector(1.0F);
         double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
         Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
         List<Entity> possibleList = pLevel.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
-                EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+                predicate);
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (hit.isPickable() && pSource.hasLineOfSight(pSource) && hit != pSource) {
+            if (pSource.hasLineOfSight(pSource) && hit != pSource) {
                 float borderSize = Math.max(0.8F, hit.getPickRadius());
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize, borderSize, borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);

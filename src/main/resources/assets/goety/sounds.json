@@ -938,6 +938,280 @@
     ],
     "subtitle": "subtitle.goety.wraith_death"
   },
+  "frozen_zombie_ambient": {
+    "sounds": [
+      {
+        "name": "goety:frozen_zombie/idle1"
+      },
+      {
+        "name": "goety:frozen_zombie/idle2"
+      },
+      {
+        "name": "goety:frozen_zombie/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.frozen_zombie_ambient"
+  },
+  "frozen_zombie_hurt": {
+    "sounds": [
+      {
+        "name": "goety:frozen_zombie/hurt1"
+      },
+      {
+        "name": "goety:frozen_zombie/hurt2"
+      },
+      {
+        "name": "goety:frozen_zombie/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.frozen_zombie_hurt"
+  },
+  "frozen_zombie_death": {
+    "sounds": [
+      {
+        "name": "goety:frozen_zombie/death1"
+      },
+      {
+        "name": "goety:frozen_zombie/death2"
+      },
+      {
+        "name": "goety:frozen_zombie/death3"
+      },
+      {
+        "name": "goety:frozen_zombie/death4"
+      }
+    ],
+    "subtitle": "subtitle.goety.frozen_zombie_death"
+  },
+  "jungle_zombie_ambient": {
+    "sounds": [
+      {
+        "name": "goety:jungle_zombie/idle1"
+      },
+      {
+        "name": "goety:jungle_zombie/idle2"
+      },
+      {
+        "name": "goety:jungle_zombie/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.jungle_zombie_ambient"
+  },
+  "jungle_zombie_hurt": {
+    "sounds": [
+      {
+        "name": "goety:jungle_zombie/hurt1"
+      },
+      {
+        "name": "goety:jungle_zombie/hurt2"
+      },
+      {
+        "name": "goety:jungle_zombie/hurt3"
+      },
+      {
+        "name": "goety:jungle_zombie/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.jungle_zombie_hurt"
+  },
+  "jungle_zombie_step": {
+    "sounds": [
+      {
+        "name": "goety:jungle_zombie/step1"
+      },
+      {
+        "name": "goety:jungle_zombie/step2"
+      },
+      {
+        "name": "goety:jungle_zombie/step3"
+      },
+      {
+        "name": "goety:jungle_zombie/step4"
+      },
+      {
+        "name": "goety:jungle_zombie/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.jungle_zombie_step"
+  },
+  "jungle_zombie_death": {
+    "sounds": [
+      {
+        "name": "goety:jungle_zombie/death1"
+      },
+      {
+        "name": "goety:jungle_zombie/death2"
+      },
+      {
+        "name": "goety:jungle_zombie/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.jungle_zombie_death"
+  },
+  "mossy_skeleton_ambient": {
+    "sounds": [
+      {
+        "name": "goety:mossy_skeleton/idle1"
+      },
+      {
+        "name": "goety:mossy_skeleton/idle2"
+      },
+      {
+        "name": "goety:mossy_skeleton/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.mossy_skeleton_ambient"
+  },
+  "mossy_skeleton_hurt": {
+    "sounds": [
+      {
+        "name": "goety:mossy_skeleton/hurt1"
+      },
+      {
+        "name": "goety:mossy_skeleton/hurt2"
+      },
+      {
+        "name": "goety:mossy_skeleton/hurt3"
+      },
+      {
+        "name": "goety:mossy_skeleton/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.mossy_skeleton_hurt"
+  },
+  "mossy_skeleton_shoot": {
+    "sounds": [
+      {
+        "name": "goety:mossy_skeleton/shoot1"
+      },
+      {
+        "name": "goety:mossy_skeleton/shoot2"
+      },
+      {
+        "name": "goety:mossy_skeleton/shoot3"
+      }
+    ],
+    "subtitle": "subtitle.goety.mossy_skeleton_shoot"
+  },
+  "mossy_skeleton_step": {
+    "sounds": [
+      {
+        "name": "goety:mossy_skeleton/step1"
+      },
+      {
+        "name": "goety:mossy_skeleton/step2"
+      },
+      {
+        "name": "goety:mossy_skeleton/step3"
+      },
+      {
+        "name": "goety:mossy_skeleton/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.mossy_skeleton_step"
+  },
+  "mossy_skeleton_death": {
+    "sounds": [
+      {
+        "name": "goety:mossy_skeleton/death1"
+      },
+      {
+        "name": "goety:mossy_skeleton/death2"
+      },
+      {
+        "name": "goety:mossy_skeleton/death3"
+      },
+      {
+        "name": "goety:mossy_skeleton/death4"
+      },
+      {
+        "name": "goety:mossy_skeleton/death5"
+      },
+      {
+        "name": "goety:mossy_skeleton/death6"
+      },
+      {
+        "name": "goety:mossy_skeleton/death7"
+      }
+    ],
+    "subtitle": "subtitle.goety.mossy_skeleton_death"
+  },
+  "sunken_skeleton_ambient": {
+    "sounds": [
+      {
+        "name": "goety:sunken_skeleton/idle1"
+      },
+      {
+        "name": "goety:sunken_skeleton/idle2"
+      },
+      {
+        "name": "goety:sunken_skeleton/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.sunken_skeleton_ambient"
+  },
+  "sunken_skeleton_hurt": {
+    "sounds": [
+      {
+        "name": "goety:sunken_skeleton/hurt1"
+      },
+      {
+        "name": "goety:sunken_skeleton/hurt2"
+      },
+      {
+        "name": "goety:sunken_skeleton/hurt3"
+      },
+      {
+        "name": "goety:sunken_skeleton/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.sunken_skeleton_hurt"
+  },
+  "sunken_skeleton_shoot": {
+    "sounds": [
+      {
+        "name": "goety:sunken_skeleton/shoot1"
+      },
+      {
+        "name": "goety:sunken_skeleton/shoot2"
+      },
+      {
+        "name": "goety:sunken_skeleton/shoot3"
+      }
+    ],
+    "subtitle": "subtitle.goety.sunken_skeleton_shoot"
+  },
+  "sunken_skeleton_step": {
+    "sounds": [
+      {
+        "name": "goety:sunken_skeleton/step1"
+      },
+      {
+        "name": "goety:sunken_skeleton/step2"
+      },
+      {
+        "name": "goety:sunken_skeleton/step3"
+      },
+      {
+        "name": "goety:sunken_skeleton/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.sunken_skeleton_step"
+  },
+  "sunken_skeleton_death": {
+    "sounds": [
+      {
+        "name": "goety:sunken_skeleton/death1"
+      },
+      {
+        "name": "goety:sunken_skeleton/death2"
+      },
+      {
+        "name": "goety:sunken_skeleton/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.sunken_skeleton_death"
+  },
   "necromancer_ambient": {
     "sounds": [
       {
@@ -2257,6 +2531,40 @@
         "name": "goety:item/scythe_hit_meaty3"
       }
     ]
+  },
+  "harpoon_impact": {
+    "sounds": [
+      {
+        "name": "goety:item/harpoon_impact1"
+      },
+      {
+        "name": "goety:item/harpoon_impact2"
+      },
+      {
+        "name": "goety:item/harpoon_impact3"
+      },
+      {
+        "name": "goety:item/harpoon_impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.harpoon_impact"
+  },
+  "harpoon_impact_water": {
+    "sounds": [
+      {
+        "name": "goety:item/harpoon_impact_water1"
+      },
+      {
+        "name": "goety:item/harpoon_impact_water2"
+      },
+      {
+        "name": "goety:item/harpoon_impact_water3"
+      },
+      {
+        "name": "goety:item/harpoon_impact_water4"
+      }
+    ],
+    "subtitle": "subtitle.goety.harpoon_impact"
   },
   "flame_capture_catch": {
     "sounds": [

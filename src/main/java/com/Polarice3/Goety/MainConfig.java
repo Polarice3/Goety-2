@@ -141,6 +141,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
@@ -167,7 +169,7 @@ public class MainConfig {
                 .define("totemUndying", true);
         ArcaUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count, Default: true")
                 .define("arcaUndying", true);
-        StarterTotem = BUILDER.comment("Gives Players a Totem of Souls when first entering World, Default: false")
+        StarterTotem = BUILDER.comment("Gives Players a Totem of Roots when first entering World, Default: false")
                 .define("starterTotem", false);
         StarterBook = BUILDER.comment("Gives Players the Black Book when first entering World and Patchouli is loaded, Default: false")
                 .define("starterBook", false);
@@ -230,6 +232,10 @@ public class MainConfig {
                 .define("sculkGrowerContinue", true);
         SculkGrowerPotency = BUILDER.comment("Whether Sculk Grower can accept Potency enchantment, which allows the Grower to grow plants faster, Default: true")
                 .define("sculkGrowerPotency", true);
+        PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")
+                .define("pithosRespawn", true);
+        CrystalBallRespawn = BUILDER.comment("Allow used Crystal Balls to spawn Crones again when right-clicked with respawn_boss tagged item, Default: true")
+                .define("crystalBallRespawn", true);
         BUILDER.pop();
         BUILDER.push("Soul Taken");
         SoulTakenMultiplier = BUILDER.comment("Multiplies the amount of Souls taken by this amount, Default: 2")

@@ -32,6 +32,8 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
         makeInstance(map, ModBlocks.TRAPPED_HAUNTED_CHEST);
         makeInstance(map, ModBlocks.ROTTEN_CHEST);
         makeInstance(map, ModBlocks.TRAPPED_ROTTEN_CHEST);
+        makeInstance(map, ModBlocks.WINDSWEPT_CHEST);
+        makeInstance(map, ModBlocks.TRAPPED_WINDSWEPT_CHEST);
     });
 
     public ModISTER() {

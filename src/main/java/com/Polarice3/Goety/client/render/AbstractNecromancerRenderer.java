@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class AbstractNecromancerRenderer extends MobRenderer<AbstractNecromancer, NecromancerModel<AbstractNecromancer>> {
-   private static final ResourceLocation SKELETON_LOCATION = Goety.location("textures/entity/necromancer.png");
+   private static final ResourceLocation SKELETON_LOCATION = Goety.location("textures/entity/necromancer/necromancer.png");
 
    public AbstractNecromancerRenderer(EntityRendererProvider.Context p_174382_) {
       super(p_174382_, new NecromancerModel<>(p_174382_.bakeLayer(ModModelLayer.NECROMANCER)), 0.5F);

@@ -6,11 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需要: $(li)祭坛必须在128高度之上"
+      "text": "需求: $(li)祭坛必须y=128层以上 $(br)$(l)或$()$() $(li)8个大理石方块 $(li)16个玉瓷砖 $(li)4个平滑金块"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/sky_ritual.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子，y在128以下。"
     },
     {
       "type": "patchouli:text",
-      "text": "通过将祭坛高高地放在空中，你可以利用风和天空来为你的魔法充能."
+      "text": "通过将祭坛高高地放在空中，你可以利用风和天空为你的魔法提供力量。"
     }
   ]
 }

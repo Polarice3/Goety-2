@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class ZPiglinBandsLayer<T extends Summoned> extends RenderLayer<T, ZPiglinModel<T>> {
-    private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/zpiglin_servant_bands.png");
+    private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/zombie/zpiglin_servant_bands.png");
     private final ZPiglinModel<T> layerModel;
 
     public ZPiglinBandsLayer(RenderLayerParent<T, ZPiglinModel<T>> p_i50919_1_, EntityModelSet p_174555_) {

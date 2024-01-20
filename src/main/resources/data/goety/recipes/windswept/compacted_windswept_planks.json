@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:windswept_slab"
+    }
+  },
+  "result": {
+    "item": "goety:compacted_windswept_planks"
+  }
+}

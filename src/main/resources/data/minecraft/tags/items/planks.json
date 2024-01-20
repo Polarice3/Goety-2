@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "goety:haunted_planks",
-    "goety:rotten_planks"
+    "goety:rotten_planks",
+    "goety:windswept_planks",
+    "goety:steep_planks"
   ]
 }

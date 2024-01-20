@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/marble_slab"
+    },
+    "type=double": {
+      "model": "goety:block/marble_slab_full"
+    },
+    "type=top": {
+      "model": "goety:block/marble_slab_top"
+    }
+  }
+}

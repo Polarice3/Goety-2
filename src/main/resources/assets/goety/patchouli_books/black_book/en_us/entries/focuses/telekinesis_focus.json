@@ -1,0 +1,15 @@
+{
+  "name": "Telekinesis Focus",
+  "icon": "goety:telekinesis_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Causes a targeted item or creature to float towards the caster's crosshairs, but only if the target is equal or smaller than the caster's size, if the focus is not enchanted with Potency."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/telekinesis_focus"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Altar must be at 128 or above Blocks High up $(li)Altar must be exposed to a Storm $(li)4 Lightning Rods $(li)20 Chains $(li)12 Copper Block Any."
+      "text": "Requirements: $(li)Same as Sky Ritual $(li)Altar must be exposed to a Storm $(li)4 Lightning Rods $(li)20 Chains $(li)12 Copper Block Any."
     },
     {
       "type": "patchouli:image",

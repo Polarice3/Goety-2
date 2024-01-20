@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:shocking_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_shocking_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_shocking_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "shocking_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:shocking_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "shocking_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

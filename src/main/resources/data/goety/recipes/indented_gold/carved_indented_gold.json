@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "gg",
+    "gg"
+  ],
+  "key":
+  {
+    "g":
+    {
+      "item": "goety:indented_gold"
+    }
+  },
+  "result":
+  {
+    "item": "goety:carved_indented_gold",
+    "count": 4
+  }
+}

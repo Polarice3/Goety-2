@@ -1,0 +1,17 @@
+{
+  "name": "锚定实验",
+  "icon": "minecraft:respawn_anchor",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些重生锚拥有将死者带回下界的能力，而不会造成灾难性的后果。你开始怀疑这些方块还有什么其他能力。。。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/respawn_miniboss",
+      "text": "如果你在墓穴之主的's $(l)陶瓷坛$() 或 $(l)水晶球?$()上使用又会发生什么？"
+    }
+  ]
+}

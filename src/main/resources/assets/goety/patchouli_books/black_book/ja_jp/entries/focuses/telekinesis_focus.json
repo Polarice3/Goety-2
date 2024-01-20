@@ -1,0 +1,15 @@
+{
+  "name": "テレキネシスのフォーカス",
+  "icon": "goety:telekinesis_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ターゲットのアイテムまたはクリーチャーが術者の十字線に向かって浮遊しますが、ターゲットが術者のサイズと同じかそれより小さい場合、フォーカスが効力でエンチャントされていない場合に限ります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/telekinesis_focus"
+    }
+  ]
+}

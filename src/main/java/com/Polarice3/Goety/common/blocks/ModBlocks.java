@@ -5,10 +5,12 @@ import com.Polarice3.Goety.client.render.block.ModISTER;
 import com.Polarice3.Goety.common.items.*;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
 import com.Polarice3.Goety.common.world.features.trees.RottenTree;
+import com.Polarice3.Goety.common.world.features.trees.WindsweptTree;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
@@ -89,6 +91,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> DEEPSLATE_BRAZIER = register("deepslate_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> NETHER_BRICK_BRAZIER = register("nether_brick_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> BLACKSTONE_BRAZIER = register("blackstone_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> MARBLE_BRAZIER = register("marble_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK).instrument(NoteBlockInstrument.BASEDRUM)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
@@ -191,6 +194,78 @@ public class ModBlocks {
     public static final RegistryObject<Block> POTTED_ROTTEN_SAPLING = register("potted_rotten_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.ROTTEN_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
 
+    //Windswept
+    public static final RegistryObject<Block> WINDSWEPT_PLANKS = register("windswept_planks",
+            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> COMPACTED_WINDSWEPT_PLANKS = register("compacted_windswept_planks",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> THATCHED_WINDSWEPT_PLANKS = register("thatched_windswept_planks",
+            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> WINDSWEPT_LOG = register("windswept_log", () -> log(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN));
+    public static final RegistryObject<Block> STRIPPED_WINDSWEPT_LOG = register("stripped_windswept_log", () -> log(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN));
+    public static final RegistryObject<Block> WINDSWEPT_WOOD = register("windswept_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STRIPPED_WINDSWEPT_WOOD = register("stripped_windswept_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> WINDSWEPT_LEAVES = register("windswept_leaves", () -> leaves(SoundType.GRASS), true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> WINDSWEPT_PRESSURE_PLATE = register("windswept_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.WINDSWEPT));
+    public static final RegistryObject<Block> WINDSWEPT_TRAPDOOR = register("windswept_trapdoor",
+            () -> new TrapDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), ModBlockSetType.WINDSWEPT));
+    public static final RegistryObject<Block> WINDSWEPT_BUTTON = register("windswept_button",
+            () -> woodenButton(ModBlockSetType.WINDSWEPT));
+    public static final RegistryObject<Block> WINDSWEPT_STAIRS = registerStairs("windswept_stairs",
+            WINDSWEPT_PLANKS);
+    public static final RegistryObject<Block> WINDSWEPT_SLAB = registerSlabs("windswept_slab",
+            WINDSWEPT_PLANKS);
+    public static final RegistryObject<Block> WINDSWEPT_FENCE_GATE = register("windswept_fence_gate",
+            () -> new FenceGateBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD), ModWoodType.WINDSWEPT));
+    public static final RegistryObject<Block> WINDSWEPT_FENCE = register("windswept_fence",
+            () -> new FenceBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> WINDSWEPT_DOOR = register("windswept_door",
+            () -> new DoorBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), ModBlockSetType.WINDSWEPT));
+    public static final RegistryObject<Block> WINDSWEPT_BOOKSHELF = register("windswept_bookshelf",
+            () -> new BookshelfBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD)), true, LootTableType.EMPTY);
+    public static final RegistryObject<ModChestBlock> WINDSWEPT_CHEST = isterRegister("windswept_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_WINDSWEPT_CHEST = isterRegister("trapped_windswept_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> WINDSWEPT_SIGN = register("windswept_sign",
+            () -> new ModStandSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.WINDSWEPT), false);
+    public static final RegistryObject<Block> WINDSWEPT_WALL_SIGN = register("windswept_wall_sign",
+            () -> new ModWallSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD).lootFrom(WINDSWEPT_SIGN), ModWoodType.WINDSWEPT), false);
+    public static final RegistryObject<Block> WINDSWEPT_HANGING_SIGN = register("windswept_hanging_sign",
+            () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), ModWoodType.WINDSWEPT), false);
+    public static final RegistryObject<Block> WINDSWEPT_WALL_HANGING_SIGN = register("windswept_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(WINDSWEPT_HANGING_SIGN), ModWoodType.WINDSWEPT), false);
+    public static final RegistryObject<Block> WINDSWEPT_SAPLING = register("windswept_sapling", () -> sapling(new WindsweptTree()));
+    public static final RegistryObject<Block> POTTED_WINDSWEPT_SAPLING = register("potted_windswept_sapling", () ->
+            new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.WINDSWEPT_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
+
+    //Steep
+    public static final RegistryObject<Block> STEEP_PLANKS = register("steep_planks",
+            () -> new Block(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_WOOD = register("steep_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STUDDED_STEEP_WOOD = register("studded_steep_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> LINED_STEEP_WOOD = register("lined_steep_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> RIMMED_STEEP_WOOD = register("rimmed_steep_wood",
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_STAIRS = registerStairs("steep_stairs",
+            STEEP_PLANKS);
+    public static final RegistryObject<Block> STEEP_SLAB = registerSlabs("steep_slab",
+            STEEP_PLANKS);
+    public static final RegistryObject<Block> STEEP_FENCE_GATE = register("steep_fence_gate",
+            () -> new FenceGateBlock(Block.Properties.of().mapColor(STEEP_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD), SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN));
+    public static final RegistryObject<Block> STEEP_FENCE = register("steep_fence",
+            () -> new FenceBlock(Block.Properties.of().mapColor(STEEP_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_WALL_BLOCK = registerWalls("steep_wall", STEEP_WOOD);
+    public static final RegistryObject<Block> STUDDED_STEEP_WALL_BLOCK = registerWalls("studded_steep_wall", STUDDED_STEEP_WOOD);
+    public static final RegistryObject<Block> LINED_STEEP_WALL_BLOCK = registerWalls("lined_steep_wall", LINED_STEEP_WOOD);
+    public static final RegistryObject<Block> RIMMED_STEEP_WALL_BLOCK = registerWalls("rimmed_steep_wall", RIMMED_STEEP_WOOD);
+    public static final RegistryObject<Block> STEEP_LAMP = register("steep_lamp",
+            () -> new LampBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+
     //Shade Stones
     public static final RegistryObject<Block> SHADE_STONE_BLOCK = register("shade_stone", ShadeStoneBlock::new);
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_BLOCK = register("shade_stone_polished", ShadeStoneBlock::new);
@@ -210,6 +285,21 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_BOOKSHELF = register("crypt_bookshelf",
             () -> new BookshelfBlock(CryptStoneProperties(), 2.0F), true, LootTableType.EMPTY);
 
+    //Marble
+    public static final RegistryObject<Block> MARBLE_BLOCK = register("marble", MarbleBlock::new);
+    public static final RegistryObject<Block> GOLD_ARCH_MARBLE_BLOCK = register("gold_arch_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> GOLD_BANDED_MARBLE_BLOCK = register("gold_banded_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> GOLD_HOLDER_MARBLE_BLOCK = register("gold_holder_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> GOLD_PLATED_MARBLE_BLOCK = register("gold_plated_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_MARBLE_BLOCK = register("slate_marble", SlateMarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_CONNECTED_MARBLE_BLOCK = register("slate_connected_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_PATTERNED_MARBLE_BLOCK = register("slate_patterned_marble", MarbleBlock::new);
+
+    //Indented Gold
+    public static final RegistryObject<Block> INDENTED_GOLD_BLOCK = register("indented_gold", IndentedGoldBlock::new);
+    public static final RegistryObject<Block> CHISELED_INDENTED_GOLD_BLOCK = register("chiseled_indented_gold", IndentedGoldBlock::new);
+    public static final RegistryObject<Block> CARVED_INDENTED_GOLD_BLOCK = register("carved_indented_gold", IndentedGoldBlock::new);
+
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_SLAB_BLOCK = registerShadeSlabs("shade_stone_polished_slab");
@@ -222,6 +312,15 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_BRICKS_SLAB_BLOCK = registerCryptSlabs("crypt_bricks_slab");
     public static final RegistryObject<Block> CRYPT_TILES_SLAB_BLOCK = registerCryptSlabs("crypt_tiles_slab");
 
+    public static final RegistryObject<Block> MARBLE_SLAB = registerSlabs("marble_slab",
+            MARBLE_BLOCK);
+    public static final RegistryObject<Block> SMOOTH_MARBLE_SLAB = registerSlabs("smooth_marble_slab",
+            MARBLE_BLOCK);
+    public static final RegistryObject<Block> SLATE_MARBLE_SLAB = registerSlabs("slate_marble_slab",
+            SLATE_MARBLE_BLOCK);
+    public static final RegistryObject<Block> INDENTED_GOLD_SLAB = registerSlabs("indented_gold_slab",
+            INDENTED_GOLD_BLOCK);
+
     //Stairs
     public static final RegistryObject<Block> SHADE_STONE_STAIRS_BLOCK = registerStairs("shade_stone_stairs", SHADE_STONE_BLOCK);
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_STAIRS_BLOCK = registerStairs("shade_stone_polished_stairs", SHADE_STONE_POLISHED_BLOCK);
@@ -233,6 +332,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_STONE_POLISHED_STAIRS_BLOCK = registerStairs("crypt_stone_polished_stairs", CRYPT_STONE_POLISHED_BLOCK);
     public static final RegistryObject<Block> CRYPT_BRICKS_STAIRS_BLOCK = registerStairs("crypt_bricks_stairs", CRYPT_BRICKS_BLOCK);
     public static final RegistryObject<Block> CRYPT_TILES_STAIRS_BLOCK = registerStairs("crypt_tiles_stairs", CRYPT_TILES_BLOCK);
+
+    public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 
     //Walls
     public static final RegistryObject<Block> SHADE_BRICK_WALL_BLOCK = registerWalls("shade_bricks_wall", SHADE_BRICK_BLOCK);
@@ -261,6 +362,10 @@ public class ModBlocks {
             () -> new SignItem(new Item.Properties().stacksTo(16), ROTTEN_SIGN.get(), ROTTEN_WALL_SIGN.get()));
     public static final RegistryObject<Item> ROTTEN_HANGING_SIGN_ITEM = ModItems.ITEMS.register("rotten_hanging_sign",
             () -> new HangingSignItem(ROTTEN_HANGING_SIGN.get(), ROTTEN_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> WINDSWEPT_SIGN_ITEM = ModItems.ITEMS.register("windswept_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), WINDSWEPT_SIGN.get(), WINDSWEPT_WALL_SIGN.get()));
+    public static final RegistryObject<Item> WINDSWEPT_HANGING_SIGN_ITEM = ModItems.ITEMS.register("windswept_hanging_sign",
+            () -> new HangingSignItem(WINDSWEPT_HANGING_SIGN.get(), WINDSWEPT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TALL_SKULL_ITEM = ModItems.ITEMS.register("tall_skull",
             () -> new TallSkullItem(ModBlocks.TALL_SKULL_BLOCK.get(), ModBlocks.WALL_TALL_SKULL_BLOCK.get(), (new Item.Properties()).rarity(Rarity.UNCOMMON)){
                 @Override
@@ -463,6 +568,57 @@ public class ModBlocks {
 
         public JadeStoneBlock() {
             super(JadeStoneProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties MarbleProperties(){
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.TERRACOTTA_WHITE)
+                .requiresCorrectToolForDrops()
+                .instrument(NoteBlockInstrument.BASEDRUM)
+                .strength(3.0F, 6.0F)
+                .sound(SoundType.STONE);
+    }
+
+    public static class MarbleBlock extends Block {
+
+        public MarbleBlock() {
+            super(MarbleProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties SlateMarbleProperties(){
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.TERRACOTTA_CYAN)
+                .requiresCorrectToolForDrops()
+                .instrument(NoteBlockInstrument.BASEDRUM)
+                .strength(3.0F, 6.0F)
+                .sound(SoundType.STONE);
+    }
+
+    public static class SlateMarbleBlock extends Block {
+
+        public SlateMarbleBlock() {
+            super(SlateMarbleProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties IndentedGoldProperties(){
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.GOLD)
+                .requiresCorrectToolForDrops()
+                .instrument(NoteBlockInstrument.BELL)
+                .strength(3.0F, 6.0F)
+                .sound(SoundType.METAL);
+    }
+
+    public static class IndentedGoldBlock extends Block {
+
+        public IndentedGoldBlock() {
+            super(IndentedGoldProperties());
         }
 
     }

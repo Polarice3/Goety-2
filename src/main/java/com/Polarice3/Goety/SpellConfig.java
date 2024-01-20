@@ -2,9 +2,11 @@ package com.Polarice3.Goety;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.io.File;
+import java.util.List;
 
 public class SpellConfig {
 
@@ -218,6 +220,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulHealCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulHealAmount;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisMaxHealth;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCoolDown;
@@ -239,6 +244,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
+
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> TelekinesisBlackList;
 
     static {
         BUILDER.push("General");
@@ -577,8 +584,8 @@ public class SpellConfig {
             BUILDER.push("Lightning Spell");
             LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                     .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
-            LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 60")
-                    .defineInRange("lightningTime", 60, 0, 72000);
+            LightningDuration = BUILDER.comment("Time to cast Lightning Spell, Default: 0")
+                    .defineInRange("lightningTime", 0, 0, 72000);
             LightningCoolDown = BUILDER.comment("Lightning Spell Cooldown, Default: 100")
                     .defineInRange("lightningCoolDown", 100, 0, Integer.MAX_VALUE);
             LightningDamage = BUILDER.comment("How much base damage Lightning from the spell deals, Default: 5.0")
@@ -657,6 +664,17 @@ public class SpellConfig {
                     .defineInRange("soulHealCoolDown", 200, 0, Integer.MAX_VALUE);
             SoulHealAmount = BUILDER.comment("Initial amount of health the Soul Heal Spell heals, Default: 8")
                     .defineInRange("soulHealAmount", 8, 2, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Telekinesis Spell");
+            TelekinesisCost = BUILDER.comment("Telekinesis Spell Cost, Default: 4")
+                    .defineInRange("telekinesisCost", 4, 0, Integer.MAX_VALUE);
+            TelekinesisMaxHealth = BUILDER.comment("The highest maximum health an entity can possess to be affected by Telekinesis spell, Default: 100")
+                .defineInRange("telekinesisMaxHealth", 100, 1, Integer.MAX_VALUE);
+            TelekinesisBlackList = BUILDER.comment("""
+                            Add mobs that Telekinesis Spell don't work on.\s
+                            To do so, enter the namespace ID of the mob, like "minecraft:zombie, minecraft:skeleton".""")
+                    .defineList("telekinesisBlackList", Lists.newArrayList(),
+                            (itemRaw) -> itemRaw instanceof String);
             BUILDER.pop();
             BUILDER.push("Sonic Boom Spell");
             SonicBoomCost = BUILDER.comment("Sonic Boom Spell Cost, Default: 16")

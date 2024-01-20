@@ -7,4 +7,5 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class ModStructures {
     public static final ResourceKey<Structure> CRYPT_KEY = ResourceKey.create(Registries.STRUCTURE, Goety.location("crypt"));
+    public static final ResourceKey<Structure> BLIGHTED_SHACK_KEY = ResourceKey.create(Registries.STRUCTURE, Goety.location("blighted_shack"));
 }

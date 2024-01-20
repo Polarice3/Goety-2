@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class WraithRenderer extends AbstractWraithRenderer {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/entity/wraith.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/wraith/wraith.png");
 
     public WraithRenderer(EntityRendererProvider.Context renderManagerIn){
         super(renderManagerIn, new WraithModel<>(renderManagerIn.bakeLayer(ModModelLayer.WRAITH)), 0.5F);

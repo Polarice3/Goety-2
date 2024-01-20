@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:windswept_log",
+    "goety:windswept_wood",
+    "goety:stripped_windswept_log",
+    "goety:stripped_windswept_wood"
+  ]
+}

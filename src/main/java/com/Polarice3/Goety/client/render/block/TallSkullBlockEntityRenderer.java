@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 public class TallSkullBlockEntityRenderer implements BlockEntityRenderer<TallSkullBlockEntity> {
-    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton_villager_servant.png");
+    protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/skeleton/skeleton_villager_servant.png");
 
     public TallSkullBlockEntityRenderer(BlockEntityRendererProvider.Context p_i226015_1_) {
     }

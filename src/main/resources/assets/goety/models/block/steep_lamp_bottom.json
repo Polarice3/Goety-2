@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_lamp_bottom",
+	"textures": {
+		"lamp": "goety:block/steep_lamp"
+	}
+}

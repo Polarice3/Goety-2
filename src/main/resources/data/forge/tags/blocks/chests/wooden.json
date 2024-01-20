@@ -4,6 +4,8 @@
     "goety:haunted_chest",
     "goety:trapped_haunted_chest",
     "goety:rotten_chest",
-    "goety:trapped_rotten_chest"
+    "goety:trapped_rotten_chest",
+    "goety:windswept_chest",
+    "goety:trapped_windswept_chest"
   ]
 }

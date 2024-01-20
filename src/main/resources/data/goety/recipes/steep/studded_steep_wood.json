@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "goety:steep_wood"
+    },
+    {
+      "item": "goety:indented_gold"
+    }
+  ],
+  "result": {
+    "item": "goety:studded_steep_wood",
+    "count": 1
+  }
+}

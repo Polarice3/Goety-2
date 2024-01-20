@@ -10,8 +10,10 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Maps;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
@@ -81,6 +83,8 @@ public class IllagerSpawner {
                             } else {
                                 Holder<Biome> holder = world.getBiome(blockpos$mutable);
                                 if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS)) {
+                                    return 0;
+                                } else if (player.blockPosition().getY() < world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !world.canSeeSky(player.blockPosition())){
                                     return 0;
                                 } else {
                                     int i1 = 0;
@@ -527,132 +531,141 @@ public class IllagerSpawner {
         }
     }
 
-    public void forceSpawn(ServerLevel world, Player player){
-        RandomSource random = world.random;
-        int soulEnergy = SEHelper.getSoulAmountInt(player);
+    public void forceSpawn(ServerLevel pLevel, Player pPlayer, CommandSourceStack pSource){
+        RandomSource random = pLevel.random;
+        int soulEnergy = SEHelper.getSoulAmountInt(pPlayer);
         if (soulEnergy > MobsConfig.IllagerAssaultSEThreshold.get()) {
             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
             int l = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-            BlockPos.MutableBlockPos blockpos$mutable = player.blockPosition().mutable().move(k, 0, l);
-            if (world.hasChunksAt(blockpos$mutable.getX() - 10, blockpos$mutable.getY() - 10, blockpos$mutable.getZ() - 10, blockpos$mutable.getX() + 10, blockpos$mutable.getY() + 10, blockpos$mutable.getZ() + 10)) {
-                int j0 = soulEnergy/2;
-                int e1 = Mth.clamp(j0 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                int e15 = world.random.nextInt(e1);
-                for (int k1 = 0; k1 < e15; ++k1) {
-                    blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                    if (k1 == 0) {
-                        if (!this.spawnEnvioker(world, blockpos$mutable, random, soulEnergy, player)) {
-                            break;
-                        }
-                    } else {
-                        this.spawnEnvioker(world, blockpos$mutable, random, soulEnergy, player);
-                    }
-
-                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                    int j2 = soulEnergy/2;
-                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                    int e25 = world.random.nextInt(e2) + 3;
-                    for (int k1 = 0; k1 < e25; ++k1) {
-                        int random1 = world.random.nextInt(15);
-                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+            BlockPos.MutableBlockPos blockpos$mutable = pPlayer.blockPosition().mutable().move(k, 0, l);
+            if (pLevel.hasChunksAt(blockpos$mutable.getX() - 10, blockpos$mutable.getY() - 10, blockpos$mutable.getZ() - 10, blockpos$mutable.getX() + 10, blockpos$mutable.getY() + 10, blockpos$mutable.getZ() + 10)) {
+                if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
+                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                    pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
+                } else {
+                    int j0 = soulEnergy/2;
+                    int e1 = Mth.clamp(j0 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                    int e15 = pLevel.random.nextInt(e1);
+                    for (int k1 = 0; k1 < e15; ++k1) {
+                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                         if (k1 == 0) {
-                            if (!this.spawnRandomIllager(world, blockpos$mutable, random, random1, soulEnergy, player)) {
+                            if (!this.spawnEnvioker(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
                                 break;
                             }
                         } else {
-                            this.spawnRandomIllager(world, blockpos$mutable, random, random1, soulEnergy, player);
+                            this.spawnEnvioker(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                         }
 
                         blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
                         blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                     }
-                }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                    int j2 = soulEnergy/2;
-                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                    int e25 = Mth.clamp(world.random.nextInt(e2) - 1, 0, 5);
-                    for (int k1 = 0; k1 < e25; ++k1) {
-                        int random1 = world.random.nextInt(5);
-                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        if (k1 == 0) {
-                            if (!this.spawnRavager(world, blockpos$mutable, random, random1, soulEnergy, player)) {
-                                break;
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
+                        int j2 = soulEnergy/2;
+                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                        int e25 = pLevel.random.nextInt(e2) + 3;
+                        for (int k1 = 0; k1 < e25; ++k1) {
+                            int random1 = pLevel.random.nextInt(15);
+                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                            if (k1 == 0) {
+                                if (!this.spawnRandomIllager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer)) {
+                                    break;
+                                }
+                            } else {
+                                this.spawnRandomIllager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer);
                             }
-                        } else {
-                            this.spawnRavager(world, blockpos$mutable, random, random1, soulEnergy, player);
-                        }
 
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        }
                     }
-                }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                    int j2 = (int) (soulEnergy/2.5);
-                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                    int e25 = world.random.nextInt(e2);
-                    for (int k1 = 0; k1 < e25; ++k1) {
-                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        if (k1 == 0) {
-                            if (!this.spawnPreacher(world, blockpos$mutable, random, player)) {
-                                break;
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
+                        int j2 = soulEnergy/2;
+                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
+                        int e25 = Mth.clamp(pLevel.random.nextInt(e2) - 1, 0, 5);
+                        for (int k1 = 0; k1 < e25; ++k1) {
+                            int random1 = pLevel.random.nextInt(5);
+                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                            if (k1 == 0) {
+                                if (!this.spawnRavager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer)) {
+                                    break;
+                                }
+                            } else {
+                                this.spawnRavager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer);
                             }
-                        } else {
-                            this.spawnPreacher(world, blockpos$mutable, random, player);
-                        }
 
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        }
                     }
-                }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                    int j2 = (int) (soulEnergy/2.5);
-                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                    int e25 = world.random.nextInt(e2);
-                    for (int k1 = 0; k1 < e25; ++k1) {
-                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        if (k1 == 0) {
-                            if (!this.spawnConquillager(world, blockpos$mutable, random, soulEnergy, player)) {
-                                break;
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                        int j2 = (int) (soulEnergy/2.5);
+                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                        int e25 = pLevel.random.nextInt(e2);
+                        for (int k1 = 0; k1 < e25; ++k1) {
+                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                            if (k1 == 0) {
+                                if (!this.spawnPreacher(pLevel, blockpos$mutable, random, pPlayer)) {
+                                    break;
+                                }
+                            } else {
+                                this.spawnPreacher(pLevel, blockpos$mutable, random, pPlayer);
                             }
-                        } else {
-                            this.spawnConquillager(world, blockpos$mutable, random, soulEnergy, player);
-                        }
 
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        }
                     }
-                }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
-                    int j2 = (int) (soulEnergy/3);
-                    int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                    int e25 = world.random.nextInt(e2);
-                    for (int k1 = 0; k1 < e25; ++k1) {
-                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        if (k1 == 0) {
-                            if (!this.spawnInquillager(world, blockpos$mutable, random, soulEnergy, player)) {
-                                break;
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
+                        int j2 = (int) (soulEnergy/2.5);
+                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                        int e25 = pLevel.random.nextInt(e2);
+                        for (int k1 = 0; k1 < e25; ++k1) {
+                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                            if (k1 == 0) {
+                                if (!this.spawnConquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                    break;
+                                }
+                            } else {
+                                this.spawnConquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                             }
-                        } else {
-                            this.spawnInquillager(world, blockpos$mutable, random, soulEnergy, player);
-                        }
 
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        }
                     }
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
+                        int j2 = (int) (soulEnergy/3);
+                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
+                        int e25 = pLevel.random.nextInt(e2);
+                        for (int k1 = 0; k1 < e25; ++k1) {
+                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                            if (k1 == 0) {
+                                if (!this.spawnInquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                    break;
+                                }
+                            } else {
+                                this.spawnInquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
+                            }
+
+                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        }
+                    }
+                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && pLevel.random.nextFloat() <= 0.15F) {
+                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                        this.spawnMinister(pLevel, blockpos$mutable, random, pPlayer);
+                    }
+                    if (CuriosFinder.hasCurio(pPlayer, ModItems.ALARMING_CHARM.get())){
+                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
+                    }
+                    this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
+                    pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
                 }
-                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
-                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                    blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                    this.spawnMinister(world, blockpos$mutable, random, player);
-                }
-                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
-                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
-                }
-                this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
+            } else {
+                ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
             }
         }
     }

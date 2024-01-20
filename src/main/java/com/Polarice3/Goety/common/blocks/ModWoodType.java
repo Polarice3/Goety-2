@@ -8,4 +8,6 @@ public class ModWoodType {
             WoodType.register(new WoodType(Goety.location("haunted").toString(), ModBlockSetType.HAUNTED));
     public static final WoodType ROTTEN =
             WoodType.register(new WoodType(Goety.location("rotten").toString(), ModBlockSetType.ROTTEN));
+    public static final WoodType WINDSWEPT =
+            WoodType.register(new WoodType(Goety.location("windswept").toString(), ModBlockSetType.WINDSWEPT));
 }

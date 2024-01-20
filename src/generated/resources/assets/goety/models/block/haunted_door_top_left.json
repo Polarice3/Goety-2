@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "goety:block/haunted_door_bottom",
+    "top": "goety:block/haunted_door_top"
+  }
+}

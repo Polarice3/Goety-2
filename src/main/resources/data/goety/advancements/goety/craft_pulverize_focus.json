@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:pulverize_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_pulverize_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_pulverize_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "pulverize_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:pulverize_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "pulverize_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

@@ -6,17 +6,17 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "需要: $(li)祭坛高度必须在128之上 $(li)祭坛必须完全暴露在风暴之中 $(li)4 个避雷针 $(li)20 个锁链 $(li)12 个任何种类的铜块."
+      "text": "需求: $(li)相同于天空仪式 $(li)祭坛必须完全暴露在风暴中 $(li)4个避雷针 $(li)20个锁链 $(li)12个任意种类的铜块."
     },
     {
       "type": "patchouli:image",
       "images": ["goety:textures/gui/entries/storm_ritual.png"],
       "border": true,
-      "text": "一个正确摆放仪式的示范。"
+      "text": "一个摆放仪式的例子."
     },
     {
       "type": "patchouli:text",
-      "text": "风暴将为你的魔法祭坛提供无与伦比的力量！."
+      "text": "风暴将为你的仪式提供无与伦比的力量！铜块可以是任意种类。"
     }
   ]
 }

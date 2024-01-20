@@ -2,19 +2,26 @@ package com.Polarice3.Goety.common.magic.spells.geomancy;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.BlockSpells;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PulverizeSpell extends BlockSpells {
     @Override
@@ -35,6 +42,13 @@ public class PulverizeSpell extends BlockSpells {
     @Override
     public SpellType getSpellType() {
         return SpellType.GEOMANCY;
+    }
+
+    @Override
+    public List<Enchantment> acceptedEnchantments() {
+        List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.RADIUS.get());
+        return list;
     }
 
     @Override
@@ -125,6 +139,20 @@ public class PulverizeSpell extends BlockSpells {
 
     @Override
     public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
+        int radius = 0;
+        if (WandUtil.enchantedFocus(caster)){
+            radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), caster);
+        }
+        if (radius > 0) {
+            for (BlockPos blockPos : BlockFinder.multiBlockBreak(caster, target, radius, radius, radius)) {
+                this.pulverize(worldIn, caster, blockPos);
+            }
+        } else {
+            this.pulverize(worldIn, caster, target);
+        }
+    }
+
+    public void pulverize(ServerLevel worldIn, LivingEntity caster, BlockPos target){
         BlockState blockState = worldIn.getBlockState(target);
         if (rightBlock(worldIn, caster, target)){
             worldIn.levelEvent(2001, target, Block.getId(worldIn.getBlockState(target)));

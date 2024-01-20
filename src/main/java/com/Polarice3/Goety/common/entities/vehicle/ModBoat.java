@@ -37,6 +37,7 @@ public class ModBoat extends Boat {
         return switch (this.getModBoatType()) {
             case HAUNTED -> ModItems.HAUNTED_BOAT.get();
             case ROTTEN -> ModItems.ROTTEN_BOAT.get();
+            case WINDSWEPT -> ModItems.WINDSWEPT_BOAT.get();
         };
     }
 
@@ -55,7 +56,8 @@ public class ModBoat extends Boat {
 
     public static enum Type {
         HAUNTED(ModBlocks.HAUNTED_PLANKS.get(), "haunted"),
-        ROTTEN(ModBlocks.ROTTEN_PLANKS.get(), "rotten");
+        ROTTEN(ModBlocks.ROTTEN_PLANKS.get(), "rotten"),
+        WINDSWEPT(ModBlocks.WINDSWEPT_PLANKS.get(), "windswept");
 
         private final String name;
         private final Block planks;

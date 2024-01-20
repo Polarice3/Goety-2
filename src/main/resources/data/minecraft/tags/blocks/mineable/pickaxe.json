@@ -5,6 +5,8 @@
     "#goety:jade_blocks",
     "#goety:jade_ores",
     "#goety:crypt_blocks",
+    "#goety:marble_blocks",
+    "#goety:indented_gold_blocks",
     "#goety:dark_metal_blocks",
     "goety:cursed_infuser",
     "goety:cursed_metal_block",

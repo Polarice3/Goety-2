@@ -5,6 +5,10 @@
     "goety:shade_bricks_wall",
     "goety:crypt_stone_polished_wall",
     "goety:crypt_bricks_wall",
-    "goety:crypt_tiles_wall"
+    "goety:crypt_tiles_wall",
+    "goety:steep_wall",
+    "goety:studded_steep_wall",
+    "goety:lined_steep_wall",
+    "goety:rimmed_steep_wall"
   ]
 }

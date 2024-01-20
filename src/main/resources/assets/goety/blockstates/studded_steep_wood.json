@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "goety:block/studded_steep_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "goety:block/studded_steep_wood"
+    },
+    "axis=z": {
+      "model": "goety:block/studded_steep_wood",
+      "x": 90
+    }
+  }
+}

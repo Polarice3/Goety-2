@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/stripped_windswept_log_top",
+    "side": "goety:block/stripped_windswept_log"
+  }
+}

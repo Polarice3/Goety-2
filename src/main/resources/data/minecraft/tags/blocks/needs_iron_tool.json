@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#goety:jade_ores",
+    "#goety:indented_gold_blocks",
     "#goety:dark_metal_blocks",
     "goety:jade_block"
   ]

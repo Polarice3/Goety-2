@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -147,12 +146,12 @@ public class ServerParticleUtil {
         }
     }
 
-    public static void addParticlesAroundSelf(ServerLevel serverLevel, ParticleOptions particleOptions, LivingEntity living){
+    public static void addParticlesAroundSelf(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity){
         for(int i = 0; i < 5; ++i) {
             double d0 = serverLevel.random.nextGaussian() * 0.02D;
             double d1 = serverLevel.random.nextGaussian() * 0.02D;
             double d2 = serverLevel.random.nextGaussian() * 0.02D;
-            serverLevel.sendParticles(particleOptions, living.getRandomX(1.0D), living.getRandomY() + 1.0D, living.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+            serverLevel.sendParticles(particleOptions, entity.getRandomX(1.0D), entity.getRandomY() + 1.0D, entity.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
         }
     }
 

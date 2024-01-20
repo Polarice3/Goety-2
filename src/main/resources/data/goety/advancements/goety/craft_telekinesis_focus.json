@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:telekinesis_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_telekinesis_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_telekinesis_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "telekinesis_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:telekinesis_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "telekinesis_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

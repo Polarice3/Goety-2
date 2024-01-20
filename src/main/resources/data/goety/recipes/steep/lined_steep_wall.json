@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:lined_steep_wood"
+    }
+  },
+  "result": {
+    "item": "goety:lined_steep_wall",
+    "count": 6
+  }
+}

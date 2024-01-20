@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -35,10 +36,14 @@ public class RitualRequirements {
             case "animation", "forge", "magic", "sabbath" -> RitualRequirements.checkRequirements(craftType, pTileEntity);
             case "necroturgy", "lich" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.isNight();
             case "adept_nether", "expert_nether" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
-            case "sky" -> pPos.getY() >= 128;
-            case "storm" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pPos.getY() >= 128 && pLevel.isThundering() && pLevel.canSeeSky(pPos);
+            case "sky" -> skyRitual(pTileEntity, pPos);
+            case "storm" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && skyRitual(pTileEntity, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
         };
+    }
+
+    public static boolean skyRitual(RitualBlockEntity pTileEntity, BlockPos pPos){
+        return pPos.getY() >= 128 || RitualRequirements.checkRequirements("sky", pTileEntity);
     }
 
     public static void findStructures(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel) {
@@ -136,6 +141,16 @@ public class RitualRequirements {
                 if (pState.getBlock() == Blocks.NETHER_WART) {
                     pTileEntity.third.add(pPos);
                 }
+            case "sky":
+                if (pState.is(ModTags.Blocks.MARBLE_BLOCKS)) {
+                    pTileEntity.first.add(pPos);
+                }
+                if (pState.is(ModTags.Blocks.JADE_BLOCKS)) {
+                    pTileEntity.second.add(pPos);
+                }
+                if (pState.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS)) {
+                    pTileEntity.third.add(pPos);
+                }
             case "storm":
                 if (pState.getBlock().getDescriptionId().contains("copper")) {
                     pTileEntity.first.add(pPos);
@@ -174,7 +189,7 @@ public class RitualRequirements {
                 second = 1;
                 third = 1;
             }
-            case "sabbath", "adept_nether" -> {
+            case "sabbath", "adept_nether", "sky" -> {
                 first = 8;
                 second = 16;
                 third = 4;

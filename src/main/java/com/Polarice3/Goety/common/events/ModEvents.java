@@ -346,7 +346,7 @@ public class ModEvents {
             }
             if (MainConfig.StarterTotem.get()) {
                 if (!data.getBoolean("goety:gotTotem")) {
-                    event.getEntity().addItem(new ItemStack(ModItems.TOTEM_OF_SOULS.get()));
+                    event.getEntity().addItem(new ItemStack(ModItems.TOTEM_OF_ROOTS.get()));
                     data.putBoolean("goety:gotTotem", true);
                     playerData.put(Player.PERSISTED_NBT_TAG, data);
                 }
@@ -1231,6 +1231,9 @@ public class ModEvents {
                                 }
                                 if (killed.getType() == EntityType.WITHER_SKELETON) {
                                     killed.spawnAtLocation(new ItemStack(Items.WITHER_SKELETON_SKULL));
+                                }
+                                if (killed.getType() == EntityType.PIGLIN){
+                                    killed.spawnAtLocation(new ItemStack(Items.PIGLIN_HEAD));
                                 }
                                 if (MobsConfig.TallSkullDrops.get()) {
                                     if (killed instanceof Villager || killed instanceof AbstractIllager) {
