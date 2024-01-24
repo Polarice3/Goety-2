@@ -56,7 +56,7 @@ public class TelekinesisSpell extends EverChargeSpells {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         double potency = 1.0D;
-        int range = 8;
+        int range = 16;
         if (WandUtil.enchantedFocus(entityLiving)){
             potency += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 2.0D;
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
@@ -79,7 +79,6 @@ public class TelekinesisSpell extends EverChargeSpells {
                     double offset = 0.1D;
                     target.setDeltaMovement(x * offset, y * offset, z * offset);
                     target.move(MoverType.SELF, target.getDeltaMovement());
-                    target.resetFallDistance();
                     ServerParticleUtil.addParticlesAroundSelf(worldIn, ParticleTypes.PORTAL, target);
                 }
             }

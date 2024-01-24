@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "goety:block/compacted_windswept_planks_top",
+    "side": "goety:block/compacted_windswept_planks_side",
+    "top": "goety:block/compacted_windswept_planks_top"
+  }
+}

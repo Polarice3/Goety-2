@@ -4,6 +4,8 @@
     "goety:haunted_slab",
     "goety:rotten_slab",
     "goety:windswept_slab",
-    "goety:steep_slab"
+    "goety:compacted_windswept_slab",
+    "goety:steep_slab",
+    "goety:steep_wood_slab"
   ]
 }

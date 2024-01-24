@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:marble"
+    }
+  },
+  "result": {
+    "item": "goety:marble_stairs",
+    "count": 4
+  }
+}

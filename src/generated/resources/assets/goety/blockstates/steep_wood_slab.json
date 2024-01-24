@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/steep_wood_slab"
+    },
+    "type=double": {
+      "model": "goety:block/steep_wood"
+    },
+    "type=top": {
+      "model": "goety:block/steep_wood_slab_top"
+    }
+  }
+}

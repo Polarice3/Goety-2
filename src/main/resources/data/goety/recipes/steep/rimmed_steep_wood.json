@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "s",
-    "g"
+    "sss",
+    "ggg"
   ],
   "key":
   {
@@ -19,6 +19,6 @@
   "result":
   {
     "item": "goety:rimmed_steep_wood",
-    "count": 1
+    "count": 3
   }
 }

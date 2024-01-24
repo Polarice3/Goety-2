@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#goety:marble_slabs",
     "goety:shade_stone_slab",
     "goety:shade_stone_polished_slab",
     "goety:shade_stone_bricks_slab",
@@ -9,6 +10,8 @@
     "goety:crypt_stone_slab",
     "goety:crypt_stone_polished_slab",
     "goety:crypt_bricks_slab",
-    "goety:crypt_tiles_slab"
+    "goety:crypt_tiles_slab",
+    "goety:slate_marble_slab",
+    "goety:indented_gold_slab"
   ]
 }

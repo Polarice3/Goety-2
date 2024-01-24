@@ -1,25 +1,8 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
-    "ggg",
-    "gmg",
-    "ggg"
-  ],
-  "key":
-  {
-    "g":
-    {
-      "tag": "forge:ingots/gold"
-    },
-    "m":
-    {
-      "item": "goety:marble"
-    }
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "forge:storage_blocks/gold"
   },
-  "result":
-  {
-    "item": "goety:indented_gold",
-    "count": 1
-  }
+  "result": "goety:indented_gold",
+  "cookingTime": 20
 }

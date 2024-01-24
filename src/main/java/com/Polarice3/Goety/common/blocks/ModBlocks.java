@@ -186,6 +186,8 @@ public class ModBlocks {
             () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> COMPACTED_WINDSWEPT_PLANKS = register("compacted_windswept_planks",
             () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> COMPACTED_WINDSWEPT_SLAB = registerSlabs("compacted_windswept_slab",
+            COMPACTED_WINDSWEPT_PLANKS);
     public static final RegistryObject<Block> THATCHED_WINDSWEPT_PLANKS = register("thatched_windswept_planks",
             () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> WINDSWEPT_LOG = register("windswept_log", () -> log(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN));
@@ -228,12 +230,18 @@ public class ModBlocks {
             () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_BROWN).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STEEP_WOOD = register("steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_BROWN).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_WOOD_SLAB = registerSlabs("steep_wood_slab",
+            STEEP_WOOD);
     public static final RegistryObject<Block> STUDDED_STEEP_WOOD = register("studded_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_BROWN).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> LINED_STEEP_WOOD = register("lined_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_BROWN).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> RIMMED_STEEP_WOOD = register("rimmed_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_BROWN).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_PRESSURE_PLATE = register("steep_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, STEEP_PLANKS.get().defaultMaterialColor()).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_BUTTON = register("steep_button",
+            () -> new WoodButtonBlock(Block.Properties.of(Material.DECORATION).noCollission().strength(0.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STEEP_STAIRS = registerStairs("steep_stairs",
             STEEP_PLANKS);
     public static final RegistryObject<Block> STEEP_SLAB = registerSlabs("steep_slab",
@@ -277,6 +285,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SLATE_MARBLE_BLOCK = register("slate_marble", SlateMarbleBlock::new);
     public static final RegistryObject<Block> SLATE_CONNECTED_MARBLE_BLOCK = register("slate_connected_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_PATTERNED_MARBLE_BLOCK = register("slate_patterned_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_GLAZED_MARBLE_BLOCK = register("slate_glazed_marble", () -> new GlazedTerracottaBlock(MarbleProperties()));
 
     //Indented Gold
     public static final RegistryObject<Block> INDENTED_GOLD_BLOCK = register("indented_gold", IndentedGoldBlock::new);
@@ -315,6 +324,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_STONE_POLISHED_STAIRS_BLOCK = registerStairs("crypt_stone_polished_stairs", CRYPT_STONE_POLISHED_BLOCK);
     public static final RegistryObject<Block> CRYPT_BRICKS_STAIRS_BLOCK = registerStairs("crypt_bricks_stairs", CRYPT_BRICKS_BLOCK);
     public static final RegistryObject<Block> CRYPT_TILES_STAIRS_BLOCK = registerStairs("crypt_tiles_stairs", CRYPT_TILES_BLOCK);
+
+    public static final RegistryObject<Block> MARBLE_STAIRS_BLOCK = registerStairs("marble_stairs", MARBLE_BLOCK);
+    public static final RegistryObject<Block> SLATE_MARBLE_STAIRS_BLOCK = registerStairs("slate_marble_stairs", SLATE_MARBLE_BLOCK);
 
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 
