@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#goety:haunted_wood_blocks",
-    "#goety:rotten_wood_blocks"
+    "#goety:haunted_wood_blocks"
   ]
 }

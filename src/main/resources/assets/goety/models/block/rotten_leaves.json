@@ -2,6 +2,5 @@
   "parent": "minecraft:block/leaves",
   "textures": {
     "all": "goety:block/rotten_leaves"
-  },
-  "render_type": "cutout_mipped"
+  }
 }

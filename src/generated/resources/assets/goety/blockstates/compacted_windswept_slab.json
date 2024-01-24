@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/compacted_windswept_slab"
+    },
+    "type=double": {
+      "model": "goety:block/compacted_windswept_planks"
+    },
+    "type=top": {
+      "model": "goety:block/compacted_windswept_slab_top"
+    }
+  }
+}

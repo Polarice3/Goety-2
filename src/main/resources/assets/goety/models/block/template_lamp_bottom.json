@@ -2,8 +2,10 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "#lamp",
+		"1": "#light",
 		"particle": "#lamp"
 	},
+	"render_type": "cutout",
 	"elements": [
 		{
 			"from": [0, 0, 0],
@@ -27,6 +29,18 @@
 				"west": {"uv": [8.5, 0.75, 11.5, 4], "texture": "#0"},
 				"up": {"uv": [0, 4, 4, 8], "texture": "#0"},
 				"down": {"uv": [0, 4, 4, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 3, 2],
+			"to": [14, 16, 14],
+			"faces": {
+				"north": {"uv": [2, 3, 14, 16], "texture": "#1"},
+				"east": {"uv": [2, 3, 14, 16], "texture": "#1"},
+				"south": {"uv": [2, 3, 14, 16], "texture": "#1"},
+				"west": {"uv": [2, 3, 14, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#1"}
 			}
 		}
 	],

@@ -155,8 +155,8 @@ public class ModBlocks {
     //Rotten
     public static final RegistryObject<Block> ROTTEN_PLANKS = register("rotten_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> ROTTEN_LOG = register("rotten_log", () -> fireProofLog(MapColor.COLOR_GREEN));
-    public static final RegistryObject<Block> STRIPPED_ROTTEN_LOG = register("stripped_rotten_log", () -> fireProofLog(MapColor.COLOR_GREEN));
+    public static final RegistryObject<Block> ROTTEN_LOG = register("rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN));
+    public static final RegistryObject<Block> STRIPPED_ROTTEN_LOG = register("stripped_rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN));
     public static final RegistryObject<Block> ROTTEN_WOOD = register("rotten_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STRIPPED_ROTTEN_WOOD = register("stripped_rotten_wood",
@@ -199,6 +199,8 @@ public class ModBlocks {
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> COMPACTED_WINDSWEPT_PLANKS = register("compacted_windswept_planks",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> COMPACTED_WINDSWEPT_SLAB = registerSlabs("compacted_windswept_slab",
+            COMPACTED_WINDSWEPT_PLANKS);
     public static final RegistryObject<Block> THATCHED_WINDSWEPT_PLANKS = register("thatched_windswept_planks",
             () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> WINDSWEPT_LOG = register("windswept_log", () -> log(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN));
@@ -245,12 +247,18 @@ public class ModBlocks {
             () -> new Block(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> STEEP_WOOD = register("steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_WOOD_SLAB = registerSlabs("steep_wood_slab",
+            STEEP_WOOD);
     public static final RegistryObject<Block> STUDDED_STEEP_WOOD = register("studded_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> LINED_STEEP_WOOD = register("lined_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> RIMMED_STEEP_WOOD = register("rimmed_steep_wood",
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> STEEP_PRESSURE_PLATE = register("steep_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(STEEP_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.WINDSWEPT));
+    public static final RegistryObject<Block> STEEP_BUTTON = register("steep_button",
+            () -> woodenButton(ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> STEEP_STAIRS = registerStairs("steep_stairs",
             STEEP_PLANKS);
     public static final RegistryObject<Block> STEEP_SLAB = registerSlabs("steep_slab",
@@ -294,6 +302,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SLATE_MARBLE_BLOCK = register("slate_marble", SlateMarbleBlock::new);
     public static final RegistryObject<Block> SLATE_CONNECTED_MARBLE_BLOCK = register("slate_connected_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_PATTERNED_MARBLE_BLOCK = register("slate_patterned_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_GLAZED_MARBLE_BLOCK = register("slate_glazed_marble", () -> new GlazedTerracottaBlock(MarbleProperties()));
 
     //Indented Gold
     public static final RegistryObject<Block> INDENTED_GOLD_BLOCK = register("indented_gold", IndentedGoldBlock::new);
@@ -332,6 +341,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_STONE_POLISHED_STAIRS_BLOCK = registerStairs("crypt_stone_polished_stairs", CRYPT_STONE_POLISHED_BLOCK);
     public static final RegistryObject<Block> CRYPT_BRICKS_STAIRS_BLOCK = registerStairs("crypt_bricks_stairs", CRYPT_BRICKS_BLOCK);
     public static final RegistryObject<Block> CRYPT_TILES_STAIRS_BLOCK = registerStairs("crypt_tiles_stairs", CRYPT_TILES_BLOCK);
+
+    public static final RegistryObject<Block> MARBLE_STAIRS_BLOCK = registerStairs("marble_stairs", MARBLE_BLOCK);
+    public static final RegistryObject<Block> SLATE_MARBLE_STAIRS_BLOCK = registerStairs("slate_marble_stairs", SLATE_MARBLE_BLOCK);
 
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 

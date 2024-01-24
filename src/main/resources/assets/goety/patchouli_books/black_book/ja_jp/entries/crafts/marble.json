@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:indented_gold/indented_gold"
+      "recipe": "goety:indented_gold/indented_gold_craft"
     }
   ]
 }

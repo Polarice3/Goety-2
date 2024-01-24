@@ -6,6 +6,11 @@
     "goety:gold_banded_marble",
     "goety:gold_plated_marble",
     "goety:studded_steep_wood",
-    "goety:studded_steep_wall"
+    "goety:studded_steep_wall",
+    "goety:rimmed_steep_wood",
+    "goety:rimmed_steep_wall",
+    "goety:lined_steep_wood",
+    "goety:lined_steep_wall",
+    "goety:steep_lamp"
   ]
 }

@@ -1,14 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "planks",
-  "ingredients": [
-    {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "ILI",
+    " I "
+  ],
+  "key": {
+    "L": {
       "item": "goety:steep_wood"
     },
-    {
-      "item": "goety:indented_gold"
+    "I": {
+      "tag": "forge:ingots/gold"
     }
-  ],
+  },
   "result": {
     "item": "goety:studded_steep_wood",
     "count": 1

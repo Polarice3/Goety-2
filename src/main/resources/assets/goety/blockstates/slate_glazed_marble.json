@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "goety:block/slate_glazed_marble",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "goety:block/slate_glazed_marble",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "goety:block/slate_glazed_marble"
+    },
+    "facing=west": {
+      "model": "goety:block/slate_glazed_marble",
+      "y": 90
+    }
+  }
+}

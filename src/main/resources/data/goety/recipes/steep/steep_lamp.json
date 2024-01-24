@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "L",
-    "G",
-    "R"
+    " R ",
+    "IGI",
+    " R "
   ],
   "key": {
-    "L": {
-      "item": "goety:lined_steep_wood"
-    },
     "G": {
       "item": "minecraft:glowstone"
     },
     "R": {
-      "item": "goety:rimmed_steep_wood"
+      "item": "goety:steep_wood_slab"
+    },
+    "I": {
+      "tag": "forge:ingots/gold"
     }
   },
   "result": {

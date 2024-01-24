@@ -9,6 +9,9 @@
     "goety:crypt_stone_stairs",
     "goety:crypt_stone_polished_stairs",
     "goety:crypt_bricks_stairs",
-    "goety:crypt_tiles_stairs"
+    "goety:crypt_tiles_stairs",
+    "goety:marble_stairs",
+    "goety:slate_marble_stairs",
+    "goety:indented_gold_stairs"
   ]
 }

@@ -228,7 +228,7 @@
   "item.goety.magic_emerald": "觉醒绿宝石",
   "item.goety.soul_emerald": "浓缩绿宝石",
   "item.goety.ominous_orb": "不详核心",
-  "item.goety.heart_of_the_night": "黑夜之心",
+  "item.goety.heart_of_the_night": "暗夜之心",
   "item.goety.philosophers_stone": "贤者之石",
 
   "item.goety.cauldron_ladle": "坩埚巨勺",
@@ -242,7 +242,7 @@
 
   "item.goety.eerie_pickaxe": "诡异之镐",
   "item.goety.rampaging_axe": "狂暴之斧",
-  "item.goety.graverobber_shovel": "崛墓者之铲",
+  "item.goety.graverobber_shovel": "掘墓者之铲",
 
   "item.goety.dark_sword": "黑暗剑",
   "item.goety.dark_shovel": "黑暗铲",
@@ -285,9 +285,9 @@
   "item.goety.haunting_scroll": "作祟卷轴",
   "item.goety.front_scroll": "先锋卷轴",
 
-  "item.goety.forbidden_piece": "被遗忘的碎片",
-  "item.goety.forbidden_fragment": "被遗忘的片段",
-  "item.goety.forbidden_scroll": "被遗忘的卷轴",
+  "item.goety.forbidden_piece": "禁书碎片",
+  "item.goety.forbidden_fragment": "禁书片段",
+  "item.goety.forbidden_scroll": "禁书卷轴",
 
   "item.goety.snap_warts": "砰砰疣",
 
@@ -550,6 +550,7 @@
 
   "block.goety.marble": "大理石",
   "block.goety.marble_slab": "大理石台阶",
+  "block.goety.marble_stairs": "大理石楼梯",
   "block.goety.smooth_marble_slab": "磨制大理石台阶",
   "block.goety.gold_arch_marble": "镶金拱形大理石",
   "block.goety.gold_banded_marble": "镶金环形大理石",
@@ -557,8 +558,10 @@
   "block.goety.gold_plated_marble": "覆金大理石",
   "block.goety.slate_marble": "石灰石",
   "block.goety.slate_marble_slab": "石灰石台阶",
+  "block.goety.slate_marble_stairs": "石灰岩楼梯",
   "block.goety.slate_connected_marble": "Slate Connected Marble",
   "block.goety.slate_patterned_marble": "Slate Patterned Marble",
+  "block.goety.slate_glazed_marble": "带釉石灰岩",
   "block.goety.indented_gold": "平滑金块",
   "block.goety.indented_gold_slab": "平滑金台阶",
   "block.goety.indented_gold_stairs": "平滑金楼梯",
@@ -628,6 +631,7 @@
   "block.goety.windswept_log": "风袭木原木",
   "block.goety.windswept_planks": "风袭木板",
   "block.goety.compacted_windswept_planks": "压缩风袭木板",
+  "block.goety.compacted_windswept_slab": "压缩风袭木台阶",
   "block.goety.thatched_windswept_planks": "覆草风袭木板",
   "block.goety.windswept_leaves": "风袭树叶",
   "block.goety.windswept_door": "风袭木门",
@@ -660,9 +664,12 @@
   "block.goety.lined_steep_wall": "内衬咒染木墙",
   "block.goety.rimmed_steep_wall": "镶边咒染木墙",
   "block.goety.steep_wood": "咒染木",
+  "block.goety.steep_wood_slab": "咒染木台阶",
   "block.goety.studded_steep_wood": "镶嵌咒染木",
   "block.goety.lined_steep_wood": "内衬咒染木",
   "block.goety.rimmed_steep_wood": "镶边咒染木",
+  "block.goety.steep_button": "咒染木按钮",
+  "block.goety.steep_pressure_plate": "咒染木压力板",
 
   "block.goety.cursed_bars": "诅咒铁栅栏",
 
@@ -697,11 +704,11 @@
   "block.goety.soul_light": "灵魂之光",
   "block.goety.glow_light": "闪亮之光",
 
-  "block.goety.forbidden_grass": "被遗忘的草方块",
+  "block.goety.forbidden_grass": "禁品草方块",
   "block.goety.crystal_ball": "水晶球",
   "block.goety.pithos": "陶瓷坛",
   "block.goety.crypt_urn": "墓穴瓮",
-  "block.goety.night_beacon": "黑夜信标",
+  "block.goety.night_beacon": "暗夜信标",
 
   "block.goety.magic_thorn": "魔法荆棘",
   "block.goety.hardened_leaves": "硬化叶子",
@@ -888,7 +895,7 @@
   "info.goety.focus.PosNum": "X: %d, Y: %d, Z: %d",
   "info.goety.focus.PosDim": "§a维度:§a %d",
   "info.goety.focus.PosInvalid": "§c回溯所调用的块无效§c",
-  "info.goety.focus.noCreative": "§4创意模式下无法选择§4",
+  "info.goety.focus.noCreative": "§4创造模式下无法选择§4",
 
   "info.goety.items.dark_scroll.desc": "必须在林地府邸中才可使用.",
   "info.goety.items.dark_scroll.failure": "你现在不在林地府邸里!",
@@ -1146,7 +1153,7 @@
   "subtitle.goety.vanguard_step": "先锋：行走",
   "subtitle.goety.vanguard_death": "先锋：死亡",
 
-  "subtitle.goety.haunted_armor_ambient": "缠魂甲胄：鬼叫",
+  "subtitle.goety.haunted_armor_ambient": "缠魂甲胄：碰擦",
   "subtitle.goety.haunted_armor_hurt": "缠魂甲胄：受伤",
   "subtitle.goety.haunted_armor_step": "缠魂甲胄：行走",
   "subtitle.goety.haunted_armor_death": "缠魂甲胄：死亡",
@@ -1223,7 +1230,7 @@
   "subtitle.goety.shield_up": "盾牌：升起",
   "subtitle.goety.bolt_impact": "灵魂束冲击",
   "subtitle.goety.soul_explode": "灵魂爆炸",
-  "subtitle.goety.heal_spell": "治疗卷轴",
+  "subtitle.goety.heal_spell": "治疗祷告",
   "subtitle.goety.wind": "风爆",
   "subtitle.goety.thunderbolt": "雷霆法术：释放",
   "subtitle.goety.updraft_blast": "上升气流",
@@ -1385,7 +1392,7 @@
   "advancements.goety.front_scroll.title": "跟我的龙矛兵打打招呼吧！",
   "advancements.goety.front_scroll.description": "阅读先锋卷轴，探寻破阵之理.",
   "advancements.goety.forbidden_scroll.title": "祖母的秘密配方",
-  "advancements.goety.forbidden_scroll.description": "阅读被遗忘的卷轴，通晓不朽的秘密.",
+  "advancements.goety.forbidden_scroll.description": "阅读禁书卷轴，通晓不朽的秘密.",
   "advancements.goety.summon_redstone_golem.title": "千锤百炼",
   "advancements.goety.summon_redstone_golem.description": "用活力核心召唤红石傀儡.",
   "advancements.goety.summon_grave_golem.title": "掘墓人",
