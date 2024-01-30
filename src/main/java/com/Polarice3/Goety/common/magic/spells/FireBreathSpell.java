@@ -42,7 +42,7 @@ public class FireBreathSpell extends BreathingSpells {
         return ModSounds.FIRE_BREATH_START.get();
     }
 
-    public SoundEvent loopSound(){
+    public SoundEvent loopSound(LivingEntity livingEntity){
         return ModSounds.FIRE_BREATH.get();
     }
 

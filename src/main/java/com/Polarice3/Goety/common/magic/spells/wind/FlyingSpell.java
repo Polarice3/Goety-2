@@ -29,7 +29,7 @@ public class FlyingSpell extends EverChargeSpells {
     }
 
     @Override
-    public SoundEvent loopSound() {
+    public SoundEvent loopSound(LivingEntity livingEntity) {
         return ModSounds.FLIGHT.get();
     }
 

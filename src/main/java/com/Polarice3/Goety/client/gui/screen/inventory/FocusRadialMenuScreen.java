@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.client.gui.radial.*;
@@ -95,6 +96,7 @@ public class FocusRadialMenuScreen extends Screen {
                 return FocusRadialMenuScreen.this.tryExtractFocus();
             }
         };
+        this.passEvents = MainConfig.WheelGuiMovement.get();
     }
 
     @SubscribeEvent

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class HuntersBowItem extends BowItem {
     public HuntersBowItem() {
-        super((new Item.Properties()).rarity(Rarity.UNCOMMON).defaultDurability(MainConfig.HuntersBowDurability.get()).tab(Goety.TAB));
+        super((new Item.Properties()).rarity(Rarity.UNCOMMON).defaultDurability(ItemConfig.HuntersBowDurability.get()).tab(Goety.TAB));
     }
 
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {

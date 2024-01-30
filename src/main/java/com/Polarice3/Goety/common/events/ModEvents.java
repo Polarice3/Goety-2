@@ -1,9 +1,6 @@
 package com.Polarice3.Goety.common.events;
 
-import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.MobsConfig;
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.*;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.ISoulRepair;
@@ -610,7 +607,7 @@ public class ModEvents {
             }
         }
         if (CuriosFinder.hasCurio(player, ModItems.WIND_ROBE.get()) && !player.isSpectator()){
-            if (SEHelper.getSoulsAmount(player, MainConfig.WindRobeSouls.get()) || player.isCreative()) {
+            if (SEHelper.getSoulsAmount(player, ItemConfig.WindRobeSouls.get()) || player.isCreative()) {
                 Vec3 vector3d = player.getDeltaMovement();
                 if (player.hasEffect(MobEffects.SLOW_FALLING)){
                     player.removeEffect(MobEffects.SLOW_FALLING);
@@ -624,7 +621,7 @@ public class ModEvents {
                         && !player.isInLava()
                         && player.fallDistance >= 2.0F) {
                     if (player.tickCount % 20 == 0 && !player.isCreative() && player.fallDistance > 3.0F) {
-                        SEHelper.decreaseSouls(player, MainConfig.WindRobeSouls.get());
+                        SEHelper.decreaseSouls(player, ItemConfig.WindRobeSouls.get());
                     }
                     float f = 1.0F;
                     float f5 = (float) Math.PI * f * f;
@@ -827,10 +824,10 @@ public class ModEvents {
                             }
                         }
                     }
-                    if (CuriosFinder.hasUndeadSet(target)){
+                    if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
                         boolean undead = mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy));
-                        if (undead){
-                            if (mobAttacker.getLastHurtByMob() != target){
+                        if (undead) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
                                 event.setNewTarget(null);
                             } else {
                                 mobAttacker.setLastHurtByMob(target);
@@ -852,18 +849,18 @@ public class ModEvents {
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() instanceof LivingEntity looker) {
             boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
-            if (CuriosFinder.hasUndeadCrown(entity)) {
+            if (CuriosFinder.neutralNecroCrown(entity) || CuriosFinder.neutralNamelessCrown(entity)) {
                 if (undead) {
                     event.modifyVisibility(0.5);
                 }
             }
-            if (CuriosFinder.hasUndeadCape(entity)) {
+            if (CuriosFinder.neutralNecroCape(entity) || CuriosFinder.neutralNamelessCape(entity)) {
                 if (undead) {
                     event.modifyVisibility(0.5);
                 }
             }
             if (CuriosFinder.hasIllusionRobe(entity)){
-                if (looker.getArmorCoverPercentage() < 0.1F){
+                if (entity.isInvisible()){
                     event.modifyVisibility(0.0);
                 }
             }
@@ -1009,7 +1006,7 @@ public class ModEvents {
         LivingEntity victim = event.getEntity();
         if (CuriosFinder.hasCurio(victim, ModItems.GRAND_TURBAN.get())){
             if (victim instanceof Player player) {
-                if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get())) {
+                if (SEHelper.getSoulsAmount(player, ItemConfig.ItemsRepairAmount.get())) {
                     int irks = victim.level.getEntitiesOfClass(AllyIrk.class, victim.getBoundingBox().inflate(32)).size();
                     if ((victim.level.random.nextBoolean() || victim.getHealth() <= victim.getMaxHealth() / 2) && irks < 16) {
                         AllyIrk irk = new AllyIrk(ModEntityType.ALLY_IRK.get(), victim.level);
@@ -1017,7 +1014,7 @@ public class ModEvents {
                         irk.setLimitedLife(MobUtil.getSummonLifespan(victim.level));
                         irk.setTrueOwner(victim);
                         if (victim.level.addFreshEntity(irk)) {
-                            SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get());
+                            SEHelper.decreaseSouls(player, ItemConfig.ItemsRepairAmount.get());
                         }
                     }
                 }
@@ -1030,21 +1027,24 @@ public class ModEvents {
         }
         if(CuriosFinder.hasCurio(victim, ModItems.FROST_ROBE.get())){
             if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource() == DamageSource.FREEZE){
-                event.setAmount(event.getAmount() * 0.15F);
+                float resistance = 1.0F - (ItemConfig.FrostRobeResistance.get() / 100.0F);
+                event.setAmount(event.getAmount() * resistance);
             }
         }
         if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
                     if (event.getSource().isMagic()){
-                        event.setAmount(event.getAmount() * 0.15F);
+                        float resistance = 1.0F - (ItemConfig.WitchRobeResistance.get() / 100.0F);
+                        event.setAmount(event.getAmount() * resistance);
                     }
                 }
             }
         }
         if (CuriosFinder.hasWarlockRobe(victim)){
             if (event.getSource().isExplosion()){
-                event.setAmount(event.getAmount() * 0.15F);
+                float resistance = 1.0F - (ItemConfig.WarlockRobeResistance.get() / 100.0F);
+                event.setAmount(event.getAmount() * resistance);
             }
         }
         if (ModDamageSource.shockAttacks(event.getSource())){
@@ -1094,10 +1094,10 @@ public class ModEvents {
         if (victim instanceof Player player) {
             if (CuriosFinder.hasCurio(victim, ModItems.SPITEFUL_BELT.get())) {
                 int a = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.THORNS, CuriosFinder.findCurio(victim, ModItems.SPITEFUL_BELT.get()));
-                if (SEHelper.getSoulsAmount(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
+                if (SEHelper.getSoulsAmount(player, ItemConfig.SpitefulBeltUseAmount.get() * (a + 1))) {
                     if (!event.getSource().isExplosion() && !event.getSource().isMagic() && event.getSource().getEntity() instanceof LivingEntity livingentity && livingentity != victim) {
                         livingentity.hurt(DamageSource.thorns(victim), 2.0F + a);
-                        SEHelper.decreaseSouls(player, MainConfig.SpitefulBeltUseAmount.get() * (a + 1));
+                        SEHelper.decreaseSouls(player, ItemConfig.SpitefulBeltUseAmount.get() * (a + 1));
                     }
                 }
             }

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.api.items.ISoulRepair;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -30,9 +30,9 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     private final Multimap<Attribute, AttributeModifier> maceAttributes;
 
     public PhilosophersMaceItem() {
-        super(new Properties().rarity(Rarity.UNCOMMON).durability(MainConfig.PhilosophersMaceDurability.get()).tab(Goety.TAB).fireResistant());
+        super(new Properties().rarity(Rarity.UNCOMMON).durability(ItemConfig.PhilosophersMaceDurability.get()).tab(Goety.TAB).fireResistant());
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", MainConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", ItemConfig.PhilosophersMaceDamage.get() - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-2.4F, AttributeModifier.Operation.ADDITION));
         this.maceAttributes = builder.build();
     }
@@ -77,7 +77,7 @@ public class PhilosophersMaceItem extends Item implements Vanishable, ISoulRepai
     }
 
     public int getEnchantmentValue() {
-        return MainConfig.PhilosophersMaceEnchantability.get();
+        return ItemConfig.PhilosophersMaceEnchantability.get();
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {

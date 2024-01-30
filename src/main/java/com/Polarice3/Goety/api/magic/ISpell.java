@@ -68,6 +68,10 @@ public interface ISpell {
 
     List<Enchantment> acceptedEnchantments();
 
+    default SoundEvent loopSound(LivingEntity entityLiving){
+        return null;
+    }
+
     default ColorUtil particleColors(LivingEntity entityLiving){
         return new ColorUtil(0.2F, 0.2F, 0.2F);
     }

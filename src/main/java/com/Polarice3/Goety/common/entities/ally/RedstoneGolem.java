@@ -62,6 +62,8 @@ public class RedstoneGolem extends AbstractGolemServant {
     private int mineCount;
     public int attackTick;
     public int postAttackTick;
+    public int isSittingDown;
+    public int isStandingUp;
     public float getGlow;
     public float glowAmount = 0.03F;
     public int noveltyTick;
@@ -77,6 +79,8 @@ public class RedstoneGolem extends AbstractGolemServant {
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
+    public AnimationState toSitAnimationState = new AnimationState();
+    public AnimationState toStandAnimationState = new AnimationState();
     public AnimationState sitAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
@@ -242,10 +246,21 @@ public class RedstoneGolem extends AbstractGolemServant {
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.noveltyAnimationState);
         animationStates.add(this.summonAnimationState);
+        animationStates.add(this.toSitAnimationState);
+        animationStates.add(this.toStandAnimationState);
         animationStates.add(this.sitAnimationState);
         animationStates.add(this.walkAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
+    }
+
+    public void setStaying(boolean staying){
+        super.setStaying(staying);
+        if (staying){
+            this.level.broadcastEntityEvent(this, (byte) 12);
+        } else if (this.isFollowing()) {
+            this.level.broadcastEntityEvent(this, (byte) 13);
+        }
     }
 
     protected void tickDeath() {
@@ -334,15 +349,35 @@ public class RedstoneGolem extends AbstractGolemServant {
                 if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
                     this.walkAnimationState.stop();
                     if (this.isStaying()) {
-                        this.sitAnimationState.startIfStopped(this.tickCount);
+                        if (this.isSittingDown > 0){
+                            --this.isSittingDown;
+                            this.toSitAnimationState.startIfStopped(this.tickCount);
+                        } else {
+                            this.toSitAnimationState.stop();
+                            this.sitAnimationState.startIfStopped(this.tickCount);
+                        }
                     } else {
-                        this.idleAnimationState.startIfStopped(this.tickCount);
+                        if (this.isStandingUp > 0){
+                            --this.isStandingUp;
+                            this.toStandAnimationState.startIfStopped(this.tickCount);
+                        } else {
+                            this.toStandAnimationState.stop();
+                            this.idleAnimationState.startIfStopped(this.tickCount);
+                        }
                         this.sitAnimationState.stop();
                     }
                 } else {
+                    if (this.isStaying()){
+                        this.isSittingDown = MathHelper.secondsToTicks(1);
+                    } else {
+                        this.isSittingDown = 0;
+                    }
+                    this.isStandingUp = 0;
                     this.noveltyAnimationState.stop();
                     this.idleAnimationState.stop();
                     this.sitAnimationState.stop();
+                    this.toSitAnimationState.stop();
+                    this.toStandAnimationState.stop();
                 }
                 if (!this.isMeleeAttacking() && !this.isSummoning()) {
                     if (this.isMoving()) {
@@ -481,6 +516,10 @@ public class RedstoneGolem extends AbstractGolemServant {
             this.noveltyAnimationState.stop();
         } else if (pId == 11){
             this.attackAnimationState.stop();
+        } else if (pId == 12){
+            this.isSittingDown = MathHelper.secondsToTicks(1);
+        } else if (pId == 13){
+            this.isStandingUp = MathHelper.secondsToTicks(1);
         } else {
             super.handleEntityEvent(pId);
         }

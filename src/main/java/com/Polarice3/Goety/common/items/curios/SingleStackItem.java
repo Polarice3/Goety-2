@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModKeybindings;
 import net.minecraft.ChatFormatting;
@@ -95,7 +96,9 @@ public class SingleStackItem extends Item {
                 tooltip.add(Component.translatable("info.goety.illusion_robe").withStyle(secondary));
             }
             if (stack.is(ModItems.FROST_ROBE.get())) {
-                tooltip.add(Component.translatable("info.goety.frost_robe").withStyle(main));
+                if (ItemConfig.FrostRobeResistance.get() > 0) {
+                    tooltip.add(Component.translatable("info.goety.frost_robe", ItemConfig.FrostRobeResistance.get()).withStyle(main));
+                }
                 tooltip.add(Component.translatable("info.goety.frost_robe_discount").withStyle(secondary));
             }
             if (stack.is(ModItems.WIND_ROBE.get())) {
@@ -104,12 +107,14 @@ public class SingleStackItem extends Item {
             }
             if (stack.getItem() instanceof WitchRobeItem) {
                 tooltip.add(Component.translatable("info.goety.witch_robe_brew", ModKeybindings.keyBindings[3].getTranslatedKeyMessage().getString()).withStyle(main));
-                tooltip.add(Component.translatable("info.goety.witch_robe").withStyle(secondary));
+                if (ItemConfig.WitchRobeResistance.get() > 0) {
+                    tooltip.add(Component.translatable("info.goety.witch_robe", ItemConfig.WitchRobeResistance.get()).withStyle(secondary));
+                }
             }
             if (stack.getItem() instanceof WarlockGarmentItem) {
                 tooltip.add(Component.translatable("info.goety.warlock_garment").withStyle(main));
-                if (stack.getItem() instanceof WarlockRobeItem) {
-                    tooltip.add(Component.translatable("info.goety.warlock_robe").withStyle(secondary));
+                if (stack.getItem() instanceof WarlockRobeItem && ItemConfig.WarlockRobeResistance.get() > 0) {
+                    tooltip.add(Component.translatable("info.goety.warlock_robe", ItemConfig.WarlockRobeResistance.get()).withStyle(secondary));
                 }
             }
             if (stack.is(ModItems.RING_OF_WANT.get())){

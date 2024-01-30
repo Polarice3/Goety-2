@@ -1,9 +1,10 @@
 package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
-import com.Polarice3.Goety.api.magic.IEverChargeSpell;
+import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.ItemLoopSound;
 import com.Polarice3.Goety.client.audio.LoopSound;
@@ -32,11 +33,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -55,10 +58,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderArmEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -110,9 +110,12 @@ public class ClientEvents {
         if (event.getEntity().level instanceof ClientLevel){
             Minecraft minecraft = Minecraft.getInstance();
             SoundManager soundHandler = minecraft.getSoundManager();
-            if (WandUtil.getSpell(event.getEntity()) instanceof IEverChargeSpell spells){
-                if (spells.loopSound() != null) {
-                    soundHandler.play(new ItemLoopSound(spells.loopSound(), event.getEntity()));
+            if (WandUtil.getSpell(event.getEntity()) != null){
+                ISpell spells = WandUtil.getSpell(event.getEntity());
+                if (spells != null) {
+                    if (spells.loopSound(event.getEntity()) != null) {
+                        soundHandler.play(new ItemLoopSound(spells.loopSound(event.getEntity()), event.getEntity()));
+                    }
                 }
             }
         }
@@ -120,7 +123,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void renderGlove(RenderArmEvent event){
-        if (event.isCanceled() || !MainConfig.FirstPersonGloves.get()){
+        if (event.isCanceled() || !ItemConfig.FirstPersonGloves.get()){
             return;
         }
 
@@ -365,18 +368,47 @@ public class ClientEvents {
         }
     }
 
+    public static boolean isKeyDown0(KeyMapping keybind) {
+        if (keybind.isUnbound()) {
+            return false;
+        }
+
+        return switch (keybind.getKey().getType()) {
+                    case KEYSYM -> InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue());
+                    case MOUSE -> GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue()) == GLFW.GLFW_PRESS;
+                    default -> false;
+                };
+    }
+
     public static boolean isKeyDown(KeyMapping keybind) {
         if (keybind.isUnbound()) {
             return false;
         }
 
-        boolean isDown =
-                switch (keybind.getKey().getType()) {
-                    case KEYSYM -> InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue());
-                    case MOUSE -> GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), keybind.getKey().getValue()) == GLFW.GLFW_PRESS;
-                    default -> false;
-                };
-        return isDown && keybind.getKeyConflictContext().isActive() && keybind.getKeyModifier().isActive(keybind.getKeyConflictContext());
+        return isKeyDown0(keybind) && keybind.getKeyConflictContext().isActive() && keybind.getKeyModifier().isActive(keybind.getKeyConflictContext());
+    }
+
+    @SubscribeEvent
+    public static void updateInputEvent(MovementInputUpdateEvent event) {
+        if (MainConfig.WheelGuiMovement.get()) {
+            if (Minecraft.getInstance().screen instanceof FocusRadialMenuScreen || Minecraft.getInstance().screen instanceof BrewRadialMenuScreen) {
+                Options settings = Minecraft.getInstance().options;
+                Input input = event.getInput();
+                input.up = isKeyDown0(settings.keyUp);
+                input.down = isKeyDown0(settings.keyDown);
+                input.left = isKeyDown0(settings.keyLeft);
+                input.right = isKeyDown0(settings.keyRight);
+
+                input.forwardImpulse = input.up == input.down ? 0.0F : (input.up ? 1.0F : -1.0F);
+                input.leftImpulse = input.left == input.right ? 0.0F : (input.left ? 1.0F : -1.0F);
+                input.jumping = isKeyDown0(settings.keyJump);
+                input.shiftKeyDown = isKeyDown0(settings.keyShift);
+                if (Minecraft.getInstance().player.isMovingSlowly()) {
+                    input.leftImpulse = (float) ((double) input.leftImpulse * 0.3D);
+                    input.forwardImpulse = (float) ((double) input.forwardImpulse * 0.3D);
+                }
+            }
+        }
     }
     /**
      * To Here

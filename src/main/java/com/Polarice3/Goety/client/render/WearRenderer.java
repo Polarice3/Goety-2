@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.client.render.model.DarkRobeModel;
 import com.Polarice3.Goety.client.render.model.GloveModel;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -67,7 +67,7 @@ public record WearRenderer(ResourceLocation texture,
 
         if (stack.getItem() == ModItems.GRAND_ROBE.get() || stack.getItem() == ModItems.FROST_ROBE.get() || stack.getItem() == ModItems.WIND_ROBE.get()){
             if (livingEntity instanceof AbstractClientPlayer p_116618_) {
-                if (MainConfig.RobeCape.get()
+                if (ItemConfig.RobeCape.get()
                         && (CuriosFinder.hasCurio(p_116618_, ModItems.GRAND_ROBE.get()) || CuriosFinder.hasCurio(p_116618_, ModItems.FROST_ROBE.get()) || CuriosFinder.hasCurio(p_116618_, ModItems.WIND_ROBE.get()))
                         && !CuriosFinder.hasUndeadCape(p_116618_)
                         && !hasCape(p_116618_)

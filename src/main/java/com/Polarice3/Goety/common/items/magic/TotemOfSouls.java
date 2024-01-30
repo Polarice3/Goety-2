@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.CursedCageBlock;
@@ -83,8 +84,8 @@ public class TotemOfSouls extends Item implements ITotem {
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
         ItemStack container = itemStack.copy();
         if (container.getTag() != null) {
-            if (container.getTag().getInt(SOULS_AMOUNT) > MainConfig.CraftingSouls.get()) {
-                ITotem.decreaseSouls(container, MainConfig.CraftingSouls.get());
+            if (container.getTag().getInt(SOULS_AMOUNT) > ItemConfig.CraftingSouls.get()) {
+                ITotem.decreaseSouls(container, ItemConfig.CraftingSouls.get());
                 return container;
             } else {
                 return new ItemStack(ModItems.SPENT_TOTEM.get());

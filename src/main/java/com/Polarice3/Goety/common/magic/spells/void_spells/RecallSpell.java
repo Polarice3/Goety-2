@@ -30,6 +30,11 @@ public class RecallSpell extends Spells {
 
     @Override
     public SoundEvent CastingSound() {
+        return SoundEvents.SNOW_GOLEM_AMBIENT;
+    }
+
+    @Override
+    public SoundEvent loopSound(LivingEntity entityLiving) {
         return SoundEvents.PORTAL_TRIGGER;
     }
 

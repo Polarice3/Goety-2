@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class SeaAmuletItem extends SingleStackItem{
     private static final String CONDUIT_CHARGES = "Conduit Charges";
-    private static final int MAX_POWER = MainConfig.SeaAmuletMax.get();
+    private static final int MAX_POWER = ItemConfig.SeaAmuletMax.get();
 
     @Override
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
@@ -80,13 +80,13 @@ public class SeaAmuletItem extends SingleStackItem{
 
     public void increaseConduitCharges(ItemStack stack){
         if (stack.getTag() != null && getConduitChargesAmount(stack) < MAX_POWER) {
-            stack.getTag().putInt(CONDUIT_CHARGES, Math.min(MAX_POWER, getConduitChargesAmount(stack) + MainConfig.SeaAmuletChargeConsume.get()));
+            stack.getTag().putInt(CONDUIT_CHARGES, Math.min(MAX_POWER, getConduitChargesAmount(stack) + ItemConfig.SeaAmuletChargeConsume.get()));
         }
     }
 
     public void decreaseConduitCharges(ItemStack stack){
         if (stack.getTag() != null && getConduitChargesAmount(stack) > 0) {
-            stack.getTag().putInt(CONDUIT_CHARGES, Math.max(0, getConduitChargesAmount(stack) - MainConfig.SeaAmuletChargeConsume.get()));
+            stack.getTag().putInt(CONDUIT_CHARGES, Math.max(0, getConduitChargesAmount(stack) - ItemConfig.SeaAmuletChargeConsume.get()));
         }
     }
 

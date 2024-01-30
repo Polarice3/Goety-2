@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.client.gui.radial.GenericRadialMenu;
 import com.Polarice3.Goety.client.gui.radial.IRadialMenuHost;
@@ -76,6 +77,7 @@ public class BrewRadialMenuScreen extends Screen {
                 close();
             }
         };
+        this.passEvents = MainConfig.WheelGuiMovement.get();
     }
 
     @SubscribeEvent

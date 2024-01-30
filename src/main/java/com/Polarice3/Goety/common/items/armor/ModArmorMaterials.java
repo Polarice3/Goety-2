@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.armor;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.items.ModItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -14,48 +14,48 @@ import java.util.function.Supplier;
 public enum ModArmorMaterials implements ArmorMaterial {
     //{feet, legs, chest, head}
 
-    CURSED_KNIGHT("cursed_knight", MainConfig.CursedKnightDurability.get(),
-            new int[]{MainConfig.CursedKnightFeet.get(),
-                    MainConfig.CursedKnightLegs.get(),
-                    MainConfig.CursedKnightChest.get(),
-                    MainConfig.CursedKnightHead.get()},
-            MainConfig.CursedKnightEnchantability.get(),
+    CURSED_KNIGHT("cursed_knight", ItemConfig.CursedKnightDurability.get(),
+            new int[]{ItemConfig.CursedKnightFeet.get(),
+                    ItemConfig.CursedKnightLegs.get(),
+                    ItemConfig.CursedKnightChest.get(),
+                    ItemConfig.CursedKnightHead.get()},
+            ItemConfig.CursedKnightEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.CursedKnightToughness.get().floatValue(),
-            MainConfig.CursedKnightKnockResist.get().floatValue(), () -> {
+            ItemConfig.CursedKnightToughness.get().floatValue(),
+            ItemConfig.CursedKnightKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    CURSED_PALADIN("cursed_paladin", MainConfig.CursedPaladinDurability.get(),
-            new int[]{MainConfig.CursedPaladinFeet.get(),
-                    MainConfig.CursedPaladinLegs.get(),
-                    MainConfig.CursedPaladinChest.get(),
-                    MainConfig.CursedPaladinHead.get()},
-            MainConfig.CursedPaladinEnchantability.get(),
+    CURSED_PALADIN("cursed_paladin", ItemConfig.CursedPaladinDurability.get(),
+            new int[]{ItemConfig.CursedPaladinFeet.get(),
+                    ItemConfig.CursedPaladinLegs.get(),
+                    ItemConfig.CursedPaladinChest.get(),
+                    ItemConfig.CursedPaladinHead.get()},
+            ItemConfig.CursedPaladinEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.CursedPaladinToughness.get().floatValue(),
-            MainConfig.CursedPaladinKnockResist.get().floatValue(), () -> {
+            ItemConfig.CursedPaladinToughness.get().floatValue(),
+            ItemConfig.CursedPaladinKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    BLACK_IRON("black_iron", MainConfig.BlackIronDurability.get(),
-            new int[]{MainConfig.BlackIronFeet.get(),
-                    MainConfig.BlackIronLegs.get(),
-                    MainConfig.BlackIronChest.get(),
-                    MainConfig.BlackIronHead.get()},
-            MainConfig.BlackIronEnchantability.get(),
+    BLACK_IRON("black_iron", ItemConfig.BlackIronDurability.get(),
+            new int[]{ItemConfig.BlackIronFeet.get(),
+                    ItemConfig.BlackIronLegs.get(),
+                    ItemConfig.BlackIronChest.get(),
+                    ItemConfig.BlackIronHead.get()},
+            ItemConfig.BlackIronEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_IRON,
-            MainConfig.BlackIronToughness.get().floatValue(),
-            MainConfig.BlackIronKnockResist.get().floatValue(), () -> {
+            ItemConfig.BlackIronToughness.get().floatValue(),
+            ItemConfig.BlackIronKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    DARK("dark", MainConfig.DarkArmorDurability.get(),
-            new int[]{MainConfig.DarkArmorFeet.get(),
-                    MainConfig.DarkArmorLegs.get(),
-                    MainConfig.DarkArmorChest.get(),
-                    MainConfig.DarkArmorHead.get()},
-            MainConfig.DarkArmorEnchantability.get(),
+    DARK("dark", ItemConfig.DarkArmorDurability.get(),
+            new int[]{ItemConfig.DarkArmorFeet.get(),
+                    ItemConfig.DarkArmorLegs.get(),
+                    ItemConfig.DarkArmorChest.get(),
+                    ItemConfig.DarkArmorHead.get()},
+            ItemConfig.DarkArmorEnchantability.get(),
             SoundEvents.ARMOR_EQUIP_NETHERITE,
-            MainConfig.DarkArmorToughness.get().floatValue(),
-            MainConfig.DarkArmorKnockResist.get().floatValue(), () -> {
+            ItemConfig.DarkArmorToughness.get().floatValue(),
+            ItemConfig.DarkArmorKnockResist.get().floatValue(), () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     });
 

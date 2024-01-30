@@ -60,6 +60,8 @@ public class GraveGolem extends AbstractGolemServant {
     private int summonCool;
     private int summonCount;
     public int belchCool;
+    public int isSittingDown;
+    public int isStandingUp;
     public float getGlow;
     public float deathRotation = 0.0F;
     public int deathTime = 0;
@@ -70,6 +72,8 @@ public class GraveGolem extends AbstractGolemServant {
     public AnimationState attackAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
+    public AnimationState toSitAnimationState = new AnimationState();
+    public AnimationState toStandAnimationState = new AnimationState();
     public AnimationState sitAnimationState = new AnimationState();
     public AnimationState shootAnimationState = new AnimationState();
     public AnimationState belchAnimationState = new AnimationState();
@@ -285,11 +289,22 @@ public class GraveGolem extends AbstractGolemServant {
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.summonAnimationState);
         animationStates.add(this.belchAnimationState);
+        animationStates.add(this.toSitAnimationState);
+        animationStates.add(this.toStandAnimationState);
         animationStates.add(this.sitAnimationState);
         animationStates.add(this.shootAnimationState);
         animationStates.add(this.walkAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
+    }
+
+    public void setStaying(boolean staying){
+        super.setStaying(staying);
+        if (staying){
+            this.level.broadcastEntityEvent(this, (byte) 22);
+        } else if (this.isFollowing()) {
+            this.level.broadcastEntityEvent(this, (byte) 23);
+        }
     }
 
     protected void tickDeath() {
@@ -395,18 +410,38 @@ public class GraveGolem extends AbstractGolemServant {
                         this.stopMostAnimations(this.walkAnimationState);
                         this.walkAnimationState.startIfStopped(this.tickCount);
                     } else {
-                        if (this.isStaying()){
-                            this.stopMostAnimations(this.sitAnimationState);
-                            this.sitAnimationState.startIfStopped(this.tickCount);
+                        if (this.isStaying()) {
+                            if (this.isSittingDown > 0){
+                                --this.isSittingDown;
+                                this.stopMostAnimations(this.toSitAnimationState);
+                                this.toSitAnimationState.startIfStopped(this.tickCount);
+                            } else {
+                                this.stopMostAnimations(this.sitAnimationState);
+                                this.sitAnimationState.startIfStopped(this.tickCount);
+                            }
                         } else {
-                            this.stopMostAnimations(this.idleAnimationState);
-                            this.idleAnimationState.startIfStopped(this.tickCount);
+                            if (this.isStandingUp > 0){
+                                --this.isStandingUp;
+                                this.stopMostAnimations(this.toStandAnimationState);
+                                this.toStandAnimationState.startIfStopped(this.tickCount);
+                            } else {
+                                this.stopMostAnimations(this.idleAnimationState);
+                                this.idleAnimationState.startIfStopped(this.tickCount);
+                            }
                         }
                     }
                 } else {
+                    if (this.isStaying()){
+                        this.isSittingDown = MathHelper.secondsToTicks(1);
+                    } else {
+                        this.isSittingDown = 0;
+                    }
+                    this.isStandingUp = 0;
                     this.sitAnimationState.stop();
                     this.idleAnimationState.stop();
                     this.walkAnimationState.stop();
+                    this.toSitAnimationState.stop();
+                    this.toStandAnimationState.stop();
                 }
                 if (this.isMeleeAttacking()) {
                     this.getGlow = 1.0F;
@@ -448,7 +483,7 @@ public class GraveGolem extends AbstractGolemServant {
             if (!this.inventory.isEmpty()){
                 this.level.broadcastEntityEvent(this, (byte) 19);
             } else {
-                this.level.broadcastEntityEvent(this, (byte) 20);
+                this.level.broadcastEntityEvent(this, (byte) 24);
             }
             if (this.isSummoning()) {
                 if (this.level instanceof ServerLevel serverLevel) {
@@ -532,10 +567,14 @@ public class GraveGolem extends AbstractGolemServant {
             if (!this.hasInventory) {
                 this.hasInventory = true;
             }
-        } else if (pId == 20) {
+        } else if (pId == 24) {
             if (this.hasInventory) {
                 this.hasInventory = false;
             }
+        } else if (pId == 22) {
+            this.isSittingDown = MathHelper.secondsToTicks(1);
+        } else if (pId == 23) {
+            this.isStandingUp = MathHelper.secondsToTicks(1);
         } else {
             super.handleEntityEvent(pId);
         }

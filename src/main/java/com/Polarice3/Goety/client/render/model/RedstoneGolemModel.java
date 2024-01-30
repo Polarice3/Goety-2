@@ -110,6 +110,8 @@ public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalMode
 			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
 			this.animate(redstoneGolem.sitAnimationState, RedstoneGolemAnimations.SIT, ageInTicks);
+			this.animate(redstoneGolem.toSitAnimationState, RedstoneGolemAnimations.TO_SIT, ageInTicks);
+			this.animate(redstoneGolem.toStandAnimationState, RedstoneGolemAnimations.TO_STAND, ageInTicks);
 			this.animate(redstoneGolem.deathAnimationState, RedstoneGolemAnimations.DEATH, ageInTicks);
 		} else if (entity instanceof HostileRedstoneGolem redstoneGolem) {
 			if (!redstoneGolem.isSummoning() && !redstoneGolem.isDeadOrDying()){
