@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -28,14 +28,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DarkScytheItem extends TieredItem implements Vanishable {
-    private static float initialDamage = MainConfig.ScytheBaseDamage.get().floatValue();
+    private static float initialDamage = ItemConfig.ScytheBaseDamage.get().floatValue();
     private final Multimap<Attribute, AttributeModifier> scytheAttributes;
 
     public DarkScytheItem(Tier itemTier) {
         super(itemTier, new Properties().rarity(Rarity.UNCOMMON).durability(itemTier.getUses()));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        initialDamage = MainConfig.ScytheBaseDamage.get().floatValue() + itemTier.getAttackDamageBonus();
-        double attackSpeed = 4.0D - MainConfig.ScytheAttackSpeed.get();
+        initialDamage = ItemConfig.ScytheBaseDamage.get().floatValue() + itemTier.getAttackDamageBonus();
+        double attackSpeed = 4.0D - ItemConfig.ScytheAttackSpeed.get();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", initialDamage - 1.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -attackSpeed, AttributeModifier.Operation.ADDITION));
         this.scytheAttributes = builder.build();
@@ -92,7 +92,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
     public void attackMobs(ItemStack pStack, LivingEntity pTarget, Player pPlayer){
         int enchantment = pStack.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
         int soulEater = Mth.clamp(enchantment + 1, 1, 10);
-        SEHelper.increaseSouls(pPlayer, MainConfig.DarkScytheSouls.get() * soulEater);
+        SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
 
         float f = (float)pPlayer.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = EnchantmentHelper.getDamageBonus(pPlayer.getMainHandItem(), pTarget.getMobType());
@@ -119,10 +119,10 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
                                 p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                         if (livingentity instanceof IOwned){
                             if (((IOwned) livingentity).getTrueOwner() != pPlayer){
-                                SEHelper.increaseSouls(pPlayer, MainConfig.DarkScytheSouls.get() * soulEater);
+                                SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
                             }
                         } else {
-                            SEHelper.increaseSouls(pPlayer, MainConfig.DarkScytheSouls.get() * soulEater);
+                            SEHelper.increaseSouls(pPlayer, ItemConfig.DarkScytheSouls.get() * soulEater);
                         }
                         EnchantmentHelper.doPostHurtEffects(livingentity, pPlayer);
                         EnchantmentHelper.doPostDamageEffects(pPlayer, livingentity);

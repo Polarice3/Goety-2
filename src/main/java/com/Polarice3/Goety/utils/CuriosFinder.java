@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
@@ -77,14 +78,38 @@ public class CuriosFinder {
                 && hasWitchRobe(livingEntity);
     }
 
+    public static boolean neutralNecroCrown(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CROWN.get()) && ItemConfig.NecroSetUndeadNeutral.get();
+    }
+
+    public static boolean neutralNecroCape(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CAPE.get()) && ItemConfig.NecroSetUndeadNeutral.get();
+    }
+
     public static boolean hasNecroSet(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CROWN.get())
                 && CuriosFinder.hasCurio(livingEntity, ModItems.NECRO_CAPE.get());
     }
 
+    public static boolean neutralNecroSet(LivingEntity livingEntity){
+        return hasNecroSet(livingEntity) && ItemConfig.NecroSetUndeadNeutral.get();
+    }
+
+    public static boolean neutralNamelessCrown(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get()) && ItemConfig.NamelessSetUndeadNeutral.get();
+    }
+
+    public static boolean neutralNamelessCape(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get()) && ItemConfig.NamelessSetUndeadNeutral.get();
+    }
+
     public static boolean hasNamelessSet(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CROWN.get())
                 && CuriosFinder.hasCurio(livingEntity, ModItems.NAMELESS_CAPE.get());
+    }
+
+    public static boolean neutralNamelessSet(LivingEntity livingEntity){
+        return hasNamelessSet(livingEntity) && ItemConfig.NamelessSetUndeadNeutral.get();
     }
 
     public static boolean hasUndeadCrown(LivingEntity livingEntity){

@@ -154,6 +154,9 @@ public class Goety {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MobsConfig.SPEC, "goety/goety-mobs.toml");
         MobsConfig.loadConfig(MobsConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-mobs.toml").toString());
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ItemConfig.SPEC, "goety/goety-items.toml");
+        ItemConfig.loadConfig(ItemConfig.SPEC, FMLPaths.CONFIGDIR.get().resolve("goety/goety-items.toml").toString());
+
         final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Goety.MOD_ID);
         biomeModifiers.register(modEventBus);
         biomeModifiers.register("mob_spawns", ModMobSpawnBiomeModifier::makeCodec);

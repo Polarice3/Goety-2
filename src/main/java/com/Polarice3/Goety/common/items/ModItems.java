@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.armor.BlackIronArmor;
 import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
@@ -240,11 +240,11 @@ public class ModItems {
 
     //Tools & Weapons
     public static final RegistryObject<Item> DARK_WAND = ITEMS.register("dark_wand", DarkWand::new);
-    public static final RegistryObject<Item> OMINOUS_STAFF = ITEMS.register("ominous_staff", () -> new DarkStaff(MainConfig.OminousStaffDamage.get()));
-    public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", () -> new DarkStaff(MainConfig.NecroStaffDamage.get()));
-    public static final RegistryObject<Item> WIND_STAFF = ITEMS.register("wind_staff", () -> new DarkStaff(MainConfig.WindStaffDamage.get()));
-    public static final RegistryObject<Item> STORM_STAFF = ITEMS.register("storm_staff", () -> new DarkStaff(MainConfig.WindStaffDamage.get()));
-    public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(MainConfig.NamelessStaffDamage.get()));
+    public static final RegistryObject<Item> OMINOUS_STAFF = ITEMS.register("ominous_staff", () -> new DarkStaff(ItemConfig.OminousStaffDamage.get()));
+    public static final RegistryObject<Item> NECRO_STAFF = ITEMS.register("necro_staff", () -> new DarkStaff(ItemConfig.NecroStaffDamage.get()));
+    public static final RegistryObject<Item> WIND_STAFF = ITEMS.register("wind_staff", () -> new DarkStaff(ItemConfig.WindStaffDamage.get()));
+    public static final RegistryObject<Item> STORM_STAFF = ITEMS.register("storm_staff", () -> new DarkStaff(ItemConfig.WindStaffDamage.get()));
+    public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(ItemConfig.NamelessStaffDamage.get()));
     public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
     public static final RegistryObject<Item> FANGED_DAGGER = ITEMS.register("fanged_dagger", FangedDaggerItem::new);

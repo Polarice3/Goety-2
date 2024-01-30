@@ -147,6 +147,8 @@ public class GraveGolemModel<T extends GraveGolem> extends HierarchicalModel<T> 
 		this.animate(entity.attackAnimationState, GraveGolemAnimations.SMASH, ageInTicks);
 		this.animate(entity.summonAnimationState, GraveGolemAnimations.SUMMON, ageInTicks);
 		this.animate(entity.sitAnimationState, GraveGolemAnimations.SIT, ageInTicks);
+		this.animate(entity.toSitAnimationState, GraveGolemAnimations.TO_SIT, ageInTicks);
+		this.animate(entity.toStandAnimationState, GraveGolemAnimations.TO_STAND, ageInTicks);
 		this.animate(entity.shootAnimationState, GraveGolemAnimations.SHOOT, ageInTicks);
 		this.animate(entity.belchAnimationState, GraveGolemAnimations.SPIT, ageInTicks);
 		this.animate(entity.deathAnimationState, GraveGolemAnimations.DEATH, ageInTicks);

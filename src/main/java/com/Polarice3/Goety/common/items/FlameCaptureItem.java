@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.init.ModSounds;
@@ -71,7 +71,7 @@ public class FlameCaptureItem extends Item {
                 }
             }
         } else {
-            if (MainConfig.FireSpawnCage.get()) {
+            if (ItemConfig.FireSpawnCage.get()) {
                 if (level.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                     if (!level.isClientSide()) {
                         BlockEntity blockentity = level.getBlockEntity(pos);
@@ -96,7 +96,7 @@ public class FlameCaptureItem extends Item {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        if (MainConfig.FireSpawnCage.get()) {
+        if (ItemConfig.FireSpawnCage.get()) {
             if (level != null && this.getEntity(stack, level) != null) {
                 Entity entity = this.getEntity(stack, level);
 

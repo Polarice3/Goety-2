@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -170,7 +170,7 @@ public class ItemHelper {
     }
 
     public static void repairTick(ItemStack stack, Entity entityIn, boolean isSelected){
-        if (MainConfig.SoulRepair.get()) {
+        if (ItemConfig.SoulRepair.get()) {
             if (entityIn instanceof Player player) {
                 if (!(player.swinging && isSelected)) {
                     if (stack.isDamaged()) {
@@ -179,10 +179,10 @@ public class ItemHelper {
                             if (!stack.getAllEnchantments().isEmpty()) {
                                 i += stack.getAllEnchantments().size();
                             }
-                            if (SEHelper.getSoulsAmount(player, MainConfig.ItemsRepairAmount.get() * i)){
+                            if (SEHelper.getSoulsAmount(player, ItemConfig.ItemsRepairAmount.get() * i)){
                                 if (player.tickCount % 20 == 0) {
                                     stack.setDamageValue(stack.getDamageValue() - 1);
-                                    SEHelper.decreaseSouls(player, MainConfig.ItemsRepairAmount.get() * i);
+                                    SEHelper.decreaseSouls(player, ItemConfig.ItemsRepairAmount.get() * i);
                                 }
                             }
                         }

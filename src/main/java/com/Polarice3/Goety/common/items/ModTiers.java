@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.google.common.base.Suppliers;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -9,25 +9,25 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModTiers implements Tier {
-    SPECIAL(MainConfig.SpecialToolsMiningLevel.get(),
-            MainConfig.SpecialToolsDurability.get(),
-            MainConfig.SpecialToolsBreakSpeed.get().floatValue(),
-            MainConfig.SpecialToolsDamage.get().floatValue(),
-            MainConfig.SpecialToolsEnchantability.get(), () -> {
+    SPECIAL(ItemConfig.SpecialToolsMiningLevel.get(),
+            ItemConfig.SpecialToolsDurability.get(),
+            ItemConfig.SpecialToolsBreakSpeed.get().floatValue(),
+            ItemConfig.SpecialToolsDamage.get().floatValue(),
+            ItemConfig.SpecialToolsEnchantability.get(), () -> {
         return Ingredient.of(ModItems.CURSED_METAL_INGOT.get());
     }),
-    DARK(MainConfig.DarkToolsMiningLevel.get(),
-            MainConfig.DarkToolsDurability.get(),
-            MainConfig.DarkToolsBreakSpeed.get().floatValue(),
-            MainConfig.DarkToolsDamage.get().floatValue(),
-            MainConfig.DarkToolsEnchantability.get(), () -> {
+    DARK(ItemConfig.DarkToolsMiningLevel.get(),
+            ItemConfig.DarkToolsDurability.get(),
+            ItemConfig.DarkToolsBreakSpeed.get().floatValue(),
+            ItemConfig.DarkToolsDamage.get().floatValue(),
+            ItemConfig.DarkToolsEnchantability.get(), () -> {
         return Ingredient.of(ModItems.DARK_METAL_INGOT.get());
     }),
     DEATH(4,
-            MainConfig.DeathScytheDurability.get(),
+            ItemConfig.DeathScytheDurability.get(),
             12.0F,
-            MainConfig.DeathScytheDamage.get().floatValue(),
-            MainConfig.DeathScytheEnchantability.get(), () -> {
+            ItemConfig.DeathScytheDamage.get().floatValue(),
+            ItemConfig.DeathScytheEnchantability.get(), () -> {
         return Ingredient.of(Items.BONE);
     });
 

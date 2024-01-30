@@ -4,6 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.ChargingSpells;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -53,7 +54,7 @@ public class FeastSpell extends ChargingSpells {
         int k = (int) entityLiving.getZ();
         for (LivingEntity entity : worldIn.getEntitiesOfClass(LivingEntity.class, (new AABB(i, j, k, i, j - 4, k)).inflate(32.0D))) {
             float f = (float) Mth.atan2(entity.getZ() - entityLiving.getZ(), entity.getX() - entityLiving.getX());
-            if (entity != entityLiving){
+            if (entity != entityLiving && !MobUtil.areAllies(entity, entityLiving)){
                 WandUtil.spawnFangs(entityLiving, entity.getX(), entity.getZ(), entity.getY(), entity.getY() + 1.0D, f, 1);
                 if (rightStaff(staff)) {
                     for (int i1 = 0; i1 < 5; ++i1) {

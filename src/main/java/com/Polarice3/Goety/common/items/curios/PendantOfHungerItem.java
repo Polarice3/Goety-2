@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -29,7 +29,7 @@ public class PendantOfHungerItem extends SingleStackItem {
                 stack.setTag(new CompoundTag());
                 stack.getOrCreateTag().putInt(ROTTEN_FLESH, 0);
             } else if (CuriosFinder.hasCurio(player, itemStack -> itemStack == stack)){
-                if (getRottenFleshAmount(stack) < MainConfig.PendantOfHungerLimit.get()) {
+                if (getRottenFleshAmount(stack) < ItemConfig.PendantOfHungerLimit.get()) {
                     if (!ItemHelper.findItem(player, Items.ROTTEN_FLESH).isEmpty()) {
                         increaseRottenFlesh(stack);
                         ItemHelper.findItem(player, Items.ROTTEN_FLESH).shrink(1);
@@ -88,7 +88,7 @@ public class PendantOfHungerItem extends SingleStackItem {
     public double amountColor(ItemStack stack){
         if (stack.getTag() != null) {
             int i = stack.getTag().getInt(ROTTEN_FLESH);
-            return 1.0D - (i / (double) MainConfig.PendantOfHungerLimit.get());
+            return 1.0D - (i / (double) ItemConfig.PendantOfHungerLimit.get());
         } else {
             return 1.0D;
         }
@@ -103,7 +103,7 @@ public class PendantOfHungerItem extends SingleStackItem {
     public int getBarWidth(ItemStack stack){
         if (stack.getTag() != null) {
             int power = stack.getTag().getInt(ROTTEN_FLESH);
-            return Math.round((power * 13.0F / MainConfig.PendantOfHungerLimit.get()));
+            return Math.round((power * 13.0F / ItemConfig.PendantOfHungerLimit.get()));
         } else {
             return 0;
         }
