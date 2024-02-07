@@ -61,7 +61,7 @@ public class BarricadeSpell extends Spells {
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         int range = 16;
         int potency = 0;
-        int duration = 1;
+        int duration = 0;
         float chance = 0.05F;
         if (WandUtil.enchantedFocus(entityLiving)) {
             range += WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);

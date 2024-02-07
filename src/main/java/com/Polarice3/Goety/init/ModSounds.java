@@ -191,6 +191,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FLIGHT = create("flight");
     public static final RegistryObject<SoundEvent> IRON_HIDE = create("soul_armor");
     public static final RegistryObject<SoundEvent> SOUL_HEAL = create("soul_heal");
+    public static final RegistryObject<SoundEvent> END_WALK = create("end_walk");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");

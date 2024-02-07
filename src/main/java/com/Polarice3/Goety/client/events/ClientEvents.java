@@ -16,6 +16,7 @@ import com.Polarice3.Goety.client.render.model.LichModeModel;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
@@ -35,12 +36,16 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.sounds.SoundManager;
@@ -154,6 +159,13 @@ public class ClientEvents {
             }
             poseStack.popPose();
         }
+        if (event.getPlayer().hasEffect(GoetyEffects.SHADOW_WALK.get())){
+            if (event.getPlayer().getMainHandItem().isEmpty() && event.getArm() == event.getPlayer().getMainArm()){
+                event.setCanceled(true);
+            } else if (event.getPlayer().getOffhandItem().isEmpty() && event.getArm() != event.getPlayer().getMainArm()){
+                event.setCanceled(true);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -174,6 +186,9 @@ public class ClientEvents {
             playerModel.leftPants.visible = false;
             playerModel.rightLeg.visible = false;
             playerModel.rightPants.visible = false;
+        }
+        if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+            event.setCanceled(true);
         }
     }
 
@@ -499,5 +514,17 @@ public class ClientEvents {
 
         float f7 = player.tickCount + partialTicks;
         ((PlayerRendererAccessor) playerRenderer).limbs_setupRotations(player, poseStack, f7, f, partialTicks);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends LivingEntity> void followBodyRotations(final T livingEntity, final HumanoidModel<T> model) {
+        EntityRenderer<? super T> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity);
+        if (render instanceof LivingEntityRenderer) {
+            LivingEntityRenderer<T, EntityModel<T>> livingRenderer = (LivingEntityRenderer<T, EntityModel<T>>) render;
+            EntityModel<T> entityModel = livingRenderer.getModel();
+            if (entityModel instanceof HumanoidModel<T> humanoidModel) {
+                humanoidModel.copyPropertiesTo(model);
+            }
+        }
     }
 }

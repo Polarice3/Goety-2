@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/cracked_marble"
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "y": 90
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "y": 180
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "y": 270
+      }
+    ]
+  }
+}

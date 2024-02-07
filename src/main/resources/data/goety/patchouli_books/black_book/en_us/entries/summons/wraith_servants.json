@@ -11,6 +11,14 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call these creatures through the use of a $(l:focuses/spooky_focus)Spooky Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_wraith_thrall"
     }
   ]
 }

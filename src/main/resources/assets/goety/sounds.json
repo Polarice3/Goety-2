@@ -2187,6 +2187,20 @@
     ],
     "subtitle": "subtitle.goety.soul_heal"
   },
+  "end_walk": {
+    "sounds": [
+      {
+        "name": "goety:spell/end_walk1"
+      },
+      {
+        "name": "goety:spell/end_walk2"
+      },
+      {
+        "name": "goety:spell/end_walk3"
+      }
+    ],
+    "subtitle": "subtitle.goety.end_walk"
+  },
   "prepare_spell": {
     "sounds": [
       {

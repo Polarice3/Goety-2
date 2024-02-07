@@ -258,6 +258,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     }
 
     @Nullable
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        return this.getType();
+    }
+
+    @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.checkHostility();

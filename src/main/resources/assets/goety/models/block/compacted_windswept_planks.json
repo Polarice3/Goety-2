@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "block/cube_all",
   "textures": {
-    "end": "goety:block/compacted_windswept_planks_top",
-    "side": "goety:block/compacted_windswept_planks_side"
+    "all": "goety:block/compacted_windswept_planks"
   }
 }

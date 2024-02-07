@@ -21,7 +21,7 @@ public class WraithParticle extends TextureSheetParticle {
         }
 
         this.quadSize *= 3.0F;
-        this.lifetime = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
+        this.lifetime = (int)(6.0D / (Math.random() * 0.8D + 0.2D));
         this.hasPhysics = false;
         this.setSpriteFromAge(pSprites);
     }

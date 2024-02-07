@@ -1,11 +1,23 @@
 {
-  "name": "僵尸仆人",
+  "name": "僵尸仆从",
   "icon": "minecraft:zombie_head",
   "category": "goety:summons",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "僵尸仆人的功能很简单，杀死任何伤害你或任何敌对生物的人，并像驯服的狼一样跟着你，只是它们更高更臭"
+      "text": "僵尸是最常见的从黑暗中爬出来的亡灵生物，召唤和控制它们并不困难，因此拥有一支僵尸大军也就不足为奇了。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "以下文本将详细介绍亡灵巫师可以召唤的僵尸变种。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "我们可以使用叫做 $(l:focuses/rotting_focus)腐烂聚晶$()的法术来召唤这些生物, 或者通过一种仪式来召唤永生的生物。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_zombie_thrall"
     },
     {
       "type": "patchouli:entity",
@@ -13,11 +25,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "僵尸仆人可以被召唤或转换成不同的变体。在沙漠中会召唤一名尸壳仆人，在水下会召唤一位溺尸仆人。"
+      "text": "僵尸仆从的功能很简单，杀死任何伤害召唤者或任何对召唤者有敌意的生物，并像驯服的狼一样跟着你，只是它们更高更臭。 "
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:husk_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "僵尸仆从可以被召唤或转换成不同的变体，当召唤者试图在露天的沙漠群戏召唤时，尸壳仆从将会被召唤。"
     },
     {
       "type": "patchouli:entity",
@@ -25,7 +41,35 @@
     },
     {
       "type": "patchouli:text",
-      "text": "溺尸仆人可以接受三叉戟，并以与普通溺尸相同的方式进行攻击。所有变种的僵尸仆人都可以接受任何盔甲，但只能接受剑或斧头。"
+      "text": "试图在水下使用这个聚晶会召唤溺尸仆从。他们可以使用三叉戟，并将以与普通溺尸相同的方式进行攻击."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_vindicator"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在林地府邸使用这个聚晶，将召唤出忠诚的僵尸卫道士。看起来，许多卫道士被埋于地下，但他们仍然紧握着斧头。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zpiglin_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "虚空中充满了僵尸猪灵，在可憎的领域中施法会召唤出一个忠于你的僵尸猪灵，这一点也不奇怪。像任何其他的僵尸猪灵一样，它们是不惧火焰的，而且也长着一副骇人的面孔。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zpiglin_brute_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "堡垒遗迹中的蛮兵守护者很少离开他们的家，它们大多数的尸体都被周围的熔岩烧焦了。尽管如此，当在堡垒遗迹中使用这个聚晶时，仍然有机会召唤出忠诚于你的僵尸版本。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "所有的变种僵尸仆从都可以接受任何盔甲，但它们只能使用剑或斧头。"
     }
   ]
 }

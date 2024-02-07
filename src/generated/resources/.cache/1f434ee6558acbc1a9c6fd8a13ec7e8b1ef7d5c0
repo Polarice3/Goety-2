@@ -1,4 +1,4 @@
-// 1.19.2	2024-01-23T21:34:25.8989779	Block States: goety
+// 1.19.2	2024-02-04T10:23:34.315448	Block States: goety
 a889b86fc23228813018a54862555704e4c9fbff assets/goety/blockstates/compacted_windswept_slab.json
 9695e21d4de7d6aafe313be7e7638563d2d6719d assets/goety/blockstates/haunted_button.json
 eb83aabf86461e7205fc2406a72216f8102ec228 assets/goety/blockstates/haunted_door.json
@@ -43,8 +43,8 @@ d0c539d66c997e9283ae6e5f32398065ce0369ae assets/goety/blockstates/windswept_pres
 f286f261a990fe9f8cd1370cea702813b9c2c487 assets/goety/blockstates/windswept_slab.json
 17937dfa7fb49466d3ac22c1b95d44862423cd24 assets/goety/blockstates/windswept_stairs.json
 5d0294b2e28068adcb06ae5eed7e169466d8a89f assets/goety/blockstates/windswept_trapdoor.json
-899a612c7751e8065c9b85003b4e8d490f571317 assets/goety/models/block/compacted_windswept_slab.json
-26c5f9dbb055d3fe7f9cc4e5827cdbe061bd6494 assets/goety/models/block/compacted_windswept_slab_top.json
+e830d9b2eba59a713f6b0a0ddfd76de8511bfed5 assets/goety/models/block/compacted_windswept_slab.json
+0991aaeb910baac9940df0783b424e0317e9b52f assets/goety/models/block/compacted_windswept_slab_top.json
 47b09f5574d7901bab42978dae40916dba795bf5 assets/goety/models/block/haunted_button.json
 af7e0ff7c6bc16eb87f5e12dd8ff2d8bc9eb2e71 assets/goety/models/block/haunted_button_pressed.json
 dcc5dca62654dfed342500e46cc19a1178b4d6b4 assets/goety/models/block/haunted_door_bottom_left.json

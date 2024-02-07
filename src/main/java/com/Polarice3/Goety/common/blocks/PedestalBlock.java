@@ -9,13 +9,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,7 +34,9 @@ import net.minecraftforge.common.extensions.IForgeBlock;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
+import javax.annotation.Nullable;
+
+public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, SimpleWaterloggedBlock {
     public static final VoxelShape SHAPE_BASE = Block.box(1.0D, 0.0D, 1.0D,
             15.0D, 1.0D, 15.0D);
     public static final VoxelShape SHAPE_BASE_2 = Block.box(2.0D, 1.0D, 2.0D,
@@ -36,11 +46,13 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
     public static final VoxelShape SHAPE_HOLDER = Block.box(2.0D, 12.0D, 2.0D,
             14.0D, 15.0D, 14.0D);
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_BASE_2, SHAPE_PILLAR, SHAPE_HOLDER);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public PedestalBlock() {
         super(ModBlocks.ShadeStoneProperties()
                 .noOcclusion()
         );
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
@@ -107,6 +119,32 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock {
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return false;
+    }
+
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        LevelAccessor iworld = pContext.getLevel();
+        BlockPos blockpos = pContext.getClickedPos();
+        boolean flag = iworld.getFluidState(blockpos).getType() == Fluids.WATER;
+        return this.defaultBlockState().setValue(WATERLOGGED, flag);
+    }
+
+    public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState) {
+        if (!pState.getValue(BlockStateProperties.WATERLOGGED) && pFluidState.getType() == Fluids.WATER) {
+            pLevel.setBlock(pPos, pState.setValue(WATERLOGGED, Boolean.TRUE), 3);
+            pLevel.scheduleTick(pPos, pFluidState.getType(), pFluidState.getType().getTickDelay(pLevel));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(WATERLOGGED);
     }
 
     public BlockEntity newBlockEntity(BlockPos p_151996_, BlockState p_151997_) {

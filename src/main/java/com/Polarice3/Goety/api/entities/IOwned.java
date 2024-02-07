@@ -1,7 +1,10 @@
 package com.Polarice3.Goety.api.entities;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -18,6 +21,11 @@ public interface IOwned {
     void setHostile(boolean hostile);
 
     boolean isHostile();
+
+    @Nullable
+    default EntityType<?> getVariant(Level level, BlockPos blockPos){
+        return null;
+    };
 
     default LivingEntity getMasterOwner(){
         if (this.getTrueOwner() instanceof IOwned owned){

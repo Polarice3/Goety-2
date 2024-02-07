@@ -2,16 +2,20 @@ package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -36,6 +40,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -158,6 +164,22 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
 
     public void setArrowPower(int arrowPower) {
         this.arrowPower = arrowPower;
+    }
+
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        EntityType<?> entityType = ModEntityType.SKELETON_SERVANT.get();
+        if (level instanceof ServerLevel serverLevel) {
+            if (level.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && level.canSeeSky(blockPos)) {
+                entityType = ModEntityType.STRAY_SERVANT.get();
+            } else if (BlockFinder.findStructure(serverLevel, blockPos, BuiltinStructures.PILLAGER_OUTPOST)) {
+                entityType = ModEntityType.SKELETON_PILLAGER.get();
+            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
+                entityType = ModEntityType.MOSSY_SKELETON_SERVANT.get();
+            } else if (level.isWaterAt(blockPos)) {
+                entityType = ModEntityType.SUNKEN_SKELETON_SERVANT.get();
+            }
+        }
+        return entityType;
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#$#",
+    "$ $",
+    "#$#"
+  ],
+  "key": {
+    "$": {
+      "item": "goety:marble"
+    },
+    "#": {
+      "item": "goety:indented_gold_slab"
+    }
+  },
+  "result": {
+    "item": "goety:gold_covered_marble",
+    "count": 4
+  }
+}

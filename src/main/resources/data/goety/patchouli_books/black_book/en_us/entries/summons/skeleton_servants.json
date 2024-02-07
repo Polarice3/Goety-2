@@ -5,7 +5,19 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Skeleton Servants will attempt to kill anyone who hurts you or any hostile creatures nearby. They will occasionally shoot Weakness Arrows if summoned when the Summoner wears both a Necro Helm and Robe."
+      "text": "Skeletons are slightly more intelligent and quicker than their rotting cousins, but are otherwise still basic in their functions."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The following texts will detail the variants of skeletons a necromancer can summon."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call these creatures through the use of a $(l:focuses/osseous_focus)Osseous Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_skeleton_thrall"
     },
     {
       "type": "patchouli:entity",
@@ -13,7 +25,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Attempting to summon a Skeleton Servant in a cold tundra exposed to the skies will yield a Stray Servant instead."
+      "text": "Skeleton Servants will attempt to kill anyone who hurts you or any hostile creatures nearby. They will occasionally shoot Weakness Arrows if summoned when the Summoner wears both a Necro Helm and Robe."
     },
     {
       "type": "patchouli:entity",
@@ -21,11 +33,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Casting the spell at a Pillager Outpost will summon forth a loyal Skeleton Pillager, which has more health than regular Skeletons and wields a crossbow."
+      "text": "Attempting to summon a Skeleton Servant in a cold tundra exposed to the skies will yield a Stray Servant instead."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:skeleton_pillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting the spell at a Pillager Outpost will summon forth a loyal Skeleton Pillager, which has more health than regular Skeletons and wields a crossbow."
     },
     {
       "type": "patchouli:text",

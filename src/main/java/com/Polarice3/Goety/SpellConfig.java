@@ -154,6 +154,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EruptionDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> PyroclastDamage;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PyroclastGriefing;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCoolDown;
@@ -198,6 +204,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlinkCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkEffectDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
@@ -533,6 +544,18 @@ public class SpellConfig {
             PulverizeCoolDown = BUILDER.comment("Pulverize Spell Cooldown, Default: 20")
                     .defineInRange("pulverizeCoolDown", 20, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Eruption Spell");
+            EruptionCost = BUILDER.comment("Eruption Spell Cost, Default: 32")
+                    .defineInRange("eruptionCost", 32, 0, Integer.MAX_VALUE);
+            EruptionDuration = BUILDER.comment("Time to cast Eruption Spell, Default: 60")
+                    .defineInRange("eruptionTime", 60, 0, 72000);
+            EruptionCoolDown = BUILDER.comment("Eruption Spell Cooldown, Default: 100")
+                    .defineInRange("eruptionCoolDown", 100, 0, Integer.MAX_VALUE);
+            PyroclastDamage = BUILDER.comment("How much base damage Pyroclasts deal when directly hitting a mob, Default: 6.0")
+                    .defineInRange("pyroclastDamage", 6.0, 1.0, Double.MAX_VALUE);
+            PyroclastGriefing = BUILDER.comment("Enable Pyroclast projectile griefing, Default: true")
+                    .define("pyroclastGriefing", true);
+            BUILDER.pop();
             BUILDER.push("Launching Spell");
             LaunchCost = BUILDER.comment("Launch Spell Cost, Default: 4")
                     .defineInRange("launchCost", 4, 0, Integer.MAX_VALUE);
@@ -622,6 +645,16 @@ public class SpellConfig {
                     .defineInRange("blinkDuration", 0, 0, 72000);
             BlinkCoolDown = BUILDER.comment("Blink Spell Cooldown, Default: 20")
                     .defineInRange("blinkCoolDown", 20, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("End Walker Spell");
+            EndWalkCost = BUILDER.comment("End Walk Spell Cost, Default: 8")
+                    .defineInRange("endWalkCost", 8, 0, Integer.MAX_VALUE);
+            EndWalkDuration = BUILDER.comment("Time to cast End Walk Spell, Default: 60")
+                    .defineInRange("endWalkDuration", 60, 0, 72000);
+            EndWalkCoolDown = BUILDER.comment("End Walk Spell Cooldown, Default: 200")
+                    .defineInRange("endWalkCoolDown", 200, 0, Integer.MAX_VALUE);
+            EndWalkEffectDuration = BUILDER.comment("How long the effect is applied from the spell, Default: 200")
+                    .defineInRange("endWalkEffectDuration", 200, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Shockwave Spell");
             ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")

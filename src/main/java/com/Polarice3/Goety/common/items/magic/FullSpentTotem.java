@@ -6,10 +6,10 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class TotemOfRoots extends TotemOfSouls{
+public class FullSpentTotem extends TotemOfSouls{
 
-    public int getMaxSouls(){
-        return Math.max(MAX_SOULS / 100, 5);
+    public FullSpentTotem(int maxSouls) {
+        super(maxSouls);
     }
 
     @Nonnull

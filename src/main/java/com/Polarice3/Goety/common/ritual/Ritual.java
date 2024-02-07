@@ -305,13 +305,13 @@ public abstract class Ritual {
         }
 
         if (livingEntity instanceof Mob mob) {
-            mob.absMoveTo(darkAltarPos.getX(), darkAltarPos.getY(), darkAltarPos.getZ(),
+            mob.absMoveTo(darkAltarPos.getX() + 0.5F, darkAltarPos.getY() + 1.0F, darkAltarPos.getZ() + 0.5F,
                     world.random.nextInt(360), 0);
             mob.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(darkAltarPos),
                     MobSpawnType.MOB_SUMMONED, null,
                     null);
         } else {
-            livingEntity.setPos(darkAltarPos.getX(), darkAltarPos.getY() + 1, darkAltarPos.getZ());
+            livingEntity.setPos(darkAltarPos.getX() + 0.5F, darkAltarPos.getY() + 1, darkAltarPos.getZ() + 0.5F);
         }
     }
 

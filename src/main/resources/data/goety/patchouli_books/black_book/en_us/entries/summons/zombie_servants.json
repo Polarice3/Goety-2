@@ -5,7 +5,19 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Zombie Servants are simple in their functions, kill anyone who hurts you or any hostile creatures and follow you much like Tamed Wolves, only taller and stinkier"
+      "text": "Zombies are the most common undead creature to crawl out of the dark, and it's no surprise that summoning and controlling them aren't exactly hard to do, whether it be from spell or ritual."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The following texts will detail the variants of zombies a necromancer can summon."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call these creatures through the use of a $(l:focuses/rotting_focus)Rotting Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_zombie_thrall"
     },
     {
       "type": "patchouli:entity",
@@ -13,7 +25,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Zombie Servants can be summoned or converted into different variants. Casting the Rotting Focus in a Desert exposed to the sky will summon a Husk Servant."
+      "text": "Zombie Servants are simple in their functions, kill anyone who hurts you or any hostile creatures and follow you much like Tamed Wolves, only taller and stinkier. "
     },
     {
       "type": "patchouli:entity",
@@ -21,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Casting it underwater summons a Drowned Servant. Drowned Servants can accept Tridents and will attack the same way as a regular Drowned."
+      "text": "Zombie Servants can be summoned or converted into different variants. Casting the Rotting Focus in a Desert exposed to the sky will summon a Husk Servant."
     },
     {
       "type": "patchouli:entity",
@@ -29,7 +41,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Within the mansions of the Illagers, casting the spell will summon forth loyal Zombie Vindicators instead of regular zombies. It appears that many Vindicators are buried within their homes, still clutching their axes."
+      "text": "Trying to summon a Zombie underwater would summon a Drowned Servant instead. Drowned Servants can accept Tridents and will attack the same way as a regular Drowned."
     },
     {
       "type": "patchouli:entity",
@@ -37,7 +49,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Nether is full of Zombified Piglins that it comes to no surprised that casting the spell within the abominable realm will call forth one that's loyal towards you. Fire-resistant and scares Piglins like any other of its kind."
+      "text": "Summoning a zombie within the mansions of the Illagers, will summon forth loyal Zombie Vindicators instead. It appears that many Vindicators are buried within their homes, still clutching their axes."
     },
     {
       "type": "patchouli:entity",
@@ -45,11 +57,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Brutish guardians of the bastions rarely, if ever, leave their home, and most have their bodies burnt by the surrounding lava. Nonetheless, there's still a chance of summoning a Zombified version when casting within their holds."
+      "text": "The Nether is full of Zombified Piglins that it comes to no surprised that casting the spell within the abominable realm will call forth one that's loyal towards you. Fire-resistant and scares Piglins like any other of its kind."
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:zpiglin_brute_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Brutish guardians of the bastions rarely, if ever, leave their home, and most have their bodies burnt by the surrounding lava. Nonetheless, there's still a chance of summoning a Zombified version when casting within their holds."
     },
     {
       "type": "patchouli:text",

@@ -33,13 +33,17 @@ public class Cultist extends Raider implements ICustomAttributes {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.extraGoal();
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(2, (new HurtByTargetGoal(this).setAlertOthers()));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, Cultist.class)).setAlertOthers());
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, Witch.class)).setAlertOthers());
+    }
+
+    public void extraGoal(){
+        this.goalSelector.addGoal(0, new FloatGoal(this));
     }
 
     public void setConfigurableAttributes(){

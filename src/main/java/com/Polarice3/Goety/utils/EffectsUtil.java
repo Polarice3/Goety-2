@@ -99,4 +99,12 @@ public class EffectsUtil {
         MobEffectInstance MobEffectInstance = new MobEffectInstance(effect, duration/2, a, pAmbient, pVisible);
         infected.addEffect(MobEffectInstance);
     }
+
+    public static int getAmplifier(LivingEntity infected, MobEffect effect){
+        MobEffectInstance MobEffectInstance1 = infected.getEffect(effect);
+        if (MobEffectInstance1 != null){
+            return MobEffectInstance1.getAmplifier();
+        }
+        return 0;
+    }
 }

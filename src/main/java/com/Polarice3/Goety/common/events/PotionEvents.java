@@ -4,7 +4,10 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -34,9 +37,11 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
+import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -44,9 +49,15 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -391,6 +402,11 @@ public class PotionEvents {
         Entity attacker = event.getSource().getEntity();
 
         if (attacker instanceof LivingEntity living) {
+            if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+                int multiply = 2 + EffectsUtil.getAmplifier(living, GoetyEffects.SHADOW_WALK.get());
+                event.setAmount(event.getAmount() * multiply);
+                living.removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
             if (victim.hasEffect(GoetyEffects.REPULSIVE.get())) {
                 MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.REPULSIVE.get());
                 if (mobEffectInstance != null){
@@ -475,6 +491,9 @@ public class PotionEvents {
                         playerData.put(Player.PERSISTED_NBT_TAG, data);
                     }
                 }
+            }
+            if (SEHelper.hasEndWalk(player)){
+                SEHelper.removeEndWalk(player);
             }
         }
     }
@@ -586,6 +605,19 @@ public class PotionEvents {
                     event.modifyVisibility(0.5D - (a / 10.0D));
                 }
             }
+            if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())){
+                event.modifyVisibility(0.0D);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void changeTarget(LivingChangeTargetEvent event){
+        LivingEntity target = event.getOriginalTarget();
+        if (target != null) {
+            if (target.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                event.setNewTarget(null);
+            }
         }
     }
 
@@ -605,6 +637,103 @@ public class PotionEvents {
         if (event.getItem().getItem() == Items.MILK_BUCKET){
             if (event.getEntity().hasEffect(GoetyEffects.SOUL_ARMOR.get())){
                 event.getEntity().removeEffect(GoetyEffects.SOUL_ARMOR.get());
+            }
+        }
+        if (!(event.getItem().getItem() instanceof DarkWand)) {
+            if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onCastSpell(CastMagicEvent event){
+        if (!(event.getSpell() instanceof EndWalkSpell)){
+            if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void ProjectileAddEvents(EntityJoinLevelEvent event){
+        if (!event.getLevel().isClientSide){
+            if (event.getEntity() instanceof Projectile projectile){
+                if (projectile.getOwner() instanceof LivingEntity livingEntity){
+                    if (livingEntity.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+                        livingEntity.removeEffect(GoetyEffects.SHADOW_WALK.get());
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PlayerInteractItemEvents(PlayerInteractEvent.RightClickItem event){
+    }
+
+    @SubscribeEvent
+    public static void PlayerInteractEntityEvents(PlayerInteractEvent.EntityInteract event){
+        Player player = event.getEntity();
+        if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+            if (SEHelper.hasEndWalk(player)) {
+                if (event.getTarget() instanceof Merchant merchant) {
+                    merchant.setTradingPlayer(null);
+                }
+            }
+            player.removeEffect(GoetyEffects.SHADOW_WALK.get());
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void PlayerInteractBlockEvents(PlayerInteractEvent.RightClickBlock event){
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        BlockHitResult blockHitResult = event.getHitVec();
+        BlockPos blockPos = blockHitResult.getBlockPos();
+        BlockState blockState = level.getBlockState(blockPos);
+        if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+            if (blockState.use(level, player, player.getUsedItemHand(), blockHitResult).consumesAction()){
+                player.removeEffect(GoetyEffects.SHADOW_WALK.get());
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void BreakingBlockEvents(BlockEvent.BreakEvent event){
+        Player player = event.getPlayer();
+        if (!event.getState().isAir()) {
+            if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                player.removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PlacingBlockEvents(BlockEvent.EntityPlaceEvent event){
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity living) {
+            if (!event.getState().isAir()) {
+                if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                    living.removeEffect(GoetyEffects.SHADOW_WALK.get());
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void DimensionChangeEvents(EntityTravelToDimensionEvent event){
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity living){
+            if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                if (living instanceof Player player){
+                    if (SEHelper.hasEndWalk(player)){
+                        SEHelper.removeEndWalk(player);
+                    }
+                }
+                living.removeEffect(GoetyEffects.SHADOW_WALK.get());
             }
         }
     }
@@ -681,7 +810,47 @@ public class PotionEvents {
     public static void PotionRemoveEvents(MobEffectEvent.Remove event){
         LivingEntity effected = event.getEntity();
         if (effected.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){
-            event.setCanceled(event.getEffect() != GoetyEffects.SAVE_EFFECTS.get());
+            event.setCanceled(event.getEffect() != GoetyEffects.SAVE_EFFECTS.get()
+                    && (effected instanceof Player player
+                    && SEHelper.hasEndWalk(player)
+                    && event.getEffect() != GoetyEffects.SHADOW_WALK.get()));
+        }
+        if (event.getEffect() == GoetyEffects.SHADOW_WALK.get()){
+            if (effected instanceof Player player) {
+                teleportShadowWalk(player);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void PotionExpiredEvents(MobEffectEvent.Expired event){
+        LivingEntity effected = event.getEntity();
+        MobEffectInstance mobEffectInstance = event.getEffectInstance();
+        if (mobEffectInstance != null) {
+            if (mobEffectInstance.getEffect() == GoetyEffects.SHADOW_WALK.get()) {
+                if (effected instanceof Player player) {
+                    teleportShadowWalk(player);
+                }
+            }
+        }
+    }
+
+    public static void teleportShadowWalk(Player player){
+        BlockPos blockPos = SEHelper.getEndWalkPos(player);
+        if (blockPos != null) {
+            if (SEHelper.getEndWalkDimension(player) != null
+                    && player.level.dimension() == SEHelper.getEndWalkDimension(player)) {
+                player.closeContainer();
+                player.teleportTo(blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D);
+                if (!player.level.isClientSide) {
+                    player.level.broadcastEntityEvent(player, (byte) 46);
+                    ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                    ModNetwork.sendToALL(new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                }
+                Vec3 vec3 = player.position();
+                player.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(player));
+            }
+            SEHelper.removeEndWalk(player);
         }
     }
 }

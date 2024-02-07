@@ -2,12 +2,10 @@ package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.ItemConfig;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.CursedCageBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -28,13 +26,15 @@ import java.util.List;
  * Learned how to make Totem of Souls gain Soul Energy from codes by @Ipsis
  */
 public class TotemOfSouls extends Item implements ITotem {
+    public int maxSouls;
 
-    public TotemOfSouls() {
+    public TotemOfSouls(int maxSouls) {
         super(new Properties().tab(Goety.TAB).stacksTo(1).rarity(Rarity.RARE));
+        this.maxSouls = maxSouls;
     }
 
     public int getMaxSouls(){
-        return MAX_SOULS;
+        return this.maxSouls;
     }
 
     @Override
@@ -103,31 +103,6 @@ public class TotemOfSouls extends Item implements ITotem {
 
     public static boolean isActivated(ItemStack itemStack){
         return itemStack.getTag() != null;
-    }
-
-    private static boolean isFull(ItemStack itemStack) {
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        int MaxSouls = itemStack.getTag().getInt(MAX_SOUL_AMOUNT);
-        return Soulcount == MaxSouls;
-    }
-
-    private static boolean isEmpty(ItemStack itemStack) {
-        assert itemStack.getTag() != null;
-        int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
-        return Soulcount == 0;
-    }
-
-    public static boolean UndyingEffect(Player player){
-        ItemStack itemStack = TotemFinder.FindTotem(player);
-        if (!itemStack.isEmpty()) {
-            if (itemStack.getTag() != null) {
-                if (MainConfig.TotemUndying.get()) {
-                    return itemStack.getTag().getInt(SOULS_AMOUNT) == MAX_SOULS;
-                }
-            }
-        }
-        return false;
     }
 
     @Override

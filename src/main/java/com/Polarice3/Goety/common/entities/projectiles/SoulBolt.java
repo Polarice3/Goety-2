@@ -174,7 +174,7 @@ public class SoulBolt extends AbstractHurtingProjectile {
             double d0 = this.getX() - vec3.x;
             double d1 = this.getY() - vec3.y;
             double d2 = this.getZ() - vec3.z;
-            this.level.addParticle(ModParticleTypes.BULLET_EFFECT.get(), d0, d1 + 0.15D, d2, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ModParticleTypes.SUMMON.get(), d0, d1 + 0.15D, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

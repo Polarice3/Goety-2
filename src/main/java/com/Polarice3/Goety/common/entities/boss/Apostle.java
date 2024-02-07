@@ -40,6 +40,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
@@ -58,6 +59,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -73,15 +76,21 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -126,6 +135,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public Apostle(EntityType<? extends SpellCastingCultist> type, Level worldIn) {
         super(type, worldIn);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.xpReward = 1000;
@@ -154,6 +165,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
+    @Override
+    public void extraGoal() {
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ApostleHealth.get())
@@ -170,6 +185,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ApostleHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ApostleArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR_TOUGHNESS), AttributesConfig.ApostleToughness.get());
+    }
+
+    protected PathNavigation createNavigation(Level p_33913_) {
+        return new ApostlePathNavigation(this, p_33913_);
     }
 
     protected void defineSynchedData() {
@@ -192,6 +211,30 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
 
         this.entityData.set(BOSS_FLAGS, (byte)(i & 255));
+    }
+
+    public boolean canStandOnFluid(FluidState p_204067_) {
+        return p_204067_.is(FluidTags.LAVA);
+    }
+
+    private void floatApostle() {
+        if (this.isInLava()) {
+            CollisionContext collisioncontext = CollisionContext.of(this);
+            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+                this.onGround = true;
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
+            }
+        }
+
+    }
+
+    public float getWalkTargetValue(BlockPos p_33895_, LevelReader p_33896_) {
+        if (p_33896_.getBlockState(p_33895_).getFluidState().is(FluidTags.LAVA)) {
+            return 10.0F;
+        } else {
+            return this.isInLava() ? Float.NEGATIVE_INFINITY : 0.0F;
+        }
     }
 
     public int getAmbientSoundInterval() {
@@ -297,7 +340,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     protected boolean isAffectedByFluids() {
-        return false;
+        return !this.isInWater();
     }
 
     public boolean isAlliedTo(Entity entityIn) {
@@ -672,7 +715,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.antiRegenTotal = duration;
                 this.antiRegen = duration;
                 if (this.level instanceof ServerLevel){
-                    ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SApostleSmitePacket(this.getUUID(), duration));
+                    ModNetwork.sendToALL(new SApostleSmitePacket(this.getId(), duration));
                     if (this.getCoolDown() < this.coolDownLimit()){
                         this.coolDown += 10;
                     }
@@ -822,6 +865,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     protected boolean canRide(Entity pEntity) {
         return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.floatApostle();
     }
 
     public void aiStep() {
@@ -1095,7 +1144,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 this.f = 0;
             }
         }
-        if (this.isInWater() || this.isInLava() || this.isInWall()){
+        if (this.isInWater() || this.isInWall()){
             this.teleport();
         }
         if (this.level.dimension() == Level.NETHER){
@@ -1905,6 +1954,26 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         protected boolean HaveBow() {
             return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
+        }
+    }
+
+    static class ApostlePathNavigation extends GroundPathNavigation {
+        ApostlePathNavigation(Apostle p_33969_, Level p_33970_) {
+            super(p_33969_, p_33970_);
+        }
+
+        protected PathFinder createPathFinder(int p_33972_) {
+            this.nodeEvaluator = new WalkNodeEvaluator();
+            this.nodeEvaluator.setCanPassDoors(true);
+            return new PathFinder(this.nodeEvaluator, p_33972_);
+        }
+
+        protected boolean hasValidPathType(BlockPathTypes p_33974_) {
+            return p_33974_ == BlockPathTypes.LAVA || p_33974_ == BlockPathTypes.DAMAGE_FIRE || p_33974_ == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(p_33974_);
+        }
+
+        public boolean isStableDestination(BlockPos p_33976_) {
+            return this.level.getBlockState(p_33976_).is(Blocks.LAVA) || super.isStableDestination(p_33976_);
         }
     }
 

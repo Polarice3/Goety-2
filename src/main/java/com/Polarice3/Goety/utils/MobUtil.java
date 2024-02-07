@@ -381,8 +381,8 @@ public class MobUtil {
         return livingEntity.getHealth() <= livingEntity.getMaxHealth()/2;
     }
 
-    public static boolean starAmuletActive(Player player){
-        return CuriosFinder.hasCurio(player, ModItems.STAR_AMULET.get()) && MobUtil.healthIsHalved(player);
+    public static boolean starAmuletActive(LivingEntity livingEntity){
+        return CuriosFinder.hasCurio(livingEntity, ModItems.STAR_AMULET.get()) && MobUtil.healthIsHalved(livingEntity);
     }
 
     public static void releaseAllPois(Villager villager){
@@ -536,23 +536,39 @@ public class MobUtil {
 
     public static void throwSnapFungus(LivingEntity livingEntity, Level level){
         SnapFungus blastFungus = new SnapFungus(livingEntity, level);
-        throwFungus(blastFungus, livingEntity, level);
+        throwFungus(blastFungus, livingEntity);
     }
 
     public static void throwBlastFungus(LivingEntity livingEntity, Level level){
         BlastFungus blastFungus = new BlastFungus(livingEntity, level);
-        throwFungus(blastFungus, livingEntity, level);
+        throwFungus(blastFungus, livingEntity);
     }
 
-    public static void throwFungus(Projectile projectile, LivingEntity livingEntity, Level level){
+    public static void throwFungus(Projectile projectile, LivingEntity livingEntity){
+        shootUp(projectile, livingEntity);
+    }
+
+    public static float ceilingVelocity(LivingEntity livingEntity){
+        return ceilingVelocity(livingEntity, 0.75F);
+    }
+
+    public static float ceilingVelocity(LivingEntity livingEntity, float initialV){
         float f2 = 0.35F;
-        if (BlockFinder.emptySquareSpace(level, livingEntity.blockPosition(), 13, true)){
-            f2 = 0.75F;
-        } else if (BlockFinder.emptySquareSpace(level, livingEntity.blockPosition(), 6, true)){
+        if (BlockFinder.emptySquareSpace(livingEntity.level, livingEntity.blockPosition(), 13, true)){
+            f2 = initialV;
+        } else if (BlockFinder.emptySquareSpace(livingEntity.level, livingEntity.blockPosition(), 6, true)){
             f2 = 0.55F;
         }
-        projectile.shootFromRotation(livingEntity, -90.0F, 0.0F, 0.0F, f2, 12.0F);
-        level.addFreshEntity(projectile);
+        return f2;
+    }
+
+    public static void shootUp(Projectile projectile, LivingEntity livingEntity){
+        shootUp(projectile, livingEntity, ceilingVelocity(livingEntity));
+    }
+
+    public static void shootUp(Projectile projectile, LivingEntity livingEntity, float velocity){
+        projectile.shootFromRotation(livingEntity, -90.0F, 0.0F, 0.0F, velocity, 12.0F);
+        livingEntity.level.addFreshEntity(projectile);
     }
 
     public static void shoot(LivingEntity livingEntity, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {

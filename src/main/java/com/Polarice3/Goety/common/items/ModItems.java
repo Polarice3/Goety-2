@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.ItemConfig;
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.armor.BlackIronArmor;
 import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
@@ -19,6 +20,7 @@ import com.Polarice3.Goety.common.magic.spells.frost.HailSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceSpikeSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.BarricadeSpell;
+import com.Polarice3.Goety.common.magic.spells.geomancy.EruptionSpell;
 import com.Polarice3.Goety.common.magic.spells.geomancy.PulverizeSpell;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.common.magic.spells.nether.FireballSpell;
@@ -31,6 +33,7 @@ import com.Polarice3.Goety.common.magic.spells.storm.ThunderboltSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.GlowLightSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.SoulLightSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.BlinkSpell;
+import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EnderChestSpell;
 import com.Polarice3.Goety.common.magic.spells.wind.*;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -51,8 +54,8 @@ public class ModItems {
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    public static final RegistryObject<Item> TOTEM_OF_ROOTS = ITEMS.register("totem_of_roots", TotemOfRoots::new);
-    public static final RegistryObject<Item> TOTEM_OF_SOULS = ITEMS.register("totem_of_souls", TotemOfSouls::new);
+    public static final RegistryObject<Item> TOTEM_OF_ROOTS = ITEMS.register("totem_of_roots", () -> new FullSpentTotem(Math.max(ITotem.MAX_SOULS / 100, 5)));
+    public static final RegistryObject<Item> TOTEM_OF_SOULS = ITEMS.register("totem_of_souls", () -> new TotemOfSouls(ITotem.MAX_SOULS));
 
     //Basic
     public static final RegistryObject<Item> SPENT_TOTEM = ITEMS.register("spent_totem", ItemBase::new);
@@ -176,6 +179,7 @@ public class ModItems {
     public static final RegistryObject<Item> TEETH_FOCUS = ITEMS.register("teeth_focus", () -> new MagicFocus(new TeethSpell()));
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
+    public static final RegistryObject<Item> ERUPTION_FOCUS = ITEMS.register("eruption_focus", () -> new MagicFocus(new EruptionSpell()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(new IllusionSpell()));
     public static final RegistryObject<Item> FIRE_BREATH_FOCUS = ITEMS.register("fire_breath_focus", () -> new MagicFocus(new FireBreathSpell()));
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
@@ -193,6 +197,7 @@ public class ModItems {
     public static final RegistryObject<Item> LIGHTNING_FOCUS = ITEMS.register("lightning_focus", () -> new MagicFocus(new LightningSpell()));
     public static final RegistryObject<Item> SHOCKWAVE_FOCUS = ITEMS.register("shockwave_focus", () -> new MagicFocus(new ShockwaveSpell()));
     public static final RegistryObject<Item> SONIC_BOOM_FOCUS = ITEMS.register("sonic_boom_focus", () -> new MagicFocus(new SonicBoomSpell()));
+    public static final RegistryObject<Item> END_WALK_FOCUS = ITEMS.register("end_walk_focus", () -> new MagicFocus(new EndWalkSpell()));
     public static final RegistryObject<Item> BLINK_FOCUS = ITEMS.register("blink_focus", () -> new MagicFocus(new BlinkSpell()));
     public static final RegistryObject<Item> LAUNCH_FOCUS = ITEMS.register("launch_focus", () -> new MagicFocus(new LaunchSpell()));
     public static final RegistryObject<Item> FLYING_FOCUS = ITEMS.register("flying_focus", () -> new MagicFocus(new FlyingSpell()));

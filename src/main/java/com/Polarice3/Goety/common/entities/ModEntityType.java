@@ -213,6 +213,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<Pyroclast>> PYROCLAST = register("pyroclast",
+            EntityType.Builder.<Pyroclast>of(Pyroclast::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<ObsidianMonolith>> OBSIDIAN_MONOLITH = register("obsidian_monolith",
             EntityType.Builder.of(ObsidianMonolith::new, MobCategory.MONSTER)
                     .fireImmune()
@@ -231,6 +237,13 @@ public class ModEntityType {
             EntityType.Builder.of(TotemicBomb::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(1.0F, 3.1F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<Volcano>> VOLCANO = register("volcano",
+            EntityType.Builder.of(Volcano::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 1.0F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
 

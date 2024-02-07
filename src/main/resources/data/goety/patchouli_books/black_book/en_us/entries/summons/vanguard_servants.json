@@ -14,7 +14,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "If they're shield-less, right click on them with any Wooden Planks to give them their shield back when they're not attacking."
+      "text": "If they're shield-less, right click on them with any Wooden Planks to give them their shield back when they're not attacking.$(br)One can call these creatures through the use of a $(l:focuses/vanguard_focus)Vanguard Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_vanguard_thrall"
     }
   ]
 }

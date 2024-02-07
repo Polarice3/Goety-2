@@ -39,6 +39,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,29 @@ public class SEHelper {
 
     public static ResourceKey<Level> getArcaDimension(Player player){
         return getCapability(player).getArcaBlockDimension();
+    }
+
+    public static void setEndWalk(Player player, @Nullable BlockPos blockPos, @Nullable ResourceKey<Level> dimension){
+        getCapability(player).setEndWalkPos(blockPos);
+        getCapability(player).setEndWalkDimension(dimension);
+    }
+
+    public static void removeEndWalk(Player player){
+        setEndWalk(player, null, null);
+    }
+
+    @Nullable
+    public static BlockPos getEndWalkPos(Player player){
+        return getCapability(player).getEndWalkPos();
+    }
+
+    @Nullable
+    public static ResourceKey<Level> getEndWalkDimension(Player player){
+        return getCapability(player).getEndWalkDimension();
+    }
+
+    public static boolean hasEndWalk(Player player){
+        return getEndWalkPos(player) != null;
     }
 
     public static boolean decreaseSESouls(Player player, int souls){
@@ -552,12 +576,23 @@ public class SEHelper {
             soulEnergy.cooldowns().save(listTag);
             tag.put("coolDowns", listTag);
         }
+        if (soulEnergy.getEndWalkPos() != null) {
+            tag.putInt("EndWalkX", soulEnergy.getEndWalkPos().getX());
+            tag.putInt("EndWalkY", soulEnergy.getEndWalkPos().getY());
+            tag.putInt("EndWalkZ", soulEnergy.getEndWalkPos().getZ());
+            ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, soulEnergy.getEndWalkDimension().location()).resultOrPartial(Goety.LOGGER::error).ifPresent(
+                    (p_241148_1_) -> tag.put("EndWalkDim", p_241148_1_));
+        }
         return tag;
     }
 
     public static ISoulEnergy load(CompoundTag tag, ISoulEnergy soulEnergy) {
         soulEnergy.setSEActive(tag.getBoolean("seActive"));
         soulEnergy.setArcaBlock(new BlockPos(tag.getInt("arcax"), tag.getInt("arcay"), tag.getInt("arcaz")));
+        if (tag.contains("EndWalkX") && tag.contains("EndWalkY") && tag.contains("EndWalkZ") && tag.contains("EndWalkDim")) {
+            soulEnergy.setEndWalkPos(new BlockPos(tag.getInt("EndWalkX"), tag.getInt("EndWalkY"), tag.getInt("EndWalkZ")));
+            soulEnergy.setEndWalkDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("EndWalkDim")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
+        }
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));

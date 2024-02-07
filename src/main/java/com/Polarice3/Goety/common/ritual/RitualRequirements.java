@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.ritual;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -36,6 +37,7 @@ public class RitualRequirements {
             case "animation", "forge", "magic", "sabbath" -> RitualRequirements.checkRequirements(craftType, pTileEntity);
             case "necroturgy", "lich" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.isNight();
             case "adept_nether", "expert_nether" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
+            case "frost" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.getBiome(pPos).get().shouldSnow(pLevel, pPos);
             case "sky" -> skyRitual(pTileEntity, pPos);
             case "storm" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && skyRitual(pTileEntity, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
@@ -141,6 +143,16 @@ public class RitualRequirements {
                 if (pState.getBlock() == Blocks.NETHER_WART) {
                     pTileEntity.third.add(pPos);
                 }
+            case "frost":
+                if (pState.is(BlockTags.STONE_BRICKS)) {
+                    pTileEntity.first.add(pPos);
+                }
+                if (pState.is(BlockTags.SNOW)) {
+                    pTileEntity.second.add(pPos);
+                }
+                if (pState.is(BlockTags.ICE)) {
+                    pTileEntity.third.add(pPos);
+                }
             case "sky":
                 if (pState.is(ModTags.Blocks.MARBLE_BLOCKS)) {
                     pTileEntity.first.add(pPos);
@@ -188,6 +200,11 @@ public class RitualRequirements {
                 first = 16;
                 second = 1;
                 third = 1;
+            }
+            case "frost" -> {
+                first = 16;
+                second = 8;
+                third = 4;
             }
             case "sabbath", "adept_nether", "sky" -> {
                 first = 8;
