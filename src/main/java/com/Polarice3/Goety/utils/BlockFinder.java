@@ -256,11 +256,15 @@ public class BlockFinder {
     }
 
     public static boolean findStructure(ServerLevel serverLevel, LivingEntity livingEntity, ResourceKey<Structure> resourceKey){
+        return findStructure(serverLevel, livingEntity.blockPosition(), resourceKey);
+    }
+
+    public static boolean findStructure(ServerLevel serverLevel, BlockPos blockPos, ResourceKey<Structure> resourceKey){
         Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registries.STRUCTURE).get(resourceKey);
         if (structure != null) {
-            StructureStart structureStart = serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), structure);
+            StructureStart structureStart = serverLevel.structureManager().getStructureWithPieceAt(blockPos, structure);
             if (!structureStart.getPieces().isEmpty()) {
-                return structureStart.getBoundingBox().isInside(livingEntity.blockPosition());
+                return structureStart.getBoundingBox().isInside(blockPos);
             }
         }
         return false;
@@ -306,12 +310,12 @@ public class BlockFinder {
         BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
         boolean flag = false;
         if (up){
-            while (blockpos$mutable.getY() < blockPos.getY() + distance && level.getBlockState(blockpos$mutable).isAir()){
+            while (blockpos$mutable.getY() < blockPos.getY() + distance && (level.getBlockState(blockpos$mutable).isAir() || canBeReplaced(level, blockpos$mutable))){
                 blockpos$mutable.move(Direction.UP);
                 flag = true;
             }
         } else {
-            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).isAir()){
+            while (blockpos$mutable.getY() > blockPos.getY() - distance && level.getBlockState(blockpos$mutable).isAir() || canBeReplaced(level, blockpos$mutable)){
                 blockpos$mutable.move(Direction.DOWN);
                 flag = true;
             }

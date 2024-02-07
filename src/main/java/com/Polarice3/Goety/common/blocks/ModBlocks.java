@@ -272,7 +272,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> LINED_STEEP_WALL_BLOCK = registerWalls("lined_steep_wall", LINED_STEEP_WOOD);
     public static final RegistryObject<Block> RIMMED_STEEP_WALL_BLOCK = registerWalls("rimmed_steep_wall", RIMMED_STEEP_WOOD);
     public static final RegistryObject<Block> STEEP_LAMP = register("steep_lamp",
-            () -> new LampBlock(Block.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+            () -> new LampBlock(Block.Properties.copy(STEEP_WOOD.get())));
 
     //Shade Stones
     public static final RegistryObject<Block> SHADE_STONE_BLOCK = register("shade_stone", ShadeStoneBlock::new);
@@ -295,13 +295,16 @@ public class ModBlocks {
 
     //Marble
     public static final RegistryObject<Block> MARBLE_BLOCK = register("marble", MarbleBlock::new);
+    public static final RegistryObject<Block> CRACKED_MARBLE_BLOCK = register("cracked_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_ARCH_MARBLE_BLOCK = register("gold_arch_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_BANDED_MARBLE_BLOCK = register("gold_banded_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_HOLDER_MARBLE_BLOCK = register("gold_holder_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> GOLD_COVERED_MARBLE_BLOCK = register("gold_covered_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_PLATED_MARBLE_BLOCK = register("gold_plated_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_MARBLE_BLOCK = register("slate_marble", SlateMarbleBlock::new);
     public static final RegistryObject<Block> SLATE_CONNECTED_MARBLE_BLOCK = register("slate_connected_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_PATTERNED_MARBLE_BLOCK = register("slate_patterned_marble", MarbleBlock::new);
+    public static final RegistryObject<Block> SLATE_CORNERED_MARBLE_BLOCK = register("slate_cornered_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_GLAZED_MARBLE_BLOCK = register("slate_glazed_marble", () -> new GlazedTerracottaBlock(MarbleProperties()));
 
     //Indented Gold

@@ -16,19 +16,13 @@ public interface IBreathingSpell extends IEverChargeSpell{
         return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
     }
 
-    ParticleOptions getParticle();
-
-    default ParticleOptions getDragonParticle(LivingEntity livingEntity){
-        return this.getParticle();
-    }
-
     void showWandBreath(LivingEntity entityLiving);
 
-    default void breathAttack(LivingEntity entityLiving, double pVelocity, double pSpread){
-        this.breathAttack(entityLiving, 2, pVelocity, pSpread);
+    default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, double pVelocity, double pSpread){
+        this.breathAttack(particleOptions, entityLiving, 2, pVelocity, pSpread);
     }
 
-    default void breathAttack(LivingEntity entityLiving, int pParticleAmount, double pVelocity, double pSpread){
+    default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, int pParticleAmount, double pVelocity, double pSpread){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9;
@@ -49,15 +43,15 @@ public interface IBreathingSpell extends IEverChargeSpell{
                     entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread,
                     entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread);
             Vec3 vec3 = look.add(vecSpread).multiply(velocity, velocity, velocity);
-            entityLiving.level.addAlwaysVisibleParticle(getParticle(), px, py, pz, vec3.x, vec3.y, vec3.z);
+            entityLiving.level.addAlwaysVisibleParticle(particleOptions, px, py, pz, vec3.x, vec3.y, vec3.z);
         }
     }
 
-    default void dragonBreathAttack(LivingEntity entityLiving, double pVelocity){
-        this.dragonBreathAttack(entityLiving, 10, pVelocity);
+    default void dragonBreathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, double pVelocity){
+        this.dragonBreathAttack(particleOptions, entityLiving, 10, pVelocity);
     }
 
-    default void dragonBreathAttack(LivingEntity entityLiving, int pParticleAmount, double pVelocity){
+    default void dragonBreathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, int pParticleAmount, double pVelocity){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9D;
@@ -75,7 +69,7 @@ public interface IBreathingSpell extends IEverChargeSpell{
             double angle = 0.5D;
             Vec3 randomVec = new Vec3(entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle, entityLiving.getRandom().nextDouble() * 2.0D * angle - angle).normalize();
             Vec3 result = (look.normalize().scale(3.0D).add(randomVec)).normalize().scale(velocity);
-            entityLiving.level.addAlwaysVisibleParticle(getDragonParticle(entityLiving), px + dx, py + dy, pz + dz, result.x, result.y, result.z);
+            entityLiving.level.addAlwaysVisibleParticle(particleOptions, px + dx, py + dy, pz + dz, result.x, result.y, result.z);
         }
     }
 }

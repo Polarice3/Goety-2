@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#$#",
+    "$ $",
+    "#$#"
+  ],
+  "key": {
+    "$": {
+      "item": "goety:marble"
+    },
+    "#": {
+      "item": "goety:slate_marble_slab"
+    }
+  },
+  "result": {
+    "item": "goety:slate_cornered_marble",
+    "count": 4
+  }
+}

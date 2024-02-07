@@ -30,7 +30,7 @@ public class RecallSpell extends Spells {
 
     @Override
     public SoundEvent CastingSound() {
-        return SoundEvents.SNOW_GOLEM_AMBIENT;
+        return null;
     }
 
     @Override

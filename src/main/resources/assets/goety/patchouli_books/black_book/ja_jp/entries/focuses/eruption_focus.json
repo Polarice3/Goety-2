@@ -1,0 +1,15 @@
+{
+  "name": "噴火のフォーカス",
+  "icon": "goety:eruption_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスを使用すると、小さな火山を呼び出すことができ、いくつかの火砕石を空に吐き出し、火砕石が周囲に落ちて爆発し、できれば敵にダメージを与えることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/eruption_focus"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -17,7 +18,9 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -38,6 +41,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -205,6 +210,30 @@ public class ZombieServant extends Summoned{
             }
         }
 
+    }
+
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        EntityType<?> entityType = ModEntityType.ZOMBIE_SERVANT.get();
+        if (level instanceof ServerLevel serverLevel) {
+            if (level.isWaterAt(blockPos)) {
+                entityType = ModEntityType.DROWNED_SERVANT.get();
+            } else if (level.getBiome(blockPos).is(Tags.Biomes.IS_DESERT) && level.canSeeSky(blockPos)) {
+                entityType = ModEntityType.HUSK_SERVANT.get();
+            } else if (level.dimension() == Level.NETHER) {
+                EntityType<?> entityType1 = ModEntityType.ZPIGLIN_SERVANT.get();
+                if (level.random.nextFloat() <= 0.25F && BlockFinder.findStructure(serverLevel, blockPos, BuiltinStructures.BASTION_REMNANT)) {
+                    entityType1 = ModEntityType.ZPIGLIN_BRUTE_SERVANT.get();
+                }
+                entityType = entityType1;
+            } else if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
+                entityType = ModEntityType.ZOMBIE_VINDICATOR.get();
+            } else if (level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)) {
+                entityType = ModEntityType.FROZEN_ZOMBIE_SERVANT.get();
+            } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
+                entityType = ModEntityType.JUNGLE_ZOMBIE_SERVANT.get();
+            }
+        }
+        return entityType;
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {

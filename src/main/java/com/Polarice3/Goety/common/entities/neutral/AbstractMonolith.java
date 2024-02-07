@@ -56,9 +56,15 @@ public abstract class AbstractMonolith extends Owned{
 
     public void readAdditionalSaveData(CompoundTag p_31474_) {
         super.readAdditionalSaveData(p_31474_);
-        this.setAge(p_31474_.getInt("Age"));
-        this.setLifeSpan(p_31474_.getInt("LifeSpan"));
-        this.setActivate(p_31474_.getBoolean("Activate"));
+        if (p_31474_.contains("Age")) {
+            this.setAge(p_31474_.getInt("Age"));
+        }
+        if (p_31474_.contains("LifeSpan")) {
+            this.setLifeSpan(p_31474_.getInt("LifeSpan"));
+        }
+        if (p_31474_.contains("Activate")) {
+            this.setActivate(p_31474_.getBoolean("Activate"));
+        }
     }
 
     @Nullable

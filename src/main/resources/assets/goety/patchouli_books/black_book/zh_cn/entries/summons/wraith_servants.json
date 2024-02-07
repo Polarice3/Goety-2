@@ -1,16 +1,24 @@
 {
-  "name": "幽灵仆人",
+  "name": "幽灵仆从",
   "icon": "goety:wraith_servant_spawn_egg",
   "category": "goety:summons",
   "advancement": "goety:goety/kill_a_wraith",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些幽灵被你的意志召唤和约束，他们自己的冰束不会伤害你或你的盟友。"
+      "text": "这些幽灵被你的意志召唤和约束着，因此他们自己的火不会攻击你或你的盟友。"
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One我们可以通过使用 $(l:focuses/spooky_focus)骇人聚晶$(), 或通过仪式召唤永生的生物。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_wraith_thrall"
     }
   ]
 }

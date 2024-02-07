@@ -27,13 +27,15 @@ import java.util.List;
  * Learned how to make Totem of Souls gain Soul Energy from codes by @Ipsis
  */
 public class TotemOfSouls extends Item implements ITotem {
+    public int maxSouls;
 
-    public TotemOfSouls() {
+    public TotemOfSouls(int maxSouls) {
         super(new Properties().stacksTo(1).rarity(Rarity.RARE));
+        this.maxSouls = maxSouls;
     }
 
     public int getMaxSouls(){
-        return MAX_SOULS;
+        return this.maxSouls;
     }
 
     public ItemStack getEmptyTotem(){

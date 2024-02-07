@@ -216,10 +216,14 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         }
                     }
                 } else {
-                    this.stopBrazier(false);
+                    if (!this.level.isClientSide) {
+                        this.stopBrazier(false);
+                    }
                 }
             } else {
-                this.stopBrazier(false);
+                if (!this.level.isClientSide) {
+                    this.stopBrazier(false);
+                }
             }
             this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(NecroBrazierBlock.LIT, flag), 3);
         }
@@ -287,6 +291,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                 if (this.getBlockState().getValue(NecroBrazierBlock.WATERLOGGED)) {
                     if (serverLevel.getFluidState(blockpos.above()).isEmpty() && serverLevel.getBlockState(blockpos.above()).isAir()) {
                         serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
+                        serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE_DROP.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                     } else {
                         for (int p = 0; p < 4; ++p) {
                             serverLevel.sendParticles(ParticleTypes.BUBBLE, d0, d1, d2, 1, 0, 0, 0, 0);
@@ -299,6 +304,7 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                             serverLevel.sendParticles(ParticleTypes.SMOKE, d0, d1, d2, 0, 0.0D, 5.0E-4D, 0.0D, 0.5F);
                         }
                         serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
+                        serverLevel.sendParticles(ModParticleTypes.NECRO_FIRE_DROP.get(), blockpos.getX() + 0.5F, blockpos.getY() + 1.0F, blockpos.getZ() + 0.5F, 1, 0, 0, 0, 0);
                     }
                 }
             }

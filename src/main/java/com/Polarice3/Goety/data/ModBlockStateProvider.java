@@ -59,7 +59,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock((SlabBlock) ModBlocks.HAUNTED_SLAB.get(), Goety.location("block/haunted_planks"), Goety.location("block/haunted_planks"));
         slabBlock((SlabBlock) ModBlocks.ROTTEN_SLAB.get(), Goety.location("block/rotten_planks"), Goety.location("block/rotten_planks"));
         slabBlock((SlabBlock) ModBlocks.WINDSWEPT_SLAB.get(), Goety.location("block/windswept_planks"), Goety.location("block/windswept_planks"));
-        slabBlock((SlabBlock) ModBlocks.COMPACTED_WINDSWEPT_SLAB.get(), Goety.location("block/compacted_windswept_planks"), Goety.location("block/compacted_windswept_planks_side"), Goety.location("block/compacted_windswept_planks_top"), Goety.location("block/compacted_windswept_planks_top"));
+        slabBlock((SlabBlock) ModBlocks.COMPACTED_WINDSWEPT_SLAB.get(), Goety.location("block/compacted_windswept_planks"), Goety.location("block/compacted_windswept_planks"), Goety.location("block/compacted_windswept_planks"), Goety.location("block/compacted_windswept_planks"));
         slabBlock((SlabBlock) ModBlocks.STEEP_SLAB.get(), Goety.location("block/steep_planks"), Goety.location("block/steep_planks"));
         slabBlock((SlabBlock) ModBlocks.STEEP_WOOD_SLAB.get(), Goety.location("block/steep_wood"), Goety.location("block/steep_log"));
 

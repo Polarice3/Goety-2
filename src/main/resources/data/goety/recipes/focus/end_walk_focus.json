@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sps",
+    "yey",
+    "sps"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "s":
+    {
+      "item": "goety:ectoplasm"
+    },
+    "p":
+    {
+      "tag": "forge:ender_pearls"
+    },
+    "y":
+    {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result":
+  {
+    "item": "goety:end_walk_focus",
+    "count": 1
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class SEImp implements ISoulEnergy{
@@ -24,6 +25,8 @@ public class SEImp implements ISoulEnergy{
     private int shields = 0;
     private int shieldTime = 0;
     private int shieldCool = 0;
+    private BlockPos EndWalkPos = null;
+    private ResourceKey<Level> EndWalkDim = null;
 
     @Override
     public BlockPos getArcaBlock() {
@@ -233,5 +236,26 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void decreaseShieldCool() {
         --this.shieldCool;
+    }
+
+    @Override
+    @Nullable
+    public BlockPos getEndWalkPos() {
+        return this.EndWalkPos;
+    }
+
+    @Override
+    public void setEndWalkPos(BlockPos blockPos) {
+        this.EndWalkPos = blockPos;
+    }
+
+    @Override
+    public ResourceKey<Level> getEndWalkDimension() {
+        return this.EndWalkDim;
+    }
+
+    @Override
+    public void setEndWalkDimension(ResourceKey<Level> dimension) {
+        this.EndWalkDim = dimension;
     }
 }

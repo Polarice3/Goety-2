@@ -8,6 +8,7 @@ import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
+import com.Polarice3.Goety.common.events.GoetyEventFactory;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
@@ -56,7 +57,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -315,8 +315,8 @@ public class DarkWand extends Item {
         if (this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
             SoundEvent soundevent = this.CastingSound(stack);
             int CastTime = stack.getUseDuration() - count;
-            if (CastTime == 1) {
-                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), Objects.requireNonNullElse(soundevent, SoundEvents.EVOKER_PREPARE_ATTACK), SoundSource.PLAYERS, 0.5F, 1.0F);
+            if (CastTime == 1 && soundevent != null) {
+                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
             if (this.getSpell(stack) instanceof RecallSpell){
                 for(int i = 0; i < 2; ++i) {
@@ -509,64 +509,67 @@ public class DarkWand extends Item {
 
     public void MagicResults(ItemStack stack, Level worldIn, LivingEntity caster) {
         Player playerEntity = (Player) caster;
-        if (!worldIn.isClientSide) {
-            ServerLevel serverWorld = (ServerLevel) worldIn;
-            if (this.getSpell(stack) != null) {
-                if (playerEntity.isCreative()){
-                    if (stack.getTag() != null) {
-                        this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
-                    }
-                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
-                    boolean spent = true;
-                    if (this.getSpell(stack) instanceof IEverChargeSpell) {
+        if (this.getSpell(stack) != null) {
+            ISpell spell = GoetyEventFactory.onCastSpell(caster, this.getSpell(stack));
+            if (spell != null) {
+                if (!worldIn.isClientSide) {
+                    ServerLevel serverWorld = (ServerLevel) worldIn;
+                    if (playerEntity.isCreative()) {
                         if (stack.getTag() != null) {
-                            stack.getTag().putInt(SECONDS, stack.getTag().getInt(SECONDS) + 1);
-                            if (stack.getTag().getInt(SECONDS) != 20){
-                                spent = false;
-                            } else {
-                                stack.getTag().putInt(SECONDS, 0);
-                            }
+                            this.getSpell(stack).SpellResult(serverWorld, caster, stack);
+                            SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
                         }
-                    }
-                    if (spent){
-                        SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
-                        SEHelper.sendSEUpdatePacket(playerEntity);
-                        if (MobsConfig.VillagerHateSpells.get() > 0) {
-                            for (Villager villager : caster.level.getEntitiesOfClass(Villager.class, caster.getBoundingBox().inflate(16.0D))) {
-                                if (villager.hasLineOfSight(caster)) {
-                                    villager.getGossips().add(caster.getUUID(), GossipType.MINOR_NEGATIVE, MobsConfig.VillagerHateSpells.get());
+                    } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
+                        boolean spent = true;
+                        if (this.getSpell(stack) instanceof IEverChargeSpell) {
+                            if (stack.getTag() != null) {
+                                stack.getTag().putInt(SECONDS, stack.getTag().getInt(SECONDS) + 1);
+                                if (stack.getTag().getInt(SECONDS) != 20) {
+                                    spent = false;
+                                } else {
+                                    stack.getTag().putInt(SECONDS, 0);
                                 }
                             }
                         }
+                        if (spent) {
+                            SEHelper.decreaseSouls(playerEntity, SoulUse(caster, stack));
+                            SEHelper.sendSEUpdatePacket(playerEntity);
+                            if (MobsConfig.VillagerHateSpells.get() > 0) {
+                                for (Villager villager : caster.level.getEntitiesOfClass(Villager.class, caster.getBoundingBox().inflate(16.0D))) {
+                                    if (villager.hasLineOfSight(caster)) {
+                                        villager.getGossips().add(caster.getUUID(), GossipType.MINOR_NEGATIVE, MobsConfig.VillagerHateSpells.get());
+                                    }
+                                }
+                            }
+                        }
+                        if (stack.getTag() != null) {
+                            this.getSpell(stack).SpellResult(serverWorld, caster, stack);
+                            SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
+                        }
+                    } else {
+                        worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     }
-                    if (stack.getTag() != null) {
-                        this.getSpell(stack).SpellResult(serverWorld, caster, stack);
-                        SEHelper.addCooldown(playerEntity, getFocus(stack).getItem(), this.getSpell(stack).spellCooldown());
-                    }
-                } else {
-                    worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 }
-            } else {
-                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
-            }
-        }
-        if (worldIn.isClientSide){
-            if (this.getSpell(stack) != null) {
-                if (playerEntity.isCreative()){
-                    if (this.getSpell(stack) instanceof IBreathingSpell breathingSpells){
-                        breathingSpells.showWandBreath(caster);
+                if (worldIn.isClientSide) {
+                    if (playerEntity.isCreative()) {
+                        if (this.getSpell(stack) instanceof IBreathingSpell breathingSpells) {
+                            breathingSpells.showWandBreath(caster);
+                        }
+                    } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
+                        if (this.getSpell(stack) instanceof IBreathingSpell breathingSpells) {
+                            breathingSpells.showWandBreath(caster);
+                        }
+                    } else {
+                        this.failParticles(worldIn, caster);
                     }
-                } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
-                    if (this.getSpell(stack) instanceof IBreathingSpell breathingSpells){
-                        breathingSpells.showWandBreath(caster);
-                    }
-                } else {
-                    this.failParticles(worldIn, caster);
                 }
             } else {
                 this.failParticles(worldIn, caster);
+                worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
+        } else {
+            this.failParticles(worldIn, caster);
+            worldIn.playSound(null, caster.getX(), caster.getY(), caster.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
     }
 
@@ -665,7 +668,7 @@ public class DarkWand extends Item {
 
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-                if (!itemStack.isEmpty()) {
+                if (!itemStack.isEmpty() && itemStack.getItem() instanceof DarkWand) {
                     if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
                         return WAND_POSE;
                     }

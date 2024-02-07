@@ -81,7 +81,16 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BIG_FIRE = PARTICLE_TYPES.register("big_fire",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BIG_FIRE_DROP = PARTICLE_TYPES.register("big_fire_drop",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> BIG_FIRE_GROUND = PARTICLE_TYPES.register("big_fire_ground",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> NECRO_FIRE = PARTICLE_TYPES.register("necro_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> NECRO_FIRE_DROP = PARTICLE_TYPES.register("necro_fire_drop",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> SMALL_NECRO_FIRE = PARTICLE_TYPES.register("small_necro_fire",
@@ -91,6 +100,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> DRAGON_FLAME = PARTICLE_TYPES.register("dragon_flame",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> DRAGON_FLAME_DROP = PARTICLE_TYPES.register("dragon_flame_drop",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> BONE = PARTICLE_TYPES.register("bone",
@@ -169,6 +181,22 @@ public class ModParticleTypes {
             });
 
     public static final RegistryObject<ParticleType<ShockwaveParticleOption>> PORTAL_SHOCKWAVE = PARTICLE_TYPES.register("portal_shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> TELEPORT_SHOCKWAVE = PARTICLE_TYPES.register("teleport_shockwave",
+            () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return ShockwaveParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<ShockwaveParticleOption>> TELEPORT_IN_SHOCKWAVE = PARTICLE_TYPES.register("teleport_in_shockwave",
             () -> new ParticleType<>(false, ShockwaveParticleOption.DESERIALIZER) {
                 @Override
                 public Codec codec() {

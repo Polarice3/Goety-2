@@ -52,6 +52,7 @@ public interface ISpell {
         }
     }
 
+    @Nullable
     SoundEvent CastingSound();
 
     int defaultSpellCooldown();

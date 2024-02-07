@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -51,4 +52,10 @@ public interface ISoulEnergy {
     int shieldCool();
     void setShieldCool(int cool);
     void decreaseShieldCool();
+    @Nullable
+    BlockPos getEndWalkPos();
+    void setEndWalkPos(BlockPos blockPos);
+    @Nullable
+    ResourceKey<Level> getEndWalkDimension();
+    void setEndWalkDimension(ResourceKey<Level> dimension);
 }

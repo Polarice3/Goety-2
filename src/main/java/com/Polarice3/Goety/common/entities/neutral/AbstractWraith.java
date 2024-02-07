@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
+import com.Polarice3.Goety.client.particles.TeleportShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
@@ -17,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,7 +31,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -39,6 +41,7 @@ import net.minecraftforge.common.ForgeMod;
 public class AbstractWraith extends Summoned {
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
     public int fireTick;
+    public int fireCooldown;
     public int teleportCooldown;
     public int teleportTime = 20;
     public int teleportTime2;
@@ -54,6 +57,7 @@ public class AbstractWraith extends Summoned {
         super(p_i48553_1_, p_i48553_2_);
         this.moveControl = new MobUtil.WraithMoveController(this);
         this.fireTick = 0;
+        this.fireCooldown = 0;
         this.teleportTime2 = 0;
         this.teleportCooldown = 0;
         this.postTeleportTime = 0;
@@ -93,6 +97,7 @@ public class AbstractWraith extends Summoned {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("fireTick", this.fireTick);
+        pCompound.putInt("fireCooldown", this.fireCooldown);
         pCompound.putInt("teleportTime2", this.teleportTime2);
         pCompound.putInt("teleportCooldown", this.teleportCooldown);
     }
@@ -100,6 +105,7 @@ public class AbstractWraith extends Summoned {
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.fireTick = pCompound.getInt("fireTick");
+        this.fireCooldown = pCompound.getInt("fireCooldown");
         this.teleportTime2 = pCompound.getInt("teleportTime2");
         this.teleportCooldown = pCompound.getInt("teleportCooldown");
     }
@@ -212,6 +218,10 @@ public class AbstractWraith extends Summoned {
         return 10;
     }
 
+    protected boolean isSunSensitive() {
+        return true;
+    }
+
     @Override
     public void tick() {
         this.setGravity();
@@ -229,26 +239,6 @@ public class AbstractWraith extends Summoned {
     public void aiStep() {
         super.aiStep();
 
-        boolean flag = this.isSunBurnTick();
-        if (flag) {
-            ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
-            if (!itemstack.isEmpty()) {
-                if (itemstack.isDamageableItem()) {
-                    itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
-                    if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
-                        this.broadcastBreakEvent(EquipmentSlot.HEAD);
-                        this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-                    }
-                }
-
-                flag = false;
-            }
-
-            if (flag) {
-                this.setSecondsOnFire(8);
-            }
-        }
-
         Vec3 vector3d = this.getDeltaMovement();
         if (!this.onGround()&& vector3d.y < 0.0D && !this.isNoGravity()) {
             this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
@@ -259,6 +249,11 @@ public class AbstractWraith extends Summoned {
         }
 
         if (this.postTeleportTime > 0){
+            if (this.postTeleportTime == 36){
+                if (this.level instanceof ServerLevel serverLevel){
+                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                }
+            }
             --this.postTeleportTime;
         } else {
             this.level.broadcastEntityEvent(this, (byte) 7);
@@ -275,6 +270,11 @@ public class AbstractWraith extends Summoned {
         if (!this.level.isClientSide){
             if (this.isTeleporting()) {
                 --this.teleportTime;
+                if (this.teleportTime == 2){
+                    if (this.level instanceof ServerLevel serverLevel){
+                        serverLevel.sendParticles(new TeleportInShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                    }
+                }
                 if (this.teleportTime <= 2){
                     this.prevX = this.getX();
                     this.prevY = this.getY();
@@ -307,12 +307,15 @@ public class AbstractWraith extends Summoned {
             if (this.isPostTeleporting()){
                 this.getNavigation().stop();
             }
+            if (this.fireCooldown > 0){
+                --this.fireCooldown;
+            }
             if (this.getTarget() != null && !this.isPostTeleporting()) {
                 if (!this.isFiring()){
                     this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
                 }
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
-                    if (((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
+                    if ((this.fireCooldown <= 0 && !this.isTeleporting()
                             && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) || this.isFiring()) {
                         ++this.fireTick;
                         if (this.isFiring()){
@@ -324,6 +327,7 @@ public class AbstractWraith extends Summoned {
                         }
                         if (this.fireTick > 10) {
                             this.startFiring();
+                            this.getNavigation().stop();
                         } else {
                             this.movement();
                             this.stopFiring();
@@ -332,7 +336,8 @@ public class AbstractWraith extends Summoned {
                             this.magicFire(this.getTarget());
                         }
                         if (this.fireTick > 44){
-                            this.fireTick = -30;
+                            this.fireCooldown = 100;
+                            this.fireTick = 0;
                         }
                     } else {
                         if (this.fireTick > 0) {
@@ -455,6 +460,9 @@ public class AbstractWraith extends Summoned {
             this.setIsFiring(true);
             this.level.broadcastEntityEvent(this, (byte) 4);
             this.level.broadcastEntityEvent(this, (byte) 100);
+            if (this.level instanceof ServerLevel serverLevel){
+                serverLevel.sendParticles(new TeleportShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+            }
             if (!this.isSilent()) {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);
                 this.playSound(this.getAttackSound(), 1.0F, 1.0F);
@@ -495,19 +503,12 @@ public class AbstractWraith extends Summoned {
             this.postTeleportAnimationState.stop();
         }
         if (pId == 100){
-            for(int j = 0; j < 6; ++j) {
+            for(int j = 0; j < 8; ++j) {
                 double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
                 double d2 = this.getY() + (this.random.nextDouble() + 0.5D);
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
                 this.level.addParticle(this.getFireParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
-            }
-            if (!this.level.getBlockState(this.blockPosition().below()).isAir()) {
-                for (int j = 0; j < 4; ++j) {
-                    double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
-                    double d2 = this.blockPosition().below().getY() + 0.5F;
-                    double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * (double) this.getBbWidth() * 2.0D;
-                    this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
-                }
+                this.level.addParticle(this.getBurstParticles(), d1, d2, d3, 0.0D, 0.0D, 0.0D);
             }
         }
         if (pId == 101){
@@ -516,7 +517,6 @@ public class AbstractWraith extends Summoned {
                 this.playSound(this.getTeleportOutSound(), 1.0F, 1.0F);
             }
         }
-
     }
 
     public float getAnimationProgress(float pPartialTicks) {

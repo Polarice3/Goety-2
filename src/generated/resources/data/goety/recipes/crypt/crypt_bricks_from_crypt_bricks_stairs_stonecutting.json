@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "goety:crypt_bricks"
+  },
+  "result": "goety:crypt_bricks_stairs"
+}

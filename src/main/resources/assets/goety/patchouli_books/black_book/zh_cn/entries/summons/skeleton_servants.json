@@ -1,11 +1,23 @@
 {
-  "name": "骷髅仆人",
+  "name": "骷髅仆从",
   "icon": "minecraft:skeleton_skull",
   "category": "goety:summons",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "骷髅仆人会试图杀死任何伤害你或附近的敌对生物。如果召唤师同时戴着亡灵头盔和战袍召唤它们，那么它们偶尔会射出虚弱药箭。"
+      "text": "骷髅们要比他们腐烂的同族更加聪明，更加迅捷，尽管他们还是最基础的亡灵生物。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "以下文本会详细介绍亡灵巫师可以召唤的变种骷髅."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "我们可以通过使用 $(l:focuses/osseous_focus)骨质聚晶$(), 或者通过一种仪式来召唤一个永生的生物。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_skeleton_thrall"
     },
     {
       "type": "patchouli:entity",
@@ -13,7 +25,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "试图在寒冷苔原中召唤骷髅仆人时，会产生一名流浪者仆人."
+      "text": "骷髅仆从会试图杀死任何伤害召唤师或附近敌对生物的人。如果召唤师同时身着死灵王冠和死灵长袍时召唤它们，那么它们偶尔会射出虚弱药箭。"
     },
     {
       "type": "patchouli:entity",
@@ -21,7 +33,23 @@
     },
     {
       "type": "patchouli:text",
-      "text": "骷髅仆人可以接受任何盔甲，但只能接受剑/弓，这意味着他们可以使用远程攻击，也可以使用近战攻击."
+      "text": "当你在露天的寒冷群戏中召唤骷髅仆从，流躅仆从会被召唤出来。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:skeleton_pillager"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在前哨站召唤骷髅仆从会召唤出一个忠诚的骷髅掠夺者，它比普通骷髅拥有更多的生命值，而且使用弩箭。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "骷髅仆从可以接受任何盔甲，但只能接受剑/弓，这意味着它们可以远程，也可以近战。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "奇怪的是，在下界要塞中施法时，这个咒语无法召唤出忠诚的凋灵骷髅。烧焦的骷髅似乎拥有巨大的魔力和对家园的忠诚，无法被轻率地召唤。。。"
     }
   ]
 }

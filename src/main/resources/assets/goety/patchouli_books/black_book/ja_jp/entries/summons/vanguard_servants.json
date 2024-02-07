@@ -14,7 +14,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "彼らがシールドを持たない場合は、攻撃していないときに木の板で右クリックしてシールドを返します。"
+      "text": "$(l:focuses/vanguard_focus)ヴァンガードのフォーカス$()を使用してこれらのクリーチャーを呼び出すことができます。または寿命の制限なしで召喚する儀式を通じて召喚することもできます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_vanguard_thrall"
     }
   ]
 }

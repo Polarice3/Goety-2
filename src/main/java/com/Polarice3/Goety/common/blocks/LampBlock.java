@@ -38,19 +38,21 @@ import java.util.function.ToIntFunction;
 
 public class LampBlock extends Block implements SimpleWaterloggedBlock {
     protected static final VoxelShape SHAPE_BASE = Block.box(0.0D, 0.0D, 0.0D,
-            16.0D, 3.0D, 16.0D);
-    protected static final VoxelShape SHAPE_MID = Block.box(2.0D, 3.0D, 2.0D,
-            14.0D, 19.0D, 14.0D);
-    protected static final VoxelShape SHAPE_TOP = Block.box(0.0D, 19.0D, 0.0D,
-            16.0D, 22.0D, 16.0D);
-    protected static final VoxelShape SHAPE_BOTTOM = Block.box(2.0D, 3.0D, 2.0D,
+            16.0D, 4.0D, 16.0D);
+    protected static final VoxelShape SHAPE_MID = Block.box(2.0D, 4.0D, 2.0D,
+            14.0D, 20.0D, 14.0D);
+    protected static final VoxelShape SHAPE_TOP = Block.box(0.0D, 20.0D, 0.0D,
+            16.0D, 24.0D, 16.0D);
+    protected static final VoxelShape SHAPE_BOTTOM = Block.box(2.0D, 4.0D, 2.0D,
             14.0D, 16.0D, 14.0D);
     protected static final VoxelShape SHAPE_UP = Block.box(2.0D, 0.0D, 2.0D,
-            14.0D, 3.0D, 14.0D);
-    protected static final VoxelShape SHAPE_TOP_BASE = Block.box(0.0D, 3.0D, 0.0D,
-            16.0D, 6.0D, 16.0D);
+            14.0D, 4.0D, 14.0D);
+    protected static final VoxelShape SHAPE_TOP_BASE = Block.box(0.0D, 4.0D, 0.0D,
+            16.0D, 8.0D, 16.0D);
+    protected static final VoxelShape SHAPE_TOP_POST = Block.box(6.0D, 8.0D, 6.0D,
+            10.0D, 16.0D, 10.0D);
     public static final VoxelShape SHAPE_LOWER = Shapes.or(SHAPE_BASE, SHAPE_BOTTOM);
-    public static final VoxelShape SHAPE_UPPER = Shapes.or(SHAPE_UP, SHAPE_TOP_BASE);
+    public static final VoxelShape SHAPE_UPPER = Shapes.or(SHAPE_UP, SHAPE_TOP_BASE, SHAPE_TOP_POST);
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_MID, SHAPE_TOP);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;

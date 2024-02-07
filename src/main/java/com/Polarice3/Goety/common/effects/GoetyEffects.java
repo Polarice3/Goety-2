@@ -74,6 +74,9 @@ public class GoetyEffects {
                     .addAttributeModifier(Attributes.ARMOR, "7487ebfe-56fb-4e83-b804-3f337b2a7814",
                             4.0D, AttributeModifier.Operation.ADDITION));
 
+    public static final RegistryObject<MobEffect> SHADOW_WALK = EFFECTS.register("shadow_walk",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x580c56));
+
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
 

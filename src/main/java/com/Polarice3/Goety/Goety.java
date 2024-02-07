@@ -359,6 +359,7 @@ public class Goety {
         event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
+        event.put(ModEntityType.VOLCANO.get(), Volcano.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());

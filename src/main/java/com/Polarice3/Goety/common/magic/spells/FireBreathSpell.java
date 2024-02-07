@@ -11,7 +11,6 @@ import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -99,15 +98,6 @@ public class FireBreathSpell extends BreathingSpells {
     }
 
     @Override
-    public ParticleOptions getParticle() {
-        return ParticleTypes.SOUL_FIRE_FLAME;
-    }
-
-    public ParticleOptions getDragonParticle(LivingEntity livingEntity){
-        return ModParticleTypes.DRAGON_FLAME.get();
-    }
-
-    @Override
     public void showWandBreath(LivingEntity entityLiving) {
         int range = 0;
         if (entityLiving instanceof Player player){
@@ -117,9 +107,10 @@ public class FireBreathSpell extends BreathingSpells {
         }
 
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
-            this.breathAttack(entityLiving, 0.3F + ((double) range / 10), 5);
+            this.breathAttack(ParticleTypes.SOUL_FIRE_FLAME, entityLiving, 0.3F + ((double) range / 10), 5);
         } else {
-            this.dragonBreathAttack(entityLiving, 0.3F + ((double) range / 10));
+            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, 0.3F + ((double) range / 10));
+            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME_DROP.get(), entityLiving, 0.3F + ((double) range / 10));
         }
     }
 }

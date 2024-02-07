@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "goety:crypt_stone"
+  },
+  "result": "goety:crypt_tiles_wall"
+}

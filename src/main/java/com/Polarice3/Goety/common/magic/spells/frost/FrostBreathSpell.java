@@ -8,7 +8,6 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.BreathingSpells;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -42,7 +41,7 @@ public class FrostBreathSpell extends BreathingSpells {
 
     @Override
     public SoundEvent CastingSound() {
-        return SoundEvents.SNOW_GOLEM_AMBIENT;
+        return null;
     }
 
     @Override
@@ -114,11 +113,6 @@ public class FrostBreathSpell extends BreathingSpells {
     }
 
     @Override
-    public ParticleOptions getParticle() {
-        return ParticleTypes.POOF;
-    }
-
-    @Override
     public void showWandBreath(LivingEntity entityLiving) {
         int range = 0;
         if (entityLiving instanceof Player player){
@@ -127,9 +121,9 @@ public class FrostBreathSpell extends BreathingSpells {
             }
         }
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
-            this.breathAttack(entityLiving, 0.3F + ((double) range / 10), 5);
+            this.breathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10), 5);
         } else {
-            this.dragonBreathAttack(entityLiving, 0.3F + ((double) range / 10));
+            this.dragonBreathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10));
         }
     }
 }

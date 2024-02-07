@@ -173,6 +173,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
                         pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
                     }
                     pLevel.addParticle(ModParticleTypes.BIG_FIRE.get(), pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
+                    pLevel.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
                 }
             }
             pLevel.playSound(null, pPos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + pLevel.random.nextFloat(), pLevel.random.nextFloat() * 0.7F + 0.3F);

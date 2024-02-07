@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.gui.overlay;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
-import com.Polarice3.Goety.common.items.magic.TotemOfRoots;
+import com.Polarice3.Goety.common.items.magic.FullSpentTotem;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;
@@ -61,7 +61,7 @@ public class SoulEnergyGui {
             guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i, height - 9, 0, 9, 128, 9, 128, 90);
             guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i + 9, height - 9, 9, 18, maxenergy, 9, 128, 90);
         } else {
-            int height1 = stack.getItem() instanceof TotemOfRoots ? 36 : 0;
+            int height1 = stack.getItem() instanceof FullSpentTotem ? 36 : 0;
             guiGraphics.blit(Goety.location("textures/gui/soul_energy.png"), i, height - 9, 0, height1, 128, 9, 128, 90);
         }
         RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy_bar.png"));

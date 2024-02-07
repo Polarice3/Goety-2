@@ -25,6 +25,10 @@ public class SoulExplodeParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
+    public int getLightColor(float p_106821_) {
+        return 255;
+    }
+
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

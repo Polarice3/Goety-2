@@ -36,6 +36,7 @@ import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -46,11 +47,12 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.FoliageColor;
@@ -110,19 +112,19 @@ public class ClientInitEvents {
 
     @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event){
-        event.getSkins().forEach(renderer -> {
-            PlayerRenderer playerRenderer = event.getSkin(renderer);
-            if (playerRenderer != null) {
-                addPlayerLayers(playerRenderer, event.getEntityModels());
+        event.getSkins().forEach(skin -> {
+            LivingEntityRenderer<Player, EntityModel<Player>> livingEntityRenderer = event.getSkin(skin);
+            if (livingEntityRenderer != null) {
+                addPlayerLayers(livingEntityRenderer, event.getEntityModels());
             }
         });
     }
 
-    private static void addPlayerLayers(PlayerRenderer renderer, EntityModelSet entityModelSet) {
+    private static void addPlayerLayers(LivingEntityRenderer<Player, EntityModel<Player>> renderer, EntityModelSet entityModelSet) {
         renderer.addLayer(new MagicShieldLayer<>(renderer));
-        renderer.addLayer(new PlayerSoulArmorLayer(renderer, entityModelSet));
-        renderer.addLayer(new PlayerSoulShieldLayer(renderer, entityModelSet));
-        renderer.addLayer(new PlayerSpellShieldLayer(renderer, entityModelSet));
+        renderer.addLayer(new PlayerSoulArmorLayer<>(renderer, entityModelSet));
+        renderer.addLayer(new PlayerSoulShieldLayer<>(renderer, entityModelSet));
+        renderer.addLayer(new PlayerSpellShieldLayer<>(renderer, entityModelSet));
     }
 
     @SubscribeEvent
@@ -150,6 +152,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MONOLITH, MonolithModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.VOLCANO, VolcanoModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BLOCK, BlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE, CroneModel::createBodyLayer);
@@ -284,10 +287,12 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.SNAP_FUNGUS.get(), SnapFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BLAST_FUNGUS.get(), BlastFungusRenderer::new);
         event.registerEntityRenderer(ModEntityType.BERSERK_FUNGUS.get(), BerserkFungusRenderer::new);
+        event.registerEntityRenderer(ModEntityType.PYROCLAST.get(), PyroclastRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolithRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_WALL.get(), TotemicWallRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_BOMB.get(), TotemicBombRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FALLING_BLOCK.get(), ModFallingBlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
@@ -442,10 +447,14 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.WRAITH_BURST.get(), WraithParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.WRAITH_FIRE.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_FIRE_DROP.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_FIRE_GROUND.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.NECRO_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME.get(), FireParticle.DragonProvider::new);
+        event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME_DROP.get(), FireParticle.DragonProvider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
@@ -459,6 +468,8 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SOUL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.TELEPORT_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.TELEPORT_IN_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
         event.registerSpriteSet(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);

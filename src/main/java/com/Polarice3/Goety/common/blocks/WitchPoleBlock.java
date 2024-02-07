@@ -33,25 +33,25 @@ public class WitchPoleBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     protected static final VoxelShape POLE = Block.box(6.0D, 0.0D, 6.0D,
-            10.0D, 16.0D, 10.0D);
-    protected static final VoxelShape TOP_POLE = Block.box(6.0D, 0.0D, 6.0D,
-            10.0D, 16.0D, 10.0D);
+            10.0D, 22.0D, 10.0D);
+    protected static final VoxelShape TOP_POLE = Block.box(6.0D, 6.0D, 6.0D,
+            10.0D, 28.0D, 10.0D);
     protected static final VoxelShape WEST_AABB = Shapes.or(
             TOP_POLE,
-            Block.box(10.0D, 0.0D, 5.0D,
-                    14.0D, 6.0D, 11.0D));
+            Block.box(10.0D, 9.0D, 4.0D,
+                    14.0D, 15.0D, 10.0D));
     protected static final VoxelShape EAST_AABB = Shapes.or(
             TOP_POLE,
-            Block.box(2.0D, 0.0D, 5.0D,
-                    6.0D, 6.0D, 11.0D));
+            Block.box(2.0D, 9.0D, 6.0D,
+                    6.0D, 15.0D, 12.0D));
     protected static final VoxelShape NORTH_AABB = Shapes.or(
             TOP_POLE,
-            Block.box(5.0D, 0.0D, 10.0D,
-                    11.0D, 6.0D, 14.0D));
+            Block.box(6.0D, 9.0D, 10.0D,
+                    12.0D, 15.0D, 14.0D));
     protected static final VoxelShape SOUTH_AABB = Shapes.or(
             TOP_POLE,
-            Block.box(5.0D, 0.0D, 2.0D,
-                    11.0D, 6.0D, 6.0D));
+            Block.box(4.0D, 9.0D, 2.0D,
+                    10.0D, 15.0D, 6.0D));
 
     public WitchPoleBlock() {
         super(Properties.of()
@@ -75,7 +75,7 @@ public class WitchPoleBlock extends Block implements SimpleWaterloggedBlock {
 
     public VoxelShape getShape(BlockState p_51787_, BlockGetter p_51788_, BlockPos p_51789_, CollisionContext p_51790_) {
         if (p_51787_.getValue(HALF) == DoubleBlockHalf.UPPER) {
-            switch ((Direction) p_51787_.getValue(FACING)) {
+            switch (p_51787_.getValue(FACING)) {
                 case SOUTH:
                     return SOUTH_AABB;
                 case NORTH:

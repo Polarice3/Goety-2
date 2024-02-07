@@ -17,7 +17,8 @@ import net.minecraftforge.fml.common.Mod;
 public class ModLevelRegistry {
 
     public static void addBiomeSpawns(Holder<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
-        if (biome.containsTag(BiomeTags.IS_OVERWORLD) && !biome.containsTag(Tags.Biomes.IS_MUSHROOM) && !biome.is(Biomes.DEEP_DARK)){
+        if (biome.containsTag(BiomeTags.IS_OVERWORLD) && !biome.containsTag(Tags.Biomes.IS_MUSHROOM) && !biome.is(Biomes.DEEP_DARK)
+                && !biome.is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("alexscaves"))){
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MobsConfig.WarlockSpawnWeight.get(), 1, 1));
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
         }
