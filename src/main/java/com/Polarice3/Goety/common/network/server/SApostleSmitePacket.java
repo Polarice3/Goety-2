@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.network.server;
 
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -30,11 +31,9 @@ public class SApostleSmitePacket {
 
     public static void consume(SApostleSmitePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
-
-            Level level = Minecraft.getInstance().level;
-            if (level != null) {
-                Entity entity = level.getEntity(packet.apostle);
+            ClientLevel clientWorld = Minecraft.getInstance().level;
+            if (clientWorld != null) {
+                Entity entity = clientWorld.getEntity(packet.apostle);
                 if (entity instanceof Apostle apostle) {
                     apostle.antiRegenTotal = packet.antiRegen;
                     apostle.antiRegen = packet.antiRegen;
