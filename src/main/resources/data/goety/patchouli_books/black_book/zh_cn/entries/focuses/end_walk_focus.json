@@ -1,11 +1,11 @@
 {
-  "name": "End Walk Focus",
+  "name": "末影漫步聚晶",
   "icon": "goety:end_walk_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The focus taps into the energies of the End, granting you true invisibility that hides even your armor for a small duration. However, interacting with any creature or block will not only break the invisibility, but also teleports you back to where you cast the spell."
+      "text": "该聚晶利用了末影的能量，赋予你真正的隐身能力，甚至能在很短的时间内隐藏你的盔甲。然而，与任何生物或方块互动会导致末影力量失稳，不仅会瞬间打破你的隐身时刻，还会将你传送回施法的地方。"
     },
     {
       "type": "patchouli:crafting",

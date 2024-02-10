@@ -1,11 +1,11 @@
 {
-  "name": "Eruption Focus",
+  "name": "爆发聚晶",
   "icon": "goety:eruption_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The focus allows you to summon forth a small volcano that would spew several pyroclastic rocks to the sky, which would fall around it, exploding and hopefully hurting your foes."
+      "text": "该聚晶可以让你召唤出一座小火山，它会向天空喷出几块火山岩，然后落在它周围，这些火山岩会爆炸伤害你的敌人。"
     },
     {
       "type": "goety:ritual",
