@@ -206,28 +206,6 @@ public class ModEvents {
             if (entity instanceof Player player) {
                 SEHelper.sendSEUpdatePacket(player);
                 LichdomHelper.sendLichUpdatePacket(player);
-
-                if (player instanceof ServerPlayer serverPlayer){
-                    if (serverPlayer.getServer() != null) {
-                        Advancement advancement3 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
-                        if (advancement3 != null) {
-                            AdvancementProgress advancementProgress3 = serverPlayer.getAdvancements().getOrStartProgress(advancement3);
-                            if (!advancementProgress3.isDone()){
-                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
-                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
-                                if (advancement1 != null && advancement2 != null) {
-                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
-                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
-                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
-                                        for(String s : advancementProgress3.getRemainingCriteria()) {
-                                            serverPlayer.getAdvancements().award(advancement3, s);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
             if (entity instanceof Witch witch){
                 witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
@@ -461,6 +439,28 @@ public class ModEvents {
         int skull = 0;
         if (world instanceof ServerLevel serverLevel){
             if (player.tickCount % 20 == 0) {
+                if (player instanceof ServerPlayer serverPlayer){
+                    if (serverPlayer.getServer() != null) {
+                        Advancement advancement3 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
+                        if (advancement3 != null) {
+                            AdvancementProgress advancementProgress3 = serverPlayer.getAdvancements().getOrStartProgress(advancement3);
+                            if (!advancementProgress3.isDone()){
+                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
+                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
+                                if (advancement1 != null && advancement2 != null) {
+                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
+                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
+                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
+                                        for(String s : advancementProgress3.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(advancement3, s);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 for (Entity entity : serverLevel.getAllEntities()){
                     if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
                         if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
