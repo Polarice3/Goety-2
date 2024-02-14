@@ -3,9 +3,17 @@ package com.Polarice3.Goety.utils;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.Level;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EffectsUtil {
+
+    private static final Map<MobEffect, Boolean> canAffectLichCache = new HashMap<>();
 
     public static void amplifyEffect (LivingEntity infected, MobEffect effect, int duration){
         amplifyEffect(infected, effect, duration, 4, false, true);
@@ -106,5 +114,13 @@ public class EffectsUtil {
             return MobEffectInstance1.getAmplifier();
         }
         return 0;
+    }
+
+    public static boolean canAffectLich(MobEffectInstance effectInstance, Level world) {
+        return canAffectLichCache.computeIfAbsent(effectInstance.getEffect(), effect ->
+                    effect != MobEffects.BLINDNESS && effect != MobEffects.CONFUSION &&
+                    effect != MobEffects.HUNGER && effect != MobEffects.SATURATION &&
+                    new Zombie(world).canBeAffected(effectInstance)
+                );
     }
 }
