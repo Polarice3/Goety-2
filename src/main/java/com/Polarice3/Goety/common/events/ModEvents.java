@@ -206,6 +206,28 @@ public class ModEvents {
             if (entity instanceof Player player) {
                 SEHelper.sendSEUpdatePacket(player);
                 LichdomHelper.sendLichUpdatePacket(player);
+
+                if (player instanceof ServerPlayer serverPlayer){
+                    if (serverPlayer.getServer() != null) {
+                        Advancement advancement3 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
+                        if (advancement3 != null) {
+                            AdvancementProgress advancementProgress3 = serverPlayer.getAdvancements().getOrStartProgress(advancement3);
+                            if (!advancementProgress3.isDone()){
+                                Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
+                                Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
+                                if (advancement1 != null && advancement2 != null) {
+                                    AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
+                                    AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
+                                    if (advancementProgress1.isDone() && advancementProgress2.isDone()){
+                                        for(String s : advancementProgress3.getRemainingCriteria()) {
+                                            serverPlayer.getAdvancements().award(advancement3, s);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if (entity instanceof Witch witch){
                 witch.goalSelector.addGoal(1, new WitchBarterGoal(witch));
@@ -438,20 +460,59 @@ public class ModEvents {
         int wraith = 0;
         int skull = 0;
         if (world instanceof ServerLevel serverLevel){
-            if (player instanceof ServerPlayer serverPlayer){
-                if (serverPlayer.getServer() != null) {
-                    Advancement advancement3 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_and_haunting_scroll"));
-                    if (advancement3 != null) {
-                        AdvancementProgress advancementProgress3 = serverPlayer.getAdvancements().getOrStartProgress(advancement3);
-                        if (!advancementProgress3.isDone()){
-                            Advancement advancement1 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_warred_scroll"));
-                            Advancement advancement2 = serverPlayer.getServer().getAdvancements().getAdvancement(Goety.location("goety/read_haunting_scroll"));
-                            if (advancement1 != null && advancement2 != null) {
-                                AdvancementProgress advancementProgress1 = serverPlayer.getAdvancements().getOrStartProgress(advancement1);
-                                AdvancementProgress advancementProgress2 = serverPlayer.getAdvancements().getOrStartProgress(advancement2);
-                                if (advancementProgress1.isDone() && advancementProgress2.isDone()){
-                                    for(String s : advancementProgress3.getRemainingCriteria()) {
-                                        serverPlayer.getAdvancements().award(advancement3, s);
+            if (player.tickCount % 20 == 0) {
+                for (Entity entity : serverLevel.getAllEntities()){
+                    if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
+                        if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
+                            if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
+                                ++zombies;
+                                if (zombies > SpellConfig.ZombieLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
+                                }
+                            }
+                            if (summonedEntity instanceof AbstractSkeletonServant){
+                                ++skeletons;
+                                if (skeletons > SpellConfig.SkeletonLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
+                                }
+                            }
+                            if (summonedEntity instanceof AbstractWraith){
+                                ++wraith;
+                                if (wraith > SpellConfig.WraithLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
+                                }
+                            }
+                            if (summonedEntity instanceof HauntedSkull){
+                                ++skull;
+                                if (skull > SpellConfig.SkullLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (MobsConfig.VillagerHate.get()){
+                    if (CuriosFinder.hasCurio(player, ModItems.DARK_ROBE.get())) {
+                        for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
+                            if (villager.hasLineOfSight(player)) {
+                                if (villager.getPlayerReputation(player) > -25 && villager.getPlayerReputation(player) < 25) {
+                                    villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (MobsConfig.VillagerHateRavager.get()) {
+                    for (Owned owned : player.level.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(16.0D))) {
+                        if (owned instanceof Ravaged || owned instanceof ModRavager) {
+                            if (owned.getTrueOwner() == player || owned.getMasterOwner() == player) {
+                                for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
+                                    if (villager.hasLineOfSight(owned)) {
+                                        if (villager.getPlayerReputation(player) > -200) {
+                                            villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                                        }
                                     }
                                 }
                             }
@@ -459,50 +520,13 @@ public class ModEvents {
                     }
                 }
             }
-            for (Entity entity : serverLevel.getAllEntities()){
-                if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
-                    if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
-                        if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
-                            ++zombies;
-                            if (zombies > SpellConfig.ZombieLimit.get()){
-                                if (livingEntity.tickCount % 20 == 0){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
+
+            if (SEHelper.getSoulAmountInt(player) > MobsConfig.IllagerAssaultSEThreshold.get() * 2){
+                for (Raider pillagerEntity : player.level.getEntitiesOfClass(Raider.class, player.getBoundingBox().inflate(32))){
+                    if (pillagerEntity.getTarget() == player) {
+                        if (!pillagerEntity.isAggressive()) {
+                            pillagerEntity.setAggressive(true);
                         }
-                        if (summonedEntity instanceof AbstractSkeletonServant){
-                            ++skeletons;
-                            if (skeletons > SpellConfig.SkeletonLimit.get()){
-                                if (livingEntity.tickCount % 20 == 0){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
-                        }
-                        if (summonedEntity instanceof AbstractWraith){
-                            ++wraith;
-                            if (wraith > SpellConfig.WraithLimit.get()){
-                                if (livingEntity.tickCount % 20 == 0){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
-                        }
-                        if (summonedEntity instanceof HauntedSkull){
-                            ++skull;
-                            if (skull > SpellConfig.SkullLimit.get()){
-                                if (livingEntity.tickCount % 20 == 0){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (SEHelper.getSoulAmountInt(player) > MobsConfig.IllagerAssaultSEThreshold.get() * 2){
-            for (Raider pillagerEntity : player.level.getEntitiesOfClass(Raider.class, player.getBoundingBox().inflate(32))){
-                if (pillagerEntity.getTarget() == player) {
-                    if (!pillagerEntity.isAggressive()) {
-                        pillagerEntity.setAggressive(true);
                     }
                 }
             }
@@ -514,38 +538,6 @@ public class ModEvents {
             }
             if (player.getEffect(MobEffects.BLINDNESS) != null){
                 player.removeEffect(MobEffects.BLINDNESS);
-            }
-        }
-
-        if (MobsConfig.VillagerHate.get()){
-            if (CuriosFinder.hasCurio(player, ModItems.DARK_ROBE.get())) {
-                for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
-                    if (villager.hasLineOfSight(player)) {
-                        if (villager.getPlayerReputation(player) > -25 && villager.getPlayerReputation(player) < 25) {
-                            if (player.tickCount % 20 == 0) {
-                                villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (MobsConfig.VillagerHateRavager.get()) {
-            for (Owned owned : player.level.getEntitiesOfClass(Owned.class, player.getBoundingBox().inflate(16.0D))) {
-                if (owned instanceof Ravaged || owned instanceof ModRavager) {
-                    if (owned.getTrueOwner() == player || owned.getMasterOwner() == player) {
-                        for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
-                            if (villager.hasLineOfSight(owned)) {
-                                if (villager.getPlayerReputation(player) > -200) {
-                                    if (player.tickCount % 20 == 0) {
-                                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
 
