@@ -10,7 +10,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:wind_blower",
-      "text": "Tマシンはレッドストーン信号で起動します。"
+      "recipe2": "goety:marble_wind_blower"
     }
   ]
 }

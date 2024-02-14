@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.common.items.block;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;

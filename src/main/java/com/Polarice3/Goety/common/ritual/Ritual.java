@@ -194,6 +194,8 @@ public abstract class Ritual {
                         ItemHelper.addItemEntity(world, pedestal.getBlockPos(), extracted.getCraftingRemainingItem());
                     }
 
+                    handler.setStackInSlot(0, ItemStack.EMPTY);
+
                     world.playSound(null, pedestal.getBlockPos(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS,
                             0.7F, 0.7F);
                     return true;

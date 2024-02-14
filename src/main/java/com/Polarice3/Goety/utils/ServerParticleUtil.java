@@ -104,7 +104,7 @@ public class ServerParticleUtil {
                     }
                 }
             }
-            Vec3 vector3d = new Vec3(pBlockPos.getX(), pBlockPos.getY() + 1.5F, pBlockPos.getZ());
+            Vec3 vector3d = new Vec3(pBlockPos.getX() + 0.5F, pBlockPos.getY() + 1.0F, pBlockPos.getZ() + 0.5F);
             for(BlockPos blockpos : positions) {
                 if (serverWorld.random.nextInt(50) == 0) {
                     float f = -0.5F + serverWorld.random.nextFloat();
@@ -163,6 +163,11 @@ public class ServerParticleUtil {
     public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
         serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25) * radius, entity.getY() + 0.5, entity.getZ() + Math.sin(entity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
         serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25 + Math.PI) * radius, entity.getY() + 0.5, entity.getZ() + Math.sin(entity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
+    }
+
+    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25) * radius, 0, 0, 0, 0, 0.5F);
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
     }
 
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){

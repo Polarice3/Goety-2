@@ -10,7 +10,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:wind_blower",
-      "text": "机器要通过红石信号激活."
+      "recipe2": "goety:marble_wind_blower"
     }
   ]
 }

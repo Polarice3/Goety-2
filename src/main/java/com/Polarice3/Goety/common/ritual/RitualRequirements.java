@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
+import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -11,8 +12,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualRequirements {
 
@@ -35,6 +40,7 @@ public class RitualRequirements {
         findStructures(craftType, pTileEntity, pPos, pLevel);
         return switch (craftType) {
             case "animation", "forge", "magic", "sabbath" -> RitualRequirements.checkRequirements(craftType, pTileEntity);
+            case "geoturgy" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && !pLevel.canSeeSky(pPos) && pPos.getY() <= 32;
             case "necroturgy", "lich" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.isNight();
             case "adept_nether", "expert_nether" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.dimensionType().ultraWarm();
             case "frost" -> RitualRequirements.checkRequirements(craftType, pTileEntity) && pLevel.getBiome(pPos).get().shouldSnow(pLevel, pPos);
@@ -45,7 +51,7 @@ public class RitualRequirements {
     }
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, BlockPos pPos){
-        return pPos.getY() >= 128 || RitualRequirements.checkRequirements("sky", pTileEntity);
+        return pPos.getY() >= 128 || getSkyRitual(pPos, pTileEntity.getLevel());
     }
 
     public static void findStructures(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel) {
@@ -62,6 +68,36 @@ public class RitualRequirements {
                 }
             }
         }
+    }
+
+    public static boolean getSkyRitual(BlockPos pPos, Level pLevel){
+        List<BlockPos> first = Lists.newArrayList();
+        List<BlockPos> second = Lists.newArrayList();
+        List<BlockPos> third = Lists.newArrayList();
+        for (int i = -RANGE; i <= RANGE; ++i) {
+            for (int j = -RANGE; j <= RANGE; ++j) {
+                for (int k = -RANGE; k <= RANGE; ++k) {
+                    BlockPos blockpos1 = pPos.offset(i, j, k);
+                    BlockState blockstate = pLevel.getBlockState(blockpos1);
+                    if (blockstate.is(ModTags.Blocks.MARBLE_BLOCKS)) {
+                        if (!first.contains(blockpos1)){
+                            first.add(blockpos1);
+                        }
+                    }
+                    if (blockstate.is(ModTags.Blocks.JADE_BLOCKS)) {
+                        if (!second.contains(blockpos1)){
+                            second.add(blockpos1);
+                        }
+                    }
+                    if (blockstate.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS)) {
+                        if (!third.contains(blockpos1)){
+                            third.add(blockpos1);
+                        }
+                    }
+                }
+            }
+        }
+        return first.size() >= 8 && second.size() >= 16 && third.size() >= 4;
     }
 
     public static void getBlocks(String craftType, RitualBlockEntity pTileEntity, BlockState pState, BlockPos pPos, Level pLevel){
@@ -97,6 +133,16 @@ public class RitualRequirements {
                     pTileEntity.second.add(pPos);
                 }
                 if (pState.getBlock() instanceof AnvilBlock) {
+                    pTileEntity.third.add(pPos);
+                }
+            case "geoturgy":
+                if (pState.getBlock() instanceof AmethystBlock) {
+                    pTileEntity.first.add(pPos);
+                }
+                if (pState.getBlock() instanceof SmithingTableBlock) {
+                    pTileEntity.second.add(pPos);
+                }
+                if (pState.getBlock().getDescriptionId().contains("deepslate") && pState.isSolidRender(pLevel, pPos)) {
                     pTileEntity.third.add(pPos);
                 }
             case "magic":
@@ -153,16 +199,6 @@ public class RitualRequirements {
                 if (pState.is(BlockTags.ICE)) {
                     pTileEntity.third.add(pPos);
                 }
-            case "sky":
-                if (pState.is(ModTags.Blocks.MARBLE_BLOCKS)) {
-                    pTileEntity.first.add(pPos);
-                }
-                if (pState.is(ModTags.Blocks.JADE_BLOCKS)) {
-                    pTileEntity.second.add(pPos);
-                }
-                if (pState.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS)) {
-                    pTileEntity.third.add(pPos);
-                }
             case "storm":
                 if (pState.getBlock().getDescriptionId().contains("copper")) {
                     pTileEntity.first.add(pPos);
@@ -196,6 +232,11 @@ public class RitualRequirements {
                 second = 2;
                 third = 1;
             }
+            case "geoturgy" -> {
+                first = 8;
+                second = 1;
+                third = 16;
+            }
             case "magic" -> {
                 first = 16;
                 second = 1;
@@ -206,7 +247,7 @@ public class RitualRequirements {
                 second = 8;
                 third = 4;
             }
-            case "sabbath", "adept_nether", "sky" -> {
+            case "sabbath", "adept_nether" -> {
                 first = 8;
                 second = 16;
                 third = 4;

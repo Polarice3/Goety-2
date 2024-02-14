@@ -1,0 +1,22 @@
+{
+  "name": "Geoturgy Ritual",
+  "icon": "minecraft:deepslate_bricks",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar is at or below 32 height, not expose to sky $(li)1 Smithing Table $(li)8 Blocks of Amethyst $(li)16 Deepslate Blocks"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/geoturgy_ritual.png"],
+      "border": true,
+      "text": "An example of how the ritual can be placed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Placing the Altar deep beneath and surrounding it with deepslate and amethysts, you will be able to harness the earth to create all kinds of jewels and magics."
+    }
+  ]
+}

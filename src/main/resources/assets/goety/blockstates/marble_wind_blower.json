@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,powered=false": { 
+      "model": "goety:block/marble_wind_blower",
+      "x": 90
+    },
+    "facing=up,powered=false": { 
+      "model": "goety:block/marble_wind_blower",
+      "x": 270
+    },
+    "facing=north,powered=false": { 
+      "model": "goety:block/marble_wind_blower"
+    },
+    "facing=south,powered=false": { 
+      "model": "goety:block/marble_wind_blower",
+      "y": 180
+    },
+    "facing=west,powered=false":  { 
+      "model": "goety:block/marble_wind_blower",
+      "y": 270
+    },
+    "facing=east,powered=false":  { 
+      "model": "goety:block/marble_wind_blower",
+      "y": 90
+    },
+    "facing=down,powered=true": { 
+      "model": "goety:block/marble_wind_blower_on",
+      "x": 90
+    },
+    "facing=up,powered=true": { 
+      "model": "goety:block/marble_wind_blower_on",
+      "x": 270
+    },
+    "facing=north,powered=true": { 
+      "model": "goety:block/marble_wind_blower_on"
+    },
+    "facing=south,powered=true": { 
+      "model": "goety:block/marble_wind_blower_on",
+      "y": 180
+    },
+    "facing=west,powered=true":  { 
+      "model": "goety:block/marble_wind_blower_on",
+      "y": 270
+    },
+    "facing=east,powered=true":  { 
+      "model": "goety:block/marble_wind_blower_on",
+      "y": 90
+    }
+  }
+}

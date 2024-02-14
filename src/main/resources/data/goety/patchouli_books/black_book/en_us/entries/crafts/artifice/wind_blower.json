@@ -10,7 +10,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:wind_blower",
-      "text": "The machine will activate with a redstone signal."
+      "recipe2": "goety:marble_wind_blower"
     }
   ]
 }

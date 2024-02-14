@@ -5,7 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
-import com.Polarice3.Goety.common.items.RedstoneGolemSkullItem;
+import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;

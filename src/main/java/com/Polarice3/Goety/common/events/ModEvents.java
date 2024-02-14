@@ -42,6 +42,7 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.world.structures.ModStructureTags;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -71,6 +72,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
@@ -212,6 +214,9 @@ public class ModEvents {
             }
             if (entity instanceof AbstractGolem golemEntity && !(entity instanceof Enemy)){
                 golemEntity.targetSelector.addGoal(3, new TargetHostileOwnedGoal<>(golemEntity, Owned.class));
+            }
+            if (entity instanceof PathfinderMob creeper && creeper.getType().is(ModTags.EntityTypes.CREEPERS)){
+                creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, Player.class, (target) -> target != null && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get()), 6.0F, 1.0D, 1.2D, EntitySelector.NO_SPECTATORS::test));
             }
             if (entity instanceof IOwned owned){
                 if (owned instanceof RedstoneGolem || owned instanceof GraveGolem){
@@ -826,6 +831,14 @@ public class ModEvents {
                     }
                     if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
                         boolean undead = mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy));
+                        if (target.level instanceof ServerLevel serverLevel){
+                            if (MobsConfig.HostileCryptUndead.get()) {
+                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructures.CRYPT_KEY)
+                                        && !CuriosFinder.neutralNamelessSet(target)) {
+                                    undead = false;
+                                }
+                            }
+                        }
                         if (undead) {
                             if (mobAttacker.getLastHurtByMob() != target) {
                                 event.setNewTarget(null);
@@ -840,6 +853,12 @@ public class ModEvents {
                         event.setNewTarget(null);
                     }
                 }
+                if (mobAttacker.getType().is(ModTags.EntityTypes.CREEPERS) && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){
+                    event.setNewTarget(null);
+                }
+                if (mobAttacker instanceof Phantom && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){
+                    event.setNewTarget(null);
+                }
             }
         }
     }
@@ -849,6 +868,14 @@ public class ModEvents {
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() instanceof LivingEntity looker) {
             boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
+            if (entity.level instanceof ServerLevel serverLevel){
+                if (MobsConfig.HostileCryptUndead.get()) {
+                    if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModStructures.CRYPT_KEY)
+                            && !(CuriosFinder.neutralNamelessCrown(entity) || CuriosFinder.neutralNamelessCape(entity))) {
+                        undead = false;
+                    }
+                }
+            }
             if (CuriosFinder.neutralNecroCrown(entity) || CuriosFinder.neutralNamelessCrown(entity)) {
                 if (undead) {
                     event.modifyVisibility(0.5);
@@ -995,6 +1022,10 @@ public class ModEvents {
                     }
                 }
                 if (MobsConfig.OwnerAttackCancel.get()) {
+                    ItemStack itemStack = event.getEntity().getMainHandItem();
+                    if (!itemStack.isEmpty()){
+                        itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
+                    }
                     event.setCanceled(true);
                 }
             }

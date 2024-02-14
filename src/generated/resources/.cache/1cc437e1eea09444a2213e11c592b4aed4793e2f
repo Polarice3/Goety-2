@@ -1,4 +1,4 @@
-// 1.19.2	2024-02-07T20:12:44.6689489	Goety LootTables
+// 1.19.2	2024-02-11T17:21:57.2627821	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -42,6 +42,7 @@ ea197e7bc93a8e95f63634cb41535e23825f98d9 data/goety/loot_tables/blocks/deepslate
 086f7328883dd9e007d7613b3891e99fcc33e231 data/goety/loot_tables/blocks/forbidden_grass.json
 5664ec2b63627ad34d12ea7508ea4b5c70aecaef data/goety/loot_tables/blocks/gold_arch_marble.json
 c141d132af64c141db2a94a865ee8ffeb1156778 data/goety/loot_tables/blocks/gold_banded_marble.json
+4b72eae1d598e563f973afabb62fd64d6fe18112 data/goety/loot_tables/blocks/gold_covered_marble.json
 a1d304fa1bf5ecab76f257342e3ad5ac48f9cb66 data/goety/loot_tables/blocks/gold_holder_marble.json
 199833b57ee93ebe82ce73ffc82a5c631da95f04 data/goety/loot_tables/blocks/gold_plated_marble.json
 cad5d3f89e0886fe6b0b3a907dde082b5fde386a data/goety/loot_tables/blocks/haunted_bookshelf.json
@@ -76,6 +77,7 @@ faecb9e11ce968c0efbf4f5f647658d315ea221f data/goety/loot_tables/blocks/jade_stai
 4d1b8cb5aa6511d7618cebc655c239ccbd5e91a3 data/goety/loot_tables/blocks/marble_brazier.json
 c5183960bebddf52b31485584eb8500bea9dc8cb data/goety/loot_tables/blocks/marble_slab.json
 18b525f1fceafefaea555e840248bea766d8fb38 data/goety/loot_tables/blocks/marble_stairs.json
+b2effa7ad8289ba83ae9346a94b0b351345e97ce data/goety/loot_tables/blocks/marble_wind_blower.json
 eb2835dbefb17fe27d57c6ab611ae35833bd48ff data/goety/loot_tables/blocks/necro_brazier.json
 832cf33f4e999f452ae5d92d87f7c35ec702a6c0 data/goety/loot_tables/blocks/nether_brick_brazier.json
 31c1a037bc5bc7ba12ddb33f2be4b47928f94d97 data/goety/loot_tables/blocks/night_beacon.json
@@ -124,7 +126,7 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 1648082fd99fae7a538121d8935afc9ca3d9c80d data/goety/loot_tables/blocks/shade_tiles_stairs.json
 776461163bf71ab7740c0dea3bb2ae9b3ee23b4f data/goety/loot_tables/blocks/skull_pile.json
 5533bcd5e81ca85350f43634abed42871e086d50 data/goety/loot_tables/blocks/slate_connected_marble.json
-9944613b2c8f058d9a90ad6cbf19058977c2ce8f data/goety/loot_tables/blocks/slate_covered_marble.json
+05f5105e56de891f51b6213ad9ecc90596ac2670 data/goety/loot_tables/blocks/slate_cornered_marble.json
 40949473bc805f9281a77d1a7fc4ab70c3fb59b2 data/goety/loot_tables/blocks/slate_glazed_marble.json
 592d292e42364491ead5becfdcbe33a3e7fc937a data/goety/loot_tables/blocks/slate_marble.json
 e4caf49f4db73aa299535ac94f3aff64e3bd55f5 data/goety/loot_tables/blocks/slate_marble_slab.json

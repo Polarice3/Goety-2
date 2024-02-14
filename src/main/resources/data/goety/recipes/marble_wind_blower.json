@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "fff",
+    "jwj",
+    "srs"
+  ],
+  "key":
+  {
+    "f":
+    {
+      "tag": "minecraft:wooden_fences"
+    },
+    "j":
+    {
+      "item": "goety:jade"
+    },
+    "w":
+    {
+      "item": "goety:wind_core"
+    },
+    "s":
+    {
+      "item": "goety:marble"
+    },
+    "r":
+    {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:marble_wind_blower",
+    "count": 3
+  }
+}

@@ -1,33 +1,39 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
-    "sps",
-    "yey",
-    "sps"
-  ],
-  "key":
-  {
-    "e":
-    {
-      "item": "goety:empty_focus"
-    },
-    "s":
-    {
-      "item": "goety:ectoplasm"
-    },
-    "p":
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:empty_focus"
+  },
+  "craftType": "magic",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
     {
       "tag": "forge:ender_pearls"
     },
-    "y":
+    {
+      "item": "goety:ectoplasm"
+    },
     {
       "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "goety:ectoplasm"
     }
-  },
-  "result":
-  {
-    "item": "goety:end_walk_focus",
-    "count": 1
+  ],
+  "result": {
+    "item": "goety:end_walk_focus"
   }
 }

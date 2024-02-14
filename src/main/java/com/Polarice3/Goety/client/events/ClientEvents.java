@@ -8,6 +8,7 @@ import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.ItemLoopSound;
 import com.Polarice3.Goety.client.audio.LoopSound;
+import com.Polarice3.Goety.client.audio.SquallAlertSound;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.ModModelLayer;
@@ -17,6 +18,7 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
@@ -68,6 +70,7 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -121,6 +124,19 @@ public class ClientEvents {
                     if (spells.loopSound(event.getEntity()) != null) {
                         soundHandler.play(new ItemLoopSound(spells.loopSound(event.getEntity()), event.getEntity()));
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityTick(LivingEvent.LivingTickEvent event){
+        if (event.getEntity().level instanceof ClientLevel){
+            Minecraft minecraft = Minecraft.getInstance();
+            SoundManager soundHandler = minecraft.getSoundManager();
+            if (event.getEntity() instanceof SquallGolem squallGolem){
+                if (squallGolem.noveltyTick == 1) {
+                    soundHandler.play(new SquallAlertSound(squallGolem));
                 }
             }
         }

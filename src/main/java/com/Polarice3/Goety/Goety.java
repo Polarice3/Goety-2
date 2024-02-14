@@ -292,6 +292,7 @@ public class Goety {
         event.put(ModEntityType.VAMPIRE_BAT.get(), VampireBat.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
+        event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
         event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
@@ -314,10 +315,13 @@ public class Goety {
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());
         event.put(ModEntityType.MINI_GHAST.get(), MiniGhast.setCustomAttributes().build());
+        event.put(ModEntityType.SLIME_SERVANT.get(), SlimeServant.setCustomAttributes().build());
+        event.put(ModEntityType.MAGMA_CUBE_SERVANT.get(), MagmaCubeServant.setCustomAttributes().build());
         event.put(ModEntityType.RAVAGED.get(), Ravaged.setCustomAttributes().build());
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
+        event.put(ModEntityType.SQUALL_GOLEM.get(), SquallGolem.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());
         event.put(ModEntityType.GRAVE_GOLEM.get(), GraveGolem.setCustomAttributes().build());
         event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
@@ -345,6 +349,7 @@ public class Goety {
         event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.CRYPT_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CryptSlime::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CAIRN_NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.HAUNTED_ARMOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }

@@ -32,12 +32,14 @@ public class ModModelLayer {
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
+    public static final ModelLayerLocation SQUALL_GOLEM = register("squall_golem");
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
     public static final ModelLayerLocation GRAVE_GOLEM = register("grave_golem");
     public static final ModelLayerLocation HAUNT = register("haunt");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
+    public static final ModelLayerLocation MAGMA_CUBE = register("magma_cube");
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");

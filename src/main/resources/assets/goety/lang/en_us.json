@@ -69,6 +69,7 @@
   "entity.goety.ravager":"Ravager",
   "entity.goety.armored_ravager":"Ravager",
   "entity.goety.zombie_ravager":"Zombie Ravager",
+  "entity.goety.squall_golem":"Squall Golem",
   "entity.goety.redstone_golem":"Redstone Golem",
   "entity.goety.grave_golem":"Grave Golem",
   "entity.goety.haunt":"Haunt",
@@ -80,6 +81,7 @@
 
   "entity.goety.wraith":"Wraith",
   "entity.goety.border_wraith":"Border Wraith",
+  "entity.goety.crypt_slime":"Crypt Slime",
   "entity.goety.cairn_necromancer":"Cairn Necromancer",
   "entity.goety.haunted_armor":"Haunted Armor",
 
@@ -103,6 +105,8 @@
   "entity.goety.haunted_skull":"Haunted Skull",
   "entity.goety.doppelganger":"Doppelganger",
   "entity.goety.mini_ghast":"Mini Ghast",
+  "entity.goety.slime_servant":"Slime Servant",
+  "entity.goety.magma_cube_servant":"Magma Cube Servant",
 
   "entity.goety.totemic_wall":"Totemic Wall",
   "entity.goety.totemic_bomb":"Totemic Bomb",
@@ -374,6 +378,7 @@
   "item.goety.grave_glove": "Grave Gloves",
   "item.goety.targeting_monocle": "Targeting Monocle",
   "item.goety.sea_amulet": "Sea Amulet",
+  "item.goety.feline_amulet": "Feline Amulet",
   "item.goety.wayfarers_belt": "Wayfarer's Belt",
   "item.goety.spiteful_belt": "Spiteful Belt",
   "item.goety.star_amulet": "Soul Shield Amulet",
@@ -683,6 +688,8 @@
 
   "block.goety.ice_bouquet_trap": "Ice Flame Trap",
   "block.goety.wind_blower": "Wind Blower",
+  "block.goety.marble_wind_blower": "Wind Blower",
+  "block.goety.resonance_crystal": "Resonance Crystal",
   "block.goety.hook_bell": "Hook Bell",
   "block.goety.necro_brazier": "Necrotic Brazier",
   "block.goety.dark_anvil": "Dark Anvil",
@@ -1416,6 +1423,7 @@
   "jei.goety.craftType.lich": "Ritual Type: Master Necroturgy",
   "jei.goety.craftType.minor_nether": "Ritual Type: Minor Nether",
   "jei.goety.craftType.forge": "Ritual Type: Forge",
+  "jei.goety.craftType.geoturgy": "Ritual Type: Geoturgy",
   "jei.goety.craftType.magic": "Ritual Type: Magic",
   "jei.goety.craftType.adept_nether": "Ritual Type: Adept Nether",
   "jei.goety.craftType.expert_nether": "Ritual Type: Expert Nether",

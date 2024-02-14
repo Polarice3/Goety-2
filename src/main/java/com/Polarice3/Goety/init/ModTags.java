@@ -6,9 +6,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
 
@@ -16,6 +18,7 @@ public class ModTags {
         ModTags.Blocks.init();
         ModTags.Items.init();
         ModTags.Paintings.init();
+        ModTags.EntityTypes.init();
     }
 
     public static class Blocks {
@@ -62,6 +65,20 @@ public class ModTags {
 
         private static TagKey<PaintingVariant> create(ResourceLocation p_215874_) {
             return TagKey.create(Registry.PAINTING_VARIANT_REGISTRY, p_215874_);
+        }
+    }
+
+    public static class EntityTypes {
+        private static void init(){}
+
+        public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
+
+        private static TagKey<EntityType<?>> tag(String name) {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<EntityType<?>> create(ResourceLocation p_215874_) {
+            return TagKey.create(ForgeRegistries.ENTITY_TYPES.getRegistryKey(), p_215874_);
         }
     }
 }

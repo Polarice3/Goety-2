@@ -35,7 +35,10 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(IceBouquetTrapBlockEntity::new, ModBlocks.ICE_BOUQUET_TRAP.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<WindBlowerBlockEntity>> WIND_BLOWER = BLOCK_ENTITY.register("wind_blower",
-            () -> BlockEntityType.Builder.of(WindBlowerBlockEntity::new, ModBlocks.WIND_BLOWER.get()).build(null));
+            () -> BlockEntityType.Builder.of(WindBlowerBlockEntity::new, ModBlocks.WIND_BLOWER.get(), ModBlocks.MARBLE_WIND_BLOWER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ResonanceCrystalBlockEntity>> RESONANCE_CRYSTAL = BLOCK_ENTITY.register("resonance_crystal",
+            () -> BlockEntityType.Builder.of(ResonanceCrystalBlockEntity::new, ModBlocks.RESONANCE_CRYSTAL.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SculkDevourerBlockEntity>> SCULK_DEVOURER = BLOCK_ENTITY.register("sculk_devourer",
             () -> BlockEntityType.Builder.of(SculkDevourerBlockEntity::new, ModBlocks.SCULK_DEVOURER.get()).build(null));

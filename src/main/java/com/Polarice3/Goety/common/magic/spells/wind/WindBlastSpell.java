@@ -4,6 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
@@ -74,6 +75,13 @@ public class WindBlastSpell extends Spells {
                 }
                 if (entity instanceof FireTornado fireTornado){
                     fireTornado.trueRemove();
+                }
+                if (entity instanceof SquallGolem squallGolem){
+                    if (!squallGolem.isStartingUp() && !squallGolem.isActivated()) {
+                        squallGolem.setStartingUp(true);
+                    } else if (!squallGolem.isShuttingDown() && squallGolem.isActivated()){
+                        squallGolem.setShuttingDown(true);
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.common.items.block;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

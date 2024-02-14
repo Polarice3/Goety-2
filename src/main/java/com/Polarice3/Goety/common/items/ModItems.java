@@ -8,6 +8,8 @@ import com.Polarice3.Goety.common.items.armor.BlackIronArmor;
 import com.Polarice3.Goety.common.items.armor.CursedKnightArmor;
 import com.Polarice3.Goety.common.items.armor.CursedPaladinArmor;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
+import com.Polarice3.Goety.common.items.block.HauntedArmorStandItem;
+import com.Polarice3.Goety.common.items.block.HauntedPaintingItem;
 import com.Polarice3.Goety.common.items.brew.*;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
@@ -166,6 +168,7 @@ public class ModItems {
     public static final RegistryObject<Item> WARLOCK_ROBE_DARK = ITEMS.register("warlock_robe_dark", WarlockRobeItem::new);
     public static final RegistryObject<Item> WARLOCK_SASH = ITEMS.register("warlock_sash", WarlockGarmentItem::new);
     public static final RegistryObject<Item> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
+    public static final RegistryObject<Item> FELINE_AMULET = ITEMS.register("feline_amulet", SingleStackItem::new);
     public static final RegistryObject<Item> ALARMING_CHARM = ITEMS.register("alarming_charm", SingleStackItem::new);
     public static final RegistryObject<Item> WAYFARERS_BELT = ITEMS.register("wayfarers_belt", WayfarersBeltItem::new);
     public static final RegistryObject<Item> SPITEFUL_BELT = ITEMS.register("spiteful_belt", SingleStackItem::new);

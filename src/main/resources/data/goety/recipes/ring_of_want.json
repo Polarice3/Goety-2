@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "minecraft:gold_ingot"
   },
-  "craftType": "magic",
+  "craftType": "geoturgy",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

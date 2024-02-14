@@ -125,6 +125,17 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
 
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_HURT = create("squall_golem_hurt");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_ACTIVATE = create("squall_golem_activate");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_DEACTIVATE = create("squall_golem_deactivate");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_WIND_START = create("squall_golem_wind_start");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_WIND_SLOW = create("squall_golem_wind_slow");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_WIND_FAST = create("squall_golem_wind_fast");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_ALERT = create("squall_golem_alert");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_ATTACK = create("squall_golem_attack");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_STEP = create("squall_golem_step");
+    public static final RegistryObject<SoundEvent> SQUALL_GOLEM_DEATH = create("squall_golem_death");
+
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_AMBIENT = create("redstone_golem_ambient");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_HURT = create("redstone_golem_hurt");
     public static final RegistryObject<SoundEvent> REDSTONE_GOLEM_SUMMON = create("redstone_golem_summon");
@@ -246,6 +257,10 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> CAULDRON_BUBBLES = create("cauldron_bubbles");
     public static final RegistryObject<SoundEvent> CAULDRON_CHIMES = create("cauldron_chimes");
+
+    public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_ON = create("resonance_crystal_on");
+    public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_OFF = create("resonance_crystal_off");
+    public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_LOOP = create("resonance_crystal_loop");
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 

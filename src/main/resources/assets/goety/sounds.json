@@ -1524,6 +1524,176 @@
     ],
     "subtitle": "subtitle.goety.zombie_ravager_death"
   },
+  "squall_golem_hurt": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/hurt1"
+      },
+      {
+        "name": "goety:squall_golem/hurt2"
+      },
+      {
+        "name": "goety:squall_golem/hurt3"
+      },
+      {
+        "name": "goety:squall_golem/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_hurt"
+  },
+  "squall_golem_activate": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/activate1"
+      },
+      {
+        "name": "goety:squall_golem/activate2"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_activate"
+  },
+  "squall_golem_deactivate": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/deactivate1"
+      },
+      {
+        "name": "goety:squall_golem/deactivate2"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_deactivate"
+  },
+  "squall_golem_wind_start": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/wind_start"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_wind_start"
+  },
+  "squall_golem_wind_slow": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/wind_slow1"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow2"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow3"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow4"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow5"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow6"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow7"
+      },
+      {
+        "name": "goety:squall_golem/wind_slow8"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_wind_slow"
+  },
+  "squall_golem_wind_fast": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/wind_fast1"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast2"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast3"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast4"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast5"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast6"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast7"
+      },
+      {
+        "name": "goety:squall_golem/wind_fast8"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_wind_fast"
+  },
+  "squall_golem_alert": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/alert1"
+      },
+      {
+        "name": "goety:squall_golem/alert2"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_alert"
+  },
+  "squall_golem_attack": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/attack1"
+      },
+      {
+        "name": "goety:squall_golem/attack2"
+      },
+      {
+        "name": "goety:squall_golem/attack3"
+      },
+      {
+        "name": "goety:squall_golem/attack4"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_attack"
+  },
+  "squall_golem_step": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/step_left1"
+      },
+      {
+        "name": "goety:squall_golem/step_right1"
+      },
+      {
+        "name": "goety:squall_golem/step_left2"
+      },
+      {
+        "name": "goety:squall_golem/step_right2"
+      },
+      {
+        "name": "goety:squall_golem/step_left3"
+      },
+      {
+        "name": "goety:squall_golem/step_right3"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_step"
+  },
+  "squall_golem_death": {
+    "sounds": [
+      {
+        "name": "goety:squall_golem/death1"
+      },
+      {
+        "name": "goety:squall_golem/death2"
+      },
+      {
+        "name": "goety:squall_golem/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.squall_golem_death"
+  },
   "redstone_golem_ambient": {
     "sounds": [
       {
@@ -2745,6 +2915,71 @@
       }
     ],
     "subtitle": "subtitle.goety.cauldron_chimes"
+  },
+  "resonance_crystal_on": {
+    "sounds": [
+      {
+        "name": "goety:block/resonance_crystal_on1"
+      },
+      {
+        "name": "goety:block/resonance_crystal_on2"
+      },
+      {
+        "name": "goety:block/resonance_crystal_on3"
+      },
+      {
+        "name": "goety:block/resonance_crystal_on4"
+      }
+    ],
+    "subtitle": "subtitle.goety.resonance_crystal_on"
+  },
+  "resonance_crystal_off": {
+    "sounds": [
+      {
+        "name": "goety:block/resonance_crystal_off1"
+      },
+      {
+        "name": "goety:block/resonance_crystal_off2"
+      },
+      {
+        "name": "goety:block/resonance_crystal_off3"
+      },
+      {
+        "name": "goety:block/resonance_crystal_off4"
+      }
+    ],
+    "subtitle": "subtitle.goety.resonance_crystal_off"
+  },
+  "resonance_crystal_loop": {
+    "sounds": [
+      {
+        "name": "goety:block/resonance_crystal_loop1"
+      },
+      {
+        "name": "goety:block/resonance_crystal_loop2"
+      }
+    ],
+    "subtitle": "subtitle.goety.resonance_crystal_loop"
+  },
+  "resonance_crystal_sparks": {
+    "sounds": [
+      {
+        "name": "goety:block/resonance_crystal_sparks1"
+      },
+      {
+        "name": "goety:block/resonance_crystal_sparks2"
+      },
+      {
+        "name": "goety:block/resonance_crystal_sparks3"
+      },
+      {
+        "name": "goety:block/resonance_crystal_sparks4"
+      },
+      {
+        "name": "goety:block/resonance_crystal_sparks5"
+      }
+    ],
+    "subtitle": "subtitle.goety.resonance_crystal_sparks"
   },
   "apostle_theme": {
     "sounds": [

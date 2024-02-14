@@ -188,11 +188,11 @@ public class Summoned extends Owned implements IServant {
                 }
             }
         }
-        boolean flag = this.isSunSensitive() && this.isSunBurnTick();
+        boolean flag = this.isSunSensitive() && this.isSunBurnTick() && MobsConfig.UndeadServantSunlightBurn.get();
         if (flag) {
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
             if (!itemstack.isEmpty()) {
-                if (itemstack.isDamageableItem()) {
+                if (itemstack.isDamageableItem() && MobsConfig.UndeadServantSunlightHelmet.get()) {
                     itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
                     if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
                         this.broadcastBreakEvent(EquipmentSlot.HEAD);

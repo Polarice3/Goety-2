@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.ResonanceCrystalBlock;
 import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -9,6 +11,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -74,7 +77,11 @@ public class WindBlowerBlockEntity extends BlockEntity {
 
             int distance;
             for (distance = 1; distance < state.getValue(WindBlowerBlock.POWER); distance++) {
-                BlockState state2 = this.level.getBlockState(getBlockPos().relative(facing, distance));
+                BlockPos blockPos = getBlockPos().relative(facing, distance);
+                BlockState state2 = this.level.getBlockState(blockPos);
+                if (this.level.getBlockEntity(blockPos) instanceof IWindPowered windPowered){
+                    windPowered.activate(20);
+                }
                 if (state2.getMaterial().isSolidBlocking() || state2.getMaterial().isLiquid()) {
                     break;
                 }

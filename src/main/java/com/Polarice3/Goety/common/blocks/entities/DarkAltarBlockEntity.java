@@ -25,6 +25,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -44,10 +45,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -217,7 +222,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         if (this.level.getGameTime() % 20 == 0) {
                             if (this.cursedCageTile.getSouls() >= recipe.getSoulCost()){
                                 this.cursedCageTile.decreaseSouls(recipe.getSoulCost());
-                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(this.worldPosition, SoundEvents.SCULK_CATALYST_BLOOM, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F));
+                                serverWorld.playSound(null, this.worldPosition, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 1.0F, this.level.random.nextFloat() * 0.1F + 0.9F);
                                 serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, (double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 1.15D, (double)this.worldPosition.getZ() + 0.5D, 2, 0.2D, 0.0D, 0.2D, 0.0D);
                                 this.currentTime++;
                             } else {
@@ -452,8 +457,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
             this.castingPlayer = null;
             this.currentTime = 0;
             this.sacrificeProvided = false;
-            if (this.remainingAdditionalIngredients != null)
+            if (this.remainingAdditionalIngredients != null) {
                 this.remainingAdditionalIngredients.clear();
+            }
             this.consumedIngredients.clear();
             this.structureTime = 0;
             this.setChanged();
@@ -527,6 +533,21 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         } else {
             return false;
         }
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return this.itemStackHandler.cast();
+        }
+        return super.getCapability(cap, direction);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.itemStackHandler.invalidate();
     }
 
 }

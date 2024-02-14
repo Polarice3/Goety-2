@@ -23,7 +23,11 @@ public class PhilosophersStone extends Item implements IForgeItem, ISoulRepair {
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
         ItemStack container = itemStack.copy();
-        container.setDamageValue(itemStack.getDamageValue() + 1);
+        if (container.getDamageValue() <= container.getMaxDamage()) {
+            container.setDamageValue(itemStack.getDamageValue() + 1);
+        } else {
+            container = ItemStack.EMPTY;
+        }
         return container;
     }
 
