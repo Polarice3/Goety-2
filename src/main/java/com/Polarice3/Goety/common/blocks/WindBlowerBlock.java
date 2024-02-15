@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,8 +24,8 @@ public class WindBlowerBlock extends DirectionalBlock implements EntityBlock {
     public static final IntegerProperty POWER = BlockStateProperties.POWER;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-    public WindBlowerBlock() {
-        super(ModBlocks.ShadeStoneProperties());
+    public WindBlowerBlock(BlockBehaviour.Properties p_52591_) {
+        super(p_52591_);
         this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 0).setValue(POWERED, false));
     }
 

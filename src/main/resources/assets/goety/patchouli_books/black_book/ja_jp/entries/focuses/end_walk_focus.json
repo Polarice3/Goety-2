@@ -8,7 +8,7 @@
       "text": "焦点はジ・エンドのエネルギーを利用し、短時間の間、鎧さえも隠す真の透明性を与えます。 ただし、クリーチャーやブロックと対話すると、透明性が解除されるだけでなく、呪文を唱えた場所にテレポートされてしまいます。"
     },
     {
-      "type": "patchouli:crafting",
+      "type": "goety:ritual",
       "recipe": "goety:focus/end_walk_focus"
     }
   ]

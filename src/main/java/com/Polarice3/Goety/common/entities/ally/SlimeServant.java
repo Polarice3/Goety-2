@@ -13,12 +13,19 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -28,6 +35,8 @@ import java.util.EnumSet;
 
 public class SlimeServant extends Summoned{
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(SlimeServant.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(SlimeServant.class, EntityDataSerializers.BOOLEAN);
+    private float interestTime;
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 127;
     public float targetSquish;
@@ -37,7 +46,7 @@ public class SlimeServant extends Summoned{
 
     public SlimeServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
-        this.moveControl = new SlimeMoveControl(this);
+        this.moveControl = new SlimeServantMoveControl(this);
     }
 
     protected void registerGoals() {
@@ -49,12 +58,18 @@ public class SlimeServant extends Summoned{
     }
 
     public void followGoal(){
-        this.goalSelector.addGoal(8, new SlimeFollowGoal(this, 1.0F, 10.0F));
+        this.goalSelector.addGoal(8, new SlimeFollowGoal(this, 4.0F, 10.0F));
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.ATTACK_DAMAGE);
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ID_SIZE, 1);
+        this.entityData.define(DATA_INTERESTED_ID, false);
     }
 
     public void setSize(int p_33594_, boolean p_33595_) {
@@ -74,6 +89,14 @@ public class SlimeServant extends Summoned{
 
     public int getSize() {
         return this.entityData.get(ID_SIZE);
+    }
+
+    public void setIsInterested(boolean pBeg) {
+        this.entityData.set(DATA_INTERESTED_ID, pBeg);
+    }
+
+    public boolean isInterested() {
+        return this.entityData.get(DATA_INTERESTED_ID);
     }
 
     public void addAdditionalSaveData(CompoundTag p_33619_) {
@@ -103,6 +126,14 @@ public class SlimeServant extends Summoned{
     public void tick() {
         this.squish += (this.targetSquish - this.squish) * 0.5F;
         this.oSquish = this.squish;
+        if (this.isAlive()) {
+            if (this.isInterested()) {
+                --this.interestTime;
+            }
+            if (this.interestTime <= 0){
+                this.setIsInterested(false);
+            }
+        }
         super.tick();
         if (this.onGround() && !this.wasOnGround) {
             int i = this.getSize();
@@ -180,6 +211,9 @@ public class SlimeServant extends Summoned{
                 slime.setNoAi(flag);
                 slime.setInvulnerable(this.isInvulnerable());
                 slime.setSize(j, true);
+                if (this.getTrueOwner() != null) {
+                    slime.setTrueOwner(this.getTrueOwner());
+                }
                 slime.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);
                 this.level.addFreshEntity(slime);
             }
@@ -281,6 +315,95 @@ public class SlimeServant extends Summoned{
         return false;
     }
 
+    public Item getIncreaseItem(){
+        return Items.SLIME_BLOCK;
+    }
+
+    public Item getHealItem(){
+        return Items.SLIME_BALL;
+    }
+
+    public InteractionResult mobInteract(Player p_34394_, InteractionHand p_34395_) {
+        ItemStack itemstack = p_34394_.getItemInHand(p_34395_);
+        if (itemstack.is(this.getIncreaseItem())) {
+            if (this.getSize() < 4) {
+                if (!p_34394_.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+
+                this.setSize(this.getSize() + 1, true);
+                this.playSound(SoundEvents.SLIME_ATTACK);
+
+                return InteractionResult.SUCCESS;
+            } else if (this.getHealth() < this.getMaxHealth()) {
+                if (!p_34394_.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.heal(20.0F);
+                this.playSound(this.getSquishSound());
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.CONSUME;
+            }
+        } else if (itemstack.is(this.getHealItem())) {
+            if (this.getHealth() < this.getMaxHealth()) {
+                if (!p_34394_.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.heal(2.0F);
+                this.playSound(this.getSquishSound());
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.CONSUME;
+            }
+        } else if (this.getTrueOwner() != null && p_34394_ == this.getTrueOwner()) {
+            if (!this.isInterested()) {
+                if (itemstack.isEmpty()) {
+                    this.setIsInterested(true);
+                    this.interestTime = 40;
+                    this.level.broadcastEntityEvent(this, (byte) 102);
+                    this.playSound(this.getSquishSound(), 1.0F, 2.0F);
+                    this.heal(1.0F);
+                    if (this instanceof MagmaCubeServant){
+                        if (!p_34394_.fireImmune()){
+                            p_34394_.setSecondsOnFire(5);
+                            if (p_34394_.hurt(this.damageSources().hotFloor(), 2.0F)) {
+                                p_34394_.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + this.random.nextFloat() * 0.4F);
+                            }
+                        }
+                    }
+                    return InteractionResult.SUCCESS;
+                } else {
+                    return InteractionResult.CONSUME;
+                }
+            } else {
+                return InteractionResult.CONSUME;
+            }
+        } else {
+            return super.mobInteract(p_34394_, p_34395_);
+        }
+    }
+
+    public void handleEntityEvent(byte pId) {
+        super.handleEntityEvent(pId);
+        if (pId == 102){
+            this.setIsInterested(true);
+            this.interestTime = 40;
+            this.playSound(SoundEvents.SLIME_SQUISH, 1.0F, 2.0F);
+            this.addParticlesAroundSelf(ParticleTypes.HEART);
+        }
+    }
+
+    protected void addParticlesAroundSelf(ParticleOptions pParticleData) {
+        for(int i = 0; i < 5; ++i) {
+            double d0 = this.random.nextGaussian() * 0.02D;
+            double d1 = this.random.nextGaussian() * 0.02D;
+            double d2 = this.random.nextGaussian() * 0.02D;
+            this.level.addParticle(pParticleData, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+        }
+
+    }
+
     static class SlimeAttackGoal extends Goal {
         private final SlimeServant slime;
         private int growTiredTimer;
@@ -295,7 +418,7 @@ public class SlimeServant extends Summoned{
             if (livingentity == null) {
                 return false;
             } else {
-                return this.slime.canAttack(livingentity) && this.slime.getMoveControl() instanceof SlimeMoveControl;
+                return this.slime.canAttack(livingentity) && this.slime.getMoveControl() instanceof SlimeServantMoveControl;
             }
         }
 
@@ -325,7 +448,10 @@ public class SlimeServant extends Summoned{
                 this.slime.lookAt(livingentity, 10.0F, 10.0F);
             }
 
-            ((SlimeMoveControl)this.slime.getMoveControl()).setDirection(this.slime.getYRot(), this.slime.isDealsDamage());
+            MoveControl movecontrol = this.slime.getMoveControl();
+            if (movecontrol instanceof SlimeServantMoveControl slime$slimemovecontrol) {
+                slime$slimemovecontrol.setDirection(this.slime.getYRot(), this.slime.isDealsDamage());
+            }
         }
     }
 
@@ -339,14 +465,14 @@ public class SlimeServant extends Summoned{
             this.slime = p_33648_;
             this.startDistance = startDistance;
             this.stopDistance = stopDistance;
-            this.setFlags(EnumSet.of(Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {
             LivingEntity livingentity = this.slime.getTrueOwner();
             if (livingentity == null) {
                 return false;
-            } else if (!(this.slime.getMoveControl() instanceof SlimeMoveControl)){
+            } else if (!(this.slime.getMoveControl() instanceof SlimeServantMoveControl)){
                 return false;
             } else if (livingentity.isSpectator()) {
                 return false;
@@ -385,7 +511,11 @@ public class SlimeServant extends Summoned{
                 this.slime.lookAt(this.owner, 10.0F, 10.0F);
             }
 
-            ((SlimeMoveControl)this.slime.getMoveControl()).setDirection(this.slime.getYRot(), true);
+            MoveControl movecontrol = this.slime.getMoveControl();
+            if (movecontrol instanceof SlimeServantMoveControl slime$slimemovecontrol) {
+                slime$slimemovecontrol.setDirection(this.slime.getYRot(), true);
+                slime$slimemovecontrol.setWantedMovement(1.0D);
+            }
         }
     }
 
@@ -399,7 +529,9 @@ public class SlimeServant extends Summoned{
         }
 
         public boolean canUse() {
-            return (this.slime.isInWater() || this.slime.isInLava()) && this.slime.getMoveControl() instanceof SlimeMoveControl;
+            return (this.slime.isInWater()
+                    || this.slime.isInLava())
+                    && this.slime.getMoveControl() instanceof SlimeServantMoveControl;
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -411,7 +543,10 @@ public class SlimeServant extends Summoned{
                 this.slime.getJumpControl().jump();
             }
 
-            ((SlimeMoveControl)this.slime.getMoveControl()).setWantedMovement(1.2D);
+            MoveControl movecontrol = this.slime.getMoveControl();
+            if (movecontrol instanceof SlimeServantMoveControl slime$slimemovecontrol) {
+                slime$slimemovecontrol.setWantedMovement(1.2D);
+            }
         }
     }
 
@@ -424,21 +559,27 @@ public class SlimeServant extends Summoned{
         }
 
         public boolean canUse() {
-            return !this.slime.isPassenger() && (this.slime.getTrueOwner() == null || this.slime.isWandering() || this.slime.isStaying());
+            return !this.slime.isPassenger()
+                    && !this.slime.isStaying()
+                    && (this.slime.getTrueOwner() == null
+                    || this.slime.isWandering() || this.slime.getTarget() != null);
         }
 
         public void tick() {
-            ((SlimeMoveControl)this.slime.getMoveControl()).setWantedMovement(1.0D);
+            MoveControl movecontrol = this.slime.getMoveControl();
+            if (movecontrol instanceof SlimeServantMoveControl slime$slimemovecontrol) {
+                slime$slimemovecontrol.setWantedMovement(1.0D);
+            }
         }
     }
 
-    static class SlimeMoveControl extends MoveControl {
+    static class SlimeServantMoveControl extends MoveControl {
         private float yRot;
         private int jumpDelay;
         private final SlimeServant slime;
         private boolean isAggressive;
 
-        public SlimeMoveControl(SlimeServant p_33668_) {
+        public SlimeServantMoveControl(SlimeServant p_33668_) {
             super(p_33668_);
             this.slime = p_33668_;
             this.yRot = 180.0F * p_33668_.getYRot() / (float)Math.PI;
@@ -451,17 +592,17 @@ public class SlimeServant extends Summoned{
 
         public void setWantedMovement(double p_33671_) {
             this.speedModifier = p_33671_;
-            this.operation = Operation.MOVE_TO;
+            this.operation = MoveControl.Operation.MOVE_TO;
         }
 
         public void tick() {
             this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.yRot, 90.0F));
             this.mob.yHeadRot = this.mob.getYRot();
             this.mob.yBodyRot = this.mob.getYRot();
-            if (this.operation != Operation.MOVE_TO) {
+            if (this.operation != MoveControl.Operation.MOVE_TO) {
                 this.mob.setZza(0.0F);
             } else {
-                this.operation = Operation.WAIT;
+                this.operation = MoveControl.Operation.WAIT;
                 if (this.mob.onGround()) {
                     this.mob.setSpeed((float)(this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                     if (this.jumpDelay-- <= 0) {
@@ -498,7 +639,10 @@ public class SlimeServant extends Summoned{
         }
 
         public boolean canUse() {
-            return this.slime.getTarget() == null && (this.slime.onGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(MobEffects.LEVITATION)) && this.slime.getMoveControl() instanceof SlimeMoveControl;
+            return this.slime.getTarget() == null
+                    && (this.slime.getTrueOwner() == null || this.slime.isWandering())
+                    && (this.slime.onGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(MobEffects.LEVITATION))
+                    && this.slime.getMoveControl() instanceof SlimeServantMoveControl;
         }
 
         public void tick() {
@@ -507,7 +651,10 @@ public class SlimeServant extends Summoned{
                 this.chosenDegrees = (float)this.slime.getRandom().nextInt(360);
             }
 
-            ((SlimeMoveControl)this.slime.getMoveControl()).setDirection(this.chosenDegrees, false);
+            MoveControl movecontrol = this.slime.getMoveControl();
+            if (movecontrol instanceof SlimeServantMoveControl slime$slimemovecontrol) {
+                slime$slimemovecontrol.setDirection(this.chosenDegrees, false);
+            }
         }
     }
 }

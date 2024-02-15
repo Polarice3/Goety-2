@@ -394,11 +394,6 @@ public class PotionEvents {
         Entity attacker = event.getSource().getEntity();
 
         if (attacker instanceof LivingEntity living) {
-            if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())){
-                int multiply = 2 + EffectsUtil.getAmplifier(living, GoetyEffects.SHADOW_WALK.get());
-                event.setAmount(event.getAmount() * multiply);
-                living.removeEffect(GoetyEffects.SHADOW_WALK.get());
-            }
             if (victim.hasEffect(GoetyEffects.REPULSIVE.get())) {
                 MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.REPULSIVE.get());
                 if (mobEffectInstance != null){
@@ -441,6 +436,20 @@ public class PotionEvents {
                 if (event.getSource().is(DamageTypeTags.IS_FIRE)) {
                     event.setAmount(event.getAmount() * a);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void DamageEvents(LivingDamageEvent event){
+        LivingEntity victim = event.getEntity();
+        Entity attacker = event.getSource().getEntity();
+
+        if (attacker instanceof LivingEntity living) {
+            if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+                float multiply = 1.25F + (EffectsUtil.getAmplifier(living, GoetyEffects.SHADOW_WALK.get()) / 4.0F);
+                event.setAmount(event.getAmount() * multiply);
+                living.removeEffect(GoetyEffects.SHADOW_WALK.get());
             }
         }
     }

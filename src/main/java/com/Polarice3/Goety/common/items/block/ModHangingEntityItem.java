@@ -1,4 +1,4 @@
-package com.Polarice3.Goety.common.items;
+package com.Polarice3.Goety.common.items.block;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.ChatFormatting;

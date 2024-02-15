@@ -2,15 +2,19 @@ package com.Polarice3.Goety.data;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
@@ -31,9 +35,11 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
                 ModEntityType.HAUNTED_ARMOR_SERVANT.get());
+        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.MAGMA_CUBE_SERVANT.get());
         this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
                 ModEntityType.BORDER_WRAITH.get());
+        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(ModEntityType.MAGMA_CUBE_SERVANT.get());
         this.tag(EntityTypeTags.RAIDERS).add(ModEntityType.ARMORED_RAVAGER.get(),
                 ModEntityType.WARLOCK.get(),
                 ModEntityType.CRONE.get(),
@@ -58,5 +64,31 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.GRAND_LAVABALL.get(),
                 ModEntityType.HAUNTED_SKULL_SHOT.get(),
                 ModEntityType.MOD_WITHER_SKULL.get());
+        this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityType.SLIME_SERVANT.get(),
+                ModEntityType.MAGMA_CUBE_SERVANT.get(),
+                ModEntityType.CRYPT_SLIME.get());
+
+        //Based on https://github.com/ochotonida/artifacts/blob/1.20.x/data/src/main/java/artifacts/data/providers/EntityTypeTags.java for max compat
+        this.tag(ModTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
+
+        List<String> creepers = Arrays.asList(
+                "jungle_creeper",
+                "bamboo_creeper",
+                "desert_creeper",
+                "badlands_creeper",
+                "hills_creeper",
+                "savannah_creeper",
+                "mushroom_creeper",
+                "swamp_creeper",
+                "dripstone_creeper",
+                "cave_creeper",
+                "dark_oak_creeper",
+                "spruce_creeper",
+                "beach_creeper",
+                "snowy_creeper"
+        );
+        for (String creeper : creepers) {
+            this.tag(ModTags.EntityTypes.CREEPERS).addOptional(new ResourceLocation("creeperoverhaul", creeper));
+        }
     }
 }

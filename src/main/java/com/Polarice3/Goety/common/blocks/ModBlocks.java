@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.block.ModISTER;
 import com.Polarice3.Goety.common.items.*;
+import com.Polarice3.Goety.common.items.block.*;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
 import com.Polarice3.Goety.common.world.features.trees.RottenTree;
 import com.Polarice3.Goety.common.world.features.trees.WindsweptTree;
@@ -51,7 +52,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOUL_ABSORBER = register("soul_absorber", SoulAbsorberBlock::new);
     public static final RegistryObject<Block> SOUL_MENDER = register("soul_mender", SoulMenderBlock::new);
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
-    public static final RegistryObject<Block> WIND_BLOWER = register("wind_blower", WindBlowerBlock::new);
+    public static final RegistryObject<Block> WIND_BLOWER = register("wind_blower", () -> new WindBlowerBlock(ShadeStoneProperties()));
+    public static final RegistryObject<Block> MARBLE_WIND_BLOWER = register("marble_wind_blower", () -> new WindBlowerBlock(MarbleProperties()));
+    public static final RegistryObject<Block> RESONANCE_CRYSTAL = register("resonance_crystal", ResonanceCrystalBlock::new, false);
     public static final RegistryObject<Block> SCULK_DEVOURER = enchantedRegister("sculk_devourer", SculkDevourerBlock::new);
     public static final RegistryObject<Block> SCULK_CONVERTER = enchantedRegister("sculk_converter", SculkConverterBlock::new);
     public static final RegistryObject<Block> SCULK_RELAY = register("sculk_relay", SculkRelayBlock::new, true, LootTableType.EMPTY);

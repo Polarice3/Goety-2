@@ -341,6 +341,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<CryptSlime>> CRYPT_SLIME = register("crypt_slime",
+            EntityType.Builder.<CryptSlime>of(CryptSlime::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<CairnNecromancer>> CAIRN_NECROMANCER = register("cairn_necromancer",
             EntityType.Builder.of(CairnNecromancer::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.4875F)
@@ -456,6 +461,17 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .fireImmune());
 
+    public static final RegistryObject<EntityType<SlimeServant>> SLIME_SERVANT = register("slime_servant",
+            EntityType.Builder.of(SlimeServant::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<MagmaCubeServant>> MAGMA_CUBE_SERVANT = register("magma_cube_servant",
+            EntityType.Builder.of(MagmaCubeServant::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .fireImmune()
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Ravaged>> RAVAGED = register("ravaged",
             EntityType.Builder.of(Ravaged::new, MobCategory.MONSTER)
                     .sized(1.0F, 1.0F)
@@ -474,6 +490,11 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<ZombieRavager>> ZOMBIE_RAVAGER = register("zombie_ravager",
             EntityType.Builder.of(ZombieRavager::new, MobCategory.MONSTER)
                     .sized(1.95F, 2.2F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<SquallGolem>> SQUALL_GOLEM = register("squall_golem",
+            EntityType.Builder.of(SquallGolem::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.5F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<RedstoneGolem>> REDSTONE_GOLEM = register("redstone_golem",

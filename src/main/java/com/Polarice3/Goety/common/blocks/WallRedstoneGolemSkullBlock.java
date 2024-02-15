@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.RedstoneGolemSkullBlockEntity;
-import com.Polarice3.Goety.common.items.RedstoneGolemSkullItem;
+import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;

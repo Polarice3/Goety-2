@@ -42,12 +42,12 @@ public class SculkDevourerBlockEntity extends OwnedBlockEntity implements GameEv
         return super.writeNetwork(tag);
     }
 
-    public boolean handleEventsImmediately() {
-        return true;
-    }
-
     public PositionSource getListenerSource() {
         return this.blockPosSource;
+    }
+
+    public GameEventListener.DeliveryMode getDeliveryMode() {
+        return GameEventListener.DeliveryMode.BY_DISTANCE;
     }
 
     public int getListenerRadius() {

@@ -45,6 +45,9 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
 
@@ -80,11 +83,16 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightBurn;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightHelmet;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
 
     static {
         BUILDER.push("Textures");
@@ -127,6 +135,12 @@ public class MobsConfig {
                 VexTexture = BUILDER.comment("If Vexes have custom textures, Default: true")
                         .define("vexTexture", true);
                 BUILDER.pop();
+                BUILDER.push("Slime Servants");
+                SlimeServantTexture = BUILDER.comment("If Slime Servants have custom textures, Default: true")
+                        .define("slimeServantTexture", true);
+                MagmaCubeServantTexture = BUILDER.comment("If Magma Cube Servants have custom textures, Default: true")
+                        .define("magmaCubeServantTexture", true);
+                BUILDER.pop();
                 BUILDER.push("Redstone Golem");
                 RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
                         .define("redstoneGolemCrack", false);
@@ -141,6 +155,10 @@ public class MobsConfig {
                     .define("necroRobeUndead", false);
             UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
                     .define("undeadServantsHeal", true);
+            UndeadServantSunlightBurn = BUILDER.comment("Whether Undead Servants burn in Sunlight if not wearing helmet, Default: true")
+                    .define("undeadServantSunlightBurn", true);
+            UndeadServantSunlightHelmet = BUILDER.comment("Whether Undead Servants' helmet take damage when in Sunlight. Only takes effect if undeadServantSunlightBurn is enabled, Default: true")
+                    .define("undeadServantSunlightHelmet", true);
             UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
                     .defineInRange("undeadServantsHealCost", 5, 0, Integer.MAX_VALUE);
             UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
@@ -238,6 +256,8 @@ public class MobsConfig {
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
+        HostileCryptUndead = BUILDER.comment("Whether undead mobs in the Crypts remain hostile even if players wear Necro Set, Default: true")
+                .define("hostileCryptUndead", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

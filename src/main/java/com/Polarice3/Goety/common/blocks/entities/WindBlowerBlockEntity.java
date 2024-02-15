@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.WindBlowerBlock;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -74,7 +75,11 @@ public class WindBlowerBlockEntity extends BlockEntity {
 
             int distance;
             for (distance = 1; distance < state.getValue(WindBlowerBlock.POWER); distance++) {
-                BlockState state2 = this.level.getBlockState(getBlockPos().relative(facing, distance));
+                BlockPos blockPos = getBlockPos().relative(facing, distance);
+                BlockState state2 = this.level.getBlockState(blockPos);
+                if (this.level.getBlockEntity(blockPos) instanceof IWindPowered windPowered){
+                    windPowered.activate(20);
+                }
                 if (state2.isSolid() || state2.liquid()) {
                     break;
                 }

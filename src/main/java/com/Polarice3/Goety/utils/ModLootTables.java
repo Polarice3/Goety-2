@@ -16,6 +16,7 @@ public class ModLootTables {
     public static final ResourceLocation TALL_SKULL = register("entities/tall_skull_mobs");
     public static final ResourceLocation PLAYER_WITCH = register("entities/player_witch");
     public static final ResourceLocation CULTISTS = register("entities/cultist_extra");
+    public static final ResourceLocation CRYPT_SLIME = register("entities/crypt_slime");
     public static final ResourceLocation APOSTLE_HARD = register("entities/apostle_2");
 
     public static final ResourceLocation WITCH_BARTER = register("gameplay/witch_bartering");
