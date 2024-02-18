@@ -11,6 +11,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -102,7 +104,7 @@ public class LichEvents {
             if (MainConfig.LichVillagerHate.get() && player.tickCount % 20 == 0) {
                 for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
                     if (villager.getPlayerReputation(player) > -200 && villager.getPlayerReputation(player) < 100) {
-                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
+                            villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
                     }
                 }
                 for (IronGolem ironGolem : player.level.getEntitiesOfClass(IronGolem.class, player.getBoundingBox().inflate(16.0D))) {

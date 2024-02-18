@@ -118,9 +118,9 @@ public class EffectsUtil {
 
     public static boolean canAffectLich(MobEffectInstance effectInstance, Level world) {
         return canAffectLichCache.computeIfAbsent(effectInstance.getEffect(), effect ->
-                effect != MobEffects.BLINDNESS && effect != MobEffects.CONFUSION &&
-                        effect != MobEffects.HUNGER && effect != MobEffects.SATURATION &&
-                        new Zombie(world).canBeAffected(effectInstance)
-        );
+                    effect != MobEffects.BLINDNESS && effect != MobEffects.CONFUSION &&
+                    effect != MobEffects.HUNGER && effect != MobEffects.SATURATION &&
+                    new Zombie(world).canBeAffected(effectInstance)
+                );
     }
 }
