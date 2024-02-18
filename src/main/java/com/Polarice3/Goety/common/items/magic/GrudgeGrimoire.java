@@ -33,11 +33,19 @@ public class GrudgeGrimoire extends Item {
             if (pAttacker instanceof Player attacker) {
                 if (MobUtil.isShifting(attacker)) {
                     if (SEHelper.addGrudgeEntityType(attacker, pTarget.getType())) {
+                        if (SEHelper.getAllyEntityTypes(attacker).contains(pTarget.getType())){
+                            SEHelper.removeAllyEntityType(attacker, pTarget.getType());
+                            attacker.displayClientMessage(Component.translatable("info.goety.goodwill.removeType", I18n.get(pTarget.getType().getDescriptionId())), true);
+                        }
                         pTarget.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.25F);
                         attacker.displayClientMessage(Component.translatable("info.goety.grimoire.addType", I18n.get(pTarget.getType().getDescriptionId())), true);
                     }
                 } else {
                     if (SEHelper.addGrudgeEntity(attacker, pTarget)) {
+                        if (SEHelper.getAllyEntities(attacker).contains(pTarget)){
+                            SEHelper.removeAllyEntity(attacker, pTarget);
+                            attacker.displayClientMessage(Component.translatable("info.goety.goodwill.remove", I18n.get(pTarget.getType().getDescriptionId())), true);
+                        }
                         pTarget.playSound(SoundEvents.ARROW_HIT_PLAYER);
                         attacker.displayClientMessage(Component.translatable("info.goety.grimoire.add", pTarget.getDisplayName()), true);
                     }

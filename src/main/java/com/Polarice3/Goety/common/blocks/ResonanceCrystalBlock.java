@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.blocks.entities.ResonanceCrystalBlockEntity;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,7 +57,7 @@ public class ResonanceCrystalBlock extends BaseEntityBlock {
     public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @javax.annotation.Nullable BlockEntity pTe, ItemStack pStack) {
         ItemStack itemStack = new ItemStack(this);
         if (pTe instanceof ResonanceCrystalBlockEntity blockEntity) {
-            this.setItemStackTags(itemStack, pPlayer, blockEntity);
+            this.setItemStackTags(itemStack, blockEntity);
         }
         popResource(pLevel, pPos, itemStack);
         super.playerDestroy(pLevel, pPlayer, pPos, pState, pTe, pStack);
@@ -66,17 +67,25 @@ public class ResonanceCrystalBlock extends BaseEntityBlock {
         ItemStack itemStack = new ItemStack(this);
         BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity instanceof ResonanceCrystalBlockEntity blockEntity) {
-            this.setItemStackTags(itemStack, player, blockEntity);
+            this.setItemStackTags(itemStack, blockEntity);
         }
         return itemStack;
     }
 
-    public void setItemStackTags(ItemStack itemStack, Player pPlayer, ResonanceCrystalBlockEntity tileEntity){
+    public void setItemStackTags(ItemStack itemStack, ResonanceCrystalBlockEntity tileEntity){
         if (!tileEntity.getUuids().isEmpty()){
             for (UUID uuid : tileEntity.getUuids()) {
-                ResonanceBlockItem.setUUIDs(itemStack, pPlayer, uuid);
+                ResonanceBlockItem.setUUIDs(itemStack, uuid);
             }
         }
+    }
+
+    public boolean isSignalSource(BlockState p_55213_) {
+        return true;
+    }
+
+    public int getSignal(BlockState p_55208_, BlockGetter p_55209_, BlockPos p_55210_, Direction p_55211_) {
+        return p_55208_.getValue(POWERED) ? 15 : 0;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

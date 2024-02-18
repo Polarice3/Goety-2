@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:mossy_stone_brick_wall"
+    }
+  ],
+  "block_result": "minecraft:mossy_cobblestone_wall"
+}

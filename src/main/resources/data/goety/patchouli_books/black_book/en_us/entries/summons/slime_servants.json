@@ -1,0 +1,23 @@
+{
+  "name": "Slime Servant",
+  "icon": "minecraft:slime_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With an $(l:crafts/cores)Animation Core$(), you're able to bring a block of slime to life as a loyal Slime Servant."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:slime_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Slimes aren't the only thing you can animate into loyal servants. Using an animation core on a magma block will transform it into a loyal Magma Cube servant."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:magma_cube_servant"
+    }
+  ]
+}

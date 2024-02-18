@@ -134,6 +134,10 @@ public class SoulEnergyEvents {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                 return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
             });
+            soulEnergy.allyList().removeIf(uuid -> {
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
+            });
             soulEnergy.summonList().removeIf(uuid -> {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                 return entity == null || !entity.isAlive() || entity.isRemoved();

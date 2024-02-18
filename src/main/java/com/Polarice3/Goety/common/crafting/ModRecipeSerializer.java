@@ -47,6 +47,11 @@ public class ModRecipeSerializer {
     public static final RegistryObject<RecipeSerializer<BrewingRecipe>> BREWING = RECIPE_SERIALIZERS.register("brewing",
             () -> BrewingRecipe.SERIALIZER);
 
+    public static final RegistryObject<RecipeType<PulverizeRecipe>> PULVERIZE_TYPE = register("pulverize");
+
+    public static final RegistryObject<RecipeSerializer<PulverizeRecipe>> PULVERIZE = RECIPE_SERIALIZERS.register("pulverize",
+            () -> PulverizeRecipe.SERIALIZER);
+
     public static final RegistryObject<RecipeSerializer<ModShapelessRecipe>> MODDED_SHAPELESS = RECIPE_SERIALIZERS.register("crafting_shapeless",
             ModShapelessRecipe.Serializer::new);
 

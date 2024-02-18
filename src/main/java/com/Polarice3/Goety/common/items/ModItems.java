@@ -111,12 +111,14 @@ public class ModItems {
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
+    public static final RegistryObject<Item> GRIMOIRE_OF_GOODWILL = ITEMS.register("grimoire_of_goodwill", GoodwillGrimoire::new);
 
     public static final RegistryObject<Item> RAVAGING_SCROLL = ITEMS.register("ravaging_scroll", () -> new Scroll(ResearchList.RAVAGING));
     public static final RegistryObject<Item> WARRED_SCROLL = ITEMS.register("warred_scroll", () -> new Scroll(ResearchList.WARRED));
     public static final RegistryObject<Item> BURIED_SCROLL = ITEMS.register("buried_scroll", () -> new Scroll(ResearchList.BURIED));
     public static final RegistryObject<Item> HAUNTING_SCROLL = ITEMS.register("haunting_scroll", () -> new Scroll(ResearchList.HAUNTING));
     public static final RegistryObject<Item> FRONT_SCROLL = ITEMS.register("front_scroll", () -> new Scroll(ResearchList.FRONT));
+    public static final RegistryObject<Item> MISTRAL_SCROLL = ITEMS.register("mistral_scroll", () -> new Scroll(ResearchList.MISTRAL));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
 
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);

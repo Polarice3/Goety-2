@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "goety:wind_shrine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1321010123,
+    "spacing": 60,
+    "separation": 20,
+    "type": "minecraft:random_spread"
+  }
+}

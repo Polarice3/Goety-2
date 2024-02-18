@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:clay"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:clay_ball",
+    "count": 4
+  }
+}

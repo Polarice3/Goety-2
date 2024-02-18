@@ -19,6 +19,14 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:indented_gold/indented_gold_craft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Highrock blocks are said to be the rocks that make up the tallest peaks of the world. From what you've heard, they seemed to be a variant of Andesite and its polished version is used on the highest forges."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:highrock/highrock_craft"
     }
   ]
 }

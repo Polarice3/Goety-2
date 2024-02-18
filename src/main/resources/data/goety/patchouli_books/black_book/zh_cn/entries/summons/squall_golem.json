@@ -1,0 +1,42 @@
+{
+  "name": "呼啸傀儡",
+  "icon": "goety:jade_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_mistral_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "烈风圣殿之内似乎保存着一份制作呼啸傀儡的蓝图。事实上，这些傀儡似乎与其他同类傀儡大不相同，因为它似乎需要外部能量供能才会启动并且开始执行任务。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:squall_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:squall_golem",
+      "text": "手持活力核心右键点击中间的玉块。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当呼啸傀儡被创造时，它不会活动，并且不知何故不会受到伤害。傀儡需要一个名为共振晶体的方块提供能量才能发挥作用。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:resonance_crystal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要激活傀儡，你应该通过左键单击其上的水晶来绑定傀儡。绑定后，鼓风机会提供动力，向共振晶体提供风力。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当开始供能后，水晶会激活傀儡。如果水晶破碎或失效，傀儡将关闭并再次沉睡。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "傀儡只能跟随创造者或待命，不能像其他仆从一样游荡。如果它被损坏，可以使用玉或玉石块修复傀儡。"
+    }
+  ]
+}

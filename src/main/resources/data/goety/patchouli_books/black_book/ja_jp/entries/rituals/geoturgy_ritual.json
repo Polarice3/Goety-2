@@ -1,0 +1,22 @@
+{
+  "name": "地質学の儀式",
+  "icon": "minecraft:deepslate_bricks",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)祭壇の高さは 32 以下で、空に露出していないのが条件 $(li)1 鍛冶台 $(li)8アメジストブロック $(li)16深層岩"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/geoturgy_ritual.png"],
+      "border": true,
+      "text": "祭祀の置き方の一例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "祭壇を地下深くに設置し、深層岩とアメジストで囲むと、地球を利用してあらゆる種類の宝石や魔法を作成できるようになります。"
+    }
+  ]
+}

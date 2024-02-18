@@ -11,7 +11,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -48,7 +46,7 @@ public class LichEvents {
             player.getFoodData().setFoodLevel(17);
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
             boolean burn = false;
-            if (!world.isClientSide && world.isDay()) {
+            if (!world.isClientSide && world.isDay() && !world.isRaining()) {
                 float f = player.getLightLevelDependentMagicValue();
                 BlockPos blockpos = player.getVehicle() instanceof Boat ? (new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ())).above() : new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ());
                 if (f > 0.5F && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
@@ -80,15 +78,7 @@ public class LichEvents {
                     }
                 }
             }
-            player.getActiveEffects().removeIf(effectInstance -> {
-                MobEffect effect = effectInstance.getEffect();
-                if (!new Zombie(world).canBeAffected(effectInstance)){
-                    return true;
-                } else {
-                    return effect == MobEffects.BLINDNESS || effect == MobEffects.CONFUSION
-                            || effect == MobEffects.HUNGER || effect == MobEffects.SATURATION;
-                }
-            });
+            player.getActiveEffects().removeIf(effectInstance -> !EffectsUtil.canAffectLich(effectInstance, world));
             if (player.hasEffect(GoetyEffects.SOUL_HUNGER.get())){
                 if (SEHelper.getSoulsAmount(player, MainConfig.MaxSouls.get())){
                     player.removeEffect(GoetyEffects.SOUL_HUNGER.get());
@@ -109,12 +99,10 @@ public class LichEvents {
                     }
                 }
             }
-            if (MainConfig.LichVillagerHate.get()) {
+            if (MainConfig.LichVillagerHate.get() && player.tickCount % 20 == 0) {
                 for (Villager villager : player.level.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(16.0D))) {
                     if (villager.getPlayerReputation(player) > -200 && villager.getPlayerReputation(player) < 100) {
-                        if (player.tickCount % 20 == 0) {
-                            villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
-                        }
+                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_NEGATIVE, 25);
                     }
                 }
                 for (IronGolem ironGolem : player.level.getEntitiesOfClass(IronGolem.class, player.getBoundingBox().inflate(16.0D))) {
@@ -131,7 +119,7 @@ public class LichEvents {
                 }
             }
             if (player.isAlive()){
-                player.setAirSupply(player.getMaxAirSupply());
+                player.setAirSupply(player.getMaxAirSupply() + 10);
                 if (MainConfig.LichNightVision.get()) {
                     player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
                 }
@@ -145,19 +133,7 @@ public class LichEvents {
     public static void SpecialPotionEffects(MobEffectEvent.Applicable event){
         if (event.getEntity() instanceof Player player){
             if (LichdomHelper.isLich(player)){
-                if (!new Zombie(player.level).canBeAffected(event.getEffectInstance())){
-                    event.setResult(Event.Result.DENY);
-                }
-                if (event.getEffectInstance().getEffect() == MobEffects.BLINDNESS){
-                    event.setResult(Event.Result.DENY);
-                }
-                if (event.getEffectInstance().getEffect() == MobEffects.CONFUSION){
-                    event.setResult(Event.Result.DENY);
-                }
-                if (event.getEffectInstance().getEffect() == MobEffects.HUNGER){
-                    event.setResult(Event.Result.DENY);
-                }
-                if (event.getEffectInstance().getEffect() == MobEffects.SATURATION){
+                if (!EffectsUtil.canAffectLich(event.getEffectInstance(), player.level)) {
                     event.setResult(Event.Result.DENY);
                 }
             }

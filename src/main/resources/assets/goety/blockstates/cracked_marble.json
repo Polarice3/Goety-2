@@ -6,6 +6,33 @@
       },
       {
         "model": "goety:block/cracked_marble",
+        "x": 90
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 180
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 270
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "y": 90
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 270,
         "y": 90
       },
       {
@@ -14,6 +41,36 @@
       },
       {
         "model": "goety:block/cracked_marble",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "y": 270
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/cracked_marble",
+        "x": 270,
         "y": 270
       }
     ]

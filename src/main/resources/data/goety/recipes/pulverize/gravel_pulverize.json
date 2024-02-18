@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "item": "minecraft:blackstone"
+    }
+  ],
+  "block_result": "minecraft:gravel"
+}

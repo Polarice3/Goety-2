@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "goety:block/polished_highrock",
+    "side": "goety:block/polished_highrock",
+    "top": "goety:block/polished_highrock"
+  }
+}

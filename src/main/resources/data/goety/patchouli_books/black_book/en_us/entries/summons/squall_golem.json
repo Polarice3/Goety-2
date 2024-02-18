@@ -1,0 +1,42 @@
+{
+  "name": "Squall Golem",
+  "icon": "goety:jade_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_mistral_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The shrines on the peaks seems to hold a copy of a blueprint on making wind-powered golems. Indeed, these golems seems far different from others of its kind, as it appears to require outside energy to function."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:squall_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:squall_golem",
+      "text": "Right click the center Jade Block with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When created the golem will be inactive, immobile and somehow unable to be harmed. The golem requires power from a block called a Resonance Crystal to function."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:resonance_crystal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To activate the golem, one should register the golem by left-clicking the crystal on it. Once registered, the crystal must then be powered by a Wind Blower, blowing wind on it."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When powered, the crystal will activate the golem. Should the crystal be broken or deactivated, the golem will shut down and be inactive once more."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The golem can only Follow or Stand By, it cannot Wander like other servants. If damaged, the golem can be repaired using Jade or Jade Blocks."
+    }
+  ]
+}

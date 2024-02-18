@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.block.ModISTER;
-import com.Polarice3.Goety.common.items.*;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.block.*;
 import com.Polarice3.Goety.common.world.features.trees.HauntedTree;
 import com.Polarice3.Goety.common.world.features.trees.RottenTree;
@@ -50,7 +50,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> ICE_BOUQUET_TRAP = register("ice_bouquet_trap", IceBouquetTrapBlock::new);
     public static final RegistryObject<Block> WIND_BLOWER = register("wind_blower", () -> new WindBlowerBlock(ShadeStoneProperties()));
     public static final RegistryObject<Block> MARBLE_WIND_BLOWER = register("marble_wind_blower", () -> new WindBlowerBlock(MarbleProperties()));
-    public static final RegistryObject<Block> RESONANCE_CRYSTAL = register("resonance_crystal", ResonanceCrystalBlock::new, false);
+    public static final RegistryObject<Block> RESONANCE_CRYSTAL = register("resonance_crystal", ResonanceCrystalBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> SCULK_DEVOURER = enchantedRegister("sculk_devourer", SculkDevourerBlock::new);
     public static final RegistryObject<Block> SCULK_CONVERTER = enchantedRegister("sculk_converter", SculkConverterBlock::new);
     public static final RegistryObject<Block> SCULK_RELAY = register("sculk_relay", SculkRelayBlock::new, true, LootTableType.EMPTY);
@@ -298,6 +298,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHISELED_INDENTED_GOLD_BLOCK = register("chiseled_indented_gold", IndentedGoldBlock::new);
     public static final RegistryObject<Block> CARVED_INDENTED_GOLD_BLOCK = register("carved_indented_gold", IndentedGoldBlock::new);
 
+    //Highrock
+    public static final RegistryObject<Block> HIGHROCK_BLOCK = register("highrock", HighrockBlock::new);
+    public static final RegistryObject<Block> POLISHED_HIGHROCK_BLOCK = register("polished_highrock", HighrockBlock::new);
+    public static final RegistryObject<Block> HIGHROCK_BRICKS_BLOCK = register("highrock_bricks", HighrockBlock::new);
+    public static final RegistryObject<Block> GOLD_INDENTED_HIGHROCK_BRICKS_BLOCK = register("gold_indented_highrock_bricks", HighrockBlock::new);
+    public static final RegistryObject<Block> GOLD_CHISELED_HIGHROCK_BRICKS_BLOCK = register("gold_chiseled_highrock_bricks", HighrockBlock::new);
+
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_SLAB_BLOCK = registerShadeSlabs("shade_stone_polished_slab");
@@ -312,10 +319,20 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> MARBLE_SLAB = registerSlabs("marble_slab",
             MARBLE_BLOCK);
+    public static final RegistryObject<Block> CRACKED_MARBLE_SLAB = registerSlabs("cracked_marble_slab",
+            CRACKED_MARBLE_BLOCK);
     public static final RegistryObject<Block> SMOOTH_MARBLE_SLAB = registerSlabs("smooth_marble_slab",
             MARBLE_BLOCK);
     public static final RegistryObject<Block> SLATE_MARBLE_SLAB = registerSlabs("slate_marble_slab",
             SLATE_MARBLE_BLOCK);
+
+    public static final RegistryObject<Block> HIGHROCK_SLAB = registerSlabs("highrock_slab",
+            HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> POLISHED_HIGHROCK_SLAB = registerSlabs("polished_highrock_slab",
+            POLISHED_HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> HIGHROCK_BRICK_SLAB = registerSlabs("highrock_brick_slab",
+            HIGHROCK_BRICKS_BLOCK);
+
     public static final RegistryObject<Block> INDENTED_GOLD_SLAB = registerSlabs("indented_gold_slab",
             INDENTED_GOLD_BLOCK);
 
@@ -334,6 +351,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> MARBLE_STAIRS_BLOCK = registerStairs("marble_stairs", MARBLE_BLOCK);
     public static final RegistryObject<Block> SLATE_MARBLE_STAIRS_BLOCK = registerStairs("slate_marble_stairs", SLATE_MARBLE_BLOCK);
 
+    public static final RegistryObject<Block> HIGHROCK_STAIRS = registerStairs("highrock_stairs", HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> POLISHED_HIGHROCK_STAIRS = registerStairs("polished_highrock_stairs", POLISHED_HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> HIGHROCK_BRICK_STAIRS = registerStairs("highrock_brick_stairs", HIGHROCK_BRICKS_BLOCK);
+
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 
     //Walls
@@ -343,6 +364,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_STONE_POLISHED_WALL_BLOCK = registerWalls("crypt_stone_polished_wall", CRYPT_STONE_POLISHED_BLOCK);
     public static final RegistryObject<Block> CRYPT_BRICKS_WALL_BLOCK = registerWalls("crypt_bricks_wall", CRYPT_BRICKS_BLOCK);
     public static final RegistryObject<Block> CRYPT_TILES_WALL_BLOCK = registerWalls("crypt_tiles_wall", CRYPT_TILES_BLOCK);
+
+    public static final RegistryObject<Block> HIGHROCK_WALL_BLOCK = registerWalls("highrock_wall", HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> POLISHED_HIGHROCK_WALL_BLOCK = registerWalls("polished_highrock_wall", POLISHED_HIGHROCK_BLOCK);
+    public static final RegistryObject<Block> HIGHROCK_BRICK_WALL_BLOCK = registerWalls("highrock_brick_wall", HIGHROCK_BRICKS_BLOCK);
+
+    public static final RegistryObject<Block> INDENTED_GOLD_WALL_BLOCK = registerWalls("indented_gold_wall", INDENTED_GOLD_BLOCK);
 
     public static final RegistryObject<Block> CURSED_BARS_BLOCK = register("cursed_bars",
             () -> new IronBarsBlock(Block.Properties.of(Material.METAL, MaterialColor.NONE)
@@ -568,6 +595,20 @@ public class ModBlocks {
 
         public SlateMarbleBlock() {
             super(SlateMarbleProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties HighrockProperties(){
+        return BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE)
+                .requiresCorrectToolForDrops()
+                .strength(1.5F, 6.0F);
+    }
+
+    public static class HighrockBlock extends Block {
+
+        public HighrockBlock() {
+            super(HighrockProperties());
         }
 
     }

@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:polished_blackstone_slab"
+    },
+    {
+      "item": "minecraft:polished_blackstone_brick_slab"
+    }
+  ],
+  "block_result": "minecraft:blackstone_slab"
+}

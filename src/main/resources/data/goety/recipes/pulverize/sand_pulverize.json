@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "item": "minecraft:sandstone"
+    }
+  ],
+  "block_result": "minecraft:sand"
+}

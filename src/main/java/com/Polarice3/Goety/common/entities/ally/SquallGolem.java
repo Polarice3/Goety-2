@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
@@ -13,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -56,7 +59,11 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     public int attackTick;
     private int idleTime;
     public int noveltyTick;
+    public int homeTick;
     public boolean isNovelty = false;
+    public boolean requiresPower = true;
+    public boolean proximity = false;
+    public BlockPos homePos;
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState deactivateAnimationState = new AnimationState();
     public AnimationState offAnimationState = new AnimationState();
@@ -79,13 +86,18 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 88.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.SquallGolemHealth.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 1.25D)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0D)
-                .add(Attributes.ATTACK_DAMAGE, 16.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SquallGolemDamage.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
+    }
+
+    public void setConfigurableAttributes(){
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SquallGolemHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SquallGolemDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -99,6 +111,12 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         pCompound.putInt("StartingUpTick", this.startingUpTick);
         pCompound.putInt("ShuttingDownTick", this.shuttingDownTick);
         pCompound.putBoolean("Activated", this.isActivated());
+        pCompound.putBoolean("RequiresPower", this.requiresPower());
+        pCompound.putBoolean("Proximity", this.isProximity());
+        if (this.getHomePos() != null){
+            pCompound.put("HomePos", NbtUtils.writeBlockPos(this.getHomePos()));
+        }
+        pCompound.putInt("HomeTick", this.homeTick);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -114,6 +132,18 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         }
         if (pCompound.contains("Activated")) {
             this.setActivated(pCompound.getBoolean("Activated"));
+        }
+        if (pCompound.contains("RequiresPower")){
+            this.setRequiresPower(pCompound.getBoolean("RequiresPower"));
+        }
+        if (pCompound.contains("Proximity")){
+            this.setProximity(pCompound.getBoolean("Proximity"));
+        }
+        if (pCompound.contains("HomePos")){
+            this.homePos = NbtUtils.readBlockPos(pCompound.getCompound("HomePos"));
+        }
+        if (pCompound.contains("HomeTick")){
+            this.homeTick = pCompound.getInt("HomeTick");
         }
     }
 
@@ -193,6 +223,11 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     }
 
     @Override
+    public int xpReward() {
+        return 20;
+    }
+
+    @Override
     public boolean isWandering() {
         return false;
     }
@@ -212,7 +247,12 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.setActivated(false);
+        if (pReason != MobSpawnType.MOB_SUMMONED && pReason != MobSpawnType.COMMAND){
+            this.setActivated(true);
+            this.setRequiresPower(false);
+        } else {
+            this.setActivated(false);
+        }
         this.setStartingUp(false);
         this.setShuttingDown(false);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
@@ -294,19 +334,48 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                         }
                     }
                 }
-                if (this.activeTime > 0){
-                    --this.activeTime;
-                    if (!this.isStartingUp() && !this.isActivated()){
-                        this.setStartingUp(true);
-                        this.level.broadcastEntityEvent(this, (byte) 25);
+                if (this.proximity){
+                    LivingEntity livingEntity = null;
+                    for (LivingEntity living : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox()
+                            .inflate(4))){
+                        if (SummonTargetGoal.predicate(this).test(living)){
+                            livingEntity = living;
+                        }
                     }
-                } else {
-                    if (!this.isShuttingDown() && this.isActivated()){
-                        this.setShuttingDown(true);
-                        this.level.broadcastEntityEvent(this, (byte) 26);
+                    if (livingEntity != null){
+                        this.activeTime = 100;
+                    }
+                }
+                if (this.requiresPower) {
+                    if (this.activeTime > 0) {
+                        --this.activeTime;
+                        if (!this.isStartingUp() && !this.isActivated()) {
+                            this.setStartingUp(true);
+                            this.level.broadcastEntityEvent(this, (byte) 25);
+                        }
+                    } else if (this.homePos != null){
+                        ++this.homeTick;
+                        if (this.getNavigation().isStableDestination(this.homePos)){
+                            this.getNavigation().moveTo(this.homePos.getX() + 0.5D, this.homePos.getY(), this.homePos.getZ() + 0.5D, 1.0D);
+                            if (this.getNavigation().isStuck() || this.homeTick >= MathHelper.secondsToTicks(10)){
+                                this.homeTick = 0;
+                                this.homePos = null;
+                            } else if (this.homePos.closerToCenterThan(this.position(), this.getBbWidth() + 1.0D)){
+                                this.moveTo(this.homePos, this.getYRot(), this.getXRot());
+                                this.homePos = null;
+                            }
+                        } else {
+                            this.homePos = null;
+                        }
+                    } else {
+                        if (!this.isShuttingDown() && this.isActivated()) {
+                            this.setShuttingDown(true);
+                            this.level.broadcastEntityEvent(this, (byte) 26);
+                        }
                     }
                 }
                 if (this.isStartingUp() && !this.isActivated()){
+                    this.getNavigation().stop();
                     ++this.startingUpTick;
                     if (this.startingUpTick == 1){
                         this.playSound(ModSounds.SQUALL_GOLEM_ACTIVATE.get(), 2.0F, 1.0F);
@@ -320,6 +389,7 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                         this.startingUpTick = 0;
                     }
                 } else if (this.isShuttingDown() && this.isActivated()){
+                    this.getNavigation().stop();
                     ++this.shuttingDownTick;
                     if (this.shuttingDownTick == 1){
                         this.playSound(ModSounds.SQUALL_GOLEM_DEACTIVATE.get(), 2.0F, 1.0F);
@@ -395,7 +465,7 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
             this.setMeleeAttacking(false);
         } else if (pId == 19){
             this.setAggressive(true);
-        } else if (pId == 21){
+        } else if (pId == 31){
             this.setAggressive(false);
         } else if (pId == 22){
             this.isNovelty = true;
@@ -450,6 +520,42 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     @Override
     public void activate(int tick) {
         this.activeTime = tick;
+    }
+
+    public boolean requiresPower(){
+        return this.requiresPower;
+    }
+
+    public void setRequiresPower(boolean power){
+        this.requiresPower = power;
+    }
+
+    public boolean isProximity(){
+        return this.proximity;
+    }
+
+    public void setProximity(boolean power){
+        this.proximity = power;
+    }
+
+    public BlockPos getHomePos() {
+        return this.homePos;
+    }
+
+    public void setHomePos(BlockPos blockPos){
+        this.homePos = blockPos;
+    }
+
+    public void setCommandPos(BlockPos blockPos, boolean removeEntity){
+        if (this.isActivated() && !this.isStartingUp() && !this.isShuttingDown()){
+            super.setCommandPos(blockPos, removeEntity);
+        }
+    }
+
+    public void setCommandPosEntity(LivingEntity living){
+        if (this.isActivated() && !this.isStartingUp() && !this.isShuttingDown()){
+            super.setCommandPosEntity(living);
+        }
     }
 
     public @NotNull InteractionResult mobInteract(@NotNull Player pPlayer, @NotNull InteractionHand pHand) {
@@ -507,7 +613,7 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         public void stop() {
             SquallGolem.this.getNavigation().stop();
             SquallGolem.this.setAggressive(false);
-            SquallGolem.this.level.broadcastEntityEvent(SquallGolem.this, (byte) 21);
+            SquallGolem.this.level.broadcastEntityEvent(SquallGolem.this, (byte) 31);
         }
 
         @Override

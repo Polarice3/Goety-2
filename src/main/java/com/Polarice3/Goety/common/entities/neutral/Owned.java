@@ -7,6 +7,7 @@ import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -109,38 +110,39 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 }
             }
         }
-        if (this.getTrueOwner() instanceof IOwned owned){
-            if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()){
-                if (owned.getTrueOwner() != null){
-                    this.setTrueOwner(owned.getTrueOwner());
-                } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()){
-                    this.kill();
+        if (this.getTrueOwner() != null){
+            if (this.getLastHurtByMob() == this.getTrueOwner()){
+                this.setLastHurtByMob(null);
+            }
+            if (this.getTrueOwner() instanceof Mob mobOwner){
+                if (mobOwner.getTarget() != null && this.getTarget() == null){
+                    this.setTarget(mobOwner.getTarget());
+                }
+                if (mobOwner instanceof IBoss) {
+                    if (mobOwner.isRemoved() ||mobOwner.isDeadOrDying()){
+                        this.kill();
+                    }
                 }
             }
-        }
-        if (this.getLastHurtByMob() == this.getTrueOwner()){
-            this.setLastHurtByMob(null);
-        }
-        if (this.getTrueOwner() instanceof Mob mobOwner){
-            if (mobOwner.getTarget() != null && this.getTarget() == null){
-                this.setTarget(mobOwner.getTarget());
+            if (this.getTrueOwner() instanceof IOwned owned){
+                if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()){
+                    if (owned.getTrueOwner() != null){
+                        this.setTrueOwner(owned.getTrueOwner());
+                    } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()){
+                        this.kill();
+                    }
+                }
             }
-            if (mobOwner instanceof IBoss) {
-                if (mobOwner.isRemoved() || mobOwner.isDeadOrDying()){
-                    this.kill();
+            for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
+                if (this.getTrueOwner() != target.getTrueOwner()
+                        && target.getTarget() == this.getTrueOwner()){
+                    this.setTarget(target);
                 }
             }
         }
         if (this.getTarget() != null){
             if (this.getTarget().isRemoved() || this.getTarget().isDeadOrDying()){
                 this.setTarget(null);
-            }
-        }
-        for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
-            if (this.getTrueOwner() != null
-                    && this.getTrueOwner() != target.getTrueOwner()
-                    && target.getTarget() == this.getTrueOwner()){
-                this.setTarget(target);
             }
         }
         if (MobsConfig.MobSense.get()) {
@@ -186,7 +188,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
             LivingEntity trueOwner = this.getTrueOwner();
             return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner
                     || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
-                    || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner);
+                    || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
+                    || (trueOwner instanceof Player player
+                    && entityIn instanceof LivingEntity livingEntity
+                    && (SEHelper.getAllyEntities(player).contains(livingEntity)
+                    || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
         }
         return super.isAlliedTo(entityIn);
     }
@@ -314,6 +320,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public void setHostile(boolean hostile){
         this.entityData.set(HOSTILE, hostile);
+        this.addTargetGoal();
+    }
+
+    public void addTargetGoal(){
         this.targetSelector.addGoal(2, this.targetGoal);
     }
 

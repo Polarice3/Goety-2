@@ -1,0 +1,28 @@
+{
+  "name": "Grimoire of Goodwill",
+  "icon": "goety:grimoire_of_goodwill",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sometimes, your servants can be detrimental to your plans, attacking creatures it wasn't supposed to, causing you to shout at them to stop attacking for example. This grimoire will stop servants from attacking any being that's recorded on it, even if said being hurts, or was hurt, by you."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The grimoire can record multiple beings, from Pillagers to even beings like you! You can also prevent servants from attacking an entire species, as hitting a being while crouching will record the being's species. For example, crouching and hitting a Pillager with the grimoire will cause your servants to no longer attack all Pillagers, even if they're pelting you with arrows."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:grimoire_of_goodwill",
+      "text": "Right clicking in the air shows who you have goodwill with. Shift right click to see the species."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, if you're in a vengeful mood and want to erase the goodwill, you can simply right click on the being you have goodwill with, or shift right click if you have a goodwill with the entire species, the goodwill will be erased from the grimoire. Until you left-click on them again."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Adding goodwill to a being or species that's recorded on the Grimoire of Grudges will erase the grudge."
+    }
+  ]
+}

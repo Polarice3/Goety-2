@@ -1,0 +1,13 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:granite"
+    }
+  ],
+  "block_result": "minecraft:diorite",
+  "item_result": {
+    "item": "minecraft:quartz",
+    "count": 1
+  }
+}

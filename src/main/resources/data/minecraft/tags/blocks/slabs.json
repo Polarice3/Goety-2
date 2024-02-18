@@ -11,7 +11,11 @@
     "goety:crypt_stone_polished_slab",
     "goety:crypt_bricks_slab",
     "goety:crypt_tiles_slab",
+    "goety:cracked_marble_slab",
     "goety:slate_marble_slab",
+    "goety:highrock_slab",
+    "goety:polished_highrock_slab",
+    "goety:highrock_brick_slab",
     "goety:indented_gold_slab"
   ]
 }

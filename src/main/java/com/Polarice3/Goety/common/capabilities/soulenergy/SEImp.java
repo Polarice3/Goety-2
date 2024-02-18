@@ -19,6 +19,8 @@ public class SEImp implements ISoulEnergy{
     private BlockPos ArcaBlock = new BlockPos(0, 0, 0);
     private Set<UUID> grudgeList = new HashSet<>();
     private List<EntityType<?>> grudgeTypeList = new ArrayList<>();
+    private Set<UUID> allyList = new HashSet<>();
+    private List<EntityType<?>> allyTypeList = new ArrayList<>();
     private List<Research> researchList = new ArrayList<>();
     private Set<UUID> summonList = new HashSet<>();
     private FocusCooldown cooldowns = new FocusCooldown();
@@ -146,6 +148,36 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void removeGrudgeType(EntityType<?> entityType) {
         this.grudgeTypeList.remove(entityType);
+    }
+
+    @Override
+    public Set<UUID> allyList() {
+        return this.allyList;
+    }
+
+    @Override
+    public void addAlly(UUID uuid) {
+        this.allyList.add(uuid);
+    }
+
+    @Override
+    public void removeAlly(UUID uuid) {
+        this.allyList.remove(uuid);
+    }
+
+    @Override
+    public List<EntityType<?>> allyTypeList() {
+        return this.allyTypeList;
+    }
+
+    @Override
+    public void addAllyType(EntityType<?> entityType) {
+        this.allyTypeList.add(entityType);
+    }
+
+    @Override
+    public void removeAllyType(EntityType<?> entityType) {
+        this.allyTypeList.remove(entityType);
     }
 
     @Override

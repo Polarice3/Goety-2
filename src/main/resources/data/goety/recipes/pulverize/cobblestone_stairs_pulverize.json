@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:stone_stairs"
+    },
+    {
+      "item": "minecraft:stone_brick_stairs"
+    }
+  ],
+  "block_result": "minecraft:cobblestone_stairs"
+}

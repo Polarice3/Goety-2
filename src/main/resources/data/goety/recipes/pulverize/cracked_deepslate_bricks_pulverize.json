@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:deepslate_bricks"
+    }
+  ],
+  "block_result": "minecraft:cracked_deepslate_bricks"
+}

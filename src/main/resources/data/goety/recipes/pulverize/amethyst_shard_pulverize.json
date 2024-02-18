@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:amethyst_block"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:amethyst_shard",
+    "count": 4
+  }
+}

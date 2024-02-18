@@ -1568,8 +1568,7 @@
       {
         "name": "goety:squall_golem/wind_start"
       }
-    ],
-    "subtitle": "subtitle.goety.squall_golem_wind_start"
+    ]
   },
   "squall_golem_wind_slow": {
     "sounds": [
@@ -1597,8 +1596,7 @@
       {
         "name": "goety:squall_golem/wind_slow8"
       }
-    ],
-    "subtitle": "subtitle.goety.squall_golem_wind_slow"
+    ]
   },
   "squall_golem_wind_fast": {
     "sounds": [
@@ -1626,8 +1624,7 @@
       {
         "name": "goety:squall_golem/wind_fast8"
       }
-    ],
-    "subtitle": "subtitle.goety.squall_golem_wind_fast"
+    ]
   },
   "squall_golem_alert": {
     "sounds": [
@@ -2960,26 +2957,6 @@
       }
     ],
     "subtitle": "subtitle.goety.resonance_crystal_loop"
-  },
-  "resonance_crystal_sparks": {
-    "sounds": [
-      {
-        "name": "goety:block/resonance_crystal_sparks1"
-      },
-      {
-        "name": "goety:block/resonance_crystal_sparks2"
-      },
-      {
-        "name": "goety:block/resonance_crystal_sparks3"
-      },
-      {
-        "name": "goety:block/resonance_crystal_sparks4"
-      },
-      {
-        "name": "goety:block/resonance_crystal_sparks5"
-      }
-    ],
-    "subtitle": "subtitle.goety.resonance_crystal_sparks"
   },
   "apostle_theme": {
     "sounds": [

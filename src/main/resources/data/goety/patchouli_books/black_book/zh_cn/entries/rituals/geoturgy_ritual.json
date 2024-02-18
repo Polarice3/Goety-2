@@ -1,0 +1,22 @@
+{
+  "name": "大地仪式",
+  "icon": "minecraft:deepslate_bricks",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "需求: $(li)祭坛高度在32层以下，不暴露在天空中 $(li)1个锻造台， $(li)8个紫水晶块， $(li)16个深板岩"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/geoturgy_ritual.png"],
+      "border": true,
+      "text": "一个仪式摆放的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "将祭坛放置在临近地核之处，并用深板岩和紫水晶围绕它，它将能够驾驭地球来创造各种宝石和魔法。"
+    }
+  ]
+}

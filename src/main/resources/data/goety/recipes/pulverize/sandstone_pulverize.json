@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:smooth_sandstone"
+    },
+    {
+      "item": "minecraft:cut_sandstone"
+    }
+  ],
+  "block_result": "minecraft:sandstone"
+}

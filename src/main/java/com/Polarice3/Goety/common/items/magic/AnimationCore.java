@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.magic.construct.GraveGolemMold;
 import com.Polarice3.Goety.common.magic.construct.RedstoneGolemMold;
 import com.Polarice3.Goety.common.magic.construct.SpawnFromBlock;
+import com.Polarice3.Goety.common.magic.construct.SquallGolemMold;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,8 @@ public class AnimationCore extends Item {
         return RedstoneGolemMold.spawnGolem(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos())
                 ? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)
                 : GraveGolemMold.spawnGolem(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos()) ?
+                InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)
+                : SquallGolemMold.spawnGolem(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos()) ?
                 InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)
                 : SpawnFromBlock.spawnServant(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos()) ?
                 InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)

@@ -93,6 +93,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> SQUALL_GOLEM_SPAWN_EGG = ITEMS.register("squall_golem_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.SQUALL_GOLEM, 0xf99408, 0x70fae6, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> REDSTONE_GOLEM_SPAWN_EGG = ITEMS.register("redstone_golem_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.REDSTONE_GOLEM, 0xaeaaa6, 0xe3260c, new Item.Properties().tab(Goety.TAB)));
 

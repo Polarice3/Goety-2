@@ -20,10 +20,49 @@ import java.util.function.Supplier;
 
 public class PatchouliIntegration implements ICompatable {
     public void setup(FMLCommonSetupEvent event) {
+        PatchouliAPI.get().registerMultiblock(Goety.location("squall_golem"), SQUALL_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
     }
+
+    public static final Supplier<IMultiblock> SQUALL_GOLEM = Suppliers.memoize(() -> {
+        IStateMatcher highrockMold = PatchouliAPI.get().predicateMatcher(ModBlocks.POLISHED_HIGHROCK_BLOCK.get(),
+                state -> state.is(ModBlocks.POLISHED_HIGHROCK_BLOCK.get()));
+        IStateMatcher bricks = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
+                state -> state.is(Blocks.STONE_BRICKS));
+        IStateMatcher gold = PatchouliAPI.get().predicateMatcher(ModBlocks.INDENTED_GOLD_BLOCK.get(),
+                state -> state.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS));
+        IStateMatcher jade = PatchouliAPI.get().predicateMatcher(ModBlocks.JADE_BLOCK.get(),
+                state -> state.is(ModBlocks.JADE_BLOCK.get()));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_________",
+                                "___HHH___",
+                                "__HSGSH__",
+                                "__HGJGH__",
+                                "__HSGSH__",
+                                "___HHH___",
+                                "_________"
+                        },
+                        {
+                                "_________",
+                                "_________",
+                                "___HHH___",
+                                "___H0H___",
+                                "___HHH___",
+                                "_________",
+                                "_________"
+                        }
+                },
+                'H', highrockMold,
+                'S', bricks,
+                'G', gold,
+                'J', jade,
+                '0', highrockMold
+        );
+    });
 
     public static final Supplier<IMultiblock> REDSTONE_GOLEM = Suppliers.memoize(() -> {
         IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(Blocks.DIAMOND_BLOCK,

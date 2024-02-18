@@ -5,7 +5,6 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
-import com.Polarice3.Goety.utils.ConstantPaths;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.brigadier.CommandDispatcher;
@@ -92,26 +91,16 @@ public class GoetyCommand {
                                                 .then(Commands.argument("ticks", IntegerArgumentType.integer(0)).executes((p_198439_0_) -> {
                                                     return setRestPeriod(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "ticks"));
                                                 }))))))
-                .then(Commands.literal("map")
+                .then(Commands.literal("summons")
                         .then(Commands.literal("summon_noai")
                                 .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                    return spawnNoAIEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), false, true);
+                                    return spawnNoAIEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true);
                                 })
                                         .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                            return spawnNoAIEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), false, true);
+                                            return spawnNoAIEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true);
                                         })
                                                 .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnNoAIEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false, false);
-                                                })))))
-                        .then(Commands.literal("summon_noai_gen")
-                                .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
-                                            return spawnNoAIEntity(p_198738_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198738_0_, "entity"), p_198738_0_.getSource().getPosition(), new CompoundTag(), true, true);
-                                        })
-                                        .then(Commands.argument("pos", Vec3Argument.vec3()).executes((p_198735_0_) -> {
-                                                    return spawnNoAIEntity(p_198735_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198735_0_, "entity"), Vec3Argument.getVec3(p_198735_0_, "pos"), new CompoundTag(), true, true);
-                                                })
-                                                .then(Commands.argument("nbt", CompoundTagArgument.compoundTag()).executes((p_198739_0_) -> {
-                                                    return spawnNoAIEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), true, false);
+                                                    return spawnNoAIEntity(p_198739_0_.getSource(), EntitySummonArgument.getSummonableEntity(p_198739_0_, "entity"), Vec3Argument.getVec3(p_198739_0_, "pos"), CompoundTagArgument.getCompoundTag(p_198739_0_, "nbt"), false);
                                                 })))))
                         .then(Commands.literal("summon_persist")
                                 .then(Commands.argument("entity", EntitySummonArgument.id()).suggests(SuggestionProviders.SUMMONABLE_ENTITIES).executes((p_198738_0_) -> {
@@ -266,7 +255,7 @@ public class GoetyCommand {
         }
     }
 
-    private static int spawnNoAIEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean tagged, boolean pRandomizeProperties) throws CommandSyntaxException {
+    private static int spawnNoAIEntity(CommandSourceStack pSource, ResourceLocation pType, Vec3 pPos, CompoundTag pNbt, boolean pRandomizeProperties) throws CommandSyntaxException {
         BlockPos blockpos = new BlockPos(pPos);
         if (!Level.isInSpawnableBounds(blockpos)) {
             throw INVALID_POSITION.create();
@@ -284,9 +273,6 @@ public class GoetyCommand {
                 if (entity instanceof Mob mob){
                     mob.setNoAi(true);
                     mob.setPersistenceRequired();
-                    if (tagged){
-                        mob.addTag(ConstantPaths.giveAI());
-                    }
                     if (pRandomizeProperties){
                         mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
@@ -383,15 +369,15 @@ public class GoetyCommand {
             } else {
                 if (entity instanceof Mob mob){
                     mob.setPersistenceRequired();
-                    if (pRandomizeProperties){
-                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
-                    }
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         if (mob instanceof IOwned owned){
                             owned.setHostile(true);
                         } else {
                             mob.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(mob, Player.class, true));
                         }
+                    }
+                    if (pRandomizeProperties){
+                        mob.finalizeSpawn(pSource.getLevel(), pSource.getLevel().getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.COMMAND, null, null);
                     }
                 }
 

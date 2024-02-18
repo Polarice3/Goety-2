@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "While certain focuses can summon all associated servants towards you, certain servants don't have that and/or you want to summon a specific servant. The Call Focus allows you to do just that. Simply right click on the servant and it will save it, allowing you to summon them when casting with it. To remove the save, just right click the air with it while crouching."
+      "text": "While certain focuses can summon all associated servants towards you, certain servants don't have that and/or you want to summon a specific servant. The Call Focus allows you to do just that. Simply left click on the servant and it will save it, allowing you to summon them when casting with it. To remove the save, just right click the air with it while crouching."
     },
     {
       "type": "goety:ritual",

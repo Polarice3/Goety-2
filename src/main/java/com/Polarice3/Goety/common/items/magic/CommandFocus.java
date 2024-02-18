@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,19 @@ public class CommandFocus extends MagicFocus{
 
     public CommandFocus() {
         super(new CommandSpell());
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isClientSide) {
+            if (stack.getTag() != null){
+                LivingEntity livingEntity = getServant(stack.getTag());
+                if (livingEntity == null || livingEntity.isDeadOrDying()){
+                    stack.getTag().remove(TAG_ENTITY);
+                }
+            }
+        }
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -44,7 +58,7 @@ public class CommandFocus extends MagicFocus{
 
     public static boolean hasServant(ItemStack stack) {
         CompoundTag compoundtag = stack.getTag();
-        return compoundtag != null && getServant(compoundtag) != null;
+        return compoundtag != null && stack.getTag().contains(TAG_ENTITY);
     }
 
     public static void setServant(CompoundTag compoundTag, LivingEntity livingEntity){
@@ -83,7 +97,6 @@ public class CommandFocus extends MagicFocus{
         if (stack.getTag() != null) {
             if (!hasServant(stack)) {
                 tooltip.add(Component.translatable("info.goety.focus.noServant"));
-                tooltip.add(Component.translatable("info.goety.focus.noCreative"));
             } else {
                 LivingEntity livingEntity = getServant(stack.getTag());
                 if (livingEntity != null){
