@@ -1,0 +1,11 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:cracked_nether_bricks"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:nether_brick",
+    "count": 4
+  }}

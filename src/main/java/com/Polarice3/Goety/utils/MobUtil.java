@@ -89,8 +89,8 @@ public class MobUtil {
         return !(p_200824_0_ instanceof Player) || !p_200824_0_.isSpectator() && !((Player)p_200824_0_).isCreative();
     };
 
-    public static boolean isShifting(LivingEntity entityLiving){
-        return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
+    public static boolean isShifting(Entity entity){
+        return entity.isCrouching() || entity.isShiftKeyDown();
     }
 
     public static boolean validEntity(Entity entity){
@@ -448,7 +448,7 @@ public class MobUtil {
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
-            if (pSource.hasLineOfSight(pSource) && hit != pSource) {
+            if (pSource.hasLineOfSight(hit) && hit != pSource) {
                 float borderSize = Math.max(0.8F, hit.getPickRadius());
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize, borderSize, borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
@@ -483,7 +483,7 @@ public class MobUtil {
                     EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
 
             for (Entity hit : possibleList) {
-                if (hit.isPickable() && pSource.hasLineOfSight(pSource)) {
+                if (hit.isPickable() && pSource.hasLineOfSight(hit)) {
                     target = hit;
                 }
             }

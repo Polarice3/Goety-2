@@ -10,7 +10,7 @@
       "item": "goety:marble"
     },
     "#": {
-      "item": "goety:indented_gold_slab"
+      "tag": "forge:ingots/gold"
     }
   },
   "result": {

@@ -36,7 +36,7 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new ThrowSnowballGoal(this));
+        this.goalSelector.addGoal(3, new ThrowSnowballGoal(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -130,12 +130,22 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
         @Override
         public void start() {
             this.start = 10;
+            if (this.zombie.getMainHandItem().isEmpty()){
+                this.zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.SNOWBALL));
+            } else if (this.zombie.getOffhandItem().isEmpty()){
+                this.zombie.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SNOWBALL));
+            }
             super.start();
         }
 
         @Override
         public void stop() {
             this.start = 0;
+            if (this.zombie.getMainHandItem().is(Items.SNOWBALL)){
+                this.zombie.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+            } else if (this.zombie.getOffhandItem().is(Items.SNOWBALL)){
+                this.zombie.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+            }
             super.stop();
         }
 
@@ -146,20 +156,10 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
             if (living != null){
                 if (this.start <= 0){
                     this.zombie.performRangedAttack(living, 0);
-                    if (this.zombie.getMainHandItem().is(Items.SNOWBALL)){
-                        this.zombie.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    } else if (this.zombie.getOffhandItem().is(Items.SNOWBALL)){
-                        this.zombie.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-                    }
                 } else {
                     --this.start;
                     this.zombie.lookControl.setLookAt(living);
                     this.zombie.navigation.stop();
-                    if (this.zombie.getMainHandItem().isEmpty()){
-                        this.zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.SNOWBALL));
-                    } else if (this.zombie.getOffhandItem().isEmpty()){
-                        this.zombie.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SNOWBALL));
-                    }
                 }
             }
         }

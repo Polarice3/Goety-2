@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:dripstone_block"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:pointed_dripstone",
+    "count": 4
+  }
+}

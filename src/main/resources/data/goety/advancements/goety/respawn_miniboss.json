@@ -18,19 +18,27 @@
   "criteria": {
     "respawn": {
       "conditions": {
-        "item": {
-          "items": [
-            "minecraft:respawn_anchor"
-          ]
-        },
-        "location": {
-          "block": {
-            "blocks": [
-              "goety:pithos",
-              "goety:crystal_ball"
-            ]
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "goety:pithos",
+                  "goety:crystal_ball"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:respawn_anchor"
+              ]
+            }
           }
-        }
+        ]
       },
       "trigger": "minecraft:item_used_on_block"
     }

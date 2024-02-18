@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:polished_highrock"
+  },
+  "result": "goety:highrock_bricks",
+  "count": 1
+}

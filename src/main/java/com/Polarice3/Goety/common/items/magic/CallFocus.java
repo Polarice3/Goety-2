@@ -2,14 +2,12 @@ package com.Polarice3.Goety.common.items.magic;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.void_spells.CallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -19,15 +17,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,24 +37,41 @@ public class CallFocus extends MagicFocus{
         super(new CallSpell());
     }
 
-    public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity entity, InteractionHand hand) {
-        if (stack.getItem() instanceof CallFocus) {
-            if (entity instanceof IOwned owned){
-                if (owned.getTrueOwner() == playerIn){
-                    if (!hasSummon(stack)) {
-                        ItemStack itemStack = new ItemStack(ModItems.CALL_FOCUS.get());
-                        CompoundTag compoundTag = itemStack.getOrCreateTag();
-                        setSummon(compoundTag, entity);
-                        itemStack.setTag(compoundTag);
-                        playerIn.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                        ModNetwork.sendToALL(new SPlayEntitySoundPacket(playerIn.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                        ItemHelper.addAndConsumeItem(playerIn, hand, itemStack, true);
-                        return InteractionResult.SUCCESS;
+    @Override
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isClientSide) {
+            if (stack.getTag() != null){
+                LivingEntity livingEntity = getSummon(stack.getTag());
+                if (livingEntity == null || livingEntity.isDeadOrDying()){
+                    stack.getTag().remove(TAG_ENTITY);
+                }
+            }
+        }
+        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
+
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (!player.level.isClientSide) {
+            if (entity instanceof LivingEntity target) {
+                if (stack.getItem() instanceof CallFocus) {
+                    if (entity instanceof IOwned owned) {
+                        if (owned.getTrueOwner() == player) {
+                            if (!hasSummon(stack)) {
+                                CompoundTag compoundTag = new CompoundTag();
+                                if (stack.hasTag()) {
+                                    compoundTag = stack.getTag();
+                                }
+                                setSummon(compoundTag, target);
+                                stack.setTag(compoundTag);
+                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                            }
+                        }
                     }
                 }
             }
         }
-        return super.interactLivingEntity(stack, playerIn, entity, hand);
+        return true;
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -86,8 +100,8 @@ public class CallFocus extends MagicFocus{
                     if (livingEntity.level.dimension() == player.level.dimension()) {
                         livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         MobUtil.moveDownToGround(livingEntity);
-                        ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                        ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                         return true;
                     } else if (player.getServer() != null) {
                         ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
@@ -96,7 +110,7 @@ public class CallFocus extends MagicFocus{
                             livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
                             livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                             MobUtil.moveDownToGround(livingEntity);
-                            ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             return true;
                         }
                     }
@@ -108,7 +122,7 @@ public class CallFocus extends MagicFocus{
 
     public static boolean hasSummon(ItemStack stack) {
         CompoundTag compoundtag = stack.getTag();
-        return compoundtag != null && getSummon(compoundtag) != null;
+        return compoundtag != null && stack.getTag().contains(TAG_ENTITY);
     }
 
     public static void setSummon(CompoundTag compoundTag, LivingEntity livingEntity){

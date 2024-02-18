@@ -1,0 +1,16 @@
+{
+  "name": "烈风圣殿",
+  "icon": "goety:marble",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你听说过一些民族的传说，他们从最高的圣地出发，在最高峰的风中建立神殿。谁知道里面装着什么样的宝藏?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/wind_shrine.png"],
+      "border": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:prismarine"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:prismarine_shard",
+    "count": 4
+  }
+}

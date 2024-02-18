@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:polished_granite"
+    }
+  ],
+  "block_result": "minecraft:granite"
+}

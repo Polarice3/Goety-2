@@ -1,0 +1,16 @@
+{
+  "name": "風の神殿",
+  "icon": "goety:marble",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "遊牧民が最高の聖域から旅をし、まさに山頂に風を祀る神社を建てたという話を聞いたことがあるでしょう。 中にはどんな宝が眠っているのか誰にも分かりません。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/wind_shrine.png"],
+      "border": true
+    }
+  ]
+}

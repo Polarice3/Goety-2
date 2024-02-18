@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:mistral_scroll"
+    },
+    "title": {
+      "translate": "advancements.goety.mistral_scroll.title"
+    },
+    "description": {
+      "translate": "advancements.goety.mistral_scroll.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "mistral_scroll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "goety:mistral_scroll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    ["mistral_scroll"]
+  ]
+}

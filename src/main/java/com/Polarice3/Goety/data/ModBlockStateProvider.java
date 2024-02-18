@@ -63,6 +63,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock((SlabBlock) ModBlocks.STEEP_SLAB.get(), Goety.location("block/steep_planks"), Goety.location("block/steep_planks"));
         slabBlock((SlabBlock) ModBlocks.STEEP_WOOD_SLAB.get(), Goety.location("block/steep_wood"), Goety.location("block/steep_log"));
 
+        slabBlock((SlabBlock) ModBlocks.HIGHROCK_SLAB.get(), Goety.location("block/highrock"), Goety.location("block/highrock"));
+        slabBlock((SlabBlock) ModBlocks.POLISHED_HIGHROCK_SLAB.get(), Goety.location("block/polished_highrock"), Goety.location("block/polished_highrock"));
+        slabBlock((SlabBlock) ModBlocks.HIGHROCK_BRICK_SLAB.get(), Goety.location("block/highrock_bricks"), Goety.location("block/highrock_bricks"));
+
         stairsBlock((StairBlock) ModBlocks.HAUNTED_STAIRS.get(), Goety.location("block/haunted_planks"));
         stairsBlock((StairBlock) ModBlocks.ROTTEN_STAIRS.get(), Goety.location("block/rotten_planks"));
         stairsBlock((StairBlock) ModBlocks.WINDSWEPT_STAIRS.get(), Goety.location("block/windswept_planks"));
@@ -71,9 +75,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlock((StairBlock) ModBlocks.MARBLE_STAIRS_BLOCK.get(), Goety.location("block/marble"));
         stairsBlock((StairBlock) ModBlocks.SLATE_MARBLE_STAIRS_BLOCK.get(), Goety.location("block/slate_marble"));
 
+        stairsBlock((StairBlock) ModBlocks.HIGHROCK_STAIRS.get(), Goety.location("block/highrock"));
+        stairsBlock((StairBlock) ModBlocks.POLISHED_HIGHROCK_STAIRS.get(), Goety.location("block/polished_highrock"));
+        stairsBlock((StairBlock) ModBlocks.HIGHROCK_BRICK_STAIRS.get(), Goety.location("block/highrock_bricks"));
+
         trapdoorBlock((TrapDoorBlock) ModBlocks.HAUNTED_TRAPDOOR.get(), Goety.location("block/haunted_trapdoor"), true);
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.ROTTEN_TRAPDOOR.get(), Goety.location("block/rotten_trapdoor"), true, "cutout");
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.WINDSWEPT_TRAPDOOR.get(), Goety.location("block/windswept_trapdoor"), false, "cutout");
+
+        wallBlock((WallBlock) ModBlocks.HIGHROCK_WALL_BLOCK.get(), Goety.location("block/highrock"));
+        wallBlock((WallBlock) ModBlocks.POLISHED_HIGHROCK_WALL_BLOCK.get(), Goety.location("block/polished_highrock"));
+        wallBlock((WallBlock) ModBlocks.HIGHROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/highrock_bricks"));
+
+        wallBlock((WallBlock) ModBlocks.INDENTED_GOLD_WALL_BLOCK.get(), Goety.location("block/indented_gold"));
 
         wallBlock((WallBlock) ModBlocks.STEEP_WALL_BLOCK.get(), Goety.location("block/steep_log"));
         wallBlock((WallBlock) ModBlocks.STUDDED_STEEP_WALL_BLOCK.get(), Goety.location("block/studded_steep_log"));

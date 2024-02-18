@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ResonanceCrystalBlock;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWindPowered {
+    public static String GOLEM_LIST = ResonanceBlockItem.GOLEM_LIST;
     public List<SquallGolem> squallGolems = new ArrayList<>();
     public List<UUID> uuids = new ArrayList<>();
     public int active;
@@ -58,14 +60,26 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                     BlockPos blockPos = this.getBlockPos();
                     ServerParticleUtil.gatheringBlockParticles(ModParticleTypes.RESONANCE_GATHER.get(), blockPos, world);
                     ServerParticleUtil.addAuraParticles(world, ParticleTypes.CLOUD, blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F, 1.0F);
-                    for (UUID uuid : this.uuids){
-                        Entity entity = EntityFinder.getEntityByUuiD(uuid);
-                        if (entity instanceof SquallGolem squallGolem){
-                            if (!this.squallGolems.contains(squallGolem)){
-                                this.squallGolems.add(squallGolem);
-                            } else if (!squallGolem.isAlive()){
+
+                    if (!this.uuids.isEmpty()) {
+                        this.uuids.removeIf(uuid -> {
+                            Entity entity = EntityFinder.getEntityByUuiD(uuid);
+                            if (!(entity instanceof SquallGolem squallGolem)){
+                                return true;
+                            } else if (!squallGolem.isAlive()) {
                                 this.squallGolems.remove(squallGolem);
-                                this.uuids.remove(uuid);
+                                return true;
+                            }
+                            return false;
+                        });
+                        for (UUID uuid : this.uuids) {
+                            if (uuid != null) {
+                                Entity entity = EntityFinder.getEntityByUuiD(uuid);
+                                if (entity instanceof SquallGolem squallGolem) {
+                                    if (!this.squallGolems.contains(squallGolem)) {
+                                        this.squallGolems.add(squallGolem);
+                                    }
+                                }
                             }
                         }
                     }
@@ -118,8 +132,8 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
         if (tag.contains("active")){
             this.active = tag.getInt("active");
         }
-        if (tag.contains("golemList")){
-            ListTag list = tag.getList("golemList", 8);
+        if (tag.contains(GOLEM_LIST)){
+            ListTag list = tag.getList(GOLEM_LIST, 8);
             for(int i = 0; i < list.size(); ++i) {
                 this.uuids.add(UUID.fromString(list.getString(i)));
             }
@@ -133,20 +147,22 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
     public CompoundTag writeNetwork(CompoundTag tag) {
         tag.putInt("active", this.active);
         List<String> list = new ArrayList<>();
-        if (tag.contains("golemList")) {
-            for (int i = 0; i < tag.getList("golemList", 8).size(); ++i) {
-                list.add(tag.getList("golemList", 8).getString(i));
+        if (tag.contains(GOLEM_LIST)) {
+            for (int i = 0; i < tag.getList(GOLEM_LIST, 8).size(); ++i) {
+                list.add(tag.getList(GOLEM_LIST, 8).getString(i));
             }
         }
-        for (UUID uuid : this.uuids) {
-            if (!list.contains(uuid.toString())) {
-                ListTag nbttaglist = new ListTag();
-                if (tag.contains("golemList")) {
-                    nbttaglist = tag.getList("golemList", 8);
-                }
+        if (!this.uuids.isEmpty()) {
+            for (UUID uuid : this.uuids) {
+                if (!list.contains(uuid.toString())) {
+                    ListTag nbttaglist = new ListTag();
+                    if (tag.contains(GOLEM_LIST)) {
+                        nbttaglist = tag.getList(GOLEM_LIST, 8);
+                    }
 
-                nbttaglist.add(StringTag.valueOf(uuid.toString()));
-                tag.put("golemList", nbttaglist);
+                    nbttaglist.add(StringTag.valueOf(uuid.toString()));
+                    tag.put(GOLEM_LIST, nbttaglist);
+                }
             }
         }
         tag.putBoolean("isOn", this.isOn);

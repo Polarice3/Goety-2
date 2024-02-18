@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:bricks"
+    }
+  ],
+  "item_result": {
+    "item": "minecraft:brick",
+    "count": 4
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:deepslate_brick_wall"
+    },
+    {
+      "item": "minecraft:deepslate_tile_wall"
+    },
+    {
+      "item": "minecraft:polished_deepslate_wall"
+    }
+  ],
+  "block_result": "minecraft:cobbled_deepslate_wall"
+}

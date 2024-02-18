@@ -10,6 +10,8 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -80,7 +82,7 @@ public class WindBlowerBlockEntity extends BlockEntity {
                 if (this.level.getBlockEntity(blockPos) instanceof IWindPowered windPowered){
                     windPowered.activate(20);
                 }
-                if (state2.isSolid() || state2.liquid()) {
+                if ((state2.isSolid() && state2.isSolidRender(this.level, blockPos)) || state2.liquid()) {
                     break;
                 }
             }
@@ -107,14 +109,30 @@ public class WindBlowerBlockEntity extends BlockEntity {
             List<Entity> list = this.level.getEntitiesOfClass(Entity.class, getAABB(), EntitySelector.NO_CREATIVE_OR_SPECTATOR);
             for (Entity entity : list) {
                 if (entity != null) {
+                    Vec3 vec3d = entity.getDeltaMovement();
+                    double y = vec3d.y;
                     if (facing.getAxis().isHorizontal()) {
-                        double strength = entity.isShiftKeyDown() ? 0.005D : 0.25D;
-                        MobUtil.push(entity, Mth.sin(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength, 0.0D, -Mth.cos(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength);
+                        double strength = MobUtil.isShifting(entity) ? 0.0D : 0.2D;
+                        MobUtil.push(entity,
+                                Mth.sin(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength,
+                                0.08D,
+                                -Mth.cos(facing.getOpposite().toYRot() * (float) Math.PI / 180.0F) * strength);
                     } else if (facing == Direction.UP) {
-                        Vec3 vec3d = entity.getDeltaMovement();
-                        entity.setDeltaMovement(vec3d.x, 0.125F, vec3d.z);
-                        MobUtil.push(entity, 0D, 0.25D, 0D);
-                        entity.fallDistance = 0;
+                        if (MobUtil.isShifting(entity)){
+                            if (y < 0.0D) {
+                                y *= 0.9D;
+                            }
+                        } else {
+                            y += 0.2D;
+                            y = Mth.clamp(y,-0.35D, 0.35D);
+                        }
+                        double resist = 0.0D;
+                        if (entity instanceof LivingEntity living) {
+                            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                        }
+                        double resist1 = Math.max(0.0D, 1.0D - resist);
+                        entity.setDeltaMovement(new Vec3(vec3d.x, y, vec3d.z).scale(resist1));
+                        entity.resetFallDistance();
                     } else {
                         MobUtil.push(entity, 0D, -0.2D, 0D);
                     }

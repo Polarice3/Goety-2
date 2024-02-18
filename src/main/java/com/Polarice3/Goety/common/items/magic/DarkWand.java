@@ -9,12 +9,12 @@ import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.events.GoetyEventFactory;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -149,53 +149,57 @@ public class DarkWand extends Item {
         return !(spells instanceof ITouchSpell) && !(spells instanceof IBlockSpell);
     }
 
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (!player.level.isClientSide) {
+            if (entity instanceof LivingEntity target && !(player.isShiftKeyDown() || player.isCrouching())) {
+                if (getFocus(stack).getItem() instanceof CallFocus) {
+                    if (target instanceof IOwned owned) {
+                        if (owned.getTrueOwner() == player) {
+                            if (!CallFocus.hasSummon(getFocus(stack))) {
+                                CompoundTag compoundTag = new CompoundTag();
+                                if (getFocus(stack).hasTag()) {
+                                    compoundTag = getFocus(stack).getTag();
+                                }
+                                CallFocus.setSummon(compoundTag, target);
+                                getFocus(stack).setTag(compoundTag);
+                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                                return true;
+                            }
+                        }
+                    }
+                } else if (getFocus(stack).getItem() instanceof CommandFocus) {
+                    if (target instanceof IServant targetSummon) {
+                        if (targetSummon.getTrueOwner() == player) {
+                            if (!CommandFocus.hasServant(getFocus(stack))) {
+                                CompoundTag compoundTag = new CompoundTag();
+                                if (getFocus(stack).hasTag()) {
+                                    compoundTag = getFocus(stack).getTag();
+                                }
+                                CommandFocus.setServant(compoundTag, target);
+                                getFocus(stack).setTag(compoundTag);
+                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand){
-        if (getFocus(stack).getItem() instanceof CallFocus) {
-            if (target instanceof IOwned owned) {
-                if (owned.getTrueOwner() == player) {
-                    if (!CallFocus.hasSummon(getFocus(stack))) {
-                        SoulUsingItemHandler soulUsingItemHandler = SoulUsingItemHandler.get(stack);
-                        ItemStack itemStack = new ItemStack(ModItems.CALL_FOCUS.get());
-                        CompoundTag compoundTag = itemStack.getOrCreateTag();
-                        CallFocus.setSummon(compoundTag, target);
-                        itemStack.setTag(compoundTag);
-                        player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                        if (!player.level.isClientSide) {
-                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                        }
-                        soulUsingItemHandler.extractItem();
-                        soulUsingItemHandler.insertItem(itemStack);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-        } else if (getFocus(stack).getItem() instanceof CommandFocus) {
-            if (target instanceof IServant targetSummon){
-                if (targetSummon.getTrueOwner() == player){
-                    if (!CommandFocus.hasServant(getFocus(stack))) {
-                        SoulUsingItemHandler soulUsingItemHandler = SoulUsingItemHandler.get(stack);
-                        ItemStack itemStack = new ItemStack(ModItems.COMMAND_FOCUS.get());
-                        CompoundTag compoundTag = itemStack.getOrCreateTag();
-                        CommandFocus.setServant(compoundTag, target);
-                        itemStack.setTag(compoundTag);
-                        player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                        if (!player.level.isClientSide) {
-                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                        }
-                        soulUsingItemHandler.extractItem();
-                        soulUsingItemHandler.insertItem(itemStack);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
+        if (getFocus(stack).getItem() instanceof CommandFocus) {
             if (CommandFocus.getServant(getFocus(stack)) instanceof IServant summoned && summoned != target){
                 if (summoned.getTrueOwner() == player && target.distanceTo(player) <= 64){
                     summoned.setCommandPosEntity(target);
                     player.playSound(ModSounds.COMMAND.get(), 1.0F, 0.45F);
                     if (!player.level.isClientSide) {
-                        ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), ModSounds.COMMAND.get(), 1.0F, 0.45F));
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.COMMAND.get(), 1.0F, 0.45F));
                     }
                     return InteractionResult.SUCCESS;
                 }
@@ -242,7 +246,7 @@ public class DarkWand extends Item {
                             getFocus(stack).setTag(compoundTag);
                             player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                             if (!level.isClientSide) {
-                                ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                             }
                             return InteractionResult.sidedSuccess(level.isClientSide);
                         }
@@ -253,7 +257,7 @@ public class DarkWand extends Item {
                         getFocus(stack).setTag(compoundTag);
                         player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
                         if (!level.isClientSide) {
-                            ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                         }
                         return InteractionResult.sidedSuccess(level.isClientSide);
                     }
@@ -275,7 +279,7 @@ public class DarkWand extends Item {
                             if (flag) {
                                 player.playSound(ModSounds.COMMAND.get(), 1.0F, 0.45F);
                                 if (!level.isClientSide) {
-                                    ModNetwork.sendTo(player, new SPlayEntitySoundPacket(player.getUUID(), ModSounds.COMMAND.get(), 1.0F, 0.45F));
+                                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.COMMAND.get(), 1.0F, 0.45F));
                                 }
                                 return InteractionResult.sidedSuccess(level.isClientSide);
                             }

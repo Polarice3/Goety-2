@@ -1,0 +1,15 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:cracked_polished_blackstone_bricks"
+    },
+    {
+      "item": "minecraft:polished_blackstone"
+    },
+    {
+      "item": "minecraft:chiseled_polished_blackstone"
+    }
+  ],
+  "block_result": "minecraft:blackstone"
+}

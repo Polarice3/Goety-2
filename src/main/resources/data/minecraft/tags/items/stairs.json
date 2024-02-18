@@ -12,6 +12,9 @@
     "goety:crypt_tiles_stairs",
     "goety:marble_stairs",
     "goety:slate_marble_stairs",
+    "goety:highrock_stairs",
+    "goety:polished_highrock_stairs",
+    "goety:highrock_brick_stairs",
     "goety:indented_gold_stairs"
   ]
 }

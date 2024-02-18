@@ -1,0 +1,42 @@
+{
+  "name": "スコールゴーレム",
+  "icon": "goety:jade_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_mistral_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "山頂の祠にはスコールゴーレムを作るための設計図のコピーが保管されているようだ。 実際、これらのゴーレムは、機能するために外部エネルギーを必要とするように見えるため、他の同種のゴーレムとは大きく異なるようです。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:squall_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:squall_golem",
+      "text": "アニメーションコアのある中央の 翡翠ブロックを右クリックします。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "作成されると、ゴーレムは非活動的で動かなくなり、どういうわけか傷つけられなくなります。 ゴーレムが機能するには、共鳴クリスタルと呼ばれるブロックからの電力が必要です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:resonance_crystal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ゴーレムをアクティブにするには、ゴーレム上のクリスタルを左クリックしてゴーレムを登録する必要があります。 登録したら、クリスタルに風を吹き込むウィンドブロワーから電力を供給する必要があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "電力を供給すると、クリスタルがゴーレムを起動します。 クリスタルが壊れたり無効化されたりすると、ゴーレムはシャットダウンして再び非アクティブになります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ゴーレムは従うか待機することしかできず、他の従者のようにさまようことはできません。 損傷した場合、ゴーレムは翡翠または翡翠ブロックを使用して修復できます。"
+    }
+  ]
+}

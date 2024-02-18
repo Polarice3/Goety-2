@@ -70,7 +70,6 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
 
     public void tick(){
         if (this.level != null) {
-            this.findWitchPoles();
             if (!this.level.isClientSide) {
                 if (this.checkFire()) {
                     if (!this.isHeated()) {
@@ -526,6 +525,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
     }
 
     public void discountCost(){
+        this.findWitchPoles();
         int size = Mth.clamp(this.witchPoles.size(), 0, 3);
         if (size > 0) {
             for (int i = 0; i < size; ++i) {
@@ -734,16 +734,13 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
 
     public void findWitchPoles(){
         if (this.level != null){
+            this.witchPoles.clear();
             for (int i = -8; i <= 8; ++i) {
                 for (int j = -8; j <= 8; ++j) {
                     for (int k = -8; k <= 8; ++k) {
                         BlockPos blockpos1 = this.getBlockPos().offset(i, j, k);
                         if (this.level.getBlockState(blockpos1).is(ModBlocks.WITCH_POLE.get())) {
-                            if (!this.witchPoles.contains(blockpos1)) {
-                                this.witchPoles.add(blockpos1);
-                            }
-                        } else {
-                            this.witchPoles.remove(blockpos1);
+                            this.witchPoles.add(blockpos1);
                         }
                     }
                 }

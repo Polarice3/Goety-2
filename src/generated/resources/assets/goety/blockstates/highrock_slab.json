@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/highrock_slab"
+    },
+    "type=double": {
+      "model": "goety:block/highrock"
+    },
+    "type=top": {
+      "model": "goety:block/highrock_slab_top"
+    }
+  }
+}

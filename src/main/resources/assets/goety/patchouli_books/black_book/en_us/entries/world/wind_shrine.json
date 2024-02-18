@@ -1,0 +1,16 @@
+{
+  "name": "Wind Shrines",
+  "icon": "goety:marble",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard of nomads, traveling from the highest sanctum, setting up shrines to the very winds on the very peaks. Who knows what kinds of treasure are held within?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/wind_shrine.png"],
+      "border": true
+    }
+  ]
+}

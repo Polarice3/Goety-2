@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:smooth_sandstone_stairs"
+    }
+  ],
+  "block_result": "minecraft:sandstone_stairs"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "##",
+    "##"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:highrock"
+    }
+  },
+  "result":
+  {
+    "item": "goety:polished_highrock",
+    "count": 4
+  }
+}

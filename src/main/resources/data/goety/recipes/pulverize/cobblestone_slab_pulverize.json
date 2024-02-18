@@ -1,0 +1,15 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:stone_slab"
+    },
+    {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    {
+      "item": "minecraft:stone_brick_slab"
+    }
+  ],
+  "block_result": "minecraft:cobblestone_slab"
+}

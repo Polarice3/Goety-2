@@ -1,0 +1,9 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:red_sandstone"
+    }
+  ],
+  "block_result": "minecraft:red_sand"
+}

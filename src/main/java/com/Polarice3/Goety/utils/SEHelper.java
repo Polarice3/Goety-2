@@ -359,6 +359,67 @@ public class SEHelper {
         return entityTypes;
     }
 
+    public static boolean addAllyEntity(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (!getAllyEntities(owner).contains(target)) {
+                getCapability(owner).addAlly(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean removeAllyEntity(Player owner, LivingEntity target){
+        if (target != owner) {
+            if (getAllyEntities(owner).contains(target)) {
+                getCapability(owner).removeAlly(target.getUUID());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<LivingEntity> getAllyEntities(Player owner){
+        List<LivingEntity> livingEntities = new ArrayList<>();
+        if (!getCapability(owner).allyList().isEmpty()){
+            for (UUID uuid : getCapability(owner).allyList()){
+                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
+                if (entity instanceof LivingEntity target && !livingEntities.contains(target) && target != owner){
+                    livingEntities.add(target);
+                }
+            }
+        }
+        return livingEntities;
+    }
+
+    public static boolean addAllyEntityType(Player owner, EntityType<?> target){
+        if (!getAllyEntityTypes(owner).contains(target)) {
+            getCapability(owner).addAllyType(target);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removeAllyEntityType(Player owner, EntityType<?> target){
+        if (getAllyEntityTypes(owner).contains(target)) {
+            getCapability(owner).removeAllyType(target);
+            return true;
+        }
+        return false;
+    }
+
+    public static List<EntityType<?>> getAllyEntityTypes(Player owner){
+        List<EntityType<?>> entityTypes = new ArrayList<>();
+        if (!getCapability(owner).allyTypeList().isEmpty()){
+            for (EntityType<?> entityType : getCapability(owner).allyTypeList()){
+                if (!entityTypes.contains(entityType)){
+                    entityTypes.add(entityType);
+                }
+            }
+        }
+        return entityTypes;
+    }
+
     public static boolean addSummon(Player owner, LivingEntity target){
         if (target != owner) {
             if (!getSummons(owner).contains(target)) {
@@ -549,6 +610,28 @@ public class SEHelper {
             }
         }
 
+        if (soulEnergy.allyList() != null) {
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.allyList().isEmpty()) {
+                for (UUID uuid : soulEnergy.allyList()) {
+                    listTag.add(NbtUtils.createUUID(uuid));
+                }
+                tag.put("allyList", listTag);
+            }
+        }
+
+        if (soulEnergy.allyTypeList() != null){
+            ListTag listTag = new ListTag();
+            if (!soulEnergy.allyTypeList().isEmpty()) {
+                for (EntityType<?> entityType : soulEnergy.allyTypeList()){
+                    CompoundTag compoundTag = new CompoundTag();
+                    compoundTag.putString("id", EntityType.getKey(entityType).toString());
+                    listTag.add(compoundTag);
+                }
+                tag.put("allyTypeList", listTag);
+            }
+        }
+
         if (soulEnergy.getResearch() != null){
             ListTag listTag = new ListTag();
             if (!soulEnergy.getResearch().isEmpty()){
@@ -612,6 +695,21 @@ public class SEHelper {
                 String string = listtag.getCompound(i).getString("id");
                 if (EntityType.byString(string).isPresent()){
                     soulEnergy.addGrudgeType(EntityType.byString(string).get());
+                }
+            }
+        }
+        if (tag.contains("allyList", 9)) {
+            ListTag listtag = tag.getList("allyList", 11);
+            for (Tag value : listtag) {
+                soulEnergy.addAlly(NbtUtils.loadUUID(value));
+            }
+        }
+        if (tag.contains("allyTypeList", Tag.TAG_LIST)) {
+            ListTag listtag = tag.getList("allyTypeList", Tag.TAG_COMPOUND);
+            for (int i = 0; i < listtag.size(); ++i) {
+                String string = listtag.getCompound(i).getString("id");
+                if (EntityType.byString(string).isPresent()){
+                    soulEnergy.addAllyType(EntityType.byString(string).get());
                 }
             }
         }

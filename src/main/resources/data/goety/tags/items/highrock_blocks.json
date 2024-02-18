@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "goety:highrock",
+    "goety:polished_highrock",
+    "goety:highrock_bricks",
+    "goety:gold_indented_highrock_bricks",
+    "goety:gold_chiseled_highrock_bricks",
+    "goety:highrock_slab",
+    "goety:polished_highrock_slab",
+    "goety:highrock_brick_slab",
+    "goety:highrock_stairs",
+    "goety:polished_highrock_stairs",
+    "goety:highrock_brick_stairs",
+    "goety:highrock_wall",
+    "goety:polished_highrock_wall",
+    "goety:highrock_brick_wall"
+  ]
+}

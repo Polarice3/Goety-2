@@ -19,6 +19,10 @@
     {
       "type": "patchouli:text",
       "text": "However, if you're in a forgiving mood and want to erase the grudge, you can simply right click on the being you have a grudge with, or shift right click if you have a grudge against the entire species, the grudge will be erased from the grimoire. Until you hit them again."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Adding grudge to a being or species that's recorded on the Grimoire of Goodwill will erase the goodwill."
     }
   ]
 }

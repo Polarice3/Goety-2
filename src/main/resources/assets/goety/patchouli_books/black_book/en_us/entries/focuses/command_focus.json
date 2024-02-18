@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "To use the command focus, it must be equipped in a wand/staff. Then the caster must right click the wand/staff on a servant to start commanding it. The caster can shift-right click into the air to remove the servant from the command focus."
+      "text": "To use the command focus, it must be equipped in a wand/staff. Then the caster must left click the wand/staff on a servant to start commanding it. The caster can shift-right click into the air to remove the servant from the command focus."
     },
     {
       "type": "patchouli:text",
