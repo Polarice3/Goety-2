@@ -24,6 +24,8 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxSlimeSize;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockSpawnWeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithSpawnWeight;
 
@@ -180,6 +182,8 @@ public class MobsConfig {
                 .define("ownerAttackCancel", true);
         MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
                 .define("mobSense", true);
+        MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")
+                .defineInRange("maxSlimeSize", 4, 1, Integer.MAX_VALUE);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
         BUILDER.pop();

@@ -434,6 +434,10 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     }
 
     @Override
+    public void stayingMode() {
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!this.isActivated() || this.isStartingUp() || this.isShuttingDown()){
             if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){

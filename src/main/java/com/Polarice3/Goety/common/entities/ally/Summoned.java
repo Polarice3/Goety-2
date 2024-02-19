@@ -101,26 +101,7 @@ public class Summoned extends Owned implements IServant {
 
     public void tick(){
         super.tick();
-        AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-        if (modifiableattributeinstance != null) {
-            if (this.isStaying()){
-                if (this.navigation.getPath() != null) {
-                    this.navigation.stop();
-                }
-                if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
-                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
-                    modifiableattributeinstance.addTransientModifier(SPEED_MODIFIER);
-                }
-                this.stayingPosition();
-                if (this.isWandering()) {
-                    this.setWandering(false);
-                }
-            } else {
-                if (modifiableattributeinstance.hasModifier(SPEED_MODIFIER)) {
-                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
-                }
-            }
-        }
+        this.stayingMode();
         if (this.isCommanded()){
             if (this.getNavigation().isStableDestination(this.commandPos) || this.commandPosEntity != null){
                 --this.commandTick;
@@ -206,6 +187,29 @@ public class Summoned extends Owned implements IServant {
 
             if (flag) {
                 this.setSecondsOnFire(8);
+            }
+        }
+    }
+
+    public void stayingMode(){
+        AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (modifiableattributeinstance != null) {
+            if (this.isStaying()){
+                if (this.navigation.getPath() != null) {
+                    this.navigation.stop();
+                }
+                if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
+                    modifiableattributeinstance.addTransientModifier(SPEED_MODIFIER);
+                }
+                this.stayingPosition();
+                if (this.isWandering()) {
+                    this.setWandering(false);
+                }
+            } else {
+                if (modifiableattributeinstance.hasModifier(SPEED_MODIFIER)) {
+                    modifiableattributeinstance.removeModifier(SPEED_MODIFIER);
+                }
             }
         }
     }
