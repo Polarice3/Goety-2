@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,10 +29,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 
 public class SlimeServant extends Summoned{
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(SlimeServant.class, EntityDataSerializers.INT);
@@ -123,6 +126,11 @@ public class SlimeServant extends Summoned{
         return this.getSize() > 0 && super.shouldDespawnInPeaceful();
     }
 
+    @Override
+    public boolean canUpdateMove() {
+        return true;
+    }
+
     public void tick() {
         this.squish += (this.targetSquish - this.squish) * 0.5F;
         this.oSquish = this.squish;
@@ -132,6 +140,22 @@ public class SlimeServant extends Summoned{
             }
             if (this.interestTime <= 0){
                 this.setIsInterested(false);
+            }
+            if (this.getTarget() != null && this.getTarget().isAlive()){
+                AABB aabb;
+                if (this.getTarget().isPassenger() && this.getTarget().getVehicle() != null) {
+                    aabb = this.getTarget().getBoundingBox().minmax(this.getTarget().getVehicle().getBoundingBox()).inflate(1.0D, 0.0D, 1.0D);
+                } else {
+                    aabb = this.getTarget().getBoundingBox().inflate(1.0D, 0.5D, 1.0D);
+                }
+
+                List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
+
+                for (LivingEntity target : list) {
+                    if (target == this.getTarget()) {
+                        this.dealDamage(target);
+                    }
+                }
             }
         }
         super.tick();
@@ -326,7 +350,7 @@ public class SlimeServant extends Summoned{
     public InteractionResult mobInteract(Player p_34394_, InteractionHand p_34395_) {
         ItemStack itemstack = p_34394_.getItemInHand(p_34395_);
         if (itemstack.is(this.getIncreaseItem())) {
-            if (this.getSize() < 4) {
+            if (this.getSize() < MobsConfig.MaxSlimeSize.get()) {
                 if (!p_34394_.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
