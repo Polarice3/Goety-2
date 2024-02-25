@@ -14,10 +14,7 @@ import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
 import com.Polarice3.Goety.client.render.block.*;
-import com.Polarice3.Goety.client.render.layer.MagicShieldLayer;
-import com.Polarice3.Goety.client.render.layer.PlayerSoulArmorLayer;
-import com.Polarice3.Goety.client.render.layer.PlayerSoulShieldLayer;
-import com.Polarice3.Goety.client.render.layer.PlayerSpellShieldLayer;
+import com.Polarice3.Goety.client.render.layer.*;
 import com.Polarice3.Goety.client.render.model.*;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModChestBlock;
@@ -31,6 +28,7 @@ import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.CallFocus;
 import com.Polarice3.Goety.common.items.magic.RecallFocus;
+import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.items.magic.TotemOfSouls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
@@ -45,12 +43,15 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.BlockItem;
@@ -67,6 +68,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 
+import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -95,6 +98,8 @@ public class ClientInitEvents {
                 (stack, world, living, seed) -> TotemOfSouls.isActivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.FLAME_CAPTURE.get(), new ResourceLocation("capture"),
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
+                (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pull"),
                 (stack, world, living, seed) -> {
                     if (living == null) {
@@ -111,17 +116,45 @@ public class ClientInitEvents {
                 , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
     }
 
+    /**
+     * Ripped from @TeamTwilight's AddLayer codes: <a href="https://github.com/TeamTwilight/twilightforest/blob/1.20.x/src/main/java/twilightforest/client/TFClientSetup.java">...</a>
+     */
+    @Nullable
+    private static Field fieldEntityRenderer;
+
     @SubscribeEvent
+    @SuppressWarnings("unchecked")
     public static void addLayers(EntityRenderersEvent.AddLayers event){
-        event.getSkins().forEach(skin -> {
-            LivingEntityRenderer<Player, EntityModel<Player>> livingEntityRenderer = event.getSkin(skin);
-            if (livingEntityRenderer != null) {
-                addPlayerLayers(livingEntityRenderer, event.getEntityModels());
+        if (fieldEntityRenderer == null) {
+            try {
+                fieldEntityRenderer = EntityRenderersEvent.AddLayers.class.getDeclaredField("renderers");
+                fieldEntityRenderer.setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
             }
-        });
+        }
+        if (fieldEntityRenderer != null) {
+            event.getSkins().forEach(skin -> {
+                LivingEntityRenderer<Player, EntityModel<Player>> livingEntityRenderer = event.getSkin(skin);
+                if (livingEntityRenderer != null) {
+                    addPlayerLayers(livingEntityRenderer, event.getEntityModels());
+                }
+            });
+            try {
+                ((Map<EntityType<?>, EntityRenderer<?>>) fieldEntityRenderer.get(event)).values().stream().
+                        filter(LivingEntityRenderer.class::isInstance).map(LivingEntityRenderer.class::cast).forEach(ClientInitEvents::addLivingLayer);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static <T extends LivingEntity, M extends EntityModel<T>> void addLivingLayer(LivingEntityRenderer<T, M> renderer) {
+        renderer.addLayer(new FreezeLayer<>(renderer));
     }
 
     private static void addPlayerLayers(LivingEntityRenderer<Player, EntityModel<Player>> renderer, EntityModelSet entityModelSet) {
+        renderer.addLayer(new FreezeLayer<>(renderer));
         renderer.addLayer(new MagicShieldLayer<>(renderer));
         renderer.addLayer(new PlayerSoulArmorLayer<>(renderer, entityModelSet));
         renderer.addLayer(new PlayerSoulShieldLayer<>(renderer, entityModelSet));
@@ -158,8 +191,10 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.WARLOCK, WarlockModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE, CroneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.APOSTLE, ApostleModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.APOSTLE_SHADE, ApostleShadeRenderer.ApostleShadeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ZOMBIE_VILLAGER_SERVANT, VillagerServantModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SKELETON_VILLAGER_SERVANT, SkeletonVillagerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BOUND_ILLAGER, BoundIllagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGED, RavagedModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER, ModRavagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
@@ -336,6 +371,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicatorRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BOUND_EVOKER.get(), BoundEvokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_SKULL.get(), HauntedSkullRenderer::new);
         event.registerEntityRenderer(ModEntityType.DOPPELGANGER.get(), (render) -> new DoppelgangerRenderer(render, false));
@@ -373,6 +409,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAIL_CLOUD.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.MONSOON_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.TUNNELING_FANG.get(), TrapRenderer::new);

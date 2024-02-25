@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.common.blocks.PedestalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +29,9 @@ public class PedestalBlockEntity extends RitualBlockEntity {
                     if (!PedestalBlockEntity.this.level.isClientSide) {
                         PedestalBlockEntity.this.lastChangeTime = PedestalBlockEntity.this.level
                                 .getGameTime();
+                        boolean flag = !this.stacks.get(0).isEmpty();
+                        PedestalBlockEntity.this.level.setBlockAndUpdate(PedestalBlockEntity.this.getBlockPos(),
+                                PedestalBlockEntity.this.getBlockState().setValue(PedestalBlock.OCCUPIED, flag));
                         PedestalBlockEntity.this.markNetworkDirty();
                     }
                 }

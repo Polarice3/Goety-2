@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.ZombieVindicator;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVindicator;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;

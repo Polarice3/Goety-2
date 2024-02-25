@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "goety:block/slate_marble",
+    "side": "goety:block/slate_marble",
+    "top": "goety:block/slate_marble"
+  }
+}

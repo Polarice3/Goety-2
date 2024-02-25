@@ -196,6 +196,17 @@ public class CultistModel<T extends Cultist> extends HumanoidModel<T> {
                     this.rightArm.xRot = -(2.0F + Mth.cos(ageInTicks * 0.09F) * 0.15F);
                 }
                 break;
+            case ITEM:
+                this.head.xRot = 0.5F;
+                this.head.yRot = 0.0F;
+                if (entityIn.isLeftHanded()) {
+                    this.rightArm.yRot = -0.5F;
+                    this.rightArm.xRot = -0.9F;
+                } else {
+                    this.leftArm.yRot = 0.5F;
+                    this.leftArm.xRot = -0.9F;
+                }
+                break;
             case DYING:
                 if (entityIn.isDeadOrDying()){
                     this.rightArm.z = 0.0F;

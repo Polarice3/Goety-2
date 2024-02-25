@@ -128,6 +128,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.fortunate",
+      "text": "Bah! Who needs Enchantments when you have brews! Ol'Granny needs some extra diamonds, and she's all out of Lapis!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.freeze",
       "text": "Sometimes Ol' Granny wants to skate in their Swamp on their hag-made frozen pond!"
     },

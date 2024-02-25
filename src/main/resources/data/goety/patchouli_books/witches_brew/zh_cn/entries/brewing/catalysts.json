@@ -61,6 +61,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corpse_eater",
+      "text": "享受敌人垂死尖叫的声音和广度！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
       "text": "一个诅咒赠与你！没有治愈恢复你！我刚把u和u押韵了！你要做什么?"
     },
@@ -125,6 +130,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.flood",
       "text": "水太少了，但是在这个药剂的帮助下，这里将会闹洪灾!哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fortunate",
+      "text": "啊！当你有药酿的时候，谁需要附魔！奥奶奶需要一些额外的钻石，而她已经为青金石而筋疲力尽了。"
     },
     {
       "type": "goety:catalyst",
@@ -302,7 +312,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.save_effects",
-      "text": "吃了那些回响碎片就有了这个想法！即使喝了一些牛奶，效果也会持续，而且针对类型显然是死亡？对那些可恨的不朽存在也有用，比如蓝色指南针！"
+      "text": "吃了那些回响碎片就有了这个想法！即使喝了一些牛奶，效果也会持续，而且针对类型居然是死亡？对那些可恨的不朽存在也有用，比如蓝色指南针！"
     },
     {
       "type": "goety:catalyst",

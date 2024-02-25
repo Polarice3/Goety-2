@@ -6,12 +6,10 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -20,10 +18,8 @@ import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -47,14 +43,7 @@ public class LichEvents {
         if (LichdomHelper.isLich(player)){
             player.getFoodData().setFoodLevel(17);
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-            boolean burn = false;
-            if (!world.isClientSide && world.isDay() && !world.isRaining()) {
-                float f = player.getLightLevelDependentMagicValue();
-                BlockPos blockpos = player.getVehicle() instanceof Boat ? (new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ())).above() : new BlockPos(player.getX(), (double) Math.round(player.getY()), player.getZ());
-                if (f > 0.5F && world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && world.canSeeSky(blockpos)) {
-                    burn = true;
-                }
-            }
+            boolean burn = MobUtil.isInSunlight(player) && !world.isRaining();
 
             if (burn){
                 ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -196,14 +185,16 @@ public class LichEvents {
                     if (CuriosFinder.hasUndeadSet(player) && event.getSource().getEntity() != null) {
                         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
                             for (Mob undead : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16))) {
-                                if (undead.getMobType() == MobType.UNDEAD) {
-                                    if (undead.getTarget() != player) {
-                                        if (MainConfig.LichPowerfulFoes.get()) {
-                                            if (undead.getMaxHealth() < 100.0F) {
+                                if (undead != attacker) {
+                                    if (undead.getMobType() == MobType.UNDEAD) {
+                                        if (undead.getTarget() != player) {
+                                            if (MainConfig.LichPowerfulFoes.get()) {
+                                                if (undead.getMaxHealth() < 100.0F) {
+                                                    undead.setTarget(attacker);
+                                                }
+                                            } else {
                                                 undead.setTarget(attacker);
                                             }
-                                        } else {
-                                            undead.setTarget(attacker);
                                         }
                                     }
                                 }

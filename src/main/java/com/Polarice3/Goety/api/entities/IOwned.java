@@ -37,4 +37,8 @@ public interface IOwned {
 
     default void convertNewEquipment(Entity entity) {
     }
+
+    default boolean isFamiliar(){
+        return false;
+    }
 }

@@ -17,9 +17,11 @@ import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.game.ClientboundSetCameraPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
@@ -510,7 +512,7 @@ public class SEHelper {
     }
 
     public static void addCooldown(Player player, Item item, int duration){
-        getFocusCoolDown(player).addCooldown(player.level, item, duration);
+        getFocusCoolDown(player).addCooldown(player, player.level, item, duration);
     }
 
     public static FocusCooldown.CooldownInstance getCooldownInstance(Player player, Item item){
@@ -566,6 +568,23 @@ public class SEHelper {
         SEHelper.sendSEUpdatePacket(player);
     }
 
+    public static boolean hasCamera(Player player){
+        return getCapability(player).getCameraUUID() != null;
+    }
+
+    public static void setCamera(Player player, @Nullable Entity target){
+        if (target != null) {
+            getCapability(player).setCameraUUID(target.getUUID());
+        } else {
+            getCapability(player).setCameraUUID(null);
+            target = player;
+        }
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetCameraPacket(target));
+        }
+        sendSEUpdatePacket(player);
+    }
+
     public static void sendSEUpdatePacket(Player player) {
         if (!player.level.isClientSide()) {
             ModNetwork.sendTo(player, new SEUpdatePacket(player));
@@ -580,6 +599,9 @@ public class SEHelper {
         tag.putInt("shields", soulEnergy.shieldsLeft());
         tag.putInt("shieldTime", soulEnergy.shieldTime());
         tag.putInt("shieldCool", soulEnergy.shieldCool());
+        if (soulEnergy.getCameraUUID() != null) {
+            tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
+        }
         if (soulEnergy.getArcaBlock() != null) {
             tag.putInt("arcax", soulEnergy.getArcaBlock().getX());
             tag.putInt("arcay", soulEnergy.getArcaBlock().getY());
@@ -682,6 +704,11 @@ public class SEHelper {
         soulEnergy.setShields(tag.getInt("shields"));
         soulEnergy.setShieldTime(tag.getInt("shieldTime"));
         soulEnergy.setShieldCool(tag.getInt("shieldCool"));
+        if (tag.contains("cameraUUID")) {
+            soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));
+        } else {
+            soulEnergy.setCameraUUID(null);
+        }
         soulEnergy.setArcaBlockDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("dimension")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         if (tag.contains("grudgeList", 9)) {
             ListTag listtag = tag.getList("grudgeList", 11);

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "sts",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "goety:slate_marble"
+    },
+    "t":
+    {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result":
+  {
+    "item": "goety:washed_slate_marble",
+    "count": 8
+  }
+}

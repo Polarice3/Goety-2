@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -605,6 +606,19 @@ public class Summoned extends Owned implements IServant {
             } else {
                 return false;
             }
+        }
+    }
+
+    public static class NaturalAttackGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+        protected Summoned summoned;
+
+        public NaturalAttackGoal(Summoned summoned, Class<T> p_26061_) {
+            super(summoned, p_26061_, true);
+            this.summoned = summoned;
+        }
+
+        public boolean canUse() {
+            return super.canUse() && this.summoned.isNatural() && this.summoned.getTrueOwner() == null && this.target != null;
         }
     }
 }

@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.RavagerArmorLayer;
 import com.Polarice3.Goety.client.render.model.ModRavagerModel;
-import com.Polarice3.Goety.common.entities.ally.ZombieRavager;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

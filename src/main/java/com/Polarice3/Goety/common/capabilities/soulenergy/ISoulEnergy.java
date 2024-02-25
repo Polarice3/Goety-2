@@ -59,6 +59,9 @@ public interface ISoulEnergy {
     void setShieldCool(int cool);
     void decreaseShieldCool();
     @Nullable
+    UUID getCameraUUID();
+    void setCameraUUID(@Nullable UUID camera);
+    @Nullable
     BlockPos getEndWalkPos();
     void setEndWalkPos(BlockPos blockPos);
     @Nullable

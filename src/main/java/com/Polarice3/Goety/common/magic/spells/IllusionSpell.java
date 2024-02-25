@@ -65,8 +65,8 @@ public class IllusionSpell extends Spells {
         for (int i1 = 0; i1 < i0; ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
             summonedentity.setTrueOwner(entityLiving);
-            if (entityLiving instanceof Player) {
-                ModNetwork.sendToALL(new SSetPlayerOwnerPacket(summonedentity));
+            if (entityLiving instanceof Player player) {
+                ModNetwork.sendTo(player, new SSetPlayerOwnerPacket(summonedentity));
             }
             boolean undead = CuriosFinder.hasNamelessSet(entityLiving) && staff.is(ModItems.NAMELESS_STAFF.get());
             summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);

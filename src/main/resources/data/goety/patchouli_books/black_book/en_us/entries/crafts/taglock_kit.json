@@ -1,0 +1,23 @@
+{
+  "name": "Taglock Kit",
+  "icon": "goety:taglock_kit",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A taglock kit is used to collect taglocks from creatures or rivals. Taglocks are used to create a link between target and witchcraft."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:taglock_kit"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To collect taglocks, simply left click the kit on a being. One can also obtain a taglock by right-clicking it on a bed that's been used by a beings like yourself. For some reason, you can't obtain Villager taglocks this way."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Be warn! While tagging a creature is a simple matter, tagging a fellow being like yourself requires a more sneaky approach, as they can notice your failed attempt!"
+    }
+  ]
+}

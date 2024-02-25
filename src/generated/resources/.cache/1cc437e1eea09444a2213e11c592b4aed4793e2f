@@ -1,4 +1,4 @@
-// 1.19.2	2024-02-18T23:03:44.0809563	Goety LootTables
+// 1.19.2	2024-02-22T14:41:38.3471633	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -63,6 +63,7 @@ b7e53d99ff6df34e7bba4e86549e893d76391941 data/goety/loot_tables/blocks/haunted_s
 b9ae911b48d835091a95fcab64a6e35f6b9b231f data/goety/loot_tables/blocks/haunted_stairs.json
 00897def8b3b54c00c50c6d51e0d70c09c901e7a data/goety/loot_tables/blocks/haunted_trapdoor.json
 1e1a8c30ddeaab865a2f794621a7e395eb87c865 data/goety/loot_tables/blocks/haunted_wood.json
+7ed78b5587ce2af6ac50a5031fe67b05f77950cd data/goety/loot_tables/blocks/heavy_silt_marble.json
 710c19923403e21cad0ed3bca549ff5038dc6b31 data/goety/loot_tables/blocks/highrock.json
 4c7f9c2a4b430c82e286a15f1312c246e57823ba data/goety/loot_tables/blocks/highrock_bricks.json
 679af100ab6f316b428ce765f611544ecf2787e6 data/goety/loot_tables/blocks/highrock_brick_slab.json
@@ -140,6 +141,14 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 8fb2fe3f301d4a6de37648e33076e6ae3a927c4b data/goety/loot_tables/blocks/shade_tiles.json
 9a08cebacfb5639c297cb782ac5fe4e6aa27a46c data/goety/loot_tables/blocks/shade_tiles_slab.json
 1648082fd99fae7a538121d8935afc9ca3d9c80d data/goety/loot_tables/blocks/shade_tiles_stairs.json
+352d6ce48b152ba603862217d4cff7e3495f8e5d data/goety/loot_tables/blocks/siltstone.json
+c7c611183ade0d629b90e9ca0398b107f45aa066 data/goety/loot_tables/blocks/siltstone_slab.json
+2279216fa409b53f07df296a2657ce08b351a567 data/goety/loot_tables/blocks/siltstone_stairs.json
+f0b18616224e79ea9f65ac9eacda49f0e68d4742 data/goety/loot_tables/blocks/silt_jade_slab.json
+2ddd6972f419419f8e386f5f2429538413bdfebe data/goety/loot_tables/blocks/silt_jade_stairs.json
+e1635dfa8a01c8a3e1971d384543036f4e817dd0 data/goety/loot_tables/blocks/silt_jade_tiles.json
+6d9a03525a14908fbe83102f4e4bfcc97ff9ddf9 data/goety/loot_tables/blocks/silt_marble.json
+b5b3c174b1ce67014586122bc0b6bc8fe04ae3b5 data/goety/loot_tables/blocks/silt_slate_marble.json
 776461163bf71ab7740c0dea3bb2ae9b3ee23b4f data/goety/loot_tables/blocks/skull_pile.json
 5533bcd5e81ca85350f43634abed42871e086d50 data/goety/loot_tables/blocks/slate_connected_marble.json
 05f5105e56de891f51b6213ad9ecc90596ac2670 data/goety/loot_tables/blocks/slate_cornered_marble.json
@@ -148,6 +157,7 @@ a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_sto
 e4caf49f4db73aa299535ac94f3aff64e3bd55f5 data/goety/loot_tables/blocks/slate_marble_slab.json
 8aa5194d3f851ee6e5aba8afb4cbbcff939ee3de data/goety/loot_tables/blocks/slate_marble_stairs.json
 b68a443ed8670d6b57be3f795700f6ff712fe66f data/goety/loot_tables/blocks/slate_patterned_marble.json
+0b3d2827361baec546f2e4459988bb5b766b4b9f data/goety/loot_tables/blocks/slight_silt_marble.json
 94087605f4029634754a3ab4a102343ee4eecdf6 data/goety/loot_tables/blocks/smooth_marble_slab.json
 6ab8af30da23094267d3cdd67726d7c9fcac84fd data/goety/loot_tables/blocks/snap_warts.json
 32f726a84cfdaa4a9c8006b9f26e0f17ca6598a8 data/goety/loot_tables/blocks/soul_absorber.json
@@ -179,6 +189,8 @@ b074adc9ce774c5d097f5178a1d75266eadbe738 data/goety/loot_tables/blocks/tall_skul
 ff2732c8e862bc38cae51d810c8f18fbcc72bc11 data/goety/loot_tables/blocks/trapped_haunted_chest.json
 0d6fd8f0fc3dab9ac3eedcb50e8e8e24e2bb4753 data/goety/loot_tables/blocks/trapped_rotten_chest.json
 de37f7ff53be0b5f98649d7a95d43bd1df9510ab data/goety/loot_tables/blocks/trapped_windswept_chest.json
+ed29393bb427b62087b5ff2e78f52ac0a623cf39 data/goety/loot_tables/blocks/washed_slate_marble.json
+53a6941ee87e2fca7e1033977749555028bbc6c7 data/goety/loot_tables/blocks/weathered_slate_marble.json
 663713e1a292055ad10dea033075fc4f638143f3 data/goety/loot_tables/blocks/windswept_bookshelf.json
 5032c0abcebcfb9eb8e6605d0462b596841e7e20 data/goety/loot_tables/blocks/windswept_button.json
 3e57689e32618baf56212363fbad4ced6d02bc72 data/goety/loot_tables/blocks/windswept_chest.json
@@ -198,3 +210,4 @@ a685c3b6454be6470db4683baf43a584d1c792ca data/goety/loot_tables/blocks/windswept
 7dba1958edef1656ec77c718e4afc766e4f45610 data/goety/loot_tables/blocks/wind_blower.json
 dbc604b3613797556c5d513051c76355f3769e9f data/goety/loot_tables/blocks/witch_cauldron.json
 91b84bdce49685ec5710e641f57cd2e162f55100 data/goety/loot_tables/blocks/witch_pole.json
+351b3a40dd6600ee7d77cf1c303956c2e0eceded data/goety/loot_tables/blocks/worn_slate_marble.json

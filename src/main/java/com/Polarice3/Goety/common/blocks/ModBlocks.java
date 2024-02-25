@@ -14,11 +14,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -287,7 +289,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> GOLD_HOLDER_MARBLE_BLOCK = register("gold_holder_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_COVERED_MARBLE_BLOCK = register("gold_covered_marble", MarbleBlock::new);
     public static final RegistryObject<Block> GOLD_PLATED_MARBLE_BLOCK = register("gold_plated_marble", MarbleBlock::new);
+
     public static final RegistryObject<Block> SLATE_MARBLE_BLOCK = register("slate_marble", SlateMarbleBlock::new);
+    public static final RegistryObject<Block> WORN_SLATE_MARBLE_BLOCK = register("worn_slate_marble", SlateMarbleBlock::new);
+    public static final RegistryObject<Block> WEATHERED_SLATE_MARBLE_BLOCK = register("weathered_slate_marble", SlateMarbleBlock::new);
+    public static final RegistryObject<Block> WASHED_SLATE_MARBLE_BLOCK = register("washed_slate_marble",
+            () -> new FacingBlock(BlockBehaviour.Properties.of(Material.STONE,(state) -> {
+                return state.getValue(FacingBlock.FACING) == Direction.DOWN ? MaterialColor.TERRACOTTA_CYAN : MaterialColor.TERRACOTTA_WHITE;
+            }).requiresCorrectToolForDrops()
+            .strength(3.0F, 6.0F)
+            .sound(SoundType.STONE)));
     public static final RegistryObject<Block> SLATE_CONNECTED_MARBLE_BLOCK = register("slate_connected_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_PATTERNED_MARBLE_BLOCK = register("slate_patterned_marble", MarbleBlock::new);
     public static final RegistryObject<Block> SLATE_CORNERED_MARBLE_BLOCK = register("slate_cornered_marble", MarbleBlock::new);
@@ -613,6 +624,20 @@ public class ModBlocks {
 
     }
 
+    public static BlockBehaviour.Properties SiltstoneProperties(){
+        return BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_YELLOW)
+                .requiresCorrectToolForDrops()
+                .strength(1.5F, 6.0F);
+    }
+
+    public static class SiltstoneBlock extends Block {
+
+        public SiltstoneBlock() {
+            super(SiltstoneProperties());
+        }
+
+    }
+
     public static BlockBehaviour.Properties IndentedGoldProperties(){
         return BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
                 .requiresCorrectToolForDrops()
@@ -634,6 +659,29 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 3.0F),
                     UniformInt.of(3, 7));
+        }
+    }
+
+    public static class FacingBlock extends DirectionalBlock{
+        public FacingBlock(Properties p_52591_) {
+            super(p_52591_);
+            this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+        }
+
+        public BlockState getStateForPlacement(BlockPlaceContext p_56198_) {
+            return this.defaultBlockState().setValue(FACING, p_56198_.getClickedFace());
+        }
+
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_56249_) {
+            p_56249_.add(FACING);
+        }
+
+        public BlockState rotate(BlockState p_56243_, Rotation p_56244_) {
+            return p_56243_.setValue(FACING, p_56244_.rotate(p_56243_.getValue(FACING)));
+        }
+
+        public BlockState mirror(BlockState p_56240_, Mirror p_56241_) {
+            return p_56240_.rotate(p_56241_.getRotation(p_56240_.getValue(FACING)));
         }
     }
 

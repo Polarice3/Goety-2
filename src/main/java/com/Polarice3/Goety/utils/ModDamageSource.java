@@ -17,6 +17,7 @@ public class ModDamageSource extends DamageSource {
     public static DamageSource SHOCK = new DamageSource(source("shock"));
     public static DamageSource BOILING = new DamageSource(source("boiling")).setIsFire();
     public static DamageSource PHOBIA = new DamageSource(source("phobia")).bypassArmor().setMagic();
+    public static DamageSource DOOM = new DamageSource(source("doom")).bypassArmor().bypassEnchantments().setMagic();
 
     public ModDamageSource(String pMessageId) {
         super(pMessageId);
@@ -24,6 +25,10 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource directShock(LivingEntity pMob) {
         return new EntityDamageSource(source("directShock"), pMob);
+    }
+
+    public static DamageSource indirectShock(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return (new IndirectEntityDamageSource(source("indirectShock"), pSource, pIndirectEntity));
     }
 
     public static DamageSource directFreeze(LivingEntity pMob) {
@@ -68,7 +73,9 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static boolean shockAttacks(DamageSource source){
-        return source.getMsgId().equals(source("directShock")) || source == ModDamageSource.SHOCK;
+        return source.getMsgId().equals(source("directShock"))
+                || source.getMsgId().equals(source("indirectShock"))
+                || source == ModDamageSource.SHOCK;
     }
 
     public static boolean freezeAttacks(DamageSource source){

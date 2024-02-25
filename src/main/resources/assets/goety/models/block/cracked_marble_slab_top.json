@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "goety:block/cracked_marble",
-    "top": "goety:block/cracked_marble",
-    "side": "goety:block/cracked_marble"
-  }
-}

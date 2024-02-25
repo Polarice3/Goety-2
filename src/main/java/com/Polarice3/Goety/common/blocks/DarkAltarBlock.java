@@ -40,12 +40,13 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock, Simp
     public static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 13.0D, 15.0D);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     public DarkAltarBlock() {
         super(ModBlocks.ShadeStoneProperties()
                 .noOcclusion()
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(LIT, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(LIT, Boolean.FALSE).setValue(OCCUPIED, Boolean.FALSE));
     }
 
     @Override
@@ -138,7 +139,7 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock, Simp
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(LIT, WATERLOGGED);
+        pBuilder.add(LIT, WATERLOGGED, OCCUPIED);
     }
 
     public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {

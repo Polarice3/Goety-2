@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.neutral.Minion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -48,6 +49,8 @@ public class MinionFollowGoal extends Goal {
         if (livingentity == null) {
             return false;
         } else if (livingentity.isSpectator()) {
+            return false;
+        } else if (livingentity instanceof Mob) {
             return false;
         } else if (this.summonedEntity.distanceToSqr(livingentity) < (double)(this.minDist * this.minDist)) {
             return false;

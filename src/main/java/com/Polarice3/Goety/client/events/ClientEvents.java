@@ -21,6 +21,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -101,6 +102,9 @@ public class ClientEvents {
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_LOOP.get(), entity));
                 soundHandler.play(new LoopSound(ModSounds.CORRUPT_BEAM_SOUL.get(), entity));
             }
+            if (entity instanceof ApostleShade){
+                soundHandler.play(new LoopSound(ModSounds.APOSTLE_SHADE.get(), entity));
+            }
         }
     }
 
@@ -110,6 +114,18 @@ public class ClientEvents {
     public static void clientTick(TickEvent.RenderTickEvent event){
         if (event.phase == TickEvent.Phase.START){
             PARTIAL_TICK = event.renderTickTime;
+        }
+    }
+
+    @SubscribeEvent
+    public static void onInputInteract(InputEvent.InteractionKeyMappingTriggered event){
+        AbstractClientPlayer player = Minecraft.getInstance().player;
+        if (player != null){
+            if (SEHelper.hasCamera(player)){
+                if (event.isAttack() || event.isPickBlock() || event.isUseItem()){
+                    event.setCanceled(true);
+                }
+            }
         }
     }
 
@@ -179,6 +195,19 @@ public class ClientEvents {
             if (event.getPlayer().getMainHandItem().isEmpty() && event.getArm() == event.getPlayer().getMainArm()){
                 event.setCanceled(true);
             } else if (event.getPlayer().getOffhandItem().isEmpty() && event.getArm() != event.getPlayer().getMainArm()){
+                event.setCanceled(true);
+            }
+        }
+        if (SEHelper.hasCamera(event.getPlayer())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void renderHand(RenderHandEvent event){
+        final AbstractClientPlayer player = Minecraft.getInstance().player;
+        if (player != null) {
+            if (SEHelper.hasCamera(player)) {
                 event.setCanceled(true);
             }
         }

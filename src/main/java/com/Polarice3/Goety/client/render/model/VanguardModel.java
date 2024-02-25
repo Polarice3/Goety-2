@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render.model;
 
 
 import com.Polarice3.Goety.client.render.animation.VanguardAnimations;
-import com.Polarice3.Goety.common.entities.ally.VanguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

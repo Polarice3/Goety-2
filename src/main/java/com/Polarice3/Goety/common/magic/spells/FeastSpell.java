@@ -43,6 +43,7 @@ public class FeastSpell extends ChargingSpells {
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.RADIUS.get());
         list.add(ModEnchantments.BURNING.get());
         list.add(ModEnchantments.ABSORB.get());
         return list;
@@ -52,7 +53,11 @@ public class FeastSpell extends ChargingSpells {
         int i = (int) entityLiving.getX();
         int j = (int) entityLiving.getY();
         int k = (int) entityLiving.getZ();
-        for (LivingEntity entity : worldIn.getEntitiesOfClass(LivingEntity.class, (new AABB(i, j, k, i, j - 4, k)).inflate(32.0D))) {
+        double radius = 16.0D;
+        if (WandUtil.enchantedFocus(entityLiving)){
+            radius *= (WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.0D) + 1.0D;
+        }
+        for (LivingEntity entity : worldIn.getEntitiesOfClass(LivingEntity.class, (new AABB(i, j, k, i, j - 4, k)).inflate(radius))) {
             float f = (float) Mth.atan2(entity.getZ() - entityLiving.getZ(), entity.getX() - entityLiving.getX());
             if (entity != entityLiving && !MobUtil.areAllies(entity, entityLiving)){
                 WandUtil.spawnFangs(entityLiving, entity.getX(), entity.getZ(), entity.getY(), entity.getY() + 1.0D, f, 1);

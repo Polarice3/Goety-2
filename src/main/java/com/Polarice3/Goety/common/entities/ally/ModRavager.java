@@ -33,11 +33,9 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
@@ -654,19 +652,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     static class RavagerNodeEvaluator extends WalkNodeEvaluator {
         protected BlockPathTypes evaluateBlockPathType(BlockGetter p_33387_, boolean p_33388_, boolean p_33389_, BlockPos p_33390_, BlockPathTypes p_33391_) {
             return p_33391_ == BlockPathTypes.LEAVES ? BlockPathTypes.OPEN : super.evaluateBlockPathType(p_33387_, p_33388_, p_33389_, p_33390_, p_33391_);
-        }
-    }
-
-    public static class NaturalAttackGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-        protected ModRavager ravaged;
-
-        public NaturalAttackGoal(ModRavager ravager, Class<T> p_26061_) {
-            super(ravager, p_26061_, true);
-            this.ravaged = ravager;
-        }
-
-        public boolean canUse() {
-            return super.canUse() && this.ravaged.isNatural() && (this.ravaged.getTrueOwner() == null || this.ravaged.getTrueOwner() instanceof AbstractIllager) && this.target != null && !this.target.isBaby();
         }
     }
 }

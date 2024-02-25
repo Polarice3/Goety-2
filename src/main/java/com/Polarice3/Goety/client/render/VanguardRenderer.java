@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.VanguardModel;
-import com.Polarice3.Goety.common.entities.ally.VanguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

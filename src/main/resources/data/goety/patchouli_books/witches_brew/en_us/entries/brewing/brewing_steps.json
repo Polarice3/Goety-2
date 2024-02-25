@@ -31,6 +31,10 @@
     {
       "type": "patchouli:text",
       "text": "Make sure you wear your proper Witch attire when bottling! Everyone knows that a Witch's Hat and Robes gives a chance of extra brews! Also, here's a little ol' secret from Ol' Granny! Apples can be quite... receptive to taking in brews. Remember Snow White? Hehehehahaha!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Also, don't forget that your cauldron must to full of the brew to use your $(bold)taglock kit$() on it! If ya don't know what a taglock kit is, too bad! Ol'Granny's talking about brewing! Get another Granny to show the other paths of the old ways! Hahahahaha!"
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "name": "季风聚晶",
+  "icon": "goety:monsoon_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在目标方块或生物上方召唤风暴云，它会在生物头顶下雨，并定期向附近的任何非盟友生物发射雷电。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/monsoon_focus"
+    }
+  ]
+}

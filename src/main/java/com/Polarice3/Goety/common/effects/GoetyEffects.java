@@ -86,6 +86,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> FREEZING = EFFECTS.register("freezing",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
+    public static final RegistryObject<MobEffect> DOOM = EFFECTS.register("doom",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1b0440));
+
     public static final RegistryObject<MobEffect> STUNNED = EFFECTS.register("stunned",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffbc2e)
                     .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "e4669259-9b6f-40d2-b253-46e65b1f3363",
@@ -155,6 +158,12 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> INSIGHT = EFFECTS.register("insight",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x59b057));
+
+    public static final RegistryObject<MobEffect> CORPSE_EATER = EFFECTS.register("corpse_eater",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x48565e));
+
+    public static final RegistryObject<MobEffect> FORTUNATE = EFFECTS.register("fortunate",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x4aedd9));
 
     public static final RegistryObject<MobEffect> SAVE_EFFECTS = EFFECTS.register("save_effects",
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0x4f446b));

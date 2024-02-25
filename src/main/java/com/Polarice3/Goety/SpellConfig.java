@@ -184,6 +184,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> ThunderboltDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
@@ -243,6 +247,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
 
@@ -581,8 +586,8 @@ public class SpellConfig {
                     .defineInRange("updraftCost", 8, 0, Integer.MAX_VALUE);
             UpdraftDuration = BUILDER.comment("Time to cast Updraft Spell, Default: 0")
                     .defineInRange("updraftTime", 0, 0, 72000);
-            UpdraftCoolDown = BUILDER.comment("Updraft Spell Cooldown, Default: 20")
-                    .defineInRange("updraftCoolDown", 20, 0, Integer.MAX_VALUE);
+            UpdraftCoolDown = BUILDER.comment("Updraft Spell Cooldown, Default: 60")
+                    .defineInRange("updraftCoolDown", 60, 0, Integer.MAX_VALUE);
             UpdraftBlastDamage = BUILDER.comment("How much base damage Updraft Blasts deals, Default: 5.0")
                     .defineInRange("updraftBlastDamage", 5.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
@@ -591,8 +596,8 @@ public class SpellConfig {
                     .defineInRange("windBlastCost", 4, 0, Integer.MAX_VALUE);
             WindBlastDuration = BUILDER.comment("Time to cast Wind Blast Spell, Default: 0")
                     .defineInRange("windBlastTime", 0, 0, 72000);
-            WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 20")
-                    .defineInRange("windBlastCoolDown", 20, 0, Integer.MAX_VALUE);
+            WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 60")
+                    .defineInRange("windBlastCoolDown", 60, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Thunderbolt Spell");
             ThunderboltCost = BUILDER.comment("Thunderbolt Spell Cost, Default: 8")
@@ -603,6 +608,14 @@ public class SpellConfig {
                     .defineInRange("thunderboltCoolDown", 0, 0, Integer.MAX_VALUE);
             ThunderboltDamage = BUILDER.comment("How much base damage Thunderbolts deals, Default: 5.0")
                     .defineInRange("thunderboltDamage", 5.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Monsoon Spell");
+            MonsoonCost = BUILDER.comment("Monsoon Spell Cost, Default: 8")
+                    .defineInRange("monsoonCost", 8, 0, Integer.MAX_VALUE);
+            MonsoonDuration = BUILDER.comment("Time to cast Monsoon Spell, Default: 40")
+                    .defineInRange("monsoonTime", 40, 0, 72000);
+            MonsoonCoolDown = BUILDER.comment("Monsoon Spell Cooldown, Default: 100")
+                    .defineInRange("monsoonCoolDown", 100, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Lightning Spell");
             LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
@@ -729,6 +742,8 @@ public class SpellConfig {
         BUILDER.push("Servant Limits");
         SkeletonLimit = BUILDER.comment("Number of Skeleton/Vanguard/Necromancer Servants that can exist around the player without instantly dying, Default: 32")
                 .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
+        BoundIllagerLimit = BUILDER.comment("Number of Bound Evoker Servants that can exist around the player without instantly dying, Default: 32")
+                .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems a player can summon, Default: 2")
                 .defineInRange("redstoneGolemLimit", 2, 0, Integer.MAX_VALUE);
         GraveGolemLimit = BUILDER.comment("Total number of Grave Golems a player can summon, Default: 2")

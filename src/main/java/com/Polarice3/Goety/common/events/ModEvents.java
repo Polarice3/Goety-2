@@ -15,7 +15,15 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -52,6 +60,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -59,6 +68,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
@@ -91,6 +101,8 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
@@ -98,11 +110,14 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -210,6 +225,9 @@ public class ModEvents {
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setShieldCool(capability3.shieldCool()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setCameraUUID(null));
     }
 
     @SubscribeEvent
@@ -345,7 +363,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerFirstEntersWorld(PlayerEvent.PlayerLoggedInEvent event){
+    public static void onPlayerEntersWorld(PlayerEvent.PlayerLoggedInEvent event){
         CompoundTag playerData = event.getEntity().getPersistentData();
         CompoundTag data;
 
@@ -453,6 +471,7 @@ public class ModEvents {
         Level world = player.level;
         int zombies = 0;
         int skeletons = 0;
+        int bound = 0;
         int wraith = 0;
         int skull = 0;
         if (world instanceof ServerLevel serverLevel){
@@ -491,6 +510,12 @@ public class ModEvents {
                             if (summonedEntity instanceof AbstractSkeletonServant){
                                 ++skeletons;
                                 if (skeletons > SpellConfig.SkeletonLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
+                                }
+                            }
+                            if (summonedEntity instanceof AbstractBoundIllager){
+                                ++bound;
+                                if (bound > SpellConfig.BoundIllagerLimit.get()){
                                     livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
                                 }
                             }
@@ -652,6 +677,37 @@ public class ModEvents {
         }
         if (MobUtil.starAmuletActive(player)){
             player.getAbilities().flying &= player.isCreative();
+        }
+    }
+
+    @SubscribeEvent
+    public static void InteractBlockEvents(PlayerInteractEvent.RightClickBlock event){
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        BlockHitResult blockHitResult = event.getHitVec();
+        BlockPos blockPos = blockHitResult.getBlockPos();
+        BlockState blockState = level.getBlockState(blockPos);
+        ItemStack itemInHand = event.getEntity().getItemInHand(event.getHand());
+        if (blockState.is(ModBlocks.SLATE_MARBLE_BLOCK.get())
+                || blockState.is(ModBlocks.WORN_SLATE_MARBLE_BLOCK.get())) {
+            if (itemInHand.is(Tags.Items.TOOLS_AXES)) {
+                ItemHelper.hurtAndBreak(itemInHand, 1, player);
+                if (blockState.is(ModBlocks.SLATE_MARBLE_BLOCK.get())) {
+                    level.setBlockAndUpdate(blockPos, ModBlocks.WORN_SLATE_MARBLE_BLOCK.get().defaultBlockState());
+                } else {
+                    level.setBlockAndUpdate(blockPos, ModBlocks.WEATHERED_SLATE_MARBLE_BLOCK.get().defaultBlockState());
+                }
+                level.playSound(player, blockPos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.levelEvent(player, 3005, blockPos, 0);
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            } else if (PotionUtils.getPotion(itemInHand) == Potions.WATER){
+                player.setItemInHand(event.getHand(), new ItemStack(Items.GLASS_BOTTLE));
+                level.setBlockAndUpdate(blockPos, ModBlocks.WASHED_SLATE_MARBLE_BLOCK.get().defaultBlockState());
+                level.playSound(player, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            }
         }
     }
 
@@ -1011,9 +1067,9 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void PlayerAttackEvent(AttackEntityEvent event){
-        ItemStack itemStack = event.getEntity().getMainHandItem();
-        boolean flag = itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
         if (event.getTarget() instanceof IOwned iOwned){
+            ItemStack itemStack = event.getEntity().getMainHandItem();
+            boolean flag = itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
             if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == event.getEntity())) {
                 if (SpellConfig.OwnerHitCommand.get()) {
                     if (itemStack.getItem() instanceof DarkWand) {

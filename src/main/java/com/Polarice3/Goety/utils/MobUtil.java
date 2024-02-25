@@ -2,8 +2,8 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.entities.ally.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
@@ -47,7 +47,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
@@ -893,11 +892,15 @@ public class MobUtil {
     }
 
     public static boolean isInSunlight(LivingEntity livingEntity){
-        float f = livingEntity.getLightLevelDependentMagicValue();
-        BlockPos blockpos = livingEntity.getVehicle() instanceof Boat ? (new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ())).above() : new BlockPos(livingEntity.getX(), (double) Math.round(livingEntity.getY()), livingEntity.getZ());
-        return f > 0.5F && livingEntity.level.canSeeSky(blockpos);
-    }
+        if (livingEntity.level.isDay() && !livingEntity.level.isClientSide) {
+            float f = livingEntity.getLightLevelDependentMagicValue();
+            BlockPos blockpos = new BlockPos(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ());
+            boolean flag = livingEntity.isInWaterRainOrBubble() || livingEntity.isInPowderSnow || livingEntity.wasInPowderSnow;
+            return f > 0.5F && livingEntity.getRandom().nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !flag && livingEntity.level.canSeeSky(blockpos);
+        }
 
+        return false;
+    }
 
     /**
      * Mind Bending, lol.
@@ -1071,6 +1074,23 @@ public class MobUtil {
     public static void setBaseAttributes(AttributeInstance attribute, double value){
         if (attribute != null){
             attribute.setBaseValue(value);
+        }
+    }
+
+    public static class SizeInfo {
+        public final float defaultWidth;
+        public final float defaultHeight;
+        public final float eyeHeight;
+        public final float maxStep;
+        public final boolean isDefault;
+
+        public SizeInfo(LivingEntity entity) {
+            CompoundTag persistentData = entity.getPersistentData();
+            this.defaultWidth = persistentData.getFloat("initWidth");
+            this.defaultHeight = persistentData.getFloat("initHeight");
+            this.maxStep = entity.getStepHeight();
+            this.eyeHeight = entity.getEyeHeight();
+            this.isDefault = true;
         }
     }
 }

@@ -73,6 +73,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                     if (!DarkAltarBlockEntity.this.level.isClientSide) {
                         DarkAltarBlockEntity.this.lastChangeTime = DarkAltarBlockEntity.this.level
                                 .getGameTime();
+                        boolean flag = !this.stacks.get(0).isEmpty();
+                        DarkAltarBlockEntity.this.level.setBlockAndUpdate(DarkAltarBlockEntity.this.getBlockPos(),
+                                DarkAltarBlockEntity.this.getBlockState().setValue(DarkAltarBlock.OCCUPIED, flag));
                         DarkAltarBlockEntity.this.markNetworkDirty();
                     }
                 }

@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.client.render.model.VillagerServantModel;
-import com.Polarice3.Goety.common.entities.ally.ZombieVindicator;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVindicator;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;

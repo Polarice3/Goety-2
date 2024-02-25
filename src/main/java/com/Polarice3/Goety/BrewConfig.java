@@ -41,6 +41,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WitherCost;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ClimbingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CorpseEaterCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PressureCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> EnderGroundCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlameHandsCost;
@@ -56,6 +57,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SwiftSwimCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ArrowmanticCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlammableCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FortunateCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> InsightCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ExplosiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FieryAuraCost;
@@ -134,6 +136,8 @@ public class BrewConfig {
         BUILDER.push("Modded Soul Cost");
         ClimbingCost = BUILDER.comment("Climbing Soul Cost, Default: 25")
                 .defineInRange("climbingCost", 25, 1, Integer.MAX_VALUE);
+        CorpseEaterCost = BUILDER.comment("Corpse Eater Soul Cost, Default: 100")
+                .defineInRange("corpseEaterCost", 100, 1, Integer.MAX_VALUE);
         PressureCost = BUILDER.comment("Pressure Soul Cost, Default: 10")
                 .defineInRange("pressureCost", 10, 1, Integer.MAX_VALUE);
         EnderGroundCost = BUILDER.comment("Ender Ground Soul Cost, Default: 10")
@@ -164,6 +168,8 @@ public class BrewConfig {
                 .defineInRange("arrowmanticCost", 50, 1, Integer.MAX_VALUE);
         FlammableCost = BUILDER.comment("Flammable Soul Cost, Default: 50")
                 .defineInRange("flammableCost", 50, 1, Integer.MAX_VALUE);
+        FortunateCost = BUILDER.comment("Fortunate Soul Cost, Default: 50")
+                .defineInRange("fortunateCost", 100, 1, Integer.MAX_VALUE);
         InsightCost = BUILDER.comment("Insight Soul Cost, Default: 50")
                 .defineInRange("insightCost", 50, 1, Integer.MAX_VALUE);
         ExplosiveCost = BUILDER.comment("Explosive Soul Cost, Default: 50")

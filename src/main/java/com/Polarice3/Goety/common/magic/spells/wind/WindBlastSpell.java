@@ -1,21 +1,25 @@
 package com.Polarice3.Goety.common.magic.spells.wind;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.blocks.entities.IWindPowered;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -67,6 +71,14 @@ public class WindBlastSpell extends Spells {
             worldIn.sendParticles(ModParticleTypes.WIND_BLAST.get(), vector3d2.x, vector3d2.y, vector3d2.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
         }
         Vec3 rangeVec = new Vec3(lookVec.x * range, lookVec.y * range, lookVec.z * range);
+        BlockHitResult result = this.blockResult(worldIn, entityLiving, range);
+        if (result != null){
+            BlockPos blockPos = result.getBlockPos();
+            BlockEntity blockEntity = worldIn.getBlockEntity(blockPos);
+            if (blockEntity instanceof IWindPowered windPowered){
+                windPowered.activate(MathHelper.secondsToTicks(15));
+            }
+        }
         List<Entity> entities = entityLiving.level.getEntities(entityLiving, entityLiving.getBoundingBox().expandTowards(rangeVec));
         for (Entity entity : entities){
             if (entityLiving.hasLineOfSight(entity)){
@@ -75,13 +87,6 @@ public class WindBlastSpell extends Spells {
                 }
                 if (entity instanceof FireTornado fireTornado){
                     fireTornado.trueRemove();
-                }
-                if (entity instanceof SquallGolem squallGolem){
-                    if (!squallGolem.isStartingUp() && !squallGolem.isActivated()) {
-                        squallGolem.setStartingUp(true);
-                    } else if (!squallGolem.isShuttingDown() && squallGolem.isActivated()){
-                        squallGolem.setShuttingDown(true);
-                    }
                 }
             }
         }

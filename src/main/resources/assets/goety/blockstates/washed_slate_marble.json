@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": { 
+      "model": "goety:block/washed_slate_marble",
+      "x": 180
+    },
+    "facing=up": { 
+      "model": "goety:block/washed_slate_marble"
+    },
+    "facing=north": { 
+      "model": "goety:block/washed_slate_marble",
+      "x": 90
+    },
+    "facing=south": { 
+      "model": "goety:block/washed_slate_marble",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west":  { 
+      "model": "goety:block/washed_slate_marble",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east":  { 
+      "model": "goety:block/washed_slate_marble",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

@@ -38,6 +38,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -50,7 +51,7 @@ public class SoulEnergyEvents {
         Player player = event.player;
         Level world = player.level;
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
-        SEHelper.getFocusCoolDown(player).tick(world);
+        SEHelper.getFocusCoolDown(player).tick(player, world);
         if (SEHelper.getShieldTime(player) > 0){
             if (SEHelper.getShields(player) <= 0){
                 SEHelper.setShieldTime(player, 0);
@@ -130,6 +131,15 @@ public class SoulEnergyEvents {
             }
         }
         if (!world.isClientSide) {
+            if (soulEnergy.getCameraUUID() != null){
+                Entity entity = EntityFinder.getEntityByUuiD(soulEnergy.getCameraUUID());
+                if (entity == null || !entity.isAlive()
+                        || entity.level.dimension() != player.level.dimension()
+                        || player.isShiftKeyDown() || player.hurtTime > 0
+                        || !player.isAlive()){
+                    SEHelper.setCamera(player, null);
+                }
+            }
             soulEnergy.grudgeList().removeIf(uuid -> {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                 return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
@@ -146,6 +156,40 @@ public class SoulEnergyEvents {
         int s = soulEnergy.getSoulEnergy();
         if (s < 0){
             soulEnergy.setSoulEnergy(0);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerEntersWorld(PlayerEvent.PlayerLoggedInEvent event){
+        if (!event.getEntity().level.isClientSide) {
+            SEHelper.setCamera(event.getEntity(), null);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLeavesWorld(PlayerEvent.PlayerLoggedOutEvent event){
+        if (!event.getEntity().level.isClientSide) {
+            SEHelper.setCamera(event.getEntity(), null);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangeDimensions(PlayerEvent.PlayerChangedDimensionEvent event){
+        if (!event.getEntity().level.isClientSide) {
+            SEHelper.setCamera(event.getEntity(), null);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerStopTracking(PlayerEvent.StopTracking event){
+        ISoulEnergy soulEnergy = SEHelper.getCapability(event.getEntity());
+        if (!event.getEntity().level.isClientSide) {
+            if (soulEnergy.getCameraUUID() != null){
+                Entity entity = EntityFinder.getEntityByUuiD(soulEnergy.getCameraUUID());
+                if (entity == event.getTarget()){
+                    SEHelper.setCamera(event.getEntity(), null);
+                }
+            }
         }
     }
 

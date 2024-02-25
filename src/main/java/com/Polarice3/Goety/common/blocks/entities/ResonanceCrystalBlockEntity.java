@@ -125,6 +125,7 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
     @Override
     public void activate(int tick) {
         this.active = tick;
+        this.setChanged();
     }
 
     @Override

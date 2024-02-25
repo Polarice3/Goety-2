@@ -32,11 +32,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "When powered, the crystal will activate the golem. Should the crystal be broken or deactivated, the golem will shut down and be inactive once more."
+      "text": "When powered, the crystal will activate the golem. Should the crystal be broken or deactivated, the golem will shut down and be inactive once more.$(br2)The golem can only Follow or Stand By, it cannot Wander like other servants. If damaged, the golem can be repaired using Jade or Jade Blocks."
     },
     {
       "type": "patchouli:text",
-      "text": "The golem can only Follow or Stand By, it cannot Wander like other servants. If damaged, the golem can be repaired using Jade or Jade Blocks."
+      "text": "When deactivated, right-clicking on the golem with an empty hand will rotate them towards you at an angle."
     }
   ]
 }

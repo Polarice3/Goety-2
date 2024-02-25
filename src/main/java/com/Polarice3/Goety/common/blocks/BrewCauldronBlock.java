@@ -2,17 +2,24 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
+import com.Polarice3.Goety.common.effects.brew.BrewEffect;
+import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.magic.TaglockKit;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -48,6 +55,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
@@ -110,8 +119,9 @@ public class BrewCauldronBlock extends BaseEntityBlock{
         if (pLevel.getBlockEntity(pPos) instanceof BrewCauldronBlockEntity cauldron) {
             ItemStack stack = pPlayer.getItemInHand(pHand);
             boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = stack.getItem() == Items.APPLE, ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
+            boolean taglock = stack.getItem() instanceof TaglockKit && TaglockKit.hasEntity(stack);
             if (!pLevel.isClientSide) {
-                if (bucket || waterBucket || apple || glassBottle || waterBottle || ladle) {
+                if (bucket || waterBucket || apple || taglock || glassBottle || waterBottle || ladle) {
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
@@ -120,8 +130,45 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack), false);
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
-                                ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(ModItems.BREW_APPLE.get()), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
+                                ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(Items.APPLE), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, itemStack);
+                            }
+                        } else if (taglock && targetLevel >= 3){
+                            if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
+                                LivingEntity target = TaglockKit.getEntity(stack);
+                                if (target != null){
+                                    if (TaglockKit.isSameDimension(pPlayer, stack)
+                                            && TaglockKit.isInRange(Vec3.atCenterOf(pPos), stack, 0)) {
+                                        List<MobEffectInstance> list = PotionUtils.getMobEffects(cauldron.getBrew());
+                                        List<BrewEffectInstance> list1 = BrewUtils.getBrewEffects(cauldron.getBrew());
+                                        if (!list.isEmpty()) {
+                                            for (MobEffectInstance mobeffectinstance : list) {
+                                                MobEffect mobeffect = mobeffectinstance.getEffect();
+                                                if (mobeffect.isInstantenous()) {
+                                                    mobeffect.applyInstantenousEffect(pPlayer, pPlayer, target, mobeffectinstance.getAmplifier(), 1.0F);
+                                                } else {
+                                                    int i = (int) (1.0F * (double) mobeffectinstance.getDuration() + 0.5D);
+                                                    if (i > 20) {
+                                                        target.addEffect(new MobEffectInstance(mobeffect, i, mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()), pPlayer);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (!list1.isEmpty()) {
+                                            for (BrewEffectInstance brewEffectInstance : list1) {
+                                                BrewEffect brewEffect = brewEffectInstance.getEffect();
+                                                if (brewEffect.isInstantenous()) {
+                                                    brewEffect.applyInstantenousEffect(pPlayer, pPlayer, target, brewEffectInstance.getAmplifier(), 1.0F);
+                                                }
+                                            }
+                                        }
+                                        pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                        ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.GLASS_BOTTLE));
+                                    } else {
+                                        pLevel.playSound(null, pPos, ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                        pPlayer.displayClientMessage(Component.translatable("info.goety.taglock.difDimension"), true);
+                                    }
+                                }
                             }
                         } else if (glassBottle) {
                             ItemStack bottle = null;

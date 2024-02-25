@@ -27,6 +27,7 @@ public class SEImp implements ISoulEnergy{
     private int shields = 0;
     private int shieldTime = 0;
     private int shieldCool = 0;
+    private UUID cameraUUID = null;
     private BlockPos EndWalkPos = null;
     private ResourceKey<Level> EndWalkDim = null;
 
@@ -268,6 +269,17 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void decreaseShieldCool() {
         --this.shieldCool;
+    }
+
+    @Override
+    @Nullable
+    public UUID getCameraUUID(){
+        return this.cameraUUID;
+    }
+
+    @Override
+    public void setCameraUUID(@Nullable UUID camera){
+        this.cameraUUID = camera;
     }
 
     @Override
