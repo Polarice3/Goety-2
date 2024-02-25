@@ -1,0 +1,24 @@
+{
+  "name": "被绑定的唤魔者",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然一个卫道士可以被再起为僵尸，一个掠夺者或骷髅，但是如果要真正制造一个强大的唤魔者的不死版本，必须有更多的精神力量...."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_evoker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "与其他两种不同的是，被绑定的唤魔者可以漂浮在地面上，不受重力的影响。尽管他们看起来很像恼鬼，但他们无法穿过墙壁，仍然可能受到常规武器的伤害。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_evoker"
+    }
+  ]
+}

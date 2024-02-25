@@ -2,8 +2,8 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.entities.ally.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;

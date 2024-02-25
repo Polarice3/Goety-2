@@ -14,6 +14,9 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.undead.*;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
@@ -347,6 +350,7 @@ public class Goety {
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillager.setCustomAttributes().build());
         event.put(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicator.setCustomAttributes().build());
+        event.put(ModEntityType.BOUND_EVOKER.get(), BoundEvoker.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_SKULL.get(), HauntedSkull.setCustomAttributes().build());
         event.put(ModEntityType.DOPPELGANGER.get(), Doppelganger.setCustomAttributes().build());

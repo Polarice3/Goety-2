@@ -1,9 +1,10 @@
 package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -25,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraveGolemMold {
+public class GraveGolemMold implements IMold {
     private static final List<BlockPos> SOUL_SAND_LOCATIONS = ImmutableList.of(
             new BlockPos(1, -1, 1),
             new BlockPos(1, -1, -1),
@@ -212,7 +213,8 @@ public class GraveGolemMold {
                 && checkStones(level, blockPos).isEmpty();
     }
 
-    public static boolean spawnGolem(Player player, ItemStack stack, Level level, BlockPos blockPos){
+    @Override
+    public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos){
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.SKULL_PILE.get())) {
                 if (checkBlocks(level, blockPos)) {

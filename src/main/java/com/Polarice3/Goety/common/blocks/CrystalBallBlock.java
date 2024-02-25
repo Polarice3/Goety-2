@@ -3,13 +3,11 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -88,18 +86,18 @@ public class CrystalBallBlock extends Block {
                         ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, serverLevel);
                         pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));
                     }
-                } else if (MainConfig.CrystalBallRespawn.get()) {
-                    if (BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.BLIGHTED_SHACK_KEY)) {
-                        if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS)) {
-                            ItemStack itemStack = pPlayer.getItemInHand(pHand);
-                            if (pPlayer instanceof ServerPlayer serverPlayer) {
-                                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);
-                            }
-                            pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, Boolean.TRUE));
-                            itemStack.shrink(1);
-                            pLevel.playSound(null, pPos, SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        }
+                } else if (pPlayer.getItemInHand(pHand).getItem() instanceof TaglockKit && TaglockKit.hasEntity(pPlayer.getItemInHand(pHand))
+                        && (!pLevel.canSeeSky(pPos) || pLevel.isNight())){
+                    SEHelper.setCamera(pPlayer, TaglockKit.getEntity(pPlayer.getItemInHand(pHand)));
+                    pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.HOSTILE, 1.0F, 0.5F);
+                } else if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.CrystalBallRespawn.get() && BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.BLIGHTED_SHACK_KEY)) {
+                    ItemStack itemStack = pPlayer.getItemInHand(pHand);
+                    if (pPlayer instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);
                     }
+                    pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, Boolean.TRUE));
+                    itemStack.shrink(1);
+                    pLevel.playSound(null, pPos, SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
             }
         }

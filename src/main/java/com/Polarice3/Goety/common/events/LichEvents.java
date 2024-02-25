@@ -43,7 +43,7 @@ public class LichEvents {
         if (LichdomHelper.isLich(player)){
             player.getFoodData().setFoodLevel(17);
             player.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-            boolean burn = MobUtil.isInSunlight(player);
+            boolean burn = MobUtil.isInSunlight(player) && !world.isRaining();
 
             if (burn){
                 ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -185,14 +185,16 @@ public class LichEvents {
                     if (CuriosFinder.hasUndeadSet(player) && event.getSource().getEntity() != null) {
                         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
                             for (Mob undead : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16))) {
-                                if (undead.getMobType() == MobType.UNDEAD) {
-                                    if (undead.getTarget() != player) {
-                                        if (MainConfig.LichPowerfulFoes.get()) {
-                                            if (undead.getMaxHealth() < 100.0F) {
+                                if (undead != attacker) {
+                                    if (undead.getMobType() == MobType.UNDEAD) {
+                                        if (undead.getTarget() != player) {
+                                            if (MainConfig.LichPowerfulFoes.get()) {
+                                                if (undead.getMaxHealth() < 100.0F) {
+                                                    undead.setTarget(attacker);
+                                                }
+                                            } else {
                                                 undead.setTarget(attacker);
                                             }
-                                        } else {
-                                            undead.setTarget(attacker);
                                         }
                                     }
                                 }

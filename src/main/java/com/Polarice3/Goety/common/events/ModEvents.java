@@ -15,7 +15,15 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -198,6 +206,9 @@ public class ModEvents {
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setShieldCool(capability3.shieldCool()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
+                        soulEnergy.setCameraUUID(null));
     }
 
     @SubscribeEvent
@@ -441,6 +452,7 @@ public class ModEvents {
         Level world = player.level;
         int zombies = 0;
         int skeletons = 0;
+        int bound = 0;
         int wraith = 0;
         int skull = 0;
         if (world instanceof ServerLevel serverLevel){
@@ -479,6 +491,12 @@ public class ModEvents {
                             if (summonedEntity instanceof AbstractSkeletonServant){
                                 ++skeletons;
                                 if (skeletons > SpellConfig.SkeletonLimit.get()){
+                                    livingEntity.hurt(livingEntity.damageSources().starve(), livingEntity.getMaxHealth()/4);
+                                }
+                            }
+                            if (summonedEntity instanceof AbstractBoundIllager){
+                                ++bound;
+                                if (bound > SpellConfig.BoundIllagerLimit.get()){
                                     livingEntity.hurt(livingEntity.damageSources().starve(), livingEntity.getMaxHealth()/4);
                                 }
                             }
@@ -999,9 +1017,9 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void PlayerAttackEvent(AttackEntityEvent event){
-        ItemStack itemStack = event.getEntity().getMainHandItem();
-        boolean flag = itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
         if (event.getTarget() instanceof IOwned iOwned){
+            ItemStack itemStack = event.getEntity().getMainHandItem();
+            boolean flag = itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
             if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == event.getEntity())) {
                 if (SpellConfig.OwnerHitCommand.get()) {
                     if (itemStack.getItem() instanceof DarkWand) {

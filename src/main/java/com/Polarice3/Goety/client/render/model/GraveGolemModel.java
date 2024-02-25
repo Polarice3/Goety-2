@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.GraveGolemAnimations;
-import com.Polarice3.Goety.common.entities.ally.GraveGolem;
+import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

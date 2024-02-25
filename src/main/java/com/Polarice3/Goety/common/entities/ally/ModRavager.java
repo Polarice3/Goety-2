@@ -33,9 +33,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
@@ -628,19 +626,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         protected double getAttackReachSqr(LivingEntity p_33377_) {
             float f = ModRavager.this.getBbWidth() - 0.1F;
             return (double)(f * 2.0F * f * 2.0F + p_33377_.getBbWidth());
-        }
-    }
-
-    public static class NaturalAttackGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-        protected ModRavager ravaged;
-
-        public NaturalAttackGoal(ModRavager ravager, Class<T> p_26061_) {
-            super(ravager, p_26061_, true);
-            this.ravaged = ravager;
-        }
-
-        public boolean canUse() {
-            return super.canUse() && this.ravaged.isNatural() && (this.ravaged.getTrueOwner() == null || this.ravaged.getTrueOwner() instanceof AbstractIllager) && this.target != null && !this.target.isBaby();
         }
     }
 }

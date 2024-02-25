@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
 import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.WitchHatItem;
+import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -45,6 +46,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.LavaFluid;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -687,7 +689,9 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     return waterLevel + 1;
                 }
             } else if (mode == Mode.COMPLETED) {
-                if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
+                if (TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), 0)){
+                    return 0;
+                } else if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
                     boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),
                             croneHat = CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get()),
                             robe = CuriosFinder.hasWitchRobe(player);
@@ -717,6 +721,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         this.takeBrew++;
                         return waterLevel;
                     }
+                } else {
+                    return waterLevel;
                 }
             } else {
                 return waterLevel;

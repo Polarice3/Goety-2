@@ -10,7 +10,10 @@ import com.Polarice3.Goety.common.items.armor.CursedPaladinArmor;
 import com.Polarice3.Goety.common.items.armor.DarkArmor;
 import com.Polarice3.Goety.common.items.block.HauntedArmorStandItem;
 import com.Polarice3.Goety.common.items.block.HauntedPaintingItem;
-import com.Polarice3.Goety.common.items.brew.*;
+import com.Polarice3.Goety.common.items.brew.BrewBag;
+import com.Polarice3.Goety.common.items.brew.BrewItem;
+import com.Polarice3.Goety.common.items.brew.LingeringBrewItem;
+import com.Polarice3.Goety.common.items.brew.SplashBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
@@ -30,6 +33,7 @@ import com.Polarice3.Goety.common.magic.spells.nether.GhastSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.LavaballSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.WitherSkullSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.LightningSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.MonsoonSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ShockingSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ThunderboltSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.GlowLightSpell;
@@ -109,6 +113,7 @@ public class ModItems {
     public static final RegistryObject<Item> REFUSE_BOTTLE = ITEMS.register("refuse_bottle", RefuseBottleItem::new);
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
+    public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GOODWILL = ITEMS.register("grimoire_of_goodwill", GoodwillGrimoire::new);
 
@@ -126,7 +131,6 @@ public class ModItems {
     public static final RegistryObject<Item> SPLASH_BREW = ITEMS.register("splash_brew", SplashBrewItem::new);
     public static final RegistryObject<Item> LINGERING_BREW = ITEMS.register("lingering_brew", LingeringBrewItem::new);
     public static final RegistryObject<Item> GAS_BREW = ITEMS.register("gas_brew", SplashBrewItem::new);
-    public static final RegistryObject<Item> BREW_APPLE = ITEMS.register("brew_apple", BrewApple::new);
 
     public static final RegistryObject<Item> HAUNTED_BOAT = ITEMS.register("haunted_boat", () -> new ModBoatItem(false, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> HAUNTED_CHEST_BOAT = ITEMS.register("haunted_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.HAUNTED, (new Item.Properties()).stacksTo(1)));
@@ -198,6 +202,7 @@ public class ModItems {
     public static final RegistryObject<Item> CHARGE_FOCUS = ITEMS.register("charge_focus", () -> new MagicFocus(new ChargeSpell()));
     public static final RegistryObject<Item> SHOCKING_FOCUS = ITEMS.register("shocking_focus", () -> new MagicFocus(new ShockingSpell()));
     public static final RegistryObject<Item> THUNDERBOLT_FOCUS = ITEMS.register("thunderbolt_focus", () -> new MagicFocus(new ThunderboltSpell()));
+    public static final RegistryObject<Item> MONSOON_FOCUS = ITEMS.register("monsoon_focus", () -> new MagicFocus(new MonsoonSpell()));
     public static final RegistryObject<Item> LIGHTNING_FOCUS = ITEMS.register("lightning_focus", () -> new MagicFocus(new LightningSpell()));
     public static final RegistryObject<Item> SHOCKWAVE_FOCUS = ITEMS.register("shockwave_focus", () -> new MagicFocus(new ShockwaveSpell()));
     public static final RegistryObject<Item> SONIC_BOOM_FOCUS = ITEMS.register("sonic_boom_focus", () -> new MagicFocus(new SonicBoomSpell()));
@@ -299,6 +304,6 @@ public class ModItems {
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
                 || item == PEDESTAL_DUMMY.get()
                 || item instanceof TotemOfSouls
-                || item instanceof BrewItem || item instanceof BrewApple;
+                || item instanceof BrewItem;
     }
 }

@@ -72,6 +72,7 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoundEvokerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
@@ -269,6 +270,10 @@ public class AttributesConfig {
                         .defineInRange("zombieVindicatorArmor", 2.0, 1.0, Double.MAX_VALUE);
                 ZombieVindicatorDamage = BUILDER.comment("How much damage Zombie Vindicators deals, Default: 5.0")
                         .defineInRange("zombieVindicatorDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Bound Evoker");
+                BoundEvokerHealth = BUILDER.comment("How much Max Health Bound Evokers have, Default: 24.0")
+                        .defineInRange("boundEvokerHealth", 24.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")

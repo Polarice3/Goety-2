@@ -1,12 +1,16 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -117,10 +121,22 @@ public class EffectsUtil {
     }
 
     public static boolean canAffectLich(MobEffectInstance effectInstance, Level world) {
-        return canAffectLichCache.computeIfAbsent(effectInstance.getEffect(), effect ->
-                effect != MobEffects.BLINDNESS && effect != MobEffects.CONFUSION &&
-                        effect != MobEffects.HUNGER && effect != MobEffects.SATURATION &&
-                        new Zombie(world).canBeAffected(effectInstance)
-        );
+        return effectInstance.getEffect() != MobEffects.BLINDNESS
+                && effectInstance.getEffect() != MobEffects.CONFUSION
+                && effectInstance.getEffect() != MobEffects.HUNGER
+                && effectInstance.getEffect() != MobEffects.SATURATION
+                && new Zombie(world).canBeAffected(effectInstance);
+    }
+
+    public static int getFortuneEffectLevel(LootContext lootContext) {
+        Entity entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
+        if (entity instanceof LivingEntity livingEntity) {
+            MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FORTUNATE.get());
+            if (mobEffectInstance != null){
+                int level = mobEffectInstance.getAmplifier();
+                return level + 1;
+            }
+        }
+        return 0;
     }
 }

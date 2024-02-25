@@ -47,12 +47,13 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
             14.0D, 15.0D, 14.0D);
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_BASE_2, SHAPE_PILLAR, SHAPE_HOLDER);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     public PedestalBlock() {
         super(ModBlocks.ShadeStoneProperties()
                 .noOcclusion()
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(OCCUPIED, Boolean.FALSE));
     }
 
     @Override
@@ -144,7 +145,7 @@ public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, Simpl
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(WATERLOGGED);
+        pBuilder.add(WATERLOGGED, OCCUPIED);
     }
 
     public BlockEntity newBlockEntity(BlockPos p_151996_, BlockState p_151997_) {

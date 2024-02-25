@@ -2,6 +2,7 @@ package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
+import com.Polarice3.Goety.common.capabilities.misc.MiscProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
 import com.Polarice3.Goety.common.commands.GoetyCommand;
@@ -12,6 +13,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -31,6 +33,9 @@ public class InitEvents {
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof LivingEntity){
+            event.addCapability(Goety.location("misc"), new MiscProvider());
+        }
         if (event.getObject() instanceof Player) {
             event.addCapability(new ResourceLocation(Goety.MOD_ID, "soulenergy"), new SEProvider());
             event.addCapability(new ResourceLocation(Goety.MOD_ID, "lichdom"), new LichProvider());

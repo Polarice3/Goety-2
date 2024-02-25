@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.network;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichUpdatePacket;
+import com.Polarice3.Goety.common.capabilities.misc.MiscCapUpdatePacket;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEUpdatePacket;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WBUpdatePacket;
 import com.Polarice3.Goety.common.network.client.*;
@@ -36,6 +37,7 @@ public class ModNetwork {
 
         INSTANCE.registerMessage(nextID(), SEUpdatePacket.class, SEUpdatePacket::encode, SEUpdatePacket::decode, SEUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), LichUpdatePacket.class, LichUpdatePacket::encode, LichUpdatePacket::decode, LichUpdatePacket::consume);
+        INSTANCE.registerMessage(nextID(), MiscCapUpdatePacket.class, MiscCapUpdatePacket::encode, MiscCapUpdatePacket::decode, MiscCapUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), CWandKeyPacket.class, CWandKeyPacket::encode, CWandKeyPacket::decode, CWandKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CBagKeyPacket.class, CBagKeyPacket::encode, CBagKeyPacket::decode, CBagKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CStopAttackPacket.class, CStopAttackPacket::encode, CStopAttackPacket::decode, CStopAttackPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

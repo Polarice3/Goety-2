@@ -120,6 +120,7 @@ public class Cultist extends Raider implements ICustomAttributes {
         CROSSBOW_CHARGE,
         BOMB_AND_WEAPON,
         THROW_SPEAR,
+        ITEM,
         DYING,
         NEUTRAL;
     }

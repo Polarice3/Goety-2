@@ -90,6 +90,7 @@ public class BrewEffects {
         //Goety
         this.register(new PotionBrewEffect(GoetyEffects.ARROWMANTIC.get(), BrewConfig.ArrowmanticCost.get(), 900), Items.TARGET);
         this.register(new PotionBrewEffect(GoetyEffects.CLIMBING.get(), BrewConfig.ClimbingCost.get(), 3600), ModItems.SPIDER_EGG.get());
+        this.register(new PotionBrewEffect(GoetyEffects.CORPSE_EATER.get(), BrewConfig.CorpseEaterCost.get(), 4, 3600), Items.ZOMBIE_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.CURSED.get(), BrewConfig.CursedCost.get(), 4, 600), ModItems.OCCULT_FABRIC.get());
         this.register(new PotionBrewEffect(GoetyEffects.ENDER_GROUND.get(), BrewConfig.EnderGroundCost.get(), 900), Items.ENDER_PEARL);
         this.register(new PotionBrewEffect(GoetyEffects.EXPLOSIVE.get(), BrewConfig.ExplosiveCost.get(), 2, 900), Items.CREEPER_HEAD);
@@ -97,6 +98,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.FIRE_TRAIL.get(), BrewConfig.FireTrailCost.get(), 4, 900), Items.LAVA_BUCKET);
         this.register(new PotionBrewEffect(GoetyEffects.FLAME_HANDS.get(), BrewConfig.FlameHandsCost.get(), 3600), Items.FLINT_AND_STEEL);
         this.register(new PotionBrewEffect(GoetyEffects.FLAMMABLE.get(), BrewConfig.FlammableCost.get(), 1800), Items.GRASS);
+        this.register(new PotionBrewEffect(GoetyEffects.FORTUNATE.get(), BrewConfig.FortunateCost.get(), 6, 1800), Items.DIAMOND);
         this.register(new PotionBrewEffect(GoetyEffects.FREEZING.get(), BrewConfig.FreezingCost.get(), 900), Items.POWDER_SNOW_BUCKET);
         this.register(new PotionBrewEffect(GoetyEffects.FROSTY_AURA.get(), BrewConfig.FrostyAuraCost.get(), 2, 1800), Items.BLUE_ICE);
         this.register(new PotionBrewEffect(GoetyEffects.GOLD_TOUCHED.get(), BrewConfig.GoldTouchedCost.get(), 1800), Items.GOLD_NUGGET);

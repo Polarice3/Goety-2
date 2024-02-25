@@ -61,6 +61,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corpse_eater",
+      "text": "Feast upon the dying screams and breath of your friend- I mean foes!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
       "text": "A Curse upon you! No healing for you! I just rhymed you with you! What ya gonna do?"
     },
@@ -125,6 +130,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.flood",
       "text": "Too little water! With this brew, there will be water!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fortunate",
+      "text": "Bah! Who needs Enchantments when you have brews! Ol'Granny needs some extra diamonds, and she's all out of Lapis!"
     },
     {
       "type": "goety:catalyst",

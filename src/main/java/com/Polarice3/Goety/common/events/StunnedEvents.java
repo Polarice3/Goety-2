@@ -2,8 +2,10 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -19,7 +21,8 @@ import javax.annotation.Nullable;
 public class StunnedEvents {
 
     private static boolean isStunned(@Nullable LivingEntity entity) {
-        return entity != null && entity.isAlive() && entity.hasEffect(GoetyEffects.STUNNED.get());
+        return entity != null && entity.isAlive() && (entity.hasEffect(GoetyEffects.STUNNED.get())
+                || (entity instanceof Player player && SEHelper.hasCamera(player)));
     }
 
     public static void cancelEvent(LivingEvent event){

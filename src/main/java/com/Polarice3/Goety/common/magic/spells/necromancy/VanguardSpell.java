@@ -5,7 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.VanguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.init.ModSounds;

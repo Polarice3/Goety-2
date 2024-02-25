@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
@@ -31,7 +32,7 @@ public class FocusCooldown {
         }
     }
 
-    public void tick(Level level) {
+    public void tick(Player player, Level level) {
         if (!this.cooldowns.isEmpty()) {
             Iterator<Map.Entry<Item, CooldownInstance>> iterator = this.cooldowns.entrySet().iterator();
 
@@ -41,33 +42,33 @@ public class FocusCooldown {
                 if (entry.getValue().time <= 0) {
                     iterator.remove();
                     if (!level.isClientSide) {
-                        this.onCooldownEnded(entry.getKey());
+                        this.onCooldownEnded(player, entry.getKey());
                     }
                 }
             }
         }
     }
 
-    public void addCooldown(Level level, Item item, int coolDown) {
+    public void addCooldown(Player player, Level level, Item item, int coolDown) {
         this.cooldowns.put(item, new CooldownInstance(coolDown));
         if (!level.isClientSide) {
-            this.onCooldownStarted(item, coolDown);
+            this.onCooldownStarted(player, item, coolDown);
         }
     }
 
-    public void removeCooldown(Level level, Item item) {
+    public void removeCooldown(Player player, Level level, Item item) {
         this.cooldowns.remove(item);
         if (!level.isClientSide) {
-            this.onCooldownEnded(item);
+            this.onCooldownEnded(player, item);
         }
     }
 
-    protected void onCooldownStarted(Item item, int duration) {
-        ModNetwork.sendToALL(new SFocusCooldownPacket(item, duration));
+    protected void onCooldownStarted(Player player, Item item, int duration) {
+        ModNetwork.sendTo(player, new SFocusCooldownPacket(item, duration));
     }
 
-    protected void onCooldownEnded(Item item) {
-        ModNetwork.sendToALL(new SFocusCooldownPacket(item, 0));
+    protected void onCooldownEnded(Player player, Item item) {
+        ModNetwork.sendTo(player, new SFocusCooldownPacket(item, 0));
     }
 
     public CooldownInstance getInstance(Item item){

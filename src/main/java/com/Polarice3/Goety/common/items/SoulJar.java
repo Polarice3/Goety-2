@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;

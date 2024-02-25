@@ -81,8 +81,18 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeGoal());
         this.goalSelector.addGoal(5, new AttackGoal(1.0F));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && SquallGolem.this.isNotProcessing();
+            }
+        });
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && SquallGolem.this.isNotProcessing();
+            }
+        });
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -437,9 +447,21 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     public void stayingMode() {
     }
 
+    public boolean isNotActive(){
+        return !this.isActivated() || this.isStartingUp() || this.isShuttingDown();
+    }
+
+    public boolean fullyInactive(){
+        return !this.isActivated() && !this.isStartingUp() && !this.isShuttingDown();
+    }
+
+    public boolean isNotProcessing(){
+        return !this.isStartingUp() && !this.isShuttingDown();
+    }
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (!this.isActivated() || this.isStartingUp() || this.isShuttingDown()){
+        if (this.isNotActive()){
             if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
                 return false;
             }
@@ -585,11 +607,15 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                         double d2 = this.random.nextGaussian() * 0.02D;
                         this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                     }
-                    return InteractionResult.SUCCESS;
+                } else if (itemstack.isEmpty() && this.fullyInactive()) {
+                    float f = (float)Mth.floor((Mth.wrapDegrees(pPlayer.getYRot() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+                    this.setYRot(f);
+                    this.setYHeadRot(f);
+                    this.playSound(SoundEvents.IRON_GOLEM_STEP, 1.0F, 0.5F);
                 }
             }
         }
-        return InteractionResult.PASS;
+        return InteractionResult.SUCCESS;
     }
 
     class AttackGoal extends MeleeAttackGoal {

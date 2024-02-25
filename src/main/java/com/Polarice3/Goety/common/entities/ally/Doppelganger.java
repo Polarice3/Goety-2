@@ -26,6 +26,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -86,9 +87,18 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
         this.moveCloak();
 
-        if (this.getTrueOwner() != null && !this.isUndeadClone()){
-            if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
-                this.die(this.damageSources().starve());
+        if (this.getTrueOwner() != null){
+            if (!this.isUndeadClone()){
+                if (this.getTrueOwner().hurtTime == this.getTrueOwner().hurtDuration - 1){
+                    this.die(this.damageSources().starve());
+                }
+            }
+            this.setCustomName(this.getTrueOwner().getDisplayName());
+            if (this.getTrueOwner().getMaxHealth() != this.getMaxHealth()){
+                AttributeInstance attributeInstance = this.getAttribute(Attributes.MAX_HEALTH);
+                if (attributeInstance != null){
+                    attributeInstance.setBaseValue(this.getTrueOwner().getMaxHealth());
+                }
             }
         }
 
@@ -178,7 +188,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new NecroBoltGoal(this));
-        this.goalSelector.addGoal(4, new CreatureBowAttackGoal<>(this, 1.0D, 20, 15.0F));
+        this.goalSelector.addGoal(4, new CreatureBowAttackGoal<>(this, 1.0D, 20, 20.0F));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -190,7 +200,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .add(Attributes.MAX_HEALTH, 1.0D);
+                .add(Attributes.MAX_HEALTH, 20.0D);
     }
 
     public boolean doHurtTarget(Entity entityIn) {
@@ -303,10 +313,17 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     }
 
     public boolean hurt(DamageSource source, float amount) {
+        boolean flag = super.hurt(source, amount);
         if (this.isUndeadClone()){
-            return source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || (source.is(DamageTypeTags.BYPASSES_ARMOR) && source.is(DamageTypeTags.BYPASSES_EFFECTS));
+            return source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                    || (source.is(DamageTypeTags.BYPASSES_ARMOR)
+                    && source.is(DamageTypeTags.BYPASSES_EFFECTS));
+        } else if (flag) {
+            if (!this.level.isClientSide) {
+                this.die(source);
+            }
         }
-        return super.hurt(source, amount);
+        return flag;
     }
 
     public void die(DamageSource cause) {

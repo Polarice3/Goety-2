@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.entities.deco;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.HauntedArmorServant;
+import com.Polarice3.Goety.common.entities.ally.undead.HauntedArmorServant;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.AnimationCore;
 import com.Polarice3.Goety.common.research.ResearchList;

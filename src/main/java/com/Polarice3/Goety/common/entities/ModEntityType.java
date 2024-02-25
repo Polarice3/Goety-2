@@ -2,6 +2,9 @@ package com.Polarice3.Goety.common.entities;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.undead.*;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.deco.HauntedArmorStand;
@@ -438,6 +441,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BoundEvoker>> BOUND_EVOKER = register("bound_evoker",
+            EntityType.Builder.of(BoundEvoker::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<HauntedArmorServant>> HAUNTED_ARMOR_SERVANT = register("haunted_armor_servant",
             EntityType.Builder.of(HauntedArmorServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -663,6 +671,13 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<HailCloud>> HAIL_CLOUD = register("hail_cloud",
             EntityType.Builder.<HailCloud>of(HailCloud::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<MonsoonCloud>> MONSOON_CLOUD = register("monsoon_cloud",
+            EntityType.Builder.<MonsoonCloud>of(MonsoonCloud::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)

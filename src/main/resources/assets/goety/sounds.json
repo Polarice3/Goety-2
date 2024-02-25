@@ -81,6 +81,13 @@
     ],
     "subtitle": "subtitle.goety.apostle_teleport"
   },
+  "apostle_shade": {
+    "sounds": [
+      {
+        "name": "goety:apostle/shade"
+      }
+    ]
+  },
   "apostle_predeath": {
     "sounds": [
       {

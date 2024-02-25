@@ -8,7 +8,7 @@ import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;

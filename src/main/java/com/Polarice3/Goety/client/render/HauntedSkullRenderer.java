@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.client.render.model.HauntedSkullModel;
-import com.Polarice3.Goety.common.entities.ally.HauntedSkull;
+import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;

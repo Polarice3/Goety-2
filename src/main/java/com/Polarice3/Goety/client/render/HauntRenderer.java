@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.HauntModel;
-import com.Polarice3.Goety.common.entities.ally.Haunt;
+import com.Polarice3.Goety.common.entities.ally.undead.Haunt;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;

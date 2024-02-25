@@ -2,9 +2,9 @@ package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;

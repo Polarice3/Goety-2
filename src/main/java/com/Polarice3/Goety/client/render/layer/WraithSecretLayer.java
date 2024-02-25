@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render.layer;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.WraithModel;
-import com.Polarice3.Goety.common.entities.ally.WraithServant;
+import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;

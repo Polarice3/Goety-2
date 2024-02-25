@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -26,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RedstoneGolemMold {
+public class RedstoneGolemMold implements IMold {
     private static final List<BlockPos> MAGMA_BLOCK_LOCATIONS = ImmutableList.of(
             new BlockPos(0, -1, 0),
 
@@ -188,7 +189,8 @@ public class RedstoneGolemMold {
                 && checkLava(level, blockPos).isEmpty() && checkRedstone(level, blockPos).isEmpty();
     }
 
-    public static boolean spawnGolem(Player player, ItemStack stack, Level level, BlockPos blockPos){
+    @Override
+    public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos){
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE)) {
                 if (checkBlocks(level, blockPos)) {

@@ -1,0 +1,24 @@
+{
+  "name": "バインドエヴォーカー",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ヴィンディケーターはゾンビとして、ピリジャーはスケルトンとして育てて、強力なエヴォーカーの適切なアンデッド版を真に作ることができますが、エヴォーカーを追求するには、より...スピリチュアルでなければなりません。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_evoker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "他の 2 つとは異なり、バウンド エヴォーカーは地上に浮くことができ、重力の影響を受けません。 霊的な外見にもかかわらず、彼らは壁をすり抜けることができず、従来の武器でも傷つけられる可能性があります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_evoker"
+    }
+  ]
+}

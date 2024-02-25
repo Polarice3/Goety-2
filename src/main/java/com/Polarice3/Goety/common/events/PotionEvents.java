@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
@@ -52,6 +54,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
@@ -146,9 +149,24 @@ public class PotionEvents {
                 if (!livingEntity.level.isClientSide){
                     livingEntity.setIsInPowderSnow(true);
                     if (livingEntity.canFreeze()) {
+                        int h = Objects.requireNonNull(livingEntity.getEffect(GoetyEffects.FREEZING.get())).getAmplifier() + 1;
+                        MiscCapHelper.setFreezing(livingEntity, h);
+                        if (livingEntity.level instanceof ServerLevel serverLevel){
+                            if (serverLevel.random.nextFloat() <= 0.25F) {
+                                for (int h1 = 0; h1 < h; ++h1) {
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity);
+                                }
+                            }
+                        }
                         int i = livingEntity.getTicksFrozen();
-                        int j = Objects.requireNonNull(livingEntity.getEffect(GoetyEffects.FREEZING.get())).getAmplifier() + 3;
+                        int j = h * 3;
                         livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze() + 5, i + j));
+                    }
+                }
+            } else {
+                if (!livingEntity.level.isClientSide){
+                    if (MiscCapHelper.isFreezing(livingEntity)){
+                        MiscCapHelper.setFreezing(livingEntity, 0);
                     }
                 }
             }
@@ -497,6 +515,19 @@ public class PotionEvents {
                 SEHelper.removeEndWalk(player);
             }
         }
+        if (event.getSource().getEntity() instanceof Player player){
+            if (player.hasEffect(GoetyEffects.CORPSE_EATER.get())){
+                MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.CORPSE_EATER.get());
+                if (mobEffectInstance != null) {
+                    int amp = mobEffectInstance.getAmplifier() + 1;
+                    int amount = Mth.floor(event.getEntity().getMaxHealth() / 5);
+                    amount = (player.level.random.nextInt(amount + 1) + 2) * amp;
+                    if (amount > 0) {
+                        player.getFoodData().eat(amount, 0.1F);
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -640,6 +671,18 @@ public class PotionEvents {
                 event.getEntity().removeEffect(GoetyEffects.SOUL_ARMOR.get());
             }
         }
+        if (event.getItem().getItem() == Items.APPLE){
+            for(MobEffectInstance mobeffectinstance : PotionUtils.getMobEffects(event.getItem())) {
+                if (mobeffectinstance.getEffect().isInstantenous()) {
+                    mobeffectinstance.getEffect().applyInstantenousEffect(event.getEntity(), event.getEntity(), event.getEntity(), mobeffectinstance.getAmplifier(), 1.0D);
+                } else {
+                    event.getEntity().addEffect(new MobEffectInstance(mobeffectinstance));
+                }
+            }
+            for (BrewEffectInstance brewEffectInstance : BrewUtils.getBrewEffects(event.getItem())){
+                brewEffectInstance.getEffect().drinkBlockEffect(event.getEntity(), event.getEntity(), event.getEntity(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(event.getItem()));
+            }
+        }
         if (!(event.getItem().getItem() instanceof DarkWand)) {
             if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
                 event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
@@ -778,6 +821,11 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
+        if (event.getEffectInstance().getEffect() == GoetyEffects.DOOM.get()){
+            if (!event.getEntity().canChangeDimensions() || event.getEntity().getType().is(Tags.EntityTypes.BOSSES)){
+                event.setResult(Event.Result.DENY);
+            }
+        }
         if (event.getEffectInstance().getEffect() == GoetyEffects.BUSTED.get()){
             if (event.getEntity().getAttribute(Attributes.ARMOR) == null || event.getEntity().getAttributeValue(Attributes.ARMOR) <= 0.0D){
                 event.setResult(Event.Result.DENY);
@@ -810,15 +858,21 @@ public class PotionEvents {
     @SubscribeEvent
     public static void PotionRemoveEvents(MobEffectEvent.Remove event){
         LivingEntity effected = event.getEntity();
-        if (effected.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){
-            event.setCanceled(event.getEffect() != GoetyEffects.SAVE_EFFECTS.get()
-                    && (effected instanceof Player player
-                    && SEHelper.hasEndWalk(player)
-                    && event.getEffect() != GoetyEffects.SHADOW_WALK.get()));
-        }
-        if (event.getEffect() == GoetyEffects.SHADOW_WALK.get()){
-            if (effected instanceof Player player) {
-                teleportShadowWalk(player);
+        if (effected != null) {
+            if (event.getEffect() != null) {
+                if (effected.hasEffect(GoetyEffects.SAVE_EFFECTS.get())) {
+                    event.setCanceled(event.getEffect() != GoetyEffects.SAVE_EFFECTS.get()
+                            && (effected instanceof Player player
+                            && SEHelper.hasEndWalk(player)
+                            && event.getEffect() != GoetyEffects.SHADOW_WALK.get()));
+                }
+                if (event.getEffect() != null) {
+                    if (event.getEffect() == GoetyEffects.SHADOW_WALK.get()) {
+                        if (effected instanceof Player player) {
+                            teleportShadowWalk(player);
+                        }
+                    }
+                }
             }
         }
     }
@@ -831,6 +885,14 @@ public class PotionEvents {
             if (mobEffectInstance.getEffect() == GoetyEffects.SHADOW_WALK.get()) {
                 if (effected instanceof Player player) {
                     teleportShadowWalk(player);
+                }
+            }
+
+            if (mobEffectInstance.getEffect() == GoetyEffects.DOOM.get()){
+                int a = mobEffectInstance.getAmplifier() + 1;
+                float doom = 0.05F * a;
+                if (effected.getHealth() <= effected.getMaxHealth() * doom){
+                    effected.hurt(ModDamageSource.getDamageSource(effected.level, ModDamageSource.DOOM), effected.getMaxHealth() * 20);
                 }
             }
         }

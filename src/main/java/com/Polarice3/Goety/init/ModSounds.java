@@ -264,6 +264,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 
+    public static final RegistryObject<SoundEvent> APOSTLE_SHADE = create("apostle_shade");
+
     public static final RegistryObject<SoundEvent> APOSTLE_THEME = create("apostle_theme");
     public static final RegistryObject<SoundEvent> APOSTLE_THEME_POST = create("apostle_theme_post");
     public static final RegistryObject<SoundEvent> VIZIER_THEME = create("vizier_theme");

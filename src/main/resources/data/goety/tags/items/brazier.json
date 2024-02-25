@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "goety:shade_brazier",
-    "goety:stone_brazier"
+    "goety:stone_brazier",
+    "goety:brick_brazier",
+    "goety:deepslate_brazier",
+    "goety:nether_brick_brazier",
+    "goety:blackstone_brazier",
+    "goety:marble_brazier"
   ]
 }

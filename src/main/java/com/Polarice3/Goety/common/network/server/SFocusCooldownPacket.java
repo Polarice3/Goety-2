@@ -33,7 +33,7 @@ public class SFocusCooldownPacket {
             Player player = Goety.PROXY.getPlayer();
             if (player != null) {
                 if (packet.duration == 0) {
-                    SEHelper.getFocusCoolDown(player).removeCooldown(player.level, packet.item);
+                    SEHelper.getFocusCoolDown(player).removeCooldown(player, player.level, packet.item);
                 } else {
                     SEHelper.addCooldown(player, packet.item, packet.duration);
                 }

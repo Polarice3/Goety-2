@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.ZombieServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

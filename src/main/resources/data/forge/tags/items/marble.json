@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:marble",
+    "goety:slate_marble",
+    "goety:worn_slate_marble",
+    "goety:weathered_slate_marble",
+    "goety:slate_connected_marble",
+    "goety:slate_patterned_marble",
+    "goety:slate_cornered_marble",
+    "goety:slate_glazed_marble"
+  ]
+}

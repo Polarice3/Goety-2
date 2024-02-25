@@ -1,0 +1,15 @@
+{
+  "name": "モンスーンのフォーカス",
+  "icon": "goety:monsoon_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ターゲットのブロックまたはモブの上空に嵐の雲を召喚し、そこに雨が降り、近くの非味方モブに定期的に落雷を発射します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/monsoon_focus"
+    }
+  ]
+}

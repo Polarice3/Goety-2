@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.construct;
 
+import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SquallGolemMold {
+public class SquallGolemMold implements IMold {
     private static final List<BlockPos> HIGHROCK_LOCATIONS = ImmutableList.of(
             new BlockPos(0, -1, 0),
 
@@ -107,7 +108,8 @@ public class SquallGolemMold {
                 && checkIndentedGold(level, blockPos).isEmpty();
     }
 
-    public static boolean spawnGolem(Player player, ItemStack stack, Level level, BlockPos blockPos) {
+    @Override
+    public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.JADE_BLOCK.get())) {
                 if (checkBlocks(level, blockPos)) {

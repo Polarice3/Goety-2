@@ -1,12 +1,14 @@
-// 1.20.1	2024-01-16T19:48:31.2753951	Registries
+// 1.20.1	2024-02-22T14:38:42.9924175	Registries
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
 bc278868e02ced496ad91c969737876aed8862ee data/goety/damage_type/direct_shock.json
+b45a76fb8f874e5078a34cdf5a9fe675544ddb93 data/goety/damage_type/doom.json
 7ec7c63d33e38e3aea9083b6fc4853268a50c767 data/goety/damage_type/fire_breath.json
 5297bb8dc663ecae0ee9611d0049c6388f7d9798 data/goety/damage_type/frost_breath.json
 ffd981f8c18252576f6e595dedc580e5a71badd5 data/goety/damage_type/ice_bouquet.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/ice_spike.json
 cdbfbb1c8a48d8789e2d70aca318c3081eb06cb0 data/goety/damage_type/indirect_freeze.json
+9c519dac81d373b4dcc0e819b45f4b1d8e0359c7 data/goety/damage_type/indirect_shock.json
 3ee3140bd5138e8e21a74f96cb2cc8dbf265d131 data/goety/damage_type/magic_bolt.json
 df8d879e7560e87f963fd16b22bf273e612c1776 data/goety/damage_type/phobia.json
 cf006f4c8ccd60a8e20d531fc0c3d32258c154ca data/goety/damage_type/shock.json

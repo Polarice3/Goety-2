@@ -1,0 +1,24 @@
+{
+  "name": "Bound Evoker",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While a Vindicator can be raised as a Zombie, a Pillager a Skeleton, to truly make a proper undead version of the powerful Evokers, one must be more... spiritual in their pursuit."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_evoker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unlike the other two, Bound Evokers can float above ground and is unaffected by gravity. Despite their spiritual looks, they cannot phase through walls and can still be harmed with conventional weaponry."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_evoker"
+    }
+  ]
+}

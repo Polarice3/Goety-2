@@ -26,6 +26,7 @@ import java.util.function.Predicate;
 public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> SHOCK = create("shock");
     public static ResourceKey<DamageType> DIRECT_SHOCK = create("direct_shock");
+    public static ResourceKey<DamageType> INDIRECT_SHOCK = create("indirect_shock");
     public static ResourceKey<DamageType> DIRECT_FREEZE = create("direct_freeze");
     public static ResourceKey<DamageType> INDIRECT_FREEZE = create("indirect_freeze");
     public static ResourceKey<DamageType> ICE_SPIKE = create("ice_spike");
@@ -39,6 +40,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> SPIKE = create("spike");
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
+    public static ResourceKey<DamageType> DOOM = create("doom");
 
     public ModDamageSource(Holder<DamageType> p_270906_, @Nullable Entity p_270796_, @Nullable Entity p_270459_, @Nullable Vec3 p_270623_) {
         super(p_270906_, p_270796_, p_270459_, p_270623_);
@@ -77,6 +79,10 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource directShock(LivingEntity pMob) {
         return ModDamageSource.entityDamageSource(pMob.level, DIRECT_SHOCK, pMob);
+    }
+
+    public static DamageSource indirectShock(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return ModDamageSource.indirectEntityDamageSource(pSource.level, INDIRECT_SHOCK, pSource, pIndirectEntity);
     }
 
     public static DamageSource directFreeze(LivingEntity pMob) {
@@ -125,7 +131,9 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static boolean shockAttacks(DamageSource source){
-        return source.getMsgId().equals(source("directShock")) || source.is(ModDamageSource.DIRECT_SHOCK);
+        return source.getMsgId().equals(source("shock")) || source.is(ModDamageSource.SHOCK)
+                || source.getMsgId().equals(source("directShock")) || source.is(ModDamageSource.DIRECT_SHOCK)
+                || source.getMsgId().equals(source("indirectShock")) || source.is(ModDamageSource.INDIRECT_SHOCK);
     }
 
     public static boolean freezeAttacks(DamageSource source){
@@ -187,6 +195,7 @@ public class ModDamageSource extends DamageSource {
     public static void bootstrap(BootstapContext<DamageType> context) {
         context.register(SHOCK, new DamageType("goety.shock", 0.0F));
         context.register(DIRECT_SHOCK, new DamageType("goety.directShock", 0.0F));
+        context.register(INDIRECT_SHOCK, new DamageType("goety.indirectShock", 0.0F));
         context.register(DIRECT_FREEZE, new DamageType("goety.directFreeze", 0.0F, DamageEffects.FREEZING));
         context.register(INDIRECT_FREEZE, new DamageType("goety.indirectFreeze", 0.0F, DamageEffects.FREEZING));
         context.register(ICE_SPIKE, new DamageType("goety.indirectFreeze", 0.0F, DamageEffects.FREEZING));
@@ -200,6 +209,7 @@ public class ModDamageSource extends DamageSource {
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));
         context.register(BOILING, new DamageType("goety.boiling", 0.0F, DamageEffects.BURNING));
         context.register(PHOBIA, new DamageType("goety.phobia", 0.0F));
+        context.register(DOOM, new DamageType("goety.doom", 0.0F));
     }
 
 }
