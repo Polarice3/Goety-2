@@ -1,0 +1,19 @@
+{
+  "name": "大锤",
+  "icon": "goety:great_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "铁匠和士兵在锻造和战斗中都会使用大锤，用以增幅他们的力量。如果持用者的攻击冷却已满，锤子将以很大的半径击打生物，尽管这需要很长一段时间才能恢复，如果持用者的副手没有持有任何东西，攻击冷却会回复的较快。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:great_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "锤子可以破坏3x3的区域，但挖掘速度低于镐。因为锤子是用来打造武器的，用它右键点击一个铁块会把它变成一个严重损坏的铁砧。锤子可以用铁锭在铁砧上修理."
+    }
+  ]
+}

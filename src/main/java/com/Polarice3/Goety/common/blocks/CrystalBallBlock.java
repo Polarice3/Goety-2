@@ -4,6 +4,8 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -89,6 +91,7 @@ public class CrystalBallBlock extends Block {
                 } else if (pPlayer.getItemInHand(pHand).getItem() instanceof TaglockKit && TaglockKit.hasEntity(pPlayer.getItemInHand(pHand))
                         && (!pLevel.canSeeSky(pPos) || pLevel.isNight())){
                     SEHelper.setCamera(pPlayer, TaglockKit.getEntity(pPlayer.getItemInHand(pHand)));
+                    ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(ModSounds.END_WALK.get(), 1.0F, 0.5F));
                     pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.HOSTILE, 1.0F, 0.5F);
                 } else if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.CrystalBallRespawn.get() && BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.BLIGHTED_SHACK_KEY)) {
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);

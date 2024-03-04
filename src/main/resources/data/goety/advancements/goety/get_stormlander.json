@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:stormlander"
+    },
+    "title": {
+      "translate": "advancements.goety.get_stormlander.title"
+    },
+    "description": {
+      "translate": "advancements.goety.get_stormlander.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/get_hammer",
+  "criteria": {
+    "hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:stormlander"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "hammer"
+    ]
+  ]
+}

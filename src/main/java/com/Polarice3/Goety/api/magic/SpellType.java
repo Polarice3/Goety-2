@@ -13,6 +13,7 @@ public enum SpellType implements net.minecraftforge.common.IExtensibleEnum {
     GEOMANCY("geomancy", null),
     WIND("wind", ModItems.WIND_STAFF.get()),
     STORM("storm", ModItems.STORM_STAFF.get()),
+    ABYSS("abyss", null),
     VOID("void", null);
 
     private final Item staff;

@@ -14,6 +14,12 @@ public class RaidAdditions {
             if (MobsConfig.PikerRaid.get()) {
                 Raid.RaiderType.create("PIKER", ModEntityType.PIKER.get(), new int[]{0, 4, 3, 3, 4, 4, 4, 2});
             }
+            if (MobsConfig.CrusherRaid.get()) {
+                Raid.RaiderType.create("CRUSHER", ModEntityType.CRUSHER.get(), new int[]{0, 1, 3, 4, 2, 4, 3, 5});
+            }
+            if (MobsConfig.StormCasterRaid.get()) {
+                Raid.RaiderType.create("STORM_CASTER", ModEntityType.STORM_CASTER.get(), new int[]{0, 0, 1, 0, 1, 1, 1, 2});
+            }
             if (MobsConfig.HostileRedstoneGolemRaid.get()){
                 Raid.RaiderType.create("HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), new int[]{0, 0, 0, 0, 0, 1, 0, 0});
             }

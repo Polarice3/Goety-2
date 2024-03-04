@@ -1,5 +1,6 @@
-// 1.20.1	2024-02-22T14:38:42.9924175	Registries
+// 1.20.1	2024-02-28T13:03:55.245171	Registries
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
+3b12af9e23ed097d61c866bd4820b7338ea469c4 data/goety/damage_type/chock.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
 bc278868e02ced496ad91c969737876aed8862ee data/goety/damage_type/direct_shock.json
 b45a76fb8f874e5078a34cdf5a9fe675544ddb93 data/goety/damage_type/doom.json

@@ -85,7 +85,12 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		if (!entity.isDeadOrDying()){
-			this.animateHeadLookTarget(netHeadYaw, headPitch);
+			if (entity.cantDo > 0){
+				this.head.zRot = 0.3F * Mth.sin(0.45F * ageInTicks);
+				this.head.xRot = 0.4F;
+			} else {
+				this.animateHeadLookTarget(netHeadYaw, headPitch);
+			}
 			if (entity.isAggressive()) {
 				this.animateWalk(entity, limbSwing, limbSwingAmount);
 			}
@@ -103,7 +108,7 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 		} else {
 			this.animate(entity.walkAnimationState, NecromancerAnimations.WALK, ageInTicks, groundSpeed * 10);
 		}
-		this.animate(entity.attackAnimationState, NecromancerAnimations.ATTACK, ageInTicks);
+		this.animate(entity.attackAnimationState, NecromancerAnimations.ATTACK, ageInTicks, entity.getAttackSpeed());
 		this.animate(entity.summonAnimationState, NecromancerAnimations.SUMMON, ageInTicks);
 		this.animate(entity.spellAnimationState, NecromancerAnimations.SPELL, ageInTicks);
 	}

@@ -621,6 +621,21 @@ public class MobUtil {
         return isFinalWave(raid) && raid.getTotalRaidersAlive() == 0 && hasBonusWave(raid);
     }
 
+    public static List<Entity> explosionRangeEntities(Level level, Entity source, BlockPos blockPos, float range){
+        return explosionRangeEntities(level, source, blockPos.getX(), blockPos.getY(), blockPos.getZ(), range);
+    }
+
+    public static List<Entity> explosionRangeEntities(Level level, Entity source, double x, double y, double z, float radius){
+        float f2 = radius * 2.0F;
+        int k1 = Mth.floor(x - (double)f2 - 1.0D);
+        int l1 = Mth.floor(x + (double)f2 + 1.0D);
+        int i2 = Mth.floor(y - (double)f2 - 1.0D);
+        int i1 = Mth.floor(y + (double)f2 + 1.0D);
+        int j2 = Mth.floor(z - (double)f2 - 1.0D);
+        int j1 = Mth.floor(z + (double)f2 + 1.0D);
+        return level.getEntities(source, new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
+    }
+
     public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius) {
         explosionDamage(level, source, damageSource, x, y, z, radius, 0);
     }
@@ -631,15 +646,8 @@ public class MobUtil {
 
     public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius, float damage){
         float f2 = radius * 2.0F;
-        int k1 = Mth.floor(x - (double)f2 - 1.0D);
-        int l1 = Mth.floor(x + (double)f2 + 1.0D);
-        int i2 = Mth.floor(y - (double)f2 - 1.0D);
-        int i1 = Mth.floor(y + (double)f2 + 1.0D);
-        int j2 = Mth.floor(z - (double)f2 - 1.0D);
-        int j1 = Mth.floor(z + (double)f2 + 1.0D);
-        List<Entity> list = level.getEntities(source, new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
         Vec3 vec3 = new Vec3(x, y, z);
-        for (Entity entity : list) {
+        for (Entity entity : explosionRangeEntities(level, source, x, y, z, radius)) {
             double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
             if (d12 <= 1.0D) {
                 double d5 = entity.getX() - x;

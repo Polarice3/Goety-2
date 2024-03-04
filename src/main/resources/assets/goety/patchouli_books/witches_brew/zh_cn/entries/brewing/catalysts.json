@@ -1,5 +1,5 @@
 {
-  "name": "Catalysts",
+  "name": "催化剂",
   "icon": "goety:brew",
   "category": "goety:brewing",
   "sortnum": 3,
@@ -61,8 +61,13 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corrosion",
+      "text": "看到那些方块了吗？它们不存在啦 (除了那些黑曜石)！我看到你的盔甲了，我想它可能会很讨厌这样的感觉！哈哈哈哈！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.corpse_eater",
-      "text": "享受敌人垂死尖叫的声音和广度！"
+      "text": "尽情享受你死党垂死的尖叫和呼吸——我指的是你的死敌！"
     },
     {
       "type": "goety:catalyst",
@@ -281,6 +286,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.pruning",
       "text": "把那些该死的漂浮树叶从我的房子里拿出来!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pulverize",
+      "text": "石头到鹅卵石到砂砾再到沙子！给我拿些煤，奶奶要做一副眼镜！"
     },
     {
       "type": "goety:catalyst",

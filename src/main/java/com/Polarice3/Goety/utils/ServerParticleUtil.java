@@ -184,4 +184,19 @@ public class ServerParticleUtil {
             serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, 0, 0, 0, 0);
         }
     }
+
+    public static void circularColoredParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius, ColorUtil colorUtil){
+        circularColoredParticles(serverLevel, particleOptions, entity.getX(), entity.getY(), entity.getZ(), radius, colorUtil);
+    }
+
+    public static void circularColoredParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius, ColorUtil colorUtil){
+        float f5 = (float) Math.PI * radius * radius;
+        for (int k1 = 0; (float) k1 < f5; ++k1) {
+            float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
+            float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
+            float f8 = Mth.cos(f6) * f7;
+            float f9 = Mth.sin(f6) * f7;
+            serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, colorUtil.red, colorUtil.green, colorUtil.blue, 0);
+        }
+    }
 }

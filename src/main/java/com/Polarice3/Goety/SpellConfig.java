@@ -188,6 +188,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> MonsoonCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> DischargeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DischargeDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DischargeCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> DischargeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> DischargeMaxDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> LightningCoolDown;
@@ -213,6 +219,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> EndWalkEffectDuration;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> TunnelCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TunnelCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultLifespan;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
@@ -617,6 +627,18 @@ public class SpellConfig {
             MonsoonCoolDown = BUILDER.comment("Monsoon Spell Cooldown, Default: 100")
                     .defineInRange("monsoonCoolDown", 100, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Discharge Spell");
+            DischargeCost = BUILDER.comment("Discharge Spell Cost, Default: 40")
+                    .defineInRange("dischargeCost", 40, 0, Integer.MAX_VALUE);
+            DischargeDuration = BUILDER.comment("Time to cast Discharge Spell, Default: 0")
+                    .defineInRange("dischargeTime", 0, 0, 72000);
+            DischargeCoolDown = BUILDER.comment("Discharge Spell Cooldown, Default: 80")
+                    .defineInRange("dischargeCoolDown", 80, 0, Integer.MAX_VALUE);
+            DischargeDamage = BUILDER.comment("How much base minimum damage Discharge Spell deals, Default: 6.0")
+                    .defineInRange("dischargeMinDamage", 6.0, 1.0, Double.MAX_VALUE);
+            DischargeMaxDamage = BUILDER.comment("How much base maximum damage Discharge Spell deals, Default: 12.0")
+                    .defineInRange("dischargeMaxDamage", 12.0, 2.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Lightning Spell");
             LightningCost = BUILDER.comment("Lightning Spell Cost, Default: 16")
                     .defineInRange("lightningCost", 16, 0, Integer.MAX_VALUE);
@@ -668,6 +690,14 @@ public class SpellConfig {
                     .defineInRange("endWalkCoolDown", 200, 0, Integer.MAX_VALUE);
             EndWalkEffectDuration = BUILDER.comment("How long the effect is applied from the spell, Default: 200")
                     .defineInRange("endWalkEffectDuration", 200, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Tunnel Spell");
+            TunnelCost = BUILDER.comment("Tunnel Spell Cost, Default: 16")
+                    .defineInRange("tunnelCost", 16, 0, Integer.MAX_VALUE);
+            TunnelCoolDown = BUILDER.comment("Tunnel Spell Cooldown, Default: 100")
+                    .defineInRange("tunnelCoolDown", 100, 0, Integer.MAX_VALUE);
+            TunnelDefaultLifespan = BUILDER.comment("The initial duration for the Tunnel lifespan in ticks, Default: 100")
+                    .defineInRange("tunnelDefaultLifespan", 100, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Shockwave Spell");
             ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")

@@ -12,4 +12,5 @@ public interface ModProxy {
     void soulExplode(BlockPos blockPos, int radius);
     void shock(Vec3 vectorStart, Vec3 vectorEnd, int lifespan);
     void thunderBolt(Vec3 vectorStart, Vec3 vectorEnd, int lifespan);
+    void lightningBolt(Vec3 vectorStart, Vec3 vectorEnd, int lifespan);
 }

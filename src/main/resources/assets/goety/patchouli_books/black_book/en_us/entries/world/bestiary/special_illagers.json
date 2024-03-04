@@ -38,6 +38,22 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:crusher"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Blacksmiths and warriors, these Illagers tend to either be forging away from plain sight, or dispatch on certain areas. They say that some of their hammers are made to absorb and control the lightning itself."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:storm_caster"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Some believe them to be former Geomancers or Wind Callers that decided to harness the power of lightning itself. They seek out the tallest sanctum to plunder its secrets."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:preacher"
     },
     {

@@ -341,7 +341,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
         if (this.getTrueOwner() != null){
             for (EquipmentSlot equipmentSlotType: EquipmentSlot.values()){
                 if (equipmentSlotType != EquipmentSlot.MAINHAND) {
-                    this.setItemSlot(equipmentSlotType, this.getTrueOwner().getItemBySlot(equipmentSlotType));
+                    this.setItemSlot(equipmentSlotType, this.getTrueOwner().getItemBySlot(equipmentSlotType).copy());
                     this.setDropChance(equipmentSlotType, 0.0F);
                 }
             }

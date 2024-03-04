@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:great_hammer"
+    },
+    "title": {
+      "translate": "advancements.goety.get_hammer.title"
+    },
+    "description": {
+      "translate": "advancements.goety.get_hammer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:great_hammer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "hammer"
+    ]
+  ]
+}

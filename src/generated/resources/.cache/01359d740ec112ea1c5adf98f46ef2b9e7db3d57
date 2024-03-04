@@ -1,6 +1,6 @@
-// 1.20.1	2024-02-22T14:38:42.9854351	Tags for minecraft:damage_type mod id goety
-b5443ed46c88c2a5cbbbe8f582cc18061439ea3a data/goety/tags/damage_type/no_knockback.json
-8f5c0ea2dc2c965fa69a50c7754901bca28b558b data/minecraft/tags/damage_type/bypasses_armor.json
+// 1.20.1	2024-02-28T13:03:55.2381973	Tags for minecraft:damage_type mod id goety
+0f54d990df968c4576387003c71f41382e9cbace data/goety/tags/damage_type/no_knockback.json
+9e07014abd8ea8256c7d02b6c43f0e924e4999af data/minecraft/tags/damage_type/bypasses_armor.json
 45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_effects.json
 45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_enchantments.json
 45bd31380beeeacc2b228c26991ec336266f046d data/minecraft/tags/damage_type/bypasses_resistance.json

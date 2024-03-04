@@ -19,11 +19,7 @@ public class ShockwaveParticle extends TextureSheetParticle {
    private int delay;
    private boolean reverse;
 
-   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, int p_233980_){
-      this(p_233976_, p_233977_, p_233978_, p_233979_, p_233980_, false);
-   }
-
-   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, int p_233980_, boolean reverse) {
+   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, int p_233980_, float red, float green, float blue, boolean reverse) {
       super(p_233976_, p_233977_, p_233978_, p_233979_, 0.0D, 0.0D, 0.0D);
       this.quadSize = 10.0F;
       this.delay = p_233980_;
@@ -32,12 +28,19 @@ public class ShockwaveParticle extends TextureSheetParticle {
       this.xd = 0.0D;
       this.yd = 0.0D;
       this.zd = 0.0D;
+      this.rCol = red;
+      this.gCol = green;
+      this.bCol = blue;
       this.reverse = reverse;
+   }
+
+   ShockwaveParticle(ClientLevel p_233976_, double p_233977_, double p_233978_, double p_233979_, int p_233980_, float red, float green, float blue){
+      this(p_233976_, p_233977_, p_233978_, p_233979_, p_233980_, red, green, blue, false);
    }
 
    public float getQuadSize(float p_234003_) {
       if (this.reverse){
-         return 4.0F / (this.age + p_234003_);
+         return 2.0F / (this.age + p_234003_);
       } else {
          return this.quadSize * Mth.clamp(((float)this.age + p_234003_) / (float)this.lifetime * 0.75F, 0.0F, 2.0F);
       }
@@ -108,7 +111,7 @@ public class ShockwaveParticle extends TextureSheetParticle {
       }
 
       public Particle createParticle(ShockwaveParticleOption p_234019_, ClientLevel p_234020_, double p_234021_, double p_234022_, double p_234023_, double p_234024_, double p_234025_, double p_234026_) {
-         ShockwaveParticle shriekparticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getDelay());
+         ShockwaveParticle shriekparticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getDelay(), p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue());
          shriekparticle.pickSprite(this.sprite);
          shriekparticle.setAlpha(1.0F);
          return shriekparticle;
@@ -123,7 +126,7 @@ public class ShockwaveParticle extends TextureSheetParticle {
       }
 
       public Particle createParticle(ShockwaveParticleOption p_234019_, ClientLevel p_234020_, double p_234021_, double p_234022_, double p_234023_, double p_234024_, double p_234025_, double p_234026_) {
-         ShockwaveParticle shriekparticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getDelay(), true);
+         ShockwaveParticle shriekparticle = new ShockwaveParticle(p_234020_, p_234021_, p_234022_, p_234023_, p_234019_.getDelay(), p_234019_.getRed(), p_234019_.getGreen(), p_234019_.getBlue(), true);
          shriekparticle.pickSprite(this.sprite);
          shriekparticle.setAlpha(1.0F);
          return shriekparticle;

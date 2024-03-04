@@ -27,6 +27,13 @@ public class ColorUtil {
         this.alpha = alpha;
     }
 
+    public ColorUtil(int colorCode){
+        this.red = (colorCode >> 16 & 255) / 255F;
+        this.green = (colorCode >> 8 & 255) / 255F;
+        this.blue = (colorCode & 255) / 255F;
+        this.alpha = 1.0F;
+    }
+
     public float red() {
         return this.red;
     }

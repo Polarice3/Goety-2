@@ -65,6 +65,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PIKER_STEP = create("piker_step");
     public static final RegistryObject<SoundEvent> PIKER_DEATH = create("piker_death");
 
+    public static final RegistryObject<SoundEvent> STORM_CASTER_AMBIENT = create("storm_caster_ambient");
+    public static final RegistryObject<SoundEvent> STORM_CASTER_HURT = create("storm_caster_hurt");
+    public static final RegistryObject<SoundEvent> STORM_CASTER_MONSOON = create("storm_caster_monsoon");
+    public static final RegistryObject<SoundEvent> STORM_CASTER_DISCHARGE = create("storm_caster_discharge");
+    public static final RegistryObject<SoundEvent> STORM_CASTER_CELEBRATE = create("storm_caster_celebrate");
+    public static final RegistryObject<SoundEvent> STORM_CASTER_DEATH = create("storm_caster_death");
+
     public static final RegistryObject<SoundEvent> PREACHER_AMBIENT = create("preacher_ambient");
     public static final RegistryObject<SoundEvent> PREACHER_HURT = create("preacher_hurt");
     public static final RegistryObject<SoundEvent> PREACHER_CAST = create("preacher_cast");
@@ -196,6 +203,11 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
+    public static final RegistryObject<SoundEvent> DIRT_DEBRIS = create("dirt_debris");
+
+    public static final RegistryObject<SoundEvent> THUNDER_STRIKE_EPIC = create("thunder_strike_epic");
+    public static final RegistryObject<SoundEvent> THUNDER_STRIKE_FAST = create("thunder_strike_fast");
+
     public static final RegistryObject<SoundEvent> ROAR_SPELL = create("roar_spell");
     public static final RegistryObject<SoundEvent> FIRE_BREATH_START = create("fire_breath_start");
     public static final RegistryObject<SoundEvent> FIRE_BREATH = create("fire_breath");
@@ -232,6 +244,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCYTHE_HIT = create("scythe_hit");
     public static final RegistryObject<SoundEvent> SCYTHE_HIT_MEATY = create("scythe_hit_meaty");
 
+    public static final RegistryObject<SoundEvent> HAMMER_SWING = create("hammer_swing");
+    public static final RegistryObject<SoundEvent> HAMMER_IMPACT = create("hammer_impact");
+
     public static final RegistryObject<SoundEvent> HARPOON_HIT = create("harpoon_impact");
     public static final RegistryObject<SoundEvent> HARPOON_HIT_WATER = create("harpoon_impact_water");
 
@@ -250,6 +265,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_SOUL = create("corrupt_beam_soul");
 
     public static final RegistryObject<SoundEvent> BREW_GAS = create("brew_gas");
+    public static final RegistryObject<SoundEvent> BREW_GAS_ALT = create("brew_gas_alt");
 
     public static final RegistryObject<SoundEvent> ALTAR_START = create("altar_start");
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = create("altar_loop");

@@ -122,6 +122,7 @@ public class BrewEffects {
         this.register(new BlindJumpBrewEffect(10), Items.CHORUS_FRUIT);
         this.register(new ChopTreeBlockEffect(), Items.STONE_AXE);
         this.register(new CombustBlockEffect(100, 1), Items.FIRE_CHARGE);
+        this.register(new CorrosionBlockEffect(), Items.LILY_OF_THE_VALLEY);
         this.register(new DroughtBlockEffect(), Items.SPONGE);
         this.register(new ExplodeBlockEffect(100, 4), Items.TNT);
         this.register(new ExtinguishBlockEffect(), Items.SEAGRASS);
@@ -137,6 +138,7 @@ public class BrewEffects {
         this.register(new LeafShellBlockEffect(), Items.PEONY);
         this.register(new LoveBrewEffect(10), Items.COCOA_BEANS);
         this.register(new MossifyBlockEffect(), Items.MOSS_BLOCK);
+        this.register(new PulverizeBlockEffect(), Items.IRON_BLOCK);
         this.register(new PurifyBrewEffect("purify_debuff", 50, 2, MobEffectCategory.BENEFICIAL, 0x385858, true), ModItems.WARTFUL_EGG.get());
         this.register(new PurifyBrewEffect("purify_buff", 50, 2, MobEffectCategory.HARMFUL, 0x374a4a, false), ModItems.WARPED_WARTFUL_EGG.get());
         this.register(new PruningBlockEffect(10), Items.STONE_HOE);

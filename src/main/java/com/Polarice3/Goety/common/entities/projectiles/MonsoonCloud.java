@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -45,6 +46,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
             }
             this.setPos(pTarget.getX(), blockpos$mutable.getY(), pTarget.getZ());
         }
+        this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
     }
 
     public int getColor(){

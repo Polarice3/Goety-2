@@ -41,6 +41,7 @@ import com.Polarice3.Goety.common.magic.spells.utility.SoulLightSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.BlinkSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EnderChestSpell;
+import com.Polarice3.Goety.common.magic.spells.void_spells.TunnelSpell;
 import com.Polarice3.Goety.common.magic.spells.wind.*;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.init.ModSounds;
@@ -148,6 +149,7 @@ public class ModItems {
     public static final RegistryObject<Item> FOCUS_BAG = ITEMS.register("focus_bag", FocusBag::new);
     public static final RegistryObject<Item> BREW_BAG = ITEMS.register("brew_bag", BrewBag::new);
     public static final RegistryObject<Item> RING_OF_WANT = ITEMS.register("ring_of_want", RingItem::new);
+    public static final RegistryObject<Item> RING_OF_FORCE = ITEMS.register("ring_of_force", RingItem::new);
     public static final RegistryObject<Item> RING_OF_THE_DRAGON = ITEMS.register("ring_of_the_dragon", RingItem::new);
     public static final RegistryObject<Item> PENDANT_OF_HUNGER = ITEMS.register("pendant_of_hunger", PendantOfHungerItem::new);
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
@@ -208,6 +210,7 @@ public class ModItems {
     public static final RegistryObject<Item> SONIC_BOOM_FOCUS = ITEMS.register("sonic_boom_focus", () -> new MagicFocus(new SonicBoomSpell()));
     public static final RegistryObject<Item> END_WALK_FOCUS = ITEMS.register("end_walk_focus", () -> new MagicFocus(new EndWalkSpell()));
     public static final RegistryObject<Item> BLINK_FOCUS = ITEMS.register("blink_focus", () -> new MagicFocus(new BlinkSpell()));
+    public static final RegistryObject<Item> TUNNEL_FOCUS = ITEMS.register("tunnel_focus", () -> new MagicFocus(new TunnelSpell()));
     public static final RegistryObject<Item> LAUNCH_FOCUS = ITEMS.register("launch_focus", () -> new MagicFocus(new LaunchSpell()));
     public static final RegistryObject<Item> FLYING_FOCUS = ITEMS.register("flying_focus", () -> new MagicFocus(new FlyingSpell()));
     public static final RegistryObject<Item> CUSHION_FOCUS = ITEMS.register("cushion_focus", () -> new MagicFocus(new CushionSpell()));
@@ -262,6 +265,8 @@ public class ModItems {
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(ItemConfig.NamelessStaffDamage.get()));
     public static final RegistryObject<Item> DARK_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DEATH_SCYTHE = ITEMS.register("death_scythe", DeathScytheItem::new);
+    public static final RegistryObject<Item> GREAT_HAMMER = ITEMS.register("great_hammer", HammerItem::new);
+    public static final RegistryObject<Item> STORMLANDER = ITEMS.register("stormlander", StormlanderItem::new);
     public static final RegistryObject<Item> FANGED_DAGGER = ITEMS.register("fanged_dagger", FangedDaggerItem::new);
     public static final RegistryObject<Item> EERIE_PICKAXE = ITEMS.register("eerie_pickaxe", EeriePickaxeItem::new);
     public static final RegistryObject<Item> RAMPAGING_AXE = ITEMS.register("rampaging_axe", RampagingAxeItem::new);

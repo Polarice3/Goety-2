@@ -7,6 +7,8 @@ import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -16,6 +18,7 @@ import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.game.ClientboundSetCameraPacket;
 import net.minecraft.resources.ResourceKey;
@@ -574,7 +577,23 @@ public class SEHelper {
 
     public static void setCamera(Player player, @Nullable Entity target){
         if (target != null) {
-            getCapability(player).setCameraUUID(target.getUUID());
+            if (target == player){
+                SurveyEye surveyEye = new SurveyEye(ModEntityType.SURVEY_EYE.get(), player.level);
+                BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos(player.getX(), player.getY() + 8, player.getZ());
+
+                while(blockpos$mutable.getY() < player.getY() + 16.0D && !player.level.getBlockState(blockpos$mutable).blocksMotion()) {
+                    blockpos$mutable.move(Direction.UP);
+                }
+                surveyEye.setPos(Vec3.atCenterOf(blockpos$mutable));
+                surveyEye.lookAt(player, 90.0F, 90.0F);
+                surveyEye.setOwner(player);
+                if (player.level.addFreshEntity(surveyEye)){
+                    getCapability(player).setCameraUUID(surveyEye.getUUID());
+                    target = surveyEye;
+                }
+            } else {
+                getCapability(player).setCameraUUID(target.getUUID());
+            }
         } else {
             getCapability(player).setCameraUUID(null);
             target = player;

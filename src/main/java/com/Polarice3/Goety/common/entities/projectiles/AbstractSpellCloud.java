@@ -33,7 +33,7 @@ public abstract class AbstractSpellCloud extends Entity {
     private LivingEntity owner;
     private UUID ownerUUID;
     public boolean activated;
-    public int lifeSpan = 0;
+    public int lifeSpan = 100;
     public float extraDamage = 0.0F;
 
     public AbstractSpellCloud(EntityType<?> p_19870_, Level p_19871_) {

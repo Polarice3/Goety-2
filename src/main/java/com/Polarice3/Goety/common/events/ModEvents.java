@@ -43,6 +43,7 @@ import com.Polarice3.Goety.common.items.curios.WarlockGarmentItem;
 import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
+import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -330,7 +331,7 @@ public class ModEvents {
                                         }
                                     }
                                 } else {
-                                    if (raider instanceof Piker){
+                                    if (raider instanceof Piker || raider instanceof Crusher || raider instanceof StormCaster){
                                         raid.removeFromRaid(raider, true);
                                         event.setCanceled(true);
                                     }
@@ -619,6 +620,23 @@ public class ModEvents {
             } else {
                 if (attackSpeed.hasModifier(attributemodifier)){
                     attackSpeed.removeModifier(attributemodifier);
+                }
+            }
+        }
+
+        boolean hammer = player.getMainHandItem().getItem() instanceof HammerItem;
+
+        float increaseAttackSpeed1 = 0.25F;
+        AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("3f0d53a8-f075-4d27-a0b7-a4d923542d4f"), "Two Handed Hammer", increaseAttackSpeed1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        boolean flag1 = hammer && player.getOffhandItem().isEmpty();
+        if (attackSpeed != null){
+            if (flag1){
+                if (!attackSpeed.hasModifier(attributemodifier1)){
+                    attackSpeed.addPermanentModifier(attributemodifier1);
+                }
+            } else {
+                if (attackSpeed.hasModifier(attributemodifier1)){
+                    attackSpeed.removeModifier(attributemodifier1);
                 }
             }
         }
@@ -1019,25 +1037,10 @@ public class ModEvents {
     public static void PlayerAttackEvent(AttackEntityEvent event){
         if (event.getTarget() instanceof IOwned iOwned){
             ItemStack itemStack = event.getEntity().getMainHandItem();
-            boolean flag = itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
             if (iOwned.getTrueOwner() == event.getEntity() || (iOwned.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == event.getEntity())) {
-                if (SpellConfig.OwnerHitCommand.get()) {
-                    if (itemStack.getItem() instanceof DarkWand) {
-                        if (iOwned instanceof IServant summonedEntity) {
-                            if (event.getEntity().isShiftKeyDown() || event.getEntity().isCrouching()) {
-                                event.getTarget().kill();
-                            } else if (!flag) {
-                                if (summonedEntity.canUpdateMove()) {
-                                    summonedEntity.updateMoveMode(event.getEntity());
-                                }
-                            }
-                        }
-                    }
-                }
                 if (MobsConfig.OwnerAttackCancel.get()) {
-                    if (!flag) {
-                        event.setCanceled(true);
-                    }
+                    itemStack.getItem().onLeftClickEntity(itemStack, event.getEntity(), event.getTarget());
+                    event.setCanceled(true);
                 }
             }
         }

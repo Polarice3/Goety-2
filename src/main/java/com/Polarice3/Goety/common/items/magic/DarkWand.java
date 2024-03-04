@@ -151,36 +151,38 @@ public class DarkWand extends Item {
 
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         if (!player.level.isClientSide) {
-            if (entity instanceof LivingEntity target && !(player.isShiftKeyDown() || player.isCrouching())) {
-                if (getFocus(stack).getItem() instanceof CallFocus) {
-                    if (target instanceof IOwned owned) {
-                        if (owned.getTrueOwner() == player) {
-                            if (!CallFocus.hasSummon(getFocus(stack))) {
-                                CompoundTag compoundTag = new CompoundTag();
-                                if (getFocus(stack).hasTag()) {
-                                    compoundTag = getFocus(stack).getTag();
-                                }
-                                CallFocus.setSummon(compoundTag, target);
-                                getFocus(stack).setTag(compoundTag);
-                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
-                                return true;
-                            }
-                        }
+            if (entity instanceof LivingEntity target && target instanceof IOwned owned && (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player))) {
+                if (getFocus(stack).getItem() instanceof CallFocus && !CallFocus.hasSummon(getFocus(stack))) {
+                    CompoundTag compoundTag = new CompoundTag();
+                    if (getFocus(stack).hasTag()) {
+                        compoundTag = getFocus(stack).getTag();
                     }
-                } else if (getFocus(stack).getItem() instanceof CommandFocus) {
-                    if (target instanceof IServant targetSummon) {
-                        if (targetSummon.getTrueOwner() == player) {
-                            if (!CommandFocus.hasServant(getFocus(stack))) {
-                                CompoundTag compoundTag = new CompoundTag();
-                                if (getFocus(stack).hasTag()) {
-                                    compoundTag = getFocus(stack).getTag();
-                                }
-                                CommandFocus.setServant(compoundTag, target);
-                                getFocus(stack).setTag(compoundTag);
-                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
-                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                    CallFocus.setSummon(compoundTag, target);
+                    getFocus(stack).setTag(compoundTag);
+                    player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                    return true;
+                } else if (getFocus(stack).getItem() instanceof CommandFocus && owned instanceof IServant && !CommandFocus.hasServant(getFocus(stack))) {
+                    CompoundTag compoundTag = new CompoundTag();
+                    if (getFocus(stack).hasTag()) {
+                        compoundTag = getFocus(stack).getTag();
+                    }
+                    CommandFocus.setServant(compoundTag, target);
+                    getFocus(stack).setTag(compoundTag);
+                    player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                    return true;
+                } else {
+                    if (SpellConfig.OwnerHitCommand.get()) {
+                        if (owned instanceof IServant summonedEntity) {
+                            if (player.isShiftKeyDown() || player.isCrouching()) {
+                                entity.kill();
                                 return true;
+                            } else {
+                                if (summonedEntity.canUpdateMove()) {
+                                    summonedEntity.updateMoveMode(player);
+                                    return true;
+                                }
                             }
                         }
                     }

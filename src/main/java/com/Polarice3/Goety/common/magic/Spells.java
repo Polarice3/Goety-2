@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -81,4 +82,11 @@ public abstract class Spells implements ISpell {
         return SoundSource.PLAYERS;
     }
 
+    public void playSound(ServerLevel serverLevel, LivingEntity caster, SoundEvent soundEvent){
+        this.playSound(serverLevel, caster, soundEvent, 1.0F, 1.0F);
+    }
+
+    public void playSound(ServerLevel serverLevel, LivingEntity caster, SoundEvent soundEvent, float volume, float pitch){
+        serverLevel.playSound((Player) null, caster.getX(), caster.getY(), caster.getZ(), soundEvent, this.getSoundSource(), volume, pitch);
+    }
 }

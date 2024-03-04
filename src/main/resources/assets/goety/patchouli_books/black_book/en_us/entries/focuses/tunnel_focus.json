@@ -1,0 +1,15 @@
+{
+  "name": "Tunnel Focus",
+  "icon": "goety:tunnel_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Using this focus on a wall or floor will create an ethereal tunnel leading to the other side. Tunnels will only open for a short amount of time and cannot open through certain blocks."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tunnel_focus"
+    }
+  ]
+}

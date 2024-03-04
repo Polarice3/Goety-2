@@ -1,0 +1,6 @@
+{
+	"parent": "goety:item/template_hammer",
+	"textures": {
+		"hammer": "goety:item/stormlander_model"
+	}
+}

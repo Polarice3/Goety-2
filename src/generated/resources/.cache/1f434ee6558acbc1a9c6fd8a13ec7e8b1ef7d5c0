@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-22T14:38:42.994034	Block States: goety
+// 1.20.1	2024-02-28T13:03:55.2461687	Block States: goety
 a889b86fc23228813018a54862555704e4c9fbff assets/goety/blockstates/compacted_windswept_slab.json
 84b69a886070a573c7249c5a10fa9ceb36c492fd assets/goety/blockstates/cracked_marble_slab.json
 9695e21d4de7d6aafe313be7e7638563d2d6719d assets/goety/blockstates/haunted_button.json
@@ -38,10 +38,6 @@ a662d242201f7c4038e17507a879fee0000826b8 assets/goety/blockstates/rotten_stairs.
 9ed3a159b44de74cbf04a268d28a37c52de6a215 assets/goety/blockstates/rotten_trapdoor.json
 56aea9721357afd59f100df31aea50d0f192f34f assets/goety/blockstates/rotten_wall_hanging_sign.json
 3bbe67ae0e94d266444ac0ad8c7d5089123502ed assets/goety/blockstates/rotten_wood.json
-6734c556a163e3db568b6d0f550a2a0703cbc592 assets/goety/blockstates/siltstone_slab.json
-5efbe9f48b6ca06efdca159157dff8e32f279753 assets/goety/blockstates/siltstone_stairs.json
-816a561fdac28527fa78bdf3311d7a3c94d854ea assets/goety/blockstates/silt_jade_slab.json
-2b8f51c171f901f5d35aea9a2434f5c3bdb46c4f assets/goety/blockstates/silt_jade_stairs.json
 91bb1a8a5e9cb1ad4824b6e538b002c75b351f47 assets/goety/blockstates/slate_marble_slab.json
 d52991b770f6a23c08463825cca3b038c75be7f2 assets/goety/blockstates/slate_marble_stairs.json
 8c3ce8ae56016162ef56104b8f583b6d27c65df1 assets/goety/blockstates/smooth_marble_slab.json
@@ -185,16 +181,6 @@ c802a5a6a970fcc54a3c353b921016e89c589fc4 assets/goety/models/block/rotten_trapdo
 cd979e467c52177954a673086cb179d254e9f0ce assets/goety/models/block/rotten_trapdoor_top.json
 39ad70e48dc729b08b89838c54663055ab313ab9 assets/goety/models/block/rotten_wall_hanging_sign.json
 316af17df013ee5e710a7367e99c70b88f7d34b3 assets/goety/models/block/rotten_wood.json
-79290f3d32708eb0c1f5f110280a2f7c16cc250e assets/goety/models/block/siltstone_slab.json
-88ae24f3bdfdfbd4402202ba7e62c1ce32524016 assets/goety/models/block/siltstone_slab_top.json
-5c3ca101ff93fd92d52a87fde224a36b5b754c6c assets/goety/models/block/siltstone_stairs.json
-0aeca12332fa79c42853bf6347d25a196df66196 assets/goety/models/block/siltstone_stairs_inner.json
-db462bf71ea263376d982f2ab2444c67aeb66a0c assets/goety/models/block/siltstone_stairs_outer.json
-cacf6cf09177b5a9b7dbe3d13a0a960c24a37a0b assets/goety/models/block/silt_jade_slab.json
-12000cb88b583e137d01bff2fae5fe468377e0c8 assets/goety/models/block/silt_jade_slab_top.json
-484bb98d4628422fdb9d98da1ff43a658138fd02 assets/goety/models/block/silt_jade_stairs.json
-a5adbc85df42642fc2f770e305ee808af3e395d5 assets/goety/models/block/silt_jade_stairs_inner.json
-28bfa4e97fcca987782f750fc5164e192c93d588 assets/goety/models/block/silt_jade_stairs_outer.json
 c291b36041dad977b1ce7c6378f059372cdc0fde assets/goety/models/block/slate_marble_slab.json
 2c0e4b3d083a34a5f4336b26320fdc8e9fe84dd3 assets/goety/models/block/slate_marble_slab_top.json
 6693a0eab05d8d457b9cf5fec6957153166bacb9 assets/goety/models/block/slate_marble_stairs.json
@@ -303,10 +289,6 @@ f11ca39da3f714563325e9e8607d0813da9f59eb assets/goety/models/item/rotten_log.jso
 f280b575b568a9f43dba5ffd53e9295b1f364dac assets/goety/models/item/rotten_slab.json
 c84df57e9c075156d5da25c85276ddbaa8f7fb4c assets/goety/models/item/rotten_stairs.json
 7fd0ebd1618f03f1d9d8122dfcd08d1f49bd990d assets/goety/models/item/rotten_wood.json
-810ed8391ab3d26dce4d1ee84ae375e83bbc6c85 assets/goety/models/item/siltstone_slab.json
-bdb2a8720c1a7e56563fc570a9cbee56d796c6d4 assets/goety/models/item/siltstone_stairs.json
-4e45b908706689266f44376d1357aabff0f0040e assets/goety/models/item/silt_jade_slab.json
-81fd107a2bceaeed7b9794c795e538c4d4b83fc3 assets/goety/models/item/silt_jade_stairs.json
 24e756adac5348fd33347f2d7ee61563f1c7f5e3 assets/goety/models/item/slate_marble_slab.json
 4cba32b8fcedac337a50396d0b9ded6c0242d565 assets/goety/models/item/slate_marble_stairs.json
 34cd4aaf4c68f11da1d560dec05a044e5ea4efae assets/goety/models/item/smooth_marble_slab.json

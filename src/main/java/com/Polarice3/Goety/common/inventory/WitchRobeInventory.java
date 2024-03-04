@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.inventory;
 
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -120,6 +122,19 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
         double x = (double) (this.increaseSpeed * 720) / 100.0D;
         int time = (int) Math.floor(1.0D + x + this.rest);
         this.setRest(1.0D + x + this.rest - (double) time);
+
+        if (this.getLivingEntity() != null){
+            if (CuriosFinder.hasWitchHat(this.getLivingEntity())) {
+                if (this.fuel < 20) {
+                    Level level = this.getLivingEntity().level;
+                    if (level.isNight() && !level.isRaining() && level.canSeeSky(this.getLivingEntity().blockPosition())) {
+                        if (this.getLivingEntity().tickCount % 20 == 0 && level.random.nextFloat() <= 0.25F) {
+                            this.fuel += 1;
+                        }
+                    }
+                }
+            }
+        }
 
         for (int a = 0; a < time; ++a) {
             ItemStack itemstack = this.items.get(4);

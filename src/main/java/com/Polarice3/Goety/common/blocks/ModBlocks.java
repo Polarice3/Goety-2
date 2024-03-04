@@ -77,6 +77,7 @@ public class ModBlocks {
             -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().pushReaction(PushReaction.DESTROY).strength(2.0F).randomTicks().sound(SoundType.GRASS)
                     .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
             true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> HOLE = register("hole", HoleBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
     public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);

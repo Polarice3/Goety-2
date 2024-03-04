@@ -1,5 +1,5 @@
 {
-  "name": "亡灵巫师",
+  "name": "死灵法师",
   "icon": "goety:necro_cape",
   "category": "goety:mutations",
   "advancement": "goety:goety/unlock_necromancer",
@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "卷轴包含一些关于向不死族授予召唤智慧生物的指令，它允许你从骷髅中创建和指挥亡灵巫师."
+      "text": "卷轴包含一些关于授予或召唤一些死灵智慧的秘辛，允许你从骷髅中创造和指挥死灵法师。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_skeleton_to_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "死灵法师不仅仅可以召唤僵尸。如果你将死灵系的召唤聚晶给予它，它就可以召唤更多类型的仆从。有传言说，用一罐灵魂喂养它们会增强它们的力量。。。"
     }
   ]
 }

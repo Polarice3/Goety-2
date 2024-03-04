@@ -40,6 +40,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> SPIKE = create("spike");
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
+    public static ResourceKey<DamageType> CHOCK = create("chock");
     public static ResourceKey<DamageType> DOOM = create("doom");
 
     public ModDamageSource(Holder<DamageType> p_270906_, @Nullable Entity p_270796_, @Nullable Entity p_270459_, @Nullable Vec3 p_270623_) {
@@ -163,6 +164,10 @@ public class ModDamageSource extends DamageSource {
         return indirectEntityDamageSource(pSource.level, DamageTypes.WITHER_SKULL, pSource, pIndirectEntity);
     }
 
+    public static DamageSource chock(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return indirectEntityDamageSource(pSource.level, CHOCK, pSource, pIndirectEntity);
+    }
+
     public static String source(String source){
         return "goety." + source;
     }
@@ -209,6 +214,7 @@ public class ModDamageSource extends DamageSource {
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));
         context.register(BOILING, new DamageType("goety.boiling", 0.0F, DamageEffects.BURNING));
         context.register(PHOBIA, new DamageType("goety.phobia", 0.0F));
+        context.register(CHOCK, new DamageType("goety.chock", 0.0F));
         context.register(DOOM, new DamageType("goety.doom", 0.0F));
     }
 

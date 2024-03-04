@@ -69,6 +69,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SAddBrewParticlesPacket.class, SAddBrewParticlesPacket::encode, SAddBrewParticlesPacket::decode, SAddBrewParticlesPacket::consume);
         INSTANCE.registerMessage(nextID(), SLightningPacket.class, SLightningPacket::encode, SLightningPacket::decode, SLightningPacket::consume);
         INSTANCE.registerMessage(nextID(), SThunderBoltPacket.class, SThunderBoltPacket::encode, SThunderBoltPacket::decode, SThunderBoltPacket::consume);
+        INSTANCE.registerMessage(nextID(), SLightningBoltPacket.class, SLightningBoltPacket::encode, SLightningBoltPacket::decode, SLightningBoltPacket::consume);
         INSTANCE.registerMessage(nextID(), SSetPlayerOwnerPacket.class, SSetPlayerOwnerPacket::encode, SSetPlayerOwnerPacket::decode, SSetPlayerOwnerPacket::consume);
         INSTANCE.registerMessage(nextID(), SAddBossPacket.class, SAddBossPacket::encode, SAddBossPacket::decode, SAddBossPacket::consume);
         INSTANCE.registerMessage(nextID(), SFocusCooldownPacket.class, SFocusCooldownPacket::encode, SFocusCooldownPacket::decode, SFocusCooldownPacket::consume);

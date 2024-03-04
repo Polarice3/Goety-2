@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_skeleton_to_necromancer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Necromancers can be taught to summon more than just Zombies. Right-clicking with certain Necromancy Focuses allows them to summon more types of servants. It's rumored that feeding them with a jar of souls will increase their power..."
     }
   ]
 }

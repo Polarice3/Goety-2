@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.render;
 
+import com.Polarice3.Goety.init.ModShaders;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -9,6 +10,7 @@ import net.minecraft.Util;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
@@ -17,6 +19,8 @@ import java.util.function.Function;
 public class ModRenderType {
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_EYES_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEyesShader);
     protected static final RenderStateShard.TextureStateShard BLOCK_SHEET = new RenderStateShard.TextureStateShard(InventoryMenu.BLOCK_ATLAS, false, false);
+    protected static final RenderStateShard.TransparencyStateShard NO_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("no_transparency", RenderSystem::disableBlend, () -> {
+    });
     protected static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("additive_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
@@ -93,5 +97,27 @@ public class ModRenderType {
             .setTransparencyState(LIGHTNING_TRANSPARENCY)
             .createCompositeState(false);
     public static final RenderType LIGHTNING = RenderType.create("lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, LIGHTNING_STATE);
+    protected static final RenderStateShard.ShaderStateShard HOLE_SHADER = new RenderStateShard.ShaderStateShard(ModShaders::getHoleShader);
+
+    private static final RenderType HOLE = RenderType.create("hole",
+            DefaultVertexFormat.POSITION,
+            VertexFormat.Mode.QUADS,
+            256,
+            false,
+            false,
+            RenderType.CompositeState.builder()
+                    .setShaderState(HOLE_SHADER)
+                    .setTextureState(RenderStateShard.MultiTextureStateShard.builder()
+                            .add(TheEndPortalRenderer.END_SKY_LOCATION,
+                                    false, false)
+                            .add(TheEndPortalRenderer.END_PORTAL_LOCATION,
+                                    false, false).build())
+                    .setTransparencyState(NO_TRANSPARENCY)
+                    .setCullState(NO_CULL)
+                    .createCompositeState(false));
+
+    public static RenderType hole() {
+        return HOLE;
+    }
 
 }
