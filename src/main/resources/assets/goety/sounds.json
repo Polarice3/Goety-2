@@ -662,6 +662,112 @@
     ],
     "subtitle": "subtitle.goety.piker_death"
   },
+  "storm_caster_ambient": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/idle1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/idle2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/idle3",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/idle4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_ambient"
+  },
+  "storm_caster_hurt": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/hurt1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/hurt2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/hurt3",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/hurt4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_hurt"
+  },
+  "storm_caster_monsoon": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/monsoon1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/monsoon2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/monsoon3",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_monsoon"
+  },
+  "storm_caster_discharge": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/discharge1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/discharge2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/discharge3",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_discharge"
+  },
+  "storm_caster_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/idle1",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_celebrate"
+  },
+  "storm_caster_death": {
+    "sounds": [
+      {
+        "name": "goety:storm_caster/death1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/death2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/death3",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:storm_caster/death4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.storm_caster_death"
+  },
   "preacher_ambient": {
     "sounds": [
       {
@@ -2309,6 +2415,54 @@
     ],
     "subtitle": "subtitle.goety.ghast_disappear"
   },
+  "dirt_debris": {
+    "sounds": [
+      {
+        "name": "goety:random/dirt_debris1"
+      },
+      {
+        "name": "goety:random/dirt_debris2"
+      },
+      {
+        "name": "goety:random/dirt_debris3"
+      },
+      {
+        "name": "goety:random/dirt_debris4"
+      }
+    ],
+    "subtitle": "subtitle.goety.dirt_debris"
+  },
+  "thunder_strike_epic": {
+    "sounds": [
+      {
+        "name": "goety:random/thunder_strike_epic1"
+      },
+      {
+        "name": "goety:random/thunder_strike_epic2"
+      },
+      {
+        "name": "goety:random/thunder_strike_epic3"
+      },
+      {
+        "name": "goety:random/thunder_strike_epic4"
+      }
+    ],
+    "subtitle": "subtitle.goety.thunder_strike_epic"
+  },
+  "thunder_strike_fast": {
+    "sounds": [
+      {
+        "name": "goety:random/thunder_strike_fast1"
+      },
+      {
+        "name": "goety:random/thunder_strike_fast2"
+      },
+      {
+        "name": "goety:random/thunder_strike_fast3"
+      }
+    ],
+    "subtitle": "subtitle.goety.thunder_strike_fast"
+  },
   "roar_spell": {
     "sounds": [
       {
@@ -2720,6 +2874,46 @@
       }
     ]
   },
+  "hammer_swing": {
+    "sounds": [
+      {
+        "name": "goety:item/hammer_swing1"
+      },
+      {
+        "name": "goety:item/hammer_swing2"
+      },
+      {
+        "name": "goety:item/hammer_swing3"
+      }
+    ],
+    "subtitle": "subtitle.goety.hammer_swing"
+  },
+  "hammer_impact": {
+    "sounds": [
+      {
+        "name": "goety:item/hammer_impact1"
+      },
+      {
+        "name": "goety:item/hammer_impact2"
+      },
+      {
+        "name": "goety:item/hammer_impact3"
+      },
+      {
+        "name": "goety:item/hammer_impact4"
+      },
+      {
+        "name": "goety:item/hammer_impact5"
+      },
+      {
+        "name": "goety:item/hammer_impact6"
+      },
+      {
+        "name": "goety:item/hammer_impact7"
+      }
+    ],
+    "subtitle": "subtitle.goety.hammer_impact"
+  },
   "harpoon_impact": {
     "sounds": [
       {
@@ -2864,6 +3058,20 @@
       },
       {
         "name": "goety:item/brew_gas3"
+      }
+    ],
+    "subtitle": "subtitle.goety.brew_gas"
+  },
+  "brew_gas_alt": {
+    "sounds": [
+      {
+        "name": "goety:item/brew_gas_alt1"
+      },
+      {
+        "name": "goety:item/brew_gas_alt2"
+      },
+      {
+        "name": "goety:item/brew_gas_alt3"
       }
     ],
     "subtitle": "subtitle.goety.brew_gas"

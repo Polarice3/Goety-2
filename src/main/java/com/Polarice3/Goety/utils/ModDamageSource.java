@@ -72,6 +72,10 @@ public class ModDamageSource extends DamageSource {
         return (new IndirectEntityDamageSource("witherSkull", pSource, pIndirectEntity)).setProjectile();
     }
 
+    public static DamageSource chock(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("chock"), pSource, pIndirectEntity).bypassArmor();
+    }
+
     public static boolean shockAttacks(DamageSource source){
         return source.getMsgId().equals(source("directShock"))
                 || source.getMsgId().equals(source("indirectShock"))

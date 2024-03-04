@@ -61,6 +61,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corrosion",
+      "text": "See those blocks? Not anymore (Unless its Obsidian)! I see your armor, and I think it could be a little more damaged! Hahahaha!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
       "text": "A Curse upon you! No healing for you! I just rhymed you with you! What ya gonna do?"
     },
@@ -276,6 +281,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.pruning",
       "text": "Get those dang floating Leaves out of my property!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pulverize",
+      "text": "Stone to Cobble to Gravel to Sand! Get me some coal and make me a glass!"
     },
     {
       "type": "goety:catalyst",

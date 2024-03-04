@@ -1,0 +1,15 @@
+{
+  "name": "隧道聚晶",
+  "icon": "goety:tunnel_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在墙壁或地板上使用这种聚晶将创建一个很长的空灵隧道。隧道只会存在很短的时间，不能穿过某些方块。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tunnel_focus"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Storm Calling Hammer",
+  "icon": "minecraft:iron_ingot",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Rumors abuzz of a powerful hammer that was a high-end $(l)Illager$() artisanship, holding the very storms within itself."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/get_stormlander",
+      "text": "It's said that certain $(l)hammer-wielding illagers$() hold such a hammer, or perhaps a replica, that only shows its power when struck by $(l)lightning$()."
+    }
+  ]
+}

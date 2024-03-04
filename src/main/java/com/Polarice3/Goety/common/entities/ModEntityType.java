@@ -553,6 +553,18 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Crusher>> CRUSHER = register("crusher",
+            EntityType.Builder.of(Crusher::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<StormCaster>> STORM_CASTER = register("storm_caster",
+            EntityType.Builder.of(StormCaster::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Preacher>> PREACHER = register("preacher",
             EntityType.Builder.of(Preacher::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -701,6 +713,12 @@ public class ModEntityType {
             EntityType.Builder.of(SkullLaser::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<SurveyEye>> SURVEY_EYE = register("survey_eye",
+            EntityType.Builder.of(SurveyEye::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(0.0F, 0.0F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<TunnelingFang>> TUNNELING_FANG = register("tunneling_fang",

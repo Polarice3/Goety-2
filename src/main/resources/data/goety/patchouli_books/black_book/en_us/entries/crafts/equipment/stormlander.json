@@ -1,0 +1,17 @@
+{
+  "name": "Stormlander",
+  "icon": "goety:stormlander",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/get_stormlander",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Stormlander, enchanted with the power of the raging storm, is a treasure of the Illagers."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It can perform the same functionalities as it's mundane counterpart. The hammer can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
+    }
+  ]
+}

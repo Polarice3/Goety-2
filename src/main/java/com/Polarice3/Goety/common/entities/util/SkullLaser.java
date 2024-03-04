@@ -9,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.players.OldUsersConverter;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -158,15 +156,7 @@ public class SkullLaser extends Mob {
                             this.level.explode(this, this.getX(), this.getY(), this.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
                         }
                         this.moveControl.setWantedPosition(this.getTarget().getX(), this.getY(), this.getTarget().getZ(), 1.0F);
-                        float f2 = 0.25F * 2.0F;
-                        int k1 = Mth.floor(this.getX() - (double)f2 - 1.0D);
-                        int l1 = Mth.floor(this.getX() + (double)f2 + 1.0D);
-                        int i2 = Mth.floor(this.getY() - (double)f2 - 1.0D);
-                        int i1 = Mth.floor(this.getY() + (double)f2 + 1.0D);
-                        int j2 = Mth.floor(this.getZ() - (double)f2 - 1.0D);
-                        int j1 = Mth.floor(this.getZ() + (double)f2 + 1.0D);
-                        AABB aabb = new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1);
-                        for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
+                        for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.5F))) {
                             if (livingEntity != this.getSkullLord() && !MobUtil.areFullAllies(this.getSkullLord(), livingEntity) && livingEntity != this) {
                                 this.getTarget().hurt(DamageSource.indirectMagic(this, this.getSkullLord()), (float) this.getSkullLord().getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
                                 this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));

@@ -13,13 +13,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -46,6 +45,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
             }
             this.setPos(pTarget.getX(), blockpos$mutable.getY(), pTarget.getZ());
         }
+        this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
     }
 
     public int getColor(){
@@ -62,6 +62,9 @@ public class MonsoonCloud extends AbstractSpellCloud{
                     Vec3 vec3 = this.position();
                     float damage = SpellConfig.ThunderboltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                     damage += this.extraDamage;
+                    if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
+                        damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                    }
                     BlockHitResult rayTraceResult = this.blockResult(serverLevel, this, 16);
                     Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(serverLevel, new BlockPos(rayTraceResult.getLocation()), 16);
                     if (lightningRod.isPresent()) {

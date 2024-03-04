@@ -97,6 +97,9 @@ public class CallFocus extends MagicFocus{
                 }
                 if (!livingEntity.isDeadOrDying()) {
                     BlockPos blockPos = BlockFinder.SummonRadius(player, player.level);
+                    if (player.isShiftKeyDown() || player.isCrouching()){
+                        blockPos = player.blockPosition();
+                    }
                     if (livingEntity.level.dimension() == player.level.dimension()) {
                         livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         MobUtil.moveDownToGround(livingEntity);

@@ -42,6 +42,8 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.INQUILLAGER.get(),
                 ModEntityType.CONQUILLAGER.get(),
                 ModEntityType.PIKER.get(),
+                ModEntityType.CRUSHER.get(),
+                ModEntityType.STORM_CASTER.get(),
                 ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
                 ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),

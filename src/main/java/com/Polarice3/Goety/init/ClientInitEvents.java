@@ -214,6 +214,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.PIKER, PikerModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.CRUSHER, CrusherModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.STORM_CASTER, StormCasterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.PREACHER, PreacherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINISTER, MinisterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
@@ -290,6 +292,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.HOLE.get(), HoleBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NIGHT_BEACON.get(), NightBeaconRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REDSTONE_GOLEM_SKULL.get(), RedstoneGolemSkullBlockEntityRenderer::new);
@@ -391,6 +394,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.INQUILLAGER.get(), InquillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CONQUILLAGER.get(), ConquillagerRenderer::new);
         event.registerEntityRenderer(ModEntityType.PIKER.get(), PikerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CRUSHER.get(), CrusherRenderer::new);
+        event.registerEntityRenderer(ModEntityType.STORM_CASTER.get(), StormCasterRenderer::new);
         event.registerEntityRenderer(ModEntityType.PREACHER.get(), PreacherRenderer::new);
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolemRenderer::new);
@@ -412,6 +417,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MONSOON_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SURVEY_EYE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.TUNNELING_FANG.get(), TrapRenderer::new);
     }
 
@@ -531,11 +537,9 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.register(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);
         event.register(ModParticleTypes.SUMMON.get(), SoulExplodeParticle.SummonProvider::new);
+        event.register(ModParticleTypes.SPARKLE.get(), SparkleParticle.Provider::new);
         event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.SOUL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.PORTAL_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.TELEPORT_SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
-        event.register(ModParticleTypes.TELEPORT_IN_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
+        event.register(ModParticleTypes.REVERSE_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
         event.register(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);

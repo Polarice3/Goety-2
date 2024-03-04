@@ -29,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -62,7 +63,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
     }
 
     @Override
-    public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
+    public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
         IceSpike iceSpike = new IceSpike(this, this.level);
         double d0 = p_33317_.getX() - this.getX();
         double d1 = p_33317_.getY(0.3333333333333333D) - iceSpike.getY();
@@ -88,7 +89,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
             if (CairnNecromancer.this.level instanceof ServerLevel serverLevel) {
                 for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(3); ++i1) {
                     Summoned summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
-                    if (CairnNecromancer.this.hasAlternateSummon()){
+                    if (CairnNecromancer.this.getSummonList().contains(ModEntityType.ZOMBIE_SERVANT.get())){
                         if (serverLevel.random.nextBoolean()){
                             summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
                         }
@@ -144,8 +145,8 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         }
 
         @Override
-        protected SpellType getSpellType() {
-            return SpellType.ZOMBIE;
+        protected NecromancerSpellType getNecromancerSpellType() {
+            return NecromancerSpellType.ZOMBIE;
         }
     }
 

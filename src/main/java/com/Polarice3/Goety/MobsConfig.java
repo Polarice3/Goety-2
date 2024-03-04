@@ -61,6 +61,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
@@ -72,6 +74,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PikerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CrusherRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PreacherRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ConquillagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> InquillagerRaid;
@@ -161,6 +165,10 @@ public class MobsConfig {
                     .define("undeadServantSunlightBurn", true);
             UndeadServantSunlightHelmet = BUILDER.comment("Whether Undead Servants' helmet take damage when in Sunlight. Only takes effect if undeadServantSunlightBurn is enabled, Default: true")
                     .define("undeadServantSunlightHelmet", true);
+            NecromancerSoulJar = BUILDER.comment("Whether owned Necromancers drop Soul Jars, Default: true")
+                    .define("necromancerSoulJar", true);
+            NecromancerSummonsLife = BUILDER.comment("Whether Necromancer's summons have limited lifespans, Default: true")
+                    .define("necromancerSummonsLife", true);
             UndeadMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for an Undead Servant to heal, Default: 5")
                     .defineInRange("undeadServantsHealCost", 5, 0, Integer.MAX_VALUE);
             UndeadMinionHealTime = BUILDER.comment("How frequent Undead Servants heal, count seconds, Default: 1")
@@ -207,6 +215,10 @@ public class MobsConfig {
                     .define("specialIllagerRaid", true);
             PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
                     .define("pikerRaid", true);
+            CrusherRaid = BUILDER.comment("Whether Crushers appear in Raids, Default: true")
+                    .define("crusherRaid", true);
+            StormCasterRaid = BUILDER.comment("Whether Storm Casters appear in Raids, Default: true")
+                    .define("stormCasterRaid", true);
             PreacherRaid = BUILDER.comment("Whether Preachers appear in Raids, Default: true")
                     .define("preacherRaid", true);
             ConquillagerRaid = BUILDER.comment("Whether Conquillagers appear in Raids, Default: true")

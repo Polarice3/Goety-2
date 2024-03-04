@@ -26,5 +26,33 @@ public class ModLevelRegistry {
             builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
             builder.getMobSpawnSettings().addMobCharge(ModEntityType.WRAITH.get(), 0.7D, 0.15D);
         }
+/*        if (MobsConfig.InterDimensionalMobs.get()){
+            MobSpawnSettings mobSpawnSettings = biome.get().getMobSettings();
+            List<MobSpawnSettings.SpawnerData> mobs = mobSpawnSettings.getMobs(MobCategory.MONSTER).unwrap();
+            if (!biome.containsTag(BiomeTags.IS_OVERWORLD) && !mobs.isEmpty()) {
+                if (mobSpawnSettings.getEntityTypes().contains(EntityType.WITCH)) {
+                    MobSpawnSettings.SpawnerData spawnerData = null;
+                    for (MobSpawnSettings.SpawnerData mob : mobs) {
+                        if (mob.type == EntityType.WITCH) {
+                            spawnerData = mob;
+                        }
+                    }
+                    if (spawnerData != null) {
+                        builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WARLOCK.get(), MobsConfig.WarlockSpawnWeight.get(), spawnerData.minCount, spawnerData.maxCount));
+                    }
+                }
+                if (mobSpawnSettings.getEntityTypes().contains(EntityType.SPIDER)) {
+                    MobSpawnSettings.SpawnerData spawnerData = null;
+                    for (MobSpawnSettings.SpawnerData mob : mobs) {
+                        if (mob.type == EntityType.SPIDER) {
+                            spawnerData = mob;
+                        }
+                    }
+                    if (spawnerData != null) {
+                        builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER).add(new MobSpawnSettings.SpawnerData(ModEntityType.WRAITH.get(), MobsConfig.WraithSpawnWeight.get(), 1, 1));
+                    }
+                }
+            }
+        }*/
     }
 }

@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:ring_of_force"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_ring_of_force.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_ring_of_force.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_telekinesis_focus",
+  "criteria": {
+    "ring_of_force": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:ring_of_force"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "ring_of_force"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

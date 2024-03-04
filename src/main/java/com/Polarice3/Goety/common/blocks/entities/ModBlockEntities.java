@@ -70,6 +70,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<UrnBlockEntity>> CRYPT_URN = BLOCK_ENTITY.register("crypt_urn",
             () -> BlockEntityType.Builder.of(UrnBlockEntity::new, ModBlocks.CRYPT_URN.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<HoleBlockEntity>> HOLE = BLOCK_ENTITY.register("hole",
+            () -> BlockEntityType.Builder.of(HoleBlockEntity::new, ModBlocks.HOLE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<NightBeaconBlockEntity>> NIGHT_BEACON = BLOCK_ENTITY.register("night_beacon",
             () -> BlockEntityType.Builder.of(NightBeaconBlockEntity::new, ModBlocks.NIGHT_BEACON.get()).build(null));
 

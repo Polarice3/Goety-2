@@ -33,6 +33,9 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheAttackSpeed;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> HammerBaseDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> HammerAttackSpeed;
+
     public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkToolsBreakSpeed;
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkToolsDurability;
@@ -168,6 +171,12 @@ public class ItemConfig {
                     .defineInRange("deathScytheDurability", 444, 1, Integer.MAX_VALUE);
             DeathScytheEnchantability = BUILDER.comment("Define the Enchantability for Death Scythe, higher number the better, Default: 22")
                     .defineInRange("deathScytheEnchantability", 22, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Hammers");
+            HammerBaseDamage = BUILDER.comment("How much base damage Hammers deals, the damage added depends on material the hammer is made off (ie. Iron = 2.0), Default: 5.0")
+                    .defineInRange("hammerBaseDamage", 5.0, 1.0, Double.MAX_VALUE);
+            HammerAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Hammers. The lower the number the slower it takes to recharge, Default: 0.6")
+                    .defineInRange("hammerAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Dark Tools");
             DarkToolsDamage = BUILDER.comment("How much damage Dark Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")

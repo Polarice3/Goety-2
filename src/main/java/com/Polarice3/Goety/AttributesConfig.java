@@ -31,6 +31,10 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> PikerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PikerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> PikerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CrusherHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CrusherDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> StormCasterHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> StormCasterDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> PreacherHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PreacherHeal;
     public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerHealth;
@@ -156,6 +160,18 @@ public class AttributesConfig {
                         .defineInRange("pikerArmor", 4.0, 1.0, Double.MAX_VALUE);
                 PikerDamage = BUILDER.comment("How much damage Pikers deals, Default: 9.0")
                         .defineInRange("pikerDamage", 9.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Crusher");
+                CrusherHealth = BUILDER.comment("How much Max Health Crushers have, Default: 24.0")
+                        .defineInRange("crusherHealth", 24.0, 1.0, Double.MAX_VALUE);
+                CrusherDamage = BUILDER.comment("How much damage Crushers deals, Default: 10.0")
+                        .defineInRange("crusherDamage", 10.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Storm Caster");
+                StormCasterHealth = BUILDER.comment("How much Max Health Storm Casters have, Default: 24.0")
+                        .defineInRange("stormCasterHealth", 24.0, 1.0, Double.MAX_VALUE);
+                StormCasterDamage = BUILDER.comment("How much damage Storm Casters deals, Default: 5.0")
+                        .defineInRange("stormCasterDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Preacher");
                 PreacherHealth = BUILDER.comment("How much Max Health Preachers have, Default: 24.0")

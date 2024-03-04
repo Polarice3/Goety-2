@@ -1,0 +1,23 @@
+{
+  "name": "标签锁套件",
+  "icon": "goety:taglock_kit",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "标签锁套件用于收集生物或其他玩家的标签锁。这将用于在目标生物和巫术之间建立联系。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:taglock_kit"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "要收集标签锁，只需左键单击某个生物。你也可以在玩家使用过的床上点击鼠标右键来获得标签锁。出于某种原因，你无法通过这种方式获得村民标签锁。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "小心！虽然标记一个生物很简单，但标记一个和你一样的玩家需要一种更狡猾的方法，因为他们会注意到你的失败！"
+    }
+  ]
+}

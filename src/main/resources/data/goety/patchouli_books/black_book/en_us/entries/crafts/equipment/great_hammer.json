@@ -1,0 +1,19 @@
+{
+  "name": "Great Hammer",
+  "icon": "goety:great_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Blacksmiths and soldiers alike use the Great Hammer for its strength in forging and in battle. If the wielder's attack recharge meter is full, the hammer will hit beings at a great radius though it will take quite a while for the meter to recover which can be mitigated if the wielder doesn't hold anything offhand."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:great_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The hammer can mine a 3x3 area, but have less mining speed than pickaxes. As the hammer is use for forging, right-clicking a Block of Iron with it will turn it into a heavily damaged Anvil. The hammer can be repaired on an anvil with an Iron Ingot."
+    }
+  ]
+}

@@ -58,6 +58,17 @@ public class ClientProxy implements ModProxy {
         LightningEffect.INSTANCE.add(level, new LightningParticleOptions(LightningParticleOptions.BoltRenderInfo.thunderBolt(new ColorUtil(177, 235, 220, 1.0F)), vectorStart, vectorEnd, lifespan).size(0.25F), ClientEvents.PARTIAL_TICK);
     }
 
+    public void lightningBolt(Vec3 vectorStart, Vec3 vectorEnd, int lifespan) {
+        lightningBolt(Minecraft.getInstance().level, vectorStart, vectorEnd, lifespan);
+    }
+
+    public void lightningBolt(Level level, Vec3 vectorStart, Vec3 vectorEnd, int lifespan){
+        if (!(level instanceof ClientLevel)){
+            return;
+        }
+        LightningEffect.INSTANCE.add(level, new LightningParticleOptions(LightningParticleOptions.BoltRenderInfo.thunderBolt(new ColorUtil(100, 100, 220, 1.0F)).noise(1.0F, 0.001F), vectorStart, vectorEnd, lifespan).size(0.5F), ClientEvents.PARTIAL_TICK);
+    }
+
     public void spawnSoulExplosion(Level level, BlockPos blockPos, int radius){
         if (!(level instanceof ClientLevel)){
             return;

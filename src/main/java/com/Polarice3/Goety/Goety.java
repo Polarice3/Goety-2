@@ -59,6 +59,7 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Ravager;
@@ -337,6 +338,8 @@ public class Goety {
         event.put(ModEntityType.INQUILLAGER.get(), Inquillager.setCustomAttributes().build());
         event.put(ModEntityType.CONQUILLAGER.get(), Conquillager.setCustomAttributes().build());
         event.put(ModEntityType.PIKER.get(), Piker.setCustomAttributes().build());
+        event.put(ModEntityType.CRUSHER.get(), Crusher.setCustomAttributes().build());
+        event.put(ModEntityType.STORM_CASTER.get(), StormCaster.setCustomAttributes().build());
         event.put(ModEntityType.PREACHER.get(), Preacher.setCustomAttributes().build());
         event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolem.setCustomAttributes().build());
@@ -345,6 +348,7 @@ public class Goety {
         event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
         event.put(ModEntityType.LASER.get(), SkullLaser.setCustomAttributes().build());
+        event.put(ModEntityType.SURVEY_EYE.get(), Mob.createMobAttributes().build());
         event.put(ModEntityType.TUNNELING_FANG.get(), TunnelingFang.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_STAND.get(), LivingEntity.createLivingAttributes().build());
     }

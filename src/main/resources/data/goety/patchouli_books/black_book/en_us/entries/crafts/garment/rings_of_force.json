@@ -1,0 +1,19 @@
+{
+  "name": "Ring of Force",
+  "icon": "goety:ring_of_force",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Telekinesis spell is fun and all, but what if you want to damage whoever you're holding without constantly smashing them to the ground?"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_force"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting the spell while wearing this ring will cause the being you're holding to slowly lose breath, chocking until they perish or you lose your grip on them."
+    }
+  ]
+}

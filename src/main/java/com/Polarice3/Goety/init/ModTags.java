@@ -32,6 +32,7 @@ public class ModTags {
         public static final TagKey<Block> PHILOSOPHERS_MACE_HARD = tag("philosophers_mace_hard");
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
+        public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
 
         private static TagKey<Block> tag(String name)
         {

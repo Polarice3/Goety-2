@@ -1,0 +1,19 @@
+{
+  "name": "原力戒指",
+  "icon": "goety:ring_of_force",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尽管原力聚晶确实很有趣，但如果你想把你的敌人狠狠地摔在地上要怎么办？"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_force"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当你佩戴这个戒指使用原力魔法时，被你攥紧的生物会慢慢失去呼吸，并且开始窒息。直到它们死亡或者你松开他们。"
+    }
+  ]
+}

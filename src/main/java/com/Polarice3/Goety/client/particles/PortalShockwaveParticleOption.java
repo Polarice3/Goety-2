@@ -1,14 +1,15 @@
 package com.Polarice3.Goety.client.particles;
 
+import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.core.particles.ParticleType;
 
 public class PortalShockwaveParticleOption extends ShockwaveParticleOption {
 
    public PortalShockwaveParticleOption(int p_235949_) {
-      super(p_235949_);
+      super(p_235949_, new ColorUtil(0x7317d2).red, new ColorUtil(0x7317d2).green, new ColorUtil(0x7317d2).blue);
    }
 
    public ParticleType<ShockwaveParticleOption> getType() {
-      return ModParticleTypes.PORTAL_SHOCKWAVE.get();
+      return ModParticleTypes.SHOCKWAVE.get();
    }
 }
