@@ -1,0 +1,19 @@
+{
+  "name": "フォースのリング",
+  "icon": "goety:ring_of_force",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "テレキネシスの呪文はとても楽しいものですが、常に地面に叩きつけることなく、浮かしてる相手にダメージを与えたい場合はどうすればよいでしょうか?"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_force"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "この指輪を身に着けている間に呪文を唱えると、あなたが保持している存在はゆっくりと息を失い、彼らが死ぬかあなたがそれらを握る力を失うまで窒息します。"
+    }
+  ]
+}

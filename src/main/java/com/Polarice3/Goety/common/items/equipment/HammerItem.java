@@ -15,6 +15,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -29,8 +30,13 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.Tags;
 
 public class HammerItem extends TieredItem implements Vanishable {
@@ -116,7 +122,7 @@ public class HammerItem extends TieredItem implements Vanishable {
             for (BlockPos blockPos : BlockFinder.multiBlockBreak(pEntityLiving, pPos, 1, 1, 1)){
                 BlockState blockstate = pLevel.getBlockState(blockPos);
                 if (this.getMineBlocks(blockstate)){
-                    if (pLevel.destroyBlock(blockPos, true, pEntityLiving)){
+                    if (this.destroyBlock(pLevel, blockPos, pEntityLiving, pStack)){
                         if (blockstate.getDestroySpeed(pLevel, blockPos) != 0) {
                             pStack.hurtAndBreak(1, pEntityLiving, (p_220044_0_)
                                     -> p_220044_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
@@ -127,6 +133,28 @@ public class HammerItem extends TieredItem implements Vanishable {
         }
 
         return true;
+    }
+
+    public boolean destroyBlock(Level level, BlockPos blockPos, Entity entity, ItemStack itemStack) {
+        BlockState blockstate = level.getBlockState(blockPos);
+        if (blockstate.isAir()) {
+            return false;
+        } else {
+            FluidState fluidstate = level.getFluidState(blockPos);
+            if (!(blockstate.getBlock() instanceof BaseFireBlock)) {
+                level.levelEvent(2001, blockPos, Block.getId(blockstate));
+            }
+
+            BlockEntity blockentity = blockstate.hasBlockEntity() ? level.getBlockEntity(blockPos) : null;
+            Block.dropResources(blockstate, level, blockPos, blockentity, entity, itemStack);
+
+            boolean flag = level.setBlock(blockPos, fluidstate.createLegacyBlock(), 3, 512);
+            if (flag) {
+                level.gameEvent(GameEvent.BLOCK_DESTROY, blockPos, GameEvent.Context.of(entity, blockstate));
+            }
+
+            return flag;
+        }
     }
 
     public void attackMobs(LivingEntity pTarget, Player pPlayer){

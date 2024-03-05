@@ -66,6 +66,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corrosion",
+      "text": "それらのブロックが見えますか? もう（黒曜石でない限り）それはありません! あなたの鎧を見てみると、もう少しダメージがあるかもしれないと思います! ハハハッハッハ！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.cursed",
       "text": "あなたに呪いがかかっています！ あなたに癒しはありません！ 私はあなたと韻を踏んだだけです！ 何をするつもりですか？"
     },
@@ -281,6 +286,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.pruning",
       "text": "浮いている落ち葉を私の敷地から追い出してください！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pulverize",
+      "text": "石から丸石、砂利、砂まで！ 石炭を持ってきて、グラスを作ってください！"
     },
     {
       "type": "goety:catalyst",

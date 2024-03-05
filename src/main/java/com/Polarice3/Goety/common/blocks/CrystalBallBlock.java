@@ -87,8 +87,7 @@ public class CrystalBallBlock extends Block {
                         ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, serverLevel);
                         pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));
                     }
-                } else if (pPlayer.getItemInHand(pHand).getItem() instanceof TaglockKit && TaglockKit.hasEntity(pPlayer.getItemInHand(pHand))
-                    && (!pLevel.canSeeSky(pPos) || pLevel.isNight())){
+                } else if (pPlayer.getItemInHand(pHand).getItem() instanceof TaglockKit && TaglockKit.hasEntity(pPlayer.getItemInHand(pHand))){
                     SEHelper.setCamera(pPlayer, TaglockKit.getEntity(pPlayer.getItemInHand(pHand)));
                     ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(ModSounds.END_WALK.get(), 1.0F, 0.5F));
                     pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.HOSTILE, 1.0F, 0.5F);

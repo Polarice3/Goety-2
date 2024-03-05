@@ -690,7 +690,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     return waterLevel + 1;
                 }
             } else if (mode == Mode.COMPLETED) {
-                if (TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), 0)){
+                if (waterLevel >= 3 && TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), 0)){
                     return 0;
                 } else if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
                     boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),

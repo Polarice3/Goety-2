@@ -1,0 +1,15 @@
+{
+  "name": "トンネルフォーカス",
+  "icon": "goety:tunnel_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスを壁や床に使用すると、反対側につながる幻想的なトンネルが作成されます。 トンネルは短時間しか開かず、特定のブロックを通過することはできません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/tunnel_focus"
+    }
+  ]
+}

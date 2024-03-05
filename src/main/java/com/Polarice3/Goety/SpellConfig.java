@@ -765,8 +765,8 @@ public class SpellConfig {
             BUILDER.push("Corruption Spell");
             CorruptionCost = BUILDER.comment("Corruption Spell Cost, Default: 2500")
                     .defineInRange("corruptionCost", 2500, 0, Integer.MAX_VALUE);
-            CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 1.0")
-                    .defineInRange("corruptedBeamDamage", 1.0, 0.0, Double.MAX_VALUE);
+            CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 10.0")
+                    .defineInRange("corruptedBeamDamage", 10.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");

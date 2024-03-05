@@ -19,8 +19,11 @@ public class AbstractNecromancerRenderer extends MobRenderer<AbstractNecromancer
 //      this.addLayer(new NecromancerArmorLayer(this, p_174382_));
    }
 
-   protected void scale(AbstractNecromancer entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-      matrixStackIn.scale(1.25F, 1.25F, 1.25F);
+   protected void scale(AbstractNecromancer necromancer, PoseStack matrixStackIn, float partialTickTime) {
+      float original = 1.25F;
+      float f1 = (float)necromancer.getNecroLevel();
+      float size = original + Math.max(f1 * 0.15F, 0);
+      matrixStackIn.scale(size, size, size);
    }
 
    public ResourceLocation getTextureLocation(AbstractNecromancer p_115941_) {
