@@ -76,6 +76,10 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
         }
     }
 
+    public Summoned getDefaultSummon(){
+        return new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), this.level);
+    }
+
     public class SummonServantSpell extends SummoningSpellGoal {
 
         public boolean canUse() {

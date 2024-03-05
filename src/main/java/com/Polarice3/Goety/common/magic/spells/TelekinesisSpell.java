@@ -80,7 +80,7 @@ public class TelekinesisSpell extends EverChargeSpells {
                     target.setDeltaMovement(x * offset, y * offset, z * offset);
                     target.move(MoverType.SELF, target.getDeltaMovement());
                     if (CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_FORCE.get())){
-                        target.setAirSupply(Math.max(-20, target.getAirSupply() - 1));
+                        target.setAirSupply(Math.max(-20, target.getAirSupply() - 10));
                         if (target.getAirSupply() <= -20){
                             target.setAirSupply(0);
                             target.hurt(ModDamageSource.chock(entityLiving, entityLiving), 2.0F);

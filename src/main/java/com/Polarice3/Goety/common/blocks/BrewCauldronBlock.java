@@ -132,7 +132,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                 ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(Items.APPLE), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, itemStack);
                             }
-                        } else if (taglock){
+                        } else if (taglock && pState.getValue(LEVEL) >= 3){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
                                 LivingEntity target = TaglockKit.getEntity(stack);
                                 if (target != null){
@@ -190,7 +190,9 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             cauldron.mode = cauldron.reset();
                         }
                         pLevel.setBlockAndUpdate(pPos, pState.setValue(ModStateProperties.LEVEL_BREW, targetLevel));
-                        pLevel.playSound(null, pPos, bucket ? SoundEvents.BUCKET_FILL : waterBucket ? SoundEvents.BUCKET_EMPTY : glassBottle ? SoundEvents.BOTTLE_FILL : SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        if (pState.getValue(LEVEL) != targetLevel) {
+                            pLevel.playSound(null, pPos, bucket ? SoundEvents.BUCKET_FILL : waterBucket ? SoundEvents.BUCKET_EMPTY : glassBottle ? SoundEvents.BOTTLE_FILL : SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
                     }
                 }
                 cauldron.markUpdated();

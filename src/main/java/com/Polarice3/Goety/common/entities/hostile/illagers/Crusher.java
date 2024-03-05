@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
@@ -37,18 +38,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class Crusher extends HuntingIllagerEntity{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> STORM = SynchedEntityData.defineId(Crusher.class, EntityDataSerializers.BOOLEAN);
     public int attackTick;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState runAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
 
     public Crusher(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
@@ -69,6 +69,7 @@ public class Crusher extends HuntingIllagerEntity{
                 .add(Attributes.MAX_HEALTH, AttributesConfig.CrusherHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.CrusherDamage.get());
     }
 
@@ -80,6 +81,7 @@ public class Crusher extends HuntingIllagerEntity{
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
+        this.entityData.define(ANIM_STATE, 0);
         this.entityData.define(STORM, false);
     }
 
@@ -116,17 +118,79 @@ public class Crusher extends HuntingIllagerEntity{
         }
     }
 
-    public List<AnimationState> getAnimations(){
+    public void setAnimationState(String input) {
+        this.setAnimationState(this.getAnimationState(input));
+    }
+
+    public void setAnimationState(int id) {
+        this.entityData.set(ANIM_STATE, id);
+    }
+
+    public int getAnimationState(String animation) {
+        if (Objects.equals(animation, "idle")){
+            return 1;
+        } else if (Objects.equals(animation, "walk")){
+            return 2;
+        } else if (Objects.equals(animation, "run")){
+            return 3;
+        } else if (Objects.equals(animation, "attack")){
+            return 4;
+        } else {
+            return 0;
+        }
+    }
+
+    public List<AnimationState> getAllAnimations(){
         List<AnimationState> animationStates = new ArrayList<>();
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.walkAnimationState);
+        animationStates.add(this.runAnimationState);
         animationStates.add(this.attackAnimationState);
         return animationStates;
     }
 
     public void stopAllAnimations(){
-        for (AnimationState animationState : this.getAnimations()){
+        for (AnimationState animationState : this.getAllAnimations()){
             animationState.stop();
+        }
+    }
+
+    public void stopMostAnimation(AnimationState exception){
+        for (AnimationState state : this.getAllAnimations()){
+            if (state != exception){
+                state.stop();
+            }
+        }
+    }
+
+    public int getCurrentAnimation(){
+        return this.entityData.get(ANIM_STATE);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (ANIM_STATE.equals(accessor)) {
+            if (this.level.isClientSide){
+                switch (this.entityData.get(ANIM_STATE)){
+                    case 0:
+                        break;
+                    case 1:
+                        this.idleAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.idleAnimationState);
+                        break;
+                    case 2:
+                        this.walkAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.walkAnimationState);
+                        break;
+                    case 3:
+                        this.runAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.runAnimationState);
+                        break;
+                    case 4:
+                        this.attackAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.attackAnimationState);
+                        break;
+                }
+            }
         }
     }
 
@@ -136,6 +200,7 @@ public class Crusher extends HuntingIllagerEntity{
             this.setStorm(true);
         } else {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600));
+            this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600));
         }
     }
 
@@ -143,18 +208,16 @@ public class Crusher extends HuntingIllagerEntity{
         super.tick();
         if (this.level.isClientSide){
             if (this.isAlive()){
-                if (!this.isMeleeAttacking()) {
-                    this.attackAnimationState.stop();
+                if (this.getCurrentAnimation() != this.getAnimationState("attack")) {
                     if (!this.isMoving()) {
-                        this.walkAnimationState.stop();
-                        this.idleAnimationState.startIfStopped(this.tickCount);
+                        this.setAnimationState("idle");
                     } else {
-                        this.idleAnimationState.stop();
-                        this.walkAnimationState.startIfStopped(this.tickCount);
+                        if (!this.isAggressive()) {
+                            this.setAnimationState("walk");
+                        } else {
+                            this.setAnimationState("run");
+                        }
                     }
-                } else {
-                    this.idleAnimationState.stop();
-                    this.walkAnimationState.stop();
                 }
             }
         }
@@ -199,9 +262,6 @@ public class Crusher extends HuntingIllagerEntity{
 
     @Override
     public float getVoicePitch() {
-        if (this.isStorm()){
-            return 0.5F;
-        }
         return 0.75F;
     }
 
@@ -222,8 +282,12 @@ public class Crusher extends HuntingIllagerEntity{
     }
 
     public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
+        if (pEntity == this) {
             return true;
+        } else if (super.isAlliedTo(pEntity)) {
+            return true;
+        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
+            return this.isAlliedTo(vex.getOwner());
         } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
             return this.getTeam() == null && pEntity.getTeam() == null;
         } else {
@@ -237,10 +301,7 @@ public class Crusher extends HuntingIllagerEntity{
 
     @Override
     public void handleEntityEvent(byte p_21375_) {
-        if (p_21375_ == 4){
-            this.stopAllAnimations();
-            this.attackAnimationState.start(this.tickCount);
-        } else if (p_21375_ == 5){
+        if (p_21375_ == 5){
             this.attackTick = 0;
         } else if (p_21375_ == 6){
             this.setAggressive(true);
@@ -380,6 +441,7 @@ public class Crusher extends HuntingIllagerEntity{
 
         @Override
         public void stop() {
+            Crusher.this.setAnimationState("idle");
             Crusher.this.setMeleeAttacking(false);
             Crusher.this.level.broadcastEntityEvent(Crusher.this, (byte) 9);
         }
@@ -391,7 +453,7 @@ public class Crusher extends HuntingIllagerEntity{
             Crusher.this.getNavigation().stop();
             if (Crusher.this.attackTick == 1) {
                 Crusher.this.playSound(SoundEvents.VINDICATOR_AMBIENT, 1.0F, Crusher.this.isStorm() ? 0.75F : 1.25F);
-                Crusher.this.level.broadcastEntityEvent(Crusher.this, (byte) 4);
+                Crusher.this.setAnimationState("attack");
             }
             if (Crusher.this.attackTick == 11){
                 Crusher.this.playSound(ModSounds.HAMMER_SWING.get());

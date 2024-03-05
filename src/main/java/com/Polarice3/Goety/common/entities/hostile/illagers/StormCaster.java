@@ -230,6 +230,14 @@ public class StormCaster extends HuntingIllagerEntity{
     }
 
     @Override
+    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
+        return false;
+    }
+
+    protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.level.isClientSide){

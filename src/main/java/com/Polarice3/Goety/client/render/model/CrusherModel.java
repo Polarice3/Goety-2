@@ -86,7 +86,8 @@ public class CrusherModel<T extends Crusher> extends HierarchicalModel<T> implem
 			this.left_leg.yRot = (-(float)Math.PI / 10F);
 			this.left_leg.zRot = -0.07853982F;
 		} else {
-			this.animate(entity.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 10);
+			this.animate(entity.walkAnimationState, CrusherAnimations.WALK, ageInTicks, groundSpeed * 25);
+			this.animate(entity.runAnimationState, CrusherAnimations.RUN, ageInTicks, groundSpeed * 8);
 		}
 		this.animate(entity.idleAnimationState, CrusherAnimations.IDLE, ageInTicks);
 		this.animate(entity.attackAnimationState, CrusherAnimations.SMASH, ageInTicks);
