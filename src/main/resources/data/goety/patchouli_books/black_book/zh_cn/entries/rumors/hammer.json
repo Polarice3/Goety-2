@@ -1,0 +1,17 @@
+{
+  "name": "召唤风暴的锤子",
+  "icon": "minecraft:iron_ingot",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有传言说，烈风圣地中存在一把强大的锤子，它只会被精英的$(l)灾厄村民$()使用，除去其强大的力量，它还是很好的工艺制品, 烈风圣地的制造技艺让他本身就有驾驭风暴的力量。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/get_stormlander",
+      "text": "据说，某些$(l)挥舞锤子的灾厄村民$()可能会拥有这么一把锤子, 也有可能只是个复制品罢了,也许你可以激发出它的力量，仅仅只需要借助$(l)闪电$()."
+    }
+  ]
+}

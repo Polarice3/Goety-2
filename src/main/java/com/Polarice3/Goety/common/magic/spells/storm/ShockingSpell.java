@@ -34,6 +34,11 @@ public class ShockingSpell extends EverChargeSpells {
     }
 
     @Override
+    public int defaultCastUp() {
+        return SpellConfig.ShockingChargeUp.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.ZAP.get();
     }

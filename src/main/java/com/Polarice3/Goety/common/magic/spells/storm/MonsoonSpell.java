@@ -10,6 +10,7 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -74,18 +75,20 @@ public class MonsoonSpell extends Spells {
                 monsoonCloud.setExtraDamage(damage);
                 monsoonCloud.setRadius((float) radius);
                 monsoonCloud.setLifeSpan(duration);
+                monsoonCloud.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(monsoonCloud);
             }
-            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, this.getSoundSource(), 0.5F, 1.25F);
         } else if (rayTraceResult instanceof BlockHitResult){
             BlockPos blockPos = ((BlockHitResult) rayTraceResult).getBlockPos();
             MonsoonCloud monsoonCloud = new MonsoonCloud(worldIn, entityLiving, null);
             monsoonCloud.setExtraDamage(damage);
             monsoonCloud.setRadius((float) radius);
             monsoonCloud.setLifeSpan(duration);
+            monsoonCloud.setStaff(rightStaff(staff));
             monsoonCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(monsoonCloud);
-            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, this.getSoundSource(), 0.5F, 1.25F);
         }
     }
 }

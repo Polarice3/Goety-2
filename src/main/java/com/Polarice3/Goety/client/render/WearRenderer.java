@@ -55,6 +55,10 @@ public record WearRenderer(ResourceLocation texture,
         return p_116618_.isCapeLoaded() && !p_116618_.isInvisible() && p_116618_.isModelPartShown(PlayerModelPart.CAPE) && p_116618_.getCloakTextureLocation() != null;
     }
 
+    public static boolean capedRobe(ItemStack stack){
+        return stack.getItem() == ModItems.GRAND_ROBE.get() || stack.getItem() == ModItems.FROST_ROBE.get() || stack.getItem() == ModItems.FROST_ROBE_CRYO.get() || stack.getItem() == ModItems.WIND_ROBE.get() || stack.getItem() == ModItems.STORM_ROBE.get();
+    }
+
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         LivingEntity livingEntity = slotContext.entity();
@@ -65,37 +69,31 @@ public record WearRenderer(ResourceLocation texture,
         ICurioRenderer.followBodyRotations(slotContext.entity(), model);
         render(matrixStack, renderTypeBuffer, light);
 
-        if (stack.getItem() == ModItems.GRAND_ROBE.get() || stack.getItem() == ModItems.FROST_ROBE.get() || stack.getItem() == ModItems.WIND_ROBE.get()){
+        if (capedRobe(stack)){
             if (livingEntity instanceof AbstractClientPlayer p_116618_) {
                 if (ItemConfig.RobeCape.get()
-                        && (CuriosFinder.hasCurio(p_116618_, ModItems.GRAND_ROBE.get()) || CuriosFinder.hasCurio(p_116618_, ModItems.FROST_ROBE.get()) || CuriosFinder.hasCurio(p_116618_, ModItems.WIND_ROBE.get()))
+                        && capedRobe(stack)
                         && !CuriosFinder.hasUndeadCape(p_116618_)
                         && !hasCape(p_116618_)
                         && !p_116618_.isInvisible()) {
                     ItemStack itemstack = p_116618_.getItemBySlot(EquipmentSlot.CHEST);
                     if (!(itemstack.getItem() instanceof ElytraItem)) {
                         matrixStack.pushPose();
-                        matrixStack.translate(0.0D, -0.1D, 0.25D);
-                        if (!itemstack.isEmpty()){
-                            matrixStack.translate(0.0D, 0.0D, 0.025D);
-                        }
-                        double d0 = Mth.lerp((double) partialTicks, p_116618_.xCloakO, p_116618_.xCloak) - Mth.lerp((double) partialTicks, p_116618_.xo, p_116618_.getX());
-                        double d1 = Mth.lerp((double) partialTicks, p_116618_.yCloakO, p_116618_.yCloak) - Mth.lerp((double) partialTicks, p_116618_.yo, p_116618_.getY());
-                        double d2 = Mth.lerp((double) partialTicks, p_116618_.zCloakO, p_116618_.zCloak) - Mth.lerp((double) partialTicks, p_116618_.zo, p_116618_.getZ());
+                        matrixStack.translate(0.0D, 0.0D, 0.125D);
+                        double d0 = Mth.lerp((double)partialTicks, p_116618_.xCloakO, p_116618_.xCloak) - Mth.lerp((double)partialTicks, p_116618_.xo, p_116618_.getX());
+                        double d1 = Mth.lerp((double)partialTicks, p_116618_.yCloakO, p_116618_.yCloak) - Mth.lerp((double)partialTicks, p_116618_.yo, p_116618_.getY());
+                        double d2 = Mth.lerp((double)partialTicks, p_116618_.zCloakO, p_116618_.zCloak) - Mth.lerp((double)partialTicks, p_116618_.zo, p_116618_.getZ());
                         float f = p_116618_.yBodyRotO + (p_116618_.yBodyRot - p_116618_.yBodyRotO);
-                        double d3 = (double) Mth.sin(f * ((float) Math.PI / 180F));
-                        double d4 = (double) (-Mth.cos(f * ((float) Math.PI / 180F)));
-                        float f1 = (float) d1 * 10.0F;
+                        double d3 = (double)Mth.sin(f * ((float)Math.PI / 180F));
+                        double d4 = (double)(-Mth.cos(f * ((float)Math.PI / 180F)));
+                        float f1 = (float)d1 * 10.0F;
                         f1 = Mth.clamp(f1, -6.0F, 32.0F);
-                        float f2 = (float) (d0 * d3 + d2 * d4) * 100.0F;
+                        float f2 = (float)(d0 * d3 + d2 * d4) * 100.0F;
                         f2 = Mth.clamp(f2, 0.0F, 150.0F);
-                        float f3 = (float) (d0 * d4 - d2 * d3) * 100.0F;
+                        float f3 = (float)(d0 * d4 - d2 * d3) * 100.0F;
                         f3 = Mth.clamp(f3, -20.0F, 20.0F);
                         if (f2 < 0.0F) {
                             f2 = 0.0F;
-                        }
-                        if (f2 > 80.0F){
-                            matrixStack.translate(0.0D, 0.0D, -0.1D);
                         }
 
                         float f4 = Mth.lerp(partialTicks, p_116618_.oBob, p_116618_.bob);

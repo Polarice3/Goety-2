@@ -76,6 +76,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> PikerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrusherRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PreacherRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ConquillagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> InquillagerRaid;
@@ -219,6 +220,8 @@ public class MobsConfig {
                     .define("crusherRaid", true);
             StormCasterRaid = BUILDER.comment("Whether Storm Casters appear in Raids, Default: true")
                     .define("stormCasterRaid", true);
+            CryologerRaid = BUILDER.comment("Whether Cryologers appear in Raids, Default: true")
+                    .define("cryologerRaid", true);
             PreacherRaid = BUILDER.comment("Whether Preachers appear in Raids, Default: true")
                     .define("preacherRaid", true);
             ConquillagerRaid = BUILDER.comment("Whether Conquillagers appear in Raids, Default: true")

@@ -30,11 +30,15 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.STRAY_SERVANT.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
-                ModEntityType.HAUNTED_ARMOR_SERVANT.get());
+                ModEntityType.HAUNTED_ARMOR_SERVANT.get(),
+                ModEntityType.CRYOLOGER.get(),
+                ModEntityType.GLACIAL_WALL.get());
         this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.MAGMA_CUBE_SERVANT.get());
         this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
-                ModEntityType.BORDER_WRAITH.get());
+                ModEntityType.BORDER_WRAITH.get(),
+                ModEntityType.CRYOLOGER.get(),
+                ModEntityType.GLACIAL_WALL.get());
         this.tag(EntityTypeTags.RAIDERS).add(ModEntityType.ARMORED_RAVAGER.get(),
                 ModEntityType.WARLOCK.get(),
                 ModEntityType.CRONE.get(),
@@ -44,11 +48,13 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.PIKER.get(),
                 ModEntityType.CRUSHER.get(),
                 ModEntityType.STORM_CASTER.get(),
+                ModEntityType.CRYOLOGER.get(),
                 ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
                 ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),
                 ModEntityType.VIZIER.get());
-        this.tag(EntityTypeTags.ARROWS).add(ModEntityType.DEATH_ARROW.get());
+        this.tag(EntityTypeTags.ARROWS).add(ModEntityType.GHOST_ARROW.get(),
+                ModEntityType.DEATH_ARROW.get());
         this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(ModEntityType.SOUL_BOLT.get(),
                 ModEntityType.NECRO_BOLT.get(),
                 ModEntityType.MAGIC_BOLT.get(),

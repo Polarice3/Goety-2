@@ -1,0 +1,15 @@
+{
+  "name": "释放聚晶",
+  "icon": "goety:discharge_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "会在你的位置释放出电流爆炸，伤害附近的所有生物并电击它们。 爆炸会造成闪电伤害，但不会伤害施法者。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/discharge_focus"
+    }
+  ]
+}

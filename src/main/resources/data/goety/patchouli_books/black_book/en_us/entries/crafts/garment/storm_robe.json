@@ -1,0 +1,15 @@
+{
+  "name": "Storm Robes",
+  "icon": "goety:storm_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A variant of the Wind Robes that takes the very lightning in its fabrics. Much like the Wind Robes, the robes allows you to fall slowly. Wearing the Robes also halves the Soul Cost for Storm Spells, but not Wind Spells unfortunately."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_robe"
+    }
+  ]
+}

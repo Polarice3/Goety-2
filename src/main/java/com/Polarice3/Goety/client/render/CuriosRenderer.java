@@ -27,7 +27,9 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE.get(), () -> new WearRenderer(render("illusion_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.ILLUSION_ROBE_MIRROR.get(), () -> new WearRenderer(render("illusion_robe_mirror.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.FROST_ROBE.get(), () -> new WearRenderer(render("frost_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.FROST_ROBE_CRYO.get(), () -> new WearRenderer(render("frost_robe_cryo.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WIND_ROBE.get(), () -> new WearRenderer(render("wind_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.STORM_ROBE.get(), () -> new WearRenderer(render("storm_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));
         CuriosRendererRegistry.register(ModItems.NECRO_CAPE.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
         CuriosRendererRegistry.register(ModItems.NAMELESS_CROWN.get(), () -> new WearRenderer(render("nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NAMELESS_CROWN))));

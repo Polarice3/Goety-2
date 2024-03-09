@@ -1,0 +1,15 @@
+{
+  "name": "ストームローブ",
+  "icon": "goety:storm_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生地に稲妻そのものを取り入れたウィンドローブの亜種。 風のローブと同様に、ローブを使用するとゆっくりと落下することができます。 ローブを着用すると、嵐の呪文のソウルコストも半分になりますが、残念ながら風の呪文は半分になりません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_robe"
+    }
+  ]
+}

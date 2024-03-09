@@ -138,7 +138,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                 LivingEntity target = TaglockKit.getEntity(stack);
                                 if (target != null){
                                     if (TaglockKit.isSameDimension(pPlayer, stack)
-                                            && TaglockKit.isInRange(Vec3.atCenterOf(pPos), stack, 0)) {
+                                            && TaglockKit.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) {
                                         List<MobEffectInstance> list = PotionUtils.getMobEffects(cauldron.getBrew());
                                         List<BrewEffectInstance> list1 = BrewUtils.getBrewEffects(cauldron.getBrew());
                                         if (!list.isEmpty()) {

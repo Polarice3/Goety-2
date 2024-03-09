@@ -2,6 +2,7 @@ package com.Polarice3.Goety.api.magic;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.curios.FrostRobeItem;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -34,6 +35,8 @@ public interface ISpell {
         } else if (FrostSoulDiscount(entityLiving) && this.getSpellType() == SpellType.FROST){
             return defaultSoulCost() / 2;
         } else if (WindSoulDiscount(entityLiving) && this.getSpellType() == SpellType.WIND){
+            return defaultSoulCost() / 2;
+        } else if (StormSoulDiscount(entityLiving) && this.getSpellType() == SpellType.STORM){
             return defaultSoulCost() / 2;
         } else if (GeoSoulDiscount(entityLiving) && this.getSpellType() == SpellType.GEOMANCY){
             return defaultSoulCost() / 2;
@@ -133,7 +136,7 @@ public interface ISpell {
     }
 
     default boolean FrostSoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, ModItems.FROST_ROBE.get());
+        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof FrostRobeItem);
     }
 
     default boolean WindSoulDiscount(LivingEntity entityLiving){
@@ -142,5 +145,9 @@ public interface ISpell {
 
     default boolean GeoSoulDiscount(LivingEntity entityLiving){
         return CuriosFinder.hasCurio(entityLiving, ModItems.AMETHYST_NECKLACE.get());
+    }
+
+    default boolean StormSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasCurio(entityLiving, ModItems.STORM_ROBE.get());
     }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "Discharge Focus",
+  "icon": "goety:discharge_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You let loose an explosion of electricity at your position, hurting all nearby creatures and shocking them. The explosion deals shock damage and does not harm the caster."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/discharge_focus"
+    }
+  ]
+}

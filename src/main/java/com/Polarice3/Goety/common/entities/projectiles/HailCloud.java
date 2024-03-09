@@ -44,7 +44,7 @@ public class HailCloud extends AbstractSpellCloud{
                 baseDamage *= 2.0F;
             }
             baseDamage += this.extraDamage;
-            if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), baseDamage)) {
+            if (livingEntity.hurt(ModDamageSource.frostBreath(this, this.getOwner()), baseDamage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5)));
             }
         }

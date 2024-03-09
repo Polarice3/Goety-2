@@ -690,7 +690,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     return waterLevel + 1;
                 }
             } else if (mode == Mode.COMPLETED) {
-                if (waterLevel >= 3 && TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), 0)){
+                if (waterLevel >= 3 && TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), getWitchPoles(this))){
                     return 0;
                 } else if (item == Items.GLASS_BOTTLE || item == Items.APPLE) {
                     boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),
@@ -753,6 +753,11 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
             }
         }
+    }
+
+    public static int getWitchPoles(BrewCauldronBlockEntity cauldronBlock){
+        cauldronBlock.findWitchPoles();
+        return Mth.clamp(cauldronBlock.witchPoles.size(), 0, 3);
     }
 
     private void findCandlesticks(){

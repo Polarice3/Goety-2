@@ -3,7 +3,10 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.HuntDownPlayerGoal;
-import com.Polarice3.Goety.common.entities.hostile.illagers.*;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -47,11 +50,11 @@ import java.util.Map;
 public class IllagerSpawner {
     private int nextTick;
 
-    public int tick(ServerLevel world) {
+    public int tick(ServerLevel pLevel) {
         if (!MobsConfig.IllagerAssault.get()) {
             return 0;
         } else {
-            RandomSource random = world.random;
+            RandomSource random = pLevel.random;
             --this.nextTick;
             if (this.nextTick > 0) {
                 return 0;
@@ -60,160 +63,63 @@ public class IllagerSpawner {
                 if (random.nextInt(MobsConfig.IllagerAssaultSpawnChance.get()) != 0) {
                     return 0;
                 } else {
-                    int j = world.players().size();
+                    int j = pLevel.players().size();
                     if (j < 1) {
                         return 0;
                     } else {
-                        Player player = world.players().get(random.nextInt(j));
-                        int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(player), 0, MobsConfig.IllagerAssaultSELimit.get());
-                        if (player.isSpectator() || player.isCreative()) {
+                        Player pPlayer = pLevel.players().get(random.nextInt(j));
+                        int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(pPlayer), 0, MobsConfig.IllagerAssaultSELimit.get());
+                        if (pPlayer.isSpectator() || pPlayer.isCreative()) {
                             return 0;
-                        } else if (SEHelper.getRestPeriod(player) > 0){
+                        } else if (SEHelper.getRestPeriod(pPlayer) > 0){
                             return 0;
-                        } else if (world.isCloseToVillage(player.blockPosition(), 2) && soulEnergy < MobsConfig.IllagerAssaultSELimit.get()) {
+                        } else if (pLevel.isCloseToVillage(pPlayer.blockPosition(), 2) && soulEnergy < MobsConfig.IllagerAssaultSELimit.get()) {
                             return 0;
                         } else if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get()) {
                             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
                             int l = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-                            BlockPos.MutableBlockPos blockpos$mutable = player.blockPosition().mutable().move(k, 0, l);
-                            if (!world.hasChunksAt(blockpos$mutable.getX() - 10, blockpos$mutable.getY() - 10, blockpos$mutable.getZ() - 10, blockpos$mutable.getX() + 10, blockpos$mutable.getY() + 10, blockpos$mutable.getZ() + 10)) {
+                            BlockPos.MutableBlockPos blockpos$mutable = pPlayer.blockPosition().mutable().move(k, 0, l);
+                            if (!pLevel.isLoaded(blockpos$mutable)) {
                                 return 0;
-                            } else if (!world.dimensionType().hasRaids()){
+                            } else if (!pLevel.dimensionType().hasRaids()){
                                 return 0;
                             } else {
-                                Holder<Biome> holder = world.getBiome(blockpos$mutable);
+                                Holder<Biome> holder = pLevel.getBiome(blockpos$mutable);
                                 if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS)) {
                                     return 0;
-                                } else if (player.blockPosition().getY() < world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !world.canSeeSky(player.blockPosition())){
+                                } else if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                                     return 0;
                                 } else {
                                     int i1 = 0;
-                                    int j1 = soulEnergy / 2;
-                                    int e1 = Mth.clamp(j1 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                                    int e15 = world.random.nextInt(e1);
-                                    for (int k1 = 0; k1 < e15; ++k1) {
-                                        ++i1;
-                                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                        if (k1 == 0) {
-                                            if (!this.spawnEnvioker(world, blockpos$mutable, random, soulEnergy, player)) {
-                                                break;
-                                            }
-                                        } else {
-                                            this.spawnEnvioker(world, blockpos$mutable, random, soulEnergy, player);
-                                        }
+                                    for (IllagerTypes illagerType : IllagerTypes.values()){
+                                        if (illagerType != null && illagerType.entityType != null) {
+                                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * illagerType.multiple && pLevel.random.nextFloat() <= illagerType.chance) {
+                                                ++i1;
+                                                int cost = (int) (soulEnergy / illagerType.multiple);
+                                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, illagerType.maxExtraAmount) + 1;
+                                                int randomTotal = pLevel.random.nextInt(total) + illagerType.initExtraAmount;
+                                                for (int k1 = 0; k1 < randomTotal; ++k1) {
+                                                    blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                                                    if (k1 == 0) {
+                                                        if (!this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                                            break;
+                                                        }
+                                                    } else {
+                                                        this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
+                                                    }
 
-                                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                                        int j2 = soulEnergy/2;
-                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                                        int e25 = world.random.nextInt(e2) + 3;
-                                        for (int k1 = 0; k1 < e25; ++k1) {
-                                            ++i1;
-                                            int random1 = world.random.nextInt(15);
-                                            blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                            if (k1 == 0) {
-                                                if (!this.spawnRandomIllager(world, blockpos$mutable, random, random1, soulEnergy, player)) {
-                                                    break;
+                                                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                                 }
-                                            } else {
-                                                this.spawnRandomIllager(world, blockpos$mutable, random, random1, soulEnergy, player);
                                             }
-
-                                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                         }
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                                        int j2 = soulEnergy/2;
-                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                                        int e25 = world.random.nextInt(e2);
-                                        for (int k1 = 0; k1 < e25; ++k1) {
-                                            ++i1;
-                                            int random1 = world.random.nextInt(5);
-                                            blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                            if (k1 == 0) {
-                                                if (!this.spawnRavager(world, blockpos$mutable, random, random1, soulEnergy, player)) {
-                                                    break;
-                                                }
-                                            } else {
-                                                this.spawnRavager(world, blockpos$mutable, random, random1, soulEnergy, player);
-                                            }
-
-                                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                        }
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                                        int j2 = (int) (soulEnergy/2.5);
-                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                                        int e25 = world.random.nextInt(e2);
-                                        for (int k1 = 0; k1 < e25; ++k1) {
-                                            ++i1;
-                                            blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                            if (k1 == 0) {
-                                                if (!this.spawnPreacher(world, blockpos$mutable, random, player)) {
-                                                    break;
-                                                }
-                                            } else {
-                                                this.spawnPreacher(world, blockpos$mutable, random, player);
-                                            }
-
-                                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                        }
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                                        int j2 = (int) (soulEnergy/2.5);
-                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                                        int e25 = world.random.nextInt(e2);
-                                        for (int k1 = 0; k1 < e25; ++k1) {
-                                            ++i1;
-                                            blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                            if (k1 == 0) {
-                                                if (!this.spawnConquillager(world, blockpos$mutable, random, soulEnergy, player)) {
-                                                    break;
-                                                }
-                                            } else {
-                                                this.spawnConquillager(world, blockpos$mutable, random, soulEnergy, player);
-                                            }
-
-                                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                        }
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
-                                        int j2 = (int) (soulEnergy/3);
-                                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                                        int e25 = world.random.nextInt(e2);
-                                        for (int k1 = 0; k1 < e25; ++k1) {
-                                            ++i1;
-                                            blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                            if (k1 == 0) {
-                                                if (!this.spawnInquillager(world, blockpos$mutable, random, soulEnergy, player)) {
-                                                    break;
-                                                }
-                                            } else {
-                                                this.spawnInquillager(world, blockpos$mutable, random, soulEnergy, player);
-                                            }
-
-                                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                        }
-                                    }
-                                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && world.random.nextFloat() <= 0.15F) {
-                                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                        blockpos$mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                                        this.spawnMinister(world, blockpos$mutable, random, player);
                                     }
                                     if (soulEnergy >= MobsConfig.IllagerAssaultSELimit.get() && MobsConfig.SoulEnergyBadOmen.get()) {
-                                        if (!player.hasEffect(MobEffects.BAD_OMEN)) {
-                                            player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 0, false, false));
+                                        if (!pPlayer.hasEffect(MobEffects.BAD_OMEN)) {
+                                            pPlayer.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 120000, 0, false, false));
                                         }
                                     }
-                                    if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                                    if (CuriosFinder.hasCurio(pPlayer, ModItems.ALARMING_CHARM.get())){
                                         ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
                                     }
                                     return i1;
@@ -228,26 +134,30 @@ public class IllagerSpawner {
         }
     }
 
-    public boolean spawnEnvioker(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, int infamy, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.ENVIOKER.get())) {
+    public boolean spawnRaider(IllagerTypes illagerType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
+        BlockState blockstate = worldIn.getBlockState(pos);
+        if (illagerType == null){
             return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.ENVIOKER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
+        } else if (illagerType.entityType == null){
+            return false;
+        } else if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, pos, blockstate, blockstate.getFluidState(), illagerType.entityType)) {
+            return false;
+        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(illagerType.entityType, worldIn, MobSpawnType.PATROL, pos, random)) {
             return false;
         } else {
-            Envioker illager = ModEntityType.ENVIOKER.get().create(worldIn);
+            Raider illager = illagerType.entityType.create(worldIn);
             if (illager != null) {
-                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
+                illager.setPos((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, pos.getX(), pos.getY(), pos.getZ(), null, MobSpawnType.PATROL) == -1) return false;
+                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                if (random.nextInt(4) == 0){
-                    illager.setRider(true);
+                if (illager instanceof HuntingIllagerEntity huntingIllager && random.nextInt(4) == 0){
+                    huntingIllager.setRider(true);
                 }
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
                     illager.setTarget(player);
                 }
-                this.upgradeIllagers(illager, infamy);
+                this.upgradeIllagers(illager, soulAmount);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
             } else {
@@ -256,218 +166,9 @@ public class IllagerSpawner {
         }
     }
 
-    public boolean spawnPreacher(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.PREACHER.get())) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.PREACHER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Preacher illager = ModEntityType.PREACHER.get().create(worldIn);
-            if (illager != null) {
-                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                worldIn.addFreshEntityWithPassengers(illager);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public boolean spawnInquillager(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, int infamy, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.INQUILLAGER.get())) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.INQUILLAGER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Inquillager illager = ModEntityType.INQUILLAGER.get().create(worldIn);
-            if (illager != null) {
-                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                if (random.nextInt(4) == 0){
-                    illager.setRider(true);
-                }
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                this.upgradeIllagers(illager, infamy);
-                worldIn.addFreshEntityWithPassengers(illager);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public boolean spawnConquillager(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, int infamy, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.CONQUILLAGER.get())) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.CONQUILLAGER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Conquillager illager = ModEntityType.CONQUILLAGER.get().create(worldIn);
-            if (illager != null) {
-                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                if (random.nextInt(4) == 0){
-                    illager.setRider(true);
-                }
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                this.upgradeIllagers(illager, infamy);
-                worldIn.addFreshEntityWithPassengers(illager);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public boolean spawnMinister(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), ModEntityType.MINISTER.get())) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(ModEntityType.MINISTER.get(), worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Minister illager = ModEntityType.MINISTER.get().create(worldIn);
-            if (illager != null) {
-                illager.setPos((double)p_222695_2_.getX(), (double)p_222695_2_.getY(), (double)p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                if (random.nextInt(4) == 0){
-                    illager.setRider(true);
-                }
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                worldIn.addFreshEntityWithPassengers(illager);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public boolean spawnRandomIllager(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, int r, int infamy, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), EntityType.PILLAGER)) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Raider illager = null;
-            int i = 0;
-            switch (r) {
-                case 0, 1, 2, 3, 4, 5 -> illager = EntityType.PILLAGER.create(worldIn);
-                case 6, 7, 8, 9, 10, 11 -> illager = ModEntityType.PIKER.get().create(worldIn);
-                case 12, 13, 14 -> illager = EntityType.VINDICATOR.create(worldIn);
-            }
-            if (illager != null) {
-                illager.setPos(p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                this.upgradeIllagers(illager, infamy);
-                worldIn.addFreshEntityWithPassengers(illager);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public boolean spawnRavager(ServerLevel worldIn, BlockPos p_222695_2_, RandomSource random, int r, int infamy, Player player) {
-        BlockState blockstate = worldIn.getBlockState(p_222695_2_);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, p_222695_2_, blockstate, blockstate.getFluidState(), EntityType.PILLAGER)) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, worldIn, MobSpawnType.PATROL, p_222695_2_, random)) {
-            return false;
-        } else {
-            Raider illager = null;
-            int i = 0;
-            switch (r) {
-                case 0, 1, 2 -> {
-                    if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3){
-                        if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
-                            illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
-                        } else {
-                            illager = EntityType.RAVAGER.create(worldIn);
-                        }
-                    } else {
-                        illager = EntityType.RAVAGER.create(worldIn);
-                    }
-                }
-                case 3, 4 -> {
-                    if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3){
-                        if (worldIn.random.nextFloat() < (0.25F + worldIn.getCurrentDifficultyAt(p_222695_2_).getSpecialMultiplier())){
-                            illager = ModEntityType.ARMORED_RAVAGER.get().create(worldIn);
-                        } else {
-                            illager = EntityType.RAVAGER.create(worldIn);
-                        }
-                    } else {
-                        illager = EntityType.RAVAGER.create(worldIn);
-                    }
-                    ++i;
-                }
-            }
-            if (illager != null) {
-                illager.setPos(p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ());
-                if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(illager, worldIn, p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ(), null, MobSpawnType.PATROL) == -1) return false;
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-                    illager.setTarget(player);
-                }
-                illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
-                this.upgradeIllagers(illager, infamy);
-                worldIn.addFreshEntityWithPassengers(illager);
-                if (i > 0){
-                    Raider rider = null;
-                    int riding = random.nextInt(6);
-                    switch (riding) {
-                        case 0 -> rider = EntityType.PILLAGER.create(worldIn);
-                        case 1 -> rider = ModEntityType.PIKER.get().create(worldIn);
-                        case 2 -> rider = EntityType.VINDICATOR.create(worldIn);
-                        case 3 -> rider = ModEntityType.CONQUILLAGER.get().create(worldIn);
-                        case 4 -> rider = ModEntityType.INQUILLAGER.get().create(worldIn);
-                        case 5 -> rider = ModEntityType.ENVIOKER.get().create(worldIn);
-                    }
-                    if (rider != null){
-                        rider.setPos(p_222695_2_.getX(), p_222695_2_.getY(), p_222695_2_.getZ());
-                        rider.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(p_222695_2_), MobSpawnType.PATROL, null, null);
-                        rider.setTarget(player);
-                        this.upgradeIllagers(rider, infamy);
-                        rider.startRiding(illager);
-                        worldIn.addFreshEntity(rider);
-                    }
-                }
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public void upgradeIllagers(Raider raider, int infamy){
+    public void upgradeIllagers(Raider raider, int soulAmount){
         Level world = raider.level;
-        if (infamy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5) {
+        if (soulAmount >= MobsConfig.IllagerAssaultSEThreshold.get() * 5) {
             if (raider instanceof Pillager){
                 ItemStack itemstack = new ItemStack(Items.CROSSBOW);
                 Map<Enchantment, Integer> map = Maps.newHashMap();
@@ -545,124 +246,32 @@ public class IllagerSpawner {
             int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
             int l = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
             BlockPos.MutableBlockPos blockpos$mutable = pPlayer.blockPosition().mutable().move(k, 0, l);
-            if (pLevel.hasChunksAt(blockpos$mutable.getX() - 10, blockpos$mutable.getY() - 10, blockpos$mutable.getZ() - 10, blockpos$mutable.getX() + 10, blockpos$mutable.getY() + 10, blockpos$mutable.getZ() + 10)) {
+            if (pLevel.isLoaded(blockpos$mutable)) {
                 if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                     ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
                 } else {
-                    int j0 = soulEnergy/2;
-                    int e1 = Mth.clamp(j0 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                    int e15 = pLevel.random.nextInt(e1);
-                    for (int k1 = 0; k1 < e15; ++k1) {
-                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        if (k1 == 0) {
-                            if (!this.spawnEnvioker(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
-                                break;
-                            }
-                        } else {
-                            this.spawnEnvioker(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
-                        }
+                    for (IllagerTypes illagerType : IllagerTypes.values()){
+                        if (illagerType != null && illagerType.entityType != null) {
+                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * illagerType.multiple && pLevel.random.nextFloat() <= illagerType.chance) {
+                                int cost = (int) (soulEnergy / illagerType.multiple);
+                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, illagerType.maxExtraAmount) + 1;
+                                int randomTotal = pLevel.random.nextInt(total);
+                                for (int k1 = 0; k1 < randomTotal; ++k1) {
+                                    blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                                    if (k1 == 0) {
+                                        if (!this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                            break;
+                                        }
+                                    } else {
+                                        this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
+                                    }
 
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                        int j2 = soulEnergy/2;
-                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                        int e25 = pLevel.random.nextInt(e2) + 3;
-                        for (int k1 = 0; k1 < e25; ++k1) {
-                            int random1 = pLevel.random.nextInt(15);
-                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                            if (k1 == 0) {
-                                if (!this.spawnRandomIllager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer)) {
-                                    break;
+                                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                                 }
-                            } else {
-                                this.spawnRandomIllager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer);
                             }
-
-                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
                         }
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2) {
-                        int j2 = soulEnergy/2;
-                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 3) + 1;
-                        int e25 = Mth.clamp(pLevel.random.nextInt(e2) - 1, 0, 5);
-                        for (int k1 = 0; k1 < e25; ++k1) {
-                            int random1 = pLevel.random.nextInt(5);
-                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                            if (k1 == 0) {
-                                if (!this.spawnRavager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer)) {
-                                    break;
-                                }
-                            } else {
-                                this.spawnRavager(pLevel, blockpos$mutable, random, random1, soulEnergy, pPlayer);
-                            }
-
-                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                        }
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                        int j2 = (int) (soulEnergy/2.5);
-                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                        int e25 = pLevel.random.nextInt(e2);
-                        for (int k1 = 0; k1 < e25; ++k1) {
-                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                            if (k1 == 0) {
-                                if (!this.spawnPreacher(pLevel, blockpos$mutable, random, pPlayer)) {
-                                    break;
-                                }
-                            } else {
-                                this.spawnPreacher(pLevel, blockpos$mutable, random, pPlayer);
-                            }
-
-                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                        }
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 2.5) {
-                        int j2 = (int) (soulEnergy/2.5);
-                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                        int e25 = pLevel.random.nextInt(e2);
-                        for (int k1 = 0; k1 < e25; ++k1) {
-                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                            if (k1 == 0) {
-                                if (!this.spawnConquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
-                                    break;
-                                }
-                            } else {
-                                this.spawnConquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
-                            }
-
-                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                        }
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 3) {
-                        int j2 = (int) (soulEnergy/3);
-                        int e2 = Mth.clamp(j2 / MobsConfig.IllagerAssaultSEThreshold.get(), 1, 5) + 1;
-                        int e25 = pLevel.random.nextInt(e2);
-                        for (int k1 = 0; k1 < e25; ++k1) {
-                            blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                            if (k1 == 0) {
-                                if (!this.spawnInquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
-                                    break;
-                                }
-                            } else {
-                                this.spawnInquillager(pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
-                            }
-
-                            blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                        }
-                    }
-                    if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * 5 && pLevel.random.nextFloat() <= 0.15F) {
-                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
-                        this.spawnMinister(pLevel, blockpos$mutable, random, pPlayer);
                     }
                     if (CuriosFinder.hasCurio(pPlayer, ModItems.ALARMING_CHARM.get())){
                         ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN, 64.0F, 1.0F));
@@ -674,6 +283,46 @@ public class IllagerSpawner {
                 ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                 pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
             }
+        }
+    }
+
+    public enum IllagerTypes implements net.minecraftforge.common.IExtensibleEnum {
+        ENVIOKER(ModEntityType.ENVIOKER.get(), 1, 3),
+        INQUILLAGER(ModEntityType.INQUILLAGER.get(), 3, 5),
+        CONQUILLAGER(ModEntityType.CONQUILLAGER.get(), 2.5F, 5),
+        PILLAGER(EntityType.PILLAGER, 2, 3, 5),
+        VINDICATOR(EntityType.VINDICATOR, 2, 5),
+        RAVAGER(EntityType.RAVAGER, 2, 3),
+        PIKER(ModEntityType.PIKER.get(), 2, 3, 5),
+        PREACHER(ModEntityType.PREACHER.get(), 2.5F, 5),
+        CRYOLOGER(ModEntityType.CRYOLOGER.get(), 2.5F, 5),
+        MINISTER(ModEntityType.MINISTER.get(), 5, 1, 1, 0.15F);
+
+        private final EntityType<? extends Raider> entityType;
+        private final float multiple;
+        private final int initExtraAmount;
+        private final int maxExtraAmount;
+        private final float chance;
+
+        IllagerTypes(EntityType<? extends Raider> type, float multiple, int maxExtraAmount) {
+            this(type, multiple, 0, maxExtraAmount, 1.0F);
+        }
+
+        IllagerTypes(EntityType<? extends Raider> type, float multiple, int initExtraAmount, int maxExtraAmount) {
+            this(type, multiple, initExtraAmount, maxExtraAmount, 1.0F);
+        }
+
+        IllagerTypes(EntityType<? extends Raider> type, float multiple, int initExtraAmount, int maxExtraAmount, float chance) {
+            this.entityType = type;
+            this.multiple = multiple;
+            this.initExtraAmount = initExtraAmount;
+            this.maxExtraAmount = maxExtraAmount;
+            this.chance = chance;
+        }
+
+        @SuppressWarnings("unused")
+        public static IllagerTypes create(String name, EntityType<? extends Raider> typeIn, float multiple, int min, int max, float chance) {
+            throw new IllegalStateException("Enum not extended");
         }
     }
 

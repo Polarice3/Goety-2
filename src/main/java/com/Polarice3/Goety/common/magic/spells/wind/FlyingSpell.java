@@ -24,6 +24,11 @@ public class FlyingSpell extends EverChargeSpells {
         return SpellConfig.FlyingCost.get();
     }
 
+    @Override
+    public int defaultCastUp() {
+        return SpellConfig.FlyingChargeUp.get();
+    }
+
     public SoundEvent CastingSound() {
         return ModSounds.WIND.get();
     }

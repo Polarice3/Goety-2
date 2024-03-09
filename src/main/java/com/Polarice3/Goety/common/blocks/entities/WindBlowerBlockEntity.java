@@ -12,6 +12,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -81,6 +83,10 @@ public class WindBlowerBlockEntity extends BlockEntity {
                 BlockState state2 = this.level.getBlockState(blockPos);
                 if (this.level.getBlockEntity(blockPos) instanceof IWindPowered windPowered){
                     windPowered.activate(20);
+                }
+                if (state2.getBlock() instanceof BaseFireBlock && !this.level.getBlockState(blockPos.below()).isFireSource(this.level, blockPos.below(), Direction.UP)){
+                    this.level.removeBlock(blockPos, false);
+                    this.level.levelEvent((Player)null, 1009, blockPos, 0);
                 }
                 if ((state2.getMaterial().isSolidBlocking() && state2.isSolidRender(this.level, blockPos)) || state2.getMaterial().isLiquid()) {
                     break;

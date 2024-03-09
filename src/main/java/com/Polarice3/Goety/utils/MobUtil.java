@@ -395,18 +395,23 @@ public class MobUtil {
      * Target Codes based of codes from @TeamTwilight
      */
     public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius) {
+        return getTargets(level, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+    }
+
+    public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius, Predicate<? super Entity> predicate) {
         List<Entity> list = new ArrayList<>();
         Vec3 srcVec = pSource.getEyePosition();
         Vec3 lookVec = pSource.getViewVector(1.0F);
         double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
         Vec3 destVec = srcVec.add(lookRange[0], lookRange[1], lookRange[2]);
         List<Entity> possibleList = level.getEntities(pSource, pSource.getBoundingBox().expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
-                EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+                predicate);
         double hitDist = 0.0D;
 
         for (Entity hit : possibleList) {
             if (hit.isPickable() && pSource.hasLineOfSight(hit) && hit != pSource) {
-                float borderSize = Math.max(0.8F, hit.getPickRadius());
+                float maxSize = pSource instanceof Mob ? 2.0F : 0.8F;
+                float borderSize = Math.max(maxSize, hit.getPickRadius());
                 AABB collisionBB = hit.getBoundingBox().inflate(borderSize);
                 Optional<Vec3> interceptPos = collisionBB.clip(srcVec, destVec);
                 if (collisionBB.contains(srcVec)) {

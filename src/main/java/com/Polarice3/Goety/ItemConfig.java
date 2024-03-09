@@ -23,6 +23,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WitchRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostRobeResistance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeResistance;
 
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
@@ -127,6 +128,8 @@ public class ItemConfig {
                     .defineInRange("warlockRobeResistance", 85, 0, 100);
             FrostRobeResistance = BUILDER.comment("How much frost resistance Frost Robes provides by percent, Default: 85")
                     .defineInRange("frostRobeResistance", 85, 0, 100);
+            StormRobeResistance = BUILDER.comment("How much shock resistance Storm Robes provides by percent, Default: 85")
+                    .defineInRange("stormRobeResistance", 85, 0, 100);
             NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("necroSetUndeadNeutral", true);
             NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
@@ -175,8 +178,8 @@ public class ItemConfig {
             BUILDER.push("Hammers");
             HammerBaseDamage = BUILDER.comment("How much base damage Hammers deals, the damage added depends on material the hammer is made off (ie. Iron = 2.0), Default: 5.0")
                     .defineInRange("hammerBaseDamage", 5.0, 1.0, Double.MAX_VALUE);
-            HammerAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Hammers. The lower the number the slower it takes to recharge, Default: 0.6")
-                    .defineInRange("hammerAttackSpeed", 0.6, 0.0, Double.MAX_VALUE);
+            HammerAttackSpeed = BUILDER.comment("How fast it takes to fully swing a Hammers. The lower the number the slower it takes to recharge, Default: 0.5")
+                    .defineInRange("hammerAttackSpeed", 0.5, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Dark Tools");
             DarkToolsDamage = BUILDER.comment("How much damage Dark Tools deals, the configured number is added to Tool Base Damage, Default: 3.0")

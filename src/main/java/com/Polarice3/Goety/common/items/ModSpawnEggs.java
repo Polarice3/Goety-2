@@ -45,6 +45,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> STORM_CASTER_SPAWN_EGG = ITEMS.register("storm_caster_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.STORM_CASTER, 0x5e360f, 0xd3d4c9, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> CRYOLOGER_SPAWN_EGG = ITEMS.register("cryologer_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.CRYOLOGER, 0x87cdf1, 0x5e8f83, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> PREACHER_SPAWN_EGG = ITEMS.register("preacher_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.PREACHER, 0xe5d387, 0x8e1e0d, new Item.Properties().tab(Goety.TAB)));
 

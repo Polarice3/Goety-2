@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -687,7 +688,9 @@ public class RedstoneGolem extends AbstractGolemServant {
         public void hurtTarget(Entity target) {
             float f = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f1 = (float)RedstoneGolem.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-            boolean flag = target.hurt(DamageSource.mobAttack(RedstoneGolem.this), f);
+
+            DamageSource damageSource = RedstoneGolem.this.getTrueOwner() != null ? ModDamageSource.summonAttack(RedstoneGolem.this, RedstoneGolem.this.getTrueOwner()) : DamageSource.mobAttack(RedstoneGolem.this);
+            boolean flag = target.hurt(damageSource, f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > RedstoneGolem.this.getBoundingBox().getSize()){

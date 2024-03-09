@@ -815,7 +815,7 @@ public class PotionEvents {
             }
         }
         if (event.getEffectInstance().getEffect() == MobEffects.SLOW_FALLING){
-            if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WIND_ROBE.get())){
+            if (CuriosFinder.hasWindyRobes(event.getEntity())){
                 event.setResult(Event.Result.DENY);
             }
         }

@@ -7,6 +7,8 @@ import net.minecraft.util.Mth;
 
 public class FireParticle extends TextureSheetParticle {
    private final SpriteSet sprites;
+   private boolean dragon = false;
+   private boolean ember = false;
 
    protected FireParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {
       super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
@@ -21,10 +23,33 @@ public class FireParticle extends TextureSheetParticle {
       this.setSpriteFromAge(pSprites);
    }
 
+   /**
+    * Dragon and Ember Particle modes Based from @Iron431's codes "<a href="https://github.com/iron431/irons-spells-n-spellbooks/blob/1.19.2/src/main/java/io/redspace/ironsspellbooks/particle/FireParticle.java">...</a>".
+    */
    public void tick() {
       super.tick();
-      if (this.age < this.lifetime) {
-         this.setSpriteFromAge(this.sprites);
+      if (this.dragon){
+         this.gravity = -0.1F;
+         this.xd += this.random.nextFloat() / 500.0F * (float)(this.random.nextBoolean() ? 1 : -1);
+         this.zd += this.random.nextFloat() / 500.0F * (float)(this.random.nextBoolean() ? 1 : -1);
+
+         if (this.age % 8 == 0) {
+            this.setSprite(this.sprites.get(this.random));
+         }
+
+         if (this.random.nextFloat() <= 0.25F) {
+            this.level.addParticle(ModParticleTypes.DRAGON_FLAME_DROP.get(), this.x, this.y, this.z, this.xd, this.yd, this.zd);
+         }
+      } else {
+         if (this.ember){
+            this.gravity = -0.1F;
+            this.xd += this.random.nextFloat() / 100.0F * (float) (this.random.nextBoolean() ? 1 : -1);
+            this.yd += this.random.nextFloat() / 100.0F;
+            this.zd += this.random.nextFloat() / 100.0F * (float) (this.random.nextBoolean() ? 1 : -1);
+         }
+         if (this.age < this.lifetime) {
+            this.setSpriteFromAge(this.sprites);
+         }
       }
    }
 
@@ -101,6 +126,37 @@ public class FireParticle extends TextureSheetParticle {
       public Particle createParticle(SimpleParticleType p_106838_, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
          FireParticle flameparticle = new FireParticle(p_106839_, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, this.sprite);
          flameparticle.lifetime = 16;
+         flameparticle.dragon = true;
+         return flameparticle;
+      }
+   }
+
+   public static class EmberProvider implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet sprite;
+
+      public EmberProvider(SpriteSet p_106827_) {
+         this.sprite = p_106827_;
+      }
+
+      public Particle createParticle(SimpleParticleType p_106838_, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
+         FireParticle flameparticle = new FireParticle(p_106839_, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, this.sprite);
+         flameparticle.lifetime = 8;
+         flameparticle.ember = true;
+         return flameparticle;
+      }
+   }
+
+   public static class FrostProvider implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet sprite;
+
+      public FrostProvider(SpriteSet p_106827_) {
+         this.sprite = p_106827_;
+      }
+
+      public Particle createParticle(SimpleParticleType p_106838_, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
+         FireParticle flameparticle = new FireParticle(p_106839_, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, this.sprite);
+         flameparticle.lifetime = 16;
+         flameparticle.ember = true;
          return flameparticle;
       }
    }

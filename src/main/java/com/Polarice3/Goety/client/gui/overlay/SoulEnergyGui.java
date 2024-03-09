@@ -3,10 +3,12 @@ package com.Polarice3.Goety.client.gui.overlay;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
+import com.Polarice3.Goety.api.magic.IChargingSpell;
 import com.Polarice3.Goety.common.items.magic.FullSpentTotem;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;
+import com.Polarice3.Goety.utils.WandUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -74,8 +76,13 @@ public class SoulEnergyGui extends GuiComponent {
 
         if (MobUtil.isSpellCasting(minecraft.player)){
             int useDuration = minecraft.player.getUseItem().getUseDuration();
-            int remain = minecraft.player.getUseItemRemainingTicks();
-            float useTime0 = (float) (useDuration - remain) / useDuration;
+            float remain = minecraft.player.getUseItemRemainingTicks();
+            float useTime0 = (useDuration - remain) / useDuration;
+            if (WandUtil.getSpell(minecraft.player) instanceof IChargingSpell spell && spell.defaultCastUp() > 0){
+                useDuration = spell.defaultCastUp();
+                remain = Math.min(minecraft.player.getUseItem().getUseDuration() - minecraft.player.getUseItemRemainingTicks(), spell.defaultCastUp());
+                useTime0 = remain / useDuration;
+            }
             int useTime = (int) (117 * useTime0);
             RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/soul_energy.png"));
             blit(ms, i + 9, height - 9, 9, 27, useTime, 9, 128, 90);

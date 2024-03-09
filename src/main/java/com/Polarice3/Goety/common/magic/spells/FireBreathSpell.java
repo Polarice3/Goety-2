@@ -37,6 +37,11 @@ public class FireBreathSpell extends BreathingSpells {
     }
 
     @Override
+    public int defaultCastUp() {
+        return SpellConfig.FireBreathChargeUp.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.FIRE_BREATH_START.get();
     }
@@ -110,7 +115,6 @@ public class FireBreathSpell extends BreathingSpells {
             this.breathAttack(ParticleTypes.SOUL_FIRE_FLAME, entityLiving, 0.3F + ((double) range / 10), 5);
         } else {
             this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME.get(), entityLiving, 0.3F + ((double) range / 10));
-            this.dragonBreathAttack(ModParticleTypes.DRAGON_FLAME_DROP.get(), entityLiving, 0.3F + ((double) range / 10));
         }
     }
 }

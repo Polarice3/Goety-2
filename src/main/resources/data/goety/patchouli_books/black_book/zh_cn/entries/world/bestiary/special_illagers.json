@@ -54,6 +54,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "作为冰术士的亲戚，这些哭泣者比他们只会使用一种魔法类型的表亲更聪明。据说很多灾厄村民认为，他们哭泣是对寒冷的钦佩。"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:preacher"
     },
     {

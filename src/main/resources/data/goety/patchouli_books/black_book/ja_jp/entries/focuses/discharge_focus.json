@@ -1,0 +1,15 @@
+{
+  "name": "放電のフォーカス",
+  "icon": "goety:discharge_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは自分の位置で電気の爆発を放ち、近くのすべての生き物を傷つけ、ショックを与えます。 爆発は衝撃ダメージを与えますが、術者にはダメージを与えません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/discharge_focus"
+    }
+  ]
+}

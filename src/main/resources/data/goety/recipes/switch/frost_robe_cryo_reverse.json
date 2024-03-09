@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "goety:frost_robe_cryo"
+  },
+  "result": "goety:frost_robe",
+  "cookingTime": 60
+}

@@ -1,0 +1,15 @@
+{
+  "name": "风暴长袍",
+  "icon": "goety:storm_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "烈风长袍的一种变体，其布料中充满了闪电的力量。 风暴长袍可以让你慢慢坠落，就像烈风长袍一样，穿着长袍也会使风暴法术的灵魂消耗减半，但不幸的是，它并不会减免烈风法术的灵魂消耗。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:storm_robe"
+    }
+  ]
+}

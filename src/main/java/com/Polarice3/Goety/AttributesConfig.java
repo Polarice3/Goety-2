@@ -35,6 +35,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CrusherDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> StormCasterHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> StormCasterDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CryologerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CryologerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> PreacherHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PreacherHeal;
     public static final ForgeConfigSpec.ConfigValue<Double> ConquillagerHealth;
@@ -172,6 +174,12 @@ public class AttributesConfig {
                         .defineInRange("stormCasterHealth", 24.0, 1.0, Double.MAX_VALUE);
                 StormCasterDamage = BUILDER.comment("How much damage Storm Casters deals, Default: 5.0")
                         .defineInRange("stormCasterDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Cryologer");
+                CryologerHealth = BUILDER.comment("How much Max Health Cryologers have, Default: 24.0")
+                        .defineInRange("cryologerHealth", 24.0, 1.0, Double.MAX_VALUE);
+                CryologerDamage = BUILDER.comment("How much damage Cryologers deals, Default: 5.0")
+                        .defineInRange("cryologerDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Preacher");
                 PreacherHealth = BUILDER.comment("How much Max Health Preachers have, Default: 24.0")

@@ -21,6 +21,7 @@ import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -88,12 +89,13 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
     @Override
     public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
         Snowball snowball = new Snowball(this.level, this);
-        double d0 = p_33317_.getEyeY() - (double)1.1F;
-        double d1 = p_33317_.getX() - this.getX();
-        double d2 = d0 - snowball.getY();
-        double d3 = p_33317_.getZ() - this.getZ();
-        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        snowball.shoot(d1, d2 + d4, d3, 1.6F, 12.0F);
+        Vec3 vec3 = p_33317_.getDeltaMovement();
+        double d0 = p_33317_.getX() + vec3.x - this.getX();
+        double d1 = p_33317_.getEyeY() - (double)1.1F - this.getY();
+        double d2 = p_33317_.getZ() + vec3.z - this.getZ();
+        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+        snowball.setXRot(snowball.getXRot() - -20.0F);
+        snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
         this.playSound(SoundEvents.SNOWBALL_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(snowball);
         this.throwCooldown = MathHelper.secondsToTicks(2);

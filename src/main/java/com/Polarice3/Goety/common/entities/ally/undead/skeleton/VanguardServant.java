@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -275,7 +276,8 @@ public class VanguardServant extends AbstractSkeletonServant {
             p_21372_.setSecondsOnFire(i * 4);
         }
 
-        boolean flag = p_21372_.hurt(DamageSource.mobAttack(this), f);
+        DamageSource damageSource = this.getTrueOwner() != null ? ModDamageSource.summonAttack(this, this.getTrueOwner()) : DamageSource.mobAttack(this);
+        boolean flag = p_21372_.hurt(damageSource, f);
         if (flag) {
             if (f1 > 0.0F && p_21372_ instanceof LivingEntity living) {
                 living.knockback((double)(f1 * 0.5F), (double)Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));

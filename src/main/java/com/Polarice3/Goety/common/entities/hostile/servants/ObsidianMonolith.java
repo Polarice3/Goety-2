@@ -99,9 +99,9 @@ public class ObsidianMonolith extends AbstractMonolith {
         super.die(cause);
         if (this.level instanceof ServerLevel serverLevel){
             serverLevel.sendParticles(new PortalShockwaveParticleOption(0), this.getX(), this.getY(), this.getZ(), 0, 0, 0, 0, 0);
-            ServerParticleUtil.blockBreakParticles(this.getParticles(), this.blockPosition(), this.getState(), serverLevel);
-            ServerParticleUtil.blockBreakParticles(this.getParticles(), this.blockPosition().above(), this.getState(), serverLevel);
-            ServerParticleUtil.blockBreakParticles(this.getParticles(), this.blockPosition().above().above(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), serverLevel);
+            ServerParticleUtil.blockBreakParticles(this.getParticles(), new BlockPos(this.position()), this.getState(), serverLevel);
+            ServerParticleUtil.blockBreakParticles(this.getParticles(), new BlockPos(this.position()).above(), this.getState(), serverLevel);
+            ServerParticleUtil.blockBreakParticles(this.getParticles(), new BlockPos(this.position()).above().above(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), serverLevel);
             for (Owned owned : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(16))){
                 if (owned.getTrueOwner() == this.getTrueOwner()){
                     if (!(owned instanceof ObsidianMonolith)) {

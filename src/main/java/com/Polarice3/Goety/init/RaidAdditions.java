@@ -20,6 +20,9 @@ public class RaidAdditions {
             if (MobsConfig.StormCasterRaid.get()) {
                 Raid.RaiderType.create("STORM_CASTER", ModEntityType.STORM_CASTER.get(), new int[]{0, 0, 1, 0, 1, 1, 1, 2});
             }
+            if (MobsConfig.CryologerRaid.get()) {
+                Raid.RaiderType.create("CRYOLOGER", ModEntityType.CRYOLOGER.get(), new int[]{0, 0, 2, 1, 0, 2, 1, 2});
+            }
             if (MobsConfig.HostileRedstoneGolemRaid.get()){
                 Raid.RaiderType.create("HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), new int[]{0, 0, 0, 0, 0, 1, 0, 0});
             }

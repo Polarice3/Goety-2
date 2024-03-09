@@ -54,6 +54,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Kin to the Iceologers, these criers have more tricks up their sleeves than their mono-spelled cousins. The Illagers believe that they're crying out of admiration of the cold."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:preacher"
     },
     {

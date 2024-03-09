@@ -112,6 +112,8 @@
   "entity.goety.totemic_wall":"Totemic Wall",
   "entity.goety.totemic_bomb":"Totemic Bomb",
 
+  "entity.goety.glacial_wall":"Glacial Wall",
+
   "entity.goety.volcano":"Volcano",
 
   "entity.goety.skull_lord":"Skull Lord",
@@ -124,6 +126,7 @@
   "entity.goety.piker":"Piker",
   "entity.goety.crusher":"Crusher",
   "entity.goety.storm_caster":"Storm Caster",
+  "entity.goety.cryologer":"Cryologer",
   "entity.goety.preacher":"Preacher",
 
   "entity.goety.minister":"Minister",
@@ -140,6 +143,7 @@
   "entity.goety.wither_skull": "Wither Skull",
   "entity.goety.sword":"Flying Sword",
   "entity.goety.ice_spike":"Ice Spike",
+  "entity.goety.ghost_arrow":"Arrow",
   "entity.goety.death_arrow":"Death Arrow",
   "entity.goety.harpoon":"Harpoon",
   "entity.goety.brew": "Witch's Brew",
@@ -216,6 +220,7 @@
   "item.goety.piker_spawn_egg": "Piker Spawn Egg",
   "item.goety.crusher_spawn_egg": "Crusher Spawn Egg",
   "item.goety.storm_caster_spawn_egg": "Storm Caster Spawn Egg",
+  "item.goety.cryologer_spawn_egg": "Cryologer Spawn Egg",
   "item.goety.preacher_spawn_egg": "Preacher Spawn Egg",
   "item.goety.minister_spawn_egg": "Minister Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
@@ -380,7 +385,9 @@
   "item.goety.illusion_robe": "Illusive Robe",
   "item.goety.illusion_robe_mirror": "Illusive Robe",
   "item.goety.frost_robe": "Frost Robe",
+  "item.goety.frost_robe_cryo": "Frost Robe",
   "item.goety.wind_robe": "Wind Robe",
+  "item.goety.storm_robe": "Storm Robe",
   "item.goety.necro_cape": "Necro Cape",
   "item.goety.nameless_cape": "Nameless Cape",
   "item.goety.witch_robe": "Witch Robe",
@@ -469,6 +476,8 @@
   "item.goety.thunderbolt_focus.info": "Shoots a large electric bolt at a non-allied target",
   "item.goety.monsoon_focus": "Monsoon Focus",
   "item.goety.monsoon_focus.info": "Summons a cloud above a location or target that rains on targets beneath it and periodically shoots thunderbolts at them.",
+  "item.goety.discharge_focus": "Discharge Focus",
+  "item.goety.discharge_focus.info": "Summons a non-destructive electrical explosion on the caster, knocking back and damaging nearby non-allied targets.",
   "item.goety.lightning_focus": "Lightning Focus",
   "item.goety.lightning_focus.info": "Summons a Lightning Bolt at a location or target.",
   "item.goety.shockwave_focus": "Shockwave Focus",
@@ -970,7 +979,7 @@
 
   "info.goety.dark_hat": "Halves casting time for all spells.",
   "info.goety.grand_turban": "Have a chance of spawning an allied Irk when taking damage.",
-  "info.goety.witch_hat": "Speeds up witches robes inner brewing stand.",
+  "info.goety.witch_hat": "Speeds up witches robes inner brewing stand. Slowly grants fuel in moonlight",
   "info.goety.necro_crown": "Undead servants will persists.",
   "info.goety.necro_crown_cast": "Halves casting time for necromancy spells.",
   "info.goety.amethyst_necklace": "+20% chance summoning four Totemic Bombs casting Barricade spell.",
@@ -984,6 +993,8 @@
   "info.goety.frost_robe_discount": "Halves soul cost of frost spells.",
   "info.goety.wind_robe": "Provides slow fall at a cost of soul energy, immunity to fall damage.",
   "info.goety.wind_robe_discount": "Halves soul cost of wind spells.",
+  "info.goety.storm_robe": "+%s%% resistance to shock damage.",
+  "info.goety.storm_robe_discount": "Halves soul cost of storm spells.",
   "info.goety.witch_robe": "+%s%% resistance to magical damage.",
   "info.goety.witch_robe_brew": "Press %s to open robe brewing stand.",
   "info.goety.warlock_garment": "Automatically uses Wartful Eggs when afflicted with negative effect.",
@@ -1147,6 +1158,13 @@
   "subtitle.goety.storm_caster_discharge": "Storm Caster discharges",
   "subtitle.goety.storm_caster_celebrate": "Storm Caster cheers",
   "subtitle.goety.storm_caster_death": "Storm Caster dies",
+
+  "subtitle.goety.cryologer_ambient": "Cryologer cries",
+  "subtitle.goety.cryologer_hurt": "Cryologer hurts",
+  "subtitle.goety.cryologer_hail": "Cryologer summons",
+  "subtitle.goety.cryologer_wall": "Cryologer summons walls",
+  "subtitle.goety.cryologer_celebrate": "Cryologer cheers",
+  "subtitle.goety.cryologer_death": "Cryologer dies",
 
   "subtitle.goety.preacher_ambient": "Preacher preaches",
   "subtitle.goety.preacher_hurt": "Preacher hurts",
@@ -1543,6 +1561,8 @@
   "item.goety.jei_dummy.none": "Non-Item Ritual Result",
   "item.goety.jei_dummy.none.tooltip": "This ritual does not create any items.",
 
+  "death.attack.goety.summon": "%1$s was slain by %2$s's %3$s",
+  "death.attack.goety.summon.item": "%1$s was slain by %2$s's %3$s using %4$s",
   "death.attack.goety.iceBouquet": "%1$s has been frozen by %2$s",
   "death.attack.goety.iceBouquet.item": "%1$s has been frozen by %2$s using %3$s",
   "death.attack.goety.directFreeze": "%1$s was frozen by %2$s",

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.magic.spells.frost;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -38,6 +39,11 @@ public class FrostBreathSpell extends BreathingSpells {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.FrostBreathCost.get();
+    }
+
+    @Override
+    public int defaultCastUp() {
+        return SpellConfig.FrostBreathChargeUp.get();
     }
 
     @Override
@@ -125,7 +131,7 @@ public class FrostBreathSpell extends BreathingSpells {
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
             this.breathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10), 5);
         } else {
-            this.dragonBreathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10));
+            this.dragonBreathAttack(ModParticleTypes.FROST.get(), entityLiving, 0.3F + ((double) range / 10));
         }
     }
 }

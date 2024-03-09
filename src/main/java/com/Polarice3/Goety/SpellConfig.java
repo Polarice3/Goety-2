@@ -71,6 +71,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GhastLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FeastChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Integer> FeastDuration;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> TeethCost;
@@ -119,14 +120,17 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FireBreathCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FireBreathChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> FireBreathDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DragonFireGriefing;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostBreathCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostBreathChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostBreathDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DragonFrostGriefing;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShockingChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> ShockingDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulLightCost;
@@ -165,6 +169,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FlyingChargeUp;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CushionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CushionDuration;
@@ -246,6 +251,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulHealAmount;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Integer> TelekinesisMaxHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SonicBoomCost;
@@ -254,6 +260,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SonicBoomDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
@@ -394,6 +401,8 @@ public class SpellConfig {
             BUILDER.push("Feasting Spell");
             FeastCost = BUILDER.comment("Feasting Spell Cost, Default: 8")
                     .defineInRange("feastCost", 8, 0, Integer.MAX_VALUE);
+            FeastChargeUp = BUILDER.comment("How many ticks the Feasting Spell much charge before casting, Default: 0")
+                    .defineInRange("feastChargeUp", 0, 0, Integer.MAX_VALUE);
             FeastDuration = BUILDER.comment("Time to cast Feasting Spell per second, Default: 20")
                     .defineInRange("feastTime", 20, 0, 72000);
             BUILDER.pop();
@@ -490,6 +499,8 @@ public class SpellConfig {
             BUILDER.push("Fire Breath Spell");
             FireBreathCost = BUILDER.comment("Fire Breath Spell Cost per second, Default: 2")
                     .defineInRange("fireBreathCost", 2, 0, Integer.MAX_VALUE);
+            FireBreathChargeUp = BUILDER.comment("How many ticks the Fire Breath Spell much charge before casting, Default: 0")
+                    .defineInRange("fireBreathChargeUp", 0, 0, Integer.MAX_VALUE);
             FireBreathDamage = BUILDER.comment("How much base damage Fire Breath deals, Default: 2.0")
                     .defineInRange("fireBreathDamage", 2.0, 1.0, Double.MAX_VALUE);
             DragonFireGriefing = BUILDER.comment("Ring of the Dragon Fire Breath deals environmental damage, Default: true")
@@ -498,6 +509,8 @@ public class SpellConfig {
             BUILDER.push("Frost Breath Spell");
             FrostBreathCost = BUILDER.comment("Frost Breath Spell Cost per second, Default: 2")
                     .defineInRange("frostBreathCost", 2, 0, Integer.MAX_VALUE);
+            FrostBreathChargeUp = BUILDER.comment("How many ticks the Frost Breath Spell much charge before casting, Default: 0")
+                    .defineInRange("frostBreathChargeUp", 0, 0, Integer.MAX_VALUE);
             FrostBreathDamage = BUILDER.comment("How much base damage Frost Breath deals, Default: 1.0")
                     .defineInRange("frostBreathDamage", 1.0, 1.0, Double.MAX_VALUE);
             DragonFrostGriefing = BUILDER.comment("Ring of the Dragon Frost Breath deals environmental damage, Default: true")
@@ -506,6 +519,8 @@ public class SpellConfig {
             BUILDER.push("Shocking Spell");
             ShockingCost = BUILDER.comment("Shocking Spell Cost per second, Default: 4")
                     .defineInRange("shockingCost", 4, 0, Integer.MAX_VALUE);
+            ShockingChargeUp = BUILDER.comment("How many ticks the Shocking Spell much charge before casting, Default: 0")
+                    .defineInRange("shockingChargeUp", 0, 0, Integer.MAX_VALUE);
             ShockingDamage = BUILDER.comment("How much base damage Shocking Sparks deals, Default: 2.0")
                     .defineInRange("shockingDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
@@ -582,6 +597,8 @@ public class SpellConfig {
             BUILDER.push("Flight Spell");
             FlyingCost = BUILDER.comment("Flight Spell Cost, Default: 4")
                     .defineInRange("flightCost", 4, 0, Integer.MAX_VALUE);
+            FlyingChargeUp = BUILDER.comment("How many ticks the Flight Spell much charge before casting, Default: 0")
+                    .defineInRange("flightChargeUp", 0, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Cushion Spell");
             CushionCost = BUILDER.comment("Cushion Spell Cost, Default: 16")
@@ -744,6 +761,8 @@ public class SpellConfig {
             BUILDER.push("Telekinesis Spell");
             TelekinesisCost = BUILDER.comment("Telekinesis Spell Cost, Default: 4")
                     .defineInRange("telekinesisCost", 4, 0, Integer.MAX_VALUE);
+            TelekinesisChargeUp = BUILDER.comment("How many ticks the Telekinesis Spell much charge before casting, Default: 0")
+                    .defineInRange("telekinesisChargeUp", 0, 0, Integer.MAX_VALUE);
             TelekinesisMaxHealth = BUILDER.comment("The highest maximum health an entity can possess to be affected by Telekinesis spell, Default: 100")
                 .defineInRange("telekinesisMaxHealth", 100, 1, Integer.MAX_VALUE);
             TelekinesisBlackList = BUILDER.comment("""
@@ -765,6 +784,8 @@ public class SpellConfig {
             BUILDER.push("Corruption Spell");
             CorruptionCost = BUILDER.comment("Corruption Spell Cost, Default: 2500")
                     .defineInRange("corruptionCost", 2500, 0, Integer.MAX_VALUE);
+            CorruptionChargeUp = BUILDER.comment("How many ticks the Corruption Spell much charge before casting, Default: 0")
+                    .defineInRange("corruptionChargeUp", 0, 0, Integer.MAX_VALUE);
             CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 10.0")
                     .defineInRange("corruptedBeamDamage", 10.0, 0.0, Double.MAX_VALUE);
             BUILDER.pop();

@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -737,7 +738,8 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         public void hurtTarget(Entity target) {
             float f = (float)SquallGolem.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f1 = (float)SquallGolem.this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-            boolean flag = target.hurt(DamageSource.mobAttack(SquallGolem.this), f);
+            DamageSource damageSource = SquallGolem.this.getTrueOwner() != null ? ModDamageSource.summonAttack(SquallGolem.this, SquallGolem.this.getTrueOwner()) : DamageSource.mobAttack(SquallGolem.this);
+            boolean flag = target.hurt(damageSource, f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > SquallGolem.this.getBoundingBox().getSize()){

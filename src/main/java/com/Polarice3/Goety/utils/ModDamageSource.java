@@ -23,6 +23,10 @@ public class ModDamageSource extends DamageSource {
         super(pMessageId);
     }
 
+    public static DamageSource summonAttack(LivingEntity owned, LivingEntity owner) {
+        return new OwnedDamageSource(source("summon"), owned, owner);
+    }
+
     public static DamageSource directShock(LivingEntity pMob) {
         return new EntityDamageSource(source("directShock"), pMob);
     }
