@@ -56,6 +56,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<GhostArrow>> GHOST_ARROW = register("ghost_arrow",
+            EntityType.Builder.<GhostArrow>of(GhostArrow::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20));
+
     public static final RegistryObject<EntityType<DeathArrow>> DEATH_ARROW = register("death_arrow",
             EntityType.Builder.<DeathArrow>of(DeathArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -239,6 +245,12 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<TotemicBomb>> TOTEMIC_BOMB = register("totemic_bomb",
             EntityType.Builder.of(TotemicBomb::new, MobCategory.MONSTER)
                     .fireImmune()
+                    .sized(1.0F, 3.1F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<GlacialWall>> GLACIAL_WALL = register("glacial_wall",
+            EntityType.Builder.of(GlacialWall::new, MobCategory.MONSTER)
                     .sized(1.0F, 3.1F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
@@ -561,6 +573,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<StormCaster>> STORM_CASTER = register("storm_caster",
             EntityType.Builder.of(StormCaster::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Cryologer>> CRYOLOGER = register("cryologer",
+            EntityType.Builder.of(Cryologer::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));

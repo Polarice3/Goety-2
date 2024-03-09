@@ -28,6 +28,11 @@ public class TelekinesisSpell extends EverChargeSpells {
     }
 
     @Override
+    public int defaultCastUp() {
+        return SpellConfig.TelekinesisChargeUp.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.PREPARE_SPELL.get();
     }

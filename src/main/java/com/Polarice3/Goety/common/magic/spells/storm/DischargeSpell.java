@@ -72,7 +72,7 @@ public class DischargeSpell extends Spells {
         for (int i = -radius; i < radius; ++i){
             for (int k = -radius; k < radius; ++k){
                 BlockPos blockPos = entityLiving.blockPosition().offset(i, 0, k);
-                worldIn.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
+                worldIn.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
             }
         }
         worldIn.sendParticles(new ShockwaveParticleOption(0), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);

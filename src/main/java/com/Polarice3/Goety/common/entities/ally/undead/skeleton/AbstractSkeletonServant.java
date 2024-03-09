@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.projectiles.GhostArrow;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
@@ -22,8 +23,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -229,11 +228,18 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
 
     protected AbstractArrow getMobArrow(ItemStack arrowStack, float distanceFactor) {
         AbstractArrow abstractarrowentity = ProjectileUtil.getMobArrow(this, arrowStack, distanceFactor);
-        if (this.isUpgraded() && abstractarrowentity instanceof Arrow && this.level.random.nextFloat() <= 0.25F) {
-            ((Arrow)abstractarrowentity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 300));
+        if (this.isUpgraded()) {
+            abstractarrowentity = getGhostArrow(this, arrowStack, distanceFactor);
         }
 
         return abstractarrowentity;
+    }
+
+    public static AbstractArrow getGhostArrow(LivingEntity living, ItemStack stack, float distanceFactor) {
+        Arrow arrow = new GhostArrow(living.level(), living);
+        arrow.setEnchantmentEffectsFromEntity(living, distanceFactor);
+        arrow.setEffectsFromItem(stack);
+        return arrow;
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem p_230280_1_) {

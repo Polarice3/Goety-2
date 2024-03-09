@@ -44,10 +44,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
@@ -215,6 +212,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.PIKER, PikerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRUSHER, CrusherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.STORM_CASTER, StormCasterModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.CRYOLOGER, CryologerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.PREACHER, PreacherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINISTER, MinisterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
@@ -301,6 +299,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.LAVABALL.get(),(rendererManager) -> new ThrownItemRenderer<>(rendererManager, 3.0F, true));
         event.registerEntityRenderer(ModEntityType.SWORD.get(), (rendererManager) -> new SwordProjectileRenderer<>(rendererManager, itemRenderer, 1.25F, true));
         event.registerEntityRenderer(ModEntityType.ICE_SPIKE.get(), IceSpikeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GHOST_ARROW.get(), TippableArrowRenderer::new);
         event.registerEntityRenderer(ModEntityType.DEATH_ARROW.get(), DeathArrowRenderer::new);
         event.registerEntityRenderer(ModEntityType.HARPOON.get(), HarpoonRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW.get(), ThrownItemRenderer::new);
@@ -333,6 +332,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.OBSIDIAN_MONOLITH.get(), ObsidianMonolithRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_WALL.get(), TotemicWallRenderer::new);
         event.registerEntityRenderer(ModEntityType.TOTEMIC_BOMB.get(), TotemicBombRenderer::new);
+        event.registerEntityRenderer(ModEntityType.GLACIAL_WALL.get(), GlacialWallRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FALLING_BLOCK.get(), ModFallingBlockRenderer::new);
@@ -393,6 +393,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.PIKER.get(), PikerRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRUSHER.get(), CrusherRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_CASTER.get(), StormCasterRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CRYOLOGER.get(), CryologerRenderer::new);
         event.registerEntityRenderer(ModEntityType.PREACHER.get(), PreacherRenderer::new);
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolemRenderer::new);
@@ -506,7 +507,8 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FLAME.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME.get(), FireParticle.DragonProvider::new);
-        event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME_DROP.get(), FireParticle.DragonProvider::new);
+        event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME_DROP.get(), FireParticle.EmberProvider::new);
+        event.registerSpriteSet(ModParticleTypes.FROST.get(), FireParticle.FrostProvider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);

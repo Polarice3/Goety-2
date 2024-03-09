@@ -331,7 +331,7 @@ public class ModEvents {
                                         }
                                     }
                                 } else {
-                                    if (raider instanceof Piker || raider instanceof Crusher || raider instanceof StormCaster){
+                                    if (raider instanceof Piker || raider instanceof Crusher || raider instanceof StormCaster || raider instanceof Cryologer){
                                         raid.removeFromRaid(raider, true);
                                         event.setCanceled(true);
                                     }
@@ -640,40 +640,6 @@ public class ModEvents {
                 }
             }
         }
-        if (CuriosFinder.hasCurio(player, ModItems.WIND_ROBE.get()) && !player.isSpectator()){
-            if (SEHelper.getSoulsAmount(player, ItemConfig.WindRobeSouls.get()) || player.isCreative()) {
-                Vec3 vector3d = player.getDeltaMovement();
-                if (player.hasEffect(MobEffects.SLOW_FALLING)){
-                    player.removeEffect(MobEffects.SLOW_FALLING);
-                }
-                if (!player.onGround() && vector3d.y < 0.0D
-                        && !player.isNoGravity()
-                        && !player.getAbilities().flying
-                        && !player.onClimbable()
-                        && !player.isInFluidType()
-                        && !player.isInWater()
-                        && !player.isInLava()
-                        && player.fallDistance >= 2.0F) {
-                    if (player.tickCount % 20 == 0 && !player.isCreative() && player.fallDistance > 3.0F) {
-                        SEHelper.decreaseSouls(player, ItemConfig.WindRobeSouls.get());
-                    }
-                    float f = 1.0F;
-                    float f5 = (float) Math.PI * f * f;
-                    for (int k1 = 0; (float) k1 < f5; ++k1) {
-                        float f6 = world.random.nextFloat() * ((float) Math.PI * 2F);
-                        float f7 = Mth.sqrt(world.random.nextFloat()) * f;
-                        float f8 = Mth.cos(f6) * f7;
-                        float f9 = Mth.sin(f6) * f7;
-                        world.addParticle(ParticleTypes.CLOUD, player.getX() + (double) f8, player.getY(), player.getZ() + (double) f9, 0, 0, 0);
-                    }
-                    if (!player.isCrouching() && !player.isShiftKeyDown()) {
-                        player.setDeltaMovement(vector3d.multiply(1.0D, 0.875D, 1.0D));
-                    } else {
-                        player.setDeltaMovement(vector3d.multiply(1.0D, 0.99D, 1.0D));
-                    }
-                }
-            }
-        }
         if (MobUtil.starAmuletActive(player)){
             player.getAbilities().flying &= player.isCreative();
         }
@@ -683,11 +649,6 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
-            if (CuriosFinder.hasCurio(livingEntity, ModItems.FROST_ROBE.get())){
-                livingEntity.setTicksFrozen(0);
-                livingEntity.setIsInPowderSnow(false);
-                MobUtil.PowderedSnowMovement(livingEntity);
-            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
@@ -699,6 +660,13 @@ public class ModEvents {
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ModParticleTypes.WARLOCK.get(), livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
+                    }
+                }
+            }
+            if (livingEntity instanceof Mob mob){
+                if (mob.getTarget() instanceof Owned){
+                    if (mob.getTarget().isDeadOrDying()){
+                        mob.setTarget(null);
                     }
                 }
             }
@@ -1070,12 +1038,6 @@ public class ModEvents {
                 event.setAmount(event.getAmount() / 2.0F);
             }
         }
-        if(CuriosFinder.hasCurio(victim, ModItems.FROST_ROBE.get())){
-            if (ModDamageSource.freezeAttacks(event.getSource()) || event.getSource().is(DamageTypes.FREEZE)){
-                float resistance = 1.0F - (ItemConfig.FrostRobeResistance.get() / 100.0F);
-                event.setAmount(event.getAmount() * resistance);
-            }
-        }
         if (CuriosFinder.hasWitchRobe(victim)){
             if (victim instanceof Player player){
                 if (!(LichdomHelper.isLich(player) && MainConfig.LichMagicResist.get())){
@@ -1223,13 +1185,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingFall(LivingFallEvent event){
-        if (CuriosFinder.hasCurio(event.getEntity(), ModItems.WIND_ROBE.get())){
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
     public static void SpecialDeath(LivingDeathEvent event){
         LivingEntity killed = event.getEntity();
         Entity killer = event.getSource().getEntity();
@@ -1315,6 +1270,12 @@ public class ModEvents {
                 }
             }
         }
+        //Test
+/*        if (killer instanceof Owned owned){
+            if (owned.getTrueOwner() instanceof Player player){
+                player.displayClientMessage(killed.getCombatTracker().getDeathMessage(), false);
+            }
+        }*/
     }
 
     @SubscribeEvent

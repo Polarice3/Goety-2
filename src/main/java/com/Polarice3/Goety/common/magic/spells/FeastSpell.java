@@ -26,6 +26,11 @@ public class FeastSpell extends ChargingSpells {
     }
 
     @Override
+    public int defaultCastUp() {
+        return SpellConfig.FeastChargeUp.get();
+    }
+
+    @Override
     public int Cooldown() {
         return SpellConfig.FeastDuration.get();
     }

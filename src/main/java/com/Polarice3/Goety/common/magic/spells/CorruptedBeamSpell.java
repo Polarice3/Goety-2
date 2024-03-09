@@ -23,6 +23,11 @@ public class CorruptedBeamSpell extends EverChargeSpells {
     }
 
     @Override
+    public int defaultCastUp() {
+        return SpellConfig.CorruptionChargeUp.get();
+    }
+
+    @Override
     public SoundEvent CastingSound() {
         return ModSounds.CORRUPT_BEAM_START.get();
     }

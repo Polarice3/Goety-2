@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-28T13:03:55.245171	Registries
+// 1.20.1	2024-03-08T20:01:42.959105	Registries
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 3b12af9e23ed097d61c866bd4820b7338ea469c4 data/goety/damage_type/chock.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
@@ -15,6 +15,7 @@ df8d879e7560e87f963fd16b22bf273e612c1776 data/goety/damage_type/phobia.json
 cf006f4c8ccd60a8e20d531fc0c3d32258c154ca data/goety/damage_type/shock.json
 e677da1225c542016f45b250adc854a434e9abf9 data/goety/damage_type/soul_leech.json
 18f129c13c30dadde2eea9baa0f9cc0ca2494e48 data/goety/damage_type/spike.json
+148274fd40989efdbaba343a04fe0e042846de5e data/goety/damage_type/summon.json
 d23d330e328c21be90345b80bec50eac84bd7553 data/goety/damage_type/sword.json
 a2fe9a17e3c9cf0894ea4d3740b12e40ed2bae40 data/goety/damage_type/wind_blast.json
 312a2da520e337bedf912f833d8ba08cf7f38746 data/goety/trim_material/cursed.json

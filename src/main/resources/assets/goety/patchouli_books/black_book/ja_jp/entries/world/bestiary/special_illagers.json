@@ -54,6 +54,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:cryologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "アイスオロジャーの親戚であるこの叫び声は、単一スペルのいとこよりも巧妙なトリックを持っています。アイスオロジャーは、彼らが寒さに感嘆して泣いていると信じています"
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:preacher"
     },
     {

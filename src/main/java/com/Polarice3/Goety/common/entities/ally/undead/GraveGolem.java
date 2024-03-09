@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.util.SummonCircle;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -785,7 +786,9 @@ public class GraveGolem extends AbstractGolemServant {
             if (target instanceof LivingEntity livingEntity){
                 f += (livingEntity.getMaxHealth() * 0.08F);
             }
-            boolean flag = target.hurt(GraveGolem.this.damageSources().mobAttack(GraveGolem.this), f);
+
+            DamageSource damageSource = GraveGolem.this.getTrueOwner() != null ? ModDamageSource.summonAttack(GraveGolem.this, GraveGolem.this.getTrueOwner()) : GraveGolem.this.damageSources().mobAttack(GraveGolem.this);
+            boolean flag = target.hurt(damageSource, f);
             if (flag) {
                 if (f1 > 0.0F && target instanceof LivingEntity livingEntity) {
                     if (livingEntity.getBoundingBox().getSize() > GraveGolem.this.getBoundingBox().getSize()){

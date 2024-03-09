@@ -36,17 +36,14 @@ public class MathHelper extends Mth {
         return colorCode/255.0D;
     }
 
-    /* Test this */
     public static double[] rgbParticle(int colorCode){
-        return new double[]{(colorCode >> 16 & 255) / 255F,
-                (colorCode >> 8 & 255) / 255F,
-                (colorCode & 255) / 255F};
+        ColorUtil colorUtil = new ColorUtil(colorCode);
+        return new double[]{colorUtil.red, colorUtil.green, colorUtil.blue};
     }
 
     public static float[] rgbFloat(int colorCode){
-        return new float[]{(colorCode >> 16 & 255) / 255F,
-                (colorCode >> 8 & 255) / 255F,
-                (colorCode & 255) / 255F};
+        ColorUtil colorUtil = new ColorUtil(colorCode);
+        return new float[]{colorUtil.red, colorUtil.green, colorUtil.blue};
     }
 
     public static long setDayNumberAndTime(long day, long time){

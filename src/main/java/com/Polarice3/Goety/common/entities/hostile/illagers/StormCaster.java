@@ -19,9 +19,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -51,6 +51,7 @@ public class StormCaster extends HuntingIllagerEntity{
 
     public StormCaster(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
+        this.xpReward = 10;
     }
 
     protected void registerGoals() {
@@ -217,16 +218,21 @@ public class StormCaster extends HuntingIllagerEntity{
         return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
-    @Override
-    public boolean hurt(DamageSource p_37849_, float p_37850_) {
-        if (ModDamageSource.shockAttacks(p_37849_)){
-            p_37850_ /= 2.0F;
+    protected float getDamageAfterMagicAbsorb(DamageSource p_34149_, float p_34150_) {
+        p_34150_ = super.getDamageAfterMagicAbsorb(p_34149_, p_34150_);
+        if (p_34149_.getEntity() == this) {
+            p_34150_ = 0.0F;
         }
-        if (p_37849_.is(DamageTypes.LIGHTNING_BOLT)){
-            p_37850_ /= 2.0F;
+
+        if (ModDamageSource.shockAttacks(p_34149_) || p_34149_.is(DamageTypeTags.IS_LIGHTNING)) {
+            p_34150_ *= 0.15F;
+        }
+
+        if (p_34149_.is(DamageTypeTags.IS_LIGHTNING)){
             this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300));
         }
-        return super.hurt(p_37849_, p_37850_);
+
+        return p_34150_;
     }
 
     @Override
@@ -353,7 +359,7 @@ public class StormCaster extends HuntingIllagerEntity{
                 StormCaster.this.getLookControl().setLookAt(StormCaster.this.getTarget(), (float)StormCaster.this.getMaxHeadYRot(), (float)StormCaster.this.getMaxHeadXRot());
                 if (this.shockTime > 0) {
                     --this.shockTime;
-                    if (this.shockTime < 20) {
+                    if (this.shockTime < 20 && MobUtil.hasVisualLineOfSight(StormCaster.this, StormCaster.this.getTarget())) {
                         Vec3 vec3 = StormCaster.this.getEyePosition();
                         Entity target = MobUtil.getNearbyTarget(StormCaster.this.level, StormCaster.this, 20.0D, 1.0F);
                         if (target instanceof LivingEntity livingEntity && !livingEntity.isDeadOrDying() && ForgeHooks.onLivingAttack(livingEntity, ModDamageSource.directShock(StormCaster.this), 2.0F)) {
@@ -473,6 +479,7 @@ public class StormCaster extends HuntingIllagerEntity{
             if (StormCaster.this.getTarget() != null){
                 LivingEntity target = StormCaster.this.getTarget();
                 MonsoonCloud monsoonCloud = new MonsoonCloud(StormCaster.this.level, StormCaster.this, target);
+                monsoonCloud.setStaff(true);
                 StormCaster.this.level.addFreshEntity(monsoonCloud);
             }
         }
@@ -515,7 +522,7 @@ public class StormCaster extends HuntingIllagerEntity{
                     for (int i = -3; i < 3; ++i) {
                         for (int k = -3; k < 3; ++k) {
                             BlockPos blockPos = StormCaster.this.blockPosition().offset(i, 0, k);
-                            serverLevel.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
+                            serverLevel.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
                         }
                     }
                     StormCaster.this.playSound(ModSounds.REDSTONE_EXPLODE.get());

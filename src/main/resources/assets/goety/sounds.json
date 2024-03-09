@@ -768,6 +768,84 @@
     ],
     "subtitle": "subtitle.goety.storm_caster_death"
   },
+  "cryologer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/idle1"
+      },
+      {
+        "name": "goety:cryologer/idle2"
+      },
+      {
+        "name": "goety:cryologer/idle3"
+      },
+      {
+        "name": "goety:cryologer/idle4"
+      },
+      {
+        "name": "goety:cryologer/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_ambient"
+  },
+  "cryologer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/hurt1"
+      },
+      {
+        "name": "goety:cryologer/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_hurt"
+  },
+  "cryologer_hail": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/hail1"
+      },
+      {
+        "name": "goety:cryologer/hail2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_hail"
+  },
+  "cryologer_wall": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/wall1"
+      },
+      {
+        "name": "goety:cryologer/wall2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_wall"
+  },
+  "cryologer_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/celebrate1"
+      },
+      {
+        "name": "goety:cryologer/celebrate2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_celebrate"
+  },
+  "cryologer_death": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/death1"
+      },
+      {
+        "name": "goety:cryologer/death2"
+      },
+      {
+        "name": "goety:cryologer/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_death"
+  },
   "preacher_ambient": {
     "sounds": [
       {

@@ -128,6 +128,10 @@ public class CuriosFinder {
         return hasUndeadCrown(livingEntity) && hasUndeadCape(livingEntity);
     }
 
+    public static boolean hasWindyRobes(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof WindyRobeItem);
+    }
+
     private static boolean isRing(ItemStack itemStack) {
         return itemStack.getItem() instanceof RingItem;
     }

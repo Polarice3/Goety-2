@@ -69,8 +69,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 @OnlyIn(
@@ -85,6 +84,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected static final EntityDataAccessor<Integer> CAST_TIMES = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CASTING = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CONFUSED = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
     private UUID bossInfoUUID = bossInfo.getId();
     public float oBob;
@@ -98,6 +98,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public boolean flyWarn;
     public int airBound;
     public int deathTime = 0;
+    public AnimationState introAnimationState = new AnimationState();
+    public AnimationState deathAnimationState = new AnimationState();
 
     public Vizier(EntityType<? extends Vizier> type, Level worldIn) {
         super(type, worldIn);
@@ -115,9 +117,10 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public void tick() {
         if (this.getInvulnerableTicks() > 0) {
+            this.setAnimationState("intro");
             this.setDeltaMovement(Vec3.ZERO);
             int j1 = this.getInvulnerableTicks() - 1;
-            if (j1 == 20){
+            if (j1 == 30){
                 for(int i = 0; i < 5; ++i) {
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;
@@ -126,7 +129,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 }
                 this.playSound(ModSounds.VIZIER_CONFUSE.get(), 1.0F, 1.0F);
             }
-            if (j1 <= 0) {
+            if (j1 == 10) {
                 for(int i = 0; i < 5; ++i) {
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;
@@ -136,6 +139,8 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 this.playSound(ModSounds.VIZIER_RAGE.get(), 1.0F, 1.0F);
             }
             this.setInvulnerableTicks(j1);
+        } else if (!this.isDeadOrDying()) {
+            this.setAnimationState(0);
         }
         this.noPhysics = true;
         super.tick();
@@ -294,6 +299,68 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.entityData.define(CAST_TIMES, 0);
         this.entityData.define(CASTING, 0);
         this.entityData.define(CONFUSED, 0);
+        this.entityData.define(ANIM_STATE, 0);
+    }
+
+    public void setAnimationState(String input) {
+        this.setAnimationState(this.getAnimationState(input));
+    }
+
+    public void setAnimationState(int id) {
+        this.entityData.set(ANIM_STATE, id);
+    }
+
+    public int getAnimationState(String animation) {
+        if (Objects.equals(animation, "intro")){
+            return 1;
+        } else if (Objects.equals(animation, "death")){
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
+    public List<AnimationState> getAllAnimations(){
+        List<AnimationState> list = new ArrayList<>();
+        list.add(this.introAnimationState);
+        list.add(this.deathAnimationState);
+        return list;
+    }
+
+    public void stopAnimations(){
+        for (AnimationState state : this.getAllAnimations()){
+            state.stop();
+        }
+    }
+
+    public void stopMostAnimation(AnimationState exception){
+        for (AnimationState state : this.getAllAnimations()){
+            if (state != exception){
+                state.stop();
+            }
+        }
+    }
+
+    public int getCurrentAnimation(){
+        return this.entityData.get(ANIM_STATE);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (ANIM_STATE.equals(accessor)) {
+            if (this.level.isClientSide){
+                switch (this.entityData.get(ANIM_STATE)) {
+                    case 0 -> this.stopAnimations();
+                    case 1 -> {
+                        this.introAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.introAnimationState);
+                    }
+                    case 2 -> {
+                        this.deathAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.deathAnimationState);
+                    }
+                }
+            }
+        }
     }
 
     protected SoundEvent getAmbientSound() {
@@ -367,6 +434,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected void tickDeath() {
         ++this.deathTime;
         if (this.deathTime > 0){
+            this.setAnimationState("death");
             if (!this.level.isClientSide){
                 ServerLevel serverWorld = (ServerLevel) this.level;
                 for (int p = 0; p < 8; ++p) {

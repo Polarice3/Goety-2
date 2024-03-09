@@ -128,7 +128,7 @@ public class WitchRobeInventory extends SimpleContainer implements MenuProvider 
                 if (this.fuel < 20) {
                     Level level = this.getLivingEntity().level;
                     if (level.isNight() && !level.isRaining() && level.canSeeSky(this.getLivingEntity().blockPosition())) {
-                        if (this.getLivingEntity().tickCount % 20 == 0 && level.random.nextFloat() <= 0.25F) {
+                        if (this.getLivingEntity().tickCount % 100 == 0 && level.random.nextFloat() <= 0.25F) {
                             this.fuel += 1;
                         }
                     }

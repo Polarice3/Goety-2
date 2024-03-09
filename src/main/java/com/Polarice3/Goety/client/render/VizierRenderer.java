@@ -12,13 +12,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
 public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/illagers/vizier.png");
-    protected static final ResourceLocation DYING = Goety.location("textures/entity/illagers/vizier_dying.png");
     protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier_christmas.png");
-    protected static final ResourceLocation CHRISTMAS_DYING = Goety.location("textures/entity/illagers/vizier_christmas_dying.png");
 
     public VizierRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new VizierModel(renderManagerIn.bakeLayer(ModModelLayer.VIZIER)), 1.0F);
@@ -35,11 +34,12 @@ public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     }
 
     @Override
+    protected int getBlockLightLevel(Vizier p_114496_, BlockPos p_114497_) {
+        return 15;
+    }
+
+    @Override
     public ResourceLocation getTextureLocation(Vizier entity) {
-        if (entity.isDeadOrDying() || !entity.isAlive()){
-            return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS_DYING : DYING;
-        } else {
-            return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
-        }
+        return HolidayUtil.isChristmasMonth() && MobsConfig.HolidaySkins.get() ? CHRISTMAS : TEXTURE;
     }
 }

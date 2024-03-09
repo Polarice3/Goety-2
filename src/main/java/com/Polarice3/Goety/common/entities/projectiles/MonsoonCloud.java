@@ -12,6 +12,7 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -28,6 +29,8 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Optional;
 
 public class MonsoonCloud extends AbstractSpellCloud{
+    public boolean staff = false;
+
     public MonsoonCloud(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
         this.setRainParticle(ParticleTypes.RAIN);
@@ -49,6 +52,24 @@ public class MonsoonCloud extends AbstractSpellCloud{
         this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 0.5F, 1.25F);
     }
 
+    @Override
+    protected void readAdditionalSaveData(CompoundTag p_20052_) {
+        super.readAdditionalSaveData(p_20052_);
+        if (p_20052_.contains("staff")) {
+            this.staff = p_20052_.getBoolean("staff");
+        }
+    }
+
+    @Override
+    protected void addAdditionalSaveData(CompoundTag p_20139_) {
+        super.addAdditionalSaveData(p_20139_);
+        p_20139_.putBoolean("staff", this.staff);
+    }
+
+    public void setStaff(boolean staff){
+        this.staff = staff;
+    }
+
     public int getColor(){
         return 0x434343;
     }
@@ -65,7 +86,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
                     damage += this.extraDamage;
                     BlockHitResult rayTraceResult = this.blockResult(serverLevel, this, 16);
                     Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(serverLevel, BlockPos.containing(rayTraceResult.getLocation()), 16);
-                    if (lightningRod.isPresent()) {
+                    if (lightningRod.isPresent() && !this.staff) {
                         BlockPos blockPos = lightningRod.get();
                         ModNetwork.sendToALL(new SThunderBoltPacket(vec3, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10));
                         serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 1.0F, 1.0F);

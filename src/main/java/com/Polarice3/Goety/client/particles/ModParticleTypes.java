@@ -108,6 +108,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> DRAGON_FLAME_DROP = PARTICLE_TYPES.register("dragon_flame_drop",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> FROST = PARTICLE_TYPES.register("frost",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BONE = PARTICLE_TYPES.register("bone",
             () -> new SimpleParticleType(false));
 

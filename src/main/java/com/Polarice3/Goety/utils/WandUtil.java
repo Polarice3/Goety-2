@@ -12,10 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -314,6 +311,19 @@ public class WandUtil {
         summonMonolith(casterEntity, targetPos, wallEntityType, xshift, zshift, extra);
     }
 
+    public static void summonLesserSquareTrap(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> entityType, int[] rowToRemove, int extra) {
+        for (int constructPositionIndex = 0; constructPositionIndex <= 7; constructPositionIndex++) {
+            if (isValueInArray(rowToRemove, constructPositionIndex)) {
+                continue;
+            }
+            double xshift = 0;
+            double zshift = 0;
+            xshift = getXShift(constructPositionIndex, xshift);
+            zshift = getZShift(constructPositionIndex, zshift);
+            summonMonolith(casterEntity, targetPos, entityType, xshift, zshift, extra);
+        }
+    }
+
     public static void summonSquareTrap(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> entityType, int[] rowToRemove, int extra) {
         for (int constructPositionIndex = 0; constructPositionIndex <= 15; constructPositionIndex++) {
             if (isValueInArray(rowToRemove, constructPositionIndex)) {
@@ -333,38 +343,49 @@ public class WandUtil {
     }
 
     public static void summonWallTrap(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> entityType, int extra) {
+        summonWallTrap(casterEntity, targetPos, entityType, 5, extra);
+    }
+
+    public static void summonWallTrap(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> entityType, int amount, int extra) {
         Direction direction = Direction.fromYRot(casterEntity.getYHeadRot());
         if (direction.getAxis() == Direction.Axis.X){
-            for (int length = -5; length < 5; length++) {
+            for (int length = -amount; length < amount; length++) {
                 summonMonolith(casterEntity, targetPos, entityType, 0, length, extra);
             }
         } else if (direction.getAxis() == Direction.Axis.Z){
-            for (int length = -5; length < 5; length++) {
+            for (int length = -amount; length < amount; length++) {
                 summonMonolith(casterEntity, targetPos, entityType, length, 0, extra);
             }
         }
     }
 
     public static void summonWallTrap(LivingEntity casterEntity, Entity targetEntity, EntityType<? extends AbstractMonolith> entityType, int extra) {
+        summonWallTrap(casterEntity, targetEntity, entityType, 5, extra);
+    }
+
+    public static void summonWallTrap(LivingEntity casterEntity, Entity targetEntity, EntityType<? extends AbstractMonolith> entityType, int amount, int extra) {
         BlockPos targetPos = createCenteredBlockPosOnTarget(targetEntity);
         Direction direction = Direction.fromYRot(targetEntity.getYHeadRot());
+        if (targetEntity instanceof Mob){
+            direction = targetEntity.getMotionDirection();
+        }
         if (direction.getAxis() == Direction.Axis.X){
             if (casterEntity.getRandom().nextBoolean()) {
-                for (int length = -5; length < 5; length++) {
+                for (int length = -amount; length < amount; length++) {
                     summonMonolith(casterEntity, targetPos, entityType, -2, length, extra);
                 }
             } else {
-                for (int length = -5; length < 5; length++) {
+                for (int length = -amount; length < amount; length++) {
                     summonMonolith(casterEntity, targetPos, entityType, 2, length, extra);
                 }
             }
         } else if (direction.getAxis() == Direction.Axis.Z){
             if (casterEntity.getRandom().nextBoolean()) {
-                for (int length = -5; length < 5; length++) {
+                for (int length = -amount; length < amount; length++) {
                     summonMonolith(casterEntity, targetPos, entityType, length, -2, extra);
                 }
             } else {
-                for (int length = -5; length < 5; length++) {
+                for (int length = -amount; length < amount; length++) {
                     summonMonolith(casterEntity, targetPos, entityType, length, 2, extra);
                 }
             }
@@ -378,8 +399,12 @@ public class WandUtil {
     }
 
     public static void summonRandomPillarsTrap(LivingEntity casterEntity, Entity targetEntity, EntityType<? extends AbstractMonolith> entityType, int extra) {
+        summonRandomPillarsTrap(casterEntity, targetEntity, entityType, 12, extra);
+    }
+
+    public static void summonRandomPillarsTrap(LivingEntity casterEntity, Entity targetEntity, EntityType<? extends AbstractMonolith> entityType, int amount, int extra) {
         BlockPos targetPos = createCenteredBlockPosOnTarget(targetEntity);
-        for (int length = 0; length < 12; length++) {
+        for (int length = 0; length < amount; length++) {
             summonMonolith(casterEntity, targetPos, entityType, -4 + casterEntity.getRandom().nextInt(8), -4 + casterEntity.getRandom().nextInt(8), extra);
         }
     }

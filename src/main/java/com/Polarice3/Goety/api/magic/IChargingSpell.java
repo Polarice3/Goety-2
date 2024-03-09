@@ -7,6 +7,10 @@ public interface IChargingSpell extends ISpell {
         return 72000;
     }
 
+    default int defaultCastUp(){
+        return 0;
+    }
+
     default int defaultSpellCooldown() {
         return 0;
     }

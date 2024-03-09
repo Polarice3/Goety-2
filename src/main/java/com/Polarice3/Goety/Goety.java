@@ -368,6 +368,7 @@ public class Goety {
         event.put(ModEntityType.HAUNT.get(), Haunt.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_WALL.get(), TotemicWall.setCustomAttributes().build());
         event.put(ModEntityType.TOTEMIC_BOMB.get(), TotemicBomb.setCustomAttributes().build());
+        event.put(ModEntityType.GLACIAL_WALL.get(), GlacialWall.setCustomAttributes().build());
         event.put(ModEntityType.VOLCANO.get(), Volcano.setCustomAttributes().build());
         event.put(ModEntityType.ENVIOKER.get(), Envioker.setCustomAttributes().build());
         event.put(ModEntityType.TORMENTOR.get(), Tormentor.setCustomAttributes().build());
@@ -376,6 +377,7 @@ public class Goety {
         event.put(ModEntityType.PIKER.get(), Piker.setCustomAttributes().build());
         event.put(ModEntityType.CRUSHER.get(), Crusher.setCustomAttributes().build());
         event.put(ModEntityType.STORM_CASTER.get(), StormCaster.setCustomAttributes().build());
+        event.put(ModEntityType.CRYOLOGER.get(), Cryologer.setCustomAttributes().build());
         event.put(ModEntityType.PREACHER.get(), Preacher.setCustomAttributes().build());
         event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolem.setCustomAttributes().build());

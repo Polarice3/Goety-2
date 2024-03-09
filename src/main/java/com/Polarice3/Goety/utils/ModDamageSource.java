@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ModDamageSource extends DamageSource {
+    public static ResourceKey<DamageType> SUMMON = create("summon");
     public static ResourceKey<DamageType> SHOCK = create("shock");
     public static ResourceKey<DamageType> DIRECT_SHOCK = create("direct_shock");
     public static ResourceKey<DamageType> INDIRECT_SHOCK = create("indirect_shock");
@@ -76,6 +77,14 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource noKnockbackDamageSource(Level level, ResourceKey<DamageType> type, @Nullable Entity attacker, @Nullable Entity indirectAttacker, EntityType<?>... toIgnore) {
         return new NoKnockBackDamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(type), attacker, indirectAttacker);
+    }
+
+    public static DamageSource ownedDamageSource(Level level, ResourceKey<DamageType> type, Entity attacker, LivingEntity owned) {
+        return new OwnedDamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(type), attacker, owned);
+    }
+
+    public static DamageSource summonAttack(LivingEntity owned, LivingEntity owner) {
+        return ownedDamageSource(owned.level, SUMMON, owned, owner);
     }
 
     public static DamageSource directShock(LivingEntity pMob) {
@@ -198,6 +207,7 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static void bootstrap(BootstapContext<DamageType> context) {
+        context.register(SUMMON, new DamageType("goety.summon", 0.1F));
         context.register(SHOCK, new DamageType("goety.shock", 0.0F));
         context.register(DIRECT_SHOCK, new DamageType("goety.directShock", 0.0F));
         context.register(INDIRECT_SHOCK, new DamageType("goety.indirectShock", 0.0F));

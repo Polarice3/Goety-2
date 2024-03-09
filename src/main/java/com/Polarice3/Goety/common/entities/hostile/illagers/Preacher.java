@@ -36,6 +36,7 @@ public class Preacher extends HuntingIllagerEntity{
 
     public Preacher(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
+        this.xpReward = 10;
     }
 
     protected void registerGoals() {

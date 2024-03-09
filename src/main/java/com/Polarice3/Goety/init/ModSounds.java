@@ -72,6 +72,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> STORM_CASTER_CELEBRATE = create("storm_caster_celebrate");
     public static final RegistryObject<SoundEvent> STORM_CASTER_DEATH = create("storm_caster_death");
 
+    public static final RegistryObject<SoundEvent> CRYOLOGER_AMBIENT = create("cryologer_ambient");
+    public static final RegistryObject<SoundEvent> CRYOLOGER_HURT = create("cryologer_hurt");
+    public static final RegistryObject<SoundEvent> CRYOLOGER_HAIL = create("cryologer_hail");
+    public static final RegistryObject<SoundEvent> CRYOLOGER_WALL = create("cryologer_wall");
+    public static final RegistryObject<SoundEvent> CRYOLOGER_CELEBRATE = create("cryologer_celebrate");
+    public static final RegistryObject<SoundEvent> CRYOLOGER_DEATH = create("cryologer_death");
+
     public static final RegistryObject<SoundEvent> PREACHER_AMBIENT = create("preacher_ambient");
     public static final RegistryObject<SoundEvent> PREACHER_HURT = create("preacher_hurt");
     public static final RegistryObject<SoundEvent> PREACHER_CAST = create("preacher_cast");

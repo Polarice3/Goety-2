@@ -356,6 +356,14 @@ public class Crusher extends HuntingIllagerEntity{
         }
     }
 
+    @Override
+    public int getExperienceReward() {
+        if (this.isStorm()){
+            return super.getExperienceReward() * 3;
+        }
+        return super.getExperienceReward();
+    }
+
     class AttackGoal extends MeleeAttackGoal {
         private final double moveSpeed;
         private int delayCounter;

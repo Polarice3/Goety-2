@@ -318,9 +318,9 @@ public class DarkWand extends Item {
         if (this.cannotCast(livingEntityIn, stack)){
             return;
         }
+        int CastTime = stack.getUseDuration() - count;
         if (this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
             SoundEvent soundevent = this.CastingSound(stack);
-            int CastTime = stack.getUseDuration() - count;
             if (CastTime == 1 && soundevent != null) {
                 worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
@@ -328,15 +328,21 @@ public class DarkWand extends Item {
                 for(int i = 0; i < 2; ++i) {
                     worldIn.addParticle(ParticleTypes.PORTAL, livingEntityIn.getRandomX(0.5D), livingEntityIn.getRandomY() - 0.25D, livingEntityIn.getRandomZ(0.5D), (worldIn.random.nextDouble() - 0.5D) * 2.0D, -worldIn.random.nextDouble(), (worldIn.random.nextDouble() - 0.5D) * 2.0D);
                 }
-            } else if (!(this.getSpell(stack) instanceof IChargingSpell)) {
-                this.useParticles(worldIn, livingEntityIn, this.getSpell(stack));
+            } else {
+                if (this.getSpell(stack) instanceof IChargingSpell spell && spell.defaultCastUp() > 0){
+                    this.useParticles(worldIn, livingEntityIn, this.getSpell(stack));
+                } else if (!(this.getSpell(stack) instanceof IChargingSpell)) {
+                    this.useParticles(worldIn, livingEntityIn, this.getSpell(stack));
+                }
             }
-            if (this.getSpell(stack) instanceof IChargingSpell) {
+            if (this.getSpell(stack) instanceof IChargingSpell spell) {
                 if (stack.getTag() != null) {
-                    stack.getTag().putInt(COOL, stack.getTag().getInt(COOL) + 1);
-                    if (stack.getTag().getInt(COOL) > Cooldown(stack)) {
-                        stack.getTag().putInt(COOL, 0);
-                        this.MagicResults(stack, worldIn, livingEntityIn);
+                    if (CastTime == spell.defaultCastUp() || spell.defaultCastUp() <= 0) {
+                        stack.getTag().putInt(COOL, stack.getTag().getInt(COOL) + 1);
+                        if (stack.getTag().getInt(COOL) > Cooldown(stack)) {
+                            stack.getTag().putInt(COOL, 0);
+                            this.MagicResults(stack, worldIn, livingEntityIn);
+                        }
                     }
                 }
 

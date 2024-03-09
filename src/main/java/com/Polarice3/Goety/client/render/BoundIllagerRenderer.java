@@ -6,11 +6,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.util.Mth;
 
-public abstract class BoundIllagerRenderer<T extends AbstractBoundIllager> extends HumanoidMobRenderer<T, BoundIllagerModel<T>> {
+public abstract class BoundIllagerRenderer<T extends AbstractBoundIllager> extends MobRenderer<T, BoundIllagerModel<T>> {
     protected BoundIllagerRenderer(EntityRendererProvider.Context p_i50966_1_, BoundIllagerModel<T> p_i50966_2_, float p_i50966_3_) {
         super(p_i50966_1_, p_i50966_2_, p_i50966_3_);
         this.addLayer(new CustomHeadLayer<>(this, p_i50966_1_.getModelSet(), p_i50966_1_.getItemInHandRenderer()));

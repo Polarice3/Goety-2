@@ -15,15 +15,15 @@ import java.util.EnumSet;
  * Breathing Attack Goal Codes based of codes from @TeamTwilight
  */
 public class BreathingAttackGoal<T extends Mob & IBreathing> extends Goal {
-    private final T attacker;
-    private LivingEntity attackTarget;
-    private double spewX;
-    private double spewY;
-    private double spewZ;
-    private final int maxDuration;
-    private final float attackChance;
-    private final float spewingRange;
-    private int durationLeft;
+    public final T attacker;
+    public LivingEntity attackTarget;
+    public double spewX;
+    public double spewY;
+    public double spewZ;
+    public final int maxDuration;
+    public final float attackChance;
+    public final float spewingRange;
+    public int durationLeft;
 
     public BreathingAttackGoal(T pLivingEntity, float pRange, int pSeconds, float pFloatChance) {
         this.attacker = pLivingEntity;

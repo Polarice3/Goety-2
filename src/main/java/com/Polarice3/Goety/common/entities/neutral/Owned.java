@@ -7,6 +7,7 @@ import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.players.OldUsersConverter;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -30,6 +32,10 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -147,7 +153,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
-                    if (this.getTarget() instanceof Mob mob && mob.getTarget() == null) {
+                    if (this.getTarget() instanceof Mob mob && (mob.getTarget() == null || mob.getTarget().isDeadOrDying())) {
                         mob.setTarget(this);
                     }
                 }
@@ -171,6 +177,52 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         this.hurt(this.damageSources().starve(), 1.0F);
     }
 
+    public boolean doHurtTarget(Entity entity) {
+        if (this.getTrueOwner() != null) {
+            float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            float f1 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+            if (entity instanceof LivingEntity) {
+                f += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), ((LivingEntity) entity).getMobType());
+                f1 += (float) EnchantmentHelper.getKnockbackBonus(this);
+            }
+
+            int i = EnchantmentHelper.getFireAspect(this);
+            if (i > 0) {
+                entity.setSecondsOnFire(i * 4);
+            }
+
+            boolean flag = entity.hurt(ModDamageSource.summonAttack(this, this.getTrueOwner()), f);
+            if (flag) {
+                if (f1 > 0.0F && entity instanceof LivingEntity) {
+                    ((LivingEntity) entity).knockback((double) (f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(this.getYRot() * ((float) Math.PI / 180F))));
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+                }
+
+                if (entity instanceof Player player) {
+                    this.maybeDisableShield(player, this.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+                }
+
+                this.doEnchantDamageEffects(this, entity);
+                this.setLastHurtMob(entity);
+            }
+
+            return flag;
+        } else {
+            return super.doHurtTarget(entity);
+        }
+    }
+
+    private void maybeDisableShield(Player player, ItemStack axe, ItemStack shield) {
+        if (!axe.isEmpty() && !shield.isEmpty() && axe.getItem() instanceof AxeItem && shield.is(Items.SHIELD)) {
+            float f = 0.25F + (float)EnchantmentHelper.getBlockEfficiency(this) * 0.05F;
+            if (this.random.nextFloat() < f) {
+                player.getCooldowns().addCooldown(Items.SHIELD, 100);
+                this.level.broadcastEntityEvent(player, (byte)30);
+            }
+        }
+
+    }
+
     public Team getTeam() {
         if (this.getTrueOwner() != null) {
             LivingEntity livingentity = this.getTrueOwner();
@@ -182,6 +234,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         return super.getTeam();
     }
 
+    //look at dish
     public boolean isAlliedTo(Entity entityIn) {
         if (this.getTrueOwner() != null) {
             LivingEntity trueOwner = this.getTrueOwner();
