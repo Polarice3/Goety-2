@@ -1,13 +1,12 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.PulsatingCircleParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -30,8 +29,6 @@ public class ScatterMine extends Entity {
     public float getGlow = 1;
     public float glowAmount = 0.0045F;
     public float size = 3.0F;
-    public float radius = 0.75F;
-    public float radiusAmount = 0.025F;
     private LivingEntity owner;
     private UUID ownerUUID;
     public int lifeTicks = MathHelper.secondsToTicks(10);
@@ -143,10 +140,10 @@ public class ScatterMine extends Entity {
                 this.level.broadcastEntityEvent(this, (byte) 5);
                 this.discard();
             } else if (this.lifeTicks < MathHelper.secondsToTicks(9)){
-                this.radiusPulse();
-                if (this.level instanceof ServerLevel serverLevel){
-                    ServerParticleUtil.addGroundAuraParticles(serverLevel, DustParticleOptions.REDSTONE, this, this.radius);
-                    ServerParticleUtil.circularParticles(serverLevel, DustParticleOptions.REDSTONE, this.getX(), this.getY(), this.getZ(), this.radius);
+                if (this.tickCount % 10 == 0) {
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(new PulsatingCircleParticleOption(1.0F), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0.5F);
+                    }
                 }
                 for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.6D, 0.3D, 0.6D))) {
                     if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
@@ -160,13 +157,6 @@ public class ScatterMine extends Entity {
                     }
                 }
             }
-        }
-    }
-
-    private void radiusPulse(){
-        this.radius = Mth.clamp(this.radius + this.radiusAmount, 0.75F, 1.25F);
-        if (this.radius == 0.75F || this.radius == 1.25F) {
-            this.radiusAmount *= -1;
         }
     }
 

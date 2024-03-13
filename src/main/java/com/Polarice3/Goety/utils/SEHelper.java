@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
@@ -17,9 +18,11 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetCameraPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -571,6 +574,37 @@ public class SEHelper {
         SEHelper.sendSEUpdatePacket(player);
     }
 
+    public static int getBottling(Player player){
+        return getCapability(player).bottling();
+    }
+
+    public static int getBottleLevel(Player player){
+        return getBottling(player) / BrewConfig.BottlingLevelReq.get();
+    }
+
+    public static void setBottling(Player player, int bottling){
+        getCapability(player).setBottling(bottling);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void increaseBottling(Player player){
+        increaseBottling(player, 1);
+    }
+
+    public static void increaseBottling(Player player, int increase){
+        if (BrewConfig.MaxBottlingLevel.get() > 0) {
+            if (getBottling(player) < BrewConfig.MaxBottlingLevel.get()) {
+                if (getBottling(player) > 0 && getBottling(player) % BrewConfig.BottlingLevelReq.get() == 0) {
+                    if (!player.level.isClientSide){
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.PLAYER_LEVELUP, 1.0F, 0.5F));
+                    }
+                    player.displayClientMessage(Component.translatable("info.goety.brew.level_up").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+                }
+                setBottling(player, getBottling(player) + increase);
+            }
+        }
+    }
+
     public static boolean hasCamera(Player player){
         return getCapability(player).getCameraUUID() != null;
     }
@@ -618,6 +652,7 @@ public class SEHelper {
         tag.putInt("shields", soulEnergy.shieldsLeft());
         tag.putInt("shieldTime", soulEnergy.shieldTime());
         tag.putInt("shieldCool", soulEnergy.shieldCool());
+        tag.putInt("bottling", soulEnergy.bottling());
         if (soulEnergy.getCameraUUID() != null) {
             tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
         }
@@ -723,6 +758,7 @@ public class SEHelper {
         soulEnergy.setShields(tag.getInt("shields"));
         soulEnergy.setShieldTime(tag.getInt("shieldTime"));
         soulEnergy.setShieldCool(tag.getInt("shieldCool"));
+        soulEnergy.setBottling(tag.getInt("bottling"));
         if (tag.contains("cameraUUID")) {
             soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));
         } else {

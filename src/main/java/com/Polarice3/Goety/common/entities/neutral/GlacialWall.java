@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -130,6 +131,11 @@ public class GlacialWall extends AbstractMonolith{
     @Override
     public int getAgeSpeed() {
         return 5;
+    }
+
+    @Override
+    public boolean canCollideWith(Entity p_20303_) {
+        return super.canCollideWith(p_20303_) && !(p_20303_ instanceof IceChunk);
     }
 
     public void aiStep() {

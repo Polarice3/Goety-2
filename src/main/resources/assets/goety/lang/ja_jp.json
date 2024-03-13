@@ -1566,8 +1566,8 @@
   "advancements.goety.get_hammer.description": "強力な武器またはツールであるグレートハンマーを入手します。 オフハンドが開いていると場合、攻撃速度が増加します。",
   "advancements.goety.get_stormlander.title": "嵐の力",
   "advancements.goety.get_stormlander.description": "邪悪な村人の宝である雷のハンマーを手に入れましょう。",
-  "death.attack.goety.chock": "%1$sは%2$sによって絞殺された",
-  "death.attack.goety.chock.item": "%1$s は %2$s によって %3$s を使用して絞殺された",
+  "death.attack.goety.choke": "%1$sは%2$sによって絞殺された",
+  "death.attack.goety.choke.item": "%1$s は %2$s によって %3$s を使用して絞殺された",
   "advancements.goety.craft_ring_of_force.title": "5歳未満のお子様による使用は禁止されています",
   "advancements.goety.craft_ring_of_force.description": "クリーチャーにフォース呪文を使用すると、クリーチャーはゆっくりと息を失い、窒息してしまいます。",
   "effect.goety.pulverize": "粉砕",
@@ -1588,5 +1588,13 @@
   "subtitle.goety.cryologer_celebrate": "クライオロジャーが乾杯する",
   "subtitle.goety.cryologer_death": "クライオロジャーが死ぬ",
   "death.attack.goety.summon": "%1$sは%2$sの%3$sによって殺された",
-  "death.attack.goety.summon.item": "%1$s は %2$s の %3$s によって %4$s を使用して殺された"
+  "death.attack.goety.summon.item": "%1$s は %2$s の %3$s によって %4$s を使用して殺された",
+  "block.goety.snow_bricks": "Snow Bricks",
+  "block.goety.snow_brick_slab": "Snow Brick Slab",
+  "block.goety.snow_brick_stairs": "Snow Brick Stairs",
+  "block.goety.snow_brick_wall": "Snow Brick Wall",
+  "info.goety.brew.level_up": "You're getting more skilled at brewing, more brews can be bottled!",
+  "commands.goety.illager.spawn.empty": "No Illager entries are available!",
+  "advancements.goety.craft_storm_robe.title": "Oncoming Storm",
+  "advancements.goety.craft_storm_robe.description": "Storm Robes slows down descent and gives discount to Storm Spells."
 }

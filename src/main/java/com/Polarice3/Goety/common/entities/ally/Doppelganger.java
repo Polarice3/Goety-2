@@ -226,14 +226,22 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setUndeadClone(compound.getBoolean("UndeadClone"));
-        this.setShot(compound.getBoolean("Shot"));
+        if (compound.contains("UndeadClone")) {
+            this.setUndeadClone(compound.getBoolean("UndeadClone"));
+        }
+        if (compound.contains("Shot")) {
+            this.setShot(compound.getBoolean("Shot"));
+        }
+        if (compound.contains("TickCount")){
+            this.tickCount = compound.getInt("TickCount");
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("UndeadClone", this.isUndeadClone());
         compound.putBoolean("Shot", this.hasShot());
+        compound.putInt("TickCount", this.tickCount);
     }
 
     private boolean getDoppelgangerFlags(int mask) {

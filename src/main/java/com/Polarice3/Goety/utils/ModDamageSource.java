@@ -76,8 +76,8 @@ public class ModDamageSource extends DamageSource {
         return (new IndirectEntityDamageSource("witherSkull", pSource, pIndirectEntity)).setProjectile();
     }
 
-    public static DamageSource chock(Entity pSource, @Nullable Entity pIndirectEntity){
-        return new NoKnockBackDamageSource(source("chock"), pSource, pIndirectEntity).bypassArmor();
+    public static DamageSource choke(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("choke"), pSource, pIndirectEntity).bypassArmor();
     }
 
     public static boolean shockAttacks(DamageSource source){
@@ -94,7 +94,10 @@ public class ModDamageSource extends DamageSource {
     public static boolean physicalAttacks(DamageSource source){
         return source.getDirectEntity() != null && source.getDirectEntity() instanceof LivingEntity
                 && source instanceof EntityDamageSource
-                && (source.getMsgId().equals("mob") || source.getMsgId().equals("player"));
+                && (source.getMsgId().equals("mob")
+                || source.getMsgId().equals("sting")
+                || source.getMsgId().equals("player")
+                || source.getMsgId().equals("summon"));
     }
 
     public static boolean toolAttack(DamageSource source, Predicate<Item> item){

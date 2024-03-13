@@ -68,11 +68,20 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CursedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SaveEffectsCost;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> NyctophobiaCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunAllergyCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SnowSkinCurable;
 
     static {
+        BUILDER.push("Brew Bottling");
+        BottlingLevelReq = BUILDER.comment("How many times the player must bottle a brew to increase Bottling level, Default: 20")
+                .defineInRange("bottlingLevelReq", 20, 1, Integer.MAX_VALUE);
+        MaxBottlingLevel = BUILDER.comment("Maximum Bottling Level the player can obtain, set to 0 to disable Bottling Levels, Default: 100")
+                .defineInRange("maxBottlingLevel", 100, 0, Integer.MAX_VALUE);
+        BUILDER.pop();
         BUILDER.push("Vanilla Soul Cost");
         AbsorptionCost = BUILDER.comment("Absorption Soul Cost, Default: 50")
                 .defineInRange("absorptionCost", 50, 1, Integer.MAX_VALUE);

@@ -58,6 +58,8 @@ public interface ISoulEnergy {
     int shieldCool();
     void setShieldCool(int cool);
     void decreaseShieldCool();
+    int bottling();
+    void setBottling(int bottling);
     @Nullable
     UUID getCameraUUID();
     void setCameraUUID(@Nullable UUID camera);

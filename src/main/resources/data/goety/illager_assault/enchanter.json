@@ -1,0 +1,9 @@
+{
+  "entity_type": "enchantwithmob:enchanter",
+  "registry": {
+    "threshold_times": 2.5,
+    "max": 3,
+    "extra": 1,
+    "chance": 1.0
+  }
+}

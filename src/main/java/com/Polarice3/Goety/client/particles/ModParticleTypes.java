@@ -194,6 +194,22 @@ public class ModParticleTypes {
                 }
             });
 
+    public static final RegistryObject<ParticleType<CircleExplodeParticleOption>> CIRCLE_EXPLODE = PARTICLE_TYPES.register("circle_explode",
+            () -> new ParticleType<>(false, CircleExplodeParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return CircleExplodeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<PulsatingCircleParticleOption>> MINE_PULSE = PARTICLE_TYPES.register("mine_pulse",
+            () -> new ParticleType(false, PulsatingCircleParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return PulsatingCircleParticleOption.CODEC;
+                }
+            });
+
     public static final RegistryObject<ParticleType<RisingCircleParticleOption>> SOUL_HEAL = PARTICLE_TYPES.register("soul_heal",
             () -> new ParticleType<>(false, RisingCircleParticleOption.DESERIALIZER) {
                 @Override

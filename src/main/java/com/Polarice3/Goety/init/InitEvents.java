@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.commands.GoetyCommand;
 import com.Polarice3.Goety.common.commands.LichCommand;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
+import com.Polarice3.Goety.common.listeners.IllagerAssaultListener;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,5 +45,10 @@ public class InitEvents {
         if (event.getObject() instanceof Witch || event.getObject() instanceof Warlock || event.getObject() instanceof Crone){
             event.addCapability(Goety.location("witchbarter"), new WitchBarterProvider());
         }
+    }
+
+    @SubscribeEvent
+    public static void registerListeners(AddReloadListenerEvent event) {
+        event.addListener(new IllagerAssaultListener());
     }
 }

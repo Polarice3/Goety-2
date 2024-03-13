@@ -1,10 +1,14 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.neutral.GlacialWall;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -138,12 +142,22 @@ public class IceChunk extends Entity {
         this.extraDamage = extraDamage;
     }
 
-    private void onHit() {
+    private void onHit(HitResult hitResult) {
         if (!this.level.isClientSide()) {
             ServerLevel serverWorld = (ServerLevel) this.level;
             BlockState blockState = Blocks.PACKED_ICE.defaultBlockState();
+            double y = this.getY();
+            if (hitResult instanceof EntityHitResult entityHitResult){
+                Entity entity = entityHitResult.getEntity();
+                y = entity.getY();
+            }
             this.playSound(ModSounds.ICE_CHUNK_HIT.get(), 2.0F, 1.0F);
-            serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), this.getY() + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
+            serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), y + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
+            ColorUtil colorUtil = new ColorUtil(0xce5dff);
+            serverWorld.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), y, this.getZ(), 1, 0, 0, 0, 0.5D);
+            for (int i = 0; (float) i < 8; ++i) {
+                this.setParticleAura(ParticleTypes.POOF, 1.0F, this.getX(), y, this.getZ());
+            }
             if (this.isDropping){
                 for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D), this::canHitEntity)){
                     this.damageTargets(livingEntity);
@@ -191,18 +205,11 @@ public class IceChunk extends Entity {
                     if (result1.getEntity() instanceof LivingEntity){
                         this.damageTargets((LivingEntity) result1.getEntity());
                     }
-                    for (int i = 0; (float) i < 8; ++i) {
-                        this.setParticleAura(ParticleTypes.POOF, 3.0F, result1.getEntity().getX(), result1.getEntity().getY(), result1.getEntity().getZ());
-                    }
-                } else if (result.getType() == HitResult.Type.BLOCK){
-                    for (int i = 0; (float) i < 8; ++i) {
-                        this.setParticleAura(ParticleTypes.POOF, 3.0F, this.getX(), this.getY(), this.getZ());
-                    }
                 }
-                this.onHit();
+                this.onHit(result);
             }
             if (this.isOnGround() || this.isInWall() || this.verticalCollision || this.horizontalCollision){
-                this.onHit();
+                this.onHit(result);
             }
             if (!this.isStarting()) {
                 if (!this.isDropping) {
@@ -234,9 +241,8 @@ public class IceChunk extends Entity {
         boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
         this.isDropping = this.hovering > hoverTime;
         if (isHovering){
-            /**
-             * Ice Chunk Movement code based of @Infamous-Misadventures Dungeon Mobs' Ice Cloud positioning codes.
-             */
+
+            // Ice Chunk Movement code based of @Infamous-Misadventures Dungeon Mobs' Ice Cloud positioning codes.
             float speed = 0.175F;
             if (this.getTarget() != null && this.getTarget().isAlive()){
                 this.setDeltaMovement(Vec3.ZERO);
@@ -282,6 +288,11 @@ public class IceChunk extends Entity {
     }
 
     @Override
+    public boolean canCollideWith(Entity p_20303_) {
+        return super.canCollideWith(p_20303_) && !(p_20303_ instanceof GlacialWall);
+    }
+
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
@@ -289,7 +300,7 @@ public class IceChunk extends Entity {
     protected boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !entity.noPhysics && !(entity instanceof IceChunk)) {
             Entity owner = this.getOwner();
-            return owner == null || !owner.isPassengerOfSameVehicle(entity);
+            return owner == null || !owner.isPassengerOfSameVehicle(entity) && !MobUtil.areAllies(owner, entity);
         } else {
             return false;
         }

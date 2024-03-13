@@ -52,9 +52,9 @@ public class IllusionSpell extends Spells {
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof Doppelganger) {
-                if (((Doppelganger) entity).getTrueOwner() == entityLiving) {
-                    ((Doppelganger) entity).die(DamageSource.STARVE);
+            if (entity instanceof Doppelganger doppelganger) {
+                if (doppelganger.getTrueOwner() == entityLiving && doppelganger.tickCount > 10) {
+                    doppelganger.die(DamageSource.STARVE);
                 }
             }
         }

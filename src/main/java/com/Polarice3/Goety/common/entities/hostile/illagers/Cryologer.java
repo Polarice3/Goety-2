@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IBreathing;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -8,6 +9,7 @@ import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.BreathingAttackGoal;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.entities.projectiles.HailCloud;
+import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -23,6 +25,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -49,6 +52,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
     public AnimationState breathAnimationState = new AnimationState();
     public AnimationState cloudAnimationState = new AnimationState();
     public AnimationState wallAnimationState = new AnimationState();
+    public AnimationState chunkAnimationState = new AnimationState();
 
     public Cryologer(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
@@ -60,6 +64,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
         this.goalSelector.addGoal(1, new CastingSpellGoal());
         this.goalSelector.addGoal(1, new WallSpellGoal());
         this.goalSelector.addGoal(2, new HailSpellGoal());
+        this.goalSelector.addGoal(2, new ChunkSpellGoal());
         this.goalSelector.addGoal(3, new BreathGoal());
         this.goalSelector.addGoal(4, new AvoidTargetGoal<>(this, LivingEntity.class, 8.0F, 0.6D, 1.0D){
             @Override
@@ -116,6 +121,8 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
             return 3;
         } else if (Objects.equals(animation, "wall")){
             return 4;
+        } else if (Objects.equals(animation, "chunk")){
+            return 5;
         } else {
             return 0;
         }
@@ -127,6 +134,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
         list.add(this.breathAnimationState);
         list.add(this.cloudAnimationState);
         list.add(this.wallAnimationState);
+        list.add(this.chunkAnimationState);
         return list;
     }
 
@@ -163,6 +171,10 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
                     case 4:
                         this.wallAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.wallAnimationState);
+                        break;
+                    case 5:
+                        this.chunkAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.chunkAnimationState);
                         break;
                 }
             }
@@ -552,6 +564,50 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
         @Override
         protected SoundEvent getSpellPrepareSound() {
             return ModSounds.CRYOLOGER_WALL.get();
+        }
+    }
+
+    class ChunkSpellGoal extends CryologerUseSpellGoal {
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && Cryologer.this.level.getDifficulty() == Difficulty.HARD && MobsConfig.CryologerIceChunk.get();
+        }
+
+        public void start() {
+            super.start();
+            Cryologer.this.setAnimationState("chunk");
+            if (Cryologer.this.getTarget() != null){
+                LivingEntity target = Cryologer.this.getTarget();
+                IceChunk iceChunk = new IceChunk(Cryologer.this.level, Cryologer.this, target);
+                iceChunk.playSound(ModSounds.ICE_CHUNK_SUMMON.get(), 1.0F, 1.0F);
+                Cryologer.this.level.addFreshEntity(iceChunk);
+            }
+        }
+
+        @Override
+        protected void performSpellCasting() {
+        }
+
+        @Override
+        protected int getCastWarmupTime() {
+            return 50;
+        }
+
+        @Override
+        protected int getCastingTime() {
+            return 50;
+        }
+
+        @Override
+        protected int getCastingInterval() {
+            return 100;
+        }
+
+        @Nullable
+        @Override
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.CRYOLOGER_CHUNK.get();
         }
     }
 }

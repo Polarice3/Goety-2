@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "goety:secluded_igloo",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1012101201,
+    "spacing": 32,
+    "separation": 8,
+    "type": "minecraft:random_spread"
+  }
+}

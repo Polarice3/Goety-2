@@ -55,6 +55,7 @@ public class SoulHealSpell extends Spells {
         worldIn.sendParticles(new SoulShockwaveParticleOption(0), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new RisingCircleParticleOption(0), entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), 0, 0, 0, 0, 0);
         worldIn.sendParticles(new RisingCircleParticleOption(5), entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(new RisingCircleParticleOption(10), entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), 0, 0, 0, 0, 0);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SOUL_HEAL.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

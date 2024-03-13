@@ -17,6 +17,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -716,6 +717,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         times += 1;
                         chance -= 0.25F;
                     }
+                    times += SEHelper.getBottleLevel(player);
                     if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
                         return waterLevel - 1;
                     } else {

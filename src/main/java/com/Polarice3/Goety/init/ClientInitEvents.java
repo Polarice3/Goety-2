@@ -532,6 +532,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.register(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
         event.register(ModParticleTypes.REDSTONE_EXPLODE.get(), RedstoneExplodeParticle.Provider::new);
+        event.register(ModParticleTypes.MINE_PULSE.get(), PulsatingCircleParticle.Provider::new);
         event.register(ModParticleTypes.FAN_CLOUD.get(), FanCloudParticle.Provider::new);
         event.register(ModParticleTypes.MAGIC_BOLT.get(), RollingParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_BOLT.get(), RollingParticle.QuickProvider::new);
@@ -542,6 +543,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.SPARKLE.get(), SparkleParticle.Provider::new);
         event.register(ModParticleTypes.SHOCKWAVE.get(), ShockwaveParticle.Provider::new);
         event.register(ModParticleTypes.REVERSE_SHOCKWAVE.get(), ShockwaveParticle.ReverseProvider::new);
+        event.register(ModParticleTypes.CIRCLE_EXPLODE.get(), CircleExplodeParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
         event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);

@@ -1,0 +1,9 @@
+{
+  "entity_type": "goety:inquillager",
+  "registry": {
+    "threshold_times": 3,
+    "max": 5,
+    "extra": 0,
+    "chance": 1.0
+  }
+}
