@@ -1,13 +1,10 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.MobsConfig;
-import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.HuntDownPlayerGoal;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Conquillager;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Envioker;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
-import com.Polarice3.Goety.common.entities.hostile.illagers.Inquillager;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.listeners.IllagerAssaultListener;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -25,17 +22,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.PatrollingMonster;
-import net.minecraft.world.entity.monster.Pillager;
-import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -44,6 +34,8 @@ import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
@@ -89,23 +81,24 @@ public class IllagerSpawner {
                                     return 0;
                                 } else if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                                     return 0;
-                                } else {
+                                } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()) {
                                     int i1 = 0;
-                                    for (IllagerTypes illagerType : IllagerTypes.values()){
-                                        if (illagerType != null && illagerType.entityType != null) {
-                                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * illagerType.multiple && pLevel.random.nextFloat() <= illagerType.chance) {
+                                    for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES.getValues()){
+                                        IllagerDataType data = IllagerAssaultListener.ILLAGER_LIST.get(ForgeRegistries.ENTITY_TYPES.getKey(entityType));
+                                        if (data != null){
+                                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
                                                 ++i1;
-                                                int cost = (int) (soulEnergy / illagerType.multiple);
-                                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, illagerType.maxExtraAmount) + 1;
-                                                int randomTotal = pLevel.random.nextInt(total) + illagerType.initExtraAmount;
+                                                int cost = (int) (soulEnergy / data.thresholdTimes);
+                                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
+                                                int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
                                                 for (int k1 = 0; k1 < randomTotal; ++k1) {
                                                     blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                                                     if (k1 == 0) {
-                                                        if (!this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                                        if (!this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
                                                             break;
                                                         }
                                                     } else {
-                                                        this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
+                                                        this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                                                     }
 
                                                     blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
@@ -123,6 +116,8 @@ public class IllagerSpawner {
                                         ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
                                     }
                                     return i1;
+                                } else {
+                                    return 0;
                                 }
                             }
                         } else {
@@ -134,21 +129,22 @@ public class IllagerSpawner {
         }
     }
 
-    public boolean spawnRaider(IllagerTypes illagerType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
+    public boolean spawnRaider(EntityType<?> entityType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
         BlockState blockstate = worldIn.getBlockState(pos);
-        if (illagerType == null){
-            return false;
-        } else if (illagerType.entityType == null){
-            return false;
-        } else if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, pos, blockstate, blockstate.getFluidState(), illagerType.entityType)) {
-            return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(illagerType.entityType, worldIn, MobSpawnType.PATROL, pos, random)) {
+        if (entityType == null){
             return false;
         } else {
-            Raider illager = illagerType.entityType.create(worldIn);
-            if (illager != null) {
-                illager.setPos((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-                illager.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
+            Entity entity = entityType.create(worldIn);
+            if (!(entity instanceof PathfinderMob)){
+                return false;
+            } else if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, pos, blockstate, blockstate.getFluidState(), entityType)) {
+                return false;
+            } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.RAVAGER, worldIn, MobSpawnType.PATROL, pos, random)) {
+                return false;
+            } else {
+                PathfinderMob illager = (PathfinderMob) entity;
+                illager.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+                ForgeEventFactory.onFinalizeSpawn(illager, worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                 illager.goalSelector.addGoal(0, new HuntDownPlayerGoal<>(illager));
                 if (illager instanceof HuntingIllagerEntity huntingIllager && random.nextInt(4) == 0){
                     huntingIllager.setRider(true);
@@ -159,17 +155,15 @@ public class IllagerSpawner {
                 this.upgradeIllagers(illager, soulAmount);
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
-            } else {
-                return false;
             }
         }
     }
 
-    public void upgradeIllagers(Raider raider, int soulAmount){
+    public void upgradeIllagers(LivingEntity raider, int soulAmount){
         Level world = raider.level;
         if (soulAmount >= MobsConfig.IllagerAssaultSEThreshold.get() * 5) {
-            if (raider instanceof Pillager){
-                ItemStack itemstack = new ItemStack(Items.CROSSBOW);
+            ItemStack itemstack = raider.getMainHandItem().copy();
+            if (itemstack.getItem() instanceof CrossbowItem){
                 Map<Enchantment, Integer> map = Maps.newHashMap();
                 if (world.getDifficulty() == Difficulty.HARD) {
                     map.put(Enchantments.QUICK_CHARGE, 2);
@@ -181,8 +175,7 @@ public class IllagerSpawner {
                 EnchantmentHelper.setEnchantments(map, itemstack);
                 raider.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
             }
-            if (raider instanceof Vindicator){
-                ItemStack itemstack = new ItemStack(Items.IRON_AXE);
+            if (itemstack.getItem() instanceof AxeItem){
                 Map<Enchantment, Integer> map = Maps.newHashMap();
                 int i = 1;
                 if (world.getDifficulty() == Difficulty.HARD) {
@@ -192,22 +185,9 @@ public class IllagerSpawner {
                 EnchantmentHelper.setEnchantments(map, itemstack);
                 raider.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
             }
-            if (raider instanceof Conquillager){
-                ItemStack itemstack = new ItemStack(Items.CROSSBOW);
-                Map<Enchantment, Integer> map = Maps.newHashMap();
-                if (world.getDifficulty() == Difficulty.HARD) {
-                    map.put(Enchantments.QUICK_CHARGE, 3);
-                } else {
-                    map.put(Enchantments.QUICK_CHARGE, 2);
-                }
-
-                map.put(Enchantments.MULTISHOT, 1);
-                EnchantmentHelper.setEnchantments(map, itemstack);
-                raider.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
-            }
-            if (raider instanceof Inquillager){
-                ItemStack itemstack = new ItemStack(Items.IRON_SWORD);
-                if (world.random.nextFloat() <= 0.25F){
+            if (itemstack.getItem() instanceof SwordItem){
+                if (world.random.nextFloat() <= 0.25F && (!itemstack.is(Items.DIAMOND_SWORD)
+                        || itemstack.getItem() instanceof SwordItem swordItem && swordItem.getDamage() < 7.0F)){
                     itemstack = new ItemStack(Items.DIAMOND_SWORD);
                 }
                 Map<Enchantment, Integer> map = Maps.newHashMap();
@@ -217,21 +197,6 @@ public class IllagerSpawner {
                 }
                 map.put(Enchantments.SHARPNESS, i);
                 map.put(Enchantments.FIRE_ASPECT, 2);
-                EnchantmentHelper.setEnchantments(map, itemstack);
-                raider.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
-            }
-            if (raider instanceof Envioker){
-                ItemStack itemstack = new ItemStack(Items.IRON_SWORD);
-                if (world.random.nextFloat() <= 0.25F){
-                    itemstack = new ItemStack(Items.DIAMOND_SWORD);
-                }
-                Map<Enchantment, Integer> map = Maps.newHashMap();
-                int i = 3;
-                if (world.getDifficulty() == Difficulty.HARD) {
-                    i = 5;
-                }
-                map.put(Enchantments.SHARPNESS, i);
-                map.put(Enchantments.KNOCKBACK, 2);
                 EnchantmentHelper.setEnchantments(map, itemstack);
                 raider.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
             }
@@ -249,21 +214,22 @@ public class IllagerSpawner {
                 if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                     ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
-                } else {
-                    for (IllagerTypes illagerType : IllagerTypes.values()){
-                        if (illagerType != null && illagerType.entityType != null) {
-                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * illagerType.multiple && pLevel.random.nextFloat() <= illagerType.chance) {
-                                int cost = (int) (soulEnergy / illagerType.multiple);
-                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, illagerType.maxExtraAmount) + 1;
-                                int randomTotal = pLevel.random.nextInt(total);
+                } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()){
+                    for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES.getValues()){
+                        IllagerDataType data = IllagerAssaultListener.ILLAGER_LIST.get(ForgeRegistries.ENTITY_TYPES.getKey(entityType));
+                        if (data != null){
+                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
+                                int cost = (int) (soulEnergy / data.thresholdTimes);
+                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
+                                int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
                                 for (int k1 = 0; k1 < randomTotal; ++k1) {
                                     blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
                                     if (k1 == 0) {
-                                        if (!this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                        if (!this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
                                             break;
                                         }
                                     } else {
-                                        this.spawnRaider(illagerType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
+                                        this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                                     }
 
                                     blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
@@ -277,6 +243,9 @@ public class IllagerSpawner {
                     }
                     this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
                     pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
+                } else {
+                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                    pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.empty"));
                 }
             } else {
                 ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
@@ -285,43 +254,17 @@ public class IllagerSpawner {
         }
     }
 
-    public enum IllagerTypes implements net.minecraftforge.common.IExtensibleEnum {
-        ENVIOKER(ModEntityType.ENVIOKER.get(), 1, 3),
-        INQUILLAGER(ModEntityType.INQUILLAGER.get(), 3, 5),
-        CONQUILLAGER(ModEntityType.CONQUILLAGER.get(), 2.5F, 5),
-        PILLAGER(EntityType.PILLAGER, 2, 3, 5),
-        VINDICATOR(EntityType.VINDICATOR, 2, 5),
-        RAVAGER(EntityType.RAVAGER, 2, 3),
-        PIKER(ModEntityType.PIKER.get(), 2, 3, 5),
-        PREACHER(ModEntityType.PREACHER.get(), 2.5F, 5),
-        CRYOLOGER(ModEntityType.CRYOLOGER.get(), 2.5F, 5),
-        MINISTER(ModEntityType.MINISTER.get(), 5, 1, 1, 0.15F);
+    public static class IllagerDataType{
+        public float thresholdTimes;
+        public int maxExtraAmount;
+        public int initExtraAmount;
+        public float chance;
 
-        private final EntityType<? extends Raider> entityType;
-        private final float multiple;
-        private final int initExtraAmount;
-        private final int maxExtraAmount;
-        private final float chance;
-
-        IllagerTypes(EntityType<? extends Raider> type, float multiple, int maxExtraAmount) {
-            this(type, multiple, 0, maxExtraAmount, 1.0F);
-        }
-
-        IllagerTypes(EntityType<? extends Raider> type, float multiple, int initExtraAmount, int maxExtraAmount) {
-            this(type, multiple, initExtraAmount, maxExtraAmount, 1.0F);
-        }
-
-        IllagerTypes(EntityType<? extends Raider> type, float multiple, int initExtraAmount, int maxExtraAmount, float chance) {
-            this.entityType = type;
-            this.multiple = multiple;
-            this.initExtraAmount = initExtraAmount;
+        public IllagerDataType(float thresholdTimes, int maxExtraAmount, int initExtraAmount, float chance) {
+            this.thresholdTimes = thresholdTimes;
             this.maxExtraAmount = maxExtraAmount;
+            this.initExtraAmount = initExtraAmount;
             this.chance = chance;
-        }
-
-        @SuppressWarnings("unused")
-        public static IllagerTypes create(String name, EntityType<? extends Raider> typeIn, float multiple, int min, int max, float chance) {
-            throw new IllegalStateException("Enum not extended");
         }
     }
 

@@ -80,6 +80,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.POLISHED_HIGHROCK_SLAB.get(), Goety.location("block/polished_highrock"));
         slabBlockWithItem((SlabBlock) ModBlocks.HIGHROCK_BRICK_SLAB.get(), Goety.location("block/highrock_bricks"));
 
+        slabBlockWithItem((SlabBlock) ModBlocks.SNOW_BRICK_SLAB.get(), Goety.location("block/snow_bricks"));
+
         stairsBlockWithItem((StairBlock) ModBlocks.HAUNTED_STAIRS.get(), Goety.location("block/haunted_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.ROTTEN_STAIRS.get(), Goety.location("block/rotten_planks"));
         stairsBlockWithItem((StairBlock) ModBlocks.WINDSWEPT_STAIRS.get(), Goety.location("block/windswept_planks"));
@@ -92,6 +94,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.POLISHED_HIGHROCK_STAIRS.get(), Goety.location("block/polished_highrock"));
         stairsBlockWithItem((StairBlock) ModBlocks.HIGHROCK_BRICK_STAIRS.get(), Goety.location("block/highrock_bricks"));
 
+        stairsBlockWithItem((StairBlock) ModBlocks.SNOW_BRICK_STAIRS_BLOCK.get(), Goety.location("block/snow_bricks"));
+
         trapdoorBlock((TrapDoorBlock) ModBlocks.HAUNTED_TRAPDOOR.get(), Goety.location("block/haunted_trapdoor"), true);
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.ROTTEN_TRAPDOOR.get(), Goety.location("block/rotten_trapdoor"), true, "cutout");
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.WINDSWEPT_TRAPDOOR.get(), Goety.location("block/windswept_trapdoor"), false, "cutout");
@@ -101,6 +105,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         wallBlockWithItem((WallBlock) ModBlocks.HIGHROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/highrock_bricks"));
 
         wallBlockWithItem((WallBlock) ModBlocks.INDENTED_GOLD_WALL_BLOCK.get(), Goety.location("block/indented_gold"));
+
+        wallBlockWithItem((WallBlock) ModBlocks.SNOW_BRICK_WALL_BLOCK.get(), Goety.location("block/snow_bricks"));
 
         wallBlockWithItem((WallBlock) ModBlocks.STEEP_WALL_BLOCK.get(), Goety.location("block/steep_log"));
         wallBlockWithItem((WallBlock) ModBlocks.STUDDED_STEEP_WALL_BLOCK.get(), Goety.location("block/studded_steep_log"));

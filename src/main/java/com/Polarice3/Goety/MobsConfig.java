@@ -86,6 +86,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
@@ -239,6 +241,8 @@ public class MobsConfig {
             WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
                     .define("warlockRaid", true);
             BUILDER.pop();
+        CryologerIceChunk = BUILDER.comment("Whether Cryologers can summon Ice Chunks on Hard Difficulty, Default: false")
+                .define("cryologerIceChunk", false);
         IllagueSpread = BUILDER.comment("Whether Illague Effect can spread from non Conquillagers that has the effect, Default: true")
                 .define("illagueSpread", true);
         IllagerSteal = BUILDER.comment("Whether Enviokers, Inquillagers and Conquillagers can steal Totems of Souls or Totems of Undying, Default: true")

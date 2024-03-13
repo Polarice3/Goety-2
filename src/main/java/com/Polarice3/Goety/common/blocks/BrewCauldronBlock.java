@@ -10,6 +10,7 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -119,18 +120,23 @@ public class BrewCauldronBlock extends BaseEntityBlock{
             ItemStack stack = pPlayer.getItemInHand(pHand);
             boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = stack.getItem() == Items.APPLE, ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
             boolean taglock = stack.getItem() instanceof TaglockKit && TaglockKit.hasEntity(stack);
+            boolean playSound = false;
             if (!pLevel.isClientSide) {
                 if (bucket || waterBucket || apple || taglock || glassBottle || waterBottle || ladle) {
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
                             ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.fill(Fluids.WATER, stack), false);
+                            playSound = true;
                         } else if (waterBucket) {
                             ItemHelper.addAndConsumeItem(pPlayer, pHand, ItemHelper.drain(Fluids.WATER, stack), false);
+                            playSound = true;
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
                                 ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(Items.APPLE), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, itemStack);
+                                SEHelper.increaseBottling(pPlayer);
+                                playSound = true;
                             }
                         } else if (taglock && pState.getValue(LEVEL) >= 3){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
@@ -163,6 +169,8 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                         }
                                         pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                         ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.GLASS_BOTTLE));
+                                        SEHelper.increaseBottling(pPlayer, 5);
+                                        playSound = true;
                                     } else {
                                         pLevel.playSound(null, pPos, ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                         pPlayer.displayClientMessage(Component.translatable("info.goety.taglock.difDimension"), true);
@@ -179,10 +187,15 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                 bottle = new ItemStack(ModItems.REFUSE_BOTTLE.get());
                             }
                             if (bottle != null) {
+                                if (bottle == cauldron.getBrew()){
+                                    SEHelper.increaseBottling(pPlayer);
+                                }
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, bottle);
+                                playSound = true;
                             }
                         } else if (waterBottle) {
                             ItemHelper.addAndConsumeItem(pPlayer, pHand, new ItemStack(Items.GLASS_BOTTLE));
+                            playSound = true;
                         } else if (ladle) {
                             cauldron.brew();
                         }
@@ -190,7 +203,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             cauldron.mode = cauldron.reset();
                         }
                         pLevel.setBlockAndUpdate(pPos, pState.setValue(ModStateProperties.LEVEL_BREW, targetLevel));
-                        if (pState.getValue(LEVEL) != targetLevel) {
+                        if (playSound) {
                             pLevel.playSound(null, pPos, bucket ? SoundEvents.BUCKET_FILL : waterBucket ? SoundEvents.BUCKET_EMPTY : glassBottle ? SoundEvents.BOTTLE_FILL : SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                         }
                     }

@@ -209,6 +209,9 @@ public class ModEvents {
                         soulEnergy.setShieldCool(capability3.shieldCool()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
+                        soulEnergy.setBottling(capability3.bottling()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
     }
 

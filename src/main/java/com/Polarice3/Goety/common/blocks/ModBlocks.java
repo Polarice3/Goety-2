@@ -336,6 +336,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> GOLD_INDENTED_HIGHROCK_BRICKS_BLOCK = register("gold_indented_highrock_bricks", HighrockBlock::new);
     public static final RegistryObject<Block> GOLD_CHISELED_HIGHROCK_BRICKS_BLOCK = register("gold_chiseled_highrock_bricks", HighrockBlock::new);
 
+    //Snow Bricks
+    public static final RegistryObject<Block> SNOW_BRICKS_BLOCK = register("snow_bricks", SnowBrickBlock::new);
+
     //Slabs
     public static final RegistryObject<Block> SHADE_STONE_SLAB_BLOCK = registerShadeSlabs("shade_stone_slab");
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_SLAB_BLOCK = registerShadeSlabs("shade_stone_polished_slab");
@@ -367,6 +370,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> INDENTED_GOLD_SLAB = registerSlabs("indented_gold_slab",
             INDENTED_GOLD_BLOCK);
 
+    public static final RegistryObject<Block> SNOW_BRICK_SLAB = registerSlabs("snow_brick_slab",
+            SNOW_BRICKS_BLOCK);
+
     //Stairs
     public static final RegistryObject<Block> SHADE_STONE_STAIRS_BLOCK = registerStairs("shade_stone_stairs", SHADE_STONE_BLOCK);
     public static final RegistryObject<Block> SHADE_STONE_POLISHED_STAIRS_BLOCK = registerStairs("shade_stone_polished_stairs", SHADE_STONE_POLISHED_BLOCK);
@@ -388,6 +394,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> INDENTED_GOLD_STAIRS_BLOCK = registerStairs("indented_gold_stairs", INDENTED_GOLD_BLOCK);
 
+    public static final RegistryObject<Block> SNOW_BRICK_STAIRS_BLOCK = registerStairs("snow_brick_stairs", SNOW_BRICKS_BLOCK);
+
     //Walls
     public static final RegistryObject<Block> SHADE_BRICK_WALL_BLOCK = registerWalls("shade_bricks_wall", SHADE_BRICK_BLOCK);
     public static final RegistryObject<Block> SHADE_STONE_BRICK_WALL_BLOCK = registerWalls("shade_stone_bricks_wall", SHADE_STONE_BRICK_BLOCK);
@@ -401,6 +409,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> HIGHROCK_BRICK_WALL_BLOCK = registerWalls("highrock_brick_wall", HIGHROCK_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> INDENTED_GOLD_WALL_BLOCK = registerWalls("indented_gold_wall", INDENTED_GOLD_BLOCK);
+
+    public static final RegistryObject<Block> SNOW_BRICK_WALL_BLOCK = registerWalls("snow_brick_wall", SNOW_BRICKS_BLOCK);
 
     public static final RegistryObject<Block> CURSED_BARS_BLOCK = register("cursed_bars",
             () -> new IronBarsBlock(Block.Properties.of()
@@ -683,22 +693,6 @@ public class ModBlocks {
 
     }
 
-    public static BlockBehaviour.Properties SiltstoneProperties(){
-        return BlockBehaviour.Properties.of()
-                .mapColor(MapColor.TERRACOTTA_YELLOW)
-                .instrument(NoteBlockInstrument.BASEDRUM)
-                .requiresCorrectToolForDrops()
-                .strength(1.5F, 6.0F);
-    }
-
-    public static class SiltstoneBlock extends Block {
-
-        public SiltstoneBlock() {
-            super(SiltstoneProperties());
-        }
-
-    }
-
     public static BlockBehaviour.Properties IndentedGoldProperties(){
         return BlockBehaviour.Properties.of()
                 .mapColor(MapColor.GOLD)
@@ -712,6 +706,23 @@ public class ModBlocks {
 
         public IndentedGoldBlock() {
             super(IndentedGoldProperties());
+        }
+
+    }
+
+    public static BlockBehaviour.Properties SnowBrickProperties(){
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.SNOW)
+                .requiresCorrectToolForDrops()
+                .instrument(NoteBlockInstrument.BASEDRUM)
+                .strength(1.5F, 6.0F)
+                .sound(SoundType.STONE);
+    }
+
+    public static class SnowBrickBlock extends Block {
+
+        public SnowBrickBlock() {
+            super(SnowBrickProperties());
         }
 
     }

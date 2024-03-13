@@ -88,7 +88,7 @@ public class TelekinesisSpell extends EverChargeSpells {
                         target.setAirSupply(Math.max(-20, target.getAirSupply() - 10));
                         if (target.getAirSupply() <= -20){
                             target.setAirSupply(0);
-                            target.hurt(ModDamageSource.chock(entityLiving, entityLiving), 2.0F);
+                            target.hurt(ModDamageSource.choke(entityLiving, entityLiving), 2.0F);
                         }
                     }
                     ServerParticleUtil.addParticlesAroundSelf(worldIn, ParticleTypes.PORTAL, target);

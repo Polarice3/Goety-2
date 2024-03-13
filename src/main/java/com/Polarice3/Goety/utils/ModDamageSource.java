@@ -41,7 +41,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> SPIKE = create("spike");
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
-    public static ResourceKey<DamageType> CHOCK = create("chock");
+    public static ResourceKey<DamageType> CHOKE = create("choke");
     public static ResourceKey<DamageType> DOOM = create("doom");
 
     public ModDamageSource(Holder<DamageType> p_270906_, @Nullable Entity p_270796_, @Nullable Entity p_270459_, @Nullable Vec3 p_270623_) {
@@ -153,7 +153,10 @@ public class ModDamageSource extends DamageSource {
 
     public static boolean physicalAttacks(DamageSource source){
         return source.getDirectEntity() != null && source.getDirectEntity() instanceof LivingEntity
-                && (source.getMsgId().equals("mob") || source.getMsgId().equals("player"));
+                && (source.getMsgId().equals("mob")
+                || source.getMsgId().equals("sting")
+                || source.getMsgId().equals("player")
+                || source.getMsgId().equals("summon"));
     }
 
     public static boolean toolAttack(DamageSource source, Predicate<Item> item){
@@ -173,8 +176,8 @@ public class ModDamageSource extends DamageSource {
         return indirectEntityDamageSource(pSource.level, DamageTypes.WITHER_SKULL, pSource, pIndirectEntity);
     }
 
-    public static DamageSource chock(Entity pSource, @Nullable Entity pIndirectEntity) {
-        return indirectEntityDamageSource(pSource.level, CHOCK, pSource, pIndirectEntity);
+    public static DamageSource choke(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return indirectEntityDamageSource(pSource.level, CHOKE, pSource, pIndirectEntity);
     }
 
     public static String source(String source){
@@ -224,7 +227,7 @@ public class ModDamageSource extends DamageSource {
         context.register(SPIKE, new DamageType("goety.spike", 0.0F, DamageEffects.POKING));
         context.register(BOILING, new DamageType("goety.boiling", 0.0F, DamageEffects.BURNING));
         context.register(PHOBIA, new DamageType("goety.phobia", 0.0F));
-        context.register(CHOCK, new DamageType("goety.chock", 0.0F));
+        context.register(CHOKE, new DamageType("goety.choke", 0.0F));
         context.register(DOOM, new DamageType("goety.doom", 0.0F));
     }
 

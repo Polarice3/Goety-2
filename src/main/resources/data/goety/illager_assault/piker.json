@@ -1,0 +1,9 @@
+{
+  "entity_type": "goety:piker",
+  "registry": {
+    "threshold_times": 2,
+    "max": 5,
+    "extra": 3,
+    "chance": 1.0
+  }
+}

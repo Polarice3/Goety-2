@@ -1,0 +1,9 @@
+{
+  "entity_type": "goety:minister",
+  "registry": {
+    "threshold_times": 5,
+    "max": 0,
+    "extra": 1,
+    "chance": 0.15
+  }
+}

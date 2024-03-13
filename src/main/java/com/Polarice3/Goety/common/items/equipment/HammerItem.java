@@ -26,7 +26,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Block;
@@ -191,11 +190,9 @@ public class HammerItem extends TieredItem implements Vanishable {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return (enchantment.category == EnchantmentCategory.VANISHABLE
-                || enchantment.category == EnchantmentCategory.WEAPON
+        return (enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.DIGGER
-                || enchantment == Enchantments.MOB_LOOTING
-                || enchantment == Enchantments.BLOCK_FORTUNE);
+                || super.canApplyAtEnchantingTable(stack, enchantment));
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {

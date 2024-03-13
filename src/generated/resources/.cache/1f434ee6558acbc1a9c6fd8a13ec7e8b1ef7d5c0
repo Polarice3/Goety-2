@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-28T13:03:55.2461687	Block States: goety
+// 1.20.1	2024-03-11T14:07:17.6277252	Block States: goety
 a889b86fc23228813018a54862555704e4c9fbff assets/goety/blockstates/compacted_windswept_slab.json
 84b69a886070a573c7249c5a10fa9ceb36c492fd assets/goety/blockstates/cracked_marble_slab.json
 9695e21d4de7d6aafe313be7e7638563d2d6719d assets/goety/blockstates/haunted_button.json
@@ -41,6 +41,9 @@ a662d242201f7c4038e17507a879fee0000826b8 assets/goety/blockstates/rotten_stairs.
 91bb1a8a5e9cb1ad4824b6e538b002c75b351f47 assets/goety/blockstates/slate_marble_slab.json
 d52991b770f6a23c08463825cca3b038c75be7f2 assets/goety/blockstates/slate_marble_stairs.json
 8c3ce8ae56016162ef56104b8f583b6d27c65df1 assets/goety/blockstates/smooth_marble_slab.json
+b87bb599b9c71311586c03e77ac294c53149c964 assets/goety/blockstates/snow_brick_slab.json
+a8038bb447aece16096ca2735e73ea2a434878b7 assets/goety/blockstates/snow_brick_stairs.json
+7c5f6740a7560b55f122b4bb7d2f696b6c6380dd assets/goety/blockstates/snow_brick_wall.json
 1d703c7d49a5e76f16e01ee728af3d5f21226506 assets/goety/blockstates/steep_button.json
 8bfa868df71b4a661f9a82d6ddde19107d20d8cf assets/goety/blockstates/steep_fence.json
 989039398bcbd298fa42e04dbcb551cee090e17a assets/goety/blockstates/steep_fence_gate.json
@@ -188,6 +191,15 @@ c291b36041dad977b1ce7c6378f059372cdc0fde assets/goety/models/block/slate_marble_
 3a059aec4aab696822134bdffe5448c7c22004d0 assets/goety/models/block/slate_marble_stairs_outer.json
 48ac1a7e64bd4da8068584ae619ca088db935806 assets/goety/models/block/smooth_marble_slab.json
 676e44bd5d969cda48689ad38bbc6f74c5a4c7c2 assets/goety/models/block/smooth_marble_slab_top.json
+2ccd91eb6d2bbc67e36d54529b4a3d98475c804a assets/goety/models/block/snow_brick_slab.json
+1a319048bb1b3f5624b4208bacd493b7d1c05c07 assets/goety/models/block/snow_brick_slab_top.json
+3ac6b96063e56953fbafb34438e4f9f3d4f08c16 assets/goety/models/block/snow_brick_stairs.json
+5e36686b1a20f14564187e75ee314ee3829b1a2d assets/goety/models/block/snow_brick_stairs_inner.json
+15a767946ad9ae36e436955bc5222c28ff60c4f1 assets/goety/models/block/snow_brick_stairs_outer.json
+d1be2b7ce13959b6a526fcaa4b94fa9ecce99a82 assets/goety/models/block/snow_brick_wall_inventory.json
+5445f5af4078cae2fe67a7e920833e3b2a8f7cbc assets/goety/models/block/snow_brick_wall_post.json
+f614f3ca144d4b6c4807aac17af8b6583254986e assets/goety/models/block/snow_brick_wall_side.json
+d624b613a97c6c5a70d7655939f27fa024a259ba assets/goety/models/block/snow_brick_wall_side_tall.json
 901e0f2b3c6b7ceb4789fe14485660fe24ed258c assets/goety/models/block/steep_button.json
 257a4166597d5621ccfa412527fe44ab98b1221c assets/goety/models/block/steep_button_inventory.json
 08b9e180f2bc65cd12e55a29d8a1a3e92c00614d assets/goety/models/block/steep_button_pressed.json
@@ -292,6 +304,9 @@ c84df57e9c075156d5da25c85276ddbaa8f7fb4c assets/goety/models/item/rotten_stairs.
 24e756adac5348fd33347f2d7ee61563f1c7f5e3 assets/goety/models/item/slate_marble_slab.json
 4cba32b8fcedac337a50396d0b9ded6c0242d565 assets/goety/models/item/slate_marble_stairs.json
 34cd4aaf4c68f11da1d560dec05a044e5ea4efae assets/goety/models/item/smooth_marble_slab.json
+2511c1718e6cf778392cc332038c70cfeadc13a7 assets/goety/models/item/snow_brick_slab.json
+633bd58d6906955e98653d77bd72f24767e015ee assets/goety/models/item/snow_brick_stairs.json
+2e99082c1ec600a65fb53dcf3e4c7f2c7267f636 assets/goety/models/item/snow_brick_wall.json
 72a91798fb3998ab63521c4a5622d2afd606b51a assets/goety/models/item/steep_button.json
 ccf3b90f6d74231445670aa3be991d2799b345b2 assets/goety/models/item/steep_fence.json
 c2281728e372f0c7dddfb729871d2329faf39119 assets/goety/models/item/steep_fence_gate.json

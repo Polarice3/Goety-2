@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:storm_robe"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_storm_robe.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_storm_robe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_wind_robe",
+  "criteria": {
+    "storm_robe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:storm_robe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "storm_robe"
+    ]
+  ]
+}

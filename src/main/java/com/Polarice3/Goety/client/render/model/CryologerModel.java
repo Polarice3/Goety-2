@@ -122,6 +122,7 @@ public class CryologerModel<T extends Cryologer> extends HierarchicalModel<T> im
 		this.animate(entity.breathAnimationState, CryologerAnimations.BREATH, ageInTicks);
 		this.animate(entity.cloudAnimationState, CryologerAnimations.HAIL, ageInTicks);
 		this.animate(entity.wallAnimationState, CryologerAnimations.WALL, ageInTicks);
+		this.animate(entity.chunkAnimationState, CryologerAnimations.CHUNK, ageInTicks);
 		if (entity.getCurrentAnimation() == entity.getAnimationState("idle")){
 			this.arms.visible = true;
 			this.right_arm.visible = false;

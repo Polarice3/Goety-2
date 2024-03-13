@@ -821,6 +821,17 @@
     ],
     "subtitle": "subtitle.goety.cryologer_wall"
   },
+  "cryologer_chunk": {
+    "sounds": [
+      {
+        "name": "goety:cryologer/chunk1"
+      },
+      {
+        "name": "goety:cryologer/chunk2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cryologer_chunk"
+  },
   "cryologer_celebrate": {
     "sounds": [
       {

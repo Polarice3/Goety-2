@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpells;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -93,7 +94,7 @@ public class HauntedSkullSpell extends SummonSpells {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             int i = 1;
-            if (rightStaff(staff)) {
+            if (rightStaff(staff) || staff.is(ModItems.NAMELESS_STAFF.get())) {
                 i = 3;
             }
             for (int i1 = 0; i1 < i; ++i1) {

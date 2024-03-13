@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-28T13:03:55.2401838	Loot Tables
+// 1.20.1	2024-03-11T14:07:17.5905007	Loot Tables
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 914d54d2df0b738691c21b3792e79c30b1a39c0c data/goety/loot_tables/blocks/brick_brazier.json
@@ -152,6 +152,10 @@ ca72ccd1b0ddc96caab2854c450c781b1b0fd3ab data/goety/loot_tables/blocks/slate_mar
 c92e5a2ba60462cadb7a6488c2deb4172cf867ab data/goety/loot_tables/blocks/slate_patterned_marble.json
 2a4276e84ede6e1b2c4a16909ed8f7b88a997581 data/goety/loot_tables/blocks/smooth_marble_slab.json
 08ef7c7fd04d1d8084a4f54759a240707a258843 data/goety/loot_tables/blocks/snap_warts.json
+dee9459228773892e22c775d5ecf35116b3ff930 data/goety/loot_tables/blocks/snow_bricks.json
+ef2f746e18ba09dac357ca81e50466988f46722d data/goety/loot_tables/blocks/snow_brick_slab.json
+040fbcea8d727b12bc724cac62c6746f6d9cd2f7 data/goety/loot_tables/blocks/snow_brick_stairs.json
+a01a03ec785b8fd71eafbd4b2e45d2f03ea44e1d data/goety/loot_tables/blocks/snow_brick_wall.json
 bdaf9ba64dcda028fa21f72734c91b68fb7f1b92 data/goety/loot_tables/blocks/soul_absorber.json
 8d80a4e001db3a4b3e9a92ebc2a25bdc5c7b509d data/goety/loot_tables/blocks/soul_candlestick.json
 6ca3d5e430f9add1eacecee22d8a8279ece7f563 data/goety/loot_tables/blocks/soul_mender.json
