@@ -1,0 +1,25 @@
+{
+  "name": "ウィスパラー",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "その名前とは裏腹に、ウィスパラーは騒々しい奇妙な生き物で、急成長する蔓を呼び起こしてターゲットの進路を妨害したり、2 本の毒針葉樹の蔓を召喚したり、ターゲットの足に根を絡ませたりすることができます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:whisperer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:focuses/whispering_focus)ささやきのフォーカス$() を使用するか、寿命に制限のないアニメーション コアを備えたこの構成の中央のジャングルの葉を右クリックすることで、これらのクリーチャーを呼び出すことができます。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:whisperer",
+      "text": "アニメーション コアのあるモスを右クリックします。"
+    }
+  ]
+}

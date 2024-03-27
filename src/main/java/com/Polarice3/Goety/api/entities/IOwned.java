@@ -31,7 +31,7 @@ public interface IOwned {
         if (this.getTrueOwner() instanceof IOwned owned){
             return owned.getTrueOwner();
         } else {
-            return null;
+            return this.getTrueOwner();
         }
     }
 

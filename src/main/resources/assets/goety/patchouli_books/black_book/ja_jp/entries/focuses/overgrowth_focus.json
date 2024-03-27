@@ -1,0 +1,19 @@
+{
+  "name": "過成長のフォーカス",
+  "icon": "goety:overgrowth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "魂のエネルギーを使って、強力で動かない蔓を呼び出してターゲットの進路をブロックしたり、しゃがんだり移動したりすると、毒針を発射する強力な花の咲く蔓を呼び出します。 ターゲットを見ながらシフトキャストすると、代わりに毒の蔓が隣に召喚されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/overgrowth_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "水中で呪文を唱えると、代わりに強力な動けない昆布を召喚します。 見た目の美しさと水中にある必要があること以外に違いはありませんが、有毒な昆布の羽根は水の影響を受けません。 $(l:crafts/garment/wild_robe)野生のローブ$() を着ると、蔓や昆布の間を通り抜けることができます。"
+    }
+  ]
+}

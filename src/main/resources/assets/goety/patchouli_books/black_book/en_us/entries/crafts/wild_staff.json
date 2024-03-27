@@ -1,0 +1,15 @@
+{
+  "name": "Wild Staff",
+  "icon": "goety:wild_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The natural world can be hard to tame, but with some dark magic and wood, you've crafted a staff that heightens the natural and unnatural powers of Wild spells."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_staff"
+    }
+  ]
+}

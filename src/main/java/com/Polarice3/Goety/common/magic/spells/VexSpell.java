@@ -110,7 +110,7 @@ public class VexSpell extends SummonSpells {
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                 AllyVex vexentity = new AllyVex(ModEntityType.ALLY_VEX.get(), worldIn);
-                vexentity.setOwnerId(entityLiving.getUUID());
+                vexentity.setTrueOwner(entityLiving);
                 vexentity.moveTo(blockpos, 0.0F, 0.0F);
                 vexentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 vexentity.setBoundOrigin(blockpos);

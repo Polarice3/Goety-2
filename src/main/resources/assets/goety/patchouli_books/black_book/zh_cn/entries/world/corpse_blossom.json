@@ -1,0 +1,16 @@
+{
+  "name": "大王花",
+  "icon": "goety:corpse_blossom",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在丛林的树冠上发现了一种恶臭的植物，但是很多时候它们都在散发出香味。它们不仅闻起来很香，看起来很漂亮，而且据说还含有丛林的能量。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/corpse_blossom.png"],
+      "border": true
+    }
+  ]
+}

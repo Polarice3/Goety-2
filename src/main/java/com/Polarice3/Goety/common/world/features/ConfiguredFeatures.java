@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
@@ -28,6 +29,7 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPLING_FANCY_ROTTEN_TREE = FeatureUtils.createKey("fancy_rotten_tree_sapling");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WINDSWEPT_TREE = FeatureUtils.createKey("windswept_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WINDSWEPT_TREE_2 = FeatureUtils.createKey("second_windswept_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CORPSE_BLOSSOM = FeatureUtils.createKey("corpse_blossom");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> p_256171_) {
         FeatureUtils.register(p_256171_, SAPLING_HAUNTED_TREE, Feature.TREE, createHaunted().ignoreVines().build());
@@ -35,6 +37,7 @@ public class ConfiguredFeatures {
         FeatureUtils.register(p_256171_, SAPLING_FANCY_ROTTEN_TREE, Feature.TREE, createFancyRotten().build());
         FeatureUtils.register(p_256171_, WINDSWEPT_TREE, Feature.TREE, createWindswept().build());
         FeatureUtils.register(p_256171_, WINDSWEPT_TREE_2, Feature.TREE, createWindswept2().build());
+        FeatureUtils.register(p_256171_, CORPSE_BLOSSOM, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CORPSE_BLOSSOM.get())));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {

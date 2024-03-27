@@ -1,0 +1,21 @@
+{
+  "name": "Leapleaves",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A powerful ape-like creature made of roots and leaves, that can jump high and smash hard upon the foes of their summoner."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:leapleaf"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:leapleaf",
+      "text": "Right click the center Overgrown Roots with an Animation Core."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "嵐を呼ぶハンマー",
+  "icon": "minecraft:iron_ingot",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l)邪悪な村人()の職人技であり、まさに嵐をその中に閉じ込めた強力なハンマーの噂が飛び交っています。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/get_stormlander",
+      "text": "特定の$(l)ハンマー使いの邪悪な村人$()は、$(l)雷$()が当たったときにのみ威力を発揮するハンマー、あるいはおそらくレプリカを持っていると言われています。"
+    }
+  ]
+}

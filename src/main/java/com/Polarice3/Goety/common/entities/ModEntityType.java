@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
+import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
@@ -46,6 +47,16 @@ public class ModEntityType {
                     .sized(1.0F, 1.0F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<HellBolt>> HELL_BOLT = register("hell_bolt",
+            EntityType.Builder.<HellBolt>of(HellBolt::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<HellBlast>> HELL_BLAST = register("hell_blast",
+            EntityType.Builder.<HellBlast>of(HellBlast::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4));
+
     public static final RegistryObject<EntityType<SwordProjectile>> SWORD = register("sword",
             EntityType.Builder.<SwordProjectile>of(SwordProjectile::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -72,6 +83,12 @@ public class ModEntityType {
             EntityType.Builder.<Harpoon>of(Harpoon::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<PoisonQuill>> POISON_QUILL = register("poison_quill",
+            EntityType.Builder.<PoisonQuill>of(PoisonQuill::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20));
 
     public static final RegistryObject<EntityType<ThrownBrew>> BREW = register("brew",
             EntityType.Builder.<ThrownBrew>of(ThrownBrew::new, MobCategory.MISC)
@@ -164,6 +181,12 @@ public class ModEntityType {
                     .sized(0.8F, 1.0F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<Hellfire>> HELLFIRE = register("hellfire",
+            EntityType.Builder.<Hellfire>of(Hellfire::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(0.8F, 1.0F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<IceChunk>> ICE_CHUNK = register("ice_chunk",
             EntityType.Builder.<IceChunk>of(IceChunk::new, MobCategory.MISC)
                     .fireImmune()
@@ -228,6 +251,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<EntangleVines>> ENTANGLE_VINES = register("entangle_vines",
+            EntityType.Builder.<EntangleVines>of(EntangleVines::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<ObsidianMonolith>> OBSIDIAN_MONOLITH = register("obsidian_monolith",
             EntityType.Builder.of(ObsidianMonolith::new, MobCategory.MONSTER)
                     .fireImmune()
@@ -252,6 +281,36 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<GlacialWall>> GLACIAL_WALL = register("glacial_wall",
             EntityType.Builder.of(GlacialWall::new, MobCategory.MONSTER)
                     .sized(1.0F, 3.1F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<QuickGrowingVine>> QUICK_GROWING_VINE = register("quick_growing_vine",
+            EntityType.Builder.of(QuickGrowingVine::new, MobCategory.MONSTER)
+                    .sized(1.0F, 4.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<QuickGrowingKelp>> QUICK_GROWING_KELP = register("quick_growing_kelp",
+            EntityType.Builder.of(QuickGrowingKelp::new, MobCategory.MONSTER)
+                    .sized(1.0F, 4.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<PoisonQuillVine>> POISON_QUILL_VINE = register("poison_quill_vine",
+            EntityType.Builder.of(PoisonQuillVine::new, MobCategory.MONSTER)
+                    .sized(1.0F, 4.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<PoisonAnemone>> POISON_ANEMONE = register("poison_anemone",
+            EntityType.Builder.of(PoisonAnemone::new, MobCategory.MONSTER)
+                    .sized(1.0F, 4.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<InsectSwarm>> INSECT_SWARM = register("insect_swarm",
+            EntityType.Builder.<InsectSwarm>of(InsectSwarm::new, MobCategory.MONSTER)
+                    .sized(1.0F, 1.0F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
@@ -340,6 +399,12 @@ public class ModEntityType {
                     .sized(2.0F, 2.0F)
                     .fireImmune()
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<Inferno>> INFERNO = register("inferno",
+            EntityType.Builder.of(Inferno::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.8F)
+                    .fireImmune()
+                    .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<VampireBat>> VAMPIRE_BAT = register("vampire_bat",
             EntityType.Builder.of(VampireBat::new, MobCategory.MONSTER)
@@ -512,6 +577,21 @@ public class ModEntityType {
                     .sized(1.95F, 2.2F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<Whisperer>> WHISPERER = register("whisperer",
+            EntityType.Builder.of(Whisperer::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.0F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<Wavewhisperer>> WAVEWHISPERER = register("wavewhisperer",
+            EntityType.Builder.of(Wavewhisperer::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.0F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<Leapleaf>> LEAPLEAF = register("leapleaf",
+            EntityType.Builder.of(Leapleaf::new, MobCategory.MONSTER)
+                    .sized(1.9F, 1.9F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<SquallGolem>> SQUALL_GOLEM = register("squall_golem",
             EntityType.Builder.of(SquallGolem::new, MobCategory.MONSTER)
                     .sized(2.0F, 2.5F)
@@ -563,6 +643,12 @@ public class ModEntityType {
             EntityType.Builder.of(Piker::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Ripper>> RIPPER = register("ripper",
+            EntityType.Builder.of(Ripper::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<Crusher>> CRUSHER = register("crusher",
@@ -621,6 +707,12 @@ public class ModEntityType {
             EntityType.Builder.of(BoneLord::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
+
+/*    public static final RegistryObject<EntityType<WitherNecromancer>> WITHER_NECROMANCER = register("wither_necromancer",
+            EntityType.Builder.of(WitherNecromancer::new, MobCategory.MONSTER)
+                    .sized(0.75F, 2.4875F)
+                    .fireImmune()
+                    .clientTrackingRange(8));*/
 
     public static final RegistryObject<EntityType<LightningTrap>> LIGHTNING_TRAP = register("lightning_trap",
             EntityType.Builder.<LightningTrap>of(LightningTrap::new, MobCategory.MISC)

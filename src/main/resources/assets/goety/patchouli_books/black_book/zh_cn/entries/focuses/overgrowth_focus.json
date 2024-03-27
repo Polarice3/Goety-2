@@ -1,0 +1,19 @@
+{
+  "name": "增生聚晶",
+  "icon": "goety:overgrowth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "有了灵魂能量的力量，你可以变出强大的藤蔓来阻挡你的目标，或者，如果你处于潜行/移动状态下施法，会变出一株强大的繁茂藤蔓，它可以射出有毒的荆棘。凝视目标时转移施法会导致毒藤被召唤在你身边。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/overgrowth_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在水下施法会召唤出强大的海带。除了材质和无需呼吸，它和普通的藤蔓没有其他区别，尽管它发射的荆棘不受水的影响。穿着$(l:crafts/garment/wild_robe)荒野长袍$()可以允许你在海带或藤蔓中自由行动。"
+    }
+  ]
+}

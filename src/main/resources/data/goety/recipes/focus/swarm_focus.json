@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    "s":
+    {
+      "tag": "minecraft:flowers"
+    }
+  },
+  "result":
+  {
+    "item": "goety:swarm_focus",
+    "count": 1
+  }
+}

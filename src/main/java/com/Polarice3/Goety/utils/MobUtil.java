@@ -35,6 +35,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -126,17 +127,25 @@ public class MobUtil {
 
     public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
         if (entity != null && entity1 != null) {
-            return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity);
+            return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) ||
+                    (entity instanceof Player player && entity1 instanceof LivingEntity living
+                            && (SEHelper.getAllyEntities(player).contains(living) || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
+                    || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
+                    && (SEHelper.getAllyEntities(player1).contains(living1) || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
         } else {
             return false;
         }
     }
 
-    public static boolean areFullAllies(@Nullable Entity entity, @Nullable Entity entity1){
+    public static boolean areNotFullAllies(@Nullable Entity entity, @Nullable Entity entity1){
         if (entity != null && entity1 != null) {
-            return entity.isAlliedTo(entity1) && entity1.isAlliedTo(entity);
+            return !entity.isAlliedTo(entity1) || !entity1.isAlliedTo(entity)
+                    || (entity instanceof Player player && entity1 instanceof LivingEntity living
+                    && (!SEHelper.getAllyEntities(player).contains(living) && !SEHelper.getAllyEntityTypes(player).contains(living.getType())))
+                    || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
+                    && (!SEHelper.getAllyEntities(player1).contains(living1) && !SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -825,7 +834,7 @@ public class MobUtil {
             horse.setOwnerUUID(player.getUUID());
         } else if (entity instanceof IOwned summonedEntity && entity instanceof Mob mob) {
             mob.setPersistenceRequired();
-            summonedEntity.setOwnerId(player.getUUID());
+            summonedEntity.setTrueOwner(player);
             if (summonedEntity instanceof IServant summoned){
                 summoned.setWandering(false);
             }
@@ -1078,6 +1087,18 @@ public class MobUtil {
     public static void setBaseAttributes(AttributeInstance attribute, double value){
         if (attribute != null){
             attribute.setBaseValue(value);
+        }
+    }
+
+    public static double getAttributeValue(LivingEntity livingEntity, Attribute attribute){
+        return getAttributeValue(livingEntity, attribute, 0.0D);
+    }
+
+    public static double getAttributeValue(LivingEntity livingEntity, Attribute attribute, double nullCheck){
+        if (livingEntity.getAttribute(attribute) != null){
+            return livingEntity.getAttributeValue(attribute);
+        } else {
+            return nullCheck;
         }
     }
 }

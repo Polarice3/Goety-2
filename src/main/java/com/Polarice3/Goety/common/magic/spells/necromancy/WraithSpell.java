@@ -90,7 +90,7 @@ public class WraithSpell extends SummonSpells {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 WraithServant summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), worldIn);
-                summonedentity.setOwnerId(entityLiving.getUUID());
+                summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
                 MobUtil.moveDownToGround(summonedentity);
                 summonedentity.setPersistenceRequired();

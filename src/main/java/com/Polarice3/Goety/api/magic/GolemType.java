@@ -1,9 +1,7 @@
 package com.Polarice3.Goety.api.magic;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.magic.construct.GraveGolemMold;
-import com.Polarice3.Goety.common.magic.construct.RedstoneGolemMold;
-import com.Polarice3.Goety.common.magic.construct.SquallGolemMold;
+import com.Polarice3.Goety.common.magic.construct.*;
 import com.google.common.collect.Maps;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,6 +11,8 @@ import java.util.function.Supplier;
 
 public enum GolemType implements net.minecraftforge.common.IExtensibleEnum {
     NONE(null, null),
+    WHISPERER(Blocks.MOSS_BLOCK::defaultBlockState, new WhispererMold()),
+    LEAPLEAF(ModBlocks.OVERGROWN_ROOTS.get()::defaultBlockState, new LeapleafMold()),
     SQUALL_GOLEM(ModBlocks.JADE_BLOCK.get()::defaultBlockState, new SquallGolemMold()),
     REDSTONE_GOLEM(Blocks.REDSTONE_BLOCK::defaultBlockState, new RedstoneGolemMold()),
     GRAVE_GOLEM(ModBlocks.SKULL_PILE.get()::defaultBlockState, new GraveGolemMold());

@@ -1,0 +1,21 @@
+{
+  "name": "リープリーフ",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "根と葉でできた強力な猿のような生き物で、高くジャンプして召喚者の敵に激しくぶつかることができます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:leapleaf"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:leapleaf",
+      "text": "中央の生い茂った根にアニメーション コアを右クリックします。"
+    }
+  ]
+}

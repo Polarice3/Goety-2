@@ -11,7 +11,16 @@ import java.util.List;
 /**
  * Breathing Spells Codes based of codes from @TeamTwilight
  */
-public interface IBreathingSpell extends IEverChargeSpell{
+public interface IBreathingSpell extends IChargingSpell{
+
+    default int Cooldown() {
+        return 0;
+    }
+
+    default boolean everCharge() {
+        return true;
+    }
+
     default List<Entity> getTarget(LivingEntity livingEntity, double range) {
         return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
     }
@@ -19,10 +28,14 @@ public interface IBreathingSpell extends IEverChargeSpell{
     void showWandBreath(LivingEntity entityLiving);
 
     default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, double pVelocity, double pSpread){
-        this.breathAttack(particleOptions, entityLiving, 2, pVelocity, pSpread);
+        this.breathAttack(particleOptions, entityLiving, false, 2, pVelocity, pSpread);
     }
 
-    default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, int pParticleAmount, double pVelocity, double pSpread){
+    default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, boolean spreadOut, double pVelocity, double pSpread){
+        this.breathAttack(particleOptions, entityLiving, spreadOut, 2, pVelocity, pSpread);
+    }
+
+    default void breathAttack(ParticleOptions particleOptions, LivingEntity entityLiving, boolean spreadOut, int pParticleAmount, double pVelocity, double pSpread){
         Vec3 look = entityLiving.getLookAngle();
 
         double dist = 0.9;
@@ -43,7 +56,11 @@ public interface IBreathingSpell extends IEverChargeSpell{
                     entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread,
                     entityLiving.getRandom().nextGaussian() * 0.007499999832361937D * spread);
             Vec3 vec3 = look.add(vecSpread).multiply(velocity, velocity, velocity);
-            entityLiving.level.addAlwaysVisibleParticle(particleOptions, px, py, pz, vec3.x, vec3.y, vec3.z);
+            Vec3 pos = new Vec3(px, py, pz);
+            if (spreadOut){
+                pos = pos.add(entityLiving.getRandom().nextGaussian() / 2, entityLiving.getRandom().nextGaussian() / 2, entityLiving.getRandom().nextGaussian() / 2);
+            }
+            entityLiving.level.addAlwaysVisibleParticle(particleOptions, pos.x, pos.y, pos.z, vec3.x, vec3.y, vec3.z);
         }
     }
 

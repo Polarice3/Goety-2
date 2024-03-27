@@ -29,7 +29,11 @@ public class NoKnockBackDamageSource extends DamageSource {
 
     @Nullable
     public Entity getOwner() {
-        return this.owner;
+        if (this.owner != null) {
+            return this.owner;
+        } else {
+            return this.getDirectAttacker();
+        }
     }
 
     public Component getLocalizedDeathMessage(LivingEntity pLivingEntity) {

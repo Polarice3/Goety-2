@@ -99,7 +99,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
                         }
                     }
                     BlockPos blockPos = BlockFinder.SummonRadius(CairnNecromancer.this, serverLevel);
-                    summonedentity.setOwnerId(CairnNecromancer.this.getUUID());
+                    summonedentity.setTrueOwner(CairnNecromancer.this);
                     summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));

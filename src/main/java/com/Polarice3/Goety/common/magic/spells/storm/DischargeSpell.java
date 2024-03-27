@@ -66,8 +66,8 @@ public class DischargeSpell extends Spells {
         float maxDamage = SpellConfig.DischargeMaxDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         if (WandUtil.enchantedFocus(entityLiving)){
             radius += WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving);
-            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
-            maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 2.0F;
+            maxDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 2.0F;
         }
         for (int i = -radius; i < radius; ++i){
             for (int k = -radius; k < radius; ++k){

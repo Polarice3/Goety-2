@@ -35,6 +35,7 @@ public class ModNetwork {
     public static void init() {
         INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(Goety.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
 
+        INSTANCE.registerMessage(nextID(), EntityUpdatePacket.class, EntityUpdatePacket::encode, EntityUpdatePacket::decode, EntityUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), SEUpdatePacket.class, SEUpdatePacket::encode, SEUpdatePacket::decode, SEUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), LichUpdatePacket.class, LichUpdatePacket::encode, LichUpdatePacket::decode, LichUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), MiscCapUpdatePacket.class, MiscCapUpdatePacket::encode, MiscCapUpdatePacket::decode, MiscCapUpdatePacket::consume);

@@ -12,12 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class EffectsUtil {
-
-    private static final Map<MobEffect, Boolean> canAffectLichCache = new HashMap<>();
 
     public static void amplifyEffect (LivingEntity infected, MobEffect effect, int duration){
         amplifyEffect(infected, effect, duration, 4, false, true);
@@ -138,5 +133,9 @@ public class EffectsUtil {
             }
         }
         return 0;
+    }
+
+    public static int infiniteEffect(){
+        return -1;
     }
 }

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "$#$",
+    "#B#",
+    "$#$"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "minecraft:jungle_log"
+    },
+    "$":
+    {
+      "item": "minecraft:mangrove_roots"
+    },
+    "B":
+    {
+      "item": "minecraft:bone_meal"
+    }
+  },
+  "result":
+  {
+    "item": "goety:overgrown_roots",
+    "count": 4
+  }
+}

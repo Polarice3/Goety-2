@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -175,6 +176,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         if (!listTag.isEmpty()){
             compound.put("SummonList", listTag);
         }
+    }
+
+    protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
     }
 
     public void setSpellCasting(boolean casting){
@@ -362,18 +366,22 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                     this.idleAnimationState.stop();
                 }
                 if (this.isSpellCasting()){
-                    double d0 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[0];
-                    double d1 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[1];
-                    double d2 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[2];
-                    for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                        this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
-                    }
+                    this.spellCastParticles();
                 }
             }
         } else {
             if (!this.isShooting()){
                 this.level.broadcastEntityEvent(this, (byte) 8);
             }
+        }
+    }
+
+    public void spellCastParticles(){
+        double d0 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[0];
+        double d1 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[1];
+        double d2 = MathHelper.rgbParticle(this.getNecromancerSpellType().particleSpeed)[2];
+        for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+            this.level.addParticle(ModParticleTypes.CULT_SPELL.get(), this.getX(), this.getY(), this.getZ(), d0, d1, d2);
         }
     }
 

@@ -23,6 +23,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> APOSTLE_PREDEATH = create("apostle_predeath");
     public static final RegistryObject<SoundEvent> APOSTLE_DEATH = create("apostle_death");
 
+    public static final RegistryObject<SoundEvent> INFERNO_AMBIENT = create("inferno_ambient");
+    public static final RegistryObject<SoundEvent> INFERNO_HURT = create("inferno_hurt");
+    public static final RegistryObject<SoundEvent> INFERNO_PRE_ATTACK = create("inferno_pre_attack");
+    public static final RegistryObject<SoundEvent> INFERNO_LOOP = create("inferno_loop");
+    public static final RegistryObject<SoundEvent> INFERNO_DEATH = create("inferno_death");
+
     public static final RegistryObject<SoundEvent> WARLOCK_AMBIENT = create("warlock_ambient");
     public static final RegistryObject<SoundEvent> WARLOCK_HURT = create("warlock_hurt");
     public static final RegistryObject<SoundEvent> WARLOCK_CELEBRATE = create("warlock_celebrate");
@@ -140,6 +146,35 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
 
+    public static final RegistryObject<SoundEvent> WHISPERER_AMBIENT = create("whisperer_ambient");
+    public static final RegistryObject<SoundEvent> WHISPERER_HURT = create("whisperer_hurt");
+    public static final RegistryObject<SoundEvent> WHISPERER_ATTACK = create("whisperer_attack");
+    public static final RegistryObject<SoundEvent> WHISPERER_SUMMON = create("whisperer_summon");
+    public static final RegistryObject<SoundEvent> WHISPERER_SUMMON_POISON = create("whisperer_summon_poison");
+    public static final RegistryObject<SoundEvent> WHISPERER_CAST_THORNS = create("whisperer_cast_thorns");
+    public static final RegistryObject<SoundEvent> WHISPERER_SUMMON_THORNS = create("whisperer_summon_thorns");
+    public static final RegistryObject<SoundEvent> WHISPERER_STEP = create("whisperer_step");
+    public static final RegistryObject<SoundEvent> WHISPERER_DEATH = create("whisperer_death");
+
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_AMBIENT = create("wavewhisperer_ambient");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_HURT = create("wavewhisperer_hurt");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_ATTACK = create("wavewhisperer_attack");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_SUMMON = create("wavewhisperer_summon");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_SUMMON_POISON = create("wavewhisperer_summon_poison");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_CAST_THORNS = create("wavewhisperer_cast_thorns");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_SUMMON_THORNS = create("wavewhisperer_summon_thorns");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_STEP = create("wavewhisperer_step");
+    public static final RegistryObject<SoundEvent> WAVEWHISPERER_DEATH = create("wavewhisperer_death");
+
+    public static final RegistryObject<SoundEvent> LEAPLEAF_AMBIENT = create("leapleaf_ambient");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_HURT = create("leapleaf_hurt");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_SMASH = create("leapleaf_smash");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_CHARGE = create("leapleaf_charge");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_LEAP = create("leapleaf_leap");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_REST = create("leapleaf_rest");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_STEP = create("leapleaf_step");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_DEATH = create("leapleaf_death");
+
     public static final RegistryObject<SoundEvent> SQUALL_GOLEM_HURT = create("squall_golem_hurt");
     public static final RegistryObject<SoundEvent> SQUALL_GOLEM_ACTIVATE = create("squall_golem_activate");
     public static final RegistryObject<SoundEvent> SQUALL_GOLEM_DEACTIVATE = create("squall_golem_deactivate");
@@ -207,6 +242,43 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BOMB_LOAD = create("bomb_load");
     public static final RegistryObject<SoundEvent> BOMB_SPARKLE = create("bomb_sparkle");
 
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_VINE_BURST = create("quick_growing_vine_burst");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_VINE_BURROW = create("quick_growing_vine_burrow");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_VINE_HURT = create("quick_growing_vine_hurt");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_VINE_DEATH = create("quick_growing_vine_death");
+
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_KELP_BURST = create("quick_growing_kelp_burst");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_KELP_BURROW = create("quick_growing_kelp_burrow");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_KELP_HURT = create("quick_growing_kelp_hurt");
+    public static final RegistryObject<SoundEvent> QUICK_GROWING_KELP_DEATH = create("quick_growing_kelp_death");
+
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_AMBIENT = create("poison_quill_vine_ambient");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_HURT = create("poison_quill_vine_hurt");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_OPEN = create("poison_quill_vine_open");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_CLOSE = create("poison_quill_vine_close");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_SHOOT = create("poison_quill_vine_shoot");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_BURST = create("poison_quill_vine_burst");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_VINE_DEATH = create("poison_quill_vine_death");
+
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_AMBIENT = create("poison_anemone_ambient");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_HURT = create("poison_anemone_hurt");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_OPEN = create("poison_anemone_open");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_CLOSE = create("poison_anemone_close");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_SHOOT = create("poison_anemone_shoot");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_BURST = create("poison_anemone_burst");
+    public static final RegistryObject<SoundEvent> POISON_ANEMONE_DEATH = create("poison_anemone_death");
+
+    public static final RegistryObject<SoundEvent> POISON_QUILL_IMPACT = create("poison_quill_impact");
+
+    public static final RegistryObject<SoundEvent> POISON_QUILL_AQUA_WHOOSH = create("poison_quill_aqua_whoosh");
+    public static final RegistryObject<SoundEvent> POISON_QUILL_AQUA_IMPACT = create("poison_quill_aqua_impact");
+
+    public static final RegistryObject<SoundEvent> INSECT_SWARM = create("insect_swarm");
+    public static final RegistryObject<SoundEvent> INSECT_SWARM_BITE = create("insect_swarm_bite");
+
+    public static final RegistryObject<SoundEvent> VINE_TRAP_BURST = create("vine_trap_burst");
+    public static final RegistryObject<SoundEvent> VINE_TRAP_HOLD = create("vine_trap_hold");
+
     public static final RegistryObject<SoundEvent> SPIDER_BITE = create("spider_bite");
 
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
@@ -225,6 +297,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> END_WALK = create("end_walk");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
+    public static final RegistryObject<SoundEvent> WILD_PREPARE_SPELL = create("wild_prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
@@ -233,6 +306,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> COMMAND = create("command");
     public static final RegistryObject<SoundEvent> SHIELD_UP = create("shield_up");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
+    public static final RegistryObject<SoundEvent> HELL_BOLT_SHOOT = create("hell_bolt_shoot");
+    public static final RegistryObject<SoundEvent> HELL_BOLT_IMPACT = create("hell_bolt_impact");
+    public static final RegistryObject<SoundEvent> HELL_BLAST_SHOOT = create("hell_blast_shoot");
+    public static final RegistryObject<SoundEvent> HELL_BLAST_IMPACT = create("hell_blast_impact");
     public static final RegistryObject<SoundEvent> SOUL_EXPLODE = create("soul_explode");
     public static final RegistryObject<SoundEvent> HEAL_SPELL = create("heal_spell");
     public static final RegistryObject<SoundEvent> WIND = create("wind");

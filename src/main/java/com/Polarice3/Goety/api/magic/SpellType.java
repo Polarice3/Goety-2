@@ -9,11 +9,12 @@ public enum SpellType implements net.minecraftforge.common.IExtensibleEnum {
     NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
     NETHER("nether", null),
     ILL("ill", ModItems.OMINOUS_STAFF.get()),
-    FROST("frost", null),
+    FROST("frost", ModItems.FROST_STAFF.get()),
     GEOMANCY("geomancy", null),
     WIND("wind", ModItems.WIND_STAFF.get()),
     STORM("storm", ModItems.STORM_STAFF.get()),
     ABYSS("abyss", null),
+    WILD("wild", ModItems.WILD_STAFF.get()),
     VOID("void", null);
 
     private final Item staff;

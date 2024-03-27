@@ -100,7 +100,7 @@ public class HauntedSkullSpell extends SummonSpells {
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                 HauntedSkull summonedentity = new HauntedSkull(ModEntityType.HAUNTED_SKULL.get(), worldIn);
-                summonedentity.setOwnerId(entityLiving.getUUID());
+                summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(blockpos, 0.0F, 0.0F);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summonedentity.setBoundOrigin(blockpos);

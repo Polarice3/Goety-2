@@ -17,6 +17,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> UndeadMinionHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantBabyChance;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> NaturalMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
@@ -50,6 +54,11 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> QuickGrowingVineTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PoisonQuillVineTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WhispererTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LeapleafTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
 
@@ -61,6 +70,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
 
@@ -150,6 +160,16 @@ public class MobsConfig {
                 MagmaCubeServantTexture = BUILDER.comment("If Magma Cube Servants have custom textures, Default: true")
                         .define("magmaCubeServantTexture", true);
                 BUILDER.pop();
+                BUILDER.push("Wild Servants");
+                QuickGrowingVineTexture = BUILDER.comment("If Quick Growing Vine servants have custom textures, Default: true")
+                        .define("quickGrowingVineTexture", true);
+                PoisonQuillVineTexture = BUILDER.comment("If Poison-Quill Vine servants have custom textures, Default: true")
+                        .define("poisonQuillVineTexture", true);
+                WhispererTexture = BUILDER.comment("If Whisperer Servants have custom textures, Default: true")
+                        .define("whispererTexture", true);
+                LeapleafTexture = BUILDER.comment("If Leapleaf Servants have custom textures, Default: true")
+                        .define("leapleafTexture", true);
+                BUILDER.pop();
                 BUILDER.push("Redstone Golem");
                 RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: false")
                         .define("redstoneGolemCrack", false);
@@ -181,6 +201,16 @@ public class MobsConfig {
             ZombieServantBabyChance = BUILDER.comment("Chance that a zombie (or subclass) servant is summoned as a baby, Default: 0.05")
                     .defineInRange("zombieServantBabyChance", 0.05, 0.0, 1.0D);
             BUILDER.pop();
+            BUILDER.push("Natural Servants");
+            NaturalMinionHeal = BUILDER.comment("Whether Natural Servants can heal if summoned while wearing Wild Robe, Default: true")
+                    .define("naturalMinionHeal", true);
+            NaturalMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Natural Servant to heal, Default: 5")
+                    .defineInRange("naturalMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            NaturalMinionHealTime = BUILDER.comment("How frequent Natural Servants heal, count seconds, Default: 1")
+                    .defineInRange("naturalMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 0.5")
+                    .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
         RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
                 .define("redstoneGolemMold", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
@@ -202,7 +232,7 @@ public class MobsConfig {
             BUILDER.push("Illager Assaults");
             IllagerAssault = BUILDER.comment("Modded Illagers Spawning based of Player's Soul Energy amount, Default: true")
                     .define("illagerAssault", true);
-            IllagerAssaultSpawnFreq = BUILDER.comment("Spawn Frequency for Illagers Hunting the Player, Default: 12000")
+            IllagerAssaultSpawnFreq = BUILDER.comment("How many ticks it takes for Illager Assaults to spawn, Default: 12000")
                     .defineInRange("illagerAssaultSpawnFreq", 12000, 0, Integer.MAX_VALUE);
             IllagerAssaultSpawnChance = BUILDER.comment("Spawn Chance for Illagers Hunting the Player every Spawn Frequency, the lower the more likelier, Default: 5")
                     .defineInRange("illagerAssaultSpawnChance", 5, 0, Integer.MAX_VALUE);

@@ -1,0 +1,17 @@
+{
+  "name": "Jungle Discovery",
+  "icon": "minecraft:jungle_wood",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard of odd parchments found within the $(l)moss-covered structures$() within the $(l)Jungles$(), parchments that speak of some sort of magical rites."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_floral_scroll",
+      "text": "These parchments are said to be found within $(l)jungle temples$()"
+    }
+  ]
+}

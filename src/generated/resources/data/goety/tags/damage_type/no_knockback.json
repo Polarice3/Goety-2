@@ -1,10 +1,13 @@
 {
   "values": [
     "goety:ice_bouquet",
+    "goety:hellfire",
+    "goety:indirect_hellfire",
     "goety:fire_breath",
     "goety:frost_breath",
     "goety:magic_bolt",
     "goety:soul_leech",
-    "goety:chock"
+    "goety:choke",
+    "goety:swarm"
   ]
 }

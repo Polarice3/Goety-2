@@ -21,6 +21,8 @@ import java.util.function.Supplier;
 
 public class PatchouliIntegration implements ICompatable {
     public void setup(FMLCommonSetupEvent event) {
+        PatchouliAPI.get().registerMultiblock(Goety.location("whisperer"), WHISPERER.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("leapleaf"), LEAPLEAF.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("squall_golem"), SQUALL_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
@@ -34,6 +36,57 @@ public class PatchouliIntegration implements ICompatable {
     public static ItemStack getWitchesBrew(){
         return PatchouliAPI.get().getBookStack(Goety.location("witches_brew"));
     }
+
+    public static final Supplier<IMultiblock> WHISPERER = Suppliers.memoize(() -> {
+        IStateMatcher leaves = PatchouliAPI.get().predicateMatcher(Blocks.JUNGLE_LEAVES,
+                state -> state.is(Blocks.JUNGLE_LEAVES));
+        IStateMatcher moss = PatchouliAPI.get().predicateMatcher(Blocks.MOSS_BLOCK,
+                state -> state.is(Blocks.MOSS_BLOCK));
+        IStateMatcher blossom = PatchouliAPI.get().predicateMatcher(ModBlocks.CORPSE_BLOSSOM.get(),
+                state -> state.is(ModBlocks.CORPSE_BLOSSOM.get()));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "C"
+                        },
+                        {
+                                "0"
+                        },
+                        {
+                                "H",
+                        }
+                },
+                'H', leaves,
+                'C', blossom,
+                '0', moss
+        );
+    });
+
+    public static final Supplier<IMultiblock> LEAPLEAF = Suppliers.memoize(() -> {
+        IStateMatcher roots = PatchouliAPI.get().predicateMatcher(ModBlocks.OVERGROWN_ROOTS.get(),
+                state -> state.is(ModBlocks.OVERGROWN_ROOTS.get()));
+        IStateMatcher leaves = PatchouliAPI.get().predicateMatcher(Blocks.JUNGLE_LEAVES,
+                state -> state.is(Blocks.JUNGLE_LEAVES));
+        IStateMatcher blossom = PatchouliAPI.get().predicateMatcher(ModBlocks.CORPSE_BLOSSOM.get(),
+                state -> state.is(ModBlocks.CORPSE_BLOSSOM.get()));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_C_"
+                        },
+                        {
+                                "L0L"
+                        },
+                        {
+                                "HHH"
+                        }
+                },
+                'H', roots,
+                'L', leaves,
+                'C', blossom,
+                '0', roots
+        );
+    });
 
     public static final Supplier<IMultiblock> SQUALL_GOLEM = Suppliers.memoize(() -> {
         IStateMatcher highrockMold = PatchouliAPI.get().predicateMatcher(ModBlocks.POLISHED_HIGHROCK_BLOCK.get(),

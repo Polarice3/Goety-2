@@ -151,10 +151,6 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HailCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> HailDamage;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> GlacialCost;
-    public static final ForgeConfigSpec.ConfigValue<Integer> GlacialDuration;
-    public static final ForgeConfigSpec.ConfigValue<Integer> GlacialCoolDown;
-
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCoolDown;
@@ -187,6 +183,24 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> WindBlastCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwarmCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SwarmChargeUp;
+    public static final ForgeConfigSpec.ConfigValue<Double> SwarmDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EntanglingCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhisperCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhisperDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhisperCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhisperSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhisperLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ThunderboltDuration;
@@ -232,6 +246,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultLifespan;
+    public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultDistance;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
@@ -266,6 +281,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CorruptionChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CorruptionImmobile;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
@@ -281,6 +297,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EnvironmentalCost;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> TelekinesisBlackList;
 
@@ -290,6 +307,8 @@ public class SpellConfig {
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
                 .define("ownerHitCommand", true);
+        EnvironmentalCost = BUILDER.comment("Spells have their soul cost reduced or increased depending on the surroundings around the caster, Default: true")
+                .define("environmentalCost", true);
         BUILDER.pop();
         BUILDER.push("Spells");
             BUILDER.push("Vexing Spell");
@@ -564,14 +583,6 @@ public class SpellConfig {
             HailDamage = BUILDER.comment("How much base damage Hail deals, Default: 1.0")
                     .defineInRange("hailDamage", 1.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
-            BUILDER.push("Glacial Spell");
-            GlacialCost = BUILDER.comment("Glacial Spell Cost, Default: 8")
-                    .defineInRange("glacialCost", 8, 0, Integer.MAX_VALUE);
-            GlacialDuration = BUILDER.comment("Time to cast Glacial Spell, Default: 0")
-                    .defineInRange("glacialTime", 0, 0, 72000);
-            GlacialCoolDown = BUILDER.comment("Glacial Spell Cooldown, Default: 80")
-                    .defineInRange("glacialCoolDown", 80, 0, Integer.MAX_VALUE);
-            BUILDER.pop();
             BUILDER.push("Barricade Spell");
             BarricadeCost = BUILDER.comment("Barricade Spell Cost, Default: 16")
                     .defineInRange("barricadeCost", 16, 0, Integer.MAX_VALUE);
@@ -638,6 +649,42 @@ public class SpellConfig {
             WindBlastCoolDown = BUILDER.comment("Wind Blast Spell Cooldown, Default: 60")
                     .defineInRange("windBlastCoolDown", 60, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Swarm Spell");
+            SwarmCost = BUILDER.comment("Swarm Spell Cost per second, Default: 2")
+                    .defineInRange("swarmCost", 2, 0, Integer.MAX_VALUE);
+            SwarmChargeUp = BUILDER.comment("How many ticks the Swarm Spell much charge before casting, Default: 0")
+                    .defineInRange("swarmChargeUp", 0, 0, Integer.MAX_VALUE);
+            SwarmDamage = BUILDER.comment("How much base damage Swarm deals, Default: 2.0")
+                    .defineInRange("swarmDamage", 2.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Overgrowth Spell");
+            OvergrowthCost = BUILDER.comment("Overgrowth Spell Cost, Default: 8")
+                    .defineInRange("overgrowthCost", 8, 0, Integer.MAX_VALUE);
+            OvergrowthDuration = BUILDER.comment("Time to cast Overgrowth Spell, Default: 0")
+                    .defineInRange("overgrowthTime", 0, 0, 72000);
+            OvergrowthCoolDown = BUILDER.comment("Overgrowth Spell Cooldown, Default: 120")
+                    .defineInRange("overgrowthCoolDown", 120, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Entangling Spell");
+            EntanglingCost = BUILDER.comment("Entangling Spell Cost, Default: 8")
+                    .defineInRange("entanglingCost", 8, 0, Integer.MAX_VALUE);
+            EntanglingDuration = BUILDER.comment("Time to cast Entangling Spell, Default: 80")
+                    .defineInRange("entanglingTime", 80, 0, 72000);
+            EntanglingCoolDown = BUILDER.comment("Entangling Spell Cooldown, Default: 200")
+                    .defineInRange("entanglingCoolDown", 200, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Whispering Spell");
+            WhisperCost = BUILDER.comment("Whispering Spell Cost, Default: 16")
+                    .defineInRange("whisperCost", 16, 0, Integer.MAX_VALUE);
+            WhisperDuration = BUILDER.comment("Time to cast Whispering Spell, Default: 100")
+                    .defineInRange("whisperTime", 100, 0, 72000);
+            WhisperCoolDown = BUILDER.comment("Whispering Spell Cooldown, Default: 2400")
+                    .defineInRange("whisperCoolDown", 2400, 0, Integer.MAX_VALUE);
+            WhisperSummonDown = BUILDER.comment("Whispering Spell Summon Down, Default: 300")
+                    .defineInRange("whisperSummonDown", 300, 300, 72000);
+            WhisperLimit = BUILDER.comment("Number of Whisperers that can exist around the player, Default: 4")
+                    .defineInRange("whisperLimit", 4, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Thunderbolt Spell");
             ThunderboltCost = BUILDER.comment("Thunderbolt Spell Cost, Default: 8")
                     .defineInRange("thunderboltCost", 8, 0, Integer.MAX_VALUE);
@@ -661,8 +708,8 @@ public class SpellConfig {
                     .defineInRange("dischargeCost", 40, 0, Integer.MAX_VALUE);
             DischargeDuration = BUILDER.comment("Time to cast Discharge Spell, Default: 0")
                     .defineInRange("dischargeTime", 0, 0, 72000);
-            DischargeCoolDown = BUILDER.comment("Discharge Spell Cooldown, Default: 80")
-                    .defineInRange("dischargeCoolDown", 80, 0, Integer.MAX_VALUE);
+            DischargeCoolDown = BUILDER.comment("Discharge Spell Cooldown, Default: 100")
+                    .defineInRange("dischargeCoolDown", 100, 0, Integer.MAX_VALUE);
             DischargeDamage = BUILDER.comment("How much base minimum damage Discharge Spell deals, Default: 6.0")
                     .defineInRange("dischargeMinDamage", 6.0, 1.0, Double.MAX_VALUE);
             DischargeMaxDamage = BUILDER.comment("How much base maximum damage Discharge Spell deals, Default: 12.0")
@@ -727,6 +774,8 @@ public class SpellConfig {
                     .defineInRange("tunnelCoolDown", 100, 0, Integer.MAX_VALUE);
             TunnelDefaultLifespan = BUILDER.comment("The initial duration for the Tunnel lifespan in ticks, Default: 100")
                     .defineInRange("tunnelDefaultLifespan", 100, 0, Integer.MAX_VALUE);
+            TunnelDefaultDistance = BUILDER.comment("The initial distance of the Tunnel, Default: 8")
+                    .defineInRange("tunnelDefaultDistance", 8, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Shockwave Spell");
             ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")
@@ -800,6 +849,8 @@ public class SpellConfig {
                     .defineInRange("corruptionChargeUp", 0, 0, Integer.MAX_VALUE);
             CorruptedBeamDamage = BUILDER.comment("How much base damage Corrupted Beam Spell deals per tick, Default: 10.0")
                     .defineInRange("corruptedBeamDamage", 10.0, 0.0, Double.MAX_VALUE);
+            CorruptionImmobile = BUILDER.comment("Whether casting Corruption spell immobilizes the caster, Default: true")
+                        .define("corruptionImmobile", true);
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");

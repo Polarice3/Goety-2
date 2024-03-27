@@ -1,0 +1,15 @@
+{
+  "name": "Frost Staff",
+  "icon": "goety:frost_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Through the freezing cold of the Frost Staff, the power of Frost Spells is heightened."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:frost_staff"
+    }
+  ]
+}

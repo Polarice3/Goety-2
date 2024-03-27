@@ -1,0 +1,39 @@
+{
+  "parent": "goety:goety/read_floral_scroll",
+  "criteria": {
+    "leapleaf": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:leapleaf"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.goety.summon_leapleaf.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:jungle_leaves"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.goety.summon_leapleaf.title"
+    }
+  },
+  "requirements": [
+    [
+      "leapleaf"
+    ]
+  ]
+}

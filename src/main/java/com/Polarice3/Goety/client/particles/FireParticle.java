@@ -160,4 +160,19 @@ public class FireParticle extends TextureSheetParticle {
          return flameparticle;
       }
    }
+
+   public static class FlyProvider implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet sprite;
+
+      public FlyProvider(SpriteSet p_106827_) {
+         this.sprite = p_106827_;
+      }
+
+      public Particle createParticle(SimpleParticleType p_106838_, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
+         FireParticle flameparticle = new FireParticle(p_106839_, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, this.sprite);
+         flameparticle.lifetime = 8;
+         flameparticle.ember = true;
+         return flameparticle;
+      }
+   }
 }

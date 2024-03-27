@@ -27,16 +27,6 @@
       "type": "forge:nbt",
       "item": "minecraft:potion",
       "nbt": "{\"Potion\": \"minecraft:healing\"}"
-    },
-    {
-      "type": "forge:nbt",
-      "item": "minecraft:potion",
-      "nbt": "{\"Potion\": \"minecraft:healing\"}"
-    },
-    {
-      "type": "forge:nbt",
-      "item": "minecraft:potion",
-      "nbt": "{\"Potion\": \"minecraft:healing\"}"
     }
   ],
   "result": {

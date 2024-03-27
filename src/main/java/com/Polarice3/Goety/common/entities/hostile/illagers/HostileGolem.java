@@ -32,7 +32,7 @@ public abstract class HostileGolem extends Raider {
     }
 
     protected void doPush(Entity p_28839_) {
-        if (p_28839_ instanceof LivingEntity livingEntity && !(livingEntity instanceof Enemy) && this.canAttack(livingEntity) && !MobUtil.areFullAllies(this, livingEntity) && this.getRandom().nextInt(20) == 0) {
+        if (p_28839_ instanceof LivingEntity livingEntity && !(livingEntity instanceof Enemy) && this.canAttack(livingEntity) && MobUtil.areNotFullAllies(this, livingEntity) && this.getRandom().nextInt(20) == 0) {
             this.setTarget(livingEntity);
         }
 

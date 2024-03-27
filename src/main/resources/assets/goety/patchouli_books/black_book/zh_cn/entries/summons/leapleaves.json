@@ -1,0 +1,20 @@
+{
+  "name": "腾越之叶",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一种强大的类人猿生物，由树根和树叶制成，可以跳得很高，猛烈地砸向召唤者的敌人."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:leapleaf"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:leapleaf",
+      "text": "使用活力核心右键中心的增生之根。"
+    }
+  ]
+}

@@ -51,6 +51,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.FROST_ROBE_CRYO.get(), "body")
             .put(ModItems.WIND_ROBE.get(), "body")
             .put(ModItems.STORM_ROBE.get(), "body")
+            .put(ModItems.WILD_ROBE.get(), "body")
             .put(ModItems.ILLUSION_ROBE.get(), "body")
             .put(ModItems.ILLUSION_ROBE_MIRROR.get(), "body")
             .put(ModItems.WITCH_ROBE.get(), "body")

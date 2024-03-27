@@ -9,16 +9,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -30,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -38,7 +38,6 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class DrownedServant extends ZombieServant implements RangedAttackMob {
@@ -211,67 +210,6 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
 
         public void stop() {
             super.stop();
-        }
-    }
-
-    static class GoToWaterGoal extends Goal {
-        private final DrownedServant mob;
-        private double wantedX;
-        private double wantedY;
-        private double wantedZ;
-        private final double speedModifier;
-        private final Level level;
-
-        public GoToWaterGoal(DrownedServant p_i48910_1_, double p_i48910_2_) {
-            this.mob = p_i48910_1_;
-            this.speedModifier = p_i48910_2_;
-            this.level = p_i48910_1_.level;
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            if (this.mob.getTrueOwner() != null){
-                if (!this.mob.getTrueOwner().isInWater()){
-                    return false;
-                }
-            } else if (!this.level.isDay()) {
-                return false;
-            }
-            if (this.mob.isInWater()) {
-                return false;
-            }
-            Vec3 vector3d = this.getWaterPos();
-            if (vector3d == null) {
-                return false;
-            } else {
-                this.wantedX = vector3d.x;
-                this.wantedY = vector3d.y;
-                this.wantedZ = vector3d.z;
-                return true;
-            }
-        }
-
-        public boolean canContinueToUse() {
-            return !this.mob.getNavigation().isDone();
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
-        }
-
-        @Nullable
-        private Vec3 getWaterPos() {
-            RandomSource random = this.mob.getRandom();
-            BlockPos blockpos = this.mob.blockPosition();
-
-            for(int i = 0; i < 10; ++i) {
-                BlockPos blockpos1 = blockpos.offset(random.nextInt(20) - 10, 2 - random.nextInt(8), random.nextInt(20) - 10);
-                if (this.level.getBlockState(blockpos1).is(Blocks.WATER)) {
-                    return Vec3.atBottomCenterOf(blockpos1);
-                }
-            }
-
-            return null;
         }
     }
 
@@ -536,20 +474,4 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
             return this.summonedEntity.getRandom().nextInt(max - min + 1) + min;
         }
     }
-
-    public class WaterWanderGoal extends RandomStrollGoal {
-
-        public WaterWanderGoal(PathfinderMob p_i47301_1_) {
-            super(p_i47301_1_, 1.0D);
-        }
-
-        public boolean canUse() {
-            if (super.canUse()){
-                return !DrownedServant.this.isStaying() || DrownedServant.this.getTrueOwner() == null;
-            } else {
-                return false;
-            }
-        }
-    }
-
 }

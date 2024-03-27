@@ -1,0 +1,39 @@
+{
+  "parent": "goety:goety/read_floral_scroll",
+  "criteria": {
+    "whisperer": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:whisperer"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.goety.summon_whisperer.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:vine"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.goety.summon_whisperer.title"
+    }
+  },
+  "requirements": [
+    [
+      "whisperer"
+    ]
+  ]
+}

@@ -38,6 +38,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:ripper"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wolves and dogs tamed and bred by Illagers for the purpose of chasing down queries or mauling their enemies in advance of their troops. They can come in different sizes with different stats, and rarely have reinforcements appear nearby."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:crusher"
     },
     {

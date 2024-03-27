@@ -34,6 +34,8 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> SWORD = create("sword");
     public static ResourceKey<DamageType> WIND_BLAST = create("wind_blast");
     public static ResourceKey<DamageType> ICE_BOUQUET = create("ice_bouquet");
+    public static ResourceKey<DamageType> HELLFIRE = create("hellfire");
+    public static ResourceKey<DamageType> INDIRECT_HELLFIRE = create("indirect_hellfire");
     public static ResourceKey<DamageType> FIRE_BREATH = create("fire_breath");
     public static ResourceKey<DamageType> FROST_BREATH = create("frost_breath");
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
@@ -42,6 +44,7 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> BOILING = create("boiling");
     public static ResourceKey<DamageType> PHOBIA = create("phobia");
     public static ResourceKey<DamageType> CHOKE = create("choke");
+    public static ResourceKey<DamageType> SWARM = create("swarm");
     public static ResourceKey<DamageType> DOOM = create("doom");
 
     public ModDamageSource(Holder<DamageType> p_270906_, @Nullable Entity p_270796_, @Nullable Entity p_270459_, @Nullable Vec3 p_270623_) {
@@ -120,6 +123,10 @@ public class ModDamageSource extends DamageSource {
         return noKnockbackDamageSource(pSource.level, ICE_BOUQUET, pSource, pIndirectEntity);
     }
 
+    public static DamageSource hellfire(Entity pSource, @Nullable Entity pIndirectEntity){
+        return noKnockbackDamageSource(pSource.level, HELLFIRE, pSource, pIndirectEntity);
+    }
+
     public static DamageSource fireBreath(Entity pSource, @Nullable Entity pIndirectEntity){
         return noKnockbackDamageSource(pSource.level, FIRE_BREATH, pSource, pIndirectEntity);
     }
@@ -138,6 +145,11 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource windBlast(Entity pSource, @Nullable Entity pIndirectEntity){
         return indirectEntityDamageSource(pSource.level, WIND_BLAST, pSource, pIndirectEntity);
+    }
+
+    public static boolean hellfireAttacks(DamageSource source){
+        return source != null && (source.getMsgId().equals(source("indirectHellfire"))
+                || source.is(ModDamageSource.HELLFIRE));
     }
 
     public static boolean shockAttacks(DamageSource source){
@@ -177,7 +189,11 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource choke(Entity pSource, @Nullable Entity pIndirectEntity) {
-        return indirectEntityDamageSource(pSource.level, CHOKE, pSource, pIndirectEntity);
+        return noKnockbackDamageSource(pSource.level, CHOKE, pSource, pIndirectEntity);
+    }
+
+    public static DamageSource swarm(Entity pSource, @Nullable Entity pIndirectEntity) {
+        return noKnockbackDamageSource(pSource.level, SWARM, pSource, pIndirectEntity);
     }
 
     public static String source(String source){
@@ -220,6 +236,8 @@ public class ModDamageSource extends DamageSource {
         context.register(SWORD, new DamageType("goety.sword", 0.0F));
         context.register(WIND_BLAST, new DamageType("goety.windBlast", 0.0F));
         context.register(ICE_BOUQUET, new DamageType("goety.iceBouquet", 0.0F, DamageEffects.FREEZING));
+        context.register(HELLFIRE, new DamageType("goety.hellfire", 0.0F, DamageEffects.BURNING));
+        context.register(INDIRECT_HELLFIRE, new DamageType("goety.indirectHellfire", 0.0F, DamageEffects.BURNING));
         context.register(FIRE_BREATH, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
         context.register(FROST_BREATH, new DamageType("goety.frostBreath", 0.0F, DamageEffects.FREEZING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
@@ -228,6 +246,7 @@ public class ModDamageSource extends DamageSource {
         context.register(BOILING, new DamageType("goety.boiling", 0.0F, DamageEffects.BURNING));
         context.register(PHOBIA, new DamageType("goety.phobia", 0.0F));
         context.register(CHOKE, new DamageType("goety.choke", 0.0F));
+        context.register(SWARM, new DamageType("goety.swarm", 0.0F));
         context.register(DOOM, new DamageType("goety.doom", 0.0F));
     }
 

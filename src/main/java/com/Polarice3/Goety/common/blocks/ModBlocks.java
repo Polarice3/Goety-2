@@ -77,6 +77,17 @@ public class ModBlocks {
             -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().pushReaction(PushReaction.DESTROY).strength(2.0F).randomTicks().sound(SoundType.GRASS)
                     .noOcclusion().isValidSpawn(ModBlocks::ocelotOrParrot).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never)),
             true, LootTableType.EMPTY);
+    public static final RegistryObject<Block> OVERGROWN_ROOTS = register("overgrown_roots", ()
+                    -> new MangroveRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F).sound(SoundType.MANGROVE_ROOTS).ignitedByLava()),
+            true);
+    public static final RegistryObject<Block> CORPSE_BLOSSOM = register("corpse_blossom", ()
+                    -> new CorpseBlossomBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .instabreak()
+                    .noCollission()
+                    .sound(SoundType.SPORE_BLOSSOM)
+                    .pushReaction(PushReaction.DESTROY)),
+            true);
     public static final RegistryObject<Block> HOLE = register("hole", HoleBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
     public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);

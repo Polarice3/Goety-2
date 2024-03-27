@@ -1,0 +1,19 @@
+{
+  "name": "缠绕聚晶",
+  "icon": "goety:entangling_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个咒语会在目标身上召唤缠绕树根。如果树根抓住了它的目标，目标将无法移动，直到树根消失。当你使用$(l:crafts/wild_staff)荒野魔杖$()施法时, 树根会缠住附近8个的非友好生物。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/entangling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "身着$(l:crafts/garment/wild_robe)荒野长袍$(),可以让缠绕树根持续伤害它们的目标。"
+    }
+  ]
+}

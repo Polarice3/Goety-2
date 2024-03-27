@@ -211,7 +211,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
                 if (this.tickCount % 20 == 0 && this.random.nextFloat() <= 0.25F && this.isHalfHealth()) {
                     BlockPos blockpos = this.blockPosition().offset(-2 + this.getRandom().nextInt(5), 1, -2 + this.getRandom().nextInt(5));
                     HauntedSkull summonedentity = new HauntedSkull(ModEntityType.HAUNTED_SKULL.get(), this.level);
-                    summonedentity.setOwnerId(this.getUUID());
+                    summonedentity.setTrueOwner(this);
                     summonedentity.moveTo(blockpos, 0.0F, 0.0F);
                     summonedentity.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                     summonedentity.setBoundOrigin(blockpos);

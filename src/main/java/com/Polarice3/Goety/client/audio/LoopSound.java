@@ -33,6 +33,10 @@ public class LoopSound extends AbstractTickableSoundInstance {
                 this.y = living.getY();
                 this.z = living.getZ();
             }
+        } else if (this.entity instanceof LivingEntity living){
+            this.x = living.getX();
+            this.y = living.getY();
+            this.z = living.getZ();
         }
     }
 }

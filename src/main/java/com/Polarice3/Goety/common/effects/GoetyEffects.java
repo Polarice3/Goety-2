@@ -89,11 +89,21 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> DOOM = EFFECTS.register("doom",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1b0440));
 
+    public static final RegistryObject<MobEffect> ACID_VENOM = EFFECTS.register("acid_venom",
+            VenomEffect::new);
+
     public static final RegistryObject<MobEffect> STUNNED = EFFECTS.register("stunned",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffbc2e)
                     .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "e4669259-9b6f-40d2-b253-46e65b1f3363",
                             -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL)
                     .addAttributeModifier(Attributes.MOVEMENT_SPEED, "963d8748-941f-4f75-b4a6-a9c85013f27f",
+                            -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
+    public static final RegistryObject<MobEffect> TANGLED = EFFECTS.register("tangled",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffffff)
+                    .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "862219f1-18f4-483a-94db-0d4c6c4fdef2",
+                            -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, "8246d3de-e765-487d-adda-18a1deb3e4a9",
                             -1.0D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     //Brew Exclusive
