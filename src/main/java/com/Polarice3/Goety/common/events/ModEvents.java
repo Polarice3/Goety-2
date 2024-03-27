@@ -15,16 +15,14 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.AllyIrk;
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
-import com.Polarice3.Goety.common.entities.ally.Ravaged;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
@@ -52,6 +50,8 @@ import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.world.structures.ModStructureTags;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.compat.iron.IronAttributes;
+import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -444,6 +444,64 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void SpecialSpawnEvents(LivingSpawnEvent.SpecialSpawn event){
+        Mob mob = event.getEntity();
+        if (IronLoaded.IRON_SPELLBOOKS.isLoaded()) {
+            if (!IronAttributes.resistances(mob).isEmpty()) {
+                for (AttributeInstance attributeInstance : IronAttributes.resistances(mob)) {
+                    if (attributeInstance != null){
+                        if (mob instanceof Inquillager) {
+                            attributeInstance.setBaseValue(1.75D);
+                        } else {
+                            if (attributeInstance.getAttribute() == IronAttributes.EVOCATION_MAGIC_RESIST) {
+                                if (mob instanceof Envioker || mob instanceof Minister || mob instanceof Vizier) {
+                                    attributeInstance.setBaseValue(1.25D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.NATURE_MAGIC_RESIST) {
+                                if (mob instanceof Conquillager) {
+                                    attributeInstance.setBaseValue(1.25D);
+                                }
+                                if (mob instanceof Apostle) {
+                                    attributeInstance.setBaseValue(1.5D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.HOLY_MAGIC_RESIST) {
+                                if (mob instanceof Conquillager || mob instanceof Preacher || mob instanceof Minister || mob instanceof Vizier) {
+                                    attributeInstance.setBaseValue(1.25D);
+                                }
+                                if (mob instanceof Apostle) {
+                                    attributeInstance.setBaseValue(0.25D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.ICE_MAGIC_RESIST) {
+                                if (mob instanceof Cryologer) {
+                                    attributeInstance.setBaseValue(1.85D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.LIGHTNING_MAGIC_RESIST) {
+                                if (mob instanceof StormCaster) {
+                                    attributeInstance.setBaseValue(1.85D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.FIRE_MAGIC_RESIST) {
+                                if (mob instanceof Apostle) {
+                                    attributeInstance.setBaseValue(2.0D);
+                                }
+                            }
+                            if (attributeInstance.getAttribute() == IronAttributes.BLOOD_MAGIC_RESIST) {
+                                if (mob instanceof Apostle) {
+                                    attributeInstance.setBaseValue(1.75D);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void CheckSpawnEvents(LivingSpawnEvent.CheckSpawn event){
         if (event.getEntity() instanceof SpellcasterIllager || event.getEntity() instanceof Witch || event.getEntity() instanceof Cultist){
             if (event.getSpawnReason() == MobSpawnType.STRUCTURE){
@@ -478,6 +536,7 @@ public class ModEvents {
         int bound = 0;
         int wraith = 0;
         int skull = 0;
+        int whisperer = 0;
         if (world instanceof ServerLevel serverLevel){
             if (player.tickCount % 20 == 0) {
                 if (player instanceof ServerPlayer serverPlayer){
@@ -532,6 +591,12 @@ public class ModEvents {
                             if (summonedEntity instanceof HauntedSkull){
                                 ++skull;
                                 if (skull > SpellConfig.SkullLimit.get()){
+                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
+                                }
+                            }
+                            if (summonedEntity instanceof Whisperer){
+                                ++whisperer;
+                                if (whisperer > SpellConfig.WhisperLimit.get()){
                                     livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
                                 }
                             }
@@ -1118,6 +1183,17 @@ public class ModEvents {
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), ModSounds.ZAP.get(), 2.0F, 1.0F));
             }
         }
+        if (ModDamageSource.hellfireAttacks(event.getSource())){
+            if (victim.level instanceof ServerLevel serverLevel){
+                for (int i = 0; i < 5; ++i) {
+                    double d0 = serverLevel.random.nextGaussian() * 0.02D;
+                    double d1 = serverLevel.random.nextGaussian() * 0.02D;
+                    double d2 = serverLevel.random.nextGaussian() * 0.02D;
+                    serverLevel.sendParticles(ModParticleTypes.BIG_FIRE.get(), victim.getRandomX(0.5D), victim.getRandomY(), victim.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
+                }
+                ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), SoundEvents.PLAYER_HURT_ON_FIRE, 2.0F, 1.0F));
+            }
+        }
         if (event.getAmount() > 0.0F) {
             if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
                 if (ModDamageSource.physicalAttacks(event.getSource())) {
@@ -1232,7 +1308,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onLivingHeal(LivingHealEvent event){
-        if (event.getEntity().hasEffect(GoetyEffects.CURSED.get()) && event.getAmount() > 0.0F){
+        if ((event.getEntity().hasEffect(GoetyEffects.CURSED.get()) || ModDamageSource.hellfireAttacks(event.getEntity().getLastDamageSource())) && event.getAmount() > 0.0F){
             event.setCanceled(true);
         }
     }
@@ -1456,7 +1532,7 @@ public class ModEvents {
         if (!event.getEntity().level.isClientSide) {
             if (event.getItem().getItem() instanceof DarkWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())) {
                 Entity entity = MobUtil.getSingleTarget(event.getEntity().level, event.getEntity(), 16, 3);
-                if (entity instanceof LivingEntity living && !MobUtil.areFullAllies(entity, event.getEntity())) {
+                if (entity instanceof LivingEntity living && MobUtil.areNotFullAllies(entity, event.getEntity())) {
                     event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
                 }
             }

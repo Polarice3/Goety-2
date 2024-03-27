@@ -27,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -87,40 +88,52 @@ public class CallFocus extends MagicFocus{
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public static boolean call(ServerPlayer player, ItemStack stack){
+    public static void call(ServerPlayer player, ItemStack stack){
         if (hasSummon(stack) && stack.getTag() != null) {
             CompoundTag compoundTag = stack.getTag();
             LivingEntity livingEntity = getSummon(compoundTag);
-            if (livingEntity != null){
-                if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle){
-                    livingEntity = vehicle;
-                }
-                if (!livingEntity.isDeadOrDying()) {
-                    BlockPos blockPos = BlockFinder.SummonRadius(player, player.level);
-                    if (player.isShiftKeyDown() || player.isCrouching()){
-                        blockPos = player.blockPosition();
+            if (player.level instanceof ServerLevel serverLevel) {
+                if (livingEntity != null) {
+                    List<LivingEntity> list = new ArrayList<>();
+                    list.add(livingEntity);
+                    if (player.isShiftKeyDown() || player.isCrouching()) {
+                        for (Entity entity : serverLevel.getAllEntities()) {
+                            if (entity instanceof LivingEntity livingEntity1 && entity.getType() == livingEntity.getType()) {
+                                list.add(livingEntity1);
+                            }
+                        }
                     }
-                    if (livingEntity.level.dimension() == player.level.dimension()) {
-                        livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                        MobUtil.moveDownToGround(livingEntity);
-                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                        ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                        return true;
-                    } else if (player.getServer() != null) {
-                        ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
-                        if (serverWorld != null) {
-                            Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                            livingEntity.changeDimension(serverWorld, new ArcaTeleporter(vec3));
-                            livingEntity.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                            MobUtil.moveDownToGround(livingEntity);
-                            ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
-                            return true;
+                    for (LivingEntity livingEntity1 : list) {
+                        if (livingEntity1.isPassenger() && livingEntity1.getVehicle() instanceof LivingEntity vehicle) {
+                            livingEntity1 = vehicle;
+                        }
+                        if (!livingEntity1.isDeadOrDying()) {
+                            BlockPos blockPos = BlockFinder.SummonRadius(player, serverLevel);
+                            if (player.isShiftKeyDown() || player.isCrouching()) {
+                                if (list.size() == 1) {
+                                    blockPos = player.blockPosition();
+                                }
+                            }
+                            if (livingEntity1.level.dimension() == player.level.dimension()) {
+                                livingEntity1.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                                MobUtil.moveDownToGround(livingEntity1);
+                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                            } else if (player.getServer() != null) {
+                                ServerLevel serverWorld = player.getServer().getLevel(player.level.dimension());
+                                if (serverWorld != null) {
+                                    Vec3 vec3 = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                                    livingEntity1.changeDimension(serverWorld, new ArcaTeleporter(vec3));
+                                    livingEntity1.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                                    MobUtil.moveDownToGround(livingEntity1);
+                                    ModNetwork.sendToALL(new SPlayWorldSoundPacket(player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        return false;
     }
 
     public static boolean hasSummon(ItemStack stack) {

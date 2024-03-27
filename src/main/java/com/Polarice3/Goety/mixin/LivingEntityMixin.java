@@ -36,6 +36,13 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "jumpFromGround", at = @At("HEAD"), cancellable = true)
+    public void jumpFromGround(CallbackInfo callbackInfo) {
+        if (this.hasEffect(GoetyEffects.STUNNED.get()) || this.hasEffect(GoetyEffects.TANGLED.get())) {
+            callbackInfo.cancel();
+        }
+    }
+
     @Inject(method = "updateInvisibilityStatus", at = @At(value = "TAIL"))
     public void updateInvisibilityStatus(CallbackInfo callbackInfo) {
         if (this.hasEffect(GoetyEffects.SHADOW_WALK.get())) {

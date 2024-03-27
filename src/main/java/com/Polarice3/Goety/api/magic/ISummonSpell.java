@@ -56,7 +56,7 @@ public interface ISummonSpell extends ISpell{
         HitResult rayTraceResult = this.rayTrace(serverLevel, source, 16, 3);
         if (rayTraceResult instanceof EntityHitResult){
             Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            if (target instanceof LivingEntity living && !MobUtil.areFullAllies(source, living)) {
+            if (target instanceof LivingEntity living && MobUtil.areNotFullAllies(source, living)) {
                 summoned.setTarget(living);
             }
         }

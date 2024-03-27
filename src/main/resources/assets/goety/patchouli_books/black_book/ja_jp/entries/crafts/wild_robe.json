@@ -1,0 +1,19 @@
+{
+  "name": "野生のローブ",
+  "icon": "goety:wild_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ワイルド ローブを使用すると、自然の力をより効率的かつ効果的に活用できます。 たとえば、毒を吐き出す従者は、代わりにアンデッドにも影響を与える酸毒を与えます。 その結果、ローブは毒や毒に対する免疫も提供します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "野生の魔法から生まれたクリーチャーは、召喚者がこのローブを着ていれば、召喚者のソウルエネルギーを使ってゆっくりと自分自身を癒すことができます。"
+    }
+  ]
+}

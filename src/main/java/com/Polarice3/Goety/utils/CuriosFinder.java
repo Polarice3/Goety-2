@@ -21,10 +21,12 @@ public class CuriosFinder {
 
     public static ItemStack findCurio(LivingEntity livingEntity, Predicate<ItemStack> filter){
         ItemStack foundStack = ItemStack.EMPTY;
-        if (CuriosLoaded.CURIOS.isLoaded()) {
-            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, filter);
-            if (optional.isPresent()) {
-                foundStack = optional.get().stack();
+        if (livingEntity != null) {
+            if (CuriosLoaded.CURIOS.isLoaded()) {
+                Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, filter);
+                if (optional.isPresent()) {
+                    foundStack = optional.get().stack();
+                }
             }
         }
 
@@ -41,10 +43,12 @@ public class CuriosFinder {
 
     public static ItemStack findCurio(LivingEntity livingEntity, Item item){
         ItemStack foundStack = ItemStack.EMPTY;
-        if (CuriosLoaded.CURIOS.isLoaded()) {
-            Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, item);
-            if (optional.isPresent()) {
-                foundStack = optional.get().stack();
+        if (livingEntity != null) {
+            if (CuriosLoaded.CURIOS.isLoaded()) {
+                Optional<SlotResult> optional = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, item);
+                if (optional.isPresent()) {
+                    foundStack = optional.get().stack();
+                }
             }
         }
 
@@ -53,6 +57,10 @@ public class CuriosFinder {
 
     public static boolean hasDarkRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof MagicRobeItem));
+    }
+
+    public static boolean hasWildRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof WildRobeItem));
     }
 
     public static boolean hasIllusionRobe(LivingEntity livingEntity){

@@ -41,6 +41,14 @@ public class LichdomHelper {
         getCapability(player).setLichMode(lichMode);
     }
 
+    public static int smited(Player player){
+        return getCapability(player).smited();
+    }
+
+    public static void setSmited(Player player, int smited){
+        getCapability(player).setSmited(smited);
+    }
+
     public static boolean isLich(Player player) {
         return getCapability(player).getLichdom();
     }
@@ -52,12 +60,14 @@ public class LichdomHelper {
     public static CompoundTag save(CompoundTag tag, ILichdom lichdom) {
         tag.putBoolean("lichdom", lichdom.getLichdom());
         tag.putBoolean("lichMode", lichdom.isLichMode());
+        tag.putInt("smited", lichdom.smited());
         return tag;
     }
 
     public static ILichdom load(CompoundTag tag, ILichdom lichdom) {
         lichdom.setLichdom(tag.getBoolean("lichdom"));
         lichdom.setLichMode(tag.getBoolean("lichMode"));
+        lichdom.setSmited(tag.getInt("smited"));
         return lichdom;
     }
 }

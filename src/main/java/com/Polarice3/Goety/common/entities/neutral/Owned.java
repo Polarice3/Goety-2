@@ -42,6 +42,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.scores.Team;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -50,6 +51,7 @@ import java.util.UUID;
 
 public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICustomAttributes {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.OPTIONAL_UUID);
+    protected static final EntityDataAccessor<Integer> OWNER_CLIENT_ID = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> HOSTILE = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(Owned.class, EntityDataSerializers.BOOLEAN);
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
@@ -124,7 +126,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 if (mobOwner.getTarget() != null && this.getTarget() == null){
                     this.setTarget(mobOwner.getTarget());
                 }
-                if (mobOwner instanceof IBoss) {
+                if (mobOwner instanceof IBoss || mobOwner.getType().is(Tags.EntityTypes.BOSSES)) {
                     if (mobOwner.isRemoved() ||mobOwner.isDeadOrDying()){
                         this.kill();
                     }
@@ -151,6 +153,13 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 this.setTarget(null);
             }
         }
+        this.mobSense();
+        if (this.limitedLifespan && --this.limitedLifeTicks <= 0) {
+            this.lifeSpanDamage();
+        }
+    }
+
+    public void mobSense(){
         if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
@@ -159,9 +168,6 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                     }
                 }
             }
-        }
-        if (this.limitedLifespan && --this.limitedLifeTicks <= 0) {
-            this.lifeSpanDamage();
         }
     }
 
@@ -213,7 +219,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
-    private void maybeDisableShield(Player player, ItemStack axe, ItemStack shield) {
+    public void maybeDisableShield(Player player, ItemStack axe, ItemStack shield) {
         if (!axe.isEmpty() && !shield.isEmpty() && axe.getItem() instanceof AxeItem && shield.is(Items.SHIELD)) {
             float f = 0.25F + (float)EnchantmentHelper.getBlockEfficiency(this) * 0.05F;
             if (this.random.nextFloat() < f) {
@@ -253,6 +259,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
+        this.entityData.define(OWNER_CLIENT_ID, -1);
         this.entityData.define(HOSTILE, false);
         this.entityData.define(NATURAL, false);
     }
@@ -272,6 +279,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 this.setOwnerId(uuid);
             } catch (Throwable ignored) {
             }
+        }
+
+        if (compound.contains("OwnerClient")){
+            this.setOwnerClientId(compound.getInt("OwnerClient"));
         }
 
         if (compound.contains("isHostile")){
@@ -294,6 +305,9 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         super.addAdditionalSaveData(compound);
         if (this.getOwnerId() != null) {
             compound.putUUID("Owner", this.getOwnerId());
+        }
+        if (this.getOwnerClientId() > -1) {
+            compound.putInt("OwnerClient", this.getOwnerClientId());
         }
         if (this.isHostile()){
             compound.putBoolean("isHostile", this.isHostile());
@@ -332,11 +346,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     }
 
     public LivingEntity getTrueOwner() {
-        try {
+        if (!this.level.isClientSide){
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
+        } else {
+            return this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
         }
     }
 
@@ -367,8 +381,17 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
     }
 
+    public int getOwnerClientId(){
+        return this.entityData.get(OWNER_CLIENT_ID);
+    }
+
+    public void setOwnerClientId(int id){
+        this.entityData.set(OWNER_CLIENT_ID, id);
+    }
+
     public void setTrueOwner(LivingEntity livingEntity){
         this.setOwnerId(livingEntity.getUUID());
+        this.setOwnerClientId(livingEntity.getId());
     }
 
     public void setHostile(boolean hostile){

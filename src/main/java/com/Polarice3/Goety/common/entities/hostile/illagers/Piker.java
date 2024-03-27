@@ -86,7 +86,7 @@ public class Piker extends HuntingIllagerEntity{
 
         boolean flag = this.random.nextFloat() <= raid.getEnchantOdds();
         if (flag) {
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, -1, i));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, i));
         }
     }
 

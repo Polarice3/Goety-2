@@ -69,7 +69,7 @@ public class CorruptedBeam extends Entity implements IEntityAdditionalSpawnData 
             this.updatePositionAndRotation();
         }
 
-        if (owner != null && owner.isAlive()){
+        if (owner != null && owner.isAlive() && SpellConfig.CorruptionImmobile.get()){
             owner.setDeltaMovement(0, owner.getDeltaMovement().y, 0);
             owner.xxa = 0.0F;
             owner.zza = 0.0F;

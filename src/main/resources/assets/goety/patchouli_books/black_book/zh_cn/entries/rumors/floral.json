@@ -1,0 +1,17 @@
+{
+  "name": "丛林探索",
+  "icon": "minecraft:jungle_wood",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你听说在$(l)苔藓覆盖的建筑中$()存在着羊皮纸，他们都在$(l)丛林$()之中, 那是讲述某种神奇仪式的羊皮纸。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_floral_scroll",
+      "text": "据说这些羊皮纸是在$(l)丛林神庙$()中发现的"
+    }
+  ]
+}

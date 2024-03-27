@@ -9,6 +9,7 @@ import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -76,7 +78,7 @@ public class LichEvents {
                 }
             }
             if (MainConfig.LichSoulHeal.get()) {
-                if (!player.isOnFire()) {
+                if (!player.isOnFire() && LichdomHelper.smited(player) <= 0) {
                     if (player.getHealth() < player.getMaxHealth()) {
                         if (player.tickCount % MathHelper.secondsToTicks(MainConfig.LichHealSeconds.get()) == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
                             player.heal(MainConfig.LichHealAmount.get().floatValue());
@@ -114,6 +116,9 @@ public class LichEvents {
                 if (MainConfig.LichNightVision.get()) {
                     player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
                 }
+            }
+            if (LichdomHelper.smited(player) > 0){
+                LichdomHelper.setSmited(player, LichdomHelper.smited(player) - 1);
             }
         } else {
             LichdomHelper.setLichMode(player, false);
@@ -167,6 +172,14 @@ public class LichEvents {
                 if (event.getSource().getEntity() instanceof LivingEntity attacker){
                     if (attacker.getMainHandItem().isEnchanted()){
                         ItemStack weapon = attacker.getMainHandItem();
+                        if (MainConfig.LichSmite.get()) {
+                            int smite = EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, attacker);
+                            if (smite > 0) {
+                                int smite2 = Mth.clamp(smite, 1, 5);
+                                int duration = MathHelper.secondsToTicks(smite2);
+                                LichdomHelper.setSmited(player, duration);
+                            }
+                        }
                         event.setAmount((float) (EnchantmentHelper.getDamageBonus(weapon, MobType.UNDEAD) + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE)));
                     }
                 }

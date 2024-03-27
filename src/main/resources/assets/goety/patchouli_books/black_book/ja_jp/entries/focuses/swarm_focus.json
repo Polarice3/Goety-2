@@ -1,0 +1,15 @@
+{
+  "name": "群れのフォーカス",
+  "icon": "goety:swarm_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたはターゲットに昆虫の噴出を召喚して呼び出し、ダメージを与えます。死亡すると、忠実な昆虫の群れが死体から立ち上がり、独立して他のターゲットを攻撃します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/swarm_focus"
+    }
+  ]
+}

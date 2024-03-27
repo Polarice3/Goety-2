@@ -170,12 +170,14 @@ public class Pyroclast extends ThrowableProjectile {
                 return false;
             } else if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
                 return false;
-            } else if (this.getOwner() instanceof IOwned owned){
+            } else if (this.getOwner() instanceof IOwned ownedOwner){
                 if (pEntity instanceof IOwned owned1){
-                    if (owned.getTrueOwner() == owned1.getTrueOwner()){
+                    if (ownedOwner.getTrueOwner() == owned1.getTrueOwner()){
+                        return false;
+                    } else if (ownedOwner.getTrueOwner() == owned1){
                         return false;
                     }
-                } else if (owned.getTrueOwner() == pEntity){
+                } else if (ownedOwner.getTrueOwner() == pEntity){
                     return false;
                 }
             }

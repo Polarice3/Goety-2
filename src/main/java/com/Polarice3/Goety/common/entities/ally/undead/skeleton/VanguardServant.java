@@ -45,6 +45,7 @@ public class VanguardServant extends AbstractSkeletonServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(VanguardServant.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> HAS_SHIELD = SynchedEntityData.defineId(VanguardServant.class, EntityDataSerializers.BOOLEAN);
     public int attackTick;
+    public int shieldHealth = 1;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -91,11 +92,15 @@ public class VanguardServant extends AbstractSkeletonServant {
         if (pCompound.contains("hasShield")){
             this.setShield(pCompound.getBoolean("hasShield"));
         }
+        if (pCompound.contains("ShieldHeath")){
+            this.setShieldHealth(pCompound.getInt("ShieldHeath"));
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("hasShield", this.hasShield());
+        pCompound.putInt("ShieldHeath", this.getShieldHealth());
     }
 
     private boolean getVanguardFlag(int mask) {
@@ -122,12 +127,26 @@ public class VanguardServant extends AbstractSkeletonServant {
         this.entityData.set(HAS_SHIELD, shield);
     }
 
+    public int getShieldHealth(){
+        return this.shieldHealth;
+    }
+
+    public void setShieldHealth(int shieldHealth){
+        this.shieldHealth = shieldHealth;
+    }
+
     public void destroyShield(){
         if (this.hasShield()) {
-            this.setShield(false);
-            this.playSound(SoundEvents.SHIELD_BREAK);
-            if (this.level instanceof ServerLevel serverLevel){
-                ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPRUCE_PLANKS)), this);
+            if (this.getShieldHealth() > 1){
+                this.setShieldHealth(this.getShieldHealth() - 1);
+                this.playSound(SoundEvents.SHIELD_BLOCK);
+            } else {
+                this.setShieldHealth(0);
+                this.setShield(false);
+                this.playSound(SoundEvents.SHIELD_BREAK);
+                if (this.level instanceof ServerLevel serverLevel){
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPRUCE_PLANKS)), this);
+                }
             }
         }
     }
@@ -322,6 +341,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                         itemstack.shrink(1);
                     }
                     this.setShield(true);
+                    this.setShieldHealth(1);
                     this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                     return InteractionResult.CONSUME;
                 }

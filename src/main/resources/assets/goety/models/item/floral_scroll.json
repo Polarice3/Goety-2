@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/mossy_research_scroll",
+    "layer1": "goety:research/floral_research"
+  }
+}

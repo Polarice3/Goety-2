@@ -70,7 +70,9 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichEnable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichSoulHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichSmite;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichDamageHelmet;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
@@ -180,8 +182,12 @@ public class MainConfig {
                 .defineInRange("otherSouls", 5, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Lich");
+        LichEnable = BUILDER.comment("Whether players can obtain Lichdom without commands, Default: true")
+                .define("lichEnable", true);
         LichSoulHeal = BUILDER.comment("Enable Liches healing using Soul Energy, Default: true")
                 .define("lichSoulHeal", true);
+        LichSmite = BUILDER.comment("Enable Liches healing be stunted when hurt by Smite Enchantment, Default: true")
+                .define("lichSmite", true);
         LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per configured second if they've become a Lich, Default: 5")
                 .defineInRange("lichHealCost", 5, 0, Integer.MAX_VALUE);
         LichHealSeconds = BUILDER.comment("How many seconds until Lich Players heals using Soul Energy, Default: 1")

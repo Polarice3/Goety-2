@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
@@ -36,6 +37,9 @@ public class ConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> WINDSWEPT_TREE_2 =
             FeatureUtils.register("second_windswept_tree", Feature.TREE, createWindswept2().build());
+
+    public static final Holder<ConfiguredFeature<SimpleBlockConfiguration, ?>> CORPSE_BLOSSOM =
+            FeatureUtils.register("corpse_blossom", Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CORPSE_BLOSSOM.get())));
 
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {
         return (new TreeConfiguration

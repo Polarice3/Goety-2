@@ -1,0 +1,19 @@
+{
+  "name": "絡み合うフォーカス",
+  "icon": "goety:entangling_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文はターゲットに絡み合った根を召喚します。 根が時間内にターゲットを捕まえることができた場合、根が地面に戻るまで動くことができなくなります。 $(l:crafts/wild_staff)野生の杖$() でキャストすると、近くにある 8 体の非同盟クリーチャーの下にルートが召喚されます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/entangling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/garment/wild_robe)野生のローブ$()を着用すると、根が閉じ込められたターゲットに継続的にダメージを与えます。"
+    }
+  ]
+}

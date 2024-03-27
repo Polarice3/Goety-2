@@ -4,6 +4,7 @@ public class LichImp implements ILichdom{
 
     private boolean lichdom;
     private boolean lichMode;
+    private int smited;
 
     @Override
     public boolean getLichdom() {
@@ -23,6 +24,16 @@ public class LichImp implements ILichdom{
     @Override
     public void setLichMode(boolean lichMode){
         this.lichMode = lichMode;
+    }
+
+    @Override
+    public int smited() {
+        return this.smited;
+    }
+
+    @Override
+    public void setSmited(int smited) {
+        this.smited = smited;
     }
 
 }

@@ -1,0 +1,17 @@
+{
+  "name": "ジャングル・ディスカバリー",
+  "icon": "minecraft:jungle_wood",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l)ジャングル$()内の$(l)苔に覆われた建造物$()で見つかった奇妙な羊皮紙、ある種の魔法の儀式について書かれた羊皮紙について聞いたことがあるでしょう。"
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_floral_scroll",
+      "text": "これらの羊皮紙は $(l)ジャングルの寺院$() で見つかると言われています"
+    }
+  ]
+}

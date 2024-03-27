@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 
 public class ModDamageSource extends DamageSource {
     public static DamageSource SHOCK = new DamageSource(source("shock"));
+    public static DamageSource HELLFIRE = new DamageSource(source("hellfire")).bypassArmor();
     public static DamageSource BOILING = new DamageSource(source("boiling")).setIsFire();
     public static DamageSource PHOBIA = new DamageSource(source("phobia")).bypassArmor().setMagic();
     public static DamageSource DOOM = new DamageSource(source("doom")).bypassArmor().bypassEnchantments().setMagic();
@@ -56,6 +57,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor().setMagic();
     }
 
+    public static DamageSource hellfire(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("indirectHellfire"), pSource, pIndirectEntity).bypassArmor();
+    }
+
     public static DamageSource fireBreath(Entity pSource, @Nullable Entity pIndirectEntity){
         return new NoKnockBackDamageSource(source("fireBreath"), pSource, pIndirectEntity).setIsFire();
     }
@@ -78,6 +83,15 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource choke(Entity pSource, @Nullable Entity pIndirectEntity){
         return new NoKnockBackDamageSource(source("choke"), pSource, pIndirectEntity).bypassArmor();
+    }
+
+    public static DamageSource swarm(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("swarm"), pSource, pIndirectEntity);
+    }
+
+    public static boolean hellfireAttacks(DamageSource source){
+        return source != null && (source.getMsgId().equals(source("indirectHellfire"))
+                || source == ModDamageSource.HELLFIRE);
     }
 
     public static boolean shockAttacks(DamageSource source){

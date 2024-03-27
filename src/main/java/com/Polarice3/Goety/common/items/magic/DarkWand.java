@@ -9,6 +9,7 @@ import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.magic.*;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
+import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.events.GoetyEventFactory;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
@@ -184,6 +185,11 @@ public class DarkWand extends Item {
                                     summonedEntity.updateMoveMode(player);
                                     return true;
                                 }
+                            }
+                        } else if (owned instanceof AbstractVine vine){
+                            if (player.isShiftKeyDown() || player.isCrouching()) {
+                                vine.kill();
+                                return true;
                             }
                         }
                     }
@@ -535,7 +541,7 @@ public class DarkWand extends Item {
                         }
                     } else if (SEHelper.getSoulsAmount(playerEntity, SoulUse(caster, stack))) {
                         boolean spent = true;
-                        if (this.getSpell(stack) instanceof IEverChargeSpell) {
+                        if (this.getSpell(stack) instanceof IChargingSpell spell1 && spell1.everCharge()) {
                             if (stack.getTag() != null) {
                                 stack.getTag().putInt(SECONDS, stack.getTag().getInt(SECONDS) + 1);
                                 if (stack.getTag().getInt(SECONDS) != 20) {

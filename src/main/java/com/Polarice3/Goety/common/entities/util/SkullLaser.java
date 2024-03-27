@@ -157,7 +157,7 @@ public class SkullLaser extends Mob {
                         }
                         this.moveControl.setWantedPosition(this.getTarget().getX(), this.getY(), this.getTarget().getZ(), 1.0F);
                         for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.5F))) {
-                            if (livingEntity != this.getSkullLord() && !MobUtil.areFullAllies(this.getSkullLord(), livingEntity) && livingEntity != this) {
+                            if (livingEntity != this.getSkullLord() && MobUtil.areNotFullAllies(this.getSkullLord(), livingEntity) && livingEntity != this) {
                                 this.getTarget().hurt(DamageSource.indirectMagic(this, this.getSkullLord()), (float) this.getSkullLord().getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
                                 this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
                             }

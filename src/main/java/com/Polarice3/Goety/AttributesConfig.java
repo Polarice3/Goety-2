@@ -83,6 +83,13 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> LeapleafHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> LeapleafDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> QuickGrowingVineHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SquallGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SquallGolemDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemHealth;
@@ -310,6 +317,28 @@ public class AttributesConfig {
                         .defineInRange("miniGhastHealth", 5.0, 1.0, Double.MAX_VALUE);
                 MiniGhastDamage = BUILDER.comment("How much damage Mini-Ghasts' fireballs deals, Default: 5.0")
                         .defineInRange("miniGhastDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Whisperer");
+                WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")
+                        .defineInRange("whispererHealth", 20.0, 1.0, Double.MAX_VALUE);
+                WhispererDamage = BUILDER.comment("How much damage Whisperer melee attack deals, Default: 2.5")
+                        .defineInRange("whispererDamage", 2.5, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Leapleaf");
+                LeapleafHealth = BUILDER.comment("How much Max Health Leapleaves have, Default: 70.0")
+                        .defineInRange("leapleafHealth", 70.0, 1.0, Double.MAX_VALUE);
+                LeapleafDamage = BUILDER.comment("How much damage Leapleaves deals, Default: 10.0")
+                        .defineInRange("leapleafDamage", 10.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Quick Growing Vine");
+                QuickGrowingVineHealth = BUILDER.comment("How much Max Health Quick Growing Vines have, Default: 10.0")
+                        .defineInRange("quickGrowingVineHealth", 10.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Poison-Quill Vine");
+                PoisonQuillVineHealth = BUILDER.comment("How much Max Health Poison-Quill Vines have, Default: 40.0")
+                        .defineInRange("poisonQuillVineHealth", 40.0, 1.0, Double.MAX_VALUE);
+                PoisonQuillVineDamage = BUILDER.comment("How much damage Poison-Quill Vines' quills deals, Default: 2.5")
+                        .defineInRange("poisonQuillVineDamage", 2.5, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Squall Golem");
                 SquallGolemHealth = BUILDER.comment("How much Max Health Redstone Golems have, Default: 88.0")

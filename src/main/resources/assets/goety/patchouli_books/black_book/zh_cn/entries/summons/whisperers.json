@@ -1,0 +1,24 @@
+{
+  "name": "唤藤者",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "不要它的名字跟唤魔者弄混，唤藤者是一种声音洪亮而奇怪的生物，它们可以召唤出快速生长的藤蔓来阻挡目标的去路，它们还能召唤出两个繁茂藤蔓，并且在目标下方召唤缠绕藤蔓。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:whisperer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "我们可以使用$(l:focuses/whispering_focus)唤藤聚晶$()来召唤它们,也可以通过右键单击中心丛林叶，并使用活力核心来调用它们，这样召唤出来的生物不会有寿命限制。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:whisperer",
+      "text": "使用活力核心右键点击中心的丛林树叶."
+    }
+  ]
+}

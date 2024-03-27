@@ -21,7 +21,9 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
+import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -104,6 +106,12 @@ public class ClientEvents {
             }
             if (entity instanceof ApostleShade){
                 soundHandler.play(new LoopSound(ModSounds.APOSTLE_SHADE.get(), entity));
+            }
+            if (entity instanceof Inferno){
+                soundHandler.play(new LoopSound(ModSounds.INFERNO_LOOP.get(), entity));
+            }
+            if (entity instanceof InsectSwarm){
+                soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
             }
         }
     }
@@ -469,6 +477,15 @@ public class ClientEvents {
                 }
             }
         }
+        /*Player player = event.getEntity();
+        if (player.isUsingItem() && !player.isPassenger()){
+            ItemStack itemStack = player.getUseItem();
+            if (itemStack.getItem() instanceof DarkWand){
+                Input input = event.getInput();
+                input.leftImpulse *= 5.0F;
+                input.forwardImpulse *= 5.0F;
+            }
+        }*/
     }
     /**
      * To Here

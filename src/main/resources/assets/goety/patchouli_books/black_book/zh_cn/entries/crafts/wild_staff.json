@@ -1,0 +1,15 @@
+{
+  "name": "荒野魔杖",
+  "icon": "goety:wild_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "大自然可能很难驯服，但通过一些黑魔法和木头，你就可以制作一根利用自然法则的魔杖，它可以增强荒野咒语的力量."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_staff"
+    }
+  ]
+}

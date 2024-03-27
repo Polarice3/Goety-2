@@ -92,6 +92,10 @@ public class ZombieSpell extends SummonSpells {
         }
     }
 
+    public boolean specialStaffs(ItemStack stack){
+        return stack.is(ModItems.FROST_STAFF.get()) || stack.is(ModItems.WILD_STAFF.get());
+    }
+
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
@@ -100,14 +104,22 @@ public class ZombieSpell extends SummonSpells {
                 i = 7;
             } else if (rightStaff(staff)){
                 i = 2 + entityLiving.level.random.nextInt(4);
+            } else if (specialStaffs(staff)){
+                i = 2;
             }
             for (int i1 = 0; i1 < i; ++i1) {
-                Summoned summonedentity;
+                Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
                 if (entityLiving.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }
-                if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
+                if (specialStaffs(staff)) {
+                    if (staff.is(ModItems.FROST_STAFF.get())) {
+                        summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
+                    } else if (staff.is(ModItems.WILD_STAFF.get())) {
+                        summonedentity = new JungleZombieServant(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), worldIn);
+                    }
+                } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
                     summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_DESERT) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new HuskServant(ModEntityType.HUSK_SERVANT.get(), worldIn);
@@ -123,10 +135,8 @@ public class ZombieSpell extends SummonSpells {
                     summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){
                     summonedentity = new JungleZombieServant(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), worldIn);
-                } else {
-                    summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
                 }
-                summonedentity.setOwnerId(entityLiving.getUUID());
+                summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                 if (summonedentity.getType() != ModEntityType.DROWNED_SERVANT.get()){
                     MobUtil.moveDownToGround(summonedentity);

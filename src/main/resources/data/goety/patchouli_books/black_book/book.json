@@ -7,5 +7,6 @@
   "show_toasts": true,
   "creative_tab": "goetyTab",
   "text_overflow_mode": "overflow",
+  "use_resource_pack": true,
   "i18n": true
 }

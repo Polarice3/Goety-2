@@ -13,6 +13,7 @@ public class ResearchList {
     public static Research HAUNTING = new Research("haunting");
     public static Research FRONT = new Research("front");
     public static Research MISTRAL = new Research("mistral");
+    public static Research FLORAL = new Research("floral");
 
     public static Map<String, Research> getResearchList(){
         Map<String, Research> researches = Maps.newHashMap();
@@ -23,6 +24,7 @@ public class ResearchList {
         researches.put(HAUNTING.getId(), HAUNTING);
         researches.put(FRONT.getId(), FRONT);
         researches.put(MISTRAL.getId(), MISTRAL);
+        researches.put(FLORAL.getId(), FLORAL);
         return researches;
     }
 

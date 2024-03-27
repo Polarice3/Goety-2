@@ -1,3 +1,6 @@
 {
-  "parent": "goety:block/crystal_ball"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/crystal_ball"
+  }
 }

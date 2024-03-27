@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "facing=down": { "model": "goety:block/corpse_blossom_bottom" },
+    "facing=up": { "model": "goety:block/corpse_blossom_top" }
+  }
+}

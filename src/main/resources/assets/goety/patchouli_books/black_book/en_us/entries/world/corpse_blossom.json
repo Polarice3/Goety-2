@@ -1,0 +1,16 @@
+{
+  "name": "Corpse Blossoms",
+  "icon": "goety:corpse_blossom",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A stinky plant has been spotted, or more likely scented, in the canopies of Jungles. They not only smell, and look pretty, but are said to also contain the energies of the Jungle."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/corpse_blossom.png"],
+      "border": true
+    }
+  ]
+}

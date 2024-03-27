@@ -1,14 +1,15 @@
 package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.SoulShockwaveParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.network.server.SSoulExplodePacket;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -70,7 +71,8 @@ public class ShockwaveSpell extends Spells {
                 }
             }
         }
-        worldIn.sendParticles(new SoulShockwaveParticleOption(0), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
+        ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+        worldIn.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), radius * 2, radius), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
         ModNetwork.sendToALL(new SSoulExplodePacket(entityLiving.blockPosition(), radius));
         ModNetwork.sendToALL(new SPlayWorldSoundPacket(entityLiving.blockPosition(), ModSounds.SOUL_EXPLODE.get(), 4.0F, 1.0F));

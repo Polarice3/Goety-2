@@ -2,8 +2,8 @@ package com.Polarice3.Goety.common.entities.hostile.servants;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
-import com.Polarice3.Goety.common.entities.projectiles.ExplosiveProjectile;
-import com.Polarice3.Goety.common.entities.projectiles.GrandLavaball;
+import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,13 +24,12 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -251,26 +250,29 @@ public class Malghast extends OwnedFlying {
                     double d3 = livingentity.getY(0.5D) - this.ghast.getY(0.5D);
                     double d4 = livingentity.getZ() - (this.ghast.getZ() + vector3d.z * d1);
                     if (!this.ghast.isSilent()) {
-                        this.ghast.playSound(SoundEvents.GHAST_SHOOT, 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
+                        if (this.shotTimes){
+                            this.ghast.playSound(ModSounds.HELL_BLAST_SHOOT.get(), 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
+                        } else {
+                            this.ghast.playSound(SoundEvents.GHAST_SHOOT, 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
+                        }
                     }
 
                     int power = (int) (this.ghast.getExplosionPower() + this.ghast.level.getCurrentDifficultyAt(this.ghast.blockPosition()).getSpecialMultiplier());
 
-                    Fireball fireballentity;
+                    AbstractHurtingProjectile fireballentity;
+                    int charge = -40;
 
                     if (this.shotTimes) {
-                        fireballentity = new GrandLavaball(world, this.ghast, d2, d3, d4);
+                        fireballentity = new HellBlast(this.ghast, d2, d3, d4, world);
+                        charge = -20;
                     } else {
                         fireballentity = new LargeFireball(world, this.ghast, d2, d3, d4, power);
-                    }
-                    if (fireballentity instanceof ExplosiveProjectile projectile){
-                        projectile.setDangerous(ForgeEventFactory.getMobGriefingEvent(world, this.ghast));
                     }
                     double y = this.ghast.getY() <= livingentity.getEyeY() ? this.ghast.getY(0.5D) : this.ghast.getY();
                     fireballentity.setPos(this.ghast.getX() + vector3d.x * d1, y, fireballentity.getZ() + vector3d.z * d1);
                     world.addFreshEntity(fireballentity);
                     this.ghast.knockback(1.0F, livingentity.getX() - this.ghast.getX(), livingentity.getZ() - this.ghast.getZ());
-                    this.chargeTime = -40;
+                    this.chargeTime = charge;
                 }
             } else if (this.chargeTime > 0) {
                 --this.chargeTime;

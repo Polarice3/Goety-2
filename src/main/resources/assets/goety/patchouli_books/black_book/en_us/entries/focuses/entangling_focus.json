@@ -1,0 +1,19 @@
+{
+  "name": "Entangling Focus",
+  "icon": "goety:entangling_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This spell will summon entangling roots upon a target. If the roots managed to catch a target in time, they will be unable to move until the roots retreat back into the ground. When cast with $(l:crafts/wild_staff)Wild Staff$(), the roots will be summoned underneath 8 nearby non-allied creatures."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/entangling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wearing a $(l:crafts/garment/wild_robe)Wild Robe$(), will cause the roots to continuously damage the entrapped target."
+    }
+  ]
+}

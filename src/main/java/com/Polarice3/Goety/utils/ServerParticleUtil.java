@@ -155,6 +155,15 @@ public class ServerParticleUtil {
         }
     }
 
+    public static void addParticlesAroundMiddleSelf(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity){
+        for(int i = 0; i < 5; ++i) {
+            double d0 = serverLevel.random.nextGaussian() * 0.02D;
+            double d1 = serverLevel.random.nextGaussian() * 0.02D;
+            double d2 = serverLevel.random.nextGaussian() * 0.02D;
+            serverLevel.sendParticles(particleOptions, entity.getRandomX(1.0D), entity.getRandomY(), entity.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+        }
+    }
+
     public static void addGroundAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
         serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25) * radius, entity.getY(), entity.getZ() + Math.sin(entity.tickCount * 0.25) * radius, 0, 0, 0, 0, 0.5F);
         serverLevel.sendParticles(particleOptions, entity.getX() + Math.cos(entity.tickCount * 0.25 + Math.PI) * radius, entity.getY(), entity.getZ() + Math.sin(entity.tickCount * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
@@ -175,13 +184,17 @@ public class ServerParticleUtil {
     }
 
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){
+        circularParticles(serverLevel, particleOptions, x, y, z, 0, 0, 0, radius);
+    }
+
+    public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
         float f5 = (float) Math.PI * radius * radius;
         for (int k1 = 0; (float) k1 < f5; ++k1) {
             float f6 = serverLevel.random.nextFloat() * ((float) Math.PI * 2F);
             float f7 = Mth.sqrt(serverLevel.random.nextFloat()) * radius;
             float f8 = Mth.cos(f6) * f7;
             float f9 = Mth.sin(f6) * f7;
-            serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, 0, 0, 0, 0);
+            serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 0, xSpeed, ySpeed, zSpeed, 0.5F);
         }
     }
 

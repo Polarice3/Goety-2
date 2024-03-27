@@ -1,0 +1,19 @@
+{
+  "name": "Wild Robes",
+  "icon": "goety:wild_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Wild Robes allows you to harness the power of nature far more efficiently and effectively. Servants that spews poison, for instance, will instead give Acid Venom, which affects even the Undead. Consequently, the Robes also provides immunity to poison and said venom!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Creatures born from Wild magic can slowly heal themselves using their summoner's soul energy, should the summoner don this robe."
+    }
+  ]
+}

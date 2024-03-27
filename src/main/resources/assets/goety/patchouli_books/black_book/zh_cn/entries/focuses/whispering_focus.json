@@ -1,0 +1,15 @@
+{
+  "name": "唤藤聚晶",
+  "icon": "goety:whispering_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你研究了丛林一段时间后，你想出了一种方法，把唤藤者制作成为你忠诚的仆人。如果你在水下施法会产生水生的唤藤者。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/whispering_focus"
+    }
+  ]
+}

@@ -134,4 +134,8 @@ public class EffectsUtil {
         }
         return 0;
     }
+
+    public static int infiniteEffect(){
+        return Integer.MAX_VALUE;
+    }
 }

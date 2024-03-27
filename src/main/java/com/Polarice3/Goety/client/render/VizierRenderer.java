@@ -20,7 +20,7 @@ public class VizierRenderer extends MobRenderer<Vizier, VizierModel> {
     protected static final ResourceLocation CHRISTMAS = Goety.location("textures/entity/illagers/vizier_christmas.png");
 
     public VizierRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new VizierModel(renderManagerIn.bakeLayer(ModModelLayer.VIZIER)), 1.0F);
+        super(renderManagerIn, new VizierModel(renderManagerIn.bakeLayer(ModModelLayer.VIZIER)), 0.5F);
         this.addLayer(new VizierAuraLayer(this, renderManagerIn.getModelSet()));
         this.addLayer(new VizierCapeLayer(this));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {

@@ -232,9 +232,9 @@ public class SoulEnergyEvents {
             if (killer instanceof Player player){
                 if (!(player instanceof FakePlayer)){
                     if (projectile instanceof Fangs fangEntity && ((Fangs) projectile).isTotemSpawned()){
-                        SEHelper.rawHandleKill(player, victim, fangEntity.getSoulEater());
+                        SEHelper.rawHandleKill(player, victim, fangEntity.getSoulEater(), event.getSource());
                     } else {
-                        SEHelper.handleKill(player, victim);
+                        SEHelper.handleKill(player, victim, event.getSource());
                     }
                 }
             }
@@ -246,7 +246,7 @@ public class SoulEnergyEvents {
                         if (ownedOwner.getTrueOwner() instanceof Player player){
                             if (CuriosFinder.hasDarkRobe(player) || CuriosFinder.hasUndeadSet(player) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(player, ModArmorMaterials.DARK)) {
                                 if (!(player instanceof FakePlayer)) {
-                                    SEHelper.handleKill(player, victim);
+                                    SEHelper.handleKill(player, victim, event.getSource());
                                 }
                             }
                         }
@@ -255,7 +255,7 @@ public class SoulEnergyEvents {
                         if (CuriosFinder.hasDarkRobe(owner) || CuriosFinder.hasUndeadSet(owner) || ItemHelper.armorSet(owner, ModArmorMaterials.BLACK_IRON) || ItemHelper.armorSet(owner, ModArmorMaterials.DARK)) {
                             Player playerEntity = (Player) owner;
                             if (!(playerEntity instanceof FakePlayer)) {
-                                SEHelper.handleKill(playerEntity, victim);
+                                SEHelper.handleKill(playerEntity, victim, event.getSource());
                             }
                         }
                     }

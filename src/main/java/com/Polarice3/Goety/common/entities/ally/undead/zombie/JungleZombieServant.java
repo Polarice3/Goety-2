@@ -2,12 +2,15 @@ package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -75,7 +78,11 @@ public class JungleZombieServant extends ZombieServant{
     public boolean doHurtTarget(Entity pEntity) {
         boolean flag = super.doHurtTarget(pEntity);
         if (flag && pEntity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, MathHelper.secondsToTicks(5)));
+            MobEffect mobEffect = MobEffects.POISON;
+            if (CuriosFinder.hasWildRobe(this.getTrueOwner())){
+                mobEffect = GoetyEffects.ACID_VENOM.get();
+            }
+            livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5)), this);
         }
 
         return flag;

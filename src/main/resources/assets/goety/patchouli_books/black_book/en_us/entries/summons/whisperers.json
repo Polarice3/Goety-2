@@ -1,0 +1,29 @@
+{
+  "name": "Whisperers",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Despite their names, Whisperers are loud and odd creatures that can conjure forth quick growing vines to block their target's path, summon two Poison-Quill Vines and entangling roots upon their target's legs."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:whisperer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call these creatures through the use of a $(l:focuses/whispering_focus)Whispering Focus$(), or by right-clicking on the center Jungle Leaves of this configuration with an Animation Core for one without limited lifespan."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:whisperer",
+      "text": "Right click the Moss Block with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The creature can be healed by right-clicking on them with Bone Meals."
+    }
+  ]
+}

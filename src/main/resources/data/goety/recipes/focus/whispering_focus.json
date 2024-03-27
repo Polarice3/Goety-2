@@ -1,0 +1,40 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:overgrowth_focus"
+  },
+  "craftType": "animation",
+  "soulCost": 1,
+  "duration": 10,
+  "research": "floral",
+  "ingredients": [
+    {
+      "item": "goety:corpse_blossom"
+    },
+    {
+      "item": "goety:entangling_focus"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "item": "goety:whispering_focus"
+  }
+}

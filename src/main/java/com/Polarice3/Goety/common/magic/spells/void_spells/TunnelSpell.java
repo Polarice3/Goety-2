@@ -67,7 +67,7 @@ public class TunnelSpell extends BlockSpells {
         BlockHitResult blockHitResult = MobUtil.rayTrace(caster, 8, false);
         Direction direction = blockHitResult.getDirection();
         BlockPos blockPos = new BlockPos(blockHitResult.getBlockPos());
-        int totalDistance = 16;
+        int totalDistance = SpellConfig.TunnelDefaultDistance.get();
         int extraLife = 0;
         if (WandUtil.enchantedFocus(caster)) {
             totalDistance += WandUtil.getLevels(ModEnchantments.RANGE.get(), caster);

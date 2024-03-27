@@ -1,0 +1,9 @@
+{
+  "entity_type": "goety:ripper",
+  "registry": {
+    "threshold_times": 2,
+    "max": 7,
+    "extra": 5,
+    "chance": 1.0
+  }
+}

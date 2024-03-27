@@ -85,6 +85,10 @@ public class SkeletonSpell extends SummonSpells {
         }
     }
 
+    public boolean specialStaffs(ItemStack stack){
+        return stack.is(ModItems.FROST_STAFF.get()) || stack.is(ModItems.WILD_STAFF.get());
+    }
+
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         this.commonResult(worldIn, entityLiving);
         int i = 1;
@@ -92,6 +96,8 @@ public class SkeletonSpell extends SummonSpells {
             i = 7;
         } else if (rightStaff(staff)){
             i = 2 + entityLiving.level.random.nextInt(4);
+        } else if (specialStaffs(staff)){
+            i = 2;
         }
         if (!isShifting(entityLiving)) {
             for (int i1 = 0; i1 < i; ++i1) {
@@ -100,7 +106,13 @@ public class SkeletonSpell extends SummonSpells {
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }
                 AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
-                if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
+                if (specialStaffs(staff)) {
+                    if (staff.is(ModItems.FROST_STAFF.get())) {
+                        summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
+                    } else if (staff.is(ModItems.WILD_STAFF.get())) {
+                        summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
+                    }
+                } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                 } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
                     summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
@@ -109,7 +121,7 @@ public class SkeletonSpell extends SummonSpells {
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
                     summonedentity = new SunkenSkeletonServant(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), worldIn);
                 }
-                summonedentity.setOwnerId(entityLiving.getUUID());
+                summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                 if (summonedentity.getType() != ModEntityType.SUNKEN_SKELETON_SERVANT.get()){
                     MobUtil.moveDownToGround(summonedentity);

@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:dark_wand"
+  },
+  "craftType": "animation",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:corpse_blossom"
+    },
+    {
+      "tag": "forge:slimeballs"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    },
+    {
+      "tag": "minecraft:logs"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    {
+      "item": "goety:magic_fabric"
+    }
+  ],
+  "result": {
+    "item": "goety:wild_staff"
+  }
+}

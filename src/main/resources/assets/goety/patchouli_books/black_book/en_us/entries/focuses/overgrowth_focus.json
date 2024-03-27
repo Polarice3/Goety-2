@@ -1,0 +1,19 @@
+{
+  "name": "Overgrowth Focus",
+  "icon": "goety:overgrowth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With soul energy, you conjure forth powerful immobile vines to block your targets path or, if crouching/shifting, conjure forth a powerful flowered vine that shoots poisonous quills. Shift-casting while looking at a target will cause the poisonous vine to be summoned next to you instead."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/overgrowth_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Casting the spell underwater will summon powerful immobile kelps instead. No difference other than aesthetic and need to be underwater, though the poisonous kelp's quills aren't affected by water. Wearing a $(l:crafts/garment/wild_robe)Wild Robe$() allows you to move past the vines and kelps."
+    }
+  ]
+}

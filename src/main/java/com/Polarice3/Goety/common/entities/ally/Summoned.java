@@ -6,6 +6,7 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,6 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -44,6 +46,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -147,20 +150,33 @@ public class Summoned extends Owned implements IServant {
                 this.limitedLifespan = true;
             }
             if (!this.level.isClientSide) {
-                if (this.getMobType() == MobType.UNDEAD) {
-                    if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
-                        if (MobsConfig.UndeadMinionHeal.get() && this.getHealth() < this.getMaxHealth()) {
-                            if (this.getTrueOwner() instanceof Player owner) {
-                                if (CuriosFinder.hasUndeadCape(owner)) {
-                                    int SoulCost = MobsConfig.UndeadMinionHealCost.get();
-                                    if (SEHelper.getSoulsAmount(owner, SoulCost)) {
-                                        if (this.tickCount % MathHelper.secondsToTicks(MobsConfig.UndeadMinionHealTime.get()) == 0) {
-                                            this.heal(MobsConfig.UndeadMinionHealAmount.get().floatValue());
-                                            Vec3 vector3d = this.getDeltaMovement();
-                                            if (this.level instanceof ServerLevel serverWorld) {
-                                                SEHelper.decreaseSouls(owner, SoulCost);
-                                                serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
-                                            }
+                if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
+                    if (this.getHealth() < this.getMaxHealth()){
+                        if (this.getTrueOwner() instanceof Player owner) {
+                            boolean curio = false;
+                            int soulCost = 0;
+                            int healRate = 0;
+                            float healAmount = 0;
+                            if (this.getMobType() == MobType.UNDEAD && MobsConfig.UndeadMinionHeal.get()){
+                                curio = CuriosFinder.hasUndeadCape(owner);
+                                soulCost = MobsConfig.UndeadMinionHealCost.get();
+                                healRate = MobsConfig.UndeadMinionHealTime.get();
+                                healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
+                            }
+                            if (this.getMobType() == ModMobType.NATURAL && MobsConfig.NaturalMinionHeal.get()){
+                                curio = CuriosFinder.hasWildRobe(owner);
+                                soulCost = MobsConfig.NaturalMinionHealCost.get();
+                                healRate = MobsConfig.NaturalMinionHealTime.get();
+                                healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
+                            }
+                            if (curio) {
+                                if (SEHelper.getSoulsAmount(owner, soulCost)) {
+                                    if (this.tickCount % MathHelper.secondsToTicks(healRate) == 0) {
+                                        this.heal(healAmount);
+                                        Vec3 vector3d = this.getDeltaMovement();
+                                        if (this.level instanceof ServerLevel serverWorld) {
+                                            SEHelper.decreaseSouls(owner, soulCost);
+                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
                                         }
                                     }
                                 }
@@ -390,7 +406,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean canUpdateMove(){
-        return this.getMobType() == MobType.UNDEAD;
+        return this.getMobType() == MobType.UNDEAD || this.getMobType() == ModMobType.NATURAL;
     }
 
     public void updateMoveMode(Player player){
@@ -602,10 +618,86 @@ public class Summoned extends Owned implements IServant {
 
         public boolean canUse() {
             if (super.canUse()){
-                return !Summoned.this.isStaying() && !Summoned.this.isCommanded() || Summoned.this.getTrueOwner() == null || Summoned.this.getNavigation() instanceof WaterBoundPathNavigation;
+                return (!Summoned.this.isStaying() && !Summoned.this.isCommanded() || Summoned.this.getTrueOwner() == null) && !(Summoned.this.getNavigation() instanceof WaterBoundPathNavigation);
             } else {
                 return false;
             }
+        }
+    }
+
+    public class WaterWanderGoal extends RandomStrollGoal {
+
+        public WaterWanderGoal(PathfinderMob p_i47301_1_) {
+            super(p_i47301_1_, 1.0D);
+        }
+
+        public boolean canUse() {
+            if (super.canUse()){
+                return !Summoned.this.isStaying() || Summoned.this.getTrueOwner() == null;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static class GoToWaterGoal extends Goal {
+        private final Summoned mob;
+        private double wantedX;
+        private double wantedY;
+        private double wantedZ;
+        private final double speedModifier;
+        private final Level level;
+
+        public GoToWaterGoal(Summoned p_i48910_1_, double p_i48910_2_) {
+            this.mob = p_i48910_1_;
+            this.speedModifier = p_i48910_2_;
+            this.level = p_i48910_1_.level;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        public boolean canUse() {
+            if (this.mob.getTrueOwner() != null){
+                if (!this.mob.getTrueOwner().isInWater()){
+                    return false;
+                }
+            } else if (!this.level.isDay()) {
+                return false;
+            }
+            if (this.mob.isInWater()) {
+                return false;
+            }
+            Vec3 vector3d = this.getWaterPos();
+            if (vector3d == null) {
+                return false;
+            } else {
+                this.wantedX = vector3d.x;
+                this.wantedY = vector3d.y;
+                this.wantedZ = vector3d.z;
+                return true;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return !this.mob.getNavigation().isDone();
+        }
+
+        public void start() {
+            this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+        }
+
+        @Nullable
+        private Vec3 getWaterPos() {
+            RandomSource random = this.mob.getRandom();
+            BlockPos blockpos = this.mob.blockPosition();
+
+            for(int i = 0; i < 10; ++i) {
+                BlockPos blockpos1 = blockpos.offset(random.nextInt(20) - 10, 2 - random.nextInt(8), random.nextInt(20) - 10);
+                if (this.level.getBlockState(blockpos1).is(Blocks.WATER)) {
+                    return Vec3.atBottomCenterOf(blockpos1);
+                }
+            }
+
+            return null;
         }
     }
 

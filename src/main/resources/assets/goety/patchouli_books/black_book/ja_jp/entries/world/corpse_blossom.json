@@ -1,0 +1,16 @@
+{
+  "name": "死体の花",
+  "icon": "goety:corpse_blossom",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ジャングルの樹冠で、悪臭を放つ植物が発見されました。あるいは、その匂いを嗅いだ可能性が高いです。 香りや見た目が美しいだけでなく、ジャングルのエネルギーが宿っていると言われています。"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/corpse_blossom.png"],
+      "border": true
+    }
+  ]
+}

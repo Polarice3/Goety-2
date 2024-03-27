@@ -1,0 +1,15 @@
+{
+  "name": "雪の杖",
+  "icon": "goety:frost_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "雪の杖の凍てつく冷気を通して、氷の呪文の力が高まります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:frost_staff"
+    }
+  ]
+}

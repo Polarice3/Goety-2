@@ -1,0 +1,15 @@
+{
+  "name": "野生の杖",
+  "icon": "goety:wild_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "自然界を手なずけるのは難しいこともありますが、闇の魔法と木を使って、野生の呪文の自然な力と不自然な力を高める杖を作ることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_staff"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-// 1.19.2	2024-03-11T14:04:57.0165295	Goety LootTables
+// 1.19.2	2024-03-27T14:52:21.8023141	Goety LootTables
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
@@ -7,6 +7,7 @@ e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 f2153c4a9f6d22f73ee5da1665242b3e7888e05f data/goety/loot_tables/blocks/chiseled_indented_gold.json
 b1aec420f6053305e33fb58c95cc68ca82c052b4 data/goety/loot_tables/blocks/compacted_windswept_planks.json
 685bebc4e72203607ea1183f8b9708a23968e0e7 data/goety/loot_tables/blocks/compacted_windswept_slab.json
+e4bccb3d47c582141ec9e22f547fd65a8998166f data/goety/loot_tables/blocks/corpse_blossom.json
 2cf6b6cb8b0fc11ace493844fc9ebdd6cd4dcdde data/goety/loot_tables/blocks/cracked_marble.json
 7f5aae42edf6db4525eeca16b2f0f807e67c6fe5 data/goety/loot_tables/blocks/cracked_marble_slab.json
 85ca8939de5f17d10719ab2c67d5a50a1b229da4 data/goety/loot_tables/blocks/crypt_bookshelf.json
@@ -93,6 +94,7 @@ b2effa7ad8289ba83ae9346a94b0b351345e97ce data/goety/loot_tables/blocks/marble_wi
 eb2835dbefb17fe27d57c6ab611ae35833bd48ff data/goety/loot_tables/blocks/necro_brazier.json
 832cf33f4e999f452ae5d92d87f7c35ec702a6c0 data/goety/loot_tables/blocks/nether_brick_brazier.json
 31c1a037bc5bc7ba12ddb33f2be4b47928f94d97 data/goety/loot_tables/blocks/night_beacon.json
+6f182d574331d5d8840d8c82382b882a5171d674 data/goety/loot_tables/blocks/overgrown_roots.json
 b4af0313168be6328b415a03028780c556fa5582 data/goety/loot_tables/blocks/pedestal.json
 0cad000b18e8a2e926843b90af267310d6b6d956 data/goety/loot_tables/blocks/pithos.json
 43318b6b3d72f1e99cd4f8498f66488c7324a99d data/goety/loot_tables/blocks/polished_highrock.json

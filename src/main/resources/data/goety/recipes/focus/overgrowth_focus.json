@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:animation_core"
+  },
+  "craftType": "animation",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "goety:venomous_fang"
+    },
+    {
+      "item": "goety:corpse_blossom"
+    },
+    {
+      "item": "goety:overgrown_roots"
+    }
+  ],
+  "result": {
+    "item": "goety:overgrowth_focus"
+  }
+}

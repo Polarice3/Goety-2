@@ -39,6 +39,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> PIKER_SPAWN_EGG = ITEMS.register("piker_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.PIKER, 0x230a07, 0x8f9097, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> RIPPER_SPAWN_EGG = ITEMS.register("ripper_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.RIPPER, 0xd6ae7e, 0x2a2926, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> CRUSHER_SPAWN_EGG = ITEMS.register("crusher_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRUSHER, 0x51391c, 0x7c818b, new Item.Properties().tab(Goety.TAB)));
 
@@ -102,6 +105,15 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> WHISPERER_SPAWN_EGG = ITEMS.register("whisperer_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WHISPERER, 0xa0c051, 0xe20703, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> WAVEWHISPERER_SPAWN_EGG = ITEMS.register("wavewhisperer_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WAVEWHISPERER, 0x1e4730, 0x69ebff, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> LEAPLEAF_SPAWN_EGG = ITEMS.register("leapleaf_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.LEAPLEAF, 0x382b13, 0x818a1a, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> SQUALL_GOLEM_SPAWN_EGG = ITEMS.register("squall_golem_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SQUALL_GOLEM, 0xf99408, 0x70fae6, new Item.Properties().tab(Goety.TAB)));
 
@@ -119,6 +131,18 @@ public class ModSpawnEggs {
 
     public static final RegistryObject<ModSpawnEggItem> ZPIGLIN_BRUTE_SERVANT_SPAWN_EGG = ITEMS.register("zpiglin_brute_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.ZPIGLIN_BRUTE_SERVANT, 0x1c1c1c, 0xf5da2a, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> QUICK_GROWING_VINE_SPAWN_EGG = ITEMS.register("quick_growing_vine_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.QUICK_GROWING_VINE, 0x6b8f34, 0x8efb83, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> QUICK_GROWING_KELP_SPAWN_EGG = ITEMS.register("quick_growing_kelp_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.QUICK_GROWING_KELP, 0x1c7c6b, 0x89b824, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> POISON_QUILL_VINE_SPAWN_EGG = ITEMS.register("poison_quill_vine_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.POISON_QUILL_VINE, 0xaaba8d, 0x754bc9, new Item.Properties().tab(Goety.TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> POISON_ANEMONE_SPAWN_EGG = ITEMS.register("poison_anemone_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.POISON_ANEMONE, 0x136d79, 0x97279f, new Item.Properties().tab(Goety.TAB)));
 
     public static final RegistryObject<ModSpawnEggItem> MALGHAST_SPAWN_EGG = ITEMS.register("malghast_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.MALGHAST, 0xe0e0e0, 0xbda6a6, new Item.Properties().tab(Goety.TAB)));

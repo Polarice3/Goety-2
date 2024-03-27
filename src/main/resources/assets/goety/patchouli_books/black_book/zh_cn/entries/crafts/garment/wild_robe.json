@@ -1,0 +1,19 @@
+{
+  "name": "荒野长袍",
+  "icon": "goety:wild_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "荒野长袍可以让你更有效地利用大自然的力量。例如，能给予敌人中毒效果的仆从现在转而给予敌人毒液效果，这效果甚至会影响亡灵。因此，长袍也提供了对中毒和毒液的免疫效果！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果召唤师穿上这件长袍，从荒野魔法中产生的仆从可以利用召唤师的灵魂能量慢慢治愈自己."
+    }
+  ]
+}

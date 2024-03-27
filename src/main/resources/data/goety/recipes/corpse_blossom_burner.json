@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "minecraft:spore_blossom"
+  },
+  "result": "goety:corpse_blossom",
+  "cookingTime": 60
+}

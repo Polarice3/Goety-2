@@ -111,6 +111,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> FROST = PARTICLE_TYPES.register("frost",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> FLY = PARTICLE_TYPES.register("fly",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> BONE = PARTICLE_TYPES.register("bone",
             () -> new SimpleParticleType(false));
 
@@ -147,6 +150,12 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SUMMON = PARTICLE_TYPES.register("summon",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SPELL_SQUARE = PARTICLE_TYPES.register("spell_square",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> TRAIL = PARTICLE_TYPES.register("trail",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",
             () -> new SimpleParticleType(false));
 
@@ -167,6 +176,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec codec() {
                     return SparkleParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<DustCloudParticleOption>> DUST_CLOUD = PARTICLE_TYPES.register("dust_cloud",
+            () -> new ParticleType<>(false, DustCloudParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return DustCloudParticleOption.CODEC;
                 }
             });
 
@@ -199,6 +216,14 @@ public class ModParticleTypes {
                 @Override
                 public Codec codec() {
                     return CircleExplodeParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<FoggyCloudParticleOption>> FOG_CLOUD = PARTICLE_TYPES.register("fog_cloud",
+            () -> new ParticleType<>(false, FoggyCloudParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return FoggyCloudParticleOption.CODEC;
                 }
             });
 

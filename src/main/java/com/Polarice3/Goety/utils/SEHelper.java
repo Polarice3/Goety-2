@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
@@ -190,7 +191,7 @@ public class SEHelper {
         return 0;
     }
 
-    public static void rawHandleKill(LivingEntity killer, LivingEntity victim, int soulEater) {
+    public static void rawHandleKill(LivingEntity killer, LivingEntity victim, int soulEater, DamageSource source) {
         Player player = null;
         int multi = Mth.clamp(MainConfig.SoulTakenMultiplier.get(), 1, Integer.MAX_VALUE);
         float extra = soulEater;
@@ -202,18 +203,20 @@ public class SEHelper {
             }
         }
         if (player != null) {
-            ItemStack itemStack = killer.getMainHandItem();
-            Item item = itemStack.getItem();
-            if (item == ModItems.FANGED_DAGGER.get()
-                    || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)){
-                extra *= 1.5F;
+            if (ModDamageSource.physicalAttacks(source)) {
+                ItemStack itemStack = killer.getMainHandItem();
+                Item item = itemStack.getItem();
+                if (item == ModItems.FANGED_DAGGER.get()
+                        || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)) {
+                    extra *= 1.5F;
+                }
             }
             increaseSouls(player, Mth.floor(getSoulGiven(victim) * extra) * multi);
         }
     }
 
-    public static void handleKill(LivingEntity killer, LivingEntity victim) {
-        SEHelper.rawHandleKill(killer, victim, SEHelper.SoulMultiply(killer));
+    public static void handleKill(LivingEntity killer, LivingEntity victim, DamageSource source) {
+        SEHelper.rawHandleKill(killer, victim, SEHelper.SoulMultiply(killer, source), source);
     }
 
     public static void increaseSouls(Player player, int souls){
@@ -252,12 +255,14 @@ public class SEHelper {
         }
     }
 
-    public static int SoulMultiply(LivingEntity livingEntity){
+    public static int SoulMultiply(LivingEntity livingEntity, DamageSource source){
         ItemStack weapon= livingEntity.getMainHandItem();
         int multiply = 1;
-        int i = weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
-        if (i > 0) {
-            multiply = Mth.clamp(i + 1, 1, 10);
+        if (ModDamageSource.physicalAttacks(source)) {
+            int i = weapon.getEnchantmentLevel(ModEnchantments.SOUL_EATER.get());
+            if (i > 0) {
+                multiply = Mth.clamp(i + 1, 1, 10);
+            }
         }
         return multiply;
     }

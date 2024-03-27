@@ -69,13 +69,17 @@ public abstract class AbstractMonolith extends Owned{
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.initRotate(pLevel);
+        return pSpawnData;
+    }
+
+    public void initRotate(ServerLevelAccessor pLevel){
         switch (pLevel.getLevel().random.nextInt(4)){
             case 1 -> this.setYRot(90.0F);
             case 2 -> this.setYRot(180.0F);
             case 3 -> this.setYRot(270.0F);
             default -> this.setYRot(0.0F);
         }
-        return pSpawnData;
     }
 
     public abstract BlockState getState();
@@ -121,7 +125,7 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public boolean isDescending(){
-        return this.getAge() > 0 && this.isActivate();
+        return this.getAge() < getEmergingTime() && this.isActivate();
     }
 
     public boolean canBeCollidedWith() {
@@ -129,6 +133,10 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public boolean canBeAffected(MobEffectInstance potioneffectIn) {
+        return super.canBeAffected(potioneffectIn) && canHaveEffects();
+    }
+
+    public boolean canHaveEffects(){
         return false;
     }
 
@@ -148,7 +156,7 @@ public abstract class AbstractMonolith extends Owned{
     }
 
     public boolean canSpawn(Level level){
-        return level.noCollision(this, this.getBoundingBox().deflate(0.25D));
+        return level.noCollision(this, this.getBoundingBox().move(0, 1, 0).deflate(0.25D));
     }
 
     @Override
