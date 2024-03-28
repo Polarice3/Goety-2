@@ -29,13 +29,23 @@ public class LeapleafMold implements IMold {
             new BlockPos(1, -1, 0),
             new BlockPos(-1, -1, 0)
     );
+    private static final List<BlockPos> ROOTS_LOCATIONS_Z = ImmutableList.of(
+            new BlockPos(0, 0, 0),
+            new BlockPos(0, -1, 0),
+            new BlockPos(0, -1, 1),
+            new BlockPos(0, -1, -1)
+    );
     private static final List<BlockPos> LEAVES_LOCATIONS = ImmutableList.of(
             new BlockPos(1, 0, 0),
             new BlockPos(-1, 0, 0)
     );
+    private static final List<BlockPos> LEAVES_LOCATIONS_Z = ImmutableList.of(
+            new BlockPos(0, 0, 1),
+            new BlockPos(0, 0, -1)
+    );
     private static final BlockPos CORPSE_BLOSSOM = new BlockPos(0, 1, 0);
 
-    private static List<BlockPos> checkRoots(Level level, BlockPos blockPos){
+    private static List<BlockPos> checkRootsX(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
         for (BlockPos blockPos1 : ROOTS_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
@@ -46,7 +56,18 @@ public class LeapleafMold implements IMold {
         return invalid;
     }
 
-    private static List<BlockPos> checkLeaves(Level level, BlockPos blockPos){
+    private static List<BlockPos> checkRootsZ(Level level, BlockPos blockPos){
+        List<BlockPos> invalid = new ArrayList<>();
+        for (BlockPos blockPos1 : ROOTS_LOCATIONS_Z){
+            BlockPos blockPos2 = blockPos.offset(blockPos1);
+            if (!level.getBlockState(blockPos2).is(ModBlocks.OVERGROWN_ROOTS.get())){
+                invalid.add(blockPos1);
+            }
+        }
+        return invalid;
+    }
+
+    private static List<BlockPos> checkLeavesX(Level level, BlockPos blockPos){
         List<BlockPos> invalid = new ArrayList<>();
         for (BlockPos blockPos1 : LEAVES_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
@@ -57,13 +78,60 @@ public class LeapleafMold implements IMold {
         return invalid;
     }
 
+    private static List<BlockPos> checkLeavesZ(Level level, BlockPos blockPos){
+        List<BlockPos> invalid = new ArrayList<>();
+        for (BlockPos blockPos1 : LEAVES_LOCATIONS_Z){
+            BlockPos blockPos2 = blockPos.offset(blockPos1);
+            if (!level.getBlockState(blockPos2).is(Blocks.JUNGLE_LEAVES)){
+                invalid.add(blockPos1);
+            }
+        }
+        return invalid;
+    }
+
+    public static boolean canSpawn(Level level, BlockPos blockPos){
+        if (checkRootsX(level, blockPos).isEmpty() && checkLeavesX(level, blockPos).isEmpty()){
+            for (BlockPos blockPos1 : ROOTS_LOCATIONS) {
+                BlockPos blockPos2 = blockPos.offset(blockPos1);
+                if (level.getBlockState(blockPos2).is(ModBlocks.OVERGROWN_ROOTS.get())) {
+                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
+                }
+            }
+            for (BlockPos blockPos1 : LEAVES_LOCATIONS) {
+                BlockPos blockPos2 = blockPos.offset(blockPos1);
+                if (level.getBlockState(blockPos2).is(Blocks.JUNGLE_LEAVES)) {
+                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
+                }
+            }
+            return level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get());
+        } else if (checkRootsZ(level, blockPos).isEmpty() && checkLeavesZ(level, blockPos).isEmpty()) {
+            for (BlockPos blockPos1 : ROOTS_LOCATIONS_Z) {
+                BlockPos blockPos2 = blockPos.offset(blockPos1);
+                if (level.getBlockState(blockPos2).is(ModBlocks.OVERGROWN_ROOTS.get())) {
+                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
+                }
+            }
+            for (BlockPos blockPos1 : LEAVES_LOCATIONS_Z) {
+                BlockPos blockPos2 = blockPos.offset(blockPos1);
+                if (level.getBlockState(blockPos2).is(Blocks.JUNGLE_LEAVES)) {
+                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
+                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
+                }
+            }
+            return level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get());
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.OVERGROWN_ROOTS.get())) {
-                if (checkLeaves(level, blockPos).isEmpty()
-                        && checkRoots(level, blockPos).isEmpty()
-                        && level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get())) {
+                if (canSpawn(level, blockPos)) {
                     if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
                         Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
                         if (leapleaf != null) {
@@ -92,20 +160,6 @@ public class LeapleafMold implements IMold {
 
     public static void removeBlocks(Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            for (BlockPos blockPos1 : ROOTS_LOCATIONS) {
-                BlockPos blockPos2 = blockPos.offset(blockPos1);
-                if (level.getBlockState(blockPos2).is(ModBlocks.OVERGROWN_ROOTS.get())) {
-                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
-                }
-            }
-            for (BlockPos blockPos1 : LEAVES_LOCATIONS) {
-                BlockPos blockPos2 = blockPos.offset(blockPos1);
-                if (level.getBlockState(blockPos2).is(Blocks.JUNGLE_LEAVES)) {
-                    level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                    level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
-                }
-            }
             BlockPos blockPos2 = blockPos.offset(CORPSE_BLOSSOM);
             if (level.getBlockState(blockPos2).is(ModBlocks.CORPSE_BLOSSOM.get())) {
                 level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));

@@ -668,18 +668,18 @@ public class SpellConfig {
             BUILDER.push("Entangling Spell");
             EntanglingCost = BUILDER.comment("Entangling Spell Cost, Default: 8")
                     .defineInRange("entanglingCost", 8, 0, Integer.MAX_VALUE);
-            EntanglingDuration = BUILDER.comment("Time to cast Entangling Spell, Default: 80")
-                    .defineInRange("entanglingTime", 80, 0, 72000);
-            EntanglingCoolDown = BUILDER.comment("Entangling Spell Cooldown, Default: 200")
-                    .defineInRange("entanglingCoolDown", 200, 0, Integer.MAX_VALUE);
+            EntanglingDuration = BUILDER.comment("Time to cast Entangling Spell, Default: 0")
+                    .defineInRange("entanglingTime", 0, 0, 72000);
+            EntanglingCoolDown = BUILDER.comment("Entangling Spell Cooldown, Default: 400")
+                    .defineInRange("entanglingCoolDown", 400, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Whispering Spell");
             WhisperCost = BUILDER.comment("Whispering Spell Cost, Default: 16")
                     .defineInRange("whisperCost", 16, 0, Integer.MAX_VALUE);
             WhisperDuration = BUILDER.comment("Time to cast Whispering Spell, Default: 100")
                     .defineInRange("whisperTime", 100, 0, 72000);
-            WhisperCoolDown = BUILDER.comment("Whispering Spell Cooldown, Default: 2400")
-                    .defineInRange("whisperCoolDown", 2400, 0, Integer.MAX_VALUE);
+            WhisperCoolDown = BUILDER.comment("Whispering Spell Cooldown, Default: 1200")
+                    .defineInRange("whisperCoolDown", 1200, 0, Integer.MAX_VALUE);
             WhisperSummonDown = BUILDER.comment("Whispering Spell Summon Down, Default: 300")
                     .defineInRange("whisperSummonDown", 300, 300, 72000);
             WhisperLimit = BUILDER.comment("Number of Whisperers that can exist around the player, Default: 4")

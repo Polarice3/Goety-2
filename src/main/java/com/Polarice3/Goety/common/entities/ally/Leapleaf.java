@@ -46,6 +46,8 @@ public class Leapleaf extends Summoned{
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Leapleaf.class, EntityDataSerializers.BYTE);
     private static final UUID LEAP_ATTACK_MODIFIER_UUID = UUID.fromString("c8724bee-d7fe-46e5-9319-980ea1146ebb");
     private static final AttributeModifier LEAP_ATTACK_MODIFIER = new AttributeModifier(LEAP_ATTACK_MODIFIER_UUID, "Leap Attack Bonus", 1.25D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    private static final UUID LEAP_KNOCKBACK_MODIFIER_UUID = UUID.fromString("ad8d395e-7773-4138-bdc4-ea80768a2101");
+    private static final AttributeModifier LEAP_KNOCKBACK_MODIFIER = new AttributeModifier(LEAP_KNOCKBACK_MODIFIER_UUID, "Leap Knockback Bonus", 2.0D, AttributeModifier.Operation.ADDITION);
     public int attackTick;
     public int chargeTick;
     public int leapTick;
@@ -80,7 +82,7 @@ public class Leapleaf extends Summoned{
                 .add(Attributes.MOVEMENT_SPEED, 0.275D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.LeapleafDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
@@ -312,6 +314,7 @@ public class Leapleaf extends Summoned{
         if (this.isAlive()){
             if (!this.level.isClientSide) {
                 AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.ATTACK_DAMAGE);
+                AttributeInstance modifiableattributeinstance2 = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
                 if (modifiableattributeinstance != null) {
                     if (this.isLeaping()) {
                         if (this.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
@@ -324,11 +327,23 @@ public class Leapleaf extends Summoned{
                         }
                     }
                 }
+                if (modifiableattributeinstance2 != null) {
+                    if (this.isLeaping()) {
+                        if (this.getAttribute(Attributes.ATTACK_KNOCKBACK) != null) {
+                            modifiableattributeinstance2.removeModifier(LEAP_KNOCKBACK_MODIFIER);
+                            modifiableattributeinstance2.addTransientModifier(LEAP_KNOCKBACK_MODIFIER);
+                        }
+                    } else {
+                        if (modifiableattributeinstance2.hasModifier(LEAP_KNOCKBACK_MODIFIER)) {
+                            modifiableattributeinstance2.removeModifier(LEAP_KNOCKBACK_MODIFIER);
+                        }
+                    }
+                }
 
                 if (this.restTick > 0) {
                     this.setAnimationState("rest");
                     --this.restTick;
-                    if (this.restTick == (MathHelper.secondsToTicks(4) - 1)){
+                    if (this.restTick == (MathHelper.secondsToTicks(3) - 1)){
                         this.playSound(ModSounds.LEAPLEAF_REST.get(), this.getSoundVolume(), this.getVoicePitch());
                     }
                 } else {
@@ -423,7 +438,7 @@ public class Leapleaf extends Summoned{
                     && !Leapleaf.this.isCharging()
                     && !Leapleaf.this.isLeaping()
                     && Leapleaf.this.hasLineOfSight(Leapleaf.this.getTarget())
-                    && Leapleaf.this.getTarget().distanceTo(Leapleaf.this) < 4.0F;
+                    && Leapleaf.this.getTarget().distanceTo(Leapleaf.this) <= 2.5F;
         }
 
         @Override
@@ -464,7 +479,7 @@ public class Leapleaf extends Summoned{
                 double z = Leapleaf.this.getZ() + Leapleaf.this.getHorizontalLookAngle().z * 2;
                 AABB aabb = makeAttackRange(x,
                         Leapleaf.this.getY(),
-                        z, 3, 1, 3);
+                        z, 1, 1, 1);
                 for (LivingEntity target : Leapleaf.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != Leapleaf.this && !target.isAlliedTo(Leapleaf.this) && !Leapleaf.this.isAlliedTo(target)) {
                         Leapleaf.this.doHurtTarget(target);
@@ -548,8 +563,8 @@ public class Leapleaf extends Summoned{
                     this.strafingTime = 0;
                 }
 
-                if (d0 > 8.0F && this.seeTime < 20) {
-                    this.leapleaf.getNavigation().moveTo(this.target, 1.25F);
+                if (d0 > 7.0F && this.seeTime < 20) {
+                    this.leapleaf.getNavigation().moveTo(this.target, 1.0F);
                     this.strafingTime = -1;
                 } else {
                     this.leapleaf.getNavigation().stop();
@@ -628,7 +643,7 @@ public class Leapleaf extends Summoned{
                 if (this.leapleaf.chargeTick < MathHelper.secondsToTicks(1.21F)){
                     this.leapleaf.navigation.stop();
                 } else {
-                    if (this.leapleaf.distanceTo(this.target) <= 6.0F){
+                    if (this.leapleaf.distanceTo(this.target) <= 6.5F){
                         this.leapleaf.setCharging(false);
                         this.leapleaf.setAnimationState("leap");
                         this.leapleaf.playSound(ModSounds.LEAPLEAF_LEAP.get(), this.leapleaf.getSoundVolume(), this.leapleaf.getVoicePitch());
@@ -646,29 +661,21 @@ public class Leapleaf extends Summoned{
                 }
             }
 
+            double x = this.leapleaf.getX() + this.leapleaf.getHorizontalLookAngle().x;
+            double z = this.leapleaf.getZ() + this.leapleaf.getHorizontalLookAngle().z;
             double xLeft = this.leapleaf.getX() + this.leapleaf.getHorizontalLeftLookAngle().x;
             double zLeft = this.leapleaf.getZ() + this.leapleaf.getHorizontalLeftLookAngle().z;
             double xRight = this.leapleaf.getX() + this.leapleaf.getHorizontalRightLookAngle().x;
             double zRight = this.leapleaf.getZ() + this.leapleaf.getHorizontalRightLookAngle().z;
-            if (this.leapleaf.isLeaping() && this.leapleaf.isOnGround() && this.leapleaf.leapTick > 1) {
-                AABB aabb = makeAttackRange(xLeft,
+            if (this.leapleaf.isLeaping() && this.leapleaf.onGround && this.leapleaf.leapTick > 1) {
+                AABB aabb = makeAttackRange(x,
                         this.leapleaf.getY(),
-                        zLeft, 5, 3, 5);
-                AABB aabb2 = makeAttackRange(xRight,
-                        this.leapleaf.getY(),
-                        zRight, 5, 3, 5);
+                        z, 3, 3, 3);
                 boolean random = this.leapleaf.random.nextFloat() <= 0.25F;
                 for (LivingEntity target : this.leapleaf.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != this.leapleaf && !target.isAlliedTo(this.leapleaf) && !this.leapleaf.isAlliedTo(target)) {
                         if (this.leapleaf.doHurtTarget(target) && (random || !target.isAlive())){
-                            this.leapleaf.restTick = MathHelper.secondsToTicks(4);
-                        }
-                    }
-                }
-                for (LivingEntity target : this.leapleaf.level.getEntitiesOfClass(LivingEntity.class, aabb2)) {
-                    if (target != this.leapleaf && !target.isAlliedTo(this.leapleaf) && !this.leapleaf.isAlliedTo(target)) {
-                        if (this.leapleaf.doHurtTarget(target) && (random || !target.isAlive())){
-                            this.leapleaf.restTick = MathHelper.secondsToTicks(4);
+                            this.leapleaf.restTick = MathHelper.secondsToTicks(3);
                         }
                     }
                 }

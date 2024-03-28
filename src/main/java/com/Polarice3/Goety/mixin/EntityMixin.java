@@ -1,12 +1,15 @@
 package com.Polarice3.Goety.mixin;
 
+import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -25,6 +28,17 @@ public abstract class EntityMixin {
     private double goety2$playerPerspectiveValue(double value) {
         boolean flag = (Entity) (Object) this instanceof Player player && SEHelper.hasCamera(player);
         return flag ? 0 : value;
+    }
+
+    @Inject(
+            method = {"canCollideWith(Lnet/minecraft/world/entity/Entity;)Z"},
+            at = @At(value = "HEAD"),
+            cancellable = true
+    )
+    protected void canCollideWith(Entity other, CallbackInfoReturnable<Boolean> cir) {
+        if(other instanceof AbstractVine vine && vine.passableEntities((Entity)(Object)this)){
+            cir.setReturnValue(false);
+        }
     }
 
 }

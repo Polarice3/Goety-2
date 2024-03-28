@@ -33,7 +33,7 @@ public class LeapleafRenderer<T extends Leapleaf> extends MobRenderer<T, Leaplea
 
     public static class GlowLayer<T extends Leapleaf, M extends LeapleafModel<T>> extends EyesLayer<T, M> {
         private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/servants/leapleaf/leapleaf_glow.png"));
-        private static final RenderType ORIGINAL = RenderType.eyes(Goety.location("textures/entity/servants/leapleaf/leapleaf_glow_original.png"));
+        private static final RenderType ORIGINAL = RenderType.eyes(Goety.location("textures/entity/servants/leapleaf/leapleaf_original_glow.png"));
 
         public GlowLayer(RenderLayerParent<T, M> p_i50919_1_) {
             super(p_i50919_1_);

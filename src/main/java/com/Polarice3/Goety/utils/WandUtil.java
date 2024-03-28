@@ -311,6 +311,7 @@ public class WandUtil {
                 }
                 if (monolith instanceof AbstractVine vine) {
                     vine.setWarmup(delay);
+                    monolith.setLifeSpan(3 + extra);
                 } else if (monolith instanceof TotemicBomb totemicBomb) {
                     totemicBomb.setExplosionPower(2.0F + (extra / 4.0F));
                 } else {
@@ -354,7 +355,7 @@ public class WandUtil {
                 if (target instanceof LivingEntity living) {
                     monolith.setTarget(living);
                 }
-                monolith.setLifeSpan(5 + duration);
+                monolith.setLifeSpan(7 * (duration + 1));
                 level.addFreshEntity(monolith);
             }
         }

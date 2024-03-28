@@ -55,7 +55,7 @@ import java.util.stream.Stream;
 
 public class RedstoneGolem extends AbstractGolemServant {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneGolem.class, EntityDataSerializers.BYTE);
-    public static float SUMMON_SECONDS_TIME = 5.15F;
+    public static float SUMMON_SECONDS_TIME = 5.15F; //Actually 4 in MCD
     private int activateTick;
     private int idleTime;
     public int summonTick;

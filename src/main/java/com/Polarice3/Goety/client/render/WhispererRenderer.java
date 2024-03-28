@@ -38,7 +38,7 @@ public class WhispererRenderer<T extends Whisperer> extends MobRenderer<T, Whisp
 
     public static class GlowLayer<T extends Whisperer, M extends WhispererModel<T>> extends EyesLayer<T, M> {
         private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/servants/whisperer/whisperer_glow.png"));
-        private static final RenderType ORIGINAL = RenderType.eyes(Goety.location("textures/entity/servants/whisperer/whisperer_glow_original.png"));
+        private static final RenderType ORIGINAL = RenderType.eyes(Goety.location("textures/entity/servants/whisperer/whisperer_original_glow.png"));
         private static final RenderType WAVE = RenderType.eyes(Goety.location("textures/entity/servants/whisperer/wavewhisperer_glow.png"));
 
         public GlowLayer(RenderLayerParent<T, M> p_i50919_1_) {
