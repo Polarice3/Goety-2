@@ -416,7 +416,7 @@ public class Whisperer extends Summoned{
 
     @Override
     public void lifeSpanDamage() {
-        this.die(this.damageSources().starve());
+        this.hurt(this.damageSources().starve(), this.getMaxHealth() * 2);
     }
 
     @Override
@@ -627,7 +627,7 @@ public class Whisperer extends Summoned{
                                     WandUtil.summonSurroundTrap(this.whisperer, this.target, this.whisperer.getVines(), 0);
                                 }
                             }
-                            cooldown = MathHelper.secondsToTicks(7);
+                            cooldown = spellTime + MathHelper.secondsToTicks(1);
                         } else if (this.type == 2){
                             spellTime = 63;
                             if (this.whisperer.getCurrentAnimation() != this.whisperer.getAnimationState(SUMMON_POISON)){
@@ -646,7 +646,7 @@ public class Whisperer extends Summoned{
                                 BlockPos right = new BlockPos(this.whisperer.blockPosition().offset(x, 0, z));
                                 WandUtil.summonTurret(this.whisperer, BlockFinder.SummonPosition(this.whisperer, right), this.whisperer.getPoison(), target, 0, 0);
                             }
-                            cooldown = spellTime * 2;
+                            cooldown = (int) (spellTime + MathHelper.secondsToTicks(1.4F));
                         } else if (this.type == 3){
                             spellTime = 74;
                             if (this.whisperer.getCurrentAnimation() != this.whisperer.getAnimationState(SUMMON_THORNS)){
@@ -658,9 +658,10 @@ public class Whisperer extends Summoned{
                             }
                             if (this.whisperer.summonTick == 46){
                                 EntangleVines entangleVines = new EntangleVines(this.whisperer.level, this.whisperer, this.target);
+                                entangleVines.setDamaging(CuriosFinder.hasWildRobe(this.whisperer.getTrueOwner()));
                                 this.whisperer.level.addFreshEntity(entangleVines);
                             }
-                            cooldown = spellTime;
+                            cooldown = (int) (spellTime + MathHelper.secondsToTicks(0.1F));
                         }
                         if (this.type < 1 || (spellTime > 0 && this.whisperer.summonTick >= spellTime)){
                             this.whisperer.setSummoning(false);

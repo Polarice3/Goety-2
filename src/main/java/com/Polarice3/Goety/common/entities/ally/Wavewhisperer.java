@@ -13,22 +13,29 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.Nullable;
 
 public class Wavewhisperer extends Whisperer{
+    private boolean searchingForLand;
     protected final WaterBoundPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
 
     public Wavewhisperer(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
+        this.setMaxUpStep(1.0F);
         this.moveControl = new MoveHelperController(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.waterNavigation = new WaterBoundPathNavigation(this, worldIn);
@@ -38,7 +45,10 @@ public class Wavewhisperer extends Whisperer{
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new GoToWaterGoal(this, 1.0F));
+        this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0F));
+        this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(8, new WaterWanderGoal(this){
             @Override
             public boolean canUse() {
@@ -66,26 +76,49 @@ public class Wavewhisperer extends Whisperer{
         this.handleAirSupply(i);
     }
 
+    private boolean wantsToSwim() {
+        if (this.searchingForLand) {
+            return true;
+        } else if (this.getTarget() != null && this.getTarget().isInWater()) {
+            return true;
+        } else {
+            return this.getTrueOwner() != null && this.getTrueOwner().isInWater();
+        }
+    }
+
+    protected boolean closeToNextPos() {
+        Path path = this.getNavigation().getPath();
+        if (path != null) {
+            BlockPos blockpos = path.getTarget();
+            if (blockpos != null) {
+                double d0 = this.distanceToSqr((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
+                return d0 < 4.0D;
+            }
+        }
+
+        return false;
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
+            this.moveRelative(0.01F, pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        } else {
+            super.travel(pTravelVector);
+        }
+
+    }
+
     public void updateSwimming() {
         if (!this.level.isClientSide) {
-            if (this.isEffectiveAi() && this.isInWater()) {
+            if (this.isEffectiveAi() && this.isInWater() && this.wantsToSwim()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
             } else {
                 this.navigation = this.groundNavigation;
                 this.setSwimming(false);
             }
-        }
-
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(0.01F, pTravelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-        } else {
-            super.travel(pTravelVector);
         }
 
     }
@@ -105,14 +138,14 @@ public class Wavewhisperer extends Whisperer{
         public void tick() {
             LivingEntity livingentity = this.wavewhisperer.getTarget();
             LivingEntity owner = this.wavewhisperer.getTrueOwner();
-            if (this.wavewhisperer.isInWater()) {
-                if (livingentity != null && livingentity.getY() > this.wavewhisperer.getY()) {
+            if (this.wavewhisperer.wantsToSwim() && this.wavewhisperer.isInWater()) {
+                if (livingentity != null && livingentity.getY() > this.wavewhisperer.getY() || this.wavewhisperer.searchingForLand) {
                     this.wavewhisperer.setDeltaMovement(this.wavewhisperer.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 } else if (owner != null && owner.getY() > this.wavewhisperer.getY()){
                     this.wavewhisperer.setDeltaMovement(this.wavewhisperer.getDeltaMovement().add(0.0D, 0.002D, 0.0D));
                 }
 
-                if (this.operation != MoveControl.Operation.MOVE_TO || this.wavewhisperer.getNavigation().isDone()) {
+                if (this.operation != Operation.MOVE_TO || this.wavewhisperer.getNavigation().isDone()) {
                     this.wavewhisperer.setSpeed(0.0F);
                     return;
                 }
@@ -195,4 +228,96 @@ public class Wavewhisperer extends Whisperer{
         return ModEntityType.POISON_ANEMONE.get();
     }
 
+    public void setSearchingForLand(boolean p_204713_1_) {
+        this.searchingForLand = p_204713_1_;
+    }
+
+    static class SwimUpGoal extends Goal {
+        private final Wavewhisperer whisperer;
+        private final double speedModifier;
+        private final int seaLevel;
+        private boolean stuck;
+
+        public SwimUpGoal(Wavewhisperer p_i48908_1_, double p_i48908_2_, int p_i48908_4_) {
+            this.whisperer = p_i48908_1_;
+            this.speedModifier = p_i48908_2_;
+            this.seaLevel = p_i48908_4_;
+        }
+
+        public boolean canUse() {
+            if (this.whisperer.getTrueOwner() != null){
+                if (this.whisperer.getTrueOwner().isUnderWater()){
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            return this.whisperer.isInWater() && this.whisperer.getY() < (double)(this.seaLevel - 2);
+        }
+
+        public boolean canContinueToUse() {
+            return this.canUse() && !this.stuck;
+        }
+
+        public void tick() {
+            if (this.whisperer.getY() < (double)(this.seaLevel - 1) && (this.whisperer.getNavigation().isDone() || this.whisperer.closeToNextPos())) {
+                Vec3 vec3 = DefaultRandomPos.getPosTowards(this.whisperer, 4, 8, new Vec3(this.whisperer.getX(), (double)(this.seaLevel - 1), this.whisperer.getZ()), (double)((float)Math.PI / 2F));
+                if (vec3 == null) {
+                    this.stuck = true;
+                    return;
+                }
+
+                this.whisperer.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, this.speedModifier);
+            }
+
+        }
+
+        public void start() {
+            this.whisperer.setSearchingForLand(true);
+            this.stuck = false;
+        }
+
+        public void stop() {
+            this.whisperer.setSearchingForLand(false);
+        }
+    }
+
+    static class GoToBeachGoal extends MoveToBlockGoal {
+        private final Wavewhisperer wavewhisperer;
+
+        public GoToBeachGoal(Wavewhisperer p_i48911_1_, double p_i48911_2_) {
+            super(p_i48911_1_, p_i48911_2_, 8, 2);
+            this.wavewhisperer = p_i48911_1_;
+        }
+
+        public boolean canUse() {
+            if (this.wavewhisperer.getTrueOwner() != null){
+                if (this.wavewhisperer.getTrueOwner().isUnderWater()){
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            return super.canUse() && this.wavewhisperer.isInWater() && this.wavewhisperer.getY() >= (double)(this.wavewhisperer.level.getSeaLevel() - 3);
+        }
+
+        public boolean canContinueToUse() {
+            return super.canContinueToUse();
+        }
+
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            BlockPos blockpos = pPos.above();
+            return pLevel.isEmptyBlock(blockpos) && pLevel.isEmptyBlock(blockpos.above()) && pLevel.getBlockState(pPos).entityCanStandOn(pLevel, pPos, this.wavewhisperer);
+        }
+
+        public void start() {
+            this.wavewhisperer.setSearchingForLand(false);
+            this.wavewhisperer.navigation = this.wavewhisperer.groundNavigation;
+            super.start();
+        }
+
+        public void stop() {
+            super.stop();
+        }
+    }
 }

@@ -98,7 +98,7 @@ public class FrozenZombieServant extends ZombieServant implements RangedAttackMo
         snowball.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
         this.playSound(SoundEvents.SNOWBALL_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(snowball);
-        this.throwCooldown = MathHelper.secondsToTicks(2);
+        this.throwCooldown = MathHelper.secondsToTicks(3);
     }
 
     @SubscribeEvent

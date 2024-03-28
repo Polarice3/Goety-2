@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.api.magic.IMold;
+import com.Polarice3.Goety.common.blocks.CorpseBlossomBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Whisperer;
@@ -32,6 +33,9 @@ public class WhispererMold implements IMold {
                         && level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get())) {
                     if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
                         Whisperer whisperer = ModEntityType.WHISPERER.get().create(level);
+                        if (level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).getValue(CorpseBlossomBlock.WATERLOGGED)){
+                            whisperer = ModEntityType.WAVEWHISPERER.get().create(level);
+                        }
                         if (whisperer != null) {
                             whisperer.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(whisperer.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                             whisperer.setTrueOwner(player);

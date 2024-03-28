@@ -209,7 +209,7 @@ public class AbstractWraith extends Summoned {
         return (float) this.getFollowRange();
     }
 
-    public float halfFollowRange(){
+    public float attackRange(){
         return this.getFloatFollowRange()/2.0F;
     }
 
@@ -316,7 +316,7 @@ public class AbstractWraith extends Summoned {
                 }
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
                     if ((this.fireCooldown <= 0 && !this.isTeleporting()
-                            && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) || this.isFiring()) {
+                            && this.getTarget().distanceToSqr(this) < Mth.square(this.attackRange())) || this.isFiring()) {
                         ++this.fireTick;
                         if (this.isFiring()){
                             this.getNavigation().stop();
@@ -378,7 +378,7 @@ public class AbstractWraith extends Summoned {
     public void movement(){
         if (this.getTarget() != null && !this.isStaying() && !this.isPostTeleporting()) {
             Vec3 vector3d2;
-            if (this.getTarget().distanceToSqr(this) > Mth.square(this.halfFollowRange())){
+            if (this.getTarget().distanceToSqr(this) > Mth.square(this.attackRange())){
                 vector3d2 = this.getTarget().position();
             } else {
                 vector3d2 = LandRandomPos.getPos(this, 4, 4);

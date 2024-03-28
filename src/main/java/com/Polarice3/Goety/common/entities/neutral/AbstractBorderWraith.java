@@ -59,7 +59,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
                     if (!this.isBreathing()) {
                         if (((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
-                                && this.getTarget().distanceToSqr(this) < Mth.square(this.halfFollowRange())) || this.isFiring()) {
+                                && this.getTarget().distanceToSqr(this) < Mth.square(this.attackRange())) || this.isFiring()) {
                             ++this.fireTick;
                             if (this.isFiring()) {
                                 this.getNavigation().stop();

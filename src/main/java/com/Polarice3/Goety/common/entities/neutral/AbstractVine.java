@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -16,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -160,7 +162,16 @@ public abstract class AbstractVine extends AbstractMonolith{
 
     @Override
     public boolean canBeCollidedWith() {
-        return this.activeTick > 0 && this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.5D)).stream().noneMatch(living -> living == this.getTrueOwner() && CuriosFinder.hasWildRobe(living));
+        return this.activeTick > 0;
+    }
+
+    public boolean passableEntities(Entity collider){
+        return collider instanceof LivingEntity livingEntity
+                && ((livingEntity == this.getMasterOwner()
+                && CuriosFinder.hasWildRobe(livingEntity))
+                || (this.getMasterOwner() != null
+                && CuriosFinder.hasWildRobe(this.getMasterOwner())
+                && MobUtil.areAllies(livingEntity, this.getMasterOwner())));
     }
 
     public void aiStep() {
