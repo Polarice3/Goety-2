@@ -41,10 +41,6 @@ public class JungleZombieServant extends ZombieServant{
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.JungleZombieServantDamage.get());
     }
 
-    protected boolean isSunSensitive() {
-        return false;
-    }
-
     protected SoundEvent getAmbientSound() {
         return ModSounds.JUNGLE_ZOMBIE_AMBIENT.get();
     }

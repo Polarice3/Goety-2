@@ -155,6 +155,7 @@ jar {
                 "MixinConfigs": "goety.mixins.json"
         ])
     }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 jar.finalizedBy('reobfJar')

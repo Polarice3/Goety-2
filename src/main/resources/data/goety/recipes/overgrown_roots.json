@@ -10,11 +10,11 @@
   {
     "#":
     {
-      "item": "minecraft:jungle_log"
+      "item": "minecraft:vine"
     },
     "$":
     {
-      "item": "minecraft:mangrove_roots"
+      "tag": "minecraft:saplings"
     },
     "B":
     {

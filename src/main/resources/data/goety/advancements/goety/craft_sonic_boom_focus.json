@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:sonic_boom_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_sonic_boom_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_sonic_boom_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/kill_a_vizier",
+  "criteria": {
+    "sonic_boom_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:sonic_boom_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "sonic_boom_focus"
+    ]
+  ]
+}

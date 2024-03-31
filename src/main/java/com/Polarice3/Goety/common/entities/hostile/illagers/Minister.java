@@ -904,4 +904,9 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
             }
         }
     }
+
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
 }

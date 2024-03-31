@@ -29,7 +29,7 @@ public class WhispererMold implements IMold {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(Blocks.MOSS_BLOCK)) {
                 if (level.getBlockState(blockPos.offset(MOSS)).is(Blocks.MOSS_BLOCK)
-                        && level.getBlockState(blockPos.offset(LEAVES)).is(Blocks.JUNGLE_LEAVES)
+                        && level.getBlockState(blockPos.offset(LEAVES)).is(ModBlocks.OVERGROWN_ROOTS.get())
                         && level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get())) {
                     if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
                         Whisperer whisperer = ModEntityType.WHISPERER.get().create(level);
@@ -68,7 +68,7 @@ public class WhispererMold implements IMold {
                 level.setBlockAndUpdate(blockPos0, Blocks.AIR.defaultBlockState());
             }
             BlockPos blockPos1 = blockPos.offset(LEAVES);
-            if (level.getBlockState(blockPos1).is(Blocks.JUNGLE_LEAVES)) {
+            if (level.getBlockState(blockPos1).is(ModBlocks.OVERGROWN_ROOTS.get())) {
                 level.levelEvent(2001, blockPos1, Block.getId(level.getBlockState(blockPos1)));
                 level.setBlockAndUpdate(blockPos1, Blocks.AIR.defaultBlockState());
             }

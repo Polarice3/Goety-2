@@ -148,6 +148,7 @@ public class ClientInitEvents {
 
     private static <T extends LivingEntity, M extends EntityModel<T>> void addLivingLayer(LivingEntityRenderer<T, M> renderer) {
         renderer.addLayer(new FreezeLayer<>(renderer));
+        renderer.addLayer(new MagicShieldLayer<>(renderer));
     }
 
     private static void addPlayerLayers(LivingEntityRenderer<Player, EntityModel<Player>> renderer, EntityModelSet entityModelSet) {

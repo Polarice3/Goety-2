@@ -1,0 +1,535 @@
+{
+  "parent": "goety:goety/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:stone_sword",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.goety.servant_kill_mob.title"
+    },
+    "description": {
+      "translate": "advancements.goety.servant_kill_mob.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "minecraft:blaze": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:blaze"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:cave_spider": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cave_spider"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:creeper": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:creeper"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:drowned": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:drowned"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:elder_guardian": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:elder_guardian"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:ender_dragon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ender_dragon"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:enderman": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:enderman"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:endermite": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:endermite"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:evoker": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:evoker"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:ghast": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ghast"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:guardian": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:guardian"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:hoglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:hoglin"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:husk": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:husk"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:magma_cube": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:magma_cube"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:phantom": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:phantom"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:piglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:piglin"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:piglin_brute": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:piglin_brute"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:pillager": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:pillager"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:ravager": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ravager"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:shulker": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:shulker"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:silverfish": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:silverfish"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:slime": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:slime"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:spider": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:spider"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:stray": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:stray"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:vex": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:vex"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:vindicator": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:vindicator"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:witch": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:witch"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:wither": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:wither"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:wither_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:wither_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:zoglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zoglin"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:zombie": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zombie"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:zombie_villager": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zombie_villager"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    },
+    "minecraft:zombified_piglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zombified_piglin"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "minecraft:blaze",
+      "minecraft:cave_spider",
+      "minecraft:creeper",
+      "minecraft:drowned",
+      "minecraft:elder_guardian",
+      "minecraft:ender_dragon",
+      "minecraft:enderman",
+      "minecraft:endermite",
+      "minecraft:evoker",
+      "minecraft:ghast",
+      "minecraft:guardian",
+      "minecraft:hoglin",
+      "minecraft:husk",
+      "minecraft:magma_cube",
+      "minecraft:phantom",
+      "minecraft:piglin",
+      "minecraft:piglin_brute",
+      "minecraft:pillager",
+      "minecraft:ravager",
+      "minecraft:shulker",
+      "minecraft:silverfish",
+      "minecraft:skeleton",
+      "minecraft:slime",
+      "minecraft:spider",
+      "minecraft:stray",
+      "minecraft:vex",
+      "minecraft:vindicator",
+      "minecraft:witch",
+      "minecraft:wither_skeleton",
+      "minecraft:wither",
+      "minecraft:zoglin",
+      "minecraft:zombie_villager",
+      "minecraft:zombie",
+      "minecraft:zombified_piglin"
+    ]
+  ]
+}

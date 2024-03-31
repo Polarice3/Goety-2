@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -73,6 +74,11 @@ public class SlimeServant extends Summoned{
         super.defineSynchedData();
         this.entityData.define(ID_SIZE, 1);
         this.entityData.define(DATA_INTERESTED_ID, false);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return EntityType.SLIME.getDefaultLootTable();
     }
 
     public void setSize(int p_33594_, boolean p_33595_) {

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
@@ -247,8 +248,12 @@ public class Inquillager extends HuntingIllagerEntity{
             }
         }
 
+        protected int getCastWarmupTime() {
+            return 40;
+        }
+
         protected int getCastingTime() {
-            return 20;
+            return 40;
         }
 
         protected int getCastingInterval() {
@@ -269,10 +274,10 @@ public class Inquillager extends HuntingIllagerEntity{
             Inquillager.this.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F, 2.0F);
             if (Inquillager.this.getHealTimes() > 3){
                 Inquillager.this.setHealTimes(0);
-                Inquillager.this.setCoolDown(600);
+                Inquillager.this.setCoolDown(1200);
             } else {
                 Inquillager.this.increaseHealTimes();
-                Inquillager.this.setCoolDown(100);
+                Inquillager.this.setCoolDown(300);
             }
         }
 

@@ -8,6 +8,8 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
+import com.Polarice3.Goety.common.capabilities.misc.IMisc;
+import com.Polarice3.Goety.common.capabilities.misc.MiscProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -45,6 +47,7 @@ import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -219,19 +222,23 @@ public class ModEvents {
                         soulEnergy.setCooldowns(capability3.cooldowns()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
-                        soulEnergy.setShields(capability3.shieldsLeft()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
-                        soulEnergy.setShieldTime(capability3.shieldTime()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
-                        soulEnergy.setShieldCool(capability3.shieldCool()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
                         soulEnergy.setBottling(capability3.bottling()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
+
+        IMisc capability4 = MiscCapHelper.getCapability(original);
+
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShields(capability4.shieldsLeft()));
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShieldTime(capability4.shieldTime()));
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShieldCool(capability4.shieldCool()));
+
     }
 
     @SubscribeEvent
@@ -767,17 +774,29 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
+            if (MiscCapHelper.getShieldTime(livingEntity) > 0){
+                if (MiscCapHelper.getShields(livingEntity) <= 0){
+                    MiscCapHelper.setShieldTime(livingEntity, 0);
+                } else {
+                    MiscCapHelper.decreaseShieldTime(livingEntity);
+                }
+            } else if (MiscCapHelper.getShields(livingEntity) > 0){
+                MiscCapHelper.setShields(livingEntity, 0);
+                if (!livingEntity.level.isClientSide){
+                    if (livingEntity instanceof Player player){
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F));
+                    } else {
+                        livingEntity.playSound(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F);
+                    }
+                }
+            }
+            if (MiscCapHelper.getShieldCool(livingEntity) > 0){
+                MiscCapHelper.decreaseShieldCool(livingEntity);
+            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ParticleTypes.WITCH, livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
-                    }
-                }
-            }
-            if (CuriosFinder.hasWarlockRobe(livingEntity)){
-                if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
-                    for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
-                        livingEntity.level.addParticle(ModParticleTypes.WARLOCK.get(), livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }
@@ -1065,6 +1084,19 @@ public class ModEvents {
             }
         }
 
+        if (!event.getEntity().level.isClientSide) {
+            if (MiscCapHelper.getShields(victim) > 0 && !event.getSource().isBypassMagic()){
+                if (MiscCapHelper.getShieldCool(victim) <= 0) {
+                    MiscCapHelper.decreaseShields(victim);
+                    MiscCapHelper.setShieldCool(victim, 10);
+                    if (event.getSource().getEntity() instanceof LivingEntity livingEntity){
+                        MobUtil.knockBack(livingEntity, victim, 1.0D, 0.2D, 1.0D);
+                    }
+                }
+                event.setCanceled(true);
+            }
+        }
+
         if (MobsConfig.MinionsMasterImmune.get()){
             if (attacker instanceof IOwned){
                 if (((IOwned) attacker).getTrueOwner() == victim){
@@ -1164,12 +1196,6 @@ public class ModEvents {
                         event.setAmount(event.getAmount() * resistance);
                     }
                 }
-            }
-        }
-        if (CuriosFinder.hasWarlockRobe(victim)){
-            if (event.getSource().isExplosion()){
-                float resistance = 1.0F - (ItemConfig.WarlockRobeResistance.get() / 100.0F);
-                event.setAmount(event.getAmount() * resistance);
             }
         }
         if (ModDamageSource.shockAttacks(event.getSource())){
@@ -1402,6 +1428,10 @@ public class ModEvents {
                 player.displayClientMessage(killed.getCombatTracker().getDeathMessage(), false);
             }
         }*/
+        if (!event.isCanceled()){
+            MiscCapHelper.setShields(killed, 0);
+            MiscCapHelper.setShieldTime(killed, 0);
+        }
     }
 
     @SubscribeEvent

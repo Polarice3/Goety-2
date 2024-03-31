@@ -1,4 +1,4 @@
-// 1.19.2	2024-03-27T14:52:21.8013169	Tags for minecraft:entity_type
+// 1.19.2	2024-03-31T20:07:41.0491949	Tags for minecraft:entity_type
 871115c37b303672b43b321b0acc6c83ef85f81d data/goety/tags/entity_types/creepers.json
 5dea9b67ceadb383f517bc0c244386752e96360d data/minecraft/tags/entity_types/arrows.json
 fe8553306d7943533580f1cd484f96c69c05b9c3 data/minecraft/tags/entity_types/freeze_hurts_extra_types.json
@@ -6,4 +6,4 @@ f046a911065707ec5ba6cf92eb51e9ecf468141f data/minecraft/tags/entity_types/freeze
 d16939065b8f13d1ce6068fae4c47df2e840eb73 data/minecraft/tags/entity_types/frog_food.json
 7fc534867747bdb3d97437c61c12d75cc52bfc5a data/minecraft/tags/entity_types/impact_projectiles.json
 65af5f96786ed98cacfe9007762b7660596945b1 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json
-71ae636b8dbfd206db4f920c784ee788f5604661 data/minecraft/tags/entity_types/raiders.json
+00c9807568c15f78f02dd5aa7dbc3ec14887f69b data/minecraft/tags/entity_types/raiders.json

@@ -12,20 +12,26 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
@@ -37,7 +43,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class Ripper extends PatrollingMonster {
+public class Ripper extends Raider {
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(Ripper.class, EntityDataSerializers.INT);
     private boolean isWet;
     private boolean isShaking;
@@ -45,7 +51,7 @@ public class Ripper extends PatrollingMonster {
     private float shakeAnimO;
     private int bitingTick;
 
-    public Ripper(EntityType<? extends PatrollingMonster> p_37839_, Level p_37840_) {
+    public Ripper(EntityType<? extends Raider> p_37839_, Level p_37840_) {
         super(p_37839_, p_37840_);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
@@ -62,6 +68,7 @@ public class Ripper extends PatrollingMonster {
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
         this.targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, (p_199899_) -> {
             return !p_199899_.isBaby();
@@ -83,6 +90,26 @@ public class Ripper extends PatrollingMonster {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ID_SIZE, 0);
+    }
+
+    @Override
+    public void applyRaidBuffs(int p_37844_, boolean p_37845_) {
+        Raid raid = this.getCurrentRaid();
+        if (raid != null) {
+            int i = 0;
+            if (p_37844_ > raid.getNumGroups(Difficulty.NORMAL)) {
+                i = 1;
+            }
+
+            boolean flag = this.random.nextFloat() <= raid.getEnchantOdds();
+            if (flag) {
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, i));
+            }
+        }
+    }
+
+    public boolean canPickUpLoot() {
+        return false;
     }
 
     @Override
@@ -373,6 +400,11 @@ public class Ripper extends PatrollingMonster {
         float f = p_34298_.getSpecialMultiplier();
         this.handleAttributes(f);
         return p_34300_;
+    }
+
+    @Override
+    public SoundEvent getCelebrateSound() {
+        return SoundEvents.WOLF_HOWL;
     }
 
     protected void handleAttributes(float p_34340_) {

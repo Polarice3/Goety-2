@@ -427,7 +427,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
 
         public boolean canUse() {
             LivingEntity livingentity = Cryologer.this.getTarget();
-            if (livingentity != null && livingentity.isAlive() && Cryologer.this.getCurrentAnimation() != Cryologer.this.getAnimationState("breath")) {
+            if (livingentity != null && livingentity.isAlive() && Cryologer.this.hasLineOfSight(livingentity) && Cryologer.this.getCurrentAnimation() != Cryologer.this.getAnimationState("breath")) {
                 if (Cryologer.this.isCastingSpell()) {
                     return false;
                 } else {
@@ -440,7 +440,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
 
         public boolean canContinueToUse() {
             LivingEntity livingentity = Cryologer.this.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.attackWarmupDelay > 0;
+            return livingentity != null && livingentity.isAlive() && Cryologer.this.hasLineOfSight(livingentity) && this.attackWarmupDelay > 0;
         }
 
         public void start() {

@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -95,7 +97,8 @@ public class TotemicBomb extends AbstractMonolith{
     private void explode() {
         if (!this.level.isClientSide) {
             if (this.level instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new ShockwaveParticleOption(0), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
+                ColorUtil colorUtil = new ColorUtil(0xff8905);
+                serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, this.explosionPower * 2, 1), this.getX(), this.getY(), this.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
             }
             this.dead = true;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.explosionPower, Explosion.BlockInteraction.NONE);

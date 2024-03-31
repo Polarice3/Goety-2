@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:animation_core"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_animation_core.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_animation_core.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "animation_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:animation_core"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "animation_core"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

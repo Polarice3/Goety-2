@@ -304,6 +304,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "goety:tunnel_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:tunnel_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "goety:launch_focus": {
       "conditions": {
         "items": [
@@ -346,6 +358,54 @@
           {
             "items": [
               "goety:wind_blast_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:swarm_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:swarm_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:overgrowth_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:overgrowth_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:entangling_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:entangling_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:whispering_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:whispering_focus"
             ]
           }
         ]
@@ -643,6 +703,9 @@
       "goety:blink_focus"
     ],
     [
+      "goety:tunnel_focus"
+    ],
+    [
       "goety:launch_focus"
     ],
     [
@@ -653,6 +716,18 @@
     ],
     [
       "goety:wind_blast_focus"
+    ],
+    [
+      "goety:swarm_focus"
+    ],
+    [
+      "goety:overgrowth_focus"
+    ],
+    [
+      "goety:entangling_focus"
+    ],
+    [
+      "goety:whispering_focus"
     ],
     [
       "goety:soul_light_focus"

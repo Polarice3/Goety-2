@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:wild_robe"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_wild_robe.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_wild_robe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_altar",
+  "criteria": {
+    "wild_robe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:wild_robe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "wild_robe"
+    ]
+  ]
+}

@@ -101,6 +101,10 @@ public class SingleStackItem extends Item {
                 }
                 tooltip.add(Component.translatable("info.goety.frost_robe_discount").withStyle(secondary));
             }
+            if (stack.getItem() instanceof WildRobeItem) {
+                tooltip.add(Component.translatable("info.goety.wild_robe").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.wild_robe_discount").withStyle(secondary));
+            }
             if (stack.getItem() instanceof WindyRobeItem) {
                 tooltip.add(Component.translatable("info.goety.wind_robe").withStyle(main));
                 if (stack.is(ModItems.WIND_ROBE.get())) {

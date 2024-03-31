@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.HoleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -41,6 +43,14 @@ public class HoleBlock extends BaseEntityBlock {
 
     public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
         return true;
+    }
+
+    public boolean canBeReplaced(BlockState p_153299_, BlockPlaceContext p_153300_) {
+        return false;
+    }
+
+    public ItemStack getCloneItemStack(BlockGetter p_53003_, BlockPos p_53004_, BlockState p_53005_) {
+        return ItemStack.EMPTY;
     }
 
     @Nullable

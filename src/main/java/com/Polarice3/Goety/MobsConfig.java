@@ -84,6 +84,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerSteal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IllagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PikerRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RipperRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrusherRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StormCasterRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerRaid;
@@ -248,6 +249,8 @@ public class MobsConfig {
                     .define("specialIllagerRaid", true);
             PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
                     .define("pikerRaid", true);
+            RipperRaid = BUILDER.comment("Whether Rippers appear in Raids. They do not count as part of the Raid bar, Default: true")
+                    .define("ripperRaid", true);
             CrusherRaid = BUILDER.comment("Whether Crushers appear in Raids, Default: true")
                     .define("crusherRaid", true);
             StormCasterRaid = BUILDER.comment("Whether Storm Casters appear in Raids, Default: true")

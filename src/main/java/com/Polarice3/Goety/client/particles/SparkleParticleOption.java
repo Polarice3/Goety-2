@@ -58,7 +58,7 @@ public class SparkleParticleOption implements ParticleOptions {
     @NotNull
     @Override
     public String writeToString() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %d %s %s %s",
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %d",
                 Registry.PARTICLE_TYPE.getKey(this.getType()), this.size, this.r, this.g, this.b, this.extraLife);
     }
 

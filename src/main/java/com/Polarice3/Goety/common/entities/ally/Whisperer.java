@@ -419,6 +419,10 @@ public class Whisperer extends Summoned{
         this.hurt(DamageSource.STARVE, this.getMaxHealth() * 2);
     }
 
+    protected boolean shouldDropLoot() {
+        return !this.limitedLifespan;
+    }
+
     @Override
     public void handleEntityEvent(byte p_21375_) {
         if (p_21375_ == 5){
@@ -442,9 +446,9 @@ public class Whisperer extends Summoned{
                         itemstack.shrink(1);
                     }
                     if (this.getType() == ModEntityType.WAVEWHISPERER.get()){
-                        this.playSound(ModSounds.WAVEWHISPERER_AMBIENT.get(), 1.0F, 2.0F);
+                        this.playSound(ModSounds.WAVEWHISPERER_AMBIENT.get(), 1.0F, 1.25F);
                     } else {
-                        this.playSound(ModSounds.WHISPERER_AMBIENT.get(), 1.0F, 2.0F);
+                        this.playSound(ModSounds.WHISPERER_AMBIENT.get(), 1.0F, 1.25F);
                     }
                     this.heal(2.0F);
                     for (int i = 0; i < 7; ++i) {
@@ -453,6 +457,7 @@ public class Whisperer extends Summoned{
                         double d2 = this.random.nextGaussian() * 0.02D;
                         this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                     }
+                    pPlayer.swing(p_230254_2_);
                     return InteractionResult.CONSUME;
                 }
             }
