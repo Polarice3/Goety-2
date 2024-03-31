@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-27T14:59:15.7655712	Registries
+// 1.20.1	2024-03-31T20:05:20.1839766	Registries
 1c81619d690aa854535c8fad68b58aef03da65ab data/goety/damage_type/boiling.json
 6c769217837e51b72b3a876816a01dfd388da08b data/goety/damage_type/choke.json
 564a695e0c8fec48db39c5750c199f12645b4e43 data/goety/damage_type/direct_freeze.json
@@ -25,7 +25,7 @@ a2fe9a17e3c9cf0894ea4d3740b12e40ed2bae40 data/goety/damage_type/wind_blast.json
 394ecdf7e3c39dc06a6f557ef8e81b2b894300f8 data/goety/trim_material/dark.json
 a1f3491c467f39025022c4b6adb8f9a3b39307e2 data/goety/trim_material/ecto.json
 32a21291d0ef486176c4ae5b212d78767535048c data/goety/trim_material/jade.json
-04779c17c9ca9fd326b4df05cbffa98a54a29c18 data/minecraft/worldgen/configured_feature/corpse_blossom.json
+ee701e93e5389b301defc25e6244580f77f405e6 data/minecraft/worldgen/configured_feature/corpse_blossom.json
 2ba76151d45d848f26008918bea8a19e19eda24b data/minecraft/worldgen/configured_feature/fancy_rotten_tree_sapling.json
 319b36173ec64d44c27285ae68827faa8b8b24c5 data/minecraft/worldgen/configured_feature/haunted_tree_sapling.json
 0f0e9463f8fd249e316fb363c8829805196c07f4 data/minecraft/worldgen/configured_feature/rotten_tree_sapling.json

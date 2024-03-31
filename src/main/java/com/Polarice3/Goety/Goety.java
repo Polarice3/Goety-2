@@ -4,6 +4,7 @@ import com.Polarice3.Goety.client.ClientProxy;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.CommonProxy;
+import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.blocks.BrewCauldronBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.ModWoodType;
@@ -176,6 +177,7 @@ public class Goety {
         ModPaintings.init();
         ModPotPatterns.init();
         ModSounds.init();
+        ModCriteriaTriggers.init();
     }
 
     public static Path getOrCreateDirectory(Path dirPath, String dirLabel) {

@@ -164,6 +164,7 @@ tasks.named('jar', Jar).configure {
                 "MixinConfigs": "goety.mixins.json"
         ])
     }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     finalizedBy 'reobfJar'
 }

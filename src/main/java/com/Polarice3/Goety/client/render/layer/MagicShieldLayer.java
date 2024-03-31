@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.data.ModelData;
@@ -22,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * Shield render codes based on @TeamTwilight's Shield Layer: <a href="https://github.com/TeamTwilight/twilightforest/blob/1.19.x/src/main/java/twilightforest/client/renderer/entity/ShieldLayer.java">...</a>
  */
-public class MagicShieldLayer<T extends Player, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class MagicShieldLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     public static final ModelResourceLocation SHIELD = new ModelResourceLocation(Goety.location("magic_shield"), "inventory");
     private static final Direction[] DIRECTIONS = ArrayUtils.add(Direction.values(), null);
 
@@ -31,9 +33,9 @@ public class MagicShieldLayer<T extends Player, M extends EntityModel<T>> extend
     }
 
     @Override
-    public void render(PoseStack stack, MultiBufferSource buffer, int light, T player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (SEHelper.getShields(player) > 0) {
-            renderShields(stack, buffer, player, partialTicks);
+    public void render(PoseStack stack, MultiBufferSource buffer, int light, T living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (MiscCapHelper.getShields(living) > 0) {
+            renderShields(stack, buffer, living, partialTicks);
         }
     }
 
@@ -41,7 +43,7 @@ public class MagicShieldLayer<T extends Player, M extends EntityModel<T>> extend
         float age = entity.tickCount + partialTicks;
         float rotateAngleY = age / 10.0F;
 
-        int count = SEHelper.getShields(entity);
+        int count = MiscCapHelper.getShields(entity);
         for (int c = 0; c < count; c++) {
             stack.pushPose();
 

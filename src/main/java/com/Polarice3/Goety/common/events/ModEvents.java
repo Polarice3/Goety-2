@@ -8,6 +8,8 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
+import com.Polarice3.Goety.common.capabilities.misc.IMisc;
+import com.Polarice3.Goety.common.capabilities.misc.MiscProvider;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -45,6 +47,7 @@ import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
 import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -61,6 +64,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -68,6 +72,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
@@ -102,17 +107,24 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -125,6 +137,7 @@ import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -182,6 +195,12 @@ public class ModEvents {
                 });
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy -> {
+                    for (UUID uuid : capability3.allyList()){
+                        soulEnergy.addAlly(uuid);
+                    }
+                });
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy -> {
                     for (UUID uuid : capability3.summonList()){
                         soulEnergy.addSummon(uuid);
                     }
@@ -193,6 +212,12 @@ public class ModEvents {
                     }
                 });
         player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy -> {
+                    for (EntityType<?> entityType : capability3.allyTypeList()){
+                        soulEnergy.addAllyType(entityType);
+                    }
+                });
+        player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setApostleWarned(capability3.apostleWarned()));
         player.getCapability(SEProvider.CAPABILITY)
@@ -200,19 +225,23 @@ public class ModEvents {
                         soulEnergy.setCooldowns(capability3.cooldowns()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
-                        soulEnergy.setShields(capability3.shieldsLeft()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
-                        soulEnergy.setShieldTime(capability3.shieldTime()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
-                        soulEnergy.setShieldCool(capability3.shieldCool()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
                         soulEnergy.setBottling(capability3.bottling()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
+
+        IMisc capability4 = MiscCapHelper.getCapability(original);
+
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShields(capability4.shieldsLeft()));
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShieldTime(capability4.shieldTime()));
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setShieldCool(capability4.shieldCool()));
+
     }
 
     @SubscribeEvent
@@ -348,7 +377,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerFirstEntersWorld(PlayerEvent.PlayerLoggedInEvent event){
+    public static void onPlayerEntersWorld(PlayerEvent.PlayerLoggedInEvent event){
         CompoundTag playerData = event.getEntity().getPersistentData();
         CompoundTag data;
 
@@ -713,17 +742,29 @@ public class ModEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
+            if (MiscCapHelper.getShieldTime(livingEntity) > 0){
+                if (MiscCapHelper.getShields(livingEntity) <= 0){
+                    MiscCapHelper.setShieldTime(livingEntity, 0);
+                } else {
+                    MiscCapHelper.decreaseShieldTime(livingEntity);
+                }
+            } else if (MiscCapHelper.getShields(livingEntity) > 0){
+                MiscCapHelper.setShields(livingEntity, 0);
+                if (!livingEntity.level.isClientSide){
+                    if (livingEntity instanceof Player player){
+                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F));
+                    } else {
+                        livingEntity.playSound(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F);
+                    }
+                }
+            }
+            if (MiscCapHelper.getShieldCool(livingEntity) > 0){
+                MiscCapHelper.decreaseShieldCool(livingEntity);
+            }
             if (CuriosFinder.hasWitchSet(livingEntity)){
                 if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
                     for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
                         livingEntity.level.addParticle(ParticleTypes.WITCH, livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
-                    }
-                }
-            }
-            if (CuriosFinder.hasWarlockRobe(livingEntity)){
-                if (livingEntity.getRandom().nextFloat() < 7.5E-4F){
-                    for(int i = 0; i < livingEntity.getRandom().nextInt(35) + 10; ++i) {
-                        livingEntity.level.addParticle(ModParticleTypes.WARLOCK.get(), livingEntity.getX() + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getBoundingBox().maxY + 0.5D + livingEntity.getRandom().nextGaussian() * (double)0.13F, livingEntity.getZ() + livingEntity.getRandom().nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }
@@ -1011,6 +1052,19 @@ public class ModEvents {
             }
         }
 
+        if (!event.getEntity().level.isClientSide) {
+            if (MiscCapHelper.getShields(victim) > 0 && !event.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)){
+                if (MiscCapHelper.getShieldCool(victim) <= 0) {
+                    MiscCapHelper.decreaseShields(victim);
+                    MiscCapHelper.setShieldCool(victim, 10);
+                    if (event.getSource().getEntity() instanceof LivingEntity livingEntity){
+                        MobUtil.knockBack(livingEntity, victim, 1.0D, 0.2D, 1.0D);
+                    }
+                }
+                event.setCanceled(true);
+            }
+        }
+
         if (MobsConfig.MinionsMasterImmune.get()){
             if (attacker instanceof IOwned){
                 if (((IOwned) attacker).getTrueOwner() == victim){
@@ -1110,12 +1164,6 @@ public class ModEvents {
                         event.setAmount(event.getAmount() * resistance);
                     }
                 }
-            }
-        }
-        if (CuriosFinder.hasWarlockRobe(victim)){
-            if (event.getSource().is(DamageTypeTags.IS_EXPLOSION)){
-                float resistance = 1.0F - (ItemConfig.WarlockRobeResistance.get() / 100.0F);
-                event.setAmount(event.getAmount() * resistance);
             }
         }
         if (ModDamageSource.shockAttacks(event.getSource())){
@@ -1312,9 +1360,6 @@ public class ModEvents {
                                 if (killed.getType() == EntityType.WITHER_SKELETON) {
                                     killed.spawnAtLocation(new ItemStack(Items.WITHER_SKELETON_SKULL));
                                 }
-                                if (killed.getType() == EntityType.PIGLIN){
-                                    killed.spawnAtLocation(new ItemStack(Items.PIGLIN_HEAD));
-                                }
                                 if (MobsConfig.TallSkullDrops.get()) {
                                     if (killed instanceof Villager || killed instanceof AbstractIllager) {
                                         killed.spawnAtLocation(new ItemStack(ModBlocks.TALL_SKULL_ITEM.get()));
@@ -1351,6 +1396,10 @@ public class ModEvents {
                 player.displayClientMessage(killed.getCombatTracker().getDeathMessage(), false);
             }
         }*/
+        if (!event.isCanceled()){
+            MiscCapHelper.setShields(killed, 0);
+            MiscCapHelper.setShieldTime(killed, 0);
+        }
     }
 
     @SubscribeEvent

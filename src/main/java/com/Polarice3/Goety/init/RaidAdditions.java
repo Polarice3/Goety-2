@@ -14,6 +14,9 @@ public class RaidAdditions {
             if (MobsConfig.PikerRaid.get()) {
                 Raid.RaiderType.create("PIKER", ModEntityType.PIKER.get(), new int[]{0, 0, 0, 2, 0, 3, 3, 5});
             }
+            if (MobsConfig.RipperRaid.get()) {
+                Raid.RaiderType.create("RIPPER", ModEntityType.RIPPER.get(), new int[]{0, 0, 0, 4, 0, 6, 6, 10});
+            }
             if (MobsConfig.CrusherRaid.get()) {
                 Raid.RaiderType.create("CRUSHER", ModEntityType.CRUSHER.get(), new int[]{0, 0, 0, 0, 2, 2, 0, 2});
             }

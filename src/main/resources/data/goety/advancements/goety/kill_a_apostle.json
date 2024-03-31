@@ -9,12 +9,12 @@
     "description": {
       "translate": "advancements.goety.kill_apostle.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "goety:goety/root",
+  "parent": "goety:goety/summon_apostle",
   "criteria": {
     "kill_a_apostle": {
       "trigger": "minecraft:player_killed_entity",

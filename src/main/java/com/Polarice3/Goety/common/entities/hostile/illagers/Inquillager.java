@@ -248,8 +248,12 @@ public class Inquillager extends HuntingIllagerEntity{
             }
         }
 
+        protected int getCastWarmupTime() {
+            return 40;
+        }
+
         protected int getCastingTime() {
-            return 20;
+            return 40;
         }
 
         protected int getCastingInterval() {
@@ -270,10 +274,10 @@ public class Inquillager extends HuntingIllagerEntity{
             Inquillager.this.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F, 2.0F);
             if (Inquillager.this.getHealTimes() > 3){
                 Inquillager.this.setHealTimes(0);
-                Inquillager.this.setCoolDown(600);
+                Inquillager.this.setCoolDown(1200);
             } else {
                 Inquillager.this.increaseHealTimes();
-                Inquillager.this.setCoolDown(100);
+                Inquillager.this.setCoolDown(300);
             }
         }
 

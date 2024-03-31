@@ -1,0 +1,73 @@
+{
+  "parent": "goety:goety/read_warred_scroll",
+  "criteria": {
+    "summoned_squall": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:squall_golem"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "summoned_redstone": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:redstone_golem"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "summoned_grave": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:grave_golem"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.goety.summon_golems.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:diamond_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.goety.summon_golems.title"
+    }
+  },
+  "requirements": [
+    [
+      "summoned_squall"
+    ],
+    [
+      "summoned_redstone"
+    ],
+    [
+      "summoned_grave"
+    ]
+  ]
+}

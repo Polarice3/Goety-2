@@ -6,7 +6,8 @@
       "state": {
         "Name": "goety:corpse_blossom",
         "Properties": {
-          "facing": "down"
+          "facing": "down",
+          "waterlogged": "false"
         }
       }
     }

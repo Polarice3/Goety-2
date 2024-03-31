@@ -412,7 +412,7 @@ public class Leapleaf extends Summoned{
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    this.playSound(ModSounds.LEAPLEAF_AMBIENT.get(), 1.0F, 1.5F);
+                    this.playSound(ModSounds.LEAPLEAF_AMBIENT.get(), 1.0F, 1.25F);
                     this.heal(5.0F);
                     for (int i = 0; i < 7; ++i) {
                         double d0 = this.random.nextGaussian() * 0.02D;
@@ -420,6 +420,7 @@ public class Leapleaf extends Summoned{
                         double d2 = this.random.nextGaussian() * 0.02D;
                         this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                     }
+                    pPlayer.swing(p_230254_2_);
                     return InteractionResult.CONSUME;
                 }
             }
@@ -603,6 +604,7 @@ public class Leapleaf extends Summoned{
                     && !this.leapleaf.isCharging()
                     && !this.leapleaf.isLeaping()
                     && this.leapleaf.coolTick <= 0
+                    && this.leapleaf.onGround()
                     && this.leapleaf.hasLineOfSight(this.target);
         }
 

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.HoleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -25,6 +28,7 @@ public class HoleBlock extends BaseEntityBlock {
                     return 10;
                 })
                 .noOcclusion()
+                .pushReaction(PushReaction.BLOCK)
                 .strength(-1.0F, 3600000.0F)
                 .isValidSpawn(ModBlocks::never));
     }
@@ -39,6 +43,14 @@ public class HoleBlock extends BaseEntityBlock {
 
     public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
         return true;
+    }
+
+    public boolean canBeReplaced(BlockState p_53012_, Fluid p_53013_) {
+        return false;
+    }
+
+    public ItemStack getCloneItemStack(BlockGetter p_53003_, BlockPos p_53004_, BlockState p_53005_) {
+        return ItemStack.EMPTY;
     }
 
     @Nullable

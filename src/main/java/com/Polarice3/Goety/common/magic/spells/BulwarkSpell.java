@@ -4,6 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -39,10 +40,7 @@ public class BulwarkSpell extends Spells {
 
     @Override
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        if (entityLiving instanceof Player player) {
-            return SEHelper.getShields(player) <= 0;
-        }
-        return false;
+        return MiscCapHelper.getShields(entityLiving) <= 0;
     }
 
     @Override
@@ -55,16 +53,14 @@ public class BulwarkSpell extends Spells {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
-        if (entityLiving instanceof Player player) {
-            int amount = SpellConfig.BulwarkShieldAmount.get();
-            int duration = SpellConfig.BulwarkShieldTime.get();
-            if (WandUtil.enchantedFocus(entityLiving)) {
-                amount += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
-                duration *= Math.min(4, WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1);
-            }
-            SEHelper.setShields(player, amount);
-            SEHelper.setShieldTime(player, duration);
-            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SHIELD_UP.get(), this.getSoundSource(), 3.0F, entityLiving.getVoicePitch());
+        int amount = SpellConfig.BulwarkShieldAmount.get();
+        int duration = SpellConfig.BulwarkShieldTime.get();
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            amount += WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration *= Math.min(4, WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1);
         }
+        MiscCapHelper.setShields(entityLiving, amount);
+        MiscCapHelper.setShieldTime(entityLiving, duration);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SHIELD_UP.get(), this.getSoundSource(), 3.0F, entityLiving.getVoicePitch());
     }
 }

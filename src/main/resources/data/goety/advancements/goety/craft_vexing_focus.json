@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "goety:goety/craft_dark_wand",
+  "parent": "goety:goety/craft_animation_core",
   "criteria": {
     "vexing_focus": {
       "conditions": {

@@ -4,6 +4,7 @@ import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.hostile.IBoss;
+import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -14,11 +15,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -229,10 +232,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     }
 
+    @Nullable
     public Team getTeam() {
         if (this.getTrueOwner() != null) {
             LivingEntity livingentity = this.getTrueOwner();
-            if (livingentity != null) {
+            if (livingentity != null && livingentity.getTeam() != null) {
                 return livingentity.getTeam();
             }
         }
@@ -344,6 +348,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         return pSpawnData;
     }
 
+    @Nullable
     public LivingEntity getTrueOwner() {
         if (!this.level.isClientSide){
             UUID uuid = this.getOwnerId();
@@ -353,6 +358,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
+    @Nullable
     public LivingEntity getMasterOwner(){
         if (this.getTrueOwner() instanceof IOwned owned){
             return owned.getTrueOwner();
@@ -470,6 +476,14 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public boolean isChargingCrossbow() {
         return false;
+    }
+
+    @Override
+    public void awardKillScore(Entity entity, int p_19954_, DamageSource damageSource) {
+        super.awardKillScore(entity, p_19954_, damageSource);
+        if (this.getMasterOwner() instanceof ServerPlayer serverPlayer) {
+            ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, entity, damageSource);
+        }
     }
 
     public class OwnerHurtTargetGoal extends TargetGoal {

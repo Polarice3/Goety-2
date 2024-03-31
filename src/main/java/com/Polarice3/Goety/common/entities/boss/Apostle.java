@@ -104,6 +104,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private int hitTimes;
     private int coolDown;
     private int tornadoCoolDown;
+    private int infernoCoolDown;
     private int monolithCoolDown;
     private int spellCycle;
     private int titleNumber;
@@ -285,6 +286,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         pCompound.putInt("firing", this.f);
         pCompound.putInt("coolDown", this.coolDown);
         pCompound.putInt("tornadoCoolDown", this.tornadoCoolDown);
+        pCompound.putInt("infernoCoolDown", this.infernoCoolDown);
         pCompound.putInt("monolithCoolDown", this.monolithCoolDown);
         pCompound.putInt("spellCycle", this.spellCycle);
         pCompound.putInt("hitTimes", this.hitTimes);
@@ -303,6 +305,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.f = pCompound.getInt("firing");
         this.coolDown = pCompound.getInt("coolDown");
         this.tornadoCoolDown = pCompound.getInt("tornadoCoolDown");
+        this.infernoCoolDown = pCompound.getInt("infernoCoolDown");
         this.monolithCoolDown = pCompound.getInt("monolithCoolDown");
         this.spellCycle = pCompound.getInt("spellCycle");
         this.hitTimes = pCompound.getInt("hitTimes");
@@ -674,6 +677,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         return this.tornadoCoolDown;
     }
 
+    public void setInfernoCoolDown(int coolDown){
+        this.infernoCoolDown = coolDown;
+    }
+
+    public int getInfernoCoolDown(){
+        return this.infernoCoolDown;
+    }
+
     public void setMonolithCoolDown(int coolDown){
         this.monolithCoolDown = coolDown;
     }
@@ -948,6 +959,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         if (this.getTornadoCoolDown() > 0){
             --this.tornadoCoolDown;
+        }
+        if (this.getInfernoCoolDown() > 0){
+            --this.infernoCoolDown;
         }
         if (this.getMonolithCoolDown() > 0){
             --this.monolithCoolDown;
@@ -1572,6 +1586,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 return Apostle.this.getCoolDown() >= cool
                         && Apostle.this.getSpellCycle() == 3
                         && !Apostle.this.isSettingUpSecond()
+                        && Apostle.this.getInfernoCoolDown() <= 0
                         && i < 2;
             }
         }
@@ -1618,6 +1633,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             summonedentity.setTarget(livingentity);
                             SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos, summonedentity, false, true, Apostle.this);
                             Apostle.this.level.addFreshEntity(summonCircle);
+                            Apostle.this.setInfernoCoolDown(MathHelper.secondsToTicks(45));
                         }
                     } else {
                         int p0 = serverLevel.dimension() == Level.NETHER ? 2 : 1;
@@ -1637,6 +1653,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                             SummonCircle summonCircle = new SummonCircle(Apostle.this.level, blockpos$mutable, summonedentity, false, true, Apostle.this);
                             Apostle.this.level.addFreshEntity(summonCircle);
                         }
+                        Apostle.this.setInfernoCoolDown(MathHelper.secondsToTicks(45));
                     }
                     Apostle.this.postSpellCast();
                 }

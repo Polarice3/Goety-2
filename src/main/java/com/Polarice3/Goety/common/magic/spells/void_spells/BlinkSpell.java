@@ -4,12 +4,14 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -59,17 +62,33 @@ public class BlinkSpell extends Spells {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
-        if (entityLiving instanceof Player player) {
-            int enchantment = 0;
-            if (WandUtil.enchantedFocus(player)) {
-                enchantment = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
-            Vec3 vec3 = findTeleportLocation(worldIn, player, 32 + enchantment);
-            BlockPos blockPos = BlockPos.containing(vec3);
-            enderTeleportEvent(entityLiving, worldIn, blockPos);
-            worldIn.broadcastEntityEvent(player, (byte) 46);
+        int enchantment = 0;
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            enchantment = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
+        EntityHitResult hitResult = this.entityResult(worldIn, entityLiving, 32 + enchantment, 3);
+        if (hitResult != null){
+            Entity entity = hitResult.getEntity();
+            for (int i = 0; i < 64; ++i) {
+                if (MobUtil.teleportTowards(entityLiving, entity)){
+                    break;
+                }
+            }
+        } else {
+            if (!this.isShifting(entityLiving)) {
+                Vec3 vec3 = findTeleportLocation(worldIn, entityLiving, 32 + enchantment);
+                BlockPos blockPos = BlockPos.containing(vec3);
+                enderTeleportEvent(entityLiving, worldIn, blockPos);
+                worldIn.broadcastEntityEvent(entityLiving, (byte) 46);
+                worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), this.CastingSound(), this.getSoundSource(), 2.0F, 1.0F);
+            } else {
+                for(int i = 0; i < 64; ++i) {
+                    if (MobUtil.teleport(entityLiving, enchantment)){
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -98,7 +117,7 @@ public class BlinkSpell extends Spells {
     }
 
     public static void enderTeleportEvent(LivingEntity player, Level world, BlockPos target) {
-        player.teleportTo(target.getX(), target.getY(), target.getZ());
+        player.teleportTo(target.getX(), BlockFinder.moveBlockDownToGround(world, target), target.getZ());
         player.resetFallDistance();
     }
 }

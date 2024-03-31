@@ -38,8 +38,8 @@ public class PatchouliIntegration implements ICompatable {
     }
 
     public static final Supplier<IMultiblock> WHISPERER = Suppliers.memoize(() -> {
-        IStateMatcher leaves = PatchouliAPI.get().predicateMatcher(Blocks.JUNGLE_LEAVES,
-                state -> state.is(Blocks.JUNGLE_LEAVES));
+        IStateMatcher leaves = PatchouliAPI.get().predicateMatcher(ModBlocks.OVERGROWN_ROOTS.get(),
+                state -> state.is(ModBlocks.OVERGROWN_ROOTS.get()));
         IStateMatcher moss = PatchouliAPI.get().predicateMatcher(Blocks.MOSS_BLOCK,
                 state -> state.is(Blocks.MOSS_BLOCK));
         IStateMatcher blossom = PatchouliAPI.get().predicateMatcher(ModBlocks.CORPSE_BLOSSOM.get(),

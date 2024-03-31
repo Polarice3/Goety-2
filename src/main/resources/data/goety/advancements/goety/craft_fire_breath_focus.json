@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:fire_breath_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_fire_breath_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_fire_breath_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "fire_breath_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:fire_breath_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "fire_breath_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

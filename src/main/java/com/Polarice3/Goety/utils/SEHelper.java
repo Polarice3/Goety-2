@@ -9,6 +9,7 @@ import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -165,7 +166,7 @@ public class SEHelper {
                     return MainConfig.AnthropodSouls.get();
                 } else if (victim instanceof Animal) {
                     return MainConfig.AnimalSouls.get();
-                } else if (victim instanceof Raider) {
+                } else if (victim instanceof Raider && !(victim instanceof Ripper)) {
                     return MainConfig.IllagerSouls.get();
                 } else if (victim instanceof Villager) {
                     return MainConfig.VillagerSouls.get();
@@ -530,55 +531,6 @@ public class SEHelper {
         return getFocusCoolDown(player).getInstance(item);
     }
 
-    public static int getShields(Player player){
-        return getCapability(player).shieldsLeft();
-    }
-
-    public static void setShields(Player player, int amount){
-        getCapability(player).setShields(amount);
-        SEHelper.sendSEUpdatePacket(player);
-    }
-
-    public static void increaseShields(Player player){
-        getCapability(player).increaseShields();
-        SEHelper.sendSEUpdatePacket(player);
-    }
-
-    public static void decreaseShields(Player player){
-        getCapability(player).breakShield();
-        SEHelper.sendSEUpdatePacket(player);
-        if (!player.level.isClientSide){
-            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.SHIELD_BREAK, 1.0F, 1.0F));
-        }
-    }
-
-    public static int getShieldTime(Player player){
-        return getCapability(player).shieldTime();
-    }
-
-    public static void setShieldTime(Player player, int time){
-        getCapability(player).setShieldTime(time);
-        SEHelper.sendSEUpdatePacket(player);
-    }
-
-    public static void decreaseShieldTime(Player player){
-        getCapability(player).decreaseShieldTime();
-        SEHelper.sendSEUpdatePacket(player);
-    }
-
-    public static int getShieldCool(Player player){
-        return getCapability(player).shieldCool();
-    }
-
-    public static void setShieldCool(Player player, int cool){
-        getCapability(player).setShieldCool(cool);
-    }
-
-    public static void decreaseShieldCool(Player player){
-        getCapability(player).decreaseShieldCool();
-        SEHelper.sendSEUpdatePacket(player);
-    }
-
     public static int getBottling(Player player){
         return getCapability(player).bottling();
     }
@@ -654,9 +606,6 @@ public class SEHelper {
         tag.putInt("soulEnergy", soulEnergy.getSoulEnergy());
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
-        tag.putInt("shields", soulEnergy.shieldsLeft());
-        tag.putInt("shieldTime", soulEnergy.shieldTime());
-        tag.putInt("shieldCool", soulEnergy.shieldCool());
         tag.putInt("bottling", soulEnergy.bottling());
         if (soulEnergy.getCameraUUID() != null) {
             tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
@@ -760,9 +709,6 @@ public class SEHelper {
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
-        soulEnergy.setShields(tag.getInt("shields"));
-        soulEnergy.setShieldTime(tag.getInt("shieldTime"));
-        soulEnergy.setShieldCool(tag.getInt("shieldCool"));
         soulEnergy.setBottling(tag.getInt("bottling"));
         if (tag.contains("cameraUUID")) {
             soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));

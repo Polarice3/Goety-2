@@ -24,6 +24,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedRandomList;
@@ -67,6 +68,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -1099,6 +1101,62 @@ public class MobUtil {
             return livingEntity.getAttributeValue(attribute);
         } else {
             return nullCheck;
+        }
+    }
+
+    //Enderman Teleport
+    public static boolean teleport(LivingEntity livingEntity) {
+        return teleport(livingEntity, 0);
+    }
+
+    public static boolean teleport(LivingEntity livingEntity, int level) {
+        int distance = 64 + (level * 2);
+        if (!livingEntity.level.isClientSide() && livingEntity.isAlive()) {
+            double d0 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * distance;
+            double d1 = livingEntity.getY() + (double)(livingEntity.getRandom().nextInt(distance) - (distance / 2));
+            double d2 = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * distance;
+            return teleport(livingEntity, d0, d1, d2);
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean teleportTowards(LivingEntity livingEntity, Entity target) {
+        Vec3 vec3 = new Vec3(livingEntity.getX() - target.getX(), livingEntity.getY(0.5D) - target.getEyeY(), livingEntity.getZ() - target.getZ());
+        vec3 = vec3.normalize();
+        double d0 = 16.0D;
+        double d1 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * 8.0D - vec3.x * 16.0D;
+        double d2 = livingEntity.getY() + (double)(livingEntity.getRandom().nextInt(16) - 8) - vec3.y * 16.0D;
+        double d3 = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * 8.0D - vec3.z * 16.0D;
+        return teleport(livingEntity, d1, d2, d3);
+    }
+
+    public static boolean teleport(LivingEntity livingEntity, double x, double y, double z) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
+
+        while(blockpos$mutableblockpos.getY() > livingEntity.level.getMinBuildHeight() && !livingEntity.level.getBlockState(blockpos$mutableblockpos).blocksMotion()) {
+            blockpos$mutableblockpos.move(Direction.DOWN);
+        }
+
+        BlockState blockstate = livingEntity.level.getBlockState(blockpos$mutableblockpos);
+        boolean flag = blockstate.blocksMotion();
+        boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
+        if (flag && !flag1) {
+            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, x, y, z);
+            if (event.isCanceled()) return false;
+            Vec3 vec3 = livingEntity.position();
+            boolean flag2 = livingEntity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
+            if (flag2) {
+                livingEntity.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(livingEntity));
+                if (!livingEntity.isSilent()) {
+                    livingEntity.level.playSound((Player)null, livingEntity.xo, livingEntity.yo, livingEntity.zo, SoundEvents.ENDERMAN_TELEPORT, livingEntity.getSoundSource(), 1.0F, 1.0F);
+                    livingEntity.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+                }
+            }
+
+            return flag2;
+        } else {
+            return false;
         }
     }
 }

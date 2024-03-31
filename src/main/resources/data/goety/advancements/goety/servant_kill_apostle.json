@@ -1,0 +1,40 @@
+{
+  "parent": "goety:goety/servant_kill_mob",
+  "display": {
+    "icon": {
+      "item": "minecraft:netherite_sword",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.goety.servant_kill_apostle.title"
+    },
+    "description": {
+      "translate": "advancements.goety.servant_kill_apostle.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "kill": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:apostle"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ]
+}

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,6 +28,11 @@ public class MagmaCubeServant extends SlimeServant{
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, (double)0.2F);
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return EntityType.MAGMA_CUBE.getDefaultLootTable();
     }
 
     public void setSize(int p_32972_, boolean p_32973_) {

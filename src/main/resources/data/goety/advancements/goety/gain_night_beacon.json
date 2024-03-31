@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "goety:goety/root",
+  "parent": "goety:goety/kill_a_apostle",
   "criteria": {
     "night_beacon": {
       "conditions": {
