@@ -67,6 +67,9 @@ public class IceStormSpell extends Spells {
             iceStorm.setRange(WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving));
             iceStorm.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));
         }
+        if (rightStaff(staff)){
+            iceStorm.setSize(1.0F);
+        }
         iceStorm.setOwner(entityLiving);
         worldIn.addFreshEntity(iceStorm);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.WIND_BLAST.get(), this.getSoundSource(), 1.0F, 0.75F);

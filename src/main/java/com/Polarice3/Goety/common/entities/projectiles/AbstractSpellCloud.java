@@ -53,6 +53,7 @@ public abstract class AbstractSpellCloud extends SpellEntity {
 
     @Override
     protected void defineSynchedData() {
+        super.defineSynchedData();
         this.getEntityData().define(DATA_PARTICLE, ParticleTypes.RAIN);
         this.getEntityData().define(DATA_RADIUS, 2.0F);
     }
