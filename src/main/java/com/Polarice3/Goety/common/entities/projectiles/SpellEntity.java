@@ -70,7 +70,7 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
         }
 
         if (compound.contains("TargetClient")){
-            this.setTargetClientId(compound.getInt("OwnerClient"));
+            this.setTargetClientId(compound.getInt("TargetClient"));
         }
         if (compound.contains("staff")) {
             this.staff = compound.getBoolean("staff");
@@ -162,8 +162,10 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
     }
 
     public void setOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
-        this.setOwnerClientId(livingEntity.getId());
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+            this.setOwnerClientId(livingEntity.getId());
+        }
     }
 
     public void setTarget(@Nullable LivingEntity livingEntity) {
