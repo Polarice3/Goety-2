@@ -2,7 +2,6 @@ package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.MiscCapHelper;
-import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.data.ModelData;
 import org.apache.commons.lang3.ArrayUtils;

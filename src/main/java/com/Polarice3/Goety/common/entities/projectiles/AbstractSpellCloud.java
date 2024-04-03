@@ -19,19 +19,17 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-import java.util.UUID;
-
-public abstract class AbstractSpellCloud extends Entity {
+public abstract class AbstractSpellCloud extends SpellEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.PARTICLE);
-    private LivingEntity owner;
-    private UUID ownerUUID;
     public boolean activated;
     public int lifeSpan = 100;
     public float extraDamage = 0.0F;
@@ -70,7 +68,8 @@ public abstract class AbstractSpellCloud extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag p_20052_) {
+    public void readAdditionalSaveData(CompoundTag p_20052_) {
+        super.readAdditionalSaveData(p_20052_);
         if (p_20052_.contains("Particle", 8)) {
             try {
                 this.setRainParticle(ParticleArgument.readParticle(new StringReader(p_20052_.getString("Particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup()));
@@ -89,28 +88,13 @@ public abstract class AbstractSpellCloud extends Entity {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag p_20139_) {
+    public void addAdditionalSaveData(CompoundTag p_20139_) {
+        super.addAdditionalSaveData(p_20139_);
         p_20139_.putString("Particle", this.getRainParticle().writeToString());
         p_20139_.putBoolean("Activated", this.activated);
         p_20139_.putInt("LifeSpan", this.lifeSpan);
         p_20139_.putFloat("ExtraDamage", this.extraDamage);
-    }
-
-    public void setOwner(@Nullable LivingEntity p_190549_1_) {
-        this.owner = p_190549_1_;
-        this.ownerUUID = p_190549_1_ == null ? null : p_190549_1_.getUUID();
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        if (this.owner == null && this.ownerUUID != null && this.level instanceof ServerLevel) {
-            Entity entity = ((ServerLevel)this.level).getEntity(this.ownerUUID);
-            if (entity instanceof LivingEntity) {
-                this.owner = (LivingEntity)entity;
-            }
-        }
-
-        return this.owner;
+        p_20139_.putBoolean("staff", this.staff);
     }
 
     public void setLifeSpan(int lifeSpan) {

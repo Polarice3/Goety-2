@@ -115,6 +115,12 @@ public class Whisperer extends Summoned{
         this.getEntityData().define(DATA_WAVE_CONVERSION_ID, false);
     }
 
+    protected void dropFromLootTable(DamageSource p_21021_, boolean p_21022_) {
+        if (!this.limitedLifespan){
+            super.dropFromLootTable(p_21021_, p_21022_);
+        }
+    }
+
     public boolean isUnderWaterConverting() {
         return this.getEntityData().get(DATA_WAVE_CONVERSION_ID);
     }

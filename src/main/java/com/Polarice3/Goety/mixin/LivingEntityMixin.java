@@ -38,8 +38,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "jumpFromGround", at = @At("HEAD"), cancellable = true)
     public void jumpFromGround(CallbackInfo callbackInfo) {
-        if (this.hasEffect(GoetyEffects.STUNNED.get()) || this.hasEffect(GoetyEffects.TANGLED.get())) {
-            callbackInfo.cancel();
+        if (!this.level.isClientSide) {
+            if (this.hasEffect(GoetyEffects.STUNNED.get()) || this.hasEffect(GoetyEffects.TANGLED.get())) {
+                callbackInfo.cancel();
+            }
         }
     }
 

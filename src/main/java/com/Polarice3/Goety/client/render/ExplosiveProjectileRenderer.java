@@ -26,7 +26,7 @@ public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends 
 
     public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.scale(this.scale(), this.scale(), this.scale());
+        matrixStackIn.scale(this.scale(entityIn), this.scale(entityIn), this.scale(entityIn));
         matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
         matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F));
         PoseStack.Pose matrixstack$entry = matrixStackIn.last();
@@ -46,7 +46,7 @@ public abstract class ExplosiveProjectileRenderer<T extends Projectile> extends 
         p_229045_0_.vertex(p_229045_1_, p_229045_4_ - 0.5F, (float)p_229045_5_ - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)p_229045_6_, (float)p_229045_7_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_229045_3_).normal(p_229045_2_, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    public float scale(){
+    public float scale(T entityIn){
         return 1.5F;
     }
 

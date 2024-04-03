@@ -18,4 +18,8 @@ public interface IChargingSpell extends ISpell {
     default int defaultSpellCooldown() {
         return 0;
     }
+
+    default int shotsNumber(){
+        return 0;
+    }
 }

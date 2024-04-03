@@ -104,7 +104,8 @@ public class InsectSwarm extends Owned{
                 if (living != this && !MobUtil.areAllies(this, living) && SummonTargetGoal.predicate(this).test(living)) {
                     if (living.hurt(ModDamageSource.swarm(this, this.getTrueOwner()), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                         this.playSound(ModSounds.INSECT_SWARM_BITE.get(), 1.0F, this.getVoicePitch());
-                        living.invulnerableTime = 15;
+                        int speed = (int) ((this.getHealth() / this.getMaxHealth()) * 5);
+                        living.invulnerableTime = Math.min(20, (20 - speed));
                     }
                 }
             }

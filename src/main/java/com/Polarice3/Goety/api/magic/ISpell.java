@@ -151,6 +151,10 @@ public interface ISpell {
     @Nullable
     SoundEvent CastingSound();
 
+    default float castingVolume(){
+        return 0.5F;
+    }
+
     int defaultSpellCooldown();
 
     default int spellCooldown(){

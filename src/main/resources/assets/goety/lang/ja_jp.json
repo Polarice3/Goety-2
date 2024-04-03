@@ -964,7 +964,7 @@
   "info.goety.alarming_charm": "邪悪な村人の襲撃が発生した場合に警告します。",
 
   "info.goety.ritual.fail": "この儀式を適切に開始する方法がわかりません!",
-  "info.goety.ritual.structure.fail": "ブロック要件が非効率的です!",
+  "info.goety.ritual.structure.fail": "儀式に必要なブロックが無い！",
   "info.goety.ritual.convert.fail": "必要なモブが範囲外です!",
   "info.goety.ritual.tooManyItems.fail": "近隣の台座上のアイテムが多すぎます!",
   "info.goety.ritual.tooLittleItems.fail": "必須アイテムが不足しています!",
@@ -1762,5 +1762,16 @@
   "death.attack.goety.swarm.item": "%1$s は %3$s を使用する %2$s によって感染した",
   "info.goety.research.learned": "あなたはこの研究を学びました",
   "info.goety.wild_robe": "毒や酸毒に対する免疫。 自然の奉仕者が魂のエネルギーを使って治癒できるようにします。",
-  "info.goety.wild_robe_discount": "ワイルドスペルのソウルコストが半分になります。"
+  "info.goety.wild_robe_discount": "ワイルドスペルのソウルコストが半分になります。",
+  "entity.goety.ice_spear": "アイススピア",
+  "entity.goety.ice_storm": "氷雨",
+  "entity.goety.steam_missile": "スチームミサイル",
+  "item.goety.ice_storm_focus": "氷雨のフォーカス",
+  "item.goety.ice_storm_focus.info": "アイスストームを発射し、半径内のターゲットに凍結ダメージを与え、短時間凍結を与えます。 ブロックをすり抜けられるが、動きが遅い。",
+  "enchantment.goety.velocity": "速度",
+  "enchantment.goety.velocity.desc": "魔法の発射物の速度と速度が増加します。",
+  "subtitle.goety.frost_prepare_spell": "呪文を準備する",
+  "subtitle.goety.wild_prepare_spell": "呪文を準備する",
+  "subtitle.goety.cast_steam": "呪文を唱える",
+  "subtitle.goety.steam_impact": "スチームミサイルの衝撃"
 }

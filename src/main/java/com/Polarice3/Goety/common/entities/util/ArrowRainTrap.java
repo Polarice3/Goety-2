@@ -41,7 +41,7 @@ public class ArrowRainTrap extends AbstractTrap {
                 for(int i = 0; i < 3; ++i) {
                     AbstractArrow abstractarrowentity = apostle.getArrow(itemstack, Math.max(AttributesConfig.ApostleBowDamage.get() / 2.0F, 1.0F));
                     abstractarrowentity.addTag(ConstantPaths.rainArrow());
-                    abstractarrowentity.setPos(this.getX() + this.random.nextInt(5), blockpos$mutable.getY(), this.getZ() + this.random.nextInt(5));
+                    abstractarrowentity.setPos(this.getX() + this.random.nextIntBetweenInclusive(-3, 3), blockpos$mutable.getY(), this.getZ() + this.random.nextIntBetweenInclusive(-3, 3));
                     abstractarrowentity.shoot(0, -900, 0, 2, 10);
                     abstractarrowentity.setOwner(apostle);
                     this.level.addFreshEntity(abstractarrowentity);
@@ -52,7 +52,7 @@ public class ArrowRainTrap extends AbstractTrap {
                 for(int i = 0; i < 3; ++i) {
                     AbstractArrow abstractArrowEntity = arrowitem.createArrow(this.level, itemStack, this.getOwner());
                     abstractArrowEntity.addTag(ConstantPaths.rainArrow());
-                    abstractArrowEntity.setPos(this.getX() + this.random.nextInt(5), blockpos$mutable.getY(), this.getZ() + this.random.nextInt(5));
+                    abstractArrowEntity.setPos(this.getX() + this.random.nextIntBetweenInclusive(-3, 3), blockpos$mutable.getY(), this.getZ() + this.random.nextIntBetweenInclusive(-3, 3));
                     abstractArrowEntity.shoot(0, -900, 0, 2, 0);
                     abstractArrowEntity.setOwner(this.getOwner());
                     this.level.addFreshEntity(abstractArrowEntity);

@@ -100,6 +100,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 .add(Attributes.MAX_HEALTH, AttributesConfig.NecromancerHealth.get())
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.NecromancerDamage.get());
     }
 

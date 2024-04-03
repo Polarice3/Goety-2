@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
@@ -44,6 +46,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
@@ -55,10 +58,7 @@ import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.NaturalSpawner;
-import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.PowderSnowBlock;
@@ -1157,6 +1157,29 @@ public class MobUtil {
             return flag2;
         } else {
             return false;
+        }
+    }
+
+    public static Predicate<LivingEntity> ownedPredicate(Entity entity){
+        if (entity instanceof OwnableEntity attacker) {
+            if (attacker.getOwner() instanceof Enemy
+                    || (attacker.getOwner() instanceof IOwned owned && owned.isHostile())) {
+                return (target) -> target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
+            } else {
+                return (target) ->
+                        (target instanceof Enemy
+                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() != null && LichdomHelper.isLich(attacker.getOwner()) && MainConfig.LichUndeadFriends.get())
+                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() instanceof Player player && CuriosFinder.hasUndeadSet(player) && MobsConfig.NecroRobeUndead.get())
+                                && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                                && !(target instanceof NeutralMob && ((attacker.getOwner() != null && ((NeutralMob) target).getTarget() != attacker.getOwner())))
+                                && !(target instanceof IOwned && attacker.getOwner() != null && ((IOwned) target).getTrueOwner() == attacker.getOwner()))
+                                || (target instanceof IOwned owned && owned.isHostile())
+                                || (attacker.getOwner() instanceof Player player
+                                && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                                || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
+            }
+        } else {
+            return null;
         }
     }
 }

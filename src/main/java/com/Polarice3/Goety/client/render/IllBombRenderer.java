@@ -13,7 +13,7 @@ public class IllBombRenderer extends ExplosiveProjectileRenderer<IllBomb> {
     }
 
     @Override
-    public float scale() {
+    public float scale(IllBomb illBomb) {
         return 1.0F;
     }
 

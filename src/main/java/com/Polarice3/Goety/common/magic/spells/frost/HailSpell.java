@@ -33,7 +33,7 @@ public class HailSpell extends Spells {
     }
 
     public SoundEvent CastingSound() {
-        return ModSounds.PREPARE_SPELL.get();
+        return ModSounds.FROST_PREPARE_SPELL.get();
     }
 
     @Override
@@ -75,6 +75,7 @@ public class HailSpell extends Spells {
                 hailCloud.setExtraDamage(damage);
                 hailCloud.setRadius((float) radius);
                 hailCloud.setLifeSpan(duration);
+                hailCloud.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(hailCloud);
             }
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.PLAYER_HURT_FREEZE, this.getSoundSource(), 1.0F, 1.0F);
@@ -84,6 +85,7 @@ public class HailSpell extends Spells {
             hailCloud.setExtraDamage(damage);
             hailCloud.setRadius((float) radius);
             hailCloud.setLifeSpan(duration);
+            hailCloud.setStaff(rightStaff(staff));
             hailCloud.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
             worldIn.addFreshEntity(hailCloud);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.PLAYER_HURT_FREEZE, this.getSoundSource(), 1.0F, 1.0F);

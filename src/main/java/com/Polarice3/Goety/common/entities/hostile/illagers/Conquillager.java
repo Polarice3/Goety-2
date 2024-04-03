@@ -23,6 +23,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -95,6 +96,12 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
                     this.level.addParticle(ModParticleTypes.PLAGUE_EFFECT.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.5D, 0.0D);
                 }
             }
+        }
+    }
+
+    public void pickUpItem(ItemEntity pItemEntity) {
+        if (!(pItemEntity.getItem().getItem() instanceof TieredItem)){
+            super.pickUpItem(pItemEntity);
         }
     }
 

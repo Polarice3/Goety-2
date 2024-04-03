@@ -131,8 +131,8 @@ public class LeapleafMold implements IMold {
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.OVERGROWN_ROOTS.get())) {
-                if (canSpawn(level, blockPos)) {
-                    if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
+                if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
+                    if (canSpawn(level, blockPos)) {
                         Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
                         if (leapleaf != null) {
                             leapleaf.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(leapleaf.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
@@ -148,10 +148,11 @@ public class LeapleafMold implements IMold {
                             }
                         }
                     } else {
-                        player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
+                        player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                     }
-                } else {
-                    player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
+                }
+                else {
+                    player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
                 }
             }
         }
