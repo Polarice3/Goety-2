@@ -17,10 +17,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,14 +32,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-import java.util.UUID;
-
-public class IceChunk extends Entity {
-    private LivingEntity owner;
-    private UUID ownerUUID;
-    private LivingEntity target;
-    private UUID targetUUID;
+public class IceChunk extends SpellEntity {
     private final int distance = 4;
     private boolean isDropping;
     public int hovering = 0;
@@ -56,86 +47,22 @@ public class IceChunk extends Entity {
         if (pTarget != null){
             this.setPos(pTarget.getX(), pTarget.getY() + distance, pTarget.getZ());
         }
-        this.owner = pOwner;
-        this.target = pTarget;
-    }
-
-    protected void defineSynchedData() {
+        this.setOwner(pOwner);
+        this.setTarget(pTarget);
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag pCompound) {
-        UUID ownerUUID;
-        if (pCompound.hasUUID("Owner")) {
-            ownerUUID = pCompound.getUUID("Owner");
-        } else {
-            String s = pCompound.getString("Owner");
-            ownerUUID = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (ownerUUID != null) {
-            this.ownerUUID = ownerUUID;
-        }
-
-        UUID targetUUID;
-        if (pCompound.hasUUID("Target")) {
-            targetUUID = pCompound.getUUID("Target");
-        } else {
-            String s = pCompound.getString("Target");
-            targetUUID = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (targetUUID != null) {
-            this.targetUUID = targetUUID;
-        }
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
         this.hovering = pCompound.getInt("hovering");
         this.extraDamage = pCompound.getFloat("extraDamage");
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag pCompound) {
-        if (this.ownerUUID != null) {
-            pCompound.putUUID("Owner", this.ownerUUID);
-        }
-        if (this.targetUUID != null) {
-            pCompound.putUUID("Target", this.targetUUID);
-        }
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
         pCompound.putInt("hovering", this.hovering);
         pCompound.putFloat("extraDamage", this.extraDamage);
-    }
-
-    public void setOwner(@Nullable LivingEntity p_190549_1_) {
-        this.owner = p_190549_1_;
-        this.ownerUUID = p_190549_1_ == null ? null : p_190549_1_.getUUID();
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        if (this.owner == null && this.ownerUUID != null && this.level instanceof ServerLevel) {
-            Entity entity = ((ServerLevel)this.level).getEntity(this.ownerUUID);
-            if (entity instanceof LivingEntity) {
-                this.owner = (LivingEntity)entity;
-            }
-        }
-
-        return this.owner;
-    }
-
-    public void setTarget(@Nullable LivingEntity p_190549_1_) {
-        this.target = p_190549_1_;
-        this.targetUUID = p_190549_1_ == null ? null : p_190549_1_.getUUID();
-    }
-
-    @Nullable
-    public LivingEntity getTarget() {
-        if (this.target == null && this.targetUUID != null && this.level instanceof ServerLevel) {
-            Entity entity = ((ServerLevel)this.level).getEntity(this.targetUUID);
-            if (entity instanceof LivingEntity) {
-                this.target = (LivingEntity)entity;
-            }
-        }
-
-        return this.target;
     }
 
     public void setExtraDamage(float extraDamage){
@@ -173,7 +100,6 @@ public class IceChunk extends Entity {
         if (livingEntity != null) {
             if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2)));
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, MathHelper.secondsToTicks(5)));
             }
         }
     }
@@ -238,6 +164,9 @@ public class IceChunk extends Entity {
             this.playSound(ModSounds.ICE_CHUNK_IDLE.get(), 1.0F, 1.0F);
         }
         int hoverTime = MathHelper.secondsToTicks(5);
+        if (this.isStaff()){
+            hoverTime = (int) MathHelper.secondsToTicks(1.75F);
+        }
         boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
         this.isDropping = this.hovering > hoverTime;
         if (isHovering){
@@ -246,9 +175,9 @@ public class IceChunk extends Entity {
             float speed = 0.175F;
             if (this.getTarget() != null && this.getTarget().isAlive()){
                 this.setDeltaMovement(Vec3.ZERO);
-                double d0 = this.target.getX() - this.getX();
-                double d1 = (this.target.getY() + this.distance) - this.getY();
-                double d2 = this.target.getZ() - this.getZ();
+                double d0 = this.getTarget().getX() - this.getX();
+                double d1 = (this.getTarget().getY() + this.distance) - this.getY();
+                double d2 = this.getTarget().getZ() - this.getZ();
                 double d = Math.sqrt((d0 * d0 + d2 * d2));
                 double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 if (d > 0.5){

@@ -8,6 +8,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ai.SurroundGoal;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.SpellCastingCultist;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
@@ -156,6 +157,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new SecondPhaseIndicator());
+        this.goalSelector.addGoal(1, new StrafeCastGoal<>(this));
         this.goalSelector.addGoal(2, new ApostleBowGoal<>(this, 30.0F));
         this.goalSelector.addGoal(3, new CastingSpellGoal());
         this.goalSelector.addGoal(3, new FireballSpellGoal());
@@ -1845,6 +1847,23 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         @Override
         public void tick() {
             Apostle.this.setSettingUpSecond(true);
+        }
+    }
+
+    class StrafeCastGoal<T extends Apostle> extends SurroundGoal<T>{
+
+        public StrafeCastGoal(T p_25792_) {
+            super(p_25792_, 1.0F, 16.0F);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && Apostle.this.isCasting() && Apostle.this.level.dimension() == Level.NETHER;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && Apostle.this.isCasting() && Apostle.this.level.dimension() == Level.NETHER;
         }
     }
 

@@ -5,27 +5,27 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
 public enum SpellType implements net.minecraftforge.common.IExtensibleEnum {
-    NONE("none", null),
-    NECROMANCY("necromancy", ModItems.NECRO_STAFF.get()),
-    NETHER("nether", null),
+    NONE("none"),
+    NECROMANCY("necromancy", ModItems.NECRO_STAFF.get(), ModItems.NAMELESS_STAFF.get()),
+    NETHER("nether"),
     ILL("ill", ModItems.OMINOUS_STAFF.get()),
     FROST("frost", ModItems.FROST_STAFF.get()),
-    GEOMANCY("geomancy", null),
+    GEOMANCY("geomancy"),
     WIND("wind", ModItems.WIND_STAFF.get()),
     STORM("storm", ModItems.STORM_STAFF.get()),
-    ABYSS("abyss", null),
+    ABYSS("abyss"),
     WILD("wild", ModItems.WILD_STAFF.get()),
-    VOID("void", null);
+    VOID("void");
 
-    private final Item staff;
+    private final Item[] staff;
     private final Component name;
 
-    SpellType(String name, Item staff){
+    SpellType(String name, Item... staff){
         this.name = Component.translatable("spell.goety." + name);
         this.staff = staff;
     }
 
-    public static SpellType create(String name, String translation, Item staff){
+    public static SpellType create(String name, String translation, Item... staff){
         throw new IllegalStateException("Enum not extended");
     }
 
@@ -33,7 +33,7 @@ public enum SpellType implements net.minecraftforge.common.IExtensibleEnum {
         return name;
     }
 
-    public Item getStaff() {
+    public Item[] getStaffs() {
         return staff;
     }
 }

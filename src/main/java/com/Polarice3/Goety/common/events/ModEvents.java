@@ -1143,9 +1143,11 @@ public class ModEvents {
                     }
                 }
             }
-            if (victim instanceof Player player){
-                if (MobUtil.starAmuletActive(player)){
-                    event.setCanceled(true);
+            if (!(arrowEntity.getOwner() instanceof Apostle)) {
+                if (victim instanceof Player player) {
+                    if (MobUtil.starAmuletActive(player)) {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
@@ -1271,7 +1273,7 @@ public class ModEvents {
         LivingEntity target = event.getEntity();
         if (target instanceof Player player) {
             if (MobUtil.starAmuletActive(player)){
-                if (event.getSource().getDirectEntity() instanceof AbstractArrow){
+                if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow && !(arrow.getOwner() instanceof Apostle)){
                     event.setCanceled(true);
                 }
             }

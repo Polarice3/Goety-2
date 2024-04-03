@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.frost;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.projectiles.IceSpear;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.magic.Spells;
 import com.Polarice3.Goety.init.ModSounds;
@@ -44,15 +45,19 @@ public class IceSpikeSpell extends Spells {
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
+        list.add(ModEnchantments.VELOCITY.get());
         return list;
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         float enchantment = 0;
         if (WandUtil.enchantedFocus(entityLiving)) {
-            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) / 3.0F;
+            enchantment = WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving) / 3.0F;
         }
         IceSpike iceSpike = new IceSpike(entityLiving, worldIn);
+        if (rightStaff(staff)){
+            iceSpike = new IceSpear(entityLiving, worldIn);
+        }
         iceSpike.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.6F + enchantment, 1.0F);
         iceSpike.setOwner(entityLiving);
         worldIn.addFreshEntity(iceSpike);

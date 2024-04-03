@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BarricadeSpell extends Spells {
+    public int trueCooldown = this.defaultSpellCooldown();
+
     @Override
     public int defaultSoulCost() {
         return SpellConfig.BarricadeCost.get();
@@ -42,6 +45,10 @@ public class BarricadeSpell extends Spells {
     @Override
     public SoundEvent CastingSound() {
         return SoundEvents.EVOKER_PREPARE_ATTACK;
+    }
+
+    public int spellCooldown(){
+        return this.trueCooldown;
     }
 
     @Override
@@ -77,10 +84,12 @@ public class BarricadeSpell extends Spells {
             if (this.isShifting(entityLiving)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(entityLiving, target, ModEntityType.TOTEMIC_BOMB.get(), potency);
+                    this.trueCooldown += MathHelper.secondsToTicks(3);
                 } else {
                     int xShift = worldIn.getRandom().nextInt(-1, 1);
                     int zShift = worldIn.getRandom().nextInt(-1, 1);
                     WandUtil.summonMonolith(entityLiving, target, ModEntityType.TOTEMIC_BOMB.get(), xShift, zShift, potency);
+                    this.trueCooldown += MathHelper.secondsToTicks(2);
                 }
             } else {
                 int random = worldIn.random.nextInt(3);
@@ -105,8 +114,10 @@ public class BarricadeSpell extends Spells {
             if (this.isShifting(entityLiving)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(entityLiving, blockPos, ModEntityType.TOTEMIC_BOMB.get(), potency);
+                    this.trueCooldown += MathHelper.secondsToTicks(3);
                 } else {
                     WandUtil.summonMonolith(entityLiving, blockPos, ModEntityType.TOTEMIC_BOMB.get(), 0, 0, potency);
+                    this.trueCooldown += MathHelper.secondsToTicks(2);
                 }
             } else {
                 WandUtil.summonWallTrap(entityLiving, blockPos, ModEntityType.TOTEMIC_WALL.get(), duration);

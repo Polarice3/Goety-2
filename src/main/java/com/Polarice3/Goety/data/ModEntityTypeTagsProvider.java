@@ -58,6 +58,7 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
         this.tag(EntityTypeTags.ARROWS).add(ModEntityType.GHOST_ARROW.get(),
                 ModEntityType.DEATH_ARROW.get());
         this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(ModEntityType.SOUL_BOLT.get(),
+                ModEntityType.STEAM_MISSILE.get(),
                 ModEntityType.HELL_BOLT.get(),
                 ModEntityType.HELL_BLAST.get(),
                 ModEntityType.NECRO_BOLT.get(),

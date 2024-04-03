@@ -173,7 +173,7 @@ public abstract class TangleEntity extends Entity {
     }
 
     public void tangleTarget(){
-        if (this.getTarget() != null){
+        if (this.getTarget() != null && this.getTarget().isAlive()){
             this.getTarget().setPos(this.position());
             this.getTarget().addEffect(new MobEffectInstance(GoetyEffects.TANGLED.get(), 2, 0, false, false, false));
         }

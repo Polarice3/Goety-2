@@ -67,6 +67,17 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<IceSpear>> ICE_SPEAR = register("ice_spear",
+            EntityType.Builder.<IceSpear>of(IceSpear::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4));
+
+    public static final RegistryObject<EntityType<IceStorm>> ICE_STORM = register("ice_storm",
+            EntityType.Builder.<IceStorm>of(IceStorm::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<GhostArrow>> GHOST_ARROW = register("ghost_arrow",
             EntityType.Builder.<GhostArrow>of(GhostArrow::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -142,6 +153,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SoulBolt>> SOUL_BOLT = register("soul_bolt",
             EntityType.Builder.<SoulBolt>of(SoulBolt::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SteamMissile>> STEAM_MISSILE = register("steam_missile",
+            EntityType.Builder.<SteamMissile>of(SteamMissile::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
                     .clientTrackingRange(4)
                     .updateInterval(1));

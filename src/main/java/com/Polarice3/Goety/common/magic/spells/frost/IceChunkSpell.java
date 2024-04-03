@@ -33,7 +33,7 @@ public class IceChunkSpell extends Spells {
     }
 
     public SoundEvent CastingSound() {
-        return ModSounds.PREPARE_SPELL.get();
+        return ModSounds.FROST_PREPARE_SPELL.get();
     }
 
     @Override
@@ -68,6 +68,7 @@ public class IceChunkSpell extends Spells {
             if (target instanceof LivingEntity) {
                 IceChunk iceChunkEntity = new IceChunk(worldIn, entityLiving, (LivingEntity) target);
                 iceChunkEntity.setExtraDamage(damage);
+                iceChunkEntity.setStaff(rightStaff(staff));
                 worldIn.addFreshEntity(iceChunkEntity);
             }
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
@@ -76,6 +77,7 @@ public class IceChunkSpell extends Spells {
             IceChunk iceChunkEntity = new IceChunk(worldIn, entityLiving, null);
             iceChunkEntity.setExtraDamage(damage);
             iceChunkEntity.setPos(blockPos.getX() + 0.5F, blockPos.getY() + 4, blockPos.getZ() + 0.5F);
+            iceChunkEntity.setStaff(rightStaff(staff));
             worldIn.addFreshEntity(iceChunkEntity);
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_CHUNK_SUMMON.get(), this.getSoundSource(), 1.0F, 1.0F);
         }

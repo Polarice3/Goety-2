@@ -111,6 +111,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IceSpikeCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> IceSpikeDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceStormCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceStormDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceStormCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceStormDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ChargeCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> ChargeDamage;
@@ -295,6 +300,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxRangeLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxDurationLevel;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBurningLevel;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaxVelocityLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnvironmentalCost;
@@ -500,8 +506,18 @@ public class SpellConfig {
                     .defineInRange("iceSpikeTime", 0, 0, 72000);
             IceSpikeCoolDown = BUILDER.comment("Ice Spike Spell Cooldown, Default: 20")
                     .defineInRange("iceSpikeCoolDown", 20, 0, Integer.MAX_VALUE);
-            IceSpikeDamage = BUILDER.comment("How much base damage Ice Spike deals, Default: 4.0")
-                    .defineInRange("iceSpikeDamage", 4.0, 1.0, Double.MAX_VALUE);
+            IceSpikeDamage = BUILDER.comment("How much base damage Ice Spike deals, Default: 3.0")
+                    .defineInRange("iceSpikeDamage", 3.0, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Ice Storm Spell");
+            IceStormCost = BUILDER.comment("Ice Storm Spell Cost, Default: 16")
+                    .defineInRange("iceStormCost", 16, 0, Integer.MAX_VALUE);
+            IceStormDuration = BUILDER.comment("Time to cast Ice Storm Spell, Default: 40")
+                    .defineInRange("iceStormTime", 40, 0, 72000);
+            IceStormCoolDown = BUILDER.comment("Ice Storm Spell Cooldown, Default: 100")
+                    .defineInRange("iceStormCoolDown", 100, 0, Integer.MAX_VALUE);
+            IceStormDamage = BUILDER.comment("How much base damage Ice Storm deals, Default: 5.0")
+                    .defineInRange("iceStormDamage", 5.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Charge Spell");
             ChargeCost = BUILDER.comment("Charge Spell Cost, Default: 4")
@@ -878,6 +894,8 @@ public class SpellConfig {
                 .defineInRange("maxDurationLevel", 3, 1, 10);
         MaxBurningLevel = BUILDER.comment("Burning Maximum Enchantment Level, Default: 3")
                 .defineInRange("maxBurningLevel", 3, 1, 10);
+        MaxVelocityLevel = BUILDER.comment("Velocity Maximum Enchantment Level, Default: 5")
+                .defineInRange("maxPotencyLevel", 5, 1, 10);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

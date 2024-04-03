@@ -36,14 +36,13 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.Map;
 
-public class SoulBolt extends AbstractHurtingProjectile {
+public class SoulBolt extends MagicProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(SoulBolt.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
         map.put(0, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_1.png"));
         map.put(1, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_2.png"));
         map.put(2, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_3.png"));
     });
-    public float boltSpeed = 0.0F;
 
     public SoulBolt(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -65,15 +64,11 @@ public class SoulBolt extends AbstractHurtingProjectile {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setAnimation(compound.getInt("Animation"));
-        if (compound.contains("BoltSpeed")){
-            this.boltSpeed = compound.getFloat("BoltSpeed");
-        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Animation", this.getAnimation());
-        compound.putFloat("BoltSpeed", this.boltSpeed);
     }
 
     public ResourceLocation getResourceLocation() {
@@ -90,14 +85,6 @@ public class SoulBolt extends AbstractHurtingProjectile {
 
     public void setAnimation(int pType) {
         this.entityData.set(DATA_TYPE_ID, pType);
-    }
-
-    public void setBoltSpeed(int increase){
-        this.boltSpeed += (float) increase / 50;
-    }
-
-    protected float getInertia() {
-        return 0.82F + Math.min(this.boltSpeed, 0.18F);
     }
 
     public boolean isOnFire() {

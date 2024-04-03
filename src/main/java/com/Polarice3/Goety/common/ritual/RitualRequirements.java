@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -13,9 +12,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.Tags;
-
-import java.util.List;
 
 public class RitualRequirements {
 
@@ -52,12 +48,13 @@ public class RitualRequirements {
     }
 
     public static boolean getStructures(String craftType, BlockPos pPos, Level pLevel){
-        List<BlockPos> first = Lists.newArrayList();
-        List<BlockPos> second = Lists.newArrayList();
-        List<BlockPos> third = Lists.newArrayList();
-        int firstSize = 0;
-        int secondSize = 0;
-        int thirdSize = 0;
+        int firstCount = 0;
+        int secondCount = 0;
+        int thirdCount = 0;
+
+        int totalFirst = 0;
+        int totalSecond = 0;
+        int totalThird = 0;
         for (int i = -RANGE; i <= RANGE; ++i) {
             for (int j = -RANGE; j <= RANGE; ++j) {
                 for (int k = -RANGE; k <= RANGE; ++k) {
@@ -65,177 +62,171 @@ public class RitualRequirements {
                     BlockState blockstate = pLevel.getBlockState(blockpos1);
                     switch (craftType) {
                         case "animation" -> {
-                            firstSize = 15;
-                            secondSize = 15;
-                            thirdSize = 1;
+                            totalFirst = 15;
+                            totalSecond = 15;
+                            totalThird = 1;
                             if (blockstate.getBlock() instanceof LadderBlock || blockstate.getBlock().getDescriptionId().contains("ladder")) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() instanceof RailBlock) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof CarvedPumpkinBlock) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "necroturgy", "lich" -> {
-                            firstSize = 16;
-                            secondSize = 16;
-                            thirdSize = 8;
+                            totalFirst = 16;
+                            totalSecond = 16;
+                            totalThird = 8;
                             if (blockstate.getBlock() instanceof SculkBlock) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() instanceof SlabBlock) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof FlowerPotBlock flowerPotBlock) {
                                 if (flowerPotBlock.getContent() != Blocks.AIR) {
-                                    third.add(blockpos1);
+                                    ++thirdCount;
                                 }
                             }
                         }
                         case "forge" -> {
-                            firstSize = 1;
-                            secondSize = 2;
-                            thirdSize = 1;
+                            totalFirst = 1;
+                            totalSecond = 2;
+                            totalThird = 1;
                             if (blockstate.getBlock() instanceof LavaCauldronBlock) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() instanceof FurnaceBlock || blockstate.getBlock() instanceof BlastFurnaceBlock) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof AnvilBlock) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "geoturgy" -> {
-                            firstSize = 8;
-                            secondSize = 1;
-                            thirdSize = 16;
+                            totalFirst = 8;
+                            totalSecond = 1;
+                            totalThird = 16;
                             if (blockstate.getBlock() instanceof AmethystBlock) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() instanceof SmithingTableBlock) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock().getDescriptionId().contains("deepslate") && blockstate.isSolidRender(pLevel, blockpos1)) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "magic" -> {
-                            firstSize = 16;
-                            secondSize = 1;
-                            thirdSize = 1;
-                            if (blockstate.is(Tags.Blocks.BOOKSHELVES) || blockstate.getBlock().getDescriptionId().contains("bookshelf")) {
-                                first.add(blockpos1);
+                            totalFirst = 16;
+                            totalSecond = 1;
+                            totalThird = 1;
+                            if (blockstate.getEnchantPowerBonus(pLevel, blockpos1) > 0) {
+                                firstCount += (int) blockstate.getEnchantPowerBonus(pLevel, blockpos1);
                             }
                             if (blockstate.getBlock() instanceof LecternBlock) {
                                 if (blockstate.hasBlockEntity() && pLevel.getBlockEntity(blockpos1) instanceof LecternBlockEntity lecternTileEntity) {
                                     if (!lecternTileEntity.getBook().isEmpty()) {
-                                        second.add(blockpos1);
+                                        ++secondCount;
                                     }
                                 }
                             }
                             if (blockstate.getBlock() instanceof EnchantmentTableBlock) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "sabbath" -> {
-                            firstSize = 8;
-                            secondSize = 16;
-                            thirdSize = 4;
+                            totalFirst = 8;
+                            totalSecond = 16;
+                            totalThird = 4;
                             if (blockstate.getBlock() == Blocks.CRYING_OBSIDIAN) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() == Blocks.OBSIDIAN) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() == Blocks.SOUL_FIRE) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "adept_nether" -> {
-                            firstSize = 8;
-                            secondSize = 16;
-                            thirdSize = 4;
+                            totalFirst = 8;
+                            totalSecond = 16;
+                            totalThird = 4;
                             if (blockstate.getBlock().getDescriptionId().contains("basalt")) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock().getDescriptionId().contains("blackstone")) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() == Blocks.GLOWSTONE) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "expert_nether" -> {
-                            firstSize = 4;
-                            secondSize = 32;
-                            thirdSize = 8;
+                            totalFirst = 4;
+                            totalSecond = 32;
+                            totalThird = 8;
                             if (blockstate.getBlock() == Blocks.WITHER_SKELETON_SKULL || blockstate.getBlock() == Blocks.WITHER_SKELETON_WALL_SKULL) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() == Blocks.NETHER_BRICKS || blockstate.getBlock() == Blocks.RED_NETHER_BRICKS) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() == Blocks.NETHER_WART) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "frost" -> {
-                            firstSize = 16;
-                            secondSize = 8;
-                            thirdSize = 4;
+                            totalFirst = 16;
+                            totalSecond = 8;
+                            totalThird = 4;
                             if (blockstate.is(BlockTags.STONE_BRICKS)) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.is(BlockTags.SNOW)) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.is(BlockTags.ICE)) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                         case "sky" ->{
-                            firstSize = 8;
-                            secondSize = 16;
-                            thirdSize = 4;
+                            totalFirst = 8;
+                            totalSecond = 16;
+                            totalThird = 4;
                             if (blockstate.is(ModTags.Blocks.MARBLE_BLOCKS)) {
-                                if (!first.contains(blockpos1)){
-                                    first.add(blockpos1);
-                                }
+                                ++firstCount;
                             }
                             if (blockstate.is(ModTags.Blocks.JADE_BLOCKS)) {
-                                if (!second.contains(blockpos1)){
-                                    second.add(blockpos1);
-                                }
+                                ++secondCount;
                             }
                             if (blockstate.is(ModTags.Blocks.INDENTED_GOLD_BLOCKS)) {
-                                if (!third.contains(blockpos1)){
-                                    third.add(blockpos1);
-                                }
+                                ++thirdCount;
                             }
                         }
                         case "storm" -> {
-                            firstSize = 12;
-                            secondSize = 4;
-                            thirdSize = 20;
+                            totalFirst = 12;
+                            totalSecond = 4;
+                            totalThird = 20;
                             if (blockstate.getBlock().getDescriptionId().contains("copper")) {
-                                first.add(blockpos1);
+                                ++firstCount;
                             }
                             if (blockstate.getBlock() instanceof LightningRodBlock) {
-                                second.add(blockpos1);
+                                ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof ChainBlock) {
-                                third.add(blockpos1);
+                                ++thirdCount;
                             }
                         }
                     }
                 }
             }
         }
-        return first.size() >= firstSize
-                && second.size() >= secondSize
-                && third.size() >= thirdSize;
+        return firstCount >= totalFirst
+                && secondCount >= totalSecond
+                && thirdCount >= totalThird;
     }
 }

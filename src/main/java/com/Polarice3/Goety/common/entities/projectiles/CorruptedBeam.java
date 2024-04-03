@@ -36,7 +36,7 @@ import java.util.function.Predicate;
  * Beam codes based on ArtifactBeamEntity on @Thelnfamous1's Dungeon Gears
  */
 public class CorruptedBeam extends Entity implements IEntityAdditionalSpawnData {
-    public static final double MAX_RAYTRACE_DISTANCE = 256;
+    public static final double MAX_RAYTRACE_DISTANCE = 64;
     private boolean itemBase;
     private LivingEntity owner;
     private UUID ownerUUID;

@@ -28,7 +28,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -38,7 +37,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.Map;
 
-public class HellBolt extends AbstractHurtingProjectile {
+public class HellBolt extends WaterHurtingProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HellBolt.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
         map.put(0, Goety.location("textures/entity/projectiles/hell_bolt/bolt_1.png"));
@@ -63,10 +62,6 @@ public class HellBolt extends AbstractHurtingProjectile {
         super.defineSynchedData();
         this.entityData.define(DATA_DAMAGE, 5.0F);
         this.entityData.define(DATA_TYPE_ID, 0);
-    }
-
-    public boolean isInWater() {
-        return false;
     }
 
     public void tick() {

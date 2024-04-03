@@ -16,17 +16,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class NecroBolt extends AbstractHurtingProjectile {
+public class NecroBolt extends MagicProjectile {
     private final float rotSpeed;
     public float roll;
     public float oRoll;
 
-    public NecroBolt(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
+    public NecroBolt(EntityType<? extends MagicProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
         this.rotSpeed = 0.05F;
         this.roll = (float)Math.random() * ((float)Math.PI * 2F);
@@ -44,12 +43,13 @@ public class NecroBolt extends AbstractHurtingProjectile {
         this.roll = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
-    protected float getInertia() {
-        return 0.82F;
-    }
-
     public boolean isOnFire() {
         return false;
+    }
+
+    @Override
+    protected float getInertia() {
+        return 0.9F + Math.min(this.boltSpeed, 0.1F);
     }
 
     protected void onHitEntity(EntityHitResult p_37626_) {

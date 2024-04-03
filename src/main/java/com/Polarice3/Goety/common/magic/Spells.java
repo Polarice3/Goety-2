@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Spells implements ISpell {
@@ -55,7 +56,7 @@ public abstract class Spells implements ISpell {
     }
 
     public boolean rightStaff(ItemStack staff){
-        return getSpellType().getStaff() != null && staff.is(getSpellType().getStaff());
+        return getSpellType().getStaffs() != null && Arrays.stream(getSpellType().getStaffs()).anyMatch(item -> item == staff.getItem());
     }
 
     public List<Enchantment> acceptedEnchantments(){

@@ -128,7 +128,7 @@ public class Hellfire extends GroundProjectile {
 
     public void dealDamageTo(LivingEntity target) {
         LivingEntity owner = this.getOwner();
-        float damage = target.getMaxHealth() * 0.05F;
+        float damage = 2.0F;
         if (target.isAlive() && !target.isInvulnerable() && target != owner) {
             if (owner == null) {
                 if (target.hurt(ModDamageSource.HELLFIRE, damage)) {

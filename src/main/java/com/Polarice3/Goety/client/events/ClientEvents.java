@@ -25,6 +25,7 @@ import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
+import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
@@ -112,6 +113,9 @@ public class ClientEvents {
             }
             if (entity instanceof InsectSwarm){
                 soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
+            }
+            if (entity instanceof IceStorm){
+                soundHandler.play(new LoopSound(ModSounds.ICE_STORM_LOOP.get(), entity));
             }
         }
     }

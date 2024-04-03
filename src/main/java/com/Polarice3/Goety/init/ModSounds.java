@@ -297,6 +297,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> END_WALK = create("end_walk");
     public static final RegistryObject<SoundEvent> PREPARE_SPELL = create("prepare_spell");
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
+    public static final RegistryObject<SoundEvent> FROST_PREPARE_SPELL = create("frost_prepare_spell");
     public static final RegistryObject<SoundEvent> WILD_PREPARE_SPELL = create("wild_prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
@@ -305,6 +306,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
     public static final RegistryObject<SoundEvent> COMMAND = create("command");
     public static final RegistryObject<SoundEvent> SHIELD_UP = create("shield_up");
+    public static final RegistryObject<SoundEvent> CAST_STEAM = create("cast_steam");
+    public static final RegistryObject<SoundEvent> STEAM_IMPACT = create("steam_impact");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
     public static final RegistryObject<SoundEvent> HELL_BOLT_SHOOT = create("hell_bolt_shoot");
     public static final RegistryObject<SoundEvent> HELL_BOLT_IMPACT = create("hell_bolt_impact");
@@ -348,6 +351,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_START = create("corrupt_beam_start");
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_LOOP = create("corrupt_beam_loop");
     public static final RegistryObject<SoundEvent> CORRUPT_BEAM_SOUL = create("corrupt_beam_soul");
+
+    public static final RegistryObject<SoundEvent> ICE_STORM_LOOP = create("ice_storm_loop");
 
     public static final RegistryObject<SoundEvent> BREW_GAS = create("brew_gas");
     public static final RegistryObject<SoundEvent> BREW_GAS_ALT = create("brew_gas_alt");

@@ -3410,6 +3410,20 @@
     ],
     "subtitle": "subtitle.goety.prepare_summon"
   },
+  "frost_prepare_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/frost_prepare_spell1"
+      },
+      {
+        "name": "goety:spell/frost_prepare_spell2"
+      },
+      {
+        "name": "goety:spell/frost_prepare_spell3"
+      }
+    ],
+    "subtitle": "subtitle.goety.frost_prepare_spell"
+  },
   "wild_prepare_spell": {
     "sounds": [
       {
@@ -3511,6 +3525,40 @@
       }
     ],
     "subtitle": "subtitle.goety.bolt_impact"
+  },
+  "cast_steam": {
+    "sounds": [
+      {
+        "name": "goety:spell/cast_steam1"
+      },
+      {
+        "name": "goety:spell/cast_steam2"
+      },
+      {
+        "name": "goety:spell/cast_steam3"
+      },
+      {
+        "name": "goety:spell/cast_steam4"
+      }
+    ],
+    "subtitle": "subtitle.goety.cast_steam"
+  },
+  "steam_impact": {
+    "sounds": [
+      {
+        "name": "goety:spell/steam_impact1"
+      },
+      {
+        "name": "goety:spell/steam_impact2"
+      },
+      {
+        "name": "goety:spell/steam_impact3"
+      },
+      {
+        "name": "goety:spell/steam_impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.steam_impact"
   },
   "hell_bolt_shoot": {
     "sounds": [
@@ -3970,6 +4018,14 @@
         "name": "goety:spell/corrupt_beam_soul"
       }
     ]
+  },
+  "ice_storm_loop": {
+    "sounds": [
+      {
+        "name": "goety:spell/ice_storm_loop"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_storm_loop"
   },
   "brew_gas": {
     "sounds": [

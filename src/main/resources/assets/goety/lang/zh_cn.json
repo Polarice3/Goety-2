@@ -1747,5 +1747,16 @@
   "death.attack.goety.swarm.item": "%1$s被%2$s用%3$s感染致死",
   "info.goety.research.learned": "你已经研究了这个",
   "info.goety.wild_robe": "对毒物和酸毒液免疫。 允许自然仆人使用灵魂能量进行治疗。",
-  "info.goety.wild_robe_discount": "狂野法术的灵魂消耗减半。"
+  "info.goety.wild_robe_discount": "狂野法术的灵魂消耗减半。",
+  "entity.goety.ice_spear": "冰矛",
+  "entity.goety.ice_storm": "冰暴",
+  "entity.goety.steam_missile": "蒸汽导弹",
+  "item.goety.ice_storm_focus": "冰暴聚晶",
+  "item.goety.ice_storm_focus.info": "发射冰风暴，对其半径内的目标造成冰冻伤害，并造成短时间内冰冻。 可以穿过物块但移动缓慢。",
+  "enchantment.goety.velocity": "速度",
+  "enchantment.goety.velocity.desc": "提高魔法弹丸的速度和速度。",
+  "subtitle.goety.frost_prepare_spell": "准备施法",
+  "subtitle.goety.wild_prepare_spell": "准备施法",
+  "subtitle.goety.cast_steam": "使徒：使用法术",
+  "subtitle.goety.steam_impact": "蒸汽导弹撞击"
 }
