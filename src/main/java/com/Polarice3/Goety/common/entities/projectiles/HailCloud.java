@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -74,9 +73,6 @@ public class HailCloud extends AbstractSpellCloud{
     public void hurtEntities(LivingEntity livingEntity){
         if (livingEntity != null) {
             float baseDamage = SpellConfig.HailDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            if (livingEntity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                baseDamage *= 2.0F;
-            }
             baseDamage += this.extraDamage;
             if (livingEntity.hurt(ModDamageSource.frostBreath(this, this.getOwner()), baseDamage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5)));

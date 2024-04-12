@@ -41,6 +41,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
+    public static final ModelLayerLocation ICE_GOLEM = register("ice_golem");
     public static final ModelLayerLocation SQUALL_GOLEM = register("squall_golem");
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
     public static final ModelLayerLocation GRAVE_GOLEM = register("grave_golem");
@@ -80,6 +81,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation PREACHER = register("preacher");
     public static final ModelLayerLocation MINISTER = register("minister");
     public static final ModelLayerLocation VIZIER = register("vizier");
+    public static final ModelLayerLocation VIZIER_CLONE = register("vizier_clone");
     public static final ModelLayerLocation IRK = register("irk");
     public static final ModelLayerLocation VIZIER_ARMOR = register("vizier", "armor");
     public static final ModelLayerLocation DARK_HAT = register("dark_hat");

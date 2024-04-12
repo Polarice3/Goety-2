@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "eie",
+    "iri",
+    "eie"
+  ],
+  "key":
+  {
+    "i":
+    {
+      "item": "minecraft:packed_ice"
+    },
+    "r":
+    {
+      "item": "minecraft:redstone_lamp"
+    },
+    "e":
+    {
+      "item": "goety:ectoplasm"
+    }
+  },
+  "result":
+  {
+    "item": "goety:freezing_lamp",
+    "count": 1
+  }
+}

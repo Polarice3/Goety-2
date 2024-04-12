@@ -45,6 +45,7 @@ public class HellBolt extends WaterHurtingProjectile {
         map.put(2, Goety.location("textures/entity/projectiles/hell_bolt/bolt_3.png"));
     });
     public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(HellBolt.class, EntityDataSerializers.FLOAT);
+    public static final EntityDataAccessor<Boolean> RAIN = SynchedEntityData.defineId(HellBolt.class, EntityDataSerializers.BOOLEAN);
 
     public HellBolt(EntityType<? extends HellBolt> p_i50160_1_, Level p_i50160_2_) {
         super(p_i50160_1_, p_i50160_2_);
@@ -62,6 +63,7 @@ public class HellBolt extends WaterHurtingProjectile {
         super.defineSynchedData();
         this.entityData.define(DATA_DAMAGE, 5.0F);
         this.entityData.define(DATA_TYPE_ID, 0);
+        this.entityData.define(RAIN, false);
     }
 
     public void tick() {
@@ -119,35 +121,37 @@ public class HellBolt extends WaterHurtingProjectile {
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
         if (!this.level.isClientSide) {
-            Entity entity = this.getOwner();
-            Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
-            if (entity instanceof LivingEntity livingEntity) {
-                if (pResult instanceof BlockHitResult blockHitResult){
-                    BlockPos blockpos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
-                    if (BlockFinder.canBeReplaced(this.level, blockpos)) {
-                        Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(blockpos), livingEntity);
-                        vec3 = Vec3.atCenterOf(blockpos);
+            if (!this.isRain()) {
+                Entity entity = this.getOwner();
+                Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
+                if (entity instanceof LivingEntity livingEntity) {
+                    if (pResult instanceof BlockHitResult blockHitResult) {
+                        BlockPos blockpos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
+                        if (BlockFinder.canBeReplaced(this.level, blockpos)) {
+                            Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(blockpos), livingEntity);
+                            vec3 = Vec3.atCenterOf(blockpos);
+                            this.level.addFreshEntity(hellfire);
+                        }
+                    } else if (pResult instanceof EntityHitResult entityHitResult) {
+                        Entity entity1 = entityHitResult.getEntity();
+                        Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(entity1.blockPosition()), livingEntity);
+                        vec3 = Vec3.atCenterOf(entity1.blockPosition());
                         this.level.addFreshEntity(hellfire);
                     }
-                } else if (pResult instanceof EntityHitResult entityHitResult){
-                    Entity entity1 = entityHitResult.getEntity();
-                    Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(entity1.blockPosition()), livingEntity);
-                    vec3 = Vec3.atCenterOf(entity1.blockPosition());
-                    this.level.addFreshEntity(hellfire);
                 }
-            }
-            if (this.level instanceof ServerLevel serverLevel){
-                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), this);
-                ColorUtil colorUtil = new ColorUtil(0xdd9c16);
-                serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 2, 1), vec3.x, BlockFinder.moveDownToGround(this), vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                DustCloudParticleOption cloudParticleOptions = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(0x7a6664)), 1.0F);
-                DustCloudParticleOption cloudParticleOptions2 = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(0xeca294)), 1.0F);
-                for (int i = 0; i < 2; ++i) {
-                    ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions, vec3.x, this.getY() + 0.25D, vec3.z, 0, 0.14D, 0, 1.0F);
+                if (this.level instanceof ServerLevel serverLevel) {
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), this);
+                    ColorUtil colorUtil = new ColorUtil(0xdd9c16);
+                    serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 2, 1), vec3.x, BlockFinder.moveDownToGround(this), vec3.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    DustCloudParticleOption cloudParticleOptions = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(0x7a6664)), 1.0F);
+                    DustCloudParticleOption cloudParticleOptions2 = new DustCloudParticleOption(new Vector3f(Vec3.fromRGB24(0xeca294)), 1.0F);
+                    for (int i = 0; i < 2; ++i) {
+                        ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions, vec3.x, this.getY() + 0.25D, vec3.z, 0, 0.14D, 0, 1.0F);
+                    }
+                    ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions2, vec3.x, this.getY() + 0.25D, vec3.z, 0, 0.14D, 0, 1.0F);
                 }
-                ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions2, vec3.x, this.getY() + 0.25D, vec3.z, 0, 0.14D, 0, 1.0F);
+                this.playSound(ModSounds.HELL_BOLT_IMPACT.get(), 1.0F, 1.0F);
             }
-            this.playSound(ModSounds.HELL_BOLT_IMPACT.get(), 1.0F, 1.0F);
             this.discard();
         }
     }
@@ -180,6 +184,7 @@ public class HellBolt extends WaterHurtingProjectile {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Animation", this.getAnimation());
         pCompound.putFloat("Damage", this.getDamage());
+        pCompound.putBoolean("Rain", this.isRain());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -187,6 +192,9 @@ public class HellBolt extends WaterHurtingProjectile {
         this.setAnimation(pCompound.getInt("Animation"));
         if (pCompound.contains("Damage")) {
             this.setDamage(pCompound.getFloat("Damage"));
+        }
+        if (pCompound.contains("Rain")) {
+            this.setRain(pCompound.getBoolean("Rain"));
         }
     }
 
@@ -204,6 +212,14 @@ public class HellBolt extends WaterHurtingProjectile {
 
     public void setAnimation(int pType) {
         this.entityData.set(DATA_TYPE_ID, pType);
+    }
+
+    public boolean isRain(){
+        return this.entityData.get(RAIN);
+    }
+
+    public void setRain(boolean rain){
+        this.entityData.set(RAIN, rain);
     }
 
     public boolean isOnFire() {

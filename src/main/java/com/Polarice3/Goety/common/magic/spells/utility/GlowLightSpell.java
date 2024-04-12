@@ -2,14 +2,14 @@ package com.Polarice3.Goety.common.magic.spells.utility;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.projectiles.GlowLight;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class GlowLightSpell extends Spells {
+public class GlowLightSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

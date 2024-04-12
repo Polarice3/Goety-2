@@ -134,6 +134,10 @@ public class CuriosFinder {
         return hasUndeadCrown(livingEntity) && hasUndeadCape(livingEntity);
     }
 
+    public static boolean hasFrostRobes(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof FrostRobeItem);
+    }
+
     public static boolean hasWindyRobes(LivingEntity livingEntity){
         return hasCurio(livingEntity, item -> item.getItem() instanceof WindyRobeItem);
     }

@@ -93,10 +93,18 @@ public class MiscCapHelper {
     }
 
     public static IMisc load(CompoundTag tag, IMisc misc) {
-        misc.setFreezeLevel(tag.getInt("freezeLevel"));
-        misc.setShields(tag.getInt("shields"));
-        misc.setShieldTime(tag.getInt("shieldTime"));
-        misc.setShieldCool(tag.getInt("shieldCool"));
+        if (tag.contains("freezeLevel")) {
+            misc.setFreezeLevel(tag.getInt("freezeLevel"));
+        }
+        if (tag.contains("shields")) {
+            misc.setShields(tag.getInt("shields"));
+        }
+        if (tag.contains("shieldTime")) {
+            misc.setShieldTime(tag.getInt("shieldTime"));
+        }
+        if (tag.contains("shieldCool")) {
+            misc.setShieldCool(tag.getInt("shieldCool"));
+        }
         return misc;
     }
 
@@ -105,6 +113,8 @@ public class MiscCapHelper {
     }
 
     public static void sendMiscUpdatePacket(LivingEntity livingEntity) {
-        ModNetwork.sendToALL(new MiscCapUpdatePacket(livingEntity));
+        if (!livingEntity.level.isClientSide) {
+            ModNetwork.sentToTrackingEntityAndPlayer(livingEntity, new MiscCapUpdatePacket(livingEntity));
+        }
     }
 }

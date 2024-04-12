@@ -8,8 +8,9 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.BreathingAttackGoal;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
-import com.Polarice3.Goety.common.entities.projectiles.HailCloud;
-import com.Polarice3.Goety.common.entities.projectiles.IceChunk;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.magic.spells.frost.HailSpell;
+import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -24,7 +25,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,6 +33,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +49,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Cryologer.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BREATHING = SynchedEntityData.defineId(Cryologer.class, EntityDataSerializers.BOOLEAN);
     protected int castingTime;
+    public static ItemStack STAFF = new ItemStack(ModItems.FROST_STAFF.get());
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState breathAnimationState = new AnimationState();
     public AnimationState cloudAnimationState = new AnimationState();
@@ -318,9 +320,6 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
     public void doBreathing(Entity target) {
         this.playSound(SoundEvents.PLAYER_BREATH, this.random.nextFloat() * 0.5F, this.random.nextFloat() * 0.5F);
         float damage = 1.0F;
-        if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-            damage *= 2.0F;
-        }
         if (target.hurt(ModDamageSource.frostBreath(this, this), damage)) {
             if (target instanceof LivingEntity living) {
                 living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1)));
@@ -497,9 +496,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
         @Override
         protected void performSpellCasting() {
             if (Cryologer.this.getTarget() != null){
-                LivingEntity target = Cryologer.this.getTarget();
-                HailCloud hailCloud = new HailCloud(Cryologer.this.level, Cryologer.this, target);
-                Cryologer.this.level.addFreshEntity(hailCloud);
+                new HailSpell().SpellResult(Cryologer.this, ItemStack.EMPTY);
             }
         }
 
@@ -578,10 +575,7 @@ public class Cryologer extends HuntingIllagerEntity implements IBreathing {
             super.start();
             Cryologer.this.setAnimationState("chunk");
             if (Cryologer.this.getTarget() != null){
-                LivingEntity target = Cryologer.this.getTarget();
-                IceChunk iceChunk = new IceChunk(Cryologer.this.level, Cryologer.this, target);
-                iceChunk.playSound(ModSounds.ICE_CHUNK_SUMMON.get(), 1.0F, 1.0F);
-                Cryologer.this.level.addFreshEntity(iceChunk);
+                new IceChunkSpell().SpellResult(Cryologer.this, STAFF);
             }
         }
 

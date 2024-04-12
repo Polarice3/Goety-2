@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.ritual;
 
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
@@ -33,14 +34,22 @@ public class RitualRequirements {
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){
         return switch (craftType) {
             case "animation", "forge", "magic", "sabbath" -> RitualRequirements.getStructures(craftType, pPos, pLevel);
-            case "geoturgy" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && !pLevel.canSeeSky(pPos) && pPos.getY() <= 32;
+            case "geoturgy" -> geoturgyRitual(pPos, pLevel);
             case "necroturgy", "lich" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.isNight();
             case "adept_nether", "expert_nether" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.dimensionType().ultraWarm();
-            case "frost" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getBiome(pPos).get().shouldSnow(pLevel, pPos);
+            case "frost" -> frostRitual(pPos, pLevel);
             case "sky" -> skyRitual(pTileEntity, pPos);
             case "storm" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos);
             default -> false;
         };
+    }
+
+    public static boolean geoturgyRitual(BlockPos pPos, Level pLevel){
+        return (!pLevel.canSeeSky(pPos) && pPos.getY() <= 32) || getStructures("geoturgy", pPos, pLevel);
+    }
+
+    public static boolean frostRitual(BlockPos pPos, Level pLevel){
+        return pLevel.getBiome(pPos).get().shouldSnow(pLevel, pPos) || getStructures("frost", pPos, pLevel);
     }
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, BlockPos pPos){
@@ -183,13 +192,13 @@ public class RitualRequirements {
                             totalFirst = 16;
                             totalSecond = 8;
                             totalThird = 4;
-                            if (blockstate.is(BlockTags.STONE_BRICKS)) {
+                            if (blockstate.is(BlockTags.ICE)) {
                                 ++firstCount;
                             }
                             if (blockstate.is(BlockTags.SNOW)) {
                                 ++secondCount;
                             }
-                            if (blockstate.is(BlockTags.ICE)) {
+                            if (blockstate.is(ModBlocks.FREEZING_LAMP.get())) {
                                 ++thirdCount;
                             }
                         }

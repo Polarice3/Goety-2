@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IronHideSpell extends Spells {
+public class IronHideSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

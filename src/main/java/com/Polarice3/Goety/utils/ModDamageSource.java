@@ -37,11 +37,11 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource directFreeze(LivingEntity pMob) {
-        return new EntityDamageSource(source("directFreeze"), pMob).bypassArmor();
+        return new EntityDamageSource(source("directFreeze"), pMob);
     }
 
     public static DamageSource indirectFreeze(Entity pSource, @Nullable Entity pIndirectEntity) {
-        return (new IndirectEntityDamageSource(source("indirectFreeze"), pSource, pIndirectEntity)).bypassArmor();
+        return (new IndirectEntityDamageSource(source("indirectFreeze"), pSource, pIndirectEntity));
     }
 
     public static DamageSource modFireball(@Nullable Entity pIndirectEntity, Level world){
@@ -54,7 +54,7 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource iceBouquet(Entity pSource, @Nullable Entity pIndirectEntity){
-        return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).bypassArmor().setMagic();
+        return new NoKnockBackDamageSource(source("iceBouquet"), pSource, pIndirectEntity).setMagic();
     }
 
     public static DamageSource hellfire(Entity pSource, @Nullable Entity pIndirectEntity){
@@ -66,7 +66,7 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource frostBreath(Entity pSource, @Nullable Entity pIndirectEntity){
-        return new NoKnockBackDamageSource(source("frostBreath"), pSource, pIndirectEntity).bypassArmor();
+        return new NoKnockBackDamageSource(source("frostBreath"), pSource, pIndirectEntity);
     }
 
     public static DamageSource magicBolt(Entity pSource, @Nullable Entity pIndirectEntity){
@@ -74,7 +74,7 @@ public class ModDamageSource extends DamageSource {
     }
 
     public static DamageSource windBlast(Entity pSource, @Nullable Entity pIndirectEntity){
-        return (new IndirectEntityDamageSource(source("windBlast"), pSource, pIndirectEntity)).bypassArmor().setMagic();
+        return (new IndirectEntityDamageSource(source("windBlast"), pSource, pIndirectEntity)).setMagic();
     }
 
     public static DamageSource modWitherSkull(Entity pSource, Entity pIndirectEntity) {

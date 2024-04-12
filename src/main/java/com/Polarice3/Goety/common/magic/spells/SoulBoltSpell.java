@@ -6,7 +6,7 @@ import com.Polarice3.Goety.common.entities.projectiles.MagicProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Learned you could use this method for better projectile accuracy from codes by @Yunus1903
  */
-public class SoulBoltSpell extends Spells {
+public class SoulBoltSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

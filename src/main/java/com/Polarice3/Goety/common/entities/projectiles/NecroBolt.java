@@ -10,6 +10,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,6 +25,8 @@ public class NecroBolt extends MagicProjectile {
     private final float rotSpeed;
     public float roll;
     public float oRoll;
+    public float getGlow;
+    public float glowAmount = 0.05F;
 
     public NecroBolt(EntityType<? extends MagicProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -95,7 +98,7 @@ public class NecroBolt extends MagicProjectile {
                 double d1 = (double)this.getY() + this.level.random.nextDouble();
                 double d2 = (double)this.getZ() + this.level.random.nextDouble();
                 serverLevel.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
-                serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
+                serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0);
             }
             this.discard();
         }
@@ -105,8 +108,16 @@ public class NecroBolt extends MagicProjectile {
         super.tick();
         this.oRoll = this.roll;
         this.roll += (float)Math.PI * this.rotSpeed * 2.0F;
+        this.glow();
         if (this.tickCount >= MathHelper.secondsToTicks(20)){
             this.discard();
+        }
+    }
+
+    private void glow() {
+        this.getGlow = Mth.clamp(this.getGlow + this.glowAmount, 1, 1.5F);
+        if (this.getGlow == 1 || this.getGlow == 1.5F) {
+            this.glowAmount *= -1;
         }
     }
 

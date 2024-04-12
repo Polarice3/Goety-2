@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.EntangleVines;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -13,20 +13,18 @@ import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntanglingSpell extends Spells {
+public class EntanglingSpell extends Spell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.EntanglingCost.get();
@@ -98,8 +96,8 @@ public class EntanglingSpell extends Spells {
                 worldIn.addFreshEntity(entangleVines);
             }
         } else {
-            if (rayTraceResult instanceof EntityHitResult){
-                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+            LivingEntity target = this.getTarget(entityLiving, range);
+            if (target != null){
                 EntangleVines entangleVines = new EntangleVines(worldIn, entityLiving, target);
                 entangleVines.setLifeSpan(entangleVines.getLifeSpan() + MathHelper.secondsToTicks(duration));
                 if (CuriosFinder.hasWildRobe(entityLiving)){

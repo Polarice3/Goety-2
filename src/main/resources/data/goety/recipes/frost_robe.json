@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:magic_fabric"
   },
-  "craftType": "magic",
+  "craftType": "frost",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

@@ -6,7 +6,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
-import com.Polarice3.Goety.common.magic.BreathingSpells;
+import com.Polarice3.Goety.common.magic.BreathingSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwarmSpell extends BreathingSpells {
+public class SwarmSpell extends BreathingSpell {
     public float damage = SpellConfig.SwarmDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
     @Override
@@ -63,16 +63,14 @@ public class SwarmSpell extends BreathingSpells {
         int enchantment = 0;
         int duration = 1;
         int range = 0;
-        if (entityLiving instanceof Player player) {
-            if (WandUtil.enchantedFocus(player)) {
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), player);
-                range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving);
+            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         float damage = this.damage + enchantment;
         if (!worldIn.isClientSide) {
-            for (Entity target : getTarget(entityLiving, range + 15)) {
+            for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target.hurt(ModDamageSource.swarm(entityLiving, entityLiving), damage)){
                         if (!target.isAlive() && worldIn.random.nextFloat() <= 0.25F){

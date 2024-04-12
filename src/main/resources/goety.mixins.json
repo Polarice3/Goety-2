@@ -6,6 +6,7 @@
   "refmap": "goety.refmap.json",
   "mixins": [
     "ApplyBonusCountMixin",
+    "EnchantRandomlyFunctionMixin",
     "EntityMixin",
     "LivingEntityMixin",
     "RaidMixin",
@@ -16,6 +17,9 @@
     "defaultRequire": 1
   },
   "client": [
+    "AbstractClientPlayerMixin",
+    "ClientModLoaderAccessor",
+    "EntityRenderersMixin",
     "ItemRendererMixin",
     "LevelRendererMixin",
     "PlayerRendererAccessor"

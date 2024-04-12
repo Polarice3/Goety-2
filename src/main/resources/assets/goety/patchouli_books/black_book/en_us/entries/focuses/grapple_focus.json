@@ -1,0 +1,15 @@
+{
+  "name": "Grapple Focus",
+  "icon": "goety:grapple_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This focus allows you to shoot a grappling hook made of vines and thorns that will attach itself to any solid surface it lands on, pulling you along the way."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/grapple_focus"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
-import com.Polarice3.Goety.common.magic.BlockSpells;
+import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.Collection;
 
-public class StateSpell extends BlockSpells {
+public class StateSpell extends BlockSpell {
 
     @Override
     public int defaultSoulCost() {

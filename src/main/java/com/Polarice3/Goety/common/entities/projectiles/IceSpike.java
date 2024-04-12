@@ -13,7 +13,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -69,9 +68,6 @@ public class IceSpike extends AbstractArrow {
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
-            if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                baseDamage *= 2.0F;
-            }
             if (entity1 instanceof LivingEntity livingentity) {
                 if (WandUtil.enchantedFocus(livingentity)){
                     baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);

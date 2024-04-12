@@ -6,19 +6,17 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.BreathingSpells;
+import com.Polarice3.Goety.common.magic.BreathingSpell;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
@@ -33,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrostBreathSpell extends BreathingSpells {
+public class FrostBreathSpell extends BreathingSpell {
     public float damage = SpellConfig.FrostBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
     @Override
@@ -69,12 +67,10 @@ public class FrostBreathSpell extends BreathingSpells {
         float enchantment = 0;
         int duration = 1;
         int range = 0;
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), player);
-                range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving);
+            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         float damage = this.damage + enchantment;
         if (!worldIn.isClientSide) {
@@ -104,12 +100,9 @@ public class FrostBreathSpell extends BreathingSpells {
                     }
                 }
             }
-            for (Entity target : getTarget(entityLiving, range + 15)) {
+            for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target instanceof LivingEntity livingTarget) {
-                        if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                            damage *= 2.0F;
-                        }
                         if (livingTarget.hurt(ModDamageSource.frostBreath(entityLiving, entityLiving), damage)) {
                             livingTarget.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1) * duration));
                         }
@@ -123,10 +116,8 @@ public class FrostBreathSpell extends BreathingSpells {
     @Override
     public void showWandBreath(LivingEntity entityLiving) {
         int range = 0;
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {
             this.breathAttack(ParticleTypes.POOF, entityLiving, 0.3F + ((double) range / 10), 5);

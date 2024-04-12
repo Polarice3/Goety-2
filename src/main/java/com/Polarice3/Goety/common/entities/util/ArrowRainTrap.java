@@ -38,14 +38,12 @@ public class ArrowRainTrap extends AbstractTrap {
         if (this.getOwner() != null) {
             if (this.getOwner() instanceof Apostle apostle){
                 ItemStack itemstack = apostle.getProjectile(apostle.getItemInHand(ProjectileUtil.getWeaponHoldingHand(apostle, item -> item instanceof BowItem)));
-                for(int i = 0; i < 3; ++i) {
-                    AbstractArrow abstractarrowentity = apostle.getArrow(itemstack, Math.max(AttributesConfig.ApostleBowDamage.get() / 2.0F, 1.0F));
-                    abstractarrowentity.addTag(ConstantPaths.rainArrow());
-                    abstractarrowentity.setPos(this.getX() + this.random.nextIntBetweenInclusive(-3, 3), blockpos$mutable.getY(), this.getZ() + this.random.nextIntBetweenInclusive(-3, 3));
-                    abstractarrowentity.shoot(0, -900, 0, 2, 10);
-                    abstractarrowentity.setOwner(apostle);
-                    this.level.addFreshEntity(abstractarrowentity);
-                }
+                AbstractArrow abstractarrowentity = apostle.getArrow(itemstack, Math.max(AttributesConfig.ApostleBowDamage.get() / 2.0F, 1.0F));
+                abstractarrowentity.addTag(ConstantPaths.rainArrow());
+                abstractarrowentity.setPos(this.getX() + this.random.nextIntBetweenInclusive(-3, 3), blockpos$mutable.getY(), this.getZ() + this.random.nextIntBetweenInclusive(-3, 3));
+                abstractarrowentity.shoot(0, -900, 0, 2, 10);
+                abstractarrowentity.setOwner(apostle);
+                this.level.addFreshEntity(abstractarrowentity);
             } else {
                 ItemStack itemStack = new ItemStack(Items.ARROW);
                 ArrowItem arrowitem = (ArrowItem)(itemStack.getItem() instanceof ArrowItem ? itemStack.getItem() : Items.ARROW);

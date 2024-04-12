@@ -1,0 +1,24 @@
+{
+  "name": "Ice Golems",
+  "icon": "goety:ice_golem_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A golem made of glacial frost and snow, they hold more power than Snow Golem, yet less power than Iron Golems. They attack by jabbing their foes with their ice spiked hands and rarely smash the ground and summon a $(l:focuses/frost_nova_focus)frost nova$()."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ice_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:ice_golem",
+      "text": "Right click the center Blue Ice with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call these creatures through the use of a $(l:focuses/frostborn_focus)Frostborn Focus$(), or a permanent golem through this configuration. They can be healed by right-clicking on them with Ice, Packed Ice or Blue Ice."
+    }
+  ]
+}

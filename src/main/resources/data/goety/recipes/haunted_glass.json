@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " g ",
+    "geg",
+    " g "
+  ],
+  "key":
+  {
+    "g":
+    {
+      "tag": "forge:glass"
+    },
+    "e":
+    {
+      "item": "goety:ectoplasm"
+    }
+  },
+  "result":
+  {
+    "item": "goety:haunted_glass",
+    "count": 4
+  }
+}

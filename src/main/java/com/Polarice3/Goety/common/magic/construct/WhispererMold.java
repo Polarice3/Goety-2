@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.construct;
 
+import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.CorpseBlossomBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -10,7 +11,10 @@ import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -31,27 +35,30 @@ public class WhispererMold implements IMold {
                 if (level.getBlockState(blockPos.offset(MOSS)).is(Blocks.MOSS_BLOCK)
                         && level.getBlockState(blockPos.offset(LEAVES)).is(ModBlocks.OVERGROWN_ROOTS.get())
                         && level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).is(ModBlocks.CORPSE_BLOSSOM.get())) {
-                    if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
-                        Whisperer whisperer = ModEntityType.WHISPERER.get().create(level);
-                        if (level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).getValue(CorpseBlossomBlock.WATERLOGGED)){
-                            whisperer = ModEntityType.WAVEWHISPERER.get().create(level);
-                        }
-                        if (whisperer != null) {
-                            whisperer.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(whisperer.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                            whisperer.setTrueOwner(player);
-                            whisperer.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                            if (level.addFreshEntity(whisperer)) {
-                                removeBlocks(level, blockPos);
-                                stack.shrink(1);
-                                if (player instanceof ServerPlayer serverPlayer) {
-                                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, whisperer);
-                                }
-                                return true;
+                    if (conditionsMet(level, player)) {
+                        if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
+                            Whisperer whisperer = ModEntityType.WHISPERER.get().create(level);
+                            if (level.getBlockState(blockPos.offset(CORPSE_BLOSSOM)).getValue(CorpseBlossomBlock.WATERLOGGED)) {
+                                whisperer = ModEntityType.WAVEWHISPERER.get().create(level);
                             }
+                            if (whisperer != null) {
+                                whisperer.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(whisperer.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                                whisperer.setTrueOwner(player);
+                                whisperer.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                                if (level.addFreshEntity(whisperer)) {
+                                    removeBlocks(level, blockPos);
+                                    stack.shrink(1);
+                                    if (player instanceof ServerPlayer serverPlayer) {
+                                        CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, whisperer);
+                                    }
+                                    return true;
+                                }
+                            }
+                        } else {
+                            player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
                         }
                     } else {
-                        player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
-                    }
+                        player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);                    }
                 } else {
                     player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                 }
@@ -78,5 +85,19 @@ public class WhispererMold implements IMold {
                 level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
             }
         }
+    }
+
+    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        if (worldIn instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof Whisperer servant) {
+                    if (servant.getTrueOwner() == entityLiving) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count >= SpellConfig.WhisperLimit.get();
     }
 }

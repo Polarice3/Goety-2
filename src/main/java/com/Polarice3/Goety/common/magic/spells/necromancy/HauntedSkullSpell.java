@@ -6,12 +6,13 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -27,7 +28,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HauntedSkullSpell extends SummonSpells {
+public class HauntedSkullSpell extends SummonSpell {
     public int burning = 0;
     public int radius = 0;
 
@@ -65,6 +66,26 @@ public class HauntedSkullSpell extends SummonSpells {
         list.add(ModEnchantments.BURNING.get());
         list.add(ModEnchantments.RADIUS.get());
         return list;
+    }
+
+    @Override
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof HauntedSkull servant) {
+                if (servant.getTrueOwner() == entityLiving) {
+                    ++count;
+                }
+            }
+        }
+        if (count >= SpellConfig.SkullLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -114,7 +135,7 @@ public class HauntedSkullSpell extends SummonSpells {
                 if (burning > 0) {
                     summonedentity.setBurning(burning);
                 }
-                this.setTarget(worldIn, entityLiving, summonedentity);
+                this.setTarget(entityLiving, summonedentity);
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(entityLiving, summonedentity);

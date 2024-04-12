@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.magic.spells.utility;
 
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class CommandSpell extends Spells {
+public class CommandSpell extends Spell {
     @Override
     public int defaultSoulCost() {
         return 0;

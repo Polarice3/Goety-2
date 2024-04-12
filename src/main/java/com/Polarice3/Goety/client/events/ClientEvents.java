@@ -8,7 +8,7 @@ import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.ItemLoopSound;
 import com.Polarice3.Goety.client.audio.LoopSound;
-import com.Polarice3.Goety.client.audio.SquallAlertSound;
+import com.Polarice3.Goety.client.audio.SummonNoveltySound;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.ModModelLayer;
@@ -18,6 +18,7 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
@@ -37,15 +38,12 @@ import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
@@ -164,7 +162,12 @@ public class ClientEvents {
             SoundManager soundHandler = minecraft.getSoundManager();
             if (event.getEntity() instanceof SquallGolem squallGolem){
                 if (squallGolem.noveltyTick == 1) {
-                    soundHandler.play(new SquallAlertSound(squallGolem));
+                    soundHandler.play(new SummonNoveltySound(squallGolem, ModSounds.SQUALL_GOLEM_ALERT.get()));
+                }
+            }
+            if (event.getEntity() instanceof Leapleaf leapleaf){
+                if (leapleaf.noveltyTick == 1) {
+                    soundHandler.play(new SummonNoveltySound(leapleaf, ModSounds.LEAPLEAF_ALERT.get()));
                 }
             }
         }
@@ -228,64 +231,8 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onPlayerRenderPre(RenderPlayerEvent.Pre event) {
         final Player player = event.getEntity();
-        final PlayerRenderer playerRenderer = event.getRenderer();
-        PlayerModel<?> playerModel = playerRenderer.getModel();
-        if (LichdomHelper.isInLichMode(player)){
-            playerModel.head.visible = false;
-            playerModel.hat.visible = false;
-            playerModel.body.visible = false;
-            playerModel.jacket.visible = false;
-            playerModel.leftArm.visible = false;
-            playerModel.leftSleeve.visible = false;
-            playerModel.rightArm.visible = false;
-            playerModel.rightSleeve.visible = false;
-            playerModel.leftLeg.visible = false;
-            playerModel.leftPants.visible = false;
-            playerModel.rightLeg.visible = false;
-            playerModel.rightPants.visible = false;
-        }
         if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())){
             event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerRenderPost(RenderPlayerEvent.Post event) {
-        final Player player = event.getEntity();
-        final PlayerRenderer playerRenderer = event.getRenderer();
-        PlayerModel<?> playerModel = playerRenderer.getModel();
-        if (LichdomHelper.isInLichMode(player)){
-            final ResourceLocation texture = Goety.location("textures/entity/lich.png");
-            final PoseStack poseStack = event.getPoseStack();
-            final int packedLight = event.getPackedLight();
-            LichModeModel<?> lichModeModel = new LichModeModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayer.LICH));
-
-            final int i = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(false));
-
-            poseStack.pushPose();
-
-            if (player instanceof AbstractClientPlayer clientPlayer) {
-                setupRotation(poseStack, clientPlayer, playerRenderer, event.getPartialTick());
-            }
-
-            poseStack.scale(0.9375F, 0.9375F, 0.9375F);
-            poseStack.translate(0.0F, (1.0F / 16.0F) * 24.0F, 0.0F);
-            poseStack.scale(1.0F, -1.0F, -1.0F);
-
-            lichModeModel.head.loadPose(playerModel.head.storePose());
-            lichModeModel.body.loadPose(playerModel.body.storePose());
-            lichModeModel.leftArm.loadPose(playerModel.leftArm.storePose());
-            lichModeModel.rightArm.loadPose(playerModel.rightArm.storePose());
-            lichModeModel.leftLeg.loadPose(playerModel.leftLeg.storePose());
-            lichModeModel.rightLeg.loadPose(playerModel.rightLeg.storePose());
-
-            poseStack.mulPose(Vector3f.YN.rotationDegrees(180F));
-
-            for (ModelPart modelPart : lichModeModel.modifiedBodyParts()){
-                modelPart.render(poseStack, event.getMultiBufferSource().getBuffer(RenderType.entityTranslucent(texture)), packedLight, i);
-            }
-
-            poseStack.popPose();
         }
     }
 

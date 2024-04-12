@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells.storm;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.EverChargeSpells;
+import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.init.ModSounds;
@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ShockingSpell extends EverChargeSpells {
+public class ShockingSpell extends EverChargeSpell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.ShockingCost.get();
@@ -58,7 +57,6 @@ public class ShockingSpell extends EverChargeSpells {
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving, int range, boolean staff){
-        Player playerEntity = (Player) entityLiving;
         float damage = SpellConfig.ShockingDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
         int burning = 0;
         if (WandUtil.enchantedFocus(entityLiving)) {
@@ -67,7 +65,7 @@ public class ShockingSpell extends EverChargeSpells {
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving);
         }
         Vec3 vec3 = entityLiving.getEyePosition();
-        BlockHitResult rayTraceResult = this.blockResult(worldIn, playerEntity, range);
+        BlockHitResult rayTraceResult = this.blockResult(worldIn, entityLiving, range);
         Entity target = MobUtil.getNearbyTarget(worldIn, entityLiving, 20.0D, 1.0F);
         Optional<BlockPos> lightningRod = BlockFinder.findLightningRod(worldIn, new BlockPos(rayTraceResult.getLocation()), range);
         if (lightningRod.isPresent() && !staff){

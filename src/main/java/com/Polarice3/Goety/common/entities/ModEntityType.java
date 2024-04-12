@@ -13,10 +13,7 @@ import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
-import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
-import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
-import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
-import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
+import com.Polarice3.Goety.common.entities.hostile.servants.*;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.*;
@@ -609,6 +606,11 @@ public class ModEntityType {
                     .sized(1.9F, 1.9F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<IceGolem>> ICE_GOLEM = register("ice_golem",
+            EntityType.Builder.of(IceGolem::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.5F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<SquallGolem>> SQUALL_GOLEM = register("squall_golem",
             EntityType.Builder.of(SquallGolem::new, MobCategory.MONSTER)
                     .sized(2.0F, 2.5F)
@@ -709,6 +711,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<VizierClone>> VIZIER_CLONE = register("vizier_clone",
+            EntityType.Builder.of(VizierClone::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Irk>> IRK = register("irk",
             EntityType.Builder.of(Irk::new, MobCategory.MONSTER)
                     .fireImmune()
@@ -787,6 +794,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<AcidPool>> ACID_POOL = register("acid_pool",
+            EntityType.Builder.of(AcidPool::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
             EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)
                     .fireImmune()
@@ -841,6 +855,14 @@ public class ModEntityType {
                     .fireImmune()
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<VineHook>> VINE_HOOK = register("vine_hook",
+            EntityType.Builder.<VineHook>of(VineHook::new, MobCategory.MISC)
+                    .noSave()
+                    .noSummon()
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(5));
 
     public static final RegistryObject<EntityType<SurveyEye>> SURVEY_EYE = register("survey_eye",
             EntityType.Builder.of(SurveyEye::new, MobCategory.MISC)

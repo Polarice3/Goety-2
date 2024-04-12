@@ -25,10 +25,7 @@ import com.Polarice3.Goety.common.entities.hostile.*;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
-import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
-import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
-import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
-import com.Polarice3.Goety.common.entities.hostile.servants.SkeletonVillagerServant;
+import com.Polarice3.Goety.common.entities.hostile.servants.*;
 import com.Polarice3.Goety.common.entities.neutral.*;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -333,6 +330,7 @@ public class Goety {
         event.put(ModEntityType.WHISPERER.get(), Whisperer.setCustomAttributes().build());
         event.put(ModEntityType.WAVEWHISPERER.get(), Wavewhisperer.setCustomAttributes().build());
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());
+        event.put(ModEntityType.ICE_GOLEM.get(), IceGolem.setCustomAttributes().build());
         event.put(ModEntityType.SQUALL_GOLEM.get(), SquallGolem.setCustomAttributes().build());
         event.put(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolem.setCustomAttributes().build());
         event.put(ModEntityType.GRAVE_GOLEM.get(), GraveGolem.setCustomAttributes().build());
@@ -359,6 +357,7 @@ public class Goety {
         event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolem.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
+        event.put(ModEntityType.VIZIER_CLONE.get(), VizierClone.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
         event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());

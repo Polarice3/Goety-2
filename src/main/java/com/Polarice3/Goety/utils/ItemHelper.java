@@ -121,11 +121,13 @@ public class ItemHelper {
 
     public static boolean armorSet(LivingEntity living, ArmorMaterial material){
         int i = 0;
-        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
-            if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
-                if (living.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem armorItem){
-                    if (armorItem.getMaterial() == material){
-                        ++i;
+        if (living.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem helmet && helmet.getMaterial() == material) {
+            for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+                if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR) {
+                    if (living.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem armorItem) {
+                        if (armorItem.getMaterial() == material) {
+                            ++i;
+                        }
                     }
                 }
             }

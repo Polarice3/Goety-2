@@ -101,6 +101,7 @@ public class LeapleafModel<T extends Leapleaf> extends HierarchicalModel<T> {
 		this.animate(entity.chargeAnimationState, LeapleafAnimations.CHARGE, ageInTicks);
 		this.animate(entity.leapAnimationState, LeapleafAnimations.LEAP, ageInTicks);
 		this.animate(entity.restAnimationState, LeapleafAnimations.REST, ageInTicks);
+		this.animate(entity.alertAnimationState, LeapleafAnimations.ALERT, ageInTicks);
 	}
 
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {

@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.network.client;
 
 import com.Polarice3.Goety.client.inventory.container.FocusBagContainer;
+import com.Polarice3.Goety.client.inventory.container.FocusPackContainer;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
+import com.Polarice3.Goety.common.items.magic.FocusPack;
 import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -32,6 +34,10 @@ public class CBagKeyPacket {
                 if (!stack.isEmpty()){
                     SimpleMenuProvider provider = new SimpleMenuProvider(
                             (id, inventory, player) -> new FocusBagContainer(id, inventory, FocusBagItemHandler.get(stack), stack), Component.translatable(stack.getDescriptionId()));
+                    if (stack.getItem() instanceof FocusPack){
+                        provider = new SimpleMenuProvider(
+                                (id, inventory, player) -> new FocusPackContainer(id, inventory, FocusBagItemHandler.get(stack), stack), Component.translatable(stack.getDescriptionId()));
+                    }
                     NetworkHooks.openScreen(playerEntity, provider, (buffer) -> {});
                 }
             }

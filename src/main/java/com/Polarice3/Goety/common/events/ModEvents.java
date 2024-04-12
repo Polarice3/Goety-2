@@ -4,7 +4,9 @@ import com.Polarice3.Goety.*;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.ISoulRepair;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.EnchanteableBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
@@ -21,15 +23,12 @@ import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
-import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
@@ -45,7 +44,6 @@ import com.Polarice3.Goety.common.items.equipment.DarkScytheItem;
 import com.Polarice3.Goety.common.items.equipment.DeathScytheItem;
 import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import com.Polarice3.Goety.common.items.equipment.PhilosophersMaceItem;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
@@ -114,6 +112,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -416,13 +415,11 @@ public class ModEvents {
 
     }
 
-    private static final Map<ServerLevel, EffectsEvents> EFFECTS_EVENT_MAP = new HashMap<>();
     private static final Map<ServerLevel, IllagerSpawner> ILLAGER_SPAWN_MAP = new HashMap<>();
 
     @SubscribeEvent
     public static void worldLoad(LevelEvent.Load event) {
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
-            EFFECTS_EVENT_MAP.put(serverWorld, new EffectsEvents());
             ILLAGER_SPAWN_MAP.put(serverWorld, new IllagerSpawner());
         }
     }
@@ -430,7 +427,6 @@ public class ModEvents {
     @SubscribeEvent
     public static void worldUnload(LevelEvent.Unload event) {
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
-            EFFECTS_EVENT_MAP.remove(serverWorld);
             ILLAGER_SPAWN_MAP.remove(serverWorld);
         }
     }
@@ -438,10 +434,6 @@ public class ModEvents {
     @SubscribeEvent
     public static void onServerTick(TickEvent.LevelTickEvent tick){
         if(!tick.level.isClientSide && tick.level instanceof ServerLevel serverWorld){
-            EffectsEvents effectsEvent = EFFECTS_EVENT_MAP.get(serverWorld);
-            if (effectsEvent != null){
-                effectsEvent.tick(serverWorld);
-            }
             IllagerSpawner illagerSpawner = ILLAGER_SPAWN_MAP.get(serverWorld);
             if (illagerSpawner != null){
                 illagerSpawner.tick(serverWorld);
@@ -485,6 +477,9 @@ public class ModEvents {
                                 if (mob instanceof Cryologer) {
                                     attributeInstance.setBaseValue(1.85D);
                                 }
+                                if (mob instanceof IceGolem){
+                                    attributeInstance.setBaseValue(2.0D);
+                                }
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.LIGHTNING_MAGIC_RESIST) {
                                 if (mob instanceof StormCaster) {
@@ -494,6 +489,9 @@ public class ModEvents {
                             if (attributeInstance.getAttribute() == IronAttributes.FIRE_MAGIC_RESIST) {
                                 if (mob instanceof Apostle) {
                                     attributeInstance.setBaseValue(2.0D);
+                                }
+                                if (mob instanceof IceGolem){
+                                    attributeInstance.setBaseValue(0.33D);
                                 }
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.BLOOD_MAGIC_RESIST) {
@@ -571,40 +569,10 @@ public class ModEvents {
                 for (Entity entity : serverLevel.getAllEntities()){
                     if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
                         if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
-                            if (summonedEntity instanceof ZombieServant || summonedEntity instanceof ZPiglinServant){
-                                ++zombies;
-                                if (zombies > SpellConfig.ZombieLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
-                            if (summonedEntity instanceof AbstractSkeletonServant){
-                                ++skeletons;
-                                if (skeletons > SpellConfig.SkeletonLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
                             if (summonedEntity instanceof AbstractBoundIllager){
                                 ++bound;
                                 if (bound > SpellConfig.BoundIllagerLimit.get()){
                                     livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
-                            if (summonedEntity instanceof AbstractWraith){
-                                ++wraith;
-                                if (wraith > SpellConfig.WraithLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
-                                }
-                            }
-                            if (summonedEntity instanceof HauntedSkull){
-                                ++skull;
-                                if (skull > SpellConfig.SkullLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
-                                }
-                            }
-                            if (summonedEntity instanceof Whisperer){
-                                ++whisperer;
-                                if (whisperer > SpellConfig.WhisperLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/2);
                                 }
                             }
                         }
@@ -773,21 +741,28 @@ public class ModEvents {
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
-        if (livingEntity != null){
-            if (MiscCapHelper.getShieldTime(livingEntity) > 0){
-                if (MiscCapHelper.getShields(livingEntity) <= 0){
-                    MiscCapHelper.setShieldTime(livingEntity, 0);
-                } else {
-                    MiscCapHelper.decreaseShieldTime(livingEntity);
+        if (livingEntity != null && livingEntity.isAlive()){
+            if (livingEntity.level instanceof ServerLevel serverLevel) {
+                if (livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
+                    EffectsEvents.Illague(serverLevel, livingEntity);
                 }
-            } else if (MiscCapHelper.getShields(livingEntity) > 0){
-                MiscCapHelper.setShields(livingEntity, 0);
-                if (!livingEntity.level.isClientSide){
-                    if (livingEntity instanceof Player player){
-                        ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F));
-                    } else {
-                        livingEntity.playSound(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F);
+            }
+            if (MiscCapHelper.getShields(livingEntity) > 0) {
+                if (MiscCapHelper.getShieldTime(livingEntity) > 0) {
+                    MiscCapHelper.decreaseShieldTime(livingEntity);
+                } else {
+                    MiscCapHelper.setShields(livingEntity, 0);
+                    if (!livingEntity.level.isClientSide) {
+                        if (livingEntity instanceof Player player) {
+                            ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F));
+                        } else {
+                            livingEntity.playSound(ModSounds.WALL_DISAPPEAR.get(), 1.0F, 2.0F);
+                        }
                     }
+                }
+            } else {
+                if (MiscCapHelper.getShieldTime(livingEntity) > 0) {
+                    MiscCapHelper.setShieldTime(livingEntity, 0);
                 }
             }
             if (MiscCapHelper.getShieldCool(livingEntity) > 0){
@@ -935,7 +910,12 @@ public class ModEvents {
                 if (!player.level.isClientSide) {
                     ItemStack fakeItem = new ItemStack(Items.DIAMOND_HOE);
                     fakeItem.enchant(Enchantments.SILK_TOUCH, 1);
-                    Block.dropResources(event.getState(), player.level, event.getPos(), null, player, fakeItem);
+                    if (event.getState().getBlock() instanceof EnchanteableBlock enchanteableBlock){
+                        BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
+                        enchanteableBlock.playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);
+                    } else {
+                        Block.dropResources(event.getState(), player.level, event.getPos(), null, player, fakeItem);
+                    }
                     player.level.setBlockAndUpdate(event.getPos(), Blocks.AIR.defaultBlockState());
                     ItemHelper.hurtAndBreak(player.getMainHandItem(), 1, player);
                     event.setCanceled(true);
@@ -1077,13 +1057,6 @@ public class ModEvents {
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
         Entity direct = event.getSource().getDirectEntity();
-
-        if (ModDamageSource.freezeAttacks(event.getSource())){
-            if (victim.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
-                event.setCanceled(true);
-            }
-        }
-
         if (!event.getEntity().level.isClientSide) {
             if (MiscCapHelper.getShields(victim) > 0 && !event.getSource().isBypassMagic()){
                 if (MiscCapHelper.getShieldCool(victim) <= 0) {
@@ -1309,6 +1282,13 @@ public class ModEvents {
                     event.setAmount(damageAmount * 1.5F);
                 }
             }
+            if (ModDamageSource.freezeAttacks(event.getSource())){
+                if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
+                    event.setAmount(damageAmount * 2.0F);
+                } else if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
+                    event.setAmount(damageAmount * 0.5F);
+                }
+            }
             for (EquipmentSlot equipmentSlot : EquipmentSlot.values()){
                 if (equipmentSlot.getType() == EquipmentSlot.Type.ARMOR){
                     ItemStack itemStack = target.getItemBySlot(equipmentSlot);
@@ -1431,6 +1411,7 @@ public class ModEvents {
             }
         }*/
         if (!event.isCanceled()){
+            MiscCapHelper.setFreezing(killed, 0);
             MiscCapHelper.setShields(killed, 0);
             MiscCapHelper.setShieldTime(killed, 0);
         }
@@ -1562,7 +1543,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void usingItemEvents(LivingEntityUseItemEvent.Tick event){
         if (!event.getEntity().level.isClientSide) {
-            if (event.getItem().getItem() instanceof DarkWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())) {
+            if (event.getItem().getItem() instanceof IWand && CuriosFinder.hasCurio(event.getEntity(), ModItems.TARGETING_MONOCLE.get())) {
                 Entity entity = MobUtil.getSingleTarget(event.getEntity().level, event.getEntity(), 16, 3);
                 if (entity instanceof LivingEntity living && MobUtil.areNotFullAllies(entity, event.getEntity())) {
                     event.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(living.getX(), living.getEyeY(), living.getZ()));
@@ -1613,6 +1594,7 @@ public class ModEvents {
     public static void addWanderTrade(WandererTradesEvent event){
         List<VillagerTrades.ItemListing> rareTrades = event.getRareTrades();
         rareTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
+        rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.WIND_SHRINE, "filled_map.goety.wind_shrine", MapDecoration.Type.TARGET_X, 12, 10));
     }
 
     @SubscribeEvent

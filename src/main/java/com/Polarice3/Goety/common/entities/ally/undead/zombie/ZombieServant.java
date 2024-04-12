@@ -2,11 +2,11 @@ package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
 import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -340,7 +340,7 @@ public class ZombieServant extends Summoned {
                     }
                     return InteractionResult.CONSUME;
                 }
-                if (!(pPlayer.getOffhandItem().getItem() instanceof DarkWand)) {
+                if (!(pPlayer.getOffhandItem().getItem() instanceof IWand)) {
                     if (item instanceof SwordItem) {
                         this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());

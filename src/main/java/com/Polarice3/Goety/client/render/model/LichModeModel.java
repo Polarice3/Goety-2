@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -27,5 +28,10 @@ public class LichModeModel<T extends LivingEntity> extends PlayerModel<T> {
 
     public Iterable<ModelPart> modifiedBodyParts() {
         return ImmutableList.of(this.head, this.body, this.leftArm, this.rightArm, this.leftLeg, this.rightLeg);
+    }
+
+    public void translateToHead(PoseStack stack) {
+        this.body.translateAndRotate(stack);
+        this.head.translateAndRotate(stack);
     }
 }

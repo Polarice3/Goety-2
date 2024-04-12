@@ -22,6 +22,7 @@ public class PatchouliIntegration implements ICompatable {
     public void setup(FMLCommonSetupEvent event) {
         PatchouliAPI.get().registerMultiblock(Goety.location("whisperer"), WHISPERER.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("leapleaf"), LEAPLEAF.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("ice_golem"), ICE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("squall_golem"), SQUALL_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
@@ -76,6 +77,31 @@ public class PatchouliIntegration implements ICompatable {
                 'L', leaves,
                 'C', blossom,
                 '0', roots
+        );
+    });
+
+    public static final Supplier<IMultiblock> ICE_GOLEM = Suppliers.memoize(() -> {
+        IStateMatcher packed_ice = PatchouliAPI.get().predicateMatcher(Blocks.PACKED_ICE,
+                state -> state.is(Blocks.PACKED_ICE));
+        IStateMatcher blue_ice = PatchouliAPI.get().predicateMatcher(Blocks.BLUE_ICE,
+                state -> state.is(Blocks.BLUE_ICE));
+        IStateMatcher snow = PatchouliAPI.get().predicateMatcher(Blocks.SNOW_BLOCK,
+                state -> state.is(Blocks.SNOW_BLOCK));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_S_"
+                        },
+                        {
+                                "P0P"
+                        },
+                        {
+                                "_P_"
+                        }
+                },
+                'P', packed_ice,
+                'S', snow,
+                '0', blue_ice
         );
     });
 

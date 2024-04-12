@@ -52,13 +52,17 @@ public class Leapleaf extends Summoned{
     public int chargeTick;
     public int leapTick;
     public int restTick = 0;
+    private int idleTime;
+    public int noveltyTick;
     public int coolTick = MathHelper.secondsToTicks(2);
+    public boolean isNovelty = false;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState smashAnimationState = new AnimationState();
     public AnimationState chargeAnimationState = new AnimationState();
     public AnimationState leapAnimationState = new AnimationState();
     public AnimationState restAnimationState = new AnimationState();
+    public AnimationState alertAnimationState = new AnimationState();
 
     public Leapleaf(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -163,6 +167,8 @@ public class Leapleaf extends Summoned{
             return 5;
         } else if (Objects.equals(animation, "rest")){
             return 6;
+        } else if (Objects.equals(animation, "alert")){
+            return 7;
         } else {
             return 0;
         }
@@ -176,6 +182,7 @@ public class Leapleaf extends Summoned{
         animationStates.add(this.chargeAnimationState);
         animationStates.add(this.leapAnimationState);
         animationStates.add(this.restAnimationState);
+        animationStates.add(this.alertAnimationState);
         return animationStates;
     }
 
@@ -226,6 +233,10 @@ public class Leapleaf extends Summoned{
                     case 6:
                         this.restAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.restAnimationState);
+                        break;
+                    case 7:
+                        this.alertAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.alertAnimationState);
                         break;
                 }
             }
@@ -348,11 +359,25 @@ public class Leapleaf extends Summoned{
                     }
                 } else {
                     if (!this.isMeleeAttacking() && !this.isChestPound() && !this.isLeaping()) {
+                        ++this.idleTime;
+                        if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.secondsToTicks(10)) {
+                            this.idleTime = 0;
+                            this.isNovelty = true;
+                            this.setAnimationState("alert");
+                            this.level.broadcastEntityEvent(this, (byte) 22);
+                        }
                         if (!this.isMoving()) {
-                            this.setAnimationState("idle");
+                            if (this.isNovelty){
+                                this.setAnimationState("alert");
+                            } else {
+                                this.setAnimationState("idle");
+                            }
                         } else {
                             this.setAnimationState("walk");
                         }
+                    } else {
+                        this.isNovelty = false;
+                        this.level.broadcastEntityEvent(this, (byte) 23);
                     }
                     if (this.isMeleeAttacking()) {
                         ++this.attackTick;
@@ -370,6 +395,15 @@ public class Leapleaf extends Summoned{
                     }
                     if (this.coolTick > 0) {
                         --this.coolTick;
+                    }
+                    if (this.isNovelty){
+                        ++noveltyTick;
+                        this.level.broadcastEntityEvent(this, (byte) 24);
+                        if (this.noveltyTick >= MathHelper.secondsToTicks(5.75F) || this.getTarget() != null || this.hurtTime > 0){
+                            this.isNovelty = false;
+                            this.noveltyTick = 0;
+                            this.level.broadcastEntityEvent(this, (byte) 23);
+                        }
                     }
                 }
             }
@@ -400,6 +434,13 @@ public class Leapleaf extends Summoned{
             this.setAggressive(true);
         } else if (p_21375_ == 7){
             this.setAggressive(false);
+        } else if (p_21375_ == 22){
+            this.isNovelty = true;
+        } else if (p_21375_ == 23){
+            this.isNovelty = false;
+            this.noveltyTick = 0;
+        } else if (p_21375_ == 24){
+            ++this.noveltyTick;
         } else {
             super.handleEntityEvent(p_21375_);
         }

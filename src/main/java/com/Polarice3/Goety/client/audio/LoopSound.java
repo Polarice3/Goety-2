@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.audio;
 
-import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
+import com.Polarice3.Goety.common.entities.projectiles.AbstractBeam;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -26,7 +26,7 @@ public class LoopSound extends AbstractTickableSoundInstance {
             this.stop();
         }
 
-        if (this.entity instanceof CorruptedBeam corruptedBeam){
+        if (this.entity instanceof AbstractBeam corruptedBeam){
             if (corruptedBeam.getOwner() != null){
                 LivingEntity living = corruptedBeam.getOwner();
                 this.x = living.getX();

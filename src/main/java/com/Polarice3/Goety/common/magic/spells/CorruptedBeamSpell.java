@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
-import com.Polarice3.Goety.common.magic.EverChargeSpells;
+import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -16,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CorruptedBeamSpell extends EverChargeSpells {
+public class CorruptedBeamSpell extends EverChargeSpell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.CorruptionCost.get();

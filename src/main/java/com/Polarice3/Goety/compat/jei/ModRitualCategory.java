@@ -158,6 +158,9 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         } else if (recipe.getCraftType().contains("geoturgy")) {
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.DEEPSLATE));
+        } else if (recipe.getCraftType().contains("frost")) {
+            recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
+                    .addItemStack(new ItemStack(Items.PACKED_ICE));
         } else {
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.OBSIDIAN));

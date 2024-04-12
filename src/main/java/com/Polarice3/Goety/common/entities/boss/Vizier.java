@@ -4,33 +4,30 @@ import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
+import com.Polarice3.Goety.common.entities.hostile.servants.VizierClone;
 import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
@@ -61,21 +58,26 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 @OnlyIn(
         value = Dist.CLIENT,
         _interface = PowerableMob.class
 )
-public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomAttributes, IBoss {
+public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomAttributes {
     private static final Predicate<Entity> field_213690_b = (p_213685_0_) -> {
         return p_213685_0_.isAlive() && !(p_213685_0_ instanceof Vizier);
     };
@@ -84,8 +86,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected static final EntityDataAccessor<Integer> CASTING = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CONFUSED = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
-    private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
-    private UUID bossInfoUUID = bossInfo.getId();
+    private final ModServerBossInfo bossInfo;
     public float oBob;
     public float bob;
     public double xCloakO;
@@ -95,6 +96,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     public double yCloak;
     public double zCloak;
     public boolean flyWarn;
+    public boolean spawnClones;
     public int airBound;
     public int deathTime = 0;
     public AnimationState introAnimationState = new AnimationState();
@@ -102,6 +104,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public Vizier(EntityType<? extends Vizier> type, Level worldIn) {
         super(type, worldIn);
+        this.bossInfo = new ModServerBossInfo(this.getUUID(), this, BossEvent.BossBarColor.YELLOW, false, false);
         this.moveControl = new MobUtil.MinionMoveControl(this);
         this.xpReward = 50;
         if (this.level.isClientSide){
@@ -138,6 +141,9 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 this.playSound(ModSounds.VIZIER_RAGE.get(), 1.0F, 1.0F);
             }
             this.setInvulnerableTicks(j1);
+            if (!this.level.isClientSide){
+                this.level.broadcastEntityEvent(this, (byte) 5);
+            }
         } else if (!this.isDeadOrDying()) {
             this.setAnimationState(0);
         }
@@ -213,6 +219,27 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 this.airBound = 0;
             }
         }
+        if (this.tickCount % 5 == 0) {
+            this.bossInfo.update();
+        }
+        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
+
+        if (this.level instanceof ServerLevel serverLevel){
+            if (this.tickCount % 5 == 0 && this.tickCount < 100) {
+                if (this.getTarget() != null && this.getTarget().isAlive()) {
+                    if (serverLevel.structureManager().getStructureWithPieceAt(this.blockPosition(), StructureTags.ON_WOODLAND_EXPLORER_MAPS).isValid()) {
+                        StructureStart structureStart = serverLevel.structureManager().getStructureWithPieceAt(this.blockPosition(), StructureTags.ON_WOODLAND_EXPLORER_MAPS);
+                        BoundingBox boundingBox = structureStart.getBoundingBox();
+                        AABB aabb = new AABB(boundingBox.minX(), boundingBox.minY(), boundingBox.minZ(), boundingBox.maxX(), boundingBox.maxY(), boundingBox.maxZ());
+                        for (Raider raider : this.level.getEntitiesOfClass(Raider.class, aabb)) {
+                            if (raider.getTarget() == null) {
+                                raider.setTarget(this.getTarget());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static double getHorizontalDistanceSqr(Vec3 pVector) {
@@ -269,13 +296,19 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new DoNothingGoal());
+        this.goalSelector.addGoal(0, new SpawnClonesGoal());
         this.goalSelector.addGoal(1, new FangsSpellGoal());
         this.goalSelector.addGoal(1, new HealGoal());
         this.goalSelector.addGoal(1, new SpikesGoal());
         this.goalSelector.addGoal(1, new MoveRandomGoal());
         this.goalSelector.addGoal(4, new ChargeAttackGoal());
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Vizier.this.getTarget() == null;
+            }
+        });
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
         this.targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, (new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false)).setUnseenMemoryTicks(300));
@@ -543,6 +576,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         compound.putInt("Casting", this.getCasting());
         compound.putInt("CastTimes", this.getCastTimes());
         compound.putBoolean("FlyWarn", this.flyWarn);
+        compound.putBoolean("SpawnClones", this.spawnClones);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -550,10 +584,14 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         this.setInvulnerableTicks(compound.getInt("Confused"));
         this.setCasting(compound.getInt("Casting"));
         this.setCastTimes(compound.getInt("CastTimes"));
+        this.flyWarn = compound.getBoolean("FlyWarn");
+        if (compound.contains("SpawnClones")){
+            this.spawnClones = compound.getBoolean("SpawnClones");
+        }
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.flyWarn = compound.getBoolean("FlyWarn");
+        this.bossInfo.setId(this.getUUID());
         this.setConfigurableAttributes();
     }
 
@@ -565,7 +603,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected void customServerAiStep() {
         super.customServerAiStep();
         this.bossInfo.setVisible(this.getInvulnerableTicks() <= 0);
-        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void startSeenByPlayer(ServerPlayer pPlayer) {
@@ -622,9 +659,10 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_37856_, DifficultyInstance p_37857_, MobSpawnType p_37858_, @Nullable SpawnGroupData p_37859_, @Nullable CompoundTag p_37860_) {
+        SpawnGroupData spawnGroupData = super.finalizeSpawn(p_37856_, p_37857_, p_37858_, p_37859_, p_37860_);
         this.populateDefaultEquipmentSlots(p_37856_.getRandom(), p_37857_);
         this.populateDefaultEquipmentEnchantments(p_37856_.getRandom(), p_37857_);
-        return super.finalizeSpawn(p_37856_, p_37857_, p_37858_, p_37859_, p_37860_);
+        return spawnGroupData;
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
@@ -655,19 +693,13 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     }
 
     @Override
-    public UUID getBossInfoUUID() {
-        return this.bossInfoUUID;
-    }
-
-    @Override
-    public void setBossInfoUUID(UUID bossInfoUUID) {
-        this.bossInfoUUID = bossInfoUUID;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
+    public void handleEntityEvent(byte p_21375_) {
+        if (p_21375_ == 5){
+            int j1 = this.getInvulnerableTicks() - 1;
+            this.setInvulnerableTicks(j1);
+        } else {
+            super.handleEntityEvent(p_21375_);
+        }
     }
 
     class FangsSpellGoal extends Goal {
@@ -1015,6 +1047,84 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
                 Vizier.this.level.addFreshEntity(spikeEntity);
             }
 
+        }
+    }
+
+    class SpawnClonesGoal extends Goal {
+        int duration;
+
+        private SpawnClonesGoal() {
+        }
+
+        @Override
+        public boolean canUse() {
+            return Vizier.this.getHealth() <= Vizier.this.getMaxHealth() / 2
+                    && Vizier.this.getTarget() != null
+                    && !Vizier.this.spawnClones;
+        }
+
+        public void start() {
+            Vizier.this.playSound(SoundEvents.EVOKER_PREPARE_SUMMON, 1.0F, 0.5F);
+            Vizier.this.setSpellcasting(true);
+        }
+
+        public void stop() {
+            Vizier.this.setSpellcasting(false);
+            Vizier.this.setCastTimes(0);
+            Vizier.this.setCasting(0);
+            this.duration = 0;
+        }
+
+        @Override
+        public void tick() {
+            if (!Vizier.this.level.isClientSide) {
+                Vizier.this.invulnerableTime = 20;
+                LivingEntity livingentity = Vizier.this.getTarget();
+                if (livingentity != null) {
+                    Vizier.this.getLookControl().setLookAt(livingentity, Vizier.this.getMaxHeadXRot(), Vizier.this.getMaxHeadYRot());
+                    ++this.duration;
+                    if (this.duration >= 20) {
+                        double x = MobUtil.getHorizontalLeftLookAngle(Vizier.this).x * 4;
+                        double z = MobUtil.getHorizontalLeftLookAngle(Vizier.this).z * 4;
+                        BlockPos left = new BlockPos(Vizier.this.blockPosition().offset(x, 0, z));
+                        VizierClone vizierClone = new VizierClone(ModEntityType.VIZIER_CLONE.get(), Vizier.this.level);
+                        vizierClone.setPos(left.getX(), Vizier.this.getY(), left.getZ());
+                        vizierClone.setOwner(Vizier.this);
+                        vizierClone.setPositionType(0);
+                        vizierClone.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
+                        if (!Vizier.this.level.isClientSide) {
+                            for (int i = 0; i < Vizier.this.level.random.nextInt(35) + 10; ++i) {
+                                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, vizierClone.getX(), vizierClone.getEyeY(), vizierClone.getZ(), Vizier.this.level);
+                            }
+                        }
+                        Vizier.this.level.addFreshEntity(vizierClone);
+
+                        double x1 = MobUtil.getHorizontalRightLookAngle(Vizier.this).x * 4;
+                        double z1 = MobUtil.getHorizontalRightLookAngle(Vizier.this).z * 4;
+                        BlockPos right = new BlockPos(Vizier.this.blockPosition().offset(x1, 0, z1));
+                        VizierClone vizierClone1 = new VizierClone(ModEntityType.VIZIER_CLONE.get(), Vizier.this.level);
+                        vizierClone1.setPos(right.getX(), Vizier.this.getY(), right.getZ());
+                        vizierClone1.setOwner(Vizier.this);
+                        vizierClone1.setPositionType(1);
+                        vizierClone1.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
+                        if (!Vizier.this.level.isClientSide) {
+                            for (int i = 0; i < Vizier.this.level.random.nextInt(35) + 10; ++i) {
+                                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, vizierClone1.getX(), vizierClone1.getEyeY(), vizierClone1.getZ(), Vizier.this.level);
+                            }
+                        }
+                        Vizier.this.level.addFreshEntity(vizierClone1);
+
+                        this.duration = 0;
+                        Vizier.this.setSpellcasting(false);
+                        Vizier.this.setCastTimes(0);
+                        Vizier.this.setCasting(0);
+                        Vizier.this.spawnClones = true;
+                        Vizier.this.playSound(ModSounds.VANGUARD_SUMMON.get(), 2.0F, 0.75F);
+                    }
+                } else {
+                    stop();
+                }
+            }
         }
     }
 

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Altar is at or below 32 height, not expose to sky $(li)1 Smithing Table $(li)8 Blocks of Amethyst $(li)16 Deepslate Blocks"
+      "text": "Requirements: $(li)Altar is at or below 32 height, not expose to sky $(br)$(l)OR$()$() $(li)1 Smithing Table $(li)8 Blocks of Amethyst $(li)16 Deepslate Blocks"
     },
     {
       "type": "patchouli:image",

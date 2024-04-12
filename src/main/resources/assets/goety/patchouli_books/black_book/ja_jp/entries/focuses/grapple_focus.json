@@ -1,0 +1,15 @@
+{
+  "name": "グラップルフォーカス",
+  "icon": "goety:grapple_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この焦点を使用すると、蔓と棘で作られたグラップリングフックを発射することができ、着地した固い表面に取り付けられ、道に沿ってあなたを引っ張ります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/grapple_focus"
+    }
+  ]
+}

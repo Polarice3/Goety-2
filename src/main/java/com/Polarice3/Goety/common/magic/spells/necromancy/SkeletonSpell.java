@@ -6,13 +6,14 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,7 +30,7 @@ import net.minecraftforge.common.Tags;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkeletonSpell extends SummonSpells {
+public class SkeletonSpell extends SummonSpell {
 
     public int defaultSoulCost() {
         return SpellConfig.SkeletonCost.get();
@@ -65,6 +66,26 @@ public class SkeletonSpell extends SummonSpells {
         return list;
     }
 
+    @Override
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof AbstractSkeletonServant servant) {
+                if (servant.getTrueOwner() == entityLiving) {
+                    ++count;
+                }
+            }
+        }
+        if (count >= SpellConfig.SkeletonLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
+    }
+
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
         if (WandUtil.enchantedFocus(entityLiving)){
             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
@@ -86,7 +107,9 @@ public class SkeletonSpell extends SummonSpells {
     }
 
     public boolean specialStaffs(ItemStack stack){
-        return stack.is(ModItems.FROST_STAFF.get()) || stack.is(ModItems.WILD_STAFF.get());
+        return typeStaff(stack, SpellType.FROST)
+                || typeStaff(stack, SpellType.WILD)
+                || stack.is(ModItems.OMINOUS_STAFF.get());
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
@@ -107,10 +130,12 @@ public class SkeletonSpell extends SummonSpells {
                 }
                 AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
                 if (specialStaffs(staff)) {
-                    if (staff.is(ModItems.FROST_STAFF.get())) {
+                    if (typeStaff(staff, SpellType.FROST)) {
                         summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
-                    } else if (staff.is(ModItems.WILD_STAFF.get())) {
+                    } else if (typeStaff(staff, SpellType.WILD)) {
                         summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
+                    } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
+                        summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
                     }
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
@@ -132,7 +157,7 @@ public class SkeletonSpell extends SummonSpells {
                 summonedentity.setArrowPower(enchantment);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 this.SummonSap(entityLiving, summonedentity);
-                this.setTarget(worldIn, entityLiving, summonedentity);
+                this.setTarget(entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(entityLiving, summonedentity);
             }

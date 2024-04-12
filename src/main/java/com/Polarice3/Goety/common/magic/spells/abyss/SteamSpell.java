@@ -5,7 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.MagicProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SteamMissile;
-import com.Polarice3.Goety.common.magic.ChargingSpells;
+import com.Polarice3.Goety.common.magic.ChargingSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SteamSpell extends ChargingSpells {
+public class SteamSpell extends ChargingSpell {
 
     public int defaultSoulCost() {
         return SpellConfig.SoulBoltCost.get();

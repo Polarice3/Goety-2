@@ -10,13 +10,14 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinBruteServant;
 import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
@@ -36,7 +37,7 @@ import net.minecraftforge.common.Tags;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZombieSpell extends SummonSpells {
+public class ZombieSpell extends SummonSpell {
 
     public int defaultSoulCost() {
         return SpellConfig.ZombieCost.get();
@@ -72,6 +73,28 @@ public class ZombieSpell extends SummonSpells {
         return list;
     }
 
+    @Override
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof Summoned servant) {
+                if (servant instanceof ZombieServant || servant instanceof ZPiglinServant) {
+                    if (servant.getTrueOwner() == entityLiving) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        if (count >= SpellConfig.ZombieLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
+    }
+
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
         if (WandUtil.enchantedFocus(entityLiving)){
             enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
@@ -93,7 +116,9 @@ public class ZombieSpell extends SummonSpells {
     }
 
     public boolean specialStaffs(ItemStack stack){
-        return stack.is(ModItems.FROST_STAFF.get()) || stack.is(ModItems.WILD_STAFF.get());
+        return typeStaff(stack, SpellType.FROST)
+                || typeStaff(stack, SpellType.WILD)
+                || stack.is(ModItems.OMINOUS_STAFF.get());
     }
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
@@ -114,10 +139,12 @@ public class ZombieSpell extends SummonSpells {
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }
                 if (specialStaffs(staff)) {
-                    if (staff.is(ModItems.FROST_STAFF.get())) {
+                    if (typeStaff(staff, SpellType.FROST)) {
                         summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
-                    } else if (staff.is(ModItems.WILD_STAFF.get())) {
+                    } else if (typeStaff(staff, SpellType.WILD)) {
                         summonedentity = new JungleZombieServant(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), worldIn);
+                    } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
+                        summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
                     }
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
                     summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
@@ -150,7 +177,7 @@ public class ZombieSpell extends SummonSpells {
                     summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
                 }
                 this.SummonSap(entityLiving, summonedentity);
-                this.setTarget(worldIn, entityLiving, summonedentity);
+                this.setTarget(entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(entityLiving, entityLiving);
             }

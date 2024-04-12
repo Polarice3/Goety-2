@@ -254,6 +254,14 @@ public class BlockFinder {
         }
     }
 
+    public static boolean findStructure(Level level, BlockPos blockPos, ResourceKey<Structure> resourceKey){
+        if (level instanceof ServerLevel serverLevel) {
+            return findStructure(serverLevel, blockPos, resourceKey);
+        } else {
+            return false;
+        }
+    }
+
     public static boolean findStructure(ServerLevel serverLevel, LivingEntity livingEntity, ResourceKey<Structure> resourceKey){
         return findStructure(serverLevel, livingEntity.blockPosition(), resourceKey);
     }

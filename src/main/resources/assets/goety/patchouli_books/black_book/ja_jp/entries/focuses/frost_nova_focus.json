@@ -1,0 +1,15 @@
+{
+  "name": "フロストノヴァのフォーカス",
+  "icon": "goety:frost_nova_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "自分の位置、またはしゃがんでいるターゲットの位置で霜の爆発を解き放ち、近くのすべての生き物を傷つけ、凍らせます。 爆発は凍結ダメージを与えますが、術者にはダメージを与えません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frost_nova_focus"
+    }
+  ]
+}

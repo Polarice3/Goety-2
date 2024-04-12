@@ -5,7 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -14,13 +14,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OvergrowthSpell extends Spells {
+public class OvergrowthSpell extends Spell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.OvergrowthCost.get();
@@ -83,8 +81,8 @@ public class OvergrowthSpell extends Spells {
             duration += WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, 3);
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+        LivingEntity target = this.getTarget(entityLiving, range);
+        if (target != null){
             if (this.isShifting(entityLiving)){
                 double x = this.getHorizontalLeftLookAngle(entityLiving).x * 2;
                 double z = this.getHorizontalLeftLookAngle(entityLiving).z * 2;

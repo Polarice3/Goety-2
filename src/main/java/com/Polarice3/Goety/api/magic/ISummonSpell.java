@@ -7,12 +7,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 
 public interface ISummonSpell extends ISpell{
     int SummonDownDuration();
@@ -52,12 +49,11 @@ public interface ISummonSpell extends ISpell{
         entityLiving.addEffect(effectinstance);
     }
 
-    default void setTarget(ServerLevel serverLevel, LivingEntity source, Mob summoned){
-        HitResult rayTraceResult = this.rayTrace(serverLevel, source, 16, 3);
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-            if (target instanceof LivingEntity living && MobUtil.areNotFullAllies(source, living)) {
-                summoned.setTarget(living);
+    default void setTarget(LivingEntity source, Mob summoned){
+        LivingEntity target = this.getTarget(summoned);
+        if (target != null){
+            if (MobUtil.areNotFullAllies(source, target)) {
+                summoned.setTarget(target);
             }
         }
     }

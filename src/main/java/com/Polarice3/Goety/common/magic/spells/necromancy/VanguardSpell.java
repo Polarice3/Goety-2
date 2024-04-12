@@ -5,15 +5,17 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -28,7 +30,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VanguardSpell extends SummonSpells {
+public class VanguardSpell extends SummonSpell {
 
     public int defaultSoulCost() {
         return SpellConfig.VanguardCost.get();
@@ -67,6 +69,26 @@ public class VanguardSpell extends SummonSpells {
         list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.DURATION.get());
         return list;
+    }
+
+    @Override
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof AbstractSkeletonServant servant) {
+                if (servant.getTrueOwner() == entityLiving) {
+                    ++count;
+                }
+            }
+        }
+        if (count >= SpellConfig.SkeletonLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -113,7 +135,7 @@ public class VanguardSpell extends SummonSpells {
                 }
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 this.SummonSap(entityLiving, summonedentity);
-                this.setTarget(worldIn, entityLiving, summonedentity);
+                this.setTarget(entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(entityLiving, summonedentity);
             }

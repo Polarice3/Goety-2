@@ -2098,6 +2098,20 @@
     ],
     "subtitle": "subtitle.goety.leapleaf_rest"
   },
+  "leapleaf_alert": {
+    "sounds": [
+      {
+        "name": "goety:leapleaf/alert1"
+      },
+      {
+        "name": "goety:leapleaf/alert2"
+      },
+      {
+        "name": "goety:leapleaf/alert3"
+      }
+    ],
+    "subtitle": "subtitle.goety.leapleaf_idle"
+  },
   "leapleaf_step": {
     "sounds": [
       {
@@ -2122,6 +2136,87 @@
       }
     ],
     "subtitle": "subtitle.goety.leapleaf_death"
+  },
+  "ice_golem_hurt": {
+    "sounds": [
+      {
+        "name": "goety:ice_golem/hurt1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:ice_golem/hurt2",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_hurt"
+  },
+  "ice_golem_swing": {
+    "sounds": [
+      {
+        "name": "goety:ice_golem/swing1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:ice_golem/swing2",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:ice_golem/swing3",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_attack"
+  },
+  "ice_golem_attack": {
+    "sounds": [
+      {
+        "name": "goety:ice_golem/attack1",
+        "pitch": 1.25
+      },
+      {
+        "name": "goety:ice_golem/attack2",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_attack"
+  },
+  "ice_golem_pre_smash": {
+    "sounds": [
+      {
+        "name": "goety:ice_golem/pre_smash"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_pre_smash"
+  },
+  "ice_golem_step": {
+    "sounds": [
+      {
+        "name": "mob/irongolem/walk1",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/irongolem/walk2",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/irongolem/walk3",
+        "pitch": 1.25
+      },
+      {
+        "name": "mob/irongolem/walk4",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_step"
+  },
+  "ice_golem_death": {
+    "sounds": [
+      {
+        "name": "mob/irongolem/death",
+        "pitch": 1.25
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_golem_death"
   },
   "squall_golem_hurt": {
     "sounds": [

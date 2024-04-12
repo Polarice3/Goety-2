@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.Util;
@@ -13,18 +13,16 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarricadeSpell extends Spells {
+public class BarricadeSpell extends Spell {
     public int trueCooldown = this.defaultSpellCooldown();
 
     @Override
@@ -79,8 +77,8 @@ public class BarricadeSpell extends Spells {
             chance += 0.2F;
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, 3);
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+        LivingEntity target = this.getTarget(entityLiving, range);
+        if (target != null){
             if (this.isShifting(entityLiving)){
                 if (worldIn.random.nextFloat() <= chance){
                     WandUtil.summonQuadOffensiveTrap(entityLiving, target, ModEntityType.TOTEMIC_BOMB.get(), potency);

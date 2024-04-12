@@ -1,10 +1,11 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.AttributesConfig;
-import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.projectiles.MonsoonCloud;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.magic.spells.storm.DischargeSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.MonsoonSpell;
+import com.Polarice3.Goety.common.magic.spells.storm.ShockingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
 import com.Polarice3.Goety.init.ModSounds;
@@ -19,7 +20,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -28,10 +28,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ public class StormCaster extends HuntingIllagerEntity{
     private static final EntityDataAccessor<Byte> IS_CASTING_SPELL = SynchedEntityData.defineId(StormCaster.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(StormCaster.class, EntityDataSerializers.INT);
     protected int castingTime;
+    public static ItemStack STAFF = new ItemStack(ModItems.STORM_STAFF.get());
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState shockAnimationState = new AnimationState();
@@ -359,14 +360,7 @@ public class StormCaster extends HuntingIllagerEntity{
                 if (this.shockTime > 0) {
                     --this.shockTime;
                     if (this.shockTime < 20 && MobUtil.hasVisualLineOfSight(StormCaster.this, StormCaster.this.getTarget())) {
-                        Vec3 vec3 = StormCaster.this.getEyePosition();
-                        Entity target = MobUtil.getNearbyTarget(StormCaster.this.level, StormCaster.this, 20.0D, 1.0F);
-                        if (target instanceof LivingEntity livingEntity && !livingEntity.isDeadOrDying() && ForgeHooks.onLivingAttack(livingEntity, ModDamageSource.directShock(StormCaster.this), 2.0F)) {
-                            Vec3 vec31 = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ());
-                            ModNetwork.sendToALL(new SLightningPacket(vec3, vec31, 5));
-                            target.hurt(ModDamageSource.directShock(StormCaster.this), 2.0F);
-                            StormCaster.this.level.playSound(null, StormCaster.this.getX(), StormCaster.this.getY(), StormCaster.this.getZ(), ModSounds.ZAP.get(), StormCaster.this.getSoundSource(), 1.0F, 1.0F);
-                        }
+                        new ShockingSpell().SpellResult(StormCaster.this, STAFF);
                     }
                 }
             }
@@ -476,10 +470,7 @@ public class StormCaster extends HuntingIllagerEntity{
         @Override
         protected void performSpellCasting() {
             if (StormCaster.this.getTarget() != null){
-                LivingEntity target = StormCaster.this.getTarget();
-                MonsoonCloud monsoonCloud = new MonsoonCloud(StormCaster.this.level, StormCaster.this, target);
-                monsoonCloud.setStaff(true);
-                StormCaster.this.level.addFreshEntity(monsoonCloud);
+                new MonsoonSpell().SpellResult(StormCaster.this, STAFF);
             }
         }
 
@@ -514,33 +505,8 @@ public class StormCaster extends HuntingIllagerEntity{
 
         @Override
         protected void performSpellCasting() {
-            if (StormCaster.this.level instanceof ServerLevel serverLevel) {
-                float damage = 6.0F;
-                float maxDamage = 12.0F;
-                if (StormCaster.this.getTarget() != null) {
-                    for (int i = -3; i < 3; ++i) {
-                        for (int k = -3; k < 3; ++k) {
-                            BlockPos blockPos = StormCaster.this.blockPosition().offset(i, 0, k);
-                            serverLevel.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
-                        }
-                    }
-                    StormCaster.this.playSound(ModSounds.REDSTONE_EXPLODE.get());
-                    serverLevel.sendParticles(new ShockwaveParticleOption(0), StormCaster.this.getX(), StormCaster.this.getY() + 0.5F, StormCaster.this.getZ(), 0, 0, 0, 0, 0);
-                    float trueDamage = Mth.clamp(damage + serverLevel.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
-                    MobUtil.explosionDamage(serverLevel, StormCaster.this, ModDamageSource.indirectShock(StormCaster.this, StormCaster.this), StormCaster.this.blockPosition(), 3, trueDamage);
-                    for (Entity entity : MobUtil.explosionRangeEntities(serverLevel, StormCaster.this, StormCaster.this.blockPosition(), 3)){
-                        if (entity instanceof LivingEntity target){
-                            float chance = 0.25F;
-                            if (serverLevel.isThundering() && serverLevel.isRainingAt(target.blockPosition())){
-                                if (serverLevel.random.nextFloat() <= chance){
-                                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel);
-                                    lightningBolt.setPos(target.position());
-                                    serverLevel.addFreshEntity(lightningBolt);
-                                }
-                            }
-                        }
-                    }
-                }
+            if (StormCaster.this.getTarget() != null) {
+                new DischargeSpell().SpellResult(StormCaster.this, STAFF);
             }
         }
 

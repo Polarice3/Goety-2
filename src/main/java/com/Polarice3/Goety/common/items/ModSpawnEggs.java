@@ -114,6 +114,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> LEAPLEAF_SPAWN_EGG = ITEMS.register("leapleaf_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.LEAPLEAF, 0x382b13, 0x818a1a, new Item.Properties().tab(Goety.TAB)));
 
+    public static final RegistryObject<ModSpawnEggItem> ICE_GOLEM_SPAWN_EGG = ITEMS.register("ice_golem_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ICE_GOLEM, 0x22806a, 0x94daff, new Item.Properties().tab(Goety.TAB)));
+
     public static final RegistryObject<ModSpawnEggItem> SQUALL_GOLEM_SPAWN_EGG = ITEMS.register("squall_golem_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SQUALL_GOLEM, 0xf99408, 0x70fae6, new Item.Properties().tab(Goety.TAB)));
 

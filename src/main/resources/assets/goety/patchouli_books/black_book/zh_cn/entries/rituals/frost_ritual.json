@@ -1,0 +1,22 @@
+{
+  "name": "冰霜仪式",
+  "icon": "minecraft:packed_ice",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Requirements: $(li)Altar is located in a snowing biome $(br)$(l)OR$()$() $(li)16 Ice Blocks of any type $(li)8 Snow Blocks $(li)4 Freezing Lamps"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/frost_ritual.png"],
+      "border": true,
+      "text": "一种摆放仪式的例子."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "用极寒凛冰与石砖包围祭坛，可以让祭坛利用冰霜的力量来制造各种魔法."
+    }
+  ]
+}

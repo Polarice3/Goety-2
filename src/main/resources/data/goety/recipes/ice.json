@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "##",
+    "##"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:ice_cube"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:ice",
+    "count": 1
+  }
+}

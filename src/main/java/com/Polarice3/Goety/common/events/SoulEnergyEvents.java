@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
+import com.Polarice3.Goety.common.entities.projectiles.VineHook;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.GrudgeGrimoire;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -139,6 +141,16 @@ public class SoulEnergyEvents {
         int s = soulEnergy.getSoulEnergy();
         if (s < 0){
             soulEnergy.setSoulEnergy(0);
+        }
+        if (soulEnergy.getGrappling() instanceof VineHook vineHook && vineHook.isAttached()) {
+            player.resetFallDistance();
+            Vec3 vec3 = vineHook.position().subtract(player.getEyePosition());
+            float f = vineHook.getLength();
+            double d = vec3.length();
+            if (d > (double)f) {
+                double e = d / (double)f * 0.1D;
+                player.setDeltaMovement(player.getDeltaMovement().add(vec3.scale(1.0 / d).multiply(e, e * 1.1, e)));
+            }
         }
     }
 

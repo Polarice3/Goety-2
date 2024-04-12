@@ -113,6 +113,7 @@
   "entity.goety.whisperer":"Whisperer",
   "entity.goety.wavewhisperer":"Wavewhisperer",
   "entity.goety.leapleaf":"Leapleaf",
+  "entity.goety.ice_golem":"Ice Golem",
 
   "entity.goety.totemic_wall":"Totemic Wall",
   "entity.goety.totemic_bomb":"Totemic Bomb",
@@ -144,6 +145,7 @@
   "entity.goety.minister":"Minister",
 
   "entity.goety.vizier":"Vizier",
+  "entity.goety.vizier_clone":"Vizier Visage",
   "entity.goety.irk":"Irk",
 
   "entity.goety.nether_meteor":"Nether Meteor",
@@ -207,10 +209,13 @@
   "entity.goety.brew_effect_cloud":"Brew Effect Cloud",
   "entity.goety.brew_effect_gas":"Brew Effect Gas",
   "entity.goety.laser":"Laser",
+  "entity.goety.vine_hook":"Vine Hook",
   "entity.goety.magic_ground":"Magic Ground",
   "entity.goety.tunneling_fang":"Tunneling Fang",
 
   "item.goety.focus_bag": "Focus Bag",
+  "item.goety.focus_pack": "Focus Pack",
+
   "item.goety.brew_bag": "Brew Bag",
 
   "item.goety.apostle_spawn_egg": "Apostle Spawn Egg",
@@ -251,6 +256,7 @@
   "item.goety.whisperer_spawn_egg": "Whisperer Spawn Egg",
   "item.goety.wavewhisperer_spawn_egg": "Wavewhisperer Spawn Egg",
   "item.goety.leapleaf_spawn_egg": "Leapleaf Spawn Egg",
+  "item.goety.ice_golem_spawn_egg": "Ice Golem Spawn Egg",
   "item.goety.squall_golem_spawn_egg": "Squall Golem Spawn Egg",
   "item.goety.redstone_golem_spawn_egg": "Redstone Golem Spawn Egg",
   "item.goety.grave_golem_spawn_egg": "Grave Golem Spawn Egg",
@@ -321,6 +327,7 @@
   "item.goety.warped_wartful_egg": "Warped Wartful Egg",
   "item.goety.venomous_fang": "Venomous Fang",
   "item.goety.raging_matter": "Raging Matter",
+  "item.goety.ice_cube": "Ice Cube",
   "item.goety.ominous_saddle": "Ominous Saddle",
   "item.goety.iron_ravager_armor": "Iron Ravager Armor",
   "item.goety.gold_ravager_armor": "Gold Ravager Armor",
@@ -466,6 +473,10 @@
   "item.goety.ghastly_focus.info": "Summons Mini-Ghasts. Cast crouching will dismiss all allied Mini-Ghasts.",
   "item.goety.iceology_focus": "Iceology Focus",
   "item.goety.iceology_focus.info": "Summons an Ice Chunk above a location or non-allied target. Ice Chunk will fall after a time stunning and slowing entities below it.",
+  "item.goety.frost_nova_focus": "Frost Nova Focus",
+  "item.goety.frost_nova_focus.info": "Summons a non-destructive frost explosion on the caster, or on a target if crouch casting, knocking back and freezing nearby non-allied targets.",
+  "item.goety.frostborn_focus": "Frostborn Focus",
+  "item.goety.frostborn_focus.info": "Summons an Ice Golem. Cast crouching will summon the caster's servants towards them.",
   "item.goety.barricade_focus": "Barricade Focus",
   "item.goety.barricade_focus.info": "Summons Totemic Walls at a location or surrounding a target. Cast crouching will summon Totemic Bombs, that will explode after a time.",
   "item.goety.pulverize_focus": "Pulverize Focus",
@@ -504,6 +515,8 @@
   "item.goety.wind_blast_focus.info": "Shoots a blast of wind that deals no damage to targets, but will knock them back.",
   "item.goety.swarm_focus": "Swarm Focus",
   "item.goety.swarm_focus.info": "Shoots a torrent of insects in front of the caster. Upon death, there's a chance an Insect Swarm will spawn on the target's position.",
+  "item.goety.grapple_focus": "Grapple Focus",
+  "item.goety.grapple_focus.info": "Shoots a vine hook that, when latched to a block, pulls the caster towards it.",
   "item.goety.overgrowth_focus": "Overgrowth Focus",
   "item.goety.overgrowth_focus.info": "Summons Quick Growing Vines at a location or surrounding a target. Cast crouching will summon a Poison-Quill Vine, that shoots poison quills at enemies.",
   "item.goety.entangling_focus": "Entangling Focus",
@@ -701,6 +714,7 @@
   "block.goety.haunted_chest": "Haunted Chest",
   "block.goety.trapped_haunted_chest": "Trapped Haunted Chest",
   "block.goety.dark_pressure_plate": "Dark Pressure Plate",
+  "block.goety.apparition_door": "Apparition Door",
   "block.goety.stripped_haunted_log": "Stripped Haunted Log",
   "block.goety.stripped_haunted_wood": "Stripped Haunted Wood",
 
@@ -770,6 +784,13 @@
   "block.goety.steep_pressure_plate": "Steep Pressure Plate",
 
   "block.goety.cursed_bars": "Cursed Metal Bars",
+
+  "block.goety.haunted_glass": "Haunted Glass",
+  "block.goety.haunted_glass_tinted": "Tinted Haunted Glass",
+  "block.goety.haunted_glass_mob": "Haunted Glass (Inverted)",
+  "block.goety.haunted_glass_mob_tinted": "Tinted Haunted Glass (Inverted)",
+
+  "block.goety.freezing_lamp": "Freezing Lamp",
 
   "block.goety.witch_pole": "Witch's Pole",
 
@@ -1067,6 +1088,25 @@
   "info.goety.star_amulet": "Protects against arrows when below half the max health.",
   "info.goety.alarming_charm": "Warns when an Illager assault has appeared.",
 
+  "info.goety.ice_bouquet_trap": "Summons an Ice Bouquet on top of it, which damages entities with frost damage.",
+  "info.goety.ice_bouquet_trap_extra": "Requires a redstone pulse to activate.",
+  "info.goety.wind_blower": "Pushes entities away from it depending on its orientation. The distance equals the redstone power it receives.",
+  "info.goety.sculk_devourer": "Transforms experience dropped by recently killed mobs into soul energy and gives it to the placer.",
+  "info.goety.sculk_devourer_extra": "Can be enchanted with Soul Eater and Radius.",
+  "info.goety.sculk_converter": "Absorbs soul energy, from a filled Cursed Cage above it, to spread sculk.",
+  "info.goety.sculk_converter_extra": "Requires a redstone pulse to activate. Can be enchanted with Potency.",
+  "info.goety.sculk_relay": "Sculk Converters will spread sculk on a nearby relay's location.",
+  "info.goety.sculk_grower": "Absorbs soul energy, from a filled Cursed Cage above it, to increase growth speed of surrounding crops.",
+  "info.goety.sculk_grower_extra": "Activates with redstone. Can be enchanted with Potency and Radius.",
+  "info.goety.forbidden_grass": "Quickly spawns monsters on it. Will be set aflame in sunlight or near fire.",
+  "info.goety.hook_bell": "When rung, teleports raiders near the bell. Can only be rung manually.",
+  "info.goety.haunted_glass": "Players can pass through but not mobs.",
+  "info.goety.haunted_glass_tinted": "Players can pass through but not mobs. Blocks light.",
+  "info.goety.haunted_glass_mob": "Mobs can pass through but not players.",
+  "info.goety.haunted_glass_mob_tinted": "Mobs can pass through but not players. Blocks light.",
+  "info.goety.freezing_lamp": "Slowly freezes nearby water to ice and puts snow on the surrounding area.",
+  "info.goety.apparition_door": "Vanishes when right-clicked or powered. Will reappear after a short while.",
+
   "info.goety.ritual.fail": "You do not know how to properly start this ritual!",
   "info.goety.ritual.structure.fail": "Inefficient Block Requirements!",
   "info.goety.ritual.convert.fail": "Required Mob Not In Range!",
@@ -1116,6 +1156,7 @@
 
   "filled_map.goety.blighted_shack": "Blighted Shack Explorer Map",
   "filled_map.goety.crypt": "Crypt Explorer Map",
+  "filled_map.goety.wind_shrine": "Wind Shrine Explorer Map",
 
   "spell.goety.none": "§eMagic§e",
   "spell.goety.necromancy": "§2Necromancy§2",
@@ -1697,6 +1738,7 @@
   "gui.jei.category.dark_altar.time": "%ss",
   "gui.jei.category.dark_altar.soulcost": "%s Souls/s",
   "gui.jei.category.brazier": "Necro Brazier",
+  "gui.jei.category.pulverize": "Pulverize Focus",
 
   "goety.jei.ritual": "Magic Ritual",
   "goety.jei.brazier": "Necro Brazier",
@@ -1713,6 +1755,7 @@
   "jei.goety.craftType.minor_nether": "Ritual Type: Minor Nether",
   "jei.goety.craftType.forge": "Ritual Type: Forge",
   "jei.goety.craftType.geoturgy": "Ritual Type: Geoturgy",
+  "jei.goety.craftType.frost": "Ritual Type: Frost",
   "jei.goety.craftType.magic": "Ritual Type: Magic",
   "jei.goety.craftType.adept_nether": "Ritual Type: Adept Nether",
   "jei.goety.craftType.expert_nether": "Ritual Type: Expert Nether",

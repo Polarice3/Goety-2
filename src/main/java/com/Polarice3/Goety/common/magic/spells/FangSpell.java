@@ -3,26 +3,24 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FangSpell extends Spells {
+public class FangSpell extends Spell {
 
     public int defaultSoulCost() {
         return SpellConfig.FangCost.get();
@@ -76,11 +74,11 @@ public class FangSpell extends Spells {
         double d0 = Math.min(vector3d.y, entityLiving.getY());
         double d1 = Math.max(vector3d.y, entityLiving.getY()) + 1.0D;
         float f = (float) Mth.atan2(vector3d.z - entityLiving.getZ(), vector3d.x - entityLiving.getX());
-        if (rayTraceResult instanceof EntityHitResult){
-            Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+        LivingEntity target = this.getTarget(entityLiving, range);
+        if (target != null){
             d0 = Math.min(target.getY(), entityLiving.getY());
             d1 = Math.max(target.getY(), entityLiving.getY()) + 1.0D;
-            f = (float)Mth.atan2(target.getZ() - entityLiving.getZ(), target.getX() - entityLiving.getX());
+            f = (float) Mth.atan2(target.getZ() - entityLiving.getZ(), target.getX() - entityLiving.getX());
         }
         if (!isShifting(entityLiving)) {
             for(int l = 0; l < range; ++l) {

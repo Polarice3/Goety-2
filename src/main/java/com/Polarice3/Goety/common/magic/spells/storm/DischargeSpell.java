@@ -4,28 +4,26 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DischargeSpell extends Spells {
+public class DischargeSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {
@@ -75,24 +73,28 @@ public class DischargeSpell extends Spells {
                 worldIn.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
             }
         }
-        worldIn.sendParticles(new ShockwaveParticleOption(0), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
+        ColorUtil colorUtil = new ColorUtil(0xfef597);
+        worldIn.sendParticles(new ShockwaveParticleOption(0, colorUtil.red(), colorUtil.green(), colorUtil.blue()), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
-        MobUtil.explosionDamage(worldIn, entityLiving, ModDamageSource.indirectShock(entityLiving, entityLiving), entityLiving.blockPosition(), radius, trueDamage);
-        for (Entity entity : MobUtil.explosionRangeEntities(worldIn, entityLiving, entityLiving.blockPosition(), radius)){
-            if (entity instanceof LivingEntity target){
-                float chance = rightStaff(staff) ? 0.25F : 0.05F;
-                if (worldIn.isThundering() && worldIn.isRainingAt(target.blockPosition())){
-                    if (worldIn.random.nextFloat() <= chance){
-                        LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
-                        lightningBolt.setPos(target.position());
-                        if (entityLiving instanceof ServerPlayer serverPlayer) {
-                            lightningBolt.setCause(serverPlayer);
+        new SpellExplosion(worldIn, entityLiving, ModDamageSource.directShock(entityLiving), entityLiving.blockPosition(), radius, trueDamage){
+            @Override
+            public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
+                if (target instanceof LivingEntity target1){
+                    super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
+                    float chance = rightStaff(staff) ? 0.25F : 0.05F;
+                    if (worldIn.isThundering() && worldIn.isRainingAt(target1.blockPosition())){
+                        if (worldIn.random.nextFloat() <= chance){
+                            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, worldIn);
+                            lightningBolt.setPos(target1.position());
+                            if (entityLiving instanceof ServerPlayer serverPlayer) {
+                                lightningBolt.setCause(serverPlayer);
+                            }
+                            worldIn.addFreshEntity(lightningBolt);
                         }
-                        worldIn.addFreshEntity(lightningBolt);
                     }
                 }
             }
-        }
+        };
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.REDSTONE_EXPLODE.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

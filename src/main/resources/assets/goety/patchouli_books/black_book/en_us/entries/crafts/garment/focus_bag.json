@@ -1,0 +1,21 @@
+{
+  "name": "Focus Bag",
+  "icon": "goety:focus_bag",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You find yourself having trouble carrying multiple $(l:focuses)focuses$() on your person. Fortunately, you've managed to devise a leather bag to hold multiple focuses that you can easily access, by either pressing the Focus Bag key (Default: C) or holding a wand and pressing Focus Circle key (Default: X) and can wear on your waist."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_bag",
+      "text": "The Focus Bag can hold up to 10 focuses."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_pack",
+      "text": "The Focus Pack can hold up to 20 focuses."
+    }
+  ]
+}

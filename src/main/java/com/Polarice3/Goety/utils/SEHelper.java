@@ -41,6 +41,7 @@ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -529,6 +530,15 @@ public class SEHelper {
 
     public static FocusCooldown.CooldownInstance getCooldownInstance(Player player, Item item){
         return getFocusCoolDown(player).getInstance(item);
+    }
+
+    @Nullable
+    public static Projectile getGrappling(Player player){
+        return getCapability(player).getGrappling();
+    }
+
+    public static void setGrappling(Player player, @Nullable Projectile projectile){
+        getCapability(player).setGrappling(projectile);
     }
 
     public static int getBottling(Player player){
