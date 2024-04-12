@@ -191,7 +191,7 @@ public class RitualRequirements {
                         case "frost" -> {
                             totalFirst = 16;
                             totalSecond = 8;
-                            totalThird = 16;
+                            totalThird = 4;
                             if (blockstate.is(BlockTags.ICE)) {
                                 ++firstCount;
                             }
