@@ -8,13 +8,14 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.Wavewhisperer;
 import com.Polarice3.Goety.common.entities.ally.Whisperer;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WhisperSpell extends SummonSpells {
+public class WhisperSpell extends SummonSpell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.WhisperCost.get();
@@ -68,6 +69,26 @@ public class WhisperSpell extends SummonSpells {
         list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.DURATION.get());
         return list;
+    }
+
+    @Override
+    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof Whisperer servant) {
+                if (servant.getTrueOwner() == entityLiving) {
+                    ++count;
+                }
+            }
+        }
+        if (count >= SpellConfig.WhisperLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
     }
 
     @Override
@@ -122,7 +143,7 @@ public class WhisperSpell extends SummonSpells {
                     summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
                 }
                 this.SummonSap(entityLiving, summonedentity);
-                this.setTarget(worldIn, entityLiving, summonedentity);
+                this.setTarget(entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);
                 this.summonAdvancement(entityLiving, entityLiving);
             }

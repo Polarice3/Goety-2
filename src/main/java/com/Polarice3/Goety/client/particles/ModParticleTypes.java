@@ -111,6 +111,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> FROST = PARTICLE_TYPES.register("frost",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> FROST_NOVA = PARTICLE_TYPES.register("frost_nova",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> FLY = PARTICLE_TYPES.register("fly",
             () -> new SimpleParticleType(false));
 

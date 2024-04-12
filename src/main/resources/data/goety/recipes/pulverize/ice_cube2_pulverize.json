@@ -1,0 +1,12 @@
+{
+  "type": "goety:pulverize",
+  "ingredient": [
+    {
+      "item": "minecraft:packed_ice"
+    }
+  ],
+  "item_result": {
+    "item": "goety:ice_cube",
+    "count": 36
+  }
+}

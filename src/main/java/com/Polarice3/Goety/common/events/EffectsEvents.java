@@ -10,7 +10,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.monster.PatrollingMonster;
@@ -20,17 +19,7 @@ import java.util.Objects;
 
 public class EffectsEvents {
 
-    public void tick(ServerLevel level) {
-        for (Entity entity: level.getAllEntities()){
-            if (entity instanceof LivingEntity infected){
-                if (infected.hasEffect(GoetyEffects.ILLAGUE.get())){
-                    this.Illague(level, infected);
-                }
-            }
-        }
-    }
-
-    public void Illague(ServerLevel level, LivingEntity infected){
+    public static void Illague(ServerLevel level, LivingEntity infected){
         int duration = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getDuration() + 1;
         int amplifier = Objects.requireNonNull(infected.getEffect(GoetyEffects.ILLAGUE.get())).getAmplifier();
         if (MobsConfig.IllagueSpread.get()) {

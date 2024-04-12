@@ -6,7 +6,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.Polarice3.Goety.common.entities.ally.MiniGhast;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -26,7 +26,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GhastSpell extends SummonSpells {
+public class GhastSpell extends SummonSpell {
     private final TargetingConditions ghastCountTargeting = TargetingConditions.DEFAULT.range(64.0D).ignoreInvisibilityTesting();
 
     public int defaultSoulCost() {
@@ -103,7 +103,7 @@ public class GhastSpell extends SummonSpells {
                     miniGhast.setFireBallDamage(miniGhast.getFireBallDamage() + boost);
                 }
                 this.SummonSap(entityLiving, miniGhast);
-                this.setTarget(worldIn, entityLiving, miniGhast);
+                this.setTarget(entityLiving, miniGhast);
                 worldIn.addFreshEntity(miniGhast);
                 this.summonAdvancement(entityLiving, miniGhast);
             }

@@ -35,6 +35,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
                 ModEntityType.HAUNTED_ARMOR_SERVANT.get(),
+                ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
         this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(ModEntityType.INFERNO.get(),
@@ -42,6 +43,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
         this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(ModEntityType.WRAITH.get(),
                 ModEntityType.WRAITH_SERVANT.get(),
                 ModEntityType.BORDER_WRAITH.get(),
+                ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
         this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(

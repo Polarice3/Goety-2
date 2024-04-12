@@ -1,0 +1,25 @@
+{
+  "name": "Haunted Glasses",
+  "icon": "goety:haunted_glass",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With ectoplasms, you've created a glass that's only intangible to you and your fellows, allowing you all to pass through it like air. Creatures and items cannot pass through, and the glass can be tinted to prevent even light to pass."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass",
+      "recipe2": "goety:haunted_glass_tinted"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can also invert the glass' functionality, making everything but you and your fellows from passing."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass_mob",
+      "recipe2": "goety:haunted_glass_mob_tinted"
+    }
+  ]
+}

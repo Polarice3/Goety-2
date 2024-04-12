@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "hrh",
+    "rer",
+    "hrh"
+  ],
+  "key":
+  {
+    "h":
+    {
+      "tag": "goety:haunted_logs"
+    },
+    "r":
+    {
+      "item": "minecraft:redstone"
+    },
+    "e":
+    {
+      "item": "goety:ectoplasm"
+    }
+  },
+  "result":
+  {
+    "item": "goety:apparition_door",
+    "count": 4
+  }
+}

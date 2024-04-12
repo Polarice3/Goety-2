@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SonicBoomSpell extends Spells {
+public class SonicBoomSpell extends Spell {
 
     public int defaultSoulCost() {
         return SpellConfig.SonicBoomCost.get();

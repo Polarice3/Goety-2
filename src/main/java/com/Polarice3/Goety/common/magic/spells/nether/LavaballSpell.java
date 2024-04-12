@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LavaballSpell extends Spells {
+public class LavaballSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

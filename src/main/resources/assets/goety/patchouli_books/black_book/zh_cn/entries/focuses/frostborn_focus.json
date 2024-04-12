@@ -1,0 +1,15 @@
+{
+  "name": "霜裔聚晶",
+  "icon": "goety:frostborn_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许你召唤一个$(l:summons/ice_golems)冰傀儡$()，这是一个强大的仆从，它不仅可以抵御冰霜伤害，而且有时它还会释放出霜冻新星.."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frostborn_focus"
+    }
+  ]
+}

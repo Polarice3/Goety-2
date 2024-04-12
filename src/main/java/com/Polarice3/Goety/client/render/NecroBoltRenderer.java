@@ -19,7 +19,9 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
-    private static final ResourceLocation TEXTURE = Goety.location("textures/particle/necro_bolt.png");
+    private static final ResourceLocation BASE = Goety.location("textures/particle/necro_bolt_base.png");
+    private static final ResourceLocation MID = Goety.location("textures/particle/necro_bolt_mid.png");
+    private static final ResourceLocation TOP = Goety.location("textures/particle/necro_bolt_top.png");
 
     public NecroBoltRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
@@ -37,17 +39,26 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
         RenderType renderType = RenderType.entityTranslucent(this.getTextureLocation(entityIn));
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(renderType);
         matrixStackIn.translate(0, 0.5, 0);
-        this.render(ivertexbuilder, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f);
+        this.render(ivertexbuilder, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0);
+        RenderType renderType2 = RenderType.entityTranslucent(MID);
+        VertexConsumer ivertexbuilder2 = bufferIn.getBuffer(renderType2);
+        this.render(ivertexbuilder2, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 0);
+        RenderType renderType3 = RenderType.entityTranslucent(TOP);
+        VertexConsumer ivertexbuilder3 = bufferIn.getBuffer(renderType3);
+        this.render(ivertexbuilder3, this.entityRenderDispatcher.camera, entityIn, partialTicks, packedLightIn, matrix4f, matrix3f, 1);
         matrixStackIn.popPose();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    public void render(VertexConsumer vertexConsumer, Camera camera, NecroBolt projectile, float partialTicks, int packedLightIn, Matrix4f matrix4f, Matrix3f matrix3f) {
+    public void render(VertexConsumer vertexConsumer, Camera camera, NecroBolt projectile, float partialTicks, int packedLightIn, Matrix4f matrix4f, Matrix3f matrix3f, int mode) {
         Quaternionf quaternionf = new Quaternionf(camera.rotation());
         quaternionf.rotateZ(Mth.lerp(partialTicks, projectile.oRoll, projectile.roll));
+        float f3 = 0.5F;
+        if (mode == 1){
+            f3 *= projectile.getGlow;
+        }
 
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
-        float f3 = scale();
 
         for(int i = 0; i < 4; ++i) {
             Vector3f vector3f = avector3f[i];
@@ -61,11 +72,7 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
         vertexConsumer.vertex(matrix4f, avector3f[3].x, avector3f[3].y, avector3f[3].z).color(255, 255, 255, 255).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    public float scale(){
-        return 0.5F;
-    }
-
     public ResourceLocation getTextureLocation(T entity){
-        return TEXTURE;
+        return BASE;
     }
 }

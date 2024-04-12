@@ -19,7 +19,7 @@ public class ModEnchantments {
     public static final EnchantmentCategory FOCUS = EnchantmentCategory.create("focus", (item) -> (item instanceof IFocus));
 
     public static final RegistryObject<Enchantment> SOUL_EATER = ENCHANTMENTS.register("soul_eater",
-            () -> new SoulEaterEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.BREAKABLE, EquipmentSlot.MAINHAND));
+            () -> new SoulEaterEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
     public static final RegistryObject<Enchantment> WANTING = ENCHANTMENTS.register("wanting",
             () -> new LootingEnchantment(Enchantment.Rarity.RARE, RINGS, EquipmentSlot.MAINHAND));

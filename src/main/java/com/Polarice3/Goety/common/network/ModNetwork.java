@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.network.client.focus.CSwapFocusTwoPacket;
 import com.Polarice3.Goety.common.network.server.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.network.NetworkDirection;
@@ -87,6 +88,14 @@ public class ModNetwork {
 
     public static <MSG> void sentToTrackingChunk(LevelChunk chunk, MSG msg) {
         ModNetwork.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
+    }
+
+    public static <MSG> void sentToTrackingEntity(Entity entity, MSG msg) {
+        ModNetwork.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
+    }
+
+    public static <MSG> void sentToTrackingEntityAndPlayer(Entity entity, MSG msg) {
+        ModNetwork.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
     }
 
     public static <MSG> void sendToALL(MSG msg) {

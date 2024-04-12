@@ -24,7 +24,7 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
     }
 
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSource.PHOBIA, ModDamageSource.DOOM, ModDamageSource.DIRECT_FREEZE, ModDamageSource.INDIRECT_FREEZE, ModDamageSource.ICE_BOUQUET, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.MAGIC_BOLT, ModDamageSource.WIND_BLAST, ModDamageSource.CHOKE);
+        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSource.PHOBIA, ModDamageSource.DOOM, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.MAGIC_BOLT, ModDamageSource.CHOKE);
         this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageSource.DOOM);
         this.tag(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageSource.DOOM);
         this.tag(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageSource.DOOM);

@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.ChargingSpells;
+import com.Polarice3.Goety.common.magic.ChargingSpell;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeastSpell extends ChargingSpells {
+public class FeastSpell extends ChargingSpell {
 
     public int defaultSoulCost() {
         return SpellConfig.FeastCost.get();

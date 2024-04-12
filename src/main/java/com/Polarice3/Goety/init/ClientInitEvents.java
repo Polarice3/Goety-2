@@ -6,10 +6,7 @@ import com.Polarice3.Goety.client.events.BossBarEvent;
 import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
 import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
 import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
-import com.Polarice3.Goety.client.gui.screen.inventory.BrewBagScreen;
-import com.Polarice3.Goety.client.gui.screen.inventory.DarkAnvilScreen;
-import com.Polarice3.Goety.client.gui.screen.inventory.FocusBagScreen;
-import com.Polarice3.Goety.client.gui.screen.inventory.SoulItemScreen;
+import com.Polarice3.Goety.client.gui.screen.inventory.*;
 import com.Polarice3.Goety.client.inventory.container.ModContainerType;
 import com.Polarice3.Goety.client.particles.*;
 import com.Polarice3.Goety.client.render.*;
@@ -76,6 +73,7 @@ public class ClientInitEvents {
     public static void clientInit(FMLClientSetupEvent event){
         MenuScreens.register(ModContainerType.WAND.get(), SoulItemScreen::new);
         MenuScreens.register(ModContainerType.FOCUS_BAG.get(), FocusBagScreen::new);
+        MenuScreens.register(ModContainerType.FOCUS_PACK.get(), FocusPackScreen::new);
         MenuScreens.register(ModContainerType.BREW_BAG.get(), BrewBagScreen::new);
         MenuScreens.register(ModContainerType.DARK_ANVIL.get(), DarkAnvilScreen::new);
         CuriosRenderer.register();
@@ -202,6 +200,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.LEAPLEAF, LeapleafModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.ICE_GOLEM, IceGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SQUALL_GOLEM, SquallGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.REDSTONE_GOLEM, RedstoneGolemModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.GRAVE_GOLEM, GraveGolemModel::createBodyLayer);
@@ -227,6 +226,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.PREACHER, PreacherModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINISTER, MinisterModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VIZIER, VizierModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.VIZIER_CLONE, VizierCloneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.IRK, IrkModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MINION, MinionModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.HAUNTED_SKULL, HauntedSkullModel::createBodyLayer);
@@ -410,6 +410,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.WAVEWHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.LEAPLEAF.get(), LeapleafRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ICE_GOLEM.get(), IceGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.SQUALL_GOLEM.get(), SquallGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.REDSTONE_GOLEM.get(), RedstoneGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.GRAVE_GOLEM.get(), GraveGolemRenderer::new);
@@ -427,6 +428,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolemRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VIZIER_CLONE.get(), VizierCloneRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKULL_LORD.get(), SkullLordRenderer::new);
         event.registerEntityRenderer(ModEntityType.BONE_LORD.get(), BoneLordRenderer::new);
@@ -439,12 +441,14 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.UPDRAFT_BLAST.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.CUSHION.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ACID_POOL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAIL_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.MONSOON_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VINE_HOOK.get(), VineHookRenderer::new);
         event.registerEntityRenderer(ModEntityType.SURVEY_EYE.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.TUNNELING_FANG.get(), TrapRenderer::new);
     }
@@ -539,6 +543,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME.get(), FireParticle.DragonProvider::new);
         event.registerSpriteSet(ModParticleTypes.DRAGON_FLAME_DROP.get(), FireParticle.EmberProvider::new);
         event.registerSpriteSet(ModParticleTypes.FROST.get(), FireParticle.FrostProvider::new);
+        event.registerSpriteSet(ModParticleTypes.FROST_NOVA.get(), FlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.FLY.get(), FireParticle.FlyProvider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_CLOUD.get(), FireParticle.ColorProvider::new);
         event.registerSpriteSet(ModParticleTypes.FANG_RAIN.get(), WaterDropParticle.Provider::new);
@@ -550,7 +555,7 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.FUNGUS_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.registerSpecial(ModParticleTypes.FUNGUS_EXPLOSION_EMITTER.get(), new HugeFungusExplosionSeedParticle.Provider());
         event.registerSpriteSet(ModParticleTypes.SOUL_EXPLODE.get(), SoulExplodeParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.SUMMON.get(), SoulExplodeParticle.SummonProvider::new);
+        event.registerSpriteSet(ModParticleTypes.SUMMON.get(), SummonParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SPELL_SQUARE.get(), SpellSquareParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.TRAIL.get(), TrailParticle.MobProvider::new);
         event.registerSpriteSet(ModParticleTypes.SPARKLE.get(), SparkleParticle.Provider::new);

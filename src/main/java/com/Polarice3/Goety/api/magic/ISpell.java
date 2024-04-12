@@ -3,9 +3,10 @@ package com.Polarice3.Goety.api.magic;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.curios.FrostRobeItem;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.core.BlockPos;
@@ -100,7 +101,8 @@ public interface ISpell {
         }
         if (this.getSpellType() == SpellType.NECROMANCY){
             if (enable) {
-                if (level.getMoonBrightness() > 0.9F || biomeHolder.is(Biomes.SOUL_SAND_VALLEY) || biomeHolder.is(Biomes.DEEP_DARK)) {
+                if (level.getMoonBrightness() > 0.9F || biomeHolder.is(Biomes.SOUL_SAND_VALLEY) || biomeHolder.is(Biomes.DEEP_DARK)
+                        || BlockFinder.findStructure(level, blockPos, ModStructures.GRAVEYARD_KEY)) {
                     cost /= 1.5F;
                 }
             }
@@ -110,7 +112,9 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if (biomeHolder.is(BiomeTags.IS_JUNGLE) || biomeHolder.is(Tags.Biomes.IS_SWAMP)) {
+                if (biomeHolder.is(BiomeTags.IS_JUNGLE)
+                        || biomeHolder.is(Tags.Biomes.IS_SWAMP)
+                        || biomeHolder.is(Tags.Biomes.IS_LUSH)) {
                     cost /= 1.5F;
                 } else if (biomeHolder.is(Tags.Biomes.IS_DESERT)
                         || biomeHolder.is(Tags.Biomes.IS_DEAD)
@@ -177,6 +181,11 @@ public interface ISpell {
         return new ColorUtil(0.2F, 0.2F, 0.2F);
     }
 
+    @Nullable
+    default LivingEntity getTarget(LivingEntity caster){
+        return null;
+    }
+
     default HitResult rayTrace(Level worldIn, LivingEntity livingEntity, int range, double radius) {
         if (this.entityResult(worldIn, livingEntity, range, radius) == null){
             return this.blockResult(worldIn, livingEntity, range);
@@ -233,7 +242,7 @@ public interface ISpell {
     }
 
     default boolean FrostSoulDiscount(LivingEntity entityLiving){
-        return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof FrostRobeItem);
+        return CuriosFinder.hasFrostRobes(entityLiving);
     }
 
     default boolean WindSoulDiscount(LivingEntity entityLiving){

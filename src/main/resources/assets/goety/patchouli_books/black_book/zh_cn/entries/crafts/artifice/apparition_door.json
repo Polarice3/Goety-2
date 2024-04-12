@@ -1,0 +1,15 @@
+{
+  "name": "幻象门",
+  "icon": "goety:apparition_door",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幻影门是一种在右键单击或通过红石激活时会变成无形的装置。 该门还会触发其他相邻的门执行相同操作。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:apparition_door"
+    }
+  ]
+}

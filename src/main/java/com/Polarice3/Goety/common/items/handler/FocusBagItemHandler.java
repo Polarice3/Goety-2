@@ -14,10 +14,12 @@ import javax.annotation.Nonnull;
 
 public class FocusBagItemHandler extends ItemStackHandler {
     private final ItemStack itemStack;
+    private final int size;
     private int slot;
 
-    public FocusBagItemHandler(ItemStack itemStack) {
-        super(11);
+    public FocusBagItemHandler(ItemStack itemStack, int size) {
+        super(size);
+        this.size = size;
         this.itemStack = itemStack;
     }
 
@@ -34,14 +36,13 @@ public class FocusBagItemHandler extends ItemStackHandler {
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-    {
+    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         return stack.getItem() instanceof IFocus;
     }
 
     @Override
     public int getSlotLimit(int slot) {
-        return 11;
+        return this.size;
     }
 
     public NonNullList<ItemStack> getContents(){

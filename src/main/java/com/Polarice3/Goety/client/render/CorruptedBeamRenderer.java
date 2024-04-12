@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.entities.projectiles.AbstractBeam;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -30,7 +31,7 @@ public class CorruptedBeamRenderer<T extends CorruptedBeam> extends EntityRender
     }
 
     public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        double distance = pEntity.beamTraceDistance(CorruptedBeam.MAX_RAYTRACE_DISTANCE, 1.0f, false);
+        double distance = pEntity.beamTraceDistance(AbstractBeam.MAX_RAYTRACE_DISTANCE, 1.0f, false);
         float speedModifier = -0.02f;
         drawBeams(distance, pEntity, pPartialTicks, speedModifier, pMatrixStack);
     }

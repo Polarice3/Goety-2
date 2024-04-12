@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SSetPlayerOwnerPacket;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -23,10 +23,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 
-public class IllusionSpell extends Spells {
+public class IllusionSpell extends Spell {
     public int defaultSoulCost() {
         return SpellConfig.IllusionCost.get();
     }
@@ -74,16 +72,13 @@ public class IllusionSpell extends Spells {
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
             summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
-            HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
-            if (rayTraceResult instanceof EntityHitResult) {
-                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-                if (target instanceof LivingEntity living){
-                    double d2 = target.getX() - summonedentity.getX();
-                    double d1 = target.getZ() - summonedentity.getZ();
-                    summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
-                    if (undead){
-                        summonedentity.moveTo(BlockFinder.SummonRadius(living, worldIn), 0.0F, 0.0F);
-                    }
+            LivingEntity target = this.getTarget(entityLiving);
+            if (target != null) {
+                double d2 = target.getX() - summonedentity.getX();
+                double d1 = target.getZ() - summonedentity.getZ();
+                summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
+                if (undead){
+                    summonedentity.moveTo(BlockFinder.SummonRadius(target, worldIn), 0.0F, 0.0F);
                 }
             }
             MobUtil.moveDownToGround(summonedentity);
@@ -94,12 +89,9 @@ public class IllusionSpell extends Spells {
         }
         if (CuriosFinder.hasIllusionRobe(entityLiving)){
             entityLiving.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1200));
-            HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, 16, 3);
-            if (rayTraceResult instanceof EntityHitResult) {
-                Entity target = ((EntityHitResult) rayTraceResult).getEntity();
-                if (target instanceof LivingEntity){
-                    ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400));
-                }
+            LivingEntity target = this.getTarget(entityLiving);
+            if (target != null) {
+                target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400));
             }
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, this.getSoundSource(), 1.0F, 1.0F);

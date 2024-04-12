@@ -4,6 +4,7 @@ import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -11,7 +12,6 @@ import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -129,9 +130,9 @@ public class MobUtil {
 
     public static boolean areAllies(@Nullable Entity entity, @Nullable Entity entity1){
         if (entity != null && entity1 != null) {
-            return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) ||
-                    (entity instanceof Player player && entity1 instanceof LivingEntity living
-                            && (SEHelper.getAllyEntities(player).contains(living) || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
+            return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) || entity == entity1
+                    || (entity instanceof Player player && entity1 instanceof LivingEntity living
+                    && (SEHelper.getAllyEntities(player).contains(living) || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
                     || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
                     && (SEHelper.getAllyEntities(player1).contains(living1) || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
         } else {
@@ -637,94 +638,12 @@ public class MobUtil {
         return isFinalWave(raid) && raid.getTotalRaidersAlive() == 0 && hasBonusWave(raid);
     }
 
-    public static List<Entity> explosionRangeEntities(Level level, Entity source, BlockPos blockPos, float range){
-        return explosionRangeEntities(level, source, blockPos.getX(), blockPos.getY(), blockPos.getZ(), range);
-    }
-
-    public static List<Entity> explosionRangeEntities(Level level, Entity source, double x, double y, double z, float radius){
-        float f2 = radius * 2.0F;
-        int k1 = Mth.floor(x - (double)f2 - 1.0D);
-        int l1 = Mth.floor(x + (double)f2 + 1.0D);
-        int i2 = Mth.floor(y - (double)f2 - 1.0D);
-        int i1 = Mth.floor(y + (double)f2 + 1.0D);
-        int j2 = Mth.floor(z - (double)f2 - 1.0D);
-        int j1 = Mth.floor(z + (double)f2 + 1.0D);
-        return level.getEntities(source, new AABB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
-    }
-
-    public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius) {
-        explosionDamage(level, source, damageSource, x, y, z, radius, 0);
-    }
-
     public static void explosionDamage(Level level, Entity source, DamageSource damageSource, BlockPos blockPos, float radius, float damage){
         explosionDamage(level, source, damageSource, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, damage);
     }
 
     public static void explosionDamage(Level level, Entity source, DamageSource damageSource, double x, double y, double z, float radius, float damage){
-        float f2 = radius * 2.0F;
-        Vec3 vec3 = new Vec3(x, y, z);
-        for (Entity entity : explosionRangeEntities(level, source, x, y, z, radius)) {
-            double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
-            if (d12 <= 1.0D) {
-                double d5 = entity.getX() - x;
-                double d7 = entity.getEyeY() - y;
-                double d9 = entity.getZ() - z;
-                double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
-                if (d13 != 0.0D) {
-                    d5 /= d13;
-                    d7 /= d13;
-                    d9 /= d13;
-                    double d14 = (double) getSeenPercent(vec3, entity);
-                    double d10 = (1.0D - d12) * d14;
-                    float actualDamage = damage == 0 ? (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)) : damage;
-                    entity.hurt(damageSource, actualDamage);
-                    double d11 = d10;
-                    if (entity instanceof LivingEntity) {
-                        d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                    }
-                    if (damageSource.is(DamageTypes.MAGIC)){
-                        if (entity instanceof FireTornado fireTornado){
-                            fireTornado.trueRemove();
-                        }
-                    }
-
-                    MobUtil.push(entity, d5 * d11, d7 * d11, d9 * d11);
-                }
-            }
-        }
-    }
-
-    public static float getSeenPercent(Vec3 vector, Entity target) {
-        AABB aabb = target.getBoundingBox();
-        double d0 = 1.0D / ((aabb.maxX - aabb.minX) * 2.0D + 1.0D);
-        double d1 = 1.0D / ((aabb.maxY - aabb.minY) * 2.0D + 1.0D);
-        double d2 = 1.0D / ((aabb.maxZ - aabb.minZ) * 2.0D + 1.0D);
-        double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
-        double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
-        if (!(d0 < 0.0D) && !(d1 < 0.0D) && !(d2 < 0.0D)) {
-            int i = 0;
-            int j = 0;
-
-            for(double d5 = 0.0D; d5 <= 1.0D; d5 += d0) {
-                for(double d6 = 0.0D; d6 <= 1.0D; d6 += d1) {
-                    for(double d7 = 0.0D; d7 <= 1.0D; d7 += d2) {
-                        double d8 = Mth.lerp(d5, aabb.minX, aabb.maxX);
-                        double d9 = Mth.lerp(d6, aabb.minY, aabb.maxY);
-                        double d10 = Mth.lerp(d7, aabb.minZ, aabb.maxZ);
-                        Vec3 vec3 = new Vec3(d8 + d3, d9, d10 + d4);
-                        if (target.level.clip(new ClipContext(vec3, vector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, target)).getType() == HitResult.Type.MISS) {
-                            ++i;
-                        }
-
-                        ++j;
-                    }
-                }
-            }
-
-            return (float)i / (float)j;
-        } else {
-            return 0.0F;
-        }
+        new SpellExplosion(level, source, damageSource, x, y, z, radius, damage);
     }
 
     public static boolean canPositionBeSeen(Level level, LivingEntity living, double x, double y, double z) {
@@ -940,7 +859,7 @@ public class MobUtil {
     }
 
     public static boolean isSpellCasting(LivingEntity livingEntity){
-        return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof DarkWand && !WandUtil.findFocus(livingEntity).isEmpty();
+        return livingEntity.isUsingItem() && livingEntity.getUseItem().getItem() instanceof IWand && !WandUtil.findFocus(livingEntity).isEmpty();
     }
 
     public static void instaLook(Mob mob, Vec3 vec3){
@@ -1079,6 +998,14 @@ public class MobUtil {
         float f4 = Mth.cos(f);
         float f5 = Mth.sin(f);
         return new Vec3((double)(f3 * f4), (double)(-f5), (double)(f2 * f4));
+    }
+
+    public static Vec3 getHorizontalLeftLookAngle(Entity entity) {
+        return MobUtil.calculateViewVector(0, entity.getYRot() - 90);
+    }
+
+    public static Vec3 getHorizontalRightLookAngle(Entity entity) {
+        return MobUtil.calculateViewVector(0, entity.getYRot() + 90);
     }
 
     public static void setRot(Entity entity, float p_19916_, float p_19917_) {

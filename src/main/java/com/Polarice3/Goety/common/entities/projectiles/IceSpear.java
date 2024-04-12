@@ -14,7 +14,6 @@ import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -92,9 +91,6 @@ public class IceSpear extends IceSpike {
             }
             Entity entity1 = this.getOwner();
             boolean flag;
-            if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
-                baseDamage *= 2.0F;
-            }
             if (entity1 instanceof LivingEntity livingentity) {
                 if (!entity.isAlive() && this.piercedAndKilledEntities != null) {
                     this.piercedAndKilledEntities.add(livingentity);

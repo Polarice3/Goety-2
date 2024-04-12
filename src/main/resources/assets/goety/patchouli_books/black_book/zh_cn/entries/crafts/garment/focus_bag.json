@@ -1,0 +1,21 @@
+{
+  "name": "聚晶包",
+  "icon": "goety:focus_bag",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你发现你没办法把很多$(l:focuses)聚晶$()装在自己身上。幸运的是，你已经设计出一个包来容纳多个聚晶，你可以通过按下“打开聚晶包”键(默认: C)，或是手持魔杖时按下“打开聚晶圆环”键(默认: X)来轻松的打开它，它还可以穿戴在腰上。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_bag",
+      "text": "一个可以容纳10个聚晶的聚晶包。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_pack",
+      "text": "一个可以容纳20个聚晶的聚晶包。"
+    }
+  ]
+}

@@ -64,6 +64,7 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.TOTEM_OF_ROOTS.get(), "charm")
             .put(ModItems.TOTEM_OF_SOULS.get(), "charm")
             .put(ModItems.FOCUS_BAG.get(), "belt")
+            .put(ModItems.FOCUS_PACK.get(), "belt")
             .put(ModItems.BREW_BAG.get(), "belt")
             .put(ModItems.WARLOCK_SASH.get(), "belt")
             .put(ModItems.WAYFARERS_BELT.get(), "belt")

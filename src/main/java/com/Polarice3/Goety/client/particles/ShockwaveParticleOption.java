@@ -62,6 +62,16 @@ public class ShockwaveParticleOption implements ParticleOptions {
       this.fade = true;
    }
 
+   public ShockwaveParticleOption(int p_235949_, float size, int speed) {
+      this.delay = p_235949_;
+      this.red = 1.0F;
+      this.green = 1.0F;
+      this.blue = 1.0F;
+      this.size = size;
+      this.speed = speed;
+      this.fade = true;
+   }
+
    public ShockwaveParticleOption(int p_235949_, float r, float g, float b) {
       this.delay = p_235949_;
       this.red = r;

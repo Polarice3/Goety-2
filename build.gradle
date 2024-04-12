@@ -149,6 +149,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:wiki-zoomer-383277:4576732")
     runtimeOnly fg.deobf("curse.maven:bagus-lib-866533:5147658")
     runtimeOnly fg.deobf("curse.maven:enchant-with-mob-913523:5098324")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
 }
 
 tasks.named('jar', Jar).configure {

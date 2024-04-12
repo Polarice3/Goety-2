@@ -5,7 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.crafting.PulverizeRecipe;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.magic.BlockSpells;
+import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ItemHelper;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PulverizeSpell extends BlockSpells {
+public class PulverizeSpell extends BlockSpell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.PulverizeCost.get();

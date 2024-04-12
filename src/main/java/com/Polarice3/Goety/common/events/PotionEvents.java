@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
@@ -159,7 +159,7 @@ public class PotionEvents {
                             }
                         }
                         int i = livingEntity.getTicksFrozen();
-                        int j = h * 3;
+                        int j = h * 4;
                         livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze() + 5, i + j));
                     }
                 }
@@ -683,7 +683,7 @@ public class PotionEvents {
                 brewEffectInstance.getEffect().drinkBlockEffect(event.getEntity(), event.getEntity(), event.getEntity(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(event.getItem()));
             }
         }
-        if (!(event.getItem().getItem() instanceof DarkWand)) {
+        if (!(event.getItem().getItem() instanceof IWand)) {
             if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())) {
                 event.getEntity().removeEffect(GoetyEffects.SHADOW_WALK.get());
             }

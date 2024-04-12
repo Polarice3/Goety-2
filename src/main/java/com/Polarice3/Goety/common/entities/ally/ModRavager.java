@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -551,7 +551,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
                     if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
                         this.getFirstPassenger().stopRiding();
                         return InteractionResult.SUCCESS;
-                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof DarkWand)){
+                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
                         this.doPlayerRide(pPlayer);
                         return InteractionResult.SUCCESS;
                     }

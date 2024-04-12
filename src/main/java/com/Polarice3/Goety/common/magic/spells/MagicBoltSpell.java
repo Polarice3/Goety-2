@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.spells;
 import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagicBoltSpell extends Spells {
+public class MagicBoltSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

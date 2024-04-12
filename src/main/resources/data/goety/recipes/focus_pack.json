@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lbl",
+    "lll",
+    "lbl"
+  ],
+  "key":
+  {
+    "l":
+    {
+      "tag": "forge:leather"
+    },
+    "b":
+    {
+      "item": "goety:focus_bag"
+    }
+  },
+  "result":
+  {
+    "item": "goety:focus_pack",
+    "count": 1
+  }
+}

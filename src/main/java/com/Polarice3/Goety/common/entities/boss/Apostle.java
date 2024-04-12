@@ -94,6 +94,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -1005,15 +1006,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         blockPos.move(Direction.UP);
                     }
                     if (blockPos.getY() > this.getY() + 32.0D) {
-                        int range = this.getHealth() < this.getMaxHealth()/2 ? 450 : 900;
-                        int trueRange = this.getHealth() < this.getHealth()/4 ? range/2 : range;
-                        RandomSource random = this.level.random;
-                        double d = (random.nextBoolean() ? 1 : -1);
-                        double e = (random.nextBoolean() ? 1 : -1);
-                        double d2 = (random.nextInt(trueRange) * d);
-                        double d3 = -900.0D;
-                        double d4 = (random.nextInt(trueRange) * e);
-                        NetherMeteor fireball = new NetherMeteor(this.level, this, d2, d3, d4);
+                        NetherMeteor fireball = this.getNetherMeteor();
                         fireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(this.level, this) && MobsConfig.ApocalypseMode.get());
                         fireball.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                         this.level.addFreshEntity(fireball);
@@ -1168,6 +1161,19 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
+    @NotNull
+    private NetherMeteor getNetherMeteor() {
+        int range = this.getHealth() < this.getMaxHealth() / 2 ? 450 : 900;
+        int trueRange = this.getHealth() < this.getHealth() / 4 ? range/2 : range;
+        RandomSource random = this.level.random;
+        double d = (random.nextBoolean() ? 1 : -1);
+        double e = (random.nextBoolean() ? 1 : -1);
+        double d2 = (random.nextInt(trueRange) * d);
+        double d3 = -900.0D;
+        double d4 = (random.nextInt(trueRange) * e);
+        return new NetherMeteor(this.level, this, d2, d3, d4);
+    }
+
     protected boolean isImmobile() {
         return super.isImmobile() || this.isSettingUpSecond();
     }
@@ -1212,7 +1218,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         double d1 = pTarget.getY(0.3333333333333333D) - abstractarrowentity.getY();
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
-        abstractarrowentity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
+        abstractarrowentity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, 1.0F);
         this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(abstractarrowentity);
     }

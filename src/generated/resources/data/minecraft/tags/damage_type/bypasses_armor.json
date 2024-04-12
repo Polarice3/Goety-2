@@ -2,13 +2,9 @@
   "values": [
     "goety:phobia",
     "goety:doom",
-    "goety:direct_freeze",
-    "goety:indirect_freeze",
-    "goety:ice_bouquet",
     "goety:hellfire",
     "goety:indirect_hellfire",
     "goety:magic_bolt",
-    "goety:wind_blast",
     "goety:choke"
   ]
 }

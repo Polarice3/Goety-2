@@ -234,10 +234,12 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     @Nullable
     public Team getTeam() {
-        if (this.getTrueOwner() != null) {
-            LivingEntity livingentity = this.getTrueOwner();
-            if (livingentity != null && livingentity.getTeam() != null) {
-                return livingentity.getTeam();
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() != null) {
+                LivingEntity livingentity = this.getTrueOwner();
+                if (livingentity != null && livingentity.getTeam() != null) {
+                    return livingentity.getTeam();
+                }
             }
         }
 

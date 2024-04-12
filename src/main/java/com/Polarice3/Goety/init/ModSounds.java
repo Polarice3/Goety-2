@@ -172,8 +172,16 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LEAPLEAF_CHARGE = create("leapleaf_charge");
     public static final RegistryObject<SoundEvent> LEAPLEAF_LEAP = create("leapleaf_leap");
     public static final RegistryObject<SoundEvent> LEAPLEAF_REST = create("leapleaf_rest");
+    public static final RegistryObject<SoundEvent> LEAPLEAF_ALERT = create("leapleaf_alert");
     public static final RegistryObject<SoundEvent> LEAPLEAF_STEP = create("leapleaf_step");
     public static final RegistryObject<SoundEvent> LEAPLEAF_DEATH = create("leapleaf_death");
+
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_HURT = create("ice_golem_hurt");
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_SWING = create("ice_golem_swing");
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_ATTACK = create("ice_golem_attack");
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_PRE_SMASH = create("ice_golem_pre_smash");
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_STEP = create("ice_golem_step");
+    public static final RegistryObject<SoundEvent> ICE_GOLEM_DEATH = create("ice_golem_death");
 
     public static final RegistryObject<SoundEvent> SQUALL_GOLEM_HURT = create("squall_golem_hurt");
     public static final RegistryObject<SoundEvent> SQUALL_GOLEM_ACTIVATE = create("squall_golem_activate");

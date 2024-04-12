@@ -84,6 +84,6 @@ public class FocusBag extends Item implements ICurioItem {
     @Override
     @Nullable
     public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable CompoundTag nbt) {
-        return new FocusBagItemCapability(stack);
+        return new FocusBagItemCapability(stack, 11);
     }
 }

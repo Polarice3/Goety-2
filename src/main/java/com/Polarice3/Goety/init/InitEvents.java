@@ -1,9 +1,13 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
+import com.Polarice3.Goety.common.capabilities.misc.IMisc;
 import com.Polarice3.Goety.common.capabilities.misc.MiscProvider;
+import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.capabilities.soulenergy.SEProvider;
+import com.Polarice3.Goety.common.capabilities.witchbarter.IWitchBarter;
 import com.Polarice3.Goety.common.capabilities.witchbarter.WitchBarterProvider;
 import com.Polarice3.Goety.common.commands.GoetyCommand;
 import com.Polarice3.Goety.common.commands.LichCommand;
@@ -17,6 +21,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -31,6 +36,14 @@ public class InitEvents {
         CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
         LichCommand.register(commandDispatcher);
         GoetyCommand.register(commandDispatcher, event.getBuildContext());
+    }
+
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event){
+        event.register(IMisc.class);
+        event.register(ISoulEnergy.class);
+        event.register(ILichdom.class);
+        event.register(IWitchBarter.class);
     }
 
     @SubscribeEvent

@@ -102,6 +102,14 @@ public class ModBlocks {
     //Deco
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
     public static final RegistryObject<Block> DARK_METAL_BLOCK = register("dark_metal_block", DarkMetalBlock::new);
+
+    public static final RegistryObject<Block> HAUNTED_GLASS = register("haunted_glass", () -> new HauntedGlassBlock(glassProperties(), true, false));
+    public static final RegistryObject<Block> TINTED_HAUNTED_GLASS = register("haunted_glass_tinted", () -> new HauntedGlassBlock(tintedGlassProperties(), true, true));
+    public static final RegistryObject<Block> HAUNTED_GLASS_MOB = register("haunted_glass_mob", () -> new HauntedGlassBlock(glassProperties(), false, false));
+    public static final RegistryObject<Block> TINTED_HAUNTED_GLASS_MOB = register("haunted_glass_mob_tinted", () -> new HauntedGlassBlock(tintedGlassProperties(), false, true));
+
+    public static final RegistryObject<Block> FREEZING_LAMP = register("freezing_lamp", FreezeLampBlock::new);
+
     public static final RegistryObject<Block> SHADE_BRAZIER = register("shade_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> STONE_BRAZIER = register("stone_brazier", BrazierBlock::new);
     public static final RegistryObject<Block> BRICK_BRAZIER = register("brick_brazier", BrazierBlock::new);
@@ -168,6 +176,8 @@ public class ModBlocks {
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.HAUNTED_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.DROP);
     public static final RegistryObject<Block> DARK_PRESSURE_PLATE = register("dark_pressure_plate",
             () -> new DarkPressurePlateBlock(BlockBehaviour.Properties.of().mapColor(HAUNTED_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> APPARITION_DOOR = register("apparition_door",
+            () -> new ApparitionDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     //Rotten
     public static final RegistryObject<Block> ROTTEN_PLANKS = register("rotten_planks",
@@ -746,6 +756,28 @@ public class ModBlocks {
                     .strength(3.0F, 3.0F),
                     UniformInt.of(3, 7));
         }
+    }
+
+    public static BlockBehaviour.Properties glassProperties(){
+        return BlockBehaviour.Properties.of()
+                .instrument(NoteBlockInstrument.HAT)
+                .strength(0.3F)
+                .sound(SoundType.GLASS)
+                .noOcclusion()
+                .isValidSpawn(ModBlocks::never)
+                .isRedstoneConductor(ModBlocks::never)
+                .isSuffocating(ModBlocks::never)
+                .isViewBlocking(ModBlocks::never);
+    }
+
+    public static BlockBehaviour.Properties tintedGlassProperties(){
+        return BlockBehaviour.Properties.copy(Blocks.GLASS)
+                .mapColor(MapColor.COLOR_GRAY)
+                .noOcclusion()
+                .isValidSpawn(ModBlocks::never)
+                .isRedstoneConductor(ModBlocks::never)
+                .isSuffocating(ModBlocks::never)
+                .isViewBlocking(ModBlocks::never);
     }
 
     public static class FacingBlock extends DirectionalBlock{

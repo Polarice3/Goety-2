@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Learned you could use this method for better projectile accuracy from codes by @Yunus1903
  */
-public class FireballSpell extends Spells {
+public class FireballSpell extends Spell {
 
     @Override
     public int defaultSoulCost() {

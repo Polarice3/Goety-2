@@ -4,7 +4,7 @@ import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.magic.BreathingSpells;
+import com.Polarice3.Goety.common.magic.BreathingSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
@@ -28,7 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireBreathSpell extends BreathingSpells {
+public class FireBreathSpell extends BreathingSpell {
     public float damage = SpellConfig.FireBreathDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
     @Override
@@ -63,12 +62,10 @@ public class FireBreathSpell extends BreathingSpells {
         float enchantment = 0;
         int burning = 1;
         int range = 0;
-        if (entityLiving instanceof Player player) {
-            if (WandUtil.enchantedFocus(player)) {
-                enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)) {
+            enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
+            burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving);
+            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
         float damage = this.damage + enchantment;
         if (!worldIn.isClientSide) {
@@ -92,7 +89,7 @@ public class FireBreathSpell extends BreathingSpells {
                     }
                 }
             }
-            for (Entity target : getTarget(entityLiving, range + 15)) {
+            for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target.hurt(ModDamageSource.fireBreath(entityLiving, entityLiving), damage)){
                         target.setSecondsOnFire(5 * burning);
@@ -105,10 +102,8 @@ public class FireBreathSpell extends BreathingSpells {
     @Override
     public void showWandBreath(LivingEntity entityLiving) {
         int range = 0;
-        if (entityLiving instanceof Player player){
-            if (WandUtil.enchantedFocus(player)){
-                range = WandUtil.getLevels(ModEnchantments.RANGE.get(), player);
-            }
+        if (WandUtil.enchantedFocus(entityLiving)){
+            range = WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         }
 
         if (!CuriosFinder.hasCurio(entityLiving, ModItems.RING_OF_THE_DRAGON.get())) {

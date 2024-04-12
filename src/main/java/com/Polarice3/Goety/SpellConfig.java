@@ -156,6 +156,18 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> HailCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> HailDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostNovaCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrostNovaDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrostNovaMaxDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostbornCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostbornDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostbornCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostbornSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IceGolemLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> BarricadeCoolDown;
@@ -192,6 +204,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SwarmCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SwarmChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> SwarmDamage;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrappleDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthDuration;
@@ -599,6 +615,30 @@ public class SpellConfig {
             HailDamage = BUILDER.comment("How much base damage Hail deals, Default: 1.0")
                     .defineInRange("hailDamage", 1.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Frost Nova Spell");
+            FrostNovaCost = BUILDER.comment("Frost Nova Spell Cost, Default: 40")
+                    .defineInRange("frostNovaCost", 40, 0, Integer.MAX_VALUE);
+            FrostNovaDuration = BUILDER.comment("Time to cast Frost Nova Spell, Default: 0")
+                    .defineInRange("frostNovaTime", 0, 0, 72000);
+            FrostNovaCoolDown = BUILDER.comment("Frost Nova Spell Cooldown, Default: 100")
+                    .defineInRange("frostNovaCoolDown", 100, 0, Integer.MAX_VALUE);
+            FrostNovaDamage = BUILDER.comment("How much base minimum damage Frost Nova Spell deals, Default: 3.0")
+                    .defineInRange("frostNovaMinDamage", 3.0, 1.0, Double.MAX_VALUE);
+            FrostNovaMaxDamage = BUILDER.comment("How much base maximum damage Frost Nova Spell deals, Default: 6.0")
+                    .defineInRange("frostNovaMaxDamage", 6.0, 2.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Frostborn Spell");
+            FrostbornCost = BUILDER.comment("Frostborn Spell Cost, Default: 24")
+                    .defineInRange("frostbornCost", 24, 0, Integer.MAX_VALUE);
+            FrostbornDuration = BUILDER.comment("Time to cast Frostborn Spell, Default: 20")
+                    .defineInRange("frostbornDuration", 20, 0, 72000);
+            FrostbornCoolDown = BUILDER.comment("Frostborn Spell Cooldown, Default: 1200")
+                    .defineInRange("frostbornCoolDown", 1200, 0, Integer.MAX_VALUE);
+            FrostbornSummonDown = BUILDER.comment("Frostborn Spell Summon Down, Default: 300")
+                    .defineInRange("frostbornSummonDown", 300, 300, 72000);
+            IceGolemLimit = BUILDER.comment("Number of Ice Golems that can exist around the player, Default: 2")
+                    .defineInRange("iceGolemLimit", 2, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Barricade Spell");
             BarricadeCost = BUILDER.comment("Barricade Spell Cost, Default: 16")
                     .defineInRange("barricadeCost", 16, 0, Integer.MAX_VALUE);
@@ -673,6 +713,14 @@ public class SpellConfig {
             SwarmDamage = BUILDER.comment("How much base damage Swarm deals, Default: 2.0")
                     .defineInRange("swarmDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Grapple Spell");
+            GrappleCost = BUILDER.comment("Grapple Spell Cost, Default: 4")
+                    .defineInRange("grappleCost", 4, 0, Integer.MAX_VALUE);
+            GrappleDuration = BUILDER.comment("Time to cast Grapple Spell, Default: 0")
+                    .defineInRange("grappleTime", 0, 0, 72000);
+            GrappleCoolDown = BUILDER.comment("Grapple Spell Cooldown, Default: 20")
+                    .defineInRange("grappleCoolDown", 20, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Overgrowth Spell");
             OvergrowthCost = BUILDER.comment("Overgrowth Spell Cost, Default: 8")
                     .defineInRange("overgrowthCost", 8, 0, Integer.MAX_VALUE);
@@ -684,8 +732,8 @@ public class SpellConfig {
             BUILDER.push("Entangling Spell");
             EntanglingCost = BUILDER.comment("Entangling Spell Cost, Default: 8")
                     .defineInRange("entanglingCost", 8, 0, Integer.MAX_VALUE);
-            EntanglingDuration = BUILDER.comment("Time to cast Entangling Spell, Default: 0")
-                    .defineInRange("entanglingTime", 0, 0, 72000);
+            EntanglingDuration = BUILDER.comment("Time to cast Entangling Spell, Default: 50")
+                    .defineInRange("entanglingTime", 50, 0, 72000);
             EntanglingCoolDown = BUILDER.comment("Entangling Spell Cooldown, Default: 400")
                     .defineInRange("entanglingCoolDown", 400, 0, Integer.MAX_VALUE);
             BUILDER.pop();
@@ -884,8 +932,8 @@ public class SpellConfig {
                 .defineInRange("maxSoulEaterLevel", 5, 1, 10);
         MaxWantingLevel = BUILDER.comment("Wanting Maximum Enchantment Level, Default: 3")
                 .defineInRange("maxWantingLevel", 3, 1, 10);
-        MaxPotencyLevel = BUILDER.comment("Potency Maximum Enchantment Level, Default: 5")
-                .defineInRange("maxPotencyLevel", 5, 1, 10);
+        MaxPotencyLevel = BUILDER.comment("Potency Maximum Enchantment Level, Default: 3")
+                .defineInRange("maxPotencyLevel", 3, 1, 10);
         MaxRadiusLevel = BUILDER.comment("Radius Maximum Enchantment Level, Default: 2")
                 .defineInRange("maxRadiusLevel", 2, 1, 10);
         MaxRangeLevel = BUILDER.comment("Range Maximum Enchantment Level, Default: 10")

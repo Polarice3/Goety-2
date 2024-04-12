@@ -1,0 +1,15 @@
+{
+  "name": "幽霊の扉",
+  "icon": "goety:apparition_door",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "幽霊の扉は、右クリックするか、レッドストーンを介してアクティブ化すると、無形になる装置です。 このドアは、他の隣接するドアにも同様の動作を引き起こします。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:apparition_door"
+    }
+  ]
+}

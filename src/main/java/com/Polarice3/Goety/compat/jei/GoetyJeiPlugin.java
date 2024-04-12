@@ -2,10 +2,8 @@ package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.crafting.BrazierRecipe;
-import com.Polarice3.Goety.common.crafting.CursedInfuserRecipes;
-import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
-import com.Polarice3.Goety.common.crafting.RitualRecipe;
+import com.Polarice3.Goety.common.crafting.*;
+import com.Polarice3.Goety.common.items.ModItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
@@ -30,6 +28,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new CursedInfuserCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -38,6 +37,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_ALTAR.get()), JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PEDESTAL.get()), JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
     }
 
     public void registerRecipes(IRecipeRegistration registration) {
@@ -49,6 +49,8 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
         List<BrazierRecipe> brazierRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.BRAZIER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
+        List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());
+        registration.addRecipes(JeiRecipeTypes.PULVERIZE, pulverizeRecipes);
     }
 
     @Override

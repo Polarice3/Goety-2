@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -48,16 +49,9 @@ public interface ISoulEnergy {
     void removeSummon(UUID uuid);
     FocusCooldown cooldowns();
     void setCooldowns(FocusCooldown cooldowns);
-    int shieldsLeft();
-    void breakShield();
-    void increaseShields();
-    void setShields(int amount);
-    int shieldTime();
-    void setShieldTime(int time);
-    void decreaseShieldTime();
-    int shieldCool();
-    void setShieldCool(int cool);
-    void decreaseShieldCool();
+    @Nullable
+    Projectile getGrappling();
+    void setGrappling(@Nullable Projectile projectile);
     int bottling();
     void setBottling(int bottling);
     @Nullable

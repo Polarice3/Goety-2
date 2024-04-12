@@ -1,0 +1,25 @@
+{
+  "name": "幽霊のガラス",
+  "icon": "goety:haunted_glass",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "エクトプラズムを使用すると、あなたとあなたの仲間にとってのみ無形のガラスが作成され、全員が空気のようにそれを通過できるようになります。 生き物やアイテムは通過できず、ガラスに色を付けて光さえも通さないようにすることができます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass",
+      "recipe2": "goety:haunted_glass_tinted"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "また、ガラスの機能を反転して、自分と仲間以外のすべてが通行できないようにすることもできます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass_mob",
+      "recipe2": "goety:haunted_glass_mob_tinted"
+    }
+  ]
+}

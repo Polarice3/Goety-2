@@ -246,6 +246,9 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
                         this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                     }
+                } else {
+                    Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
+                    this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                 }
                 this.removeAllItems();
                 this.clearContent();

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -27,10 +27,10 @@ public class GuiGraphicsMixin {
         Item item = stack.getItem();
         LocalPlayer localplayer = Minecraft.getInstance().player;
         if (localplayer != null) {
-            if (item instanceof DarkWand && MainConfig.ShowWandCooldown.get()) {
+            if (item instanceof IWand && MainConfig.ShowWandCooldown.get()) {
                 float f;
-                if (DarkWand.getFocus(stack) != null && SEHelper.getFocusCoolDown(localplayer).isOnCooldown(DarkWand.getFocus(stack).getItem())) {
-                    Item focus = DarkWand.getFocus(stack).getItem();
+                if (IWand.getFocus(stack) != null && SEHelper.getFocusCoolDown(localplayer).isOnCooldown(IWand.getFocus(stack).getItem())) {
+                    Item focus = IWand.getFocus(stack).getItem();
                     f = SEHelper.getFocusCoolDown(localplayer).getCooldownPercent(focus);
                 } else {
                     f = 0;

@@ -1,4 +1,5 @@
-// 1.20.1	2024-03-27T14:59:15.7567037	Loot Tables
+// 1.20.1	2024-04-12T22:07:57.7030861	Loot Tables
+3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 914d54d2df0b738691c21b3792e79c30b1a39c0c data/goety/loot_tables/blocks/brick_brazier.json
@@ -42,6 +43,7 @@ ed30b0bdc50c587cc9376c3dc35a6728c0130f5f data/goety/loot_tables/blocks/dark_meta
 d96970541510b1dcbf0c98c17655b736c5d90010 data/goety/loot_tables/blocks/dark_pressure_plate.json
 9f38bc6343636994f7caec7bcc2f1d748b99e4ce data/goety/loot_tables/blocks/deepslate_brazier.json
 e224c00e808f8c2c592ca7cde376c8a940d1d280 data/goety/loot_tables/blocks/forbidden_grass.json
+b6646b8e880b73a6c9665e0dff3275752d013708 data/goety/loot_tables/blocks/freezing_lamp.json
 79450c0c0b2d6dc3f41da17a3cb977f53cc32fdd data/goety/loot_tables/blocks/gold_arch_marble.json
 3aaeeba7a4c60a3cdc638abe915379a7cfa6a5cd data/goety/loot_tables/blocks/gold_banded_marble.json
 d7363e831559f98ecc92da33663ad7623ae7ad83 data/goety/loot_tables/blocks/gold_chiseled_highrock_bricks.json
@@ -55,6 +57,10 @@ dd9a559e6bdeb3d3ddbe67727e4c972dbd8a3002 data/goety/loot_tables/blocks/gold_plat
 c4baed221de3f045b988d28b13b57f9263a037db data/goety/loot_tables/blocks/haunted_door.json
 51ce9a4898bc83fe9b436dd0f6be274d9edfccee data/goety/loot_tables/blocks/haunted_fence.json
 27a694603638977f58f0ea65cd47639c61acc1aa data/goety/loot_tables/blocks/haunted_fence_gate.json
+6ba373d7886ec0622136ed4f5a9a97ec0e67a628 data/goety/loot_tables/blocks/haunted_glass.json
+4edc1c881caf221705ebea24358249dab0e6cf22 data/goety/loot_tables/blocks/haunted_glass_mob.json
+dc90bd77394dfb5cf2fb30016d210d02c5b3a5b3 data/goety/loot_tables/blocks/haunted_glass_mob_tinted.json
+85e9854dc0ccebda6ef242dd05924d3e88ace18f data/goety/loot_tables/blocks/haunted_glass_tinted.json
 a069831a4da77e88bb87ba5a09e442de5c600919 data/goety/loot_tables/blocks/haunted_hanging_sign.json
 916976524536552e13f6688280bdf5e66503a177 data/goety/loot_tables/blocks/haunted_log.json
 28a71437f4e96d6f485cf835642aa8de4c84050a data/goety/loot_tables/blocks/haunted_planks.json

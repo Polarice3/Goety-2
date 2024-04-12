@@ -7,7 +7,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.AllyIrk;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
-import com.Polarice3.Goety.common.magic.SummonSpells;
+import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class VexSpell extends SummonSpells {
+public class VexSpell extends SummonSpell {
     private final TargetingConditions vexCountTargeting = TargetingConditions.DEFAULT.range(16.0D).ignoreInvisibilityTesting();
 
     public int defaultSoulCost() {
@@ -128,7 +128,7 @@ public class VexSpell extends SummonSpells {
                     vexentity.setItemSlot(EquipmentSlot.MAINHAND, vexentity.getMainHandItem());
                 }
                 this.SummonSap(entityLiving, vexentity);
-                this.setTarget(worldIn, entityLiving, vexentity);
+                this.setTarget(entityLiving, vexentity);
                 worldIn.addFreshEntity(vexentity);
                 this.summonAdvancement(entityLiving, vexentity);
             }

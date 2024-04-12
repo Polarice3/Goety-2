@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "active=false,vanish=false": {
+      "model": "goety:block/apparition_door"
+    },
+    "active=false,vanish=true": {
+      "model": "goety:block/apparition_door_vanished"
+    },
+    "active=true,vanish=false": {
+      "model": "goety:block/apparition_door"
+    },
+    "active=true,vanish=true": {
+      "model": "goety:block/apparition_door_vanished"
+    }
+  }
+}

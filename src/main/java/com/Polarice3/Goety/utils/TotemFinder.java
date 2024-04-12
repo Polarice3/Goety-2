@@ -2,8 +2,8 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.api.items.magic.ITotem;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.handler.FocusBagItemHandler;
+import com.Polarice3.Goety.common.items.magic.FocusBag;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class TotemFinder {
 
     private static boolean isFocusBag(ItemStack itemStack) {
-        return itemStack.getItem() == ModItems.FOCUS_BAG.get();
+        return itemStack.getItem() instanceof FocusBag;
     }
 
     public static ItemStack findBag(Player playerEntity) {

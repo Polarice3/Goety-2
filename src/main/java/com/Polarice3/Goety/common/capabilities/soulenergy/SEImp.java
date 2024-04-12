@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -24,9 +25,8 @@ public class SEImp implements ISoulEnergy{
     private List<Research> researchList = new ArrayList<>();
     private Set<UUID> summonList = new HashSet<>();
     private FocusCooldown cooldowns = new FocusCooldown();
-    private int shields = 0;
-    private int shieldTime = 0;
-    private int shieldCool = 0;
+    @Nullable
+    private Projectile grappling = null;
     private int bottling = 0;
     private UUID cameraUUID = null;
     private BlockPos EndWalkPos = null;
@@ -222,54 +222,14 @@ public class SEImp implements ISoulEnergy{
         this.cooldowns = cooldowns;
     }
 
+    @Nullable
     @Override
-    public int shieldsLeft() {
-        return this.shields;
+    public Projectile getGrappling() {
+        return this.grappling;
     }
 
-    @Override
-    public void breakShield() {
-        --this.shields;
-    }
-
-    @Override
-    public void increaseShields() {
-        ++this.shields;
-    }
-
-    @Override
-    public void setShields(int amount) {
-        this.shields = amount;
-    }
-
-    @Override
-    public int shieldTime(){
-        return this.shieldTime;
-    }
-
-    @Override
-    public void setShieldTime(int time) {
-        this.shieldTime = time;
-    }
-
-    @Override
-    public void decreaseShieldTime() {
-        --this.shieldTime;
-    }
-
-    @Override
-    public int shieldCool() {
-        return this.shieldCool;
-    }
-
-    @Override
-    public void setShieldCool(int cool) {
-        this.shieldCool = cool;
-    }
-
-    @Override
-    public void decreaseShieldCool() {
-        --this.shieldCool;
+    public void setGrappling(@Nullable Projectile projectile){
+        this.grappling = projectile;
     }
 
     @Override

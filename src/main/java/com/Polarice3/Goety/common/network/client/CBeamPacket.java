@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.network.client;
 
-import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
+import com.Polarice3.Goety.common.entities.projectiles.AbstractBeam;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +18,7 @@ public class CBeamPacket {
     private final float xRotO;
     private final float yRotO;
 
-    public CBeamPacket(CorruptedBeam corruptedBeam) {
+    public CBeamPacket(AbstractBeam corruptedBeam) {
         this.beamEntityID = corruptedBeam.getId();
         this.positionX = corruptedBeam.position().x;
         this.positionY = corruptedBeam.position().y;
@@ -71,7 +71,7 @@ public class CBeamPacket {
                 ServerPlayer player = ctx.get().getSender();
                 if (player != null) {
                     Entity entity = player.level.getEntity(packet.beamEntityID);
-                    if (entity instanceof CorruptedBeam corruptedBeam) {
+                    if (entity instanceof AbstractBeam corruptedBeam) {
                         if (corruptedBeam.getOwner() != player) {
                             return;
                         }

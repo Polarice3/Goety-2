@@ -90,6 +90,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> QuickGrowingVineHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PoisonQuillVineDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceGolemHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> IceGolemDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SquallGolemHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SquallGolemDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneGolemHealth;
@@ -339,6 +341,12 @@ public class AttributesConfig {
                         .defineInRange("poisonQuillVineHealth", 40.0, 1.0, Double.MAX_VALUE);
                 PoisonQuillVineDamage = BUILDER.comment("How much damage Poison-Quill Vines' quills deals, Default: 2.5")
                         .defineInRange("poisonQuillVineDamage", 2.5, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Ice Golem");
+                IceGolemHealth = BUILDER.comment("How much Max Health Ice Golems have, Default: 60.0")
+                        .defineInRange("iceGolemHealth", 60.0, 1.0, Double.MAX_VALUE);
+                IceGolemDamage = BUILDER.comment("How much damage Ice Golems deals, Default: 7.5")
+                        .defineInRange("iceGolemDamage", 7.5, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Squall Golem");
                 SquallGolemHealth = BUILDER.comment("How much Max Health Redstone Golems have, Default: 88.0")

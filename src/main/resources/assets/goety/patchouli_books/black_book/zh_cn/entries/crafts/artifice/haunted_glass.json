@@ -1,0 +1,25 @@
+{
+  "name": "缠魂玻璃",
+  "icon": "goety:haunted_glass",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "借助灵质，你创造了一种只有你和你的同伴无法触摸的玻璃，让你们所有人都可以像空气一样穿过它。 生物和物品无法通过，并且玻璃可以着色以防止光线通过。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass",
+      "recipe2": "goety:haunted_glass_tinted"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你还可以反转玻璃的功能，让除了你和你的同伴之外的一切都无法通过。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass_mob",
+      "recipe2": "goety:haunted_glass_mob_tinted"
+    }
+  ]
+}

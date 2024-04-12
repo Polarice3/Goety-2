@@ -36,7 +36,7 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
     public CursedInfuserCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.CURSED_INFUSER.get()));
         background = guiHelper.drawableBuilder(new ResourceLocation(Goety.MOD_ID, "textures/gui/jei/jei_gui.png"), 0, 220, 82, 34)
-                .addPadding(0, 10, 0, 0)
+                .addPadding(0, 0, 0, 0)
                 .build();
         this.regularCookTime = 400;
         this.cachedArrows = CacheBuilder.newBuilder()

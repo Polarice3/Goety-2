@@ -5,7 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,7 @@ import net.minecraft.world.phys.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeethSpell extends Spells {
+public class TeethSpell extends Spell {
 
     public int defaultSoulCost() {
         return SpellConfig.TeethCost.get();
@@ -71,8 +71,8 @@ public class TeethSpell extends Spells {
             if (this.isShifting(entityLiving)) {
                 this.surroundTeeth(entityLiving, blockPos, damage, true);
             } else {
-                if (rayTraceResult instanceof EntityHitResult) {
-                    Entity target = ((EntityHitResult) rayTraceResult).getEntity();
+                LivingEntity target = this.getTarget(entityLiving, range);
+                if (target != null) {
                     blockPos = target.blockPosition();
                 } else if (rayTraceResult instanceof BlockHitResult) {
                     blockPos = ((BlockHitResult) rayTraceResult).getBlockPos().above();

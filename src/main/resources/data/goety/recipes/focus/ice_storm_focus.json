@@ -4,7 +4,7 @@
   "activation_item": {
     "item": "goety:ice_spike_focus"
   },
-  "craftType": "sky",
+  "craftType": "frost",
   "soulCost": 1,
   "duration": 10,
   "ingredients": [

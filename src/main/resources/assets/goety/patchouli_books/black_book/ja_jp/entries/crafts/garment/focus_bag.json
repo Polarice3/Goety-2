@@ -1,0 +1,21 @@
+{
+  "name": "フォーカスバッグ",
+  "icon": "goety:focus_bag",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは自分自身に複数の $(l:focuses)フォーカス$() を持ち歩くのに苦労していることに気づきました。 幸いなことに、あなたは、フォーカス バッグ キー (デフォルト: C) を押すか、杖を持ってフォーカス サークル キー (デフォルト: X) を押すことで、簡単にアクセスできる複数のフォーカスを保持するレザー バッグを考案することができました。 腰に。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_bag",
+      "text": "フォーカス バッグには最大 10 個のフォーカスを収納できます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus_pack",
+      "text": "フォーカス パックには最大 20 個のフォーカスを保持できます。"
+    }
+  ]
+}

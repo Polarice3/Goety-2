@@ -21,7 +21,7 @@ public interface IBreathingSpell extends IChargingSpell{
         return true;
     }
 
-    default List<Entity> getTarget(LivingEntity livingEntity, double range) {
+    default List<Entity> getBreathTarget(LivingEntity livingEntity, double range) {
         return MobUtil.getTargets(livingEntity.level, livingEntity, range, 3.0D);
     }
 

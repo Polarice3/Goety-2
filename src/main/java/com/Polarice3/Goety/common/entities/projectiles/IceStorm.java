@@ -144,7 +144,7 @@ public class IceStorm extends MagicProjectile {
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0F))){
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
                     if (entity != null) {
-                        if (!MobUtil.areAllies(entity, livingEntity)) {
+                        if (!MobUtil.areAllies(entity, livingEntity) && livingEntity != entity) {
                             if (livingEntity.hurt(ModDamageSource.frostBreath(this, entity), baseDamage + this.getExtraDamage())){
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1 + this.getDuration())));
                             }

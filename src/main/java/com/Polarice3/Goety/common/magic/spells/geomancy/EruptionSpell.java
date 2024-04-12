@@ -5,25 +5,23 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Volcano;
-import com.Polarice3.Goety.common.magic.Spells;
+import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EruptionSpell extends Spells {
+public class EruptionSpell extends Spell {
     @Override
     public int defaultSoulCost() {
         return SpellConfig.EruptionCost.get();
@@ -75,9 +73,9 @@ public class EruptionSpell extends Spells {
             burning += WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving);
         }
         HitResult rayTraceResult = this.rayTrace(worldIn, entityLiving, range, 3);
+        LivingEntity target = this.getTarget(entityLiving, range);
         BlockPos blockPos = entityLiving.blockPosition();
-        if (rayTraceResult instanceof EntityHitResult hitResult){
-            Entity target = hitResult.getEntity();
+        if (target != null){
             blockPos = target.blockPosition();
         } else if (rayTraceResult instanceof BlockHitResult blockHitResult){
             blockPos = blockHitResult.getBlockPos().above();

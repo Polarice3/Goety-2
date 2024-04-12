@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.items.magic.IFocus;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -9,7 +10,6 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.entities.neutral.TotemicBomb;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
-import com.Polarice3.Goety.common.items.magic.DarkWand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 public class WandUtil {
 
     private static boolean isMatchingItem(ItemStack itemStack) {
-        return itemStack.getItem() instanceof DarkWand;
+        return itemStack.getItem() instanceof IWand;
     }
 
     public static ItemStack findWand(LivingEntity playerEntity) {
@@ -46,8 +46,8 @@ public class WandUtil {
     public static ItemStack findFocus(LivingEntity playerEntity){
         ItemStack foundStack = ItemStack.EMPTY;
         if (!findWand(playerEntity).isEmpty()){
-            if (!DarkWand.getFocus(findWand(playerEntity)).isEmpty()) {
-                foundStack = DarkWand.getFocus(findWand(playerEntity));
+            if (!IWand.getFocus(findWand(playerEntity)).isEmpty()) {
+                foundStack = IWand.getFocus(findWand(playerEntity));
             }
         }
 

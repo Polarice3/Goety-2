@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#goety:has_structure/graveyard",
+  "step": "surface_structures",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+        {
+          "type": "goety:wraith",
+          "weight": 20,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "minecraft:zombie",
+          "weight": 5,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "minecraft:skeleton",
+          "weight": 5,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "goety:border_wraith",
+          "weight": 5,
+          "minCount": 1,
+          "maxCount": 1
+        }
+      ]
+    }
+  },
+  "start_pool": "goety:graveyard/start_pool",
+  "size": 3,
+  "terrain_adaptation": "beard_thin",
+  "start_height": {
+    "absolute": 0
+  },
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
+  "max_distance_from_center": 80,
+  "use_expansion_hack": true
+}

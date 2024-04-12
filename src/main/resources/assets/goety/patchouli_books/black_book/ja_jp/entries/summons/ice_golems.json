@@ -1,0 +1,24 @@
+{
+  "name": "アイスゴーレム",
+  "icon": "goety:ice_golem_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "氷河の霜と雪で作られたゴーレムは、スノー ゴーレムよりも高い力を持ちますが、アイアン ゴーレムよりは劣ります。 彼らは氷のスパイクが付いた手で敵を突いて攻撃し、まれに地面を叩きつけて $(l:focuses/frost_nova_focus)フロストノヴァ$() を召喚します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ice_golem"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:ice_golem",
+      "text": "Right click the center Blue Ice with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "(l:focuses/frostborn_focus)フロストボーンのフォーカス$() を使用して、これらのクリーチャーを呼び出すことができます。"
+    }
+  ]
+}
