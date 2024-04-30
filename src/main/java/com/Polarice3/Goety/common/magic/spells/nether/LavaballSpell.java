@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.magic.spells.nether;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;

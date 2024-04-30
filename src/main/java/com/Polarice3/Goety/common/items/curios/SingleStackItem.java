@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

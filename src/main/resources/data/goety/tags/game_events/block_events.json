@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:block_attach",
+    "minecraft:block_change",
+    "minecraft:block_close",
+    "minecraft:block_destroy",
+    "minecraft:block_detach",
+    "minecraft:block_open",
+    "minecraft:block_place",
+    "minecraft:block_activate",
+    "minecraft:block_deactivate"
+  ]
+}

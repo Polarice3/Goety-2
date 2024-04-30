@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.LivingEntity;

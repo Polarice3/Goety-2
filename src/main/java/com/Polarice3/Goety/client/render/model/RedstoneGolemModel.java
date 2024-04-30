@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneGolemAnimations;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.RedstoneGolem;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneGolem;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HierarchicalModel;

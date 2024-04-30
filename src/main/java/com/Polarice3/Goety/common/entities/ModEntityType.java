@@ -2,6 +2,11 @@ package com.Polarice3.Goety.common.entities;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
+import com.Polarice3.Goety.common.entities.ally.golem.*;
+import com.Polarice3.Goety.common.entities.ally.spider.BoneSpiderServant;
+import com.Polarice3.Goety.common.entities.ally.spider.CaveSpiderServant;
+import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
+import com.Polarice3.Goety.common.entities.ally.spider.WebSpiderServant;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
@@ -98,6 +103,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(20));
 
+    public static final RegistryObject<EntityType<BoneShard>> BONE_SHARD = register("bone_shard",
+            EntityType.Builder.<BoneShard>of(BoneShard::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20));
+
     public static final RegistryObject<EntityType<ThrownBrew>> BREW = register("brew",
             EntityType.Builder.<ThrownBrew>of(ThrownBrew::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -189,6 +200,11 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<ElectroOrb>> ELECTRO_ORB = register("electro_orb",
+            EntityType.Builder.<ElectroOrb>of(ElectroOrb::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<IceBouquet>> ICE_BOUQUET = register("ice_bouquet",
             EntityType.Builder.<IceBouquet>of(IceBouquet::new, MobCategory.MISC)
                     .fireImmune()
@@ -235,6 +251,12 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<ScatterBomb>> SCATTER_BOMB = register("scatter_bomb",
+            EntityType.Builder.<ScatterBomb>of(ScatterBomb::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<SoulBomb>> SOUL_BOMB = register("soul_bomb",
             EntityType.Builder.<SoulBomb>of(SoulBomb::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -265,8 +287,20 @@ public class ModEntityType {
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<WebShot>> WEB_SHOT = register("web_shot",
+            EntityType.Builder.<WebShot>of(WebShot::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<EntangleVines>> ENTANGLE_VINES = register("entangle_vines",
             EntityType.Builder.<EntangleVines>of(EntangleVines::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SpiderWeb>> SPIDER_WEB = register("spider_web",
+            EntityType.Builder.<SpiderWeb>of(SpiderWeb::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
@@ -571,6 +605,26 @@ public class ModEntityType {
                     .fireImmune()
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<SpiderServant>> SPIDER_SERVANT = register("spider_servant",
+            EntityType.Builder.of(SpiderServant::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<CaveSpiderServant>> CAVE_SPIDER_SERVANT = register("cave_spider_servant",
+            EntityType.Builder.of(CaveSpiderServant::new, MobCategory.MONSTER)
+                    .sized(0.7F, 0.5F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<WebSpiderServant>> WEB_SPIDER_SERVANT = register("web_spider_servant",
+            EntityType.Builder.of(WebSpiderServant::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<BoneSpiderServant>> BONE_SPIDER_SERVANT = register("bone_spider_servant",
+            EntityType.Builder.of(BoneSpiderServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.7F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Ravaged>> RAVAGED = register("ravaged",
             EntityType.Builder.of(Ravaged::new, MobCategory.MONSTER)
                     .sized(1.0F, 1.0F)
@@ -633,6 +687,18 @@ public class ModEntityType {
                     .sized(0.6F, 0.8F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<RedstoneMonstrosity>> REDSTONE_MONSTROSITY = register("redstone_monstrosity",
+            EntityType.Builder.of(RedstoneMonstrosity::new, MobCategory.MONSTER)
+                    .sized(4.0F, 5.4F)
+                    .fireImmune()
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<RedstoneCube>> REDSTONE_CUBE = register("redstone_cube",
+            EntityType.Builder.of(RedstoneCube::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<Envioker>> ENVIOKER = register("envioker",
             EntityType.Builder.of(Envioker::new, MobCategory.MONSTER)
                     .canSpawnFarFromPlayer()
@@ -669,6 +735,12 @@ public class ModEntityType {
                     .canSpawnFarFromPlayer()
                     .sized(0.6F, 0.85F)
                     .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<Trampler>> TRAMPLER = register("trampler",
+            EntityType.Builder.of(Trampler::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .sized(1.3964844F, 1.6F)
+                    .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Crusher>> CRUSHER = register("crusher",
             EntityType.Builder.of(Crusher::new, MobCategory.MONSTER)
@@ -808,6 +880,13 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<SummonCircleVariant>> SUMMON_FIERY = register("summon_fiery",
+            EntityType.Builder.<SummonCircleVariant>of(SummonCircleVariant::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<StormEntity>> STORM_UTIL = register("storm_util",
             EntityType.Builder.of(StormEntity::new, MobCategory.MISC)
                     .fireImmune()
@@ -853,6 +932,7 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<SkullLaser>> LASER = register("laser",
             EntityType.Builder.of(SkullLaser::new, MobCategory.MISC)
                     .fireImmune()
+                    .noSummon()
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(10));
 
@@ -867,8 +947,16 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<SurveyEye>> SURVEY_EYE = register("survey_eye",
             EntityType.Builder.of(SurveyEye::new, MobCategory.MISC)
                     .fireImmune()
+                    .noSummon()
                     .sized(0.0F, 0.0F)
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<CameraShake>> CAMERA_SHAKE = register("camera_shake",
+            EntityType.Builder.<CameraShake>of(CameraShake::new, MobCategory.MISC)
+                    .fireImmune()
+                    .noSummon()
+                    .sized(1.0F, 1.0F)
+                    .updateInterval(Integer.MAX_VALUE));
 
     public static final RegistryObject<EntityType<TunnelingFang>> TUNNELING_FANG = register("tunneling_fang",
             EntityType.Builder.of(TunnelingFang::new, MobCategory.MISC)

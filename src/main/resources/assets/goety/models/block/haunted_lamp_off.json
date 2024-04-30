@@ -1,0 +1,7 @@
+{
+	"parent": "goety:block/template_lamp",
+	"textures": {
+		"lamp": "goety:block/haunted_lamp",
+		"light": "goety:block/lamp_off"
+	}
+}

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBullet;
 import net.minecraft.core.BlockPos;

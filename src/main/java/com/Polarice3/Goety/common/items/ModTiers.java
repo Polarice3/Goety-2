@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.ItemConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.google.common.base.Suppliers;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;

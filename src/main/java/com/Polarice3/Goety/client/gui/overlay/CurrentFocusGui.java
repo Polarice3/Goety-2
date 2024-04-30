@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.gui.overlay;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.WandUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

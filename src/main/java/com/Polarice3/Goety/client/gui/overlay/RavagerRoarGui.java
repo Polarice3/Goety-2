@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.config.MainConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

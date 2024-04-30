@@ -9,7 +9,7 @@
   "duration": 30,
   "ingredients": [
     {
-      "item": "goety:spirit_fabric"
+      "item": "goety:cursed_ingot"
     },
     {
       "item": "goety:spirit_fabric"
@@ -30,7 +30,7 @@
       "item": "goety:spirit_fabric"
     },
     {
-      "item": "goety:spirit_fabric"
+      "item": "goety:cursed_ingot"
     }
   ],
   "result": {

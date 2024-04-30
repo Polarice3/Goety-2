@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.AttributesConfig;
-import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;

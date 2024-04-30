@@ -163,6 +163,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> HAUNTED_SAPLING = register("haunted_sapling", () -> sapling(new HauntedTree()));
     public static final RegistryObject<Block> POTTED_HAUNTED_SAPLING = register("potted_haunted_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.HAUNTED_SAPLING, Block.Properties.of(Material.PLANT).noOcclusion().instabreak()), false, LootTableType.DROP);
+    public static final RegistryObject<Block> HAUNTED_LAMP = register("haunted_lamp",
+            () -> new LampBlock(Block.Properties.copy(HAUNTED_WOOD.get())));
     public static final RegistryObject<Block> DARK_PRESSURE_PLATE = register("dark_pressure_plate",
             () -> new DarkPressurePlateBlock(Block.Properties.of(Material.WOOD, HAUNTED_PLANKS.get().defaultMaterialColor()).noCollission().strength(0.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> APPARITION_DOOR = register("apparition_door",

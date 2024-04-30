@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "beb",
+    "ese",
+    "beb"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "goety:shocking_focus"
+    },
+    "e":
+    {
+      "tag": "forge:ender_pearls"
+    },
+    "b":
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result":
+  {
+    "item": "goety:electrocute_focus",
+    "count": 1
+  }
+}

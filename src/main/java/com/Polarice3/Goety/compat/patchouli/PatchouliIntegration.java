@@ -150,30 +150,28 @@ public class PatchouliIntegration implements ICompatable {
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
         IStateMatcher stoneMold = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
                 state -> state.getBlock().getDescriptionId().contains("bricks") && !(state.getBlock() instanceof SlabBlock) && !(state.getBlock() instanceof StairBlock) && !(state.getBlock() instanceof WallBlock));
-        IStateMatcher magmaBlock = PatchouliAPI.get().predicateMatcher(Blocks.MAGMA_BLOCK,
-                state -> state.is(Blocks.MAGMA_BLOCK));
         return PatchouliAPI.get().makeMultiblock(
                 new String[][] {
                         {
-                                "_________",
-                                "___SDS___",
-                                "__DLLLD__",
-                                "_SLLRLLS_",
-                                "_DLRRRLD_",
-                                "_SLLRLLS_",
-                                "__DLLLD__",
-                                "___SDS___",
-                                "_________",
+                                "___LLL___",
+                                "__LSDSL__",
+                                "_LDRRRDL_",
+                                "LSRRRRRSL",
+                                "LDRRRRRDL",
+                                "LSRRRRRSL",
+                                "_LDRRRDL_",
+                                "__LSDSL__",
+                                "___LLL___",
                         },
                         {
                                 "_________",
-                                "_________",
-                                "___SDS___",
-                                "__SMMMS__",
-                                "__DM0MD__",
-                                "__SMMMS__",
-                                "___SDS___",
-                                "_________",
+                                "___LLL___",
+                                "__LSDSL__",
+                                "_LSSSSSL_",
+                                "_LDS0SDL_",
+                                "_LSSSSSL_",
+                                "__LSDSL__",
+                                "___LLL___",
                                 "_________",
                         }
                 },
@@ -181,8 +179,7 @@ public class PatchouliIntegration implements ICompatable {
                 'D', diamondMold,
                 'R', redstoneCore,
                 'S', stoneMold,
-                'M', magmaBlock,
-                '0', magmaBlock
+                '0', stoneMold
         );
     });
 

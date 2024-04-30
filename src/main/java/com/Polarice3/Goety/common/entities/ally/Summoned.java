@@ -1,11 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -270,7 +271,7 @@ public class Summoned extends Owned implements IServant {
             }
             pLevel.getLevel().sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
         }
-        this.setWandering(false);
+        this.setWandering(this.getTrueOwner() == null);
         this.setStaying(false);
         return pSpawnData;
     }
@@ -744,7 +745,11 @@ public class Summoned extends Owned implements IServant {
         }
 
         public WanderGoal(PathfinderMob entity, double speedModifier, float probability) {
-            super(entity, speedModifier, 120, false);
+            this(entity, speedModifier, 120, probability);
+        }
+
+        public WanderGoal(PathfinderMob entity, double speedModifier, int interval, float probability) {
+            super(entity, speedModifier, interval, false);
             this.probability = probability;
         }
 

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.armor;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;

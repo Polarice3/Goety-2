@@ -20,6 +20,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation HELL_BLAST = register("hell_blast");
     public static final ModelLayerLocation SCATTER_MINE = register("scatter_mine");
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
+    public static final ModelLayerLocation WEB_SHOT = register("web_shot");
     public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation ENTANGLE_VINES = register("entangle_vines");
@@ -46,11 +47,14 @@ public class ModModelLayer {
     public static final ModelLayerLocation REDSTONE_GOLEM = register("redstone_golem");
     public static final ModelLayerLocation GRAVE_GOLEM = register("grave_golem");
     public static final ModelLayerLocation HAUNT = register("haunt");
+    public static final ModelLayerLocation REDSTONE_MONSTROSITY = register("redstone_monstrosity");
+    public static final ModelLayerLocation REDSTONE_CUBE = register("redstone_cube");
     public static final ModelLayerLocation ZPIGLIN_SERVANT = register("zpiglin_servant");
     public static final ModelLayerLocation MALGHAST = register("malghast");
     public static final ModelLayerLocation INFERNO = register("inferno");
     public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
     public static final ModelLayerLocation MAGMA_CUBE = register("magma_cube");
+    public static final ModelLayerLocation MOD_SPIDER = register("mod_spider");
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");
@@ -75,6 +79,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation CONQUILLAGER = register("conquillager");
     public static final ModelLayerLocation PIKER = register("piker");
     public static final ModelLayerLocation RIPPER = register("ripper");
+    public static final ModelLayerLocation TRAMPLER = register("trampler");
     public static final ModelLayerLocation CRUSHER = register("crusher");
     public static final ModelLayerLocation STORM_CASTER = register("storm_caster");
     public static final ModelLayerLocation CRYOLOGER = register("cryologer");

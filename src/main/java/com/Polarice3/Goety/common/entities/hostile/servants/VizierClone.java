@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;

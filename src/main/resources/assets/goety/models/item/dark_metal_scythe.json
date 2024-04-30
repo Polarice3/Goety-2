@@ -1,0 +1,6 @@
+{
+  "parent": "goety:item/scythe",
+  "textures": {
+    "layer0": "goety:item/dark_scythe"
+  }
+}

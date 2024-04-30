@@ -1,13 +1,11 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -16,19 +14,20 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class NecroBolt extends MagicProjectile {
+public class NecroBolt extends SpellHurtingProjectile {
     private final float rotSpeed;
     public float roll;
     public float oRoll;
     public float getGlow;
     public float glowAmount = 0.05F;
 
-    public NecroBolt(EntityType<? extends MagicProjectile> p_36833_, Level p_36834_) {
+    public NecroBolt(EntityType<? extends SpellHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
         this.rotSpeed = 0.05F;
         this.roll = (float)Math.random() * ((float)Math.PI * 2F);
@@ -63,9 +62,12 @@ public class NecroBolt extends MagicProjectile {
             Entity entity1 = this.getOwner();
             boolean flag;
             if (entity1 instanceof LivingEntity livingentity) {
-                if (WandUtil.enchantedFocus(livingentity)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
+                if (livingentity instanceof Mob mob){
+                    if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttributeValue(Attributes.ATTACK_DAMAGE) > 0){
+                        baseDamage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                    }
                 }
+                baseDamage += this.getExtraDamage();
                 flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {

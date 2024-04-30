@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
@@ -16,6 +15,7 @@ import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,6 +23,7 @@ import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
@@ -37,7 +39,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -133,23 +137,56 @@ public class SoulEnergyEvents {
                 Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
                 return (entity instanceof Mob mob && (!mob.isAlive() || mob.isRemoved())) || entity == null;
             });
-            soulEnergy.summonList().removeIf(uuid -> {
-                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                return entity == null || !entity.isAlive() || entity.isRemoved();
-            });
         }
         int s = soulEnergy.getSoulEnergy();
         if (s < 0){
             soulEnergy.setSoulEnergy(0);
         }
         if (soulEnergy.getGrappling() instanceof VineHook vineHook && vineHook.isAttached()) {
-            player.resetFallDistance();
+            if (vineHook.isStaff()) {
+                player.resetFallDistance();
+            }
             Vec3 vec3 = vineHook.position().subtract(player.getEyePosition());
             float f = vineHook.getLength();
             double d = vec3.length();
             if (d > (double)f) {
                 double e = d / (double)f * 0.1D;
                 player.setDeltaMovement(player.getDeltaMovement().add(vec3.scale(1.0 / d).multiply(e, e * 1.1, e)));
+            }
+        }
+        if (!MobUtil.isSpellCasting(player) && soulEnergy.maxWarding() > 0){
+            soulEnergy.setMaxWarding(0);
+            soulEnergy.setWarding(0);
+        }
+    }
+
+    public static boolean canWard(DamageSource damageSource){
+        return !ModDamageSource.physicalAttacks(damageSource)
+                && !(damageSource.getDirectEntity() instanceof AbstractArrow)
+                && damageSource.getEntity() != null;
+    }
+
+    @SubscribeEvent
+    public static void onLivingAttack(LivingAttackEvent event){
+        LivingEntity livingEntity = event.getEntity();
+        if (livingEntity instanceof Player player){
+            if (SEHelper.getWardingLeft(player) > 0){
+                if (canWard(event.getSource())){
+                    SEHelper.damageWarding(player, (int) event.getAmount());
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event){
+        LivingEntity livingEntity = event.getEntity();
+        if (livingEntity instanceof Player player){
+            if (SEHelper.getWardingLeft(player) > 0){
+                if (!canWard(event.getSource())){
+                    event.setAmount(event.getAmount() * 0.96F);
+                }
             }
         }
     }

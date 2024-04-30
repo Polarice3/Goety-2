@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.magic.spells.void_spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.items.magic.RecallFocus;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

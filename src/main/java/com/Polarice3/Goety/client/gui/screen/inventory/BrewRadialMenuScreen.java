@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.client.gui.radial.GenericRadialMenu;
 import com.Polarice3.Goety.client.gui.radial.IRadialMenuHost;
@@ -9,6 +8,7 @@ import com.Polarice3.Goety.client.gui.radial.ItemStackRadialMenuItem;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.brew.CThrowBrewKeyPacket;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.google.common.collect.Lists;

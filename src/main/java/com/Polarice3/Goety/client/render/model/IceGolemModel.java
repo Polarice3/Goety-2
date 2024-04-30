@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.IceGolemAnimations;
-import com.Polarice3.Goety.common.entities.ally.IceGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

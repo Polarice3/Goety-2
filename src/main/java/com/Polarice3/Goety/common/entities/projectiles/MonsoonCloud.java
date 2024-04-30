@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -62,7 +62,7 @@ public class MonsoonCloud extends AbstractSpellCloud{
                 if (this.random.nextFloat() <= 0.05F) {
                     Vec3 vec3 = this.position();
                     float damage = SpellConfig.ThunderboltDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-                    damage += this.extraDamage;
+                    damage += this.getExtraDamage();
                     if (this.getOwner() instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
@@ -76,9 +76,12 @@ public class MonsoonCloud extends AbstractSpellCloud{
                         Vec3 vec31 = new Vec3(livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() / 2, livingEntity.getZ());
                         ModNetwork.sendToALL(new SThunderBoltPacket(vec3, vec31, 10));
                         if (livingEntity.hurt(ModDamageSource.indirectShock(this, this.getOwner()), damage)) {
-                            float chance = 0.05F;
-                            if (serverLevel.random.nextFloat() <= (chance + 0.10F)) {
-                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.TRIPPING.get(), MathHelper.secondsToTicks(5)));
+                            float chance = this.isStaff() ? 0.25F : 0.05F;
+                            if (serverLevel.isThundering() && serverLevel.isRainingAt(livingEntity.blockPosition())){
+                                chance += 0.25F;
+                            }
+                            if (serverLevel.random.nextFloat() <= chance){
+                                livingEntity.addEffect(new MobEffectInstance(GoetyEffects.SPASMS.get(), MathHelper.secondsToTicks(5)));
                             }
                         }
                         serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.THUNDERBOLT.get(), this.getSoundSource(), 1.0F, 1.0F);

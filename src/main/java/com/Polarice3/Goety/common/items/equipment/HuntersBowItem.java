@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.projectile.AbstractArrow;

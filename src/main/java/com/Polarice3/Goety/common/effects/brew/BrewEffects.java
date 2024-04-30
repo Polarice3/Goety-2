@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.effects.brew;
 
-import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.block.*;
 import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
 import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.BrewConfig;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectCategory;

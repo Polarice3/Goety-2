@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

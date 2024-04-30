@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.events;
 
-import com.Polarice3.Goety.*;
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.ISoulRepair;
@@ -19,8 +19,10 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.TargetHostileOwnedGoal;
 import com.Polarice3.Goety.common.entities.ai.WitchBarterGoal;
-import com.Polarice3.Goety.common.entities.ally.*;
-import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.AllyIrk;
+import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.common.entities.ally.Ravaged;
+import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -54,6 +56,9 @@ import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
+import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
@@ -197,12 +202,6 @@ public class ModEvents {
                 });
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy -> {
-                    for (UUID uuid : capability3.summonList()){
-                        soulEnergy.addSummon(uuid);
-                    }
-                });
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy -> {
                     for (EntityType<?> entityType : capability3.grudgeTypeList()){
                         soulEnergy.addGrudgeType(entityType);
                     }
@@ -257,13 +256,6 @@ public class ModEvents {
             }
             if (entity instanceof PathfinderMob creeper && creeper.getType().is(ModTags.EntityTypes.CREEPERS)){
                 creeper.goalSelector.addGoal(3, new AvoidEntityGoal<>(creeper, Player.class, (target) -> target != null && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get()), 6.0F, 1.0D, 1.2D, EntitySelector.NO_SPECTATORS::test));
-            }
-            if (entity instanceof IOwned owned){
-                if (owned instanceof RedstoneGolem || owned instanceof GraveGolem){
-                    if (owned.getTrueOwner() instanceof Player player){
-                        SEHelper.addSummon(player, livingEntity);
-                    }
-                }
             }
         }
         if (entity instanceof StormEntity){
@@ -536,13 +528,7 @@ public class ModEvents {
     public static void PlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         Level world = player.level;
-        int zombies = 0;
-        int skeletons = 0;
-        int bound = 0;
-        int wraith = 0;
-        int skull = 0;
-        int whisperer = 0;
-        if (world instanceof ServerLevel serverLevel){
+        if (world instanceof ServerLevel){
             if (player.tickCount % 20 == 0) {
                 if (player instanceof ServerPlayer serverPlayer){
                     if (serverPlayer.getServer() != null) {
@@ -560,19 +546,6 @@ public class ModEvents {
                                             serverPlayer.getAdvancements().award(advancement3, s);
                                         }
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (Entity entity : serverLevel.getAllEntities()){
-                    if (entity instanceof IOwned summonedEntity && entity instanceof LivingEntity livingEntity){
-                        if (summonedEntity.getTrueOwner() == player && livingEntity.isAlive()){
-                            if (summonedEntity instanceof AbstractBoundIllager){
-                                ++bound;
-                                if (bound > SpellConfig.BoundIllagerLimit.get()){
-                                    livingEntity.hurt(DamageSource.STARVE, livingEntity.getMaxHealth()/4);
                                 }
                             }
                         }
@@ -639,6 +612,8 @@ public class ModEvents {
                         ItemStack itemStack = nonnulllist.get(i);
                         if (itemStack.getItem() instanceof ISoulRepair soulRepair) {
                             soulRepair.repairTick(nonnulllist.get(i), player, inventory.selected == i);
+                        } else if (itemStack.getItem() instanceof TieredItem item && item.getTier() == ModTiers.DARK){
+                            ItemHelper.repairTick(itemStack, player, inventory.selected == i);
                         }
                     }
                 }
@@ -813,6 +788,21 @@ public class ModEvents {
                                 }
                             }
                         }
+                    }
+                }
+            }
+            if (livingEntity instanceof Villager villager){
+                if (!livingEntity.level.isClientSide) {
+                    Brain<?> brain = villager.getBrain();
+                    Optional<LivingEntity> avoidIllager = Optional.empty();
+                    NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
+                    for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true)) {
+                        if (livingentity instanceof HuntingIllagerEntity) {
+                            avoidIllager = Optional.of(livingentity);
+                        }
+                    }
+                    if (avoidIllager.isPresent()) {
+                        brain.setMemory(MemoryModuleType.NEAREST_HOSTILE, avoidIllager);
                     }
                 }
             }
@@ -1204,14 +1194,14 @@ public class ModEvents {
                         }
                         if (weapon instanceof DeathScytheItem) {
                             if (!victim.hasEffect(GoetyEffects.SAPPED.get())) {
-                                victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 60));
+                                victim.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 100));
                                 victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                             } else {
-                                if (victim.level.random.nextFloat() <= 0.1F) {
-                                    EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 60);
+                                if (victim.level.random.nextFloat() <= 0.2F) {
+                                    EffectsUtil.amplifyEffect(victim, GoetyEffects.SAPPED.get(), 100);
                                     victim.playSound(SoundEvents.SHIELD_BREAK, 2.0F, 1.0F);
                                 } else {
-                                    EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 60);
+                                    EffectsUtil.resetDuration(victim, GoetyEffects.SAPPED.get(), 100);
                                 }
                             }
                         }
@@ -1404,12 +1394,6 @@ public class ModEvents {
                 }
             }
         }
-        //Test
-/*        if (killer instanceof Owned owned){
-            if (owned.getTrueOwner() instanceof Player player){
-                player.displayClientMessage(killed.getCombatTracker().getDeathMessage(), false);
-            }
-        }*/
         if (!event.isCanceled()){
             MiscCapHelper.setFreezing(killed, 0);
             MiscCapHelper.setShields(killed, 0);
@@ -1498,16 +1482,12 @@ public class ModEvents {
                 }
                 if (!living.level.isClientSide) {
                     if (player instanceof ServerPlayer serverPlayer) {
-                        if (!SEHelper.getSpecificSummons(serverPlayer, ModEntityType.GRAVE_GOLEM.get()).isEmpty()) {
-                            for (LivingEntity livingEntity : SEHelper.getSpecificSummons(serverPlayer, ModEntityType.GRAVE_GOLEM.get())) {
-                                if (livingEntity instanceof GraveGolem graveGolem) {
-                                    if (graveGolem.getTrueOwner() == serverPlayer) {
-                                        if (graveGolem.distanceTo(serverPlayer) < 64) {
-                                            graveGolem.addDrops(event.getDrops());
-                                            event.getDrops().clear();
-                                            break;
-                                        }
-                                    }
+                        for (LivingEntity livingEntity : serverPlayer.level.getEntitiesOfClass(LivingEntity.class, serverPlayer.getBoundingBox().inflate(64.0D))) {
+                            if (livingEntity instanceof GraveGolem graveGolem) {
+                                if (graveGolem.getTrueOwner() == serverPlayer) {
+                                    graveGolem.addDrops(event.getDrops());
+                                    event.getDrops().clear();
+                                    break;
                                 }
                             }
                         }

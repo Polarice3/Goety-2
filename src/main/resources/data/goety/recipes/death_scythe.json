@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:dark_scythe"
+    "item": "goety:dark_metal_scythe"
   },
   "craftType": "necroturgy",
   "soulCost": 1,
@@ -15,7 +15,7 @@
       "tag": "forge:bones"
     },
     {
-      "item": "goety:dark_ingot"
+      "tag": "minecraft:soul_fire_base_blocks"
     },
     {
       "tag": "forge:gems/lapis"

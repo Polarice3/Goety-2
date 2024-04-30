@@ -62,7 +62,12 @@ public class TotemFinder {
     }
 
     public static boolean hasEmptyBagSpace(Player player){
-        return getFocusBagTotal(player) < 10;
+        int total = 10;
+        if (!findBag(player).isEmpty()){
+            FocusBagItemHandler focusBagItemHandler = FocusBagItemHandler.get(findBag(player));
+            total = focusBagItemHandler.getSlots();
+        }
+        return getFocusBagTotal(player) < total;
     }
 
     public static boolean hasFocusInBag(Player player){

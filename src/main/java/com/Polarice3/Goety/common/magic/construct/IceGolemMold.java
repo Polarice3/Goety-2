@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.magic.construct;
 
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.IceGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

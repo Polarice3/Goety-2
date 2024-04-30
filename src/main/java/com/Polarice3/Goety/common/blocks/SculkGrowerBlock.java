@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.entities.SculkGrowerBlockEntity;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;

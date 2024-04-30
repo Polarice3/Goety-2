@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,6 +12,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -21,6 +24,7 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
     protected static final EntityDataAccessor<Integer> OWNER_CLIENT_ID = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Optional<UUID>> TARGET_UNIQUE_ID = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Integer> TARGET_CLIENT_ID = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.FLOAT);
     public boolean staff = false;
 
     public SpellEntity(EntityType<?> p_19870_, Level p_19871_) {
@@ -32,6 +36,7 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
         this.entityData.define(OWNER_CLIENT_ID, -1);
         this.entityData.define(TARGET_UNIQUE_ID, Optional.empty());
         this.entityData.define(TARGET_CLIENT_ID, -1);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -72,6 +77,9 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
         if (compound.contains("TargetClient")){
             this.setTargetClientId(compound.getInt("TargetClient"));
         }
+        if (compound.contains("ExtraDamage")) {
+            this.setExtraDamage(compound.getFloat("ExtraDamage"));
+        }
         if (compound.contains("staff")) {
             this.staff = compound.getBoolean("staff");
         }
@@ -90,6 +98,7 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
         if (this.getTargetClientId() > -1) {
             compound.putInt("TargetClient", this.getTargetClientId());
         }
+        compound.putFloat("ExtraDamage", this.getExtraDamage());
         compound.putBoolean("staff", this.isStaff());
     }
 
@@ -173,5 +182,18 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
             this.setTargetId(livingEntity.getUUID());
             this.setTargetClientId(livingEntity.getId());
         }
+    }
+
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    @Override
+    public @NotNull Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

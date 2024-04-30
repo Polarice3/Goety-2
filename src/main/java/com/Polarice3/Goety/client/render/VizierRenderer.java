@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.VizierAuraLayer;
 import com.Polarice3.Goety.client.render.layer.VizierCapeLayer;
 import com.Polarice3.Goety.client.render.model.VizierModel;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

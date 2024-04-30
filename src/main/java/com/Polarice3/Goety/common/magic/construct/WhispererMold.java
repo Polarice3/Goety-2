@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.magic.construct;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.CorpseBlossomBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Whisperer;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -98,6 +98,6 @@ public class WhispererMold implements IMold {
                 }
             }
         }
-        return count >= SpellConfig.WhisperLimit.get();
+        return count < SpellConfig.WhisperLimit.get();
     }
 }

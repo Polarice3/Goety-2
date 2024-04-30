@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.audio;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;

@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -48,6 +48,7 @@ public class Leapleaf extends Summoned{
     private static final AttributeModifier LEAP_ATTACK_MODIFIER = new AttributeModifier(LEAP_ATTACK_MODIFIER_UUID, "Leap Attack Bonus", 1.25D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     private static final UUID LEAP_KNOCKBACK_MODIFIER_UUID = UUID.fromString("ad8d395e-7773-4138-bdc4-ea80768a2101");
     private static final AttributeModifier LEAP_KNOCKBACK_MODIFIER = new AttributeModifier(LEAP_KNOCKBACK_MODIFIER_UUID, "Leap Knockback Bonus", 2.0D, AttributeModifier.Operation.ADDITION);
+    public static final int REST_TIME = MathHelper.secondsToTicks(4);
     public int attackTick;
     public int chargeTick;
     public int leapTick;
@@ -354,7 +355,7 @@ public class Leapleaf extends Summoned{
                 if (this.restTick > 0) {
                     this.setAnimationState("rest");
                     --this.restTick;
-                    if (this.restTick == (MathHelper.secondsToTicks(3) - 1)){
+                    if (this.restTick == (REST_TIME - 1)){
                         this.playSound(ModSounds.LEAPLEAF_REST.get(), this.getSoundVolume(), this.getVoicePitch());
                     }
                 } else {
@@ -718,7 +719,7 @@ public class Leapleaf extends Summoned{
                 for (LivingEntity target : this.leapleaf.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != this.leapleaf && !target.isAlliedTo(this.leapleaf) && !this.leapleaf.isAlliedTo(target)) {
                         if (this.leapleaf.doHurtTarget(target) && (random || !target.isAlive())){
-                            this.leapleaf.restTick = MathHelper.secondsToTicks(3);
+                            this.leapleaf.restTick = REST_TIME;
                         }
                     }
                 }

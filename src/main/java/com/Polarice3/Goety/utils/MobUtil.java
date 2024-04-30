@@ -1,17 +1,14 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
-import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
-import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,7 +53,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -756,9 +752,6 @@ public class MobUtil {
             summonedEntity.setTrueOwner(player);
             if (summonedEntity instanceof IServant summoned){
                 summoned.setWandering(false);
-            }
-            if (summonedEntity instanceof RedstoneGolem || summonedEntity instanceof GraveGolem){
-                SEHelper.addSummon(player, mob);
             }
         }
     }

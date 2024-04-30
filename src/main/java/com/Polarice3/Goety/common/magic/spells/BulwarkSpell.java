@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.magic.spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MiscCapHelper;
 import com.Polarice3.Goety.utils.MobUtil;

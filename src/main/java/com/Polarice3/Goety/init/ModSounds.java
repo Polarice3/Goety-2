@@ -71,6 +71,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PIKER_STEP = create("piker_step");
     public static final RegistryObject<SoundEvent> PIKER_DEATH = create("piker_death");
 
+    public static final RegistryObject<SoundEvent> TRAMPLER_AMBIENT = create("trampler_ambient");
+    public static final RegistryObject<SoundEvent> TRAMPLER_HURT = create("trampler_hurt");
+    public static final RegistryObject<SoundEvent> TRAMPLER_CELEBRATE = create("trampler_celebrate");
+    public static final RegistryObject<SoundEvent> TRAMPLER_DEATH = create("trampler_death");
+
     public static final RegistryObject<SoundEvent> STORM_CASTER_AMBIENT = create("storm_caster_ambient");
     public static final RegistryObject<SoundEvent> STORM_CASTER_HURT = create("storm_caster_hurt");
     public static final RegistryObject<SoundEvent> STORM_CASTER_MONSOON = create("storm_caster_monsoon");
@@ -146,6 +151,20 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_STEP = create("zombie_ravager_step");
     public static final RegistryObject<SoundEvent> ZOMBIE_RAVAGER_DEATH = create("zombie_ravager_death");
 
+    public static final RegistryObject<SoundEvent> RAVAGED_AMBIENT = create("ravaged_ambient");
+    public static final RegistryObject<SoundEvent> RAVAGED_HURT = create("ravaged_hurt");
+    public static final RegistryObject<SoundEvent> RAVAGED_BITE = create("ravaged_bite");
+    public static final RegistryObject<SoundEvent> RAVAGED_EAT = create("ravaged_eat");
+    public static final RegistryObject<SoundEvent> RAVAGED_STEP = create("ravaged_step");
+    public static final RegistryObject<SoundEvent> RAVAGED_BIG_STEP = create("ravaged_big_step");
+    public static final RegistryObject<SoundEvent> RAVAGED_DEATH = create("ravaged_death");
+
+    public static final RegistryObject<SoundEvent> BONE_SPIDER_AMBIENT = create("bone_spider_ambient");
+    public static final RegistryObject<SoundEvent> BONE_SPIDER_HURT = create("bone_spider_hurt");
+    public static final RegistryObject<SoundEvent> BONE_SPIDER_SPIT = create("bone_spider_spit");
+    public static final RegistryObject<SoundEvent> BONE_SPIDER_STEP = create("bone_spider_step");
+    public static final RegistryObject<SoundEvent> BONE_SPIDER_DEATH = create("bone_spider_death");
+
     public static final RegistryObject<SoundEvent> WHISPERER_AMBIENT = create("whisperer_ambient");
     public static final RegistryObject<SoundEvent> WHISPERER_HURT = create("whisperer_hurt");
     public static final RegistryObject<SoundEvent> WHISPERER_ATTACK = create("whisperer_attack");
@@ -218,6 +237,22 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HAUNT_HURT = create("haunt_hurt");
     public static final RegistryObject<SoundEvent> HAUNT_FLY = create("haunt_fly");
 
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_AMBIENT = create("redstone_monstrosity_ambient");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_HURT = create("redstone_monstrosity_hurt");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_AWAKEN = create("redstone_monstrosity_awaken");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_ARM = create("redstone_monstrosity_arm");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_CHARGE = create("redstone_monstrosity_charge");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_SMASH = create("redstone_monstrosity_smash");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_BELCH = create("redstone_monstrosity_belch");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_GROWL = create("redstone_monstrosity_growl");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_STEP = create("redstone_monstrosity_step");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_DEATH = create("redstone_monstrosity_death");
+
+    public static final RegistryObject<SoundEvent> REDSTONE_CUBE_BURST = create("redstone_cube_burst");
+    public static final RegistryObject<SoundEvent> REDSTONE_CUBE_HURT = create("redstone_cube_hurt");
+    public static final RegistryObject<SoundEvent> REDSTONE_CUBE_WALK = create("redstone_cube_walk");
+    public static final RegistryObject<SoundEvent> REDSTONE_CUBE_ATTACK = create("redstone_cube_attack");
+
     public static final RegistryObject<SoundEvent> MINISTER_AMBIENT = create("minister_ambient");
     public static final RegistryObject<SoundEvent> MINISTER_HURT = create("minister_hurt");
     public static final RegistryObject<SoundEvent> MINISTER_LAUGH = create("minister_laugh");
@@ -237,6 +272,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> ICE_CHUNK_IDLE = create("ice_chunk_idle");
     public static final RegistryObject<SoundEvent> ICE_CHUNK_SUMMON = create("ice_chunk_summon");
+    public static final RegistryObject<SoundEvent> ICE_CHUNK_DROP = create("ice_chunk_drop");
     public static final RegistryObject<SoundEvent> ICE_CHUNK_HIT = create("ice_chunk_hit");
 
     public static final RegistryObject<SoundEvent> WALL_SPAWN = create("wall_spawn");
@@ -281,6 +317,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> POISON_QUILL_AQUA_WHOOSH = create("poison_quill_aqua_whoosh");
     public static final RegistryObject<SoundEvent> POISON_QUILL_AQUA_IMPACT = create("poison_quill_aqua_impact");
 
+    public static final RegistryObject<SoundEvent> BONE_SHARD_IMPACT = create("bone_shard_impact");
+
     public static final RegistryObject<SoundEvent> INSECT_SWARM = create("insect_swarm");
     public static final RegistryObject<SoundEvent> INSECT_SWARM_BITE = create("insect_swarm_bite");
 
@@ -288,6 +326,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VINE_TRAP_HOLD = create("vine_trap_hold");
 
     public static final RegistryObject<SoundEvent> SPIDER_BITE = create("spider_bite");
+    public static final RegistryObject<SoundEvent> SPIDER_CALL = create("spider_call");
+    public static final RegistryObject<SoundEvent> SPIDER_SPIT = create("spider_spit");
+    public static final RegistryObject<SoundEvent> SPIDER_WEB = create("spider_web");
 
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
@@ -375,6 +416,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_ON = create("resonance_crystal_on");
     public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_OFF = create("resonance_crystal_off");
     public static final RegistryObject<SoundEvent> RESONANCE_CRYSTAL_LOOP = create("resonance_crystal_loop");
+
+    public static final RegistryObject<SoundEvent> SPIDER_NEST_START = create("spider_nest_start");
+    public static final RegistryObject<SoundEvent> SPIDER_NEST_TRAIN = create("spider_nest_train");
+    public static final RegistryObject<SoundEvent> SPIDER_NEST_SPAWN = create("spider_nest_spawn");
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 

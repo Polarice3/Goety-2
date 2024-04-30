@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.SkeletonServantClothingLayer;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.MossySkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;

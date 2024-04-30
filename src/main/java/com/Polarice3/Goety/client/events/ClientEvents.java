@@ -1,9 +1,8 @@
 package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
+import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.client.audio.BossLoopMusic;
 import com.Polarice3.Goety.client.audio.ItemLoopSound;
@@ -19,7 +18,7 @@ import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
@@ -27,10 +26,13 @@ import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
+import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
+import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.mixin.PlayerRendererAccessor;
@@ -42,6 +44,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -114,6 +117,32 @@ public class ClientEvents {
             }
             if (entity instanceof IceStorm){
                 soundHandler.play(new LoopSound(ModSounds.ICE_STORM_LOOP.get(), entity));
+            }
+        }
+    }
+
+    /**
+     * Ripped from @BobMowzie's codes:<a href="https://github.com/BobMowzie/MowziesMobs/blob/master/src/main/java/com/bobmowzie/mowziesmobs/client/ClientEventHandler.java#L211">...</a>
+     */
+    @SubscribeEvent
+    public static void onSetupCamera(ViewportEvent.ComputeCameraAngles event) {
+        Player player = Minecraft.getInstance().player;
+        float delta = Minecraft.getInstance().getFrameTime();
+        if (player != null) {
+            float ticksExistedDelta = player.tickCount + delta;
+            if (MainConfig.CameraShake.get() && !Minecraft.getInstance().isPaused()) {
+                float shakeAmplitude = 0;
+                for (CameraShake cameraShake : player.level.getEntitiesOfClass(CameraShake.class, player.getBoundingBox().inflate(20))) {
+                    if (cameraShake.distanceTo(player) < cameraShake.getRadius()) {
+                        shakeAmplitude += cameraShake.getShakeAmount(player, delta);
+                    }
+                }
+                if (shakeAmplitude > 1.0F) {
+                    shakeAmplitude = 1.0F;
+                }
+                event.setPitch((float) (event.getPitch() + shakeAmplitude * Math.cos(ticksExistedDelta * 3.0D + 2.0D) * 25.0D));
+                event.setYaw((float) (event.getYaw() + shakeAmplitude * Math.cos(ticksExistedDelta * 5.0D + 1.0D) * 25.0D));
+                event.setRoll((float) (event.getRoll() + shakeAmplitude * Math.cos(ticksExistedDelta * 4.0D) * 25.0D));
             }
         }
     }
@@ -259,39 +288,72 @@ public class ClientEvents {
             if (minecraft.level != null) {
                 if (hitResult instanceof BlockHitResult blockRayTraceResult) {
                     BlockEntity blockEntity = minecraft.level.getBlockEntity(blockRayTraceResult.getBlockPos());
+                    int width = minecraft.getWindow().getGuiScaledWidth();
+                    int height = minecraft.getWindow().getGuiScaledHeight();
                     if (blockEntity instanceof ArcaBlockEntity arcaTile) {
                         if ((player.isShiftKeyDown() || player.isCrouching())) {
                             if (arcaTile.getPlayer() == player && SEHelper.getSEActive(player)) {
                                 event.getPoseStack().pushPose();
-                                event.getPoseStack().translate((float) (minecraft.getWindow().getGuiScaledWidth() / 2), (float) (minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                                event.getPoseStack().translate((float) (width / 2), (float) (height - 68), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
                                 int SoulEnergy = SEHelper.getSESouls(player);
                                 int SoulEnergyTotal = MainConfig.MaxArcaSouls.get();
-                                String s = "Soul Energy: " + SoulEnergy + "/" + "" + SoulEnergyTotal;
+                                String s = Component.translatable("tooltip.goety.blockSoul").getString() + SoulEnergy + "/" + SoulEnergyTotal;
                                 int l = fontRenderer.width(s);
                                 fontRenderer.drawShadow(event.getPoseStack(), s, (float) (-l / 2), -4.0F, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 event.getPoseStack().popPose();
                             } else if (arcaTile.getPlayer() != null) {
                                 event.getPoseStack().pushPose();
-                                event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                                event.getPoseStack().translate((float)(width / 2), (float)(height - 68), 0.0F);
                                 RenderSystem.enableBlend();
                                 RenderSystem.defaultBlendFunc();
-                                String s = "Owner:" + arcaTile.getPlayer().getDisplayName().getString();
+                                String s = Component.translatable("tooltip.goety.blockOwner").getString() + arcaTile.getPlayer().getDisplayName().getString();
                                 int l = fontRenderer.width(s);
                                 fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                                 RenderSystem.disableBlend();
                                 event.getPoseStack().popPose();
                             }
                         }
-                    } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.screenView()){
-                        if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
+                    } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.getPlayer() != null && ownedBlock.screenView()){
+                        if (blockEntity instanceof ITrainingBlock trainingBlock){
                             event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 60), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
-                            String s = "Owner: " + ownedBlock.getPlayer().getDisplayName().getString();
+                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
+                            int l = fontRenderer.width(s);
+                            fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            event.getPoseStack().popPose();
+
+                            if (trainingBlock.getPlayer() == player) {
+                                event.getPoseStack().pushPose();
+                                event.getPoseStack().translate((float) (width / 2), (float) (height - 68), 0.0F);
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                String s1 = Component.translatable("tooltip.goety.blockTrain").getString() + trainingBlock.amountTrainLeft() + "/" + trainingBlock.maxTrainAmount() + " " + trainingBlock.getTrainMob().getDescription().getString();
+                                int l1 = fontRenderer.width(s1);
+                                fontRenderer.drawShadow(event.getPoseStack(), s1, (float) (-l1 / 2), -4.0F, 0xFFFFFF);
+                                RenderSystem.disableBlend();
+                                event.getPoseStack().popPose();
+
+                                event.getPoseStack().pushPose();
+                                int train = 64;
+                                train *= ((double) trainingBlock.getTrainingTime() / trainingBlock.getMaxTrainTime());
+                                RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/train_bar.png"));
+                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 84), 0, 0, 64, 16, 64, 32);
+                                RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/train_bar.png"));
+                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 84), 0, 16, train, 16, 64, 32);
+                                event.getPoseStack().popPose();
+                            }
+                        } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){
+                            event.getPoseStack().pushPose();
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 68), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
                             int l = fontRenderer.width(s);
                             fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();
@@ -300,10 +362,10 @@ public class ClientEvents {
                     } else if (blockEntity instanceof CursedCageBlockEntity cageBlockEntity){
                         if (player.isShiftKeyDown() || player.isCrouching() && !cageBlockEntity.getItem().isEmpty()){
                             event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 68), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
-                            String s = "Soul Energy: " + cageBlockEntity.getSouls();
+                            String s = Component.translatable("tooltip.goety.blockSoul").getString() + cageBlockEntity.getSouls();
                             int l = fontRenderer.width(s);
                             fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();
@@ -312,19 +374,19 @@ public class ClientEvents {
                     } else if (blockEntity instanceof BrewCauldronBlockEntity cauldronBlock){
                         if (player.isShiftKeyDown() || player.isCrouching()){
                             event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 60), 0.0F);
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 60), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
-                            String s1 = "Capacity: " + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
+                            String s1 = Component.translatable("tooltip.goety.brew.capacity").getString() + cauldronBlock.getCapacityUsed() + "/" + cauldronBlock.getCapacity();
                             int l2 = fontRenderer.width(s1);
                             fontRenderer.drawShadow(event.getPoseStack(), s1, (float)(-l2 / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();
                             event.getPoseStack().popPose();
                             event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(minecraft.getWindow().getGuiScaledWidth() / 2), (float)(minecraft.getWindow().getGuiScaledHeight() - 68), 0.0F);
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 68), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
-                            String s = "Soul Cost: " + (cauldronBlock.getBrewCost() - cauldronBlock.soulTime);
+                            String s = Component.translatable("tooltip.goety.blockSoulCost").getString() + (cauldronBlock.getBrewCost() - cauldronBlock.soulTime);
                             int l = fontRenderer.width(s);
                             fontRenderer.drawShadow(event.getPoseStack(), s, (float)(-l / 2), -4.0F, 0xFFFFFF);
                             RenderSystem.disableBlend();

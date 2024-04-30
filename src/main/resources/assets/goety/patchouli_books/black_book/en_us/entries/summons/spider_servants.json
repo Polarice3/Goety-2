@@ -1,0 +1,47 @@
+{
+  "name": "Spider Servant",
+  "icon": "minecraft:cobweb",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Simple, yet ravenous creatures, these giant arthopods can be great assets in combat."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The following texts will detail the variants of spiders a Spider Nest can train."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The basic Spider found in the dark, only loyal towards you. Does whatever a Spider a can."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cave_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A smaller and venomous subspecies of Spiders. Wearing Wild Robes will make these spiders inflict Acid Venom instead of regular Poison."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Unlike their brutish counterparts, Web Spiders would not immediately attack their foes, but instead shoot a ball of web that, when hit, entangles them for a while, where upon they will rush towards them at high speed."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bone_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An bone covered spider that shoots Bone Shards at their foes from afar, only going onto melee if their target is close."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.MobsConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.hostile.IBoss;
@@ -248,15 +248,19 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     //look at dish
     public boolean isAlliedTo(Entity entityIn) {
-        if (this.getTrueOwner() != null) {
-            LivingEntity trueOwner = this.getTrueOwner();
-            return trueOwner.isAlliedTo(entityIn) || entityIn.isAlliedTo(trueOwner) || entityIn == trueOwner
-                    || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
-                    || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
-                    || (trueOwner instanceof Player player
-                    && entityIn instanceof LivingEntity livingEntity
-                    && (SEHelper.getAllyEntities(player).contains(livingEntity)
-                    || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
+        if (!this.level.isClientSide) {
+            if (this.getTrueOwner() != null) {
+                LivingEntity trueOwner = this.getTrueOwner();
+                return trueOwner.isAlliedTo(entityIn)
+                        || entityIn.isAlliedTo(trueOwner)
+                        || entityIn == trueOwner
+                        || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
+                        || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
+                        || (trueOwner instanceof Player player
+                        && entityIn instanceof LivingEntity livingEntity
+                        && (SEHelper.getAllyEntities(player).contains(livingEntity)
+                        || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
+            }
         }
         return super.isAlliedTo(entityIn);
     }

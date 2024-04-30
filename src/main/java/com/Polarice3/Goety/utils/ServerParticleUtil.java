@@ -179,6 +179,11 @@ public class ServerParticleUtil {
         serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, 0, 0, 0, 0.5F);
     }
 
+    public static void addAuraParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, float radius){
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+        serverLevel.sendParticles(particleOptions, x + Math.cos(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, y, z + Math.sin(serverLevel.getGameTime() * 0.25 + Math.PI) * radius, 0, xSpeed, ySpeed, zSpeed, 0.5F);
+    }
+
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, float radius){
         circularParticles(serverLevel, particleOptions, entity.getX(), entity.getY(), entity.getZ(), radius);
     }

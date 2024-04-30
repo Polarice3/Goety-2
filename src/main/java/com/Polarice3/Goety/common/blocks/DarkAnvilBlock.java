@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.blocks;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.inventory.container.DarkAnvilMenu;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

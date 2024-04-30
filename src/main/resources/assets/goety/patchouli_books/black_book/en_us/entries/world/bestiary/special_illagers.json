@@ -46,6 +46,14 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:trampler"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Violent steeds of the Illagers, rumored to be made from the weakest of their kind or as a punishment, that charges at their targets with or without a rider."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:crusher"
     },
     {

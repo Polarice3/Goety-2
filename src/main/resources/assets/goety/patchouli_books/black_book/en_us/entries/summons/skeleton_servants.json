@@ -25,7 +25,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Skeleton Servants will attempt to kill anyone who hurts you or any hostile creatures nearby. They will occasionally shoot Weakness Arrows if summoned when the Summoner wears both a Necro Helm and Robe."
+      "text": "Skeleton Servants will attempt to kill anyone who hurts you or any hostile creatures nearby. If summoned when the summoner wears a Necro Cape, their arrows pass through allied mobs."
     },
     {
       "type": "patchouli:entity",

@@ -1,0 +1,30 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:dark_scythe"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "item": "goety:occult_fabric"
+    }
+  ],
+  "result": {
+    "item": "goety:dark_metal_scythe"
+  }
+}

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -131,22 +132,22 @@ public class Ravaged extends Summoned {
     }
 
     public SoundEvent getAmbientSound() {
-        return SoundEvents.ZOMBIE_VILLAGER_AMBIENT;
+        return ModSounds.RAVAGED_AMBIENT.get();
     }
 
     public SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ZOMBIE_VILLAGER_HURT;
+        return ModSounds.RAVAGED_HURT.get();
     }
 
     public SoundEvent getDeathSound() {
-        return SoundEvents.ZOMBIE_VILLAGER_DEATH;
+        return ModSounds.RAVAGED_DEATH.get();
     }
 
     public SoundEvent getStepSound() {
         if (this.getRavagedSize() < 4) {
-            return SoundEvents.ZOMBIE_VILLAGER_STEP;
+            return ModSounds.RAVAGED_STEP.get();
         } else {
-            return SoundEvents.POLAR_BEAR_STEP;
+            return ModSounds.RAVAGED_BIG_STEP.get();
         }
     }
 
@@ -250,10 +251,10 @@ public class Ravaged extends Summoned {
             this.bitingTick = attackTotalTick();
             if (entityIn instanceof AbstractVillager){
                 this.level.broadcastEntityEvent(this, (byte)11);
-                this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+                this.playSound(ModSounds.RAVAGED_EAT.get(), this.getSoundVolume(), this.getVoicePitch());
             }
             this.level.broadcastEntityEvent(this, (byte)4);
-            this.playSound(SoundEvents.PHANTOM_BITE, this.getSoundVolume(), this.getVoicePitch());
+            this.playSound(ModSounds.RAVAGED_BITE.get(), this.getSoundVolume(), this.getVoicePitch());
             float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
             if (this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
                 entityIn.setSecondsOnFire(2 * (int)f);
@@ -271,12 +272,12 @@ public class Ravaged extends Summoned {
     public void handleEntityEvent(byte p_33335_) {
         if (p_33335_ == 4) {
             this.bitingTick = attackTotalTick();
-            this.playSound(SoundEvents.PHANTOM_BITE, this.getSoundVolume(), this.getVoicePitch() * 2.0F);
+            this.playSound(ModSounds.RAVAGED_BITE.get(), this.getSoundVolume(), this.getVoicePitch() * 2.0F);
         } else if (p_33335_ == 10) {
             this.bitingTick = attackTotalTick();
-            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            this.playSound(ModSounds.RAVAGED_EAT.get(), this.getSoundVolume(), this.getVoicePitch());
         } else if (p_33335_ == 11) {
-            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            this.playSound(ModSounds.RAVAGED_EAT.get(), this.getSoundVolume(), this.getVoicePitch());
         }
 
         super.handleEntityEvent(p_33335_);
@@ -374,7 +375,7 @@ public class Ravaged extends Summoned {
                     Ravaged.this.lookControl.setLookAt(this.food);
                     --this.feedingTime;
                     if (this.feedingTime % 5 == 0){
-                        Ravaged.this.playSound(SoundEvents.GENERIC_EAT, Ravaged.this.getSoundVolume(), Ravaged.this.getVoicePitch());
+                        Ravaged.this.playSound(ModSounds.RAVAGED_EAT.get(), Ravaged.this.getSoundVolume(), Ravaged.this.getVoicePitch());
                         Ravaged.this.level.broadcastEntityEvent(Ravaged.this, (byte) 10);
                     }
                     if (Ravaged.this.level instanceof ServerLevel serverLevel) {

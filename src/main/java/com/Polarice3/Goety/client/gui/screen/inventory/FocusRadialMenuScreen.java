@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.client.gui.radial.*;
@@ -11,6 +10,7 @@ import com.Polarice3.Goety.common.network.client.focus.CAddFocusToBagPacket;
 import com.Polarice3.Goety.common.network.client.focus.CAddFocusToInventoryPacket;
 import com.Polarice3.Goety.common.network.client.focus.CSwapFocusPacket;
 import com.Polarice3.Goety.common.network.client.focus.CSwapFocusTwoPacket;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.utils.TotemFinder;
 import com.Polarice3.Goety.utils.WandUtil;

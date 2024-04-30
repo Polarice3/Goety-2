@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I",
+    "G",
+    "R"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "R": {
+      "item": "goety:haunted_wood"
+    },
+    "I": {
+      "tag": "goety:shade_stone"
+    }
+  },
+  "result": {
+    "item": "goety:haunted_lamp",
+    "count": 1
+  }
+}

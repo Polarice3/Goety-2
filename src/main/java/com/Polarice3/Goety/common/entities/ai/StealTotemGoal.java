@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.entities.hostile.illagers.HuntingIllagerEntity;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;

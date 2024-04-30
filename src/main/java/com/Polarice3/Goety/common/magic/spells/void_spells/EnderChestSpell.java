@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.magic.spells.void_spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.config.SpellConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;

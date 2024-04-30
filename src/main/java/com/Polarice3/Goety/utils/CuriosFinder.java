@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

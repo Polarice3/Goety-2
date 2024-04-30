@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ai.FollowMobClassGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -44,8 +45,10 @@ import javax.annotation.Nullable;
 
 public class Ripper extends Raider {
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(Ripper.class, EntityDataSerializers.INT);
+    private static final String[] TAG_BABY_KILLER = new String[]{"Princess", "Cupcake"};
     private boolean isWet;
     private boolean isShaking;
+    private boolean isBabyKiller;
     private float shakeAnim;
     private float shakeAnimO;
     private int bitingTick;
@@ -70,7 +73,11 @@ public class Ripper extends Raider {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
         this.targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, Player.class, true)).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, (p_199899_) -> {
-            return !p_199899_.isBaby();
+            if (!this.isBabyKiller) {
+                return !p_199899_.isBaby();
+            } else {
+                return true;
+            }
         }));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
     }
@@ -116,6 +123,9 @@ public class Ripper extends Raider {
         super.addAdditionalSaveData(p_37870_);
         p_37870_.putInt("BitingTick", this.bitingTick);
         p_37870_.putInt("Size", this.getRipperSize());
+        if (this.isBabyKiller) {
+            p_37870_.putBoolean("BabyKiller", true);
+        }
     }
 
     @Override
@@ -123,6 +133,18 @@ public class Ripper extends Raider {
         super.readAdditionalSaveData(p_37862_);
         this.bitingTick = p_37862_.getInt("BitingTick");
         this.setRipperSize(p_37862_.getInt("Size"));
+        if (p_37862_.contains("BabyKiller", 99)) {
+            this.isBabyKiller = p_37862_.getBoolean("BabyKiller");
+        }
+    }
+
+    public void setCustomName(@Nullable Component p_34096_) {
+        super.setCustomName(p_34096_);
+        if (p_34096_ != null) {
+            for (String name : TAG_BABY_KILLER) {
+                this.isBabyKiller = p_34096_.getString().contains(name);
+            }
+        }
     }
 
     public EntityDimensions getDimensions(Pose p_33113_) {

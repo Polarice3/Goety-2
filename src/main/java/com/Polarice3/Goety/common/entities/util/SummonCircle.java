@@ -83,8 +83,12 @@ public class SummonCircle extends Entity {
         }
         this.preMade = pCompound.getBoolean("preMade");
         this.noPos = pCompound.getBoolean("noPos");
-        this.setNoSpin(pCompound.getBoolean("noSpin"));
-        this.noParticles = pCompound.getBoolean("noParticles");
+        if (pCompound.contains("noSpin")) {
+            this.setNoSpin(pCompound.getBoolean("noSpin"));
+        }
+        if (pCompound.contains("noParticles")) {
+            this.noParticles = pCompound.getBoolean("noParticles");
+        }
         this.lifeSpan = pCompound.getInt("lifeSpan");
     }
 
@@ -95,12 +99,8 @@ public class SummonCircle extends Entity {
         }
         pCompound.putBoolean("preMade", this.preMade);
         pCompound.putBoolean("noPos", this.noPos);
-        if (pCompound.contains("noSpin")) {
-            pCompound.putBoolean("noSpin", this.noSpin);
-        }
-        if (pCompound.contains("noParticles")) {
-            pCompound.putBoolean("noParticles", this.noParticles);
-        }
+        pCompound.putBoolean("noSpin", this.noSpin);
+        pCompound.putBoolean("noParticles", this.noParticles);
         pCompound.putInt("lifeSpan", this.lifeSpan);
     }
 
@@ -194,7 +194,7 @@ public class SummonCircle extends Entity {
                 }
             }
         }
-        if (this.tickCount == this.getLifeSpan()){
+        if (this.tickCount >= this.getLifeSpan()){
             this.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
             this.discard();
         }

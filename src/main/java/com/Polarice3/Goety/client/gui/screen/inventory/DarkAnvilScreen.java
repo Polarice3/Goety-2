@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.gui.screen.inventory;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.inventory.container.DarkAnvilMenu;
+import com.Polarice3.Goety.config.MainConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

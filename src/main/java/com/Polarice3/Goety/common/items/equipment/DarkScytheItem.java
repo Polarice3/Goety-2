@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -135,6 +135,11 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
 
         pPlayer.level.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), ModSounds.SCYTHE_SWING.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
         pPlayer.sweepAttack();
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && slotChanged;
     }
 
     public boolean isCorrectToolForDrops(BlockState pBlock) {

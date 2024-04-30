@@ -1,7 +1,5 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.AttributesConfig;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IBreathing;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -11,6 +9,8 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.frost.HailSpell;
 import com.Polarice3.Goety.common.magic.spells.frost.IceChunkSpell;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;

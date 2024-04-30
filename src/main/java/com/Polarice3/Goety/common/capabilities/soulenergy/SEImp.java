@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.capabilities.soulenergy;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.common.research.Research;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -23,11 +23,12 @@ public class SEImp implements ISoulEnergy{
     private Set<UUID> allyList = new HashSet<>();
     private List<EntityType<?>> allyTypeList = new ArrayList<>();
     private List<Research> researchList = new ArrayList<>();
-    private Set<UUID> summonList = new HashSet<>();
     private FocusCooldown cooldowns = new FocusCooldown();
     @Nullable
     private Projectile grappling = null;
     private int bottling = 0;
+    private int warding = 0;
+    private int maxWarding = 0;
     private UUID cameraUUID = null;
     private BlockPos EndWalkPos = null;
     private ResourceKey<Level> EndWalkDim = null;
@@ -198,21 +199,6 @@ public class SEImp implements ISoulEnergy{
     }
 
     @Override
-    public Set<UUID> summonList() {
-        return this.summonList;
-    }
-
-    @Override
-    public void addSummon(UUID uuid) {
-        this.summonList.add(uuid);
-    }
-
-    @Override
-    public void removeSummon(UUID uuid) {
-        this.summonList.remove(uuid);
-    }
-
-    @Override
     public FocusCooldown cooldowns() {
         return this.cooldowns;
     }
@@ -240,6 +226,26 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setBottling(int bottling){
         this.bottling = bottling;
+    }
+
+    @Override
+    public int wardingLeft() {
+        return this.warding;
+    }
+
+    @Override
+    public int maxWarding() {
+        return this.maxWarding;
+    }
+
+    @Override
+    public void setWarding(int warding) {
+        this.warding = warding;
+    }
+
+    @Override
+    public void setMaxWarding(int warding) {
+        this.maxWarding = warding;
     }
 
     @Override

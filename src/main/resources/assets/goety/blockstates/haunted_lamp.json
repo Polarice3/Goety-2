@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "lit=true,half=lower": { "model": "goety:block/haunted_lamp_bottom" },
+    "lit=false,half=lower": { "model": "goety:block/haunted_lamp_bottom_off" },
+    "lit=true,half=upper": { "model": "goety:block/haunted_lamp_top" },
+    "lit=false,half=upper": { "model": "goety:block/haunted_lamp_top_off" }
+  }
+}

@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.layer.RGEmissiveLayer;
 import com.Polarice3.Goety.client.render.model.RedstoneGolemModel;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.RedstoneGolem;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

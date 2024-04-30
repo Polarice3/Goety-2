@@ -1,14 +1,14 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.util.SummonCircle;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.Entity;
 
-public class SummonCircleModel extends HierarchicalModel<SummonCircle> {
+public class SummonCircleModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart summon;
     private final ModelPart base;
     private final ModelPart sides;
@@ -38,7 +38,7 @@ public class SummonCircleModel extends HierarchicalModel<SummonCircle> {
     }
 
     @Override
-    public void setupAnim(SummonCircle entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         base.yRot += ageInTicks * 0.5F;
         sides.yRot -= ageInTicks * 0.5F;
     }

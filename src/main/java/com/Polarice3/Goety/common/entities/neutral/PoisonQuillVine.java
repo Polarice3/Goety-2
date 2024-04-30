@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.LookAtTargelGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;

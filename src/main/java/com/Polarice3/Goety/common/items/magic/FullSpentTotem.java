@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;

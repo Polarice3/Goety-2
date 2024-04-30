@@ -711,6 +711,29 @@
     ],
     "subtitle": "subtitle.goety.piker_celebrate"
   },
+  "piker_step": {
+    "sounds": [
+      {
+        "name": "item/armor/equip_iron1"
+      },
+      {
+        "name": "item/armor/equip_iron2"
+      },
+      {
+        "name": "item/armor/equip_iron3"
+      },
+      {
+        "name": "item/armor/equip_iron4"
+      },
+      {
+        "name": "item/armor/equip_iron5"
+      },
+      {
+        "name": "item/armor/equip_iron6"
+      }
+    ],
+    "subtitle": "subtitle.goety.piker_step"
+  },
   "piker_death": {
     "sounds": [
       {
@@ -727,6 +750,53 @@
       }
     ],
     "subtitle": "subtitle.goety.piker_death"
+  },
+  "trampler_ambient": {
+    "sounds": [
+      {
+        "name": "goety:trampler/idle1"
+      },
+      {
+        "name": "goety:trampler/idle2"
+      },
+      {
+        "name": "goety:trampler/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.trampler_ambient"
+  },
+  "trampler_hurt": {
+    "sounds": [
+      {
+        "name": "goety:trampler/hurt1"
+      },
+      {
+        "name": "goety:trampler/hurt2"
+      },
+      {
+        "name": "goety:trampler/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.trampler_hurt"
+  },
+  "trampler_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:trampler/celebrate"
+      }
+    ],
+    "subtitle": "subtitle.goety.trampler_celebrate"
+  },
+  "trampler_death": {
+    "sounds": [
+      {
+        "name": "goety:trampler/death1"
+      },
+      {
+        "name": "goety:trampler/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.trampler_death"
   },
   "storm_caster_ambient": {
     "sounds": [
@@ -970,28 +1040,6 @@
       }
     ],
     "subtitle": "subtitle.goety.preacher_cast"
-  },
-  "piker_step": {
-    "sounds": [
-      {
-        "name": "item/armor/equip_iron1"
-      },
-      {
-        "name": "item/armor/equip_iron2"
-      },
-      {
-        "name": "item/armor/equip_iron3"
-      },
-      {
-        "name": "item/armor/equip_iron4"
-      },
-      {
-        "name": "item/armor/equip_iron5"
-      },
-      {
-        "name": "item/armor/equip_iron6"
-      }
-    ]
   },
   "preacher_death": {
     "sounds": [
@@ -1791,6 +1839,168 @@
       }
     ],
     "subtitle": "subtitle.goety.zombie_ravager_death"
+  },
+  "ravaged_ambient": {
+    "sounds": [
+      {
+        "name": "mob/zombie_villager/say1"
+      },
+      {
+        "name": "mob/zombie_villager/say2"
+      },
+      {
+        "name": "mob/zombie_villager/say3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_ambient"
+  },
+  "ravaged_hurt": {
+    "sounds": [
+      {
+        "name": "mob/zombie_villager/hurt1"
+      },
+      {
+        "name": "mob/zombie_villager/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_hurt"
+  },
+  "ravaged_bite": {
+    "sounds": [
+      {
+        "name": "mob/phantom/bite1"
+      },
+      {
+        "name": "mob/phantom/bite2"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_bite"
+  },
+  "ravaged_eat": {
+    "sounds": [
+      {
+        "name": "random/eat1"
+      },
+      {
+        "name": "random/eat2"
+      },
+      {
+        "name": "random/eat3"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_eat"
+  },
+  "ravaged_step": {
+    "sounds": [
+      {
+        "name": "mob/zombie/step1"
+      },
+      {
+        "name": "mob/zombie/step2"
+      },
+      {
+        "name": "mob/zombie/step3"
+      },
+      {
+        "name": "mob/zombie/step4"
+      },
+      {
+        "name": "mob/zombie/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_step"
+  },
+  "ravaged_big_step": {
+    "sounds": [
+      {
+        "name": "mob/polarbear/step1"
+      },
+      {
+        "name": "mob/polarbear/step2"
+      },
+      {
+        "name": "mob/polarbear/step3"
+      },
+      {
+        "name": "mob/polarbear/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_step"
+  },
+  "ravaged_death": {
+    "sounds": [
+      {
+        "name": "mob/zombie_villager/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.ravaged_death"
+  },
+  "bone_spider_ambient": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/idle1"
+      },
+      {
+        "name": "goety:bone_spider/idle2"
+      },
+      {
+        "name": "goety:bone_spider/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_spider_ambient"
+  },
+  "bone_spider_hurt": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/idle1"
+      },
+      {
+        "name": "goety:bone_spider/idle2"
+      },
+      {
+        "name": "goety:bone_spider/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_spider_hurt"
+  },
+  "bone_spider_spit": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/spit1"
+      },
+      {
+        "name": "goety:bone_spider/spit2"
+      },
+      {
+        "name": "goety:bone_spider/spit3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_spider_spit"
+  },
+  "bone_spider_step": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/step1"
+      },
+      {
+        "name": "goety:bone_spider/step2"
+      },
+      {
+        "name": "goety:bone_spider/step3"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_spider_step"
+  },
+  "bone_spider_death": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/death1"
+      },
+      {
+        "name": "goety:bone_spider/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_spider_death"
   },
   "whisperer_ambient": {
     "sounds": [
@@ -2753,6 +2963,196 @@
     ],
     "subtitle": "subtitle.goety.haunt_fly"
   },
+  "redstone_monstrosity_ambient": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/idle1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle3"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle4"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle5"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle6"
+      },
+      {
+        "name": "goety:redstone_monstrosity/idle7"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_ambient"
+  },
+  "redstone_monstrosity_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/hurt1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/hurt2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/hurt3"
+      },
+      {
+        "name": "goety:redstone_monstrosity/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_hurt"
+  },
+  "redstone_monstrosity_awaken": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/awaken"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_awaken"
+  },
+  "redstone_monstrosity_arm": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/arm1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/arm2"
+      }
+    ]
+  },
+  "redstone_monstrosity_charge": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/charge1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/charge2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/charge3"
+      }
+    ]
+  },
+  "redstone_monstrosity_smash": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/smash"
+      }
+    ]
+  },
+  "redstone_monstrosity_belch": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/belch1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/belch2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/belch3"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_belch"
+  },
+  "redstone_monstrosity_growl": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/short_growl"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_growl"
+  },
+  "redstone_monstrosity_step": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/step1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/step2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/step3"
+      },
+      {
+        "name": "goety:redstone_monstrosity/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_step"
+  },
+  "redstone_monstrosity_death": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_death"
+  },
+  "redstone_cube_burst": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube/burst1"
+      },
+      {
+        "name": "goety:redstone_cube/burst2"
+      },
+      {
+        "name": "goety:redstone_cube/burst3"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_cube_burst"
+  },
+  "redstone_cube_hurt": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube/hurt1"
+      },
+      {
+        "name": "goety:redstone_cube/hurt2"
+      },
+      {
+        "name": "goety:redstone_cube/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_cube_hurt"
+  },
+  "redstone_cube_walk": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube/walk1"
+      },
+      {
+        "name": "goety:redstone_cube/walk2"
+      },
+      {
+        "name": "goety:redstone_cube/walk3"
+      },
+      {
+        "name": "goety:redstone_cube/walk4"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_cube_walk"
+  },
+  "redstone_cube_attack": {
+    "sounds": [
+      {
+        "name": "goety:redstone_cube/attack1"
+      },
+      {
+        "name": "goety:redstone_cube/attack2"
+      },
+      {
+        "name": "goety:redstone_cube/attack3"
+      },
+      {
+        "name": "goety:redstone_cube/attack4"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_cube_attack"
+  },
   "vizier_ambient": {
     "sounds": [
       {
@@ -2865,10 +3265,24 @@
   "ice_chunk_summon": {
     "sounds": [
       {
-        "name": "goety:ice/summon"
+        "name": "goety:spell/frost_prepare_spell1"
+      },
+      {
+        "name": "goety:spell/frost_prepare_spell2"
+      },
+      {
+        "name": "goety:spell/frost_prepare_spell3"
       }
     ],
     "subtitle": "subtitle.goety.ice_chunk_summon"
+  },
+  "ice_chunk_drop": {
+    "sounds": [
+      {
+        "name": "goety:ice/summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.ice_chunk_drop"
   },
   "ice_chunk_hit": {
     "sounds": [
@@ -3306,6 +3720,14 @@
     ],
     "subtitle": "subtitle.goety.poison_quill_aqua_whoosh"
   },
+  "bone_shard_impact": {
+    "sounds": [
+      {
+        "name": "goety:bone_spider/attack"
+      }
+    ],
+    "subtitle": "subtitle.goety.bone_shard_impact"
+  },
   "insect_swarm": {
     "sounds": [
       {
@@ -3360,6 +3782,42 @@
       }
     ],
     "subtitle": "subtitle.goety.spider_bite"
+  },
+  "spider_call": {
+    "sounds": [
+      {
+        "name": "goety:random/spider_call1"
+      },
+      {
+        "name": "goety:random/spider_call2"
+      },
+      {
+        "name": "goety:random/spider_call3"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_call"
+  },
+  "spider_spit": {
+    "sounds": [
+      {
+        "name": "goety:random/spider_spit1"
+      },
+      {
+        "name": "goety:random/spider_spit2"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_spit"
+  },
+  "spider_web": {
+    "sounds": [
+      {
+        "name": "goety:random/spider_web1"
+      },
+      {
+        "name": "goety:random/spider_web2"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_web"
   },
   "ghast_disappear": {
     "sounds": [
@@ -3508,13 +3966,16 @@
   "frost_prepare_spell": {
     "sounds": [
       {
-        "name": "goety:spell/frost_prepare_spell1"
+        "name": "goety:spell/frost_prepare_spell1",
+        "pitch": 0.75
       },
       {
-        "name": "goety:spell/frost_prepare_spell2"
+        "name": "goety:spell/frost_prepare_spell2",
+        "pitch": 0.75
       },
       {
-        "name": "goety:spell/frost_prepare_spell3"
+        "name": "goety:spell/frost_prepare_spell3",
+        "pitch": 0.75
       }
     ],
     "subtitle": "subtitle.goety.frost_prepare_spell"
@@ -4246,6 +4707,60 @@
       }
     ],
     "subtitle": "subtitle.goety.resonance_crystal_loop"
+  },
+  "spider_nest_start": {
+    "sounds": [
+      {
+        "name": "goety:block/spider_nest_start1"
+      },
+      {
+        "name": "goety:block/spider_nest_start2"
+      },
+      {
+        "name": "goety:block/spider_nest_start3"
+      },
+      {
+        "name": "goety:block/spider_nest_start4"
+      },
+      {
+        "name": "goety:block/spider_nest_start5"
+      },
+      {
+        "name": "goety:block/spider_nest_start6"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_nest_start"
+  },
+  "spider_nest_train": {
+    "sounds": [
+      {
+        "name": "goety:block/spider_nest_train"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_nest_train"
+  },
+  "spider_nest_spawn": {
+    "sounds": [
+      {
+        "name": "goety:block/spider_nest_spawn1"
+      },
+      {
+        "name": "goety:block/spider_nest_spawn2"
+      },
+      {
+        "name": "goety:block/spider_nest_spawn3"
+      },
+      {
+        "name": "goety:block/spider_nest_spawn4"
+      },
+      {
+        "name": "goety:block/spider_nest_spawn5"
+      },
+      {
+        "name": "goety:block/spider_nest_spawn6"
+      }
+    ],
+    "subtitle": "subtitle.goety.spider_nest_spawn"
   },
   "apostle_theme": {
     "sounds": [

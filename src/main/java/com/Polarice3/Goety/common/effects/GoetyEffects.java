@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.effects;
 
-import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.config.BrewConfig;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -91,6 +91,9 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> ACID_VENOM = EFFECTS.register("acid_venom",
             VenomEffect::new);
+
+    public static final RegistryObject<MobEffect> SPASMS = EFFECTS.register("spasms",
+            SpasmEffect::new);
 
     public static final RegistryObject<MobEffect> STUNNED = EFFECTS.register("stunned",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xffbc2e)

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;

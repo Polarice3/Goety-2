@@ -256,6 +256,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "goety:electrocute_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:electrocute_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "goety:lightning_focus": {
       "conditions": {
         "items": [
@@ -394,6 +406,18 @@
           {
             "items": [
               "goety:entangling_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:grapple_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:grapple_focus"
             ]
           }
         ]
@@ -691,6 +715,9 @@
       "goety:thunderbolt_focus"
     ],
     [
+      "goety:electrocute_focus"
+    ],
+    [
       "goety:lightning_focus"
     ],
     [
@@ -725,6 +752,9 @@
     ],
     [
       "goety:entangling_focus"
+    ],
+    [
+      "goety:grapple_focus"
     ],
     [
       "goety:whispering_focus"

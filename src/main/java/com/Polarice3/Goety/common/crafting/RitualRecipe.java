@@ -135,6 +135,10 @@ public class RitualRecipe extends ModShapelessRecipe {
         return this.entityToConvert != null && this.entityToConvertInto != null;
     }
 
+    public boolean isSummoning(){
+        return this.entityToSummon != null;
+    }
+
     public ResourceLocation getRitualType() {
         return this.ritualType;
     }

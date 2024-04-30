@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

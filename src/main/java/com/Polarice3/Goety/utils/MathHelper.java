@@ -8,8 +8,8 @@ public class MathHelper extends Mth {
         return pSeconds * 20;
     }
 
-    public static float secondsToTicks(float pSeconds){
-        return pSeconds * 20;
+    public static int secondsToTicks(float pSeconds){
+        return (int) (pSeconds * 20);
     }
 
     public static int minutesToTicks(int pMinutes){

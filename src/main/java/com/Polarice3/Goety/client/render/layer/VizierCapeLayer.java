@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.VizierModel;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

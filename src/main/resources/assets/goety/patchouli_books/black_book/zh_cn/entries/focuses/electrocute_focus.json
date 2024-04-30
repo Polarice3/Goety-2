@@ -1,0 +1,15 @@
+{
+  "name": "电刑聚晶",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许玩家发射一个电子球，当施法时凝视一个实体，电子球会在击中目标或任何固体物体之前追踪目标."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}
