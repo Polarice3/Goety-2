@@ -2,9 +2,12 @@
   "replace": false,
   "values": [
     "#minecraft:is_forest",
+    "#minecraft:is_hill",
+    "#minecraft:is_mountain",
+    "#minecraft:is_savanna",
     "#minecraft:is_taiga",
-    "minecraft:snowy_taiga",
-    "minecraft:snowy_plains",
-    "minecraft:snowy_slopes"
+    "#forge:is_mountain",
+    "#forge:is_plains",
+    "#forge:is_plateau"
   ]
 }

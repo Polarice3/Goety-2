@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.magic.spells.storm;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.magic.TouchSpell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MathHelper;

@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

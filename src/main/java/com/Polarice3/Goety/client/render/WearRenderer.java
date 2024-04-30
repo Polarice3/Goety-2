@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.client.render;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.client.render.model.DarkRobeModel;
 import com.Polarice3.Goety.client.render.model.GloveModel;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

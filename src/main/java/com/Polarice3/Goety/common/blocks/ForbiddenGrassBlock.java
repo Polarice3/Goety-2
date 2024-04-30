@@ -48,7 +48,7 @@ public class ForbiddenGrassBlock extends SnowyDirtBlock implements EntityBlock {
 
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pLevel.getBlockState(pPos.above()).getBlock() instanceof BaseFireBlock || !canBeGrass(pState, pLevel, pPos)){
-            if (!pLevel.isAreaLoaded(pPos, 3)) {
+            if (!pLevel.isLoaded(pPos)) {
                 return;
             }
             pLevel.setBlockAndUpdate(pPos, Blocks.DIRT.defaultBlockState());

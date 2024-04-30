@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.IceGolemModel;
-import com.Polarice3.Goety.common.entities.ally.IceGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;

@@ -52,18 +52,20 @@ public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
 
     public void render(VertexConsumer vertexConsumer, Camera camera, NecroBolt projectile, float partialTicks, int packedLightIn, Matrix4f matrix4f, Matrix3f matrix3f, int mode) {
         Quaternionf quaternionf = new Quaternionf(camera.rotation());
-        quaternionf.rotateZ(Mth.lerp(partialTicks, projectile.oRoll, projectile.roll));
-        float f3 = 0.5F;
+        float f3 = Mth.lerp(partialTicks, projectile.oRoll, projectile.roll);
+        float f4 = 0.5F;
         if (mode == 1){
-            f3 *= projectile.getGlow;
+            f3 *= 0.5F;
+            f4 *= projectile.getGlow;
         }
+        quaternionf.rotateZ(f3);
 
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
 
         for(int i = 0; i < 4; ++i) {
             Vector3f vector3f = avector3f[i];
             vector3f.rotate(quaternionf);
-            vector3f.mul(f3);
+            vector3f.mul(f4);
         }
 
         vertexConsumer.vertex(matrix4f, avector3f[0].x, avector3f[0].y, avector3f[0].z).color(255, 255, 255, 255).uv(0, 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();

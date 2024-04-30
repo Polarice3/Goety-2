@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.projectiles.VineHook;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -15,14 +16,18 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class VineHookRenderer extends EntityRenderer<VineHook> {
     private static final ResourceLocation GRAPPLE_LOCATION = Goety.location("textures/entity/vine_grapple.png");
+    private static final ResourceLocation GRAPPLE_NETHER_LOCATION = Goety.location("textures/entity/vine_grapple_nether.png");
+    private static final ResourceLocation GRAPPLE_END_LOCATION = Goety.location("textures/entity/vine_grapple_end.png");
     private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/projectiles/grapple_hook.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
 
@@ -42,10 +47,10 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
             Matrix4f matrix4f = posestack$pose.pose();
             Matrix3f matrix3f = posestack$pose.normal();
             VertexConsumer vertexconsumer = pBuffer.getBuffer(RENDER_TYPE);
-            vertex0(vertexconsumer, matrix4f, matrix3f, pPackedLight, 0.0F, 0, 0, 1);
-            vertex0(vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 0, 1, 1);
-            vertex0(vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 1, 1, 0);
-            vertex0(vertexconsumer, matrix4f, matrix3f, pPackedLight, 0.0F, 1, 0, 0);
+            vertex0(hook.level, vertexconsumer, matrix4f, matrix3f, pPackedLight, 0.0F, 0, 0, 1);
+            vertex0(hook.level, vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 0, 1, 1);
+            vertex0(hook.level, vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 1, 1, 0);
+            vertex0(hook.level, vertexconsumer, matrix4f, matrix3f, pPackedLight, 0.0F, 1, 0, 0);
             poseStack.popPose();
             Vec3 vec3 = getPlayerHandPos(player, pPartialTicks);
             Vec3 vec32 = new Vec3(
@@ -74,7 +79,13 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
             float f14 = Mth.sin(f5 + (float) (Math.PI * 3.0 / 2.0)) * f6;
             float f15 = -1.0F + f1;
             float f16 = f2 * 2.5F + f15;
-            VertexConsumer vertexConsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(GRAPPLE_LOCATION));
+            ResourceLocation location = GRAPPLE_LOCATION;
+            if (hook.level.dimension() == Level.NETHER){
+                location = GRAPPLE_NETHER_LOCATION;
+            } else if (hook.level.dimension() == Level.END){
+                location = GRAPPLE_END_LOCATION;
+            }
+            VertexConsumer vertexConsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(location));
             PoseStack.Pose pose = poseStack.last();
             vertex(vertexConsumer, pose, f7, f2, f8, 0.4999F, f16);
             vertex(vertexConsumer, pose, f7, 0.0F, f8, 0.4999F, f15);
@@ -89,9 +100,15 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
         }
     }
 
-    private static void vertex0(VertexConsumer vertexConsumer, Matrix4f p_114713_, Matrix3f p_114714_, int packedLight, float p_114716_, int p_114717_, int uv0, int uv1) {
+    private static void vertex0(Level level, VertexConsumer vertexConsumer, Matrix4f p_114713_, Matrix3f p_114714_, int packedLight, float p_114716_, int p_114717_, int uv0, int uv1) {
+        ColorUtil colorUtil = new ColorUtil(128, 255, 128, 255);
+        if (level.dimension() == Level.NETHER){
+            colorUtil = new ColorUtil(90, 0, 0, 255);
+        } else if (level.dimension() == Level.END){
+            colorUtil = new ColorUtil(167, 114, 190, 255);
+        }
         vertexConsumer.vertex(p_114713_, p_114716_ - 0.5F, (float)p_114717_ - 0.5F, 0.0F)
-                .color(128, 255, 128, 255)
+                .color(colorUtil.red, colorUtil.green, colorUtil.blue, 255)
                 .uv((float)uv0, (float)uv1)
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
                 .uv2(packedLight)
@@ -110,7 +127,20 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
     }
 
     private Vec3 getPlayerHandPos(Player player, float pPartialTicks) {
-        int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
+        int i;
+        if (player.swingingArm == InteractionHand.MAIN_HAND){
+            if (player.getMainArm() == HumanoidArm.RIGHT){
+                i = 1;
+            } else {
+                i = -1;
+            }
+        } else {
+            if (player.getMainArm() == HumanoidArm.RIGHT){
+                i = -1;
+            } else {
+                i = 1;
+            }
+        }
         float f = player.getAttackAnim(pPartialTicks);
         float f1 = Mth.sin(Mth.sqrt(f) * (float)Math.PI);
 

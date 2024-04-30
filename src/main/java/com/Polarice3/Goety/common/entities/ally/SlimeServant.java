@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

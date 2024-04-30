@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.events;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;

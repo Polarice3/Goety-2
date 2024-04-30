@@ -15,7 +15,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By using a Dark Altar, you may craft a certain item or summon a creature depending on the blocks and items surrounding the Altar. Unlike other schools of magic, these blocks do $(l)not$() need to be arranged in a certain order for the ritual to function. What matters is the certain amount of certain blocks are $(l)within$() the Altar's $(l)16 block radius.$()"
+      "text": "By using a Dark Altar, you may craft a certain item or summon a creature depending on the blocks and items surrounding the Altar. Unlike other schools of magic, these blocks do $(l)not$() need to be arranged in a certain order for the ritual to function. What matters is the certain amount of certain blocks are $(l)within$() the Altar's $(l)16 block radius.$() Shift right-clicking on the Dark Altar with an empty hand will show the range of affect, doing it again will hide it."
     },
     {
       "type": "patchouli:text",

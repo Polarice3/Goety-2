@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.CursedCageBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;

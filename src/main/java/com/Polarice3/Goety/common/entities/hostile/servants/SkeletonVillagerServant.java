@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.BackawayCrossbowGoal;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;

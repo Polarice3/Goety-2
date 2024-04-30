@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.util;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.ConstantPaths;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

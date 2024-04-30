@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.capabilities.lichdom.ILichdom;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.ChatFormatting;

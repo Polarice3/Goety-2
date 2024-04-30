@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.magic.spells.wild.VineGrappleSpell;
+import com.Polarice3.Goety.common.magic.spells.wild.GrappleSpell;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.nbt.CompoundTag;
@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 public class VineHook extends Projectile {
     public static final EntityDataAccessor<Boolean> ATTACHED = SynchedEntityData.defineId(VineHook.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Float> LENGTH = SynchedEntityData.defineId(VineHook.class, EntityDataSerializers.FLOAT);
+    public boolean staff = false;
 
     public VineHook(EntityType<? extends VineHook> entityType, Level level) {
         super(entityType, level);
@@ -82,7 +83,7 @@ public class VineHook extends Projectile {
     private boolean shouldRetract(Player player) {
         if (!player.isRemoved()
                 && player.isAlive()
-                && WandUtil.getSpell(player) instanceof VineGrappleSpell
+                && WandUtil.getSpell(player) instanceof GrappleSpell
                 && this.distanceToSqr(player) <= Mth.square(64)) {
             return false;
         } else {
@@ -112,12 +113,24 @@ public class VineHook extends Projectile {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         compoundTag.putBoolean("Attached", this.isAttached());
         compoundTag.putFloat("Length", this.getLength());
+        compoundTag.putBoolean("Staff", this.isStaff());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         this.setAttached(compoundTag.getBoolean("Attached"));
         this.setLength(compoundTag.getFloat("Length"));
+        if (compoundTag.contains("Staff")) {
+            this.staff = compoundTag.getBoolean("Staff");
+        }
+    }
+
+    public void setStaff(boolean staff){
+        this.staff = staff;
+    }
+
+    public boolean isStaff(){
+        return this.staff;
     }
 
     private void setAttached(boolean attached) {

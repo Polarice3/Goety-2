@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
 import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.RavagerArmorItem;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;

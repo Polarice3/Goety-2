@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.storm.DischargeSpell;
@@ -8,6 +7,7 @@ import com.Polarice3.Goety.common.magic.spells.storm.MonsoonSpell;
 import com.Polarice3.Goety.common.magic.spells.storm.ShockingSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;

@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,7 +41,7 @@ public class WarlockRobeItem extends WarlockGarmentItem{
     public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
         if (CuriosFinder.hasWarlockRobe(victim)){
-            if (event.getSource().is(DamageTypeTags.IS_EXPLOSION)){
+            if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)){
                 float resistance = 1.0F - (ItemConfig.WarlockRobeResistance.get() / 100.0F);
                 event.setAmount(event.getAmount() * resistance);
             }

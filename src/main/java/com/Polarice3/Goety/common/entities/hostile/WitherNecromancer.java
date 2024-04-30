@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;

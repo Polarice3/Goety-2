@@ -243,12 +243,16 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         dropItemStack(this.level, blockpos.getX(), blockpos.getY() + 1, blockpos.getZ(), itemstack1);
                         this.level.playSound(null, this.getBlockPos(), ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                     } else {
+                        if (!this.getItems().isEmpty()) {
+                            Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
+                            this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
+                        }
+                    }
+                } else {
+                    if (!this.getItems().isEmpty()) {
                         Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
                         this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                     }
-                } else {
-                    Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
-                    this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                 }
                 this.removeAllItems();
                 this.clearContent();

@@ -2,6 +2,8 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.EntangleVinesAnimations;
 import com.Polarice3.Goety.common.entities.projectiles.EntangleVines;
+import com.Polarice3.Goety.common.entities.projectiles.SpiderWeb;
+import com.Polarice3.Goety.common.entities.projectiles.TangleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -9,7 +11,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class EntangleVinesModel<T extends EntangleVines> extends HierarchicalModel<T> {
+public class EntangleVinesModel<T extends TangleEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart vine;
 	private final ModelPart vine2;
@@ -102,10 +104,15 @@ public class EntangleVinesModel<T extends EntangleVines> extends HierarchicalMod
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.hiddenAnimationState, EntangleVinesAnimations.HIDDEN, ageInTicks);
-		this.animate(entity.holdAnimationState, EntangleVinesAnimations.HOLD, ageInTicks);
-		this.animate(entity.burstAnimationState, EntangleVinesAnimations.BURST, ageInTicks);
-		this.animate(entity.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
+		if (entity instanceof EntangleVines entangleVines) {
+			this.animate(entangleVines.hiddenAnimationState, EntangleVinesAnimations.HIDDEN, ageInTicks);
+			this.animate(entangleVines.holdAnimationState, EntangleVinesAnimations.HOLD, ageInTicks);
+			this.animate(entangleVines.burstAnimationState, EntangleVinesAnimations.BURST, ageInTicks);
+			this.animate(entangleVines.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
+		} else if (entity instanceof SpiderWeb spiderWeb){
+			this.animate(spiderWeb.holdAnimationState, EntangleVinesAnimations.HOLD, ageInTicks);
+			this.animate(spiderWeb.burrowAnimationState, EntangleVinesAnimations.BURROW, ageInTicks);
+		}
 	}
 
 	@Override

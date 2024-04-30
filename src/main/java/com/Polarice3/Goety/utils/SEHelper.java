@@ -1,12 +1,11 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.BrewConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.items.armor.ISoulDiscount;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.capabilities.soulenergy.*;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
@@ -19,6 +18,8 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.compat.minecolonies.MinecoloniesLoaded;
+import com.Polarice3.Goety.config.BrewConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +33,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
@@ -435,63 +437,6 @@ public class SEHelper {
         return entityTypes;
     }
 
-    public static boolean addSummon(Player owner, LivingEntity target){
-        if (target != owner) {
-            if (!getSummons(owner).contains(target)) {
-                getCapability(owner).addSummon(target.getUUID());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean removeSummon(Player owner, LivingEntity target){
-        if (target != owner) {
-            if (getSummons(owner).contains(target)) {
-                getCapability(owner).removeSummon(target.getUUID());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static List<LivingEntity> getSummons(Player owner){
-        List<LivingEntity> livingEntities = new ArrayList<>();
-        if (!getCapability(owner).summonList().isEmpty()){
-            for (UUID uuid : getCapability(owner).summonList()){
-                Entity entity = EntityFinder.getLivingEntityByUuiD(uuid);
-                if (entity instanceof LivingEntity target && !livingEntities.contains(target) && target != owner){
-                    livingEntities.add(target);
-                }
-            }
-        }
-        return livingEntities;
-    }
-
-    public static List<LivingEntity> getSpecificSummons(Player owner, EntityType<?> entityType){
-        List<LivingEntity> livingEntities = new ArrayList<>();
-        if (!getSummons(owner).isEmpty()){
-            for (LivingEntity livingEntity : getSummons(owner)){
-                if (livingEntity.getType() == entityType){
-                    livingEntities.add(livingEntity);
-                }
-            }
-        }
-        return livingEntities;
-    }
-
-    public static List<LivingEntity> getSpecificSummons(Player owner, Class<?> aClass){
-        List<LivingEntity> livingEntities = new ArrayList<>();
-        if (!getSummons(owner).isEmpty()){
-            for (LivingEntity livingEntity : getSummons(owner)){
-                if (livingEntity.getClass() == aClass){
-                    livingEntities.add(livingEntity);
-                }
-            }
-        }
-        return livingEntities;
-    }
-
     public static boolean addResearch(Player player, Research research){
         if (!getResearch(player).contains(research)) {
             getCapability(player).addResearch(research);
@@ -572,6 +517,45 @@ public class SEHelper {
         }
     }
 
+    public static int getWardingLeft(Player player){
+        return getCapability(player).wardingLeft();
+    }
+
+    public static int getMaxWarding(Player player){
+        return getCapability(player).maxWarding();
+    }
+
+    public static void setCurrentWarding(Player player, int ward){
+        getCapability(player).setWarding(ward);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
+    public static void increaseWarding(Player player, int amount){
+        if (getWardingLeft(player) < getMaxWarding(player)){
+            setCurrentWarding(player, getWardingLeft(player) + amount);
+        }
+    }
+
+    public static void damageWarding(Player player, int amount){
+        if (getWardingLeft(player) > 0){
+            if ((getWardingLeft(player) - amount) <= 0){
+                setCurrentWarding(player, 0);
+                player.stopUsingItem();
+                player.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), 40));
+                if (!player.level.isClientSide){
+                    ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.SHIELD_BREAK, 1.0F, 1.0F));
+                }
+            } else {
+                setCurrentWarding(player, getWardingLeft(player) - amount);
+            }
+        }
+    }
+
+    public static void setMaxWarding(Player player, int ward){
+        getCapability(player).setMaxWarding(ward);
+        SEHelper.sendSEUpdatePacket(player);
+    }
+
     public static boolean hasCamera(Player player){
         return getCapability(player).getCameraUUID() != null;
     }
@@ -617,6 +601,8 @@ public class SEHelper {
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
         tag.putInt("bottling", soulEnergy.bottling());
+        tag.putInt("warding", soulEnergy.wardingLeft());
+        tag.putInt("maxWarding", soulEnergy.maxWarding());
         if (soulEnergy.getCameraUUID() != null) {
             tag.putUUID("cameraUUID", soulEnergy.getCameraUUID());
         }
@@ -684,16 +670,6 @@ public class SEHelper {
             }
         }
 
-        if (soulEnergy.summonList() != null){
-            ListTag listTag = new ListTag();
-            if (!soulEnergy.summonList().isEmpty()) {
-                for (UUID uuid : soulEnergy.summonList()) {
-                    listTag.add(NbtUtils.createUUID(uuid));
-                }
-                tag.put("summonList", listTag);
-            }
-        }
-
         if (soulEnergy.cooldowns() != null){
             ListTag listTag = new ListTag();
             soulEnergy.cooldowns().save(listTag);
@@ -720,6 +696,8 @@ public class SEHelper {
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
         soulEnergy.setBottling(tag.getInt("bottling"));
+        soulEnergy.setWarding(tag.getInt("warding"));
+        soulEnergy.setMaxWarding(tag.getInt("maxWarding"));
         if (tag.contains("cameraUUID")) {
             soulEnergy.setCameraUUID(tag.getUUID("cameraUUID"));
         } else {
@@ -763,12 +741,6 @@ public class SEHelper {
                 if (ResearchList.getResearch(string) != null) {
                     soulEnergy.addResearch(ResearchList.getResearch(string));
                 }
-            }
-        }
-        if (tag.contains("summonList", Tag.TAG_LIST)) {
-            ListTag listtag = tag.getList("summonList", Tag.TAG_INT_ARRAY);
-            for (Tag value : listtag) {
-                soulEnergy.addSummon(NbtUtils.loadUUID(value));
             }
         }
         if (tag.contains("coolDowns", Tag.TAG_LIST)){

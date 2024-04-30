@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
-import com.Polarice3.Goety.ItemConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

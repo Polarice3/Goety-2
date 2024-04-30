@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.api.magic;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -44,7 +44,7 @@ public interface ISpell {
         Holder<Biome> biomeHolder = level.getBiome(blockPos);
         boolean enable = SpellConfig.EnvironmentalCost.get();
         if (SoulDiscount(entityLiving)){
-            cost /= 1.05F;
+            cost /= 1.15F;
         }
         if (this.getSpellType() == SpellType.FROST){
             if (FrostSoulDiscount(entityLiving)){

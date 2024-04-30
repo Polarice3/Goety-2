@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ally.undead.zombie;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

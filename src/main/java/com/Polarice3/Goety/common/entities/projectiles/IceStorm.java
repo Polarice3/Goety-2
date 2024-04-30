@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -24,9 +24,8 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 
-public class IceStorm extends MagicProjectile {
+public class IceStorm extends SpellHurtingProjectile {
     private static final EntityDataAccessor<Float> ID_SIZE = SynchedEntityData.defineId(IceStorm.class, EntityDataSerializers.FLOAT);
-    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceStorm.class, EntityDataSerializers.FLOAT);
     public int duration = 0;
     public int range = 0;
 
@@ -48,7 +47,6 @@ public class IceStorm extends MagicProjectile {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ID_SIZE, 0.0F);
-        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
@@ -62,7 +60,6 @@ public class IceStorm extends MagicProjectile {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("Size", this.getSize());
-        pCompound.putFloat("ExtraDamage", this.getExtraDamage());
         pCompound.putInt("Duration", this.getDuration());
         pCompound.putInt("Range", this.getRange());
     }
@@ -71,9 +68,6 @@ public class IceStorm extends MagicProjectile {
         super.readAdditionalSaveData(pCompound);
         if (pCompound.contains("Size")) {
             this.setSize(pCompound.getFloat("Size"));
-        }
-        if (pCompound.contains("ExtraDamage")) {
-            this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
         }
         if (pCompound.contains("Duration")) {
             this.setDuration(pCompound.getInt("Duration"));
@@ -96,14 +90,6 @@ public class IceStorm extends MagicProjectile {
 
     public float getSize() {
         return this.entityData.get(ID_SIZE);
-    }
-
-    public float getExtraDamage() {
-        return this.entityData.get(DATA_EXTRA_DAMAGE);
-    }
-
-    public void setExtraDamage(float pDamage) {
-        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
     }
 
     public int getDuration() {

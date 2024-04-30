@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.init;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.world.entity.raid.Raid;
 
 public class RaidAdditions {

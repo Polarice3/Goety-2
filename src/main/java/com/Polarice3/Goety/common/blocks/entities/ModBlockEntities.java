@@ -64,6 +64,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<BrewCauldronBlockEntity>> BREWING_CAULDRON = BLOCK_ENTITY.register("witch_cauldron",
             () -> BlockEntityType.Builder.of(BrewCauldronBlockEntity::new, ModBlocks.BREWING_CAULDRON.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SpiderNestBlockEntity>> SPIDER_NEST = BLOCK_ENTITY.register("spider_nest",
+            () -> BlockEntityType.Builder.of(SpiderNestBlockEntity::new, ModBlocks.SPIDER_NEST.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PithosBlockEntity>> PITHOS = BLOCK_ENTITY.register("pithos",
             () -> BlockEntityType.Builder.of(PithosBlockEntity::new, ModBlocks.PITHOS.get()).build(null));
 

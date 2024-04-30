@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.magic.spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;

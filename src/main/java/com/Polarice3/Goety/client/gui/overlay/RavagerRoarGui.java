@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.entities.ally.ModRavager;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.client.gui.overlay.ForgeGui;

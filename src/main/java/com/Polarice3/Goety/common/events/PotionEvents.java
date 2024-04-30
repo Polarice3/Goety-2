@@ -12,7 +12,6 @@ import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -27,28 +26,22 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -73,12 +66,11 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PotionEvents {
-    @SuppressWarnings("deprecation")
+
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
-            Level world = livingEntity.level;
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
             AttributeModifier soulArmorBuff = new AttributeModifier(UUID.fromString("3e4b414b-466c-4b90-8a92-a878e2542bb8"), "Increase Armor", 2.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
             if (armor != null){
@@ -170,145 +162,6 @@ public class PotionEvents {
                     }
                 }
             }
-            if (livingEntity.hasEffect(GoetyEffects.NYCTOPHOBIA.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.NYCTOPHOBIA.get());
-                if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier();
-                    int j = 40 >> a;
-                    if (livingEntity.level.getLightLevelDependentMagicValue(livingEntity.blockPosition()) < 0.1 || livingEntity.hasEffect(MobEffects.DARKNESS)) {
-                        if (j > 0) {
-                            if (livingEntity.tickCount % j == 0) {
-                                livingEntity.hurt(ModDamageSource.getDamageSource(livingEntity.level, ModDamageSource.PHOBIA), 1.0F);
-                            }
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.SUN_ALLERGY.get())){
-                boolean burn = MobUtil.isInSunlight(livingEntity);
-
-                if (burn){
-                    ItemStack helmet = livingEntity.getItemBySlot(EquipmentSlot.HEAD);
-                    if (!helmet.isEmpty()) {
-                        if (MobUtil.validEntity(livingEntity)) {
-                            if (helmet.isDamageableItem()) {
-                                helmet.setDamageValue(helmet.getDamageValue() + world.random.nextInt(2));
-                                if (helmet.getDamageValue() >= helmet.getMaxDamage()) {
-                                    livingEntity.broadcastBreakEvent(EquipmentSlot.HEAD);
-                                    livingEntity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-                                }
-                            }
-                        }
-                        burn = false;
-                    }
-                    if (burn){
-                        livingEntity.setSecondsOnFire(8);
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.PHOTOSYNTHESIS.get())){
-                if (MobUtil.isInSunlight(livingEntity)) {
-                    MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.PHOTOSYNTHESIS.get());
-                    if (mobEffectInstance != null) {
-                        int a = mobEffectInstance.getAmplifier();
-                        int j = 50 >> a;
-                        if (j > 0){
-                            if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
-                                livingEntity.heal(1.0F);
-                            }
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.TRIPPING.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.TRIPPING.get());
-                if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier();
-                    int j = 20 >> a;
-                    if (j > 0) {
-                        if (livingEntity.tickCount % j == 0 && world.random.nextFloat() <= 0.25F + (a / 10.0F) && MobUtil.isMoving(livingEntity)) {
-                            MobUtil.push(livingEntity, world.random.nextDouble(), world.random.nextDouble() / 2.0D, world.random.nextDouble());
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.ARROWMANTIC.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.ARROWMANTIC.get());
-                if (mobEffectInstance != null){
-                    int a = mobEffectInstance.getAmplifier();
-                    for (AbstractArrow abstractArrow : world.getEntitiesOfClass(AbstractArrow.class, livingEntity.getBoundingBox().inflate(2.0F + a))){
-                        if (!abstractArrow.onGround()){
-                            double d0 = livingEntity.getX() - abstractArrow.getX();
-                            double d1 = livingEntity.getY(0.3333333333333333D) - abstractArrow.getY();
-                            double d2 = livingEntity.getZ() - abstractArrow.getZ();
-                            double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
-                            abstractArrow.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.0F + (a / 5.0F), 10);
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.FIERY_AURA.get())){
-                if (world instanceof ServerLevel serverLevel) {
-                    MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FIERY_AURA.get());
-                    if (mobEffectInstance != null){
-                        int a = mobEffectInstance.getAmplifier();
-                        float f = 2.0F + a;
-                        ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.FLAME, livingEntity, f);
-                        for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
-                            if (!living.isOnFire() && !living.fireImmune() && MobUtil.validEntity(living) && living != livingEntity) {
-                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.FLAME, living);
-                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE, 1.0F, 0.75F));
-                                living.setSecondsOnFire(5 * (a + 1));
-                            }
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.FROSTY_AURA.get())){
-                if (world instanceof ServerLevel serverLevel) {
-                    MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FROSTY_AURA.get());
-                    if (mobEffectInstance != null){
-                        int a = mobEffectInstance.getAmplifier();
-                        float f = 2.0F + a;
-                        ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, livingEntity, f);
-                        for (LivingEntity living : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(f))) {
-                            if (!living.isFreezing() && living.canFreeze() && MobUtil.validEntity(living) && living != livingEntity) {
-                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SNOWFLAKE, living);
-                                ModNetwork.sendToALL(new SPlayWorldSoundPacket(livingEntity.blockPosition(), SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 0.75F));
-                                living.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 100, a));
-                            }
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.FIRE_TRAIL.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FIRE_TRAIL.get());
-                if (mobEffectInstance != null){
-                    BlockState blockState = world.getBlockState(livingEntity.blockPosition());
-                    if (MobUtil.isMoving(livingEntity)){
-                        if (blockState.canBeReplaced(new DirectionalPlaceContext(world, livingEntity.blockPosition(), Direction.DOWN, ItemStack.EMPTY, Direction.UP))
-                                && world.getFluidState(livingEntity.blockPosition()).isEmpty()
-                                && world.getBlockState(livingEntity.blockPosition().below()).isSolidRender(world, livingEntity.blockPosition().below())){
-                            world.setBlockAndUpdate(livingEntity.blockPosition(), BaseFireBlock.getState(world, livingEntity.blockPosition()));
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.PLUNGE.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.PLUNGE.get());
-                if (mobEffectInstance != null && !livingEntity.hasEffect(MobEffects.LEVITATION)){
-                    if (MobUtil.validEntity(livingEntity)) {
-                        if (livingEntity instanceof Player player) {
-                            player.getAbilities().flying &= player.isCreative();
-                        }
-                        if (livingEntity.isInFluidType()) {
-                            livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().subtract(0, 0.05D + (mobEffectInstance.getAmplifier() / 100.0D), 0));
-                        } else if (BlockFinder.distanceFromGround(livingEntity) > 4) {
-                            livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().subtract(0, 0.2D + (mobEffectInstance.getAmplifier() / 10.0D), 0));
-                        }
-                    }
-                }
-            }
             if (livingEntity instanceof Player && livingEntity.hasEffect(GoetyEffects.SENSE_LOSS.get())){
                 MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.SENSE_LOSS.get());
                 if (mobEffectInstance != null) {
@@ -357,22 +210,6 @@ public class PotionEvents {
                             if (livingEntity.level.isEmptyBlock(blockpos1) && blockstate.canSurvive(livingEntity.level, blockpos1)) {
                                 livingEntity.level.setBlockAndUpdate(blockpos1, blockstate);
                                 livingEntity.level.gameEvent(GameEvent.BLOCK_PLACE, blockpos1, GameEvent.Context.of(livingEntity, blockstate));
-                            }
-                        }
-                    }
-                }
-            }
-            if (livingEntity.hasEffect(GoetyEffects.WILD_RAGE.get())){
-                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.WILD_RAGE.get());
-                if(mobEffectInstance != null){
-                    if (!livingEntity.level.isClientSide){
-                        if (livingEntity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
-                            double follow = mob.getAttributeValue(Attributes.FOLLOW_RANGE);
-                            LivingEntity target = world.getNearestEntity(world.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(follow, 4.0D, follow), (p_148152_) -> {
-                                return true;
-                            }), TargetingConditions.forCombat(), mob, mob.getX(), mob.getEyeY(), mob.getZ());
-                            if (target != null && mob != target && mob.getTarget() != target){
-                                mob.setTarget(target);
                             }
                         }
                     }

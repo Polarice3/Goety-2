@@ -29,6 +29,11 @@ public class ScatterMineModel<T extends Entity> extends HierarchicalModel<T> {
 
 	}
 
+	public void setupAnim(float p_103812_, float p_103813_) {
+		this.mine.yRot = p_103812_ * ((float)Math.PI / 180F);
+		this.mine.xRot = p_103813_ * ((float)Math.PI / 180F);
+	}
+
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		mine.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

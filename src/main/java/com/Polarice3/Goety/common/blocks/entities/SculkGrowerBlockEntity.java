@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.blocks.IEnchantedBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.SculkGrowerBlock;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.config.MainConfig;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;

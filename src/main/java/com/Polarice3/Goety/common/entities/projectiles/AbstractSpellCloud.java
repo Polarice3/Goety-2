@@ -32,7 +32,6 @@ public abstract class AbstractSpellCloud extends SpellEntity {
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.PARTICLE);
     public boolean activated;
     public int lifeSpan = 100;
-    public float extraDamage = 0.0F;
 
     public AbstractSpellCloud(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
@@ -83,9 +82,6 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         if (p_20052_.contains("LifeSpan")) {
             this.lifeSpan = p_20052_.getInt("LifeSpan");
         }
-        if (p_20052_.contains("ExtraDamage")){
-            this.extraDamage = p_20052_.getFloat("ExtraDamage");
-        }
     }
 
     @Override
@@ -94,8 +90,6 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         p_20139_.putString("Particle", this.getRainParticle().writeToString());
         p_20139_.putBoolean("Activated", this.activated);
         p_20139_.putInt("LifeSpan", this.lifeSpan);
-        p_20139_.putFloat("ExtraDamage", this.extraDamage);
-        p_20139_.putBoolean("staff", this.staff);
     }
 
     public void setLifeSpan(int lifeSpan) {
@@ -112,10 +106,6 @@ public abstract class AbstractSpellCloud extends SpellEntity {
 
     public int getColor(){
         return 0xffffff;
-    }
-
-    public void setExtraDamage(float extraDamage){
-        this.extraDamage = extraDamage;
     }
 
     @Override
@@ -212,10 +202,4 @@ public abstract class AbstractSpellCloud extends SpellEntity {
     public EntityDimensions getDimensions(Pose p_19721_) {
         return EntityDimensions.scalable(this.getRadius() * 2.0F, 0.5F);
     }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
 }

@@ -1,14 +1,17 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -19,8 +22,10 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -169,6 +174,22 @@ public class Piker extends HuntingIllagerEntity{
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
         this.playSound(ModSounds.PIKER_STEP.get(), 1.0F, 1.0F);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance instance, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag compoundTag) {
+        SpawnGroupData spawnGroupData = super.finalizeSpawn(accessor, instance, spawnType, groupData, compoundTag);
+        if (spawnType == MobSpawnType.EVENT || spawnType == MobSpawnType.PATROL) {
+            if (accessor.getLevel().random.nextFloat() <= 0.25F && !this.isPassenger()) {
+                Trampler trampler = new Trampler(ModEntityType.TRAMPLER.get(), accessor.getLevel());
+                trampler.finalizeSpawn(accessor, accessor.getLevel().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.EVENT, null, null);
+                trampler.setPos(this.position());
+                accessor.getLevel().addFreshEntity(trampler);
+                this.startRiding(trampler);
+            }
+        }
+        return spawnGroupData;
     }
 
     public boolean isAlliedTo(Entity pEntity) {

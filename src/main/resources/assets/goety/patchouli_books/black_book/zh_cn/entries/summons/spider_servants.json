@@ -1,0 +1,47 @@
+{
+  "name": "蜘蛛仆从",
+  "icon": "minecraft:cobweb",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些巨大的节肢生物简单而贪婪，在战斗中可以成为优秀的刺客。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "以下文本将详细介绍蜘蛛巢可以训练的蜘蛛变体。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在黑暗中发现的普通蜘蛛，只忠诚于你。蜘蛛能做什么它就能做什么."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cave_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "蜘蛛的一个较小且有毒的亚种。穿上荒野长袍会使这些蜘蛛攻击时给予毒液效果，而非中毒效果。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "与野蛮的蜘蛛不同，织网蜘蛛不会立即攻击它的目标，而是射出一团网，当网击中目标时，会将目标缠住一段时间，然后织网蜘蛛会高速冲向敌人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bone_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一只长满骨头的蜘蛛，从远处向敌人发射骨头碎片，只有在目标很近的情况下才会近战。"
+    }
+  ]
+}

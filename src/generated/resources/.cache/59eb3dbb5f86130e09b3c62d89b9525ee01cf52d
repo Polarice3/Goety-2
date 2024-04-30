@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-12T22:07:57.7030861	Loot Tables
+// 1.20.1	2024-04-29T22:48:47.8776391	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
@@ -62,6 +62,7 @@ c4baed221de3f045b988d28b13b57f9263a037db data/goety/loot_tables/blocks/haunted_d
 dc90bd77394dfb5cf2fb30016d210d02c5b3a5b3 data/goety/loot_tables/blocks/haunted_glass_mob_tinted.json
 85e9854dc0ccebda6ef242dd05924d3e88ace18f data/goety/loot_tables/blocks/haunted_glass_tinted.json
 a069831a4da77e88bb87ba5a09e442de5c600919 data/goety/loot_tables/blocks/haunted_hanging_sign.json
+f9d9b66454a6f0623a38ad6eee444badfe12b37d data/goety/loot_tables/blocks/haunted_lamp.json
 916976524536552e13f6688280bdf5e66503a177 data/goety/loot_tables/blocks/haunted_log.json
 28a71437f4e96d6f485cf835642aa8de4c84050a data/goety/loot_tables/blocks/haunted_planks.json
 c7e9e3a73630bcff7ca354f789d120034f3170cc data/goety/loot_tables/blocks/haunted_pressure_plate.json

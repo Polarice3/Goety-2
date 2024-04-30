@@ -1,18 +1,20 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
+import com.Polarice3.Goety.common.blocks.entities.SpiderNestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class SpiderNestBlock extends Block {
+public class SpiderNestBlock extends TrainingBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     protected static final VoxelShape UP_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     protected static final VoxelShape DOWN_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
@@ -54,19 +56,6 @@ public class SpiderNestBlock extends Block {
                 BlockState blockState = p_221001_.getBlockState(blockPos);
                 if (blockState.isAir()) {
                     p_221001_.setBlock(blockPos, Blocks.COBWEB.defaultBlockState(), 2);
-                }
-            }
-
-            if (p_221001_.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING) && p_221003_.nextInt(1000) < p_221001_.getDifficulty().getId()) {
-                double d0 = (double) p_221002_.getX() + (p_221003_.nextDouble() - p_221003_.nextDouble()) * (double) 4 + 0.5D;
-                double d1 = (double) (p_221002_.getY() + p_221003_.nextInt(3) - 1);
-                double d2 = (double) p_221002_.getZ() + (p_221003_.nextDouble() - p_221003_.nextDouble()) * (double) 4 + 0.5D;
-
-                if (p_221001_.noCollision(EntityType.SPIDER.getAABB(d0, d1, d2))) {
-                    BlockPos blockpos = BlockPos.containing(d0, d1, d2);
-                    if (SpawnPlacements.checkSpawnRules(EntityType.SPIDER, p_221001_, MobSpawnType.SPAWNER, blockpos, p_221001_.getRandom())) {
-                        EntityType.SPIDER.spawn(p_221001_, blockpos, MobSpawnType.SPAWNER);
-                    }
                 }
             }
         }
@@ -120,5 +109,20 @@ public class SpiderNestBlock extends Block {
 
     public PushReaction getPistonPushReaction(BlockState p_152047_) {
         return PushReaction.DESTROY;
+    }
+
+    public RenderShape getRenderShape(BlockState p_222120_) {
+        return RenderShape.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+        return new SpiderNestBlockEntity(p_153215_, p_153216_);
+    }
+
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152755_, BlockState p_152756_, BlockEntityType<T> p_152757_) {
+        return createTickerHelper(p_152757_, ModBlockEntities.SPIDER_NEST.get(), p_152755_.isClientSide ? SpiderNestBlockEntity::clientTick : SpiderNestBlockEntity::serverTick);
     }
 }

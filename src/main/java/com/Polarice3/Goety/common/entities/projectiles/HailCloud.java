@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -72,7 +72,7 @@ public class HailCloud extends AbstractSpellCloud{
     public void hurtEntities(LivingEntity livingEntity){
         if (livingEntity != null) {
             float baseDamage = SpellConfig.HailDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            baseDamage += this.extraDamage;
+            baseDamage += this.getExtraDamage();
             if (livingEntity.hurt(ModDamageSource.frostBreath(this, this.getOwner()), baseDamage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5)));
             }

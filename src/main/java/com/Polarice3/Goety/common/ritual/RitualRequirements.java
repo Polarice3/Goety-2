@@ -2,12 +2,24 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
+import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
+import com.Polarice3.Goety.common.magic.spells.necromancy.SkeletonSpell;
+import com.Polarice3.Goety.common.magic.spells.necromancy.WraithSpell;
+import com.Polarice3.Goety.common.magic.spells.necromancy.ZombieSpell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -29,6 +41,38 @@ public class RitualRequirements {
             }
         }
         return null;
+    }
+
+    public static boolean canSummon(Level level, Player castingPlayer, EntityType<?> summonType){
+        if (level instanceof ServerLevel serverLevel){
+            Entity summon = summonType.create(level);
+            if (summon instanceof ZombieServant){
+                return new ZombieSpell().conditionsMet(serverLevel, castingPlayer);
+            }
+            if (summon instanceof AbstractSkeletonServant){
+                return new SkeletonSpell().conditionsMet(serverLevel, castingPlayer);
+            }
+            if (summon instanceof AbstractWraith){
+                return new WraithSpell().conditionsMet(serverLevel, castingPlayer);
+            }
+            if (summon instanceof AbstractBoundIllager){
+                int count = 0;
+                for (Entity entity : serverLevel.getAllEntities()) {
+                    if (entity instanceof AbstractBoundIllager servant) {
+                        if (servant.getTrueOwner() == castingPlayer) {
+                            ++count;
+                        }
+                    }
+                }
+                if (count >= SpellConfig.BoundIllagerLimit.get()){
+                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){

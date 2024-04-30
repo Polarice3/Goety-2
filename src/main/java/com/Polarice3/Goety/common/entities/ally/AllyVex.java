@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.MinionFollowGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;

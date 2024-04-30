@@ -142,13 +142,16 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:jeed-532286:4599236")
     runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
     runtimeOnly fg.deobf("curse.maven:mob-battle-mod-268746:4748521")
-    runtimeOnly fg.deobf("curse.maven:ydms-custom-camera-view-592245:4601457")
+    runtimeOnly fg.deobf("curse.maven:citadel-331936:5143956")
+    runtimeOnly fg.deobf("curse.maven:lendercataclysm-551586:5058433")
     runtimeOnly fg.deobf("curse.maven:tslateffectslib-700382:4744867")
     runtimeOnly fg.deobf("curse.maven:tslatentitystatus-tes-830420:4746281")
     runtimeOnly fg.deobf("curse.maven:kiwi-303657:4688568")
     runtimeOnly fg.deobf("curse.maven:wiki-zoomer-383277:4576732")
     runtimeOnly fg.deobf("curse.maven:bagus-lib-866533:5147658")
     runtimeOnly fg.deobf("curse.maven:enchant-with-mob-913523:5098324")
+    runtimeOnly fg.deobf("curse.maven:framework-549225:5180972")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
     runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
 }
 

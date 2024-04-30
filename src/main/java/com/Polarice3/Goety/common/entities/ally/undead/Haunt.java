@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ally.undead;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -45,7 +45,8 @@ public class Haunt extends Summoned {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.HauntHealth.get())
-                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.ARMOR, AttributesConfig.HauntArmor.get())
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.HauntFollowRange.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.FLYING_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.HauntDamage.get());
@@ -53,7 +54,9 @@ public class Haunt extends Summoned {
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.HauntHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.HauntArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.HauntDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.HauntFollowRange.get());
     }
 
     protected PathNavigation createNavigation(Level pLevel) {

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With an $(l:crafts/cores)Animation Core$(), you're able to bring a block of slime to life as a loyal Slime Servant."
+      "text": "With an $(l:crafts/cores)Animation Core$(), you're able to bring a block of slime to life as a loyal Slime Servant. Using a Slimeball will heal them but a Block of Slime on them will not only heal, but also increase their size up to a point."
     },
     {
       "type": "patchouli:entity",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Slimes aren't the only thing you can animate into loyal servants. Using an animation core on a magma block will transform it into a loyal Magma Cube servant."
+      "text": "Slimes aren't the only thing you can animate into loyal servants. Using an animation core on a magma block will transform it into a loyal Magma Cube servant. Instead of a Block of Slime, Magma Cream is used to heal and Magma Blocks to increase their size."
     },
     {
       "type": "patchouli:entity",

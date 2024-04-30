@@ -44,9 +44,6 @@ public interface ISoulEnergy {
     List<Research> getResearch();
     void addResearch(Research research);
     void removeResearch(Research research);
-    Set<UUID> summonList();
-    void addSummon(UUID uuid);
-    void removeSummon(UUID uuid);
     FocusCooldown cooldowns();
     void setCooldowns(FocusCooldown cooldowns);
     @Nullable
@@ -54,6 +51,10 @@ public interface ISoulEnergy {
     void setGrappling(@Nullable Projectile projectile);
     int bottling();
     void setBottling(int bottling);
+    int wardingLeft();
+    int maxWarding();
+    void setWarding(int warding);
+    void setMaxWarding(int warding);
     @Nullable
     UUID getCameraUUID();
     void setCameraUUID(@Nullable UUID camera);

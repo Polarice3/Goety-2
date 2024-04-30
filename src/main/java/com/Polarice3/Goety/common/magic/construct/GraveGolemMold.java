@@ -1,19 +1,22 @@
 package com.Polarice3.Goety.common.magic.construct;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -213,13 +216,27 @@ public class GraveGolemMold implements IMold {
                 && checkStones(level, blockPos).isEmpty();
     }
 
+    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        if (worldIn instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof GraveGolem servant) {
+                    if (servant.getTrueOwner() == entityLiving) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count < SpellConfig.GraveGolemLimit.get();
+    }
+
     @Override
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos){
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.SKULL_PILE.get())) {
                 if (checkBlocks(level, blockPos)) {
                     if (SEHelper.hasResearch(player, ResearchList.WARRED) && SEHelper.hasResearch(player, ResearchList.HAUNTING)) {
-                        if (SEHelper.getSpecificSummons(player, ModEntityType.GRAVE_GOLEM.get()).size() < SpellConfig.GraveGolemLimit.get()) {
+                        if (conditionsMet(level, player)) {
                             GraveGolem graveGolem = ModEntityType.GRAVE_GOLEM.get().create(level);
                             if (graveGolem != null) {
                                 graveGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(graveGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
@@ -228,7 +245,6 @@ public class GraveGolemMold implements IMold {
                                 if (level.addFreshEntity(graveGolem)) {
                                     removeBlocks(level, blockPos);
                                     stack.shrink(1);
-                                    SEHelper.addSummon(player, graveGolem);
                                     if (player instanceof ServerPlayer serverPlayer) {
                                         CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, graveGolem);
                                     }

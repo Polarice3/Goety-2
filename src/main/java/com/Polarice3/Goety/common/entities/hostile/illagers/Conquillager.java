@@ -1,8 +1,9 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.collect.Maps;
@@ -151,6 +152,15 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         RandomSource randomsource = p_33282_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_33283_);
         this.populateDefaultEquipmentEnchantments(randomsource, p_33283_);
+        if (p_33284_ == MobSpawnType.EVENT || p_33284_ == MobSpawnType.PATROL) {
+            if (p_33282_.getLevel().random.nextFloat() <= 0.25F && !this.isPassenger()) {
+                Trampler trampler = new Trampler(ModEntityType.TRAMPLER.get(), p_33282_.getLevel());
+                trampler.finalizeSpawn(p_33282_, p_33282_.getLevel().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.EVENT, null, null);
+                trampler.setPos(this.position());
+                p_33282_.getLevel().addFreshEntity(trampler);
+                this.startRiding(trampler);
+            }
+        }
         return super.finalizeSpawn(p_33282_, p_33283_, p_33284_, p_33285_, p_33286_);
     }
 

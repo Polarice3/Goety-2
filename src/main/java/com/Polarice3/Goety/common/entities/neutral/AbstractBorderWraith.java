@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.IBreathing;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.entities.ai.BreathingAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -56,12 +55,15 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
     public void attackAI(){
         if (!this.level.isClientSide) {
             if (this.getTarget() != null) {
+                if (!this.isFiring()){
+                    this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());
+                }
                 if (this.getSensing().hasLineOfSight(this.getTarget())) {
                     if (!this.isBreathing()) {
-                        if (((this.getTarget().distanceToSqr(this) >= Mth.square(4.0F) || this.isStaying())
+                        if ((this.fireCooldown <= 0 && !this.isTeleporting()
                                 && this.getTarget().distanceToSqr(this) < Mth.square(this.attackRange())) || this.isFiring()) {
                             ++this.fireTick;
-                            if (this.isFiring()) {
+                            if (this.isFiring()){
                                 this.getNavigation().stop();
                                 double d2 = this.getTarget().getX() - this.getX();
                                 double d1 = this.getTarget().getZ() - this.getZ();
@@ -70,6 +72,7 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                             }
                             if (this.fireTick > 10) {
                                 this.startFiring();
+                                this.getNavigation().stop();
                             } else {
                                 this.movement();
                                 this.stopFiring();
@@ -77,8 +80,9 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                             if (this.fireTick == 20) {
                                 this.magicFire(this.getTarget());
                             }
-                            if (this.fireTick > 44) {
-                                this.fireTick = -30;
+                            if (this.fireTick > 44){
+                                this.fireCooldown = 100;
+                                this.fireTick = 0;
                             }
                         } else {
                             if (this.fireTick > 0) {
@@ -89,7 +93,8 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                         }
                     } else {
                         this.getNavigation().stop();
-                        this.fireTick = -20;
+                        this.fireCooldown = 100;
+                        this.fireTick = 0;
                         ++this.breathTick;
                         if (this.initial != null) {
                             this.lookAt(EntityAnchorArgument.Anchor.EYES, this.initial);
@@ -222,33 +227,4 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
         target.hurt(ModDamageSource.iceBouquet(this, this), damage);
     }
 
-    public static class WraithBreathingGoal<T extends AbstractBorderWraith> extends BreathingAttackGoal<T>{
-        public AbstractBorderWraith wraith;
-
-        public WraithBreathingGoal(T pLivingEntity, float pRange, int pSeconds, float pFloatChance) {
-            super(pLivingEntity, pRange, pSeconds, pFloatChance);
-            this.wraith = pLivingEntity;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !this.wraith.isFiring();
-        }
-
-        public void start() {
-            super.start();
-            this.wraith.fireTick = -30;
-            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 8);
-            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 100);
-            if (!this.wraith.isSilent()) {
-                this.wraith.level.playSound((Player) null, this.wraith.getX(), this.wraith.getY(), this.wraith.getZ(), ModSounds.WRAITH_PUKE.get(), this.wraith.getSoundSource(), 1.0F, 1.0F);
-                this.wraith.playSound(ModSounds.WRAITH_PUKE.get(), 1.0F, 1.0F);
-            }
-        }
-
-        public void stop() {
-            super.stop();
-            this.wraith.level.broadcastEntityEvent(this.wraith, (byte) 9);
-        }
-    }
 }

@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.boss;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -12,6 +10,8 @@ import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -541,15 +542,21 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             }
         }
 
-        if (pAmount > (float) AttributesConfig.VizierDamageCap.get() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
-            return super.hurt(pSource, (float) AttributesConfig.VizierDamageCap.get());
+        if (this.isSpellcasting() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
+            return super.hurt(pSource, pAmount / 2);
         } else {
-            if (this.isSpellcasting() && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
-                return super.hurt(pSource, pAmount/2);
-            } else {
-                return super.hurt(pSource, pAmount);
-            }
+            return super.hurt(pSource, pAmount);
         }
+    }
+
+    protected void actuallyHurt(DamageSource source, float amount) {
+        if (source.is(DamageTypeTags.BYPASSES_COOLDOWN) || (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != null)) {
+            this.invulnerableTime = 20;
+        }
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
+            amount = Math.min(amount, (float) AttributesConfig.VizierDamageCap.get());
+        }
+        super.actuallyHurt(source, amount);
     }
 
     @Override

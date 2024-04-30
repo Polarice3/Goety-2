@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -8,7 +9,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
@@ -18,6 +21,8 @@ public class ModTags {
         Items.init();
         Paintings.init();
         EntityTypes.init();
+        Biomes.init();
+        GameEvents.init();
     }
 
     public static class Blocks {
@@ -79,6 +84,36 @@ public class ModTags {
 
         private static TagKey<EntityType<?>> create(ResourceLocation p_215874_) {
             return TagKey.create(ForgeRegistries.ENTITY_TYPES.getRegistryKey(), p_215874_);
+        }
+    }
+
+    public static class Biomes {
+        private static void init(){}
+
+        public static final TagKey<Biome> COMMON_BLACKLIST = tag("mob_spawn/common_blacklist");
+        public static final TagKey<Biome> WRAITH_SPAWN = tag("mob_spawn/wraith");
+        public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
+
+        private static TagKey<Biome> tag(String name) {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<Biome> create(ResourceLocation p_215874_) {
+            return TagKey.create(ForgeRegistries.BIOMES.getRegistryKey(), p_215874_);
+        }
+    }
+
+    public static class GameEvents {
+        private static void init(){}
+
+        public static final TagKey<GameEvent> BLOCK_EVENTS = tag("block_events");
+
+        private static TagKey<GameEvent> tag(String name) {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<GameEvent> create(ResourceLocation p_215874_) {
+            return TagKey.create(Registries.GAME_EVENT, p_215874_);
         }
     }
 }

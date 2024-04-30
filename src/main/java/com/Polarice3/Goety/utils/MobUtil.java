@@ -1,17 +1,14 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
-import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
-import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +23,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -35,7 +31,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -58,7 +53,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -758,9 +752,6 @@ public class MobUtil {
             summonedEntity.setTrueOwner(player);
             if (summonedEntity instanceof IServant summoned){
                 summoned.setWandering(false);
-            }
-            if (summonedEntity instanceof RedstoneGolem || summonedEntity instanceof GraveGolem){
-                SEHelper.addSummon(player, mob);
             }
         }
     }

@@ -1,12 +1,12 @@
 package com.Polarice3.Goety.common.magic.spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.projectiles.MagicProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
+import com.Polarice3.Goety.common.entities.projectiles.SpellHurtingProjectile;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -56,7 +56,7 @@ public class SoulBoltSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         SoundEvent soundEvent = ModSounds.CAST_SPELL.get();
-        MagicProjectile soulBolt = new SoulBolt(
+        SpellHurtingProjectile soulBolt = new SoulBolt(
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
                 entityLiving.getZ() + vector3d.z / 2,
@@ -74,6 +74,7 @@ public class SoulBoltSpell extends Spell {
             soundEvent = ModSounds.NECRO_CAST.get();
         }
         if (WandUtil.enchantedFocus(entityLiving)){
+            soulBolt.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
             soulBolt.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));
         }
         soulBolt.setOwner(entityLiving);

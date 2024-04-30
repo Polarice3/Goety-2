@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.client.inventory.container;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAnvilBlock;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;

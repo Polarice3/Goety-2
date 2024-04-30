@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;

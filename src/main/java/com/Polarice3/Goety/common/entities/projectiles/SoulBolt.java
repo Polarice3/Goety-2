@@ -1,15 +1,13 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;
@@ -37,7 +35,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.Map;
 
-public class SoulBolt extends MagicProjectile {
+public class SoulBolt extends SpellHurtingProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(SoulBolt.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
         map.put(0, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_1.png"));
@@ -100,13 +98,12 @@ public class SoulBolt extends MagicProjectile {
             Entity entity1 = this.getOwner();
             boolean flag;
             if (entity1 instanceof LivingEntity livingentity) {
-                if (WandUtil.enchantedFocus(livingentity)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
-                } else if (livingentity instanceof Mob mob){
+                if (livingentity instanceof Mob mob){
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttributeValue(Attributes.ATTACK_DAMAGE) > 0){
                         baseDamage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
                     }
                 }
+                baseDamage += this.getExtraDamage();
                 flag = entity.hurt(entity.damageSources().indirectMagic(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {

@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.client.gui.overlay;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.api.magic.IChargingSpell;
 import com.Polarice3.Goety.common.items.magic.FullSpentTotem;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.TotemFinder;

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)Altar is located in a snowing biome $(br)$(l)OR$()$() $(li)16 Ice Blocks of any type $(li)8 Snow Blocks $(li)4 Freezing Lamps"
+      "text": "要求:$(li)祭坛必须在可以降雪的群系$(br)$(l)或是$()$() $(li)16个任意变种的冰块$(li)8个雪块$(li)4盏极寒冰灯"
     },
     {
       "type": "patchouli:image",

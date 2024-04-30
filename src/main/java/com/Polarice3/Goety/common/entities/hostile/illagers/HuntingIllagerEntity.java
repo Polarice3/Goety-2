@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.entities.ai.StealTotemGoal;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -76,9 +76,9 @@ public abstract class HuntingIllagerEntity extends SpellcasterIllager implements
         }
         for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(8.0D), field_213690_b)) {
             if (this.isRider()){
-                if (entity instanceof Ravager ravagerEntity){
-                    if (!ravagerEntity.isVehicle() && !this.isPassenger()){
-                        this.startRiding(ravagerEntity, true);
+                if (entity instanceof Raider raider && (raider instanceof Ravager || raider instanceof Trampler)){
+                    if (!raider.isVehicle() && !this.isPassenger()){
+                        this.startRiding(raider, true);
                     }
                 }
             }

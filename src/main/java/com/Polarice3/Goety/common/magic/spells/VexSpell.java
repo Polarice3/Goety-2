@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.magic.spells;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -8,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ally.AllyIrk;
 import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Minion;
 import com.Polarice3.Goety.common.magic.SummonSpell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;

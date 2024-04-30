@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.*;
 import com.Polarice3.Goety.common.effects.brew.block.HarvestBlockEffect;
@@ -14,6 +12,8 @@ import com.Polarice3.Goety.common.entities.projectiles.ThrownBrew;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.BrewItem;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BrewUtils;
 import com.Polarice3.Goety.utils.MathHelper;

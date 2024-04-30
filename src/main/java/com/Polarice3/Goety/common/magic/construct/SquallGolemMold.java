@@ -3,7 +3,7 @@ package com.Polarice3.Goety.common.magic.construct;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.SEHelper;

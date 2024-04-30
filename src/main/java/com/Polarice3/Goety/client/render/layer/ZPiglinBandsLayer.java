@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.ZPiglinModel;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;

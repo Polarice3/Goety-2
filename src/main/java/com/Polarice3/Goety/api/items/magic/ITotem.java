@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.api.items.magic;
 
-import com.Polarice3.Goety.MainConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.TotemFinder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;

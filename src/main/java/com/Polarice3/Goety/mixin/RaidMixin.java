@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.mixin;
 
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;

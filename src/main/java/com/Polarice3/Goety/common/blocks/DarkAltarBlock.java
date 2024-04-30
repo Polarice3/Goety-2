@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
+import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -70,6 +72,10 @@ public class DarkAltarBlock extends BaseEntityBlock implements IForgeBlock, Simp
                 } else if (!player.getItemInHand(hand).isEmpty()){
                     return darkAltarTile.activate(world, pos, player, hand,
                             hit.getDirection()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                } else if (player.isCrouching()) {
+                    darkAltarTile.setShowArea(!darkAltarTile.isShowArea());
+                    world.playSound(null, pos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 0.25F, 2.0F);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

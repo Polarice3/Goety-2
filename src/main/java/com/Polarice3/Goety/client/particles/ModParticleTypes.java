@@ -36,6 +36,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> NECRO_BOLT = PARTICLE_TYPES.register("necro_bolt",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> STUN = PARTICLE_TYPES.register("stun",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> SOUL_LIGHT_EFFECT = PARTICLE_TYPES.register("soul_light",
             () -> new SimpleParticleType(false));
 
@@ -169,6 +172,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> REDSTONE_EXPLODE = PARTICLE_TYPES.register("redstone_explode",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> ELECTRIC_EXPLODE = PARTICLE_TYPES.register("electric_explode",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> FAN_CLOUD = PARTICLE_TYPES.register("fan_cloud",

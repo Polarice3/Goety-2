@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.mixin;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

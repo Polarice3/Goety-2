@@ -1,7 +1,5 @@
 package com.Polarice3.Goety.common.items.magic;
 
-import com.Polarice3.Goety.MobsConfig;
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
@@ -14,6 +12,8 @@ import com.Polarice3.Goety.common.magic.spells.void_spells.RecallSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
+import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;

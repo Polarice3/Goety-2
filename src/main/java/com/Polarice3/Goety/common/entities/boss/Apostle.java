@@ -1,9 +1,6 @@
 package com.Polarice3.Goety.common.entities.boss;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
@@ -23,6 +20,9 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.common.network.server.SApostleSmitePacket;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -776,14 +776,17 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             this.deathBlow = pSource;
         }
 
-        return super.hurt(pSource, Math.min(trueAmount, (float) AttributesConfig.ApostleDamageCap.get()));
+        return super.hurt(pSource, trueAmount);
     }
 
-    protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {
-        if (p_21240_.is(DamageTypeTags.BYPASSES_COOLDOWN) || (p_21240_.is(DamageTypes.FELL_OUT_OF_WORLD) && p_21240_.getEntity() != null)) {
+    protected void actuallyHurt(DamageSource source, float amount) {
+        if (source.is(DamageTypeTags.BYPASSES_COOLDOWN) || (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != null)) {
             this.moddedInvul = 20;
         }
-        super.actuallyHurt(p_21240_, p_21241_);
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
+            amount = Math.min(amount, (float) AttributesConfig.ApostleDamageCap.get());
+        }
+        super.actuallyHurt(source, amount);
     }
 
     @Override

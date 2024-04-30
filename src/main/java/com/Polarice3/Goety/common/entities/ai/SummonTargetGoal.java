@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
-import com.Polarice3.Goety.MainConfig;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;

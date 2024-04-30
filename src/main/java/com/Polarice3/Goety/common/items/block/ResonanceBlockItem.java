@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.items.block;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.EntityFinder;

@@ -8,12 +8,16 @@ import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -41,6 +45,26 @@ public class DeathArrow extends Arrow {
 
             if (p_36873_.getHealth() > voidDamage + 1.0F) {
                 p_36873_.heal(-voidDamage);
+            }
+        }
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult p_36757_) {
+        super.onHitEntity(p_36757_);
+        float f = (float)this.getDeltaMovement().length();
+        int i = Mth.ceil(Mth.clamp((double)f * this.getBaseDamage(), 0.0D, 2.147483647E9D));
+        if (this.isCritArrow()) {
+            long j = (long)this.random.nextInt(i / 2 + 2);
+            i = (int)Math.min(j + (long)i, 2147483647L);
+        }
+        Entity entity = p_36757_.getEntity();
+        if (entity instanceof WitherBoss witherBoss){
+            Entity entity1 = this.getOwner();
+            if (entity1 instanceof Apostle apostle) {
+                if (apostle.getTarget() == witherBoss || witherBoss.getTarget() == apostle){
+                    witherBoss.hurt(this.damageSources().indirectMagic(this, apostle), i);
+                }
             }
         }
     }

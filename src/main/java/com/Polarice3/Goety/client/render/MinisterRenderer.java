@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MobsConfig;
 import com.Polarice3.Goety.client.render.model.MinisterModel;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Minister;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.HolidayUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

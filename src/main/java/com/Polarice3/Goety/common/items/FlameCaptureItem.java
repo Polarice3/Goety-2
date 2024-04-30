@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.items;
 
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

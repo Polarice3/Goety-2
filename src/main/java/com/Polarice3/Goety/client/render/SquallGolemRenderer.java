@@ -2,7 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.SquallGolemModel;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

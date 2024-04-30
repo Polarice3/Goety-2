@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
-import com.Polarice3.Goety.AttributesConfig;
 import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,20 @@
 {
   "parent": "goety:goety/read_warred_scroll",
   "criteria": {
+    "summoned_ice": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:ice_golem"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "summoned_squall": {
       "conditions": {
         "entity": [
@@ -60,6 +74,9 @@
     }
   },
   "requirements": [
+    [
+      "summoned_ice"
+    ],
     [
       "summoned_squall"
     ],

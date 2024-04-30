@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 
-import com.Polarice3.Goety.AttributesConfig;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -9,13 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
-
 public class RitualBlockEntity extends BlockEntity {
-    public final List<BlockPos> first = Lists.newArrayList();
-    public final List<BlockPos> second = Lists.newArrayList();
-    public final List<BlockPos> third = Lists.newArrayList();
-
     public RitualBlockEntity(BlockEntityType<?> p_i48289_1_, BlockPos blockPos, BlockState blockState) {
         super(p_i48289_1_, blockPos, blockState);
     }

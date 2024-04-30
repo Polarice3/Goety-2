@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -13,6 +12,7 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.Ritual;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
@@ -93,6 +93,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
     public int currentTime;
     public int structureTime;
     public int convertTime;
+    public boolean showArea;
 
     public DarkAltarBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.DARK_ALTAR.get(), blockPos, blockState);
@@ -159,6 +160,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         this.currentTime = compound.getInt("currentTime");
         this.structureTime = compound.getInt("structureTime");
         this.convertTime = compound.getInt("convertTime");
+        if (compound.contains("showArea")) {
+            this.showArea = compound.getBoolean("showArea");
+        }
     }
 
     @Override
@@ -175,7 +179,18 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         compound.putInt("currentTime", this.currentTime);
         compound.putInt("structureTime", this.structureTime);
         compound.putInt("convertTime", this.convertTime);
+        compound.putBoolean("showArea", this.showArea);
         return compound;
+    }
+
+    public boolean isShowArea(){
+        return this.showArea;
+    }
+
+    public void setShowArea(boolean showArea){
+        this.showArea = showArea;
+        this.setChanged();
+        this.markNetworkDirty();
     }
 
     public void tick() {
@@ -345,6 +360,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 }
                             } else if (ritualRecipe.isConversion() && RitualRequirements.noConvertEntity(ritualRecipe.getEntityToConvert(), pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
+                                return false;
+                            } else if (ritualRecipe.isSummoning() && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())){
                                 return false;
                             } else if (ritualRecipe.getResearch() != null
                                     && ResearchList.getResearch(ritualRecipe.getResearch()) != null){

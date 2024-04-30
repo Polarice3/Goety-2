@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.magic.spells.wild;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -9,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.Wavewhisperer;
 import com.Polarice3.Goety.common.entities.ally.Whisperer;
 import com.Polarice3.Goety.common.magic.SummonSpell;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;

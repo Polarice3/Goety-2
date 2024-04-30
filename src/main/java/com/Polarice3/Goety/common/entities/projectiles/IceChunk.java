@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.SpellConfig;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -15,8 +15,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,13 +29,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 
 public class IceChunk extends SpellEntity {
     private final int distance = 4;
     private boolean isDropping;
     public int hovering = 0;
-    public float extraDamage = 0.0F;
 
     public IceChunk(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
@@ -49,25 +45,21 @@ public class IceChunk extends SpellEntity {
             this.setPos(pTarget.getX(), pTarget.getY() + distance, pTarget.getZ());
         }
         this.setOwner(pOwner);
-        this.setTarget(pTarget);
+        if (!MobUtil.areAllies(pOwner, pTarget)) {
+            this.setTarget(pTarget);
+        }
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.hovering = pCompound.getInt("hovering");
-        this.extraDamage = pCompound.getFloat("extraDamage");
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("hovering", this.hovering);
-        pCompound.putFloat("extraDamage", this.extraDamage);
-    }
-
-    public void setExtraDamage(float extraDamage){
-        this.extraDamage = extraDamage;
     }
 
     private void onHit(HitResult hitResult) {
@@ -97,7 +89,7 @@ public class IceChunk extends SpellEntity {
 
     public void damageTargets(LivingEntity livingEntity){
         float damage = SpellConfig.IceChunkDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-        damage += this.extraDamage;
+        damage += this.getExtraDamage();
         if (livingEntity != null) {
             if (livingEntity.hurt(ModDamageSource.indirectFreeze(this, this.getOwner()), damage)) {
                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.STUNNED.get(), MathHelper.secondsToTicks(2)));
@@ -170,6 +162,9 @@ public class IceChunk extends SpellEntity {
         }
         boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
         this.isDropping = this.hovering > hoverTime;
+        if (this.hovering == hoverTime - 15){
+            this.playSound(ModSounds.ICE_CHUNK_DROP.get(), 1.0F, 1.0F);
+        }
         if (isHovering){
 
              // Ice Chunk Movement code based of @Infamous-Misadventures Dungeon Mobs' Ice Cloud positioning codes.
@@ -234,10 +229,5 @@ public class IceChunk extends SpellEntity {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

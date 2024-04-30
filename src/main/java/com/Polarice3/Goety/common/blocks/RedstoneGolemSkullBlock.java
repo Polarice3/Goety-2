@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.RedstoneGolemSkullBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.RedstoneGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.RedstoneGolem;
 import com.Polarice3.Goety.common.items.block.RedstoneGolemSkullItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

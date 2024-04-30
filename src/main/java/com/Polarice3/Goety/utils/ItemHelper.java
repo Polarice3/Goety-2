@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.ItemConfig;
+import com.Polarice3.Goety.config.ItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

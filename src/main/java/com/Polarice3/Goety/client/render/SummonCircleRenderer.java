@@ -18,11 +18,11 @@ public class SummonCircleRenderer extends EntityRenderer<SummonCircle> {
     private static final ResourceLocation TEXTURES = Goety.location("textures/entity/summon_circle.png");
     private static final ResourceLocation TEXTURES_SPIRIT = Goety.location("textures/entity/summon_circle_spirit.png");
     private static final ResourceLocation TEXTURES_APOSTLE = Goety.location("textures/entity/cultist/apostle_summon_circle.png");
-    private final SummonCircleModel model;
+    private final SummonCircleModel<SummonCircle> model;
 
     public SummonCircleRenderer(EntityRendererProvider.Context p_i46179_1_) {
         super(p_i46179_1_);
-        this.model = new SummonCircleModel(p_i46179_1_.bakeLayer(ModModelLayer.SUMMON_CIRCLE));
+        this.model = new SummonCircleModel<>(p_i46179_1_.bakeLayer(ModModelLayer.SUMMON_CIRCLE));
     }
 
     public void render(SummonCircle entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {

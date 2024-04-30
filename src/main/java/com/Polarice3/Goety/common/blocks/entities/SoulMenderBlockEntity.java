@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
-import com.Polarice3.Goety.MainConfig;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

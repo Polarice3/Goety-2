@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.common.entities.util;
 
-import com.Polarice3.Goety.SpellConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;

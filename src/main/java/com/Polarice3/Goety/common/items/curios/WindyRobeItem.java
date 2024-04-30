@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.ItemConfig;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SEHelper;

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.ResonanceCrystalBlockEntity;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

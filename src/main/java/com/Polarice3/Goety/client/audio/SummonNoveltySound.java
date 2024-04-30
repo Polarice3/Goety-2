@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.audio;
 
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
-import com.Polarice3.Goety.common.entities.ally.SquallGolem;
+import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
