@@ -1,0 +1,47 @@
+{
+  "name": "クモの従者",
+  "icon": "minecraft:cobweb",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "シンプルでありながら貪欲なこれらの巨大な節足動物は、戦闘においては大きな武器となります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "以下のテキストでは、蜘蛛の巣で訓練できるクモの亜種について詳しく説明します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "暗闇の中で見つけられる基本的なスパイダーで、あなたに対してのみ忠実です。 スパイダーにできることは何でもやる。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cave_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "小型で有毒なクモの亜種。 野生のローブを着ていると、これらのクモは通常の毒の代わりに酸毒を与えます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:web_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "野蛮な蜘蛛とは異なり、ウェブ蜘蛛はすぐに敵を攻撃するのではなく、蜘蛛の巣のボールを発射します。攻撃を受けるとしばらく敵を絡め取り、その後高速で敵に向かって突進します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bone_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "骨で覆われたクモで、遠くから敵に骨の破片を発射しますが、ターゲットが近い場合にのみ近接攻撃を行います。"
+    }
+  ]
+}

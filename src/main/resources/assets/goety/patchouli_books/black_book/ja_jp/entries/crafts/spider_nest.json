@@ -5,12 +5,27 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "生肉の周りにクモの卵をたくさん置くと、クモの巣を作ることができます。 巣には、より小さくて無害なクモがいます。周囲にブロックがない場合、巣の周りに定期的にクモの巣を生成します。"
+      "text": "生肉の周りにクモの卵をたくさん置くと、クモの巣を作ることができます。 巣には、より小さくて無害なクモがいます。周囲にブロックがなく、十分に暗い場所にある場合、巣の周りに定期的にクモの巣を生成します。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:spider_nest",
-      "text": "クモの巣は明るい場所ではクモの巣を作りません。 まれに、クモの巣からクモが発生することがあります。"
+      "text": "ネストにも特別な特性があります。 肉を右クリックするかホッパーを使用すると、忠実な $(l:summons/spider_servants)クモの従者$() が生成されます。 $(l:rituals/dark_altar)祭壇$() と同様に、環境に応じて、サーバントは通常のスパイダーとは異なるバリアントとしてスポーンする可能性があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Cave Spider Servants",
+      "text": "必要条件: $(li)巣は廃坑に置く $(br)$(l)OR$()$() $(li)8 ポドゾル $(li)8 任意の種類のキノコ $(li)8 石"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Web Spider Servants",
+      "text": "要件: $(li)16 葉 $(li)8 クモの巣"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Bone Spider Servants",
+      "text": "要件: $(li)巣は地下室 $(br)$(l)OR$()$() $(li)16 個の骨ブロック $(li)4 個のスカルパイル"
     }
   ]
 }

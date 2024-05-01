@@ -1,10 +1,8 @@
 package com.Polarice3.Goety.common.entities.ai;
 
 import com.Polarice3.Goety.api.entities.ICharger;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -53,16 +51,26 @@ public class ChargeGoal extends Goal {
     public boolean canUse() {
         this.chargeTarget = this.charger.getTarget();
 
-        if (this.chargeTarget == null) {
+        if (this.charger.tickCount < this.coolDown){
+            return false;
+        } else if (this.chargeTarget == null) {
             return false;
         } else {
-            double distance = this.charger.distanceTo(this.chargeTarget);
+            double distance = this.charger.distanceToSqr(this.chargeTarget);
             if (distance < this.minRange || distance > this.maxRange) {
                 return false;
             } else if (!this.charger.isOnGround()) {
                 return false;
             } else {
-                return this.charger.getRandom().nextInt(this.chance + 1) == 0 && this.charger.tickCount >= this.coolDown;
+                Vec3 chargePos = findChargePoint(this.charger, this.chargeTarget);
+                boolean canSeeTarget = this.charger.getSensing().hasLineOfSight(this.chargeTarget);
+                if (!canSeeTarget) {
+                    return false;
+                } else {
+                    this.chargePos = chargePos;
+
+                    return this.charger.getRandom().nextInt(this.chance + 1) == 0;
+                }
             }
         }
     }
@@ -75,32 +83,22 @@ public class ChargeGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.windup > -20 && !this.hasAttacked && !this.charger.getNavigation().isDone();
+        return this.windup > 0 || !this.charger.getNavigation().isDone();
     }
 
     @Override
     public void tick() {
-        if (this.chargePos != null) {
-            this.charger.getLookControl().setLookAt(this.chargePos.x(), this.chargePos.y() - 1, this.chargePos.z(), 10.0F, this.charger.getMaxHeadXRot());
-        }
+        this.charger.getLookControl().setLookAt(this.chargePos.x(), this.chargePos.y() - 1, this.chargePos.z(), 10.0F, this.charger.getMaxHeadXRot());
 
-        --this.windup;
-        if (this.windup <= 0) {
-            this.charger.getNavigation().moveTo(this.chargePos.x(), this.chargePos.y(), this.chargePos.z(), this.speed);
-        } else {
-            Vec3 chargePos = findChargePoint(this.charger, this.chargeTarget);
-            boolean canSeeTarget = this.charger.getSensing().hasLineOfSight(this.chargeTarget);
-            if (!canSeeTarget) {
-                this.stop();
+        if (this.windup > 0) {
+            if (--this.windup == 0) {
+                this.charger.getNavigation().moveTo(this.chargePos.x(), this.chargePos.y(), this.chargePos.z(), this.speed);
             } else {
-                this.chargePos = chargePos;
-            }
-            this.charger.addEffect(new MobEffectInstance(GoetyEffects.TANGLED.get(), 20, 0, false, false));
-            if (this.charger instanceof ICharger chargeMob) {
-                chargeMob.setCharging(true);
+                if (this.charger instanceof ICharger chargeMob) {
+                    chargeMob.setCharging(true);
+                }
             }
         }
-
         if (this.charger.distanceToSqr(this.chargeTarget.getX(), this.chargeTarget.getY(), this.chargeTarget.getZ()) <= this.getAttackReachSqr(this.chargeTarget)) {
             if (!this.hasAttacked) {
                 this.hasAttacked = true;

@@ -1,0 +1,15 @@
+{
+  "name": "感電のフォーカス",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は電気の球を発射し、有効な実体を見て詠唱すると、その実体や固体の物体に当たる前にターゲットを追跡します。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}

@@ -1843,12 +1843,12 @@
   "subtitle.goety.redstone_cube_walk": "レッドストーンキューブがロール",
   "subtitle.goety.redstone_cube_attack": "レッドストーンキューブが攻撃",
   "subtitle.goety.ice_chunk_drop": "氷の塊をドロップ",
-  "advancements.goety.summon_redstone_monstrosity.title": "Forged In Fire",
-  "advancements.goety.summon_redstone_monstrosity.description": "Summon a Redstone Monstrosity with an Animation Core.",
-  "item.goety.redstone_monstrosity_spawn_egg": "Redstone Monstrosity Spawn Egg (NYI)",
-  "item.goety.redstone_cube_spawn_egg": "Redstone Cube Spawn Egg",
-  "item.goety.spider_servant_spawn_egg": "Spider Servant Spawn Egg",
-  "item.goety.cave_spider_servant_spawn_egg": "Cave Spider Servant Spawn Egg",
-  "item.goety.web_spider_servant_spawn_egg": "Web Spider Servant Spawn Egg",
-  "item.goety.bone_spider_servant_spawn_egg": "Bone Spider Servant Spawn Egg"
+  "advancements.goety.summon_redstone_monstrosity.title": "炎の中で鍛造",
+  "advancements.goety.summon_redstone_monstrosity.description": "アニメーションコアを備えたレッドストーンの怪物を召喚する。",
+  "item.goety.redstone_monstrosity_spawn_egg": "レッドストーンの怪物のスポーンエッグ（NYI）",
+  "item.goety.redstone_cube_spawn_egg": "レッドストーンキューブのスポーンエッグ",
+  "item.goety.spider_servant_spawn_egg": "クモの従者のスポーンエッグ",
+  "item.goety.cave_spider_servant_spawn_egg": "洞窟クモの従者のスポーンエッグ",
+  "item.goety.web_spider_servant_spawn_egg": "ウェブクモの従者のスポーンエッグ",
+  "item.goety.bone_spider_servant_spawn_egg": "骨クモの従者のスポーンエッグ"
 }
