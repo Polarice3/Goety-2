@@ -421,8 +421,8 @@ public class AttributesConfig {
                         .defineInRange("redstoneMonstrosityFollowRange", 32.0, 1.0, 2048.0D);
                 RedstoneMonstrosityHPPercentDamage = BUILDER.comment("Redstone Monstrosities attack HP percent damage, Default: 0.08")
                         .defineInRange("redstoneMonstrosityHPPercentDamage", 0.08, 0.0, 1.0);
-                RedstoneMonstrosityDamageCap = BUILDER.comment("The maximum amount of damage an Redstone Monstrosities can attain per hit, Default: 50.0")
-                        .defineInRange("redstoneMonstrosityDamageCap", 50.0D, 1.0D, Double.MAX_VALUE);
+                RedstoneMonstrosityDamageCap = BUILDER.comment("The maximum amount of damage an Redstone Monstrosities can attain per hit, Default: 25.0")
+                        .defineInRange("redstoneMonstrosityDamageCap", 25.0D, 1.0D, Double.MAX_VALUE);
                 RedstoneCubeHealth = BUILDER.comment("How much Max Health Redstone Cubes have, Default: 10.0")
                         .defineInRange("redstoneCubeHealth", 10.0, 1.0, Double.MAX_VALUE);
                 RedstoneCubeArmor = BUILDER.comment("How much natural armor points Redstone Cubes have, Default: 0.0")
