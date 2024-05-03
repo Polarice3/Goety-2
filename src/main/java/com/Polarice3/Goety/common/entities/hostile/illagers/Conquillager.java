@@ -152,7 +152,7 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         RandomSource randomsource = p_33282_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_33283_);
         this.populateDefaultEquipmentEnchantments(randomsource, p_33283_);
-        if (p_33284_ == MobSpawnType.EVENT || p_33284_ == MobSpawnType.PATROL) {
+        if (p_33284_ == MobSpawnType.EVENT) {
             if (p_33282_.getLevel().random.nextFloat() <= 0.25F && !this.isPassenger()) {
                 Trampler trampler = new Trampler(ModEntityType.TRAMPLER.get(), p_33282_.getLevel());
                 trampler.finalizeSpawn(p_33282_, p_33282_.getLevel().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.EVENT, null, null);

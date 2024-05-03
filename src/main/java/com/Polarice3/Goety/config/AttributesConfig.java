@@ -31,6 +31,8 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> PikerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> PikerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> PikerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> TramplerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> TramplerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> CrusherHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> CrusherDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> StormCasterHealth;
@@ -191,6 +193,12 @@ public class AttributesConfig {
                         .defineInRange("pikerArmor", 4.0, 1.0, Double.MAX_VALUE);
                 PikerDamage = BUILDER.comment("How much damage Pikers deals, Default: 9.0")
                         .defineInRange("pikerDamage", 9.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Trampler");
+                TramplerHealth = BUILDER.comment("How much Max Health Tramplers have, Default: 30.0")
+                        .defineInRange("tramplerHealth", 30.0, 1.0, Double.MAX_VALUE);
+                TramplerDamage = BUILDER.comment("How much damage Tramplers deals, Default: 6.0")
+                        .defineInRange("tramplerDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Crusher");
                 CrusherHealth = BUILDER.comment("How much Max Health Crushers have, Default: 24.0")

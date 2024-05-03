@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
@@ -211,6 +212,15 @@ public class LichEvents {
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+                if (LichdomHelper.isInLichMode(player)){
+                    if (player.isAlive()){
+                        if (event.getAmount() > 0.0F){
+                            if (!player.level.isClientSide){
+                                player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.LICH_HURT.get(), player.getSoundSource(), 1.0F, player.getVoicePitch());
                             }
                         }
                     }

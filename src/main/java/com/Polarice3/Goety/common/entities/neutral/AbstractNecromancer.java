@@ -1,7 +1,5 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.config.AttributesConfig;
-import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -15,6 +13,8 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.SoulJar;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -335,10 +335,6 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         for (AnimationState animationState : this.getAnimations()){
             animationState.stop();
         }
-    }
-
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
     public void tick() {

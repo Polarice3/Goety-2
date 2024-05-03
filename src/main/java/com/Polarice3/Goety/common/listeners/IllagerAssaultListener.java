@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.listeners;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.events.IllagerSpawner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,18 +30,22 @@ public class IllagerAssaultListener extends SimpleJsonResourceReloadListener {
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("entity_type").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
-            if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation)) {
-                continue;
-            }
-            if (ILLAGER_LIST.containsKey(resourceLocation)) {
-                Goety.LOGGER.info("entity with registry name: " + name + " already has an entry. Overwriting.");
-            }
             JsonObject data = object.getAsJsonObject("registry");
             float thresholdTimes = data.getAsJsonPrimitive("threshold_times").getAsFloat();
             int max = data.getAsJsonPrimitive("max").getAsInt();
             int extra = data.getAsJsonPrimitive("extra").getAsInt();
             float chance = data.getAsJsonPrimitive("chance").getAsFloat();
-            ILLAGER_LIST.put(resourceLocation, new IllagerSpawner.IllagerDataType(thresholdTimes, max, extra, chance));
+            JsonObject data2 = data.getAsJsonObject("riding");
+            ResourceLocation resourceLocation1 = null;
+            float chance2 = 0.0F;
+            if (data2 != null) {
+                resourceLocation1 = new ResourceLocation(data2.getAsJsonPrimitive("mount_type").getAsString());
+                if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation1)) {
+                    resourceLocation1 = null;
+                }
+                chance2 = data2.getAsJsonPrimitive("ride_chance").getAsFloat();
+            }
+            ILLAGER_LIST.put(location, new IllagerSpawner.IllagerDataType(resourceLocation, thresholdTimes, max, extra, chance, resourceLocation1, chance2));
         }
     }
 }

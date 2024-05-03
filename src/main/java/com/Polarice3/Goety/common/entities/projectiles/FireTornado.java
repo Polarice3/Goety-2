@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;

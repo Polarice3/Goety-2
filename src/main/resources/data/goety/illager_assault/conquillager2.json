@@ -6,7 +6,7 @@
     "extra": 0,
     "chance": 0.5,
     "riding": {
-      "mount_type": "minecraft:ravager",
+      "mount_type": "goety:trampler",
       "ride_chance": 0.25
     }
   }

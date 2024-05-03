@@ -1,11 +1,11 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;

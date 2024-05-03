@@ -1,13 +1,13 @@
 {
   "entity_type": "goety:piker",
   "registry": {
-    "threshold_times": 2,
-    "max": 5,
-    "extra": 3,
-    "chance": 1.0,
+    "threshold_times": 3,
+    "max": 3,
+    "extra": 0,
+    "chance": 0.5,
     "riding": {
       "mount_type": "goety:trampler",
-      "ride_chance": 0.25
+      "ride_chance": 1.0
     }
   }
 }

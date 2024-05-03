@@ -336,10 +336,6 @@ public class Whisperer extends Summoned{
         this.level.broadcastEntityEvent(this, (byte) 5);
     }
 
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     public Vec3 getHorizontalLeftLookAngle() {
         return MobUtil.calculateViewVector(0, this.getYRot() - 90);
     }

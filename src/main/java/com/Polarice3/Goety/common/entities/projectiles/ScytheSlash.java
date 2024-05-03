@@ -1,10 +1,10 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;

@@ -170,6 +170,7 @@
   "entity.goety.death_arrow":"Death Arrow",
   "entity.goety.harpoon":"Harpoon",
   "entity.goety.poison_quill":"Poison Quill",
+  "entity.goety.bone_shard":"Bone Shard",
   "entity.goety.brew": "Witch's Brew",
   "entity.goety.scythe":"Scythe Slash",
   "entity.goety.soul_bullet":"Soul Bullet",
@@ -365,6 +366,7 @@
   "item.goety.front_scroll": "Front Scroll",
   "item.goety.mistral_scroll": "Mistral Scroll",
   "item.goety.floral_scroll": "Floral Scroll",
+  "item.goety.terminus_scroll": "Terminus Scroll",
 
   "item.goety.forbidden_piece": "Forbidden Piece",
   "item.goety.forbidden_fragment": "Forbidden Fragment",

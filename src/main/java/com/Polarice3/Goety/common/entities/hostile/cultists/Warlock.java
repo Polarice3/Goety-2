@@ -199,7 +199,7 @@ public class Warlock extends Cultist implements RangedAttackMob {
             damage = 0.0F;
         }
 
-        if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
+        if (damageSource.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
             damage *= 0.15F;
         }
 

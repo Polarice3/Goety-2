@@ -48,9 +48,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.NodeEvaluator;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
@@ -107,6 +110,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
         this.moveControl = new SlowRotMoveControl(this);
     }
 
@@ -459,12 +463,27 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
             if (this.activateTick == 1){
                 this.playSound(ModSounds.REDSTONE_MONSTROSITY_AWAKEN.get(), 10.0F, 1.0F);
             }
+            if (this.activateTick == 40){
+                CameraShake.cameraShake(this.level, this.position(), 40.0F, 0.5F, 0, 20);
+            }
             if (this.activateTick > MathHelper.secondsToTicks(3.25F)){
                 this.setPose(Pose.STANDING);
             }
         }
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
+                if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                    boolean flag = false;
+                    AABB aabb = this.getBoundingBox().inflate(0.2D);
+
+                    for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                        BlockState blockstate = this.level.getBlockState(blockpos);
+                        Block block = blockstate.getBlock();
+                        if (block instanceof LeavesBlock) {
+                            flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                        }
+                    }
+                }
                 if (!this.isMeleeAttacking() && !this.isBelching() && !this.isSummoning()) {
                     if (this.isMoving()) {
                         this.setAnimationState(WALK);
@@ -917,8 +936,11 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
             bomb.setXRot(bomb.getXRot() - -20.0F);
             bomb.moveTo(this.mob.getX(), this.mob.getY() + 4.5D, this.mob.getZ());
             float velocity = 1.0F;
-            if (this.mob.getTarget() != null && this.mob.targetClose(this.mob.getTarget())){
-                velocity = 0.5F;
+            if (this.mob.getTarget() != null){
+                LivingEntity livingEntity = this.mob.getTarget();
+                if (livingEntity.distanceTo(this.mob) <= 13.0F){
+                    velocity = livingEntity.distanceTo(this.mob) / 13.0F;
+                }
             }
             this.shoot(bomb, d1, d2 + d4, d3, velocity, 30);
             return bomb;

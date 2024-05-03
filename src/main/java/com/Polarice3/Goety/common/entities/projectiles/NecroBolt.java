@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;

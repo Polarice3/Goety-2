@@ -4,6 +4,10 @@
     "threshold_times": 3,
     "max": 5,
     "extra": 0,
-    "chance": 1.0
+    "chance": 0.5,
+    "riding": {
+      "mount_type": "minecraft:ravager",
+      "ride_chance": 0.25
+    }
   }
 }

@@ -14,6 +14,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
@@ -83,26 +84,28 @@ public class IllagerSpawner {
                                     return 0;
                                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()) {
                                     int i1 = 0;
-                                    for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES.getValues()){
-                                        IllagerDataType data = IllagerAssaultListener.ILLAGER_LIST.get(ForgeRegistries.ENTITY_TYPES.getKey(entityType));
+                                    for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
                                         if (data != null){
-                                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
-                                                ++i1;
-                                                int cost = (int) (soulEnergy / data.thresholdTimes);
-                                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
-                                                int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
-                                                for (int k1 = 0; k1 < randomTotal; ++k1) {
-                                                    blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                                    if (k1 == 0) {
-                                                        if (!this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
-                                                            break;
+                                            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(data.raider);
+                                            if (entityType != null) {
+                                                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
+                                                    ++i1;
+                                                    int cost = (int) (soulEnergy / data.thresholdTimes);
+                                                    int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
+                                                    int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
+                                                    for (int k1 = 0; k1 < randomTotal; ++k1) {
+                                                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                                                        if (k1 == 0) {
+                                                            if (!this.spawnRaider(data, entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                                                break;
+                                                            }
+                                                        } else {
+                                                            this.spawnRaider(data, entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                                                         }
-                                                    } else {
-                                                        this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
-                                                    }
 
-                                                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                                                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                                                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                                                    }
                                                 }
                                             }
                                         }
@@ -129,7 +132,7 @@ public class IllagerSpawner {
         }
     }
 
-    public boolean spawnRaider(EntityType<?> entityType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
+    public boolean spawnRaider(IllagerDataType dataType, EntityType<?> entityType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
         BlockState blockstate = worldIn.getBlockState(pos);
         if (entityType == null){
             return false;
@@ -153,6 +156,20 @@ public class IllagerSpawner {
                     illager.setTarget(player);
                 }
                 this.upgradeIllagers(illager, soulAmount);
+                if (dataType.riding != null){
+                    if (worldIn.random.nextFloat() <= dataType.rideChance){
+                        EntityType<?> entityType1 = ForgeRegistries.ENTITY_TYPES.getValue(dataType.riding);
+                        if (entityType1 != null){
+                            Entity entity1 = entityType1.create(worldIn);
+                            if (entity1 instanceof PathfinderMob mount) {
+                                mount.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+                                ForgeEventFactory.onFinalizeSpawn(mount, worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
+                                illager.startRiding(mount);
+                                worldIn.addFreshEntityWithPassengers(mount);
+                            }
+                        }
+                    }
+                }
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;
             }
@@ -215,25 +232,27 @@ public class IllagerSpawner {
                     ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()){
-                    for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES.getValues()){
-                        IllagerDataType data = IllagerAssaultListener.ILLAGER_LIST.get(ForgeRegistries.ENTITY_TYPES.getKey(entityType));
+                    for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
                         if (data != null){
-                            if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
-                                int cost = (int) (soulEnergy / data.thresholdTimes);
-                                int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
-                                int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
-                                for (int k1 = 0; k1 < randomTotal; ++k1) {
-                                    blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
-                                    if (k1 == 0) {
-                                        if (!this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
-                                            break;
+                            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(data.raider);
+                            if (entityType != null) {
+                                if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
+                                    int cost = (int) (soulEnergy / data.thresholdTimes);
+                                    int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
+                                    int randomTotal = pLevel.random.nextInt(total) + data.initExtraAmount;
+                                    for (int k1 = 0; k1 < randomTotal; ++k1) {
+                                        blockpos$mutable.setY(pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY());
+                                        if (k1 == 0) {
+                                            if (!this.spawnRaider(data, entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer)) {
+                                                break;
+                                            }
+                                        } else {
+                                            this.spawnRaider(data, entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
                                         }
-                                    } else {
-                                        this.spawnRaider(entityType, pLevel, blockpos$mutable, random, soulEnergy, pPlayer);
-                                    }
 
-                                    blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                                    blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                                        blockpos$mutable.setX(blockpos$mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                                        blockpos$mutable.setZ(blockpos$mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                                    }
                                 }
                             }
                         }
@@ -255,16 +274,22 @@ public class IllagerSpawner {
     }
 
     public static class IllagerDataType{
+        public ResourceLocation raider;
         public float thresholdTimes;
         public int maxExtraAmount;
         public int initExtraAmount;
         public float chance;
+        public ResourceLocation riding;
+        public float rideChance;
 
-        public IllagerDataType(float thresholdTimes, int maxExtraAmount, int initExtraAmount, float chance) {
+        public IllagerDataType(ResourceLocation raider, float thresholdTimes, int maxExtraAmount, int initExtraAmount, float chance, ResourceLocation riding, float rideChance) {
+            this.raider = raider;
             this.thresholdTimes = thresholdTimes;
             this.maxExtraAmount = maxExtraAmount;
             this.initExtraAmount = initExtraAmount;
             this.chance = chance;
+            this.riding = riding;
+            this.rideChance = rideChance;
         }
     }
 

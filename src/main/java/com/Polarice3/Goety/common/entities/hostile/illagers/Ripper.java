@@ -132,7 +132,7 @@ public class Ripper extends Raider {
     public void readAdditionalSaveData(CompoundTag p_37862_) {
         super.readAdditionalSaveData(p_37862_);
         this.bitingTick = p_37862_.getInt("BitingTick");
-        this.setRipperSize(p_37862_.getInt("Size"));
+        this.setRipperSize(p_37862_.getInt("Size"), false);
         if (p_37862_.contains("BabyKiller", 99)) {
             this.isBabyKiller = p_37862_.getBoolean("BabyKiller");
         }
@@ -154,8 +154,11 @@ public class Ripper extends Raider {
         return entitydimensions.scale(f);
     }
 
-    public void setRipperSize(int p_33109_) {
-        this.entityData.set(ID_SIZE, Mth.clamp(p_33109_, -16, 64));
+    public void setRipperSize(int size, boolean health) {
+        this.entityData.set(ID_SIZE, Mth.clamp(size, -16, 64));
+        if (health) {
+            this.setHealth(this.getMaxHealth());
+        }
     }
 
     private void updateRipperSizeInfo() {
@@ -445,9 +448,9 @@ public class Ripper extends Raider {
             if (spawnChance != null) {
                 spawnChance.addPermanentModifier(new AttributeModifier("Leader Ripper bonus", this.random.nextDouble() * 0.25D + 0.5D, AttributeModifier.Operation.ADDITION));
             }
-            this.setRipperSize(2);
+            this.setRipperSize(2, true);
         } else {
-            this.setRipperSize(this.random.nextIntBetweenInclusive(-1, 1));
+            this.setRipperSize(this.random.nextIntBetweenInclusive(-1, 1), true);
         }
     }
 
