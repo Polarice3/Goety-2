@@ -201,10 +201,6 @@ public class VanguardServant extends AbstractSkeletonServant {
         }
     }
 
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     public void tick() {
         super.tick();
         if (this.level.isClientSide){

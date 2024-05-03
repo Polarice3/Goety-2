@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
@@ -14,6 +12,8 @@ import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;

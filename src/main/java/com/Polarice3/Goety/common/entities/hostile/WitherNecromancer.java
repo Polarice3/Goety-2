@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -12,6 +10,8 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.Volcano;
 import com.Polarice3.Goety.common.entities.projectiles.HellBolt;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;

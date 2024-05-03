@@ -31,30 +31,29 @@ public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends Hie
 		PartDefinition upper = monstrosity.addOrReplaceChild("upper", CubeListBuilder.create(), PartPose.offset(0.0F, -36.0F, 0.0F));
 
 		PartDefinition body = upper.addOrReplaceChild("body", CubeListBuilder.create().texOffs(1, 52).addBox(-37.0F, -57.0F, -14.5F, 74.0F, 57.0F, 30.0F, new CubeDeformation(0.0F))
-		.texOffs(179, 41).addBox(-14.0F, -51.0F, 15.5F, 28.0F, 16.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(179, 41).addBox(-14.0F, -51.0F, 15.5F, 28.0F, 16.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition head = upper.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, -28.0F, -15.0F));
 
 		PartDefinition top = head.addOrReplaceChild("top", CubeListBuilder.create().texOffs(0, 0).addBox(-14.0F, -25.0F, -20.0F, 28.0F, 31.0F, 21.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 
 		PartDefinition right_horn = top.addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(196, 0).addBox(-7.25F, 0.5F, -6.5F, 20.0F, 13.0F, 13.0F, new CubeDeformation(0.0F))
-		.texOffs(262, 0).addBox(-7.25F, -14.5F, -6.5F, 9.0F, 15.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(-26.75F, -23.5F, -8.5F));
+				.texOffs(262, 0).addBox(-7.25F, -14.5F, -6.5F, 9.0F, 15.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(-26.75F, -23.5F, -8.5F));
 
-		PartDefinition left_horn = top.addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(306, 0).addBox(-1.75F, -14.5F, -6.5F, 9.0F, 15.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(26.75F, -23.5F, -8.5F));
-
-		PartDefinition cube_r1 = left_horn.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(196, 0).addBox(-10.0F, -6.5F, -6.5F, 20.0F, 13.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.75F, 7.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
+		PartDefinition left_horn = top.addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(446, 0).addBox(-12.75F, 0.5F, -6.5F, 20.0F, 13.0F, 13.0F, new CubeDeformation(0.0F))
+				.texOffs(306, 0).addBox(-1.75F, -14.5F, -6.5F, 9.0F, 15.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(26.75F, -23.5F, -8.5F));
 
 		PartDefinition eyes = top.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(0, 14).addBox(-14.0F, -6.0F, -20.5F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 14).addBox(10.25F, -6.0F, -20.5F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 18).addBox(-2.0F, -9.0F, -20.5F, 6.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(0, 14).addBox(10.25F, -6.0F, -20.5F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 18).addBox(-2.0F, -9.0F, -20.5F, 6.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition bottom = head.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(98, 0).addBox(-14.0F, 0.0F, -20.0F, 28.0F, 10.0F, 21.0F, new CubeDeformation(0.0F))
-		.texOffs(77, 31).addBox(-14.0F, 7.0F, -20.0F, 28.0F, 0.0F, 21.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.0F));
+				.texOffs(77, 31).addBox(-14.0F, 7.0F, -20.0F, 28.0F, 0.0F, 21.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 
 		PartDefinition right_arm = upper.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-38.0F, -44.0F, -0.5F));
 
 		PartDefinition right_shoulder = right_arm.addOrReplaceChild("right_shoulder", CubeListBuilder.create().texOffs(257, 28).addBox(-36.0F, -12.0F, -13.5F, 37.0F, 23.0F, 27.0F, new CubeDeformation(0.0F))
-		.texOffs(358, 0).addBox(-19.0F, -35.0F, -13.5F, 20.0F, 23.0F, 27.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 8.0F, 0.0F));
+				.texOffs(358, 0).addBox(-19.0F, -35.0F, -13.5F, 20.0F, 23.0F, 27.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 8.0F, 0.0F));
 
 		PartDefinition right_middle = right_shoulder.addOrReplaceChild("right_middle", CubeListBuilder.create().texOffs(209, 78).addBox(-11.0F, 3.0F, -13.0F, 22.0F, 22.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(-18.0F, 8.0F, 4.5F));
 
@@ -69,7 +68,7 @@ public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends Hie
 		PartDefinition left_arm = upper.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(38.0F, -44.0F, 0.0F));
 
 		PartDefinition left_shoulder = left_arm.addOrReplaceChild("left_shoulder", CubeListBuilder.create().texOffs(285, 78).addBox(-1.0F, -12.0F, -13.5F, 37.0F, 23.0F, 27.0F, new CubeDeformation(0.0F))
-		.texOffs(386, 50).addBox(-1.0F, -35.0F, -13.5F, 20.0F, 23.0F, 27.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 8.0F, -0.5F));
+				.texOffs(386, 50).addBox(-1.0F, -35.0F, -13.5F, 20.0F, 23.0F, 27.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 8.0F, -0.5F));
 
 		PartDefinition left_middle = left_shoulder.addOrReplaceChild("left_middle", CubeListBuilder.create().texOffs(209, 78).mirror().addBox(-11.0F, 3.0F, -13.0F, 22.0F, 22.0F, 16.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(17.0F, 8.0F, 4.5F));
 

@@ -330,6 +330,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_SPIT = create("spider_spit");
     public static final RegistryObject<SoundEvent> SPIDER_WEB = create("spider_web");
 
+    public static final RegistryObject<SoundEvent> LICH_HURT = create("lich_hurt");
+
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
     public static final RegistryObject<SoundEvent> DIRT_DEBRIS = create("dirt_debris");

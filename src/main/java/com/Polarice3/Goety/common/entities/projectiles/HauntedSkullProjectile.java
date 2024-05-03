@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.render.HauntedSkullTextures;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -8,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.BoneLord;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

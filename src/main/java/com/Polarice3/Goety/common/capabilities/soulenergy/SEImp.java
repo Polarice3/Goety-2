@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.capabilities.soulenergy;
 
-import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.common.research.Research;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;

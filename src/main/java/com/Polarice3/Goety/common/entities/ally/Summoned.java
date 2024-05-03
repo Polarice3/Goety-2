@@ -464,6 +464,10 @@ public class Summoned extends Owned implements IServant {
         }
     }
 
+    public boolean isMoving() {
+        return this.animationSpeed > 1.0E-5F;
+    }
+
     public static class FollowOwnerGoal extends Goal {
         private final Summoned summonedEntity;
         private LivingEntity owner;

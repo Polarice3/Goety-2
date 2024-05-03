@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;

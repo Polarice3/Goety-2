@@ -47,10 +47,6 @@ public abstract class AbstractGolemServant extends Summoned {
         return false;
     }
 
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     public abstract double getAttackReachSqr(LivingEntity enemy);
 
     public boolean targetClose(LivingEntity enemy, double distToEnemySqr){

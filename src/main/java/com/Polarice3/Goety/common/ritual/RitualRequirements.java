@@ -72,7 +72,7 @@ public class RitualRequirements {
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){

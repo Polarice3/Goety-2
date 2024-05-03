@@ -194,7 +194,7 @@ public class Piker extends HuntingIllagerEntity{
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance instance, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag compoundTag) {
         SpawnGroupData spawnGroupData = super.finalizeSpawn(accessor, instance, spawnType, groupData, compoundTag);
-        if (spawnType == MobSpawnType.EVENT || spawnType == MobSpawnType.PATROL) {
+        if (spawnType == MobSpawnType.EVENT) {
             if (accessor.getLevel().random.nextFloat() <= 0.25F && !this.isPassenger()) {
                 Trampler trampler = new Trampler(ModEntityType.TRAMPLER.get(), accessor.getLevel());
                 trampler.finalizeSpawn(accessor, accessor.getLevel().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.EVENT, null, null);

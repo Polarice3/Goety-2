@@ -1,9 +1,9 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.common.entities.hostile.Irk;
 import com.Polarice3.Goety.common.entities.projectiles.SwordProjectile;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.EntityFinder;
@@ -109,7 +109,9 @@ public class VizierClone extends SpellcasterIllager {
                         }
                     }
                     this.setDeltaMovement(vector3d);
-                    MobUtil.instaLook(this, this.getTarget());
+                    if (this.getTarget() != null) {
+                        MobUtil.instaLook(this, this.getTarget());
+                    }
                 }
             }
         }
@@ -361,11 +363,17 @@ public class VizierClone extends SpellcasterIllager {
         }
 
         public boolean canUse() {
-            return VizierClone.this.getOwner() != null && VizierClone.this.getOwner().getTarget() != null && this.canAttack(VizierClone.this.getOwner().getTarget(), this.copyOwnerTargeting);
+            return VizierClone.this.getOwner() != null
+                    && VizierClone.this.getOwner().getTarget() != null
+                    && this.canAttack(VizierClone.this.getOwner().getTarget(), this.copyOwnerTargeting);
         }
 
         public void start() {
-            VizierClone.this.setTarget(VizierClone.this.getOwner().getTarget());
+            if (VizierClone.this.getOwner() != null
+                    && VizierClone.this.getOwner().getTarget() != null
+                    && this.canAttack(VizierClone.this.getOwner().getTarget(), this.copyOwnerTargeting)) {
+                VizierClone.this.setTarget(VizierClone.this.getOwner().getTarget());
+            }
             super.start();
         }
     }

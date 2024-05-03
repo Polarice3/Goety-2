@@ -4,6 +4,6 @@
     "threshold_times": 2,
     "max": 3,
     "extra": 0,
-    "chance": 1.0
+    "chance": 0.25
   }
 }

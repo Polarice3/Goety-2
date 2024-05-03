@@ -311,10 +311,6 @@ public class Leapleaf extends Summoned{
         return false;
     }
 
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     @Override
     public boolean canBeCollidedWith() {
         return this.isAlive() && this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.5D)).stream().noneMatch(living -> living == this.getTrueOwner() && CuriosFinder.hasWildRobe(living));

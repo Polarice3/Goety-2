@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -10,6 +8,8 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;

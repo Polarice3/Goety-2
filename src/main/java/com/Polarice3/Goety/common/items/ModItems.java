@@ -123,6 +123,7 @@ public class ModItems {
     public static final RegistryObject<Item> FRONT_SCROLL = ITEMS.register("front_scroll", () -> new Scroll(ResearchList.FRONT));
     public static final RegistryObject<Item> MISTRAL_SCROLL = ITEMS.register("mistral_scroll", () -> new Scroll(ResearchList.MISTRAL));
     public static final RegistryObject<Item> FLORAL_SCROLL = ITEMS.register("floral_scroll", () -> new Scroll(ResearchList.FLORAL));
+    public static final RegistryObject<Item> TERMINUS_SCROLL = ITEMS.register("terminus_scroll", () -> new Scroll(ResearchList.TERMINUS));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
 
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);

@@ -3819,6 +3819,22 @@
     ],
     "subtitle": "subtitle.goety.spider_web"
   },
+  "lich_hurt": {
+    "sounds": [
+      {
+        "name": "goety:lich/hurt1"
+      },
+      {
+        "name": "goety:lich/hurt2"
+      },
+      {
+        "name": "goety:lich/hurt3"
+      },
+      {
+        "name": "goety:lich/hurt4"
+      }
+    ]
+  },
   "ghast_disappear": {
     "sounds": [
       {
