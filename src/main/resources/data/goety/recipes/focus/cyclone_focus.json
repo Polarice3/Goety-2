@@ -1,0 +1,33 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:wind_core"
+  },
+  "craftType": "sky",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:minecart"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    }
+  ],
+  "result": {
+    "item": "goety:cyclone_focus"
+  }
+}

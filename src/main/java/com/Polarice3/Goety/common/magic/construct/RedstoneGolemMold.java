@@ -253,8 +253,8 @@ public class RedstoneGolemMold implements IMold {
                         if (conditionsMet(level, player)) {
                             RedstoneGolem redstoneGolem1 = ModEntityType.REDSTONE_GOLEM.get().create(level);
                             if (redstoneGolem1 != null) {
-                                redstoneGolem1.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(redstoneGolem1.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 redstoneGolem1.setTrueOwner(player);
+                                redstoneGolem1.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(redstoneGolem1.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 redstoneGolem1.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                                 if (level.addFreshEntity(redstoneGolem1)) {
                                     removeBlocks(level, blockPos);

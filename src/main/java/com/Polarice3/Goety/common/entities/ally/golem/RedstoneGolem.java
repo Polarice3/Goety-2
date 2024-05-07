@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -49,6 +50,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -557,16 +559,30 @@ public class RedstoneGolem extends AbstractGolemServant {
         return true;
     }
 
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
-            Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if ((item == Items.REDSTONE_BLOCK || item == Items.REDSTONE) && this.getHealth() < this.getMaxHealth()) {
+                if ((itemstack.is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get().asItem())
+                        || itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                        || itemstack.is(Tags.Items.DUSTS_REDSTONE))
+                        && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    if (item == Items.REDSTONE_BLOCK){
+                    if (itemstack.is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get().asItem())){
+                        this.heal(this.getMaxHealth() / 2.0F);
+                        this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.5F);
+                    } else if (itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE)){
                         this.heal(this.getMaxHealth() / 4.0F);
                         this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.25F);
                     } else {

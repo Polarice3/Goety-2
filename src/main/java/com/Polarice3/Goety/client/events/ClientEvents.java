@@ -576,7 +576,7 @@ public class ClientEvents {
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CRavagerRoarPacket());
         }
         if (ModKeybindings.keyBindings[11].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CRavagerAutoPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CAutoRideablePacket());
         }
         if (ModKeybindings.keyBindings[12].isDown() && MINECRAFT.isWindowActive()){
             if (MINECRAFT.player != null){

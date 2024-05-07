@@ -4,6 +4,7 @@ import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.network.protocol.Packet;
@@ -97,6 +98,9 @@ public class Lavaball extends ExplosiveProjectile {
             if (owned.getTrueOwner() == pEntity){
                 return false;
             }
+        }
+        if (MobUtil.areAllies(this.getOwner(), pEntity)){
+            return false;
         }
         if (this.isUpgraded()){
             if (pEntity instanceof AbstractHurtingProjectile){

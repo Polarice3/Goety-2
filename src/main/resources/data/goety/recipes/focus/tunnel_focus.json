@@ -9,7 +9,7 @@
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:ender_pearl"
+      "tag": "forge:ender_pearls"
     },
     {
       "tag": "forge:gems/quartz"
@@ -18,7 +18,7 @@
       "tag": "forge:gems/quartz"
     },
     {
-      "item": "minecraft:ender_pearl"
+      "tag": "forge:ender_pearls"
     },
     {
       "tag": "forge:storage_blocks/copper"

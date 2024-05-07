@@ -48,7 +48,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CAddCatalystKeyPacket.class, CAddCatalystKeyPacket::encode, CAddCatalystKeyPacket::decode, CAddCatalystKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CExtractPotionKeyPacket.class, CExtractPotionKeyPacket::encode, CExtractPotionKeyPacket::decode, CExtractPotionKeyPacket::consume);
         INSTANCE.registerMessage(nextID(), CRavagerRoarPacket.class, CRavagerRoarPacket::encode, CRavagerRoarPacket::decode, CRavagerRoarPacket::consume);
-        INSTANCE.registerMessage(nextID(), CRavagerAutoPacket.class, CRavagerAutoPacket::encode, CRavagerAutoPacket::decode, CRavagerAutoPacket::consume);
+        INSTANCE.registerMessage(nextID(), CAutoRideablePacket.class, CAutoRideablePacket::encode, CAutoRideablePacket::decode, CAutoRideablePacket::consume);
         INSTANCE.registerMessage(nextID(), CScytheStrikePacket.class, CScytheStrikePacket::encode, CScytheStrikePacket::decode, CScytheStrikePacket::consume);
         INSTANCE.registerMessage(nextID(), CLichKissPacket.class, CLichKissPacket::encode, CLichKissPacket::decode, CLichKissPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMagnetPacket.class, CMagnetPacket::encode, CMagnetPacket::decode, CMagnetPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

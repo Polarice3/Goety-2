@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally;
 
+import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
@@ -53,12 +54,13 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class ModRavager extends Summoned implements PlayerRideable, IRavager {
+public class ModRavager extends Summoned implements PlayerRideable, IAutoRideable, IRavager {
     private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("d404309f-25d3-4837-8828-e2b7b0ea79fd");
     private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(ModRavager.class, EntityDataSerializers.BOOLEAN);
@@ -172,9 +174,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         return this.entityData.get(DATA_SADDLE_ID);
     }
 
-    public void setAutonomous(boolean p_20850_) {
-        this.entityData.set(AUTO_MODE, p_20850_);
-        if (p_20850_) {
+    public void setAutonomous(boolean autonomous) {
+        this.entityData.set(AUTO_MODE, autonomous);
+        if (autonomous) {
             this.playSound(SoundEvents.ARROW_HIT_PLAYER);
             if (!this.isWandering()) {
                 this.setWandering(true);
@@ -499,18 +501,22 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
         }
     }
 
-    public void travel(Vec3 pTravelVector) {
+    public void travel(@NotNull Vec3 pTravelVector) {
         if (this.isAlive()) {
-            LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
-            if (this.isVehicle() && this.hasSaddle() && livingentity instanceof Player && !this.isAutonomous()) {
-                this.setYRot(livingentity.getYRot());
+            LivingEntity rider = this.getControllingPassenger();
+            if (this.isVehicle() && this.hasSaddle() && rider instanceof Player && !this.isAutonomous()) {
+                this.setYRot(rider.getYRot());
                 this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
+                this.setXRot(rider.getXRot() * 0.5F);
                 this.setRot(this.getYRot(), this.getXRot());
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
-                float f1 = livingentity.zza;
+                float speed = 0.35F;
+                if (this.getMobType() == MobType.UNDEAD) {
+                    speed = 0.325F;
+                }
+                float f = rider.xxa * speed;
+                float f1 = rider.zza * speed;
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
@@ -542,6 +548,15 @@ public class ModRavager extends Summoned implements PlayerRideable, IRavager {
     @Override
     public boolean canUpdateMove() {
         return !(this.getControllingPassenger() instanceof Mob);
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {

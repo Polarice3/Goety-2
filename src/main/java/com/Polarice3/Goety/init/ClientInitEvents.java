@@ -371,6 +371,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.INSECT_SWARM.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VOLCANO.get(), VolcanoRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_TORNADO.get(), FireTornadoRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CYCLONE.get(), CycloneRenderer::new);
         event.registerEntityRenderer(ModEntityType.FALLING_BLOCK.get(), ModFallingBlockRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_GAS.get(), BrewGasRenderer::new);
         event.registerEntityRenderer(ModEntityType.MOD_BOAT.get(), (render) -> new ModBoatRenderer(render, false));

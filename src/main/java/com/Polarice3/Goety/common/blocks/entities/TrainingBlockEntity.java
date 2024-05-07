@@ -79,7 +79,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                                     if (entity instanceof Mob mob) {
                                         mob.spawnAnim();
                                     }
-                                    if (entity instanceof IOwned owned) {
+                                    if (entity instanceof IOwned owned && blockEntity.getTrueOwner() != null) {
                                         owned.setTrueOwner(blockEntity.getTrueOwner());
                                     }
                                     blockEntity.playSpawnSound();

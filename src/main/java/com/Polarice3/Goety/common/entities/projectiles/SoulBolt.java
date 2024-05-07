@@ -33,6 +33,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class SoulBolt extends SpellHurtingProjectile {
@@ -42,6 +43,8 @@ public class SoulBolt extends SpellHurtingProjectile {
         map.put(1, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_2.png"));
         map.put(2, Goety.location("textures/entity/projectiles/soul_bolt/soul_bolt_3.png"));
     });
+    private final Vec3[] trailPositions = new Vec3[64];
+    private int trailPointer = -1;
 
     public SoulBolt(EntityType<? extends AbstractHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -161,6 +164,32 @@ public class SoulBolt extends SpellHurtingProjectile {
             double d2 = this.getZ() - vec3.z;
             this.level.addParticle(ModParticleTypes.SUMMON.get(), d0, d1 + 0.15D, d2, 0.0D, 0.0D, 0.0D);
         }
+        Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
+        if (this.trailPointer == -1) {
+            Arrays.fill(trailPositions, trailAt);
+        }
+        if (++this.trailPointer == this.trailPositions.length) {
+            this.trailPointer = 0;
+        }
+        this.trailPositions[this.trailPointer] = trailAt;
+    }
+
+    /**
+     * Ripped Trail effect from @AlexModGuy: <a href="https://github.com/AlexModGuy/AlexsCaves/blob/main/src/main/java/com/github/alexmodguy/alexscaves/server/entity/item/WaterBoltEntity.java">...</a>
+     */
+    public Vec3 getTrailPosition(int pointer, float partialTick) {
+        if (this.isRemoved()) {
+            partialTick = 1.0F;
+        }
+        int i = this.trailPointer - pointer & 63;
+        int j = this.trailPointer - pointer - 1 & 63;
+        Vec3 d0 = this.trailPositions[j];
+        Vec3 d1 = this.trailPositions[i].subtract(d0);
+        return d0.add(d1.scale(partialTick));
+    }
+
+    public boolean hasTrail() {
+        return this.trailPointer != -1;
     }
 
     protected boolean canHitEntity(Entity pEntity) {

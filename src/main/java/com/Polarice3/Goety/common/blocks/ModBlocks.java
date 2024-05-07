@@ -121,6 +121,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> SOUL_LIGHT_BLOCK = register("soul_light", SoulLightBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> GLOW_LIGHT_BLOCK = register("glow_light", GlowLightBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> REINFORCED_REDSTONE_BLOCK = register("reinforced_redstone_block", () ->
+            new PoweredBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.FIRE)
+                    .requiresCorrectToolForDrops()
+                    .strength(50.0F, 1200.0F)
+                    .sound(SoundType.METAL)
+                    .isRedstoneConductor(ModBlocks::never)));
 
     public static final RegistryObject<Block> JADE_ORE = register("jade_ore", StoneOreBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<Block> JADE_TILES = register("jade_tiles", JadeStoneBlock::new);

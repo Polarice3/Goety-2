@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "goety:buried_scroll"
+      "tag": "goety:research_scrolls"
     }
   ],
   "result": {

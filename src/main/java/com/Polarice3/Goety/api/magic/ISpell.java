@@ -51,7 +51,7 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if (biomeHolder.get().coldEnoughToSnow(blockPos) || biomeHolder.is(Tags.Biomes.IS_COLD) || (level.isRainingAt(blockPos) && biomeHolder.get().shouldSnow(level, blockPos))) {
+                if (biomeHolder.get().coldEnoughToSnow(blockPos) || biomeHolder.is(Tags.Biomes.IS_COLD) || (level.isRainingAt(blockPos) && biomeHolder.get().coldEnoughToSnow(blockPos))) {
                     cost /= 1.5F;
                 } else if (biomeHolder.is(BiomeTags.SNOW_GOLEM_MELTS)) {
                     cost *= 1.5F;

@@ -5,10 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,6 +28,14 @@ public class WindBlowerBlock extends DirectionalBlock implements EntityBlock {
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWER, POWERED);
+    }
+
+    public BlockState rotate(BlockState p_52716_, Rotation p_52717_) {
+        return p_52716_.setValue(FACING, p_52717_.rotate(p_52716_.getValue(FACING)));
+    }
+
+    public BlockState mirror(BlockState p_52713_, Mirror p_52714_) {
+        return p_52713_.rotate(p_52714_.getRotation(p_52713_.getValue(FACING)));
     }
 
     public RenderShape getRenderShape(BlockState state) {

@@ -27,4 +27,6 @@ public interface IServant extends IOwned {
     void setCommandPos(BlockPos blockPos, boolean removeEntity);
 
     void setCommandPosEntity(LivingEntity living);
+
+    void tryKill(Player player);
 }

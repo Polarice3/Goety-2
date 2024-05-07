@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:empty_focus"
+  },
+  "craftType": "geoturgy",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "tag": "forge:gunpowder"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "tag": "forge:gunpowder"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "tag": "forge:gunpowder"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "tag": "forge:gunpowder"
+    }
+  ],
+  "result": {
+    "item": "goety:scatter_focus"
+  }
+}

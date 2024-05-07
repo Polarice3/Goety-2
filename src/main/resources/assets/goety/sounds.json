@@ -3891,6 +3891,13 @@
     ],
     "subtitle": "subtitle.goety.thunder_strike_fast"
   },
+  "tock": {
+    "sounds": [
+      {
+        "name": "goety:random/tock"
+      }
+    ]
+  },
   "roar_spell": {
     "sounds": [
       {
@@ -3918,6 +3925,13 @@
     "sounds": [
       {
         "name": "goety:spell/flight"
+      }
+    ]
+  },
+  "whirlwind": {
+    "sounds": [
+      {
+        "name": "goety:spell/whirlwind"
       }
     ]
   },

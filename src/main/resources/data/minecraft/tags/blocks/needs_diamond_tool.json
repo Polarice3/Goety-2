@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#goety:crypt_blocks"
+    "#goety:crypt_blocks",
+    "goety:reinforced_redstone_block"
   ]
 }

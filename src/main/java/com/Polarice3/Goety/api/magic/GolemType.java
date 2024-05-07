@@ -16,7 +16,8 @@ public enum GolemType implements net.minecraftforge.common.IExtensibleEnum {
     ICE_GOLEM(Blocks.BLUE_ICE::defaultBlockState, new IceGolemMold()),
     SQUALL_GOLEM(ModBlocks.JADE_BLOCK.get()::defaultBlockState, new SquallGolemMold()),
     REDSTONE_GOLEM(Blocks.REDSTONE_BLOCK::defaultBlockState, new RedstoneGolemMold()),
-    GRAVE_GOLEM(ModBlocks.SKULL_PILE.get()::defaultBlockState, new GraveGolemMold());
+    GRAVE_GOLEM(ModBlocks.SKULL_PILE.get()::defaultBlockState, new GraveGolemMold()),
+    REDSTONE_MONSTROSITY(ModBlocks.REINFORCED_REDSTONE_BLOCK.get()::defaultBlockState, new RedstoneMonstrosityMold());
 
     private final Supplier<BlockState> blockState;
     private final IMold mold;

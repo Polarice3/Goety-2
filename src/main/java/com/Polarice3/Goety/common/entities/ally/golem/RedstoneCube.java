@@ -8,6 +8,7 @@ import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,18 +16,25 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -261,7 +269,7 @@ public class RedstoneCube extends AbstractGolemServant{
                                 }
                                 if (this.attackTick == 8) {
                                     this.doHurtTarget(this.getTarget());
-                                    this.playSound(ModSounds.REDSTONE_CUBE_ATTACK.get());
+                                    this.playSound(ModSounds.REDSTONE_CUBE_ATTACK.get(), 0.6F, 1.0F);
                                 }
                             } else {
                                 this.getNavigation().moveTo(this.getTarget(), 1.25F);
@@ -289,5 +297,35 @@ public class RedstoneCube extends AbstractGolemServant{
         } else {
             super.handleEntityEvent(p_21375_);
         }
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if (!this.level.isClientSide) {
+            ItemStack itemstack = pPlayer.getItemInHand(pHand);
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+                if ((itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE) || itemstack.is(Tags.Items.DUSTS_REDSTONE)) && this.getHealth() < this.getMaxHealth()) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    if (itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE)){
+                        this.heal(this.getMaxHealth());
+                        this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.25F);
+                    } else {
+                        this.heal(this.getMaxHealth() / 4.0F);
+                        this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 0.25F, 1.0F);
+                    }
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = serverLevel.random.nextGaussian() * 0.02D;
+                            double d1 = serverLevel.random.nextGaussian() * 0.02D;
+                            double d2 = serverLevel.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(DustParticleOptions.REDSTONE, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return InteractionResult.PASS;
     }
 }

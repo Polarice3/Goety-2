@@ -19,6 +19,9 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.Arrays;
 
 public class NecroBolt extends SpellHurtingProjectile {
     private final float rotSpeed;
@@ -26,6 +29,8 @@ public class NecroBolt extends SpellHurtingProjectile {
     public float oRoll;
     public float getGlow;
     public float glowAmount = 0.05F;
+    private final Vec3[] trailPositions = new Vec3[64];
+    private int trailPointer = -1;
 
     public NecroBolt(EntityType<? extends SpellHurtingProjectile> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -114,6 +119,32 @@ public class NecroBolt extends SpellHurtingProjectile {
         if (this.tickCount >= MathHelper.secondsToTicks(20)){
             this.discard();
         }
+        Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
+        if (this.trailPointer == -1) {
+            Arrays.fill(trailPositions, trailAt);
+        }
+        if (++this.trailPointer == this.trailPositions.length) {
+            this.trailPointer = 0;
+        }
+        this.trailPositions[this.trailPointer] = trailAt;
+    }
+
+    /**
+     * Ripped Trail effect from @AlexModGuy: <a href="https://github.com/AlexModGuy/AlexsCaves/blob/main/src/main/java/com/github/alexmodguy/alexscaves/server/entity/item/WaterBoltEntity.java">...</a>
+     */
+    public Vec3 getTrailPosition(int pointer, float partialTick) {
+        if (this.isRemoved()) {
+            partialTick = 1.0F;
+        }
+        int i = this.trailPointer - pointer & 63;
+        int j = this.trailPointer - pointer - 1 & 63;
+        Vec3 d0 = this.trailPositions[j];
+        Vec3 d1 = this.trailPositions[i].subtract(d0);
+        return d0.add(d1.scale(partialTick));
+    }
+
+    public boolean hasTrail() {
+        return this.trailPointer != -1;
     }
 
     private void glow() {

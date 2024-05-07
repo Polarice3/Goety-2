@@ -440,6 +440,7 @@ public class SEHelper {
     public static boolean addResearch(Player player, Research research){
         if (!getResearch(player).contains(research)) {
             getCapability(player).addResearch(research);
+            SEHelper.sendSEUpdatePacket(player);
             return true;
         }
         return false;
@@ -448,6 +449,7 @@ public class SEHelper {
     public static boolean removeResearch(Player player, Research research){
         if (getResearch(player).contains(research)) {
             getCapability(player).removeResearch(research);
+            SEHelper.sendSEUpdatePacket(player);
             return true;
         }
         return false;

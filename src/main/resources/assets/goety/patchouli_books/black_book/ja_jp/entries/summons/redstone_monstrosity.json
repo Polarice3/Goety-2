@@ -1,0 +1,30 @@
+{
+  "name": "レッドストーンの怪物",
+  "icon": "goety:reinforced_redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古代、君主は未知の理由で追放される前に、外部の力の指導を受けて、レッドストーン ゴーレムよりも強力で恐ろしい強力な武器を作り上げました。 ただし、作成プロセスはおそらく極秘に記録されており、この恐ろしい怪物を再現できるようになっています。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_monstrosity"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity",
+      "text": "中央のアニメーション コアを備えた強化レッドストーン ブロックを右クリックします。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:reinforced_redstone_block"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "石レンガは、型用の深層岩レンガなどの他の同様のブロックで置き換えることができます。 モンストロシティはおそらくあなたが作成した最も強力な存在の 1 つであり、その力は他の従者に匹敵しません。 レッドストーンブロックを右クリックすると修復できます。"
+    }
+  ]
+}

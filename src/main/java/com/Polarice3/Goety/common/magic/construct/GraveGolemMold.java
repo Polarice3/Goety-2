@@ -239,8 +239,8 @@ public class GraveGolemMold implements IMold {
                         if (conditionsMet(level, player)) {
                             GraveGolem graveGolem = ModEntityType.GRAVE_GOLEM.get().create(level);
                             if (graveGolem != null) {
-                                graveGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(graveGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 graveGolem.setTrueOwner(player);
+                                graveGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(graveGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 graveGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                                 if (level.addFreshEntity(graveGolem)) {
                                     removeBlocks(level, blockPos);

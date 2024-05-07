@@ -1,5 +1,5 @@
 {
-  "parent": "goety:goety/read_warred_scroll",
+  "parent": "goety:goety/read_terminus_scroll",
   "criteria": {
     "summoned_golem": {
       "conditions": {
@@ -19,16 +19,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.goety.summon_grave_golem.description"
+      "translate": "advancements.goety.summon_redstone_monstrosity.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "hidden": true,
     "icon": {
-      "item": "goety:skull_pile"
+      "item": "goety:reinforced_redstone_block"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.goety.summon_grave_golem.title"
+      "translate": "advancements.goety.summon_redstone_monstrosity.title"
     }
   },
   "requirements": [

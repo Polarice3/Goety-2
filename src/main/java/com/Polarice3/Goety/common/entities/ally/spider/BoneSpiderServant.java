@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -50,6 +51,11 @@ public class BoneSpiderServant extends SpiderServant implements RangedAttackMob 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ANIM_STATE, 0);
+    }
+
+    @Override
+    public MobType getMobType() {
+        return MobType.UNDEAD;
     }
 
     public void setAnimationState(String input) {
@@ -115,6 +121,22 @@ public class BoneSpiderServant extends SpiderServant implements RangedAttackMob 
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
+            AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (this.getCurrentAnimation() == this.getAnimationState(ATTACK)){
+                this.getNavigation().stop();
+                if (modifiableattributeinstance != null) {
+                    if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+                        modifiableattributeinstance.removeModifier(STOP_MODIFIER);
+                        modifiableattributeinstance.addTransientModifier(STOP_MODIFIER);
+                    }
+                }
+            } else {
+                if (modifiableattributeinstance != null) {
+                    if (modifiableattributeinstance.hasModifier(STOP_MODIFIER)) {
+                        modifiableattributeinstance.removeModifier(STOP_MODIFIER);
+                    }
+                }
+            }
             if (this.attackAnim > 0) {
                 --this.attackAnim;
             } else {

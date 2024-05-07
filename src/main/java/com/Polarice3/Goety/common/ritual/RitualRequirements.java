@@ -93,7 +93,7 @@ public class RitualRequirements {
     }
 
     public static boolean frostRitual(BlockPos pPos, Level pLevel){
-        return pLevel.getBiome(pPos).get().shouldSnow(pLevel, pPos) || getStructures("frost", pPos, pLevel);
+        return pLevel.getBiome(pPos).get().coldEnoughToSnow(pPos) || getStructures("frost", pPos, pLevel);
     }
 
     public static boolean skyRitual(RitualBlockEntity pTileEntity, BlockPos pPos){

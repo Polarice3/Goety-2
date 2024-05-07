@@ -17,6 +17,7 @@ import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -618,6 +619,15 @@ public class GraveGolem extends AbstractGolemServant {
             this.level.broadcastEntityEvent(GraveGolem.this, (byte) 17);
         }
         return true;
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {

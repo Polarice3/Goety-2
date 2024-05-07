@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.common.entities.ally.golem;
 
+import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -10,6 +12,7 @@ import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
 import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -43,6 +46,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,6 +61,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,9 +70,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class RedstoneMonstrosity extends AbstractGolemServant {
+public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerRideable, IAutoRideable {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BOOLEAN);
     public static String ACTIVATE = "activate";
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
@@ -94,6 +100,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
     public float bigGlow;
     public float deathRotation = 0.0F;
     public int deathTime = 0;
+    public boolean clientStop;
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -148,6 +155,103 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
         this.entityData.define(ANIM_STATE, 0);
+        this.entityData.define(AUTO_MODE, false);
+    }
+
+    protected void updateControlFlags() {
+        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
+        boolean flag1 = !(this.getVehicle() instanceof Boat);
+        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
+        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
+        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
+        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
+    }
+
+    public void setAutonomous(boolean autonomous) {
+        this.entityData.set(AUTO_MODE, autonomous);
+        if (autonomous) {
+            this.playSound(SoundEvents.ARROW_HIT_PLAYER);
+            if (!this.isWandering()) {
+                this.setWandering(true);
+                this.setStaying(false);
+            }
+        }
+    }
+
+    public boolean isAutonomous() {
+        return this.entityData.get(AUTO_MODE);
+    }
+
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        if (!this.isNoAi()) {
+            Entity entity = this.getFirstPassenger();
+            if (entity instanceof LivingEntity livingEntity) {
+                return livingEntity;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public double getPassengersRidingOffset() {
+        return this.dimensions.height;
+    }
+
+    protected void doPlayerRide(Player player) {
+        if (!this.level.isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
+    }
+
+    public boolean isControlledByLocalInstance() {
+        LivingEntity livingentity = this.getControllingPassenger();
+        boolean flag = livingentity instanceof Player || this.isEffectiveAi();
+        return flag && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
+    }
+
+    public void travel(@NotNull Vec3 pTravelVector) {
+        if (this.isAlive()) {
+            LivingEntity rider = this.getControllingPassenger();
+            if (this.isVehicle()
+                    && rider instanceof Player
+                    && !this.clientStopMoving()
+                    && !this.isAutonomous()) {
+                this.setYRot(rider.getYRot() * 0.5F);
+                this.yRotO = this.getYRot();
+                this.setXRot(rider.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = rider.xxa * 0.23F;
+                float f1 = rider.zza * 0.23F;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+
+                this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                super.travel(new Vec3(f, pTravelVector.y, f1));
+                this.lerpSteps = 0;
+
+                this.calculateEntityAnimation(false);
+            } else {
+                if (this.clientStopMoving()){
+                    pTravelVector = new Vec3(0, pTravelVector.y, 0);
+                }
+                super.travel(pTravelVector);
+            }
+        }
+    }
+
+    public boolean clientStopMoving(){
+        if (this.level.isClientSide) {
+            return this.clientStop;
+        } else {
+            return this.isMeleeAttacking() || this.isBelching() || this.isSummoning();
+        }
     }
 
     protected float nextStep() {
@@ -335,6 +439,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         pCompound.putInt("PostAttackCool", this.postAttackCool);
         pCompound.putInt("CoolDown", this.summonCool);
         pCompound.putInt("BelchCool", this.belchCool);
+        pCompound.putBoolean("AutoMode", this.isAutonomous());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -353,6 +458,9 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         }
         if (pCompound.contains("BelchCool")) {
             this.belchCool = pCompound.getInt("BelchCool");
+        }
+        if (pCompound.contains("AutoMode")) {
+            this.setAutonomous(pCompound.getBoolean("AutoMode"));
         }
     }
 
@@ -472,39 +580,41 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         }
         if (!this.level.isClientSide){
             if (this.isAlive() && !this.isActivating()) {
-                if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                    boolean flag = false;
-                    AABB aabb = this.getBoundingBox().inflate(0.2D);
+                if (MobsConfig.RedstoneMonstrosityLeafBreak.get()) {
+                    if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        boolean flag = false;
+                        AABB aabb = this.getBoundingBox().inflate(0.2D);
 
-                    for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
-                        BlockState blockstate = this.level.getBlockState(blockpos);
-                        Block block = blockstate.getBlock();
-                        if (block instanceof LeavesBlock) {
-                            flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                        for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                            BlockState blockstate = this.level.getBlockState(blockpos);
+                            Block block = blockstate.getBlock();
+                            if (block instanceof LeavesBlock) {
+                                flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                            }
                         }
                     }
                 }
                 if (!this.isMeleeAttacking() && !this.isBelching() && !this.isSummoning()) {
-                    if (this.isMoving()) {
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                    if (this.isStaying()) {
+                        if (this.isSittingDown > 0){
+                            --this.isSittingDown;
+                            this.setAnimationState(TO_SIT);
+                        } else {
+                            this.setAnimationState(SIT);
+                        }
+                    } else if (this.isMoving()) {
                         this.setAnimationState(WALK);
                     } else {
-                        if (this.isStaying()) {
-                            if (this.isSittingDown > 0){
-                                --this.isSittingDown;
-                                this.setAnimationState(TO_SIT);
-                            } else {
-                                this.setAnimationState(SIT);
-                            }
+                        if (this.isStandingUp > 0){
+                            --this.isStandingUp;
+                            this.setAnimationState(TO_STAND);
                         } else {
-                            if (this.isStandingUp > 0){
-                                --this.isStandingUp;
-                                this.setAnimationState(TO_STAND);
-                            } else {
-                                this.setAnimationState(IDLE);
-                            }
+                            this.setAnimationState(IDLE);
                         }
                     }
                 } else {
+                    this.level.broadcastEntityEvent(this, (byte) 6);
                     if (this.isStaying()){
                         this.isSittingDown = MathHelper.secondsToTicks(1);
                     } else {
@@ -611,6 +721,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
     public void handleEntityEvent(byte p_21375_) {
         if (p_21375_ == 5){
             this.bigGlow = 1.0F;
+        } else if (p_21375_ == 6){
+            this.clientStop = true;
+        } else if (p_21375_ == 7){
+            this.clientStop = false;
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -658,17 +772,32 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
         return this.calculateViewVector(0, this.getYRot());
     }
 
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
-            Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if (item == Items.REDSTONE_BLOCK && this.getHealth() < this.getMaxHealth()) {
+                if ((itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                        || itemstack.is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get().asItem()))
+                        && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    this.heal((this.getMaxHealth() / 4.0F) / 8.0F);
-                    this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 0.25F, 0.75F);
+                    if (itemstack.is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get().asItem())){
+                        this.heal(this.getMaxHealth() / 4.0F);
+                        this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.25F);
+                    } else {
+                        this.heal((this.getMaxHealth() / 4.0F) / 8.0F);
+                        this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 0.25F, 0.75F);
+                    }
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 7; ++i) {
                             double d0 = serverLevel.random.nextGaussian() * 0.02D;
@@ -678,6 +807,15 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
                         }
                     }
                     return InteractionResult.SUCCESS;
+                } else {
+                    //Disabled this because players will look like they're floating midair during attacks when riding it.
+                    /*if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
+                        this.getFirstPassenger().stopRiding();
+                        return InteractionResult.SUCCESS;
+                    } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
+                        this.doPlayerRide(pPlayer);
+                        return InteractionResult.SUCCESS;
+                    }*/
                 }
             }
         }
@@ -1110,7 +1248,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
                     this.trueSpeed = Mth.lerp(0.1F, this.trueSpeed, 0.0F);
                     this.mob.setZza(trueSpeed);
                     if (this.additionalRot > 0) {
-                        this.additionalRot -= 0.1f;
+                        this.additionalRot -= 0.1F;
                     }
                     return;
                 } else {
@@ -1118,7 +1256,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant {
                 }
                 float f9 = (float) (Mth.atan2(d1, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
                 if (this.additionalRot < 1) {
-                    this.additionalRot += 0.1f;
+                    this.additionalRot += 0.1F;
                 }
                 this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f9, 5 + additionalRot * 5));
                 this.mob.setSpeed(trueSpeed);

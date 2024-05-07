@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:lightning_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_lightning_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_lightning_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_dark_wand",
+  "criteria": {
+    "lightning_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:lightning_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "lightning_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

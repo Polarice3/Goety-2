@@ -81,7 +81,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.CURSED_PALADIN_CHESTPLATE.get()));
         this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(ModItems.CURSED_PALADIN_LEGGINGS.get()));
         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(ModItems.CURSED_PALADIN_BOOTS.get()));
-        this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.CURSED_PALADIN_HELMET.get()));
     }
 
     protected void populateDefaultEquipmentEnchantments(DifficultyInstance pDifficulty) {

@@ -1,0 +1,15 @@
+{
+  "name": "回転のフォーカス",
+  "icon": "goety:rotation_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ブロックの向きと向きを回転させて変更するシンプルなフォーカス。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/rotation_focus"
+    }
+  ]
+}
