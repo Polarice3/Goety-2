@@ -121,7 +121,7 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
 
     private Vec3 getOffsetVector(LivingEntity living) {
         Vec3 viewVector = this.getViewVector(1.0F);
-        return new Vec3(viewVector.x, living.getEyeHeight() * 0.8D, viewVector.z);
+        return new Vec3(viewVector.x, living.getEyeHeight() * 0.4D, viewVector.z);
     }
 
     public float getBeamWidth() {

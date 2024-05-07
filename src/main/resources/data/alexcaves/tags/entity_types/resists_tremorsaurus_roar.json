@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "goety:apostle",
+    "goety:vizier",
+    "goety:ice_golem",
+    "goety:squall_golem",
+    "goety:redstone_golem",
+    "goety:hostile_redstone_golem",
+    "goety:grave_golem",
+    "goety:haunt",
+    "goety:redstone_monstrosity",
+    "goety:redstone_cube"
+  ]
+}

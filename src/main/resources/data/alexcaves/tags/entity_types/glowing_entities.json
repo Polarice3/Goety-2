@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:vizier",
+    "goety:wraith",
+    "goety:border_wraith",
+    "goety:wraith_servant",
+    "goety:magma_cube_servant",
+    "goety:redstone_golem",
+    "goety:hostile_redstone_golem",
+    "goety:redstone_monstrosity"
+  ]
+}

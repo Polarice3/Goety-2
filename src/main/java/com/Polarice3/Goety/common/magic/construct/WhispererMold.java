@@ -42,8 +42,8 @@ public class WhispererMold implements IMold {
                                 whisperer = ModEntityType.WAVEWHISPERER.get().create(level);
                             }
                             if (whisperer != null) {
-                                whisperer.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(whisperer.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 whisperer.setTrueOwner(player);
+                                whisperer.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(whisperer.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 whisperer.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                                 if (level.addFreshEntity(whisperer)) {
                                     removeBlocks(level, blockPos);

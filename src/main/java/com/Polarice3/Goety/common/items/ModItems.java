@@ -17,13 +17,12 @@ import com.Polarice3.Goety.common.items.brew.SplashBrewItem;
 import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
+import com.Polarice3.Goety.common.items.research.ExtraScroll;
 import com.Polarice3.Goety.common.items.research.ForbiddenScroll;
 import com.Polarice3.Goety.common.items.research.Scroll;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.common.magic.spells.frost.*;
-import com.Polarice3.Goety.common.magic.spells.geomancy.BarricadeSpell;
-import com.Polarice3.Goety.common.magic.spells.geomancy.EruptionSpell;
-import com.Polarice3.Goety.common.magic.spells.geomancy.PulverizeSpell;
+import com.Polarice3.Goety.common.magic.spells.geomancy.*;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.common.magic.spells.nether.FireballSpell;
 import com.Polarice3.Goety.common.magic.spells.nether.GhastSpell;
@@ -123,7 +122,7 @@ public class ModItems {
     public static final RegistryObject<Item> FRONT_SCROLL = ITEMS.register("front_scroll", () -> new Scroll(ResearchList.FRONT));
     public static final RegistryObject<Item> MISTRAL_SCROLL = ITEMS.register("mistral_scroll", () -> new Scroll(ResearchList.MISTRAL));
     public static final RegistryObject<Item> FLORAL_SCROLL = ITEMS.register("floral_scroll", () -> new Scroll(ResearchList.FLORAL));
-    public static final RegistryObject<Item> TERMINUS_SCROLL = ITEMS.register("terminus_scroll", () -> new Scroll(ResearchList.TERMINUS));
+    public static final RegistryObject<Item> TERMINUS_SCROLL = ITEMS.register("terminus_scroll", () -> new ExtraScroll(ResearchList.TERMINUS, ResearchList.WARRED));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
 
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
@@ -220,6 +219,8 @@ public class ModItems {
     ///Geomancy
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
+    public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));
+    public static final RegistryObject<Item> SCATTER_FOCUS = ITEMS.register("scatter_focus", () -> new MagicFocus(new ScatterSpell()));
     public static final RegistryObject<Item> ERUPTION_FOCUS = ITEMS.register("eruption_focus", () -> new MagicFocus(new EruptionSpell()));
 
     ///Frost
@@ -242,6 +243,8 @@ public class ModItems {
     public static final RegistryObject<Item> LAUNCH_FOCUS = ITEMS.register("launch_focus", () -> new MagicFocus(new LaunchSpell()));
     public static final RegistryObject<Item> FLYING_FOCUS = ITEMS.register("flying_focus", () -> new MagicFocus(new FlyingSpell()));
     public static final RegistryObject<Item> CUSHION_FOCUS = ITEMS.register("cushion_focus", () -> new MagicFocus(new CushionSpell()));
+    public static final RegistryObject<Item> WHIRLWIND_FOCUS = ITEMS.register("whirlwind_focus", () -> new MagicFocus(new WhirlwindSpell()));
+    public static final RegistryObject<Item> CYCLONE_FOCUS = ITEMS.register("cyclone_focus", () -> new MagicFocus(new CycloneSpell()));
     public static final RegistryObject<Item> UPDRAFT_FOCUS = ITEMS.register("updraft_focus", () -> new MagicFocus(new UpdraftSpell()));
     public static final RegistryObject<Item> WIND_BLAST_FOCUS = ITEMS.register("wind_blast_focus", () -> new MagicFocus(new WindBlastSpell()));
 

@@ -375,6 +375,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<Cyclone>> CYCLONE = register("cyclone",
+            EntityType.Builder.<Cyclone>of(Cyclone::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<ModFallingBlock>> FALLING_BLOCK = register("falling_block",
             EntityType.Builder.<ModFallingBlock>of(ModFallingBlock::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)

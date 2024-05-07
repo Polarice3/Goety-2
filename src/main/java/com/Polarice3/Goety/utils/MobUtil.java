@@ -126,9 +126,11 @@ public class MobUtil {
         if (entity != null && entity1 != null) {
             return entity.isAlliedTo(entity1) || entity1.isAlliedTo(entity) || entity == entity1
                     || (entity instanceof Player player && entity1 instanceof LivingEntity living
-                    && (SEHelper.getAllyEntities(player).contains(living) || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
+                        && (SEHelper.getAllyEntities(player).contains(living)
+                        || SEHelper.getAllyEntityTypes(player).contains(living.getType())))
                     || (entity1 instanceof Player player1 && entity instanceof LivingEntity living1
-                    && (SEHelper.getAllyEntities(player1).contains(living1) || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
+                        && (SEHelper.getAllyEntities(player1).contains(living1)
+                        || SEHelper.getAllyEntityTypes(player1).contains(living1.getType())));
         } else {
             return false;
         }

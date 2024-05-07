@@ -615,6 +615,15 @@ public class GraveGolem extends AbstractGolemServant {
         return true;
     }
 
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);

@@ -1,0 +1,30 @@
+{
+  "name": "Redstone Monstrosity",
+  "icon": "goety:reinforced_redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In ancient times, a monarch had fashioned a powerful weapon, more stronger and terrifying than the Redstone Golems, with guidance of an outside force, before banishing it for unknown reasons. However, the creation process was recorded, perhaps in secret, allowing you to replicate this terrifying monstrosity."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_monstrosity"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity",
+      "text": "Right click the center Reinforced Redstone Block with an Animation Core."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:reinforced_redstone_block"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Stone Bricks can be substituted with other similar blocks such as Deepslate Bricks for the mold. The Monstrosity is perhaps one of the strongest beings you have created, its power unmatched by other servants. They can be repaired by right-clicking on them with Redstone Blocks."
+    }
+  ]
+}

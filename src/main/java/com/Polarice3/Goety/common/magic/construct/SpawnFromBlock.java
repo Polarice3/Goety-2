@@ -27,8 +27,8 @@ public class SpawnFromBlock {
                 summoned = ModEntityType.MAGMA_CUBE_SERVANT.get().create(level);
             }
             if (summoned != null){
-                summoned.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 summoned.setTrueOwner(player);
+                summoned.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(summoned.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 summoned.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                 if (summoned instanceof SlimeServant slime) {
                     slime.setSize(2, true);

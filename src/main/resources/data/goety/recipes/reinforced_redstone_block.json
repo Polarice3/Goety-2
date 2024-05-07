@@ -1,0 +1,40 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "tag": "forge:storage_blocks/redstone"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 10,
+  "research": "terminus",
+  "ingredients": [
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:cursed_metal_block"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:cursed_metal_block"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:cursed_metal_block"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "goety:cursed_metal_block"
+    }
+  ],
+  "result": {
+    "item": "goety:reinforced_redstone_block"
+  }
+}

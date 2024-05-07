@@ -21,8 +21,8 @@ public class ModKeybindings {
         keyBindings[7] = new KeyMapping("key.goety.witch.extractPotions", GLFW.GLFW_KEY_G, "key.goety.witch.category");
         keyBindings[8] = new KeyMapping("key.goety.witch.brewBag", GLFW.GLFW_KEY_H, "key.goety.witch.category");
         keyBindings[9] = new KeyMapping("key.goety.witch.brewCircle", GLFW.GLFW_KEY_J, "key.goety.witch.category");
-        keyBindings[10] = new KeyMapping("key.goety.ravager.roar", GLFW.GLFW_KEY_R, "key.goety.ravager.category");
-        keyBindings[11] = new KeyMapping("key.goety.ravager.freeRoam", GLFW.GLFW_KEY_H, "key.goety.ravager.category");
+        keyBindings[10] = new KeyMapping("key.goety.mount.roar", GLFW.GLFW_KEY_R, "key.goety.mount.category");
+        keyBindings[11] = new KeyMapping("key.goety.mount.freeRoam", GLFW.GLFW_KEY_H, "key.goety.mount.category");
         keyBindings[12] = new KeyMapping("key.goety.lich.lichForm", GLFW.GLFW_KEY_N, "key.goety.lich.category");
 
         for (int i = 0; i < keyBindings.length; ++i) {

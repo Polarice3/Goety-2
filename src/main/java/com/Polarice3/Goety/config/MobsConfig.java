@@ -111,6 +111,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
 
@@ -214,6 +215,8 @@ public class MobsConfig {
             BUILDER.pop();
         RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
                 .define("redstoneGolemMold", true);
+        RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves if mob griefing is enabled, Default: true")
+                .define("redstoneMonstrosityLeafBreak", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
                 .define("vexTeleport", true);
         MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")

@@ -54,7 +54,7 @@ public class TramplerModel<T extends Trampler> extends HierarchicalModel<T> {
 		PartDefinition Neck_r1 = neck.addOrReplaceChild("Neck_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -2.0F, 6.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.6506F, -2.7679F, 0.7854F, 0.0F, 0.0F));
 
 		PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 48).addBox(-4.0F, -7.0F, -8.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
-				.texOffs(0, 14).addBox(-1.0F, 0.5F, -11.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, -8.0F, -4.0F));
+				.texOffs(0, 14).addBox(-1.0F, 0.5F, -10.75F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, -8.0F, -4.0F));
 
 		PartDefinition Head_r1 = head.addOrReplaceChild("Head_r1", CubeListBuilder.create().texOffs(32, 50).addBox(-1.0F, -8.0F, -1.0F, 1.0F, 8.0F, 2.0F, new CubeDeformation(0.5F))
 				.texOffs(32, 50).addBox(10.0F, -8.0F, -1.0F, 1.0F, 8.0F, 2.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(-5.0F, -3.0F, -4.0F, 0.7854F, 0.0F, 0.0F));

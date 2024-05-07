@@ -68,6 +68,7 @@ public class Summoned extends Owned implements IServant {
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public int commandTick;
+    public int killChance;
 
     protected Summoned(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -107,6 +108,9 @@ public class Summoned extends Owned implements IServant {
     public void tick(){
         super.tick();
         this.stayingMode();
+        if (this.killChance > 0){
+            --this.killChance;
+        }
         if (this.isCommanded()){
             if (this.getNavigation().isStableDestination(this.commandPos) || this.commandPosEntity != null){
                 --this.commandTick;
@@ -371,6 +375,11 @@ public class Summoned extends Owned implements IServant {
         this.setFlags(2, staying);
     }
 
+    public void setFollowing(){
+        this.setWandering(false);
+        this.setStaying(false);
+    }
+
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setUpgraded(compound.getBoolean("Upgraded"));
@@ -465,7 +474,16 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean isMoving() {
-        return this.animationSpeed > 1.0E-5F;
+        return !(this.animationSpeed < 0.01F);
+    }
+
+    public void warnKill(Player player){
+        this.killChance = 60;
+        player.displayClientMessage(Component.translatable("info.goety.servant.tryKill", this.getDisplayName()), true);
+    }
+
+    public void tryKill(Player player){
+        this.kill();
     }
 
     public static class FollowOwnerGoal extends Goal {

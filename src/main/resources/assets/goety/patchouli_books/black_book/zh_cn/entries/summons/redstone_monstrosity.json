@@ -1,0 +1,30 @@
+{
+  "name": "红石巨兽",
+  "icon": "goety:reinforced_redstone_block",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_terminus_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在古代，一位君主于引导之下，制造了一种强大的武器，它比红石傀儡更强大、更可怕，但是，出于未知原因，武器被放逐至极远之地。然而，创造过程被记录了下来，也许是别有用心之人秘密的记录，但是你可以用它来复制这个可怕的怪物."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_monstrosity"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:redstone_monstrosity",
+      "text": "手持活力核心右键中间的强化红石块。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:reinforced_redstone_block"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "石砖可以用其他类似的方块代替，如深板岩砖。巨兽也许是你创造的最强大的生物之一，它的力量是其他仆从绝对无法比拟的。你可以用红石块来修复它。"
+    }
+  ]
+}

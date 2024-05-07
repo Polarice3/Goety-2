@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:ravaging_scroll",
+    "goety:warred_scroll",
+    "goety:buried_scroll",
+    "goety:haunting_scroll",
+    "goety:front_scroll",
+    "goety:mistral_scroll",
+    "goety:floral_scroll",
+    "goety:terminus_scroll"
+  ]
+}

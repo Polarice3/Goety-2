@@ -1,0 +1,18 @@
+{
+  "name": "Abominable Machines",
+  "icon": "minecraft:end_stone",
+  "category": "goety:rumors",
+  "advancement": "goety:goety/read_warred_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "From the warred scrolls there's mention of a powerful variant, stronger than even the Redstone Golems, that was made and banished to a lost land. There's also mentioned of how some scholars recorded how this beast was made before they were destroyed, but surely there's some that still remains..."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_terminus_scroll",
+      "text": "The scroll mentions that the beast's design may have came from a being of $(l)The End$(), perhaps that's where the secrets may lay."
+    }
+  ]
+}

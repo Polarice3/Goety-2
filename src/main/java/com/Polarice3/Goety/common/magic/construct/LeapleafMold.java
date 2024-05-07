@@ -135,8 +135,8 @@ public class LeapleafMold implements IMold {
                     if (canSpawn(level, blockPos)) {
                         Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
                         if (leapleaf != null) {
-                            leapleaf.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(leapleaf.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                             leapleaf.setTrueOwner(player);
+                            leapleaf.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(leapleaf.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                             leapleaf.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
                             if (level.addFreshEntity(leapleaf)) {
                                 removeBlocks(level, blockPos);

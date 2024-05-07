@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " i ",
+    "pep",
+    " i "
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "p":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "goety:rotation_focus"
+  }
+}

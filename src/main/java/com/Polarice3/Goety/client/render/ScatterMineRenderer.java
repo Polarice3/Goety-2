@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T> {
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/projectiles/scatter_mine.png");
     private static final ResourceLocation GLOW = Goety.location("textures/entity/projectiles/scatter_mine_glow.png");
+    private static final ResourceLocation GLOW_SPELL = Goety.location("textures/entity/projectiles/scatter_mine_glow_spell.png");
     private final ScatterMineModel<T> model;
 
     public ScatterMineRenderer(EntityRendererProvider.Context p_i47208_1_) {
@@ -34,7 +35,8 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
         pMatrixStack.scale(-scale, -scale, scale);
         pMatrixStack.translate(0.0D, -1.45D, 0.0D);
         this.model.renderToBuffer(pMatrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
-        VertexConsumer vertexconsumer = bufferIn.getBuffer(RenderType.entityTranslucentEmissive(GLOW));
+        ResourceLocation resourceLocation = pEntity.isSpell() ? GLOW_SPELL : GLOW;
+        VertexConsumer vertexconsumer = bufferIn.getBuffer(RenderType.entityTranslucentEmissive(resourceLocation));
         this.model.renderToBuffer(pMatrixStack, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, pEntity.getGlow);
         pMatrixStack.popPose();
         super.render(pEntity, entityYaw, pPartialTicks, pMatrixStack, bufferIn, packedLightIn);
@@ -43,6 +45,9 @@ public class ScatterMineRenderer<T extends ScatterMine> extends EntityRenderer<T
     @Override
     public ResourceLocation getTextureLocation(T pEntity) {
         if (!pEntity.startGlow()){
+            if (pEntity.isSpell()){
+                return GLOW_SPELL;
+            }
             return GLOW;
         }
         return TEXTURE;

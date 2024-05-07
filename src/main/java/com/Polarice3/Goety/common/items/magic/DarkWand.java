@@ -181,7 +181,7 @@ public class DarkWand extends Item implements IWand {
                     if (SpellConfig.OwnerHitCommand.get()) {
                         if (owned instanceof IServant summonedEntity) {
                             if (player.isShiftKeyDown() || player.isCrouching()) {
-                                entity.kill();
+                                summonedEntity.tryKill(player);
                                 return true;
                             } else {
                                 if (summonedEntity.canUpdateMove()) {
@@ -221,7 +221,7 @@ public class DarkWand extends Item implements IWand {
             if (target instanceof IServant summonedEntity) {
                 if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == player)) {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
-                        target.kill();
+                        summonedEntity.tryKill(player);
                     } else {
                         if (summonedEntity.canUpdateMove()) {
                             summonedEntity.updateMoveMode(player);

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.PulsatingCircleParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -10,6 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +22,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
@@ -26,6 +31,8 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class ScatterMine extends Entity {
+    public static final EntityDataAccessor<Boolean> DATA_SPELL = SynchedEntityData.defineId(ScatterMine.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(ScatterMine.class, EntityDataSerializers.FLOAT);
     public float getGlow = 1;
     public float glowAmount = 0.0045F;
     public float size = 3.0F;
@@ -47,7 +54,8 @@ public class ScatterMine extends Entity {
 
     @Override
     protected void defineSynchedData() {
-
+        this.entityData.define(DATA_SPELL, false);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     @Override
@@ -66,6 +74,15 @@ public class ScatterMine extends Entity {
         if (pCompound.contains("LifeTicks")){
             this.lifeTicks = pCompound.getInt("LifeTicks");
         }
+        if (pCompound.contains("CurrentTicks")){
+            this.tickCount = pCompound.getInt("CurrentTicks");
+        }
+        if (pCompound.contains("Spell")){
+            this.setSpell(pCompound.getBoolean("Spell"));
+        }
+        if (pCompound.contains("ExtraDamage")) {
+            this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
+        }
     }
 
     @Override
@@ -74,6 +91,9 @@ public class ScatterMine extends Entity {
             pCompound.putUUID("Owner", this.ownerUUID);
         }
         pCompound.putInt("LifeTicks", this.lifeTicks);
+        pCompound.putInt("CurrentTicks", this.tickCount);
+        pCompound.putBoolean("Spell", this.isSpell());
+        pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
     public void setOwner(@Nullable LivingEntity p_190549_1_) {
@@ -93,6 +113,27 @@ public class ScatterMine extends Entity {
         return this.owner;
     }
 
+    public boolean isSpell(){
+        return this.entityData.get(DATA_SPELL);
+    }
+
+    public void setSpell(boolean spell){
+        this.entityData.set(DATA_SPELL, spell);
+    }
+
+    public void setIsSpell(){
+        this.setSpell(true);
+        this.level.broadcastEntityEvent(this, (byte) 7);
+    }
+
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
     public void handleEntityEvent(byte id) {
         if (id == 4) {
             this.level.addParticle(ModParticleTypes.ELECTRIC.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D, -0.05D + this.random.nextDouble() * 0.05D);
@@ -106,6 +147,8 @@ public class ScatterMine extends Entity {
             }
         } else if (id == 6){
             this.finalizeExplosion();
+        } else if (id == 7){
+            this.setSpell(true);
         } else {
             super.handleEntityEvent(id);
         }
@@ -137,9 +180,13 @@ public class ScatterMine extends Entity {
             }
             this.level.broadcastEntityEvent(this, (byte) 4);
             if (this.lifeTicks <= 0){
-                this.level.broadcastEntityEvent(this, (byte) 5);
-                this.discard();
-            } else if (this.lifeTicks < MathHelper.secondsToTicks(9)){
+                if (!this.isSpell()) {
+                    this.level.broadcastEntityEvent(this, (byte) 5);
+                    this.discard();
+                } else {
+                    this.trigger();
+                }
+            } else if (this.tickCount >= 20){
                 if (this.tickCount % 10 == 0) {
                     if (this.level instanceof ServerLevel serverLevel) {
                         serverLevel.sendParticles(new PulsatingCircleParticleOption(1.0F), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0.5F);
@@ -148,11 +195,11 @@ public class ScatterMine extends Entity {
                 for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.6D, 0.3D, 0.6D))) {
                     if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
                         if (this.getOwner() != null) {
-                            if (!this.getOwner().isAlliedTo(livingentity) && !livingentity.isAlliedTo(this.getOwner()) && livingentity != this.getOwner()) {
-                                this.explode(livingentity);
+                            if (!MobUtil.areAllies(this.getOwner(), livingentity) && livingentity != this.getOwner()) {
+                                this.trigger();
                             }
                         } else {
-                            this.explode(livingentity);
+                            this.trigger();
                         }
                     }
                 }
@@ -168,19 +215,36 @@ public class ScatterMine extends Entity {
         this.size = Mth.clamp(this.size - 0.5F, 1.25F, 3.0F);
     }
 
-    public void explode(LivingEntity livingEntity) {
+    public void trigger(){
         if (!this.level.isClientSide) {
             this.level.broadcastEntityEvent(this, (byte) 6);
+            for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.6D, 0.3D, 0.6D))) {
+                if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
+                    if (this.getOwner() != null) {
+                        if (!MobUtil.areAllies(this.getOwner(), livingentity) && livingentity != this.getOwner()) {
+                            this.explodeDamage(livingentity);
+                        }
+                    } else {
+                        this.explodeDamage(livingentity);
+                    }
+                }
+            }
+            this.discard();
+        }
+    }
+
+    public void explodeDamage(LivingEntity livingEntity) {
+        if (!this.level.isClientSide) {
             LivingEntity owner = null;
-            float damage = 12.0F;
-            if (this.getOwner() != null){
+            float damage = SpellConfig.ScatterMineDamage.get().floatValue();
+            if (this.getOwner() instanceof Mob){
                 owner = this.getOwner();
                 if (this.getOwner().getAttribute(Attributes.ATTACK_DAMAGE) != null && this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE) > 0.0F){
                     damage = (float) (this.getOwner().getAttributeValue(Attributes.ATTACK_DAMAGE)/* / 1.666667F*/);
                 }
             }
+            damage += this.getExtraDamage();
             livingEntity.hurt(DamageSource.explosion(owner), damage);
-            this.discard();
         }
     }
 

@@ -27,6 +27,7 @@ public class PatchouliIntegration implements ICompatable {
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("redstone_monstrosity"), REDSTONE_MONSTROSITY.get());
     }
 
     public static final Supplier<IMultiblock> WHISPERER = Suppliers.memoize(() -> {
@@ -260,6 +261,61 @@ public class PatchouliIntegration implements ICompatable {
                 'C', coarseDirt,
                 'S', soulSand,
                 '0', shadeBody
+        );
+    });
+
+    public static final Supplier<IMultiblock> REDSTONE_MONSTROSITY = Suppliers.memoize(() -> {
+        IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(Blocks.DIAMOND_BLOCK,
+                state -> state.is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND));
+        IStateMatcher redstone = PatchouliAPI.get().predicateMatcher(Blocks.REDSTONE_BLOCK,
+                state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
+        IStateMatcher redstoneCore = PatchouliAPI.get().predicateMatcher(ModBlocks.REINFORCED_REDSTONE_BLOCK.get(),
+                state -> state.is(ModBlocks.REINFORCED_REDSTONE_BLOCK.get()));
+        IStateMatcher stoneMold = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
+                state -> state.getBlock().getDescriptionId().contains("bricks") && !(state.getBlock() instanceof SlabBlock) && !(state.getBlock() instanceof StairBlock) && !(state.getBlock() instanceof WallBlock));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "_____LLLLL_____",
+                                "____LDSDSDL____",
+                                "___LSRRRRRSL___",
+                                "__LDRRRRRRRDL__",
+                                "_LSRRRRRRRRRSL_",
+                                "LDRRRRRRRRRRRDL",
+                                "LSRRRRRRRRRRRSL",
+                                "LDRRRRRCRRRRRDL",
+                                "LSRRRRRRRRRRRSL",
+                                "LDRRRRRRRRRRRDL",
+                                "_LSRRRRRRRRRSL_",
+                                "__LDRRRRRRRDL__",
+                                "___LSRRRRRSL___",
+                                "____LDSDSDL____",
+                                "_____LLLLL_____"
+                        },
+                        {
+                                "_______________",
+                                "_____LLLLL_____",
+                                "____LDSDSDL____",
+                                "___LSSDSDSSL___",
+                                "__LSSSSSSSSSL__",
+                                "_LDSSSSSSSSSDL_",
+                                "_LSDSSSDSSSDSL_",
+                                "_LDSSSD0DSSSDL_",
+                                "_LSDSSSDSSSDSL_",
+                                "_LDSSSSSSSSSDL_",
+                                "__LSSSSSSSSSL__",
+                                "___LSSDSDSSL___",
+                                "____LDSDSDL____",
+                                "_____LLLLL_____",
+                                "_______________"
+                        }
+                },
+                'L', Blocks.LAVA,
+                'D', diamondMold,
+                'R', redstone,
+                'C', redstoneCore,
+                'S', stoneMold,
+                '0', stoneMold
         );
     });
 }

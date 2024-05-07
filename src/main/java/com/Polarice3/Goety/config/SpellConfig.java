@@ -175,11 +175,19 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PulverizeCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> RotationCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RotationCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> EruptionCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Double> PyroclastDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PyroclastGriefing;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> ScatterCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ScatterDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ScatterCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> ScatterMineDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> LaunchDuration;
@@ -188,9 +196,16 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FlyingChargeUp;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhirlwindCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WhirlwindChargeUp;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> CushionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> CushionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> CushionCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> CycloneCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CycloneDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CycloneCoolDown;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UpdraftDuration;
@@ -660,6 +675,12 @@ public class SpellConfig {
             PulverizeCoolDown = BUILDER.comment("Pulverize Spell Cooldown, Default: 20")
                     .defineInRange("pulverizeCoolDown", 20, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Rotation Spell");
+            RotationCost = BUILDER.comment("Rotation Spell Cost, Default: 2")
+                    .defineInRange("rotationCost", 2, 0, Integer.MAX_VALUE);
+            RotationCoolDown = BUILDER.comment("Rotation Spell Cooldown, Default: 0")
+                    .defineInRange("rotationCoolDown", 0, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Eruption Spell");
             EruptionCost = BUILDER.comment("Eruption Spell Cost, Default: 32")
                     .defineInRange("eruptionCost", 32, 0, Integer.MAX_VALUE);
@@ -671,6 +692,16 @@ public class SpellConfig {
                     .defineInRange("pyroclastDamage", 6.0, 1.0, Double.MAX_VALUE);
             PyroclastGriefing = BUILDER.comment("Enable Pyroclast projectile griefing, Default: true")
                     .define("pyroclastGriefing", true);
+            BUILDER.pop();
+            BUILDER.push("Scatter Spell");
+            ScatterCost = BUILDER.comment("Scatter Spell Cost, Default: 16")
+                    .defineInRange("scatterCost", 16, 0, Integer.MAX_VALUE);
+            ScatterDuration = BUILDER.comment("Time to cast Scatter Spell, Default: 0")
+                    .defineInRange("scatterTime", 0, 0, 72000);
+            ScatterCoolDown = BUILDER.comment("Scatter Spell Cooldown, Default: 240")
+                    .defineInRange("scatterCoolDown", 240, 0, Integer.MAX_VALUE);
+            ScatterMineDamage = BUILDER.comment("How much base damage Scatter Mines deal when directly hitting a mob, Default: 6.0")
+                    .defineInRange("scatterMinesDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Launching Spell");
             LaunchCost = BUILDER.comment("Launch Spell Cost, Default: 4")
@@ -686,13 +717,27 @@ public class SpellConfig {
             FlyingChargeUp = BUILDER.comment("How many ticks the Flight Spell much charge before casting, Default: 0")
                     .defineInRange("flightChargeUp", 0, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Whirlwind Spell");
+            WhirlwindCost = BUILDER.comment("Whirlwind Spell Cost, Default: 4")
+                    .defineInRange("whirlwindCost", 4, 0, Integer.MAX_VALUE);
+            WhirlwindChargeUp = BUILDER.comment("How many ticks the Whirlwind Spell much charge before casting, Default: 0")
+                    .defineInRange("whirlwindChargeUp", 0, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Cushion Spell");
-            CushionCost = BUILDER.comment("Cushion Spell Cost, Default: 16")
-                    .defineInRange("cushionCost", 16, 0, Integer.MAX_VALUE);
+            CushionCost = BUILDER.comment("Cushion Spell Cost, Default: 8")
+                    .defineInRange("cushionCost", 8, 0, Integer.MAX_VALUE);
             CushionDuration = BUILDER.comment("Time to cast Cushion Spell, Default: 0")
                     .defineInRange("cushionTime", 0, 0, 72000);
             CushionCoolDown = BUILDER.comment("Cushion Spell Cooldown, Default: 40")
                     .defineInRange("cushionCoolDown", 40, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Cyclone Spell");
+            CycloneCost = BUILDER.comment("Cyclone Spell Cost, Default: 16")
+                    .defineInRange("cycloneCost", 16, 0, Integer.MAX_VALUE);
+            CycloneDuration = BUILDER.comment("Time to cast Cyclone Spell, Default: 0")
+                    .defineInRange("cycloneTime", 0, 0, 72000);
+            CycloneCoolDown = BUILDER.comment("Cyclone Spell Cooldown, Default: 100")
+                    .defineInRange("cycloneCoolDown", 100, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Updraft Spell");
             UpdraftCost = BUILDER.comment("Updraft Spell Cost, Default: 8")
