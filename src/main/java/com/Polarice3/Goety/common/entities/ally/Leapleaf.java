@@ -84,6 +84,7 @@ public class Leapleaf extends Summoned{
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.LeapleafHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.LeapleafArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.275D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.LeapleafDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
@@ -93,6 +94,7 @@ public class Leapleaf extends Summoned{
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.LeapleafHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.LeapleafArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.LeapleafDamage.get());
     }
 

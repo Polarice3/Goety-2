@@ -55,6 +55,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation MINI_GHAST = register("mini_ghast");
     public static final ModelLayerLocation MAGMA_CUBE = register("magma_cube");
     public static final ModelLayerLocation MOD_SPIDER = register("mod_spider");
+    public static final ModelLayerLocation ICY_SPIDER = register("icy_spider");
     public static final ModelLayerLocation WRAITH = register("wraith");
     public static final ModelLayerLocation SUNKEN_SKELETON = register("sunken_skeleton");
     public static final ModelLayerLocation NECROMANCER = register("necromancer");

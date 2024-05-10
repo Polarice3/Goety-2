@@ -115,7 +115,7 @@ public class ScatterBomb extends Projectile {
             if (this.level instanceof ServerLevel serverLevel) {
                 ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), this);
                 ServerParticleUtil.addAuraParticles(serverLevel, ModParticleTypes.BIG_FIRE_GROUND.get(), this, 2.0F);
-                ColorUtil colorUtil = new ColorUtil(0xdd9c16);
+                ColorUtil colorUtil = new ColorUtil(0xffe183);
                 serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.5F, 1), this.getX(), BlockFinder.moveDownToGround(this), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             }
             this.discard();

@@ -54,6 +54,9 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
 
     public void attackAI(){
         if (!this.level.isClientSide) {
+            if (this.fireCooldown > 0){
+                --this.fireCooldown;
+            }
             if (this.getTarget() != null) {
                 if (!this.isFiring()){
                     this.getLookControl().setLookAt(this.getTarget(), 100.0F, this.getMaxHeadXRot());

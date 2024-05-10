@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.golem;
 
-import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -103,11 +103,6 @@ public class RedstoneCube extends AbstractGolemServant{
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
         this.playSound(ModSounds.REDSTONE_CUBE_WALK.get(), 0.5F, 1.0F);
-        if (this.level instanceof ServerLevel serverLevel){
-            if (this.isOnGround()) {
-                serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(16711680), 0.25F, 3), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0);
-            }
-        }
     }
 
     @Override
@@ -238,6 +233,11 @@ public class RedstoneCube extends AbstractGolemServant{
     }
 
     @Override
+    protected boolean isAffectedByFluids() {
+        return false;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.isAlive()) {
@@ -253,6 +253,12 @@ public class RedstoneCube extends AbstractGolemServant{
                     }
                 } else {
                     if (this.isMoving()) {
+                        if (this.level instanceof ServerLevel serverLevel){
+                            if (this.isOnGround() && this.tickCount % 5 == 0) {
+                                ColorUtil colorUtil = new ColorUtil(16711680);
+                                serverLevel.sendParticles(ModParticleTypes.REDSTONE_DEBRIS.get(), this.getX(), this.getY() + 0.1F, this.getZ(), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 1.0F);
+                            }
+                        }
                         this.setAnimationState(WALK);
                     } else {
                         this.setAnimationState(IDLE);

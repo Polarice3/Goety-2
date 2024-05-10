@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.FollowMobClassGoal;
+import com.Polarice3.Goety.config.AttributesConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -86,9 +87,9 @@ public class Ripper extends Raider {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.MAX_HEALTH, 16.0D)
-                .add(Attributes.ARMOR, 2.0D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.RipperHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.RipperArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.RipperDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
@@ -168,15 +169,15 @@ public class Ripper extends Raider {
             if (this.getRipperSize() < -1){
                 attack.setBaseValue(0.5F);
             } else {
-                attack.setBaseValue(2 + this.getRipperSize());
+                attack.setBaseValue(AttributesConfig.RipperDamage.get() + this.getRipperSize());
             }
         }
         AttributeInstance health = this.getAttribute(Attributes.MAX_HEALTH);
         if (health != null) {
             if (this.getRipperSize() < 0){
-                health.setBaseValue(16 + (this.getRipperSize() * 4));
+                health.setBaseValue(AttributesConfig.RipperHealth.get() + (this.getRipperSize() * 4));
             } else {
-                health.setBaseValue(16 + (this.getRipperSize() * 2));
+                health.setBaseValue(AttributesConfig.RipperHealth.get() + (this.getRipperSize() * 2));
             }
         }
     }

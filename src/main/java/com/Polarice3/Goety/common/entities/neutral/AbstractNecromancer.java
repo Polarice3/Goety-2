@@ -98,6 +98,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.NecromancerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.NecromancerArmor.get())
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
@@ -106,6 +107,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.NecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.NecromancerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.NecromancerDamage.get());
     }
 

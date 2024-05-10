@@ -818,6 +818,11 @@ public class MobUtil {
         return !list.isEmpty() && livingEntity.isPushable();
     }
 
+    public static boolean isInBrightLight(LivingEntity livingEntity){
+        float f = livingEntity.getLightLevelDependentMagicValue();
+        return f >= 0.5F;
+    }
+
     public static boolean isInSunlight(LivingEntity livingEntity){
         if (livingEntity.level.isDay() && !livingEntity.level.isClientSide) {
             float f = livingEntity.getLightLevelDependentMagicValue();

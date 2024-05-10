@@ -60,10 +60,10 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [-0.25, -16, 1]
+			"translation": [0, -7, 1]
 		},
 		"thirdperson_lefthand": {
-			"translation": [-1.25, -16, 1]
+			"translation": [0, -7, 1]
 		},
 		"firstperson_righthand": {
 			"translation": [0, -7, 0]

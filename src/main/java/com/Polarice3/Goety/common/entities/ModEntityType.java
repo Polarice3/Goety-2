@@ -3,10 +3,7 @@ package com.Polarice3.Goety.common.entities;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
-import com.Polarice3.Goety.common.entities.ally.spider.BoneSpiderServant;
-import com.Polarice3.Goety.common.entities.ally.spider.CaveSpiderServant;
-import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
-import com.Polarice3.Goety.common.entities.ally.spider.WebSpiderServant;
+import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
@@ -562,6 +559,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BorderWraithServant>> BORDER_WRAITH_SERVANT = register("border_wraith_servant",
+            EntityType.Builder.of(BorderWraithServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<SkeletonPillager>> SKELETON_PILLAGER = register("skeleton_pillager",
             EntityType.Builder.of(SkeletonPillager::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -623,6 +625,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<WebSpiderServant>> WEB_SPIDER_SERVANT = register("web_spider_servant",
             EntityType.Builder.of(WebSpiderServant::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<IcySpiderServant>> ICY_SPIDER_SERVANT = register("icy_spider_servant",
+            EntityType.Builder.of(IcySpiderServant::new, MobCategory.MONSTER)
                     .sized(1.4F, 0.9F)
                     .clientTrackingRange(8));
 

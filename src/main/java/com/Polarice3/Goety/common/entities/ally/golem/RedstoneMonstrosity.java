@@ -93,9 +93,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
     public int isSittingDown;
     public int isStandingUp;
     public float minorGlow;
-    public float glowAmount = 0.05F;
+    public float glowAmount = 0.01F;
     public float bigGlow;
     public float deathRotation = 0.0F;
+    public int bigGlowCool;
     public int deathTime = 0;
     public boolean clientStop;
     public AnimationState activateAnimationState = new AnimationState();
@@ -516,6 +517,30 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         }
     }
 
+    @Override
+    protected boolean isAffectedByFluids() {
+        return false;
+    }
+
+    //Based on @L_Ender's hurt range mechanic.
+    public double canHurtRange(DamageSource pSource) {
+        if (pSource.getEntity() != null){
+            return this.distanceTo(pSource.getEntity());
+        } else if (pSource.getSourcePosition() != null){
+            return pSource.getSourcePosition().distanceTo(this.position());
+        }
+
+        return -1.0D;
+    }
+
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (this.canHurtRange(pSource) > AttributesConfig.RedstoneMonstrosityHurtRange.get()
+                && !pSource.isBypassInvul()) {
+            return false;
+        }
+        return super.hurt(pSource, pAmount);
+    }
+
     protected void actuallyHurt(DamageSource source, float amount) {
         if (!source.isBypassInvul()){
             amount = Math.min(amount, AttributesConfig.RedstoneMonstrosityDamageCap.get().floatValue());
@@ -619,7 +644,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     ++this.attackTick;
                 }
                 if (this.isSummoning()) {
-                    this.level.broadcastEntityEvent(this, (byte) 5);
+                    this.makeBigGlow();
                     --this.summonTick;
                     if (this.level instanceof ServerLevel serverLevel) {
                         for (int i = 0; i < 5; ++i) {
@@ -644,7 +669,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXLeft(), BlockFinder.moveDownToGround(this), this.getZLeft(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 3, 1), this.getXRight(), BlockFinder.moveDownToGround(this), this.getZRight(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                             this.playSound(ModSounds.REDSTONE_MONSTROSITY_BELCH.get(), this.getSoundVolume(), 0.7F);
-                            this.playSound(ModSounds.DIRT_DEBRIS.get(), this.getSoundVolume(), 0.4F);
                             for (LivingEntity target : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
                                 if (target != this && !target.isAlliedTo(this) && !this.isAlliedTo(target)) {
                                     if (target.hurt(DamageSource.mobAttack(this), 2.0F)){
@@ -668,6 +692,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                                 Summoned summoned = new RedstoneCube(ModEntityType.REDSTONE_CUBE.get(), this.level);
                                 if (this.level.noCollision(summoned, summoned.getBoundingBox().move(blockPos))){
                                     SummonCircleVariant summonCircle = new SummonCircleVariant(this.level, blockPos, summoned, this);
+                                    summonCircle.playSound(ModSounds.DIRT_DEBRIS.get(), 3.0F, 0.4F);
                                     this.level.addFreshEntity(summonCircle);
                                 }
                             }
@@ -695,9 +720,14 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             }
         } else {
             if (this.isAlive()) {
+                if (this.bigGlowCool > 0){
+                    --this.bigGlowCool;
+                }
                 if (!this.isActivating()) {
                     if (this.bigGlow > 0.0F) {
-                        this.bigGlow -= 0.05F;
+                        if (this.bigGlowCool <= 0) {
+                            this.bigGlow -= 0.1F;
+                        }
                     } else {
                         this.glow();
                     }
@@ -710,10 +740,15 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         }
     }
 
+    public void makeBigGlow(){
+        this.level.broadcastEntityEvent(this, (byte) 5);
+    }
+
     @Override
     public void handleEntityEvent(byte p_21375_) {
         if (p_21375_ == 5){
             this.bigGlow = 1.0F;
+            this.bigGlowCool = 10;
         } else if (p_21375_ == 6){
             this.clientStop = true;
         } else if (p_21375_ == 7){
@@ -759,6 +794,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             this.setMeleeAttacking(true);
         }
         return true;
+    }
+
+    public double spitRange(){
+        return AttributesConfig.RedstoneMonstrositySpitRange.get();
     }
 
     public Vec3 getHorizontalLookAngle() {
@@ -924,9 +963,9 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                 this.mob.setAnimationState(ATTACK);
             }
             if (this.mob.attackTick == 22) {
-                this.mob.level.broadcastEntityEvent(this.mob, (byte) 5);
+                this.mob.makeBigGlow();
                 this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_SMASH.get(), this.mob.getSoundVolume() * 2.0F, 0.2F);
-                this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume(), 0.9F);
+                this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume() / 2.0F, 0.9F);
                 Vec3 vec3 = this.mob.getHorizontalLookAngle();
                 for (LivingEntity target : this.mob.level.getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().move(vec3.scale(5.0D)).inflate(MELEE_RANGE))) {
                     if (target != this.mob && !target.isAlliedTo(this.mob) && !this.mob.isAlliedTo(target)) {
@@ -960,13 +999,13 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                         MobUtil.forcefulKnockBack(livingEntity, (double)(f1 * 0.5F), (double)Mth.sin(this.mob.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.mob.getYRot() * ((float)Math.PI / 180F))), 0.5D);
                     }
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
-                    if (livingEntity instanceof Player player && player.isBlocking()) {
-                        player.disableShield(true);
-                    }
                 }
 
                 this.mob.doEnchantDamageEffects(this.mob, target);
                 this.mob.setLastHurtMob(target);
+            }
+            if (target instanceof Player player && player.isBlocking()) {
+                player.disableShield(true);
             }
         }
 
@@ -993,7 +1032,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     && livingentity != null
                     && livingentity.isAlive()
                     && !this.mob.targetClose(livingentity)
-                    && this.mob.distanceTo(livingentity) <= 13.0D) {
+                    && this.mob.distanceTo(livingentity) <= this.mob.spitRange()) {
                 return !this.mob.isMeleeAttacking() && !this.mob.isSummoning();
             } else {
                 return false;
@@ -1040,7 +1079,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     this.mob.setBelching(true);
                     this.mob.setAnimationState(BELCH);
                 } else if (this.attackTime > 5 && this.attackTime < 17){
-                    this.mob.level.broadcastEntityEvent(this.mob, (byte) 5);
+                    this.mob.makeBigGlow();
                 } else if (this.attackTime == 17) {
                     Vec3 vec3 = this.mob.position().add(this.mob.getLookAngle().scale(10));
                     for (int i = 0; i < 8; i++) {
@@ -1048,6 +1087,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                         this.mob.level.addFreshEntity(bomb);
                     }
                     this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_BELCH.get(), this.mob.getSoundVolume(), 0.7F);
+                    this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_GROWL.get(), this.mob.getSoundVolume() - 1.5F, 0.9F);
                 } else if (this.attackTime >= 37) {
                     this.mob.setBelching(false);
                     this.mob.postAttackCool = (int) MathHelper.secondsToTicks(0.5F);
@@ -1069,16 +1109,20 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             float velocity = 1.0F;
             if (this.mob.getTarget() != null){
                 LivingEntity livingEntity = this.mob.getTarget();
-                if (livingEntity.distanceTo(this.mob) <= 13.0F){
-                    velocity = livingEntity.distanceTo(this.mob) / 13.0F;
+                if (livingEntity.distanceTo(this.mob) <= this.mob.spitRange()){
+                    velocity = (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange());
                 }
             }
             this.shoot(bomb, d1, d2 + d4, d3, velocity, 30);
             return bomb;
         }
 
-        public void shoot(Projectile projectile, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
-            Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(this.mob.random.triangle(0.0D, 0.0172275D * (double)p_37270_), 0.0D, this.mob.random.triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
+        public void shoot(Projectile projectile, double xPower, double yPower, double zPower, float velocity, float inaccuracy) {
+            Vec3 vec3 = (new Vec3(xPower, yPower, zPower)).normalize().add(
+                            this.mob.random.triangle(0.0D, 0.0172275D * (double)inaccuracy),
+                            this.mob.random.triangle(0.0D, 0.0172275D * 5),
+                            this.mob.random.triangle(0.0D, 0.0172275D * (double)inaccuracy))
+                    .scale((double)velocity);
             projectile.setDeltaMovement(vec3);
             double d0 = vec3.horizontalDistance();
             projectile.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (double)(180F / (float)Math.PI)));

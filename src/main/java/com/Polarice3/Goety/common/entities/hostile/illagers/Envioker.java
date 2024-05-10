@@ -62,12 +62,14 @@ public class Envioker extends HuntingIllagerEntity {
         return Mob.createMobAttributes()
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MAX_HEALTH, AttributesConfig.EnviokerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.EnviokerArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.EnviokerDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.EnviokerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.EnviokerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.EnviokerDamage.get());
     }
 

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -45,19 +46,24 @@ public class SpiderNestBlockEntity extends TrainingBlockEntity {
     @Override
     public void setVariant(ItemStack itemStack, Level level, BlockPos blockPos) {
         if (level instanceof ServerLevel serverLevel) {
-            if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.MINESHAFT)
+             if (BlockFinder.findStructure(serverLevel, blockPos, ModStructures.CRYPT_KEY)
+                    || (getBlocks(blockState -> blockState.is(Blocks.BONE_BLOCK), 16)
+                    && getBlocks(blockState -> blockState.is(ModBlocks.SKULL_PILE.get()), 4))) {
+                if (this.getTrainMob() != ModEntityType.BONE_SPIDER_SERVANT.get()) {
+                    this.setEntityType(ModEntityType.BONE_SPIDER_SERVANT.get());
+                    this.markUpdated();
+                }
+            } else if (RitualRequirements.frostRitual(blockPos, level)){
+                 if (this.getTrainMob() != ModEntityType.ICY_SPIDER_SERVANT.get()){
+                     this.setEntityType(ModEntityType.ICY_SPIDER_SERVANT.get());
+                     this.markUpdated();
+                 }
+             } else if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.MINESHAFT)
                     || (getBlocks(blockState -> blockState.is(Blocks.PODZOL), 8)
                     && getBlocks(blockState -> blockState.getBlock() instanceof MushroomBlock, 8)
                     && getBlocks(blockState -> blockState.is(Tags.Blocks.STONE), 8))){
                 if (this.getTrainMob() != ModEntityType.CAVE_SPIDER_SERVANT.get()){
                     this.setEntityType(ModEntityType.CAVE_SPIDER_SERVANT.get());
-                    this.markUpdated();
-                }
-            } else if (BlockFinder.findStructure(serverLevel, blockPos, ModStructures.CRYPT_KEY)
-                    || (getBlocks(blockState -> blockState.is(Blocks.BONE_BLOCK), 16)
-                    && getBlocks(blockState -> blockState.is(ModBlocks.SKULL_PILE.get()), 4))) {
-                if (this.getTrainMob() != ModEntityType.BONE_SPIDER_SERVANT.get()) {
-                    this.setEntityType(ModEntityType.BONE_SPIDER_SERVANT.get());
                     this.markUpdated();
                 }
             } else if (getBlocks(blockState -> blockState.is(BlockTags.LEAVES), 16)

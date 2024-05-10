@@ -435,6 +435,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
             if (this.coolDown > 0){
                 --this.coolDown;
             }
+            if (this.getTarget() != null){
+                serverLevel.broadcastEntityEvent(this, (byte) 14);
+            } else {
+                serverLevel.broadcastEntityEvent(this, (byte) 15);
+            }
             this.setAggressive(this.getTarget() != null);
         }
     }
@@ -498,6 +503,10 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
         } else if (pId == 13){
             this.smashedAnimationState.start(this.tickCount);
             this.setHasStaff(false);
+        } else if (pId == 14){
+            this.setAggressive(true);
+        } else if (pId == 15){
+            this.setAggressive(false);
         } else {
             super.handleEntityEvent(pId);
         }

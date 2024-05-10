@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -58,11 +57,13 @@ public class BoundEvoker extends AbstractBoundIllager{
                 .add(Attributes.MOVEMENT_SPEED, 0.5D)
                 .add(Attributes.FLYING_SPEED, 0.15D)
                 .add(Attributes.FOLLOW_RANGE, 12.0D)
+                .add(Attributes.ARMOR, AttributesConfig.BoundEvokerArmor.get())
                 .add(Attributes.MAX_HEALTH, AttributesConfig.BoundEvokerHealth.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.BoundEvokerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.BoundEvokerArmor.get());
     }
 
     protected void defineSynchedData() {

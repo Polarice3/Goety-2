@@ -68,6 +68,7 @@ public class PoisonQuillVine extends AbstractVine{
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.PoisonQuillVineHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.PoisonQuillVineArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.PoisonQuillVineDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
@@ -76,6 +77,7 @@ public class PoisonQuillVine extends AbstractVine{
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.PoisonQuillVineHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.PoisonQuillVineArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.PoisonQuillVineDamage.get());
     }
 

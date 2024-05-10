@@ -135,7 +135,7 @@ public class ModWitherSkull extends ExplosiveProjectile {
          if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
             return super.canHitEntity(pEntity);
          } else {
-            if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+            if(MobUtil.areAllies(this.getOwner(), pEntity)){
                return false;
             }
             if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){

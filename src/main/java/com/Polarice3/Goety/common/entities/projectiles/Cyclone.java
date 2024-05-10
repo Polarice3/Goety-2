@@ -15,10 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
@@ -342,6 +339,10 @@ public class Cyclone extends SpellHurtingProjectile {
 
     protected ParticleOptions getTrailParticle() {
         return ParticleTypes.CLOUD;
+    }
+
+    protected boolean canHitEntity(Entity p_36842_) {
+        return super.canHitEntity(p_36842_) && !p_36842_.noPhysics;
     }
 
     @Override

@@ -31,12 +31,14 @@ public class MossySkeletonServant extends AbstractSkeletonServant {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.MossySkeletonServantHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.MossySkeletonServantArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.MossySkeletonServantDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.MossySkeletonServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.MossySkeletonServantArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.MossySkeletonServantDamage.get());
     }
 

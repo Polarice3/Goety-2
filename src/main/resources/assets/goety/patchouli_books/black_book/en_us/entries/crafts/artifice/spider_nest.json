@@ -1,7 +1,7 @@
 {
   "name": "Spider Nests",
   "icon": "goety:spider_nest",
-  "category": "goety:crafts",
+  "category": "goety:crafts/artifice",
   "pages": [
     {
       "type": "patchouli:text",
@@ -21,6 +21,11 @@
       "type": "patchouli:text",
       "title": "Web Spider Servants",
       "text": "Requirements: $(li)16 Leaves $(li)8 Cobwebs"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Icy Spider Servants",
+      "text": "Requirements: $(li)Nest is located in a snowing biome $(br)$(l)OR$()$() $(li)16 Ice Blocks of any type $(li)8 Snow Blocks $(li)4 Freezing Lamps"
     },
     {
       "type": "patchouli:text",

@@ -67,12 +67,14 @@ public class Conquillager extends HuntingIllagerEntity implements CrossbowAttack
         return Mob.createMobAttributes()
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MAX_HEALTH, AttributesConfig.ConquillagerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.ConquillagerArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.ConquillagerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.ConquillagerArmor.get());
     }
 
     public void tick() {

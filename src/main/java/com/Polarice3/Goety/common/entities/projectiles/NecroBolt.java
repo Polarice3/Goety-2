@@ -1,11 +1,9 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
-import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -15,7 +13,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -152,25 +149,6 @@ public class NecroBolt extends SpellHurtingProjectile {
         if (this.getGlow == 1 || this.getGlow == 1.5F) {
             this.glowAmount *= -1;
         }
-    }
-
-    protected boolean canHitEntity(Entity pEntity) {
-        if (this.getOwner() != null){
-            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
-                return super.canHitEntity(pEntity);
-            } else {
-                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
-                    return false;
-                }
-                if (this.getOwner() instanceof Enemy && pEntity instanceof Enemy){
-                    return false;
-                }
-                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
-                    return !MobUtil.ownerStack(owned0, owned1);
-                }
-            }
-        }
-        return super.canHitEntity(pEntity);
     }
 
     protected ParticleOptions getTrailParticle() {

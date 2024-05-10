@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -26,9 +27,9 @@ public class SummonCircleVariantRenderer extends EntityRenderer<SummonCircleVari
         matrixStackIn.scale(1.5F, 1.5F, 1.5F);
         matrixStackIn.translate(0.0D, 1.6D, 0.0D);
         matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
-        this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
+        this.model.renderToBuffer(matrixStackIn, ivertexbuilder, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.15F);
         matrixStackIn.popPose();
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, LightTexture.FULL_BRIGHT);
     }
 
     @Override
