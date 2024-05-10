@@ -105,6 +105,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("wraith_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH_SERVANT, 0x0e0d36, 0x2586d9, new Item.Properties()));
 
+    public static final RegistryObject<ModSpawnEggItem> BORDER_WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("border_wraith_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH_SERVANT, 0x18090f, 0x869696, new Item.Properties()));
+
     public static final RegistryObject<ModSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, new Item.Properties()));
 
@@ -116,6 +119,9 @@ public class ModSpawnEggs {
 
     public static final RegistryObject<ModSpawnEggItem> WEB_SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("web_spider_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WEB_SPIDER_SERVANT, 0x2b4226, 11013646, new Item.Properties()));
+
+    public static final RegistryObject<ModSpawnEggItem> ICY_SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("icy_spider_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ICY_SPIDER_SERVANT, 0x5ccff8, 0xcccccc, new Item.Properties()));
 
     public static final RegistryObject<ModSpawnEggItem> BONE_SPIDER_SERVANT_SPAWN_EGG = ITEMS.register("bone_spider_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BONE_SPIDER_SERVANT, 0x311a3b, 0xedf7f5, new Item.Properties()));
@@ -175,7 +181,7 @@ public class ModSpawnEggs {
             () -> new ModSpawnEggItem(ModEntityType.WRAITH, 0x16215c, 0x82d8f8, new Item.Properties()));
 
     public static final RegistryObject<ModSpawnEggItem> BORDER_WRAITH_SPAWN_EGG = ITEMS.register("border_wraith_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH, 0x0d0b1c, 0x2586d9, new Item.Properties()));
+            () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH, 0x341523, 0x869696, new Item.Properties()));
 
     public static final RegistryObject<ModSpawnEggItem> CAIRN_NECROMANCER_SPAWN_EGG = ITEMS.register("cairn_necromancer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CAIRN_NECROMANCER, 0x446888, 0x00bfbf, new Item.Properties()));

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.ally.spider;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.utils.EffectsUtil;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,6 +41,8 @@ public class SpiderServant extends Summoned implements PlayerRideable{
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(SpiderServant.class, EntityDataSerializers.BYTE);
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("2a3ee720-61cb-402c-affa-2eef9343910d");
     public static final AttributeModifier STOP_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Stop Moving Dammit", -1.0D, AttributeModifier.Operation.ADDITION);
+    private static final UUID DETECTION_MODIFIER_UUID = UUID.fromString("858f6b2f-73e3-45a0-8bef-bb31e0d55be4");
+    public static final AttributeModifier DETECTION_MODIFIER = new AttributeModifier(DETECTION_MODIFIER_UUID, "Light Is Blinding", -1.0D, AttributeModifier.Operation.ADDITION);
 
     public SpiderServant(EntityType<? extends Owned> type, Level worldIn) {
         super(type, worldIn);
@@ -74,6 +78,21 @@ public class SpiderServant extends Summoned implements PlayerRideable{
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
+            AttributeInstance modifiableattributeinstance = this.getAttribute(Attributes.FOLLOW_RANGE);
+            if (MobUtil.isInBrightLight(this)){
+                if (modifiableattributeinstance != null) {
+                    if (this.getAttribute(Attributes.FOLLOW_RANGE) != null) {
+                        modifiableattributeinstance.removeModifier(DETECTION_MODIFIER);
+                        modifiableattributeinstance.addTransientModifier(DETECTION_MODIFIER);
+                    }
+                }
+            } else {
+                if (modifiableattributeinstance != null) {
+                    if (modifiableattributeinstance.hasModifier(DETECTION_MODIFIER)) {
+                        modifiableattributeinstance.removeModifier(DETECTION_MODIFIER);
+                    }
+                }
+            }
             this.setClimbing(this.horizontalCollision);
         }
 

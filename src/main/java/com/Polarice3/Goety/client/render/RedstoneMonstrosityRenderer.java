@@ -5,6 +5,7 @@ import com.Polarice3.Goety.client.render.model.RedstoneMonstrosityModel;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -24,6 +25,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
     public RedstoneMonstrosityRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RedstoneMonstrosityModel<>(renderManagerIn.bakeLayer(ModModelLayer.REDSTONE_MONSTROSITY)), 2.0F);
         this.addLayer(new GlowEyesLayer<>(this));
+        this.addLayer(new ActiveLayer<>(this));
         this.addLayer(new NonActiveLayer<>(this));
         this.addLayer(new RMEmissiveLayer<>(this, GLOW, (entity, partialTicks, ageInTicks) -> {
             return !entity.isDeadOrDying()
@@ -61,6 +63,26 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         }
     }
 
+    public static class ActiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
+        private static final ResourceLocation LOCATION = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_lines.png");
+
+        public ActiveLayer(RenderLayerParent<T, M> p_116981_) {
+            super(p_116981_);
+        }
+
+        @Override
+        public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, T p_116986_, float p_116987_, float p_116988_, float p_116989_, float p_116990_, float p_116991_, float p_116992_) {
+            if (!p_116986_.isActivating() && !p_116986_.isDeadOrDying()) {
+                VertexConsumer vertexconsumer = p_116984_.getBuffer(this.renderType());
+                this.getParentModel().renderToBuffer(p_116983_, vertexconsumer, LightTexture.FULL_BLOCK, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            }
+        }
+
+        public RenderType renderType() {
+            return RenderType.entityCutoutNoCull(LOCATION);
+        }
+    }
+
     public static class NonActiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
         private static final ResourceLocation NON_ACTIVE = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_non_active.png");
 
@@ -79,9 +101,9 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
 
     public static class RMEmissiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M> {
         private final ResourceLocation texture;
-        private final RMEmissiveLayer.AlphaFunction<T> alphaFunction;
+        private final AlphaFunction<T> alphaFunction;
 
-        public RMEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, RMEmissiveLayer.AlphaFunction<T> p_234887_) {
+        public RMEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, AlphaFunction<T> p_234887_) {
             super(p_234885_);
             this.texture = p_234886_;
             this.alphaFunction = p_234887_;

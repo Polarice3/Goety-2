@@ -179,10 +179,10 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0, -11, 1]
+			"translation": [0, -7, 1]
 		},
 		"thirdperson_lefthand": {
-			"translation": [0, -11, 1]
+			"translation": [0, -7, 1]
 		},
 		"firstperson_righthand": {
 			"translation": [0, -7, 0]

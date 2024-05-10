@@ -97,6 +97,7 @@ public class Whisperer extends Summoned{
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.WhispererHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.WhispererArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WhispererDamage.get())
                 .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
@@ -105,6 +106,7 @@ public class Whisperer extends Summoned{
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WhispererHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.WhispererArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WhispererDamage.get());
     }
 

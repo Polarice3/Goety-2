@@ -48,10 +48,10 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [-0.25, -16, 1]
+			"translation": [0, -7, 1]
 		},
 		"thirdperson_lefthand": {
-			"translation": [-1.25, -16, 1]
+			"translation": [0, -7, 1]
 		},
 		"firstperson_righthand": {
 			"translation": [0, -7, 0]
@@ -78,27 +78,23 @@
 			"name": "Staff",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"nbt": "{}",
 			"children": [
 				{
 					"name": "handle",
 					"origin": [8, 8, 8],
 					"color": 0,
-					"nbt": "{}",
 					"children": [0]
 				},
 				{
 					"name": "group",
 					"origin": [8, 8, 8],
 					"color": 0,
-					"nbt": "{}",
 					"children": [1]
 				},
 				{
 					"name": "head",
 					"origin": [8, 8, 8],
 					"color": 0,
-					"nbt": "{}",
 					"children": [2]
 				}
 			]

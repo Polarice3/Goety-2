@@ -4,7 +4,6 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -19,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -91,8 +91,8 @@ public class WraithSpell extends SummonSpell {
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof WraithServant) {
-                    if (((WraithServant) entity).getTrueOwner() == entityLiving) {
+                if (entity instanceof AbstractWraith) {
+                    if (((AbstractWraith) entity).getTrueOwner() == entityLiving) {
                         entity.moveTo(entityLiving.position());
                     }
                 }
@@ -112,7 +112,14 @@ public class WraithSpell extends SummonSpell {
                 i = 2 + entityLiving.level.random.nextInt(4);
             }
             for (int i1 = 0; i1 < i; ++i1) {
-                WraithServant summonedentity = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), worldIn);
+                AbstractWraith summonedentity = new AbstractWraith(ModEntityType.WRAITH_SERVANT.get(), worldIn);
+                EntityType<?> entityType1 = summonedentity.getVariant(worldIn, entityLiving.blockPosition());
+                if (entityType1 != null) {
+                    Entity entity = entityType1.create(worldIn);
+                    if (entity instanceof AbstractWraith wraith){
+                        summonedentity = wraith;
+                    }
+                }
                 summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
                 MobUtil.moveDownToGround(summonedentity);

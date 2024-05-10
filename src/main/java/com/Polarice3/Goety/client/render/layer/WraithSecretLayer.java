@@ -3,7 +3,7 @@ package com.Polarice3.Goety.client.render.layer;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.model.WraithModel;
-import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
-public class WraithSecretLayer<T extends WraithServant> extends RenderLayer<T, WraithModel<T>> {
+public class WraithSecretLayer<T extends AbstractWraith> extends RenderLayer<T, WraithModel<T>> {
     private static final ResourceLocation TEXTURES = Goety.location("textures/entity/wraith/wraith_secret.png");
     private final WraithModel<T> layerModel;
 

@@ -1231,7 +1231,9 @@ public class ModEvents {
                 }
             }
             if (ModDamageSource.freezeAttacks(event.getSource())){
-                if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
+                if (target.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)){
+                    event.setAmount(damageAmount * 2.0F);
+                } else if (target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                     event.setAmount(damageAmount * 0.5F);
                 }
             }

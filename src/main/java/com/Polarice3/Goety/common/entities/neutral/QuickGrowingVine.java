@@ -40,6 +40,7 @@ public class QuickGrowingVine extends AbstractVine{
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.QuickGrowingVineHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.QuickGrowingVineArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 16.0D);
@@ -47,6 +48,7 @@ public class QuickGrowingVine extends AbstractVine{
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.QuickGrowingVineHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.QuickGrowingVineArmor.get());
     }
 
     protected void defineSynchedData() {

@@ -71,11 +71,13 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.TormentorHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.TormentorArmor.get())
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.TormentorDamage.get());
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.TormentorHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.TormentorArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.TormentorDamage.get());
     }
 

@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.network.client;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
-import com.Polarice3.Goety.common.entities.ally.ModRavager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

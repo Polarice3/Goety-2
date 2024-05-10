@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-29T22:48:47.8776391	Loot Tables
+// 1.20.1	2024-05-09T19:36:58.2147205	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
@@ -112,6 +112,7 @@ d23e52949201972584c915372dd8cbf40bca03f5 data/goety/loot_tables/blocks/polished_
 29123494fc6b56222c7687e59f677ff4057002d4 data/goety/loot_tables/blocks/potted_haunted_sapling.json
 5f2c16f57251d100ead5ca033d0cd56aac5e91ff data/goety/loot_tables/blocks/potted_rotten_sapling.json
 c468779d162d8a26eb85483a773867d11a61e230 data/goety/loot_tables/blocks/potted_windswept_sapling.json
+908936209e6e501fc11cbad56c4bf86dd4683f06 data/goety/loot_tables/blocks/reinforced_redstone_block.json
 51701dbf3fffec637ed5f9e3dafcbe7156d6bb31 data/goety/loot_tables/blocks/rimmed_steep_wall.json
 49e2a988e8bc9db9e08b3ad46d481c5f97fd80da data/goety/loot_tables/blocks/rimmed_steep_wood.json
 03c87c4f89f2f982068b7ec3f95d7779d0b8a858 data/goety/loot_tables/blocks/rotten_bookshelf.json

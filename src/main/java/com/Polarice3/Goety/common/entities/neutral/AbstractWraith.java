@@ -8,13 +8,16 @@ import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,6 +25,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -31,6 +36,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -39,6 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
 public class AbstractWraith extends Summoned {
+    private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(AbstractWraith.class, EntityDataSerializers.BYTE);
     public int fireTick;
     public int fireCooldown;
@@ -46,6 +53,7 @@ public class AbstractWraith extends Summoned {
     public int teleportTime = 20;
     public int teleportTime2;
     public int postTeleportTime;
+    public float interestTime;
     public double prevX;
     public double prevY;
     public double prevZ;
@@ -78,6 +86,7 @@ public class AbstractWraith extends Summoned {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.WraithHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.WraithArmor.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0F)
@@ -86,11 +95,13 @@ public class AbstractWraith extends Summoned {
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WraithHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.WraithArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WraithDamage.get());
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(DATA_INTERESTED_ID, false);
         this.entityData.define(FLAGS, (byte)0);
     }
 
@@ -148,6 +159,14 @@ public class AbstractWraith extends Summoned {
 
     public void setBreathing(boolean flag) {
         this.setWraithFlags(4, flag);
+    }
+
+    public void setIsInterested(boolean pBeg) {
+        this.entityData.set(DATA_INTERESTED_ID, pBeg);
+    }
+
+    public boolean isInterested() {
+        return this.entityData.get(DATA_INTERESTED_ID);
     }
 
     public MobType getMobType() {
@@ -224,6 +243,14 @@ public class AbstractWraith extends Summoned {
 
     @Override
     public void tick() {
+        if (this.isAlive()) {
+            if (this.isInterested()) {
+                --this.interestTime;
+            }
+            if (this.interestTime <= 0){
+                this.setIsInterested(false);
+            }
+        }
         this.setGravity();
         super.tick();
     }
@@ -517,6 +544,22 @@ public class AbstractWraith extends Summoned {
                 this.playSound(this.getTeleportOutSound(), 1.0F, 1.0F);
             }
         }
+        if (pId == 102){
+            this.setIsInterested(true);
+            this.interestTime = 40;
+            this.playSound(ModSounds.WRAITH_AMBIENT.get(), 1.0F, 2.0F);
+            this.addParticlesAroundSelf(ParticleTypes.HEART);
+        }
+    }
+
+    protected void addParticlesAroundSelf(ParticleOptions pParticleData) {
+        for(int i = 0; i < 5; ++i) {
+            double d0 = this.random.nextGaussian() * 0.02D;
+            double d1 = this.random.nextGaussian() * 0.02D;
+            double d2 = this.random.nextGaussian() * 0.02D;
+            this.level.addParticle(pParticleData, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+        }
+
     }
 
     public float getAnimationProgress(float pPartialTicks) {
@@ -526,6 +569,44 @@ public class AbstractWraith extends Summoned {
         } else {
             return 0.0F;
         }
+    }
+
+    public EntityType<?> getVariant(Level level, BlockPos blockPos){
+        EntityType<?> entityType;
+        if (this.isHostile()){
+            entityType = ModEntityType.WRAITH.get();
+        } else {
+            entityType = ModEntityType.WRAITH_SERVANT.get();
+        }
+        if (level instanceof ServerLevel serverLevel) {
+            if (BlockFinder.findStructure(serverLevel, blockPos, ModStructures.CRYPT_KEY)) {
+                if (this.isHostile()){
+                    entityType = ModEntityType.BORDER_WRAITH.get();
+                } else {
+                    entityType = ModEntityType.BORDER_WRAITH_SERVANT.get();
+                }
+            }
+        }
+        return entityType;
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (!this.isInterested()) {
+                InteractionResult actionresulttype = super.mobInteract(pPlayer, pHand);
+                if (!actionresulttype.consumesAction() && (itemstack.isEmpty() || itemstack == ItemStack.EMPTY)) {
+                    this.setIsInterested(true);
+                    this.interestTime = 40;
+                    this.level.broadcastEntityEvent(this, (byte) 102);
+                    this.playSound(ModSounds.WRAITH_AMBIENT.get(), 1.0F, 2.0F);
+                    this.heal(1.0F);
+                    return InteractionResult.SUCCESS;
+                }
+                return actionresulttype;
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public static class WraithLookGoal extends LookAtPlayerGoal {

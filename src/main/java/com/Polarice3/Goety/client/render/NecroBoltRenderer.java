@@ -21,9 +21,9 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class NecroBoltRenderer<T extends NecroBolt> extends EntityRenderer<T> {
-    private static final ResourceLocation BASE = Goety.location("textures/particle/necro_bolt_base.png");
-    private static final ResourceLocation MID = Goety.location("textures/particle/necro_bolt_mid.png");
-    private static final ResourceLocation TOP = Goety.location("textures/particle/necro_bolt_top.png");
+    public static final ResourceLocation BASE = Goety.location("textures/particle/necro_bolt_base.png");
+    public static final ResourceLocation MID = Goety.location("textures/particle/necro_bolt_mid.png");
+    public static final ResourceLocation TOP = Goety.location("textures/particle/necro_bolt_top.png");
     private static final ResourceLocation TRAIL = Goety.location("textures/entity/projectiles/trail.png");
 
     public NecroBoltRenderer(EntityRendererProvider.Context renderManagerIn) {

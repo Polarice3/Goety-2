@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.NecromancerModel;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class AbstractNecromancerRenderer extends MobRenderer<AbstractNecromancer, NecromancerModel<AbstractNecromancer>> {
    private static final ResourceLocation SKELETON_LOCATION = Goety.location("textures/entity/necromancer/necromancer.png");
+   private static final ResourceLocation SERVANT_LOCATION = Goety.location("textures/entity/necromancer/necromancer_servant.png");
 
    public AbstractNecromancerRenderer(EntityRendererProvider.Context p_174382_) {
       super(p_174382_, new NecromancerModel<>(p_174382_.bakeLayer(ModModelLayer.NECROMANCER)), 0.5F);
@@ -27,7 +29,11 @@ public class AbstractNecromancerRenderer extends MobRenderer<AbstractNecromancer
    }
 
    public ResourceLocation getTextureLocation(AbstractNecromancer p_115941_) {
-      return SKELETON_LOCATION;
+      if (p_115941_.isHostile() || !MobsConfig.NecromancerServantTexture.get()){
+         return SKELETON_LOCATION;
+      } else {
+         return SERVANT_LOCATION;
+      }
    }
 
    public static class NecromancerEyesLayer<T extends AbstractNecromancer, M extends NecromancerModel<T>> extends EyesLayer<T, M> {

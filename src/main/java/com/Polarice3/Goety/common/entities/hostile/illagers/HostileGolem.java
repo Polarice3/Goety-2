@@ -53,7 +53,7 @@ public abstract class HostileGolem extends Raider {
     }
 
     public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+        return !(this.walkAnimation.speed() < 0.01F);
     }
 
     public abstract double getAttackReachSqr(LivingEntity enemy);

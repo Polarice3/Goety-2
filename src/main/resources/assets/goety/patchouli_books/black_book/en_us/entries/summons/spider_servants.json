@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Simple, yet ravenous creatures, these giant arthopods can be great assets in combat."
+      "text": "Simple, yet ravenous creatures, these giant arthopods can be great assets in combat, though they are very blind when within bright light."
     },
     {
       "type": "patchouli:text",
@@ -34,6 +34,14 @@
     {
       "type": "patchouli:text",
       "text": "Unlike their brutish counterparts, Web Spiders would not immediately attack their foes, but instead shoot a ball of web that, when hit, entangles them for a while, where upon they will rush towards them at high speed."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:icy_spider_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These freezing cold arachnids slows down their target with every bite, and can walk on Powdered Snow with no problems. If their owner wears a Frost Robe, their bites freezes their target instead."
     },
     {
       "type": "patchouli:entity",

@@ -162,6 +162,10 @@ public class IceStorm extends SpellHurtingProjectile {
         return false;
     }
 
+    protected boolean canHitEntity(Entity p_36842_) {
+        return super.canHitEntity(p_36842_) && !p_36842_.noPhysics;
+    }
+
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);

@@ -57,12 +57,14 @@ public class SkeletonPillager extends AbstractSkeletonServant implements Crossbo
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.MAX_HEALTH, AttributesConfig.SkeletonPillagerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.SkeletonPillagerArmor.get())
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SkeletonPillagerDamage.get())
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SkeletonPillagerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.SkeletonPillagerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SkeletonPillagerDamage.get());
     }
 

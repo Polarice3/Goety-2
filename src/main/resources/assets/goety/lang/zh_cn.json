@@ -1883,7 +1883,7 @@
   "item.goety.cyclone_focus": "飓风聚晶",
   "item.goety.cyclone_focus.info": "发射一个飓风团，它可以牵制住其中的非友军实体，并且把它们扔出去。",
   "block.goety.reinforced_redstone_block": "强化红石块",
-  "info.goety.items.terminus": "“一个可怕怪物的示意图…",
+  "info.goety.items.terminus": "一个可怕怪物的示意图…",
   "info.goety.research.terminus": "你学习了搭建战争兵器的方法！",
   "info.goety.ominous_saddle": "鞍放在驯服的劫掠兽上可以增加它们的最大生命值。",
   "info.goety.research.extra": "你必须先研究%s才能理解这篇卷轴！",
@@ -1891,5 +1891,5 @@
   "advancements.goety.craft_lightning_focus.description": "合成闪电聚晶。",
   "advancements.goety.terminus_scroll.title": "巨人之肩",
   "advancements.goety.terminus_scroll.description": "阅读终结卷轴，发掘毁灭之路。",
-  "info.goety.servant.tryKill": "你想杀死或解雇%s?"
+  "info.goety.servant.tryKill": "你确定要消灭%s?"
 }

@@ -180,6 +180,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> FAN_CLOUD = PARTICLE_TYPES.register("fan_cloud",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> REDSTONE_DEBRIS = PARTICLE_TYPES.register("redstone_debris",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<ParticleType<SparkleParticleOption>> SPARKLE = PARTICLE_TYPES.register("sparkle",
             () -> new ParticleType<>(false, SparkleParticleOption.DESERIALIZER) {
                 @Override

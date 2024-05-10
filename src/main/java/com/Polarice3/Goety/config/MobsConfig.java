@@ -43,6 +43,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StrayServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MossySkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunkenSkeletonServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VanguardServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithServantTexture;
@@ -141,6 +142,8 @@ public class MobsConfig {
                         .define("mossySkeletonServantTexture", true);
                 SunkenSkeletonServantTexture = BUILDER.comment("If Sunken Skeleton Servants have custom textures, Default: true")
                         .define("sunkenSkeletonServantTexture", true);
+                NecromancerServantTexture = BUILDER.comment("If Necromancer Servants have custom textures, Default: true")
+                        .define("necromancerServantTexture", true);
                 VanguardServantTexture = BUILDER.comment("If Vanguard Servants have custom textures, Default: true")
                         .define("vanguardServantTexture", true);
                 BUILDER.pop();

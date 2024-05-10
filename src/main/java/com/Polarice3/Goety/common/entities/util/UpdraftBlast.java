@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -116,7 +117,10 @@ public class UpdraftBlast extends Entity {
                     }
                 }
                 List<Entity> targets = new ArrayList<>();
-                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(1.0F + area, 1.0F, 1.0F + area))){
+                float area0 = 1.0F + area;
+                AABB aabb = this.getBoundingBox();
+                AABB aabb1 = new AABB(aabb.minX - area0, aabb.minY - 1.0F, aabb.minZ - area0, aabb.maxX + area0, aabb.maxY + 4.0F, aabb.maxZ + area0);
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb1)){
                     if (this.owner != null) {
                         if (entity != this.owner && !entity.isAlliedTo(this.owner)) {
                             targets.add(entity);

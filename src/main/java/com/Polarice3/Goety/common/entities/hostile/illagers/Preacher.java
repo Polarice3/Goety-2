@@ -57,12 +57,14 @@ public class Preacher extends HuntingIllagerEntity{
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, AttributesConfig.PreacherHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.PreacherArmor.get())
                 .add(Attributes.FOLLOW_RANGE, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D);
     }
 
     public void setConfigurableAttributes(){
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.PreacherHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.PreacherArmor.get());
     }
 
     protected void defineSynchedData() {
