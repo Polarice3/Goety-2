@@ -271,45 +271,47 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
 
     @Override
     public boolean hurt(DamageSource p_37849_, float p_37850_) {
-        if (this.hasStaff() && this.isAggressive() && !this.isCasting() && this.coolDown <= 10){
-            if (this.staffDamage >= 64){
-                this.setHasStaff(false);
-                this.level.broadcastEntityEvent(this, (byte) 13);
-                if (this.level instanceof ServerLevel serverLevel){
-                    for(int i = 0; i < 20; ++i) {
-                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
-                    }
-                }
-                if (p_37849_.getEntity() != null){
-                    MobUtil.knockBack(this, p_37849_.getEntity(), 4.0D, 0.2D, 4.0D);
-                }
-                this.playSound(SoundEvents.ITEM_BREAK, 4.0F, 1.0F);
-                return false;
-            } else if (!p_37849_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
-                    && !p_37849_.is(DamageTypeTags.BYPASSES_EFFECTS)
-                    && !p_37849_.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)
-                    && !p_37849_.is(DamageTypeTags.IS_EXPLOSION)
-                    && !p_37849_.isCreativePlayer()
-                    && p_37849_.getEntity() != null){
-                Vec3 vec32 = p_37849_.getSourcePosition();
-                if (vec32 != null) {
-                    MobUtil.instaLook(Minister.this, vec32);
-                    if (ModDamageSource.toolAttack(p_37849_, item -> item instanceof AxeItem)){
-                        p_37850_ *= 2.0F;
-                    }
-                    this.staffDamage += p_37850_;
-                    this.level.broadcastEntityEvent(this, (byte) 8);
-                    this.playSound(SoundEvents.SHIELD_BLOCK);
-                    if (this.level instanceof ServerLevel serverLevel){
-                        for(int i = 0; i < 5; ++i) {
+        if (!this.level.isClientSide) {
+            if (this.hasStaff() && this.isAggressive() && !this.isCasting() && this.coolDown <= 10) {
+                if (this.staffDamage >= 64) {
+                    this.setHasStaff(false);
+                    this.level.broadcastEntityEvent(this, (byte) 13);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 20; ++i) {
                             ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
                         }
                     }
-                    if (this.level.random.nextFloat() <= 0.05F){
-                        this.playSound(ModSounds.MINISTER_LAUGH.get());
+                    if (p_37849_.getEntity() != null) {
+                        MobUtil.knockBack(this, p_37849_.getEntity(), 4.0D, 0.2D, 4.0D);
                     }
+                    this.playSound(SoundEvents.ITEM_BREAK, 4.0F, 1.0F);
+                    return false;
+                } else if (!p_37849_.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                        && !p_37849_.is(DamageTypeTags.BYPASSES_EFFECTS)
+                        && !p_37849_.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)
+                        && !p_37849_.is(DamageTypeTags.IS_EXPLOSION)
+                        && !p_37849_.isCreativePlayer()
+                        && p_37849_.getEntity() != null) {
+                    Vec3 vec32 = p_37849_.getSourcePosition();
+                    if (vec32 != null) {
+                        MobUtil.instaLook(Minister.this, vec32);
+                        if (ModDamageSource.toolAttack(p_37849_, item -> item instanceof AxeItem)) {
+                            p_37850_ *= 2.0F;
+                        }
+                        this.staffDamage += p_37850_;
+                        this.level.broadcastEntityEvent(this, (byte) 8);
+                        this.playSound(SoundEvents.SHIELD_BLOCK);
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 5; ++i) {
+                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.DARK_FABRIC.get())), this);
+                            }
+                        }
+                        if (this.level.random.nextFloat() <= 0.05F) {
+                            this.playSound(ModSounds.MINISTER_LAUGH.get());
+                        }
+                    }
+                    return false;
                 }
-                return false;
             }
         }
         return super.hurt(p_37849_, p_37850_);

@@ -1,0 +1,23 @@
+{
+  "name": "Одержимая стойка для брони",
+  "icon": "goety:haunted_armor_stand",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Одержимые стойки для брони несколько отличаются от обычных, так как в отличие от них имеют руки для оружия или предметов. Благодаря тому, что стойка сделана из одержимых досок, она невосприимчива к огню."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:haunted/haunted_armor_stand"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:animation_core",
+      "title": "Одержимые доспехи",
+      "text": "Стойку делает действительно особенной то, что если она полностью одета в броню, то нажав по ней ПКМ ядром оживления, вы превратите её в одержимые доспехи, прислуживающие вам."
+    }
+  ]
+}

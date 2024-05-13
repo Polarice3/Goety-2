@@ -1,0 +1,17 @@
+{
+  "name": "Коса смерти",
+  "icon": "goety:death_scythe",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Коса смерти — самая мощная в своем роде, её лезвия настолько остры, что её удары рассекают воздух, раня существ, находящихся далеко от её владельца, и делают их более уязвимыми. Она восстанавливается, используя энергию душ владельца."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:death_scythe"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Одержимые стёкла",
+  "icon": "goety:haunted_glass",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Из эктоплазмы вы создали стекло, неосязаемое только для вас и ваших приспешников. Существа и предметы не могут проходить сквозь него, а стекло можно тонировать, чтобы не пропускать даже свет."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass",
+      "recipe2": "goety:haunted_glass_tinted"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Вы также можете изменить принцип работы стекла, чтобы сквозь него могли проходить все, кроме вас и ваших приспешников."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_glass_mob",
+      "recipe2": "goety:haunted_glass_mob_tinted"
+    }
+  ]
+}

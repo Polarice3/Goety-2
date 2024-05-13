@@ -1,0 +1,15 @@
+{
+  "name": "Фокус бастиона",
+  "icon": "goety:bulwark_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус вызовет четыре магических щита, которые будут вращаться вокруг вас и отражать атаки, отбрасывая нападающих назад. Через некоторое время щиты исчезнут."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/bulwark_focus"
+    }
+  ]
+}

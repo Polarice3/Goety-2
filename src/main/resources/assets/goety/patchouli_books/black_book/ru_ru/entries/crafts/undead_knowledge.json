@@ -1,0 +1,17 @@
+{
+  "name": "Странный пергамент",
+  "icon": "goety:forbidden_piece",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/gain_fragment",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Голоса мёртвых и осколки мыслей Незера могут содержать какие-то секреты, связанные с тёмной силой. Используя осколки эха и немного некротургии, вы можете создать частичку тёмной и зловещей силы."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:forbidden_piece"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Безымянный посох",
+  "icon": "goety:nameless_staff",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью запретных текстов вы нашли способ использовать силу ночи, что позволило вам создать мощный посох, который дарует вам превосходство в некромантии."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:heart_of_the_night"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_staff"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:focuses/soul_bolt_focus)Снаряды душ$(), выпущенные из этого посоха, превратятся в более мощные некро-снаряды. Использование $(l:focuses/illusion_focus)заклинания отражения$(), будучи в $(l:crafts/garment/nameless_set)безымянных одеждах$(), позволит вам стрелять одним, более мощным некро-снарядом."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Ветродуй",
+  "icon": "goety:wind_blower",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Сила ядра ветра позволяет создавать мощные ветродуи, которые двигают всех существ перед собой, кроме несдвигаемых. Приседание уменьшит давление на вас, позволяя двигаться против ветра. Мощность ветродуя зависит от мощности сигнала редстоуна, которую он получает."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:wind_blower",
+      "recipe2": "goety:marble_wind_blower"
+    }
+  ]
+}

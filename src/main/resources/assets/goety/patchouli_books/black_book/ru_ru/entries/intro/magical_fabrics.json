@@ -1,0 +1,28 @@
+{
+  "name": "Волшебные ткани",
+  "icon": "goety:dark_fabric",
+  "category": "goety:intro",
+  "sortnum": 5,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Лазурит, видимо, является основным ингредиентом в магии. Совмещение его с нитью создаёт особое волокно, которое передаёт магию лучше, чем любое другое. Совмещая его с красителями или другими предметами, вы можете создавать особые ткани."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark_fabric",
+      "recipe2": "goety:magic_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:occult_fabric",
+      "recipe2": "goety:spirit_fabric"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:gale_fabric",
+      "recipe2": "goety:chill_fabric"
+    }
+  ]
+}

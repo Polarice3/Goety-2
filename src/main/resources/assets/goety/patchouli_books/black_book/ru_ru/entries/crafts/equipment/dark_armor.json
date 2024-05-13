@@ -1,0 +1,33 @@
+{
+  "name": "Тёмная броня",
+  "icon": "goety:dark_helmet",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В то время как тёмный металл можно использовать для создания обычных инструментов, когда дело доходит до брони, нужны более... утончённые способы их изготовления. Броня не похожа на любую другую: она выглядит более продуманной, но в то же время устрашающей. Однако она по-прежнему обеспечивает защиту и твёрдость на уровне алмазной, а также сопротивление отбрасыванию."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Как и броня из чёрного железа, эти доспехи также дают скидку на использование энергии душ, но также немного уменьшает урон от магии, огня и взрывов."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:dark/dark_boots"
+    }
+  ]
+}

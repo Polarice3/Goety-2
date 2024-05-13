@@ -1,0 +1,17 @@
+{
+  "name": "Починщик душ",
+  "icon": "goety:soul_mender",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_dark_ingot",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Починщик душ — это мощное устройство, которое восстанавливает повреждённые оружие и инструменты, используя энергию душ. Для работы починщик должен быть помещён поверх $(l:intro/cursed_cage)проклятой клетки$() с тотемом или $(l:crafts/soul_transfer_gem)самоцветом передачи$(), после чего он медленно починит предмет внутри себя."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:soul_mender"
+    }
+  ]
+}

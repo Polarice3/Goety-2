@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал грозы",
+  "icon": "minecraft:lightning_rod",
+  "category": "goety:rituals",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Алтарь должен быть на высоте не менее 128 метров $(li)Алтарь должен находится под открытым небом $(li)Грозовая погода $(li)4 громоотвода $(li)20 цепей $(li)12 любых медных блоков"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/storm_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Сила грозы усилит ваши магические способности! Медные блоки могут быть любыми."
+    }
+  ]
+}

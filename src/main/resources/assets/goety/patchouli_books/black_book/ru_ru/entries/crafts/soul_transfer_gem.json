@@ -1,0 +1,20 @@
+{
+  "name": "Самоцвет передачи",
+  "icon": "goety:soul_transfer",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:intro/cursed_cage)Проклятые клетки$() — это прекрасно, но вас уже начинает тошнить постоянного перекладывания тотема туда-сюда."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:soul_transfer",
+      "text": "К счастью, с помощью силы пробуждённых изумрудов вы нашли способ перенести энергию душ из $(l:crafts/artifice/arca)арки$() в $(l:intro/cursed_cage)проклятую клетку$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Просто нажите ПКМ самоцветом передачи по $(l:crafts/artifice/arca)арке$(), и он привяжется к ней и её владельцу. Затем поместите самоцвет передачи в $(l:intro/cursed_cage)проклятую клетку$(), и он будет вытягивать энергию душ из $(l:crafts/artifice/arca)арки$() при использовании."
+    }
+  ]
+}

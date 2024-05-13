@@ -1,0 +1,17 @@
+{
+  "name": "Громовержец",
+  "icon": "goety:stormlander",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/get_stormlander",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Громовержец, владеющий силой бушующей грозы, является сокровищем злодеян."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Он может выполнять те же функции, что и его обычный аналог. Молот можно починить на наковальне с помощью $(l:intro/magical_components)слитков проклятого металла$()."
+    }
+  ]
+}

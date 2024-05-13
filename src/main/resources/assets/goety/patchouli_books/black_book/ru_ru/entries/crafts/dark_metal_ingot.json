@@ -1,0 +1,31 @@
+{
+  "name": "Слитки тёмного металла",
+  "icon": "goety:dark_ingot",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы сделали это, вам удалось направить энергию тёмных подземелий в металл, который восстанавливается с помощью энергии душ. Количество энергии душ, необходимое для создания одного слитка, очень велико, но вы смогли её добыть. Этот металл кажется таким же прочным, как алмаз, и почти таким же зачаровываемым, как золото. Кроме того, он замедляет и ослабляет существ."
+    },
+    {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_sword",
+      "recipe2": "goety:dark/dark_pickaxe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_axe",
+      "recipe2": "goety:dark/dark_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:dark/dark_hoe"
+    }
+  ]
+}

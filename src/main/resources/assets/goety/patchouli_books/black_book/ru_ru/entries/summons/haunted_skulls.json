@@ -1,0 +1,15 @@
+{
+  "name": "Одержимые черепа",
+  "icon": "goety:haunted_skull_spawn_egg",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Как и вредины, одержимые черепа могут проходить сквозь блоки, но они более хрупкие и наносят урон, взрываясь перед лицом врага. Их взрывы не вредят ни их создателю, ни его приспешникам."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_skull"
+    }
+  ]
+}

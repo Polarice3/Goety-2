@@ -1,0 +1,17 @@
+{
+  "name": "Джунглевое открытие",
+  "icon": "minecraft:jungle_wood",
+  "category": "goety:rumors",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы слышали о странных пергаментах, найденных в $(l)замшелых сооружениях$() в $(l)джунглях$() — пергаментах, которые рассказывают о неких магических обрядах."
+    },
+    {
+      "type": "patchouli:quest",
+      "trigger": "goety:goety/read_floral_scroll",
+      "text": "Говорят, что эти пергаменты находятся в $(l)храмах джунглей$()."
+    }
+  ]
+}

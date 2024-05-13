@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +59,14 @@ public class ScatterSpell extends Spell {
             BlockPos blockPos = entityLiving.blockPosition();
             blockPos = blockPos.offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
             BlockPos blockPos2 = entityLiving.blockPosition().offset(-4 + worldIn.random.nextInt(8), 0, -4 + worldIn.random.nextInt(8));
-            ScatterMine scatterMine = new ScatterMine(worldIn, entityLiving, blockPos);
+            Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+            Vec3 vec31 = Vec3.atBottomCenterOf(blockPos2);
+            ScatterMine scatterMine = new ScatterMine(worldIn, entityLiving, vec3);
             scatterMine.setIsSpell();
             scatterMine.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
             scatterMine.lifeTicks = MathHelper.secondsToTicks(10 + WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving));
             if (!worldIn.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()) {
-                scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                scatterMine.setPos(vec31.x(), vec31.y(), vec31.z());
             }
             if (worldIn.addFreshEntity(scatterMine)) {
                 scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());

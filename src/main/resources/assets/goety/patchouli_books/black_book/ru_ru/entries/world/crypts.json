@@ -1,0 +1,16 @@
+{
+  "name": "Склепы",
+  "icon": "goety:crypt_stone_chiseled",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы, наверное, слышали о древних склепах, скрытых под землей и искажающих окружающий ландшафт. Ходят слухи, что в этих склепах хранятся великие сокровища, запретные тайны... и ужасные монстры."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/crypt.png"],
+      "border": true
+    }
+  ]
+}

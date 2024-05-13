@@ -3066,6 +3066,23 @@
     ],
     "subtitle": "subtitle.goety.redstone_monstrosity_growl"
   },
+  "redstone_monstrosity_chase": {
+    "sounds": [
+      {
+        "name": "goety:redstone_monstrosity/chase1"
+      },
+      {
+        "name": "goety:redstone_monstrosity/chase2"
+      },
+      {
+        "name": "goety:redstone_monstrosity/chase3"
+      },
+      {
+        "name": "goety:redstone_monstrosity/chase4"
+      }
+    ],
+    "subtitle": "subtitle.goety.redstone_monstrosity_step"
+  },
   "redstone_monstrosity_step": {
     "sounds": [
       {

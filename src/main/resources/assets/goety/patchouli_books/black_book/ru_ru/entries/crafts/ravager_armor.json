@@ -1,0 +1,33 @@
+{
+  "name": "Разорительская броня",
+  "icon": "goety:iron_ravager_armor",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Читая свиток, посвященный секретам $(l:mutations/ravaged)разорителей$(), вы пришли к идее создания специальной брони, которая дополняла бы их и без того $(l:crafts/ominous_saddle)бронированные сёдла$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Создание брони для такого массивного зверя требует много железа и металла, но она обеспечит надежную защиту только что трансформированному $(l:mutations/ravaged)разорителю$(). Однако для этого $(l:mutations/ravaged)разоритель$() должен быть $(l:crafts/ominous_saddle)осёдлал$(). До вас дошли слухи, что вы не первый, кто додумался вооружить разорителей..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:iron_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:gold_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:diamond_ravager_armor"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:netherite_ravager_armor"
+    }
+  ]
+}

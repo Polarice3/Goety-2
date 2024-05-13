@@ -1,0 +1,16 @@
+{
+  "name": "Фокус света душ",
+  "icon": "goety:soul_light_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы можете создать магический источник света, выстрелив зарядом энергии душ в блок. Свет не такой сильный, как от факела, но он отпугивает пиглинов, а если к нему добавить светокамень и незерак, он начнёт сиять ярче. Он также подсвечивает поражённых существ."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_light_focus",
+      "recipe2": "goety:focus/glow_light_focus"
+    }
+  ]
+}

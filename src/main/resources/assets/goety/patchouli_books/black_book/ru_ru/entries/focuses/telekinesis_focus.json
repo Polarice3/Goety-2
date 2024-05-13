@@ -1,0 +1,15 @@
+{
+  "name": "Фокус телекинеза",
+  "icon": "goety:telekinesis_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Заставляет предмет или существо перемещаться на координаты прицела владельца, но только если они равны или меньше него. Существо может быть больше, если фокус зачарован на «мощность»."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/telekinesis_focus"
+    }
+  ]
+}

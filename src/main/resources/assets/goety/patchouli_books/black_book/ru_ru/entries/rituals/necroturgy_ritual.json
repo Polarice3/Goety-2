@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал некротургии",
+  "icon": "goety:rotting_focus",
+  "category": "goety:rituals",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)16 недеревянных плит $(li)16 скалковых блоков $(li)8 заполненных цветочных горшков $(li)Ночное время суток"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/necroturgy_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Скалк содержит в себе много некротургической энергии. Создавая с его помощью могилы, вы нашли способ собирать больше энергии для ритуалов."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Нагробный некромант",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_cairn_necromancer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Давно умершие знатные люди стали нежитью, чтобы охранять склеп вместе со своими прислужниками. Они используют силу холода и, видимо, являются подвидом древних некромантов пустыни."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer",
+      "text": "Призывает скелетов и стреляет ледяными шипами."
+    }
+  ]
+}

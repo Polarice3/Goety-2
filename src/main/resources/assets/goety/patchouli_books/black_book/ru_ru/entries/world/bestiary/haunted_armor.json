@@ -1,0 +1,29 @@
+{
+  "name": "Одержимые доспехи",
+  "icon": "goety:cursed_knight_helmet",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_haunted_armor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Стражи склепов, без сомнения, ожившие благодаря некротургической магии. Благодаря своему происхождению, они невосприимчивы почти ко всем негативным эффектам и не горят в огне. Однако они всё равно будут плавиться в лаве и получать больше урона от «небесной кары»."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:haunted_armor{ArmorItems:[{Count:1,id:\"goety:cursed_knight_boots\"},{Count:1,id:\"goety:cursed_knight_leggings\"},{Count:1,id:\"goety:cursed_knight_chestplate\"},{Count:1,id:\"goety:cursed_knight_helmet\"}]}",
+      "text": "Их щиты можно отключить с помощью топора."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:fell_blade",
+      "title": "Падший клинок",
+      "text": "Клинок одержимых доспехов обладает особым свойством, благодаря которому у него есть шанс уменьшить броню существа вдвое. Его можно починить на наковальне, используя слитки проклятого металла."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:cursed_knight_helmet",
+      "title": "Проклятые рыцарские доспехи",
+      "text": "Броня, видимо, представляет собой относительно неплохо украшенную проклятым металлом версию обычных железных доспехов, за двумя исключениями. Во-первых, она обеспечивает небольшую твёрдость. Во-вторых, полный комплект доспехов даёт на 4 очка брони больше."
+    }
+  ]
+}

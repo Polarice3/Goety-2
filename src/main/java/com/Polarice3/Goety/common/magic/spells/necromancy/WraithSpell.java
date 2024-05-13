@@ -69,7 +69,7 @@ public class WraithSpell extends SummonSpell {
         int count = 0;
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof AbstractWraith servant) {
-                if (servant.getTrueOwner() == entityLiving) {
+                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                     ++count;
                 }
             }

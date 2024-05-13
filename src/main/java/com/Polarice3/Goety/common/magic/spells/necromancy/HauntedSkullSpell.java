@@ -73,7 +73,7 @@ public class HauntedSkullSpell extends SummonSpell {
         int count = 0;
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof HauntedSkull servant) {
-                if (servant.getTrueOwner() == entityLiving) {
+                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                     ++count;
                 }
             }

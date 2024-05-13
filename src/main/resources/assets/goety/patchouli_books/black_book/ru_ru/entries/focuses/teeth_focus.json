@@ -1,0 +1,15 @@
+{
+  "name": "Фокус зуба",
+  "icon": "goety:teeth_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вызывает могучий зуб над противником (или вами, если вы присели), который падает на землю и вызывает вокруг себя каменные шипы, подбрасывающие существ в воздух и значительно замедляющие их на 5 секунд."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/teeth_focus"
+    }
+  ]
+}

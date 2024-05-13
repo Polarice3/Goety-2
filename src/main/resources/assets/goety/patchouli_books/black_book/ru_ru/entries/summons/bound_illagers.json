@@ -1,0 +1,24 @@
+{
+  "name": "Подчинённый заклинатель",
+  "icon": "minecraft:totem_of_undying",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_evoker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В то время как поборник может быть вызван как зомби, а разбойник — как скелет, чтобы создать ожившую версию могущественных заклинателей, нужно быть более... духовным в своём стремлении."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_evoker"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "В отличие от двух предыдущих, подчинённые заклинатели могут парить над землей и не подвержены гравитации. Несмотря на свой духовный облик, они не могут проходить сквозь стены и всё ещё получают урон от обычного оружия."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_evoker"
+    }
+  ]
+}

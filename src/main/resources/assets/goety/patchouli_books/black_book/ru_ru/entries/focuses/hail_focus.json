@@ -1,0 +1,15 @@
+{
+  "name": "Фокус града",
+  "icon": "goety:hail_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вызывает над блоком или существом облако снега, из которого идёт ледяной дождь, наносящий небольшой урон и оледеняющий на 5 секунд."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/hail_focus"
+    }
+  ]
+}

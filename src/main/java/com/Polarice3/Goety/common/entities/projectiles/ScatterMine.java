@@ -25,6 +25,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -48,6 +49,14 @@ public class ScatterMine extends Entity {
         this(ModEntityType.SCATTER_MINE.get(), pLevel);
         if (blockPos != null){
             this.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        }
+        this.setOwner(pOwner);
+    }
+
+    public ScatterMine(Level pLevel, LivingEntity pOwner, Vec3 vec3){
+        this(ModEntityType.SCATTER_MINE.get(), pLevel);
+        if (vec3 != null){
+            this.setPos(vec3.x(), vec3.y(), vec3.z());
         }
         this.setOwner(pOwner);
     }

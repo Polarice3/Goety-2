@@ -1,0 +1,17 @@
+{
+  "name": "Некромант",
+  "icon": "goety:necro_cape",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/unlock_necromancer",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В свитке содержатся некоторые инструкции по наделению разумом давно умерших, что позволяет вам создавать некромантов из скелетов и командовать ими."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_skeleton_to_necromancer"
+    }
+  ]
+}

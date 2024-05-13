@@ -1,0 +1,16 @@
+{
+  "name": "Святилища ветра",
+  "icon": "goety:slate_patterned_marble",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы, наверное, слышали о кочевниках, которые путешествовали и воздвигали святилища, открытые всем ветрам, на самых вершинах гор. Кто знает, какие сокровища хранятся внутри?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/wind_shrine.png"],
+      "border": true
+    }
+  ]
+}

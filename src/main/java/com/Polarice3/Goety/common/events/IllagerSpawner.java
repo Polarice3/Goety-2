@@ -87,7 +87,7 @@ public class IllagerSpawner {
                                     for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
                                         if (data != null){
                                             EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(data.raider);
-                                            if (entityType != null) {
+                                            if (entityType != null && entityType != EntityType.PIG) {
                                                 if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
                                                     ++i1;
                                                     int cost = (int) (soulEnergy / data.thresholdTimes);
@@ -235,7 +235,7 @@ public class IllagerSpawner {
                     for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
                         if (data != null){
                             EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(data.raider);
-                            if (entityType != null) {
+                            if (entityType != null && entityType != EntityType.PIG) {
                                 if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
                                     int cost = (int) (soulEnergy / data.thresholdTimes);
                                     int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;

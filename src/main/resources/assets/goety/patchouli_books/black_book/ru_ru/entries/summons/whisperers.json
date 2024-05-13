@@ -1,0 +1,25 @@
+{
+  "name": "Шептуны",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Несмотря на свои имена, шептуны — громкие и странные существа, которые могут вызывать быстрорастущие лозы, преграждающие путь, две ядовитые лозы и опутывающие корни у ног жертвы."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:whisperer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать этих существ на время с помощью $(l:focuses/whispering_focus)фокуса шёпота$() или навсегда, нажав ПКМ по центральному блоку мха ядром оживления в этой структуре."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:whisperer",
+      "text": "Нажмите ПКМ по центральному блоку мха ядром оживления."
+    }
+  ]
+}

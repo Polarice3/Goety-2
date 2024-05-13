@@ -1,0 +1,15 @@
+{
+  "name": "Фокус магического снаряда",
+  "icon": "goety:magic_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот фокус позволяет вам стрелять снарядом, который проклинает цели и создаёт вредоносное облако черной магии."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magic_bolt_focus"
+    }
+  ]
+}

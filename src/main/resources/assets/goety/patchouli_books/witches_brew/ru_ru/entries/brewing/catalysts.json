@@ -1,0 +1,411 @@
+{
+  "name": "Катализаторы",
+  "icon": "goety:brew",
+  "category": "goety:brewing",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вот катализаторы, которые придадут твоему вареву особые эффекты! Как ты, наверно, заметил, некоторые из них тебе незнакомы, а большинство — присущи только старому доброму ведьмовскому зельеварению!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Но не волнуйся! Бабуля объяснит, что делают некоторые из них, потому что я сегодня добрая! О, и некоторые из этих эффектов занимают больше 1 пункта вместимости, так что об этом тоже нельзя забывать! Ха-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.luck"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explosive",
+      "text": "Осторожней с таким эффектом, сопляк! Слыхала, что у существ бывает ВЗРЫВНОЙ характер! Ха-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.water_breathing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.combust",
+      "text": "ОГОНЬ! ХА-ХА-ХА-ХА-ХА!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flammable",
+      "text": "Огонь обжигает гораздо сильнее, чем обычно! Как будто ты сделан из веток!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bats",
+      "text": "Летите, мои красотки! Летите и пожирайте плоть моих врагов!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_tree",
+      "text": "Какая же ведьма не окружит себя деревьями? Катализатором может быть любой саженец!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cactus",
+      "text": "Призываю зелёный краситель на песчаные пляжи моего дома!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.grow_cave_vines",
+      "text": "Эти лозы из заросших пещер красиво смотрятся в моей собственной пещере! К сожалению, они не светятся!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.hunger"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.wild_rage",
+      "text": "Позволь ненависти завладеть тобой!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.harvest",
+      "text": "Ведро воды разрушает семена! А с этим варевом останется целина!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.slowness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.freeze",
+      "text": "Иногда бабуля хочет покататься на коньках в своём замёрзшем болоте!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.mossify",
+      "text": "Бабуле иногда нужно забирать мох из его пещер! А ещё нужны замшелые булыжники и кирпичи!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.launch",
+      "text": "Лети-лети, лепесток!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.infest",
+      "text": "Благодаря этому вареву некоторые камни и кирпичи кишат очаровательными чешуйницами!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.snow",
+      "text": "На случай, когда бабуля хочет поиграть в снегу!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.gold_touched",
+      "text": "Может они и не стали золотые, но точно рассыпаются в золото!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pulverize",
+      "text": "Камень в булыжник во гравий в песок! Дайте мне уголь, и будет стекло!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.wither"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sapped",
+      "text": "Мои кулаки кажутся твёрже только потому, что твоё лицо теперь мягче!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.instant_health"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.corrosion",
+      "text": "Видишь эти блоки? А их нет (если это не обсидиан)! Смотря на твою броню, я думаю, что она слишком уж неповреждённая! Ха-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.levitation"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.leaf_shell",
+      "text": "Готовьте спички! Эти листья не так-то просто сломать руками!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.love",
+      "text": "Время размножения!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.instant_damage"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.frosty_aura",
+      "text": "Не подходи ко мне! Я слишком холодна!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flood",
+      "text": "Слишком мало воды! С таким варевом будет вода!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.saturation"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.unluck"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.invisibility"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.tripping",
+      "text": "Смотрите под ноги, детишки! Вы можете споткнуться и полететь в случайном направлении! Чем уровень выше, тем чаще ты спотыкаешься!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.nyctophobia",
+      "text": "Захватите ночник, детишки! Он вам понадобится!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.night_vision"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pruning",
+      "text": "Уберите эти клятые летающие листья с глаз моих долой!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fire_trail",
+      "text": "Поймай меня, если совладаешь с моими горячими ботинками!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.fire_resistance"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.brew_dye",
+      "text": "Меняет цвет варева — просто добавь красители! Но осторожно! Цвет изменится, если добавить ещё один катализатор или краситель!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.freezing",
+      "text": "Эй, детишки! Хотите СТАТЬ ЧАСТЬЮ снеговика? Хе-хе-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.webbed",
+      "text": "А эти пауки быстрые! Хотя, похоже, они плетут паутину, только если варево попадёт в существо, а не на землю..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flaying",
+      "text": "Сдирает с животных кожу, перья и шерсть! Останутся только мясо да кости, но и тут всё не так-то просто! Ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.poison"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.climbing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.transpose",
+      "text": "Собирает всех сущностей, включая предметы, в том месте, где варево было использовано!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.slow_falling"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fiery_aura",
+      "text": "Не подходи ко мне! Я слишком горяча!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fertility",
+      "text": "Что значит, «не хотите»? Размножайтесь, давайте! Бабуле нужна новая пара кожаных сапог!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.absorption"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.health_boost"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.growth",
+      "text": "На случай, когда мои посевы недостаточно быстро растут! Бабулиной костной муки на всех не хватит!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.cursed",
+      "text": "Да будь проклят ты! Не излечишься ты! Я только что срифмовала «ты» и «ты»! И что с того?"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.insight",
+      "text": "Я становлюсь УМНЕЕ!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.jump_boost"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bees",
+      "text": "Шумные шмели, летящие вдали, жальте врагов, дети грехов!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flame_hands",
+      "text": "Потолкуешь с этими руками — будешь в огне!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.strip",
+      "text": "О нет, я не настолько ханжа, чтобы срывать с тебя одежду! Только броню! Я могла бы сорвать почти все, если б варево было уровнями выше *подмигивает*."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.regeneration"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.chop_tree",
+      "text": "Сварила я варево из топора! Коль я вижу дерево — рубки пора!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.glowing"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.pressure",
+      "text": "Эти ходячие шипящие кусты полны страха! С этим эффектом будет ещё ХУЖЕ! Хе-хе-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.strength"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.speed"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.weakness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sweet_thorns",
+      "text": "Бабуля хочет испечь сладкий ягодный пирог, но мои ножки слишком устали, чтобы идти в тайгу. Я тогда сама создам ягодные кусты!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.blind_jump",
+      "text": "Телепортирует в случайное место! Чем выше уровень, тем дальше телепорт!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.blindness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.purify_debuff",
+      "text": "Снимает все вредные эффекты с этих клятых детишек!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.purify_buff",
+      "text": "Снимает все полезные эффекты с этих клятых детишек!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.sun_allergy",
+      "text": "Эй, детишки! Хотите СТАТЬ скелетом? Или зомби? Или фантомом? Или..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.resistance"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.save_effects",
+      "text": "Мне пришла идея, когда я поела осколков эха! Теперь эффект сохраняется даже после употребления молока и, видимо, смерти? Теперь будут знать эти бессмертные, как таскать с собой синий компас!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.haste"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.arrowmantic",
+      "text": "Эти стрелы очень раздражают! Вот! Теперь эти стрелы будут раздражать тебя! Ха-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.shear",
+      "text": "Руки бабули слишком стары, чтобы стричь овец! Но варево сделает это за неё!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.drought",
+      "text": "Слишком много воды! С таким варевом не будет воды!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.nausea"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.extinguish",
+      "text": "Ах... Огни угасли..."
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.darkness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.fortunate",
+      "text": "Ба! Кому нужны чары, когда есть варево? Бабуле нужно больше алмазов, а лазурит у неё закончился!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.minecraft.mining_fatigue"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.thorn_trap",
+      "text": "Ты окружен, сопляк! Постой-ка на месте, если не хочешь получить в лицо шипами! Ха-ха-ха-ха!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.ender_ground",
+      "text": "Будут знать эти эндермены, как исчезать, когда в них стреляют или кидаются!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.venomous_hands",
+      "text": "У меня руки из пауков! Ха-ха-ха-ха!"
+    }
+  ]
+}

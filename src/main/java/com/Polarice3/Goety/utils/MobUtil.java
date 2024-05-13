@@ -876,6 +876,33 @@ public class MobUtil {
         looker.yBodyRot = looker.getYRot();
     }
 
+    public static void rotateTo(Mob looker, LivingEntity target){
+        rotateTo(looker, target, 90.0F);
+    }
+
+    public static void rotateTo(Mob looker, LivingEntity target, float speed){
+        double d2 = target.getX() - looker.getX();
+        double d1 = target.getZ() - looker.getZ();
+        float rotate = -((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI);
+        looker.setYRot(rotLerp(looker.getYRot(), rotate, speed));
+        looker.yBodyRot = looker.getYRot();
+        looker.yHeadRotO = looker.getYRot();
+        looker.yHeadRot = looker.getYRot();
+    }
+
+    public static float rotLerp(float start, float end, float speed) {
+        float f = Mth.wrapDegrees(end - start);
+        if (f > speed) {
+            f = speed;
+        }
+
+        if (f < -speed) {
+            f = -speed;
+        }
+
+        return start + f;
+    }
+
     public static ItemStack createFirework(int explosions, DyeColor[] dyeColor) {
         ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET);
         ItemStack star = new ItemStack(Items.FIREWORK_STAR);

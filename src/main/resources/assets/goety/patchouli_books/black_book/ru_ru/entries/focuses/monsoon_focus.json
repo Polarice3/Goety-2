@@ -1,0 +1,15 @@
+{
+  "name": "Фокус муссона",
+  "icon": "goety:monsoon_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Призывает грозовую тучу над блоком или существом, из которой пойдёт дождь и периодически будут ударять молнии в ближайших существ."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/monsoon_focus"
+    }
+  ]
+}

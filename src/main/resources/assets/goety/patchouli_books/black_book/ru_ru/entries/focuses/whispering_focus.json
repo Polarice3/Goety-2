@@ -1,0 +1,16 @@
+{
+  "name": "Фокус шёпота",
+  "icon": "goety:whispering_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "После недолгих исследований джунглей вам удалось найти способ призывать шептунов в качестве верных слуг. Используя это заклинание под водой, вы сможете призвать штилешептунов."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/whispering_focus"
+    }
+  ]
+}

@@ -125,7 +125,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         this.goalSelector.addGoal(1, new SummonGoal(this));
         this.goalSelector.addGoal(2, new MeleeGoal(this));
         this.goalSelector.addGoal(3, new BelchGoal(this));
-        this.goalSelector.addGoal(5, new AttackGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new AttackGoal(this, 1.2D));
         this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -282,7 +282,11 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
 
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
-        this.playSound(ModSounds.REDSTONE_MONSTROSITY_STEP.get(), 2.0F, 1.0F);
+        if (this.isAggressive()){
+            this.playSound(ModSounds.REDSTONE_MONSTROSITY_CHASE.get(), 2.0F, 1.0F);
+        } else {
+            this.playSound(ModSounds.REDSTONE_MONSTROSITY_STEP.get(), 2.0F, 1.0F);
+        }
         CameraShake.cameraShake(this.level, this.position(), 20.0F, 0.03F, 0, 20);
     }
 
@@ -694,9 +698,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                             for (int i = 0; i < 10; ++i){
                                 BlockPos blockPos = this.blockPosition();
                                 blockPos = blockPos.offset(-16 + this.level.random.nextInt(32), 0, -16 + this.level.random.nextInt(32));
+                                Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
                                 Summoned summoned = new RedstoneCube(ModEntityType.REDSTONE_CUBE.get(), this.level);
-                                if (this.level.noCollision(summoned, summoned.getBoundingBox().move(blockPos))){
-                                    SummonCircleVariant summonCircle = new SummonCircleVariant(this.level, blockPos, summoned, this);
+                                if (this.level.noCollision(summoned, summoned.getBoundingBox().move(vec3))){
+                                    SummonCircleVariant summonCircle = new SummonCircleVariant(this.level, vec3, summoned, this);
                                     summonCircle.playSound(ModSounds.DIRT_DEBRIS.get(), 3.0F, 0.4F);
                                     this.level.addFreshEntity(summonCircle);
                                 }
@@ -921,7 +926,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
 
     static class MeleeGoal extends Goal {
         public RedstoneMonstrosity mob;
-        private float yRot;
 
         public MeleeGoal(RedstoneMonstrosity mob) {
             this.mob = mob;
@@ -938,7 +942,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
 
         @Override
         public boolean canContinueToUse() {
-            return this.mob.attackTick < MathHelper.secondsToTicks(3.0417F)
+            return this.mob.attackTick < MathHelper.secondsToTicks(3.2917F)
                     && !this.mob.isSummoning()
                     && !this.mob.isBelching();
         }
@@ -949,7 +953,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             if (this.mob.getTarget() != null){
                 MobUtil.instaLook(this.mob, this.mob.getTarget());
             }
-            this.yRot = this.mob.yBodyRot;
         }
 
         @Override
@@ -960,14 +963,17 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
 
         @Override
         public void tick() {
-            this.mob.setYRot(this.yRot);
-            this.mob.yBodyRot = this.yRot;
+            if (this.mob.attackTick < 30){
+                if (this.mob.getTarget() != null){
+                    MobUtil.rotateTo(this.mob, this.mob.getTarget(), 5.0F);
+                }
+            }
             this.mob.getNavigation().stop();
             if (this.mob.attackTick > 0 && this.mob.getCurrentAnimation() != this.mob.getAnimationState(ATTACK)) {
                 this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_GROWL.get());
                 this.mob.setAnimationState(ATTACK);
             }
-            if (this.mob.attackTick == 22) {
+            if (this.mob.attackTick == 34) {
                 this.mob.makeBigGlow();
                 this.mob.playSound(ModSounds.REDSTONE_MONSTROSITY_SMASH.get(), this.mob.getSoundVolume() * 2.0F, 0.2F);
                 this.mob.playSound(SoundEvents.GENERIC_EXPLODE, this.mob.getSoundVolume() / 2.0F, 0.9F);
@@ -1115,7 +1121,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             if (this.mob.getTarget() != null){
                 LivingEntity livingEntity = this.mob.getTarget();
                 if (livingEntity.distanceTo(this.mob) <= this.mob.spitRange()){
-                    velocity = (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange());
+                    velocity = Math.max(0.25F, (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange()));
                 }
             }
             this.shoot(bomb, d1, d2 + d4, d3, velocity, 30);

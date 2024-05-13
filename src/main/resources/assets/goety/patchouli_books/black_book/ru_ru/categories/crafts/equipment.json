@@ -1,0 +1,7 @@
+{
+  "name": "Инструменты и экипировка",
+  "description": "Тёмные инструменты для тёмного колдуна.",
+  "icon": "goety:eerie_pickaxe",
+  "parent": "goety:crafts",
+  "sortnum": 1
+}

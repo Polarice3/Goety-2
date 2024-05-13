@@ -93,7 +93,7 @@ public class WhispererMold implements IMold {
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof Whisperer servant) {
-                    if (servant.getTrueOwner() == entityLiving) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                         ++count;
                     }
                 }

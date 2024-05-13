@@ -1,0 +1,15 @@
+{
+  "name": "Призрачная дверь",
+  "icon": "goety:apparition_door",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Призрачная дверь — это устройство, которое становится неосязаемым при нажатии ПКМ или активации редстоуном. Дверь также активирует другие соседние призрачные двери."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:apparition_door"
+    }
+  ]
+}

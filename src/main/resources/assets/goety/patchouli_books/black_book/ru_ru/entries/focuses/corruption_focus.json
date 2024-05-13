@@ -1,0 +1,17 @@
+{
+  "name": "Фокус разрушения",
+  "icon": "goety:corruption_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/gain_night_beacon",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Маяк ночи обладает огромной силой, и вы верите, что, наполнив его энергией душ, можно превратить этот луч тьмы во что-то более разрушительное!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/corruption_focus"
+    }
+  ]
+}
