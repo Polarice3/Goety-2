@@ -1,0 +1,15 @@
+{
+  "name": "Фокус ледорождения",
+  "icon": "goety:frostborn_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Заклинание вызывает $(l:summons/ice_golems)ледяного голема$() — могущественного слугу, который устойчив к ледяному урону и изредка вызывает ледяной взрыв..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frostborn_focus"
+    }
+  ]
+}

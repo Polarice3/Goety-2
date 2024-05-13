@@ -1,0 +1,16 @@
+{
+  "name": "Нефритовые руды",
+  "icon": "goety:jade_ore",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Нефрит — одна из самых магических руд во всём мире. Он содержит в себе силу ветров и может быть найден только в высокогорьях, особенно на вершинах."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/jade_ore.png"],
+      "border": true
+    }
+  ]
+}

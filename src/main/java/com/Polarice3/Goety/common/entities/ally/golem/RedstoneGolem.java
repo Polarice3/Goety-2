@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
@@ -477,9 +478,11 @@ public class RedstoneGolem extends AbstractGolemServant {
                             BlockPos blockPos = this.blockPosition();
                             blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
                             BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                            ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
+                            Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+                            Vec3 vec32 = Vec3.atBottomCenterOf(blockPos2);
+                            ScatterMine scatterMine = new ScatterMine(this.level, this, vec3);
                             if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()){
-                                scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                                scatterMine.setPos(vec32.x(), vec32.y(), vec32.z());
                             }
                             if (this.level.addFreshEntity(scatterMine)) {
                                 if (this.level.random.nextBoolean()) {

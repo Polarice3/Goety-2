@@ -1,0 +1,31 @@
+{
+  "name": "Броня из чёрного железа",
+  "icon": "goety:black_iron_chestplate",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Слитки проклятого металла, видимо, обладают теми же свойствами, что и обычные железные слитки, что делает ненужным создание доспехов из них. Однако, при некоторой доработке, их можно использовать для улучшения обычной железной брони."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Каждая часть брони даёт скидку на использование энергии душ, независимо от того, применяется ли она для заклинаний, лечения прислужников или ремонта определённых предметов. К сожалению, это не отменяет её использование в крафте или ритуалах. Броня позволяет прислужникам получать энергию душ, когда они убивают существ."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_helmet"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_chestplate"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_leggings"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:black_iron/black_iron_boots"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Дикий посох",
+  "icon": "goety:wild_staff",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Мир природы порой трудно подчинить, но с помощью тёмной магии и дерева вы создали посох, который усиливает естественную и неестественную силу диких заклинаний."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_staff"
+    }
+  ]
+}

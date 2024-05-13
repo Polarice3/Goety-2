@@ -1,0 +1,15 @@
+{
+  "name": "Фокус снаряда душ",
+  "icon": "goety:soul_bolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью этого фокуса вы можете быстро стрелять снарядами энергии душ, нанося отбрасывающий магический урон."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/soul_bolt_focus"
+    }
+  ]
+}

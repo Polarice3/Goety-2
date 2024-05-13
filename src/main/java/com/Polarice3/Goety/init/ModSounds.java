@@ -245,6 +245,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_SMASH = create("redstone_monstrosity_smash");
     public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_BELCH = create("redstone_monstrosity_belch");
     public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_GROWL = create("redstone_monstrosity_growl");
+    public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_CHASE = create("redstone_monstrosity_chase");
     public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_STEP = create("redstone_monstrosity_step");
     public static final RegistryObject<SoundEvent> REDSTONE_MONSTROSITY_DEATH = create("redstone_monstrosity_death");
 

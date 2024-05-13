@@ -1,0 +1,16 @@
+{
+  "name": "Тёмные поместья",
+  "icon": "minecraft:dark_oak_log",
+  "category": "goety:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Злодеяне довольно прогрессивны по сравнению со своими мирными сородичами. Некоторые из них построили поместья за пределами особняков, чтобы изучать мир и его тайны."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/dark_manor.png"],
+      "border": true
+    }
+  ]
+}

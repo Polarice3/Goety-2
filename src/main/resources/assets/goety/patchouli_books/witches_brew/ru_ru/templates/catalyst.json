@@ -1,0 +1,49 @@
+{
+  "processor": "com.Polarice3.Goety.compat.patchouli.BrewingCatalystProcessor",
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "#input",
+      "framed": true,
+      "x": 50,
+      "y": 15
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#output",
+      "centered": true,
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#capacityExtra",
+      "x": 0,
+      "y": 40
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#soulCost",
+      "x": 0,
+      "y": 50
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#duration",
+      "x": 0,
+      "y": 60
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#linger",
+      "x": 0,
+      "y": 70
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 0,
+      "y": 80
+    }
+  ]
+}

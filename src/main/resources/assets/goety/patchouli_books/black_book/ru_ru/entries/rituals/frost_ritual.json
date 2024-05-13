@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал мороза",
+  "icon": "minecraft:packed_ice",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Алтарь в снежном биоме $(br)$(l)ИЛИ$()$() $(li)16 любых ледяных блоков $(li)8 блоков снега $(li)4 леденящие лампы"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/frost_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Окружение алтаря ледяными кирпичами и блоками позволяет ему использовать холод для создания всевозможной магии."
+    }
+  ]
+}

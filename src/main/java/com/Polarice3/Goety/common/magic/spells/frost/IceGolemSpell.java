@@ -68,7 +68,7 @@ public class IceGolemSpell extends SummonSpell {
         int count = 0;
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof IceGolem servant) {
-                if (servant.getTrueOwner() == entityLiving) {
+                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                     ++count;
                 }
             }

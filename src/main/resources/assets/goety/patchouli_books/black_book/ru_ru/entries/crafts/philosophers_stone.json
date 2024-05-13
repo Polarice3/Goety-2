@@ -1,0 +1,17 @@
+{
+  "name": "Философский камень",
+  "icon": "goety:philosophers_stone",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_apostle",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Из крови апостола создаётся мифический философский камень. С его помощью можно удваивать золото, совместив его с золотым слитком. Тогда камень потеряет прочность, но может восстановиться с помощью энергии душ."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:philosophers_stone"
+    }
+  ]
+}

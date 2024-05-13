@@ -71,7 +71,7 @@ public class SkeletonSpell extends SummonSpell {
         int count = 0;
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof AbstractSkeletonServant servant) {
-                if (servant.getTrueOwner() == entityLiving) {
+                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                     ++count;
                 }
             }

@@ -1,0 +1,15 @@
+{
+  "name": "Фокус огненного дыхания",
+  "icon": "goety:fire_breath_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Подобно древним мифическим красным драконам, вы сможете дышать пламенем, сжигая всех на своем пути."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/fire_breath_focus"
+    }
+  ]
+}

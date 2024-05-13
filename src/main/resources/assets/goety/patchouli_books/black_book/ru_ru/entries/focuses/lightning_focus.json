@@ -1,0 +1,15 @@
+{
+  "name": "Фокус молнии",
+  "icon": "goety:lightning_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С этим фокусом в ваших руках, вы наконец-то сможете обрушивать ярость небес на врагов! Если вы используете штормовой посох, то на молнию не повлияют громоотводы."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lightning_focus"
+    }
+  ]
+}

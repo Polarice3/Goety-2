@@ -1,0 +1,7 @@
+{
+  "name": "Трюки",
+  "description": "Использование энергии души и манипулирование ею.",
+  "icon": "goety:soul_absorber",
+  "parent": "goety:crafts",
+  "sortnum": 3
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал магии",
+  "icon": "minecraft:enchanting_table",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)16 книжных полок $(li)1 чародейский стол $(li)1 кафедра с книгой"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/magic_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Окружение алтаря большим количеством книг поможет создать некоторые магические предметы."
+    }
+  ]
+}

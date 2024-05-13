@@ -462,7 +462,7 @@ public class RedstoneMonstrosityMold implements IMold {
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof RedstoneMonstrosity servant) {
-                    if (servant.getTrueOwner() == entityLiving) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                         ++count;
                     }
                     ++global;
@@ -509,14 +509,12 @@ public class RedstoneMonstrosityMold implements IMold {
 
     public static void removeBlocks(Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            if (MobsConfig.RedstoneGolemMold.get()) {
+            if (MobsConfig.RedstoneMonstrosityMold.get()) {
                 for (BlockPos blockPos1 : DIAMOND_LOCATIONS) {
                     BlockPos blockPos2 = blockPos.offset(blockPos1);
                     if (level.getBlockState(blockPos2).is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND)) {
-                        if (level.random.nextFloat() < 0.12F) {
-                            level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                            level.setBlockAndUpdate(blockPos2, Blocks.OBSIDIAN.defaultBlockState());
-                        }
+                        level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
+                        level.setBlockAndUpdate(blockPos2, Blocks.OBSIDIAN.defaultBlockState());
                     }
                 }
             }

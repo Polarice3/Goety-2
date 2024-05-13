@@ -129,11 +129,11 @@ public class RedstoneCube extends AbstractGolemServant{
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
+        if (pReason == MobSpawnType.MOB_SUMMONED){
             if (pLevel instanceof ServerLevel serverLevel){
-                for (int i = 0; i < 4; ++i) {
+                for (int i = 0; i < 8; ++i) {
                     double d0 = (double) this.getX() + this.random.nextDouble();
-                    double d1 = (double) this.getY();
+                    double d1 = (double) this.getY() + 1.0D;
                     double d2 = (double) this.getZ() + this.random.nextDouble();
                     serverLevel.sendParticles(ParticleTypes.LAVA, d0, d1, d2, 0, 0.0D, 0.5D, 0.0D, 0.5F);
                 }
@@ -265,7 +265,7 @@ public class RedstoneCube extends AbstractGolemServant{
                     }
                 }
                 if (this.getTarget() != null){
-                    if (this.getTarget().isAlive()){
+                    if (this.getTarget().isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getTarget())){
                         if (this.hasLineOfSight(this.getTarget())) {
                             if (this.targetClose(this.getTarget(), this.distanceToSqr(this.getTarget()))) {
                                 if (!this.isMeleeAttacking()) {
@@ -279,6 +279,9 @@ public class RedstoneCube extends AbstractGolemServant{
                                 this.getNavigation().moveTo(this.getTarget(), 1.25F);
                             }
                         }
+                    }
+                    if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getTarget())) {
+                        this.setTarget(null);
                     }
                 }
             }

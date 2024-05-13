@@ -1,0 +1,15 @@
+{
+  "name": "Фокус роя",
+  "icon": "goety:swarm_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы насылаете на противников стаю насекомых, наносящих им такой урон, что после смерти из трупов поднимется рой преданных вам насекомых и самостоятельно атакует другие цели."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/swarm_focus"
+    }
+  ]
+}

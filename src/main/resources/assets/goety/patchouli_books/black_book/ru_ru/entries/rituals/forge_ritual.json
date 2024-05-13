@@ -1,0 +1,22 @@
+{
+  "name": "Ритуал ковки",
+  "icon": "minecraft:anvil",
+  "category": "goety:rituals",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)1 котёл с лавой $(li)2 печи или плавильни $(li)1 наковальня"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/forge_ritual.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Создание кузницы вокруг тёмного алтаря позволит вам изготавливать определённые предметы и улучшать магический арсенал."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Фокус ледяных шипов",
+  "icon": "goety:ice_spike_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Позволяет стрелять ледяными шипами по направлению взгляда. Поражённые существа оледенеют на 1-3 секунды."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ice_spike_focus"
+    }
+  ]
+}

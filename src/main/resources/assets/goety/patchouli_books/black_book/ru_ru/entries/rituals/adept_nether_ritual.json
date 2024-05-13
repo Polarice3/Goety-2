@@ -1,0 +1,23 @@
+{
+  "name": "Начинающий ритуал Незера",
+  "icon": "minecraft:blackstone",
+  "category": "goety:rituals",
+  "advancement": "minecraft:story/enter_the_nether",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Требования: $(li)Нахождение в Незере $(li)8 любых базальтовых блоков $(li)16 любых чернитных блоков $(li)4 светокамня"
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["goety:textures/gui/entries/adept_nether.png"],
+      "border": true,
+      "text": "Пример того, как можно провести ритуал."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Незер — измерение, наполненное энергией душ, о чём свидетельствуют бесконечные долины песка душ. Однако для создания артефактов, связанных с Незером, всё ещё требуется структура, которая сосредоточит эту энергию в одном месте. Чернит и базальт могут быть любыми."
+    }
+  ]
+}

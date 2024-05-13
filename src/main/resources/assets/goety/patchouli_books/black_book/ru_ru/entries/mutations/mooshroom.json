@@ -1,0 +1,15 @@
+{
+  "name": "Муухомор",
+  "icon": "minecraft:red_mushroom",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью нескольких красных грибов вы сможете превратить корову в красный муухомор."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_cow_to_mooshroom"
+    }
+  ]
+}

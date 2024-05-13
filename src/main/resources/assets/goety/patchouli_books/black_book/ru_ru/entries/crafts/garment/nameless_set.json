@@ -1,0 +1,25 @@
+{
+  "name": "Безымянные одежды",
+  "icon": "goety:nameless_cape",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_forbidden_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Открыв самые потаённые методы некромантии, вы придумали новые одежды, чтобы продемонстрировать своё мастерство."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_cape"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nameless_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Работают так же, как и некро-одежды, но с некоторыми улучшениями."
+    }
+  ]
+}

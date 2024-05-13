@@ -1,0 +1,7 @@
+{
+  "name": "Облачение",
+  "description": "Загадочные одежды для тёмного колдуна.",
+  "icon": "goety:dark_hat",
+  "parent": "goety:crafts",
+  "sortnum": 2
+}

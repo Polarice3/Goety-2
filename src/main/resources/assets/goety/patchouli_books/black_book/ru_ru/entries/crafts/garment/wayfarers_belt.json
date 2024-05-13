@@ -1,0 +1,15 @@
+{
+  "name": "Пояс странника",
+  "icon": "goety:wayfarers_belt",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Пояс странника позволяет не только двигаться немного быстрее, но и взбираться на высоту в один блок без прыжков. Пояс также увеличивает высоту прыжка и уменьшает урон от падения с высоты."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wayfarers_belt"
+    }
+  ]
+}

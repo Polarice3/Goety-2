@@ -221,7 +221,7 @@ public class GraveGolemMold implements IMold {
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof GraveGolem servant) {
-                    if (servant.getTrueOwner() == entityLiving) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                         ++count;
                     }
                 }

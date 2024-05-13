@@ -1,0 +1,41 @@
+{
+  "name": "Волшебные ингредиенты",
+  "icon": "goety:magic_emerald",
+  "category": "goety:intro",
+  "sortnum": 3,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Взяв в руки свой примитивный тотем, вы обнаружили, что можете использовать его для создания совершенно новых предметов, из которых можно изготавливать всевозможные магические приспособления и фокусы! Хотя, конечно, есть $(l:intro/cursed_infuser)более дешёвый способ$() их получения..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cursed_ingot_craft",
+      "recipe2": "goety:empty_focus_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_stone_craft",
+      "recipe2": "goety:haunted/haunted_sapling_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:savage_tooth_craft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Похоже, что у тотема заклинателя изумруды расположены там, где должны быть глаза. У вас есть ощущение, что они отличаются от обычных. Есть ли способ их «активировать»?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:magic_emerald_craft"
+    },
+    {
+      "anchor": "totem",
+      "type": "patchouli:crafting",
+      "recipe": "goety:totem_of_souls",
+      "text": "Вы наконец-то создали подобие тотема заклинателя. Этот тотем может содержать гораздо больше энергии душ, чем тотем корней."
+    }
+  ]
+}

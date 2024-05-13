@@ -1,0 +1,21 @@
+{
+  "name": "Листопрыги",
+  "icon": "minecraft:jungle_leaves",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Мощные обезьяноподобные существа, созданные из корней и листьев, которые могут высоко прыгать и уничтожать на врагов."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:leapleaf"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:leapleaf",
+      "text": "Нажмите ПКМ по центральным разросшимся корням ядром оживления."
+    }
+  ]
+}

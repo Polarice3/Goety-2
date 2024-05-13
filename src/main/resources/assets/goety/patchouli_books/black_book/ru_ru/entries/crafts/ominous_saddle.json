@@ -1,0 +1,17 @@
+{
+  "name": "Зловещее седло",
+  "icon": "goety:ominous_saddle",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_ravaging_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:mutations/ravaged)Разоритель$() — могущественный зверь, но вашему не хватает серебряной брони и седла. Из $(l:intro/magical_components)проклятого металла$() вы можете создать бронированное седло. Нажав ПКМ по бедному голому $(l:mutations/ravaged)разорителю$(), вы оденете его, сделав управляемым и более сильным."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ominous_saddle"
+    }
+  ]
+}

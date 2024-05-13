@@ -1,0 +1,15 @@
+{
+  "name": "Фокус укуса",
+  "icon": "goety:biting_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вызывает ряд магических клыков, которые наносят урон, игнорирующий броню цели (если только она не зачарована). Если вы присядете, клыки появятся вокруг вас."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/biting_focus"
+    }
+  ]
+}

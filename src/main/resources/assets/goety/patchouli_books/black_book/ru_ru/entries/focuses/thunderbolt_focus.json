@@ -1,0 +1,15 @@
+{
+  "name": "Фокус грома",
+  "icon": "goety:thunderbolt_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вместо множества электрических разрядов вы запускаете один большой, который наносит много урона. Если вы используете штормовой посох, то на направление разряда не повлияют громоотводы."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/thunderbolt_focus"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Лук охотника",
+  "icon": "goety:hunters_bow",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Лук, подходящий для охоты на дичь, т.к. с любого животного, убитого его стрелой, выпадет больше предметов, чем даже с «добычи III»."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:hunters_bow"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Лук можно починить на наковальне с помощью любого другого лука."
+    }
+  ]
+}

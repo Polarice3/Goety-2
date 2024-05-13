@@ -1,0 +1,24 @@
+{
+  "name": "Призрак-прислужник",
+  "icon": "goety:wraith_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/kill_a_wraith",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти призраки связаны вашей волей до такой степени, что их ледяное пламя не наносит урон ни вам, ни вашим союзникам."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать этих существ с помощью $(l:focuses/osseous_focus)фокуса страха$() или ритуала, который призывает призраков с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_wraith_thrall"
+    }
+  ]
+}

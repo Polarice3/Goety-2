@@ -1,0 +1,17 @@
+{
+  "name": "Фокус звукового удара",
+  "icon": "goety:sonic_boom_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью рубина вам удалось воспроизвести мощь звукового удара хранителя, что позволило использовать его способность против ваших врагов!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/sonic_boom_focus"
+    }
+  ]
+}

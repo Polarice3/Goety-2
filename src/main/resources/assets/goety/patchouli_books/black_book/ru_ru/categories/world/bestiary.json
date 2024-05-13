@@ -1,0 +1,7 @@
+{
+  "name": "Бестиарий",
+  "description": "Информация о существах, населяющих этот мир.",
+  "icon": "minecraft:spawner",
+  "parent": "goety:world",
+  "sortnum": 1
+}

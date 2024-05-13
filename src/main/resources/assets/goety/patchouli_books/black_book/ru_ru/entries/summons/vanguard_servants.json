@@ -1,0 +1,24 @@
+{
+  "name": "Стражи-прислужники",
+  "icon": "goety:vanguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти древние воины когда-то служили некроманту, который украл частичку тёмной магии. Их глефы достают жертву на большем расстоянии, чем мечи, и могут нанести урон нескольким противникам за раз. Их щиты разбиваются с одного удара, но полностью поглощают урон."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:vanguard_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если у стражей нет щита, нажмите по ним ПКМ любыми досками, чтобы вернуть его, когда они не атакуют.$(br)Можно вызвать этих существ с помощью $(l:focuses/osseous_focus)фокуса авангарда$() или ритуала, который призывает стражей с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_vanguard_thrall"
+    }
+  ]
+}

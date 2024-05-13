@@ -79,7 +79,7 @@ public class ZombieSpell extends SummonSpell {
         for (Entity entity : worldIn.getAllEntities()) {
             if (entity instanceof Summoned servant) {
                 if (servant instanceof ZombieServant || servant instanceof ZPiglinServant) {
-                    if (servant.getTrueOwner() == entityLiving) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
                         ++count;
                     }
                 }

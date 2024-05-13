@@ -1,0 +1,15 @@
+{
+  "name": "Призыв грозы",
+  "icon": "minecraft:netherrack",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Простой, но мощный ритуал, вызывающий грозу. Полезно для тех, кто хочет спрятаться от солнца."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:summon_storm"
+    }
+  ]
+}

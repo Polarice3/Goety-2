@@ -1,0 +1,19 @@
+{
+  "name": "Фокус опутывания",
+  "icon": "goety:entangling_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это заклинание нашлёт на цель опутывающие корни. Если корням удалось поймать цель, она не сможет двигаться, пока корни не уйдут обратно в землю. При использовании $(l:crafts/wild_staff)дикого посоха$() корни появятся из-под 8 близлежащих существ."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/entangling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ношение $(l:crafts/garment/wild_robe)дикой мантии$() позволит корням наносить опутанной жертве постоянный урон."
+    }
+  ]
+}

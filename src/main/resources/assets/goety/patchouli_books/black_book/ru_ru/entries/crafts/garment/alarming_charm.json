@@ -1,0 +1,16 @@
+{
+  "name": "Амулет тревоги",
+  "icon": "goety:alarming_charm",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/kill_a_envioker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Охотясь на вас, злодеяне, как правило, сообщают о своем приближении, создавая ряды клыков под вами или мучителя. Учитывая их коварство, вам удалось изобрести амулет, которое будет сигнализировать об их приближении."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:alarming_charm"
+    }
+  ]
+}

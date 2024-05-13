@@ -1,0 +1,15 @@
+{
+  "name": "Фокус взрывной волны",
+  "icon": "goety:shockwave_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Заклинание этого фокуса вызывает вокруг вас взрыв энергии душ, нанося урон всем ближайщим существам и отбрасывая их. Взрыв наносит магический урон и не причиняет вреда владельцу."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/shockwave_focus"
+    }
+  ]
+}

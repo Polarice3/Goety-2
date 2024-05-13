@@ -159,7 +159,7 @@ public class IllagerSpawner {
                 if (dataType.riding != null){
                     if (worldIn.random.nextFloat() <= dataType.rideChance){
                         EntityType<?> entityType1 = ForgeRegistries.ENTITY_TYPES.getValue(dataType.riding);
-                        if (entityType1 != null){
+                        if (entityType1 != null && entityType != EntityType.PIG){
                             Entity entity1 = entityType1.create(worldIn);
                             if (entity1 instanceof PathfinderMob mount) {
                                 mount.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
@@ -236,7 +236,7 @@ public class IllagerSpawner {
                     for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
                         if (data != null){
                             EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(data.raider);
-                            if (entityType != null) {
+                            if (entityType != null && entityType != EntityType.PIG) {
                                 if (soulEnergy >= MobsConfig.IllagerAssaultSEThreshold.get() * data.thresholdTimes && pLevel.random.nextFloat() <= data.chance) {
                                     int cost = (int) (soulEnergy / data.thresholdTimes);
                                     int total = Mth.clamp(cost / MobsConfig.IllagerAssaultSEThreshold.get(), 1, data.maxExtraAmount) + 1;
