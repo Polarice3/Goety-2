@@ -1,0 +1,15 @@
+{
+  "name": "Фокус электризации",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Выстреливает электрическим шаром, который следует за жертвой, на которую вы смотрели, а затем поражает её или любой твердый объект."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}

@@ -123,7 +123,7 @@ public class WhisperSpell extends SummonSpell {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity = new Whisperer(ModEntityType.WHISPERER.get(), worldIn);
-                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
+                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn);
                 if (entityLiving.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }

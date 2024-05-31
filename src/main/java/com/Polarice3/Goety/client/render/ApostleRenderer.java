@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ApostleModel;
+import com.Polarice3.Goety.client.render.model.CultistModel;
 import com.Polarice3.Goety.client.render.model.VillagerArmorModel;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
@@ -10,11 +11,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -31,6 +35,7 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
 
     public ApostleRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ApostleModel<>(renderManagerIn.bakeLayer(ModModelLayer.APOSTLE)), 0.5F);
+        this.addLayer(new MonolithLayer<>(this, renderManagerIn.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this, new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_INNER)), new VillagerArmorModel<>(renderManagerIn.bakeLayer(ModModelLayer.VILLAGER_ARMOR_OUTER))));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
             public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Apostle p_116355_, float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_, float p_116361_) {
@@ -137,5 +142,34 @@ public class ApostleRenderer extends CultistRenderer<Apostle>{
     @Override
     public ResourceLocation getTextureLocation(Apostle entity) {
         return entity.isSecondPhase() ? TEXTURE_2 : TEXTURE;
+    }
+
+    public static class MonolithLayer<T extends Apostle, M extends CultistModel<T>> extends RenderLayer<T, M> {
+        private static final ResourceLocation ARMOR = Goety.location("textures/entity/cultist/apostle_aura.png");
+        private final CultistModel<T> model;
+
+        public MonolithLayer(RenderLayerParent<T, M> p_116967_, EntityModelSet p_174555_) {
+            super(p_116967_);
+            this.model = new ApostleModel<>(p_174555_.bakeLayer(ModModelLayer.APOSTLE));
+        }
+
+        public void render(PoseStack p_116970_, MultiBufferSource p_116971_, int p_116972_, T p_116973_, float p_116974_, float p_116975_, float p_116976_, float p_116977_, float p_116978_, float p_116979_) {
+            if (p_116973_.isMonolithPower() && !p_116973_.isDeadOrDying()) {
+                float f = (float)p_116973_.tickCount + p_116976_;
+                CultistModel<T> entitymodel = this.model;
+                entitymodel.prepareMobModel(p_116973_, p_116974_, p_116975_, p_116976_);
+                this.getParentModel().copyPropertiesTo(entitymodel);
+                VertexConsumer vertexconsumer = p_116971_.getBuffer(RenderType.energySwirl(ARMOR, this.xOffset(f) % 1.0F, f * 0.01F % 1.0F));
+                entitymodel.setupAnim(p_116973_, p_116974_, p_116975_, p_116977_, p_116978_, p_116979_);
+                entitymodel.renderToBuffer(p_116970_, vertexconsumer, p_116972_, OverlayTexture.NO_OVERLAY, 0.5F, 0.5F, 0.5F, 1.0F);
+                if (entitymodel instanceof ApostleModel<T> apostleModel){
+                    apostleModel.halo.visible = false;
+                }
+            }
+        }
+
+        protected float xOffset(float p_225634_1_) {
+            return Mth.cos(p_225634_1_ * 0.02F) * 3.0F;
+        }
     }
 }

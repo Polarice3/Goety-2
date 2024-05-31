@@ -1,0 +1,17 @@
+{
+  "name": "ブレイジングのフォーカス",
+  "icon": "goety:blazing_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要塞の住人がブレイズを作った方法を読んで、あなたは自分の忠実なブレイズの召使いを創り出す方法を見つけました。魂のエネルギーとさらなる改良を加えることで、彼らはあなたに逆らいません！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blazing_focus"
+    }
+  ]
+}

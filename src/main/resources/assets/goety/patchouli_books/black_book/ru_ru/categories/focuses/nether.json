@@ -1,0 +1,6 @@
+{
+  "name": "Незерские",
+  "description": "Власть над огненными пропастями Незера.",
+  "icon": "goety:fireball_focus",
+  "parent": "goety:focuses"
+}

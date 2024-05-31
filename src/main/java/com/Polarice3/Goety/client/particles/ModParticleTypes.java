@@ -60,6 +60,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BURNING = PARTICLE_TYPES.register("burning",
             () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> FIERY_PILLAR = PARTICLE_TYPES.register("fiery_pillar",
+            () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> CULT_SPELL = PARTICLE_TYPES.register("cult_spell",
             () -> new SimpleParticleType(true));
 
@@ -160,6 +163,9 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> TRAIL = PARTICLE_TYPES.register("trail",
+            () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SUMMON_TRAIL = PARTICLE_TYPES.register("summon_trail",
             () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> SPELL_CLOUD = PARTICLE_TYPES.register("spell_cloud",

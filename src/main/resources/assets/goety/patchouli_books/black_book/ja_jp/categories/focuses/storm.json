@@ -1,0 +1,6 @@
+{
+  "name": "嵐",
+  "description": "嵐を制する力。",
+  "icon": "goety:lightning_focus",
+  "parent": "goety:focuses"
+}

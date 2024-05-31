@@ -2,12 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " s ",
-    "ses",
+    " a ",
+    "aea",
     " s "
   ],
   "key":
   {
+    "a":
+    {
+      "tag": "minecraft:arrows"
+    },
     "e":
     {
       "item": "goety:soul_light_focus"

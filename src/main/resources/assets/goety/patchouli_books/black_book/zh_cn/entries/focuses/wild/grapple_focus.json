@@ -1,0 +1,15 @@
+{
+  "name": "抓钩聚晶",
+  "icon": "goety:grapple_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个聚晶可以让你射击一个由藤蔓和荆棘制成的抓钩，它会附着在它所落在的任何固体表面上，拉着你一路前进。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/grapple_focus"
+    }
+  ]
+}

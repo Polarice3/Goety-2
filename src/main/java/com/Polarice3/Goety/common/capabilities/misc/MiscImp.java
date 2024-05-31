@@ -5,6 +5,7 @@ public class MiscImp implements IMisc{
     private int shields = 0;
     private int shieldTime = 0;
     private int shieldCool = 0;
+    private int ambientSoundTime = 0;
 
     @Override
     public int freezeLevel() {
@@ -64,5 +65,15 @@ public class MiscImp implements IMisc{
     @Override
     public void decreaseShieldCool() {
         --this.shieldCool;
+    }
+
+    @Override
+    public int ambientSoundTime() {
+        return this.ambientSoundTime;
+    }
+
+    @Override
+    public void setAmbientSoundTime(int soundTime) {
+        this.ambientSoundTime = soundTime;
     }
 }

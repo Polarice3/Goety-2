@@ -1,0 +1,15 @@
+{
+  "name": "放逐聚晶",
+  "icon": "goety:banish_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶需要施法者直接右键点击一个目标，目标会被直接传送到离施法者很远地方。它非常适合摆脱某些敌人或你应付不了的家伙！"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/banish_focus"
+    }
+  ]
+}

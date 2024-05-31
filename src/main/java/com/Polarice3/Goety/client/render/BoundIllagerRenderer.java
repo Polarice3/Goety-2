@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.client.render.model.BoundIllagerModel;
-import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;

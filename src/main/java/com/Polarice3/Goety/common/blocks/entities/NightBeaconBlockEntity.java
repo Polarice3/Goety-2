@@ -45,7 +45,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
             ChunkPos chunkPos = world.getChunkAt(p_155109_).getPos();
             if (!world.getForcedChunks().contains(chunkPos.toLong())) {
                 world.setChunkForced(chunkPos.x, chunkPos.z, true);
-                if (!world.isAreaLoaded(p_155109_, 2)) {
+                if (!world.isLoaded(p_155109_)) {
                     world.getChunkAt(p_155109_).setLoaded(true);
                 }
             }
@@ -133,7 +133,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
         return level.getBlockState(blockPos.below().below()).is(Blocks.NETHER_PORTAL) && MainConfig.EnableNightBeacon.get();
     }
 
-    public void setDaylLight(boolean daylightTrue){
+    public void setDayLight(boolean daylightTrue){
         this.daylightTrue = daylightTrue;
     }
 

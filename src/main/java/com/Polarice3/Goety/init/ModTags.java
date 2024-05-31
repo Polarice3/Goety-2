@@ -47,6 +47,8 @@ public class ModTags {
     public static class Items {
         private static void init(){}
 
+        public static final TagKey<Item> WANDS = tag("wands");
+        public static final TagKey<Item> STAFFS = tag("staffs");
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
         public static final TagKey<Item> RESPAWN_BOSS = tag("respawn_boss");
         public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");

@@ -1,0 +1,6 @@
+{
+  "name": "Void",
+  "description": "The power over the voids.",
+  "icon": "goety:ender_chest_focus",
+  "parent": "goety:focuses"
+}

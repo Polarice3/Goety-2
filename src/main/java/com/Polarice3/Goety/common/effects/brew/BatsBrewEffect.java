@@ -32,7 +32,7 @@ public class BatsBrewEffect extends BrewEffect {
             int amount = pTarget.level.random.nextInt(pAmplifier + 2) + 3;
             for (int i = 0; i < amount; ++i) {
                 VampireBat bat = new VampireBat(ModEntityType.VAMPIRE_BAT.get(), pTarget.level);
-                bat.moveTo(BlockFinder.SummonRadius(pTarget, pTarget.level), 0.0F, 0.0F);
+                bat.moveTo(BlockFinder.SummonRadius(pTarget.blockPosition(), bat, pTarget.level), 0.0F, 0.0F);
                 if (pIndirectSource instanceof LivingEntity livingEntity){
                     bat.setTrueOwner(livingEntity);
                 }

@@ -1,0 +1,15 @@
+{
+  "name": "冰暴聚晶",
+  "icon": "goety:ice_storm_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这个法术聚晶允许玩家召唤出一团冰霜，它会慢慢穿过物块，冻结并伤害附近的生物。冰霜会随着飘过的距离变大。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ice_storm_focus"
+    }
+  ]
+}

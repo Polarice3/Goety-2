@@ -1,0 +1,17 @@
+{
+  "name": "Фокус полыхания",
+  "icon": "goety:blazing_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Несмотря на то, что восстание всполохов до сих пор является тайной, вам удалось создать фокус, который вызывает всполохов без революционного стержня."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blazing_focus"
+    }
+  ]
+}

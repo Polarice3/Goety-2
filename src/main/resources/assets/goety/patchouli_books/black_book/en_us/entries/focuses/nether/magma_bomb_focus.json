@@ -1,0 +1,16 @@
+{
+  "name": "Magma Bomb Focus",
+  "icon": "goety:magma_bomb_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ancient villager legends speaks of giant hoglin-like creatures that shoot Magma Cubes at their foes, leaving devastation. Inspired and with some tinkering, you've made a focus that shoots out a ball of magma that leaves an explosion... and a couple of loyal Magma Cubes at the site of impact."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magma_bomb_focus"
+    }
+  ]
+}

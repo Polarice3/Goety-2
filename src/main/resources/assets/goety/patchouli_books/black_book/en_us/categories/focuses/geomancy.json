@@ -1,0 +1,6 @@
+{
+  "name": "Geomancy",
+  "description": "The power over the earth.",
+  "icon": "goety:barricade_focus",
+  "parent": "goety:focuses"
+}

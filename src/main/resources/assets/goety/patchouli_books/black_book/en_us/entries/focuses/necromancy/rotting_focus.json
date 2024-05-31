@@ -1,0 +1,15 @@
+{
+  "name": "Rotting Focus",
+  "icon": "goety:rotting_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The true first step to Necroturgy is to summon and command a Zombie. Zombies comes in multiple variants, and the focus allows you to summon a variant depending on location and environment where the spell is casted."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rotting_focus"
+    }
+  ]
+}

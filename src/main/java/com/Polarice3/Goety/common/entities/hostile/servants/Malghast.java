@@ -37,6 +37,7 @@ import java.util.EnumSet;
 public class Malghast extends OwnedFlying {
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.INT);
+    public float fireBallDamage;
     private float explosionPower = 1.0F;
     private int oldSwell;
     private int swell;
@@ -115,6 +116,18 @@ public class Malghast extends OwnedFlying {
         return this.explosionPower;
     }
 
+    public void setExplosionPower(float damage) {
+        this.explosionPower = damage;
+    }
+
+    public float getFireBallDamage(){
+        return this.fireBallDamage;
+    }
+
+    public void setFireBallDamage(float damage){
+        this.fireBallDamage = damage;
+    }
+
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return 1.3F;
     }
@@ -174,6 +187,7 @@ public class Malghast extends OwnedFlying {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putFloat("ExplosionPower", this.explosionPower);
+        pCompound.putFloat("FireballDamage", this.getFireBallDamage());
         pCompound.putInt("Stun", this.stun);
     }
 
@@ -181,6 +195,9 @@ public class Malghast extends OwnedFlying {
         super.readAdditionalSaveData(pCompound);
         if (pCompound.contains("ExplosionPower", 99)) {
             this.explosionPower = pCompound.getFloat("ExplosionPower");
+        }
+        if (pCompound.contains("FireballDamage")) {
+            this.setFireBallDamage(pCompound.getFloat("FireballDamage"));
         }
         this.stun = pCompound.getInt("Stun");
     }

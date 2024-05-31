@@ -2,9 +2,9 @@ package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.OldUsersConverter;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.common.Tags;
 
@@ -100,64 +102,71 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     public void tick(){
         super.tick();
-        if (this.getTarget() instanceof IOwned ownedEntity){
-            if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())){
-                this.setTarget(null);
-                if (this.getLastHurtByMob() == ownedEntity){
-                    this.setLastHurtByMob(null);
+        if (!this.level.isClientSide) {
+            if (this.getTarget() instanceof IOwned ownedEntity) {
+                if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())) {
+                    this.setTarget(null);
+                    if (this.getLastHurtByMob() == ownedEntity) {
+                        this.setLastHurtByMob(null);
+                    }
                 }
-            }
-            if (ownedEntity.getTrueOwner() == this){
-                this.setTarget(null);
-                if (this.getLastHurtByMob() == ownedEntity){
-                    this.setLastHurtByMob(null);
+                if (ownedEntity.getTrueOwner() == this) {
+                    this.setTarget(null);
+                    if (this.getLastHurtByMob() == ownedEntity) {
+                        this.setLastHurtByMob(null);
+                    }
                 }
-            }
-            if (MobUtil.ownerStack(this, ownedEntity)){
-                this.setTarget(null);
-                if (this.getLastHurtByMob() == ownedEntity){
-                    this.setLastHurtByMob(null);
-                }
-            }
-        }
-        if (this.getTrueOwner() != null){
-            if (this.getLastHurtByMob() == this.getTrueOwner()){
-                this.setLastHurtByMob(null);
-            }
-            if (this.getTrueOwner() instanceof Mob mobOwner){
-                if (mobOwner.getTarget() != null && this.getTarget() == null){
-                    this.setTarget(mobOwner.getTarget());
-                }
-                if (mobOwner instanceof IBoss || mobOwner.getType().is(Tags.EntityTypes.BOSSES)) {
-                    if (mobOwner.isRemoved() ||mobOwner.isDeadOrDying()){
-                        this.kill();
+                if (MobUtil.ownerStack(this, ownedEntity)) {
+                    this.setTarget(null);
+                    if (this.getLastHurtByMob() == ownedEntity) {
+                        this.setLastHurtByMob(null);
                     }
                 }
             }
-            if (this.getTrueOwner() instanceof IOwned owned){
-                if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()){
-                    if (owned.getTrueOwner() != null){
-                        this.setTrueOwner(owned.getTrueOwner());
-                    } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()){
-                        this.kill();
+            if (this.getTrueOwner() != null) {
+                if (this.getLastHurtByMob() == this.getTrueOwner()) {
+                    this.setLastHurtByMob(null);
+                }
+                if (this.getTrueOwner() instanceof Mob mobOwner) {
+                    if (mobOwner.getTarget() != null && this.getTarget() == null) {
+                        this.setTarget(mobOwner.getTarget());
+                    }
+                    if (mobOwner instanceof Apostle apostle) {
+                        if (this.distanceTo(apostle) > 32) {
+                            this.teleportTowards(apostle);
+                        }
+                    }
+                    if (mobOwner.getType().is(Tags.EntityTypes.BOSSES)) {
+                        if (mobOwner.isRemoved() || mobOwner.isDeadOrDying()) {
+                            this.kill();
+                        }
+                    }
+                }
+                if (this.getTrueOwner() instanceof IOwned owned) {
+                    if (this.getTrueOwner().isDeadOrDying() || !this.getTrueOwner().isAlive()) {
+                        if (owned.getTrueOwner() != null) {
+                            this.setTrueOwner(owned.getTrueOwner());
+                        } else if (!this.isHostile() && !this.isNatural() && !(owned instanceof Enemy) && !owned.isHostile()) {
+                            this.kill();
+                        }
+                    }
+                }
+                for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
+                    if (this.getTrueOwner() != target.getTrueOwner()
+                            && target.getTarget() == this.getTrueOwner()) {
+                        this.setTarget(target);
                     }
                 }
             }
-            for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
-                if (this.getTrueOwner() != target.getTrueOwner()
-                        && target.getTarget() == this.getTrueOwner()){
-                    this.setTarget(target);
+            if (this.getTarget() != null) {
+                if (this.getTarget().isRemoved() || this.getTarget().isDeadOrDying()) {
+                    this.setTarget(null);
                 }
             }
-        }
-        if (this.getTarget() != null){
-            if (this.getTarget().isRemoved() || this.getTarget().isDeadOrDying()){
-                this.setTarget(null);
+            this.mobSense();
+            if (this.limitedLifespan && --this.limitedLifeTicks <= 0) {
+                this.lifeSpanDamage();
             }
-        }
-        this.mobSense();
-        if (this.limitedLifespan && --this.limitedLifeTicks <= 0) {
-            this.lifeSpanDamage();
         }
     }
 
@@ -489,6 +498,31 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         super.awardKillScore(entity, p_19954_, damageSource);
         if (this.getMasterOwner() instanceof ServerPlayer serverPlayer) {
             ModCriteriaTriggers.SERVANT_KILLED_ENTITY.trigger(serverPlayer, entity, damageSource);
+        }
+    }
+
+    public void teleportTowards(Entity entity) {
+        if (!this.level.isClientSide() && this.isAlive()) {
+            for(int i = 0; i < 128; ++i) {
+                Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
+                vector3d = vector3d.normalize();
+                double d0 = 16.0D;
+                double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
+                double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
+                double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
+                if (this.randomTeleport(d1, d2, d3, false)) {
+                    this.teleportHits();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void teleportHits(){
+        this.level.broadcastEntityEvent(this, (byte) 46);
+        if (!this.isSilent()) {
+            this.level.playSound((Player) null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
+            this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
         }
     }
 

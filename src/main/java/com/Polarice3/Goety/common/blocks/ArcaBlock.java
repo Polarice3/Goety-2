@@ -46,7 +46,7 @@ public class ArcaBlock extends BaseEntityBlock implements IForgeBlock {
             soulEnergy.setArcaBlockDimension(pLevel.dimension());
             soulEnergy.setSEActive(true);
             if (tileentity instanceof ArcaBlockEntity arcaTile){
-                arcaTile.setOwnerId(player.getUUID());
+                arcaTile.setOwner(player);
             }
             SEHelper.sendSEUpdatePacket(player);
         }

@@ -3,22 +3,26 @@ package com.Polarice3.Goety.common.magic.spells.nether;
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.AllyVex;
+import com.Polarice3.Goety.common.entities.ally.GhastServant;
 import com.Polarice3.Goety.common.entities.ally.MiniGhast;
+import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -27,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GhastSpell extends SummonSpell {
-    private final TargetingConditions ghastCountTargeting = TargetingConditions.DEFAULT.range(64.0D).ignoreInvisibilityTesting();
 
     public int defaultSoulCost() {
         return SpellConfig.GhastCost.get();
@@ -56,7 +59,22 @@ public class GhastSpell extends SummonSpell {
     }
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
-        return ghastLimit(entityLiving) < SpellConfig.GhastLimit.get();
+        int count = 0;
+        for (Entity entity : worldIn.getAllEntities()) {
+            if (entity instanceof Malghast servant) {
+                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
+                    ++count;
+                }
+            }
+        }
+        if (count >= SpellConfig.GhastLimit.get()){
+            if (entityLiving instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+            }
+            return false;
+        } else {
+            return super.conditionsMet(worldIn, entityLiving);
+        }
     }
 
     @Override
@@ -74,9 +92,9 @@ public class GhastSpell extends SummonSpell {
         }
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
-                if (entity instanceof MiniGhast) {
-                    if (((MiniGhast) entity).getTrueOwner() == entityLiving) {
-                        ((MiniGhast) entity).lifeSpanDamage();
+                if (entity instanceof Malghast malghast) {
+                    if (malghast.getTrueOwner() == entityLiving) {
+                        malghast.lifeSpanDamage();
                     }
                 }
             }
@@ -91,28 +109,31 @@ public class GhastSpell extends SummonSpell {
         this.commonResult(worldIn, entityLiving);
         if (!isShifting(entityLiving)) {
             int i = 3;
+            if (rightStaff(staff)){
+                i = 1 + worldIn.random.nextInt(1);
+            }
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
-                MiniGhast miniGhast = new MiniGhast(ModEntityType.MINI_GHAST.get(), worldIn);
-                miniGhast.setTrueOwner(entityLiving);
-                miniGhast.moveTo(blockpos, 0.0F, 0.0F);
-                miniGhast.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                miniGhast.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
-                if (enchantment > 0){
-                    int boost = Mth.clamp(enchantment, 1, 10);
-                    miniGhast.setFireBallDamage(miniGhast.getFireBallDamage() + boost);
+                Malghast ghast = new MiniGhast(ModEntityType.MINI_GHAST.get(), worldIn);
+                if (rightStaff(staff)){
+                    ghast = new GhastServant(ModEntityType.GHAST_SERVANT.get(), worldIn);
+                    blockpos = BlockFinder.SummonRadius(entityLiving.blockPosition().above(4), ghast, worldIn, 10);
                 }
-                this.SummonSap(entityLiving, miniGhast);
-                this.setTarget(entityLiving, miniGhast);
-                worldIn.addFreshEntity(miniGhast);
-                this.summonAdvancement(entityLiving, miniGhast);
+                ghast.setTrueOwner(entityLiving);
+                ghast.moveTo(blockpos, entityLiving.getYRot(), 0.0F);
+                ghast.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                ghast.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
+                this.SummonSap(entityLiving, ghast);
+                int boost = Mth.clamp(enchantment, 0, 10);
+                ghast.setFireBallDamage(boost - EffectsUtil.getAmplifierPlus(entityLiving, MobEffects.WEAKNESS));
+                float extraBlast = Mth.clamp(enchantment, 0, SpellConfig.MaxRadiusLevel.get()) / 2.5F;
+                ghast.setExplosionPower(ghast.getExplosionPower() + extraBlast);
+                this.setTarget(entityLiving, ghast);
+                worldIn.addFreshEntity(ghast);
+                this.summonAdvancement(entityLiving, ghast);
             }
             this.SummonDown(entityLiving);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
         }
-    }
-
-    public int ghastLimit(LivingEntity entityLiving){
-        return entityLiving.level.getNearbyEntities(AllyVex.class, this.ghastCountTargeting, entityLiving, entityLiving.getBoundingBox().inflate(64.0D)).size();
     }
 }

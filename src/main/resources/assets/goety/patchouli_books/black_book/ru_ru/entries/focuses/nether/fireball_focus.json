@@ -1,0 +1,16 @@
+{
+  "name": "Фокус файербола",
+  "icon": "goety:fireball_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Сила всполохов теперь в ваших руках. Вам больше не нужно будет использовать раздатчик и огненные заряды, ведь вы сами можете стать раздатчиком!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/fireball_focus"
+    }
+  ]
+}

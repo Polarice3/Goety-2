@@ -1,0 +1,15 @@
+{
+  "name": "震えるフォーカス",
+  "icon": "goety:quaking_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "術者は目の前に震えを召喚し、味方以外のクリーチャーを傷つけ、空中に投げ飛ばします。しゃがんだ状態で呪文を唱えると、代わりに術者の周囲に震えが召喚されます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/quaking_focus"
+    }
+  ]
+}

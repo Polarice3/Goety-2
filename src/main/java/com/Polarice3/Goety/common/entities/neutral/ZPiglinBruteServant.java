@@ -38,6 +38,14 @@ public class ZPiglinBruteServant extends ZPiglinServant {
     }
 
     @Override
+    public boolean isBaby() {
+        return false;
+    }
+
+    public void setBaby(boolean pChildZombie) {
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.summonExplosion){

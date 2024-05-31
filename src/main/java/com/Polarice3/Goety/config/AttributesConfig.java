@@ -20,6 +20,14 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinBruteServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinBruteServantDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantMeleeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> InfernoHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> InfernoArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> InfernoMeleeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> InfernoRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MalghastHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Double> EnviokerHealth;
@@ -60,7 +68,12 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> WraithDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> NecromancerFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> NecromancerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherNecromancerDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> HauntedArmorHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieServantHealth;
@@ -84,6 +97,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantDamage;
@@ -101,10 +117,16 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BoundEvokerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BoundEvokerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoundEvokerFollowRange;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoundIceologerFollowRange;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SummonedVexDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> GhastServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> GhastServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
@@ -163,9 +185,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MinisterDamage;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> ApostleDamageCap;
+    public static final ForgeConfigSpec.ConfigValue<Double> ApostleDamageCap;
+    public static final ForgeConfigSpec.ConfigValue<Double> VizierDamageCap;
     public static final ForgeConfigSpec.ConfigValue<Integer> ApostleBowDamage;
-    public static final ForgeConfigSpec.ConfigValue<Integer> VizierDamageCap;
 
     static {
         BUILDER.push("Attributes");
@@ -174,15 +196,35 @@ public class AttributesConfig {
                     .defineInRange("malghastHealth", 20.0, 1.0, Double.MAX_VALUE);
                 BUILDER.push("Skeleton Villager Servant");
                 SkeletonVillagerServantHealth = BUILDER.comment("How much Max Health Skeleton Villager Servants have, Default: 20.0")
-                        .defineInRange("skeletonVillagerServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("skeletonVillagerServantHealth", 20.0, 0.0, Double.MAX_VALUE);
                 SkeletonVillagerServantDamage = BUILDER.comment("How much damage Skeleton Villager Servants deals, Default: 2.0")
                         .defineInRange("skeletonVillagerServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Blaze Servant");
+                BlazeServantHealth = BUILDER.comment("How much Max Health Blaze Servants have, Default: 20.0")
+                        .defineInRange("blazeServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                BlazeServantArmor = BUILDER.comment("How much natural armor points Blaze Servants have, Default: 0.0")
+                        .defineInRange("blazeServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BlazeServantMeleeDamage = BUILDER.comment("How much melee damage Blaze Servants deals, Default: 6.0")
+                        .defineInRange("blazeServantMeleeDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BlazeServantRangeDamage = BUILDER.comment("How much ranged damage Blaze Servants deals, Default: 5.0")
+                        .defineInRange("blazeServantRangeDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Inferno");
+                InfernoHealth = BUILDER.comment("How much Max Health Inferno have, Default: 20.0")
+                        .defineInRange("infernoHealth", 20.0, 1.0, Double.MAX_VALUE);
+                InfernoArmor = BUILDER.comment("How much natural armor points Inferno have, Default: 5.0")
+                        .defineInRange("infernoArmor", 5.0, 0.0, Double.MAX_VALUE);
+                InfernoMeleeDamage = BUILDER.comment("How much melee damage Inferno deals, Default: 6.0")
+                        .defineInRange("infernoMeleeDamage", 6.0, 1.0, Double.MAX_VALUE);
+                InfernoRangeDamage = BUILDER.comment("How much range damage Inferno deals, Default: 5.0")
+                        .defineInRange("infernoRangeDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Zombified Piglin Servant");
                 ZPiglinServantHealth = BUILDER.comment("How much Max Health Zombified Piglin Servants have, Default: 20.0")
                         .defineInRange("zombifiedPiglinServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 ZPiglinServantArmor = BUILDER.comment("How much natural armor points Zombified Piglin Servants have, Default: 2.0")
-                        .defineInRange("zombifiedPiglinServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("zombifiedPiglinServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 ZPiglinServantDamage = BUILDER.comment("How much damage Zombified Piglin Servants deals, Default: 5.0")
                         .defineInRange("zombifiedPiglinServantDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -190,7 +232,7 @@ public class AttributesConfig {
                 ZPiglinBruteServantHealth = BUILDER.comment("How much Max Health Zombified Piglin Brute Servants have, Default: 50.0")
                         .defineInRange("zombifiedPiglinBruteServantHealth", 50.0, 1.0, Double.MAX_VALUE);
                 ZPiglinBruteServantArmor = BUILDER.comment("How much natural armor points Zombified Piglin Brute Servants have, Default: 2.0")
-                        .defineInRange("zombifiedPiglinBruteServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("zombifiedPiglinBruteServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 ZPiglinBruteServantDamage = BUILDER.comment("How much damage Zombified Piglin Brute Servants deals, Default: 7.0")
                         .defineInRange("zombifiedPiglinBruteServantDamage", 7.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -222,7 +264,7 @@ public class AttributesConfig {
                 PikerHealth = BUILDER.comment("How much Max Health Pikers have, Default: 24.0")
                         .defineInRange("pikerHealth", 24.0, 1.0, Double.MAX_VALUE);
                 PikerArmor = BUILDER.comment("How much Armor Pikers have, Default: 4.0")
-                        .defineInRange("pikerArmor", 4.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("pikerArmor", 4.0, 0.0, Double.MAX_VALUE);
                 PikerDamage = BUILDER.comment("How much damage Pikers deals, Default: 9.0")
                         .defineInRange("pikerDamage", 9.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -230,7 +272,7 @@ public class AttributesConfig {
                 RipperHealth = BUILDER.comment("How much Max Health Rippers have, Default: 16.0")
                         .defineInRange("ripperHealth", 16.0, 1.0, Double.MAX_VALUE);
                 RipperArmor = BUILDER.comment("How much Armor Rippers have, Default: 2.0")
-                        .defineInRange("ripperArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("ripperArmor", 2.0, 0.0, Double.MAX_VALUE);
                 RipperDamage = BUILDER.comment("How much damage Rippers deals, Default: 2.0")
                         .defineInRange("ripperDamage", 2.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -293,8 +335,20 @@ public class AttributesConfig {
                         .defineInRange("necromancerHealth", 50.0, 1.0, Double.MAX_VALUE);
                 NecromancerArmor = BUILDER.comment("How much natural Armor Necromancers have, Default: 0.0")
                         .defineInRange("necromancerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                NecromancerFollowRange = BUILDER.comment("How much following/detection range Necromancers have, Default: 16.0")
+                        .defineInRange("necromancerFollowRange", 16.0, 1.0, 2048.0);
                 NecromancerDamage = BUILDER.comment("How much damage Necromancers deals, Default: 4.0")
                         .defineInRange("necromancerDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Wither Necromancer");
+                WitherNecromancerHealth = BUILDER.comment("How much Max Health Wither Necromancers have, Default: 220.0")
+                        .defineInRange("witherNecromancerHealth", 220.0, 1.0, Double.MAX_VALUE);
+                WitherNecromancerArmor = BUILDER.comment("How much natural Armor Wither Necromancers have, Default: 0.0")
+                        .defineInRange("witherNecromancerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WitherNecromancerFollowRange = BUILDER.comment("How much following/detection range Wither Necromancers have, Default: 32.0")
+                        .defineInRange("witherNecromancerFollowRange", 32.0, 1.0, 2048.0);
+                WitherNecromancerDamage = BUILDER.comment("How much damage Wither Necromancers deals, Default: 4.0")
+                        .defineInRange("witherNecromancerDamage", 4.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Haunted Armor");
                 HauntedArmorHealth = BUILDER.comment("How much Max Health Haunted Armor have, Default: 25.0")
@@ -306,7 +360,7 @@ public class AttributesConfig {
                 ZombieServantHealth = BUILDER.comment("How much Max Health Zombie Servants have, Default: 20.0")
                         .defineInRange("zombieServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 ZombieServantArmor = BUILDER.comment("How much natural armor points Zombie Servants have, Default: 2.0")
-                        .defineInRange("zombieServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("zombieServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 ZombieServantDamage = BUILDER.comment("How much damage Zombie Servants deals, Default: 3.0")
                         .defineInRange("zombieServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -314,7 +368,7 @@ public class AttributesConfig {
                 HuskServantHealth = BUILDER.comment("How much Max Health Husk Servants have, Default: 20.0")
                         .defineInRange("huskServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 HuskServantArmor = BUILDER.comment("How much natural armor points Husk Servants have, Default: 2.0")
-                        .defineInRange("huskServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("huskServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 HuskServantDamage = BUILDER.comment("How much damage Husk Servants deals, Default: 3.0")
                         .defineInRange("huskServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -322,7 +376,7 @@ public class AttributesConfig {
                 DrownedServantHealth = BUILDER.comment("How much Max Health Drowned Servants have, Default: 20.0")
                         .defineInRange("drownedServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 DrownedServantArmor = BUILDER.comment("How much natural armor points Drowned Servants have, Default: 2.0")
-                        .defineInRange("drownedServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("drownedServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 DrownedServantDamage = BUILDER.comment("How much damage Drowned Servants deals, Default: 3.0")
                         .defineInRange("drownedServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -330,7 +384,7 @@ public class AttributesConfig {
                 FrozenZombieServantHealth = BUILDER.comment("How much Max Health Frozen Zombie Servants have, Default: 20.0")
                         .defineInRange("frozenZombieServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 FrozenZombieServantArmor = BUILDER.comment("How much natural armor points Frozen Zombie Servants have, Default: 2.0")
-                        .defineInRange("frozenZombieServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("frozenZombieServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 FrozenZombieServantDamage = BUILDER.comment("How much damage Frozen Zombie Servants deals, Default: 3.0")
                         .defineInRange("frozenZombieServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -338,7 +392,7 @@ public class AttributesConfig {
                 JungleZombieServantHealth = BUILDER.comment("How much Max Health Jungle Zombie Servants have, Default: 20.0")
                         .defineInRange("jungleZombieServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 JungleZombieServantArmor = BUILDER.comment("How much natural armor points Jungle Zombie Servants have, Default: 2.0")
-                        .defineInRange("jungleZombieServantArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("jungleZombieServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 JungleZombieServantDamage = BUILDER.comment("How much damage Jungle Zombie Servants deals, Default: 3.0")
                         .defineInRange("jungleZombieServantDamage", 3.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -357,6 +411,14 @@ public class AttributesConfig {
                         .defineInRange("strayServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 StrayServantDamage = BUILDER.comment("How much damage Stray Servants deals, Default: 2.0")
                         .defineInRange("strayServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Wither Skeleton Servant");
+                WitherSkeletonServantHealth = BUILDER.comment("How much Max Health Wither Skeleton Servants have, Default: 20.0")
+                        .defineInRange("witherSkeletonServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                WitherSkeletonServantArmor = BUILDER.comment("How much natural Armor Wither Skeleton Servants have, Default: 0.0")
+                        .defineInRange("witherSkeletonServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WitherSkeletonServantDamage = BUILDER.comment("How much damage Wither Skeleton Servants deals, Default: 4.0")
+                        .defineInRange("witherSkeletonServantDamage", 4.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Mossy Skeleton Servant");
                 MossySkeletonServantHealth = BUILDER.comment("How much Max Health Mossy Skeleton Servants have, Default: 20.0")
@@ -378,7 +440,7 @@ public class AttributesConfig {
                 VanguardServantHealth = BUILDER.comment("How much Max Health Vanguard Servants have, Default: 20.0")
                         .defineInRange("vanguardServantHealth", 20.0, 1.0, Double.MAX_VALUE);
                 VanguardServantArmor = BUILDER.comment("How much Armor Vanguard Servants have, Default: 9.0")
-                        .defineInRange("vanguardServantArmor", 9.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("vanguardServantArmor", 9.0, 0.0, Double.MAX_VALUE);
                 VanguardServantDamage = BUILDER.comment("How much damage Vanguard Servants deals, Default: 7.0")
                         .defineInRange("vanguardServantDamage", 7.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -394,7 +456,7 @@ public class AttributesConfig {
                 ZombieVindicatorHealth = BUILDER.comment("How much Max Health Zombie Vindicators have, Default: 24.0")
                         .defineInRange("zombieVindicatorHealth", 24.0, 1.0, Double.MAX_VALUE);
                 ZombieVindicatorArmor = BUILDER.comment("How much natural armor points Zombie Vindicators have, Default: 2.0")
-                        .defineInRange("zombieVindicatorArmor", 2.0, 1.0, Double.MAX_VALUE);
+                        .defineInRange("zombieVindicatorArmor", 2.0, 0.0, Double.MAX_VALUE);
                 ZombieVindicatorDamage = BUILDER.comment("How much damage Zombie Vindicators deals, Default: 5.0")
                         .defineInRange("zombieVindicatorDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
@@ -403,6 +465,16 @@ public class AttributesConfig {
                         .defineInRange("boundEvokerHealth", 24.0, 1.0, Double.MAX_VALUE);
                 BoundEvokerArmor = BUILDER.comment("How much natural Armor Bound Evokers have, Default: 0.0")
                         .defineInRange("boundEvokerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BoundEvokerFollowRange = BUILDER.comment("How much following/detection range Bound Evokers have, Default: 12.0")
+                        .defineInRange("boundEvokerFollowRange", 12.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Bound Iceologer");
+                BoundIceologerHealth = BUILDER.comment("How much Max Health Bound Iceologers have, Default: 20.0")
+                        .defineInRange("boundIceologerHealth", 20.0, 1.0, Double.MAX_VALUE);
+                BoundIceologerArmor = BUILDER.comment("How much natural Armor Bound Iceologers have, Default: 0.0")
+                        .defineInRange("boundIceologerArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BoundIceologerFollowRange = BUILDER.comment("How much following/detection range Bound Iceologers have, Default: 12.0")
+                        .defineInRange("boundIceologerFollowRange", 12.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vex");
                 SummonedVexHealth = BUILDER.comment("How much Max Health Summoned Vexes have, Default: 14.0")
@@ -415,6 +487,12 @@ public class AttributesConfig {
                         .defineInRange("miniGhastHealth", 5.0, 1.0, Double.MAX_VALUE);
                 MiniGhastDamage = BUILDER.comment("How much damage Mini-Ghasts' fireballs deals, Default: 5.0")
                         .defineInRange("miniGhastDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Ghast Servant");
+                GhastServantHealth = BUILDER.comment("How much Max Health Ghast Servants have, Default: 10.0")
+                        .defineInRange("ghastServantHealth", 10.0, 1.0, Double.MAX_VALUE);
+                GhastServantDamage = BUILDER.comment("How much damage Ghast Servants' lavaballs deals, Default: 6.0")
+                        .defineInRange("ghastServantDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Whisperer");
                 WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")
@@ -454,7 +532,7 @@ public class AttributesConfig {
                 IceGolemDamage = BUILDER.comment("How much damage Ice Golems deals, Default: 7.5")
                         .defineInRange("iceGolemDamage", 7.5, 1.0, Double.MAX_VALUE);
                 IceGolemFollowRange = BUILDER.comment("How much following/detection range Ice Golems have, Default: 16.0")
-                        .defineInRange("iceGolemFollowRange", 16.0, 1.0, 2048.0D);
+                        .defineInRange("iceGolemFollowRange", 16.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Squall Golem");
                 SquallGolemHealth = BUILDER.comment("How much Max Health Squall Golems have, Default: 88.0")
@@ -464,7 +542,7 @@ public class AttributesConfig {
                 SquallGolemDamage = BUILDER.comment("How much damage Squall Golems deals, Default: 16.0")
                         .defineInRange("squallGolemDamage", 16.0, 1.0, Double.MAX_VALUE);
                 SquallGolemFollowRange = BUILDER.comment("How much following/detection range Squall Golems have, Default: 32.0")
-                        .defineInRange("squallGolemFollowRange", 32.0, 1.0, 2048.0D);
+                        .defineInRange("squallGolemFollowRange", 32.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Redstone Golem");
                 RedstoneGolemHealth = BUILDER.comment("How much Max Health Redstone Golems have, Default: 240.0")
@@ -474,7 +552,7 @@ public class AttributesConfig {
                 RedstoneGolemDamage = BUILDER.comment("How much damage Redstone Golems deals, Default: 20.0")
                         .defineInRange("redstoneGolemDamage", 20.0, 1.0, Double.MAX_VALUE);
                 RedstoneGolemFollowRange = BUILDER.comment("How much following/detection range Redstone Golems have, Default: 32.0")
-                        .defineInRange("redstoneGolemFollowRange", 32.0, 1.0, 2048.0D);
+                        .defineInRange("redstoneGolemFollowRange", 32.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Grave Golem");
                 GraveGolemHealth = BUILDER.comment("How much Max Health Grave Golems have, Default: 180.0")
@@ -484,7 +562,7 @@ public class AttributesConfig {
                 GraveGolemDamage = BUILDER.comment("How much damage Grave Golems deals, Default: 16.0")
                         .defineInRange("graveGolemDamage", 16.0, 1.0, Double.MAX_VALUE);
                 GraveGolemFollowRange = BUILDER.comment("How much following/detection range Grave Golems have, Default: 32.0")
-                        .defineInRange("graveGolemFollowRange", 32.0, 1.0, 2048.0D);
+                        .defineInRange("graveGolemFollowRange", 32.0, 1.0, 2048.0);
                 HauntHealth = BUILDER.comment("How much Max Health Haunts have, Default: 6.0")
                         .defineInRange("hauntHealth", 6.0, 1.0, Double.MAX_VALUE);
                 HauntArmor = BUILDER.comment("How much natural armor points Haunts have, Default: 0.0")
@@ -492,7 +570,7 @@ public class AttributesConfig {
                 HauntDamage = BUILDER.comment("How much damage Haunts deals, Default: 2.0")
                         .defineInRange("hauntDamage", 2.0, 1.0, Double.MAX_VALUE);
                 HauntFollowRange = BUILDER.comment("How much following/detection range Haunts have, Default: 32.0")
-                        .defineInRange("hauntFollowRange", 32.0, 1.0, 2048.0D);
+                        .defineInRange("hauntFollowRange", 32.0, 1.0, 2048.0);
                 BUILDER.pop();
                 BUILDER.push("Redstone Monstrosity");
                 RedstoneMonstrosityHealth = BUILDER.comment("How much Max Health Redstone Monstrosities have, Default: 600.0")
@@ -502,15 +580,15 @@ public class AttributesConfig {
                 RedstoneMonstrosityDamage = BUILDER.comment("How much damage Redstone Monstrosities deals, Default: 21.0")
                         .defineInRange("redstoneMonstrosityDamage", 21.0, 1.0, Double.MAX_VALUE);
                 RedstoneMonstrosityFollowRange = BUILDER.comment("How much following/detection range Redstone Monstrosities have, Default: 32.0")
-                        .defineInRange("redstoneMonstrosityFollowRange", 32.0, 1.0, 2048.0D);
+                        .defineInRange("redstoneMonstrosityFollowRange", 32.0, 1.0, 2048.0);
                 RedstoneMonstrositySpitRange = BUILDER.comment("The furthest number of blocks or distance the target is at that Redstone Monstrosities can perform their spit attack, Default: 13.0")
-                        .defineInRange("redstoneMonstrositySpitRange", 13.0, 4.0, 2048.0D);
+                        .defineInRange("redstoneMonstrositySpitRange", 13.0, 4.0, 2048.0);
                 RedstoneMonstrosityHPPercentDamage = BUILDER.comment("Redstone Monstrosities attack HP percent damage, Default: 0.08")
                         .defineInRange("redstoneMonstrosityHPPercentDamage", 0.08, 0.0, 1.0);
                 RedstoneMonstrosityHurtRange = BUILDER.comment("How many blocks or distance away an attack can be from Redstone Monstrosities to damage them, Default: 20.0")
                         .defineInRange("redstoneMonstrosityHurtRange", 20.0, 6.0, Double.MAX_VALUE);
                 RedstoneMonstrosityDamageCap = BUILDER.comment("The maximum amount of damage an Redstone Monstrosities can attain per hit, Default: 25.0")
-                        .defineInRange("redstoneMonstrosityDamageCap", 25.0D, 1.0D, Double.MAX_VALUE);
+                        .defineInRange("redstoneMonstrosityDamageCap", 25.0D, 1.0, Double.MAX_VALUE);
                 RedstoneCubeHealth = BUILDER.comment("How much Max Health Redstone Cubes have, Default: 10.0")
                         .defineInRange("redstoneCubeHealth", 10.0, 1.0, Double.MAX_VALUE);
                 RedstoneCubeArmor = BUILDER.comment("How much natural armor points Redstone Cubes have, Default: 0.0")
@@ -518,7 +596,7 @@ public class AttributesConfig {
                 RedstoneCubeDamage = BUILDER.comment("How much damage Redstone Cubes deals, Default: 4.0")
                         .defineInRange("redstoneCubeDamage", 4.0, 1.0, Double.MAX_VALUE);
                 RedstoneCubeFollowRange = BUILDER.comment("How much following/detection range Redstone Cubes have, Default: 16.0")
-                        .defineInRange("redstoneCubeFollowRange", 16.0, 1.0, 2048.0D);
+                        .defineInRange("redstoneCubeFollowRange", 16.0, 1.0, 2048.0);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Mini-Bosses");
@@ -547,8 +625,8 @@ public class AttributesConfig {
                 BUILDER.push("Vizier");
                 VizierHealth = BUILDER.comment("How much Max Health Viziers have, Default: 200.0")
                         .defineInRange("vizierHealth", 200.0, 100.0, Double.MAX_VALUE);
-                VizierDamageCap = BUILDER.comment("The maximum amount of damage a Vizier can attain per hit, Default: 20")
-                        .defineInRange("vizierDamageCap", 20, 1, Integer.MAX_VALUE);
+                VizierDamageCap = BUILDER.comment("The maximum amount of damage a Vizier can attain per hit, Default: 20.0")
+                        .defineInRange("vizierDamageCap", 20.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Apostle");
                 ApostleHealth = BUILDER.comment("How much Max Health Apostles have, Default: 320.0")
@@ -557,10 +635,10 @@ public class AttributesConfig {
                         .defineInRange("apostleArmor", 12.0, 0.0, Double.MAX_VALUE);
                 ApostleToughness = BUILDER.comment("How much natural Toughness Points Apostles have, Default: 6.0")
                         .defineInRange("apostleToughness", 6.0, 0.0, Double.MAX_VALUE);
-                ApostleDamageCap = BUILDER.comment("The maximum amount of damage an Apostle can attain per hit, Default: 20")
-                        .defineInRange("apostleDamageCap", 20, 1, Integer.MAX_VALUE);
+                ApostleDamageCap = BUILDER.comment("The maximum amount of damage an Apostle can attain per hit, Default: 20.0")
+                        .defineInRange("apostleDamageCap", 20.0, 1.0, Double.MAX_VALUE);
                 ApostleBowDamage = BUILDER.comment("Multiplies Apostle's Bow damage, Default: 4")
-                        .defineInRange("apostleBowDamage", 4, 2, Integer.MAX_VALUE);
+                        .defineInRange("apostleBowDamage", 4, 1, Integer.MAX_VALUE);
                 ApostleMagicDamage = BUILDER.comment("Set Apostle's spell damage (ie, Fire Tornadoes, Fire Blasts, Roars), Default: 6.0")
                         .defineInRange("apostleMagicDamage", 6.0, 6.0, Double.MAX_VALUE);
                 BUILDER.pop();

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "goety:apostle",
+    "goety:cairn_necromancer",
+    "goety:haunted_armor",
+    "goety:skull_lord",
+    "goety:bone_lord",
+    "goety:wither_necromancer"
+  ]
+}

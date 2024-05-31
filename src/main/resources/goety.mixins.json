@@ -10,6 +10,7 @@
     "EntityMixin",
     "LivingEntityMixin",
     "RaidMixin",
+    "SensorMixin",
     "StructureProcessorAccessor",
     "StructureTemplateMixin"
   ],

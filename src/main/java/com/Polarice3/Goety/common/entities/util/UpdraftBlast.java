@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
+import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -133,8 +133,8 @@ public class UpdraftBlast extends Entity {
                         if (entity instanceof LivingEntity livingEntity) {
                             livingEntity.hurt(ModDamageSource.windBlast(this, this.owner), this.damage);
                             MobUtil.push(livingEntity, 0, 1.0, 0);
-                        } else if (entity instanceof FireTornado fireTornado){
-                            fireTornado.trueRemove();
+                        } else if (entity instanceof AbstractCyclone cyclone){
+                            cyclone.trueRemove();
                         }
                     }
                 }

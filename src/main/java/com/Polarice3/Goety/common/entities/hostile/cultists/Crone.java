@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.hostile.cultists;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.*;
 import com.Polarice3.Goety.common.effects.brew.block.HarvestBlockEffect;
@@ -82,12 +81,9 @@ public class Crone extends Cultist implements RangedAttackMob {
 
     public Crone(EntityType<? extends Cultist> type, Level worldIn) {
         super(type, worldIn);
-        this.bossInfo = new ModServerBossInfo(this.getUUID(), this, BossEvent.BossBarColor.GREEN, false, false);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.GREEN, false, false);
         this.xpReward = 99;
         ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     protected void registerGoals() {
@@ -137,7 +133,6 @@ public class Crone extends Cultist implements RangedAttackMob {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -211,14 +206,6 @@ public class Crone extends Cultist implements RangedAttackMob {
             itementity.setExtendedLifetime();
         }
 
-    }
-
-    @Override
-    public void remove(Entity.RemovalReason p_146834_) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(p_146834_);
     }
 
     @Override

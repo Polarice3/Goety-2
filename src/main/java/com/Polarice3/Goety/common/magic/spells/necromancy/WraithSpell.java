@@ -10,6 +10,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -121,7 +122,7 @@ public class WraithSpell extends SummonSpell {
                     }
                 }
                 summonedentity.setTrueOwner(entityLiving);
-                summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
+                summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn), 0.0F, 0.0F);
                 MobUtil.moveDownToGround(summonedentity);
                 summonedentity.setPersistenceRequired();
                 summonedentity.setUpgraded(this.NecroPower(entityLiving));
@@ -137,7 +138,7 @@ public class WraithSpell extends SummonSpell {
                 this.summonAdvancement(entityLiving, entityLiving);
             }
             this.SummonDown(entityLiving);
-            worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            SoundUtil.playNecromancerSummon(entityLiving);
         }
     }
 }

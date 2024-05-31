@@ -102,7 +102,7 @@ public class NecroBolt extends SpellHurtingProjectile {
                 double d1 = (double)this.getY() + this.level.random.nextDouble();
                 double d2 = (double)this.getZ() + this.level.random.nextDouble();
                 serverLevel.sendParticles(ModParticleTypes.NECRO_EFFECT.get(), d0, d1, d2, 0, 0.45, 0.45, 0.45, 0.5F);
-                serverLevel.sendParticles(ModParticleTypes.SUMMON.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0);
+                serverLevel.sendParticles(ModParticleTypes.SUMMON_TRAIL.get(), d0, d1, d2, 1, 0.0F, 0.0F, 0.0F, 0);
             }
             this.discard();
         }
@@ -115,6 +115,18 @@ public class NecroBolt extends SpellHurtingProjectile {
         this.glow();
         if (this.tickCount >= MathHelper.secondsToTicks(20)){
             this.discard();
+        }
+        Entity entity = this.getOwner();
+        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+            Vec3 vec3 = this.getDeltaMovement();
+            double d0 = this.getX() - vec3.x;
+            double d1 = this.getY() - vec3.y;
+            double d2 = this.getZ() - vec3.z;
+            this.level.addParticle(ModParticleTypes.SUMMON_TRAIL.get(),
+                    d0 + ((this.level.random.nextDouble() / 2) * (this.level.random.nextIntBetweenInclusive(-1, 1))),
+                    d1 + 0.5D,
+                    d2 + ((this.level.random.nextDouble() / 2) * (this.level.random.nextIntBetweenInclusive(-1, 1))),
+                    0.0D, 0.0D, 0.0D);
         }
         Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
         if (this.trailPointer == -1) {
@@ -152,7 +164,7 @@ public class NecroBolt extends SpellHurtingProjectile {
     }
 
     protected ParticleOptions getTrailParticle() {
-        return ModParticleTypes.SUMMON.get();
+        return ModParticleTypes.NONE.get();
     }
 
     public boolean isPickable() {

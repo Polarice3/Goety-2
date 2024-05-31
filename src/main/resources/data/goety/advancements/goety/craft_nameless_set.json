@@ -1,0 +1,67 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:nameless_crown"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_nameless_set.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_nameless_set.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/craft_necro_set",
+  "criteria": {
+    "nameless_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:nameless_crown"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "nameless_cape": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:nameless_cape"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "nameless_staff": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:nameless_staff"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "nameless_crown"
+    ],
+    [
+      "nameless_cape"
+    ],
+    [
+      "nameless_staff"
+    ]
+  ]
+}

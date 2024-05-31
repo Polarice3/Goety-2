@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "goety:ally_vex",
+    "goety:ally_irk",
+    "goety:irk",
+    "goety:mini_ghast",
+    "goety:ghast_servant",
+    "goety:blaze_servant",
+    "goety:haunted_skull",
+    "goety:bound_evoker",
+    "goety:bound_iceologer"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Фокус ледяного дыхания",
+  "icon": "goety:frost_breath_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "От холодного дыхания существа на вашем пути оледенеют до смерти."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/frost_breath_focus"
+    }
+  ]
+}

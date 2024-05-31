@@ -104,7 +104,17 @@ public class SteamMissile extends SpellHurtingProjectile {
                     }
                 }
             } else {
-                entity.hurt(DamageSource.MAGIC, baseDamage);
+                flag = entity.hurt(DamageSource.MAGIC, baseDamage);
+            }
+
+            if (flag && entity instanceof LivingEntity) {
+                double x = this.getX();
+                double z = this.getZ();
+                if (entity1 != null){
+                    x = entity1.getX();
+                    z = entity1.getZ();
+                }
+                ((LivingEntity) entity).knockback(1.0F, x - entity.getX(), z - entity.getZ());
             }
         }
     }

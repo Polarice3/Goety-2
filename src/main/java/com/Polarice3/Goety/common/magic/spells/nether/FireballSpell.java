@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -65,6 +66,11 @@ public class FireballSpell extends Spell {
                 vector3d.y,
                 vector3d.z);
         smallFireballEntity.setOwner(entityLiving);
+        if (isShifting(entityLiving)) {
+            smallFireballEntity.setDangerous(false);
+        }
+        smallFireballEntity.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+        smallFireballEntity.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
         worldIn.addFreshEntity(smallFireballEntity);
         if (rightStaff(staff)) {
             for (int i = 0; i < 2; ++i) {
@@ -76,6 +82,11 @@ public class FireballSpell extends Spell {
                         vector3d.y,
                         vector3d.z);
                 smallFireballEntity2.setOwner(entityLiving);
+                if (isShifting(entityLiving)) {
+                    smallFireballEntity2.setDangerous(false);
+                }
+                smallFireballEntity2.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+                smallFireballEntity2.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
                 worldIn.addFreshEntity(smallFireballEntity2);
             }
         }

@@ -2,11 +2,10 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,10 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 
 public class NetherMeteor extends ExplosiveProjectile {
-    public float explosionPower = 4.0F;
 
     public NetherMeteor(EntityType<? extends ExplosiveProjectile> type, Level world) {
         super(type, world);
@@ -31,6 +28,11 @@ public class NetherMeteor extends ExplosiveProjectile {
 
     public NetherMeteor(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
         super(ModEntityType.NETHER_METEOR.get(), shooter, accelX, accelY, accelZ, worldIn);
+    }
+
+    public void defaultExplosionAndDamage() {
+        this.entityData.define(DATA_EXPLOSION, 4.0F);
+        this.entityData.define(DATA_DAMAGE, 6.0F);
     }
 
     public void tick() {
@@ -48,7 +50,7 @@ public class NetherMeteor extends ExplosiveProjectile {
         if (!this.level.isClientSide) {
             boolean flag = this.isDangerous();
             Explosion.BlockInteraction mode = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), explosionPower, flag, mode);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, mode);
             this.discard();
         }
     }
@@ -58,7 +60,7 @@ public class NetherMeteor extends ExplosiveProjectile {
         if (!this.level.isClientSide) {
             Entity entity = pResult.getEntity();
             Entity entity1 = this.getOwner();
-            entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), 6.0F);
+            entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), this.getDamage() + this.getExtraDamage());
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);
             }
@@ -77,7 +79,7 @@ public class NetherMeteor extends ExplosiveProjectile {
                 return false;
             }
         }
-        if (pEntity instanceof IOwned && ((Owned) pEntity).getTrueOwner() == this.getOwner()){
+        if (MobUtil.areAllies(this.getOwner(), pEntity)){
             return false;
         }
         return super.canHitEntity(pEntity);
@@ -105,20 +107,5 @@ public class NetherMeteor extends ExplosiveProjectile {
 
     protected boolean shouldBurn() {
         return false;
-    }
-
-    @Override
-    public void setExplosionPower(float pExplosionPower) {
-        this.explosionPower = pExplosionPower;
-    }
-
-    @Override
-    public float getExplosionPower() {
-        return this.explosionPower;
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

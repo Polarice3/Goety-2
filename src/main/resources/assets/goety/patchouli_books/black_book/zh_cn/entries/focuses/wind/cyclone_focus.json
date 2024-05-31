@@ -1,0 +1,15 @@
+{
+  "name": "旋风聚晶",
+  "icon": "goety:cyclone_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许玩家发出一个强大的旋风，将附近的任何生物拉进来并抛来抛去。用烈风魔杖施放会导致旋风不断对被困目标造成少量伤害。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/cyclone_focus"
+    }
+  ]
+}

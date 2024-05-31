@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.UrnBlockEntity;
+import com.Polarice3.Goety.init.ModSoundTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -13,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,7 +36,7 @@ public class UrnBlock extends BaseEntityBlock {
 
     public UrnBlock() {
         super(BlockBehaviour.Properties.of(Material.EGG)
-                .sound(SoundType.GLASS)
+                .sound(ModSoundTypes.URN)
                 .strength(0.1F, 0));
     }
 

@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.utils;
 
-import com.Polarice3.Goety.common.entities.projectiles.FireTornado;
+import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -69,8 +69,8 @@ public class SpellExplosion {
             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) target, seen);
         }
         if (damageSource.isMagic()) {
-            if (target instanceof FireTornado fireTornado) {
-                fireTornado.trueRemove();
+            if (target instanceof AbstractCyclone cyclone){
+                cyclone.trueRemove();
             }
         }
 

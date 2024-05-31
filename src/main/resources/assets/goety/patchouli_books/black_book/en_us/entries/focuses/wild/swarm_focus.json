@@ -1,0 +1,15 @@
+{
+  "name": "Swarm Focus",
+  "icon": "goety:swarm_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You conjure and call forth a spew of insects upon your targets, dealing damage that upon death, a loyal swarm of insects will rise from the corpse and independently attack other targets."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/swarm_focus"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:direct_freeze",
+    "goety:indirect_freeze",
+    "goety:frost_breath",
+    "goety:ice_spike",
+    "goety:ice_bouquet"
+  ]
+}

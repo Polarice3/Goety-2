@@ -1,0 +1,16 @@
+{
+  "name": "Фокус полёта",
+  "icon": "goety:flying_focus",
+  "category": "goety:focuses/wind",
+  "advancement": "minecraft:end/elytra",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью силы грациозного дракона и элитр вам удалось усовершенствовать фокус запуска, позволяющий по-настоящему летать на палочке или посохе (зажав ПКМ)."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flying_focus"
+    }
+  ]
+}

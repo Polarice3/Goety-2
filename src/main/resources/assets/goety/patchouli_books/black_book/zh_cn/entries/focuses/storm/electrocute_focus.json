@@ -1,0 +1,15 @@
+{
+  "name": "电刑聚晶",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶允许你发射一个电球，当你使用该聚晶时看向一个实体时，它会在击中目标或任何固体物块之前跟随目标。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}

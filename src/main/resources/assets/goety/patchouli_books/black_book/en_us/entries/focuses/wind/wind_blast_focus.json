@@ -1,0 +1,16 @@
+{
+  "name": "Wind Blast Focus",
+  "icon": "goety:wind_blast_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Wind Blast Focus allows you to summon a blast of wind in front of you, knocking back creatures in your line of sight. The blast deals no damage unfortunately, but you can throw creatures off of ledges from a, admittedly short, distance!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/wind_blast_focus",
+      "text": "When cast by different staffs, the wind blast might give additional effects to targets."
+    }
+  ]
+}

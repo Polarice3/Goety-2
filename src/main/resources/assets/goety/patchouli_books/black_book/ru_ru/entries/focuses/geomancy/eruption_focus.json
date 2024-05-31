@@ -1,0 +1,15 @@
+{
+  "name": "Фокус извержения",
+  "icon": "goety:eruption_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Позволяет вам вызвать небольшой вулкан, который выбросит в небо несколько пирокластических глыб, которые будут падать вокруг него, взрываясь и, возможно, нанося урон вашим врагам."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/eruption_focus"
+    }
+  ]
+}

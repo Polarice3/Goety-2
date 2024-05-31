@@ -27,6 +27,7 @@ public abstract class AbstractSpellCloud extends SpellEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.PARTICLE);
     public boolean activated;
+    public int activateTime = 20;
     public int lifeSpan = 100;
 
     public AbstractSpellCloud(EntityType<?> p_19870_, Level p_19871_) {
@@ -75,6 +76,9 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         if (p_20052_.contains("Activated")){
             this.activated = p_20052_.getBoolean("Activated");
         }
+        if (p_20052_.contains("ActivateTime")) {
+            this.activateTime = p_20052_.getInt("ActivateTime");
+        }
         if (p_20052_.contains("LifeSpan")) {
             this.lifeSpan = p_20052_.getInt("LifeSpan");
         }
@@ -85,7 +89,12 @@ public abstract class AbstractSpellCloud extends SpellEntity {
         super.addAdditionalSaveData(p_20139_);
         p_20139_.putString("Particle", this.getRainParticle().writeToString());
         p_20139_.putBoolean("Activated", this.activated);
+        p_20139_.putInt("ActivateTime", this.activateTime);
         p_20139_.putInt("LifeSpan", this.lifeSpan);
+    }
+
+    public void setActivateTime(int activateTime) {
+        this.activateTime = activateTime;
     }
 
     public void setLifeSpan(int lifeSpan) {
@@ -135,7 +144,7 @@ public abstract class AbstractSpellCloud extends SpellEntity {
                     this.discard();
                 }
             } else {
-                if (this.tickCount % 20 == 0){
+                if (this.tickCount % this.activateTime == 0){
                     this.activated = true;
                 }
             }

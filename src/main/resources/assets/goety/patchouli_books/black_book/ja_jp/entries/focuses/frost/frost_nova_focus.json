@@ -1,0 +1,15 @@
+{
+  "name": "Frost Nova Focus",
+  "icon": "goety:frost_nova_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You unleash an explosion of frost at your position, or at a target's position while crouching, hurting all nearby creatures and freezing them. The explosion deals freeze damage and does not harm the caster."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frost_nova_focus"
+    }
+  ]
+}

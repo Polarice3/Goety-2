@@ -115,6 +115,14 @@ public class EffectsUtil {
         return 0;
     }
 
+    public static int getAmplifierPlus(LivingEntity infected, MobEffect effect){
+        MobEffectInstance MobEffectInstance1 = infected.getEffect(effect);
+        if (MobEffectInstance1 != null){
+            return MobEffectInstance1.getAmplifier() + 1;
+        }
+        return 0;
+    }
+
     public static boolean canAffectLich(MobEffectInstance effectInstance, Level world) {
         return effectInstance.getEffect() != MobEffects.BLINDNESS
                 && effectInstance.getEffect() != MobEffects.CONFUSION

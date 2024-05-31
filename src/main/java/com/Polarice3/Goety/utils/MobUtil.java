@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
@@ -56,9 +57,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.PowderSnowBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.WebBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -1033,6 +1032,10 @@ public class MobUtil {
         return MobUtil.calculateViewVector(0, entity.getYRot() + 90);
     }
 
+    public static Vec3 getHorizontalLookAngle(Entity entity) {
+        return MobUtil.calculateViewVector(0, entity.getYRot());
+    }
+
     public static void setRot(Entity entity, float p_19916_, float p_19917_) {
         entity.setYRot(p_19916_ % 360.0F);
         entity.setXRot(p_19917_ % 360.0F);
@@ -1054,6 +1057,13 @@ public class MobUtil {
         } else {
             return nullCheck;
         }
+    }
+
+    public void circleEntity(Mob mob, Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
+        int directionInt = direction ? 1 : -1;
+        double t = (double)(directionInt * circleFrame) * 0.5 * (double)speed / (double)radius + (double)offset;
+        Vec3 movePos = target.position().add((double)radius * Math.cos(t), 0.0, (double)radius * Math.sin(t));
+        mob.getNavigation().moveTo(movePos.x, movePos.y, movePos.z, (double)(speed * moveSpeedMultiplier));
     }
 
     //Enderman Teleport
@@ -1132,6 +1142,30 @@ public class MobUtil {
             }
         } else {
             return null;
+        }
+    }
+
+    public static void createWitherRose(LivingEntity target, @Nullable LivingEntity killer) {
+        createBlockUponDeath(target, killer, Blocks.WITHER_ROSE);
+    }
+
+    public static void createBlockUponDeath(LivingEntity target, @Nullable LivingEntity killer, Block block) {
+        if (!target.level.isClientSide) {
+            boolean flag = false;
+            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(target.level, killer)) {
+                BlockPos blockpos = target.blockPosition();
+                BlockState blockstate = block.defaultBlockState();
+                if (target.level.isEmptyBlock(blockpos) && blockstate.canSurvive(target.level, blockpos)) {
+                    target.level.setBlock(blockpos, blockstate, 3);
+                    flag = true;
+                }
+            }
+
+            if (!flag) {
+                ItemEntity itementity = new ItemEntity(target.level, target.getX(), target.getY(), target.getZ(), new ItemStack(block));
+                target.level.addFreshEntity(itementity);
+            }
+
         }
     }
 

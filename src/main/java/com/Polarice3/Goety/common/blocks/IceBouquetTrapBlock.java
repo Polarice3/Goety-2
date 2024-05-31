@@ -33,7 +33,7 @@ public class IceBouquetTrapBlock extends BaseEntityBlock {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (pPlacer instanceof Player){
             if (tileentity instanceof IceBouquetTrapBlockEntity ghostFireTrapTile){
-                ghostFireTrapTile.setOwnerId(pPlacer.getUUID());
+                ghostFireTrapTile.setOwner(pPlacer);
             }
         }
     }

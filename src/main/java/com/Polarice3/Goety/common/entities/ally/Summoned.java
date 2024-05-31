@@ -43,10 +43,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,6 +64,7 @@ public class Summoned extends Owned implements IServant {
     public boolean upgraded;
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
+    public BlockPos boundPos;
     public int commandTick;
     public int killChance;
 
@@ -110,6 +108,22 @@ public class Summoned extends Owned implements IServant {
         this.stayingMode();
         if (this.killChance > 0){
             --this.killChance;
+        }
+        if (MobsConfig.StayingServantChunkLoad.get()) {
+            if (this.level instanceof ServerLevel serverLevel) {
+                if (this.isStaying()) {
+                    if (this.getTrueOwner() instanceof Player player) {
+                        if (player.tickCount % 10 == 0) {
+                            for (int i = -1; i <= 1; i++) {
+                                for (int j = -1; j <= 1; j++) {
+                                    ChunkPos pos = new ChunkPos(this.blockPosition().offset(i * 16, 0, j * 16));
+                                    serverLevel.setChunkForced(pos.x, pos.z, true);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         if (this.isCommanded()){
             if (this.getNavigation().isStableDestination(this.commandPos) || this.commandPosEntity != null){
@@ -382,7 +396,9 @@ public class Summoned extends Owned implements IServant {
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setUpgraded(compound.getBoolean("Upgraded"));
+        if (compound.contains("Upgraded")) {
+            this.setUpgraded(compound.getBoolean("Upgraded"));
+        }
         if (compound.contains("wandering")) {
             this.setWandering(compound.getBoolean("wandering"));
         }
@@ -400,6 +416,9 @@ public class Summoned extends Owned implements IServant {
         if (compound.contains("commandTick")){
             this.commandTick = compound.getInt("commandTick");
         }
+        if (compound.contains("boundPos")){
+            this.boundPos = NbtUtils.readBlockPos(compound.getCompound("boundPos"));
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -414,6 +433,9 @@ public class Summoned extends Owned implements IServant {
             compound.putUUID("commandPosEntity", this.commandPosEntity.getUUID());
         }
         compound.putInt("commandTick", this.commandTick);
+        if (this.boundPos != null){
+            compound.put("boundPos", NbtUtils.writeBlockPos(this.boundPos));
+        }
     }
 
     public boolean canUpdateMove(){
@@ -444,6 +466,11 @@ public class Summoned extends Owned implements IServant {
 
     public void setUpgraded(boolean upgraded) {
         this.upgraded = upgraded;
+        if (upgraded){
+            this.level.broadcastEntityEvent(this, (byte) 125);
+        } else {
+            this.level.broadcastEntityEvent(this, (byte) 126);
+        }
     }
 
     public void setCommandPos(BlockPos blockPos){
@@ -467,6 +494,14 @@ public class Summoned extends Owned implements IServant {
         return this.commandPos != null;
     }
 
+    public BlockPos getBoundPos(){
+        return this.boundPos;
+    }
+
+    public void setBoundPos(BlockPos blockPos){
+        this.boundPos = blockPos;
+    }
+
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){
         if (this.getEquipmentDropChance(equipmentSlot) > 0.0F) {
             this.spawnAtLocation(stack);
@@ -484,6 +519,16 @@ public class Summoned extends Owned implements IServant {
 
     public void tryKill(Player player){
         this.kill();
+    }
+
+    public void handleEntityEvent(byte pId) {
+        if (pId == 125){
+            this.upgraded = true;
+        } else if (pId == 126){
+            this.upgraded = false;
+        } else {
+            super.handleEntityEvent(pId);
+        }
     }
 
     public static class FollowOwnerGoal extends Goal {
@@ -880,6 +925,51 @@ public class Summoned extends Owned implements IServant {
 
         public boolean canUse() {
             return super.canUse() && this.summoned.isNatural() && this.summoned.getTrueOwner() == null && this.target != null;
+        }
+    }
+
+    public static class PatrolGoal extends Goal {
+        private final Summoned mob;
+        private double wantedX;
+        private double wantedY;
+        private double wantedZ;
+        private final double speedModifier;
+
+        public PatrolGoal(Summoned p_i48910_1_, double p_i48910_2_) {
+            this.mob = p_i48910_1_;
+            this.speedModifier = p_i48910_2_;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!this.mob.isStaying()
+                    && !this.mob.isWandering()
+                    && !this.mob.isFollowing()
+                    && !this.mob.isCommanded()){
+                Vec3 vector3d = this.getPatrolPos();
+                this.wantedX = vector3d.x;
+                this.wantedY = vector3d.y;
+                this.wantedZ = vector3d.z;
+                return true;
+            }
+            return false;
+        }
+
+        public boolean canContinueToUse() {
+            return !this.mob.getNavigation().isDone();
+        }
+
+        public void start() {
+            this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+        }
+
+        private Vec3 getPatrolPos() {
+            RandomSource random = this.mob.getRandom();
+            double d0 = (this.mob.getX() + (random.nextDouble() - 0.5D) * 16);
+            double d1 = (this.mob.getY() + (random.nextInt(16) - 8));
+            double d2 = (this.mob.getZ() + (random.nextDouble() - 0.5D) * 16);
+            return new Vec3(d0, d1, d2);
         }
     }
 }

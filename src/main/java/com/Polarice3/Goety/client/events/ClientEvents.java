@@ -319,7 +319,7 @@ public class ClientEvents {
                     } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.getPlayer() != null && ownedBlock.screenView()){
                         if (blockEntity instanceof ITrainingBlock trainingBlock){
                             event.getPoseStack().pushPose();
-                            event.getPoseStack().translate((float)(width / 2), (float)(height - 60), 0.0F);
+                            event.getPoseStack().translate((float)(width / 2), (float)(height - 58), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
@@ -329,6 +329,18 @@ public class ClientEvents {
                             event.getPoseStack().popPose();
 
                             if (trainingBlock.getPlayer() == player) {
+                                if (trainingBlock.isSensorSensitive()) {
+                                    event.getPoseStack().pushPose();
+                                    event.getPoseStack().translate((float) (width / 2), (float) (height - 90), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s0 = Component.translatable("tooltip.goety.blockSense").getString();
+                                    int l0 = fontRenderer.width(s0);
+                                    fontRenderer.drawShadow(event.getPoseStack(), s0, (float) (-l0 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    event.getPoseStack().popPose();
+                                }
+
                                 event.getPoseStack().pushPose();
                                 event.getPoseStack().translate((float) (width / 2), (float) (height - 68), 0.0F);
                                 RenderSystem.enableBlend();
@@ -343,9 +355,9 @@ public class ClientEvents {
                                 int train = 64;
                                 train *= ((double) trainingBlock.getTrainingTime() / trainingBlock.getMaxTrainTime());
                                 RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/train_bar.png"));
-                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 84), 0, 0, 64, 16, 64, 32);
+                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 86), 0, 0, 64, 16, 64, 32);
                                 RenderSystem.setShaderTexture(0, new ResourceLocation(Goety.MOD_ID, "textures/gui/train_bar.png"));
-                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 84), 0, 16, train, 16, 64, 32);
+                                GuiComponent.blit(event.getPoseStack(), ((width - 64) / 2), (height - 86), 0, 16, train, 16, 64, 32);
                                 event.getPoseStack().popPose();
                             }
                         } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){

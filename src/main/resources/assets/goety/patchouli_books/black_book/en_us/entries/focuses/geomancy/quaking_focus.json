@@ -1,0 +1,15 @@
+{
+  "name": "Quaking Focus",
+  "icon": "goety:quaking_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The caster summons forth tremors in front of them, hurting and flinging non-allied creatures towards the air. Casting the spell while crouching will summon tremors around the caster instead."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/quaking_focus"
+    }
+  ]
+}

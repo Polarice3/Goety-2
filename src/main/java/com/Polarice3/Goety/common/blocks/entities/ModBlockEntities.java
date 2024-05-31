@@ -88,6 +88,12 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<RedstoneGolemSkullBlockEntity>> REDSTONE_GOLEM_SKULL = BLOCK_ENTITY.register("redstone_golem_skull",
             () -> BlockEntityType.Builder.of(RedstoneGolemSkullBlockEntity::new, ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get(), ModBlocks.WALL_REDSTONE_GOLEM_SKULL_BLOCK.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<GraveGolemSkullBlockEntity>> GRAVE_GOLEM_SKULL = BLOCK_ENTITY.register("grave_golem_skull",
+            () -> BlockEntityType.Builder.of(GraveGolemSkullBlockEntity::new, ModBlocks.GRAVE_GOLEM_SKULL_BLOCK.get(), ModBlocks.WALL_GRAVE_GOLEM_SKULL_BLOCK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<RedstoneMonstrosityHeadBlockEntity>> REDSTONE_MONSTROSITY_HEAD = BLOCK_ENTITY.register("redstone_monstrosity_head",
+            () -> BlockEntityType.Builder.of(RedstoneMonstrosityHeadBlockEntity::new, ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get(), ModBlocks.WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> MOD_CHEST = BLOCK_ENTITY.register("chest",
             () -> BlockEntityType.Builder.of(ModChestBlockEntity::new,
                     ModBlocks.HAUNTED_CHEST.get(), ModBlocks.ROTTEN_CHEST.get(),
@@ -97,6 +103,10 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new,
                     ModBlocks.TRAPPED_HAUNTED_CHEST.get(), ModBlocks.TRAPPED_ROTTEN_CHEST.get(),
                     ModBlocks.TRAPPED_WINDSWEPT_CHEST.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<LoftyChestBlockEntity>> LOFTY_CHEST = BLOCK_ENTITY.register("lofty_chest",
+            () -> BlockEntityType.Builder.of(LoftyChestBlockEntity::new,
+                    ModBlocks.LOFTY_CHEST.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN_BLOCK_ENTITIES = BLOCK_ENTITY.register("sign",
             () -> BlockEntityType.Builder.of(ModSignBlockEntity::new,

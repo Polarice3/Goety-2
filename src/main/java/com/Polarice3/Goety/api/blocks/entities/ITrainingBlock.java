@@ -12,4 +12,8 @@ public interface ITrainingBlock extends IOwnedBlock{
     int maxTrainAmount();
 
     EntityType<?> getTrainMob();
+
+    default boolean isSensorSensitive(){
+        return false;
+    }
 }

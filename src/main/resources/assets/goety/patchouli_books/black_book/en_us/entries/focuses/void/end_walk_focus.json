@@ -1,0 +1,15 @@
+{
+  "name": "End Walk Focus",
+  "icon": "goety:end_walk_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The focus taps into the energies of the End, granting you true invisibility that hides even your armor for a small duration. However, interacting with any creature or block will not only break the invisibility, but also teleports you back to where you cast the spell."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/end_walk_focus"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "燃烧聚晶",
+  "icon": "goety:blazing_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然烈焰人反叛有一些神秘且矛盾的地方...但是那和我们都没有关系了，在学习了死灵法师们的创造方法后，你也能成功地创造出一个聚晶，召唤出一个不会反叛你的烈焰人。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blazing_focus"
+    }
+  ]
+}

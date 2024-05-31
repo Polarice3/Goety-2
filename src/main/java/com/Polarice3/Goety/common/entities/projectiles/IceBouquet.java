@@ -211,18 +211,14 @@ public class IceBouquet extends GroundProjectile {
                     }
                     if (mobOwner instanceof IOwned owned){
                         if (owned.getTrueOwner() != null){
-                            if (target.isAlliedTo(owned.getTrueOwner()) || owned.getTrueOwner().isAlliedTo(target) || target == owned.getTrueOwner()){
+                            if (MobUtil.areAllies(owned.getTrueOwner(), target)){
                                 return;
                             }
                         }
                     }
-                } else {
-                    if (target.isAlliedTo(owner)){
-                        return;
-                    }
-                    if (owner.isAlliedTo(target)) {
-                        return;
-                    }
+                }
+                if (MobUtil.areAllies(owner, target)){
+                    return;
                 }
                 if (owner instanceof Player player){
                     if (WandUtil.enchantedFocus(player)) {

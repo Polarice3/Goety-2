@@ -30,7 +30,7 @@ public class BeesBrewEffect extends BrewEffect {
         if (!(pTarget instanceof Bee) && pTarget != null && pTarget != pIndirectSource && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(pTarget)) {
             for (int i = 0; i < 3 + pAmplifier; ++i) {
                 Bee bee = new Bee(EntityType.BEE, pTarget.level);
-                bee.moveTo(BlockFinder.SummonRadius(pTarget, pTarget.level), 0.0F, 0.0F);
+                bee.moveTo(BlockFinder.SummonRadius(pTarget.blockPosition(), bee, pTarget.level), 0.0F, 0.0F);
                 bee.addTag(ConstantPaths.conjuredBee());
                 bee.startPersistentAngerTimer();
                 bee.setPersistentAngerTarget(pTarget.getUUID());

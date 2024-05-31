@@ -1,0 +1,17 @@
+{
+  "name": "燃烧号角",
+  "icon": "goety:blazing_horn",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你听说过曾在下界要塞游荡的强大魔法师的传言。据说，一个特殊的咒语在下界要塞内施放时可以召唤出它们。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blazing_horn",
+      "text": "有了山羊角和下界的力量，你可以复刻这个咒语并且将它们的亡魂召唤而来。"
+    }
+  ]
+}

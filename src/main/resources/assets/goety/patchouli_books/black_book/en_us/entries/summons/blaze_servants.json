@@ -1,0 +1,20 @@
+{
+  "name": "Blaze Servants",
+  "icon": "minecraft:blaze_rod",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "What caused the Blazes to rebel against their makers? Deciphering the manuscript has shown what could be potential flaws but nothing concrete. In any case, you've found a way to make your own Blazes that would actually follow commands and defend their master."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blaze_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Blaze Servant with a Blaze Powder or Blaze Rod will heal them."
+    }
+  ]
+}

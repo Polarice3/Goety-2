@@ -24,13 +24,13 @@
       "item": "minecraft:sculk_sensor"
     },
     {
-      "item": "minecraft:blaze_rod"
+      "tag": "forge:rods/blaze"
     },
     {
       "item": "minecraft:feather"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "forge:dusts/glowstone"
     }
   ],
   "result": {

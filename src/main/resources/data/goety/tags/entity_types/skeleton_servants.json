@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:skeleton_servant",
+    "goety:stray_servant",
+    "goety:wither_skeleton_servant",
+    "goety:mossy_skeleton_servant",
+    "goety:sunken_skeleton_servant",
+    "goety:necromancer_servant",
+    "goety:vanguard_servant",
+    "goety:skeleton_pillager"
+  ]
+}

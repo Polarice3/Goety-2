@@ -1,12 +1,12 @@
 {
-  "name": "バインドエヴォーカー",
+  "name": "バウンドエヴォーカー",
   "icon": "minecraft:totem_of_undying",
   "category": "goety:summons",
   "advancement": "goety:goety/kill_a_evoker",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ヴィンディケーターはゾンビとして、ピリジャーはスケルトンとして育てて、強力なエヴォーカーの適切なアンデッド版を真に作ることができますが、エヴォーカーを追求するには、より...スピリチュアルでなければなりません。"
+      "text": "ヴィンディケーターはゾンビとして、ピリジャーはスケルトンとして育てることができますが、強力なエヴォーカーやその他の邪悪な魔法使いの真のアンデッド版を作るには、もっと… 精神的な追求が必要です。"
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,23 @@
     },
     {
       "type": "patchouli:text",
-      "text": "他の 2 つとは異なり、バウンド エヴォーカーは地上に浮くことができ、重力の影響を受けません。 霊的な外見にもかかわらず、彼らは壁をすり抜けることができず、従来の武器でも傷つけられる可能性があります。"
+      "text": "他の 2 体とは異なり、バウンド エヴォーカーは地上に浮遊することができ、重力の影響を受けません。霊的な外見にもかかわらず、壁を通り抜けることはできず、従来の武器で攻撃することができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_evoker"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "縛られた氷学者たちは生きているときと同じくらい冷酷ですが、今回は彼らの氷の塊があなたの頭ではなく他の人の頭に落ちてきます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_iceologer"
     }
   ]
 }

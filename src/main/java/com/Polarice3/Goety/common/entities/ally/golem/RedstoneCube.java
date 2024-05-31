@@ -143,6 +143,10 @@ public class RedstoneCube extends AbstractGolemServant{
         return pSpawnData;
     }
 
+    public boolean canAnimateMove(){
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
+    }
+
     public void setAnimationState(String input) {
         this.setAnimationState(this.getAnimationState(input));
     }

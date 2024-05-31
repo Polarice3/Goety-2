@@ -116,6 +116,9 @@ public class ModBlockLootProvider extends ModBaseLootProvider{
                 return createSingleItemTableWithSilkTouch(p_124233_, Items.BONE, UniformGenerator.between(3.0F, 6.0F));
             });
             this.add(ModBlocks.CRYPT_URN.get(), BlockLoot::createSilkTouchOnlyTable);
+            this.add(ModBlocks.LOFTY_CHEST.get(), (p_124233_) -> {
+                return createSingleItemTableWithSilkTouch(p_124233_, Items.OBSIDIAN, UniformGenerator.between(2.0F, 4.0F));
+            });
         }
 
         protected static LootTable.Builder createRottenLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {

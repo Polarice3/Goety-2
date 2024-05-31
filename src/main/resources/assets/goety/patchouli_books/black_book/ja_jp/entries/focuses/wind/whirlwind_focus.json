@@ -1,0 +1,15 @@
+{
+  "name": "旋風のフォーカス",
+  "icon": "goety:whirlwind_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "このフォーカスにより、使用者は風のバリアで周囲を囲むことができ、近くのすべての生物を押し戻し、発射物を逸らす可能性があります。この呪文によって作り出される強力な風により、術者は呪文を唱えている間、その場で浮かぶこともできます。風の杖で呪文を唱えると、風は発射物をより効率的に逸らし、術者はさらに高く浮かびます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/whirlwind_focus"
+    }
+  ]
+}

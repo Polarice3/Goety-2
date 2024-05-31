@@ -1,0 +1,6 @@
+{
+  "name": "Storm",
+  "description": "The power over the storms.",
+  "icon": "goety:lightning_focus",
+  "parent": "goety:focuses"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Nether Staff",
+  "icon": "goety:nether_staff",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After learning the powers of the Wither Necromancers, you're able to replicate their staff, empowering your Nether spells."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_staff"
+    }
+  ]
+}

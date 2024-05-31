@@ -50,6 +50,7 @@ public class ScatterSpell extends Spell {
         List<Enchantment> list = new ArrayList<>();
         list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.DURATION.get());
+        list.add(ModEnchantments.RADIUS.get());
         return list;
     }
 
@@ -64,6 +65,7 @@ public class ScatterSpell extends Spell {
             ScatterMine scatterMine = new ScatterMine(worldIn, entityLiving, vec3);
             scatterMine.setIsSpell();
             scatterMine.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+            scatterMine.setExtraRadius(WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.0F);
             scatterMine.lifeTicks = MathHelper.secondsToTicks(10 + WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving));
             if (!worldIn.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()) {
                 scatterMine.setPos(vec31.x(), vec31.y(), vec31.z());

@@ -1,8 +1,6 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -10,8 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
-import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -25,13 +22,9 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.OldUsersConverter;
@@ -62,7 +55,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -70,12 +62,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SkullLord extends Monster implements ICustomAttributes, IBoss {
+public class SkullLord extends Monster implements ICustomAttributes {
     protected static final EntityDataAccessor<Byte> FLAGS = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Optional<UUID>> BONE_LORD = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
+    protected static final EntityDataAccessor<Integer> BONE_LORD_CLIENT_ID = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> LASER = SynchedEntityData.defineId(SkullLord.class, EntityDataSerializers.OPTIONAL_UUID);
-    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
-    private UUID bossInfoUUID = bossInfo.getId();
+    private final ModServerBossInfo bossInfo;
     @Nullable
     private BlockPos boundOrigin;
     private int shootTime;
@@ -90,14 +82,12 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
 
     public SkullLord(EntityType<? extends SkullLord> p_i50190_1_, Level p_i50190_2_) {
         super(p_i50190_1_, p_i50190_2_);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.PURPLE, false, false);
         this.navigation = this.createNavigation(p_i50190_2_);
         this.shootTime = 0;
         this.moveControl = new MobUtil.MinionMoveControl(this);
         this.hitTimes = 0;
         this.xpReward = 70;
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     protected void registerGoals() {
@@ -172,6 +162,10 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
 
     public void tick() {
         super.tick();
+        if (this.tickCount % 5 == 0) {
+            this.bossInfo.update();
+        }
+        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         this.setNoGravity(true);
         int delay = switch (this.level.getDifficulty()) {
             case NORMAL -> 200;
@@ -533,14 +527,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
     }
 
     @Override
-    public void remove(RemovalReason p_146834_) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(p_146834_);
-    }
-
-    @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
         if (this.getBoneLord() != null){
@@ -608,6 +594,7 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
         super.defineSynchedData();
         this.entityData.define(FLAGS, (byte)0);
         this.entityData.define(BONE_LORD, Optional.empty());
+        this.entityData.define(BONE_LORD_CLIENT_ID, -1);
         this.entityData.define(LASER, Optional.empty());
     }
 
@@ -638,16 +625,11 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
 
     @Nullable
     public BoneLord getBoneLord() {
-        try {
+        if (!this.level.isClientSide){
             UUID uuid = this.getBoneLordUUID();
-            if (uuid != null){
-                if (EntityFinder.getLivingEntityByUuiD(uuid) instanceof BoneLord){
-                    return (BoneLord) EntityFinder.getLivingEntityByUuiD(uuid);
-                }
-            }
-            return null;
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
+            return EntityFinder.getLivingEntityByUuiD(uuid) instanceof BoneLord boneLord ? boneLord : null;
+        } else {
+            return this.level.getEntity(this.getBoneLordClientId()) instanceof BoneLord boneLord ? boneLord : null;
         }
     }
 
@@ -660,8 +642,17 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
         this.entityData.set(BONE_LORD, Optional.ofNullable(uuid));
     }
 
+    public int getBoneLordClientId(){
+        return this.entityData.get(BONE_LORD_CLIENT_ID);
+    }
+
+    public void setBoneLordClientId(int id){
+        this.entityData.set(BONE_LORD_CLIENT_ID, id);
+    }
+
     public void setBoneLord(BoneLord boneLord){
         this.setBoneLordUUID(boneLord.getUUID());
+        this.setBoneLordClientId(boneLord.getId());
     }
 
     public boolean isLasering(){
@@ -747,18 +738,24 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
             } catch (Throwable ignored) {
             }
         }
+
+        UUID uuid2;
         if (pCompound.hasUUID("laser")) {
-            uuid = pCompound.getUUID("laser");
+            uuid2 = pCompound.getUUID("laser");
         } else {
             String s = pCompound.getString("laser");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+            uuid2 = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
         }
 
-        if (uuid != null) {
+        if (uuid2 != null) {
             try {
-                this.setLaserUUID(uuid);
+                this.setLaserUUID(uuid2);
             } catch (Throwable ignored) {
             }
+        }
+
+        if (pCompound.contains("BoneLordClient")){
+            this.setBoneLordClientId(pCompound.getInt("BoneLordClient"));
         }
         this.shootTime = pCompound.getInt("shootTime");
         this.hitTimes = pCompound.getInt("hitTimes");
@@ -783,6 +780,9 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
         if (this.getBoneLordUUID() != null) {
             pCompound.putUUID("boneLord", this.getBoneLordUUID());
         }
+        if (this.getBoneLordClientId() > -1) {
+            pCompound.putInt("BoneLordClient", this.getBoneLordClientId());
+        }
         if (this.getLaserUUID() != null) {
             pCompound.putUUID("laser", this.getLaserUUID());
         }
@@ -803,14 +803,11 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
     protected void customServerAiStep() {
         super.customServerAiStep();
         this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
-        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void startSeenByPlayer(ServerPlayer pPlayer) {
         super.startSeenByPlayer(pPlayer);
-        if (MainConfig.SpecialBossBar.get()) {
-            this.bossInfo.addPlayer(pPlayer);
-        }
+        this.bossInfo.addPlayer(pPlayer);
     }
 
     public void stopSeenByPlayer(ServerPlayer pPlayer) {
@@ -839,22 +836,6 @@ public class SkullLord extends Monster implements ICustomAttributes, IBoss {
             pLevel.addFreshEntity(boneLord);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-    }
-
-    @Override
-    public UUID getBossInfoUUID() {
-        return this.bossInfoUUID;
-    }
-
-    @Override
-    public void setBossInfoUUID(UUID bossInfoUUID) {
-        this.bossInfoUUID = bossInfoUUID;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     @Override

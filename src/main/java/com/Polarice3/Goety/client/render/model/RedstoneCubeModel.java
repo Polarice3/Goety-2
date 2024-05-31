@@ -2,12 +2,11 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneCubeAnimations;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
+import com.Polarice3.Goety.utils.ModModelUtils;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 
 public class RedstoneCubeModel<T extends RedstoneCube> extends HierarchicalModel<T> {
 	private final ModelPart root;
@@ -30,10 +29,10 @@ public class RedstoneCubeModel<T extends RedstoneCube> extends HierarchicalModel
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 		this.animate(entity.idleAnimationState, RedstoneCubeAnimations.IDLE, ageInTicks);
-		this.animate(entity.walkAnimationState, RedstoneCubeAnimations.WALK, ageInTicks, groundSpeed * 20);
+		if (entity.canAnimateMove()) {
+			ModModelUtils.animateWalk(this, RedstoneCubeAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		}
 		this.animate(entity.attackAnimationState, RedstoneCubeAnimations.ATTACK, ageInTicks);
 	}
 

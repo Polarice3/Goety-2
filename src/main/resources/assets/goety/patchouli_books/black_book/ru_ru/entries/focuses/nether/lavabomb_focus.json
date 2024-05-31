@@ -1,0 +1,16 @@
+{
+  "name": "Фокус лавовых бомб",
+  "icon": "goety:lavaball_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы чувствуете, как сила Незера овладевает вами. В отличие от гастов, вы не плачете. В конце концов, это приятная боль. Лавовые бомбы не разрушают блоки, когда вы бросаете их, присев."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lavaball_focus"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
-import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -16,12 +16,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -32,7 +29,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ZPiglinServant extends Summoned {
+public class ZPiglinServant extends ZombieServant {
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
     private static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", 0.05D, AttributeModifier.Operation.ADDITION);
     private int playFirstAngerSoundIn;
@@ -44,10 +41,6 @@ public class ZPiglinServant extends Summoned {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new NeutralZombieAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(7, new WanderGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
     }
@@ -67,8 +60,16 @@ public class ZPiglinServant extends Summoned {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.ZPiglinServantDamage.get());
     }
 
-    public MobType getMobType() {
-        return MobType.UNDEAD;
+    public double getMyRidingOffset() {
+        return this.isBaby() ? -0.05D : -0.45D;
+    }
+
+    protected float getStandingEyeHeight(Pose p_259553_, EntityDimensions p_259614_) {
+        return this.isBaby() ? 0.96999997F : 1.79F;
+    }
+
+    protected boolean convertsInWater() {
+        return false;
     }
 
     @Nullable
@@ -117,8 +118,7 @@ public class ZPiglinServant extends Summoned {
 
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (pSource.getEntity() != null){
-            if (pSource.getEntity() instanceof LivingEntity){
-                LivingEntity livingEntity = (LivingEntity) pSource.getEntity();
+            if (pSource.getEntity() instanceof LivingEntity livingEntity){
                 if (!(livingEntity instanceof ZombifiedPiglin) && !livingEntity.isAlliedTo(this)){
                     for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(10))){
                         if (zombifiedPiglin.getTarget() != livingEntity) {

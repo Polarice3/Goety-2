@@ -75,6 +75,11 @@ public class SpiderServant extends Summoned implements PlayerRideable{
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
+    @Override
+    public boolean canUpdateMove() {
+        return true;
+    }
+
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {

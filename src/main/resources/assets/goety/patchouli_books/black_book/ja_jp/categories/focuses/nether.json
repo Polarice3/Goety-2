@@ -1,0 +1,6 @@
+{
+  "name": "ネザー",
+  "description": "ネザーの燃えるような穴を支配する力。",
+  "icon": "goety:fireball_focus",
+  "parent": "goety:focuses"
+}

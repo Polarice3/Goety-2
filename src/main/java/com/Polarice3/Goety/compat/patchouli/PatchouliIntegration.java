@@ -27,6 +27,7 @@ public class PatchouliIntegration implements ICompatable {
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem"), REDSTONE_GOLEM.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_golem_revive"), REDSTONE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem"), GRAVE_GOLEM.get());
+        PatchouliAPI.get().registerMultiblock(Goety.location("grave_golem_revive"), GRAVE_GOLEM_REVIVE.get());
         PatchouliAPI.get().registerMultiblock(Goety.location("redstone_monstrosity"), REDSTONE_MONSTROSITY.get());
     }
 
@@ -189,26 +190,23 @@ public class PatchouliIntegration implements ICompatable {
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND));
         IStateMatcher redstoneCore = PatchouliAPI.get().predicateMatcher(Blocks.REDSTONE_BLOCK,
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
-        IStateMatcher magmaBlock = PatchouliAPI.get().predicateMatcher(Blocks.MAGMA_BLOCK,
-                state -> state.is(Blocks.MAGMA_BLOCK));
         return PatchouliAPI.get().makeMultiblock(
                 new String[][] {
                         {
                                 "__H__"
                         },
                         {
-                                "MRRRM"
+                                "RRRRR"
                         },
                         {
-                                "MMRMM"
+                                "_RRR_"
                         },
                         {
-                                "M_0_M"
+                                "__0__"
                         }
                 },
                 'H', ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get(),
                 'R', redstoneCore,
-                'M', magmaBlock,
                 '0', diamond
         );
     });
@@ -261,6 +259,36 @@ public class PatchouliIntegration implements ICompatable {
                 'C', coarseDirt,
                 'S', soulSand,
                 '0', shadeBody
+        );
+    });
+
+    public static final Supplier<IMultiblock> GRAVE_GOLEM_REVIVE = Suppliers.memoize(() -> {
+        IStateMatcher shadeStone = PatchouliAPI.get().predicateMatcher(ModBlocks.SHADE_STONE_BLOCK.get(),
+                state -> state.is(ModBlocks.SHADE_STONE_BLOCK.get()));
+        IStateMatcher skullPile = PatchouliAPI.get().predicateMatcher(ModBlocks.SKULL_PILE.get(),
+                state -> state.is(ModBlocks.SKULL_PILE.get()));
+        IStateMatcher boneBlock = PatchouliAPI.get().predicateMatcher(Blocks.BONE_BLOCK,
+                state -> state.is(Blocks.BONE_BLOCK));
+        return PatchouliAPI.get().makeMultiblock(
+                new String[][] {
+                        {
+                                "__H__"
+                        },
+                        {
+                                "#####"
+                        },
+                        {
+                                "BDDDB"
+                        },
+                        {
+                                "__0__"
+                        }
+                },
+                'H', ModBlocks.GRAVE_GOLEM_SKULL_BLOCK.get(),
+                '#', shadeStone,
+                'B', boneBlock,
+                'D', skullPile,
+                '0', skullPile
         );
     });
 

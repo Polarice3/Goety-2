@@ -2,12 +2,11 @@ package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.client.render.animation.RedstoneMonstrosityAnimations;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
+import com.Polarice3.Goety.utils.ModModelUtils;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 
 public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends HierarchicalModel<T> {
 	private final ModelPart root;
@@ -97,9 +96,9 @@ public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends Hie
 		}
 		this.animate(entity.activateAnimationState, RedstoneMonstrosityAnimations.ACTIVATE, ageInTicks);
 		this.animate(entity.idleAnimationState, RedstoneMonstrosityAnimations.IDLE, ageInTicks);
-		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
-		this.animate(entity.walkAnimationState, RedstoneMonstrosityAnimations.WALK, ageInTicks, groundSpeed * 20);
+		if (entity.canAnimateMove()) {
+			ModModelUtils.animateWalk(this, RedstoneMonstrosityAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+		}
 		this.animate(entity.attackAnimationState, RedstoneMonstrosityAnimations.SMASH, ageInTicks);
 		this.animate(entity.summonAnimationState, RedstoneMonstrosityAnimations.SUMMON, ageInTicks);
 		this.animate(entity.sitAnimationState, RedstoneMonstrosityAnimations.SIT, ageInTicks);

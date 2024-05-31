@@ -1,0 +1,20 @@
+{
+  "name": "烈焰人仆从",
+  "icon": "minecraft:blaze_rod",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "是什么导致了烈焰人反抗它们的创造者？对凋零手稿的解密揭示出了控制烈焰人的潜在缺陷，尽管缺陷并非具体。但无论如何，你已经找到了一种方法来制造你自己的烈焰人，它实际上会听从命令并保护它们的主人，并且永远不会背叛你。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blaze_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持烈焰粉右键你的烈焰人仆从将会治疗它。"
+    }
+  ]
+}

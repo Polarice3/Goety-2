@@ -13,6 +13,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Scroll extends ResearchScroll{
+    public Scroll(Properties properties, Research research) {
+        super(properties, research);
+    }
+
     public Scroll(Research research) {
         super(research);
     }

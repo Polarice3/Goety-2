@@ -1,0 +1,15 @@
+{
+  "name": "炽燃升腾聚晶",
+  "icon": "goety:flame_strike_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "下界的力量使你能够召唤出围绕你的炽焰柱，或者围绕着你直视着的敌人。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flame_strike_focus"
+    }
+  ]
+}

@@ -6,11 +6,10 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.SummonSpell;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -24,6 +23,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraftforge.common.Tags;
 
@@ -109,6 +109,7 @@ public class SkeletonSpell extends SummonSpell {
     public boolean specialStaffs(ItemStack stack){
         return typeStaff(stack, SpellType.FROST)
                 || typeStaff(stack, SpellType.WILD)
+                || typeStaff(stack, SpellType.NETHER)
                 || stack.is(ModItems.OMINOUS_STAFF.get());
     }
 
@@ -124,19 +125,25 @@ public class SkeletonSpell extends SummonSpell {
         }
         if (!isShifting(entityLiving)) {
             for (int i1 = 0; i1 < i; ++i1) {
-                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
+                AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
+                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn);
                 if (entityLiving.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }
-                AbstractSkeletonServant summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), worldIn);
                 if (specialStaffs(staff)) {
                     if (typeStaff(staff, SpellType.FROST)) {
                         summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.WILD)) {
                         summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
+                    } else if (typeStaff(staff, SpellType.NETHER)) {
+                        summonedentity = new WitherSkeletonServant(ModEntityType.WITHER_SKELETON_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
                         summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
                     }
+                } else if (worldIn.dimension() == Level.NETHER
+                        && (entityLiving instanceof Player player && SEHelper.hasResearch(player, ResearchList.BYGONE)    )
+                        && BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.FORTRESS)){
+                    summonedentity = new WitherSkeletonServant(ModEntityType.WITHER_SKELETON_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                 } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
@@ -162,7 +169,7 @@ public class SkeletonSpell extends SummonSpell {
                 this.summonAdvancement(entityLiving, summonedentity);
             }
             this.SummonDown(entityLiving);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            SoundUtil.playNecromancerSummon(entityLiving);
         }
     }
 }

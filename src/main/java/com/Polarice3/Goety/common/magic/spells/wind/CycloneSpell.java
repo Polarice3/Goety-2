@@ -47,6 +47,7 @@ public class CycloneSpell extends Spell {
     @Override
     public List<Enchantment> acceptedEnchantments() {
         List<Enchantment> list = new ArrayList<>();
+        list.add(ModEnchantments.POTENCY.get());
         list.add(ModEnchantments.RADIUS.get());
         list.add(ModEnchantments.DURATION.get());
         list.add(ModEnchantments.VELOCITY.get());
@@ -66,10 +67,13 @@ public class CycloneSpell extends Spell {
         cyclone.setOwnerId(entityLiving.getUUID());
         cyclone.setTarget(this.getTarget(entityLiving));
         float size = 1.0F;
+        float damage = 0.0F;
         if (rightStaff(staff)){
             size += 1.0F;
+            damage += 2.0F;
         }
         if (WandUtil.enchantedFocus(entityLiving)){
+            cyclone.setDamage(damage * WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
             cyclone.setTotalLife(600 * (WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1));
             cyclone.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));
             cyclone.setSize(size + (WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 10.0F));

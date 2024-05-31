@@ -14,6 +14,7 @@ import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -118,6 +119,7 @@ public class ZombieSpell extends SummonSpell {
     public boolean specialStaffs(ItemStack stack){
         return typeStaff(stack, SpellType.FROST)
                 || typeStaff(stack, SpellType.WILD)
+                || typeStaff(stack, SpellType.NETHER)
                 || stack.is(ModItems.OMINOUS_STAFF.get());
     }
 
@@ -134,7 +136,7 @@ public class ZombieSpell extends SummonSpell {
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 Summoned summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), worldIn);
-                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving, worldIn);
+                BlockPos blockPos = BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn);
                 if (entityLiving.isUnderWater()){
                     blockPos = BlockFinder.SummonWaterRadius(entityLiving, worldIn);
                 }
@@ -143,6 +145,8 @@ public class ZombieSpell extends SummonSpell {
                         summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
                     } else if (typeStaff(staff, SpellType.WILD)) {
                         summonedentity = new JungleZombieServant(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), worldIn);
+                    } else if (typeStaff(staff, SpellType.NETHER)) {
+                        summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
                         summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
                     }
@@ -182,7 +186,7 @@ public class ZombieSpell extends SummonSpell {
                 this.summonAdvancement(entityLiving, entityLiving);
             }
             this.SummonDown(entityLiving);
-            worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+            SoundUtil.playNecromancerSummon(entityLiving);
         }
     }
 }

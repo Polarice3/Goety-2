@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
@@ -7,10 +8,12 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -53,6 +56,18 @@ public class CuriosFinder {
         }
 
         return foundStack;
+    }
+
+    public static boolean hasWanting(Entity entity){
+        if (entity instanceof Player player){
+            if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
+                if (CuriosFinder.findRing(player).isEnchanted()){
+                    float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
+                    return wanting > 0;
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean hasDarkRobe(LivingEntity livingEntity){

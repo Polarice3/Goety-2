@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:withered_manuscript"
+    },
+    "title": {
+      "translate": "advancements.goety.kill_wither_necromancer.title"
+    },
+    "description": {
+      "translate": "advancements.goety.kill_wither_necromancer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/root",
+  "criteria": {
+    "kill_wither_necromancer": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "goety:wither_necromancer"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_wither_necromancer"
+    ]
+  ]
+}

@@ -1,12 +1,18 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
+import com.Polarice3.Goety.config.AttributesConfig;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,16 +25,20 @@ import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import java.util.EnumSet;
 
 public class BlazeServant extends Summoned {
     protected float allowedHeightOffset = 0.5F;
     protected int nextHeightOffsetChangeTick;
+    protected float extraFireballDamage = 0.0F;
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(BlazeServant.class, EntityDataSerializers.BYTE);
 
     public BlazeServant(EntityType<? extends Owned> type, Level worldIn) {
@@ -64,6 +74,26 @@ public class BlazeServant extends Summoned {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putFloat("FireballDamage", this.getFireBallDamage());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("FireballDamage")) {
+            this.setFireBallDamage(pCompound.getFloat("FireballDamage"));
+        }
+    }
+
+    public float getFireBallDamage(){
+        return this.extraFireballDamage;
+    }
+
+    public void setFireBallDamage(float damage){
+        this.extraFireballDamage = damage;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -156,6 +186,40 @@ public class BlazeServant extends Summoned {
         this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
+    @Override
+    public boolean canUpdateMove() {
+        return true;
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
+        if (!this.level.isClientSide){
+            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+            Item item = itemstack.getItem();
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+                if ((itemstack.is(Tags.Items.RODS_BLAZE) || item == Items.BLAZE_POWDER) && this.getHealth() < this.getMaxHealth()) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.playSound(SoundEvents.BLAZE_AMBIENT, 1.0F, 1.25F);
+                    float healAmount = 1.0F;
+                    if (itemstack.is(Tags.Items.RODS_BLAZE)){
+                        healAmount = 4.0F;
+                    }
+                    this.heal(healAmount);
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    pPlayer.swing(p_230254_2_);
+                    return InteractionResult.CONSUME;
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, p_230254_2_);
+    }
+
     static class BlazeAttackGoal extends Goal {
         private final BlazeServant blaze;
         private int attackStep;
@@ -231,9 +295,12 @@ public class BlazeServant extends Summoned {
                                 this.blaze.level.levelEvent((Player)null, 1018, this.blaze.blockPosition(), 0);
                             }
 
+                            float damage = AttributesConfig.BlazeServantRangeDamage.get().floatValue() + this.blaze.getFireBallDamage();
+
                             for(int i = 0; i < 1; ++i) {
-                                SmallFireball smallfireball = new SmallFireball(this.blaze.level, this.blaze, this.blaze.getRandom().triangle(d1, 2.297D * d4), d2, this.blaze.getRandom().triangle(d3, 2.297D * d4));
+                                ModFireball smallfireball = new ModFireball(this.blaze.level, this.blaze, this.blaze.getRandom().triangle(d1, 2.297D * d4), d2, this.blaze.getRandom().triangle(d3, 2.297D * d4));
                                 smallfireball.setPos(smallfireball.getX(), this.blaze.getY(0.5D) + 0.5D, smallfireball.getZ());
+                                smallfireball.setDamage(damage);
                                 this.blaze.level.addFreshEntity(smallfireball);
                             }
                         }

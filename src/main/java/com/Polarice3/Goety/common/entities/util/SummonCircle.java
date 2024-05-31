@@ -38,7 +38,7 @@ public class SummonCircle extends Entity {
         super(pType, pLevel);
     }
 
-    public SummonCircle(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, boolean noPos, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, Vec3 pPos, Entity pEntity, boolean preMade, boolean noPos, @Nullable LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.x, pPos.y, pPos.z);
         this.entity = pEntity;
@@ -47,7 +47,7 @@ public class SummonCircle extends Entity {
         this.setTrueOwner(pOwner);
     }
 
-    public SummonCircle(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, boolean noPos, LivingEntity pOwner){
+    public SummonCircle(Level pLevel, BlockPos pPos, Entity pEntity, boolean preMade, boolean noPos, @Nullable LivingEntity pOwner){
         this(ModEntityType.SUMMON_CIRCLE.get(), pLevel);
         this.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
         this.entity = pEntity;
@@ -104,6 +104,7 @@ public class SummonCircle extends Entity {
         pCompound.putInt("lifeSpan", this.lifeSpan);
     }
 
+    @Nullable
     public LivingEntity getTrueOwner() {
         try {
             UUID uuid = this.getOwnerId();
@@ -122,8 +123,10 @@ public class SummonCircle extends Entity {
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
     }
 
-    public void setTrueOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
+    public void setTrueOwner(@Nullable LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+        }
     }
 
     public void setLifeSpan(int lifeSpan){

@@ -1,0 +1,6 @@
+{
+  "name": "Nether",
+  "description": "The power over the fiery pits of the Nether.",
+  "icon": "goety:fireball_focus",
+  "parent": "goety:focuses"
+}

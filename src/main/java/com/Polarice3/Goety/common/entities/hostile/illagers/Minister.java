@@ -1,15 +1,13 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
 import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
 import com.Polarice3.Goety.common.entities.projectiles.MagicBolt;
 import com.Polarice3.Goety.common.entities.projectiles.ViciousTooth;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -22,14 +20,10 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -55,13 +49,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
-public class Minister extends HuntingIllagerEntity implements RangedAttackMob, IBoss {
+public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> HAS_STAFF = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(Minister.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), (map) -> {
@@ -69,8 +65,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
         map.put(1, Goety.location("textures/entity/illagers/minister/minister_2.png"));
         map.put(2, Goety.location("textures/entity/illagers/minister/minister_3.png"));
     });
-    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
-    private UUID bossInfoUUID = bossInfo.getId();
+    private final ModServerBossInfo bossInfo;
     public float staffDamage;
     public int coolDown;
     public int deathTime = 0;
@@ -87,10 +82,8 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
 
     public Minister(EntityType<? extends HuntingIllagerEntity> p_i48551_1_, Level p_i48551_2_) {
         super(p_i48551_1_, p_i48551_2_);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.PURPLE, false, false);
         this.xpReward = 99;
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     public ResourceLocation getResourceLocation() {
@@ -377,14 +370,11 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
     protected void customServerAiStep() {
         super.customServerAiStep();
         this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
-        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void startSeenByPlayer(ServerPlayer pPlayer) {
         super.startSeenByPlayer(pPlayer);
-        if (MainConfig.SpecialBossBar.get()) {
-            this.bossInfo.addPlayer(pPlayer);
-        }
+        this.bossInfo.addPlayer(pPlayer);
     }
 
     public void stopSeenByPlayer(ServerPlayer pPlayer) {
@@ -392,16 +382,12 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
         this.bossInfo.removePlayer(pPlayer);
     }
 
-    @Override
-    public void remove(Entity.RemovalReason p_146834_) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(p_146834_);
-    }
-
     public void tick() {
         super.tick();
+        if (this.tickCount % 5 == 0) {
+            this.bossInfo.update();
+        }
+        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         if (this.isCelebrating()){
             if (this.tickCount % 100 == 0 && this.hurtTime <= 0){
                 this.laughAnimationState.start(this.tickCount);
@@ -512,22 +498,6 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
         } else {
             super.handleEntityEvent(pId);
         }
-    }
-
-    @Override
-    public UUID getBossInfoUUID() {
-        return this.bossInfoUUID;
-    }
-
-    @Override
-    public void setBossInfoUUID(UUID bossInfoUUID) {
-        this.bossInfoUUID = bossInfoUUID;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     class CastingSpellGoal extends SpellcasterCastingSpellGoal {
@@ -852,7 +822,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob, I
             this.attackIntervalMax = attackMax;
             this.attackRadius = attackRadius;
             this.attackRadiusSqr = attackRadius * attackRadius;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean canUse() {

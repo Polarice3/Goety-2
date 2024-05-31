@@ -113,7 +113,7 @@ public class IceGolemSpell extends SummonSpell {
             for (int i1 = 0; i1 < i; ++i1) {
                 IceGolem summonedentity = new IceGolem(ModEntityType.ICE_GOLEM.get(), worldIn);
                 summonedentity.setTrueOwner(entityLiving);
-                summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
+                summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn), 0.0F, 0.0F);
                 MobUtil.moveDownToGround(summonedentity);
                 summonedentity.setPersistenceRequired();
                 summonedentity.setUpgraded(rightStaff(staff));

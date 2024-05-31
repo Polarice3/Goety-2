@@ -306,7 +306,7 @@ public class HauntedSkull extends Minion {
                     soulSkull.setPos(soulSkull.getX(), HauntedSkull.this.getY(0.75D), soulSkull.getZ());
                     soulSkull.setDamage((float) HauntedSkull.this.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     soulSkull.setUpgraded(HauntedSkull.this.isUpgraded());
-                    soulSkull.setBurning(HauntedSkull.this.getBurning());
+                    soulSkull.setFiery(HauntedSkull.this.getBurning());
                     soulSkull.setExplosionPower(HauntedSkull.this.getExplosionPower());
                     if (HauntedSkull.this.level.addFreshEntity(soulSkull)) {
                         HauntedSkull.this.playChargeCry();

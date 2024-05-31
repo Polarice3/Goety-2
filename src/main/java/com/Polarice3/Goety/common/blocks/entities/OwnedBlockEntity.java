@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
+import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBlock {
     private UUID ownerUUID;
+    private int ownerID;
 
     public OwnedBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
@@ -47,16 +49,20 @@ public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBloc
         }
         if (uuid != null) {
             try {
-                this.setOwnerId(uuid);
+                this.setOwnerUUID(uuid);
             } catch (Throwable ignored) {
             }
+        }
+        if (tag.contains("OwnerID")){
+            this.setOwnerId(tag.getInt("OwnerID"));
         }
     }
 
     public CompoundTag writeNetwork(CompoundTag tag) {
-        if (this.getOwnerId() != null) {
-            tag.putUUID("Owner", this.getOwnerId());
+        if (this.getOwnerUUID() != null) {
+            tag.putUUID("Owner", this.getOwnerUUID());
         }
+        tag.putInt("OwnerID", this.getOwnerId());
         return tag;
     }
 
@@ -66,29 +72,55 @@ public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBloc
     }
 
     @Nullable
-    public UUID getOwnerId() {
+    public UUID getOwnerUUID() {
         return this.ownerUUID;
     }
 
-    public void setOwnerId(@Nullable UUID p_184754_1_) {
+    public void setOwnerUUID(@Nullable UUID p_184754_1_) {
         this.ownerUUID = p_184754_1_;
     }
 
-    public void setOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
+    public int getOwnerId() {
+        return this.ownerID;
     }
 
+    public void setOwnerId(int p_184754_1_) {
+        this.ownerID = p_184754_1_;
+    }
+
+    public void setOwner(LivingEntity livingEntity){
+        this.setOwnerUUID(livingEntity.getUUID());
+        this.setOwnerId(livingEntity.getId());
+    }
+
+    @Nullable
     public LivingEntity getTrueOwner() {
-        try {
-            UUID uuid = this.getOwnerId();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
+        if (this.level != null) {
+            if (!this.level.isClientSide) {
+                UUID uuid = this.getOwnerUUID();
+                return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
+            } else {
+                return this.level.getEntity(this.getOwnerId()) instanceof LivingEntity living ? living : null;
+            }
+        } else {
             return null;
         }
     }
 
+    @Nullable
     public Player getPlayer(){
-        return (Player) this.getTrueOwner();
+        if (this.level != null) {
+            if (!this.level.isClientSide) {
+                if (this.getTrueOwner() instanceof Player player) {
+                    return player;
+                }
+            } else {
+                if (this.getOwnerUUID() != null) {
+                    return this.level.getPlayerByUUID(this.getOwnerUUID());
+                }
+            }
+        }
+        return null;
     }
 
     @Override

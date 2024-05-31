@@ -1,39 +1,29 @@
 {
-  "type": "goety:ritual",
-  "ritual_type": "goety:craft",
-  "activation_item": {
-    "item": "goety:wind_core"
-  },
-  "craftType": "sky",
-  "soulCost": 1,
-  "duration": 10,
-  "ingredients": [
-    {
-      "item": "minecraft:arrow"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "item": "minecraft:arrow"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "item": "minecraft:arrow"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "item": "minecraft:arrow"
-    },
-    {
-      "tag": "minecraft:wool"
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
   ],
-  "result": {
-    "item": "goety:updraft_focus"
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "tag": "forge:gems/jade"
+    },
+    "s":
+    {
+      "item": "goety:savage_tooth"
+    }
+  },
+  "result":
+  {
+    "item": "goety:updraft_focus",
+    "count": 1
   }
 }

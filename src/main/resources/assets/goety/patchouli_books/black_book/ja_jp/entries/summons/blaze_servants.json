@@ -1,0 +1,20 @@
+{
+  "name": "ブレイズの従者",
+  "icon": "minecraft:blaze_rod",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ブレイズが製作者に反抗した原因は何でしょうか? 原稿を解読したところ、潜在的な欠陥がいくつか見つかりましたが、具体的なことはわかりませんでした。いずれにせよ、あなたは実際に命令に従い、主人を守るブレイズを自分で作る方法を見つけました。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blaze_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ブレイズパウダーまたはブレイズロッドを使って忠実なブレイズの従者を右クリックすると、回復します。"
+    }
+  ]
+}

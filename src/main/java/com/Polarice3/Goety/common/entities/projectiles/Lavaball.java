@@ -1,16 +1,10 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.WandUtil;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import com.Polarice3.Goety.utils.*;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,11 +14,8 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
 
 public class Lavaball extends ExplosiveProjectile {
-    private static final EntityDataAccessor<Boolean> DATA_UPGRADED = SynchedEntityData.defineId(Lavaball.class, EntityDataSerializers.BOOLEAN);
-    public float explosionPower = 1.0F;
 
     public Lavaball(EntityType<? extends Lavaball> p_i50163_1_, Level p_i50163_2_) {
         super(p_i50163_1_, p_i50163_2_);
@@ -46,17 +37,14 @@ public class Lavaball extends ExplosiveProjectile {
         super.onHit(pResult);
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
-            float enchantment = 0;
             boolean flag = this.isDangerous();
-            if (owner instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player)/2.5F;
-                }
-                if (!SpellConfig.LavaballGriefing.get()){
+            if (owner instanceof Player || (owner instanceof IOwned owned && owned.getTrueOwner() instanceof Player)) {
+                if (!SpellConfig.LavaballGriefing.get()) {
                     flag = false;
                 }
             }
-            this.level.explode(owner, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+            LootingExplosion.Mode lootMode = CuriosFinder.hasWanting(owner) ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
+            ExplosionUtil.lootExplode(this.level, owner, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE, lootMode);
             this.discard();
         }
 
@@ -68,14 +56,12 @@ public class Lavaball extends ExplosiveProjectile {
             Entity entity = pResult.getEntity();
             Entity entity1 = this.getOwner();
             float damage = 6.0F;
-            float enchantment = 0;
-            int flaming = 0;
-            if (entity1 instanceof Player player){
-                if (WandUtil.enchantedFocus(player)){
-                    enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                    flaming = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                }
+            float enchantment = this.getExtraDamage();
+            int flaming = this.getFiery();
+            if (entity1 instanceof Player){
                 damage = SpellConfig.LavaballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            } else if (entity1 instanceof LivingEntity) {
+                damage = this.getDamage();
             }
             entity.hurt(ModDamageSource.modFireball(this.getOwner(), this.level), damage + enchantment);
 
@@ -110,36 +96,16 @@ public class Lavaball extends ExplosiveProjectile {
         return super.canHitEntity(pEntity);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_UPGRADED, false);
-    }
-
-    @Override
-    public void setExplosionPower(float pExplosionPower) {
-        this.explosionPower = pExplosionPower;
-    }
-
-    @Override
-    public float getExplosionPower() {
-        return this.explosionPower;
-    }
-
     @Override
     public boolean ignoreExplosion() {
         return this.isUpgraded();
     }
 
-    public boolean isUpgraded() {
-        return this.entityData.get(DATA_UPGRADED);
-    }
-
-    public void setUpgraded(boolean pInvulnerable) {
-        this.entityData.set(DATA_UPGRADED, pInvulnerable);
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+    public boolean hurt(DamageSource p_36839_, float p_36840_) {
+        if (this.isUpgraded()){
+            return false;
+        } else {
+            return super.hurt(p_36839_, p_36840_);
+        }
     }
 }

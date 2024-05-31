@@ -476,6 +476,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
+    public boolean canAnimateMove(){
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
+    }
+
     protected boolean isImmobile() {
         return super.isImmobile() || this.isSummoning() || this.isActivating() || this.postAttackCool > 0;
     }
@@ -1115,9 +1119,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             if (this.mob.getTarget() != null){
                 LivingEntity livingEntity = this.mob.getTarget();
                 if (livingEntity.distanceTo(this.mob) <= this.mob.spitRange()){
-                    if (livingEntity.distanceTo(this.mob) <= this.mob.spitRange()){
-                        velocity = Math.max(0.25F, (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange()));
-                    }
+                    velocity = Math.max(0.25F, (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange()));
                 }
             }
             this.shoot(bomb, d1, d2 + d4, d3, velocity, 30);

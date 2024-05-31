@@ -73,7 +73,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SThunderBoltPacket.class, SThunderBoltPacket::encode, SThunderBoltPacket::decode, SThunderBoltPacket::consume);
         INSTANCE.registerMessage(nextID(), SLightningBoltPacket.class, SLightningBoltPacket::encode, SLightningBoltPacket::decode, SLightningBoltPacket::consume);
         INSTANCE.registerMessage(nextID(), SSetPlayerOwnerPacket.class, SSetPlayerOwnerPacket::encode, SSetPlayerOwnerPacket::decode, SSetPlayerOwnerPacket::consume);
-        INSTANCE.registerMessage(nextID(), SAddBossPacket.class, SAddBossPacket::encode, SAddBossPacket::decode, SAddBossPacket::consume);
+        INSTANCE.registerMessage(nextID(), SUpdateBossBar.class, SUpdateBossBar::encode, SUpdateBossBar::decode, SUpdateBossBar::consume);
         INSTANCE.registerMessage(nextID(), SFocusCooldownPacket.class, SFocusCooldownPacket::encode, SFocusCooldownPacket::decode, SFocusCooldownPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
     }
@@ -100,6 +100,10 @@ public class ModNetwork {
 
     public static <MSG> void sendToALL(MSG msg) {
         ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), msg);
+    }
+
+    public static <MSG> void sendToClient(ServerPlayer player, MSG msg) {
+        ModNetwork.INSTANCE.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
 }

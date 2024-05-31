@@ -1,0 +1,15 @@
+{
+  "name": "地震聚晶",
+  "icon": "goety:quaking_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶可以向前打出一道地震波，伤害并且将非友军生物抛向空中。潜行施法会在施法者附近产生地震波。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/quaking_focus"
+    }
+  ]
+}

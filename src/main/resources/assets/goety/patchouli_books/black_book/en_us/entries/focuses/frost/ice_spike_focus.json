@@ -1,0 +1,15 @@
+{
+  "name": "Ice Spike Focus",
+  "icon": "goety:ice_spike_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Shoots a spike of ice towards the caster's line of sight. Creatures struck by the spike will get Freezing from 1 to 3 seconds."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ice_spike_focus"
+    }
+  ]
+}

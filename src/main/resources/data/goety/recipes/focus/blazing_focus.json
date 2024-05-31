@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:animation_core"
+  },
+  "craftType": "expert_nether",
+  "soulCost": 5,
+  "duration": 10,
+  "research": "bygone",
+  "ingredients": [
+    {
+      "item": "goety:fireball_focus"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "tag": "forge:gunpowder"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    }
+  ],
+  "result": {
+    "item": "goety:blazing_focus"
+  }
+}

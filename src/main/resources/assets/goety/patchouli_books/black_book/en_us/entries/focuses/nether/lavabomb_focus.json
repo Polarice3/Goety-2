@@ -1,0 +1,16 @@
+{
+  "name": "Lava Bomb Focus",
+  "icon": "goety:lavaball_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You can feel the power of the Nether overtaking you. Unlike the Ghasts, you do not weep. After all, it is a good pain. Your Lavaballs deal no environmental damage when cast while crouching."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/lavaball_focus"
+    }
+  ]
+}

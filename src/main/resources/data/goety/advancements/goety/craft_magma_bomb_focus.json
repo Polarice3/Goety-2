@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:magma_bomb_focus"
+    },
+    "title": {
+      "translate": "advancements.goety.craft_magma_bomb_focus.title"
+    },
+    "description": {
+      "translate": "advancements.goety.craft_magma_bomb_focus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "goety:goety/craft_fireball_focus",
+  "criteria": {
+    "magma_bomb_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:magma_bomb_focus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "magma_bomb_focus"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  }
+}

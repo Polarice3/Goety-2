@@ -13,4 +13,6 @@ public interface IMisc {
     int shieldCool();
     void setShieldCool(int cool);
     void decreaseShieldCool();
+    int ambientSoundTime();
+    void setAmbientSoundTime(int soundTime);
 }

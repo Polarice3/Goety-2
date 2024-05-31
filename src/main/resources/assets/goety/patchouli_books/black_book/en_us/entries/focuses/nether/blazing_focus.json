@@ -1,0 +1,17 @@
+{
+  "name": "Blazing Focus",
+  "icon": "goety:blazing_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While there's some mystery on the Blazes' rebellion, even after learning the methods of their creation, you've managed to create a focus that summons one that doesn't have a rebellious rod on their body."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blazing_focus"
+    }
+  ]
+}

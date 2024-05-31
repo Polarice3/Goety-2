@@ -124,17 +124,17 @@ public class HellBolt extends WaterHurtingProjectile {
             if (!this.isRain()) {
                 Entity entity = this.getOwner();
                 Vec3 vec3 = Vec3.atCenterOf(this.blockPosition());
-                if (entity instanceof LivingEntity livingEntity) {
+                if (entity instanceof LivingEntity livingOwner) {
                     if (pResult instanceof BlockHitResult blockHitResult) {
                         BlockPos blockpos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
                         if (BlockFinder.canBeReplaced(this.level, blockpos)) {
-                            Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(blockpos), livingEntity);
+                            Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(blockpos), livingOwner);
                             vec3 = Vec3.atCenterOf(blockpos);
                             this.level.addFreshEntity(hellfire);
                         }
                     } else if (pResult instanceof EntityHitResult entityHitResult) {
                         Entity entity1 = entityHitResult.getEntity();
-                        Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(entity1.blockPosition()), livingEntity);
+                        Hellfire hellfire = new Hellfire(this.level, Vec3.atCenterOf(entity1.blockPosition()), livingOwner);
                         vec3 = Vec3.atCenterOf(entity1.blockPosition());
                         this.level.addFreshEntity(hellfire);
                     }
@@ -164,7 +164,7 @@ public class HellBolt extends WaterHurtingProjectile {
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {
-                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){

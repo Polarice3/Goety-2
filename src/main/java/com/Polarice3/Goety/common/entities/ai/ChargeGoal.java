@@ -56,7 +56,7 @@ public class ChargeGoal extends Goal {
         } else if (this.chargeTarget == null) {
             return false;
         } else {
-            double distance = this.charger.distanceToSqr(this.chargeTarget);
+            double distance = this.charger.distanceTo(this.chargeTarget);
             if (distance < this.minRange || distance > this.maxRange) {
                 return false;
             } else if (!this.charger.isOnGround()) {

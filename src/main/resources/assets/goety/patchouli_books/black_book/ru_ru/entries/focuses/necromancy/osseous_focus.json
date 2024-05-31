@@ -1,0 +1,15 @@
+{
+  "name": "Фокус кости",
+  "icon": "goety:osseous_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Скелеты могут сильно докучать тем, кто не любит носить щит. Теперь у вас есть возможность призывать скелетов и приказывать им превращать других в ёжиков."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/osseous_focus"
+    }
+  ]
+}

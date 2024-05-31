@@ -6,6 +6,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.UUID;
+
 public class CommonProxy implements ModProxy {
     @Override
     public Player getPlayer() {
@@ -13,11 +15,11 @@ public class CommonProxy implements ModProxy {
     }
 
     @Override
-    public void addBoss(Mob mob) {
+    public void addBossBar(UUID id, Mob mob) {
     }
 
     @Override
-    public void removeBoss(Mob mob) {
+    public void removeBossBar(UUID id, Mob mob) {
     }
 
     @Override

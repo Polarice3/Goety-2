@@ -1,0 +1,16 @@
+{
+  "name": "岩浆爆破聚晶",
+  "icon": "goety:magma_bomb_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "古老的村民传说中有一种巨大的类似于疣猪兽的生物，它们向敌人发射岩浆怪，所到之处满目疮痍。而你受到启发，经过一些实验，你把魔杖对准了某个地方，然后留下了爆炸。。。以及在残留在撞击现场的几只忠诚的岩浆怪。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magma_bomb_focus"
+    }
+  ]
+}

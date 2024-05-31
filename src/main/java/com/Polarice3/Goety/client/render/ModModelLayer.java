@@ -23,6 +23,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation WEB_SHOT = register("web_shot");
     public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
+    public static final ModelLayerLocation SUMMON_CIRCLE_BOSS = register("summon_circle_boss");
     public static final ModelLayerLocation ENTANGLE_VINES = register("entangle_vines");
     public static final ModelLayerLocation FIRE_TORNADO = register("fire_tornado");
     public static final ModelLayerLocation MONOLITH = register("pillar");
@@ -37,6 +38,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation ZOMBIE_VILLAGER_SERVANT = register("zombie_villager_servant");
     public static final ModelLayerLocation SKELETON_VILLAGER_SERVANT = register("skeleton_villager_servant");
     public static final ModelLayerLocation BOUND_ILLAGER = register("bound_illager");
+    public static final ModelLayerLocation BOUND_ILLAGER_ANIMATED = register("bound_illager_animated");
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");

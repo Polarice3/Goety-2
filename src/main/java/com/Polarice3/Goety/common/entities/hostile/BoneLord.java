@@ -47,6 +47,7 @@ import java.util.UUID;
 
 public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
     private static final EntityDataAccessor<Optional<UUID>> SKULL_LORD = SynchedEntityData.defineId(BoneLord.class, EntityDataSerializers.OPTIONAL_UUID);
+    protected static final EntityDataAccessor<Integer> SKULL_LORD_CLIENT_ID = SynchedEntityData.defineId(BoneLord.class, EntityDataSerializers.INT);
 
     public BoneLord(EntityType<? extends AbstractSkeleton> type, Level p_i48555_2_) {
         super(type, p_i48555_2_);
@@ -120,7 +121,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         super.tick();
         if (!this.level.isClientSide) {
             if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying()) {
-                if (this.tickCount % 20 == 0) {
+                if (this.tickCount % 20 == 0 && this.tickCount > 10) {
                     this.discard();
                 }
             } else {
@@ -211,6 +212,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SKULL_LORD, Optional.empty());
+        this.entityData.define(SKULL_LORD_CLIENT_ID, -1);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -229,6 +231,9 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
             } catch (Throwable ignored) {
             }
         }
+        if (pCompound.contains("SkullLordClient")){
+            this.setSkullLordClientId(pCompound.getInt("SkullLordClient"));
+        }
         this.setConfigurableAttributes();
     }
 
@@ -237,20 +242,18 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         if (this.getSkullLordUUID() != null) {
             pCompound.putUUID("skullLord", this.getSkullLordUUID());
         }
+        if (this.getSkullLordClientId() > -1) {
+            pCompound.putInt("SkullLordClient", this.getSkullLordClientId());
+        }
     }
 
     @Nullable
     public SkullLord getSkullLord() {
-        try {
+        if (!this.level.isClientSide){
             UUID uuid = this.getSkullLordUUID();
-            if (uuid != null){
-                if (EntityFinder.getLivingEntityByUuiD(uuid) instanceof SkullLord){
-                    return (SkullLord) EntityFinder.getLivingEntityByUuiD(uuid);
-                }
-            }
-            return null;
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
+            return EntityFinder.getLivingEntityByUuiD(uuid) instanceof SkullLord skullLord ? skullLord : null;
+        } else {
+            return this.level.getEntity(this.getSkullLordClientId()) instanceof SkullLord skullLord ? skullLord : null;
         }
     }
 
@@ -263,8 +266,17 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         this.entityData.set(SKULL_LORD, Optional.ofNullable(uuid));
     }
 
+    public int getSkullLordClientId(){
+        return this.entityData.get(SKULL_LORD_CLIENT_ID);
+    }
+
+    public void setSkullLordClientId(int id){
+        this.entityData.set(SKULL_LORD_CLIENT_ID, id);
+    }
+
     public void setSkullLord(SkullLord skullLord){
         this.setSkullLordUUID(skullLord.getUUID());
+        this.setSkullLordClientId(skullLord.getId());
     }
 
     public static class FollowHeadGoal extends Goal {

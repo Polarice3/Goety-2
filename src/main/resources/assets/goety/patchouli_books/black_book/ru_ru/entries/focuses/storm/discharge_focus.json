@@ -1,0 +1,15 @@
+{
+  "name": "Фокус разряда",
+  "icon": "goety:discharge_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Испускает электрический разряд, поражающий всех находящихся поблизости существ током. Он наносит электрический урон и не причиняет вреда владельцу."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/discharge_focus"
+    }
+  ]
+}

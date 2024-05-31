@@ -20,9 +20,13 @@ import java.util.List;
 public class ExtraScroll extends ResearchScroll{
     public Research requirement;
 
-    public ExtraScroll(Research research, Research requirement) {
-        super(research);
+    public ExtraScroll(Properties properties, Research research, Research requirement) {
+        super(properties, research);
         this.requirement = requirement;
+    }
+
+    public ExtraScroll(Research research, Research requirement) {
+        this(scrollProperties(), research, requirement);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {

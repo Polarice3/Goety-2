@@ -63,15 +63,10 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
 
     public int getSouls(){
         if (this.level != null) {
-            if (this.item.getItem() == ModItems.SOUL_TRANSFER.get() && this.item.getTag() != null) {
-                if (this.item.getTag().contains("owner")) {
-                    UUID owner = this.item.getTag().getUUID("owner");
-                    Player player = this.level.getPlayerByUUID(owner);
-                    if (player != null) {
-                        if (SEHelper.getSEActive(player)) {
-                            return SEHelper.getSESouls(player);
-                        }
-                    }
+            Player player = this.getOwner();
+            if (player != null) {
+                if (SEHelper.getSEActive(player)) {
+                    return SEHelper.getSESouls(player);
                 }
             }
             if (this.item.getItem() instanceof ITotem) {
@@ -95,22 +90,17 @@ public class CursedCageBlockEntity extends BlockEntity implements Clearable {
             }
         }
         if (this.level != null) {
-            if (this.item.getItem() == ModItems.SOUL_TRANSFER.get() && this.item.getTag() != null) {
-                if (this.item.getTag().contains("owner")) {
-                    UUID owner = this.item.getTag().getUUID("owner");
-                    Player player = this.level.getPlayerByUUID(owner);
-                    if (player != null) {
-                        if (SEHelper.getSEActive(player)) {
-                            int Soulcount = SEHelper.getSESouls(player);
-                            if (Soulcount > 0) {
-                                SEHelper.decreaseSESouls(player, souls);
-                                SEHelper.sendSEUpdatePacket(player);
-                                ArcaBlockEntity arcaTile = (ArcaBlockEntity) this.level.getBlockEntity(SEHelper.getArcaBlock(player));
-                                if (arcaTile != null) {
-                                    arcaTile.generateParticles();
-                                    this.generateParticles();
-                                }
-                            }
+            Player player = this.getOwner();
+            if (player != null) {
+                if (SEHelper.getSEActive(player)) {
+                    int Soulcount = SEHelper.getSESouls(player);
+                    if (Soulcount > 0) {
+                        SEHelper.decreaseSESouls(player, souls);
+                        SEHelper.sendSEUpdatePacket(player);
+                        ArcaBlockEntity arcaTile = (ArcaBlockEntity) this.level.getBlockEntity(SEHelper.getArcaBlock(player));
+                        if (arcaTile != null) {
+                            arcaTile.generateParticles();
+                            this.generateParticles();
                         }
                     }
                 }

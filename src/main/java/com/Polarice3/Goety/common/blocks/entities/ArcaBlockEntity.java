@@ -22,7 +22,7 @@ public class ArcaBlockEntity extends OwnedBlockEntity {
             ChunkPos chunkPos = this.level.getChunkAt(this.worldPosition).getPos();
             if (!world.getForcedChunks().contains(chunkPos.toLong())) {
                 world.setChunkForced(chunkPos.x, chunkPos.z, true);
-                if (!world.isAreaLoaded(this.worldPosition, 2)) {
+                if (!world.isLoaded(this.worldPosition)) {
                     world.getChunkAt(this.worldPosition).setLoaded(true);
                 }
             }

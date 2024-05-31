@@ -2,10 +2,12 @@ package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.entities.projectiles.ExplosiveProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -60,34 +62,43 @@ public class LavaballSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        Lavaball fireballEntity = new Lavaball(worldIn,
+        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.5F;
+        ExplosiveProjectile fireballEntity = new Lavaball(worldIn,
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
                 entityLiving.getZ() + vector3d.z / 2,
                 vector3d.x,
                 vector3d.y,
                 vector3d.z);
-        fireballEntity.setUpgraded(true);
+        if (rightStaff(staff)) {
+            fireballEntity.setUpgraded(true);
+        }
         fireballEntity.setOwner(entityLiving);
-        if (isShifting(entityLiving)){
+        if (isShifting(entityLiving)) {
             fireballEntity.setDangerous(false);
         }
+        fireballEntity.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+        fireballEntity.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
+        fireballEntity.setExplosionPower(fireballEntity.getExplosionPower() + extraBlast);
         worldIn.addFreshEntity(fireballEntity);
         if (rightStaff(staff)) {
             for (int i = 0; i < 2; ++i) {
-                Lavaball lavaballEntity = new Lavaball(worldIn,
+                ExplosiveProjectile fireballEntity1 = new Lavaball(worldIn,
                         entityLiving.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
                         entityLiving.getEyeY() - 0.2,
                         entityLiving.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
                         vector3d.x,
                         vector3d.y,
                         vector3d.z);
-                lavaballEntity.setUpgraded(true);
-                lavaballEntity.setOwner(entityLiving);
+                fireballEntity1.setUpgraded(true);
+                fireballEntity1.setOwner(entityLiving);
                 if (isShifting(entityLiving)) {
-                    lavaballEntity.setDangerous(false);
+                    fireballEntity1.setDangerous(false);
                 }
-                worldIn.addFreshEntity(lavaballEntity);
+                fireballEntity1.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+                fireballEntity1.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
+                fireballEntity1.setExplosionPower(fireballEntity1.getExplosionPower() + extraBlast);
+                worldIn.addFreshEntity(fireballEntity1);
             }
         }
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.GHAST_SHOOT, this.getSoundSource(), 1.0F, 1.0F);

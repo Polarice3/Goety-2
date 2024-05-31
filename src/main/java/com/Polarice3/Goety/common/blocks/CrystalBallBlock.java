@@ -72,9 +72,9 @@ public class CrystalBallBlock extends Block {
             if (pLevel instanceof ServerLevel serverLevel) {
                 if (pState.getValue(POWERED)) {
                     Crone crone = new Crone(ModEntityType.CRONE.get(), pLevel);
-                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(pPlayer, pLevel);
+                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(pPos, crone, pLevel);
                     if (!serverLevel.getBlockState(blockPos.below()).isSolidRender(pLevel, blockPos.below())) {
-                        blockPos = BlockFinder.SummonRadius(pPlayer, pLevel);
+                        blockPos = BlockFinder.SummonRadius(pPos, crone, pLevel);
                     }
                     crone.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                     if (!CuriosFinder.hasWitchSet(pPlayer) && MobUtil.validEntity(pPlayer)){

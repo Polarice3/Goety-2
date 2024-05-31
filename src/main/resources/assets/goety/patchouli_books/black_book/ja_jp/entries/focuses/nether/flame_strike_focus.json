@@ -1,0 +1,15 @@
+{
+  "name": "フレイミングストライクのフォーカス",
+  "icon": "goety:flame_strike_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネザーの力により、炎の柱を召喚して、自分を囲んだり、有効なターゲットを直接見ている敵を囲んだりすることができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flame_strike_focus"
+    }
+  ]
+}
