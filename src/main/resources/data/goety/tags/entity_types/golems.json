@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "goety:ice_golem",
+    "goety:whisperer",
+    "goety:wavewhisperer",
+    "goety:leapleaf",
+    "goety:squall_golem",
+    "goety:redstone_golem",
+    "goety:hostile_redstone_golem",
+    "goety:grave_golem",
+    "goety:redstone_monstrosity",
+    "goety:redstone_cube"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Whispering Focus",
+  "icon": "goety:whispering_focus",
+  "category": "goety:focuses/wild",
+  "advancement": "goety:goety/read_floral_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After researching the Jungle for a while, you've managed to devise a way to call forth its Whisperers as loyal servants. Casting this underwater will call upon the whisperers of the waves instead."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/whispering_focus"
+    }
+  ]
+}

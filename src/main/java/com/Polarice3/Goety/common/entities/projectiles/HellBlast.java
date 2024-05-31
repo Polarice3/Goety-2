@@ -136,7 +136,7 @@ public class HellBlast extends WaterHurtingProjectile {
                     }
                 }
             }
-            MobUtil.explosionDamage(this.level, this, ModDamageSource.hellfire(this, this.getOwner()), vec3.x, vec3.y, vec3.z, 1.5F, 0);
+            MobUtil.explosionDamage(this.level, this.getOwner() != null ? this.getOwner() : this, ModDamageSource.hellfire(this, this.getOwner()), vec3.x, vec3.y, vec3.z, 1.5F, 0);
             if (this.level instanceof ServerLevel serverLevel){
                 ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), this);
                 ColorUtil colorUtil = new ColorUtil(0xdd9c16);
@@ -163,7 +163,7 @@ public class HellBlast extends WaterHurtingProjectile {
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {
-                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){

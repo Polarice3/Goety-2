@@ -108,7 +108,7 @@ public class CallFocus extends MagicFocus{
                             livingEntity1 = vehicle;
                         }
                         if (!livingEntity1.isDeadOrDying()) {
-                            BlockPos blockPos = BlockFinder.SummonRadius(player, serverLevel);
+                            BlockPos blockPos = BlockFinder.SummonRadius(player.blockPosition(), livingEntity, serverLevel);
                             if (player.isShiftKeyDown() || player.isCrouching()) {
                                 if (list.size() == 1) {
                                     blockPos = player.blockPosition();

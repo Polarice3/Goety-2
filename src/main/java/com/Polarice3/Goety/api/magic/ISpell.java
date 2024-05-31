@@ -165,6 +165,9 @@ public interface ISpell {
         return defaultSpellCooldown();
     }
 
+    default void startSpell(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
+    }
+
     void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 
     SpellType getSpellType();

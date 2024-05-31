@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -185,6 +186,16 @@ public class SlimeServant extends Summoned{
 
         this.wasOnGround = this.onGround();
         this.decreaseSquish();
+    }
+
+    @Override
+    public void lifeSpanDamage() {
+        if (!this.level.isClientSide){
+            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
+            }
+        }
+        this.discard();
     }
 
     protected void decreaseSquish() {

@@ -1,0 +1,15 @@
+{
+  "name": "Фокус страха",
+  "icon": "goety:spooky_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Призраки — не самая распространенная нежить, ведь начали появляться не так давно. Используя призрачные ткани, вы сможете призвать их и подчинить себе."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/spooky_focus"
+    }
+  ]
+}

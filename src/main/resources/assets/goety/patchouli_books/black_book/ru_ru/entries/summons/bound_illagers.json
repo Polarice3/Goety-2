@@ -19,6 +19,18 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_evoker"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Подчинённые ледологи так же холодны, как и при жизни, но на этот раз их ледяные глыбы падают на голову не вам, а вашим противникам."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_iceologer"
     }
   ]
 }

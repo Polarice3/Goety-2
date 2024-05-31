@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -55,7 +56,6 @@ public class SoulBoltSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
-        SoundEvent soundEvent = ModSounds.CAST_SPELL.get();
         SpellHurtingProjectile soulBolt = new SoulBolt(
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
@@ -71,7 +71,9 @@ public class SoulBoltSpell extends Spell {
                     vector3d.x,
                     vector3d.y,
                     vector3d.z, worldIn);
-            soundEvent = ModSounds.NECRO_CAST.get();
+            SoundUtil.playNecroBolt(entityLiving);
+        } else {
+            SoundUtil.playSoulBolt(entityLiving);
         }
         if (WandUtil.enchantedFocus(entityLiving)){
             soulBolt.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
@@ -79,6 +81,5 @@ public class SoulBoltSpell extends Spell {
         }
         soulBolt.setOwner(entityLiving);
         worldIn.addFreshEntity(soulBolt);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F);
     }
 }

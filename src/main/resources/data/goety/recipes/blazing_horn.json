@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "nbg",
+    "bhb",
+    "gbn"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    "h":
+    {
+      "item": "minecraft:goat_horn"
+    },
+    "n":
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result":
+  {
+    "item": "goety:blazing_horn",
+    "count": 1
+  }
+}

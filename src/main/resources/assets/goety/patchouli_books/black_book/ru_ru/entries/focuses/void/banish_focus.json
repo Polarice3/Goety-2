@@ -1,0 +1,15 @@
+{
+  "name": "Фокус изгнания",
+  "icon": "goety:banish_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Заклинание, требующее прямого нажатия ПКМ по жертве. Это телепортирует её прочь от вас. Идеально подходит для избавления от некоторых врагов!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/banish_focus"
+    }
+  ]
+}

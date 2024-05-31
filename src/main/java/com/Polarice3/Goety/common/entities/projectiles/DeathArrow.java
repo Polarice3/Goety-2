@@ -35,16 +35,31 @@ public class DeathArrow extends Arrow {
         return ModEntityType.DEATH_ARROW.get();
     }
 
-    protected void doPostHurtEffects(LivingEntity p_36873_) {
-        super.doPostHurtEffects(p_36873_);
-        p_36873_.invulnerableTime = 0;
+    protected void doPostHurtEffects(LivingEntity livingEntity) {
+        super.doPostHurtEffects(livingEntity);
+        livingEntity.invulnerableTime = 0;
 
-        if (p_36873_ instanceof Apostle && p_36873_.level.dimension() == Level.NETHER) {
-            float voidDamage = p_36873_.getMaxHealth() * 0.05F;
+        if (this.getOwner() instanceof Apostle apostle) {
+            if (apostle.isInNether()) {
+                float voidDamage = livingEntity.getMaxHealth() * 0.05F;
 
-            if (p_36873_.getHealth() > voidDamage + 1.0F) {
-                p_36873_.heal(-voidDamage);
+                if (livingEntity.getHealth() > voidDamage + 1.0F) {
+                    livingEntity.heal(-voidDamage);
+                }
             }
+            if (MobUtil.healthIsHalved(apostle)){
+                apostle.heal(4.0F);
+            } else {
+                apostle.heal(1.0F);
+            }
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.tickCount > 200 && !this.inGround){
+            this.discard();
         }
     }
 
@@ -92,7 +107,7 @@ public class DeathArrow extends Arrow {
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {
-                if(this.getOwner().isAlliedTo(pEntity) || pEntity.isAlliedTo(this.getOwner())){
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){

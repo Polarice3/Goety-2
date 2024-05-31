@@ -159,6 +159,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(randomSource, difficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
     public int getArrowPower() {

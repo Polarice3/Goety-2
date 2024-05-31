@@ -8,12 +8,12 @@ import com.Polarice3.Goety.common.entities.hostile.BoneLord;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ExplosionUtil;
+import com.Polarice3.Goety.utils.LootingExplosion;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -32,14 +32,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 
 public class HauntedSkullProjectile extends ExplosiveProjectile{
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(HauntedSkullProjectile.class, EntityDataSerializers.INT);
-    public float explosionPower = 1.0F;
-    private int burning = 0;
     public float damage = SpellConfig.HauntedSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-    public boolean upgraded;
     public boolean isPowered;
 
     public HauntedSkullProjectile(EntityType<? extends ExplosiveProjectile> p_i50166_1_, Level p_i50166_2_) {
@@ -79,7 +75,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                 this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 + this.random.nextGaussian() * (double)0.3F, d1 + this.random.nextGaussian() * (double)0.3F, d2 + this.random.nextGaussian() * (double)0.3F, 0.0D, 0.0D, 0.0D);
             }
         } else {
-            if (this.upgraded){
+            if (this.isUpgraded()){
                 this.level.broadcastEntityEvent(this, (byte) 4);
             } else {
                 this.level.broadcastEntityEvent(this, (byte) 5);
@@ -95,18 +91,6 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         this.entityData.set(DATA_TYPE_ID, pType);
     }
 
-    public void setBurning(int burning) {
-        this.burning = burning;
-    }
-
-    public void setDamage(float damage){
-        this.damage = damage;
-    }
-
-    public void setUpgraded(boolean upgraded) {
-        this.upgraded = upgraded;
-    }
-
     public boolean isPowered() {
         return this.isPowered;
     }
@@ -117,8 +101,8 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
             Entity target = pResult.getEntity();
             Entity owner = this.getOwner();
             boolean flag;
-            float enchantment = 0;
-            int flaming = this.burning;
+            float enchantment = this.getExtraDamage();
+            int flaming = this.getFiery();
             if (owner instanceof LivingEntity livingentity) {
                 if (livingentity instanceof Mob mob){
                     if (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
@@ -168,7 +152,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                 }
             }
         }
-        if (this.upgraded){
+        if (this.isUpgraded()){
             if (pEntity instanceof AbstractHurtingProjectile){
                 return false;
             }
@@ -179,16 +163,9 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     public void explode(){
         if (!this.level.isClientSide) {
             Entity owner = this.getOwner();
-            float enchantment = 0;
-            boolean flaming = false;
+            boolean flaming = this.getFiery() > 0;
             boolean loot = false;
             if (owner instanceof Player player) {
-                if (WandUtil.enchantedFocus(player)) {
-                    enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player) / 2.5F;
-                    if (WandUtil.getLevels(ModEnchantments.BURNING.get(), player) > 0) {
-                        flaming = true;
-                    }
-                }
                 if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
                     if (CuriosFinder.findRing(player).isEnchanted()) {
                         float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
@@ -207,7 +184,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
                 }
             }
             LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);
+            ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flaming, explodeMode, lootMode);
             this.discard();
         }
     }
@@ -225,7 +202,7 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     public boolean hurt(DamageSource source, float amount) {
-        if (this.upgraded) {
+        if (this.isUpgraded()) {
             return false;
         } else {
             this.explode();
@@ -243,40 +220,6 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
     }
 
     @Override
-    public void setExplosionPower(float pExplosionPower) {
-        this.explosionPower = pExplosionPower;
-    }
-
-    @Override
-    public float getExplosionPower() {
-        return this.explosionPower;
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Burning", this.burning);
-        pCompound.putBoolean("Upgraded", this.upgraded);
-        pCompound.putFloat("Damage", this.damage);
-        pCompound.putFloat("ExplosionPower", this.explosionPower);
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("Burning")){
-            this.setBurning(pCompound.getInt("Burning"));
-        }
-        if (pCompound.contains("Upgraded")){
-            this.setUpgraded(pCompound.getBoolean("Upgraded"));
-        }
-        if (pCompound.contains("Damage")) {
-            this.setDamage(pCompound.getFloat("Damage"));
-        }
-        if (pCompound.contains("ExplosionPower")) {
-            this.setExplosionPower(pCompound.getFloat("ExplosionPower"));
-        }
-    }
-
-    @Override
     public void handleEntityEvent(byte p_19882_) {
         if (p_19882_ == 4){
             this.isPowered = true;
@@ -285,10 +228,5 @@ public class HauntedSkullProjectile extends ExplosiveProjectile{
         } else {
             super.handleEntityEvent(p_19882_);
         }
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

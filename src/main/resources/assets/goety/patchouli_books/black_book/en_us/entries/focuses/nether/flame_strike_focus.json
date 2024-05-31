@@ -1,0 +1,15 @@
+{
+  "name": "Flame Strike Focus",
+  "icon": "goety:flame_strike_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The power of the Nether allows you to summon forth pillars of flames that either surrounds you or, if looking directly at a valid target, your foe."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flame_strike_focus"
+    }
+  ]
+}

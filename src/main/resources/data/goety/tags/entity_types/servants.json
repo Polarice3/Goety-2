@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:zombie_servants",
+    "#goety:skeleton_servants",
+    "#goety:spider_servants",
+    "#goety:slime_servants"
+  ]
+}

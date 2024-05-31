@@ -1,0 +1,6 @@
+{
+  "name": "風",
+  "description": "風や暴風を支配する力。",
+  "icon": "goety:whirlwind_focus",
+  "parent": "goety:focuses"
+}

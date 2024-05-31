@@ -1,0 +1,15 @@
+{
+  "name": "旋转聚晶",
+  "icon": "goety:rotation_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个简易的法术聚晶，可以旋转并更改方块的方向和朝向。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/rotation_focus"
+    }
+  ]
+}

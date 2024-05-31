@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#goety:golems",
+    "goety:ally_vex",
+    "goety:ally_irk",
+    "goety:irk"
+  ]
+}

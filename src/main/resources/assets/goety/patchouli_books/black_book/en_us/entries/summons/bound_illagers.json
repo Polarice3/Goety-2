@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "While a Vindicator can be raised as a Zombie, a Pillager a Skeleton, to truly make a proper undead version of the powerful Evokers, one must be more... spiritual in their pursuit."
+      "text": "While a Vindicator can be raised as a Zombie, a Pillager a Skeleton, to truly make a proper undead version of the powerful Evokers and other illager spellcasters, one must be more... spiritual in their pursuit."
     },
     {
       "type": "patchouli:entity",
@@ -19,6 +19,18 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_evoker"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Bound Iceologers are as chilly as they are in life but, this time, their Ice Chunks are falling on someone else's head instead of yours."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_iceologer"
     }
   ]
 }

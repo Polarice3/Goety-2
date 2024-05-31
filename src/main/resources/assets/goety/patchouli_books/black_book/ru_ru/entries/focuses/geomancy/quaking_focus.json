@@ -1,0 +1,15 @@
+{
+  "name": "Фокус тряски",
+  "icon": "goety:quaking_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вызывает перед вами землетрясение, нанося урон и подбрасывая в воздух существ. Если использовать фокус, присев, то землетрясение начнётся вокруг вас."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/quaking_focus"
+    }
+  ]
+}

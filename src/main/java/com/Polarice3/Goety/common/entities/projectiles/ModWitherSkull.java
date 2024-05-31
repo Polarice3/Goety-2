@@ -3,13 +3,9 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -19,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.WitherSkull;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -27,11 +22,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
 
 public class ModWitherSkull extends ExplosiveProjectile {
-   public float explosionPower = 1.0F;
-   public float damage = SpellConfig.WitherSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
 
    public ModWitherSkull(EntityType<? extends ExplosiveProjectile> p_37598_, Level p_37599_) {
       super(p_37598_, p_37599_);
@@ -43,6 +35,11 @@ public class ModWitherSkull extends ExplosiveProjectile {
 
    public ModWitherSkull(LivingEntity p_i50168_2_, double p_i50168_3_, double p_i50168_5_, double p_i50168_7_, Level p_i50168_9_) {
       super(ModEntityType.MOD_WITHER_SKULL.get(), p_i50168_2_, p_i50168_3_, p_i50168_5_, p_i50168_7_, p_i50168_9_);
+   }
+
+   public void defaultExplosionAndDamage() {
+      this.entityData.define(DATA_EXPLOSION, 1.0F);
+      this.entityData.define(DATA_DAMAGE, 8.0F);
    }
 
    protected float getInertia() {
@@ -63,15 +60,16 @@ public class ModWitherSkull extends ExplosiveProjectile {
          Entity entity = p_37626_.getEntity();
          Entity entity1 = this.getOwner();
          boolean flag;
-         float enchantment = 0;
+         float enchantment = this.getExtraDamage();
          int duration = 1;
+         float damage;
          if (entity1 instanceof LivingEntity livingentity) {
-            if (livingentity instanceof Player player){
-               if (WandUtil.enchantedFocus(player)){
-                  enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-               }
+            if (entity1 instanceof Player){
+               damage = SpellConfig.WitherSkullDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
+            } else {
+               damage = this.getDamage();
             }
-            flag = entity.hurt(ModDamageSource.modWitherSkull(this, livingentity), this.damage + enchantment);
+            flag = entity.hurt(ModDamageSource.modWitherSkull(this, livingentity), damage + enchantment);
             if (flag) {
                if (entity.isAlive()) {
                   this.doEnchantDamageEffects(livingentity, entity);
@@ -99,31 +97,14 @@ public class ModWitherSkull extends ExplosiveProjectile {
       super.onHit(pResult);
       if (!this.level.isClientSide) {
          Entity owner = this.getOwner();
-         float enchantment = 0;
-         boolean flaming = false;
-         boolean loot = false;
-         if (owner instanceof Player player) {
-            if (WandUtil.enchantedFocus(player)) {
-               enchantment = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player) / 2.5F;
-               if (WandUtil.getLevels(ModEnchantments.BURNING.get(), player) > 0) {
-                  flaming = true;
-               }
-            }
-            if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-               if (CuriosFinder.findRing(player).isEnchanted()) {
-                  float wanting = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.WANTING.get(), CuriosFinder.findRing(player));
-                  if (wanting > 0) {
-                     loot = true;
-                  }
-               }
-            }
-         }
+         boolean flaming = this.getFiery() > 0;
+         boolean loot = CuriosFinder.hasWanting(owner);
          Explosion.BlockInteraction explodeMode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
          if (this.getOwner() instanceof Player) {
             explodeMode = SpellConfig.WitherSkullGriefing.get() ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.KEEP;
          }
          LootingExplosion.Mode lootMode = loot ? LootingExplosion.Mode.LOOT : LootingExplosion.Mode.REGULAR;
-         ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.explosionPower + enchantment, flaming, explodeMode, lootMode);
+         ExplosionUtil.lootExplode(this.level, this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flaming, explodeMode, lootMode);
          this.discard();
       }
    }
@@ -157,32 +138,5 @@ public class ModWitherSkull extends ExplosiveProjectile {
 
    protected boolean shouldBurn() {
       return false;
-   }
-
-   @Override
-   public void setExplosionPower(float pExplosionPower) {
-      this.explosionPower = pExplosionPower;
-   }
-
-   @Override
-   public float getExplosionPower() {
-      return this.explosionPower;
-   }
-
-   public void addAdditionalSaveData(CompoundTag pCompound) {
-      super.addAdditionalSaveData(pCompound);
-      pCompound.putFloat("ExplosionPower", this.explosionPower);
-   }
-
-   public void readAdditionalSaveData(CompoundTag pCompound) {
-      super.readAdditionalSaveData(pCompound);
-      if (pCompound.contains("ExplosionPower")) {
-         this.setExplosionPower(pCompound.getFloat("ExplosionPower"));
-      }
-   }
-
-   @Override
-   public Packet<ClientGamePacketListener> getAddEntityPacket() {
-      return NetworkHooks.getEntitySpawningPacket(this);
    }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "Фокус магмовых бомб",
+  "icon": "goety:magma_bomb_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "В древних легендах крестьян говорится о гигантских существах, похожих на хоглинов, которые стреляют магмовыми кубами в своих врагов. Вдохновившись ими, вы создали фокус, который стреляет магмовым шаром, вызывающим взрыв... и пару прислуживающих вам магмовых кубов."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magma_bomb_focus"
+    }
+  ]
+}

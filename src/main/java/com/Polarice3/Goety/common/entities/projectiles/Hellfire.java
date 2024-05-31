@@ -130,12 +130,15 @@ public class Hellfire extends GroundProjectile {
     public void dealDamageTo(LivingEntity target) {
         LivingEntity owner = this.getOwner();
         float damage = 2.0F;
-        if (target.isAlive() && !target.isInvulnerable() && target != owner) {
+        if (target.isAlive() && !target.isInvulnerable()) {
             if (owner == null) {
-                if (target.hurt(ModDamageSource.getDamageSource(this.level, ModDamageSource.HELLFIRE), damage)) {
+                if (target.hurt(ModDamageSource.getDamageSource(this.level, ModDamageSource.HELLFIRE), damage) && !target.fireImmune()) {
                     target.invulnerableTime = 15;
                 }
             } else {
+                if (target == owner){
+                    return;
+                }
                 if (owner instanceof Mob mobOwner) {
                     if (mobOwner instanceof Enemy && target instanceof Enemy) {
                         if (mobOwner.getTarget() != target) {
@@ -144,20 +147,16 @@ public class Hellfire extends GroundProjectile {
                     }
                     if (mobOwner instanceof IOwned owned){
                         if (owned.getTrueOwner() != null){
-                            if (target.isAlliedTo(owned.getTrueOwner()) || owned.getTrueOwner().isAlliedTo(target) || target == owned.getTrueOwner()){
+                            if (MobUtil.areAllies(owned.getTrueOwner(), target)){
                                 return;
                             }
                         }
                     }
-                } else {
-                    if (target.isAlliedTo(owner)){
-                        return;
-                    }
-                    if (owner.isAlliedTo(target)) {
-                        return;
-                    }
                 }
-                if (target.hurt(ModDamageSource.hellfire(this, this.getOwner()), damage)) {
+                if (MobUtil.areAllies(owner, target)){
+                    return;
+                }
+                if (target.hurt(ModDamageSource.hellfire(this, this.getOwner()), damage) && !target.fireImmune()) {
                     target.invulnerableTime = 15;
                 }
             }

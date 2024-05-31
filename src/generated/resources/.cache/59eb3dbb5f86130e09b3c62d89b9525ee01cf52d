@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-09T19:36:58.2147205	Loot Tables
+// 1.20.1	2024-05-27T16:34:10.5099406	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
@@ -94,6 +94,7 @@ a38a89c36b2b789be260309aee388433b171cda6 data/goety/loot_tables/blocks/jade_stai
 4a23628c4ce08cc0b4a5769f8f661b6c9ffd4a97 data/goety/loot_tables/blocks/jade_tiles.json
 9b3fb88d4e1ead84d151e9a31a8596a5e0fd271c data/goety/loot_tables/blocks/lined_steep_wall.json
 b6b3a873d4a8f25bf6907a93baa2a440e6734b17 data/goety/loot_tables/blocks/lined_steep_wood.json
+a72a477949e5f39e87506d72b26c9717366ad973 data/goety/loot_tables/blocks/lofty_chest.json
 a7121dff83e75b2170d048cade64c8fc028fc906 data/goety/loot_tables/blocks/marble.json
 2533f14ea8abf73c0c2d4e1f89853d0911708bad data/goety/loot_tables/blocks/marble_brazier.json
 f88160ab4d1eaea1834bac3b591fd960d33e7dbc data/goety/loot_tables/blocks/marble_slab.json

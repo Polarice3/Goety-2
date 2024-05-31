@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.servants;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.PortalShockwaveParticleOption;
-import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
@@ -18,23 +18,19 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -103,18 +99,25 @@ public class ObsidianMonolith extends AbstractMonolith {
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()), this.getState(), serverLevel);
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()).above(), this.getState(), serverLevel);
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()).above().above(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), serverLevel);
-            for (Owned owned : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(16))){
-                if (owned.getTrueOwner() == this.getTrueOwner()){
-                    if (!(owned instanceof ObsidianMonolith)) {
-                        if (owned.hurt(this.damageSources().magic(), this.level.random.nextInt(10) + 5.0F)){
-                            owned.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), 16000, 4));
-                            this.launch(owned, this);
+            new SpellExplosion(this.level, null, this.damageSources().magic(), this.blockPosition(), 16, 5.0F){
+                @Override
+                public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {
+                    if (target instanceof IOwned owned && target instanceof LivingEntity living){
+                        if (owned.getTrueOwner() == ObsidianMonolith.this.getTrueOwner() || owned.getTrueOwner() == ObsidianMonolith.this){
+                            if (!(owned instanceof ObsidianMonolith)) {
+                                if (living.hurt(living.damageSources().magic(), ObsidianMonolith.this.level.random.nextInt(10) + 5.0F)){
+                                    ObsidianMonolith.this.launch(living, ObsidianMonolith.this);
+                                }
+                            }
                         }
                     }
                 }
+            };
+            if (cause.getEntity() instanceof Mob mob && mob.getTarget() == this){
+                mob.setTarget(this.getTrueOwner());
             }
             if (this.getTrueOwner() instanceof Apostle apostle && apostle.isAlive()){
-                apostle.setMonolithCoolDown(apostle.getMonolithCoolDown() + MathHelper.secondsToTicks(45));
+                apostle.setMonolithCoolDown(MathHelper.minutesToTicks(1));
             }
         }
         this.remove(RemovalReason.KILLED);
@@ -198,60 +201,38 @@ public class ObsidianMonolith extends AbstractMonolith {
                 if (apostle.isDeadOrDying()){
                     this.silentDie(this.damageSources().starve());
                 }
-                if (this.distanceTo(apostle) > 32){
-                    this.teleportTowards(apostle);
-                }
-                int i = this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(64.0D), apostle.ZOMBIE_MINIONS).size();
-                Integer[] difficulty = this.difficultyIntegerMap().get(this.level.getDifficulty());
-                int j = this.getCrackiness() == Crackiness.NONE ? difficulty[0] : this.getCrackiness() == Crackiness.LOW ? difficulty[1] : this.getCrackiness() == Crackiness.MEDIUM ? difficulty[2] : 1;
-                if (this.tickCount % 100 == 0 && i < j && this.level.random.nextFloat() <= 0.25F && !apostle.isSettingUpSecond()) {
-                    if (!this.level.isClientSide) {
-                        ServerLevel ServerLevel = (ServerLevel) this.level;
-                        RandomSource r = this.level.random;
-                        int numbers = apostle.isSecondPhase() ? 4 : 2;
-                        if (this.level.dimension() != Level.NETHER) {
-                            for (int p = 0; p < r.nextInt(numbers) + 1; ++p) {
-                                int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                BlockPos.MutableBlockPos blockpos$mutable = this.blockPosition().mutable().move(k, 0, l);
-                                blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                                blockpos$mutable.setY((int) BlockFinder.moveDownToGround(this));
-                                blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                Owned summonedentity;
-                                if (!apostle.isSecondPhase()) {
-                                    summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), this.level);
-                                } else {
-                                    summonedentity = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), this.level);
+                apostle.obsidianInvul = 10;
+                if (apostle.getTarget() != null){
+                    if (apostle.getTarget().distanceTo(this) <= 4.0D){
+                        int i = this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(16.0D), apostle.ZOMBIE_MINIONS).size();
+                        Integer[] difficulty = this.difficultyIntegerMap().get(this.level.getDifficulty());
+                        int j = this.getCrackiness() == Crackiness.NONE ? difficulty[0] : this.getCrackiness() == Crackiness.LOW ? difficulty[1] : this.getCrackiness() == Crackiness.MEDIUM ? difficulty[2] : 1;
+                        if (this.tickCount % 20 == 0 && i < j && this.level.random.nextFloat() <= 0.25F && !apostle.isSettingUpSecond()) {
+                            if (!this.level.isClientSide) {
+                                ServerLevel ServerLevel = (ServerLevel) this.level;
+                                RandomSource r = this.level.random;
+                                int numbers = apostle.isSecondPhase() ? 4 : 2;
+                                for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(16))) {
+                                    if (zombifiedPiglin.getTarget() != apostle.getTarget()) {
+                                        zombifiedPiglin.setTarget(apostle.getTarget());
+                                    }
                                 }
-                                summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                                summonedentity.setTrueOwner(apostle);
-                                summonedentity.setLimitedLife(60 * (90 + this.level.random.nextInt(180)));
-                                summonedentity.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                summonedentity.setTarget(apostle.getTarget());
-                                SummonCircle summonCircle = new SummonCircle(this.level, blockpos$mutable, summonedentity, false, true, apostle);
-                                this.level.addFreshEntity(summonCircle);
-                            }
-                        } else {
-                            for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(16))) {
-                                if (zombifiedPiglin.getTarget() != apostle.getTarget()) {
-                                    zombifiedPiglin.setTarget(apostle.getTarget());
+                                for (int p = 0; p < r.nextInt(numbers) + 1; ++p) {
+                                    Owned summon;
+                                    if (this.level.random.nextFloat() > 0.25F || !apostle.isSecondPhase()) {
+                                        summon = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), this.level);
+                                    } else {
+                                        summon = new ZPiglinBruteServant(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), this.level);
+                                    }
+                                    BlockPos blockPos = BlockFinder.SummonRadius(this.blockPosition(), summon, this.level);
+                                    summon.moveTo(blockPos, 0.0F, 0.0F);
+                                    summon.setTrueOwner(apostle);
+                                    summon.setLimitedLife(MobUtil.getSummonLifespan(this.level));
+                                    summon.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
+                                    summon.setTarget(apostle.getTarget());
+                                    SummonCircle summonCircle = new SummonCircle(this.level, blockPos, summon, false, true, apostle);
+                                    this.level.addFreshEntity(summonCircle);
                                 }
-                            }
-                            for (int p = 0; p < r.nextInt(numbers) + 1; ++p) {
-                                int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                                BlockPos.MutableBlockPos blockpos$mutable = this.blockPosition().mutable().move(k, 0, l);
-                                blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                                blockpos$mutable.setY((int) BlockFinder.moveDownToGround(this));
-                                blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                                ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), this.level);
-                                summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                                summonedentity.setTrueOwner(apostle);
-                                summonedentity.setLimitedLife(60 * (90 + this.level.random.nextInt(180)));
-                                summonedentity.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                                summonedentity.setTarget(apostle.getTarget());
-                                SummonCircle summonCircle = new SummonCircle(this.level, blockpos$mutable, summonedentity, false, true, apostle);
-                                this.level.addFreshEntity(summonCircle);
                             }
                         }
                     }
@@ -269,47 +250,7 @@ public class ObsidianMonolith extends AbstractMonolith {
         return difficultyIntegerMap;
     }
 
-    private void teleportTowards(Entity entity) {
-        if (!this.level.isClientSide() && this.isAlive()) {
-            for(int i = 0; i < 128; ++i) {
-                Vec3 vector3d = new Vec3(this.getX() - entity.getX(), this.getY(0.5D) - entity.getEyeY(), this.getZ() - entity.getZ());
-                vector3d = vector3d.normalize();
-                double d0 = 16.0D;
-                double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
-                double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
-                double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
-                if (this.randomTeleport(d1, d2, d3, false)) {
-                    this.teleportHits();
-                    break;
-                }
-            }
-        }
-    }
-
-    public void teleportHits(){
-        this.level.broadcastEntityEvent(this, (byte) 5);
-        if (!this.isSilent()) {
-            this.level.playSound((Player) null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
-            this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-        }
-    }
-
-    public void handleEntityEvent(byte pId) {
-        if (pId == 5){
-            int i = 128;
-
-            for(int j = 0; j < i; ++j) {
-                double d0 = (double)j / (i - 1);
-                float f = (this.random.nextFloat() - 0.5F) * 0.2F;
-                float f1 = (this.random.nextFloat() - 0.5F) * 0.2F;
-                float f2 = (this.random.nextFloat() - 0.5F) * 0.2F;
-                double d1 = Mth.lerp(d0, this.xo, this.getX()) + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                double d2 = Mth.lerp(d0, this.yo, this.getY()) + this.random.nextDouble() * (double)this.getBbHeight();
-                double d3 = Mth.lerp(d0, this.zo, this.getZ()) + (this.random.nextDouble() - 0.5D) * (double)this.getBbWidth() * 2.0D;
-                this.level.addParticle(ParticleTypes.PORTAL, d1, d2, d3, (double)f, (double)f1, (double)f2);
-            }
-        } else {
-            super.handleEntityEvent(pId);
-        }
+    public boolean shouldRenderAtSqrDistance(double p_31046_) {
+        return super.shouldRenderAtSqrDistance(p_31046_) || this.getTrueOwner() != null;
     }
 }

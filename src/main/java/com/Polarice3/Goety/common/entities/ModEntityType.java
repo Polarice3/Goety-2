@@ -5,6 +5,8 @@ import com.Polarice3.Goety.common.entities.ally.*;
 import com.Polarice3.Goety.common.entities.ally.golem.*;
 import com.Polarice3.Goety.common.entities.ally.spider.*;
 import com.Polarice3.Goety.common.entities.ally.undead.*;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundEvoker;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.BoundIceologer;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.*;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
@@ -24,6 +26,7 @@ import com.Polarice3.Goety.common.entities.vehicle.ModChestBoat;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -117,11 +120,6 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
-    public static final RegistryObject<EntityType<GrandLavaball>> GRAND_LAVABALL = register("grand_lavaball",
-            EntityType.Builder.<GrandLavaball>of(GrandLavaball::new, MobCategory.MISC)
-                    .sized(1.0f,1.0f)
-                    .clientTrackingRange(4));
-
     public static final RegistryObject<EntityType<ModDragonFireball>> MOD_DRAGON_FIREBALL = register("dragon_fireball",
             EntityType.Builder.<ModDragonFireball>of(ModDragonFireball::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F)
@@ -164,6 +162,12 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SteamMissile>> STEAM_MISSILE = register("steam_missile",
             EntityType.Builder.<SteamMissile>of(SteamMissile::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<WitherBolt>> WITHER_BOLT = register("wither_bolt",
+            EntityType.Builder.<WitherBolt>of(WitherBolt::new, MobCategory.MISC)
                     .sized(0.3125F, 0.3125F)
                     .clientTrackingRange(4)
                     .updateInterval(1));
@@ -281,6 +285,12 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<Pyroclast>> PYROCLAST = register("pyroclast",
             EntityType.Builder.<Pyroclast>of(Pyroclast::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<MagmaBomb>> MAGMA_BOMB = register("magma_bomb",
+            EntityType.Builder.<MagmaBomb>of(MagmaBomb::new, MobCategory.MISC)
+                    .sized(1.25F, 1.25F)
                     .clientTrackingRange(8)
                     .updateInterval(1));
 
@@ -534,6 +544,13 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<WitherSkeletonServant>> WITHER_SKELETON_SERVANT = register("wither_skeleton_servant",
+            EntityType.Builder.of(WitherSkeletonServant::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .immuneTo(Blocks.WITHER_ROSE)
+                    .sized(0.7F, 2.4F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<MossySkeletonServant>> MOSSY_SKELETON_SERVANT = register("mossy_skeleton_servant",
             EntityType.Builder.of(MossySkeletonServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
@@ -579,6 +596,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BoundIceologer>> BOUND_ICEOLOGER = register("bound_iceologer",
+            EntityType.Builder.of(BoundIceologer::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<HauntedArmorServant>> HAUNTED_ARMOR_SERVANT = register("haunted_armor_servant",
             EntityType.Builder.of(HauntedArmorServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -600,6 +622,18 @@ public class ModEntityType {
             EntityType.Builder.of(MiniGhast::new, MobCategory.MONSTER)
                     .sized(1.2F, 1.2F)
                     .clientTrackingRange(10)
+                    .fireImmune());
+
+    public static final RegistryObject<EntityType<GhastServant>> GHAST_SERVANT = register("ghast_servant",
+            EntityType.Builder.of(GhastServant::new, MobCategory.MONSTER)
+                    .sized(4.0F, 4.0F)
+                    .clientTrackingRange(10)
+                    .fireImmune());
+
+    public static final RegistryObject<EntityType<BlazeServant>> BLAZE_SERVANT = register("blaze_servant",
+            EntityType.Builder.of(BlazeServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.8F)
+                    .clientTrackingRange(8)
                     .fireImmune());
 
     public static final RegistryObject<EntityType<SlimeServant>> SLIME_SERVANT = register("slime_servant",
@@ -817,11 +851,12 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
-/*    public static final RegistryObject<EntityType<WitherNecromancer>> WITHER_NECROMANCER = register("wither_necromancer",
+    public static final RegistryObject<EntityType<WitherNecromancer>> WITHER_NECROMANCER = register("wither_necromancer",
             EntityType.Builder.of(WitherNecromancer::new, MobCategory.MONSTER)
-                    .sized(0.75F, 2.4875F)
+                    .sized(0.75F, 2.8875F)
                     .fireImmune()
-                    .clientTrackingRange(8));*/
+                    .immuneTo(Blocks.WITHER_ROSE)
+                    .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<LightningTrap>> LIGHTNING_TRAP = register("lightning_trap",
             EntityType.Builder.<LightningTrap>of(LightningTrap::new, MobCategory.MISC)
@@ -886,9 +921,25 @@ public class ModEntityType {
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 
+    public static final RegistryObject<EntityType<FirePillar>> FIRE_PILLAR = register("fire_pillar",
+            EntityType.Builder.<FirePillar>of(FirePillar::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(1.25F, 1.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
     public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
             EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)
                     .fireImmune()
+                    .noSummon()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SummonCircleBoss>> SUMMON_CIRCLE_BOSS = register("summon_circle_boss",
+            EntityType.Builder.<SummonCircleBoss>of(SummonCircleBoss::new, MobCategory.MISC)
+                    .fireImmune()
+                    .noSummon()
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(1));
@@ -896,6 +947,7 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<SummonCircleVariant>> SUMMON_FIERY = register("summon_fiery",
             EntityType.Builder.<SummonCircleVariant>of(SummonCircleVariant::new, MobCategory.MISC)
                     .fireImmune()
+                    .noSummon()
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(1));
@@ -927,6 +979,19 @@ public class ModEntityType {
                     .sized(2.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(1));
+
+    public static final RegistryObject<EntityType<HellCloud>> HELL_CLOUD = register("hell_cloud",
+            EntityType.Builder.<HellCloud>of(HellCloud::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
+
+    public static final RegistryObject<EntityType<SpellLightningBolt>> SPELL_LIGHTNING_BOLT = register("spell_lightning_bolt",
+            EntityType.Builder.of(SpellLightningBolt::new, MobCategory.MISC)
+                    .sized(0.0F, 0.0F)
+                    .clientTrackingRange(16)
+                    .updateInterval(Integer.MAX_VALUE));
 
     public static final RegistryObject<EntityType<BrewEffectCloud>> BREW_EFFECT_CLOUD = register("brew_effect_cloud",
             EntityType.Builder.<BrewEffectCloud>of(BrewEffectCloud::new, MobCategory.MISC)

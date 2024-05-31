@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells;
 
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -7,10 +8,9 @@ import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SSetPlayerOwnerPacket;
 import com.Polarice3.Goety.config.SpellConfig;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.ColorUtil;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.*;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 public class IllusionSpell extends Spell {
     public int defaultSoulCost() {
@@ -57,7 +58,12 @@ public class IllusionSpell extends Spell {
         }
         int i0 = 4;
         if (staff.is(ModItems.NAMELESS_STAFF.get())){
-            i0 = 4 + entityLiving.level.random.nextInt(4);
+            i0 = 8;
+        }
+        boolean undead = CuriosFinder.hasNamelessSet(entityLiving) && staff.is(ModItems.NAMELESS_STAFF.get());
+        ParticleOptions particleOptions = ParticleTypes.POOF;
+        if (undead){
+            particleOptions = ModParticleTypes.LICH.get();
         }
         for (int i1 = 0; i1 < i0; ++i1) {
             Doppelganger summonedentity = new Doppelganger(ModEntityType.DOPPELGANGER.get(), worldIn);
@@ -65,26 +71,29 @@ public class IllusionSpell extends Spell {
             if (entityLiving instanceof Player player) {
                 ModNetwork.sendTo(player, new SSetPlayerOwnerPacket(summonedentity));
             }
-            boolean undead = CuriosFinder.hasNamelessSet(entityLiving) && staff.is(ModItems.NAMELESS_STAFF.get());
-            summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving, worldIn), 0.0F, 0.0F);
+            Vec3 vec3 = BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn).getCenter();
+            summonedentity.setPos(vec3);
             summonedentity.setUndeadClone(undead);
-            summonedentity.setLimitedLife(1200);
+            summonedentity.setLimitedLife(undead ? MathHelper.secondsToTicks(2.875F) : 1200);
             summonedentity.setPersistenceRequired();
             summonedentity.setUpgraded(CuriosFinder.hasIllusionRobe(entityLiving));
-            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
+            summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn)), MobSpawnType.MOB_SUMMONED, null, null);
             LivingEntity target = this.getTarget(entityLiving);
             if (target != null) {
                 double d2 = target.getX() - summonedentity.getX();
                 double d1 = target.getZ() - summonedentity.getZ();
                 summonedentity.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
                 if (undead){
-                    summonedentity.moveTo(BlockFinder.SummonRadius(target, worldIn), 0.0F, 0.0F);
+                    float f = (float) Mth.atan2(d1, d2);
+                    float f2 = f + (float) i1 * (float) Math.PI * 0.25F + 4.0F;
+                    vec3 = new Vec3(target.getX() + (double) Mth.cos(f2) * 4.0D, target.getY(), target.getZ() + (double) Mth.sin(f2) * 4.0D);
+                    summonedentity.setPos(vec3);
                 }
             }
             MobUtil.moveDownToGround(summonedentity);
             worldIn.addFreshEntity(summonedentity);
-            for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-                worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
+            for (int i = 0; i < entityLiving.level.random.nextInt(10) + 10; ++i) {
+                ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
             }
         }
         if (CuriosFinder.hasIllusionRobe(entityLiving)){
@@ -94,9 +103,13 @@ public class IllusionSpell extends Spell {
                 target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400));
             }
         }
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, this.getSoundSource(), 1.0F, 1.0F);
+        SoundEvent soundEvent = SoundEvents.ILLUSIONER_MIRROR_MOVE;
+        if (undead){
+            soundEvent = ModSounds.LICH_TELEPORT_IN.get();
+        }
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F);
         for (int i = 0; i < entityLiving.level.random.nextInt(35) + 10; ++i) {
-            worldIn.sendParticles(ParticleTypes.CLOUD, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
+            worldIn.sendParticles(particleOptions, entityLiving.getX(), entityLiving.getEyeY(), entityLiving.getZ(), 0, 0.0F, 0.0F, 0.0F, 0);
         }
     }
 

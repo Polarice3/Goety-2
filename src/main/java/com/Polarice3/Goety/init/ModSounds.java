@@ -129,8 +129,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> NECROMANCER_AMBIENT = create("necromancer_ambient");
     public static final RegistryObject<SoundEvent> NECROMANCER_HURT = create("necromancer_hurt");
     public static final RegistryObject<SoundEvent> NECROMANCER_LAUGH = create("necromancer_laugh");
+    public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON = create("necromancer_summon");
     public static final RegistryObject<SoundEvent> NECROMANCER_STEP = create("necromancer_step");
     public static final RegistryObject<SoundEvent> NECROMANCER_DEATH = create("necromancer_death");
+
+    public static final RegistryObject<SoundEvent> WITHER_NECROMANCER_AMBIENT = create("wither_necromancer_ambient");
+    public static final RegistryObject<SoundEvent> WITHER_NECROMANCER_HURT = create("wither_necromancer_hurt");
+    public static final RegistryObject<SoundEvent> WITHER_NECROMANCER_DEATH = create("wither_necromancer_death");
 
     public static final RegistryObject<SoundEvent> VANGUARD_AMBIENT = create("vanguard_ambient");
     public static final RegistryObject<SoundEvent> VANGUARD_HURT = create("vanguard_hurt");
@@ -164,6 +169,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BONE_SPIDER_SPIT = create("bone_spider_spit");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_STEP = create("bone_spider_step");
     public static final RegistryObject<SoundEvent> BONE_SPIDER_DEATH = create("bone_spider_death");
+
+    public static final RegistryObject<SoundEvent> ICEOLOGER_AMBIENT = create("iceologer_ambient");
+    public static final RegistryObject<SoundEvent> ICEOLOGER_HURT = create("iceologer_hurt");
+    public static final RegistryObject<SoundEvent> ICEOLOGER_ATTACK = create("iceologer_attack");
+    public static final RegistryObject<SoundEvent> ICEOLOGER_DEATH = create("iceologer_death");
 
     public static final RegistryObject<SoundEvent> WHISPERER_AMBIENT = create("whisperer_ambient");
     public static final RegistryObject<SoundEvent> WHISPERER_HURT = create("whisperer_hurt");
@@ -331,7 +341,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_SPIT = create("spider_spit");
     public static final RegistryObject<SoundEvent> SPIDER_WEB = create("spider_web");
 
+    public static final RegistryObject<SoundEvent> LICH_AMBIENT = create("lich_ambient");
     public static final RegistryObject<SoundEvent> LICH_HURT = create("lich_hurt");
+    public static final RegistryObject<SoundEvent> LICH_TELEPORT_IN = create("lich_teleport_in");
+    public static final RegistryObject<SoundEvent> LICH_TELEPORT_OUT = create("lich_teleport_out");
+    public static final RegistryObject<SoundEvent> LICH_DEATH = create("lich_death");
 
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
@@ -355,10 +369,17 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> FROST_PREPARE_SPELL = create("frost_prepare_spell");
     public static final RegistryObject<SoundEvent> WILD_PREPARE_SPELL = create("wild_prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
+    public static final RegistryObject<SoundEvent> CAST_SPELL_TWO = create("cast_spell_two");
+    public static final RegistryObject<SoundEvent> VEX_VAPOR = create("vex_vapor");
+    public static final RegistryObject<SoundEvent> SOUL_BOLT_CAST = create("soul_bolt_cast");
     public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
+    public static final RegistryObject<SoundEvent> SUMMON_SPELL_FIERY = create("summon_spell_fiery");
     public static final RegistryObject<SoundEvent> VANGUARD_SPELL = create("vanguard_spell");
     public static final RegistryObject<SoundEvent> VANGUARD_SUMMON = create("vanguard_summon");
+    public static final RegistryObject<SoundEvent> BOSS_SUMMON = create("boss_summon");
+    public static final RegistryObject<SoundEvent> SWING = create("swing");
+    public static final RegistryObject<SoundEvent> PROJECTILE_SPELL = create("projectile_spell");
     public static final RegistryObject<SoundEvent> COMMAND = create("command");
     public static final RegistryObject<SoundEvent> SHIELD_UP = create("shield_up");
     public static final RegistryObject<SoundEvent> BOLT_IMPACT = create("bolt_impact");
@@ -426,6 +447,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_NEST_START = create("spider_nest_start");
     public static final RegistryObject<SoundEvent> SPIDER_NEST_TRAIN = create("spider_nest_train");
     public static final RegistryObject<SoundEvent> SPIDER_NEST_SPAWN = create("spider_nest_spawn");
+
+    public static final RegistryObject<SoundEvent> URN_BREAK = create("urn_break");
 
     public static final RegistryObject<SoundEvent> FIRE_TORNADO_AMBIENT = create("fire_tornado_ambient");
 

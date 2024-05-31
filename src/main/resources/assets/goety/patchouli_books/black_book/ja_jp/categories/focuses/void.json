@@ -1,0 +1,6 @@
+{
+  "name": "ボイド",
+  "description": "虚空を支配する力。",
+  "icon": "goety:ender_chest_focus",
+  "parent": "goety:focuses"
+}

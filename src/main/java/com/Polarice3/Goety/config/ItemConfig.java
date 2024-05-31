@@ -31,6 +31,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> StormStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> FrostStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WildStaffDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> NetherStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessStaffDamage;
 
     public static final ForgeConfigSpec.ConfigValue<Double> ScytheBaseDamage;
@@ -98,6 +99,8 @@ public class ItemConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetUndeadNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCrownWeakness;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeHunger;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetUndeadNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
@@ -134,6 +137,10 @@ public class ItemConfig {
                     .defineInRange("stormRobeResistance", 85, 0, 100);
             NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("necroSetUndeadNeutral", true);
+            NecroCrownWeakness = BUILDER.comment("Whether wearing Necro Crown while not being a Lich gives Weakness when in sunlight, Default: true")
+                    .define("necroCrownWeakness", true);
+            NecroCapeHunger = BUILDER.comment("Whether wearing Necro Cape while not being a Lich gives Hunger when in sunlight, Default: true")
+                    .define("necroCapeHunger", true);
             NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("namelessSetUndeadNeutral", true);
             BUILDER.pop();
@@ -162,6 +169,8 @@ public class ItemConfig {
                     .defineInRange("frostStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             WildStaffDamage = BUILDER.comment("How much base damage Wild Staffs deals, Default: 4.0")
                     .defineInRange("wildStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
+            NetherStaffDamage = BUILDER.comment("How much base damage Nether Staffs deals, Default: 4.0")
+                    .defineInRange("netherStaffDamage", 4.0, 1.0, Double.MAX_VALUE);
             NamelessStaffDamage = BUILDER.comment("How much base damage Nameless Staffs deals, Default: 6.0")
                     .defineInRange("namelessStaffDamage", 6.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();

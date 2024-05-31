@@ -296,6 +296,7 @@ public class WandUtil {
 
     public static void summonMonolith(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> wallEntityType, double xshift, double zshift, int delay, int extra) {
         targetPos = targetPos.offset((int) xshift, 1, (int) zshift);
+        Vec3 vec3 = Vec3.atBottomCenterOf(targetPos);
         Level level = casterEntity.level;
         AbstractMonolith monolith = wallEntityType.create(level);
         if (monolith != null) {
@@ -305,7 +306,7 @@ public class WandUtil {
             }
             if (monolith != null) {
                 monolith.setTrueOwner(casterEntity);
-                monolith.setPos(targetPos.getX(), targetPos.getY(), targetPos.getZ());
+                monolith.setPos(vec3.x(), vec3.y(), vec3.z());
                 if (level instanceof ServerLevel serverLevel) {
                     monolith.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(targetPos), MobSpawnType.MOB_SUMMONED, null, null);
                 }
@@ -333,6 +334,7 @@ public class WandUtil {
 
     public static void summonTurret(LivingEntity casterEntity, BlockPos targetPos, EntityType<? extends AbstractMonolith> wallEntityType, @Nullable Entity target, int delay, int duration, int potency) {
         targetPos = targetPos.above();
+        Vec3 vec3 = Vec3.atBottomCenterOf(targetPos);
         Level level = casterEntity.level;
         AbstractMonolith monolith = wallEntityType.create(level);
         if (monolith != null) {
@@ -342,7 +344,7 @@ public class WandUtil {
             }
             if (monolith != null) {
                 monolith.setTrueOwner(casterEntity);
-                monolith.setPos(targetPos.getX(), targetPos.getY(), targetPos.getZ());
+                monolith.setPos(vec3.x(), vec3.y(), vec3.z());
                 if (level instanceof ServerLevel serverLevel) {
                     monolith.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(targetPos), MobSpawnType.MOB_SUMMONED, null, null);
                 }

@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
-import com.Polarice3.Goety.common.entities.ally.undead.AbstractBoundIllager;
+import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
@@ -79,7 +79,7 @@ public class RitualRequirements {
         return switch (craftType) {
             case "animation", "forge", "magic", "sabbath" -> RitualRequirements.getStructures(craftType, pPos, pLevel);
             case "geoturgy" -> geoturgyRitual(pPos, pLevel);
-            case "necroturgy", "lich" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.isNight();
+            case "necroturgy", "lich" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
             case "adept_nether", "expert_nether" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.dimensionType().ultraWarm();
             case "frost" -> frostRitual(pPos, pLevel);
             case "sky" -> skyRitual(pTileEntity, pPos);

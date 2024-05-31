@@ -15,6 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.UUID;
+
 public class ClientProxy implements ModProxy {
     @Override
     public Player getPlayer() {
@@ -22,13 +24,13 @@ public class ClientProxy implements ModProxy {
     }
 
     @Override
-    public void addBoss(Mob mob) {
-        BossBarEvent.addBoss(mob);
+    public void addBossBar(UUID id, Mob mob) {
+        BossBarEvent.addBossBar(id, mob);
     }
 
     @Override
-    public void removeBoss(Mob mob) {
-        BossBarEvent.removeBoss(mob);
+    public void removeBossBar(UUID id, Mob mob) {
+        BossBarEvent.removeBossBar(id, mob);
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "name": "ジオマンシー",
+  "description": "大地を支配する力。",
+  "icon": "goety:barricade_focus",
+  "parent": "goety:focuses"
+}

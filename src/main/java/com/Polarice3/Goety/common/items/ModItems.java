@@ -19,22 +19,17 @@ import com.Polarice3.Goety.common.items.equipment.*;
 import com.Polarice3.Goety.common.items.magic.*;
 import com.Polarice3.Goety.common.items.research.ExtraScroll;
 import com.Polarice3.Goety.common.items.research.ForbiddenScroll;
+import com.Polarice3.Goety.common.items.research.ResearchScroll;
 import com.Polarice3.Goety.common.items.research.Scroll;
 import com.Polarice3.Goety.common.magic.spells.*;
 import com.Polarice3.Goety.common.magic.spells.frost.*;
 import com.Polarice3.Goety.common.magic.spells.geomancy.*;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
-import com.Polarice3.Goety.common.magic.spells.nether.FireballSpell;
-import com.Polarice3.Goety.common.magic.spells.nether.GhastSpell;
-import com.Polarice3.Goety.common.magic.spells.nether.LavaballSpell;
-import com.Polarice3.Goety.common.magic.spells.nether.WitherSkullSpell;
+import com.Polarice3.Goety.common.magic.spells.nether.*;
 import com.Polarice3.Goety.common.magic.spells.storm.*;
 import com.Polarice3.Goety.common.magic.spells.utility.GlowLightSpell;
 import com.Polarice3.Goety.common.magic.spells.utility.SoulLightSpell;
-import com.Polarice3.Goety.common.magic.spells.void_spells.BlinkSpell;
-import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
-import com.Polarice3.Goety.common.magic.spells.void_spells.EnderChestSpell;
-import com.Polarice3.Goety.common.magic.spells.void_spells.TunnelSpell;
+import com.Polarice3.Goety.common.magic.spells.void_spells.*;
 import com.Polarice3.Goety.common.magic.spells.wild.*;
 import com.Polarice3.Goety.common.magic.spells.wind.*;
 import com.Polarice3.Goety.common.research.ResearchList;
@@ -89,6 +84,7 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_RAVAGER_ARMOR = ITEMS.register("gold_ravager_armor", () -> new RavagerArmorItem(11, "gold"));
     public static final RegistryObject<Item> DIAMOND_RAVAGER_ARMOR = ITEMS.register("diamond_ravager_armor", () -> new RavagerArmorItem(15, "diamond"));
     public static final RegistryObject<Item> NETHERITE_RAVAGER_ARMOR = ITEMS.register("netherite_ravager_armor", () -> new RavagerArmorItem(20, "netherite", new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> WITHERED_MANUSCRIPT = ITEMS.register("withered_manuscript", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> FORBIDDEN_PIECE = ITEMS.register("forbidden_piece", ItemBase::new);
     public static final RegistryObject<Item> FORBIDDEN_FRAGMENT = ITEMS.register("forbidden_fragment", ItemBase::new);
 
@@ -97,6 +93,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> PHILOSOPHERS_STONE = ITEMS.register("philosophers_stone", PhilosophersStone::new);
     public static final RegistryObject<Item> DARK_SCROLL = ITEMS.register("dark_scroll", DarkScrollItem::new);
+    public static final RegistryObject<Item> BLAZING_HORN = ITEMS.register("blazing_horn", BlazingHornItem::new);
     public static final RegistryObject<Item> MAGIC_EMERALD = ITEMS.register("magic_emerald", () -> new SimpleFoiledItem(new Item.Properties()));
     public static final RegistryObject<Item> SOUL_EMERALD = ITEMS.register("soul_emerald", () -> new SimpleFoiledItem(new Item.Properties()));
     public static final RegistryObject<Item> UNHOLY_BLOOD = ITEMS.register("unholy_blood", () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.RARE)));
@@ -120,7 +117,8 @@ public class ModItems {
     public static final RegistryObject<Item> FRONT_SCROLL = ITEMS.register("front_scroll", () -> new Scroll(ResearchList.FRONT));
     public static final RegistryObject<Item> MISTRAL_SCROLL = ITEMS.register("mistral_scroll", () -> new Scroll(ResearchList.MISTRAL));
     public static final RegistryObject<Item> FLORAL_SCROLL = ITEMS.register("floral_scroll", () -> new Scroll(ResearchList.FLORAL));
-    public static final RegistryObject<Item> TERMINUS_SCROLL = ITEMS.register("terminus_scroll", () -> new ExtraScroll(ResearchList.TERMINUS, ResearchList.WARRED));
+    public static final RegistryObject<Item> BYGONE_SCROLL = ITEMS.register("bygone_scroll", () -> new Scroll(ResearchScroll.fireResistant(), ResearchList.BYGONE));
+    public static final RegistryObject<Item> TERMINUS_SCROLL = ITEMS.register("terminus_scroll", () -> new ExtraScroll(ResearchScroll.fireResistant(), ResearchList.TERMINUS, ResearchList.WARRED));
     public static final RegistryObject<Item> FORBIDDEN_SCROLL = ITEMS.register("forbidden_scroll", ForbiddenScroll::new);
 
     public static final RegistryObject<Item> UNDEATH_POTION = ITEMS.register("undeath_potion", UndeathPotionItem::new);
@@ -155,7 +153,7 @@ public class ModItems {
     public static final RegistryObject<Item> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<Item> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<Item> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
-    public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", SingleStackItem::new);
+    public static final RegistryObject<Item> NECRO_CROWN = ITEMS.register("necro_crown", NecroGarbs.NecroCrownItem::new);
     public static final RegistryObject<Item> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<Item> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
     public static final RegistryObject<Item> WITCH_HAT = ITEMS.register("witch_hat", WitchHatItem::new);
@@ -163,8 +161,8 @@ public class ModItems {
     public static final RegistryObject<Item> CRONE_HAT = ITEMS.register("crone_hat", WitchHatItem::new);
     public static final RegistryObject<Item> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
     public static final RegistryObject<Item> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
-    public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", SingleStackItem::new);
-    public static final RegistryObject<Item> NAMELESS_CAPE = ITEMS.register("nameless_cape", SingleStackItem::new);
+    public static final RegistryObject<Item> NECRO_CAPE = ITEMS.register("necro_cape", () -> new NecroGarbs.NecroCapeItem(false));
+    public static final RegistryObject<Item> NAMELESS_CAPE = ITEMS.register("nameless_cape", () -> new NecroGarbs.NecroCapeItem(true));
     public static final RegistryObject<Item> ILLUSION_ROBE = ITEMS.register("illusion_robe", IllusionRobeItem::new);
     public static final RegistryObject<Item> ILLUSION_ROBE_MIRROR = ITEMS.register("illusion_robe_mirror", IllusionRobeItem::new);
     public static final RegistryObject<Item> FROST_ROBE = ITEMS.register("frost_robe", FrostRobeItem::new);
@@ -216,6 +214,7 @@ public class ModItems {
 
     ///Geomancy
     public static final RegistryObject<Item> BARRICADE_FOCUS = ITEMS.register("barricade_focus", () -> new MagicFocus(new BarricadeSpell()));
+    public static final RegistryObject<Item> QUAKING_FOCUS = ITEMS.register("quaking_focus", () -> new MagicFocus(new QuakingSpell()));
     public static final RegistryObject<Item> PULVERIZE_FOCUS = ITEMS.register("pulverize_focus", () -> new MagicFocus(new PulverizeSpell()));
     public static final RegistryObject<Item> ROTATION_FOCUS = ITEMS.register("rotation_focus", () -> new MagicFocus(new RotationSpell()));
     public static final RegistryObject<Item> SCATTER_FOCUS = ITEMS.register("scatter_focus", () -> new MagicFocus(new ScatterSpell()));
@@ -258,8 +257,11 @@ public class ModItems {
     ///Nether
     public static final RegistryObject<Item> FIREBALL_FOCUS = ITEMS.register("fireball_focus", () -> new MagicFocus(new FireballSpell()));
     public static final RegistryObject<Item> LAVABALL_FOCUS = ITEMS.register("lavaball_focus", () -> new MagicFocus(new LavaballSpell()));
+    public static final RegistryObject<Item> MAGMA_BOMB_FOCUS = ITEMS.register("magma_bomb_focus", () -> new MagicFocus(new MagmaSpell()));
+    public static final RegistryObject<Item> FLAME_STRIKE_FOCUS = ITEMS.register("flame_strike_focus", () -> new MagicFocus(new FlameStrikeSpell()));
     public static final RegistryObject<Item> WITHER_SKULL_FOCUS = ITEMS.register("wither_skull_focus", () -> new MagicFocus(new WitherSkullSpell()));
     public static final RegistryObject<Item> GHASTLY_FOCUS = ITEMS.register("ghastly_focus", () -> new MagicFocus(new GhastSpell()));
+    public static final RegistryObject<Item> BLAZING_FOCUS = ITEMS.register("blazing_focus", () -> new MagicFocus(new BlazeSpell()));
 
     ///Void
     public static final RegistryObject<Item> CALL_FOCUS = ITEMS.register("call_focus", CallFocus::new);
@@ -267,6 +269,7 @@ public class ModItems {
     public static final RegistryObject<Item> ENDER_CHEST_FOCUS = ITEMS.register("ender_chest_focus", () -> new MagicFocus(new EnderChestSpell()));
     public static final RegistryObject<Item> END_WALK_FOCUS = ITEMS.register("end_walk_focus", () -> new MagicFocus(new EndWalkSpell()));
     public static final RegistryObject<Item> BLINK_FOCUS = ITEMS.register("blink_focus", () -> new MagicFocus(new BlinkSpell()));
+    public static final RegistryObject<Item> BANISH_FOCUS = ITEMS.register("banish_focus", () -> new MagicFocus(new BanishSpell()));
     public static final RegistryObject<Item> TUNNEL_FOCUS = ITEMS.register("tunnel_focus", () -> new MagicFocus(new TunnelSpell()));
 
     //Armors
@@ -298,6 +301,7 @@ public class ModItems {
     public static final RegistryObject<Item> STORM_STAFF = ITEMS.register("storm_staff", () -> new DarkStaff(ItemConfig.StormStaffDamage.get(), SpellType.STORM));
     public static final RegistryObject<Item> FROST_STAFF = ITEMS.register("frost_staff", () -> new DarkStaff(ItemConfig.FrostStaffDamage.get(), SpellType.FROST));
     public static final RegistryObject<Item> WILD_STAFF = ITEMS.register("wild_staff", () -> new DarkStaff(ItemConfig.WildStaffDamage.get(), SpellType.WILD));
+    public static final RegistryObject<Item> NETHER_STAFF = ITEMS.register("nether_staff", () -> new DarkStaff(DarkWand.wandProperties().fireResistant(), ItemConfig.NetherStaffDamage.get(), SpellType.NETHER));
     public static final RegistryObject<Item> NAMELESS_STAFF = ITEMS.register("nameless_staff", () -> new DarkStaff(ItemConfig.NamelessStaffDamage.get(), SpellType.NECROMANCY));
     public static final RegistryObject<Item> OMINOUS_SCYTHE = ITEMS.register("dark_scythe", DarkScytheItem::new);
     public static final RegistryObject<Item> DARK_METAL_SCYTHE = ITEMS.register("dark_metal_scythe", () -> new DarkScytheItem(ModTiers.DARK));

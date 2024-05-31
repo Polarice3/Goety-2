@@ -1,0 +1,17 @@
+{
+  "name": "Незерский посох",
+  "icon": "goety:nether_staff",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Изучив способности визер-некромантов, вы смогли воссоздать их посохи, усиливающие незерские заклинания."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_staff"
+    }
+  ]
+}

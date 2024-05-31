@@ -1567,6 +1567,23 @@
     ],
     "subtitle": "subtitle.goety.necromancer_laugh"
   },
+  "necromancer_summon": {
+    "sounds": [
+      {
+        "name": "goety:spell/cast_spell1"
+      },
+      {
+        "name": "goety:spell/cast_spell2"
+      },
+      {
+        "name": "mob/evocation_illager/cast1"
+      },
+      {
+        "name": "mob/evocation_illager/cast2"
+      }
+    ],
+    "subtitle": "subtitle.goety.summon_spell"
+  },
   "necromancer_step": {
     "sounds": [
       {
@@ -1591,6 +1608,51 @@
       },
       {
         "name": "goety:necromancer/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_death"
+  },
+  "wither_necromancer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:wither_necromancer/idle1"
+      },
+      {
+        "name": "goety:wither_necromancer/idle2"
+      },
+      {
+        "name": "goety:wither_necromancer/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_ambient"
+  },
+  "wither_necromancer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:wither_necromancer/hurt1"
+      },
+      {
+        "name": "goety:wither_necromancer/hurt2"
+      },
+      {
+        "name": "goety:wither_necromancer/hurt3"
+      },
+      {
+        "name": "goety:wither_necromancer/hurt4"
+      }
+    ],
+    "subtitle": "subtitle.goety.necromancer_hurt"
+  },
+  "wither_necromancer_death": {
+    "sounds": [
+      {
+        "name": "goety:wither_necromancer/death1"
+      },
+      {
+        "name": "goety:wither_necromancer/death2"
+      },
+      {
+        "name": "goety:wither_necromancer/death3"
       }
     ],
     "subtitle": "subtitle.goety.necromancer_death"
@@ -2001,6 +2063,62 @@
       }
     ],
     "subtitle": "subtitle.goety.bone_spider_death"
+  },
+  "iceologer_ambient": {
+    "sounds": [
+      {
+        "name": "goety:iceologer/idle1"
+      },
+      {
+        "name": "goety:iceologer/idle2"
+      },
+      {
+        "name": "goety:iceologer/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.iceologer_ambient"
+  },
+  "iceologer_hurt": {
+    "sounds": [
+      {
+        "name": "goety:iceologer/hurt1"
+      },
+      {
+        "name": "goety:iceologer/hurt2"
+      },
+      {
+        "name": "goety:iceologer/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.iceologer_hurt"
+  },
+  "iceologer_attack": {
+    "sounds": [
+      {
+        "name": "goety:iceologer/attack1"
+      },
+      {
+        "name": "goety:iceologer/attack2"
+      },
+      {
+        "name": "goety:iceologer/attack3"
+      }
+    ],
+    "subtitle": "subtitle.goety.iceologer_attack"
+  },
+  "iceologer_death": {
+    "sounds": [
+      {
+        "name": "goety:iceologer/death1"
+      },
+      {
+        "name": "goety:iceologer/death2"
+      },
+      {
+        "name": "goety:iceologer/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.iceologer_death"
   },
   "whisperer_ambient": {
     "sounds": [
@@ -3836,6 +3954,28 @@
     ],
     "subtitle": "subtitle.goety.spider_web"
   },
+  "lich_ambient": {
+    "sounds": [
+      {
+        "name": "goety:lich/idle1"
+      },
+      {
+        "name": "goety:lich/idle2"
+      },
+      {
+        "name": "goety:lich/idle3"
+      },
+      {
+        "name": "goety:lich/laugh_long1"
+      },
+      {
+        "name": "goety:lich/laugh_long2"
+      },
+      {
+        "name": "goety:lich/laugh_long3"
+      }
+    ]
+  },
   "lich_hurt": {
     "sounds": [
       {
@@ -3849,6 +3989,39 @@
       },
       {
         "name": "goety:lich/hurt4"
+      }
+    ]
+  },
+  "lich_teleport_in": {
+    "sounds": [
+      {
+        "name": "goety:lich/teleport_in1"
+      },
+      {
+        "name": "goety:lich/teleport_in2"
+      },
+      {
+        "name": "goety:lich/teleport_in3"
+      },
+      {
+        "name": "goety:lich/teleport_in4"
+      }
+    ]
+  },
+  "lich_teleport_out": {
+    "sounds": [
+      {
+        "name": "goety:lich/teleport_out1"
+      },
+      {
+        "name": "goety:lich/teleport_out2"
+      }
+    ]
+  },
+  "lich_death": {
+    "sounds": [
+      {
+        "name": "goety:lich/death"
       }
     ]
   },
@@ -4052,6 +4225,37 @@
     ],
     "subtitle": "subtitle.goety.cast_spell"
   },
+  "cast_spell_two": {
+    "sounds": [
+      {
+        "name": "goety:spell/cast_spell1"
+      },
+      {
+        "name": "goety:spell/cast_spell2"
+      }
+    ],
+    "subtitle": "subtitle.goety.cast_spell"
+  },
+  "vex_vapor": {
+    "sounds": [
+      {
+        "name": "goety:spell/vex_vapor1"
+      },
+      {
+        "name": "goety:spell/vex_vapor2"
+      },
+      {
+        "name": "goety:spell/vex_vapor3"
+      }
+    ]
+  },
+  "soul_bolt_cast": {
+    "sounds": [
+      {
+        "name": "goety:spell/summon_spell3"
+      }
+    ]
+  },
   "necro_cast": {
     "sounds": [
       {
@@ -4080,6 +4284,17 @@
     ],
     "subtitle": "subtitle.goety.summon_spell"
   },
+  "summon_spell_fiery": {
+    "sounds": [
+      {
+        "name": "goety:spell/summon_spell_fiery1"
+      },
+      {
+        "name": "goety:spell/summon_spell_fiery2"
+      }
+    ],
+    "subtitle": "subtitle.goety.summon_spell"
+  },
   "vanguard_spell": {
     "sounds": [
       {
@@ -4095,6 +4310,30 @@
       }
     ],
     "subtitle": "subtitle.goety.vanguard_summon"
+  },
+  "boss_summon": {
+    "sounds": [
+      {
+        "name": "goety:random/boss_summon"
+      }
+    ]
+  },
+  "swing": {
+    "sounds": [
+      {
+        "name": "goety:random/swing1"
+      },
+      {
+        "name": "goety:random/swing2"
+      }
+    ]
+  },
+  "projectile_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/projectile_spell"
+      }
+    ]
   },
   "command": {
     "sounds": [
@@ -4808,6 +5047,20 @@
       }
     ],
     "subtitle": "subtitle.goety.spider_nest_spawn"
+  },
+  "urn_break": {
+    "sounds": [
+      {
+        "name": "goety:block/urn_break1"
+      },
+      {
+        "name": "goety:block/urn_break2"
+      },
+      {
+        "name": "goety:block/urn_break3"
+      }
+    ],
+    "subtitle": "subtitle.goety.urn_break"
   },
   "apostle_theme": {
     "sounds": [

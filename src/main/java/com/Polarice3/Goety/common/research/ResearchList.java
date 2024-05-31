@@ -14,6 +14,7 @@ public class ResearchList {
     public static Research FRONT = new Research("front");
     public static Research MISTRAL = new Research("mistral");
     public static Research FLORAL = new Research("floral");
+    public static Research BYGONE = new Research("bygone");
     public static Research TERMINUS = new Research("terminus");
 
     public static Map<String, Research> getResearchList(){

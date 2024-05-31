@@ -3,7 +3,9 @@ package com.Polarice3.Goety.common.entities.hostile;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
@@ -77,7 +79,32 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
     }
 
     public Summoned getDefaultSummon(){
-        return new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), this.level);
+        return new SkeletonServant(ModEntityType.STRAY_SERVANT.get(), this.level);
+    }
+
+    public Summoned getSummon(){
+        Summoned summoned = getDefaultSummon();
+        if (this.getSummonList().contains(ModEntityType.FROZEN_ZOMBIE_SERVANT.get())) {
+            if (this.level.random.nextBoolean()) {
+                summoned = new ZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), this.level);
+            }
+        }
+        if (this.getSummonList().contains(ModEntityType.STRAY_SERVANT.get())) {
+            if (this.level.random.nextBoolean()) {
+                summoned = new SkeletonServant(ModEntityType.STRAY_SERVANT.get(), this.level);
+            }
+        }
+        if (this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get())) {
+            if (this.level.random.nextFloat() <= 0.05F) {
+                summoned = new WraithServant(ModEntityType.WRAITH_SERVANT.get(), this.level);
+            }
+        }
+        if (this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get())){
+            if (this.level.random.nextFloat() <= 0.15F) {
+                summoned = new VanguardServant(ModEntityType.VANGUARD_SERVANT.get(), this.level);
+            }
+        }
+        return summoned;
     }
 
     public class SummonServantSpell extends SummoningSpellGoal {
@@ -86,19 +113,14 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() instanceof AbstractNecromancer;
             int i = CairnNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, CairnNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
-            return super.canUse() && i < 2;
+            return super.canUse() && i < 6;
         }
 
         protected void castSpell(){
             if (CairnNecromancer.this.level instanceof ServerLevel serverLevel) {
-                for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(3); ++i1) {
-                    Summoned summonedentity = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
-                    if (CairnNecromancer.this.getSummonList().contains(ModEntityType.ZOMBIE_SERVANT.get())){
-                        if (serverLevel.random.nextBoolean()){
-                            summonedentity = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
-                        }
-                    }
-                    BlockPos blockPos = BlockFinder.SummonRadius(CairnNecromancer.this, serverLevel);
+                for (int i1 = 0; i1 < 2; ++i1) {
+                    Summoned summonedentity = CairnNecromancer.this.getSummon();
+                    BlockPos blockPos = BlockFinder.SummonRadius(CairnNecromancer.this.blockPosition(), summonedentity, serverLevel);
                     summonedentity.setTrueOwner(CairnNecromancer.this);
                     summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summonedentity);

@@ -25,6 +25,16 @@
     {
       "type": "patchouli:text",
       "text": "There's also another special ability the Golem possesses, should their Summoner die within 64 blocks near them, their items and equipment will be absorbed within the Golem. The Golem will glow reddish-orange to show that it has items contained itself. To get the items back, the Summoner simply needs to right-click on them with a Shovel. They'll also drop said items when killed. Of course, this requires the Summoner to actually drop their items upon death. (Suggested by JoTurtleGuy21)"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:grave_golem_skull",
+      "text": "Should the Golem fell from battle or command, they will drop their 'skull'. The Skull can be used to revive the Golem in a cheaper manner. However, the Skull remembers it's original creator and master and the revived Golem will only follow their commands."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "goety:grave_golem_revive",
+      "enable_visualize": false
     }
   ]
 }

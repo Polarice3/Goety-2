@@ -215,6 +215,12 @@ public class RedstoneMonstrosityMold implements IMold {
             new BlockPos(-2, -1, 6),
             new BlockPos(-2, -1, -6),
 
+            new BlockPos(3, -1, 5),
+            new BlockPos(3, -1, -5),
+
+            new BlockPos(-3, -1, 5),
+            new BlockPos(-3, -1, -5),
+
             new BlockPos(4, -1, 4),
             new BlockPos(4, -1, -4),
 

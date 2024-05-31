@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "goety:fireball",
+    "goety:lavaball",
+    "goety:ice_spike",
+    "goety:harpoon",
+    "goety:poison_quill",
+    "goety:bone_shard",
+    "goety:soul_bullet",
+    "goety:soul_bolt",
+    "goety:steam_missile",
+    "goety:ill_bomb",
+    "goety:electro_orb",
+    "goety:pyroclast",
+    "goety:magma_bomb",
+    "goety:web_shot"
+  ]
+}

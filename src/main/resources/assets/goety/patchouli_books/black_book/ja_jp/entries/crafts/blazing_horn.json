@@ -1,0 +1,17 @@
+{
+  "name": "燃える角笛",
+  "icon": "goety:blazing_horn",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "かつて冥界の要塞をさまよっていた強力な魔術師の噂を聞いたことがあるでしょう。その要塞内で特定の呪文を唱えると、魔術師を召喚できると言われています。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blazing_horn",
+      "text": "ヤギの角と冥界の力を使えば、呪文を複製してこれらの存在の 1 つを召喚することができます。"
+    }
+  ]
+}

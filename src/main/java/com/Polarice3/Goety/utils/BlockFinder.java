@@ -42,6 +42,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -191,7 +193,7 @@ public class BlockFinder {
         boolean flag = false;
         BlockPos blockpos = BlockPos.containing(x, y, z);
         Level level = livingEntity.level;
-        if (level.hasChunkAt(blockpos)) {
+        if (level.isLoaded(blockpos)) {
             boolean flag1 = false;
 
             while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
@@ -218,28 +220,38 @@ public class BlockFinder {
         }
     }
 
-    public static BlockPos SummonRadius(LivingEntity livingEntity, Level world){
-        BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable().move(0, 0, 0);
-        blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(5) - world.random.nextInt(5));
-        blockpos$mutable.setY(livingEntity.getBlockY());
-        blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(5) - world.random.nextInt(5));
-        if (world.noCollision(livingEntity) && !world.containsAnyLiquid(livingEntity.getBoundingBox())) {
-            return SummonPosition(livingEntity, blockpos$mutable);
-        } else {
-            return livingEntity.blockPosition();
-        }
+    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world){
+        return SummonRadius(blockPos, livingEntity, world, 5);
     }
 
-    public static BlockPos SummonFurtherRadius(LivingEntity livingEntity, Level world){
-        BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable();
-        blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(9) - world.random.nextInt(9));
-        blockpos$mutable.setY((int) BlockFinder.moveDownToGround(livingEntity));
-        blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(9) - world.random.nextInt(9));
-        if (world.noCollision(livingEntity) && !world.containsAnyLiquid(livingEntity.getBoundingBox())) {
-            return SummonPosition(livingEntity, blockpos$mutable);
-        } else {
-            return livingEntity.blockPosition();
+    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int radius){
+        for (int i = 0; i < 128; ++i) {
+            BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
+            blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            blockpos$mutable.setY(blockPos.getY());
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
+            && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) <= Mth.square(radius * 2)) {
+                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                break;
+            }
         }
+        return blockPos;
+    }
+
+    public static BlockPos SummonFurtherRadius(BlockPos blockPos, LivingEntity livingEntity, Level world){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        for (int i = 0; i < 128; ++i) {
+            blockpos$mutable.setX((int) (blockpos$mutable.getX() + (world.random.nextDouble() - 0.5D) * 16));
+            blockpos$mutable.setY(blockPos.getY());
+            blockpos$mutable.setZ((int) (blockpos$mutable.getZ() + (world.random.nextDouble() - 0.5D) * 16));
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable)) && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))) {
+                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                break;
+            }
+        }
+        return blockPos;
     }
 
     public static BlockPos SummonWaterRadius(LivingEntity livingEntity, Level world){
@@ -498,4 +510,41 @@ public class BlockFinder {
         }
 
     }
+
+    //Adapted from @miyo6032 codes: https://github.com/miyo6032/bosses-of-mass-destruction/blob/f0717da78be52470e29ec6d578dacec62f305f64/src/main/kotlin/net/barribob/maelstrom/static_utilities/MathUtils.kt#L131
+    public static List<Vec3> buildBlockCircle(double radius){
+        int intRadius = (int) radius;
+        double radiusSq = radius * radius;
+        List<Vec3> points = new ArrayList<>();
+        for (int x = -intRadius; x < intRadius; ++x) {
+            for (int z = -intRadius; z < intRadius; ++z) {
+                Vec3 pos = new Vec3(x, 0.0, z);
+                if (pos.lengthSqr() <= radiusSq) {
+                    points.add(pos);
+                }
+            }
+        }
+        return points;
+    }
+
+    public static List<Vec3> buildBlockCircle(Vec3 position, double radius){
+        List<Vec3> properPos =new ArrayList<>();
+        for (Vec3 value : buildBlockCircle(radius)) {
+            properPos.add(position.add(value));
+        }
+        return properPos;
+    }
+
+    public static List<Vec3> buildOuterBlockCircle(Vec3 position, double radius, double reduction){
+        List<Vec3> properPos = buildBlockCircle(position, radius);
+        for (Vec3 value : buildBlockCircle(position, reduction)) {
+            properPos.remove(value);
+        }
+        return properPos;
+    }
+
+    public static List<Vec3> buildOuterBlockCircle(Vec3 position, double radius){
+        return buildOuterBlockCircle(position, radius, radius - 1.0D);
+    }
+
 }

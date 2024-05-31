@@ -1,0 +1,15 @@
+{
+  "name": "Фокус черепа",
+  "icon": "goety:skull_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "С помощью этого фокуса вы сможете вызывать черепа, одержимые потусторонними духами, которые будут следовать за вами и налетать на враждебных существ, взрываясь."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/skull_focus"
+    }
+  ]
+}

@@ -41,6 +41,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StrayServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WitherSkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MossySkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunkenSkeletonServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerServantTexture;
@@ -49,6 +50,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ZPiglinServantTexture;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GhastServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlazeServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
 
@@ -104,12 +108,15 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WraithAggressiveTeleport;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> StayingServantChunkLoad;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightBurn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightHelmet;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityMold;
@@ -139,6 +146,8 @@ public class MobsConfig {
                         .define("skeletonServantTexture", true);
                 StrayServantTexture = BUILDER.comment("If Stray Servants have custom textures, Default: true")
                         .define("strayServantTexture", true);
+                WitherSkeletonServantTexture = BUILDER.comment("If Wither Skeleton Servants have custom textures, Default: true")
+                        .define("witherSkeletonServantTexture", true);
                 MossySkeletonServantTexture = BUILDER.comment("If Mossy Skeleton Servants have custom textures, Default: true")
                         .define("mossySkeletonServantTexture", true);
                 SunkenSkeletonServantTexture = BUILDER.comment("If Sunken Skeleton Servants have custom textures, Default: true")
@@ -155,6 +164,14 @@ public class MobsConfig {
                 BUILDER.push("Zombified Piglin Servants");
                 ZPiglinServantTexture = BUILDER.comment("If Zombified Piglin Servants have custom textures, Default: true")
                         .define("zPiglinServantTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Ghast Servants");
+                GhastServantTexture = BUILDER.comment("If Ghast Servants have custom textures, Default: true")
+                        .define("ghastServantTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Blaze Servants");
+                BlazeServantTexture = BUILDER.comment("If Blaze Servants have custom textures, Default: true")
+                        .define("blazeServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Vexes");
                 VexTexture = BUILDER.comment("If Vexes have custom textures, Default: true")
@@ -233,6 +250,8 @@ public class MobsConfig {
                 .define("ownerAttackCancel", true);
         MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
                 .define("mobSense", true);
+        StayingServantChunkLoad = BUILDER.comment("Servants, when on staying mode, will load chunks around it, Default: true")
+                .define("stayingServantChunkLoad", true);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")
                 .defineInRange("maxSlimeSize", 4, 1, 127);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
@@ -304,6 +323,8 @@ public class MobsConfig {
             BUILDER.push("Apostle");
             ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
                     .define("apocalypseMode", false);
+            ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of itself to take damage when in water. Default: true")
+                    .define("apostleBoilsWater", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
                     .define("fancierApostleDeath", false);
             BUILDER.pop();

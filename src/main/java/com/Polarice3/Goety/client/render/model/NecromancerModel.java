@@ -49,16 +49,16 @@ public class NecromancerModel<T extends AbstractNecromancer> extends Hierarchica
 
 		PartDefinition staff = right_arm.addOrReplaceChild("staff", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 9.0F, 0.0F, 1.5708F, 0.0F, 0.0F));
 
-		PartDefinition handle = staff.addOrReplaceChild("handle", CubeListBuilder.create().texOffs(60, 39).addBox(0.5F, -16.0F, -19.0F, 1.0F, 24.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 7.0F, 19.0F));
+		PartDefinition handle = staff.addOrReplaceChild("handle", CubeListBuilder.create().texOffs(60, 39).addBox(0.5F, -20.0F, -19.0F, 1.0F, 28.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 7.0F, 19.0F));
 
 		PartDefinition group = staff.addOrReplaceChild("group", CubeListBuilder.create().texOffs(56, 47).addBox(0.5F, -19.0F, -21.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(56, 47).addBox(2.5F, -19.0F, -19.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(56, 47).addBox(-1.5F, -19.0F, -19.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(56, 47).addBox(0.5F, -19.0F, -17.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
-		.texOffs(48, 56).addBox(0.5F, -17.0F, -21.0F, 1.0F, 1.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(48, 62).addBox(-1.5F, -17.0F, -19.0F, 5.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 7.0F, 19.0F));
+				.texOffs(56, 47).addBox(2.5F, -19.0F, -19.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(56, 47).addBox(-1.5F, -19.0F, -19.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(56, 47).addBox(0.5F, -19.0F, -17.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(48, 56).addBox(0.5F, -17.0F, -21.0F, 1.0F, 1.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(48, 62).addBox(-1.5F, -17.0F, -19.0F, 5.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 3.0F, 19.0F));
 
-		PartDefinition staffhead = staff.addOrReplaceChild("staffhead", CubeListBuilder.create().texOffs(48, 50).addBox(-0.5F, -20.0F, -20.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 7.0F, 19.0F));
+		PartDefinition staffhead = staff.addOrReplaceChild("staffhead", CubeListBuilder.create().texOffs(48, 50).addBox(-0.5F, -20.0F, -20.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 3.0F, 19.0F));
 
 		PartDefinition right_pauldron = right_arm.addOrReplaceChild("right_pauldron", CubeListBuilder.create().texOffs(0, 48).addBox(-4.0F, -4.0F, -3.0F, 5.0F, 5.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 1.0F));
 

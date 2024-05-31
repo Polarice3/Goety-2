@@ -1,0 +1,15 @@
+{
+  "name": "氷嵐のフォーカス",
+  "icon": "goety:ice_storm_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "この呪文は、ゆっくりと物体を通過して近くの生き物を凍らせ、ダメージを与える氷の球を召喚します。球は進むにつれてサイズが大きくなります。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ice_storm_focus"
+    }
+  ]
+}

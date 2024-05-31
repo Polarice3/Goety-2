@@ -33,5 +33,6 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), datapackProvider);
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(generator.getPackOutput(), lookupProvider, event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(generator.getPackOutput(), lookupProvider, event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new ModItemTagsProvider(generator.getPackOutput(), lookupProvider, event.getExistingFileHelper()));
     }
 }

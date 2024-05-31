@@ -81,6 +81,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichVillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichModeSounds;
 
     static {
         BUILDER.push("General");
@@ -211,6 +212,8 @@ public class MainConfig {
                 .define("lichVillagerHate", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
                 .define("lichScrollRequirement", true);
+        LichModeSounds = BUILDER.comment("Whether the player in Lich Mode will emit Lich sounds, Default: true")
+                .define("lichModeSounds", true);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

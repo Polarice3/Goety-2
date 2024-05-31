@@ -478,7 +478,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
     }
 
     public boolean canAnimateMove(){
-        return super.canAnimateMove() && !this.isMeleeAttacking();
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
     }
 
     protected boolean isImmobile() {

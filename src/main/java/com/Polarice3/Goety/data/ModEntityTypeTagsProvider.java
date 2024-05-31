@@ -34,6 +34,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.FROZEN_ZOMBIE_SERVANT.get(),
                 ModEntityType.STRAY_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
+                ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
                 ModEntityType.HAUNTED_ARMOR_SERVANT.get(),
@@ -47,6 +48,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.BORDER_WRAITH.get(),
                 ModEntityType.BORDER_WRAITH_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
+                ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.ICE_GOLEM.get(),
                 ModEntityType.CRYOLOGER.get(),
                 ModEntityType.GLACIAL_WALL.get());
@@ -74,6 +76,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.DEATH_ARROW.get());
         this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(ModEntityType.SOUL_BOLT.get(),
                 ModEntityType.STEAM_MISSILE.get(),
+                ModEntityType.WITHER_BOLT.get(),
                 ModEntityType.HELL_BOLT.get(),
                 ModEntityType.HELL_BLAST.get(),
                 ModEntityType.NECRO_BOLT.get(),
@@ -85,7 +88,6 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.ICE_SPIKE.get(),
                 ModEntityType.MOD_FIREBALL.get(),
                 ModEntityType.LAVABALL.get(),
-                ModEntityType.GRAND_LAVABALL.get(),
                 ModEntityType.HAUNTED_SKULL_SHOT.get(),
                 ModEntityType.MOD_WITHER_SKULL.get());
         this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityType.SLIME_SERVANT.get(),

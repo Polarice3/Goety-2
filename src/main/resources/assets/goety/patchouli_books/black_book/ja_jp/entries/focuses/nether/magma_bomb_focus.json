@@ -1,0 +1,16 @@
+{
+  "name": "マグマボムのフォーカス",
+  "icon": "goety:magma_bomb_focus",
+  "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "村人の古代の伝説には、マグマ キューブを敵に撃ち込んで壊滅させる巨大なホグリンのような生き物がいます。インスピレーションを得て少し手を加えて、爆発を起こすマグマの球を撃つフォーカスを作りました...そして、着弾地点に忠実なマグマ キューブをいくつか残します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/magma_bomb_focus"
+    }
+  ]
+}

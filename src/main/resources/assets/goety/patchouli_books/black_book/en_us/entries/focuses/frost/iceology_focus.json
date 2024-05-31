@@ -1,0 +1,15 @@
+{
+  "name": "Iceology Focus",
+  "icon": "goety:iceology_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You have learned a branch of Illager Magic called Iceology. With this focus, you are able to summon a chunk of floating ice above a target that will then smash onto them after a small amount of time, stunning them for a few seconds."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/iceology_focus"
+    }
+  ]
+}

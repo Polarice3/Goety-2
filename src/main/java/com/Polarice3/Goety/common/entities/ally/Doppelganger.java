@@ -4,11 +4,14 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.CreatureBowAttackGoal;
 import com.Polarice3.Goety.common.entities.projectiles.NecroBolt;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -176,12 +179,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     @Override
     public void lifeSpanDamage() {
-        if (!this.level.isClientSide){
-            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
-            }
-        }
-        this.discard();
+        this.die(this.damageSources().starve());
     }
 
     protected void registerGoals() {
@@ -336,11 +334,19 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
 
     public void die(DamageSource cause) {
         if (!this.level.isClientSide) {
-            for (int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
+            for (int i = 0; i < this.level.random.nextInt(10) + 10; ++i) {
+                ParticleOptions particleOptions = ParticleTypes.POOF;
+                if (this.isUndeadClone()){
+                    particleOptions = ModParticleTypes.LICH.get();
+                }
+                ServerParticleUtil.smokeParticles(particleOptions, this.getX(), this.getY(), this.getZ(), this.level);
             }
         }
-        this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1.0F, 1.0F);
+        SoundEvent soundEvent = SoundEvents.ILLUSIONER_MIRROR_MOVE;
+        if (this.isUndeadClone()){
+            soundEvent = ModSounds.LICH_TELEPORT_OUT.get();
+        }
+        this.playSound(soundEvent, 1.0F, 1.0F);
         this.discard();
     }
 
@@ -393,7 +399,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
             soulBolt.setPos(this.getX(), this.getEyeY() - 0.2F, this.getZ());
             soulBolt.setOwner(this);
             if (this.level.addFreshEntity(soulBolt)) {
-                this.playSound(SoundEvents.EVOKER_CAST_SPELL, 1.0F, 1.0F);
+                SoundUtil.playNecroBoltIllusion(this);
                 this.setShot(true);
             }
             this.swing(InteractionHand.MAIN_HAND);

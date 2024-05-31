@@ -1,14 +1,11 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
-import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
-import com.Polarice3.Goety.common.network.ModNetwork;
-import com.Polarice3.Goety.common.network.server.SAddBossPacket;
+import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -17,13 +14,9 @@ import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -50,15 +43,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.network.NetworkDirection;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.UUID;
 
-public class HostileRedstoneGolem extends HostileGolem implements IBoss {
+public class HostileRedstoneGolem extends HostileGolem {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(HostileRedstoneGolem.class, EntityDataSerializers.BYTE);
     public static float SUMMON_SECONDS_TIME = 5.15F;
     private int activateTick;
@@ -76,8 +67,7 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
     public boolean isNovelty = false;
     public boolean isPostAttack = false;
     public boolean isFlash = false;
-    private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(false).setCreateWorldFog(false);
-    private UUID bossInfoUUID = bossInfo.getId();
+    private final ModServerBossInfo bossInfo;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState noveltyAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -87,13 +77,11 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
 
     public HostileRedstoneGolem(EntityType<? extends HostileGolem> p_37839_, Level p_37840_) {
         super(p_37839_, p_37840_);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.RED, false, false);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.xpReward = 99;
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     public void registerGoals() {
@@ -186,7 +174,6 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
     protected void customServerAiStep() {
         super.customServerAiStep();
         this.bossInfo.setVisible(MainConfig.SpecialBossBar.get());
-        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void startSeenByPlayer(ServerPlayer pPlayer) {
@@ -199,14 +186,6 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
     public void stopSeenByPlayer(ServerPlayer pPlayer) {
         super.stopSeenByPlayer(pPlayer);
         this.bossInfo.removePlayer(pPlayer);
-    }
-
-    @Override
-    public void remove(RemovalReason p_146834_) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(p_146834_);
     }
 
     @Override
@@ -327,6 +306,10 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
 
     public void tick() {
         super.tick();
+        if (this.tickCount % 5 == 0) {
+            this.bossInfo.update();
+        }
+        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         if (this.isDeadOrDying()){
             this.stopMostAnimations(this.deathAnimationState);
             this.setYRot(this.deathRotation);
@@ -504,22 +487,6 @@ public class HostileRedstoneGolem extends HostileGolem implements IBoss {
             this.setMeleeAttacking(true);
         }
         return true;
-    }
-
-    @Override
-    public UUID getBossInfoUUID() {
-        return this.bossInfoUUID;
-    }
-
-    @Override
-    public void setBossInfoUUID(UUID bossInfoUUID) {
-        this.bossInfoUUID = bossInfoUUID;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) ModNetwork.INSTANCE.toVanillaPacket(new SAddBossPacket(new ClientboundAddEntityPacket(this), bossInfoUUID), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     /**

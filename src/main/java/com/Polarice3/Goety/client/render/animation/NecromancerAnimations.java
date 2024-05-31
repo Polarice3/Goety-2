@@ -164,7 +164,7 @@ public class NecromancerAnimations {
                     new Keyframe(1.0F, KeyframeAnimations.degreeVec(60.0F, -5.0F, -15.0F), AnimationChannel.Interpolations.CATMULLROM)
             ))
             .build();
-    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.withLength(1f)
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.withLength(1f).looping()
             .addAnimation("right_arm",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(-80f, 15f, 0f),

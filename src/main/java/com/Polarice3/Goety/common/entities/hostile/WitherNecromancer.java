@@ -1,14 +1,15 @@
 package com.Polarice3.Goety.common.entities.hostile;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.WitherSkeletonServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
-import com.Polarice3.Goety.common.entities.neutral.Volcano;
-import com.Polarice3.Goety.common.entities.projectiles.HellBolt;
+import com.Polarice3.Goety.common.entities.projectiles.WitherBolt;
+import com.Polarice3.Goety.common.entities.util.FirePillar;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
@@ -16,7 +17,9 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -37,13 +40,16 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class WitherNecromancer extends AbstractNecromancer implements Enemy {
@@ -51,12 +57,9 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
 
     public WitherNecromancer(EntityType<? extends AbstractNecromancer> type, Level level) {
         super(type, level);
-        this.bossInfo = new ModServerBossInfo(this.getUUID(), this, BossEvent.BossBarColor.PURPLE, false, false);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.PURPLE, false, false);
         this.setHostile(true);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     protected void registerGoals() {
@@ -66,21 +69,30 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractPiglin.class, true));
     }
 
+    public void projectileGoal(int priority){
+        this.goalSelector.addGoal(priority, new WitherNecromancerRangedGoal(this, 1.0D, 20, 12.0F));
+    }
+
     public void summonSpells(int priority){
-        this.goalSelector.addGoal(priority, new SummonServantSpell());
-        this.goalSelector.addGoal(priority + 1, new SummonVolcanosGoal());
+        this.goalSelector.addGoal(priority + 1, new SummonServantSpell());
+        this.goalSelector.addGoal(priority, new SummonFirePillarsGoal());
+        this.goalSelector.addGoal(priority, new SummonFireSurroundGoal());
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 160.0D)
-                .add(Attributes.FOLLOW_RANGE, 16.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.WitherNecromancerHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.WitherNecromancerArmor.get())
+                .add(Attributes.FOLLOW_RANGE, AttributesConfig.WitherNecromancerFollowRange.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.NecromancerDamage.get());
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WitherNecromancerDamage.get());
     }
 
     public void setConfigurableAttributes(){
-        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), 160.0D);
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WitherNecromancerHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.WitherNecromancerArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.FOLLOW_RANGE), AttributesConfig.WitherNecromancerFollowRange.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.NecromancerDamage.get());
     }
 
@@ -90,7 +102,6 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
     }
 
     public void setCustomName(@Nullable Component name) {
@@ -110,6 +121,17 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         this.bossInfo.removePlayer(pPlayer);
     }
 
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+        float f1 = (float)this.getNecroLevel();
+        float size = 1.0F + Math.max(f1 * 0.15F, 0);
+        return 2.523F * size;
+    }
+
+    @Override
+    public int xpReward() {
+        return 40;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -119,16 +141,40 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
+    @Override
+    public void die(DamageSource pCause) {
+        super.die(pCause);
+        if (!this.level.isClientSide){
+            if (this.level instanceof ServerLevel serverLevel){
+                for (int k = 0; k < 64; ++k) {
+                    float f2 = random.nextFloat() * 4.0F;
+                    float f1 = random.nextFloat() * ((float) Math.PI * 2F);
+                    double d1 = Mth.cos(f1) * f2;
+                    double d2 = 0.01D + random.nextDouble() * 0.5D;
+                    double d3 = Mth.sin(f1) * f2;
+                    serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+                    serverLevel.sendParticles(ParticleTypes.FLAME, this.getX() + d1 * 0.1D, this.getY() + 0.3D, this.getZ() + d3 * 0.1D, 0, d1, d2, d3, 0.5F);
+                }
+            }
+            if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                ModLootTables.createLootChest(this,
+                        ModBlocks.LOFTY_CHEST.get().defaultBlockState(),
+                        this.blockPosition(),
+                        pCause);
+            }
+        }
+    }
+
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.WITHER_SKELETON_AMBIENT;
+        return ModSounds.WITHER_NECROMANCER_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return SoundEvents.WITHER_SKELETON_HURT;
+        return ModSounds.WITHER_NECROMANCER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WITHER_SKELETON_DEATH;
+        return ModSounds.WITHER_NECROMANCER_DEATH.get();
     }
 
     protected SoundEvent getStepSound() {
@@ -145,10 +191,11 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
     @Override
     public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
         Vec3 vector3d = this.getViewVector(1.0F);
-        HellBolt hellBolt = new HellBolt(this, vector3d.x, vector3d.y, vector3d.z, this.level);
-        hellBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
-        hellBolt.rotateToMatchMovement();
-        if (this.level.addFreshEntity(hellBolt)) {
+        WitherBolt witherBolt = new WitherBolt(this, vector3d.x, vector3d.y, vector3d.z, this.level);
+        witherBolt.setOwner(this);
+        witherBolt.setPos(this.getX() + vector3d.x / 2, this.getEyeY() - 0.2, this.getZ() + vector3d.z / 2);
+        witherBolt.rotateToMatchMovement();
+        if (this.level.addFreshEntity(witherBolt)) {
             this.playSound(SoundEvents.WITHER_SHOOT, 0.5F, 0.25F);
             this.playSound(ModSounds.HELL_BOLT_SHOOT.get());
             this.swing(InteractionHand.MAIN_HAND);
@@ -167,16 +214,30 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         }
     }
 
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource.getEntity() != null){
+            if (pSource.getEntity() instanceof LivingEntity livingEntity){
+                if (!(livingEntity instanceof WitherSkeleton) && !livingEntity.isAlliedTo(this)){
+                    for (WitherSkeleton witherSkeleton : this.level.getEntitiesOfClass(WitherSkeleton.class, this.getBoundingBox().inflate(10))){
+                        if (witherSkeleton.getTarget() != livingEntity) {
+                            if (witherSkeleton.canAttack(livingEntity)) {
+                                witherSkeleton.setTarget(livingEntity);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return super.hurt(pSource, pAmount);
+    }
+
     public boolean canBeAffected(MobEffectInstance p_34192_) {
         return p_34192_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_34192_);
     }
 
     @Override
-    public void remove(RemovalReason p_146834_) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(p_146834_);
+    protected boolean shouldDropLoot() {
+        return false;
     }
 
     public class SummonServantSpell extends SummoningSpellGoal {
@@ -185,7 +246,7 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
             Predicate<Entity> predicate = entity -> entity.isAlive() && entity instanceof IOwned owned && owned.getTrueOwner() == WitherNecromancer.this;
             int i = WitherNecromancer.this.level.getEntitiesOfClass(LivingEntity.class, WitherNecromancer.this.getBoundingBox().inflate(64.0D, 16.0D, 64.0D)
                     , predicate).size();
-            return super.canUse() && i < 2;
+            return super.canUse() && i < 6;
         }
 
         @Override
@@ -203,19 +264,23 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
 
         protected void castSpell(){
             if (WitherNecromancer.this.level instanceof ServerLevel serverLevel) {
-                for (int i1 = 0; i1 < 1 + serverLevel.random.nextInt(3); ++i1) {
-                    Summoned summoned = new SkeletonServant(ModEntityType.SKELETON_SERVANT.get(), serverLevel);
-                    BlockPos blockPos = BlockFinder.SummonRadius(WitherNecromancer.this, serverLevel);
+                for (int i1 = 0; i1 < 2; ++i1) {
+                    Summoned summoned = new WitherSkeletonServant(ModEntityType.WITHER_SKELETON_SERVANT.get(), serverLevel);
+                    BlockPos blockPos = BlockFinder.SummonRadius(WitherNecromancer.this.blockPosition(), summoned, serverLevel);
                     summoned.setTrueOwner(WitherNecromancer.this);
                     summoned.moveTo(blockPos, 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summoned);
                     summoned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(WitherNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     summoned.setPersistenceRequired();
                     if (serverLevel.addFreshEntity(summoned)){
-                        summoned.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
+                        summoned.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 0.75F);
                     }
                 }
             }
+        }
+
+        protected int getCastingInterval(){
+            return 200;
         }
 
         @Nullable
@@ -230,18 +295,115 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         }
     }
 
-    public class SummonVolcanosGoal extends Goal {
+    public class SummonFirePillarsGoal extends Goal {
         protected int spellTime;
 
         @Override
         public boolean canUse() {
             LivingEntity target = WitherNecromancer.this.getTarget();
-            if (WitherNecromancer.this.isShooting()){
-                return false;
-            } else if (WitherNecromancer.this.isSpellCasting()) {
+            if (WitherNecromancer.this.isSpellCasting()) {
                 return false;
             } else {
-                return target != null && target.isAlive() && WitherNecromancer.this.idleSpellCool <= 0;
+                return target != null
+                        && target.isAlive()
+                        && WitherNecromancer.this.random.nextBoolean()
+                        && WitherNecromancer.this.idleSpellCool <= 0;
+            }
+        }
+
+        public boolean canContinueToUse() {
+            return this.spellTime > 0;
+        }
+
+        public void start() {
+            this.spellTime = MathHelper.secondsToTicks(3);
+            WitherNecromancer.this.setSpellCooldown(WitherNecromancer.this.getSpellCooldown() + 60);
+            WitherNecromancer.this.playSound(ModSounds.RUMBLE.get(), 1.0F, 1.0F);
+            WitherNecromancer.this.setSpellCasting(true);
+            WitherNecromancer.this.setNecromancerSpellType(NecromancerSpellType.CLOUD);
+            WitherNecromancer.this.setAnimationState(SPELL_ANIM);
+            if (WitherNecromancer.this.level instanceof ServerLevel serverLevel) {
+                int warmUp = 20;
+                int duration = 180;
+                Vec3 vector3d = WitherNecromancer.this.getViewVector(1.0F);
+                float f = (float) Mth.atan2(vector3d.z - WitherNecromancer.this.getZ(), vector3d.x - WitherNecromancer.this.getX());
+                for (int k = 0; k < 8; ++k) {
+                    float f2 = f + (float) k * (float) Math.PI * 0.25F + 1.0F;
+                    FirePillar flames = new FirePillar(serverLevel, WitherNecromancer.this.getX() + (double) Mth.cos(f2), WitherNecromancer.this.getY(), WitherNecromancer.this.getZ() + (double) Mth.sin(f2));
+                    flames.setOwner(WitherNecromancer.this);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    MobUtil.moveDownToGround(flames);
+                    serverLevel.addFreshEntity(flames);
+                }
+
+                for (int k = 0; k < 8; ++k) {
+                    float f2 = f + (float) k * (float) Math.PI * 0.25F + 3.0F;
+                    FirePillar flames = new FirePillar(serverLevel, WitherNecromancer.this.getX() + (double) Mth.cos(f2) * 3.0D, WitherNecromancer.this.getY(), WitherNecromancer.this.getZ() + (double) Mth.sin(f2) * 3.0D);
+                    flames.setOwner(WitherNecromancer.this);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    MobUtil.moveDownToGround(flames);
+                    serverLevel.addFreshEntity(flames);
+                }
+
+                for (int k = 0; k < 8; ++k) {
+                    float f2 = f + (float) k * (float) Math.PI * 0.25F + 6.0F;
+                    FirePillar flames = new FirePillar(serverLevel, WitherNecromancer.this.getX() + (double) Mth.cos(f2) * 6.0D, WitherNecromancer.this.getY(), WitherNecromancer.this.getZ() + (double) Mth.sin(f2) * 6.0D);
+                    flames.setOwner(WitherNecromancer.this);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    MobUtil.moveDownToGround(flames);
+                    serverLevel.addFreshEntity(flames);
+                }
+
+                for (int k = 0; k < 16; ++k) {
+                    float f2 = f + (float) k * (float) Math.PI * 0.25F + 9.0F;
+                    FirePillar flames = new FirePillar(serverLevel, WitherNecromancer.this.getX() + (double) Mth.cos(f2) * 9.0F, WitherNecromancer.this.getY(), WitherNecromancer.this.getZ() + (double) Mth.sin(f2) * 9.0F);
+                    flames.setOwner(WitherNecromancer.this);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    MobUtil.moveDownToGround(flames);
+                    serverLevel.addFreshEntity(flames);
+                }
+            }
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            WitherNecromancer.this.setSpellCasting(false);
+            WitherNecromancer.this.setAnimationState(IDLE);
+        }
+
+        public void tick() {
+            --this.spellTime;
+            if (this.spellTime == 0) {
+                WitherNecromancer.this.addEffect(new MobEffectInstance(GoetyEffects.TANGLED.get(), 180, 0, false, false));
+                WitherNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);
+                WitherNecromancer.this.idleSpellCool = MathHelper.secondsToTicks(10);
+            }
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+    }
+
+    public class SummonFireSurroundGoal extends Goal {
+        protected int spellTime;
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = WitherNecromancer.this.getTarget();
+            if (WitherNecromancer.this.isSpellCasting()) {
+                return false;
+            } else {
+                return target != null
+                        && target.isAlive()
+                        && WitherNecromancer.this.random.nextBoolean()
+                        && WitherNecromancer.this.idleSpellCool <= 0;
             }
         }
 
@@ -251,35 +413,25 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         }
 
         public void start() {
-            this.spellTime = 29;
-            WitherNecromancer.this.setSpellCooldown(100);
-            WitherNecromancer.this.playSound(ModSounds.PREPARE_SUMMON.get(), 1.0F, 1.0F);
+            this.spellTime = MathHelper.secondsToTicks(3);
+            WitherNecromancer.this.setSpellCooldown(WitherNecromancer.this.getSpellCooldown() + 60);
+            WitherNecromancer.this.playSound(ModSounds.RUMBLE.get(), 1.0F, 1.0F);
             WitherNecromancer.this.setSpellCasting(true);
             WitherNecromancer.this.setNecromancerSpellType(NecromancerSpellType.CLOUD);
-            WitherNecromancer.this.level.broadcastEntityEvent(WitherNecromancer.this, (byte) 6);
-            if (WitherNecromancer.this.level instanceof ServerLevel serverLevel) {
-                LivingEntity target = WitherNecromancer.this.getTarget();
-                if (target != null) {
-                    float f = (float) Mth.atan2(target.getZ() - WitherNecromancer.this.getZ(), target.getX() - WitherNecromancer.this.getX());
-                    for (int k = 0; k < 4; ++k) {
-                        float f2 = f + (float) k * (float) Math.PI * 0.25F + 3.0F;
-                        Volcano volcano = new Volcano(ModEntityType.VOLCANO.get(), serverLevel);
-                        volcano.setTrueOwner(WitherNecromancer.this);
-                        volcano.setPos(WitherNecromancer.this.getX() + (double) Mth.cos(f2) * 3.0D, WitherNecromancer.this.getY() + 4.0F, WitherNecromancer.this.getZ() + (double) Mth.sin(f2) * 3.0D);
-                        volcano.setExplosionPower(1.5F);
-                        volcano.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(WitherNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                        serverLevel.addFreshEntity(volcano);
-                    }
-
-                    for (int k = 0; k < 8; ++k) {
-                        float f2 = f + (float) k * (float) Math.PI * 0.25F + 6.0F;
-                        Volcano volcano = new Volcano(ModEntityType.VOLCANO.get(), serverLevel);
-                        volcano.setTrueOwner(WitherNecromancer.this);
-                        volcano.setPos(WitherNecromancer.this.getX() + (double) Mth.cos(f2) * 6.0D, WitherNecromancer.this.getY() + 4.0F, WitherNecromancer.this.getZ() + (double) Mth.sin(f2) * 6.0D);
-                        volcano.setExplosionPower(1.5F);
-                        volcano.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(WitherNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                        serverLevel.addFreshEntity(volcano);
-                    }
+            WitherNecromancer.this.setAnimationState(SPELL_ANIM);
+            LivingEntity target = WitherNecromancer.this.getTarget();
+            if (WitherNecromancer.this.level instanceof ServerLevel serverLevel
+                    && target != null && target.isAlive()) {
+                int warmUp = 20;
+                int duration = 180;
+                List<Vec3> vec3s = BlockFinder.buildOuterBlockCircle(target.position(), 6.0D);
+                for (Vec3 vec3 : vec3s) {
+                    FirePillar flames = new FirePillar(serverLevel, vec3.x, vec3.y, vec3.z);
+                    flames.setOwner(WitherNecromancer.this);
+                    flames.setDuration(duration);
+                    flames.setWarmUp(warmUp);
+                    MobUtil.moveDownToGround(flames);
+                    serverLevel.addFreshEntity(flames);
                 }
             }
         }
@@ -288,15 +440,33 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         public void stop() {
             super.stop();
             WitherNecromancer.this.setSpellCasting(false);
-            WitherNecromancer.this.level.broadcastEntityEvent(WitherNecromancer.this, (byte) 7);
+            WitherNecromancer.this.setAnimationState(IDLE);
+            WitherNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);
+            WitherNecromancer.this.idleSpellCool = MathHelper.secondsToTicks(10);
         }
 
         public void tick() {
             --this.spellTime;
-            if (this.spellTime == 0) {
-                WitherNecromancer.this.setNecromancerSpellType(NecromancerSpellType.NONE);
-                WitherNecromancer.this.idleSpellCool = MathHelper.secondsToTicks(10);
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+    }
+
+    public class WitherNecromancerRangedGoal extends NecromancerRangedGoal{
+
+        public WitherNecromancerRangedGoal(AbstractNecromancer mob, double speed, int attackInterval, float attackRadius) {
+            super(mob, speed, attackInterval, attackRadius);
+        }
+
+        public boolean canUse() {
+            LivingEntity livingentity = WitherNecromancer.this.getTarget();
+            if (livingentity != null){
+                return super.canUse() && WitherNecromancer.this.hasLineOfSight(livingentity);
             }
+            return false;
         }
     }
 }

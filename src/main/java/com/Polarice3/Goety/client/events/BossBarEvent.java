@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.api.entities.hostile.IBoss;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.config.MainConfig;
@@ -14,42 +13,36 @@ import net.minecraft.world.entity.Mob;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class BossBarEvent {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar.png");
     protected static final ResourceLocation BOSS_BAR_1 = new ResourceLocation(Goety.MOD_ID, "textures/gui/boss_bar_1.png");
     protected static final ResourceLocation MINI_BOSS_BAR = new ResourceLocation(Goety.MOD_ID, "textures/gui/miniboss_bar.png");
-    public static final Set<Mob> BOSSES = Collections.newSetFromMap(new WeakHashMap<>());
+    public static Map<UUID, Mob> BOSS_BARS = new HashMap<>();
 
     @SubscribeEvent
     public static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event){
         Minecraft minecraft = Minecraft.getInstance();
         if (MainConfig.SpecialBossBar.get()) {
-            if (!BOSSES.isEmpty()) {
-                int i = minecraft.getWindow().getGuiScaledWidth();
-                for (Mob boss : BOSSES) {
-                    if (boss != null) {
-                        if (event.getBossEvent().getId() == boss.getUUID() || (boss instanceof IBoss boss1 && boss1.getBossInfoUUID().equals(event.getBossEvent().getId()))) {
-                            event.setCanceled(true);
-                            int k = i / 2 - 100;
-                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                            drawBar(event.getGuiGraphics(), k, event.getY(), event.getPartialTick(), boss);
-                            Component itextcomponent = boss.getDisplayName();
-                            int l = minecraft.font.width(itextcomponent);
-                            int i1 = i / 2 - l / 2;
-                            event.getGuiGraphics().drawString(minecraft.font, itextcomponent, i1, event.getY() - 9, 16777215);
-                            if (event.getY() >= minecraft.getWindow().getGuiScaledHeight() / 3) {
-                                break;
-                            }
-                            event.setIncrement(12 + minecraft.font.lineHeight);
-                        }
-                    }
+            int i = minecraft.getWindow().getGuiScaledWidth();
+            if (BOSS_BARS.containsKey(event.getBossEvent().getId())) {
+                Mob boss = BOSS_BARS.get(event.getBossEvent().getId());
+                event.setCanceled(true);
+                int k = i / 2 - 100;
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                drawBar(event.getGuiGraphics(), k, event.getY(), event.getPartialTick(), boss);
+                Component itextcomponent = boss.getDisplayName();
+                int l = minecraft.font.width(itextcomponent);
+                int i1 = i / 2 - l / 2;
+                event.getGuiGraphics().drawString(minecraft.font, itextcomponent, i1, event.getY() - 9, 16777215);
+                if (event.getY() >= minecraft.getWindow().getGuiScaledHeight() / 3) {
+                    return;
                 }
-
+                event.setIncrement(12 + minecraft.font.lineHeight);
             }
         }
 
@@ -119,16 +112,12 @@ public class BossBarEvent {
         guiGraphics.blit(MINI_BOSS_BAR, j1, pY, 0, 0, 128, 8, 128, 128);
     }
 
-    public static void addBoss(Mob mob){
-        BOSSES.add(mob);
+    public static void addBossBar(UUID id, Mob mob){
+        BOSS_BARS.put(id, mob);
     }
 
-    public static void removeBoss(Mob mob){
-        BOSSES.remove(mob);
-    }
-
-    public static Set<Mob> getBosses(){
-        return BOSSES;
+    public static void removeBossBar(UUID id, Mob mob){
+        BOSS_BARS.remove(id, mob);
     }
 
 }

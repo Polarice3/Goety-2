@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "虽然一个卫道士可以被再起为僵尸，一个掠夺者或骷髅，但是如果要真正制造一个强大的唤魔者的不死版本，必须有更多的精神力量...."
+      "text": "虽然一个卫道士可以被再起为僵尸，一个掠夺者再起为骷髅，但是如果要真正制造一个强大的唤魔者的不死版本，必须有更多的灵魂力量...."
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,23 @@
     },
     {
       "type": "patchouli:text",
-      "text": "与其他两种不同的是，被绑定的唤魔者可以漂浮在地面上，不受重力的影响。尽管他们看起来很像恼鬼，但他们无法穿过墙壁，仍然可能受到常规武器的伤害。"
+      "text": "与其他两种灾厄村民不同的是，被绑定的唤魔者可以漂浮在地面上，不受重力的影响。尽管他们看起来很像恼鬼，但他们无法穿过墙壁，仍然可能受到常规武器的伤害"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_evoker"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "被绑定的冰术士和他们活着的时候一样寒冷，但这一次，他们的冰块掉在了别人的头上，而不是你的头上。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bound_iceologer"
     }
   ]
 }

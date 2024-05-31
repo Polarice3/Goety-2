@@ -1,0 +1,15 @@
+{
+  "name": "Frostborn Focus",
+  "icon": "goety:frostborn_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell summons forth an $(l:summons/ice_golems)Ice Golem$(), a powerful servant that's resistant to freeze damage and can rarely summon an explosion of frost.."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/frostborn_focus"
+    }
+  ]
+}

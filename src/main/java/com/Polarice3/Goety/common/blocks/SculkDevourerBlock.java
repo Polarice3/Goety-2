@@ -37,7 +37,7 @@ public class SculkDevourerBlock extends EnchanteableBlock {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (pPlacer instanceof Player){
             if (tileentity instanceof SculkDevourerBlockEntity blockEntity){
-                blockEntity.setOwnerId(pPlacer.getUUID());
+                blockEntity.setOwner(pPlacer);
             }
         }
     }

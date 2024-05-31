@@ -1,9 +1,7 @@
 package com.Polarice3.Goety.client.render.block;
 
-import com.Polarice3.Goety.common.blocks.ModBlocks;
-import com.Polarice3.Goety.common.blocks.ModChestBlock;
-import com.Polarice3.Goety.common.blocks.RedstoneGolemSkullBlock;
-import com.Polarice3.Goety.common.blocks.TallSkullBlock;
+import com.Polarice3.Goety.common.blocks.*;
+import com.Polarice3.Goety.common.blocks.entities.LoftyChestBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ModChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -74,6 +72,36 @@ public class ModISTER extends BlockEntityWithoutLevelRenderer {
                 } else {
                     RedstoneGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
                 }
+            } else if (block instanceof GraveGolemSkullBlock){
+                if(pCamera == ItemDisplayContext.GUI) {
+                    pMatrixStack.pushPose();
+                    pMatrixStack.translate(0.5F, 0.5F, 0.5F);
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
+                    pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
+                    pMatrixStack.translate(0.0F, 0.25F, 0.0F);
+                    GraveGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                    pMatrixStack.popPose();
+
+                } else {
+                    GraveGolemSkullBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                }
+            } else if (block instanceof RedstoneMonstrosityHeadBlock){
+                if(pCamera == ItemDisplayContext.GUI) {
+                    pMatrixStack.pushPose();
+                    pMatrixStack.translate(0.5F, 0.5F, 0.5F);
+                    pMatrixStack.mulPose(Axis.XP.rotationDegrees(30));
+                    pMatrixStack.mulPose(Axis.YN.rotationDegrees(-45));
+                    pMatrixStack.translate(-0.5F, -0.5F, -0.5F);
+                    pMatrixStack.translate(0.0F, 0.25F, 0.0F);
+                    RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                    pMatrixStack.popPose();
+
+                } else {
+                    RedstoneMonstrosityHeadBlockEntityRenderer.renderItemSkull(pStack, null, 180.0F, pMatrixStack, pBuffer, pLight);
+                }
+            } else if (block instanceof LoftyChestBlock) {
+                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(new LoftyChestBlockEntity(BlockPos.ZERO, block.defaultBlockState()), pMatrixStack, pBuffer, pLight, pOverlay);
             } else if (block instanceof ModChestBlock) {
                 Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), pMatrixStack, pBuffer, pLight, pOverlay);
             }

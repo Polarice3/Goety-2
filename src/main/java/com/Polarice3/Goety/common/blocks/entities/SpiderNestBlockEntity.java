@@ -31,14 +31,25 @@ public class SpiderNestBlockEntity extends TrainingBlockEntity {
     @Override
     public void tick(Level level, BlockPos blockPos, BlockState blockState, TrainingBlockEntity blockEntity) {
         super.tick(level, blockPos, blockState, blockEntity);
-        if (this.trainTime > 0){
-            if (level instanceof ServerLevel serverLevel) {
-                if (level.random.nextInt(10) == 0) {
-                    ServerParticleUtil.blockBreakParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), blockPos, blockState, serverLevel);
+        if (this.isTraining()){
+            if (this.trainTime != this.getMaxTrainTime()){
+                if (level instanceof ServerLevel serverLevel) {
+                    if (level.random.nextInt(10) == 0) {
+                        ServerParticleUtil.blockBreakParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), blockPos, blockState, serverLevel);
+                    }
                 }
-            }
-            if (this.trainTime == 20){
-                level.playSound(null, this.getBlockPos(), ModSounds.SPIDER_NEST_TRAIN.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                if (this.trainTime == 20){
+                    level.playSound(null, this.getBlockPos(), ModSounds.SPIDER_NEST_TRAIN.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
+            } else {
+                if (level instanceof ServerLevel serverLevel) {
+                    if (level.random.nextInt(10) == 0) {
+                        double d0 = (double)this.worldPosition.getX() + level.random.nextDouble();
+                        double d1 = (double)this.worldPosition.getY() + level.random.nextDouble();
+                        double d2 = (double)this.worldPosition.getZ() + level.random.nextDouble();
+                        serverLevel.sendParticles(ParticleTypes.FLAME, d0, d1, d2, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    }
+                }
             }
         }
     }

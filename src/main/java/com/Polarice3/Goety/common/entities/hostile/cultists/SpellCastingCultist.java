@@ -184,7 +184,7 @@ public abstract class SpellCastingCultist extends Cultist{
             this.spellCooldown = SpellCastingCultist.this.tickCount + this.getCastingInterval();
             SoundEvent soundevent = this.getSpellPrepareSound();
             if (soundevent != null) {
-                SpellCastingCultist.this.playSound(soundevent, 1.0F, 1.0F);
+                SpellCastingCultist.this.playSound(soundevent, this.castingVolume(), 1.0F);
             }
 
             SpellCastingCultist.this.setSpellType(this.getSpellType());
@@ -198,6 +198,10 @@ public abstract class SpellCastingCultist extends Cultist{
                 SpellCastingCultist.this.playSound(SpellCastingCultist.this.getCastingSoundEvent (), 1.0F, 1.0F);
             }
 
+        }
+
+        protected float castingVolume(){
+            return 1.0F;
         }
 
         protected abstract void castSpell();

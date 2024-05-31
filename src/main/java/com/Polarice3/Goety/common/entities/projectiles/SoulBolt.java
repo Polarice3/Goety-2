@@ -159,7 +159,11 @@ public class SoulBolt extends SpellHurtingProjectile {
             double d0 = this.getX() - vec3.x;
             double d1 = this.getY() - vec3.y;
             double d2 = this.getZ() - vec3.z;
-            this.level.addParticle(ModParticleTypes.SUMMON.get(), d0, d1 + 0.15D, d2, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ModParticleTypes.SUMMON_TRAIL.get(),
+                    d0 + ((this.level.random.nextDouble() / 4) * (this.level.random.nextIntBetweenInclusive(-1, 1))),
+                    d1 + 0.15D,
+                    d2 + ((this.level.random.nextDouble() / 4) * (this.level.random.nextIntBetweenInclusive(-1, 1))),
+                    0.0D, 0.0D, 0.0D);
         }
         Vec3 trailAt = this.position().add(0, this.getBbHeight() / 2F, 0);
         if (this.trailPointer == -1) {

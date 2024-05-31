@@ -84,11 +84,26 @@ public class MiscCapHelper {
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
     }
 
+    public static int getAmbientSoundTime(LivingEntity livingEntity){
+        return getCapability(livingEntity).ambientSoundTime();
+    }
+
+    public static void doAmbientSoundTime(LivingEntity livingEntity){
+        getCapability(livingEntity).setAmbientSoundTime(getAmbientSoundTime(livingEntity) + 1);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
+    public static void resetAmbientSoundTime(LivingEntity livingEntity, int interval) {
+        getCapability(livingEntity).setAmbientSoundTime(getAmbientSoundTime(livingEntity) - interval);
+        MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
     public static CompoundTag save(CompoundTag tag, IMisc misc) {
         tag.putInt("freezeLevel", misc.freezeLevel());
         tag.putInt("shields", misc.shieldsLeft());
         tag.putInt("shieldTime", misc.shieldTime());
         tag.putInt("shieldCool", misc.shieldCool());
+        tag.putInt("ambientSoundTime", misc.ambientSoundTime());
         return tag;
     }
 
@@ -105,11 +120,10 @@ public class MiscCapHelper {
         if (tag.contains("shieldCool")) {
             misc.setShieldCool(tag.getInt("shieldCool"));
         }
+        if (tag.contains("ambientSoundTime")) {
+            misc.setAmbientSoundTime(tag.getInt("ambientSoundTime"));
+        }
         return misc;
-    }
-
-    public static void sendMiscUpdatePacket(Player player, LivingEntity livingEntity) {
-        ModNetwork.sendTo(player, new MiscCapUpdatePacket(livingEntity));
     }
 
     public static void sendMiscUpdatePacket(LivingEntity livingEntity) {

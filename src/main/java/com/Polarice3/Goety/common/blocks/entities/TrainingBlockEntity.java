@@ -2,7 +2,12 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.LichdomHelper;
+import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,12 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,10 +28,12 @@ import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class TrainingBlockEntity extends OwnedBlockEntity implements ITrainingBlock, WorldlyContainer, GameEventListener {
@@ -37,6 +44,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
     public int trainAmount;
     public int updateVariant;
     public boolean showArea;
+    public boolean sensorSensitive;
     public ItemStack itemStack = ItemStack.EMPTY;
     public CompoundTag entityToSpawn = new CompoundTag();
 
@@ -62,28 +70,36 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                 if (blockEntity.trainTime < blockEntity.getMaxTrainTime()){
                     ++blockEntity.trainTime;
                 } else {
-                    --blockEntity.trainAmount;
-                    blockEntity.trainTime = 0;
-                    blockEntity.itemStack = ItemStack.EMPTY;
-                    if (level instanceof ServerLevel serverLevel) {
-                        for (int i = 0; i < 64; ++i) {
-                            RandomSource randomsource = level.getRandom();
-                            double d0 = (double)blockPos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * (double)4 + 0.5D;
-                            double d1 = blockPos.getY() + randomsource.nextInt(3) - 1;
-                            double d2 = (double)blockPos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * (double)4 + 0.5D;
-                            BlockPos blockpos = BlockPos.containing(d0, d1, d2);
-                            if (serverLevel.noCollision(blockEntity.getTrainMob().getAABB(d0, d1, d2))) {
-                                Entity entity = blockEntity.getTrainMob().spawn(serverLevel, blockpos, MobSpawnType.SPAWNER);
-                                if (entity != null) {
-                                    level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockpos);
-                                    if (entity instanceof Mob mob) {
-                                        mob.spawnAnim();
+                    boolean flag;
+                    if (this.isSensorSensitive()){
+                        flag = hasNearbyTarget();
+                    } else {
+                        flag = true;
+                    }
+                    if (flag) {
+                        --blockEntity.trainAmount;
+                        blockEntity.trainTime = 0;
+                        blockEntity.itemStack = ItemStack.EMPTY;
+                        if (level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 64; ++i) {
+                                RandomSource randomsource = level.getRandom();
+                                double d0 = (double) blockPos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * (double) 4 + 0.5D;
+                                double d1 = blockPos.getY() + randomsource.nextInt(3) - 1;
+                                double d2 = (double) blockPos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * (double) 4 + 0.5D;
+                                BlockPos blockpos = BlockPos.containing(d0, d1, d2);
+                                if (serverLevel.noCollision(blockEntity.getTrainMob().getAABB(d0, d1, d2))) {
+                                    Entity entity = blockEntity.getTrainMob().spawn(serverLevel, blockpos, MobSpawnType.SPAWNER);
+                                    if (entity != null) {
+                                        level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockpos);
+                                        if (entity instanceof Mob mob) {
+                                            mob.spawnAnim();
+                                        }
+                                        if (entity instanceof IOwned owned && blockEntity.getTrueOwner() != null) {
+                                            owned.setTrueOwner(blockEntity.getTrueOwner());
+                                        }
+                                        blockEntity.playSpawnSound();
+                                        break;
                                     }
-                                    if (entity instanceof IOwned owned && blockEntity.getTrueOwner() != null) {
-                                        owned.setTrueOwner(blockEntity.getTrueOwner());
-                                    }
-                                    blockEntity.playSpawnSound();
-                                    break;
                                 }
                             }
                         }
@@ -96,6 +112,45 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                     blockEntity.markUpdated();
                 }
             }
+        }
+    }
+
+    public boolean hasNearbyTarget(){
+        if (this.level != null) {
+            BlockPos blockPos = this.worldPosition.offset(-RANGE, -RANGE, -RANGE);
+            BlockPos blockPos1 = this.worldPosition.offset(RANGE, RANGE, RANGE);
+            AABB aabb = new AABB(blockPos, blockPos1);
+            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
+            for (LivingEntity livingEntity : list) {
+                if (EntitySelector.NO_SPECTATORS.test(livingEntity) && EntitySelector.LIVING_ENTITY_STILL_ALIVE.test(livingEntity)) {
+                    if (this.getTrueOwner() != null){
+                        return predicate().test(livingEntity);
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public Predicate<LivingEntity> predicate(){
+        if (this.getTrueOwner() instanceof Enemy
+                || (this.getTrueOwner() instanceof IOwned owned && owned.isHostile())){
+            return (target) -> target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
+        } else {
+            return (target) ->
+                    (target instanceof Enemy
+                            && !(target.getMobType() == MobType.UNDEAD && this.getTrueOwner() != null && LichdomHelper.isLich(this.getTrueOwner()) && MainConfig.LichUndeadFriends.get())
+                            && !(target.getMobType() == MobType.UNDEAD && this.getTrueOwner() instanceof Player && CuriosFinder.hasUndeadSet(this.getTrueOwner()) && MobsConfig.NecroRobeUndead.get())
+                            && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                            && !(target instanceof NeutralMob && ((this.getTrueOwner() != null && ((NeutralMob) target).getTarget() != this.getTrueOwner())))
+                            && !(target instanceof IOwned && this.getTrueOwner() != null && ((IOwned) target).getTrueOwner() == this.getTrueOwner()))
+                            || (target instanceof IOwned owned && owned.isHostile())
+                            || (this.getTrueOwner() instanceof Player player
+                            && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                            || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
         }
     }
 
@@ -146,6 +201,10 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
     @Override
     public int getMaxTrainTime() {
         return this.trainTimeTotal;
+    }
+
+    public boolean isTraining(){
+        return this.amountTrainLeft() > 0;
     }
 
     public boolean isFuel(ItemStack itemStack){
@@ -231,6 +290,9 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         if (tag.contains("showArea")) {
             this.showArea = tag.getBoolean("showArea");
         }
+        if (tag.contains("sensorSensitive")) {
+            this.sensorSensitive = tag.getBoolean("sensorSensitive");
+        }
     }
 
     public CompoundTag writeNetwork(CompoundTag tag) {
@@ -241,6 +303,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         tag1.put("Item", this.itemStack.save(new CompoundTag()));
         tag1.put("EntityToSpawn", this.entityToSpawn);
         tag1.putBoolean("showArea", this.showArea);
+        tag1.putBoolean("sensorSensitive", this.sensorSensitive);
         return tag1;
     }
 
@@ -250,6 +313,15 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
 
     public void setShowArea(boolean showArea){
         this.showArea = showArea;
+        this.markUpdated();
+    }
+
+    public boolean isSensorSensitive(){
+        return this.sensorSensitive;
+    }
+
+    public void setSensorSensitive(boolean sensorSensitive){
+        this.sensorSensitive = sensorSensitive;
         this.markUpdated();
     }
 

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.blocks.entities.TrainingBlockEntity;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -29,7 +30,7 @@ public abstract class TrainingBlock extends BaseEntityBlock {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (pPlacer instanceof Player){
             if (tileentity instanceof TrainingBlockEntity blockEntity){
-                blockEntity.setOwnerId(pPlacer.getUUID());
+                blockEntity.setOwner(pPlacer);
                 blockEntity.setVariant(pStack, pLevel, pPos);
             }
         }
@@ -40,6 +41,11 @@ public abstract class TrainingBlock extends BaseEntityBlock {
         if (tileentity instanceof TrainingBlockEntity blockEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (blockEntity.placeItem(itemstack)){
+                return InteractionResult.SUCCESS;
+            } else if (itemstack.getItem() instanceof IWand){
+                blockEntity.setSensorSensitive(!blockEntity.isSensorSensitive());
+                pLevel.playSound(null, pPos, ModSounds.SUMMON_SPELL_FIERY.get(), SoundSource.BLOCKS, 0.25F, 2.0F);
+                pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 0.25F, 2.0F);
                 return InteractionResult.SUCCESS;
             } else if (itemstack.isEmpty() && pPlayer.isCrouching()){
                 blockEntity.setShowArea(!blockEntity.isShowArea());

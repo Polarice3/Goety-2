@@ -1,0 +1,6 @@
+{
+  "name": "ネクロマンシー",
+  "description": "死者を支配する力。",
+  "icon": "goety:rotting_focus",
+  "parent": "goety:focuses"
+}

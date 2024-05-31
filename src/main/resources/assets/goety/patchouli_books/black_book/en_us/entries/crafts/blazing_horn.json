@@ -1,0 +1,17 @@
+{
+  "name": "Blazing Horn",
+  "icon": "goety:blazing_horn",
+  "category": "goety:crafts",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've heard rumors of powerful magicians that once roam the Nether Fortresses. It is said that a specific incantation could summon one forth when cast within said fortress."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blazing_horn",
+      "text": "With a Goat's horn and the power of the Nether, you can replicate the incantation to summon forth one of these beings."
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.api.magic;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -21,8 +22,8 @@ public interface ISummonSpell extends ISpell{
             if (owner.hasEffect(GoetyEffects.SUMMON_DOWN.get())) {
                 MobEffectInstance effectinstance = owner.getEffect(GoetyEffects.SUMMON_DOWN.get());
                 if (effectinstance != null) {
-                    summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Integer.MAX_VALUE, effectinstance.getAmplifier()));
-                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), Integer.MAX_VALUE, effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, EffectsUtil.infiniteEffect(), effectinstance.getAmplifier()));
+                    summonedEntity.addEffect(new MobEffectInstance(GoetyEffects.SAPPED.get(), EffectsUtil.infiniteEffect(), effectinstance.getAmplifier()));
                 }
             }
         }

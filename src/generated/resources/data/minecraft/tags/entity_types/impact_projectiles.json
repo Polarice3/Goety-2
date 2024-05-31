@@ -2,6 +2,7 @@
   "values": [
     "goety:soul_bolt",
     "goety:steam_missile",
+    "goety:wither_bolt",
     "goety:hell_bolt",
     "goety:hell_blast",
     "goety:necro_bolt",
@@ -13,7 +14,6 @@
     "goety:ice_spike",
     "goety:fireball",
     "goety:lavaball",
-    "goety:grand_lavaball",
     "goety:haunted_skull_shot",
     "goety:wither_skull"
   ]

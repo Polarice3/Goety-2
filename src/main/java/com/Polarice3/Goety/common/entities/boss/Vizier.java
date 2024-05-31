@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.boss;
 
-import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
@@ -88,7 +87,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
     protected static final EntityDataAccessor<Integer> CASTING = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CONFUSED = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(Vizier.class, EntityDataSerializers.INT);
-    private ModServerBossInfo bossInfo;
+    private final ModServerBossInfo bossInfo;
     public float oBob;
     public float bob;
     public double xCloakO;
@@ -106,12 +105,9 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
 
     public Vizier(EntityType<? extends Vizier> type, Level worldIn) {
         super(type, worldIn);
-        this.bossInfo = new ModServerBossInfo(this.getUUID(), this, BossEvent.BossBarColor.YELLOW, false, false);
+        this.bossInfo = new ModServerBossInfo(this, BossEvent.BossBarColor.YELLOW, false, false);
         this.moveControl = new MobUtil.MinionMoveControl(this);
         this.xpReward = 50;
-        if (this.level.isClientSide){
-            Goety.PROXY.addBoss(this);
-        }
     }
 
     public void move(MoverType typeIn, Vec3 pos) {
@@ -500,14 +496,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         return false;
     }
 
-    @Override
-    public void remove(RemovalReason removalReason) {
-        if (this.level.isClientSide) {
-            Goety.PROXY.removeBoss(this);
-        }
-        super.remove(removalReason);
-    }
-
     public boolean hurt(DamageSource pSource, float pAmount) {
         LivingEntity livingEntity = this.getTarget();
         if (this.getInvulnerableTicks() > 0 && !pSource.is(DamageTypes.FELL_OUT_OF_WORLD)){
@@ -554,7 +542,7 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
             this.invulnerableTime = 20;
         }
         if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)){
-            amount = Math.min(amount, (float) AttributesConfig.VizierDamageCap.get());
+            amount = Math.min(amount, AttributesConfig.VizierDamageCap.get().floatValue());
         }
         super.actuallyHurt(source, amount);
     }
@@ -599,7 +587,6 @@ public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomA
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
-        this.bossInfo.setId(this.getUUID());
         this.setConfigurableAttributes();
     }
 

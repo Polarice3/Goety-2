@@ -1,0 +1,15 @@
+{
+  "name": "Фокус вращения",
+  "icon": "goety:rotation_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Простой фокус, который поворачивает блок, изменяя его направление."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/rotation_focus"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Frost Breath Focus",
+  "icon": "goety:frost_breath_focus",
+  "category": "goety:focuses/frost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With a cold breath, creatures in front of you will shiver to the grave."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/frost_breath_focus"
+    }
+  ]
+}

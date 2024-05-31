@@ -1,0 +1,15 @@
+{
+  "name": "Electrocute Focus",
+  "icon": "goety:electrocute_focus",
+  "category": "goety:focuses/storm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The spell shoots a ball of electricity that, when casted looking at a valid entity, follows their target before hitting them or any solid object."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/electrocute_focus"
+    }
+  ]
+}

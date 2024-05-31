@@ -1,0 +1,15 @@
+{
+  "name": "Barricade Focus",
+  "icon": "goety:barricade_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the power of the focus, you're able to harass your enemies by either summoning either a row, square or randomly placed Totemic Walls in front of them, or, if crouching while spell casting, summon either a singular or multiple Totemic Bombs around them. If not crouching, always summons a row of Totemic Walls if not targeting an enemy."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/barricade_focus"
+    }
+  ]
+}

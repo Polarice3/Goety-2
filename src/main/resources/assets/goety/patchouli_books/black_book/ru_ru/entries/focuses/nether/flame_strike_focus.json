@@ -1,0 +1,15 @@
+{
+  "name": "Фокус пламенного удара",
+  "icon": "goety:flame_strike_focus",
+  "category": "goety:focuses/nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Сила Незера позволяет вам вызывать столбы пламени, которые либо окружают вас, либо, если вы смотрите прямо на жертву, вашего врага."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/flame_strike_focus"
+    }
+  ]
+}

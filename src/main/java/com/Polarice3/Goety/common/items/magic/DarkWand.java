@@ -60,9 +60,13 @@ import java.util.function.Consumer;
 public class DarkWand extends Item implements IWand {
     public SpellType spellType;
 
-    public DarkWand(SpellType spellType) {
-        super(new Properties().stacksTo(1).setNoRepair().rarity(Rarity.RARE));
+    public DarkWand(Properties properties, SpellType spellType){
+        super(properties);
         this.spellType = spellType;
+    }
+
+    public DarkWand(SpellType spellType) {
+        this(wandProperties(), spellType);
     }
 
     public DarkWand() {
@@ -71,6 +75,13 @@ public class DarkWand extends Item implements IWand {
 
     public SpellType getSpellType(){
         return this.spellType;
+    }
+
+    public static Item.Properties wandProperties(){
+        return new Properties()
+                .rarity(Rarity.RARE)
+                .setNoRepair()
+                .stacksTo(1);
     }
 
     @Override
@@ -331,6 +342,9 @@ public class DarkWand extends Item implements IWand {
         if (this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
             SoundEvent soundevent = this.CastingSound(stack);
             if (CastTime == 1 && soundevent != null) {
+                if (worldIn instanceof ServerLevel serverLevel) {
+                    this.getSpell(stack).startSpell(serverLevel, livingEntityIn, stack);
+                }
                 worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, this.castingVolume(stack), 1.0F);
             }
             if (this.getSpell(stack) instanceof RecallSpell){

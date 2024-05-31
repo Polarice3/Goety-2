@@ -10,7 +10,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:spider_nest",
-      "text": "The Nest also has a special property. Right-clicking on it, or using a hopper, with meat will cause it to produce a loyal $(l:summons/spider_servants)Spider Servant$(). Depending on its surroundings, much like $(l:rituals/dark_altar)Altars$(), the servant can spawn as a different variant from a regular spider."
+      "text": "The Nest also has a special property. Right-clicking on it, or using a hopper, with meat will cause it to produce a loyal $(l:summons/spider_servants)Spider Servant$(). Depending on its surroundings, much like $(l:rituals/dark_altar)Altars$(), the servant can spawn as a different variant from a regular spider. Right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it."
     },
     {
       "type": "patchouli:text",

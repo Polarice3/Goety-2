@@ -50,6 +50,16 @@
     {
       "type": "patchouli:text",
       "text": "Curiously, the spell cannot call forth a loyal Wither Skeleton when cast within a Nether Fortress. The charred skeletons seems to hold great magical power and a great loyalty towards their home to be summoned frivolously..."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:wither_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "After much research, you've found a way to call forth a former inhabitant of the Fortress, and bind it to your will. They inflict Wither on melee and shoot fire arrows when given a bow."
     }
   ]
 }

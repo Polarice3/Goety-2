@@ -1,0 +1,15 @@
+{
+  "name": "飓风聚晶",
+  "icon": "goety:whirlwind_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这种聚晶可以让玩家用飓风屏障包围自己，屏障会将附近的所有生物推回，并有小概率使投射物偏转。这个聚晶所产生的强风也允许施法者在施法时悬停在原地。当用烈风魔杖施放时，飓风会更有效地偏转投射物，并且施法者会漂浮得更高."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/whirlwind_focus"
+    }
+  ]
+}

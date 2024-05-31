@@ -9,28 +9,16 @@
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:fire_charge"
-    },
-    {
       "tag": "forge:rods/blaze"
     },
     {
-      "item": "minecraft:fire_charge"
-    },
-    {
-      "tag": "forge:rods/blaze"
-    },
-    {
-      "item": "minecraft:fire_charge"
+      "item": "minecraft:tnt"
     },
     {
       "item": "minecraft:dispenser"
     },
     {
-      "tag": "forge:rods/blaze"
-    },
-    {
-      "tag": "forge:rods/blaze"
+      "tag": "forge:storage_blocks/coal"
     }
   ],
   "result": {

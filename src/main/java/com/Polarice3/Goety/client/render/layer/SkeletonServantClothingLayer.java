@@ -1,10 +1,7 @@
 package com.Polarice3.Goety.client.render.layer;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.MossySkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.*;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
@@ -21,6 +18,7 @@ public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M e
     private static final ResourceLocation STRAY_ORIGINAL = new ResourceLocation("textures/entity/skeleton/stray_overlay.png");
     private static final ResourceLocation STRAY = Goety.location("textures/entity/servants/skeleton/stray_servant_overlay.png");
     private static final ResourceLocation MOSSY = Goety.location("textures/entity/servants/skeleton/mossy_skeleton_servant_overlay.png");
+    private static final ResourceLocation WITHER = Goety.location("textures/entity/servants/skeleton/wither_skeleton_servant_overlay.png");
     private final SkeletonModel<T> layerModel;
 
     public SkeletonServantClothingLayer(RenderLayerParent<T, M> p_i50919_1_, EntityModelSet p_174555_) {
@@ -39,6 +37,8 @@ public class SkeletonServantClothingLayer<T extends AbstractSkeletonServant, M e
             }
         } else if (skeleton instanceof MossySkeletonServant && !skeleton.isHostile() && MobsConfig.MossySkeletonServantTexture.get()){
             resourceLocation = MOSSY;
+        } else if (skeleton instanceof WitherSkeletonServant && !skeleton.isHostile() && MobsConfig.WitherSkeletonServantTexture.get()){
+            resourceLocation = WITHER;
         } else if (skeleton instanceof SkeletonServant && !skeleton.isHostile() && MobsConfig.SkeletonServantTexture.get()){
             resourceLocation = TEXTURES;
         }

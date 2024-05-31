@@ -1,35 +1,23 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
 
-public class ModFireball extends Fireball {
-    public static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(ModFireball.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(ModFireball.class, EntityDataSerializers.FLOAT);
+public class ModFireball extends ExplosiveProjectile {
 
     public ModFireball(EntityType<? extends ModFireball> p_i50160_1_, Level p_i50160_2_) {
         super(p_i50160_1_, p_i50160_2_);
@@ -43,26 +31,23 @@ public class ModFireball extends Fireball {
         super(ModEntityType.MOD_FIREBALL.get(), pX, pY, pZ, pAccelX, pAccelY, pAccelZ, pWorld);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_DANGEROUS, true);
+    @Override
+    public boolean defaultDangerous() {
+        return true;
+    }
+
+    public void defaultExplosionAndDamage() {
+        this.entityData.define(DATA_EXPLOSION, 0.0F);
         this.entityData.define(DATA_DAMAGE, 5.0F);
     }
 
-    public boolean isDangerous() {
-        return this.entityData.get(DATA_DANGEROUS);
+    @Override
+    public void setExplosionPower(float pExplosionPower) {
     }
 
-    public void setDangerous(boolean pDangerous) {
-        this.entityData.set(DATA_DANGEROUS, pDangerous);
-    }
-
-    public float getDamage() {
-        return this.entityData.get(DATA_DAMAGE);
-    }
-
-    public void setDamage(float pDamage) {
-        this.entityData.set(DATA_DAMAGE, pDamage);
+    @Override
+    public float getExplosionPower() {
+        return 0;
     }
 
     protected void onHitEntity(EntityHitResult pResult) {
@@ -71,14 +56,10 @@ public class ModFireball extends Fireball {
             Entity entity = pResult.getEntity();
             if (!entity.fireImmune()) {
                 Entity entity1 = this.getOwner();
-                float enchantment = 0;
+                float enchantment = this.getExtraDamage();
                 float damage = 5.0F;
-                int flaming = 1;
-                if (entity1 instanceof Player player){
-                    if (WandUtil.enchantedFocus(player)){
-                        enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                        flaming += WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
-                    }
+                int flaming = 1 + this.getFiery();
+                if (entity1 instanceof Player){
                     damage = SpellConfig.FireballDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
                 } else if (entity1 instanceof LivingEntity) {
                     damage = this.getDamage();
@@ -141,32 +122,11 @@ public class ModFireball extends Fireball {
         return super.canHitEntity(pEntity);
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("Dangerous", this.isDangerous());
-        pCompound.putFloat("Damage", this.getDamage());
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("Dangerous")) {
-            this.setDangerous(pCompound.getBoolean("Dangerous"));
-        }
-        if (pCompound.contains("Damage")) {
-            this.setDamage(pCompound.getFloat("Damage"));
-        }
-    }
-
     public boolean isPickable() {
         return false;
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
         return false;
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

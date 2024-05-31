@@ -27,12 +27,13 @@ import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
+import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
-import com.Polarice3.Goety.common.entities.neutral.ZPiglinServant;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
@@ -97,7 +98,6 @@ import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -229,6 +229,9 @@ public class ModEvents {
         player.getCapability(MiscProvider.CAPABILITY)
                 .ifPresent(misc ->
                         misc.setShieldCool(capability4.shieldCool()));
+        player.getCapability(MiscProvider.CAPABILITY)
+                .ifPresent(misc ->
+                        misc.setAmbientSoundTime(0));
 
     }
 
@@ -709,9 +712,22 @@ public class ModEvents {
                 }
             }
             if (livingEntity instanceof Mob mob){
-                if (mob.getTarget() instanceof Owned){
+                if (mob.getTarget() instanceof IOwned){
                     if (mob.getTarget().isDeadOrDying()){
                         mob.setTarget(null);
+                    }
+                }
+                if (mob.getTarget() instanceof Apostle apostle){
+                    if (apostle.obsidianInvul > 5){
+                        double followRange = 32.0D;
+                        if (mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
+                            followRange = mob.getAttributeValue(Attributes.FOLLOW_RANGE) * 2;
+                        }
+                        for (ObsidianMonolith obsidianMonolith : mob.level.getEntitiesOfClass(ObsidianMonolith.class, mob.getBoundingBox().inflate(followRange, 8.0D, followRange))){
+                            if (obsidianMonolith.getOwner() == apostle){
+                                mob.setTarget(obsidianMonolith);
+                            }
+                        }
                     }
                 }
             }
@@ -761,24 +777,6 @@ public class ModEvents {
                     }
                     if (avoidIllager.isPresent()) {
                         brain.setMemory(MemoryModuleType.NEAREST_HOSTILE, avoidIllager);
-                    }
-                }
-            }
-            if (livingEntity instanceof Piglin){
-                if (!livingEntity.level.isClientSide) {
-                    Piglin piglinEntity = (Piglin) livingEntity;
-                    Brain<?> brain = piglinEntity.getBrain();
-                    Optional<LivingEntity> avoidUndead = Optional.empty();
-                    NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
-                    for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> {
-                        return true;
-                    })) {
-                        if (livingentity instanceof ZPiglinServant) {
-                            avoidUndead = Optional.of(livingentity);
-                        }
-                    }
-                    if (avoidUndead.isPresent()) {
-                        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ZOMBIFIED, avoidUndead);
                     }
                 }
             }
@@ -1064,7 +1062,7 @@ public class ModEvents {
                     }
                 }
             }
-            if (!(arrowEntity.getOwner() instanceof Apostle)) {
+            if (!(arrowEntity.getOwner() instanceof Apostle && victim.level.getDifficulty() == Difficulty.HARD)) {
                 if (victim instanceof Player player) {
                     if (MobUtil.starAmuletActive(player)) {
                         event.setCanceled(true);
@@ -1142,6 +1140,9 @@ public class ModEvents {
                 }
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), SoundEvents.PLAYER_HURT_ON_FIRE, 2.0F, 1.0F));
             }
+            if (victim.fireImmune()){
+                event.setAmount(event.getAmount() / 2.0F);
+            }
         }
         if (event.getAmount() > 0.0F) {
             if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
@@ -1194,7 +1195,7 @@ public class ModEvents {
         LivingEntity target = event.getEntity();
         if (target instanceof Player player) {
             if (MobUtil.starAmuletActive(player)){
-                if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow && !(arrow.getOwner() instanceof Apostle)){
+                if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow && !(arrow.getOwner() instanceof Apostle && target.level.getDifficulty() == Difficulty.HARD)){
                     event.setCanceled(true);
                 }
             }
@@ -1351,6 +1352,9 @@ public class ModEvents {
                     }
                 }
             }
+        }
+        if (killer instanceof WitherNecromancer necromancer){
+            MobUtil.createWitherRose(killed, necromancer);
         }
         if (!event.isCanceled()){
             MiscCapHelper.setFreezing(killed, 0);

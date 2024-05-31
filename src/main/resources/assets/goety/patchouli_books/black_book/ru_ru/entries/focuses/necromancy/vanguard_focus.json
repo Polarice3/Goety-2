@@ -1,0 +1,16 @@
+{
+  "name": "Фокус авангарда",
+  "icon": "goety:vanguard_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вы нашли способ вызывать верных стражей из загробного мира, используя этот фокус. У вас есть ощущение, что это заклинание было украдено у древнего короля."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/vanguard_focus"
+    }
+  ]
+}

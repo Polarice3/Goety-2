@@ -4,8 +4,10 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HellBolt;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -50,11 +52,18 @@ public class Inferno extends BlazeServant {
 
     public static AttributeSupplier.Builder setCustomAttributes(){
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.InfernoHealth.get())
+                .add(Attributes.ARMOR, AttributesConfig.InfernoArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.InfernoMeleeDamage.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
+    }
+
+    @Override
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.InfernoHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.InfernoArmor.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.InfernoMeleeDamage.get());
     }
 
     @Override
@@ -161,7 +170,7 @@ public class Inferno extends BlazeServant {
             AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
             AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
             if (armor != null){
-                armor.setBaseValue(11.0D);
+                armor.setBaseValue(AttributesConfig.InfernoArmor.get() * 2.0D);
             }
             if (speed != null){
                 speed.setBaseValue(0.45D);
@@ -271,9 +280,12 @@ public class Inferno extends BlazeServant {
                                 this.blaze.playSound(ModSounds.HELL_BOLT_SHOOT.get(), 1.0F, 1.0F);
                             }
 
+                            float damage = AttributesConfig.InfernoRangeDamage.get().floatValue() + this.blaze.getFireBallDamage();
+
                             for(int i = 0; i < 1; ++i) {
                                 HellBolt hellBolt = new HellBolt(this.blaze, d1, d2, d3, this.blaze.level);
                                 hellBolt.setPos(hellBolt.getX(), this.blaze.getY(0.5D) + 0.5D, hellBolt.getZ());
+                                hellBolt.setDamage(damage);
                                 this.blaze.level.addFreshEntity(hellBolt);
                             }
                         }

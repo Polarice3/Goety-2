@@ -40,7 +40,7 @@ public class NightBeaconBlock extends BaseEntityBlock implements BeaconBeamBlock
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (tileentity instanceof NightBeaconBlockEntity blockEntity){
-            blockEntity.setDaylLight(pLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT));
+            blockEntity.setDayLight(pLevel.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT));
         }
 
     }

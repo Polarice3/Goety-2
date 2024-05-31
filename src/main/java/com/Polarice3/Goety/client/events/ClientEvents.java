@@ -321,7 +321,7 @@ public class ClientEvents {
                     } else if (blockEntity instanceof IOwnedBlock ownedBlock && ownedBlock.getPlayer() != null && ownedBlock.screenView()){
                         if (blockEntity instanceof ITrainingBlock trainingBlock){
                             poseStack.pushPose();
-                            poseStack.translate((float)(width / 2), (float)(height - 60), 0.0F);
+                            poseStack.translate((float)(width / 2), (float)(height - 58), 0.0F);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
                             String s = Component.translatable("tooltip.goety.blockOwner").getString() + ownedBlock.getPlayer().getDisplayName().getString();
@@ -331,6 +331,18 @@ public class ClientEvents {
                             poseStack.popPose();
 
                             if (trainingBlock.getPlayer() == player) {
+                                if (trainingBlock.isSensorSensitive()) {
+                                    poseStack.pushPose();
+                                    poseStack.translate((float) (width / 2), (float) (height - 90), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s0 = Component.translatable("tooltip.goety.blockSense").getString();
+                                    int l0 = fontRenderer.width(s0);
+                                    event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    poseStack.popPose();
+                                }
+
                                 poseStack.pushPose();
                                 poseStack.translate((float)(width / 2), (float)(height - 68), 0.0F);
                                 RenderSystem.enableBlend();
@@ -344,8 +356,8 @@ public class ClientEvents {
                                 poseStack.pushPose();
                                 int train = 64;
                                 train *= ((double) trainingBlock.getTrainingTime() / trainingBlock.getMaxTrainTime());
-                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 84), 0, 0, 64, 16, 64, 32);
-                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 84), 0, 16, train, 16, 64, 32);
+                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 0, 64, 16, 64, 32);
+                                event.getGuiGraphics().blit(Goety.location("textures/gui/train_bar.png"), ((width - 64) / 2), (height - 86), 0, 16, train, 16, 64, 32);
                                 poseStack.popPose();
                             }
                         } else if ((player.isShiftKeyDown() || player.isCrouching()) && ownedBlock.getPlayer() != null){

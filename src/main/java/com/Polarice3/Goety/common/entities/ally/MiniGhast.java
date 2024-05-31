@@ -9,7 +9,6 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -24,7 +23,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 
 public class MiniGhast extends Malghast {
-    public float fireBallDamage = AttributesConfig.MiniGhastDamage.get().floatValue();
 
     public MiniGhast(EntityType<? extends Malghast> type, Level worldIn) {
         super(type, worldIn);
@@ -63,26 +61,6 @@ public class MiniGhast extends Malghast {
 
     public float getVoicePitch() {
         return 1.5F;
-    }
-
-    public float getFireBallDamage(){
-        return this.fireBallDamage;
-    }
-
-    public void setFireBallDamage(float damage){
-        this.fireBallDamage = damage;
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putFloat("FireballDamage", this.getFireBallDamage());
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("FireballDamage")) {
-            this.setFireBallDamage(pCompound.getFloat("FireballDamage"));
-        }
     }
 
     @Override
@@ -143,7 +121,7 @@ public class MiniGhast extends Malghast {
                     ModFireball fireball = new ModFireball(world, this.ghast, d2, d3, d4);
                     double y = this.ghast.getY() <= livingentity.getEyeY() ? this.ghast.getY(0.5D) : this.ghast.getY();
                     fireball.setDangerous(false);
-                    fireball.setDamage(this.ghast.getFireBallDamage());
+                    fireball.setDamage(AttributesConfig.MiniGhastDamage.get().floatValue() + this.ghast.getFireBallDamage());
                     fireball.setPos(this.ghast.getX() + vector3d.x * d1, y, fireball.getZ() + vector3d.z * d1);
                     world.addFreshEntity(fireball);
                     this.chargeTime = 0;

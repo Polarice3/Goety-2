@@ -16,13 +16,30 @@ import net.minecraft.world.level.Level;
 public abstract class ResearchScroll extends Item {
     public Research research;
 
+    public ResearchScroll(Properties properties, Research research){
+        super(properties);
+        this.research = research;
+    }
+
     public ResearchScroll(Research research){
-        super(new Properties()
+        this(scrollProperties(),
+                research
+        );
+    }
+
+    public static Item.Properties scrollProperties(){
+        return new Properties()
                 .rarity(Rarity.EPIC)
                 .setNoRepair()
-                .stacksTo(1)
-        );
-        this.research = research;
+                .stacksTo(1);
+    }
+
+    public static Item.Properties fireResistant(){
+        return new Properties()
+                .rarity(Rarity.EPIC)
+                .setNoRepair()
+                .fireResistant()
+                .stacksTo(1);
     }
 
     public abstract Component researchGet();

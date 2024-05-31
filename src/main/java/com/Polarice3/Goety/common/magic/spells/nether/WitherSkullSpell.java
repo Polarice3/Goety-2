@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.projectiles.ModWitherSkull;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -56,6 +57,7 @@ public class WitherSkullSpell extends Spell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
+        float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.5F;
         ModWitherSkull witherSkull = new ModWitherSkull(
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
@@ -67,13 +69,16 @@ public class WitherSkullSpell extends Spell {
         if (isShifting(entityLiving)){
             witherSkull.setDangerous(true);
         }
+        witherSkull.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+        witherSkull.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
+        witherSkull.setExplosionPower(witherSkull.getExplosionPower() + extraBlast);
         worldIn.addFreshEntity(witherSkull);
         if (rightStaff(staff)) {
             for (int i = 0; i < 2; ++i) {
                 ModWitherSkull witherSkull1 = new ModWitherSkull(
-                        entityLiving.getX() + vector3d.x / 2,
+                        entityLiving.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
                         entityLiving.getEyeY() - 0.2,
-                        entityLiving.getZ() + vector3d.z / 2,
+                        entityLiving.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),
                         vector3d.x,
                         vector3d.y,
                         vector3d.z, worldIn);
@@ -81,6 +86,9 @@ public class WitherSkullSpell extends Spell {
                 if (isShifting(entityLiving)) {
                     witherSkull1.setDangerous(true);
                 }
+                witherSkull1.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+                witherSkull1.setFiery(WandUtil.getLevels(ModEnchantments.BURNING.get(), entityLiving));
+                witherSkull1.setExplosionPower(witherSkull.getExplosionPower() + extraBlast);
                 worldIn.addFreshEntity(witherSkull1);
             }
         }

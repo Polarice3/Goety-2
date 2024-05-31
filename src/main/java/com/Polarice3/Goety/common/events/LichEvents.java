@@ -28,10 +28,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -109,6 +106,17 @@ public class LichEvents {
                 if (player.tickCount % 5 == 0) {
                     if (world.isClientSide) {
                         world.addParticle(ModParticleTypes.LICH.get(), player.getRandomX(0.5D), player.getY(), player.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+                if (MainConfig.LichModeSounds.get()) {
+                    if (event.phase == TickEvent.Phase.END) {
+                        if (player.isAlive()) {
+                            MiscCapHelper.doAmbientSoundTime(player);
+                            if (MiscCapHelper.getAmbientSoundTime(player) > player.getRandom().nextInt(1000)) {
+                                MiscCapHelper.resetAmbientSoundTime(player, MathHelper.secondsToTicks(8));
+                                player.playSound(ModSounds.LICH_AMBIENT.get(), 1.0F, player.getVoicePitch());
+                            }
+                        }
                     }
                 }
             }
@@ -217,10 +225,13 @@ public class LichEvents {
                     }
                 }
                 if (LichdomHelper.isInLichMode(player)){
-                    if (player.isAlive()){
-                        if (event.getAmount() > 0.0F){
-                            if (!player.level.isClientSide){
-                                player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.LICH_HURT.get(), player.getSoundSource(), 1.0F, player.getVoicePitch());
+                    if (MainConfig.LichModeSounds.get()) {
+                        if (player.isAlive()) {
+                            if (event.getAmount() > 0.0F) {
+                                if (!player.level.isClientSide) {
+                                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.LICH_HURT.get(), player.getSoundSource(), 1.0F, player.getVoicePitch());
+                                    MiscCapHelper.resetAmbientSoundTime(player, MathHelper.secondsToTicks(8));
+                                }
                             }
                         }
                     }
@@ -247,6 +258,20 @@ public class LichEvents {
             if (LichdomHelper.isLich(player)) {
                 if (event.getSource().is(DamageTypeTags.IS_DROWNING)){
                     event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeathEvent(LivingDeathEvent event) {
+        LivingEntity livingEntity = event.getEntity();
+        if (MainConfig.LichModeSounds.get()) {
+            if (LichdomHelper.isLich(livingEntity)){
+                if (LichdomHelper.isInLichMode(livingEntity)){
+                    if (!event.isCanceled()){
+                        livingEntity.playSound(ModSounds.LICH_DEATH.get(), 1.0F, livingEntity.getVoicePitch());
+                    }
                 }
             }
         }

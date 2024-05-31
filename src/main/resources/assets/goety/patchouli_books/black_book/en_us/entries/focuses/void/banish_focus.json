@@ -1,0 +1,15 @@
+{
+  "name": "Banish Focus",
+  "icon": "goety:banish_focus",
+  "category": "goety:focuses/void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A spell that requires the caster to directly right click a living target, where upon the target is teleported away from the caster. Perfect for getting rid of certain foes or annoyances!"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/banish_focus"
+    }
+  ]
+}

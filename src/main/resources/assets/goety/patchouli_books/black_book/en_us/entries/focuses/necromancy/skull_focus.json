@@ -1,0 +1,15 @@
+{
+  "name": "Skull Focus",
+  "icon": "goety:skull_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With this focus, you're able to summon forth Skulls haunted by spirits from beyond that will follow you and charge at any nearby hostile mob, exploding on impact."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/skull_focus"
+    }
+  ]
+}

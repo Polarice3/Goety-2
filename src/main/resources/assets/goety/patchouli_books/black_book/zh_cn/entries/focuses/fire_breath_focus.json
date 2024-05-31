@@ -1,11 +1,11 @@
 {
-  "name": "炎呼聚晶",
+  "name": "Fire Breath Focus",
   "icon": "goety:fire_breath_focus",
   "category": "goety:focuses",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "就像传说中的红龙一样，你肆意喷射着火焰，燃烧着所有的生物."
+      "text": "Like a mythic Red Dragons of old, you breath flames out in front of you, burning any creature in its path."
     },
     {
       "type": "patchouli:crafting",

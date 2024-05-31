@@ -20,7 +20,7 @@ public class WitherNecromancerRenderer extends MobRenderer<WitherNecromancer, Wi
    }
 
    protected void scale(WitherNecromancer necromancer, PoseStack matrixStackIn, float partialTickTime) {
-      matrixStackIn.scale(1.25F, 1.25F, 1.25F);
+      matrixStackIn.scale(1.45F, 1.45F, 1.45F);
    }
 
    public ResourceLocation getTextureLocation(WitherNecromancer p_115941_) {

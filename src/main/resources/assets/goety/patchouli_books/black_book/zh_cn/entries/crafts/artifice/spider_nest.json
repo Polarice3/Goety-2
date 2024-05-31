@@ -24,6 +24,11 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Icy Spider Servants",
+      "text": "要求： $(li)巢穴必须处于能降雪的群系中 $(br)$(l)或$()$() $(li)16个任意种类的冰块 $(li)8个雪块 $(li)4盏极寒冰灯"
+    },
+    {
+      "type": "patchouli:text",
       "title": "Bone Spider Servants",
       "text": "要求: $(li)巢穴处于墓穴中$(br)$(l)或$()$() $(li)16个骨块 $(li)4个骷髅堆"
     }

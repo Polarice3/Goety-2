@@ -1,0 +1,15 @@
+{
+  "name": "サイクロンのフォーカス",
+  "icon": "goety:cyclone_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "フォーカスは強力なサイクロンを放出し、近くの生き物を引き寄せて投げ飛ばします。風の杖で詠唱すると、サイクロンが巻き込まれたターゲットに継続的に少量のダメージを与えます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/cyclone_focus"
+    }
+  ]
+}

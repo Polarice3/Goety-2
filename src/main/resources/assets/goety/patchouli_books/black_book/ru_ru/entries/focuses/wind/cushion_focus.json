@@ -1,0 +1,15 @@
+{
+  "name": "Фокус облака",
+  "icon": "goety:cushion_focus",
+  "category": "goety:focuses/wind",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Создает облако, которое нейтрализует весь урон от падения. Облако автоматически опускается на землю."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/cushion_focus"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "蜘蛛の巣",
   "icon": "goety:spider_nest",
-  "category": "goety:crafts/artifice",
+  "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
@@ -14,18 +14,23 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Cave Spider Servants",
-      "text": "必要条件: $(li)巣は廃坑に置く $(br)$(l)OR$()$() $(li)8 ポドゾル $(li)8 任意の種類のキノコ $(li)8 石"
+      "title": "洞窟グモの従者",
+      "text": "条件: $(li)巣は廃坑に置く $(br)$(l)OR$()$() $(li)8 ポドゾル $(li)8 任意の種類のキノコ $(li)8 石"
     },
     {
       "type": "patchouli:text",
-      "title": "Web Spider Servants",
-      "text": "要件: $(li)16 葉 $(li)8 クモの巣"
+      "title": "ウェブクモの従者",
+      "text": "条件: $(li)16 葉 $(li)8 クモの巣"
     },
     {
       "type": "patchouli:text",
-      "title": "Bone Spider Servants",
-      "text": "要件: $(li)巣は地下室 $(br)$(l)OR$()$() $(li)16 個の骨ブロック $(li)4 個のスカルパイル"
+      "title": "氷のクモの従者",
+      "text": "条件: $(li)巣は雪が降るバイオームに置く $(br)$(l)OR$()$() $(li)16 個の氷ブロック（任意のタイプ） $(li)8 個の雪ブロック $(li)4 個の凍結ランプ"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "骨クモの従者",
+      "text": "条件: $(li)巣は地下室 $(br)$(l)OR$()$() $(li)16 個の骨ブロック $(li)4 個のスカルパイル"
     }
   ]
 }
