@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The Ring of the Dragon, when worn, powers up the breath spells, $(l:focuses/fire_breath_focus)Fire$() and $(l:focuses/frost_breath_focus)Frost$(), that not only increases their damage, but also affects the terrain itself!"
+      "text": "The Ring of the Dragon, when worn, powers up the breath spells, $(l:focuses/fire_breath_focus)Fire$() and $(l:focuses/frost/frost_breath_focus)Frost$(), that not only increases their damage, but also affects the terrain itself!"
     },
     {
       "type": "goety:ritual",

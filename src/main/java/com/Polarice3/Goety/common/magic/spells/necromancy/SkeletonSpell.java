@@ -12,7 +12,6 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,6 +28,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SkeletonSpell extends SummonSpell {
 
@@ -67,23 +67,13 @@ public class SkeletonSpell extends SummonSpell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        int count = 0;
-        for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof AbstractSkeletonServant servant) {
-                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
-                    ++count;
-                }
-            }
-        }
-        if (count >= SpellConfig.SkeletonLimit.get()){
-            if (entityLiving instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-            }
-            return false;
-        } else {
-            return super.conditionsMet(worldIn, entityLiving);
-        }
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof AbstractSkeletonServant;
+    }
+
+    @Override
+    public int summonLimit() {
+        return SpellConfig.SkeletonLimit.get();
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -138,7 +128,7 @@ public class SkeletonSpell extends SummonSpell {
                     } else if (typeStaff(staff, SpellType.NETHER)) {
                         summonedentity = new WitherSkeletonServant(ModEntityType.WITHER_SKELETON_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
-                        summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
+                        summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
                     }
                 } else if (worldIn.dimension() == Level.NETHER
                         && (entityLiving instanceof Player player && SEHelper.hasResearch(player, ResearchList.BYGONE)    )
@@ -147,7 +137,7 @@ public class SkeletonSpell extends SummonSpell {
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                 } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
-                    summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER.get(), worldIn);
+                    summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){
                     summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){

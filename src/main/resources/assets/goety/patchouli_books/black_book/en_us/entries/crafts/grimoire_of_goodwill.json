@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "This grimoire will put a stop to this as servants will no longer attack any being that's recorded on it, even if said being hurts, or was hurt, by you. The grimoire can record multiple beings, ranging from Pillagers to even beings like you! You can also prevent servants from attack entire species, as hitting a being while crouching will cause the being's species be recorded. For example, crouching and hitting a Pillager with the grimoire will cause your servants to no longer attack all Pillagers, even if they're pelting you with arrows."
+      "text": "The grimoire can record multiple beings, from Pillagers to even beings like you! You can also prevent servants from attacking an entire species, as hitting a being while crouching will record the being's species. For example, crouching and hitting a Pillager with the grimoire will cause your servants to no longer attack all Pillagers, even if they're pelting you with arrows."
     },
     {
       "type": "patchouli:crafting",

@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Each armor pieces gives a discount on using Soul Energy, whether it's used to cast spells, heal servants and repairing certain items. It doesn't discount usage in crafting or rituals unfortunately. Wearing allows summons to grant Soul Energy when they kill a mob."
+      "text": "Not only does it provide toughness, but each piece somewhat mitigates magic, fire and explosive damage. Each pieces also provides a discount on using Soul Energy, whether it's used to cast spells, heal servants and repairing certain items. It doesn't discount usage in crafting or rituals unfortunately. Wearing allows summons to grant Soul Energy when they kill a mob."
     },
     {
       "type": "goety:ritual",

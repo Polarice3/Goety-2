@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTags {
@@ -23,6 +24,7 @@ public class ModTags {
         EntityTypes.init();
         Biomes.init();
         GameEvents.init();
+        Structures.init();
     }
 
     public static class Blocks {
@@ -96,6 +98,26 @@ public class ModTags {
         public static final TagKey<Biome> WRAITH_SPAWN = tag("mob_spawn/wraith");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
 
+        public static final TagKey<Biome> ABYSS_DISCOUNT = tag("spell_discount/abyss");
+        public static final TagKey<Biome> FROST_DISCOUNT = tag("spell_discount/frost");
+        public static final TagKey<Biome> GEOMANCY_DISCOUNT = tag("spell_discount/geomancy");
+        public static final TagKey<Biome> NECROMANCY_DISCOUNT = tag("spell_discount/necromancy");
+        public static final TagKey<Biome> NETHER_DISCOUNT = tag("spell_discount/nether");
+        public static final TagKey<Biome> STORM_DISCOUNT = tag("spell_discount/storm");
+        public static final TagKey<Biome> VOID_DISCOUNT = tag("spell_discount/void");
+        public static final TagKey<Biome> WILD_DISCOUNT = tag("spell_discount/wild");
+        public static final TagKey<Biome> WIND_DISCOUNT = tag("spell_discount/wind");
+
+        public static final TagKey<Biome> ABYSS_MARKUP = tag("spell_markup/abyss");
+        public static final TagKey<Biome> FROST_MARKUP = tag("spell_markup/frost");
+        public static final TagKey<Biome> GEOMANCY_MARKUP = tag("spell_markup/geomancy");
+        public static final TagKey<Biome> NECROMANCY_MARKUP = tag("spell_markup/necromancy");
+        public static final TagKey<Biome> NETHER_MARKUP = tag("spell_markup/nether");
+        public static final TagKey<Biome> STORM_MARKUP = tag("spell_markup/storm");
+        public static final TagKey<Biome> VOID_MARKUP = tag("spell_markup/void");
+        public static final TagKey<Biome> WILD_MARKUP = tag("spell_markup/wild");
+        public static final TagKey<Biome> WIND_MARKUP = tag("spell_markup/wind");
+
         private static TagKey<Biome> tag(String name) {
             return create(Goety.location(name));
         }
@@ -116,6 +138,25 @@ public class ModTags {
 
         private static TagKey<GameEvent> create(ResourceLocation p_215874_) {
             return TagKey.create(Registries.GAME_EVENT, p_215874_);
+        }
+    }
+
+    public static class Structures {
+        private static void init(){}
+
+        public static final TagKey<Structure> WITHER_NECROMANCER_SPAWNS = tag("wither_necromancer_spawns");
+        public static final TagKey<Structure> VIZIER_SPAWNS = tag("vizier_spawns");
+        public static final TagKey<Structure> CRONE_SPAWNS = tag("crone_spawns");
+        public static final TagKey<Structure> SKULL_LORD_SPAWNS = tag("skull_lord_spawns");
+        public static final TagKey<Structure> CRYPT = tag("crypt");
+        public static final TagKey<Structure> NECROMANCER_POWER = tag("necromancer_power");
+
+        private static TagKey<Structure> tag(String name) {
+            return create(Goety.location(name));
+        }
+
+        private static TagKey<Structure> create(ResourceLocation p_215874_) {
+            return TagKey.create(Registries.STRUCTURE, p_215874_);
         }
     }
 }

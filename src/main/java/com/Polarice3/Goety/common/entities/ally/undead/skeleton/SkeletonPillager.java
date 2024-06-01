@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 import com.Polarice3.Goety.common.entities.ai.CreatureCrossbowAttackGoal;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,9 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class SkeletonPillager extends AbstractSkeletonServant implements CrossbowAttackMob {
@@ -123,15 +120,6 @@ public class SkeletonPillager extends AbstractSkeletonServant implements Crossbo
 
     public void onCrossbowAttackPerformed() {
         this.noActionTime = 0;
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (this.isNatural()){
-            this.setHostile(true);
-        }
-        return spawnDataIn;
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_219059_, DifficultyInstance p_219060_) {

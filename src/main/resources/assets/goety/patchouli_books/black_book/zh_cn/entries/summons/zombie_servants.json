@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "我们可以使用叫做 $(l:focuses/rotting_focus)腐烂聚晶$()的法术来召唤这些生物, 或者通过一种仪式来召唤永生的生物。"
+      "text": "我们可以使用叫做 $(l:focuses/necromancy/rotting_focus)腐烂聚晶$()的法术来召唤这些生物, 或者通过一种仪式来召唤永生的生物。"
     },
     {
       "type": "goety:ritual",

@@ -12,7 +12,6 @@ import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -20,12 +19,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class IceGolemSpell extends SummonSpell {
 
@@ -64,23 +63,13 @@ public class IceGolemSpell extends SummonSpell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        int count = 0;
-        for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof IceGolem servant) {
-                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
-                    ++count;
-                }
-            }
-        }
-        if (count >= SpellConfig.IceGolemLimit.get()){
-            if (entityLiving instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-            }
-            return false;
-        } else {
-            return super.conditionsMet(worldIn, entityLiving);
-        }
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof IceGolem;
+    }
+
+    @Override
+    public int summonLimit() {
+        return SpellConfig.IceGolemLimit.get();
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

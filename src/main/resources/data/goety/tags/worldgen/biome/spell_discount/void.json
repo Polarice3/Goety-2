@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_end",
+    "#forge:is_void"
+  ]
+}

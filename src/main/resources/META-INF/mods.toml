@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[47,)"
-license="${mod_license}"
+license="MIT License"
 [[mods]]
 modId="goety"
 version="${file.jarVersion}"

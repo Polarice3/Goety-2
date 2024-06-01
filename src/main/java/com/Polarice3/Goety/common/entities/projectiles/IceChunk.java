@@ -73,7 +73,7 @@ public class IceChunk extends SpellEntity {
             }
             this.playSound(ModSounds.ICE_CHUNK_HIT.get(), 2.0F, 1.0F);
             serverWorld.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), y + (this.getBbHeight()/2.0D), this.getZ(), 256, this.getBbWidth()/2.0D, this.getBbHeight()/2.0D, this.getBbWidth()/2.0D, 1.0D);
-            ColorUtil colorUtil = new ColorUtil(0xce5dff);
+            ColorUtil colorUtil = new ColorUtil(0xfffeff);
             serverWorld.sendParticles(new CircleExplodeParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 4.0F, 1), this.getX(), y, this.getZ(), 1, 0, 0, 0, 0.5D);
             for (int i = 0; (float) i < 8; ++i) {
                 this.setParticleAura(ParticleTypes.POOF, 1.0F, this.getX(), y, this.getZ());
@@ -158,7 +158,7 @@ public class IceChunk extends SpellEntity {
         }
         int hoverTime = MathHelper.secondsToTicks(5);
         if (this.isStaff()){
-            hoverTime = (int) MathHelper.secondsToTicks(1.75F);
+            hoverTime = (int) MathHelper.secondsToTicks(2.75F);
         }
         boolean isHovering = !this.isStarting() && this.hovering < hoverTime;
         this.isDropping = this.hovering > hoverTime;

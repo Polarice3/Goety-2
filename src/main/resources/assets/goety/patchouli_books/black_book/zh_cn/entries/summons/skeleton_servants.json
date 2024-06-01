@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "我们可以通过使用$(l:focuses/osseous_focus)骨质聚晶$(), 或者通过一种仪式来召唤一个永生的生物."
+      "text": "我们可以通过使用$(l:focuses/necromancy/osseous_focus)骨质聚晶$(), 或者通过一种仪式来召唤一个永生的生物."
     },
     {
       "type": "goety:ritual",

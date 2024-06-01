@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.ChatFormatting;
@@ -22,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,7 +35,7 @@ public class BlazingHornItem extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         super.finishUsingItem(stack, worldIn, entityLiving);
         if (worldIn instanceof ServerLevel serverWorld){
-            boolean flag = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), BuiltinStructures.FORTRESS).isValid();
+            boolean flag = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), ModTags.Structures.WITHER_NECROMANCER_SPAWNS).isValid();
             if (flag){
                 entityLiving.playSound(SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(6).get(), 16.0F, 1.0F);
                 serverWorld.playSound(null, entityLiving.blockPosition(), SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(6).get(), SoundSource.NEUTRAL, 16.0F, 1.0F);

@@ -335,7 +335,7 @@ public class DarkWand extends Item implements IWand {
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        if (this.cannotCast(livingEntityIn, stack)){
+        if (worldIn instanceof ServerLevel && this.cannotCast(livingEntityIn, stack)){
             return;
         }
         int CastTime = stack.getUseDuration() - count;

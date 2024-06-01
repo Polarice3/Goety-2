@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "如果它们的护盾被摧毁了，召唤者可以用任意木板右键点击他们，在它们闲置时将护盾赐予它们.$(br)我们可以通过使用 a $(l:focuses/vanguard_focus)先锋聚晶$(), 或通过仪式召唤一个永生的生物。"
+      "text": "如果它们的护盾被摧毁了，召唤者可以用任意木板右键点击他们，在它们闲置时将护盾赐予它们.$(br)我们可以通过使用 a $(l:focuses/necromancy/vanguard_focus)先锋聚晶$(), 或通过仪式召唤一个永生的生物。"
     },
     {
       "type": "goety:ritual",

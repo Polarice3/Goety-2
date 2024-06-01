@@ -37,15 +37,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import javax.annotation.Nullable;
 
 public class PedestalBlock extends BaseEntityBlock implements IForgeBlock, SimpleWaterloggedBlock {
-    public static final VoxelShape SHAPE_BASE = Block.box(1.0D, 0.0D, 1.0D,
-            15.0D, 1.0D, 15.0D);
-    public static final VoxelShape SHAPE_BASE_2 = Block.box(2.0D, 1.0D, 2.0D,
+    public static final VoxelShape SHAPE_BASE = Block.box(2.0D, 1.0D, 2.0D,
             14.0D, 2.0D, 14.0D);
     public static final VoxelShape SHAPE_PILLAR = Block.box(5.0D, 3.0D, 5.0D,
-            11.0D, 11.0D, 11.0D);
-    public static final VoxelShape SHAPE_HOLDER = Block.box(2.0D, 12.0D, 2.0D,
+            11.0D, 12.0D, 11.0D);
+    public static final VoxelShape SHAPE_HOLDER = Block.box(2.0D, 13.0D, 2.0D,
             14.0D, 15.0D, 14.0D);
-    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_BASE_2, SHAPE_PILLAR, SHAPE_HOLDER);
+    public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_PILLAR, SHAPE_HOLDER);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 

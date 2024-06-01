@@ -4,8 +4,8 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,9 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -51,9 +48,9 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if (biomeHolder.get().coldEnoughToSnow(blockPos) || biomeHolder.is(Tags.Biomes.IS_COLD) || (level.isRainingAt(blockPos) && biomeHolder.get().coldEnoughToSnow(blockPos))) {
+                if (biomeHolder.get().coldEnoughToSnow(blockPos) || biomeHolder.is(ModTags.Biomes.FROST_DISCOUNT) || (level.isRainingAt(blockPos) && biomeHolder.get().coldEnoughToSnow(blockPos))) {
                     cost /= 1.5F;
-                } else if (biomeHolder.is(BiomeTags.SNOW_GOLEM_MELTS)) {
+                } else if (biomeHolder.is(ModTags.Biomes.FROST_MARKUP)) {
                     cost *= 1.5F;
                 }
             }
@@ -63,9 +60,9 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if ((blockPos.getY() >= 128 || (biomeHolder.is(Tags.Biomes.IS_MOUNTAIN))) && level.canSeeSky(blockPos)) {
+                if ((blockPos.getY() >= 128 && level.canSeeSky(blockPos)) || (biomeHolder.is(ModTags.Biomes.WIND_DISCOUNT))) {
                     cost /= 1.5F;
-                } else if (blockPos.getY() <= 32 && !level.canSeeSky(blockPos)) {
+                } else if ((blockPos.getY() <= 32 && !level.canSeeSky(blockPos)) || (biomeHolder.is(ModTags.Biomes.WIND_MARKUP))) {
                     cost *= 1.5F;
                 }
             }
@@ -75,8 +72,10 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if (level.canSeeSky(blockPos) && level.isThundering()) {
+                if ((level.canSeeSky(blockPos) && level.isThundering()) || biomeHolder.is(ModTags.Biomes.STORM_DISCOUNT)) {
                     cost /= 1.5F;
+                } else if (biomeHolder.is(ModTags.Biomes.STORM_MARKUP)) {
+                    cost *= 1.5F;
                 }
             }
         }
@@ -85,25 +84,29 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if ((blockPos.getY() <= 32 || biomeHolder.is(Tags.Biomes.IS_UNDERGROUND)) && !level.canSeeSky(blockPos)) {
+                if ((blockPos.getY() <= 32 || biomeHolder.is(ModTags.Biomes.GEOMANCY_DISCOUNT))) {
                     cost /= 1.5F;
-                } else if (blockPos.getY() >= 128) {
+                } else if (blockPos.getY() >= 128 || biomeHolder.is(ModTags.Biomes.GEOMANCY_MARKUP)) {
                     cost *= 1.5F;
                 }
             }
         }
         if (this.getSpellType() == SpellType.NETHER){
             if (enable) {
-                if (level.dimension() == Level.NETHER || biomeHolder.is(BiomeTags.IS_NETHER)) {
+                if (level.dimension() == Level.NETHER || biomeHolder.is(ModTags.Biomes.NETHER_DISCOUNT)) {
                     cost /= 1.5F;
+                } else if (biomeHolder.is(ModTags.Biomes.NETHER_MARKUP)) {
+                    cost *= 1.5F;
                 }
             }
         }
         if (this.getSpellType() == SpellType.NECROMANCY){
             if (enable) {
-                if (level.getMoonBrightness() > 0.9F || biomeHolder.is(Biomes.SOUL_SAND_VALLEY) || biomeHolder.is(Biomes.DEEP_DARK)
-                        || BlockFinder.findStructure(level, blockPos, ModStructures.GRAVEYARD_KEY)) {
+                if (level.getMoonBrightness() > 0.9F || biomeHolder.is(ModTags.Biomes.NECROMANCY_DISCOUNT)
+                        || BlockFinder.findStructure(level, blockPos, ModTags.Structures.NECROMANCER_POWER)) {
                     cost /= 1.5F;
+                } else if (biomeHolder.is(ModTags.Biomes.NECROMANCY_MARKUP)) {
+                    cost *= 1.5F;
                 }
             }
         }
@@ -112,30 +115,29 @@ public interface ISpell {
                 cost /= 2;
             }
             if (enable) {
-                if (biomeHolder.is(BiomeTags.IS_JUNGLE)
-                        || biomeHolder.is(Tags.Biomes.IS_SWAMP)
-                        || biomeHolder.is(Tags.Biomes.IS_LUSH)) {
+                if (biomeHolder.is(ModTags.Biomes.WILD_DISCOUNT)) {
                     cost /= 1.5F;
-                } else if (biomeHolder.is(Tags.Biomes.IS_DESERT)
-                        || biomeHolder.is(Tags.Biomes.IS_DEAD)
-                        || biomeHolder.is(Tags.Biomes.IS_WASTELAND)) {
+                } else if (biomeHolder.is(ModTags.Biomes.WILD_MARKUP)) {
                     cost *= 1.5F;
                 }
             }
         }
         if (this.getSpellType() == SpellType.ABYSS){
             if (enable) {
-                if (biomeHolder.is(BiomeTags.IS_OCEAN)) {
+                if (biomeHolder.is(ModTags.Biomes.ABYSS_DISCOUNT)) {
                     cost /= 1.5F;
+                } else if (biomeHolder.is(ModTags.Biomes.ABYSS_MARKUP)) {
+                    cost *= 1.5F;
                 }
             }
         }
         if (this.getSpellType() == SpellType.VOID){
             if (enable) {
-                if (biomeHolder.containsTag(Tags.Biomes.IS_VOID)
-                        || level.dimension() == Level.END
-                        || biomeHolder.is(BiomeTags.IS_END)) {
+                if (biomeHolder.is(ModTags.Biomes.VOID_DISCOUNT)
+                        || level.dimension() == Level.END) {
                     cost /= 1.5F;
+                } else if (biomeHolder.is(ModTags.Biomes.VOID_MARKUP)) {
+                    cost *= 1.5F;
                 }
             }
         }

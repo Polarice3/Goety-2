@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "O$(l:focuses/rotting_focus腐ったフォーカス$()を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
+      "text": "O$(l:focuses/necromancy/rotting_focus腐ったフォーカス$()を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
     },
     {
       "type": "goety:ritual",

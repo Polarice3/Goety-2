@@ -1950,5 +1950,9 @@
   "advancements.goety.craft_nameless_set.description": "无名套比死灵套更加强大。在禁忌技艺的重铸下，无名魔杖将死灵法术和某些魔法法术发挥到了最大的效应..",
   "advancements.goety.summon_blaze.title": "燃烧殆尽",
   "advancements.goety.summon_blaze.description": "召唤烈焰人仆从.",
-  "entity.goety.ghast_servant": "恶魂仆从"
+  "entity.goety.ghast_servant": "恶魂仆从",
+  "item.goety.zombie_vindicator_servant_spawn_egg": "僵尸卫道士仆从刷怪蛋",
+  "item.goety.skeleton_pillager_servant_spawn_egg": "骷髅掠夺者仆从刷怪蛋",
+  "item.goety.bound_evoker_spawn_egg": "被绑定的唤魔者仆从刷怪蛋",
+  "item.goety.bound_iceologer_spawn_egg": "被绑定的冰术士仆从刷怪蛋"
 }

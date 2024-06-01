@@ -84,6 +84,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> JUNGLE_ZOMBIE_SERVANT_SPAWN_EGG = ITEMS.register("jungle_zombie_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.JUNGLE_ZOMBIE_SERVANT, 0x383028, 0x2d3c21, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> ZOMBIE_VINDICATOR_SERVANT_SPAWN_EGG = ITEMS.register("zombie_vindicator_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.ZOMBIE_VINDICATOR_SERVANT, 0x8aa2a2, 0x4c6240, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> SKELETON_SERVANT_SPAWN_EGG = ITEMS.register("skeleton_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SKELETON_SERVANT, 0x1f1f1f, 0x6e6473, egg()));
 
@@ -99,6 +102,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> SUNKEN_SKELETON_SERVANT_SPAWN_EGG = ITEMS.register("sunken_skeleton_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SUNKEN_SKELETON_SERVANT, 0xd6d0c9, 0xa154bc, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> SKELETON_PILLAGER_SERVANT_SPAWN_EGG = ITEMS.register("skeleton_pillager_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.SKELETON_PILLAGER_SERVANT, 0x363636, 0x606060, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> NECROMANCER_SERVANT_SPAWN_EGG = ITEMS.register("necromancer_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.NECROMANCER_SERVANT, 0x99896c, 0x0097c2, egg()));
 
@@ -110,6 +116,12 @@ public class ModSpawnEggs {
 
     public static final RegistryObject<ModSpawnEggItem> BORDER_WRAITH_SERVANT_SPAWN_EGG = ITEMS.register("border_wraith_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH_SERVANT, 0x18090f, 0x869696, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> BOUND_EVOKER_SPAWN_EGG = ITEMS.register("bound_evoker_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BOUND_EVOKER, 0x5a6363, 0x363636, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> BOUND_ICEOLOGER_SPAWN_EGG = ITEMS.register("bound_iceologer_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BOUND_ICEOLOGER, 0x466470, 0x363636, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> HAUNTED_SKULL_SPAWN_EGG = ITEMS.register("haunted_skull_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, egg()));

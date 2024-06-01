@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "我们可以使用$(l:focuses/whispering_focus)唤藤聚晶$()来召唤它们,也可以通过右键单击中心丛林叶，并使用活力核心来调用它们，这样召唤出来的生物不会有寿命限制。"
+      "text": "我们可以使用$(l:focuses/wild/whispering_focus)唤藤聚晶$()来召唤它们,也可以通过右键单击中心丛林叶，并使用活力核心来调用它们，这样召唤出来的生物不会有寿命限制。"
     },
     {
       "type": "multiblock",

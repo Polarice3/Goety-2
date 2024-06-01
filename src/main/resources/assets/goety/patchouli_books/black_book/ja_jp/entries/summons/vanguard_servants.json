@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/vanguard_focus)ヴァンガードのフォーカス$()を使用してこれらのクリーチャーを呼び出すことができます。または寿命の制限なしで召喚する儀式を通じて召喚することもできます。"
+      "text": "$(l:focuses/necromancy/vanguard_focus)ヴァンガードのフォーカス$()を使用してこれらのクリーチャーを呼び出すことができます。または寿命の制限なしで召喚する儀式を通じて召喚することもできます。"
     },
     {
       "type": "goety:ritual",

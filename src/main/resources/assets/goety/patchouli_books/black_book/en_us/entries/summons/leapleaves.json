@@ -16,6 +16,10 @@
       "type": "multiblock",
       "multiblock_id": "goety:leapleaf",
       "text": "Right click the center Overgrown Roots with an Animation Core."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The creature can be healed by right-clicking on them with Bone Meals."
     }
   ]
 }

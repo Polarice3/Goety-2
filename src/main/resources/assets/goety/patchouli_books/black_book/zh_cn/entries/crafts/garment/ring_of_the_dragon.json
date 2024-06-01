@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "龙息的力量, 可以极大地提升呼吸聚晶的能力, 不仅可以提升$(l:focuses/fire_breath_focus)炎呼$() 和 $(l:focuses/frost_breath_focus)霜呼$()它们的伤害，甚至足矣改变地形!"
+      "text": "龙息的力量, 可以极大地提升呼吸聚晶的能力, 不仅可以提升$(l:focuses/fire_breath_focus)炎呼$() 和 $(l:focuses/frost/frost_breath_focus)霜呼$()它们的伤害，甚至足矣改变地形!"
     },
     {
       "type": "goety:ritual",

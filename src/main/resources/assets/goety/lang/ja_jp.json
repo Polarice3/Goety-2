@@ -1907,7 +1907,7 @@
   "item.goety.blaze_servant_spawn_egg": "ブレイズの従者のスポーンエッグ",
   "item.goety.icy_spider_servant_spawn_egg": "氷のクモののスポーンエッグ",
   "item.goety.inferno_spawn_egg": "インフェルノのスポーンエッグ",
-  "item.goety.wither_necromancer_spawn_egg": "ウィザーネクロマンサーのスポクモーンエッグ",
+  "item.goety.wither_necromancer_spawn_egg": "ウィザーネクロマンサーのスポーンエッグ",
   "item.goety.nether_staff": "ネザーの杖",
   "item.goety.blazing_horn": "燃える角笛",
   "item.goety.withered_manuscript": "枯れた原稿",
@@ -1948,5 +1948,9 @@
   "advancements.goety.craft_nameless_set.description": "名もなき王冠とケープはネクロセットと同じ効果があります。名もなき杖はネクロマンシーと特定の呪文を強化します。",
   "advancements.goety.summon_blaze.title": "バーン・イット・ダウン",
   "advancements.goety.summon_blaze.description": "ブレイズの従者を召喚する",
-  "entity.goety.ghast_servant": "ガストの従者"
+  "entity.goety.ghast_servant": "ガストの従者",
+  "item.goety.zombie_vindicator_servant_spawn_egg": "ゾンビウィンディケーターのスポーンエッグ",
+  "item.goety.skeleton_pillager_servant_spawn_egg": "スケルトンピリジャーのスポーンエッグ",
+  "item.goety.bound_evoker_spawn_egg": "バインドエヴォーカーのスポーンエッグ",
+  "item.goety.bound_iceologer_spawn_egg": "縛られた氷学者のスポーンエッグ"
 }

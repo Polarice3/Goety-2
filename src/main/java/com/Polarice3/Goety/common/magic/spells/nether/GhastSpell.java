@@ -15,7 +15,6 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -29,6 +28,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class GhastSpell extends SummonSpell {
 
@@ -58,23 +58,14 @@ public class GhastSpell extends SummonSpell {
         return SpellType.NETHER;
     }
 
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){
-        int count = 0;
-        for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof Malghast servant) {
-                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
-                    ++count;
-                }
-            }
-        }
-        if (count >= SpellConfig.GhastLimit.get()){
-            if (entityLiving instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-            }
-            return false;
-        } else {
-            return super.conditionsMet(worldIn, entityLiving);
-        }
+    @Override
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof Malghast;
+    }
+
+    @Override
+    public int summonLimit() {
+        return SpellConfig.GhastLimit.get();
     }
 
     @Override

@@ -420,8 +420,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);
-        event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER.get(), SkeletonPillagerRenderer::new);
-        event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR.get(), ZombieVindicatorRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), ZombieVindicatorRenderer::new);
         event.registerEntityRenderer(ModEntityType.BOUND_EVOKER.get(), BoundEvokerRenderer::new);
         event.registerEntityRenderer(ModEntityType.BOUND_ICEOLOGER.get(), BoundIceologerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorRenderer::new);

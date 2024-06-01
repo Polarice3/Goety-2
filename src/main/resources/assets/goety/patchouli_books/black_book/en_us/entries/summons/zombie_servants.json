@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "One can call these creatures through the use of a $(l:focuses/rotting_focus)Rotting Focus$(), or through a ritual which summons one without a limited lifespan."
+      "text": "One can call these creatures through the use of a $(l:focuses/necromancy/rotting_focus)Rotting Focus$(), or through a ritual which summons one without a limited lifespan."
     },
     {
       "type": "goety:ritual",
