@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -97,7 +96,7 @@ public class CrystalBallBlock extends Block {
                     } else {
                         pPlayer.displayClientMessage(Component.translatable("info.goety.taglock.difDimension"), true);
                     }
-                } else if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.CrystalBallRespawn.get() && BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.BLIGHTED_SHACK_KEY)) {
+                } else if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.CrystalBallRespawn.get() && BlockFinder.findStructure(serverLevel, pPlayer, ModTags.Structures.CRONE_SPAWNS)) {
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
                     if (pPlayer instanceof ServerPlayer serverPlayer) {
                         CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pPos, itemStack);

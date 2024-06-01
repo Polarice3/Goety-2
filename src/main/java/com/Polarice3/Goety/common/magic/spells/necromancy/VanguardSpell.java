@@ -15,7 +15,6 @@ import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -31,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class VanguardSpell extends SummonSpell {
 
@@ -74,23 +74,13 @@ public class VanguardSpell extends SummonSpell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        int count = 0;
-        for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof AbstractSkeletonServant servant) {
-                if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
-                    ++count;
-                }
-            }
-        }
-        if (count >= SpellConfig.SkeletonLimit.get()){
-            if (entityLiving instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-            }
-            return false;
-        } else {
-            return super.conditionsMet(worldIn, entityLiving);
-        }
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof AbstractSkeletonServant;
+    }
+
+    @Override
+    public int summonLimit() {
+        return SpellConfig.SkeletonLimit.get();
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){

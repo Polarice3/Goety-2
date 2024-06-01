@@ -3,13 +3,13 @@ package com.Polarice3.Goety.common.items;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.StructureTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,7 +34,7 @@ public class DarkScrollItem extends Item {
         super.finishUsingItem(stack, worldIn, entityLiving);
         boolean flag = false;
         if (worldIn instanceof ServerLevel serverWorld){
-            flag = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), StructureTags.ON_WOODLAND_EXPLORER_MAPS).isValid();
+            flag = serverWorld.structureManager().getStructureWithPieceAt(entityLiving.blockPosition(), ModTags.Structures.VIZIER_SPAWNS).isValid();
         }
         if (flag){
             worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 1.0F, 1.0F);

@@ -289,6 +289,18 @@ public class BlockFinder {
         return false;
     }
 
+    public static boolean findStructure(Level level, BlockPos blockPos, TagKey<Structure> structureTagKey){
+        if (level instanceof ServerLevel serverLevel) {
+            return findStructure(serverLevel, blockPos, structureTagKey);
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean findStructure(ServerLevel serverLevel, LivingEntity livingEntity, TagKey<Structure> structureTagKey){
+        return serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), structureTagKey).isValid();
+    }
+
     public static boolean findStructure(ServerLevel serverLevel, BlockPos blockPos, TagKey<Structure> structureTagKey){
         return serverLevel.structureManager().getStructureWithPieceAt(blockPos, structureTagKey).isValid();
     }

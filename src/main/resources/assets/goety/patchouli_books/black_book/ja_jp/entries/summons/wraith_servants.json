@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/spooky_focus)不気味なフォーカス$() を使用するか、寿命を制限せずに召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
+      "text": "$(l:focuses/necromancy/spooky_focus)不気味なフォーカス$() を使用するか、寿命を制限せずに召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
     },
     {
       "type": "goety:ritual",

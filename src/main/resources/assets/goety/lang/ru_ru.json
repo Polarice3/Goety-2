@@ -1960,5 +1960,9 @@
   "advancements.goety.craft_nameless_set.description": "Безымянная корона и плащ обладают теми же преимуществами, что и некро-одежды. Безымянный посох наделяет некромантическими способностями и усиляет некоторые заклинаниями.",
   "advancements.goety.summon_blaze.title": "Гори оно всё",
   "advancements.goety.summon_blaze.description": "Призовите всполоха-прислужника.",
-  "entity.goety.ghast_servant": "Гаст-слуга"
+  "entity.goety.ghast_servant": "Гаст-слуга",
+  "item.goety.zombie_vindicator_servant_spawn_egg": "Яйцо призыва Поборник-зомби",
+  "item.goety.skeleton_pillager_servant_spawn_egg": "Яйцо призыва Разбойник-скелет",
+  "item.goety.bound_evoker_spawn_egg": "Яйцо призыва Подчинённый заклинатель",
+  "item.goety.bound_iceologer_spawn_egg": "Яйцо призыва Подчинённый ледолог"
 }

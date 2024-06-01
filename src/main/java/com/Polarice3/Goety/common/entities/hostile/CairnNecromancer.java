@@ -10,8 +10,8 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
 import com.Polarice3.Goety.common.items.ModItems;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -127,7 +127,7 @@ public class CairnNecromancer extends AbstractNecromancer implements Enemy {
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(serverLevel));
                     summonedentity.setPersistenceRequired();
                     summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(CairnNecromancer.this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    if (BlockFinder.findStructure(serverLevel, CairnNecromancer.this, ModStructures.CRYPT_KEY)) {
+                    if (BlockFinder.findStructure(serverLevel, CairnNecromancer.this, ModTags.Structures.CRYPT)) {
                         for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
                             if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
                                 ItemStack itemstack = summonedentity.getItemBySlot(equipmentslottype);

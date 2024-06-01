@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:fortress",
+    {
+      "id": "betterfortresses:better_fortresses",
+      "required": false
+    },
+    {
+      "id": "#morevillagers:on_fortress_explorer_maps",
+      "required": false
+    }
+  ]
+}

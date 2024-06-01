@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "One我们可以通过使用 $(l:focuses/spooky_focus)骇人聚晶$(), 或通过仪式召唤永生的生物。"
+      "text": "One我们可以通过使用 $(l:focuses/necromancy/spooky_focus)骇人聚晶$(), 或通过仪式召唤永生的生物。"
     },
     {
       "type": "goety:ritual",

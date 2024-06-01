@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/osseous_focus)骨性のフォーカス$() を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
+      "text": "$(l:focuses/necromancy/osseous_focus)骨性のフォーカス$() を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
     },
     {
       "type": "goety:ritual",

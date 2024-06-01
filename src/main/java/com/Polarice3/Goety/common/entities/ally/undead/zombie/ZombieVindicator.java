@@ -6,7 +6,6 @@ import com.Polarice3.Goety.common.entities.neutral.IRavager;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -25,10 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class ZombieVindicator extends ZombieServant{
@@ -100,15 +97,6 @@ public class ZombieVindicator extends ZombieServant{
         return false;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34088_, DifficultyInstance p_34089_, MobSpawnType p_34090_, @Nullable SpawnGroupData p_34091_, @Nullable CompoundTag p_34092_) {
-        SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
-        if (this.isNatural()){
-            this.setHostile(true);
-        }
-        return spawngroupdata;
-    }
-
     protected void handleAttributes(float difficulty) {
         Objects.requireNonNull(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE)).addPermanentModifier(new AttributeModifier("random spawn bonus", this.random.nextDouble() * (double)0.05F, AttributeModifier.Operation.ADDITION));
         double d0 = this.random.nextDouble() * 1.5D * (double)difficulty;
@@ -127,8 +115,8 @@ public class ZombieVindicator extends ZombieServant{
         float random = this.level.random.nextFloat();
         if (this.isUpgraded()){
             if (killedEntity instanceof Vindicator vindicator){
-                if (random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_VINDICATOR.get(), (timer) -> {})) {
-                    EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_VINDICATOR.get();
+                if (random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), (timer) -> {})) {
+                    EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get();
                     ZombieVindicator zombieVindicator = (ZombieVindicator) vindicator.convertTo(entityType, false);
                     if (zombieVindicator != null) {
                         zombieVindicator.finalizeSpawn(world, level.getCurrentDifficultyAt(zombieVindicator.blockPosition()), MobSpawnType.CONVERSION, null, null);

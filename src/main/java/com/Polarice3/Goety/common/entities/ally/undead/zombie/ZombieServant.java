@@ -227,7 +227,7 @@ public class ZombieServant extends Summoned {
                 }
                 entityType = entityType1;
             } else if (BlockFinder.findStructure(serverLevel, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
-                entityType = ModEntityType.ZOMBIE_VINDICATOR.get();
+                entityType = ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get();
             } else if (level.getBiome(blockPos).get().coldEnoughToSnow(blockPos)) {
                 entityType = ModEntityType.FROZEN_ZOMBIE_SERVANT.get();
             } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {

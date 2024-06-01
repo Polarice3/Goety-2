@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -57,7 +56,7 @@ public class PithosBlock extends BaseEntityBlock {
         } else {
             if (!pState.getValue(LOCKED)) {
                 BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-                if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.PithosRespawn.get() && pLevel instanceof ServerLevel serverLevel && BlockFinder.findStructure(serverLevel, pPlayer, ModStructures.CRYPT_KEY)){
+                if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.PithosRespawn.get() && pLevel instanceof ServerLevel serverLevel && BlockFinder.findStructure(serverLevel, pPlayer, ModTags.Structures.SKULL_LORD_SPAWNS)){
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);
                     if (tileentity instanceof PithosBlockEntity pithosBlock) {
                         pithosBlock.setLootTable(ModLootTables.CRYPT_TOMB, pLevel.random.nextLong());

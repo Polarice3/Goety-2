@@ -175,7 +175,7 @@ public abstract class AbstractSkeletonServant extends Summoned implements Ranged
             if (level.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && level.canSeeSky(blockPos)) {
                 entityType = ModEntityType.STRAY_SERVANT.get();
             } else if (BlockFinder.findStructure(serverLevel, blockPos, BuiltinStructures.PILLAGER_OUTPOST)) {
-                entityType = ModEntityType.SKELETON_PILLAGER.get();
+                entityType = ModEntityType.SKELETON_PILLAGER_SERVANT.get();
             } else if (level.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && level.random.nextBoolean()) {
                 entityType = ModEntityType.MOSSY_SKELETON_SERVANT.get();
             } else if (level.isWaterAt(blockPos)) {

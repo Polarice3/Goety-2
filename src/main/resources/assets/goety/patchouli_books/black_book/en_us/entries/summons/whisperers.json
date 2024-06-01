@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "One can call these creatures through the use of a $(l:focuses/whispering_focus)Whispering Focus$(), or by right-clicking on the center Jungle Leaves of this configuration with an Animation Core for one without limited lifespan."
+      "text": "One can call these creatures through the use of a $(l:focuses/wild/whispering_focus)Whispering Focus$(), or by right-clicking on the center Jungle Leaves of this configuration with an Animation Core for one without limited lifespan."
     },
     {
       "type": "multiblock",

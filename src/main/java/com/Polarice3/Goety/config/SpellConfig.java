@@ -1061,17 +1061,17 @@ public class SpellConfig {
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");
-        SkeletonLimit = BUILDER.comment("Number of Skeleton/Vanguard/Necromancer Servants that can exist around the player without instantly dying, Default: 32")
+        SkeletonLimit = BUILDER.comment("Number of Skeleton/Vanguard/Necromancer Servants that an individual player can have in total, Default: 32")
                 .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
-        BoundIllagerLimit = BUILDER.comment("Number of Bound Evoker Servants that can exist around the player without instantly dying, Default: 32")
+        BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")
                 .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
-        RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems a player can summon, Default: 2")
+        RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems an individual player can have, Default: 2")
                 .defineInRange("redstoneGolemLimit", 2, 0, Integer.MAX_VALUE);
-        GraveGolemLimit = BUILDER.comment("Total number of Grave Golems a player can summon, Default: 2")
+        GraveGolemLimit = BUILDER.comment("Total number of Grave Golems an individual player can have, Default: 2")
                 .defineInRange("graveGolemLimit", 2, 0, Integer.MAX_VALUE);
         RedstoneMonstrosityGlobalLimit = BUILDER.comment("Total number of Redstone Monstrosities that can be summoned in total on a world, Default: 2")
                 .defineInRange("redstoneMonstrosityGlobalLimit", 2, 0, Integer.MAX_VALUE);
-        RedstoneMonstrosityPlayerLimit = BUILDER.comment("Total number of Redstone Monstrosities a player can summon, Default: 1")
+        RedstoneMonstrosityPlayerLimit = BUILDER.comment("Total number of Redstone Monstrosities an individual player can have, Default: 1")
                 .defineInRange("redstoneMonstrosityPlayerLimit", 1, 0, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Enchantments");

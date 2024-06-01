@@ -18,7 +18,6 @@ import com.Polarice3.Goety.utils.SoundUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
@@ -37,6 +36,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ZombieSpell extends SummonSpell {
 
@@ -75,25 +75,13 @@ public class ZombieSpell extends SummonSpell {
     }
 
     @Override
-    public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving) {
-        int count = 0;
-        for (Entity entity : worldIn.getAllEntities()) {
-            if (entity instanceof Summoned servant) {
-                if (servant instanceof ZombieServant || servant instanceof ZPiglinServant) {
-                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
-                        ++count;
-                    }
-                }
-            }
-        }
-        if (count >= SpellConfig.ZombieLimit.get()){
-            if (entityLiving instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
-            }
-            return false;
-        } else {
-            return super.conditionsMet(worldIn, entityLiving);
-        }
+    public Predicate<LivingEntity> summonPredicate() {
+        return livingEntity -> livingEntity instanceof ZombieServant;
+    }
+
+    @Override
+    public int summonLimit() {
+        return SpellConfig.ZombieLimit.get();
     }
 
     public void commonResult(ServerLevel worldIn, LivingEntity entityLiving){
@@ -148,7 +136,7 @@ public class ZombieSpell extends SummonSpell {
                     } else if (typeStaff(staff, SpellType.NETHER)) {
                         summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
-                        summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
+                        summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
                     }
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
                     summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
@@ -161,7 +149,7 @@ public class ZombieSpell extends SummonSpell {
                     }
                     summonedentity = summoned;
                 } else if (BlockFinder.findStructure(worldIn, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)){
-                    summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR.get(), worldIn);
+                    summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).get().coldEnoughToSnow(blockPos)){
                     summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){

@@ -8,10 +8,10 @@ import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
@@ -579,7 +579,7 @@ public class AbstractWraith extends Summoned {
             entityType = ModEntityType.WRAITH_SERVANT.get();
         }
         if (level instanceof ServerLevel serverLevel) {
-            if (BlockFinder.findStructure(serverLevel, blockPos, ModStructures.CRYPT_KEY)) {
+            if (BlockFinder.findStructure(serverLevel, blockPos, ModTags.Structures.CRYPT)) {
                 if (this.isHostile()){
                     entityType = ModEntityType.BORDER_WRAITH.get();
                 } else {

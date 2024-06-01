@@ -53,7 +53,6 @@ import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.world.structures.ModStructureTags;
-import com.Polarice3.Goety.common.world.structures.ModStructures;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
@@ -935,7 +934,7 @@ public class ModEvents {
                         boolean undead = mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy));
                         if (target.level instanceof ServerLevel serverLevel){
                             if (MobsConfig.HostileCryptUndead.get()) {
-                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructures.CRYPT_KEY)
+                                if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModTags.Structures.CRYPT)
                                         && !CuriosFinder.neutralNamelessSet(target)) {
                                     undead = false;
                                 }
@@ -972,7 +971,7 @@ public class ModEvents {
             boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
             if (entity.level instanceof ServerLevel serverLevel){
                 if (MobsConfig.HostileCryptUndead.get()) {
-                    if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModStructures.CRYPT_KEY)
+                    if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModTags.Structures.CRYPT)
                             && !(CuriosFinder.neutralNamelessCrown(entity) || CuriosFinder.neutralNamelessCape(entity))) {
                         undead = false;
                     }
