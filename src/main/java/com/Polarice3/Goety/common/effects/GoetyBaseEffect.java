@@ -20,6 +20,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -153,6 +154,13 @@ public class GoetyBaseEffect extends MobEffect {
                     }), TargetingConditions.forCombat(), mob, mob.getX(), mob.getEyeY(), mob.getZ());
                     if (target != null && mob != target && mob.getTarget() != target){
                         mob.setTarget(target);
+                        mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
+                        mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, target, 600L);
+                    }
+                    if (mob.getTarget() != null && mob.getTarget().isRemoved()){
+                        mob.setTarget(null);
+                        mob.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+                        mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     }
                 }
             }

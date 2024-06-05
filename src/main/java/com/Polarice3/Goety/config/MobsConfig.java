@@ -238,7 +238,7 @@ public class MobsConfig {
                 .define("redstoneGolemMold", true);
         RedstoneMonstrosityMold = BUILDER.comment("Whether creating a Redstone Monstrosity causes the mold to change blocks, Default: true")
                 .define("redstoneMonstrosityMold", true);
-        RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves if mob griefing is enabled, Default: true")
+        RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
                 .define("redstoneMonstrosityLeafBreak", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
                 .define("vexTeleport", true);

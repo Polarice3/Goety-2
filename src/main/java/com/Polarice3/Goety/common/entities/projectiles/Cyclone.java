@@ -42,6 +42,8 @@ public class Cyclone extends AbstractCyclone {
         cyclone.setTotalLife(this.getTotalLife());
         cyclone.setSpun(this.getSpun());
         cyclone.setSize(this.getSize());
+        cyclone.setDamage(this.getDamage());
+        cyclone.setExtraDamage(this.getExtraDamage());
         cyclone.setPos(this.getX(), this.getY(), this.getZ());
         this.level.addFreshEntity(cyclone);
         this.remove();

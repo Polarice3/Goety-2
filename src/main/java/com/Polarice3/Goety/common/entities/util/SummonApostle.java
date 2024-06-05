@@ -16,6 +16,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
@@ -48,6 +49,9 @@ public class SummonApostle extends Entity {
             for (Player player: this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(32))){
                 player.displayClientMessage(Component.translatable("info.goety.apostle.summon"), true);
             }
+            if (this.level instanceof ServerLevel serverLevel){
+                Warden.applyDarknessAround(serverLevel, this.position(), (Entity)null, 32);
+            }
         }
         if (this.tickCount == 300) {
             this.playSound(ModSounds.APOSTLE_AMBIENT.get(), 1.0F, 1.0F);
@@ -60,9 +64,6 @@ public class SummonApostle extends Entity {
             if (serverWorld.getDifficulty() == Difficulty.PEACEFUL){
                 this.discard();
             }
-            float f = 3.0F;
-            serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + Math.cos(this.tickCount * 0.25) * f, this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25) * f, 0, 0, 0, 0, 0.5F);
-            serverWorld.sendParticles(ParticleTypes.SMOKE, this.getX() + Math.cos(this.tickCount * 0.25 + Math.PI) * f, this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25 + Math.PI) * f, 0, 0, 0, 0, 0.5F);
             for(int i = 0; i < 2; ++i) {
                 serverWorld.sendParticles(ParticleTypes.PORTAL, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 0, (serverWorld.random.nextDouble() - 0.5D) * 2.0D, -serverWorld.random.nextDouble(), (serverWorld.random.nextDouble() - 0.5D) * 2.0D, 0.5D);
             }

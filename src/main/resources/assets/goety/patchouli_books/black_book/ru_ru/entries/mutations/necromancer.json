@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_skeleton_to_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:necromancer_servant"
     }
   ]
 }

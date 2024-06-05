@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/necromancy/osseous_focus)骨性のフォーカス$() を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
+      "text": "$(l:focuses/osseous_focus)骨性のフォーカス$() を使用するか、寿命に制限なく召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
     },
     {
       "type": "goety:ritual",
@@ -33,7 +33,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "空にさらされた極寒のツンドラでスケルトンサーヴァントを召喚しようとすると、代わりにストレイサーヴァントが出現します。"
+      "text": "空にさらされた極寒のツンドラでスケルトンの従者を召喚しようとすると、代わりにストレイの従者が出現します。"
     },
     {
       "type": "patchouli:entity",
@@ -50,6 +50,16 @@
     {
       "type": "patchouli:text",
       "text": "不思議なことに、この呪文をネザー要塞内で唱えた場合、忠実なウィザー スケルトンを呼び出すことはできません。 黒焦げの骸骨は、軽薄に呼び出されるほどの強大な魔力と故郷への忠誠心を秘めているようだ…。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:wither_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "多大な研究の末、要塞の元住人を呼び出し、自分の意志に従わせる方法を見つけました。彼らは近接攻撃でウィザー効果を与え、弓を与えると火矢を放ちます。"
     }
   ]
 }

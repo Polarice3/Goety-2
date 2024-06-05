@@ -367,6 +367,11 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
+    public void setItemSlot(EquipmentSlot p_21416_, ItemStack p_21417_) {
+        super.setItemSlot(p_21416_, p_21417_);
+        this.setDropChance(p_21416_, 0.0F);
+    }
+
     public boolean canBeAffected(MobEffectInstance potioneffectIn) {
         return potioneffectIn.getEffect() == MobEffects.GLOWING;
     }

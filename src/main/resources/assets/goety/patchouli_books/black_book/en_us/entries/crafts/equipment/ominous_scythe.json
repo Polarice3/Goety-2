@@ -14,6 +14,20 @@
     {
       "type": "patchouli:text",
       "text": "The scythe can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$(). It can also be used as a tool to clear out grass or harvest crops in a large area or to collect Sculk blocks without Silk Touch."
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "recipe": "goety:dark/dark_metal_scythe"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/craft_necro_brazier",
+      "text": "An upgraded version of the Ominous Scythe, possessing the qualities of other $(l:crafts/dark_metal_ingot)Dark Metal$() equipment."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_scythe": 1,
+    "goety:dark_metal_scythe": 3
+  }
 }

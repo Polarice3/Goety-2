@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/sonic_boom_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:sonic_boom_focus": 1
+  }
 }

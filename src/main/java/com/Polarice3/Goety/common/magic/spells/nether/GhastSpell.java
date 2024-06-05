@@ -108,7 +108,7 @@ public class GhastSpell extends SummonSpell {
                 Malghast ghast = new MiniGhast(ModEntityType.MINI_GHAST.get(), worldIn);
                 if (rightStaff(staff)){
                     ghast = new GhastServant(ModEntityType.GHAST_SERVANT.get(), worldIn);
-                    blockpos = BlockFinder.SummonRadius(entityLiving.blockPosition().above(4), ghast, worldIn, 10);
+                    blockpos = BlockFinder.SummonFlyingRadius(entityLiving.blockPosition().above(2), ghast, worldIn, 12);
                 }
                 ghast.setTrueOwner(entityLiving);
                 ghast.moveTo(blockpos, entityLiving.getYRot(), 0.0F);

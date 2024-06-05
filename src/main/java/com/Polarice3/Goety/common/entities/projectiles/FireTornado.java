@@ -21,14 +21,17 @@ public class FireTornado extends AbstractCyclone {
 
     public FireTornado(EntityType<? extends AbstractCyclone> p_i50173_1_, Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
+        this.setSize(2.0F);
     }
 
     public FireTornado(Level level, LivingEntity shooter, double xPower, double yPower, double zPower) {
         super(ModEntityType.FIRE_TORNADO.get(), shooter, xPower, yPower, zPower, level);
+        this.setSize(2.0F);
     }
 
     public FireTornado(Level p_i1795_1_, double p_i1795_2_, double p_i1795_4_, double p_i1795_6_, double p_i1795_8_, double p_i1795_10_, double p_i1795_12_) {
         super(ModEntityType.FIRE_TORNADO.get(), p_i1795_2_, p_i1795_4_, p_i1795_6_, p_i1795_8_, p_i1795_10_, p_i1795_12_, p_i1795_1_);
+        this.setSize(2.0F);
     }
 
     public void tick() {

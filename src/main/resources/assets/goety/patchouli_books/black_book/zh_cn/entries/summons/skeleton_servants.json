@@ -5,15 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "骷髅们要比他们腐烂的同族更加聪明，更加迅捷，尽管他们还是最基础的亡灵生物."
+      "text": "骷髅们要比他们腐烂的同族更加聪明，更加迅捷，尽管他们还是最基础的亡灵生物。"
     },
     {
       "type": "patchouli:text",
-      "text": "以下文本会详细介绍亡灵巫师可以召唤的变种骷髅."
+      "text": "以下文本会详细介绍死灵法师可以召唤的所有变种骷髅。"
     },
     {
       "type": "patchouli:text",
-      "text": "我们可以通过使用$(l:focuses/necromancy/osseous_focus)骨质聚晶$(), 或者通过一种仪式来召唤一个永生的生物."
+      "text": "我们可以通过使用$(l:focuses/osseous_focus)骨质聚晶$(), 或者通过仪式来召唤一个骷髅仆从，后者拥有无限的存续时间。"
     },
     {
       "type": "goety:ritual",
@@ -33,7 +33,23 @@
     },
     {
       "type": "patchouli:text",
-      "text": "当你在露天的寒冷群系中召唤骷髅仆从，流躅仆从会被召唤出来。"
+      "text": "当你在露天的寒冷群系或者使用$(l:crafts/frost_staff)霜冻魔杖$()来召唤骷髅仆从，流躅仆从会被召唤出来。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在丛林生物群落中使用骨质聚晶，可能有概率召唤一个青苔骷髅仆人，如果你使用$(l:crafts/wild_staff)荒野魔杖施法$()，则一定会召唤青苔骷髅仆从。他们的箭会造成中毒效果，但是如果召唤师穿着$(l:crafts/garment/wild_robe)荒野长袍$(), 则他们会给予酸性毒液效果。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sunken_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在海底，骷髅不仅会游泳，而且会挥舞鱼叉，这种鱼叉在水中的飞行效果比普通的箭要好."
     },
     {
       "type": "patchouli:entity",
@@ -41,7 +57,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "在前哨站召唤骷髅仆从会召唤出一个忠诚的骷髅掠夺者，它比普通骷髅拥有更多的生命值，而且使用弩箭。"
+      "text": "在前哨站召唤骷髅仆从会召唤出一个忠诚的骷髅掠夺者，它比普通骷髅拥有更多的生命值，而且使用弩。"
     },
     {
       "type": "patchouli:text",
@@ -50,6 +66,16 @@
     {
       "type": "patchouli:text",
       "text": "奇怪的是，在下界要塞中施法时，这个咒语无法召唤出忠诚的凋灵骷髅。烧焦的骷髅似乎拥有巨大的魔力和对家园的忠诚，无法被轻率地召唤..."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:wither_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "经过大量研究，你找到了一种方法来召唤下界要塞的前居民，并将其与你的意志绑定。他们近战时会造成凋零效果，并在使用弓时射出带有火焰的箭."
     }
   ]
 }

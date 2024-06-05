@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_dragon": 1
+  }
 }

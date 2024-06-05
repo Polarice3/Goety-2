@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:star_amulet"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:star_amulet": 1
+  }
 }

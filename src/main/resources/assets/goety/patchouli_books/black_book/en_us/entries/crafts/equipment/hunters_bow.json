@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The bow can be repaired on an anvil when combined with any bow."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:hunters_bow": 1
+  }
 }

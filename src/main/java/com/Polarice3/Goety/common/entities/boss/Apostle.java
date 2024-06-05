@@ -499,10 +499,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             damage = 0.0F;
         }
 
-        if (source.getDirectEntity() instanceof ExplosiveProjectile || source.getDirectEntity() instanceof Fireball) {
-            damage = (float)((double)damage * 0.15D);
-        }
-
         if (this.level.getDifficulty() == Difficulty.HARD){
             if (source.isMagic()){
                 damage = (float)((double)damage * 0.15D);
@@ -774,14 +770,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
-        float trueAmount = this.isInNether() ? pAmount / 2 : pAmount;
+        float trueAmount = pAmount;
 
         if (pSource == DamageSource.OUT_OF_WORLD && pSource.getEntity() == null){
             this.discard();
         }
 
         if (this.getHitTimes() >= this.hitTimeTeleport()){
-            trueAmount = trueAmount/2;
+            trueAmount = trueAmount / 2;
             this.teleport();
         }
 
@@ -1077,19 +1073,17 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.setSpellCycle(1);
                 }
             }
-            if (!this.isInNether()){
-                if (this.tickCount % 20 == 0) {
-                    BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(this.getRandomX(0.2), this.getY(), this.getRandomZ(0.2));
+            if (this.tickCount % 20 == 0) {
+                BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(this.getRandomX(0.2), this.getY(), this.getRandomZ(0.2));
 
-                    while (blockPos.getY() < this.getY() + 64.0D && !this.level.getBlockState(blockPos).isSolidRender(this.level, blockPos)) {
-                        blockPos.move(Direction.UP);
-                    }
-                    if (blockPos.getY() > this.getY() + 32.0D) {
-                        NetherMeteor fireball = this.getNetherMeteor();
-                        fireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(this.level, this) && MobsConfig.ApocalypseMode.get());
-                        fireball.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                        this.level.addFreshEntity(fireball);
-                    }
+                while (blockPos.getY() < this.getY() + 64.0D && !this.level.getBlockState(blockPos).isSolidRender(this.level, blockPos)) {
+                    blockPos.move(Direction.UP);
+                }
+                if (blockPos.getY() > this.getY() + 32.0D) {
+                    NetherMeteor fireball = this.getNetherMeteor();
+                    fireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(this.level, this) && MobsConfig.ApocalypseMode.get());
+                    fireball.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                    this.level.addFreshEntity(fireball);
                 }
             }
         } else {
@@ -1138,39 +1132,19 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.setTarget(owned.getTrueOwner());
                 }
             }
-            int i = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), ZOMBIE_MINIONS).size();
-            if (this.tickCount % 100 == 0 && i < 16 && this.level.random.nextFloat() <= 0.25F && !this.isSettingUpSecond()){
+            if (this.tickCount % 100 == 0 && !this.isSettingUpSecond()){
                 if (!this.level.isClientSide){
-                    ServerLevel ServerLevel = (ServerLevel) this.level;
-                    RandomSource r = this.level.random;
-                    int numbers = this.isSecondPhase() ? 4 : 2;
                     if (this.isInNether()) {
                         for (ZombifiedPiglin zombifiedPiglin : this.level.getEntitiesOfClass(ZombifiedPiglin.class, this.getBoundingBox().inflate(16))){
                             if (zombifiedPiglin.getTarget() != this.getTarget()){
                                 zombifiedPiglin.setTarget(this.getTarget());
                             }
                         }
-                        for (int p = 0; p < r.nextInt(numbers) + 1; ++p) {
-                            int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                            int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                            BlockPos.MutableBlockPos blockpos$mutable = this.blockPosition().mutable().move(k, 0, l);
-                            blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                            blockpos$mutable.setY((int) BlockFinder.moveDownToGround(this));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
-                            ZPiglinServant summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), this.level);
-                            summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
-                            summonedentity.setTrueOwner(this);
-                            summonedentity.setLimitedLife(MobUtil.getSummonLifespan(this.level));
-                            summonedentity.finalizeSpawn(ServerLevel, this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
-                            summonedentity.setTarget(this.getTarget());
-                            SummonCircle summonCircle = new SummonCircle(this.level, blockpos$mutable, summonedentity, false, true, this);
-                            this.level.addFreshEntity(summonCircle);
-                        }
                     }
                 }
             }
             if (this.isSecondPhase()) {
-                if (this.getHealth() <= this.getMaxHealth()/8){
+                if (this.getHealth() <= this.getMaxHealth() / 8){
                     if (this.tickCount % 100 == 0){
                         this.teleport();
                     }
@@ -1284,7 +1258,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         double d1 = pTarget.getY(0.5D) - this.getY(0.5D);
         double d2 = pTarget.getZ() - this.getZ();
         abstractarrowentity.shoot(d0, d1, d2, 3.2F, 1.0F);
-        this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(ModSounds.APOSTLE_SHOOT.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(abstractarrowentity);
     }
 

@@ -16,6 +16,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> APOSTLE_AMBIENT = create("apostle_ambient");
     public static final RegistryObject<SoundEvent> APOSTLE_HURT = create("apostle_hurt");
+    public static final RegistryObject<SoundEvent> APOSTLE_SHOOT = create("apostle_shoot");
     public static final RegistryObject<SoundEvent> APOSTLE_PREPARE_SPELL = create("apostle_prepare_spell");
     public static final RegistryObject<SoundEvent> APOSTLE_PREPARE_SUMMON = create("apostle_prepare_summon");
     public static final RegistryObject<SoundEvent> APOSTLE_CAST_SPELL = create("apostle_cast_spell");

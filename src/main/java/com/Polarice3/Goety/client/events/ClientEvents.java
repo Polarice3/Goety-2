@@ -59,11 +59,14 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -94,12 +97,10 @@ public class ClientEvents {
                 if (entity instanceof Apostle && !((Apostle) entity).isNoAi()) {
                     minecraft.getMusicManager().stopPlaying();
                     minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_apostle.desc"));
-                    soundHandler.play(new BossLoopMusic(ModSounds.APOSTLE_THEME.get(), (Apostle) entity));
                 }
                 if (entity instanceof Vizier && !((Vizier) entity).isNoAi()) {
                     minecraft.getMusicManager().stopPlaying();
                     minecraft.gui.setNowPlaying(Component.translatable("item.goety.music_disc_vizier.desc"));
-                    soundHandler.play(new BossLoopMusic(ModSounds.VIZIER_THEME.get(), (Vizier) entity));
                 }
             }
             if (entity instanceof CorruptedBeam){
@@ -157,6 +158,16 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event){
+        if (SEHelper.hasCamera(event.player)){
+            event.player.turn(0.0F, 0.0F);
+            event.player.xxa = 0.0F;
+            event.player.zza = 0.0F;
+            event.player.setJumping(false);
+        }
+    }
+
+    @SubscribeEvent
     public static void onInputInteract(InputEvent.InteractionKeyMappingTriggered event){
         AbstractClientPlayer player = Minecraft.getInstance().player;
         if (player != null){
@@ -186,10 +197,11 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onEntityTick(LivingEvent.LivingTickEvent event){
-        if (event.getEntity().level instanceof ClientLevel){
+        Entity entity = event.getEntity();
+        if (entity.level instanceof ClientLevel){
             Minecraft minecraft = Minecraft.getInstance();
             SoundManager soundHandler = minecraft.getSoundManager();
-            if (event.getEntity() instanceof SquallGolem squallGolem){
+            if (entity instanceof SquallGolem squallGolem){
                 if (squallGolem.noveltyTick == 1) {
                     soundHandler.play(new SummonNoveltySound(squallGolem, ModSounds.SQUALL_GOLEM_ALERT.get()));
                 }
@@ -198,6 +210,32 @@ public class ClientEvents {
                 if (leapleaf.noveltyTick == 1) {
                     soundHandler.play(new SummonNoveltySound(leapleaf, ModSounds.LEAPLEAF_ALERT.get()));
                 }
+            }
+            if (MainConfig.BossMusic.get()) {
+                if (entity instanceof Apostle && !((Apostle) entity).isNoAi()) {
+                    playBossMusic(ModSounds.APOSTLE_THEME.get(), (Apostle) entity);
+                }
+                if (entity instanceof Vizier && !((Vizier) entity).isNoAi()) {
+                    playBossMusic(ModSounds.VIZIER_THEME.get(), (Vizier) entity);
+                }
+            }
+        }
+    }
+
+    public static BossLoopMusic BOSS_MUSIC;
+
+    public static void playBossMusic(SoundEvent soundEvent, Mob mob){
+        if (MainConfig.BossMusic.get()) {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (soundEvent != null && mob.isAlive()) {
+                if (BOSS_MUSIC == null) {
+                    BOSS_MUSIC = new BossLoopMusic(soundEvent, mob);
+                }
+            } else {
+                BOSS_MUSIC = null;
+            }
+            if (BOSS_MUSIC != null && !minecraft.getSoundManager().isActive(BOSS_MUSIC)) {
+                Minecraft.getInstance().getSoundManager().play(BOSS_MUSIC);
             }
         }
     }
@@ -571,36 +609,6 @@ public class ClientEvents {
                 }
             }
         }
-    }
-
-    /**
-     * Based on @Mrbysco's codes:<a href="https://github.com/Mrbysco/Limbs/blob/1.20/src/main/java/com/mrbysco/limbs/client/ClientHandler.java">...</a>
-     */
-    protected static void setupRotation(PoseStack poseStack, AbstractClientPlayer player, PlayerRenderer playerRenderer, float partialTicks) {
-        boolean shouldSit = player.isPassenger() && (player.getVehicle() != null && player.getVehicle().shouldRiderSit());
-        float f = Mth.rotLerp(partialTicks, player.yBodyRotO, player.yBodyRot);
-        float f1 = Mth.rotLerp(partialTicks, player.yHeadRotO, player.yHeadRot);
-        if (shouldSit && player.getVehicle() instanceof LivingEntity livingentity) {
-            f = Mth.rotLerp(partialTicks, livingentity.yBodyRotO, livingentity.yBodyRot);
-            float f2 = f1 - f;
-            float f3 = Mth.wrapDegrees(f2);
-            if (f3 < -85.0F) {
-                f3 = -85.0F;
-            }
-
-            if (f3 >= 85.0F) {
-                f3 = 85.0F;
-            }
-
-            f = f1 - f3;
-            if (f3 * f3 > 2500.0F) {
-                f += f3 * 0.2F;
-            }
-        }
-
-
-        float f7 = player.tickCount + partialTicks;
-        ((PlayerRendererAccessor) playerRenderer).limbs_setupRotations(player, poseStack, f7, f, partialTicks);
     }
 
     @SuppressWarnings("unchecked")

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "これらの幽霊は呼び出され、自分のアイスブーケがあなたにもあなたの同盟者にも触れないようにあなたの意志によって拘束されます。"
+      "text": "これらの幽霊はあなたの意志によって呼び出され、拘束され、彼ら自身の氷の花束があなたやあなたの仲間に触れないようにします。"
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,21 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(l:focuses/necromancy/spooky_focus)不気味なフォーカス$() を使用するか、寿命を制限せずに召喚する儀式を通じて、これらのクリーチャーを呼び出すことができます。"
+      "text": "これらのクリーチャーは、$(l:focuses/necromancy/spooky_focus)不気味なフォーカス$() を使用するか、寿命に制限のないクリーチャーを召喚する儀式を通じて呼び出すことができます。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "レイスの変種であるこれらの氷を吐く生き物は、$(l:world/crypts)地下室$() 内で召喚されたときに呼び出されます。"
     }
   ]
 }

@@ -2,11 +2,15 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SRemoveEffectPacket;
 import com.Polarice3.Goety.utils.SEHelper;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -70,6 +74,18 @@ public class StunnedEvents {
     public static void onLivingTarget(LivingChangeTargetEvent event) {
         if (event.getEntity() instanceof Mob mob && isStunned(mob)) {
             event.setNewTarget(null);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeath(LivingDeathEvent event){
+        if (!event.getEntity().level.isClientSide) {
+            if (isStunned(event.getEntity())) {
+                event.getEntity().removeEffect(GoetyEffects.STUNNED.get());
+                event.getEntity().removeEffect(GoetyEffects.TANGLED.get());
+                ModNetwork.sendToALL(new SRemoveEffectPacket(event.getEntity().getId(), MobEffect.getId(GoetyEffects.STUNNED.get())));
+                ModNetwork.sendToALL(new SRemoveEffectPacket(event.getEntity().getId(), MobEffect.getId(GoetyEffects.TANGLED.get())));
+            }
         }
     }
 }

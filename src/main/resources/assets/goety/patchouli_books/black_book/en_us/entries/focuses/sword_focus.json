@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/sword_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:sword_focus": 1
+  }
 }

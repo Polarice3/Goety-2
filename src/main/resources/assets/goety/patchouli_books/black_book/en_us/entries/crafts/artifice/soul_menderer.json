@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:soul_mender"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_mender": 1
+  }
 }

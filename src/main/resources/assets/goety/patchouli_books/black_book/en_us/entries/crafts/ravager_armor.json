@@ -29,5 +29,11 @@
       "type": "goety:ritual",
       "recipe": "goety:netherite_ravager_armor"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:iron_ravager_armor": 2,
+    "goety:gold_ravager_armor": 3,
+    "goety:diamond_ravager_armor": 4,
+    "goety:netherite_ravager_armor": 5
+  }
 }

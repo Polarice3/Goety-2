@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/grapple_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grapple_focus": 1
+  }
 }

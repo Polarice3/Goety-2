@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:nether_staff"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_staff": 1
+  }
 }

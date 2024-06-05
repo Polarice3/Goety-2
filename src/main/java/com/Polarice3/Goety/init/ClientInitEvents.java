@@ -188,7 +188,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE, SummonCircleModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.SUMMON_CIRCLE_BOSS, SummonCircleBossModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ENTANGLE_VINES, EntangleVinesModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, FireTornadoModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.FIRE_TORNADO, CycloneModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.MONOLITH, MonolithModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.QUICK_GROWING_VINE, QuickGrowingVineModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.POISON_QUILL_VINE, PoisonQuillVineModel::createBodyLayer);
@@ -484,7 +484,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.ACID_POOL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_PILLAR.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
-        event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), SummonApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAIL_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.MONSOON_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELL_CLOUD.get(), TrapRenderer::new);

@@ -16,6 +16,10 @@
     {
       "type": "patchouli:text",
       "text": "The Ravaged can be fed by throwing Rotten Flesh at it, or siccing them onto any Villager, or Illager surprisingly, and have them kill the latter. Unsurprisingly, Villagers provide the most amount of flesh than any other. Once the Ravaged has transformed, it would need a specialized saddle that will make it not only rideable, but also stronger."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:ravaged"
     }
   ]
 }

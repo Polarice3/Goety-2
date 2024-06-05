@@ -19,7 +19,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The set functions the same as the old Necro Set with some improvements."
+      "text": "The set functions the same as the old Necro Set with some improvements and does not give the wearer debuffs when under sunlight."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nameless_cape": 1,
+    "goety:nameless_crown": 2
+  }
 }

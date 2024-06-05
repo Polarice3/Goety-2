@@ -49,6 +49,7 @@ public abstract class AbstractCyclone extends SpellHurtingProjectile {
     }
 
     protected void defineSynchedData() {
+        super.defineSynchedData();
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
         this.entityData.define(TARGET_UNIQUE_ID, Optional.empty());
         this.entityData.define(DATA_RADIUS, 1.0F);
@@ -65,8 +66,7 @@ public abstract class AbstractCyclone extends SpellHurtingProjectile {
     public EntityDimensions getDimensions(Pose p_33113_) {
         float i = this.getSize();
         EntityDimensions entitydimensions = super.getDimensions(p_33113_);
-        float f = (entitydimensions.width + (0.2F * i)) / entitydimensions.width;
-        return entitydimensions.scale(f);
+        return entitydimensions.scale(i);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {

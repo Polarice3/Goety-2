@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Casting the spell underwater will summon powerful immobile kelps instead. No difference other than aesthetic and need to be underwater, though the poisonous kelp's quills aren't affected by water. Wearing a $(l:crafts/garment/wild_robe)Wild Robe$() allows you to move past the vines and kelps."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:overgrowth_focus": 1
+  }
 }

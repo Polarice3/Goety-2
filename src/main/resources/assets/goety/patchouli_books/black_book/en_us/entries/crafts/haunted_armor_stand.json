@@ -19,5 +19,8 @@
       "title": "Haunted Armor",
       "text": "What truly makes the stand special, is that if the stand is fully clad in armor, right-clicking an Animation Core on it will transform the stand into a loyal Haunted Armor."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:haunted_armor_stand": 1
+  }
 }

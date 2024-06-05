@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:frost_staff"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frost_staff": 1
+  }
 }

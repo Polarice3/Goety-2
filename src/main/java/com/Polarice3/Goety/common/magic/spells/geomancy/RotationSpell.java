@@ -11,9 +11,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -78,6 +81,8 @@ public class RotationSpell extends BlockSpell {
                 default:
                     break;
             }
+        } else if (oldState.hasProperty(BlockStateProperties.ROTATION_16)){
+            newState = oldState.setValue(BlockStateProperties.ROTATION_16, (oldState.getValue(BlockStateProperties.ROTATION_16) + 1) & 15);
         } else {
             switch (side) {
                 case DOWN, UP:
@@ -92,6 +97,9 @@ public class RotationSpell extends BlockSpell {
                 default:
                     break;
             }
+        }
+        if (oldState.hasProperty(BedBlock.PART) || oldState.hasProperty(ChestBlock.TYPE)){
+            newState = null;
         }
         boolean rotated = false;
         if (newState != null && newState.canSurvive(world, pos)) {

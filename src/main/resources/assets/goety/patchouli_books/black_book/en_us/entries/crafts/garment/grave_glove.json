@@ -5,11 +5,14 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Scythes are fun and all, but they're very slow to wield making it hard for them to be a viable weapon. Using the remnants of the dead and Necroturgy, you've managed to create gloves that allow you to wield the Scythes more efficiently, increasing the attack speed by 50%."
+      "text": "Scythes are fun and all, but they're very slow to wield making it hard for them to be a viable weapon. Using the remnants of the dead and Necroturgy, you've managed to create gloves that allow you to wield the Scythes more efficiently, increasing the attack speed by 50%%."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:grave_glove"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_glove": 1
+  }
 }

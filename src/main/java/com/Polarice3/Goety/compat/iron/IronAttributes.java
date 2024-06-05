@@ -28,6 +28,11 @@ public class IronAttributes {
     public static final Attribute EVOCATION_SPELL_POWER = getPowerAttribute("evocation");
     public static final Attribute NATURE_SPELL_POWER = getPowerAttribute("nature");
 
+    public static final Attribute SUMMON_DAMAGE = getAttribute("summon_damage");
+
+    private static Attribute getAttribute(String id) {
+        return ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation("irons_spellbooks", id));
+    }
     private static Attribute getResistanceAttribute(String id) {
         return ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation("irons_spellbooks", id + "_magic_resist"));
     }

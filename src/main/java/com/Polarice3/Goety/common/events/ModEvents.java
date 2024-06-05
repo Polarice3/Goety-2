@@ -1555,6 +1555,19 @@ public class ModEvents {
                 }
             }
         }
+        if (event.getEntity() instanceof Player player) {
+            if (MainConfig.WandCoolItemUse.get()) {
+                if (!(event.getItem().getItem() instanceof IWand)) {
+                    Item main = event.getEntity().getMainHandItem().getItem();
+                    Item off = event.getEntity().getOffhandItem().getItem();
+                    if (main instanceof IWand) {
+                        player.getCooldowns().addCooldown(main, 20);
+                    } else if (off instanceof IWand) {
+                        player.getCooldowns().addCooldown(off, 20);
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent

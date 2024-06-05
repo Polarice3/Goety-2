@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Wearing a $(l:crafts/garment/wild_robe)Wild Robe$(), will cause the roots to continuously damage the entrapped target."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:entangling_focus": 1
+  }
 }

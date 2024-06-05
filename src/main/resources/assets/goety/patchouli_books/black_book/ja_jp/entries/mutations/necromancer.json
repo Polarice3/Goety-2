@@ -16,6 +16,10 @@
     {
       "type": "patchouli:text",
       "text": "ネクロマンサーは、ゾンビ以外の召喚方法も教えることができます。 特定のネクロマンシー フォーカスを右クリックすると、より多くの種類のサーヴァントを召喚できます。 魂の入った壺を食べさせると力が増すという噂があるが…。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:necromancer_servant"
     }
   ]
 }

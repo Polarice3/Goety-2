@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/eruption_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:eruption_focus": 1
+  }
 }

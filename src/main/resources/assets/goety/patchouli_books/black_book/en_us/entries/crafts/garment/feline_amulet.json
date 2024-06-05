@@ -1,0 +1,18 @@
+{
+  "name": "Feline Amulet",
+  "icon": "goety:feline_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The amulet contains the essence of a feline creature on it, making it seemed like the wearer has one on them the whole time, warding off Creepers and Phantoms away."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:feline_amulet"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:feline_amulet": 1
+  }
+}

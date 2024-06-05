@@ -13,7 +13,10 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Wearing the Ring of Want with Wanting III or more will cause your Fangs to have a 25% chance (100% if it's a Player) of dropping a creature's head/skull."
+      "text": "Wearing the Ring of Want with Wanting III or more will cause your Fangs to have a 25%% chance (100%% if it's a Player) of dropping a creature's head/skull."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_want": 1
+  }
 }

@@ -253,6 +253,22 @@ public class BlockFinder {
         return blockPos;
     }
 
+    public static BlockPos SummonFlyingRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int radius){
+        for (int i = 0; i < 128; ++i) {
+            BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
+            blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            blockpos$mutable.setY(blockPos.getY());
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && blockpos$mutable.distToCenterSqr(Vec3.atCenterOf(blockPos)) <= Mth.square(radius * 2)) {
+                blockPos = blockpos$mutable;
+                break;
+            }
+        }
+        return blockPos;
+    }
+
     public static BlockPos SummonWaterRadius(LivingEntity livingEntity, Level world){
         BlockPos.MutableBlockPos blockpos$mutable = livingEntity.blockPosition().mutable().move(0, 0, 0);
         blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(5) - world.random.nextInt(5));

@@ -6,18 +6,28 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ターゲットの足元に炎を呼び起こし、むしろ熱く、魂を凍らせる神秘的な色合い。 彼らはテレポートする能力もありますが、それを行うのはターゲットが近くにある場合のみです。"
+      "text": "ターゲットの足元に炎を召喚する神秘的な影。炎は熱いので、魂を凍らせます。また、テレポートする能力もありますが、ターゲットが近くにいる場合のみ使用できます。"
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:wraith",
-      "text": "彼らの炎の力にもかかわらず、彼らは火の影響を受けないわけではありません。"
+      "text": "Despite their fiery powers, they are not immune to fire."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:ectoplasm",
       "title": "Ectoplasm",
-      "text": "レイスはエクトプラズムをドロップする可能性があります。 エクトプラズムは、ネクロティックのアーティファクトや呪文を作成するのに役立ちます。"
+      "text": "レイスはエクトプラズムを落とすチャンスがあります。 エクトプラズムは、ネクロトゥルジックのアーティファクトや呪文を作成するのに役立ちます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "亡霊の変種であるこれらの幻影は、テレポート能力がなく、同種の幻影よりもアイスブーケを召喚する能力も少ない。しかし、対象が近くに来た場合、対象に氷の炎を吐きかける力がある。"
     }
   ]
 }

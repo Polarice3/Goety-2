@@ -7,9 +7,11 @@ import com.Polarice3.Goety.common.items.ModItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IIngredientManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +31,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ModRitualCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ModBrazierCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PulverizeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new WitchBrewCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -38,11 +41,14 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PEDESTAL.get()), JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.NECRO_BRAZIER.get()), JeiRecipeTypes.BRAZIER);
         registration.addRecipeCatalyst(new ItemStack(ModItems.PULVERIZE_FOCUS.get()), JeiRecipeTypes.PULVERIZE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.BREWING_CAULDRON.get()), JeiRecipeTypes.BREWING);
     }
 
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
         RecipeManager recipeManager = world.getRecipeManager();
+        IIngredientManager ingredientManager = registration.getIngredientManager();
+        IVanillaRecipeFactory vanillaRecipeFactory = registration.getVanillaRecipeFactory();
         List<CursedInfuserRecipes> cursedRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.CURSED_INFUSER.get());
         registration.addRecipes(JeiRecipeTypes.CURSED_INFUSER, cursedRecipes);
         List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.RITUAL_TYPE.get());
@@ -51,6 +57,7 @@ public class GoetyJeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.BRAZIER, brazierRecipes);
         List<PulverizeRecipe> pulverizeRecipes = recipeManager.getAllRecipesFor(ModRecipeSerializer.PULVERIZE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.PULVERIZE, pulverizeRecipes);
+        registration.addRecipes(JeiRecipeTypes.BREWING, WitchBrewMaker.getRecipes(recipeManager, vanillaRecipeFactory, ingredientManager));
     }
 
     @Override

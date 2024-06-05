@@ -70,14 +70,12 @@ public class CycloneSpell extends Spell {
         float damage = 0.0F;
         if (rightStaff(staff)){
             size += 1.0F;
-            damage += 2.0F;
+            damage += 1.0F;
         }
-        if (WandUtil.enchantedFocus(entityLiving)){
-            cyclone.setDamage(damage * WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
-            cyclone.setTotalLife(600 * (WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1));
-            cyclone.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));
-            cyclone.setSize(size + (WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 10.0F));
-        }
+        cyclone.setDamage(damage * (WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving) + 1));
+        cyclone.setTotalLife(600 * (WandUtil.getLevels(ModEnchantments.DURATION.get(), entityLiving) + 1));
+        cyclone.setBoltSpeed(WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving));
+        cyclone.setSize(size + (WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 10.0F));
         worldIn.addFreshEntity(cyclone);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), CastingSound(), this.getSoundSource(), 1.0F, 1.0F);
     }

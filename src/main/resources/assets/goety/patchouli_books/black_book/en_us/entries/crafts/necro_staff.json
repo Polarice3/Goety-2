@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The Necro Staff powers up Necroturgic spells, allowing one to summon more than 1 Undead Servant per cast for example."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:necro_staff": 1
+  }
 }

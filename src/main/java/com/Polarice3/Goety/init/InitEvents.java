@@ -14,6 +14,7 @@ import com.Polarice3.Goety.common.commands.LichCommand;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.listeners.IllagerAssaultListener;
+import com.Polarice3.Goety.common.listeners.SoulTakenListener;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceLocation;
@@ -64,5 +65,6 @@ public class InitEvents {
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
         event.addListener(new IllagerAssaultListener());
+        event.addListener(new SoulTakenListener());
     }
 }

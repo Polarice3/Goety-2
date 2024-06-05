@@ -1,0 +1,89 @@
+{
+  "values": [
+    "minecraft:enderman",
+    {
+      "id": "endermanoverhaul:badlands_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:cave_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:crimson_forest_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:dark_oak_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:desert_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:end_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:end_islands_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:flower_fields_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:ice_spikes_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:mushroom_fields_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:nether_wastes_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:coral_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:savanna_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:snowy_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:soulsand_valley_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:swamp_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:warped_forest_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:windswept_hills_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:pet_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:hammerhead_pet_enderman",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:axolotl_pet_enderman",
+      "required": false
+    }
+  ]
+}

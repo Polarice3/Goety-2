@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/ghastly_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghastly_focus": 1
+  }
 }

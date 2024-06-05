@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/frost_nova_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frost_nova_focus": 1
+  }
 }

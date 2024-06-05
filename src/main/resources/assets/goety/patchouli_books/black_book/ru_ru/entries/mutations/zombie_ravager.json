@@ -12,6 +12,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_zombify_ravager"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:zombie_ravager"
     }
   ]
 }

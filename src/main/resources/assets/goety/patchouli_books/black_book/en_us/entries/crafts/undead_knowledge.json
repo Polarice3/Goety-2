@@ -12,6 +12,13 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:forbidden_piece"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:forbidden_fragment"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:forbidden_piece": 1
+  }
 }

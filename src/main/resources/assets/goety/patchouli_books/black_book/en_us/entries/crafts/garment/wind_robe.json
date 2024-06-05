@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:wind_robe"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_robe": 1
+  }
 }

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "A spell that requires the caster to directly right click a living target. When doing so, the target will become Charged and will gain a charge when casted again. Level 1 Charged makes the target move and deal damage 10% more. Level 2 Charged makes the target move 25% faster, but deal 25% less damage. Adding another level causes the target to take damage and lose all charges."
+      "text": "A spell that requires the caster to directly right click a living target. When doing so, the target will become Charged and will gain a charge when casted again. Level 1 Charged makes the target move and deal damage 10%% more. Level 2 Charged makes the target move 25%% faster, but deal 25%% less damage. Adding another level causes the target to take damage and lose all charges."
     },
     {
       "type": "patchouli:crafting",

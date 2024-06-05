@@ -8,7 +8,7 @@
       "text": "フォーカスを使用すると、生き物の場所または足元に強力な突風を呼び出すことができ、1秒後に生き物を空中に投げ飛ばしてダメージを与えます。"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
     }
   ]

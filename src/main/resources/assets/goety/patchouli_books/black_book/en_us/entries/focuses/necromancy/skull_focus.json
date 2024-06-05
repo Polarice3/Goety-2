@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/skull_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:skull_focus": 1
+  }
 }

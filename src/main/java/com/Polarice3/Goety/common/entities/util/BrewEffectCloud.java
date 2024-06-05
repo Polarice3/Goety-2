@@ -233,7 +233,7 @@ public class BrewEffectCloud extends Entity {
                                         if (mobeffectinstance1.getEffect().isInstantenous()) {
                                             mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
                                         } else {
-                                            livingentity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
+                                            livingentity.addEffect(new MobEffectInstance(mobeffectinstance1.getEffect(), mobeffectinstance1.getDuration() / 4, mobeffectinstance1.getAmplifier(), mobeffectinstance1.isAmbient(), mobeffectinstance1.isVisible()));
                                         }
                                     }
 

@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:wild_staff"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_staff": 1
+  }
 }

@@ -18,6 +18,16 @@
       "item": "goety:ectoplasm",
       "title": "Ectoplasm",
       "text": "Wraiths have a chance of dropping an Ectoplasm. The Ectoplasm is useful for crafting Necroturgic artifacts and spells."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "A variant of the wraith, these phantasms lack the ability to teleport and summon less Ice Bouquets than their cousin. However, they have the power to breath their icy flames upon their target, if said target goes close to them."
     }
   ]
 }

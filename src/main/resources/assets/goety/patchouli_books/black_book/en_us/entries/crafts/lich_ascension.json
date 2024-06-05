@@ -21,5 +21,8 @@
       "type": "patchouli:text",
       "text": "However, one should not immediately drink the brew once crafted! The brew must be drunk on a Full Moon. You must also have an $(l:crafts/artifice/arca)Arca$() ready to bind your soul to it. Once drunk, you will die, but will rise as an Undead creature if all goes to plan. (If on Hardcore, make sure your Totem is full, or hold a Totem of Undying offhand!)"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:undeath_potion": 2
+  }
 }

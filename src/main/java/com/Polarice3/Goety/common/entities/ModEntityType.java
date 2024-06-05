@@ -378,13 +378,13 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<FireTornado>> FIRE_TORNADO = register("fire_tornado",
             EntityType.Builder.<FireTornado>of(FireTornado::new, MobCategory.MISC)
-                    .sized(2.0F, 2.0F)
+                    .sized(1.0F, 1.5F)
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
     public static final RegistryObject<EntityType<Cyclone>> CYCLONE = register("cyclone",
             EntityType.Builder.<Cyclone>of(Cyclone::new, MobCategory.MISC)
-                    .sized(1.0F, 1.0F)
+                    .sized(1.0F, 1.5F)
                     .clientTrackingRange(4)
                     .updateInterval(1));
 

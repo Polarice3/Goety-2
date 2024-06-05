@@ -14,6 +14,7 @@ import com.Polarice3.Goety.common.entities.util.SummonCircleVariant;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -614,7 +615,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                         for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
                             BlockState blockstate = this.level.getBlockState(blockpos);
                             Block block = blockstate.getBlock();
-                            if (block instanceof LeavesBlock) {
+                            if (block instanceof LeavesBlock || blockstate.is(ModTags.Blocks.MONSTROSITY_BREAKS)) {
                                 flag = this.level.destroyBlock(blockpos, true, this) || flag;
                             }
                         }

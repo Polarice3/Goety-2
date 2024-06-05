@@ -14,11 +14,21 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Можно вызвать этих существ с помощью $(l:focuses/necromancy/spooky_focus)фокуса страха$() или ритуала, который призывает призраков с неограниченным сроком жизни."
+      "text": "Можно вызвать этих существ с помощью $(l:focuses/osseous_focus)фокуса страха$() или ритуала, который призывает призраков с неограниченным сроком жизни."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "Разновидность призраков, плюющаяся льдом и вызываемая в $(l:world/crypts)склепе$()."
     }
   ]
 }
