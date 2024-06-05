@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:frost_robe"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:frost_robe": 1
+  }
 }

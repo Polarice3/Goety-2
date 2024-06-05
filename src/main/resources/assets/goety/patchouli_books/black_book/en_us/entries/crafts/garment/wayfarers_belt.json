@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:wayfarers_belt"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wayfarers_belt": 1
+  }
 }

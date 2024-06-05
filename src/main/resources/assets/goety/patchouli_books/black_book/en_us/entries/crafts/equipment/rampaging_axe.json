@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The axe can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:rampaging_axe": 1
+  }
 }

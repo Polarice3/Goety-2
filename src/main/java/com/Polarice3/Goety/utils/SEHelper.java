@@ -13,6 +13,7 @@ import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.listeners.SoulTakenListener;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.research.Research;
@@ -41,6 +42,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -161,9 +163,16 @@ public class SEHelper {
 
     public static int getSoulGiven(LivingEntity victim){
         if (victim != null){
-            boolean flag = victim instanceof IOwned && !(victim instanceof Enemy) && !victim.isBaby();
-            if (!flag) {
-                if (victim.getMobType() == MobType.UNDEAD) {
+            boolean flag = true;
+            if (victim instanceof IOwned){
+                flag = false;
+            } else if (victim.isBaby() && !(victim instanceof Enemy)){
+                flag = false;
+            }
+            if (flag) {
+                if (SoulTakenListener.getSoulAmount(victim) > 0){
+                    return SoulTakenListener.getSoulAmount(victim);
+                } else if (victim.getMobType() == MobType.UNDEAD) {
                     return MainConfig.UndeadSouls.get();
                 } else if (victim.getMobType() == MobType.ARTHROPOD) {
                     return MainConfig.AnthropodSouls.get();
@@ -171,16 +180,12 @@ public class SEHelper {
                     return MainConfig.AnimalSouls.get();
                 } else if (victim instanceof Raider && !(victim instanceof Ripper)) {
                     return MainConfig.IllagerSouls.get();
-                } else if (victim instanceof Villager) {
+                } else if (victim instanceof AbstractVillager) {
                     return MainConfig.VillagerSouls.get();
                 } else if (victim instanceof AbstractPiglin) {
                     return MainConfig.PiglinSouls.get();
-                } else if (victim instanceof EnderDragon) {
-                    return MainConfig.EnderDragonSouls.get();
                 } else if (victim instanceof EnderMan){
                     return MainConfig.EndermanSouls.get();
-                } else if (victim instanceof Warden){
-                    return MainConfig.WardenSouls.get();
                 } else if (victim instanceof Player) {
                     return MainConfig.PlayerSouls.get();
                 } else if (MinecoloniesLoaded.MINECOLONIES.isLoaded()

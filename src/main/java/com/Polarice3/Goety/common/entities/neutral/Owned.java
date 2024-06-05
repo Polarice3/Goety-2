@@ -103,30 +103,34 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
     public void tick(){
         super.tick();
         if (!this.level.isClientSide) {
-            if (this.getTarget() instanceof IOwned ownedEntity) {
-                if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())) {
-                    this.setTarget(null);
-                    if (this.getLastHurtByMob() == ownedEntity) {
-                        this.setLastHurtByMob(null);
+            if (!this.hasEffect(GoetyEffects.WILD_RAGE.get())) {
+                if (this.getTarget() instanceof IOwned ownedEntity) {
+                    if (this.getTrueOwner() != null && (ownedEntity.getTrueOwner() == this.getTrueOwner())) {
+                        this.setTarget(null);
+                        if (this.getLastHurtByMob() == ownedEntity) {
+                            this.setLastHurtByMob(null);
+                        }
+                    }
+                    if (ownedEntity.getTrueOwner() == this) {
+                        this.setTarget(null);
+                        if (this.getLastHurtByMob() == ownedEntity) {
+                            this.setLastHurtByMob(null);
+                        }
+                    }
+                    if (MobUtil.ownerStack(this, ownedEntity)) {
+                        this.setTarget(null);
+                        if (this.getLastHurtByMob() == ownedEntity) {
+                            this.setLastHurtByMob(null);
+                        }
                     }
                 }
-                if (ownedEntity.getTrueOwner() == this) {
-                    this.setTarget(null);
-                    if (this.getLastHurtByMob() == ownedEntity) {
-                        this.setLastHurtByMob(null);
-                    }
-                }
-                if (MobUtil.ownerStack(this, ownedEntity)) {
-                    this.setTarget(null);
-                    if (this.getLastHurtByMob() == ownedEntity) {
+                if (this.getTrueOwner() != null) {
+                    if (this.getLastHurtByMob() == this.getTrueOwner()) {
                         this.setLastHurtByMob(null);
                     }
                 }
             }
             if (this.getTrueOwner() != null) {
-                if (this.getLastHurtByMob() == this.getTrueOwner()) {
-                    this.setLastHurtByMob(null);
-                }
                 if (this.getTrueOwner() instanceof Mob mobOwner) {
                     if (mobOwner.getTarget() != null && this.getTarget() == null) {
                         this.setTarget(mobOwner.getTarget());

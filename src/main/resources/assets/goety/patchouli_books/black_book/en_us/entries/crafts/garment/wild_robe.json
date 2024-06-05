@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Creatures born from Wild magic can slowly heal themselves using their summoner's soul energy, should the summoner don this robe."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_robe": 1
+  }
 }

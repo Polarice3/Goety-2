@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 public class BrewEffects {
+    public static BrewEffects INSTANCE = new BrewEffects();
     private final Map<String, BrewEffect> effectIDs = Maps.newHashMap();
     private final Map<Item, BrewEffect> catalyst = Maps.newHashMap();
     /** Made for external recipe viewers like Patchouli */

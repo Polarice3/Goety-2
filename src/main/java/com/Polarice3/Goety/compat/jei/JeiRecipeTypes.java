@@ -17,6 +17,6 @@ public class JeiRecipeTypes {
     public static final RecipeType<PulverizeRecipe> PULVERIZE =
             RecipeType.create(Goety.MOD_ID, "pulverize", PulverizeRecipe.class);
 
-    public static final RecipeType<BrewingRecipe> BREWING =
-            RecipeType.create(Goety.MOD_ID, "brewing", BrewingRecipe.class);
+    public static final RecipeType<WitchBrewJeiRecipe> BREWING =
+            RecipeType.create(Goety.MOD_ID, "brewing", WitchBrewJeiRecipe.class);
 }

@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/soul_heal_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_heal_focus": 1
+  }
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -46,6 +47,7 @@ public class Piker extends HuntingIllagerEntity{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeGoal());
+        this.goalSelector.addGoal(2, new Raider.HoldGroundAttackGoal(this, 10.0F));
         this.goalSelector.addGoal(4, new PikerAttackGoal());
     }
 

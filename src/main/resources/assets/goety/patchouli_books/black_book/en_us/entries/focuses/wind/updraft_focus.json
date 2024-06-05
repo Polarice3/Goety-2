@@ -11,5 +11,8 @@
       "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:updraft_focus": 1
+  }
 }

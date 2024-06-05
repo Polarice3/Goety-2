@@ -1,0 +1,30 @@
+{
+  "name": "Braziers",
+  "icon": "goety:shade_brazier",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Just because you're a dark wizard doesn't mean you can't be decorative. These braziers are a fancy way of providing light and burn any fool that stand on them when lit. The braziers can also be unlit by right-clicking on them, and relit the same way."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_brazier",
+      "recipe2": "goety:stone_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_brazier",
+      "recipe2": "goety:brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_brazier",
+      "recipe2": "goety:nether_brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
+    }
+  ]
+}

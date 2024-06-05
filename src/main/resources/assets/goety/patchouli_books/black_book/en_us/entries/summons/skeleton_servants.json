@@ -33,7 +33,23 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Attempting to summon a Skeleton Servant in a cold tundra exposed to the skies will yield a Stray Servant instead."
+      "text": "Attempting to summon a Skeleton Servant in a cold tundra exposed to the skies, or summon using a $(l:crafts/frost_staff)Frost Staff$(), will yield a Stray Servant instead."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mossy_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While being in a Jungle biome, one might have a chance of summoning a Mossy Skeleton Servant instead, a 100%% if summoned with a $(l:crafts/wild_staff)Wild Staff$(). Their arrows inflicts Poison, but if their summoner dons the $(l:crafts/garment/wild_robe)Wild Robes$(), they will inflict Acid Venom."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:sunken_skeleton_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Under the sea, not only do Skeletons swim, but also wield harpoon shooting crossbows that fly through water better than regular arrows."
     },
     {
       "type": "patchouli:entity",

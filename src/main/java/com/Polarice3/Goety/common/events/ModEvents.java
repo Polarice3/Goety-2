@@ -133,6 +133,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
@@ -1510,6 +1511,19 @@ public class ModEvents {
             if (event.getEntity().level.random.nextFloat() <= 0.1F){
                 if (event.getItem().getItem() instanceof PotionItem){
                     event.setResultStack(event.getItem());
+                }
+            }
+        }
+        if (event.getEntity() instanceof Player player) {
+            if (MainConfig.WandCoolItemUse.get()) {
+                if (!(event.getItem().getItem() instanceof IWand)) {
+                    Item main = event.getEntity().getMainHandItem().getItem();
+                    Item off = event.getEntity().getOffhandItem().getItem();
+                    if (main instanceof IWand) {
+                        player.getCooldowns().addCooldown(main, 20);
+                    } else if (off instanceof IWand) {
+                        player.getCooldowns().addCooldown(off, 20);
+                    }
                 }
             }
         }

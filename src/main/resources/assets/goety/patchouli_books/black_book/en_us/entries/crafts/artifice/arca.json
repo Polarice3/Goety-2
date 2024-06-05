@@ -33,5 +33,8 @@
       "type": "patchouli:text",
       "text": "You can only have ONE Arca, placing another will cause the new Arca to replace the former. If the Arca is broken, the Soul Energy stored within will slowly evaporate, causing Soul Hunger, which weakens and slows you down, until all the Energy is gone or another Arca is placed. If there are multiple Arcas, right clicking an unused one with an empty hand will transfer which Arca is being used."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:arca": 1
+  }
 }

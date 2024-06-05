@@ -19,5 +19,8 @@
       "type": "patchouli:text",
       "text": "The Necrotic Brazier will slowly take Soul Energy from the surrounding $(l:crafts/artifice/soul_candlestick)Soul Candlesticks$(), only completing, and spewing out the resulting item, once it has taken enough consuming all the items placed in it. Breaking every $(l:crafts/artifice/soul_candlestick)Candlesticks$(), not having enough Soul Energy from them, or attempting to place or remove an item from the Brazier will cause it to spit out all of its items, wasting any consumed Soul Energy."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:necro_brazier": 1
+  }
 }

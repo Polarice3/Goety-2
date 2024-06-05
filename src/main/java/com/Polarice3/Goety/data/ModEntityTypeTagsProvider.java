@@ -71,6 +71,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
                 ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),
+                ModEntityType.APOSTLE.get(),
                 ModEntityType.VIZIER.get());
         this.tag(EntityTypeTags.ARROWS).add(ModEntityType.GHOST_ARROW.get(),
                 ModEntityType.DEATH_ARROW.get());
@@ -115,6 +116,35 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
         );
         for (String creeper : creepers) {
             this.tag(ModTags.EntityTypes.CREEPERS).addOptional(new ResourceLocation("creeperoverhaul", creeper));
+        }
+
+        this.tag(ModTags.EntityTypes.ENDERMEN).add(EntityType.ENDERMAN);
+
+        List<String> endermen = Arrays.asList(
+                "badlands_enderman",
+                "cave_enderman",
+                "crimson_forest_enderman",
+                "dark_oak_enderman",
+                "desert_enderman",
+                "end_enderman",
+                "end_islands_enderman",
+                "flower_fields_enderman",
+                "ice_spikes_enderman",
+                "mushroom_fields_enderman",
+                "nether_wastes_enderman",
+                "coral_enderman",
+                "savanna_enderman",
+                "snowy_enderman",
+                "soulsand_valley_enderman",
+                "swamp_enderman",
+                "warped_forest_enderman",
+                "windswept_hills_enderman",
+                "pet_enderman",
+                "hammerhead_pet_enderman",
+                "axolotl_pet_enderman"
+        );
+        for (String enderman : endermen) {
+            this.tag(ModTags.EntityTypes.ENDERMEN).addOptional(new ResourceLocation("endermanoverhaul", enderman));
         }
     }
 }

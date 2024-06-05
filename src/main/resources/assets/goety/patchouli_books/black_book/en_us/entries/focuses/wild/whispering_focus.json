@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/whispering_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:whispering_focus": 1
+  }
 }

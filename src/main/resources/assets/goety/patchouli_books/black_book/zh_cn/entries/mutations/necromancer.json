@@ -16,6 +16,10 @@
     {
       "type": "patchouli:text",
       "text": "死灵法师不仅仅可以召唤僵尸。如果你将死灵系的召唤聚晶给予它，它就可以召唤更多类型的仆从。有传言说，用一罐灵魂喂养它们会增强它们的力量。。。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:necromancer_servant"
     }
   ]
 }

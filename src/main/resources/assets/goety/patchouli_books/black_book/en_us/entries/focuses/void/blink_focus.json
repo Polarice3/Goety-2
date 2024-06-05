@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/blink_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:blink_focus": 1
+  }
 }

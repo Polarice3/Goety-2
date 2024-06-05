@@ -10,6 +10,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:convert_zombify_horse"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:zombie_horse"
     }
   ]
 }

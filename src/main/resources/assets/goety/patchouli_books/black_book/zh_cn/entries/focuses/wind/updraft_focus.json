@@ -8,7 +8,7 @@
       "text": "这个聚晶可以让你在某个位置或生物脚下召唤一股强大的气流，一秒钟后，这些气流会将它们抛向空中，对它们造成摔落伤害。"
     },
     {
-      "type": "goety:ritual",
+      "type": "patchouli:crafting",
       "recipe": "goety:focus/updraft_focus"
     }
   ]

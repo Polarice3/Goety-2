@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "While taking damage while wearing the Turban, you will have a 50%, or a 100% if you're at or below half of your maximum health, of spawning a loyal Irk that will defend you. If you use the Vexing Spell while crouching, it will kill of your Irks, healing you a heart per killed."
+      "text": "While taking damage while wearing the Turban, you will have a 50%%, or a 100%% if you're at or below half of your maximum health, of spawning a loyal Irk that will defend you. If you use the Vexing Spell while crouching, it will kill of your Irks, healing you a heart per killed."
     },
     {
       "type": "goety:ritual",
@@ -29,5 +29,9 @@
       "type": "patchouli:text",
       "text": "At first, the Robe seems to be just another recolor of the Dark Robes, but when casting a spell through your wand you've discovered that doing so will give you the Vizier's shield, halving all incoming damage so long as you're spellcasting."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grand_turban": 2,
+    "goety:grand_robe": 4
+  }
 }

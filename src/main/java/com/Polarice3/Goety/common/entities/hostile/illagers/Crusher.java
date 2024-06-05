@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
@@ -58,6 +59,7 @@ public class Crusher extends HuntingIllagerEntity{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeGoal());
+        this.goalSelector.addGoal(2, new Raider.HoldGroundAttackGoal(this, 10.0F));
         this.goalSelector.addGoal(4, new AttackGoal(1.0D));
     }
 

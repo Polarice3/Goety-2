@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Unfortunately, the newly Hook Bell does not respond to any Redstone power and can only be rung, by hand or from projectiles shot, from beings like yourself."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:hook_bell": 1
+  }
 }

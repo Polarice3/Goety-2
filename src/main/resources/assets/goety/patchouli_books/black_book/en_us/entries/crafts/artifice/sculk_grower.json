@@ -20,5 +20,8 @@
       "type": "patchouli:text",
       "text": "Usually, the Sculk Grower grows random crops from a 8 x 4 x 8 Blocks around it, but the Grower can be enchanted with Radius (Though, unlike, say, the Sculk Devourer, the Radius adds rather than multiply). If not supplied with Redstone, the Grower will still grow crops until it runs out of Charges. If there aren't any crops around the Grower(Or the Continuous Growth Config is disabled), its Charges will decay within itself."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:sculk_grower": 1
+  }
 }

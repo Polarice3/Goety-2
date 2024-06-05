@@ -2,6 +2,7 @@
   "name": "Flame Strike Focus",
   "icon": "goety:flame_strike_focus",
   "category": "goety:focuses/nether",
+  "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
       "type": "patchouli:text",
@@ -11,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/flame_strike_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:flame_strike_focus": 1
+  }
 }

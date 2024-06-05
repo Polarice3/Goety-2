@@ -21,5 +21,9 @@
       "type": "patchouli:text",
       "text": "$(l:focuses/soul_bolt_focus)Soul Bolts$() shot from this staff will turn into the more powerful Necro Bolts. Casting the $(l:focuses/illusion_focus)Mirror Spell$() while also wearing the $(l:crafts/garment/nameless_set)Nameless Set$() will cause them to shoot a single Necro Bolt at your target instead."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:heart_of_the_night": 1,
+    "goety:nameless_staff": 2
+  }
 }

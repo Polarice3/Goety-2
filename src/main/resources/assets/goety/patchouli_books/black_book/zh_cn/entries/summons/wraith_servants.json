@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些幽灵被你的意志召唤和约束着，因此他们自己的火不会攻击你或你的盟友。"
+      "text": "这些幽灵被你的意志召唤和约束，以至于他们自己的冰火不会伤害你或你的盟友."
     },
     {
       "type": "patchouli:entity",
@@ -14,11 +14,21 @@
     },
     {
       "type": "patchouli:text",
-      "text": "One我们可以通过使用 $(l:focuses/necromancy/spooky_focus)骇人聚晶$(), 或通过仪式召唤永生的生物。"
+      "text": "人们可以通过使用$(l:focuses/necromancy/spooky_focus)骇人聚晶$(),或使用仪式来召唤一个幽灵仆从，后者拥有无限的存续时间。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "作为幽灵的变种，这些喷冰的家伙们可以在$(l:world/crypts)墓穴$()中被你召唤出来。"
     }
   ]
 }

@@ -29,7 +29,8 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:magic_emerald_craft"
+      "recipe": "goety:magic_emerald_craft",
+      "recipe2": "goety:soul_emerald"
     },
     {
       "anchor": "totem",

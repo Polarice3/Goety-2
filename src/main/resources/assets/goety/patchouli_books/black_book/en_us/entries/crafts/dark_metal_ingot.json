@@ -27,5 +27,8 @@
       "type": "patchouli:crafting",
       "recipe": "goety:dark/dark_hoe"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_ingot": 1
+  }
 }

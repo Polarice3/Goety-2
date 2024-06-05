@@ -45,6 +45,22 @@
     },
     {
       "type": "patchouli:entity",
+      "entity": "goety:frozen_zombie_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Summoning a Zombie in a cold, snowy environment, or with a $(l:crafts/frost_staff)Frost Staff$(), will call forth a Frozen Zombie Servant. Frozen Zombie Servants will slow down their targets through their fists or their snowballs they chuck. Much like Strays, they don't take damage from Freezing."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:jungle_zombie_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While being in a Jungle biome, one might have a chance of summoning a Jungle Zombie Servant instead, a 100%% if summoned with a $(l:crafts/wild_staff)Wild Staff$(). Their attacks inflicts Poison, but if their summoner dons the $(l:crafts/garment/wild_robe)Wild Robes$(), they will inflict Acid Venom."
+    },
+    {
+      "type": "patchouli:entity",
       "entity": "goety:zombie_vindicator"
     },
     {

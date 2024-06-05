@@ -30,9 +30,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> PiglinSouls;
-    public static final ForgeConfigSpec.ConfigValue<Integer> EnderDragonSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> EndermanSouls;
-    public static final ForgeConfigSpec.ConfigValue<Integer> WardenSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> PlayerSouls;
     public static final ForgeConfigSpec.ConfigValue<Integer> DefaultSouls;
 
@@ -52,6 +50,7 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> TotemUndying;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArcaUndying;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WandCoolItemUse;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterTotem;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterWitchBook;
@@ -93,6 +92,8 @@ public class MainConfig {
                 .define("totemUndying", true);
         ArcaUndying = BUILDER.comment("Arca will save the Player if past Totem Maximum Soul Count, Default: true")
                 .define("arcaUndying", true);
+        WandCoolItemUse = BUILDER.comment("Using an item while holding a wand or staff on main/offhand will cause the wand or staff to be put on cooldown to prevent accidental spellcasting, Default: true")
+                .define("wandCoolItemUse", true);
         StarterTotem = BUILDER.comment("Gives Players a Totem of Roots when first entering World, Default: false")
                 .define("starterTotem", false);
         StarterBook = BUILDER.comment("Gives Players the Black Book when first entering World and Patchouli is loaded, Default: false")
@@ -174,12 +175,8 @@ public class MainConfig {
                 .defineInRange("villagerSouls", 100, 0, Integer.MAX_VALUE);
         PiglinSouls = BUILDER.comment("Non-Undead Piglin Killed, Default: 10")
                 .defineInRange("piglinSouls", 10, 0, Integer.MAX_VALUE);
-        EnderDragonSouls = BUILDER.comment("Ender Dragon Killed, Default: 1000")
-                .defineInRange("enderDragonSouls", 1000, 0, Integer.MAX_VALUE);
         EndermanSouls = BUILDER.comment("Enderman Killed, Default: 10")
                 .defineInRange("endermanSouls", 10, 0, Integer.MAX_VALUE);
-        WardenSouls = BUILDER.comment("Warden Killed, Default: 10000")
-                .defineInRange("wardenSouls", 10000, 0, Integer.MAX_VALUE);
         PlayerSouls = BUILDER.comment("Players Killed, Default: 100")
                 .defineInRange("playerSouls", 100, 0, Integer.MAX_VALUE);
         DefaultSouls = BUILDER.comment("Others Killed, Default: 5")

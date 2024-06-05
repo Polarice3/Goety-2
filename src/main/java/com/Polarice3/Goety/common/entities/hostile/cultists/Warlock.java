@@ -218,13 +218,11 @@ public class Warlock extends Cultist implements RangedAttackMob {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), this.getSoundSource(), 2.0F, 0.8F + this.random.nextFloat() * 0.4F);
             }
         } else {
-            if (this.getTarget() instanceof Raider){
-                if (!this.isSilent()) {
-                    this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), this.getSoundSource(), 2.0F, 0.8F + this.random.nextFloat() * 0.4F);
-                }
-            }
             if (this.level instanceof ServerLevel) {
-                if (this.getTarget() instanceof Raider raider){
+                if (this.getTarget() instanceof Raider raider && this.hasActiveRaid() && raider.getTarget() != this) {
+                    if (!this.isSilent()) {
+                        this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), ModSounds.BLAST_FUNGUS_THROW.get(), this.getSoundSource(), 2.0F, 0.8F + this.random.nextFloat() * 0.4F);
+                    }
                     Vec3 vec3 = raider.getDeltaMovement();
                     double d0 = raider.getX() + vec3.x - this.getX();
                     double d1 = raider.getEyeY() - (double)1.1F - this.getY();

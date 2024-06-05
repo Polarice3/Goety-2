@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:skeleton_skull",
+    "minecraft:wither_skeleton_skull",
+    "goety:tall_skull"
+  ]
+}

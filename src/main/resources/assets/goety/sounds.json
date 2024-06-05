@@ -33,6 +33,14 @@
     ],
     "subtitle": "subtitle.goety.apostle_hurt"
   },
+  "apostle_shoot": {
+    "sounds": [
+      {
+        "name": "goety:apostle/shoot"
+      }
+    ],
+    "subtitle": "subtitle.goety.apostle_shoot"
+  },
   "apostle_prepare_spell": {
     "sounds": [
       {

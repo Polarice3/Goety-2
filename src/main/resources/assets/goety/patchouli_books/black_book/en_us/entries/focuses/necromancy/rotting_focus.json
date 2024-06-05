@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/rotting_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:rotting_focus": 1
+  }
 }

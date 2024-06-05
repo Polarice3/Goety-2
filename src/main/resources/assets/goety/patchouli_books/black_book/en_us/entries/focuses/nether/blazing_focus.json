@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/blazing_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_focus": 1
+  }
 }

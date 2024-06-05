@@ -31,6 +31,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.monster.Creeper;
@@ -708,6 +709,13 @@ public class PotionEvents {
                         if (effected instanceof Player player) {
                             teleportShadowWalk(player);
                         }
+                    }
+                }
+                if (event.getEffect() == GoetyEffects.WILD_RAGE.get()){
+                    if (effected instanceof Mob mob) {
+                        mob.setTarget(null);
+                        mob.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+                        mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     }
                 }
             }

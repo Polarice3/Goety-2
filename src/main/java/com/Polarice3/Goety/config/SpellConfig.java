@@ -804,8 +804,8 @@ public class SpellConfig {
                     .defineInRange("cycloneCost", 16, 0, Integer.MAX_VALUE);
             CycloneDuration = BUILDER.comment("Time to cast Cyclone Spell, Default: 0")
                     .defineInRange("cycloneTime", 0, 0, 72000);
-            CycloneCoolDown = BUILDER.comment("Cyclone Spell Cooldown, Default: 100")
-                    .defineInRange("cycloneCoolDown", 100, 0, Integer.MAX_VALUE);
+            CycloneCoolDown = BUILDER.comment("Cyclone Spell Cooldown, Default: 300")
+                    .defineInRange("cycloneCoolDown", 300, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Updraft Spell");
             UpdraftCost = BUILDER.comment("Updraft Spell Cost, Default: 8")
@@ -1090,7 +1090,7 @@ public class SpellConfig {
         MaxBurningLevel = BUILDER.comment("Burning Maximum Enchantment Level, Default: 3")
                 .defineInRange("maxBurningLevel", 3, 1, 10);
         MaxVelocityLevel = BUILDER.comment("Velocity Maximum Enchantment Level, Default: 5")
-                .defineInRange("maxPotencyLevel", 5, 1, 10);
+                .defineInRange("maxVelocityLevel", 5, 1, 10);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

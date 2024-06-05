@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Casting the spell while wearing this ring will cause the being you're holding to slowly lose breath, chocking until they perish or you lose your grip on them."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_force": 1
+  }
 }

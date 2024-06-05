@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The pickaxe can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:eerie_pickaxe": 1
+  }
 }

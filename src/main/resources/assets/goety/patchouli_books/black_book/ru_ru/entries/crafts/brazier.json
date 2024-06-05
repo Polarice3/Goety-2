@@ -1,0 +1,30 @@
+{
+  "name": "Жаровни",
+  "icon": "goety:shade_brazier",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "То, что вы тёмный волшебник, не означает, что вы не можете украшать своё пристанище. Эти жаровни — причудливый способ обеспечить освещение и поджечь недотёпу, который на них встанет. Жаровни можно потушить, нажав по ним ПКМ, и снова зажечь таким же образом."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_brazier",
+      "recipe2": "goety:stone_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_brazier",
+      "recipe2": "goety:brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_brazier",
+      "recipe2": "goety:nether_brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
+    }
+  ]
+}

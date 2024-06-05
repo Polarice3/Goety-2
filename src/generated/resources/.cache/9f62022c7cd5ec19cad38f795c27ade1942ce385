@@ -1,5 +1,6 @@
-// 1.20.1	2024-05-31T19:47:51.6091526	Tags for minecraft:entity_type mod id goety
+// 1.20.1	2024-06-05T19:04:17.4653864	Tags for minecraft:entity_type mod id goety
 871115c37b303672b43b321b0acc6c83ef85f81d data/goety/tags/entity_types/creepers.json
+241a48f6d6b2dccd272d958c1f85c0197c0bc5dd data/goety/tags/entity_types/endermen.json
 5dea9b67ceadb383f517bc0c244386752e96360d data/minecraft/tags/entity_types/arrows.json
 7436fffea51aebb896d565b66bd03be9d8ae747a data/minecraft/tags/entity_types/fall_damage_immune.json
 fe8553306d7943533580f1cd484f96c69c05b9c3 data/minecraft/tags/entity_types/freeze_hurts_extra_types.json
@@ -7,4 +8,4 @@ fe8553306d7943533580f1cd484f96c69c05b9c3 data/minecraft/tags/entity_types/freeze
 d16939065b8f13d1ce6068fae4c47df2e840eb73 data/minecraft/tags/entity_types/frog_food.json
 13bf28b498fabaff3ca438c76174b7cd70cc2daf data/minecraft/tags/entity_types/impact_projectiles.json
 99e36e16738723286b541433936e964c826a5584 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json
-d051d6314d58c13a9b6d25fca92dea05deb5b765 data/minecraft/tags/entity_types/raiders.json
+1f2c2ea2dc8b706de5957190e474212161e0a61e data/minecraft/tags/entity_types/raiders.json

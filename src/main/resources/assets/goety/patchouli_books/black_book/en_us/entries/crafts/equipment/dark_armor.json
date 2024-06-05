@@ -29,5 +29,11 @@
       "type": "goety:ritual",
       "recipe": "goety:dark/dark_boots"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:dark_helmet": 2,
+    "goety:dark_chestplate": 3,
+    "goety:dark_leggings": 4,
+    "goety:dark_boots": 5
+  }
 }

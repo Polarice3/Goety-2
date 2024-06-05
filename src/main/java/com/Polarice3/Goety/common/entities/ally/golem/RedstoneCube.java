@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -46,6 +47,8 @@ public class RedstoneCube extends AbstractGolemServant{
     public static String ATTACK = "attack";
     public static String WALK = "walk";
     public int attackTick;
+    public float minorGlow;
+    public float glowAmount = 0.01F;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -288,7 +291,16 @@ public class RedstoneCube extends AbstractGolemServant{
                         this.setTarget(null);
                     }
                 }
+            } else {
+                this.glow();
             }
+        }
+    }
+
+    private void glow() {
+        this.minorGlow = Mth.clamp(this.minorGlow + this.glowAmount, 0, 1);
+        if (this.minorGlow == 0 || this.minorGlow == 1) {
+            this.glowAmount *= -1;
         }
     }
 

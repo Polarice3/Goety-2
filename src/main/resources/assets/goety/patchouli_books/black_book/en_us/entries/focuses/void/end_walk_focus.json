@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/end_walk_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:end_walk_focus": 1
+  }
 }

@@ -1,23 +1,33 @@
 {
-  "name": "幽灵",
+  "name": "诡异的幽灵们",
   "icon": "goety:ectoplasm",
   "category": "goety:world/bestiary",
   "advancement": "goety:goety/kill_a_wraith",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "神秘的阴影会在目标的脚上召唤阴冷火焰，而不是炽热的火焰，它会冻结灵魂。他们也有传送的能力，但只有当他们的目标在他们附近时才能这样做。"
+      "text": "神秘的幽灵会在目标的脚底召唤火焰，而那火焰有着冻彻心扉的冰冷，它甚至会冻结灵魂。幽灵们也有传送的能力，但只有当目标在它们附近时才能传送。"
     },
     {
       "type": "patchouli:entity",
       "entity": "goety:wraith",
-      "text": "尽管他们有着火焰的力量，但他们也不能免疫火焰的灼烧."
+      "text": "尽管它们拥有着火焰的力量，但是他们本身并没有免疫火焰的灼烧。"
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:ectoplasm",
       "title": "Ectoplasm",
-      "text": "幽灵有机会在其死亡时掉落一块灵质和一些骨头。而灵质对制作亡灵密器和咒语很有用."
+      "text": "幽灵在被杀后概率会掉落一个灵质。它对制作亡灵神器和死灵咒术很有用..."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "entity": "goety:border_wraith"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/kill_a_border_wraith",
+      "text": "幽灵的变种，这些家伙缺乏传送的能力，它们的召唤能力也不如自己的表亲。然而，如果目标靠近它们，它们有能力向目标喷出冰冷的火焰。"
     }
   ]
 }

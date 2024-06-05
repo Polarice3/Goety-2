@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/call_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:call_focus": 1
+  }
 }

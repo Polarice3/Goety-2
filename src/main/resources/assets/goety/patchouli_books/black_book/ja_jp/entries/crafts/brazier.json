@@ -1,0 +1,30 @@
+{
+  "name": "火鉢",
+  "icon": "goety:shade_brazier",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "闇の魔法使いだからといって、装飾ができないわけではありません。これらの火鉢は、光を提供するための派手な手段であり、火がつくと、その上に立つ愚か者を燃やします。火鉢は右クリックして消灯することもでき、同じ方法で再び点灯することもできます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_brazier",
+      "recipe2": "goety:stone_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_brazier",
+      "recipe2": "goety:brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_brazier",
+      "recipe2": "goety:nether_brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
+    }
+  ]
+}

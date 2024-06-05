@@ -43,26 +43,6 @@ public class HellCloud extends AbstractSpellCloud{
         return 0x1f0000;
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (!this.level.isClientSide) {
-            float speed = 0.175F;
-            if (this.getOwner() instanceof Apostle apostle && apostle.isAlive() && apostle.isInNether()) {
-                this.setDeltaMovement(Vec3.ZERO);
-                double d0 = apostle.getX() - this.getX();
-                double d1 = (apostle.getY() + 4.0D) - this.getY();
-                double d2 = apostle.getZ() - this.getZ();
-                double d = Math.sqrt((d0 * d0 + d2 * d2));
-                double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                if (d > 0.5) {
-                    this.setDeltaMovement(this.getDeltaMovement().add(d0 / d3, d1 / d3, d2 / d3).scale(speed));
-                }
-            }
-            this.move(MoverType.SELF, this.getDeltaMovement());
-        }
-    }
-
     public void hurtEntities(LivingEntity livingEntity){
         if (livingEntity != null) {
             float baseDamage = 1.0F;

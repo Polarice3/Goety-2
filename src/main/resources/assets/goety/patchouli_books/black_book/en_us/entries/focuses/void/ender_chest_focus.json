@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/ender_chest_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ender_chest_focus": 1
+  }
 }

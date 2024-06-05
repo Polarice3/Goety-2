@@ -37,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class IceGolem extends AbstractGolemServant{
                 .add(Attributes.ATTACK_DAMAGE, AttributesConfig.IceGolemDamage.get())
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.0D)
                 .add(Attributes.FOLLOW_RANGE, AttributesConfig.IceGolemFollowRange.get());
     }
 

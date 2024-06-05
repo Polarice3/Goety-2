@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The hammer can mine a 3x3 area, but have less mining speed than pickaxes. As the hammer is use for forging, right-clicking a Block of Iron with it will turn it into a heavily damaged Anvil. The hammer can be repaired on an anvil with an Iron Ingot."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:great_hammer": 1
+  }
 }

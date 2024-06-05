@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.audio;
 
+import com.Polarice3.Goety.client.events.ClientEvents;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -25,9 +26,14 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
         this.volume = 1.0F;
     }
 
+    public boolean canPlaySound() {
+        return ClientEvents.BOSS_MUSIC == this;
+    }
+
     public void tick() {
         if (!MainConfig.BossMusic.get()){
             this.stop();
+            ClientEvents.BOSS_MUSIC = null;
         }
         if (this.mobEntity.isRemoved() || this.mobEntity.isDeadOrDying() || !this.mobEntity.isAlive()){
             if (this.mobEntity.isDeadOrDying()){
@@ -42,10 +48,9 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
                         }
                     }
                 }
-                this.stop();
-            } else {
-                this.stop();
             }
+            this.stop();
+            ClientEvents.BOSS_MUSIC = null;
         }
     }
 }

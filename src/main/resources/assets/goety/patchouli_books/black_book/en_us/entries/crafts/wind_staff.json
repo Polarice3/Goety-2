@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The Wind Staff obviously powers up Wind spells, granting greater control over the winds themselves."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wind_staff": 1
+  }
 }

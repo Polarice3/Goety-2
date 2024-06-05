@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/wither_skull_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wither_skull_focus": 1
+  }
 }

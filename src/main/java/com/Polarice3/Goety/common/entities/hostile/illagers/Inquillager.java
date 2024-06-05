@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.hostile.illagers;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.magic.spells.SoulHealSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -57,6 +58,7 @@ public class Inquillager extends HuntingIllagerEntity{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new CastingSpellGoal());
+        this.goalSelector.addGoal(2, new Raider.HoldGroundAttackGoal(this, 10.0F));
         this.goalSelector.addGoal(2, new HealingSelfSpellGoal());
         this.goalSelector.addGoal(2, new ThrowPotionGoal(this));
         this.goalSelector.addGoal(2, new AttackGoal(this));
@@ -263,23 +265,15 @@ public class Inquillager extends HuntingIllagerEntity{
         }
 
         protected void performSpellCasting() {
-            Inquillager.this.heal(Inquillager.this.getMaxHealth());
-            if (!Inquillager.this.level.isClientSide) {
-                ServerLevel serverWorld = (ServerLevel) Inquillager.this.level;
-                for (int i = 0; i < 5; ++i) {
-                    double d0 = Inquillager.this.random.nextGaussian() * 0.02D;
-                    double d1 = Inquillager.this.random.nextGaussian() * 0.02D;
-                    double d2 = Inquillager.this.random.nextGaussian() * 0.02D;
-                    serverWorld.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), Inquillager.this.getRandomX(1.0D), Inquillager.this.getRandomY() + 1.0D, Inquillager.this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+            if (Inquillager.this.level instanceof ServerLevel serverLevel) {
+                new SoulHealSpell().SpellResult(serverLevel, Inquillager.this, ItemStack.EMPTY);
+                if (Inquillager.this.getHealTimes() > 3){
+                    Inquillager.this.setHealTimes(0);
+                    Inquillager.this.setCoolDown(1000);
+                } else {
+                    Inquillager.this.increaseHealTimes();
+                    Inquillager.this.setCoolDown(200);
                 }
-            }
-            Inquillager.this.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F, 2.0F);
-            if (Inquillager.this.getHealTimes() > 3){
-                Inquillager.this.setHealTimes(0);
-                Inquillager.this.setCoolDown(1200);
-            } else {
-                Inquillager.this.increaseHealTimes();
-                Inquillager.this.setCoolDown(300);
             }
         }
 

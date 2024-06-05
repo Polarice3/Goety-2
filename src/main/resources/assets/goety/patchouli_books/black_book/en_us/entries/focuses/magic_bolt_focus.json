@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/magic_bolt_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:magic_bolt_focus": 1
+  }
 }

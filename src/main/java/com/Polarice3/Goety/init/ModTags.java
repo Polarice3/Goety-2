@@ -39,6 +39,7 @@ public class ModTags {
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
+        public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
 
         private static TagKey<Block> tag(String name)
         {
@@ -81,6 +82,7 @@ public class ModTags {
         private static void init(){}
 
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
+        public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return create(Goety.location(name));

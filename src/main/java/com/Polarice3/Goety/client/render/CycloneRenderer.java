@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.client.render.model.FireTornadoModel;
+import com.Polarice3.Goety.client.render.model.CycloneModel;
 import com.Polarice3.Goety.common.entities.projectiles.Cyclone;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -15,17 +15,17 @@ import net.minecraft.resources.ResourceLocation;
 
 public class CycloneRenderer extends EntityRenderer<Cyclone> {
     private static final ResourceLocation TEXTURES = new ResourceLocation(Goety.MOD_ID,"textures/entity/projectiles/cyclone.png");
-    private final FireTornadoModel<Cyclone> model;
+    private final CycloneModel<Cyclone> model;
 
     public CycloneRenderer(EntityRendererProvider.Context p_i46179_1_) {
         super(p_i46179_1_);
-        this.model = new FireTornadoModel<>(p_i46179_1_.bakeLayer(ModModelLayer.FIRE_TORNADO));
+        this.model = new CycloneModel<>(p_i46179_1_.bakeLayer(ModModelLayer.FIRE_TORNADO));
     }
 
     public void render(Cyclone entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(getRenderType(entityIn));
-        this.model.setupAnim(entityIn, 0.0F, 0.0F, partialTicks/10, 0, 0);
+        this.model.setupAnim(entityIn, 0.0F, 0.0F, entityIn.tickCount + partialTicks, 0, 0);
         matrixStackIn.translate(0.0D, (double)(entityIn.getBbHeight()), 0.0D);
         matrixStackIn.mulPose(Axis.ZP.rotationDegrees(180.0F));
         float size = entityIn.getSize();

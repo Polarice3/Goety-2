@@ -17,7 +17,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Necro Crown keeps your undead horde from decaying like Vexes and will reduce the amount of time to cast Necromancy spells by half."
+      "text": "The Necro Crown keeps your undead horde from decaying like Vexes and will reduce the amount of time to cast Necromancy spells by half. Be warned, wearing a Necro Crown in daylight will cause the wearer to gain Weakness, Hunger when wearing the Cape."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:necro_cape": 1,
+    "goety:necro_crown": 2
+  }
 }
