@@ -127,7 +127,10 @@ public class ModSpawnEggs {
             () -> new ModSpawnEggItem(ModEntityType.HAUNTED_SKULL, 0x8fe2e3, 0x505050, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> MINI_GHAST_SPAWN_EGG = ITEMS.register("mini_ghast_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityType.MINI_GHAST, 0x313131, 0x565656, egg()));
+            () -> new ModSpawnEggItem(ModEntityType.MINI_GHAST, 0xe4e2e2, 0xddb5b7, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> GHAST_SERVANT_SPAWN_EGG = ITEMS.register("ghast_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.GHAST_SERVANT, 0xd6d6d6, 0xa74d54, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> BLAZE_SERVANT_SPAWN_EGG = ITEMS.register("blaze_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BLAZE_SERVANT, 0xff9c0c, 0xfffb82, egg()));
@@ -206,6 +209,9 @@ public class ModSpawnEggs {
 
     public static final RegistryObject<ModSpawnEggItem> BORDER_WRAITH_SPAWN_EGG = ITEMS.register("border_wraith_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BORDER_WRAITH, 0x341523, 0x869696, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> CRYPT_SLIME_SPAWN_EGG = ITEMS.register("crypt_slime_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.CRYPT_SLIME, 0x22252a, 0x4d6577, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> CAIRN_NECROMANCER_SPAWN_EGG = ITEMS.register("cairn_necromancer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CAIRN_NECROMANCER, 0x446888, 0x00bfbf, egg()));

@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:wither_necromancer"
+      "entity": "goety:wither_necromancer",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",

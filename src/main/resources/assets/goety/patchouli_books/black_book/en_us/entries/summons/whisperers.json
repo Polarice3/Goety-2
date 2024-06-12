@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:whisperer"
+      "entity": "goety:whisperer",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",

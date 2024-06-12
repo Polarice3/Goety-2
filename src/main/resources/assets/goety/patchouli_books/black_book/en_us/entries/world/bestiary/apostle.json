@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:apostle"
+      "entity": "goety:apostle",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",
@@ -33,5 +34,8 @@
       "item": "goety:unholy_blood",
       "text": "The blood of an Apostle courses with Necrotic and Nether Energies. With it, one can either cheat death or create miracles. It appears that an Apostle doesn't possess too much blood and only by slaying them can a sizeable amount be extracted. When slain, the storm will ebb and the meteors will stop falling."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:unholy_blood": 6
+  }
 }

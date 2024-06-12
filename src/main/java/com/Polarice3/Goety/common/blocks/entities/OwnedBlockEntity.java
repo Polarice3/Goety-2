@@ -96,11 +96,12 @@ public abstract class OwnedBlockEntity extends BlockEntity implements IOwnedBloc
     @Nullable
     public LivingEntity getTrueOwner() {
         if (this.level != null) {
-            if (!this.level.isClientSide) {
+            if (!this.level.isClientSide){
                 UUID uuid = this.getOwnerUUID();
                 return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
             } else {
-                return this.level.getEntity(this.getOwnerId()) instanceof LivingEntity living ? living : null;
+                int id = this.getOwnerId();
+                return id <= -1 ? null : this.level.getEntity(this.getOwnerId()) instanceof LivingEntity living ? living : null;
             }
         } else {
             return null;

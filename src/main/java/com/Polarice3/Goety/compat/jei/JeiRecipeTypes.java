@@ -1,7 +1,10 @@
 package com.Polarice3.Goety.compat.jei;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.crafting.*;
+import com.Polarice3.Goety.common.crafting.BrazierRecipe;
+import com.Polarice3.Goety.common.crafting.CursedInfuserRecipes;
+import com.Polarice3.Goety.common.crafting.PulverizeRecipe;
+import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import mezz.jei.api.recipe.RecipeType;
 
 public class JeiRecipeTypes {

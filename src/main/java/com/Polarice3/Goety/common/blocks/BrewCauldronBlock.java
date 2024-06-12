@@ -118,7 +118,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.getBlockEntity(pPos) instanceof BrewCauldronBlockEntity cauldron) {
             ItemStack stack = pPlayer.getItemInHand(pHand);
-            boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = stack.getItem() == Items.APPLE, ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
+            boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = BrewUtils.brewableFood(stack), ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
             boolean taglock = stack.getItem() instanceof TaglockKit && TaglockKit.hasEntity(stack);
             boolean playSound = false;
             if (!pLevel.isClientSide) {
@@ -133,7 +133,7 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             playSound = true;
                         } else if (apple){
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
-                                ItemStack itemStack = BrewUtils.setCustomEffects(new ItemStack(Items.APPLE), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
+                                ItemStack itemStack = BrewUtils.setCustomEffects(stack.copy(), PotionUtils.getCustomEffects(cauldron.getBrew()), BrewUtils.getBrewEffects(cauldron.getBrew()));
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, itemStack);
                                 SEHelper.increaseBottling(pPlayer);
                                 playSound = true;

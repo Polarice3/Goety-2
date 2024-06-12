@@ -98,7 +98,11 @@ public class RecallFocus extends MagicFocus{
                     if (getDimension(stack.getTag()).get() == player.level.dimension()) {
                         Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, player.level, blockPos);
                         if (optional.isPresent()) {
-                            player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
+                            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, optional.get().x, optional.get().y, optional.get().z);
+                            if (event.isCanceled()) {
+                                return false;
+                            }
+                            player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                             ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(player.xo, player.yo, player.zo), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             ModNetwork.INSTANCE.send(PacketDistributor.ALL.noArg(), new SPlayWorldSoundPacket(BlockPos.containing(optional.get()), SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F));
                             return true;
@@ -109,8 +113,12 @@ public class RecallFocus extends MagicFocus{
                             if (serverWorld != null) {
                                 Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, serverWorld, blockPos);
                                 if (optional.isPresent()) {
+                                    net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(player, optional.get().x, optional.get().y, optional.get().z);
+                                    if (event.isCanceled()) {
+                                        return false;
+                                    }
                                     player.changeDimension(serverWorld, new ArcaTeleporter(optional.get()));
-                                    player.teleportTo(optional.get().x, optional.get().y, optional.get().z);
+                                    player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                                     return true;
                                 }
                             }

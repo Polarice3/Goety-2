@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.RedstoneMonstrosityModel;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;
@@ -27,6 +28,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         this.addLayer(new GlowEyesLayer<>(this));
         this.addLayer(new ActiveLayer<>(this));
         this.addLayer(new NonActiveLayer<>(this));
+        this.addLayer(new RMBandsLayer<>(this));
         this.addLayer(new RMEmissiveLayer<>(this, GLOW, (entity, partialTicks, ageInTicks) -> {
             return !entity.isDeadOrDying()
                     && entity.bigGlow > 0 ? entity.bigGlow : 0.0F;
@@ -118,6 +120,21 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
 
         public interface AlphaFunction<T extends RedstoneMonstrosity> {
             float apply(T p_234920_, float p_234921_, float p_234922_);
+        }
+    }
+
+    public static class RMBandsLayer<T extends RedstoneMonstrosity> extends RenderLayer<T, RedstoneMonstrosityModel<T>> {
+        private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_bands.png");
+
+        public RMBandsLayer(RenderLayerParent<T, RedstoneMonstrosityModel<T>> p_i50919_1_) {
+            super(p_i50919_1_);
+        }
+
+        @Override
+        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!entitylivingbaseIn.isHostile() && MobsConfig.RedstoneMonstrosityTexture.get()) {
+                renderColoredCutoutModel(this.getParentModel(), TEXTURES, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, 1.0F, 1.0F, 1.0F);
+            }
         }
     }
 

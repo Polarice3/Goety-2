@@ -4,16 +4,22 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
@@ -33,6 +39,22 @@ public class MagmaCubeServant extends SlimeServant{
     @Override
     protected ResourceLocation getDefaultLootTable() {
         return EntityType.MAGMA_CUBE.getDefaultLootTable();
+    }
+
+    protected void dropFromLootTable(DamageSource p_21021_, boolean p_21022_) {
+        ResourceLocation resourcelocation = this.getLootTable();
+        if (this.level.getServer() != null) {
+            LootTable loottable = this.level().getServer().getLootData().getLootTable(resourcelocation);
+            MagmaCube slime = new MagmaCube(EntityType.MAGMA_CUBE, this.level);
+            slime.setSize(this.getSize(), true);
+            LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, slime).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_21021_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_21021_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_21021_.getDirectEntity());
+            if (p_21022_ && this.lastHurtByPlayer != null) {
+                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+            }
+
+            LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
+            loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+        }
     }
 
     public void setSize(int p_32972_, boolean p_32973_) {

@@ -1,0 +1,28 @@
+{
+  "name": "Mini Ghasts",
+  "icon": "goety:mini_ghast_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Smaller than their larger counterparts, these miniature ghasts are unable to spew giant lava bombs, but instead spew small fireballs like Blazes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mini_ghast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "These giant, yet fragile, beings float around their summoner, belching forth lava bombs and face their targets properly unlike their natural straight looking counterparts."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:ghast_servant",
+      "scale": 0.5
+    }
+  ]
+}

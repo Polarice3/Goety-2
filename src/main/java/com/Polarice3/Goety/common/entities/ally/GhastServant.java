@@ -60,6 +60,9 @@ public class GhastServant extends Malghast implements IServant {
         return 1.0F;
     }
 
+    public void setGhastSpawn(){
+    }
+
     @Override
     public void lifeSpanDamage() {
         if (!this.level.isClientSide){

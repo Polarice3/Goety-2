@@ -2,14 +2,19 @@ package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.blocks.SnapWartsBlock;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -44,6 +49,20 @@ public class WarlockRobeItem extends WarlockGarmentItem{
             if (event.getSource().is(DamageTypeTags.WITCH_RESISTANT_TO)){
                 float resistance = 1.0F - (ItemConfig.WarlockRobeResistance.get() / 100.0F);
                 event.setAmount(event.getAmount() * resistance);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBreakingBlock(BlockEvent.BreakEvent event){
+        Player player = event.getPlayer();
+        if (CuriosFinder.hasWarlockRobe(player)){
+            if (event.getState().is(ModBlocks.SNAP_WARTS.get()) && event.getState().getValue(SnapWartsBlock.AGE) >= 2){
+                if (!player.level.isClientSide) {
+                    if (player.getRandom().nextFloat() <= 0.25F){
+                        Block.dropResources(event.getState(), player.level, event.getPos(), null, player, player.getUseItem());
+                    }
+                }
             }
         }
     }

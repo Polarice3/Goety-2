@@ -1981,5 +1981,14 @@
   "item.goety.zombie_vindicator_servant_spawn_egg": "Яйцо призыва Поборник-зомби",
   "item.goety.skeleton_pillager_servant_spawn_egg": "Яйцо призыва Разбойник-скелет",
   "item.goety.bound_evoker_spawn_egg": "Яйцо призыва Подчинённый заклинатель",
-  "item.goety.bound_iceologer_spawn_egg": "Яйцо призыва Подчинённый ледолог"
+  "item.goety.bound_iceologer_spawn_egg": "Яйцо призыва Подчинённый ледолог",
+  "entity.goety.void_rift": "Пустотный разлом",
+  "item.goety.crypt_slime_spawn_egg": "Яйцо призыва склепного слизня",
+  "item.goety.ghast_servant_spawn_egg": "Яйцо призыва гаста-прислужника",
+  "item.goety.rupture_focus": "Фокус разлома",
+  "item.goety.rupture_focus.info": "Создаёт пустотный разлом там, куда вы смотрите. Разлом будет притягивать существ и наносить им постоянный урон, если они окажутся в его центре.",
+  "info.goety.witch_hat_potion": "10%-ный шанс не потратить зелье после использования.",
+  "info.goety.crone_hat_potion": "25%-ный шанс не потратить зелье после использования. 10%-ный, если это варево.",
+  "subtitle.goety.apostle_shoot": "Апостол стреляет",
+  "subtitle.goety.redstone_golem_mine_spawn": "Scatter Mine spawns"
 }

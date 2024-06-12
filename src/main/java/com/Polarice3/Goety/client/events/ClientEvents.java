@@ -35,7 +35,6 @@ import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.mixin.PlayerRendererAccessor;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -53,17 +52,13 @@ import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -300,6 +295,9 @@ public class ClientEvents {
     public static void onPlayerRenderPre(RenderPlayerEvent.Pre event) {
         final Player player = event.getEntity();
         if (player.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+            event.setCanceled(true);
+        }
+        if (player.isInvisible() && CuriosFinder.hasIllusionRobe(player)){
             event.setCanceled(true);
         }
     }

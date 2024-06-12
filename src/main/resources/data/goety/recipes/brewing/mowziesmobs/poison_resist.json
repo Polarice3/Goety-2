@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "mowziesmobs:naga_fang"
+  },
+  "effect": "mowziesmobs:poison_resist",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mowziesmobs"
+    }
+  ]
+}

@@ -19,7 +19,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:ravaged"
+      "entity": "goety:ravaged",
+      "scale": 0.75
     }
   ]
 }

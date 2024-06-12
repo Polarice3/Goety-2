@@ -43,7 +43,7 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                         && WebSpiderServant.this.getTarget().hasEffect(GoetyEffects.TANGLED.get());
             }
         });
-        this.goalSelector.addGoal(4, new SpiderAttackGoal(this, 1.25F){
+        this.goalSelector.addGoal(4, new SpiderAttackGoal(this, 1.5F){
             @Override
             public boolean canUse() {
                 return super.canUse()
@@ -78,7 +78,7 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
                         if (this.distanceTo(this.getTarget()) <= 5.0F) {
                             Vec3 vec3 = DefaultRandomPos.getPosAway(this, 7, 5, this.getTarget().position());
                             if (vec3 != null) {
-                                this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.0F);
+                                this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.25F);
                             }
                         }
                     }

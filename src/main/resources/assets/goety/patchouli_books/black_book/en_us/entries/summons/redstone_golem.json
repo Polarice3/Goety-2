@@ -11,7 +11,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:redstone_golem"
+      "entity": "goety:redstone_golem",
+      "scale": 0.75
     },
     {
       "type": "multiblock",

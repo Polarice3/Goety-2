@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -72,6 +73,11 @@ public class PotionEvents {
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
+            if (livingEntity.level instanceof ServerLevel serverLevel) {
+                if (livingEntity.hasEffect(GoetyEffects.ILLAGUE.get())) {
+                    EffectsEvents.Illague(serverLevel, livingEntity);
+                }
+            }
             AttributeInstance armor = livingEntity.getAttribute(Attributes.ARMOR);
             AttributeModifier soulArmorBuff = new AttributeModifier(UUID.fromString("3e4b414b-466c-4b90-8a92-a878e2542bb8"), "Increase Armor", 2.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
             if (armor != null){
@@ -298,8 +304,18 @@ public class PotionEvents {
 
     @SubscribeEvent
     public static void DamageEvents(LivingDamageEvent event){
-        LivingEntity victim = event.getEntity();
+        LivingEntity target = event.getEntity();
         Entity attacker = event.getSource().getEntity();
+
+        if (target.hasEffect(GoetyEffects.SAPPED.get())){
+            MobEffectInstance effectInstance = target.getEffect(GoetyEffects.SAPPED.get());
+            float original = event.getAmount();
+            if (effectInstance != null) {
+                int i = effectInstance.getAmplifier() + 1;
+                original += event.getAmount() * 0.2F * i;
+                event.setAmount(original);
+            }
+        }
 
         if (attacker instanceof LivingEntity living) {
             if (living.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
@@ -509,7 +525,7 @@ public class PotionEvents {
                 event.getEntity().removeEffect(GoetyEffects.SOUL_ARMOR.get());
             }
         }
-        if (event.getItem().getItem() == Items.APPLE){
+        if (event.getItem().is(ModTags.Items.BREWABLE_FOOD)){
             for(MobEffectInstance mobeffectinstance : PotionUtils.getMobEffects(event.getItem())) {
                 if (mobeffectinstance.getEffect().isInstantenous()) {
                     mobeffectinstance.getEffect().applyInstantenousEffect(event.getEntity(), event.getEntity(), event.getEntity(), mobeffectinstance.getAmplifier(), 1.0D);
@@ -686,6 +702,11 @@ public class PotionEvents {
                 effected.removeEffect(GoetyEffects.FREEZING.get());
             }
         }
+        if (effect == GoetyEffects.ENDER_GROUND.get()){
+            if (effected.hasEffect(GoetyEffects.SHADOW_WALK.get())){
+                effected.removeEffect(GoetyEffects.SHADOW_WALK.get());
+            }
+        }
         if (effect == GoetyEffects.SENSE_LOSS.get()){
             if (effected instanceof Mob mob){
                 mob.setTarget(null);
@@ -714,6 +735,7 @@ public class PotionEvents {
                 if (event.getEffect() == GoetyEffects.WILD_RAGE.get()){
                     if (effected instanceof Mob mob) {
                         mob.setTarget(null);
+                        mob.setLastHurtByMob(null);
                         mob.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
                         mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     }

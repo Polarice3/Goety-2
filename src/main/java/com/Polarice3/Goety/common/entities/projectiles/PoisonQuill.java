@@ -32,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class PoisonQuill extends Arrow {
     private static final EntityDataAccessor<Boolean> AQUA = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.FLOAT);
 
     public PoisonQuill(EntityType<? extends Arrow> p_36858_, Level p_36859_) {
         super(p_36858_, p_36859_);
@@ -53,11 +54,13 @@ public class PoisonQuill extends Arrow {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(AQUA, false);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     public void addAdditionalSaveData(CompoundTag p_36881_) {
         super.addAdditionalSaveData(p_36881_);
         p_36881_.putBoolean("Aqua", this.isAqua());
+        p_36881_.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
     public void readAdditionalSaveData(CompoundTag p_36875_) {
@@ -65,6 +68,17 @@ public class PoisonQuill extends Arrow {
         if (p_36875_.contains("Aqua")){
             this.setAqua(p_36875_.getBoolean("Aqua"));
         }
+        if (p_36875_.contains("ExtraDamage")) {
+            this.setExtraDamage(p_36875_.getFloat("ExtraDamage"));
+        }
+    }
+
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
     }
 
     protected float getWaterInertia() {
@@ -114,6 +128,7 @@ public class PoisonQuill extends Arrow {
                         ((LivingEntity)entity1).setLastHurtMob(entity);
                     }
                 }
+                damage += this.getExtraDamage();
                 if (entity.hurt(damagesource, damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         if (entity1 instanceof LivingEntity) {

@@ -27,5 +27,14 @@
   ],
   "result": {
     "item": "goety:ominous_saddle"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "tag": "forge:storage_blocks/silver",
+        "type": "forge:tag_empty"
+      }
+    }
+  ]
 }

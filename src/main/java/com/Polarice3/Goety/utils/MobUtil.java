@@ -262,6 +262,10 @@ public class MobUtil {
         }
     }
 
+    public static void pull(Entity pEntity, double pX, double pY, double pZ){
+        push(pEntity, -pX, -pY, -pZ);
+    }
+
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
         if (pEntity instanceof Player player) {
             if (MobUtil.playerValidity(player, false)) {
@@ -563,32 +567,44 @@ public class MobUtil {
         shootUp(projectile, livingEntity);
     }
 
-    public static float ceilingVelocity(LivingEntity livingEntity){
-        return ceilingVelocity(livingEntity, 0.75F);
+    public static float ceilingVelocity(Entity entity){
+        return ceilingVelocity(entity, 0.75F);
     }
 
-    public static float ceilingVelocity(LivingEntity livingEntity, float initialV){
+    public static float ceilingVelocity(Entity entity, float initialV){
         float f2 = 0.35F;
-        if (BlockFinder.emptySquareSpace(livingEntity.level, livingEntity.blockPosition(), 13, true)){
+        if (BlockFinder.emptySquareSpace(entity.level, entity.blockPosition(), 13, true)){
             f2 = initialV;
-        } else if (BlockFinder.emptySquareSpace(livingEntity.level, livingEntity.blockPosition(), 6, true)){
+        } else if (BlockFinder.emptySquareSpace(entity.level, entity.blockPosition(), 6, true)){
             f2 = 0.55F;
         }
         return f2;
     }
 
-    public static void shootUp(Projectile projectile, LivingEntity livingEntity){
-        shootUp(projectile, livingEntity, ceilingVelocity(livingEntity));
+    public static void shootUp(Projectile projectile, Entity entity){
+        shootUp(projectile, entity, ceilingVelocity(entity));
     }
 
-    public static void shootUp(Projectile projectile, LivingEntity livingEntity, float velocity){
-        projectile.shootFromRotation(livingEntity, -90.0F, 0.0F, 0.0F, velocity, 12.0F);
-        livingEntity.level.addFreshEntity(projectile);
+    public static void shootUp(Projectile projectile, Entity entity, float velocity){
+        projectile.shootFromRotation(entity, -90.0F, 0.0F, 0.0F, velocity, 12.0F);
+        entity.level.addFreshEntity(projectile);
     }
 
-    public static void shoot(LivingEntity livingEntity, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
-        Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_), livingEntity.getRandom().triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
-        livingEntity.setDeltaMovement(vec3);
+    public static void shootUp(Projectile projectile, float velocity){
+        shootFromRotation(projectile, -90.0F, 0.0F, 0.0F, velocity, 12.0F);
+        projectile.level.addFreshEntity(projectile);
+    }
+
+    public static void shoot(Entity entity, double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
+        Vec3 vec3 = (new Vec3(p_37266_, p_37267_, p_37268_)).normalize().add(entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_), entity.level.random.triangle(0.0D, 0.0172275D * (double)p_37270_)).scale((double)p_37269_);
+        entity.setDeltaMovement(vec3);
+    }
+
+    public static void shootFromRotation(Projectile projectile, float p_37253_, float p_37254_, float p_37255_, float p_37256_, float p_37257_) {
+        float f = -Mth.sin(p_37254_ * ((float)Math.PI / 180F)) * Mth.cos(p_37253_ * ((float)Math.PI / 180F));
+        float f1 = -Mth.sin((p_37253_ + p_37255_) * ((float)Math.PI / 180F));
+        float f2 = Mth.cos(p_37254_ * ((float)Math.PI / 180F)) * Mth.cos(p_37253_ * ((float)Math.PI / 180F));
+        projectile.shoot((double)f, (double)f1, (double)f2, p_37256_, p_37257_);
     }
 
     public static int getPotentialBonusSpawns(Raid.RaiderType p_219829_, RandomSource p_219830_, int p_219831_, DifficultyInstance p_219832_, boolean p_219833_) {

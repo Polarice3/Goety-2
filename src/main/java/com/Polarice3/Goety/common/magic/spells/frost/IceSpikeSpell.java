@@ -60,6 +60,7 @@ public class IceSpikeSpell extends Spell {
         }
         iceSpike.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.6F + enchantment, 1.0F);
         iceSpike.setOwner(entityLiving);
+        iceSpike.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
         worldIn.addFreshEntity(iceSpike);
         worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
     }

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile.cultists;
 
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -65,8 +66,8 @@ public class Cultist extends Raider implements ICustomAttributes {
         List<Mob> list = this.level.getEntitiesOfClass(Mob.class, axisalignedbb);
 
         for (Mob mob : list){
-            if (this.getLastHurtByMob() != null && !(this.getLastHurtByMob() instanceof Raider) && !mob.isAlliedTo(this.getLastHurtByMob()) && !this.isAlliedTo(this.getLastHurtByMob())) {
-                if (mob instanceof Witch) {
+            if (this.getLastHurtByMob() != null && !(this.getLastHurtByMob() instanceof Raider) && !MobUtil.areAllies(this.getLastHurtByMob(), this)) {
+                if (mob instanceof Witch && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(this.getLastHurtByMob())) {
                     mob.setTarget(this.getLastHurtByMob());
                 }
             }

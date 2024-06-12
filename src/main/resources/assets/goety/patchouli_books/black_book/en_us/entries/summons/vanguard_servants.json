@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:vanguard_servant"
+      "entity": "goety:vanguard_servant",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",

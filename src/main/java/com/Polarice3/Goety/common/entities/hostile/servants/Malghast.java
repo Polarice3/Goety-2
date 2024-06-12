@@ -205,11 +205,15 @@ public class Malghast extends OwnedFlying {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.setGhastSpawn();
+        return pSpawnData;
+    }
+
+    public void setGhastSpawn(){
         if (this.isNatural()){
             this.setHostile(true);
         }
         this.setBoundOrigin(this.blockPosition());
-        return pSpawnData;
     }
 
     @Override
@@ -399,7 +403,7 @@ public class Malghast extends OwnedFlying {
         public void start() {
             RandomSource random = this.ghast.getRandom();
             float distance = 16.0F;
-            BlockPos blockPos = this.ghast.blockPosition();
+            BlockPos blockPos = null;
             if (this.ghast.getTrueOwner() != null){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){

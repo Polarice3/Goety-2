@@ -7,6 +7,7 @@ import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -54,7 +55,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.AABB;
@@ -1019,6 +1019,8 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             }
             if (target instanceof Player player && player.isBlocking()) {
                 player.disableShield(true);
+            } else if (target instanceof AbstractHauntedArmor hauntedArmor && hauntedArmor.isBlocking()){
+                hauntedArmor.disableShield(true);
             }
         }
 

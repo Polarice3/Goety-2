@@ -17,5 +17,9 @@
       "type": "patchouli:text",
       "text": "The Dark Anvil can repair itself when placed on top of a $(l:intro/cursed_cage)Cursed Cage$(), where it would uncommonly take a large amount of Soul Energy from it to mend itself. Using the Dark Anvil does not multiply the repair cost of the item by 2, but will add by 1. Instead of preventing you from repairing/enchanting items if the level cost is too high, the cost will stay at the level limit, allowing the item to be used on the anvil regardless."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:chipped_dark_anvil": 1,
+    "goety:damaged_dark_anvil": 1
+  }
 }

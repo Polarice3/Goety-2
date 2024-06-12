@@ -165,7 +165,11 @@ public abstract class TangleEntity extends Entity {
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())) {
                 if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
                     if (!MobUtil.areAllies(livingEntity, this.getOwner())) {
-                        this.setTarget(livingEntity);
+                        if (livingEntity.isPassenger() && livingEntity.getVehicle() instanceof LivingEntity vehicle){
+                            this.setTarget(vehicle);
+                        } else {
+                            this.setTarget(livingEntity);
+                        }
                     }
                 }
             }

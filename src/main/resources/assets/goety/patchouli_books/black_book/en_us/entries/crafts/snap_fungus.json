@@ -12,12 +12,22 @@
       "recipe": "goety:snap_warts"
     },
     {
-      "type": "patchouli:text",
+      "type": "patchouli:spotlight",
+      "item": "goety:snap_fungus",
       "text": "It appears that you can only throw a large amount of them at a time. On one hand, you get to throw multiple at once, on the other, you can't throw any more for a couple of seconds. You've also discovered a way to increase the potency of the fungi by combining 4 of them with a Ghast Tear. These Blast Fungi's explosions have larger radius but they no longer leave any poison clouds."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:blast_fungus"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:berserk_fungus",
+      "text": "By putting Snap Fungi with a Lily of the Valley in a Brewing Stand, you've managed to create the Berserk Fungus. Unlike the other two fungi, the fungus throws much like Snowballs and Eggs, and grants whoever gets hit with Strength, Speed and, unfortunately for beings like you, Nausea."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:snap_fungus": 2,
+    "goety:berserk_fungus": 4
+  }
 }

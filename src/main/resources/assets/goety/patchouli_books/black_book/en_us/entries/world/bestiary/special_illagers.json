@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These Illagers seemed to only go after those who had discovered or stolen their secrets as they aren't found stationed in Woodland Mansions or Outposts, and they seemed to only partake in Raids if those discoverers are within that village. What's certain is that these brand of Illagers are high ranking enough to bring even Ravagers in their pursuit."
+      "text": "Most of these Illagers seemed to only go after those who had discovered or stolen their secrets as they aren't found stationed in Woodland Mansions or Outposts, and they seemed to only partake in Raids if those discoverers are within that village. What's certain is that these brand of Illagers are high ranking enough to bring even Ravagers in their pursuit."
     },
     {
       "type": "patchouli:entity",
@@ -30,7 +30,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:piker"
+      "entity": "goety:piker",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",
@@ -38,7 +39,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:ripper"
+      "entity": "goety:ripper",
+      "scale": 0.5
     },
     {
       "type": "patchouli:text",
@@ -46,7 +48,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:trampler"
+      "entity": "goety:trampler",
+      "scale": 0.5
     },
     {
       "type": "patchouli:text",
@@ -86,7 +89,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:conquillager"
+      "entity": "goety:conquillager",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",
@@ -99,10 +103,6 @@
     {
       "type": "patchouli:text",
       "text": "An unexpected Illager trained to attack magic users as they're immune to their spells. They wield flaming swords and throw Harming Potions."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "When partaking in a Raid, Conquillagers will usually come first, Inquillagers will start appearing after 3 Waves and Enviokers will start to appear alongside Ravagers and Evokers."
     }
   ]
 }

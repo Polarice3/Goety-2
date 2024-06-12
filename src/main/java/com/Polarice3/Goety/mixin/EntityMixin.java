@@ -1,8 +1,10 @@
 package com.Polarice3.Goety.mixin;
 
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -38,6 +40,13 @@ public abstract class EntityMixin {
     protected void canCollideWith(Entity other, CallbackInfoReturnable<Boolean> cir) {
         if(other instanceof AbstractVine vine && vine.passableEntities((Entity)(Object)this)){
             cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "isSwimming", at = @At("HEAD"), cancellable = true)
+    public void isSwimming(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
+        if ((Entity) (Object) this instanceof LivingEntity livingEntity && livingEntity.hasEffect(GoetyEffects.PLUNGE.get())) {
+            callbackInfoReturnable.setReturnValue(false);
         }
     }
 

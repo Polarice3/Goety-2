@@ -271,6 +271,7 @@ public class ModItems {
     public static final RegistryObject<Item> BLINK_FOCUS = ITEMS.register("blink_focus", () -> new MagicFocus(new BlinkSpell()));
     public static final RegistryObject<Item> BANISH_FOCUS = ITEMS.register("banish_focus", () -> new MagicFocus(new BanishSpell()));
     public static final RegistryObject<Item> TUNNEL_FOCUS = ITEMS.register("tunnel_focus", () -> new MagicFocus(new TunnelSpell()));
+    public static final RegistryObject<Item> RUPTURE_FOCUS = ITEMS.register("rupture_focus", () -> new MagicFocus(new VoidRiftSpell()));
 
     //Armors
     public static final RegistryObject<Item> CURSED_KNIGHT_HELMET = ITEMS.register("cursed_knight_helmet", () -> new CursedKnightArmor(ArmorItem.Type.HELMET));

@@ -313,6 +313,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultLifespan;
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultDistance;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RuptureDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> RuptureDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShockwaveCoolDown;
@@ -983,6 +988,16 @@ public class SpellConfig {
                     .defineInRange("tunnelDefaultLifespan", 100, 0, Integer.MAX_VALUE);
             TunnelDefaultDistance = BUILDER.comment("The initial distance of the Tunnel, Default: 8")
                     .defineInRange("tunnelDefaultDistance", 8, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Rupture Spell");
+            RuptureCost = BUILDER.comment("Rupture Spell Cost, Default: 250")
+                    .defineInRange("ruptureCost", 250, 0, Integer.MAX_VALUE);
+            RuptureDuration = BUILDER.comment("Time to cast Rupture Spell, Default: 120")
+                    .defineInRange("ruptureTime", 120, 0, 72000);
+            RuptureCoolDown = BUILDER.comment("Rupture Spell Cooldown, Default: 6000")
+                    .defineInRange("ruptureCoolDown", 6000, 0, Integer.MAX_VALUE);
+            RuptureDamage = BUILDER.comment("How much base damage the Void Rift deals, Default: 2.0")
+                    .defineInRange("ruptureDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Shockwave Spell");
             ShockwaveCost = BUILDER.comment("Shockwave Spell Cost, Default: 80")

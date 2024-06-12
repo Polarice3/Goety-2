@@ -22,7 +22,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -237,16 +236,16 @@ public class DarkAnvilMenu extends ItemCombinerMenu {
                 }
             }
 
-            if (StringUtils.isBlank(this.itemName)) {
-                if (itemstack.hasCustomHoverName()) {
+            if (this.itemName != null && !Util.isBlank(this.itemName)) {
+                if (!this.itemName.equals(itemstack.getHoverName().getString())) {
                     k = 1;
                     i += k;
-                    itemstack1.resetHoverName();
+                    itemstack1.setHoverName(Component.literal(this.itemName));
                 }
-            } else if (!this.itemName.equals(itemstack.getHoverName().getString())) {
+            } else if (itemstack.hasCustomHoverName()) {
                 k = 1;
                 i += k;
-                itemstack1.setHoverName(Component.literal(this.itemName));
+                itemstack1.resetHoverName();
             }
             if (flag && !itemstack1.isBookEnchantable(itemstack2)) {
                 itemstack1 = ItemStack.EMPTY;

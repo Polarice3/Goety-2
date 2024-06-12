@@ -3962,6 +3962,21 @@
     ],
     "subtitle": "subtitle.goety.spider_web"
   },
+  "void_rift_open": {
+    "sounds": [
+      {
+        "name": "goety:random/void_pool_spawn"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_rift_open"
+  },
+  "void_rift": {
+    "sounds": [
+      {
+        "name": "goety:random/void_demon_loop"
+      }
+    ]
+  },
   "lich_ambient": {
     "sounds": [
       {
@@ -4215,6 +4230,23 @@
       }
     ],
     "subtitle": "subtitle.goety.wild_prepare_spell"
+  },
+  "void_prepare_spell": {
+    "sounds": [
+      {
+        "name": "goety:spell/void_prepare_spell1"
+      },
+      {
+        "name": "goety:spell/void_prepare_spell2"
+      },
+      {
+        "name": "goety:spell/void_prepare_spell3"
+      },
+      {
+        "name": "goety:spell/void_prepare_spell4"
+      }
+    ],
+    "subtitle": "subtitle.goety.void_prepare_spell"
   },
   "cast_spell": {
     "sounds": [

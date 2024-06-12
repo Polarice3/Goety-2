@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "alexsmobs:cockroach_wing"
+  },
+  "effect": "alexsmobs:bug_pheromones",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "alexsmobs"
+    }
+  ]
+}

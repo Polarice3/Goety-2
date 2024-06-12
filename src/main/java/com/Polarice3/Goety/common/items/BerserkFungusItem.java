@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,7 +25,13 @@ public class BerserkFungusItem extends Item {
          p_41128_.addFreshEntity(berserkFungus);
       }
       if (!p_41129_.getAbilities().instabuild) {
-         itemstack.shrink(1);
+         if (CuriosFinder.hasWarlockRobe(p_41129_)){
+            if (p_41128_.random.nextFloat() > 0.1F){
+               itemstack.shrink(1);
+            }
+         } else {
+            itemstack.shrink(1);
+         }
       }
 
       return InteractionResultHolder.sidedSuccess(itemstack, p_41128_.isClientSide());

@@ -71,7 +71,6 @@ import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
@@ -771,7 +770,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             return false;
         }
 
-        float trueAmount = pAmount;
+        float trueAmount = this.isInNether() ? pAmount / 2 : pAmount;
 
         if (pSource.is(DamageTypes.FELL_OUT_OF_WORLD) && pSource.getEntity() == null){
             this.discard();
@@ -1254,7 +1253,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.5D) - this.getY(0.5D);
         double d2 = pTarget.getZ() - this.getZ();
-        abstractarrowentity.shoot(d0, d1, d2, 3.2F, 1.0F);
+        float speed = this.isInNether() ? 3.2F : 2.4F;
+        float accuracy = this.isInNether() ? 1.0F : 8.0F;
+        abstractarrowentity.shoot(d0, d1, d2, speed, accuracy);
         this.playSound(ModSounds.APOSTLE_SHOOT.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(abstractarrowentity);
     }

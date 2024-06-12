@@ -63,6 +63,9 @@ public class MiniGhast extends Malghast {
         return 1.5F;
     }
 
+    public void setGhastSpawn(){
+    }
+
     @Override
     public void lifeSpanDamage() {
         if (!this.level.isClientSide){
@@ -163,7 +166,7 @@ public class MiniGhast extends Malghast {
         public void start() {
             RandomSource random = this.ghast.getRandom();
             float distance = 8.0F;
-            BlockPos blockPos = this.ghast.blockPosition();
+            BlockPos blockPos = null;
             if (this.ghast.getTrueOwner() != null){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(3);
             } else if (this.ghast.getTarget() != null){

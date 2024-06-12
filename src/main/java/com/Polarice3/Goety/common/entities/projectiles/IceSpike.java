@@ -2,15 +2,21 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -30,6 +36,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 public class IceSpike extends AbstractArrow {
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceSpike.class, EntityDataSerializers.FLOAT);
+
     public IceSpike(EntityType<? extends AbstractArrow> p_36721_, Level p_36722_) {
         super(p_36721_, p_36722_);
         this.pickup = Pickup.DISALLOWED;
@@ -43,6 +51,32 @@ public class IceSpike extends AbstractArrow {
     public IceSpike(LivingEntity p_36718_, Level p_36719_) {
         super(ModEntityType.ICE_SPIKE.get(), p_36718_, p_36719_);
         this.pickup = Pickup.DISALLOWED;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
+    }
+
+    public void addAdditionalSaveData(CompoundTag p_36881_) {
+        super.addAdditionalSaveData(p_36881_);
+        p_36881_.putFloat("ExtraDamage", this.getExtraDamage());
+    }
+
+    public void readAdditionalSaveData(CompoundTag p_36875_) {
+        super.readAdditionalSaveData(p_36875_);
+        if (p_36875_.contains("ExtraDamage")) {
+            this.setExtraDamage(p_36875_.getFloat("ExtraDamage"));
+        }
+    }
+
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
     }
 
     public void tick() {
@@ -68,10 +102,8 @@ public class IceSpike extends AbstractArrow {
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
+            baseDamage += this.getExtraDamage();
             if (entity1 instanceof LivingEntity livingentity) {
-                if (WandUtil.enchantedFocus(livingentity)){
-                    baseDamage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingentity);
-                }
                 flag = entity.hurt(ModDamageSource.iceSpike(this, livingentity), baseDamage);
                 if (flag) {
                     if (entity.isAlive()) {

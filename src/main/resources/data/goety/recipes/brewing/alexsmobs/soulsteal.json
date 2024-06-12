@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "alexsmobs:soul_heart"
+  },
+  "effect": "alexsmobs:soulsteal",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "alexsmobs"
+    }
+  ]
+}

@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The Warlock Robe causes the wearer to be resistant to explosive damages and provides a 10%% chance of not consuming any Wartful Eggs. The Sash and Robe also cause Spiders to more likely drop Spider Eggs. If the wearer has a negative status effect, the garment will automatically use up any Wartful Eggs within the wearer's inventory to transfer the effect to the Wartling."
+      "text": "The Warlock Robe causes the wearer to be resistant to magic damage and provides a 10%% chance of not consuming any Wartful Eggs. The Sash and Robe also cause Spiders to more likely drop Spider Eggs. If the wearer has a negative status effect, the garment will automatically use up any Wartful Eggs within the wearer's inventory to transfer the effect to the Wartling."
     },
     {
       "type": "patchouli:text",

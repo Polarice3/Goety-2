@@ -627,7 +627,8 @@ public class SkullLord extends Monster implements ICustomAttributes {
             UUID uuid = this.getBoneLordUUID();
             return EntityFinder.getLivingEntityByUuiD(uuid) instanceof BoneLord boneLord ? boneLord : null;
         } else {
-            return this.level.getEntity(this.getBoneLordClientId()) instanceof BoneLord boneLord ? boneLord : null;
+            int id = this.getBoneLordClientId();
+            return id <= -1 ? null : this.level.getEntity(id) instanceof BoneLord boneLord ? boneLord : null;
         }
     }
 

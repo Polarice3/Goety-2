@@ -1,0 +1,15 @@
+{
+  "name": "Overgrown Roots",
+  "icon": "goety:overgrown_roots",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Most roots and flora out in nature are too weak and feeble for certain parts of wild magic. Fortunately, you've managed to devise some strong roots that can handle such magical powers."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:overgrown_roots"
+    }
+  ]
+}

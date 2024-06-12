@@ -27,6 +27,7 @@ public class RedstoneGolemRenderer<T extends RedstoneGolem> extends MobRenderer<
     public RedstoneGolemRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RedstoneGolemModel<>(renderManagerIn.bakeLayer(ModModelLayer.REDSTONE_GOLEM)), 1.5F);
         this.addLayer(new RedstoneGolemCrackinessLayer<>(this));
+        this.addLayer(new RedstoneGolemBandsLayer<>(this));
         this.addLayer(new RedstoneGolemEyesLayer<>(this));
         this.addLayer(new RedstoneGolemFlashLayer<>(this));
         this.addLayer(new RGEmissiveLayer<>(this, GLOW_TEXTURE, (entity, partialTicks, ageInTicks) -> {
@@ -93,6 +94,21 @@ public class RedstoneGolemRenderer<T extends RedstoneGolem> extends MobRenderer<
                         renderColoredCutoutModel(this.getParentModel(), resourcelocation, p_117148_, p_117149_, p_117150_, p_117151_, 1.0F, 1.0F, 1.0F);
                     }
                 }
+            }
+        }
+    }
+
+    public static class RedstoneGolemBandsLayer<T extends RedstoneGolem> extends RenderLayer<T, RedstoneGolemModel<T>> {
+        private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/redstone_golem/redstone_golem_bands.png");
+
+        public RedstoneGolemBandsLayer(RenderLayerParent<T, RedstoneGolemModel<T>> p_i50919_1_) {
+            super(p_i50919_1_);
+        }
+
+        @Override
+        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!entitylivingbaseIn.isHostile() && MobsConfig.RedstoneGolemTexture.get()) {
+                renderColoredCutoutModel(this.getParentModel(), TEXTURES, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, 1.0F, 1.0F, 1.0F);
             }
         }
     }

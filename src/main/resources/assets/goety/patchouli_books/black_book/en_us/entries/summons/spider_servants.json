@@ -13,7 +13,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:spider_servant"
+      "entity": "goety:spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
@@ -21,7 +22,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:cave_spider_servant"
+      "entity": "goety:cave_spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
@@ -29,7 +31,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:web_spider_servant"
+      "entity": "goety:web_spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
@@ -37,7 +40,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:icy_spider_servant"
+      "entity": "goety:icy_spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
@@ -45,7 +49,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:bone_spider_servant"
+      "entity": "goety:bone_spider_servant",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",

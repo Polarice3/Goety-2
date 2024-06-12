@@ -121,7 +121,7 @@
   "entity.goety.tormentor": "トーメントター",
   "entity.goety.inquillager": "尋問者",
   "entity.goety.conquillager": "コンキラージャー",
-  "entity.goety.piker": "ピーカー",
+  "entity.goety.piker": "パイカ―",
   "entity.goety.preacher": "説教者",
 
   "entity.goety.minister": "大臣",
@@ -212,7 +212,7 @@
   "item.goety.tormentor_spawn_egg": "トーメントターのスポーンエッグ",
   "item.goety.inquillager_spawn_egg": "審問者のスポーンエッグ",
   "item.goety.conquillager_spawn_egg": "コンキラージャーのスポーンエッグ",
-  "item.goety.piker_spawn_egg": "ピーカーのスポーンエッグ",
+  "item.goety.piker_spawn_egg": "パイカ―のスポーンエッグ",
   "item.goety.preacher_spawn_egg": "説教者のスポーンエッグ",
   "item.goety.minister_spawn_egg": "大臣のスポーンエッグ",
   "item.goety.vizier_spawn_egg": "宰相のスポーンエッグ",
@@ -1096,12 +1096,12 @@
   "subtitle.goety.conquillager_celebrate": "征服者歓声",
   "subtitle.goety.conquillager_death": "コンキラジャー死ぬ",
 
-  "subtitle.goety.piker_ambient": "ピーカーパイク",
-  "subtitle.goety.piker_hurt": "ピーカーがダメージを受ける",
-  "subtitle.goety.piker_swing": "ピーカーが振る",
-  "subtitle.goety.piker_pike": "ピーカーが刺す",
-  "subtitle.goety.piker_celebrate": "ピーカーが歓声を上げる",
-  "subtitle.goety.piker_death": "ピーカーが死ぬ",
+  "subtitle.goety.piker_ambient": "パイカ―パイク",
+  "subtitle.goety.piker_hurt": "パイカ―がダメージを受ける",
+  "subtitle.goety.piker_swing": "パイカ―が振る",
+  "subtitle.goety.piker_pike": "パイカ―が刺す",
+  "subtitle.goety.piker_celebrate": "パイカ―が歓声を上げる",
+  "subtitle.goety.piker_death": "パイカ―が死ぬ",
 
   "subtitle.goety.preacher_ambient": "説教者が説教する",
   "subtitle.goety.preacher_hurt": "説教者がダメージを受ける",
@@ -1952,5 +1952,14 @@
   "item.goety.zombie_vindicator_servant_spawn_egg": "ゾンビウィンディケーターのスポーンエッグ",
   "item.goety.skeleton_pillager_servant_spawn_egg": "スケルトンピリジャーのスポーンエッグ",
   "item.goety.bound_evoker_spawn_egg": "バインドエヴォーカーのスポーンエッグ",
-  "item.goety.bound_iceologer_spawn_egg": "縛られた氷学者のスポーンエッグ"
+  "item.goety.bound_iceologer_spawn_egg": "縛られた氷学者のスポーンエッグ",
+  "entity.goety.void_rift": "虚空の裂け目",
+  "item.goety.crypt_slime_spawn_egg": "地下室スライムのスポーンエッグ",
+  "item.goety.ghast_servant_spawn_egg": "ガスト従者のスポーンエッグ",
+  "item.goety.rupture_focus": "破裂のフォーカス",
+  "item.goety.rupture_focus.info": "術者が最初に見ている場所に虚空の裂け目を召喚します。裂け目は味方以外の存在を吸い込み、中心にいる場合は継続的にダメージを与えます。",
+  "info.goety.witch_hat_potion": "10%の確率で飲んだポーションを消費しない",
+  "info.goety.crone_hat_potion": "25%の確率で飲んだポーションを消費しない。ブリューの場合は 10% です。",
+  "subtitle.goety.apostle_shoot": "使徒が撃つ",
+  "subtitle.goety.redstone_golem_mine_spawn": "Scatter Mine spawns"
 }

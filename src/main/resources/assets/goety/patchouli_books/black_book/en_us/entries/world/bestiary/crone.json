@@ -11,6 +11,7 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:crone",
+      "scale": 0.5,
       "text": "Deals damage when getting hit."
     },
     {
@@ -18,5 +19,8 @@
       "item": "goety:crone_hat",
       "text": "The hat of a Crone is a powerful object that when worn, gives a 25%% chance of not using up a Potion, and a 10%% chance of not using up a Brew. It also gives a chance of bottling, up to three extra brews if the wearer dons a Witch Robe, instead of two if the wearer had been don a regular Witch Hat instead."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:crone_hat": 2
+  }
 }

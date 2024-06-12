@@ -76,6 +76,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SUpdateBossBar.class, SUpdateBossBar::encode, SUpdateBossBar::decode, SUpdateBossBar::consume);
         INSTANCE.registerMessage(nextID(), SFocusCooldownPacket.class, SFocusCooldownPacket::encode, SFocusCooldownPacket::decode, SFocusCooldownPacket::consume);
         INSTANCE.registerMessage(nextID(), SRemoveEffectPacket.class, SRemoveEffectPacket::encode, SRemoveEffectPacket::decode, SRemoveEffectPacket::consume);
+        INSTANCE.registerMessage(nextID(), SPurifyEffectPacket.class, SPurifyEffectPacket::encode, SPurifyEffectPacket::decode, SPurifyEffectPacket::consume);
         INSTANCE.registerMessage(nextID(), WBUpdatePacket.class, WBUpdatePacket::encode, WBUpdatePacket::decode, WBUpdatePacket::consume);
     }
 

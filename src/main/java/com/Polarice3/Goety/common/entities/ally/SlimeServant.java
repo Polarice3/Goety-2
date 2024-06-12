@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -25,12 +26,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -80,6 +86,27 @@ public class SlimeServant extends Summoned{
     @Override
     protected ResourceLocation getDefaultLootTable() {
         return EntityType.SLIME.getDefaultLootTable();
+    }
+
+    protected void dropFromLootTable(DamageSource p_21021_, boolean p_21022_) {
+        ResourceLocation resourcelocation = this.getLootTable();
+        if (this.level.getServer() != null) {
+            LootTable loottable = this.level().getServer().getLootData().getLootTable(resourcelocation);
+            Slime slime = new Slime(EntityType.SLIME, this.level);
+            slime.setSize(this.getSize(), true);
+            LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, slime).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_21021_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_21021_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_21021_.getDirectEntity());
+            if (p_21022_ && this.lastHurtByPlayer != null) {
+                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+            }
+
+            LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
+            loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+        }
+    }
+
+    @Override
+    protected boolean shouldDropLoot() {
+        return !this.limitedLifespan;
     }
 
     public void setSize(int p_33594_, boolean p_33595_) {
@@ -255,12 +282,22 @@ public class SlimeServant extends Summoned{
                 if (this.getTrueOwner() != null) {
                     slime.setTrueOwner(this.getTrueOwner());
                 }
+                slime.setLimitedLife(this.limitedLifeTicks);
                 slime.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);
                 this.level.addFreshEntity(slime);
             }
         }
 
         super.remove(p_149847_);
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.limitedLifespan){
+            this.lifeSpanDamage();
+        } else {
+            super.tryKill(player);
+        }
     }
 
     public void push(Entity p_33636_) {

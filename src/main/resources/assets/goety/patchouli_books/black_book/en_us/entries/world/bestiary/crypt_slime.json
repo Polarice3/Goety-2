@@ -1,0 +1,17 @@
+{
+  "name": "Crypt Slimes",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crypt_slime",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Crypts hold potent necrotic energies that it occasionally spawns slimes made out of bones and ectoplasm."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crypt_slime",
+      "text": "Their attacks inflicts the Sapped effect."
+    }
+  ]
+}

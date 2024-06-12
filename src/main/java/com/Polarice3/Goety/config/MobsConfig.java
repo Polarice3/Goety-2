@@ -65,6 +65,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LeapleafTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemCrack;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemTexture;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityTexture;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> HolidaySkins;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadTeleport;
@@ -196,6 +200,12 @@ public class MobsConfig {
                 BUILDER.push("Redstone Golem");
                 RedstoneGolemCrack = BUILDER.comment("If Redstone Golems show cracks when damaged sufficiently, Default: true")
                         .define("redstoneGolemCrack", true);
+                RedstoneGolemTexture = BUILDER.comment("If Redstone Golems have custom textures, Default: true")
+                        .define("redstoneGolemTexture", true);
+                BUILDER.pop();
+                BUILDER.push("Redstone Monstrosity");
+                RedstoneMonstrosityTexture = BUILDER.comment("If Redstone Monstrosities have custom textures, Default: true")
+                        .define("redstoneMonstrosityTexture", true);
                 BUILDER.pop();
             BUILDER.pop();
         BUILDER.pop();

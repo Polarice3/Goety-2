@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "half=lower": {
+      "model": "minecraft:block/skull"
+    },
+    "half=upper": {
       "model": "minecraft:block/skull"
     }
   }

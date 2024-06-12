@@ -2,6 +2,7 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
@@ -252,6 +253,10 @@ public class BrewUtils {
 
     public static boolean hasEffect(ItemStack itemStack){
         return !PotionUtils.getCustomEffects(itemStack).isEmpty() || !getBrewEffects(itemStack).isEmpty();
+    }
+
+    public static boolean brewableFood(ItemStack itemStack){
+        return itemStack.is(ModTags.Items.BREWABLE_FOOD) && !hasEffect(itemStack);
     }
 
     public static int getColor(ItemStack p_43576_) {
