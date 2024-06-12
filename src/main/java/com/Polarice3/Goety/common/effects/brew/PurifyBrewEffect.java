@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.common.effects.brew;
 
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPurifyEffectPacket;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,6 +33,7 @@ public class PurifyBrewEffect extends BrewEffect{
             } else {
                 pTarget.getActiveEffects().removeIf(mobEffectInstance -> mobEffectInstance.getEffect().isBeneficial() && !mobEffectInstance.getEffect().getCurativeItems().isEmpty());
             }
+            ModNetwork.sentToTrackingEntity(pTarget, new SPurifyEffectPacket(pTarget.getId(), this.removeDebuff));
         }
     }
 }

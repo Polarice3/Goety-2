@@ -11,7 +11,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:squall_golem"
+      "entity": "goety:squall_golem",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
@@ -38,5 +39,8 @@
       "type": "patchouli:text",
       "text": "When deactivated, right-clicking on the golem with an empty hand will rotate them towards you at an angle."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:resonance_crystal": 4
+  }
 }

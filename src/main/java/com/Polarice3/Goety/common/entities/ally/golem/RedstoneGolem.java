@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -436,6 +437,11 @@ public class RedstoneGolem extends AbstractGolemServant {
             this.setAnimationState(ACTIVATE);
             if (this.activateTick > 20){
                 this.setPose(Pose.STANDING);
+            }
+        }
+        if (this.isHostile()) {
+            if (this.tickCount % 20 == 0) {
+                this.convertTo(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), false);
             }
         }
         if (this.level.isClientSide()) {

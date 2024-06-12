@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The power of commanding Zombies and Skeletons sounds wonderful, but with the power of the Necro Cape, your Necroturgic abilities enhance even further. Wearing it causes your Skeletons to occasionally shoot Weakness Arrows, and Zombies will turn natural Zombies into more Servants that obeys you."
+      "text": "The power of commanding Zombies and Skeletons sounds wonderful, but with the power of the Necro Cape, your Necroturgic abilities enhance even further. Wearing it causes your Skeletons' arrows to pass through allied creatures, and Zombies can turn wild Zombies into more Servants that obeys you."
     },
     {
       "type": "goety:ritual",

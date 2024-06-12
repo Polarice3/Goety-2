@@ -138,9 +138,16 @@ public class HookBellBlockEntity extends BlockEntity {
     private static void teleportRaiders(Level p_155187_, BlockPos p_155188_, List<LivingEntity> p_155189_) {
         if (p_155187_.getBlockEntity(p_155188_) instanceof HookBellBlockEntity callerBellBlock) {
             p_155189_.stream().filter((p_155219_) -> {
-                return isRaiderWithinRange(p_155188_, p_155219_);
+                return isRaiderWithinRange(p_155188_, p_155219_) || isRaiderVehicle(p_155188_, p_155219_);
             }).forEach((entity) -> teleport(entity, callerBellBlock));
         }
+    }
+
+    private static boolean isRaiderVehicle(BlockPos p_155197_, LivingEntity p_155198_){
+        return p_155198_.isAlive()
+                && !p_155198_.isRemoved()
+                && p_155198_.getFirstPassenger() instanceof LivingEntity rider
+                && isRaiderWithinRange(p_155197_, rider);
     }
 
     private static boolean isRaiderWithinRange(BlockPos p_155197_, LivingEntity p_155198_) {

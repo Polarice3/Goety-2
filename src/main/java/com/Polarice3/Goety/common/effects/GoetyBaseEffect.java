@@ -74,7 +74,10 @@ public class GoetyBaseEffect extends MobEffect {
         }
         if (this == GoetyEffects.TRIPPING.get()) {
             if (world.random.nextFloat() <= 0.25F + (amplify / 10.0F) && MobUtil.isMoving(livingEntity)) {
-                MobUtil.push(livingEntity, world.random.nextDouble(), world.random.nextDouble() / 2.0D, world.random.nextDouble());
+                double d0 = world.random.nextDouble() * world.random.nextIntBetweenInclusive(-1, 1);
+                double d1 = (world.random.nextDouble() * world.random.nextIntBetweenInclusive(-1, 1)) / 2.0D;
+                double d2 = world.random.nextDouble() * world.random.nextIntBetweenInclusive(-1, 1);
+                MobUtil.push(livingEntity, d0, d1, d2);
             }
         }
         if (this == GoetyEffects.ARROWMANTIC.get()){
@@ -135,6 +138,7 @@ public class GoetyBaseEffect extends MobEffect {
                     } else if (BlockFinder.distanceFromGround(livingEntity) > 4) {
                         livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().subtract(0, 0.2D + (amplify / 10.0D), 0));
                     }
+                    livingEntity.setSwimming(false);
                 }
             }
         }
@@ -154,11 +158,13 @@ public class GoetyBaseEffect extends MobEffect {
                     }), TargetingConditions.forCombat(), mob, mob.getX(), mob.getEyeY(), mob.getZ());
                     if (target != null && mob != target && mob.getTarget() != target){
                         mob.setTarget(target);
+                        mob.setLastHurtByMob(target);
                         mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
                         mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, target, 600L);
                     }
                     if (mob.getTarget() != null && mob.getTarget().isRemoved()){
                         mob.setTarget(null);
+                        mob.setLastHurtByMob(null);
                         mob.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
                         mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     }

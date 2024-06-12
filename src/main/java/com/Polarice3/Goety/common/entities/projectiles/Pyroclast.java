@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -167,6 +168,8 @@ public class Pyroclast extends ThrowableProjectile {
             if (pEntity == this.getOwner()){
                 return false;
             } else if (this.getOwner().isPassengerOfSameVehicle(pEntity)){
+                return false;
+            } else if (MobUtil.areAllies(pEntity, this.getOwner())){
                 return false;
             } else if (pEntity instanceof Projectile projectile && projectile.getOwner() == this.getOwner()){
                 return false;

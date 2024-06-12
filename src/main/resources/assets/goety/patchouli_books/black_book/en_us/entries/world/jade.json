@@ -12,5 +12,8 @@
       "images": ["goety:textures/gui/entries/jade_ore.png"],
       "border": true
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:jade_ore": 1
+  }
 }

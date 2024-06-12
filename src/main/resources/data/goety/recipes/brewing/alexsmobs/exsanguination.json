@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "alexsmobs:serrated_shark_tooth"
+  },
+  "effect": "alexsmobs:exsanguination",
+  "soulCost": 25,
+  "capacityExtra": 2,
+  "duration": 600,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "alexsmobs"
+    }
+  ]
+}

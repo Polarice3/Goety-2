@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "cataclysm:ancient_metal_ingot"
+  },
+  "effect": "cataclysm:curse_of_desert",
+  "soulCost": 50,
+  "capacityExtra": 4,
+  "duration": 900,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cataclysm"
+    }
+  ]
+}

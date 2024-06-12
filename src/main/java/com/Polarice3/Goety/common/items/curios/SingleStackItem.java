@@ -69,6 +69,11 @@ public class SingleStackItem extends Item {
             }
             if (stack.getItem() instanceof WitchHatItem) {
                 tooltip.add(Component.translatable("info.goety.witch_hat").withStyle(secondary));
+                if (stack.is(ModItems.CRONE_HAT.get())){
+                    tooltip.add(Component.translatable("info.goety.crone_hat_potion").withStyle(secondary));
+                } else {
+                    tooltip.add(Component.translatable("info.goety.witch_hat_potion").withStyle(secondary));
+                }
             }
             if (stack.is(ModItems.NECRO_CROWN.get()) || stack.is(ModItems.NAMELESS_CROWN.get())) {
                 tooltip.add(Component.translatable("info.goety.necro_crown").withStyle(main));
@@ -116,6 +121,10 @@ public class SingleStackItem extends Item {
                     }
                     tooltip.add(Component.translatable("info.goety.storm_robe_discount").withStyle(secondary));
                 }
+            }
+            if (stack.getItem() instanceof WildRobeItem) {
+                tooltip.add(Component.translatable("info.goety.wild_robe").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.wild_robe_discount").withStyle(secondary));
             }
             if (stack.getItem() instanceof WitchRobeItem) {
                 tooltip.add(Component.translatable("info.goety.witch_robe_brew", ModKeybindings.keyBindings[3].getTranslatedKeyMessage().getString()).withStyle(main));

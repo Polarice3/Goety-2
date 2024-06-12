@@ -121,7 +121,7 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
         super.tick();
         if (!this.level.isClientSide) {
             if (this.getSkullLord() == null || this.getSkullLord().isDeadOrDying()) {
-                if (this.tickCount % 20 == 0 && this.tickCount > 10) {
+                if (this.tickCount % 100 == 0 && this.tickCount > 100) {
                     this.discard();
                 }
             } else {
@@ -253,7 +253,8 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
             UUID uuid = this.getSkullLordUUID();
             return EntityFinder.getLivingEntityByUuiD(uuid) instanceof SkullLord skullLord ? skullLord : null;
         } else {
-            return this.level.getEntity(this.getSkullLordClientId()) instanceof SkullLord skullLord ? skullLord : null;
+            int id = this.getSkullLordClientId();
+            return id <= -1 ? null : this.level.getEntity(id) instanceof SkullLord skullLord ? skullLord : null;
         }
     }
 

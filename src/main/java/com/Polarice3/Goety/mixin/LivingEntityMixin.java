@@ -36,6 +36,13 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "randomTeleport", at = @At("HEAD"), cancellable = true)
+    public void randomTeleport(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
+        if (this.hasEffect(GoetyEffects.ENDER_GROUND.get())) {
+            callbackInfoReturnable.setReturnValue(false);
+        }
+    }
+
     @Inject(method = "jumpFromGround", at = @At("HEAD"), cancellable = true)
     public void jumpFromGround(CallbackInfo callbackInfo) {
         if (this.hasEffect(GoetyEffects.STUNNED.get()) || this.hasEffect(GoetyEffects.TANGLED.get())) {

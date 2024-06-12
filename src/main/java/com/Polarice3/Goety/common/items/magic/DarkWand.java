@@ -338,6 +338,7 @@ public class DarkWand extends Item implements IWand {
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
         if (worldIn instanceof ServerLevel && this.cannotCast(livingEntityIn, stack)){
+            livingEntityIn.stopUsingItem();
             return;
         }
         int CastTime = stack.getUseDuration() - count;
@@ -402,7 +403,9 @@ public class DarkWand extends Item implements IWand {
         super.finishUsingItem(stack, worldIn, entityLiving);
         if (this.getSpell(stack) != null) {
             if (!(this.getSpell(stack) instanceof IChargingSpell) || this.isNotInstant(this.getSpell(stack)) || this.notTouch(this.getSpell(stack))) {
-                this.MagicResults(stack, worldIn, entityLiving);
+                if (!this.cannotCast(entityLiving, stack)){
+                    this.MagicResults(stack, worldIn, entityLiving);
+                }
             }
         }
         if (stack.getTag() != null) {

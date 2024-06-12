@@ -4,16 +4,20 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.function.BooleanSupplier;
@@ -31,6 +35,17 @@ public class MagmaCubeServant extends SlimeServant{
     @Override
     protected ResourceLocation getDefaultLootTable() {
         return EntityType.MAGMA_CUBE.getDefaultLootTable();
+    }
+
+    protected LootContext.Builder createLootContext(boolean p_21105_, DamageSource p_21106_) {
+        MagmaCube slime = new MagmaCube(EntityType.MAGMA_CUBE, this.level);
+        slime.setSize(this.getSize(), true);
+        LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel)this.level)).withRandom(this.random).withParameter(LootContextParams.THIS_ENTITY, slime).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.DAMAGE_SOURCE, p_21106_).withOptionalParameter(LootContextParams.KILLER_ENTITY, p_21106_.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, p_21106_.getDirectEntity());
+        if (p_21105_ && this.lastHurtByPlayer != null) {
+            lootcontext$builder = lootcontext$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+        }
+
+        return lootcontext$builder;
     }
 
     public void setSize(int p_32972_, boolean p_32973_) {

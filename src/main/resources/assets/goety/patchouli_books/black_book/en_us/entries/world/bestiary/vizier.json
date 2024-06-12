@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:vizier"
+      "entity": "goety:vizier",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
@@ -25,8 +26,13 @@
       "text": "Once injured enough, or there are lot of Irks around them, the Vizier will cast a spell that would siphon the life force of all surrounding Irks, healing them in the process."
     },
     {
-      "type": "patchouli:text",
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_ruby",
+      "title": "Ruby of Souls",
       "text": "When slain, their killer will be struck with Bad Omen at it's highest level. There are rumors that the Viziers would grant shards of their mighty ruby to certain Evokers."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_ruby": 5
+  }
 }

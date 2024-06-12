@@ -247,12 +247,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     @Nullable
     public Team getTeam() {
-        if (!this.level.isClientSide) {
-            if (this.getTrueOwner() != null) {
-                LivingEntity livingentity = this.getTrueOwner();
-                if (livingentity != null && livingentity.getTeam() != null) {
-                    return livingentity.getTeam();
-                }
+        if (this.getTrueOwner() != null) {
+            LivingEntity livingentity = this.getTrueOwner();
+            if (livingentity != null && livingentity.getTeam() != null) {
+                return livingentity.getTeam();
             }
         }
 
@@ -261,19 +259,17 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     //look at dish
     public boolean isAlliedTo(Entity entityIn) {
-        if (!this.level.isClientSide) {
-            if (this.getTrueOwner() != null) {
-                LivingEntity trueOwner = this.getTrueOwner();
-                return trueOwner.isAlliedTo(entityIn)
-                        || entityIn.isAlliedTo(trueOwner)
-                        || entityIn == trueOwner
-                        || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
-                        || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
-                        || (trueOwner instanceof Player player
-                        && entityIn instanceof LivingEntity livingEntity
-                        && (SEHelper.getAllyEntities(player).contains(livingEntity)
-                        || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
-            }
+        if (this.getTrueOwner() != null) {
+            LivingEntity trueOwner = this.getTrueOwner();
+            return trueOwner.isAlliedTo(entityIn)
+                    || entityIn.isAlliedTo(trueOwner)
+                    || entityIn == trueOwner
+                    || (entityIn instanceof IOwned owned && MobUtil.ownerStack(this, owned))
+                    || (entityIn instanceof OwnableEntity ownable && ownable.getOwner() == trueOwner)
+                    || (trueOwner instanceof Player player
+                    && entityIn instanceof LivingEntity livingEntity
+                    && (SEHelper.getAllyEntities(player).contains(livingEntity)
+                    || SEHelper.getAllyEntityTypes(player).contains(livingEntity.getType())));
         }
         return super.isAlliedTo(entityIn);
     }
@@ -373,7 +369,8 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
         } else {
-            return this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
+            int id = this.getOwnerClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living && living != this ? living : null;
         }
     }
 
@@ -392,6 +389,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         return this.getOwnerId();
     }
 
+    @Nullable
     public Entity getOwner() {
         return this.getTrueOwner();
     }
@@ -514,7 +512,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
                 double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
                 double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
-                if (this.randomTeleport(d1, d2, d3, false)) {
+                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
+                if (event.isCanceled()) {
+                    break;
+                }
+                if (this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
                     this.teleportHits();
                     break;
                 }

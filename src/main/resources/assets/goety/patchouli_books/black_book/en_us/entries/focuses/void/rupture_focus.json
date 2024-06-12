@@ -1,0 +1,19 @@
+{
+  "name": "Rupture Focus",
+  "icon": "goety:rupture_focus",
+  "category": "goety:focuses/void",
+  "advancement": "minecraft:end/kill_dragon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With enough soul energy, the focus opens up a rift within the world into the very void, sucking in all nearby non-allied creatures towards it, damaging them when sucked in, before closing in a massive explosion."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rupture_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rupture_focus": 1
+  }
+}

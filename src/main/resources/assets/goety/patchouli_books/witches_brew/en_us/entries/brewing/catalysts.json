@@ -61,6 +61,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.corpse_eater",
+      "text": "Ever wish to feast on the last breath of your kills? Well now you can! Tasty too!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.corrosion",
       "text": "See those blocks? Not anymore (Unless its Obsidian)! I see your armor, and I think it could be a little more damaged! Hahahaha!"
     },
@@ -82,6 +87,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.ender_ground",
       "text": "Teaches those Enderman to not disappear when getting slashed or splashed on!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.explode",
+      "text": "See that house over there? Ta-da! Now it's got a hole on it!"
     },
     {
       "type": "goety:catalyst",
@@ -270,6 +280,16 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.photosynthesis",
+      "text": "Bask in the sunlight my darlings! Take a good look at that ball of fire! I'm sure you won't get blinded!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.plunge",
+      "text": "Seems like you've been eating a lot of Granny's cookies! Here, have some more!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.poison"
     },
     {
@@ -300,6 +320,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.repulsive",
+      "text": "What? Don't like my perfume after trying to get to know Ol' Granny?!"
     },
     {
       "type": "goety:catalyst",
@@ -359,6 +384,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.sweet_thorns",
       "text": "Granny wants to make Sweet Berry Pie, but my poor legs are too tired to go to the Taiga. Meh, just make my own Berry Bushes then!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.swift_swim",
+      "text": "No one expects an Ol' Granny like me to skedaddle quickly in water!"
     },
     {
       "type": "goety:catalyst",

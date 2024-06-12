@@ -101,7 +101,8 @@ public class SpellLightningBolt extends LightningBolt {
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
         } else {
-            return this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
+            int id = this.getOwnerClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
         }
     }
 

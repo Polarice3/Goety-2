@@ -116,7 +116,8 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
         } else {
-            return this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
+            int id = this.getOwnerClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getOwnerClientId()) instanceof LivingEntity living ? living : null;
         }
     }
 
@@ -149,7 +150,8 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
             UUID uuid = this.getTargetId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid);
         } else {
-            return this.level.getEntity(this.getTargetClientId()) instanceof LivingEntity living ? living : null;
+            int id = this.getTargetClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getTargetClientId()) instanceof LivingEntity living ? living : null;
         }
     }
 

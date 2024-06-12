@@ -141,6 +141,8 @@
   "entity.goety.volcano":"Volcano",
   "entity.goety.fire_pillar":"Fire Pillar",
 
+  "entity.goety.void_rift":"Void Rift",
+
   "entity.goety.skull_lord":"Skull Lord",
   "entity.goety.bone_lord":"Bone Lord",
 
@@ -249,6 +251,7 @@
   "item.goety.crone_spawn_egg": "Crone Spawn Egg",
   "item.goety.wraith_spawn_egg": "Wraith Spawn Egg",
   "item.goety.border_wraith_spawn_egg": "Border Wraith Spawn Egg",
+  "item.goety.crypt_slime_spawn_egg": "Crypt Slime Spawn Egg",
   "item.goety.cairn_necromancer_spawn_egg": "Cairn Necromancer Spawn Egg",
   "item.goety.haunted_armor_spawn_egg": "Haunted Armor Spawn Egg",
   "item.goety.zombie_servant_spawn_egg": "Zombie Servant Spawn Egg",
@@ -271,6 +274,7 @@
   "item.goety.bound_iceologer_spawn_egg": "Bound Iceologer Spawn Egg",
   "item.goety.haunted_skull_spawn_egg": "Haunted Skull Spawn Egg",
   "item.goety.mini_ghast_spawn_egg": "Mini Ghast Spawn Egg",
+  "item.goety.ghast_servant_spawn_egg": "Ghast Servant Spawn Egg",
   "item.goety.blaze_servant_spawn_egg": "Blaze Servant Spawn Egg",
   "item.goety.spider_servant_spawn_egg": "Spider Servant Spawn Egg",
   "item.goety.cave_spider_servant_spawn_egg": "Cave Spider Servant Spawn Egg",
@@ -613,6 +617,8 @@
   "item.goety.banish_focus.info": "Right-clicking on a mob or player will teleport them away from the caster.",
   "item.goety.tunnel_focus": "Tunnel Focus",
   "item.goety.tunnel_focus.info": "Summons an ethereal tunnel for a short while after right-clicking on a block, allowing entities to walk or fall through.",
+  "item.goety.rupture_focus": "Rupture Focus",
+  "item.goety.rupture_focus.info": "Summons a Void Rift at the initial location the caster is looking at. The rift will suck in non-allied entities and constantly damage them if they're within its center.",
   "item.goety.soul_light_focus": "Soul Light Focus",
   "item.goety.soul_light_focus.info": "Shoots a projectile that will create a dim ball of light when hit on a location.",
   "item.goety.glow_light_focus": "Glow Light Focus",
@@ -1149,6 +1155,8 @@
   "info.goety.dark_hat": "Halves casting time for all spells.",
   "info.goety.grand_turban": "Have a chance of spawning an allied Irk when taking damage.",
   "info.goety.witch_hat": "Speeds up witches robes inner brewing stand. Slowly grants fuel in moonlight",
+  "info.goety.witch_hat_potion": "10% chance of not consuming a Potion after drinking.",
+  "info.goety.crone_hat_potion": "25% chance of not consuming a Potion after drinking. 10% if it's a Brew.",
   "info.goety.necro_crown": "Undead servants will persists.",
   "info.goety.necro_crown_cast": "Halves casting time for necromancy spells.",
   "info.goety.amethyst_necklace": "+20% chance summoning four Totemic Bombs casting Barricade spell.",
@@ -1532,6 +1540,8 @@
   "subtitle.goety.redstone_golem_growl": "Redstone Golem growls",
   "subtitle.goety.redstone_golem_step": "Redstone Golem steps",
   "subtitle.goety.redstone_golem_death": "Redstone Golem dies",
+
+  "subtitle.goety.redstone_golem_mine_spawn": "Scatter Mine spawns",
 
   "subtitle.goety.grave_golem_ambient": "Grave Golem growls",
   "subtitle.goety.grave_golem_hurt": "Grave Golem hurts",

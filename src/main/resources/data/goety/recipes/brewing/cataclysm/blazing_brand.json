@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "cataclysm:ignitium_ingot"
+  },
+  "effect": "cataclysm:blazing_brand",
+  "soulCost": 50,
+  "capacityExtra": 4,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cataclysm"
+    }
+  ]
+}

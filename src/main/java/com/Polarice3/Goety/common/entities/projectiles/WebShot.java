@@ -32,18 +32,20 @@ public class WebShot extends ThrowableProjectile {
 
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
-        Vec3 vec3 = this.position();
-        if (pResult instanceof EntityHitResult entityHitResult){
-            vec3 = entityHitResult.getEntity().position();
+        if (!this.level.isClientSide) {
+            Vec3 vec3 = this.position();
+            if (pResult instanceof EntityHitResult entityHitResult) {
+                vec3 = entityHitResult.getEntity().position();
+            }
+            SpiderWeb spiderWeb = new SpiderWeb(ModEntityType.SPIDER_WEB.get(), this.level);
+            if (this.getOwner() instanceof LivingEntity livingEntity) {
+                spiderWeb.setOwner(livingEntity);
+            }
+            spiderWeb.setLifeSpan(MathHelper.secondsToTicks(3));
+            spiderWeb.setPos(vec3);
+            this.level.addFreshEntity(spiderWeb);
+            this.discard();
         }
-        SpiderWeb spiderWeb = new SpiderWeb(ModEntityType.SPIDER_WEB.get(), this.level);
-        if (this.getOwner() instanceof LivingEntity livingEntity) {
-            spiderWeb.setOwner(livingEntity);
-        }
-        spiderWeb.setLifeSpan(MathHelper.secondsToTicks(3));
-        spiderWeb.setPos(vec3);
-        this.level.addFreshEntity(spiderWeb);
-        this.discard();
     }
 
     protected boolean canHitEntity(Entity pEntity) {

@@ -45,7 +45,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:sunken_skeleton_servant"
+      "entity": "goety:sunken_skeleton_servant",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",

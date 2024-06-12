@@ -7,6 +7,7 @@ import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.neutral.AbstractHauntedArmor;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterBomb;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -1016,6 +1017,8 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             }
             if (target instanceof Player player && player.isBlocking()) {
                 player.disableShield(true);
+            } else if (target instanceof AbstractHauntedArmor hauntedArmor && hauntedArmor.isBlocking()){
+                hauntedArmor.disableShield(true);
             }
         }
 

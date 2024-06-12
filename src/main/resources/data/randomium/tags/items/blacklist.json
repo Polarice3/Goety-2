@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "goety:pedestal_dummy",
+    "goety:jei_dummy/none",
+    "goety:jei_dummy/sacrifice",
+    "goety:bone_shard",
+    "goety:brew",
+    "goety:splash_brew",
+    "goety:lingering_brew",
+    "goety:gas_brew"
+  ]
+}

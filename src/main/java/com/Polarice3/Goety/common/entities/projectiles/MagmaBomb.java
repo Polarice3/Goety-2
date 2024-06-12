@@ -112,7 +112,8 @@ public class MagmaBomb extends SpellThrowableProjectile {
                 ServerParticleUtil.circularParticles(serverLevel, cloudParticleOptions2, vec3.x, this.getY() + 0.25D, vec3.z, 0, 0.14D, 0, this.explosionPower / 2.0F);
             }
             this.playSound(SoundEvents.GENERIC_EXPLODE, 4.0F, 1.0F);
-            for (int i1 = 0; i1 < 2; i1++) {
+            int i = this.isStaff() ? 3 : 2;
+            for (int i1 = 0; i1 < i; i1++) {
                 MagmaCubeServant magmaCube = ModEntityType.MAGMA_CUBE_SERVANT.get().create(this.level);
                 if (magmaCube != null) {
                     if (this.getOwner() != null) {
@@ -121,14 +122,27 @@ public class MagmaBomb extends SpellThrowableProjectile {
                         magmaCube.setHostile(true);
                     }
                     magmaCube.finalizeSpawn((ServerLevelAccessor) this.level, this.level.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                    if (this.isStaff()){
+                    magmaCube.setSize(2, true);
+                    if (i1 == 2){
                         magmaCube.setSize(4, true);
-                    } else {
-                        magmaCube.setSize(2, true);
                     }
                     magmaCube.moveTo(this.position());
                     magmaCube.setLimitedLife(MobUtil.getSummonLifespan(this.level) * (this.getDuration() + 1));
                     this.level.addFreshEntity(magmaCube);
+                }
+            }
+            if (this.isStaff()){
+                for (int i1 = 0; i1 < 4; i1++) {
+                    Pyroclast pyroclast = new Pyroclast(this.getX(), this.getY() + 1.5F, this.getZ(), this.level);
+                    if (this.getOwner() != null){
+                        pyroclast.setOwner(this.getOwner());
+                    } else {
+                        pyroclast.setOwner(this);
+                    }
+                    pyroclast.setExplosionPower(this.getExplosionPower() / 2.0F);
+                    pyroclast.setPotency((int)this.getExtraDamage());
+                    pyroclast.setFlaming(0);
+                    MobUtil.shootUp(pyroclast, MobUtil.ceilingVelocity(this, 0.75F));
                 }
             }
             this.discard();

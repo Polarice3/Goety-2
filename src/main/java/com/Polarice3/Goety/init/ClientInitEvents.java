@@ -483,6 +483,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MAGIC_GROUND.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.ACID_POOL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.FIRE_PILLAR.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.VOID_RIFT.get(), VoidRiftRenderer::new);
         event.registerEntityRenderer(ModEntityType.STORM_UTIL.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_APOSTLE.get(), SummonApostleRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAIL_CLOUD.get(), TrapRenderer::new);

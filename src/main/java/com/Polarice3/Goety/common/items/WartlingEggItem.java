@@ -51,12 +51,14 @@ public class WartlingEggItem extends Item {
         if (!player.isSilent()) {
             level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.SCULK_BLOCK_SPREAD, player.getSoundSource(), 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
         }
-        if (CuriosFinder.hasWarlockRobe(player)) {
-            if (level.random.nextFloat() > 0.1F){
+        if (!player.getAbilities().instabuild) {
+            if (CuriosFinder.hasWarlockRobe(player)) {
+                if (level.random.nextFloat() > 0.1F){
+                    itemStack.shrink(1);
+                }
+            } else {
                 itemStack.shrink(1);
             }
-        } else {
-            itemStack.shrink(1);
         }
     }
 

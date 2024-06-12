@@ -12,5 +12,8 @@
       "images": ["goety:textures/gui/entries/corpse_blossom.png"],
       "border": true
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:corpse_blossom": 1
+  }
 }

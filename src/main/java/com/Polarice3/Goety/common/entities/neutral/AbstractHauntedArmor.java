@@ -320,11 +320,11 @@ public abstract class AbstractHauntedArmor extends Summoned {
             }
         }
         if (!this.isGuarding() && this.coolTime > 0 && !this.canDisableShield(source) && !source.isBypassArmor()){
-            this.coolTime -= amount * 10;
+            this.coolTime -= (int) (amount * 10);
         }
         if (this.level instanceof ServerLevel serverLevel && !this.isDamageSourceBlocked(source)){
             if (!this.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
-                int j = (int) Math.min(amount, 20);
+                int j = (int) Math.min(amount, 10);
                 for (int i = 0; i < j; ++i) {
                     ServerParticleUtil.addParticlesAroundSelf(serverLevel, new ItemParticleOption(ParticleTypes.ITEM, this.getItemBySlot(EquipmentSlot.CHEST)), this);
                 }

@@ -32,8 +32,12 @@ public class WitchBrewMaker {
             List<BrewEffectInstance> blockEffects = new ArrayList<>();
             BrewingRecipe brewingRecipe = recipeManager.getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
             ItemStack brew = new ItemStack(ModItems.BREW.get());
+            int capacity = 0;
+            int soulCost = 0;
             if (brewingRecipe != null){
                 effects.add(new MobEffectInstance(brewingRecipe.output, brewingRecipe.duration));
+                capacity = brewingRecipe.getCapacityExtra();
+                soulCost = brewingRecipe.getSoulCost();
             } else if (BrewEffects.INSTANCE.getEffectFromCatalyst(itemStack.getItem()) != null){
                 BrewEffect brewEffect = BrewEffects.INSTANCE.getEffectFromCatalyst(itemStack.getItem());
                 if (brewEffect != null){
@@ -42,12 +46,14 @@ public class WitchBrewMaker {
                     } else {
                         blockEffects.add(new BrewEffectInstance(brewEffect, 1));
                     }
+                    capacity = brewEffect.getCapacityExtra();
+                    soulCost = brewEffect.getSoulCost();
                 }
             }
             if (!effects.isEmpty() || !blockEffects.isEmpty()) {
                 BrewUtils.setCustomEffects(brew, effects, blockEffects);
                 brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(effects, blockEffects));
-                WitchBrewJeiRecipe recipe = new WitchBrewJeiRecipe(itemStack, brew);
+                WitchBrewJeiRecipe recipe = new WitchBrewJeiRecipe(itemStack, brew, capacity, soulCost);
                 if (!recipes.contains(recipe)) {
                     recipes.add(recipe);
                 }

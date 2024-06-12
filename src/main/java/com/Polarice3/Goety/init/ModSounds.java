@@ -342,6 +342,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_SPIT = create("spider_spit");
     public static final RegistryObject<SoundEvent> SPIDER_WEB = create("spider_web");
 
+    public static final RegistryObject<SoundEvent> VOID_RIFT_OPEN = create("void_rift_open");
+    public static final RegistryObject<SoundEvent> VOID_RIFT = create("void_rift");
+
     public static final RegistryObject<SoundEvent> LICH_AMBIENT = create("lich_ambient");
     public static final RegistryObject<SoundEvent> LICH_HURT = create("lich_hurt");
     public static final RegistryObject<SoundEvent> LICH_TELEPORT_IN = create("lich_teleport_in");
@@ -369,6 +372,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> PREPARE_SUMMON = create("prepare_summon");
     public static final RegistryObject<SoundEvent> FROST_PREPARE_SPELL = create("frost_prepare_spell");
     public static final RegistryObject<SoundEvent> WILD_PREPARE_SPELL = create("wild_prepare_spell");
+    public static final RegistryObject<SoundEvent> VOID_PREPARE_SPELL = create("void_prepare_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL = create("cast_spell");
     public static final RegistryObject<SoundEvent> CAST_SPELL_TWO = create("cast_spell_two");
     public static final RegistryObject<SoundEvent> VEX_VAPOR = create("vex_vapor");

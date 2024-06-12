@@ -154,7 +154,7 @@ public class RitualRequirements {
                             if (blockstate.getBlock() instanceof FurnaceBlock || blockstate.getBlock() instanceof BlastFurnaceBlock) {
                                 ++secondCount;
                             }
-                            if (blockstate.getBlock() instanceof AnvilBlock || blockstate.is(BlockTags.ANVIL) || blockstate.is(ModTags.Blocks.DARK_ANVILS)) {
+                            if (blockstate.getBlock().getDescriptionId().contains("anvil")) {
                                 ++thirdCount;
                             }
                         }

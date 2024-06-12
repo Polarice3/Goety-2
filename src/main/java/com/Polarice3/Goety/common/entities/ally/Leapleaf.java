@@ -49,6 +49,13 @@ public class Leapleaf extends Summoned{
     private static final UUID LEAP_KNOCKBACK_MODIFIER_UUID = UUID.fromString("ad8d395e-7773-4138-bdc4-ea80768a2101");
     private static final AttributeModifier LEAP_KNOCKBACK_MODIFIER = new AttributeModifier(LEAP_KNOCKBACK_MODIFIER_UUID, "Leap Knockback Bonus", 2.0D, AttributeModifier.Operation.ADDITION);
     public static final int REST_TIME = MathHelper.secondsToTicks(4);
+    public static String IDLE = "idle";
+    public static String WALK = "walk";
+    public static String SMASH = "smash";
+    public static String CHARGE = "charge";
+    public static String LEAP = "leap";
+    public static String REST = "rest";
+    public static String ALERT = "alert";
     public int attackTick;
     public int chargeTick;
     public int leapTick;
@@ -158,19 +165,19 @@ public class Leapleaf extends Summoned{
     }
 
     public int getAnimationState(String animation) {
-        if (Objects.equals(animation, "idle")){
+        if (Objects.equals(animation, IDLE)){
             return 1;
-        } else if (Objects.equals(animation, "walk")){
+        } else if (Objects.equals(animation, WALK)){
             return 2;
-        } else if (Objects.equals(animation, "smash")){
+        } else if (Objects.equals(animation, SMASH)){
             return 3;
-        } else if (Objects.equals(animation, "charge")){
+        } else if (Objects.equals(animation, CHARGE)){
             return 4;
-        } else if (Objects.equals(animation, "leap")){
+        } else if (Objects.equals(animation, LEAP)){
             return 5;
-        } else if (Objects.equals(animation, "rest")){
+        } else if (Objects.equals(animation, REST)){
             return 6;
-        } else if (Objects.equals(animation, "alert")){
+        } else if (Objects.equals(animation, ALERT)){
             return 7;
         } else {
             return 0;
@@ -351,7 +358,7 @@ public class Leapleaf extends Summoned{
                 }
 
                 if (this.restTick > 0) {
-                    this.setAnimationState("rest");
+                    this.setAnimationState(REST);
                     --this.restTick;
                     if (this.restTick == (REST_TIME - 1)){
                         this.playSound(ModSounds.LEAPLEAF_REST.get(), this.getSoundVolume(), this.getVoicePitch());
@@ -362,17 +369,16 @@ public class Leapleaf extends Summoned{
                         if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.secondsToTicks(10)) {
                             this.idleTime = 0;
                             this.isNovelty = true;
-                            this.setAnimationState("alert");
                             this.level.broadcastEntityEvent(this, (byte) 22);
                         }
                         if (!this.isMoving()) {
                             if (this.isNovelty){
-                                this.setAnimationState("alert");
+                                this.setAnimationState(ALERT);
                             } else {
-                                this.setAnimationState("idle");
+                                this.setAnimationState(IDLE);
                             }
                         } else {
-                            this.setAnimationState("walk");
+                            this.setAnimationState(WALK);
                         }
                     } else {
                         this.isNovelty = false;
@@ -512,7 +518,7 @@ public class Leapleaf extends Summoned{
 
             Leapleaf.this.getNavigation().stop();
             if (Leapleaf.this.attackTick == 1) {
-                Leapleaf.this.setAnimationState("smash");
+                Leapleaf.this.setAnimationState(SMASH);
                 Leapleaf.this.playSound(ModSounds.LEAPLEAF_SMASH.get(), Leapleaf.this.getSoundVolume(), Leapleaf.this.getVoicePitch());
             }
             if (Leapleaf.this.attackTick == 13) {
@@ -556,7 +562,7 @@ public class Leapleaf extends Summoned{
         private boolean strafingLeft;
 
         public StrafeGoal(Leapleaf leapleaf) {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
             this.leapleaf = leapleaf;
             this.target = leapleaf.getTarget();
         }
@@ -629,7 +635,7 @@ public class Leapleaf extends Summoned{
         public LivingEntity target;
 
         public LeapGoal(Leapleaf leapleaf) {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
             this.leapleaf = leapleaf;
             this.target = leapleaf.getTarget();
         }
@@ -676,10 +682,11 @@ public class Leapleaf extends Summoned{
         public void tick() {
             this.target = this.leapleaf.getTarget();
 
+            this.leapleaf.navigation.stop();
             if (this.target != null) {
                 this.leapleaf.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
                 if (this.leapleaf.chargeTick == 1){
-                    this.leapleaf.setAnimationState("charge");
+                    this.leapleaf.setAnimationState(CHARGE);
                     this.leapleaf.playSound(ModSounds.LEAPLEAF_CHARGE.get(), this.leapleaf.getSoundVolume(), this.leapleaf.getVoicePitch());
                 }
                 if (this.leapleaf.chargeTick < MathHelper.secondsToTicks(1.21F)){
@@ -687,7 +694,7 @@ public class Leapleaf extends Summoned{
                 } else {
                     if (this.leapleaf.distanceTo(this.target) <= 6.5F){
                         this.leapleaf.setCharging(false);
-                        this.leapleaf.setAnimationState("leap");
+                        this.leapleaf.setAnimationState(LEAP);
                         this.leapleaf.playSound(ModSounds.LEAPLEAF_LEAP.get(), this.leapleaf.getSoundVolume(), this.leapleaf.getVoicePitch());
                         this.leapleaf.setLeaping(true);
                     } else {

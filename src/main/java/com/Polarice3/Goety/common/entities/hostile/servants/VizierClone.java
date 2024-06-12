@@ -254,7 +254,8 @@ public class VizierClone extends SpellcasterIllager {
             UUID uuid = this.getOwnerId();
             return uuid == null ? null : EntityFinder.getLivingEntityByUuiD(uuid) instanceof Vizier vizier ? vizier : null;
         } else {
-            return this.level.getEntity(this.getOwnerClientId()) instanceof Vizier vizier ? vizier : null;
+            int id = this.getOwnerClientId();
+            return id <= -1 ? null : this.level.getEntity(this.getOwnerClientId()) instanceof Vizier vizier ? vizier : null;
         }
     }
 

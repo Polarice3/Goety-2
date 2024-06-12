@@ -21,6 +21,12 @@ public class TransposeBrewEffect extends BrewEffect{
         for (BlockPos blockPos : this.getSpherePos(pPos, pAreaOfEffect + 4)){
             for (Entity entity : pLevel.getEntitiesOfClass(Entity.class, new AABB(blockPos))){
                 if (entity instanceof ItemEntity || entity instanceof LivingEntity) {
+                    if (entity instanceof LivingEntity livingEntity) {
+                        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(livingEntity, pPos.getX(), pPos.getY() + 1, pPos.getZ());
+                        if (event.isCanceled()) {
+                            break;
+                        }
+                    }
                     entity.teleportTo(pPos.getX(), pPos.getY() + 1, pPos.getZ());
                     pLevel.gameEvent(GameEvent.TELEPORT, entity.position(), GameEvent.Context.of(entity));
                     if (!entity.isSilent()) {

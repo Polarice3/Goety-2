@@ -13,8 +13,13 @@
       "entity": "goety:minister"
     },
     {
-      "type": "patchouli:text",
+      "type": "patchouli:spotlight",
+      "item": "goety:ominous_orb",
+      "title": "Minister's Staff",
       "text": "It is said that the Staff they wield is either inspired by or plundered and modified from a nameless kingdom, with the staff's orb radiating great magic. Ministers are also good at blocking hits with their staff, though unfortunately for them, their staffs aren't as durable as a standard shield. Perhaps there's a way to plunder the staff, or at the very least, its orb, without destroying it..."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ominous_orb": 2
+  }
 }

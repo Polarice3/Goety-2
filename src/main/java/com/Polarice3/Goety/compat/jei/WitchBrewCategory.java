@@ -11,6 +11,9 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,7 +29,7 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
     private final String outputSlotName = "outputSlot";
 
     public WitchBrewCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(125, 38);
+        this.background = guiHelper.createBlankDrawable(125, 60);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.BREWING_CAULDRON.get()));
     }
 
@@ -53,19 +56,21 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, WitchBrewJeiRecipe recipe, IFocusGroup focuses) {
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 1)
+        int y = 20;
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, y)
                 .addItemStack(new ItemStack(Items.GLASS_BOTTLE))
                 .setSlotName(inputSlotName);
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 36, 1)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 36, y)
                 .addItemStack(new ItemStack(Items.NETHER_WART))
                 .setSlotName(catalystSlotName);
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 72, 1)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 72, y)
                 .addItemStack(recipe.getCatalyst())
                 .setSlotName(catalystSlotName);
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 1)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 108, y)
                 .addItemStack(recipe.getOutput())
                 .setSlotName(outputSlotName);
     }
@@ -83,16 +88,32 @@ public class WitchBrewCategory implements IRecipeCategory<WitchBrewJeiRecipe> {
             return;
         }
 
+        if (recipe.getCapacity() != 0) {
+            this.drawStringCentered(graphics, Minecraft.getInstance().font,
+                    I18n.get("jei.goety.capacityUse", recipe.getCapacity()),
+                    63, 0);
+        }
+
+        if (recipe.getSoulCost() != 0) {
+            this.drawStringCentered(graphics, Minecraft.getInstance().font,
+                    I18n.get("jei.goety.single.soulcost", recipe.getSoulCost()),
+                    63, 9);
+        }
+
         graphics.pushPose();
-        graphics.translate((getWidth() / 1.5F) - 10 * 1.4F, (getHeight() / 2.0F) - 2, 0);
+        graphics.translate((getWidth() / 1.5F) - 10 * 1.4F, (getHeight() / 2.0F) + 8, 0);
         graphics.scale(1.4F, 1.4F, 1.4F);
         this.icon.draw(graphics);
         graphics.popPose();
 
         graphics.pushPose();
-        graphics.translate((getWidth() / 3.0F) - 6 * 1.4F, (getHeight() / 2.0F) - 2, 0);
+        graphics.translate((getWidth() / 3.0F) - 6 * 1.4F, (getHeight() / 2.0F) + 8, 0);
         graphics.scale(1.4F, 1.4F, 1.4F);
         this.icon.draw(graphics);
         graphics.popPose();
+    }
+
+    protected void drawStringCentered(PoseStack matrixStack, Font fontRenderer, String text, int x, int y) {
+        fontRenderer.draw(matrixStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
 }

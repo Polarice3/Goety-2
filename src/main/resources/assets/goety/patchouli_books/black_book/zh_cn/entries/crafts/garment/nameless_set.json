@@ -1,5 +1,5 @@
 {
-  "name": "无名套",
+  "name": "无名套装",
   "icon": "goety:nameless_cape",
   "category": "goety:crafts/garment",
   "advancement": "goety:goety/read_forbidden_scroll",
@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "该套装的功能与旧的死灵套装相同，但有一些改进."
+      "text": "该套装的功能与旧的死灵套装相同，但有一些改进.."
     }
   ]
 }

@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
     "#forge:is_desert",
-    "#forge:is_dead",
-    "#forge:is_wasteland"
+    "#forge:is_wasteland",
+    {
+      "id": "#forge:is_dead",
+      "required": false
+    }
   ]
 }

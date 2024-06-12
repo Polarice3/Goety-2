@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
 import com.Polarice3.Goety.common.items.block.RedstoneMonstrosityHeadItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +27,8 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -38,6 +42,7 @@ import javax.annotation.Nullable;
 public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     @Nullable
     private BlockPattern redstoneMonstrosityBase;
     @Nullable
@@ -46,7 +51,7 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
         super(Properties.of(Material.DECORATION)
                 .strength(1.0F)
         );
-        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
@@ -98,10 +103,11 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
                 }
             }
         }
+        pLevel.setBlock(pPos.above(), pState.setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     public VoxelShape getShape(BlockState p_56331_, BlockGetter p_56332_, BlockPos p_56333_, CollisionContext p_56334_) {
-        return SHAPE;
+        return Shapes.block();
     }
 
     public VoxelShape getOcclusionShape(BlockState p_56336_, BlockGetter p_56337_, BlockPos p_56338_) {
@@ -121,7 +127,7 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(ROTATION);
+        pBuilder.add(ROTATION, HALF);
     }
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
@@ -129,10 +135,10 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
     }
 
     private void trySpawnGolem(LivingEntity living, Level p_51379_, BlockPos p_51380_, ItemStack itemStack) {
-        BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateRedstoneGolemFull().find(p_51379_, p_51380_);
+        BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateRedstoneMonstrosityFull().find(p_51379_, p_51380_);
         if (blockpattern$blockpatternmatch != null) {
-            for(int j = 0; j < this.getOrCreateRedstoneGolemFull().getWidth(); ++j) {
-                for(int k = 0; k < this.getOrCreateRedstoneGolemFull().getHeight(); ++k) {
+            for(int j = 0; j < this.getOrCreateRedstoneMonstrosityFull().getWidth(); ++j) {
+                for(int k = 0; k < this.getOrCreateRedstoneMonstrosityFull().getHeight(); ++k) {
                     BlockInWorld blockinworld2 = blockpattern$blockpatternmatch.getBlock(j, k, 0);
                     p_51379_.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
                     p_51379_.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
@@ -158,8 +164,8 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
                 p_51379_.addFreshEntity(redstoneGolem);
             }
 
-            for(int i1 = 0; i1 < this.getOrCreateRedstoneGolemFull().getWidth(); ++i1) {
-                for(int j1 = 0; j1 < this.getOrCreateRedstoneGolemFull().getHeight(); ++j1) {
+            for(int i1 = 0; i1 < this.getOrCreateRedstoneMonstrosityFull().getWidth(); ++i1) {
+                for(int j1 = 0; j1 < this.getOrCreateRedstoneMonstrosityFull().getHeight(); ++j1) {
                     BlockInWorld blockinworld1 = blockpattern$blockpatternmatch.getBlock(i1, j1, 0);
                     p_51379_.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
                 }
@@ -171,10 +177,10 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
         return /*this.getOrCreateRedstoneMonstrosityBase().find(p_51382_, p_51383_) != null*/ false;
     }
 
-    private BlockPattern getOrCreateRedstoneGolemBase() {
+    private BlockPattern getOrCreateRedstoneMonstrosityBase() {
         if (this.redstoneMonstrosityBase == null) {
             this.redstoneMonstrosityBase = BlockPatternBuilder.start()
-                    .aisle("~~ ~~", "#####", "~###~", "~~D~~")
+                    .aisle("~~~ ~~~", "#######", "#######", "~#####~", "~~DDD~~")
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
                     .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.DIAMOND_BLOCK)))
                     .where('~', (p_284869_) -> {
@@ -185,10 +191,10 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
         return this.redstoneMonstrosityBase;
     }
 
-    private BlockPattern getOrCreateRedstoneGolemFull() {
+    private BlockPattern getOrCreateRedstoneMonstrosityFull() {
         if (this.redstoneMonstrosityFull == null) {
             this.redstoneMonstrosityFull = BlockPatternBuilder.start()
-                    .aisle("~~^~~", "#####", "~###~", "~~D~~")
+                    .aisle("~~~^~~~", "#######", "#######", "~#####~", "~~DDD~~")
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REDSTONE_MONSTROSITY_HEAD_BLOCK.get())
                             .or(BlockStatePredicate.forBlock(ModBlocks.WALL_REDSTONE_MONSTROSITY_HEAD_BLOCK.get()))))
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
@@ -201,7 +207,26 @@ public class RedstoneMonstrosityHeadBlock extends BaseEntityBlock {
         return this.redstoneMonstrosityFull;
     }
 
+    public boolean canSurvive(BlockState blockState, LevelReader level, BlockPos blockPos) {
+        BlockPos blockpos = blockPos.below();
+        BlockState blockstate = level.getBlockState(blockpos);
+        return blockState.getValue(HALF) == DoubleBlockHalf.LOWER ? super.canSurvive(blockState, level, blockPos) : blockstate.is(this);
+    }
+
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        DoubleBlockHalf doubleblockhalf = pState.getValue(HALF);
+        if (pFacing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (pFacing == Direction.UP)) {
+            return pFacingState.is(this) && pFacingState.getValue(HALF) != doubleblockhalf ? pState.setValue(ROTATION, pFacingState.getValue(ROTATION)) : Blocks.AIR.defaultBlockState();
+        } else {
+            return doubleblockhalf == DoubleBlockHalf.LOWER && pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+        }
+    }
+
     public BlockEntity newBlockEntity(BlockPos p_151996_, BlockState p_151997_) {
-        return new RedstoneMonstrosityHeadBlockEntity(p_151996_, p_151997_);
+        if (p_151997_.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            return new RedstoneMonstrosityHeadBlockEntity(p_151996_, p_151997_);
+        } else {
+            return null;
+        }
     }
 }

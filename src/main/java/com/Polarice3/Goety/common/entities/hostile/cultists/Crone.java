@@ -439,10 +439,10 @@ public class Crone extends Cultist implements RangedAttackMob {
             } else {
                 if (this.random.nextFloat() <= 0.05F){
                     brewEffectInstance.add(new BrewEffectInstance(new StripBrewEffect(0, 0)));
-                } else if (this.random.nextFloat() <= 0.25F){
+                } else if (this.random.nextFloat() <= 0.25F && (target.isOnGround() || (!target.hasEffect(MobEffects.LEVITATION) && !target.hasEffect(GoetyEffects.PLUNGE.get())))){
                     if (target.isOnGround()) {
                         brewEffectInstance.add(new BrewEffectInstance(new ThornTrapBrewEffect(0), 1, amp));
-                    } else if (!target.hasEffect(MobEffects.LEVITATION)){
+                    } else if (!target.hasEffect(MobEffects.LEVITATION) && !target.hasEffect(GoetyEffects.PLUNGE.get())){
                         mobEffectInstance.add(new MobEffectInstance(GoetyEffects.PLUNGE.get(), 900 / (amp + 1), amp));
                     }
                 } else if (this.random.nextFloat() <= 0.35F && !target.hasEffect(MobEffects.BLINDNESS) && !MobUtil.isInWeb(target) && target.getMaxHealth() > 10.0F && this.noBrewMinions(target)){
@@ -522,7 +522,11 @@ public class Crone extends Cultist implements RangedAttackMob {
                 if (this.getHealth() <= 0.0F){
                     break;
                 }
-                if (this.randomTeleport(d3, d4, d5, false)) {
+                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d3, d4, d5);
+                if (event.isCanceled()) {
+                    break;
+                }
+                if (this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
                     this.teleportHits();
                     break;
                 }
@@ -542,7 +546,11 @@ public class Crone extends Cultist implements RangedAttackMob {
                 if (this.getHealth() <= 0.0F){
                     return false;
                 }
-                if (this.randomTeleport(d1, d2, d3, true)) {
+                net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
+                if (event.isCanceled()) {
+                    return false;
+                }
+                if (this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
                     this.teleportHits();
                     return true;
                 }

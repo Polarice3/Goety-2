@@ -54,6 +54,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterTotem;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterBook;
     public static final ForgeConfigSpec.ConfigValue<Boolean> StarterWitchBook;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> GoodwillNoDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FocusGuiShow;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowWandCooldown;
@@ -100,6 +101,8 @@ public class MainConfig {
                 .define("starterBook", false);
         StarterWitchBook = BUILDER.comment("Gives Players the Witch's Brew when first entering World and Patchouli is loaded, Default: false")
                 .define("starterWitchBook", false);
+        GoodwillNoDamage = BUILDER.comment("Entities part of a Player's Book of Goodwill will not take most damage from said Player rather than just spells, Default: false")
+                .define("goodwillNoDamage", false);
         SoulGuiShow = BUILDER.comment("Show the Soul Energy Bar if Player has Totem of Souls/Arca, Default: true")
                 .define("soulGuiShow", true);
         FocusGuiShow = BUILDER.comment("Show currently equipped focus on Wand/Staff in Gui, Default: true")

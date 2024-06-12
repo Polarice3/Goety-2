@@ -57,30 +57,33 @@ public class ServerParticleUtil {
             }
         }
     }
+    public static void gatheringParticles(ParticleOptions pParticleData, Entity entity, ServerLevel serverWorld) {
+        gatheringParticles(pParticleData, entity, serverWorld, 2);
+    }
 
-    public static void gatheringParticles(ParticleOptions pParticleData, Entity livingEntity, ServerLevel serverWorld){
+    public static void gatheringParticles(ParticleOptions pParticleData, Entity entity, ServerLevel serverWorld, int range){
         List<BlockPos> positions = Lists.newArrayList();
         if (serverWorld != null) {
-            for(int j1 = -2; j1 <= 2; ++j1) {
-                for(int k1 = -2; k1 <= 2; ++k1) {
-                    for(int l1 = -2; l1 <= 2; ++l1) {
+            for(int j1 = -range; j1 <= range; ++j1) {
+                for(int k1 = -range; k1 <= range; ++k1) {
+                    for(int l1 = -range; l1 <= range; ++l1) {
                         int i2 = Math.abs(j1);
                         int l = Math.abs(k1);
                         int i1 = Math.abs(l1);
-                        if ((j1 == 0 && (l == 2 || i1 == 2) || k1 == 0 && (i2 == 2 || i1 == 2) || l1 == 0 && (i2 == 2 || l == 2))) {
-                            BlockPos blockpos1 = livingEntity.blockPosition().offset(j1, k1, l1);
+                        if ((j1 == 0 && (l == range || i1 == range) || k1 == 0 && (i2 == range || i1 == range) || l1 == 0 && (i2 == range || l == range))) {
+                            BlockPos blockpos1 = entity.blockPosition().offset(j1, k1, l1);
                             positions.add(blockpos1);
                         }
                     }
                 }
             }
-            Vec3 vector3d = new Vec3(livingEntity.position().x, livingEntity.getEyeY(), livingEntity.position().z);
+            Vec3 vector3d = new Vec3(entity.position().x, entity.getEyeY(), entity.position().z);
             for(BlockPos blockpos : positions) {
                 if (serverWorld.random.nextInt(50) == 0) {
                     float f = -0.5F + serverWorld.random.nextFloat();
                     float f1 = -2.0F + serverWorld.random.nextFloat();
                     float f2 = -0.5F + serverWorld.random.nextFloat();
-                    BlockPos blockpos1 = blockpos.subtract(livingEntity.blockPosition());
+                    BlockPos blockpos1 = blockpos.subtract(entity.blockPosition());
                     Vec3 vector3d1 = (new Vec3(f, f1, f2)).add(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                     serverWorld.sendParticles(pParticleData, vector3d.x, vector3d.y, vector3d.z, 0, vector3d1.x, vector3d1.y, vector3d1.z, 0.5F);
                 }
@@ -215,6 +218,27 @@ public class ServerParticleUtil {
             float f8 = Mth.cos(f6) * f7;
             float f9 = Mth.sin(f6) * f7;
             serverLevel.sendParticles(particleOptions, x + (double) f8, y, z + (double) f9, 1, colorUtil.red, colorUtil.green, colorUtil.blue, 0);
+        }
+    }
+
+    public static void createParticleBall(ParticleOptions pParticleData, Entity entity, ServerLevel serverLevel, int radius) {
+        createParticleBall(pParticleData, entity.getX(), entity.getY(), entity.getZ(), serverLevel, radius);
+    }
+
+    public static void createParticleBall(ParticleOptions pParticleData, double x, double y, double z, ServerLevel serverLevel, int radius) {
+        for(int i = -radius; i <= radius; ++i) {
+            for(int j = -radius; j <= radius; ++j) {
+                for(int k = -radius; k <= radius; ++k) {
+                    double d3 = (double)j + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * 0.5D;
+                    double d4 = (double)i + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * 0.5D;
+                    double d5 = (double)k + (serverLevel.getRandom().nextDouble() - serverLevel.getRandom().nextDouble()) * 0.5D;
+                    double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / 0.5 + serverLevel.getRandom().nextGaussian() * 0.05D;
+                    serverLevel.sendParticles(pParticleData, x, y, z, 0, d3 / d6, d4 / d6, d5 / d6, 0.5F);
+                    if (i != -radius && i != radius && j != -radius && j != radius) {
+                        k += radius * 2 - 1;
+                    }
+                }
+            }
         }
     }
 }
