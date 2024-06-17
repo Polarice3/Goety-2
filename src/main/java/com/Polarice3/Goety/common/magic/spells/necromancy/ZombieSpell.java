@@ -136,7 +136,7 @@ public class ZombieSpell extends SummonSpell {
                     } else if (typeStaff(staff, SpellType.NETHER)) {
                         summonedentity = new ZPiglinServant(ModEntityType.ZPIGLIN_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
-                        summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
+                        summonedentity = new ZombieVindicatorServant(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
                     }
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){
                     summonedentity = new DrownedServant(ModEntityType.DROWNED_SERVANT.get(), worldIn);
@@ -149,7 +149,7 @@ public class ZombieSpell extends SummonSpell {
                     }
                     summonedentity = summoned;
                 } else if (BlockFinder.findStructure(worldIn, blockPos, StructureTags.ON_WOODLAND_EXPLORER_MAPS)){
-                    summonedentity = new ZombieVindicator(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
+                    summonedentity = new ZombieVindicatorServant(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).get().coldEnoughToSnow(blockPos)){
                     summonedentity = new FrozenZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){

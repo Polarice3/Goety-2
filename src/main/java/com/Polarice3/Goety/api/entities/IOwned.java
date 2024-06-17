@@ -16,6 +16,9 @@ public interface IOwned {
 
     void setOwnerId(@Nullable UUID p_184754_1_);
 
+    default void setOwnerClientId(int id) {
+    }
+
     void setTrueOwner(LivingEntity livingEntity);
 
     void setHostile(boolean hostile);

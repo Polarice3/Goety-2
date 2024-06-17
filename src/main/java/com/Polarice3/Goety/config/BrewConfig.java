@@ -51,6 +51,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NyctophobiaCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SappedCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SunAllergyCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> EvilEyeCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> TrippingCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RepulsiveCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> PhotosynthesisCost;
@@ -74,6 +75,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NyctophobiaCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunAllergyCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SnowSkinCurable;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EvilEyeCurable;
 
     static {
         BUILDER.push("Brew Bottling");
@@ -165,6 +167,8 @@ public class BrewConfig {
                 .defineInRange("sappedCost", 25, 1, Integer.MAX_VALUE);
         SunAllergyCost = BUILDER.comment("Sun Allergy Soul Cost, Default: 50")
                 .defineInRange("sunAllergyCost", 50, 1, Integer.MAX_VALUE);
+        EvilEyeCost = BUILDER.comment("Evil Eye Soul Cost, Default: 50")
+                .defineInRange("evilEyeCost", 50, 1, Integer.MAX_VALUE);
         TrippingCost = BUILDER.comment("Tripping Soul Cost, Default: 25")
                 .defineInRange("trippingCost", 25, 1, Integer.MAX_VALUE);
         RepulsiveCost = BUILDER.comment("Repulsive Soul Cost, Default: 25")
@@ -205,6 +209,8 @@ public class BrewConfig {
                 .define("sunAllergyCurable", false);
         SnowSkinCurable = BUILDER.comment("Whether Snow Skin is curable via Milk or Wartful Egg, Default: false")
                 .define("snowSkinCurable", false);
+        EvilEyeCurable = BUILDER.comment("Whether Evil Eye is curable via Milk or Wartful Egg, Default: false")
+                .define("evilEyeCurable", false);
         BUILDER.pop();
         SPEC = BUILDER.build();
     }

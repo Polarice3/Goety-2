@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "irons_spellbooks:invisibility_elixir"
+  },
+  "effect": "irons_spellbooks:true_invisibility",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 300,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "irons_spellbooks"
+    }
+  ]
+}

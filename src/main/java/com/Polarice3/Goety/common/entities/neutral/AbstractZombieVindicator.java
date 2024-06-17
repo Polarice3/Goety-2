@@ -1,8 +1,8 @@
-package com.Polarice3.Goety.common.entities.ally.undead.zombie;
+package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.NeutralZombieAttackGoal;
-import com.Polarice3.Goety.common.entities.neutral.IRavager;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -17,9 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Vindicator;
-import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,8 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Objects;
 
-public class ZombieVindicator extends ZombieServant{
-    public ZombieVindicator(EntityType<? extends ZombieServant> type, Level worldIn) {
+public class AbstractZombieVindicator extends ZombieServant {
+    public AbstractZombieVindicator(EntityType<? extends ZombieServant> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -39,12 +37,6 @@ public class ZombieVindicator extends ZombieServant{
         this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-    }
-
-    public void targetSelectGoal(){
-        super.targetSelectGoal();
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, AbstractVillager.class));
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -116,8 +108,8 @@ public class ZombieVindicator extends ZombieServant{
         if (this.isUpgraded()){
             if (killedEntity instanceof Vindicator vindicator){
                 if (random <= 0.5F && net.minecraftforge.event.ForgeEventFactory.canLivingConvert(killedEntity, ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), (timer) -> {})) {
-                    EntityType<? extends Mob> entityType = ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get();
-                    ZombieVindicator zombieVindicator = (ZombieVindicator) vindicator.convertTo(entityType, false);
+                    EntityType<? extends Mob> entityType = (EntityType<? extends Mob>) this.getType();
+                    AbstractZombieVindicator zombieVindicator = (AbstractZombieVindicator) vindicator.convertTo(entityType, false);
                     if (zombieVindicator != null) {
                         zombieVindicator.finalizeSpawn(world, level.getCurrentDifficultyAt(zombieVindicator.blockPosition()), MobSpawnType.CONVERSION, null, null);
                         zombieVindicator.setLimitedLife(10 * (15 + this.level.random.nextInt(45)));
@@ -135,8 +127,8 @@ public class ZombieVindicator extends ZombieServant{
         return flag;
     }
 
-    static class ModMeleeAttackGoal extends NeutralZombieAttackGoal {
-        public ModMeleeAttackGoal(ZombieVindicator p_34123_) {
+    public static class ModMeleeAttackGoal extends NeutralZombieAttackGoal {
+        public ModMeleeAttackGoal(AbstractZombieVindicator p_34123_) {
             super(p_34123_, 1.0D, false);
         }
 

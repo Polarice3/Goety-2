@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bcb",
+    "sms"
+  ],
+  "key": {
+    "b": {
+      "item": "goety:cursed_bars"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    },
+    "s": {
+      "item": "goety:shade_stone_slab"
+    },
+    "m": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  },
+  "result": {
+    "item": "goety:shade_soul_brazier"
+  }
+}

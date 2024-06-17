@@ -83,6 +83,7 @@ public class ModBlocks {
                     .sound(SoundType.SPORE_BLOSSOM)),
             true);
     public static final RegistryObject<Block> HOLE = register("hole", HoleBlock::new, false, LootTableType.EMPTY);
+    public static final RegistryObject<Block> PART_LIQUID = register("part_liquid", PartLiquidBlock::new, false, LootTableType.EMPTY);
     public static final RegistryObject<Block> PITHOS = register("pithos", PithosBlock::new);
     public static final RegistryObject<Block> NIGHT_BEACON = register("night_beacon", NightBeaconBlock::new, false);
     public static final RegistryObject<Block> TALL_SKULL_BLOCK = register("tall_skull", TallSkullBlock::new, false);
@@ -109,12 +110,19 @@ public class ModBlocks {
     public static final RegistryObject<Block> FREEZING_LAMP = register("freezing_lamp", FreezeLampBlock::new);
 
     public static final RegistryObject<Block> SHADE_BRAZIER = register("shade_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> SHADE_SOUL_BRAZIER = register("shade_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> STONE_BRAZIER = register("stone_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> STONE_SOUL_BRAZIER = register("stone_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> BRICK_BRAZIER = register("brick_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> BRICK_SOUL_BRAZIER = register("brick_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> DEEPSLATE_BRAZIER = register("deepslate_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> DEEPSLATE_SOUL_BRAZIER = register("deepslate_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> NETHER_BRICK_BRAZIER = register("nether_brick_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> NETHER_BRICK_SOUL_BRAZIER = register("nether_brick_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> BLACKSTONE_BRAZIER = register("blackstone_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> BLACKSTONE_SOUL_BRAZIER = register("blackstone_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> MARBLE_BRAZIER = register("marble_brazier", BrazierBlock::new);
+    public static final RegistryObject<Block> MARBLE_SOUL_BRAZIER = register("marble_soul_brazier", () -> new BrazierBlock(true));
     public static final RegistryObject<Block> SKULL_PILE = register("skull_pile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(2.0F).sound(SoundType.BONE_BLOCK)), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> CRYPT_URN = register("crypt_urn", UrnBlock::new, true, LootTableType.EMPTY);
     public static final RegistryObject<LoftyChestBlock> LOFTY_CHEST = isterRegister("lofty_chest", () -> new LoftyChestBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).strength(5.0F, 3600000.0F).sound(SoundType.NETHER_BRICKS).lightLevel(light -> 6)), LootTableType.EMPTY);

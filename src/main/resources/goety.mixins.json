@@ -8,6 +8,7 @@
     "ApplyBonusCountMixin",
     "EnchantRandomlyFunctionMixin",
     "EntityMixin",
+    "ItemEntityMixin",
     "LivingEntityMixin",
     "RaidMixin",
     "SensorMixin",

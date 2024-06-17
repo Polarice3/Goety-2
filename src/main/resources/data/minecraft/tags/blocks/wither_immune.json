@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "goety:arca",
     "goety:lofty_chest",
     "goety:reinforced_redstone_block"
   ]

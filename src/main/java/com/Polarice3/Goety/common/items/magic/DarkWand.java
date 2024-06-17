@@ -190,19 +190,23 @@ public class DarkWand extends Item implements IWand {
                     ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
                     return true;
                 } else {
-                    if (SpellConfig.OwnerHitCommand.get()) {
-                        if (owned instanceof IServant summonedEntity) {
-                            if (player.isShiftKeyDown() || player.isCrouching()) {
+                    if (owned instanceof IServant summonedEntity) {
+                        if (player.isShiftKeyDown() || player.isCrouching()) {
+                            if (SpellConfig.OwnerHitKill.get()) {
                                 summonedEntity.tryKill(player);
                                 return true;
-                            } else {
+                            }
+                        } else {
+                            if (SpellConfig.OwnerHitCommand.get()) {
                                 if (summonedEntity.canUpdateMove()) {
                                     summonedEntity.updateMoveMode(player);
                                     return true;
                                 }
                             }
-                        } else if (owned instanceof AbstractVine vine){
-                            if (player.isShiftKeyDown() || player.isCrouching()) {
+                        }
+                    } else if (owned instanceof AbstractVine vine){
+                        if (player.isShiftKeyDown() || player.isCrouching()) {
+                            if (SpellConfig.OwnerHitKill.get()) {
                                 vine.kill();
                                 return true;
                             }
@@ -229,14 +233,25 @@ public class DarkWand extends Item implements IWand {
                 }
             }
         }
-        if (!SpellConfig.OwnerHitCommand.get()) {
-            if (target instanceof IServant summonedEntity) {
-                if (summonedEntity.getTrueOwner() == player || (summonedEntity.getTrueOwner() instanceof IOwned owned && owned.getTrueOwner() == player)) {
+        if (target instanceof IOwned owned) {
+            if (owned.getTrueOwner() == player || (owned.getTrueOwner() instanceof IOwned owned1 && owned1.getTrueOwner() == player)) {
+                if (owned instanceof IServant summonedEntity) {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
-                        summonedEntity.tryKill(player);
+                        if (!SpellConfig.OwnerHitKill.get()) {
+                            summonedEntity.tryKill(player);
+                        }
                     } else {
-                        if (summonedEntity.canUpdateMove()) {
-                            summonedEntity.updateMoveMode(player);
+                        if (!SpellConfig.OwnerHitCommand.get()) {
+                            if (summonedEntity.canUpdateMove()) {
+                                summonedEntity.updateMoveMode(player);
+                            }
+                        }
+                    }
+                    return InteractionResult.SUCCESS;
+                } else if (owned instanceof AbstractVine vine) {
+                    if (player.isShiftKeyDown() || player.isCrouching()) {
+                        if (!SpellConfig.OwnerHitKill.get()) {
+                            vine.kill();
                         }
                     }
                     return InteractionResult.SUCCESS;

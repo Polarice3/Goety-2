@@ -13,5 +13,8 @@
       "type": "patchouli:text",
       "text": "But the legends spoke of its destruction. Perhaps what you have obtained was a replica of such arcane device, one that much like the legends of old, can bring eternal night upon the world."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:night_beacon": 0
+  }
 }

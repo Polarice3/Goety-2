@@ -2,7 +2,6 @@ package com.Polarice3.Goety.compat.patchouli;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffects;
-import com.Polarice3.Goety.common.effects.brew.PotionBrewEffect;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.ItemStack;
@@ -44,12 +43,8 @@ public class BrewingCatalystProcessor implements IComponentProcessor {
         }
 
         if (key.startsWith("duration")) {
-            if (this.brewEffect instanceof PotionBrewEffect potionBrewEffect) {
-                if (potionBrewEffect.getDuration() > 40) {
-                    return IVariable.wrap(I18n.get("jei.goety.single.duration", StringUtil.formatTickDuration(potionBrewEffect.getDuration())));
-                } else {
-                    return IVariable.wrap(I18n.get("jei.goety.instant.duration"));
-                }
+            if (this.brewEffect.getDuration() > 40) {
+                return IVariable.wrap(I18n.get("jei.goety.single.duration", StringUtil.formatTickDuration(this.brewEffect.getDuration())));
             } else {
                 return IVariable.wrap(I18n.get("jei.goety.instant.duration"));
             }

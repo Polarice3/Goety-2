@@ -47,10 +47,12 @@ public class DeathArrow extends Arrow {
                     livingEntity.heal(-voidDamage);
                 }
             }
-            if (MobUtil.healthIsHalved(apostle)){
-                apostle.heal(4.0F);
-            } else {
-                apostle.heal(1.0F);
+            if (!apostle.isSmited()) {
+                if (MobUtil.healthIsHalved(apostle)) {
+                    apostle.heal(4.0F);
+                } else {
+                    apostle.heal(1.0F);
+                }
             }
         }
     }

@@ -68,7 +68,7 @@ public class SingleStackItem extends Item {
                 tooltip.add(Component.translatable("info.goety.amethyst_necklace_discount").withStyle(secondary));
             }
             if (stack.getItem() instanceof WitchHatItem) {
-                tooltip.add(Component.translatable("info.goety.witch_hat").withStyle(secondary));
+                tooltip.add(Component.translatable("info.goety.witch_hat").withStyle(main));
                 if (stack.is(ModItems.CRONE_HAT.get())){
                     tooltip.add(Component.translatable("info.goety.crone_hat_potion").withStyle(secondary));
                 } else {

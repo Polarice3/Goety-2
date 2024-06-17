@@ -1,6 +1,7 @@
-package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
+package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.common.entities.ai.CreatureCrossbowAttackGoal;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,10 +15,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,24 +28,12 @@ import net.minecraft.world.level.Level;
 
 import java.util.Map;
 
-public class SkeletonPillager extends AbstractSkeletonServant implements CrossbowAttackMob {
-    private final CreatureCrossbowAttackGoal<SkeletonPillager> crossbowAttackGoal = new CreatureCrossbowAttackGoal<>(this, 1.0D, 8.0F);
-    private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(SkeletonPillager.class, EntityDataSerializers.BOOLEAN);
+public class AbstractSkeletonPillager extends AbstractSkeletonServant implements CrossbowAttackMob {
+    private final CreatureCrossbowAttackGoal<AbstractSkeletonPillager> crossbowAttackGoal = new CreatureCrossbowAttackGoal<>(this, 1.0D, 8.0F);
+    private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(AbstractSkeletonPillager.class, EntityDataSerializers.BOOLEAN);
 
-    public SkeletonPillager(EntityType<? extends AbstractSkeletonServant> type, Level worldIn) {
+    public AbstractSkeletonPillager(EntityType<? extends AbstractSkeletonServant> type, Level worldIn) {
         super(type, worldIn);
-    }
-
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-    }
-
-    public void targetSelectGoal(){
-        super.targetSelectGoal();
-        this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

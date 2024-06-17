@@ -16,8 +16,8 @@ public class ModKeybindings {
         keyBindings[2] = new KeyMapping("key.goety.bag", GLFW.GLFW_KEY_C, "key.goety.category");
         keyBindings[3] = new KeyMapping("key.goety.witch.robe", GLFW.GLFW_KEY_V, "key.goety.witch.category");
         keyBindings[4] = new KeyMapping("key.goety.ceaseFire", GLFW.GLFW_KEY_B, "key.goety.category");
-        keyBindings[5] = new KeyMapping("key.goety.lich.lichKiss", GLFW.GLFW_KEY_R, "key.goety.lich.category");
-        keyBindings[6] = new KeyMapping("key.goety.lich.magnet", GLFW.GLFW_KEY_M, "key.goety.lich.category");
+        keyBindings[5] = new KeyMapping("key.goety.lich.magnet", GLFW.GLFW_KEY_R, "key.goety.lich.category");
+        keyBindings[6] = new KeyMapping("key.goety.lich.nightVision", GLFW.GLFW_KEY_M, "key.goety.lich.category");
         keyBindings[7] = new KeyMapping("key.goety.witch.extractPotions", GLFW.GLFW_KEY_G, "key.goety.witch.category");
         keyBindings[8] = new KeyMapping("key.goety.witch.brewBag", GLFW.GLFW_KEY_H, "key.goety.witch.category");
         keyBindings[9] = new KeyMapping("key.goety.witch.brewCircle", GLFW.GLFW_KEY_J, "key.goety.witch.category");

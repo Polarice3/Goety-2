@@ -1,12 +1,14 @@
 package com.Polarice3.Goety.common.entities.ally.undead.skeleton;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -184,6 +186,11 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
+    }
+
+    @Override
+    public EntityType<?> getVariant(Level level, BlockPos blockPos) {
+        return ModEntityType.VANGUARD_SERVANT.get();
     }
 
     public List<AnimationState> getAnimations(){

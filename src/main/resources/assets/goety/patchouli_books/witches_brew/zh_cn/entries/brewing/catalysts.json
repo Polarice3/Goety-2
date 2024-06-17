@@ -90,6 +90,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.evil_eye",
+      "text": "邪恶的光芒吸引着各种各样的人，非常适合举办派对！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.explosive",
       "text": "不要用这种效果伤害生物，你这个混蛋！据我所知，他们可能脾气“爆”躁！哈哈哈哈!"
     },
@@ -272,6 +277,16 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.nyctophobia",
       "text": "孩子们，拿个夜灯吧！你会需要的!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_lava",
+      "text": "我的炽足兽被偷了！那么我得让这些岩浆主动让开了！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_water",
+      "text": "奶奶的旋转飞刃落在了家里，那么我该如何穿越这片大海！哦，还好我带了药酿！"
     },
     {
       "type": "goety:catalyst",

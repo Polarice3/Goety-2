@@ -8,13 +8,12 @@ import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
 import com.Polarice3.Goety.common.magic.BreathingSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import com.Polarice3.Goety.utils.WandUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -73,7 +72,14 @@ public class SwarmSpell extends BreathingSpell {
             for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target.hurt(ModDamageSource.swarm(entityLiving, entityLiving), damage)){
-                        if (!target.isAlive() && worldIn.random.nextFloat() <= 0.25F){
+                        if (target instanceof LivingEntity livingTarget){
+                            MobEffect mobEffect = MobEffects.POISON;
+                            if (CuriosFinder.hasWildRobe(entityLiving)){
+                                mobEffect = GoetyEffects.ACID_VENOM.get();
+                            }
+                            livingTarget.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5) * duration));
+                        }
+                        if (!target.isAlive()){
                             InsectSwarm insectSwarm = new InsectSwarm(worldIn, entityLiving, target.position());
                             insectSwarm.setLimitedLife(200 * duration);
                             if (enchantment > 0){

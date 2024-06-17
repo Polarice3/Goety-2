@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "greekfantasy:boar_ear"
+  },
+  "effect": "greekfantasy:curse_of_circe",
+  "soulCost": 50,
+  "capacityExtra": 4,
+  "duration": 3600,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "greekfantasy"
+    }
+  ]
+}

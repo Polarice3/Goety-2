@@ -122,8 +122,14 @@ public class LichEvents {
             }
             if (player.isAlive()){
                 player.setAirSupply(player.getMaxAirSupply() + 10);
-                if (MainConfig.LichNightVision.get()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
+                if (!player.level.isClientSide) {
+                    if (LichdomHelper.nightVision(player) && MainConfig.LichNightVision.get()) {
+                        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
+                    } else {
+                        if (player.hasEffect(MobEffects.NIGHT_VISION)) {
+                            player.removeEffect(MobEffects.NIGHT_VISION);
+                        }
+                    }
                 }
             }
             if (LichdomHelper.smited(player) > 0){
@@ -131,6 +137,7 @@ public class LichEvents {
             }
         } else {
             LichdomHelper.setLichMode(player, false);
+            LichdomHelper.setNightVision(player, false);
         }
     }
 

@@ -53,6 +53,8 @@ public class BrewEffects {
         this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 0), Items.SNOWBALL);
         this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 1), Items.BOW);
         this.modifierRegister(new BrewModifier(BrewModifier.VELOCITY, 2), Items.CROSSBOW);
+        this.modifierRegister(new BrewModifier(BrewModifier.AQUATIC), Items.TUBE_CORAL);
+        this.modifierRegister(new BrewModifier(BrewModifier.FIRE_PROOF), Items.NETHERITE_SCRAP);
         this.modifierRegister(new BrewModifier(BrewModifier.HIDDEN), Items.ENDER_EYE);
         this.modifierRegister(new BrewModifier(BrewModifier.SPLASH), Items.GUNPOWDER);
         this.modifierRegister(new BrewModifier(BrewModifier.LINGERING), Items.DRAGON_BREATH);
@@ -112,6 +114,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SAPPED.get(), BrewConfig.SappedCost.get(), 1800), ModItems.SAVAGE_TOOTH.get());
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), 8, 6000), Items.ECHO_SHARD);
         this.register(new PotionBrewEffect(GoetyEffects.SUN_ALLERGY.get(), BrewConfig.SunAllergyCost.get(), 4, 3600), Items.SKELETON_SKULL);
+        this.register(new PotionBrewEffect(GoetyEffects.EVIL_EYE.get(), BrewConfig.EvilEyeCost.get(), 4, 3600), ModBlocks.FORBIDDEN_GRASS.get().asItem());
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.TRIPPING.get(), BrewConfig.TrippingCost.get(), 1800), Items.CRACKED_STONE_BRICKS);
         this.register(new PotionBrewEffect(GoetyEffects.VENOMOUS_HANDS.get(), BrewConfig.VenomousHandsCost.get(), 3600), ModItems.VENOMOUS_FANG.get());
@@ -139,6 +142,8 @@ public class BrewEffects {
         this.register(new LeafShellBlockEffect(), Items.PEONY);
         this.register(new LoveBrewEffect(10), Items.COCOA_BEANS);
         this.register(new MossifyBlockEffect(), Items.MOSS_BLOCK);
+        this.register(new PartLavaBlockEffect(), Items.CAULDRON);
+        this.register(new PartWaterBlockEffect(), Items.BUCKET);
         this.register(new PulverizeBlockEffect(), Items.IRON_BLOCK);
         this.register(new PurifyBrewEffect("purify_debuff", 50, 2, MobEffectCategory.BENEFICIAL, 0x385858, true), ModItems.WARTFUL_EGG.get());
         this.register(new PurifyBrewEffect("purify_buff", 50, 2, MobEffectCategory.HARMFUL, 0x374a4a, false), ModItems.WARPED_WARTFUL_EGG.get());

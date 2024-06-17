@@ -2,9 +2,14 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SRCGlowPacket;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -26,12 +31,17 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +58,9 @@ public class RedstoneCube extends AbstractGolemServant{
     public static String WALK = "walk";
     public int attackTick;
     public float minorGlow;
+    public float bigGlow;
     public float glowAmount = 0.01F;
+    public Vec3 detectPos;
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
@@ -62,7 +74,7 @@ public class RedstoneCube extends AbstractGolemServant{
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 60, 10));
+        this.goalSelector.addGoal(8, new SeekBlockGoal(this));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -291,6 +303,31 @@ public class RedstoneCube extends AbstractGolemServant{
                         this.setTarget(null);
                     }
                 }
+                ItemStack itemStack = this.getMainHandItem();
+                if (!itemStack.isEmpty() && MobsConfig.RedstoneCubeBlockFind.get()){
+                    Block block = Block.byItem(itemStack.getItem());
+                    if (this.tickCount % 20 == 0) {
+                        this.detectPos = null;
+                        for (int i = -16; i <= 16; ++i){
+                            for (int j = -16; j <= 16; ++j){
+                                for (int k = -16; k <= 16; ++k){
+                                    BlockPos blockPos = this.blockPosition().offset(i, j, k);
+                                    if (this.level.getBlockState(blockPos).getBlock() == block){
+                                        float distance = 1.0F - ((float) this.distanceToSqr(Vec3.atCenterOf(blockPos)) / Mth.square(16.0F));
+                                        this.bigGlow = distance;
+                                        this.playSound(ModSounds.TOCK.get(), distance, 1.5F);
+                                        this.detectPos = Vec3.atCenterOf(blockPos);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    this.detectPos = null;
+                }
+                this.bigGlow = Math.max(this.bigGlow - 0.01F, 0.0F);
+                ModNetwork.sentToTrackingEntityAndPlayer(this, new SRCGlowPacket(this.getId(), this.bigGlow));
             } else {
                 this.glow();
             }
@@ -325,8 +362,27 @@ public class RedstoneCube extends AbstractGolemServant{
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!this.level.isClientSide) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
+            Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if ((itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE) || itemstack.is(Tags.Items.DUSTS_REDSTONE)) && this.getHealth() < this.getMaxHealth()) {
+                if ((pPlayer.isCrouching() || pPlayer.isShiftKeyDown())
+                        && pHand == InteractionHand.MAIN_HAND
+                        && MobsConfig.RedstoneCubeBlockFind.get()){
+                    if (item instanceof BlockItem blockItem
+                            && blockItem.getBlock().defaultBlockState().is(ModTags.Blocks.REDSTONE_CUBE_DETECT)
+                            && !blockItem.getBlock().defaultBlockState().is(ModTags.Blocks.REDSTONE_CUBE_EXEMPT)
+                            && this.getMainHandItem().getItem() != item){
+                        this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 1.25F);
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copy());
+                        this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
+                        EntityFinder.sendEntityUpdatePacket(pPlayer, this);
+                        return InteractionResult.SUCCESS;
+                    } else if (itemstack.isEmpty() && !this.getMainHandItem().isEmpty()){
+                        this.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 1.25F);
+                        this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                        EntityFinder.sendEntityUpdatePacket(pPlayer, this);
+                        return InteractionResult.SUCCESS;
+                    }
+                } else if ((itemstack.is(Tags.Items.STORAGE_BLOCKS_REDSTONE) || itemstack.is(Tags.Items.DUSTS_REDSTONE)) && this.getHealth() < this.getMaxHealth()) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
@@ -350,5 +406,25 @@ public class RedstoneCube extends AbstractGolemServant{
             }
         }
         return InteractionResult.PASS;
+    }
+
+    public class SeekBlockGoal extends WanderGoal {
+        private final RedstoneCube redstoneCube;
+
+        public SeekBlockGoal(RedstoneCube cube){
+            super(cube, 1.0D, 60, 10);
+            this.redstoneCube = cube;
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            if (this.redstoneCube.detectPos != null) {
+                Vec3 vec3 = LandRandomPos.getPosTowards(this.redstoneCube, 10, 7, this.redstoneCube.detectPos);
+                return vec3 == null ? super.getPosition() : vec3;
+            } else {
+                return super.getPosition();
+            }
+        }
+
     }
 }

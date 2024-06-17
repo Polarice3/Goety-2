@@ -1,11 +1,11 @@
 {
-  "name": "火炉",
+  "name": "Braziers",
   "icon": "goety:shade_brazier",
   "category": "goety:crafts",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "仅仅因为你是一个黑暗魔法使，并不意味着你不能生活在光明下。这些火盆是一种奇特的照明方式，点燃后可以烧死站在上面的任何傻瓜。也可以通过右键单击来熄灭火盆，然后以同样的方式重新点燃。"
+      "text": "Just because you're a dark wizard doesn't mean you can't be decorative. These braziers are a fancy way of providing light and burn any fool that stand on them when lit. The braziers can also be unlit by right-clicking on them, and relit the same way."
     },
     {
       "type": "patchouli:crafting",
@@ -25,6 +25,29 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:marble/marble_brazier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "就像火把与营火，这些火盆也可以被灵魂所引燃。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_soul_brazier",
+      "recipe2": "goety:stone_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_soul_brazier",
+      "recipe2": "goety:brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_soul_brazier",
+      "recipe2": "goety:nether_brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_soul_brazier"
     }
   ]
 }

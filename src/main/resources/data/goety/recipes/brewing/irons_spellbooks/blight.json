@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "irons_spellbooks:nature_rune"
+  },
+  "effect": "irons_spellbooks:blight",
+  "soulCost": 25,
+  "capacityExtra": 2,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "irons_spellbooks"
+    }
+  ]
+}

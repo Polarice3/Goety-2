@@ -36,6 +36,7 @@ public class LichCommand {
             boolean isLich = lichdom.getLichdom();
             if (!isLich) {
                 lichdom.setLichdom(true);
+                lichdom.setNightVision(true);
                 LichdomHelper.sendLichUpdatePacket(player);
                 pSource.sendSuccess(Component.translatable("commands.lich.turnlich.success", player.getDisplayName()), false);
             } else {
@@ -51,6 +52,7 @@ public class LichCommand {
             boolean isLich = lichdom.getLichdom();
             if (isLich) {
                 lichdom.setLichdom(false);
+                lichdom.setNightVision(false);
                 if (player.hasEffect(MobEffects.NIGHT_VISION)){
                     player.removeEffect(MobEffects.NIGHT_VISION);
                 }

@@ -69,6 +69,21 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
         return 0.05F;
     }
 
+    public boolean isInWater() {
+        if (BrewUtils.getAquatic(this.getItem())){
+            return false;
+        }
+        return super.isInWater();
+    }
+
+    @Override
+    public boolean fireImmune() {
+        if (BrewUtils.getFireProof(this.getItem())){
+            return true;
+        }
+        return super.fireImmune();
+    }
+
     protected void onHitBlock(BlockHitResult p_37541_) {
         super.onHitBlock(p_37541_);
         if (!this.level.isClientSide) {
@@ -91,7 +106,7 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
                 for (BrewEffectInstance brewEffectInstance : list) {
                     LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
                     brewEffectInstance.getEffect().applyDirectionalBlockEffect(this.level, p_37541_.getBlockPos(), p_37541_.getDirection(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
-                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37541_.getBlockPos(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
+                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37541_.getBlockPos(), livingEntity, brewEffectInstance.getDuration(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
                 }
             }
         }
@@ -105,7 +120,7 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
                 List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemstack);
                 for (BrewEffectInstance brewEffectInstance : list) {
                     LivingEntity livingEntity = this.getOwner() instanceof LivingEntity living ? living : null;
-                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37259_.getEntity().blockPosition(), livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
+                    brewEffectInstance.getEffect().applyBlockEffect(this.level, p_37259_.getEntity().blockPosition(), livingEntity, brewEffectInstance.getDuration(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemstack));
                 }
             }
         }

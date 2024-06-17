@@ -4070,8 +4070,7 @@
       {
         "name": "goety:random/dirt_debris4"
       }
-    ],
-    "subtitle": "subtitle.goety.dirt_debris"
+    ]
   },
   "thunder_strike_epic": {
     "sounds": [
@@ -4599,7 +4598,7 @@
         "name": "goety:spell/wind_blast_3"
       }
     ],
-    "subtitle": "subtitle.goety.wind_blast"
+    "subtitle": "subtitle.goety.wind"
   },
   "zap": {
     "sounds": [

@@ -1,0 +1,20 @@
+{
+  "name": "Redstone Cube",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Using an $(l:crafts/cores)Animation Core$(), you're able to animate a Block of Redstone into a loyal servant. The Cube is immune to flames and lava and will headbutt any foes it detects."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_cube",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "There's also another feature of the cube that makes it immensely helpful for mining. Shift-right clicking on them with an ore, metal or pickaxe-able blocks will cause them register it, which will cause them to start glowing yellow the closer they are to that specific block. Shift-right click on them with an empty hand to unregister their block."
+    }
+  ]
+}

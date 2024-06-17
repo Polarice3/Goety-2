@@ -31,11 +31,19 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public record WearRenderer(ResourceLocation texture,
                            HumanoidModel<LivingEntity> model) implements ICurioRenderer {
 
-    private ResourceLocation getTexture() {
+    private ResourceLocation getTexture(LivingEntity livingEntity) {
+        if (Objects.equals(this.texture, CuriosRenderer.render("necro_cape.png"))){
+            if (ItemConfig.NecroCapeChangeTexture.get()) {
+                if (CuriosFinder.hasFrostRobes(livingEntity)) {
+                    return CuriosRenderer.render("necro_cape_crypt.png");
+                }
+            }
+        }
         return texture;
     }
 
@@ -67,7 +75,7 @@ public record WearRenderer(ResourceLocation texture,
         model.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.prepareMobModel(slotContext.entity(), limbSwing, limbSwingAmount, partialTicks);
         ICurioRenderer.followBodyRotations(slotContext.entity(), model);
-        render(matrixStack, renderTypeBuffer, light);
+        render(livingEntity, matrixStack, renderTypeBuffer, light);
 
         if (capedRobe(stack)){
             if (livingEntity instanceof AbstractClientPlayer p_116618_) {
@@ -106,7 +114,7 @@ public record WearRenderer(ResourceLocation texture,
                         matrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
                         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
                         matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
-                        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(getTexture()));
+                        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(this.getTexture(livingEntity)));
                         new DarkRobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayer.DARK_ROBE)).renderCape(matrixStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY);
                         matrixStack.popPose();
                     }
@@ -115,8 +123,8 @@ public record WearRenderer(ResourceLocation texture,
         }
     }
 
-    private void render(PoseStack matrixStack, MultiBufferSource buffer, int light) {
-        RenderType renderType = model.renderType(getTexture());
+    private void render(LivingEntity livingEntity, PoseStack matrixStack, MultiBufferSource buffer, int light) {
+        RenderType renderType = model.renderType(getTexture(livingEntity));
         VertexConsumer vertexBuilder = buffer.getBuffer(renderType);
         model.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
@@ -136,12 +144,12 @@ public record WearRenderer(ResourceLocation texture,
             model.setupAnim(player, 0, 0, 0, 0, 0);
             arm.xRot = 0;
 
-            renderFirstPersonArm(model, arm, matrixStack, buffer, light, hasFoil);
+            renderFirstPersonArm(player, model, arm, matrixStack, buffer, light, hasFoil);
         }
     }
 
-    private void renderFirstPersonArm(GloveModel model, ModelPart arm, PoseStack matrixStack, MultiBufferSource buffer, int light, boolean hasFoil) {
-        RenderType renderType = model.renderType(getTexture());
+    private void renderFirstPersonArm(LivingEntity livingEntity, GloveModel model, ModelPart arm, PoseStack matrixStack, MultiBufferSource buffer, int light, boolean hasFoil) {
+        RenderType renderType = model.renderType(getTexture(livingEntity));
         VertexConsumer builder = ItemRenderer.getFoilBuffer(buffer, renderType, false, hasFoil);
         arm.render(matrixStack, builder, light, OverlayTexture.NO_OVERLAY);
     }

@@ -53,6 +53,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CLichKissPacket.class, CLichKissPacket::encode, CLichKissPacket::decode, CLichKissPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CMagnetPacket.class, CMagnetPacket::encode, CMagnetPacket::decode, CMagnetPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetLichMode.class, CSetLichMode::encode, CSetLichMode::decode, CSetLichMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CSetLichNightVisionMode.class, CSetLichNightVisionMode::encode, CSetLichNightVisionMode::decode, CSetLichNightVisionMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CBeamPacket.class, CBeamPacket::encode, CBeamPacket::decode, CBeamPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusPacket.class, CSwapFocusPacket::encode, CSwapFocusPacket::decode, CSwapFocusPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusTwoPacket.class, CSwapFocusTwoPacket::encode, CSwapFocusTwoPacket::decode, CSwapFocusTwoPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
@@ -64,9 +65,11 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), SPlayPlayerSoundPacket.class, SPlayPlayerSoundPacket::encode, SPlayPlayerSoundPacket::decode, SPlayPlayerSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayWorldSoundPacket.class, SPlayWorldSoundPacket::encode, SPlayWorldSoundPacket::decode, SPlayWorldSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SPlayEntitySoundPacket.class, SPlayEntitySoundPacket::encode, SPlayEntitySoundPacket::decode, SPlayEntitySoundPacket::consume);
+        INSTANCE.registerMessage(nextID(), SPlayLoopSoundPacket.class, SPlayLoopSoundPacket::encode, SPlayLoopSoundPacket::decode, SPlayLoopSoundPacket::consume);
         INSTANCE.registerMessage(nextID(), SFungusExplosionPacket.class, SFungusExplosionPacket::encode, SFungusExplosionPacket::decode, SFungusExplosionPacket::consume);
         INSTANCE.registerMessage(nextID(), SLootingExplosionPacket.class, SLootingExplosionPacket::encode, SLootingExplosionPacket::decode, SLootingExplosionPacket::consume);
         INSTANCE.registerMessage(nextID(), SApostleSmitePacket.class, SApostleSmitePacket::encode, SApostleSmitePacket::decode, SApostleSmitePacket::consume);
+        INSTANCE.registerMessage(nextID(), SRCGlowPacket.class, SRCGlowPacket::encode, SRCGlowPacket::decode, SRCGlowPacket::consume);
         INSTANCE.registerMessage(nextID(), SSoulExplodePacket.class, SSoulExplodePacket::encode, SSoulExplodePacket::decode, SSoulExplodePacket::consume);
         INSTANCE.registerMessage(nextID(), SAddBrewParticlesPacket.class, SAddBrewParticlesPacket::encode, SAddBrewParticlesPacket::decode, SAddBrewParticlesPacket::consume);
         INSTANCE.registerMessage(nextID(), SLightningPacket.class, SLightningPacket::encode, SLightningPacket::decode, SLightningPacket::consume);

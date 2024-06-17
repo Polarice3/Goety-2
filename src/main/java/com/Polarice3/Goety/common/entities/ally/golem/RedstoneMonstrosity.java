@@ -293,7 +293,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
 
     @Override
     protected float getSoundVolume() {
-        return 5.0F;
+        return 3.0F;
     }
 
     public Packet<ClientGamePacketListener> getAddEntityPacket() {

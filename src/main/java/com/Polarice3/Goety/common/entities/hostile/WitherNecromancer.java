@@ -39,6 +39,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
@@ -229,6 +230,17 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
             }
         }
         return super.hurt(pSource, pAmount);
+    }
+
+    @Override
+    public boolean isAlliedTo(Entity pEntity) {
+        if (super.isAlliedTo(pEntity)) {
+            return true;
+        } else if (pEntity instanceof WitherSkeleton || pEntity instanceof Blaze) {
+            return this.getTeam() == null && pEntity.getTeam() == null;
+        } else {
+            return false;
+        }
     }
 
     public boolean canBeAffected(MobEffectInstance p_34192_) {

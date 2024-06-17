@@ -66,8 +66,22 @@ public class WitchPoleBlock extends Block implements SimpleWaterloggedBlock {
         return RenderShape.MODEL;
     }
 
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return POLE;
+    public VoxelShape getInteractionShape(BlockState p_51787_, BlockGetter p_51788_, BlockPos p_51789_) {
+        if (p_51787_.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            switch (p_51787_.getValue(FACING)) {
+                case SOUTH:
+                    return SOUTH_AABB;
+                case NORTH:
+                default:
+                    return NORTH_AABB;
+                case WEST:
+                    return WEST_AABB;
+                case EAST:
+                    return EAST_AABB;
+            }
+        } else {
+            return POLE;
+        }
     }
 
     public VoxelShape getShape(BlockState p_51787_, BlockGetter p_51788_, BlockPos p_51789_, CollisionContext p_51790_) {

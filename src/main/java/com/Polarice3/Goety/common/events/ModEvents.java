@@ -161,6 +161,10 @@ public class ModEvents {
                 .ifPresent(lichdom ->
                         lichdom.setLichMode(capability2.isLichMode()));
 
+        player.getCapability(LichProvider.CAPABILITY)
+                .ifPresent(lichdom ->
+                        lichdom.setNightVision(capability2.nightVision()));
+
         ISoulEnergy capability3 = SEHelper.getCapability(original);
 
         player.getCapability(SEProvider.CAPABILITY)
@@ -951,7 +955,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void VisibilityEvent(LivingEvent.LivingVisibilityEvent event){
         LivingEntity entity = event.getEntity();
-        if (event.getLookingEntity() instanceof LivingEntity looker) {
+        if (event.getLookingEntity() instanceof LivingEntity looker && entity instanceof Player) {
             boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
             if (entity.level instanceof ServerLevel serverLevel){
                 if (MobsConfig.HostileCryptUndead.get()) {

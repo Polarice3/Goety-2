@@ -5,24 +5,44 @@ import com.Polarice3.Goety.client.render.model.RedstoneCubeModel;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class RedstoneCubeRenderer extends MobRenderer<RedstoneCube, RedstoneCubeModel<RedstoneCube>> {
     private static final ResourceLocation TEXTURE = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_cube.png");
     private static final ResourceLocation ACTIVE = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_cube_active.png");
+    private static final ResourceLocation GLOW = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_cube_glow.png");
 
     public RedstoneCubeRenderer(EntityRendererProvider.Context p_174435_) {
         super(p_174435_, new RedstoneCubeModel<>(p_174435_.bakeLayer(ModModelLayer.REDSTONE_CUBE)), 0.5F);
         this.addLayer(new CubeEyesLayer<>(this));
-        this.addLayer(new RCEmissiveLayer<>(this, ACTIVE, (entity, partialTicks, ageInTicks) -> !entity.isDeadOrDying() ? entity.minorGlow : 0.0F));
+        this.addLayer(new RCEmissiveLayer<>(this, GLOW, (entity, partialTicks, ageInTicks) -> !entity.isDeadOrDying() ? entity.bigGlow : 0.0F));
+        this.addLayer(new RCEmissiveLayer<>(this, ACTIVE, (entity, partialTicks, ageInTicks) -> !entity.isDeadOrDying() && entity.bigGlow <= 0.0F ? entity.minorGlow : 0.0F));
+    }
+
+    @Override
+    public void render(RedstoneCube pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!pEntity.getMainHandItem().isEmpty()){
+            pMatrixStack.pushPose();
+            pMatrixStack.translate(0.0F, 1.1F, 0.0F);
+            pMatrixStack.scale(1.0F, 1.0F, 1.0F);
+            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(3 * (minecraft.level.getGameTime() % 360 + pPartialTicks)));
+            minecraft.getItemRenderer().renderStatic(pEntity.getMainHandItem(), ItemTransforms.TransformType.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, 0);
+            pMatrixStack.popPose();
+        }
+        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 
     public ResourceLocation getTextureLocation(RedstoneCube p_116292_) {

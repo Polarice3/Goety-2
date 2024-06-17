@@ -1,0 +1,20 @@
+{
+  "name": "レッドストーンキューブ",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:crafts/cores)アニメーションコア$() を使用すると、レッドストーン ブロックを忠実な従者に動かすことができます。キューブは炎や溶岩の影響を受けず、敵を検知すると頭突きをします。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_cube",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "キューブには採掘に非常に役立つ別の機能もあります。鉱石、金属、またはツルハシで切れるブロックを Shift キーを押しながら右クリックすると、登録され、その特定のブロックに近づくにつれて黄色に光り始めます。空の手で Shift キーを押しながら右クリックすると、ブロックの登録が解除されます。"
+    }
+  ]
+}

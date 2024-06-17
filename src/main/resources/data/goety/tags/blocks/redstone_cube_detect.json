@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "__comment": "blocks that Redstone Cubes can accept to detect",
+  "values": [
+    "#forge:storage_blocks",
+    "#forge:ores",
+    "#minecraft:mineable/pickaxe",
+    "goety:arca"
+  ]
+}

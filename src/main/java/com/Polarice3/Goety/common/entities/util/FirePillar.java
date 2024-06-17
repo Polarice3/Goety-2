@@ -74,7 +74,9 @@ public class FirePillar extends CastSpellTrap{
         if (!this.level.isClientSide) {
             if (this.warmUp <= 0) {
                 if (this.level instanceof ServerLevel serverWorld) {
-                    serverWorld.sendParticles(ModParticleTypes.FIERY_PILLAR.get(), this.getX(), this.getY() + 0.5D, this.getZ(), 0, 0, 0.5D, 0, 1.0D);
+                    if (this.tickCount % 5 == 0) {
+                        serverWorld.sendParticles(ModParticleTypes.FIERY_PILLAR.get(), this.getX(), this.getY() + 0.5D, this.getZ(), 0, 0, 0.5D, 0, 1.0D);
+                    }
                 }
                 this.setActivated(true);
                 if (!this.playEvent) {

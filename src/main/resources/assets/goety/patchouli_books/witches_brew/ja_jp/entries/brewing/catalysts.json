@@ -90,6 +90,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.evil_eye",
+      "text": "悪魔の輝きはあらゆる人々を魅了し、パーティーに最適です!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.explosive",
       "text": "この効果でモブを傷つけるのは注意してください、ガタースナイプ！ 最後に聞いたのですが、彼らは爆発的な気性を持っているのかもしれません！ ハハハッハッハ！"
     },
@@ -272,6 +277,16 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.nyctophobia",
       "text": "常夜灯を手に入れましょう！ きっと必要になるでしょう！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_lava",
+      "text": "ストライダーを持ってくるのを忘れた。どこかに行くには溶岩湖を分けなければならないようだ！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_water",
+      "text": "糸紡ぎの刃を家に残してきたので、この海をどうやって渡ればいいのでしょうか? ああ、ビールを持ってきてよかった!"
     },
     {
       "type": "goety:catalyst",

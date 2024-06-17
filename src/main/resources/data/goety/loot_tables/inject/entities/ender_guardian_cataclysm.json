@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "name": "ender_guardian",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "goety:terminus_scroll",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

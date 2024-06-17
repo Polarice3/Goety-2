@@ -128,7 +128,7 @@ public class SkeletonSpell extends SummonSpell {
                     } else if (typeStaff(staff, SpellType.NETHER)) {
                         summonedentity = new WitherSkeletonServant(ModEntityType.WITHER_SKELETON_SERVANT.get(), worldIn);
                     } else if (staff.is(ModItems.OMINOUS_STAFF.get())) {
-                        summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
+                        summonedentity = new SkeletonPillagerServant(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
                     }
                 } else if (worldIn.dimension() == Level.NETHER
                         && (entityLiving instanceof Player player && SEHelper.hasResearch(player, ResearchList.BYGONE)    )
@@ -137,7 +137,7 @@ public class SkeletonSpell extends SummonSpell {
                 } else if (worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD) && worldIn.canSeeSky(blockPos)){
                     summonedentity = new StrayServant(ModEntityType.STRAY_SERVANT.get(), worldIn);
                 } else if (BlockFinder.findStructure(worldIn, entityLiving, BuiltinStructures.PILLAGER_OUTPOST)){
-                    summonedentity = new SkeletonPillager(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
+                    summonedentity = new SkeletonPillagerServant(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), worldIn);
                 } else if (worldIn.getBiome(blockPos).is(BiomeTags.IS_JUNGLE) && worldIn.random.nextBoolean()){
                     summonedentity = new MossySkeletonServant(ModEntityType.MOSSY_SKELETON_SERVANT.get(), worldIn);
                 } else if (entityLiving.isUnderWater() && worldIn.isWaterAt(blockPos)){

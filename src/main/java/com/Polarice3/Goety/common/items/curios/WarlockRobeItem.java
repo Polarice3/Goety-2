@@ -58,8 +58,10 @@ public class WarlockRobeItem extends WarlockGarmentItem{
         if (CuriosFinder.hasWarlockRobe(player)){
             if (event.getState().is(ModBlocks.SNAP_WARTS.get()) && event.getState().getValue(SnapWartsBlock.AGE) >= 2){
                 if (!player.level.isClientSide) {
-                    if (player.getRandom().nextFloat() <= 0.25F){
-                        Block.dropResources(event.getState(), player.level, event.getPos(), null, player, player.getUseItem());
+                    if (!player.getAbilities().instabuild) {
+                        if (player.getRandom().nextFloat() <= 0.25F) {
+                            Block.dropResources(event.getState(), player.level, event.getPos(), null, player, player.getUseItem());
+                        }
                     }
                 }
             }

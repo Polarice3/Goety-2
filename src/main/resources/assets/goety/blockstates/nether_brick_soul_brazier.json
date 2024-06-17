@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/nether_brick_soul_brazier" },
+    "lit=false": { "model": "goety:block/nether_brick_brazier_unlit" }
+  }
+}

@@ -371,7 +371,8 @@ public class AbstractWraith extends Summoned {
                             this.fireTick = 0;
                         }
                         this.stopFiring();
-                        if (!this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
+                        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, this.getX(), this.getY(), this.getZ());
+                        if (!event.isCanceled() && !this.isStaying() && this.getTarget().distanceToSqr(this) <= Mth.square(4.0F) && this.teleportCooldown <= 0 && !this.isPostTeleporting()) {
                             this.getNavigation().stop();
                             this.setIsTeleporting(true);
                         } else {
@@ -434,11 +435,7 @@ public class AbstractWraith extends Summoned {
                         wraith.setPos(d3, d4, d5);
                         wraith.getLookControl().setLookAt(this.getTarget(), 100.0F, 100.0F);
                         if (wraith.hasLineOfSight(this.getTarget())) {
-                            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d3, d4, d5);
-                            if (event.isCanceled()) {
-                                break;
-                            }
-                            if (this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
+                            if (this.randomTeleport(d3, d4, d5, false)) {
                                 this.teleportHits();
                                 this.setIsTeleporting(false);
                                 wraith.discard();
@@ -464,11 +461,7 @@ public class AbstractWraith extends Summoned {
             double d1 = this.getX() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.x * d0;
             double d2 = this.getY() + (double)(this.random.nextInt(16) - 8) - vector3d.y * d0;
             double d3 = this.getZ() + (this.random.nextDouble() - 0.5D) * 8.0D - vector3d.z * d0;
-            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, d1, d2, d3);
-            if (event.isCanceled()) {
-                break;
-            }
-            if (this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
+            if (this.randomTeleport(d1, d2, d3, false)) {
                 this.teleportHits();
                 this.teleportCooldown = 100;
                 this.setIsTeleporting(false);

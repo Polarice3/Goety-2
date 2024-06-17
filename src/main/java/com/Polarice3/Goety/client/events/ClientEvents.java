@@ -570,10 +570,15 @@ public class ClientEvents {
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CStopAttackPacket());
         }
         if (ModKeybindings.keyBindings[5].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CLichKissPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CMagnetPacket());
         }
         if (ModKeybindings.keyBindings[6].isDown() && MINECRAFT.isWindowActive()){
-            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CMagnetPacket());
+            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CSetLichNightVisionMode());
+            if (MINECRAFT.player != null && MainConfig.LichNightVision.get()){
+                if (LichdomHelper.isLich(MINECRAFT.player)){
+                    MINECRAFT.player.playSound(SoundEvents.END_PORTAL_FRAME_FILL);
+                }
+            }
         }
         if (ModKeybindings.keyBindings[7].isDown() && MINECRAFT.isWindowActive()){
             ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CExtractPotionKeyPacket());

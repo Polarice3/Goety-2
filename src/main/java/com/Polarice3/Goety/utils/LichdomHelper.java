@@ -41,6 +41,14 @@ public class LichdomHelper {
         getCapability(player).setLichMode(lichMode);
     }
 
+    public static boolean nightVision(Player player){
+        return getCapability(player).nightVision();
+    }
+
+    public static void setNightVision(Player player, boolean nightVision){
+        getCapability(player).setNightVision(nightVision);
+    }
+
     public static int smited(Player player){
         return getCapability(player).smited();
     }
@@ -60,6 +68,7 @@ public class LichdomHelper {
     public static CompoundTag save(CompoundTag tag, ILichdom lichdom) {
         tag.putBoolean("lichdom", lichdom.getLichdom());
         tag.putBoolean("lichMode", lichdom.isLichMode());
+        tag.putBoolean("nightVision", lichdom.nightVision());
         tag.putInt("smited", lichdom.smited());
         return tag;
     }
@@ -67,6 +76,7 @@ public class LichdomHelper {
     public static ILichdom load(CompoundTag tag, ILichdom lichdom) {
         lichdom.setLichdom(tag.getBoolean("lichdom"));
         lichdom.setLichMode(tag.getBoolean("lichMode"));
+        lichdom.setNightVision(tag.getBoolean("nightVision"));
         lichdom.setSmited(tag.getInt("smited"));
         return lichdom;
     }

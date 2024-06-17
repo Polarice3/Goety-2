@@ -125,6 +125,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> SNOW_SKIN = EFFECTS.register("snow_skin",
             () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0xe3f3f3, BrewConfig.SnowSkinCurable.get()));
 
+    public static final RegistryObject<MobEffect> EVIL_EYE = EFFECTS.register("evil_eye",
+            () -> new EvilEyeEffect(MobEffectCategory.HARMFUL, 0x560269, BrewConfig.EvilEyeCurable.get()));
+
     public static final RegistryObject<MobEffect> TRIPPING = EFFECTS.register("tripping",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x101636));
 

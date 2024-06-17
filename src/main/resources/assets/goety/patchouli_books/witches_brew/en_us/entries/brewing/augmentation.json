@@ -34,7 +34,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "$(bold)Additional$()$(br)$(li)$(item)Gunpowder$()$(li2)Make Brew Splash $(li)$(item)Dragon's Breath$()$(li2)Make Brew Lingering $(li2)Brew must been turned to Splash before. $(li)$(item)Wind Core$()$(li2)Make Brew Gaseous $(li2)Brew must been turned to Lingering before. $(li)$(item)Eye of Ender$()$(li2)Hides effect particles."
+      "text": "$(bold)Additional$()$(br)$(li)$(item)Gunpowder$()$(li2)Make Brew Splash $(li)$(item)Dragon's Breath$()$(li2)Make Brew Lingering $(li2)Brew must been turned to Splash before. $(li)$(item)Wind Core$()$(li2)Make Brew Gaseous $(li2)Brew must been turned to Lingering before. $(li)$(item)Eye of Ender$()$(li2)Hides effect particles. $(li)$(item)Tube Coral$()$(li2)Thrown Brews are no longer affected by water. $(li)$(item)Netherite Scrap$()$(li2)Thrown Brews don't burn in lava or fire."
     }
   ]
 }

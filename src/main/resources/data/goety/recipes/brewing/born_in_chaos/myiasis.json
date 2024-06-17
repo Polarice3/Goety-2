@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "born_in_chaos_v1:bloody_gadfly_eye"
+  },
+  "effect": "born_in_chaos_v1:myiasis",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "born_in_chaos_v1"
+    }
+  ]
+}

@@ -90,6 +90,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.evil_eye",
+      "text": "The glare of evil attracts all kinds of folks, perfect for having a party!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.explode",
       "text": "See that house over there? Ta-da! Now it's got a hole on it!"
     },
@@ -277,6 +282,16 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.nyctophobia",
       "text": "Grab a night light kiddies! You're gonna need it!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_lava",
+      "text": "Forgot to bring my Strider with me. Looks like I gotta part the lava lakes to go to places!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_water",
+      "text": "Left my spinning blade at home, now how am I gonna cross this sea? Oh, good thing I got me brews with me!"
     },
     {
       "type": "goety:catalyst",

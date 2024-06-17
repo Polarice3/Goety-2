@@ -70,6 +70,9 @@ public class SummonApostle extends Entity {
             if (serverWorld.dimension() == Level.NETHER) {
                 ServerParticleUtil.gatheringParticles(ParticleTypes.ENCHANT, this, serverWorld);
             }
+            if (this.tickCount >= 300) {
+                serverWorld.sendParticles(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY() + 1.0D, this.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
             if (this.tickCount == 450){
                 for(int k = 0; k < 200; ++k) {
                     float f2 = random.nextFloat() * 4.0F;

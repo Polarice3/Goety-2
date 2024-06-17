@@ -1,6 +1,8 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.compat.cataclysm.CataclysmLoaded;
+import com.Polarice3.Goety.config.MainConfig;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
@@ -9,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModLootInject {
@@ -28,6 +31,9 @@ public class ModLootInject {
             String file = name.substring("minecraft:".length());
             evt.getTable().addPool(getInjectPool(file));
         }
+        if (CataclysmLoaded.CATACLYSM.isLoaded() && MainConfig.CataclysmLootCompat.get() && name.equals("cataclysm:entities/ender_guardian")){
+            evt.getTable().addPool(getInjectPool("entities/ender_guardian"));
+        }
     }
 
     private static LootPool getInjectPool(String entryName) {
@@ -35,6 +41,14 @@ public class ModLootInject {
     }
 
     private static LootPoolEntryContainer.Builder<?> getInjectEntry(String name) {
+        if (CataclysmLoaded.CATACLYSM.isLoaded() && MainConfig.CataclysmLootCompat.get()){
+            if (Objects.equals(name, "chests/end_city_treasure")) {
+                return LootTableReference.lootTableReference(Goety.location("inject/chests/end_city_treasure_cataclysm"));
+            }
+            if (Objects.equals(name, "entities/ender_guardian")) {
+                return LootTableReference.lootTableReference(Goety.location("inject/entities/ender_guardian_cataclysm"));
+            }
+        }
         return LootTableReference.lootTableReference(Goety.location("inject/" + name));
     }
 }

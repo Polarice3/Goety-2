@@ -1,6 +1,6 @@
 package com.Polarice3.Goety.client.render.model;
 
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieVindicator;
+import com.Polarice3.Goety.common.entities.neutral.AbstractZombieVindicator;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -82,7 +82,7 @@ public class VillagerServantModel<T extends Owned> extends HumanoidModel<T> {
             this.leftLeg.zRot = 0.0F;
         }
 
-        if (entityIn instanceof ZombieVindicator){
+        if (entityIn instanceof AbstractZombieVindicator){
             AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, entityIn.isAggressive(), this.attackTime, ageInTicks);
         }
 

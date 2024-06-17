@@ -9,7 +9,6 @@ import org.jetbrains.annotations.Nullable;
 public class PotionBrewEffect extends BrewEffect{
     public MobEffect mobEffect;
     public MobEffect inverted;
-    public int duration;
 
     public PotionBrewEffect(MobEffect effect, int soulCost, int cap, int duration) {
         super(effect, soulCost, cap, effect.getCategory(), effect.getColor());
@@ -54,10 +53,4 @@ public class PotionBrewEffect extends BrewEffect{
     protected String getOrCreateDescriptionId() {
         return this.mobEffect.getDescriptionId();
     }
-
-    public int getDuration() {
-        return duration;
-    }
-
-
 }
