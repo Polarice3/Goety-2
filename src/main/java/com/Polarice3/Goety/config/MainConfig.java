@@ -61,6 +61,8 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WheelGuiMovement;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmLootCompat;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
@@ -127,6 +129,10 @@ public class MainConfig {
                 .define("bossMusic", true);
         CameraShake = BUILDER.comment("Players camera can shake. Default: true")
                 .define("cameraShake", true);
+        BUILDER.pop();
+        BUILDER.push("Mod Compatibility");
+        CataclysmLootCompat = BUILDER.comment("If L_Ender Cataclysm is installed, certain loots are modified and change between this and the latter mod. Default: true")
+                .define("cataclysmLootCompat", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""

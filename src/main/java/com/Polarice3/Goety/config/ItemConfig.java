@@ -101,6 +101,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetUndeadNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCrownWeakness;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeHunger;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeChangeTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetUndeadNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
@@ -141,6 +142,8 @@ public class ItemConfig {
                     .define("necroCrownWeakness", true);
             NecroCapeHunger = BUILDER.comment("Whether wearing Necro Cape while not being a Lich gives Hunger when in sunlight, Default: true")
                     .define("necroCapeHunger", true);
+            NecroCapeChangeTexture = BUILDER.comment("Necro Crown and Cape change textures when wearing a specific robe, Default: true")
+                    .define("necroCapeChangeTexture", true);
             NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("namelessSetUndeadNeutral", true);
             BUILDER.pop();

@@ -848,6 +848,9 @@ public class MobUtil {
         return false;
     }
 
+    public static boolean isInSunlighNoRain(LivingEntity livingEntity){
+        return isInSunlight(livingEntity) && !livingEntity.level.isRaining();
+    }
 
     /**
      * Mind Bending, lol.

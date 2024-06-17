@@ -9,6 +9,7 @@
     "EnchantRandomlyFunctionMixin",
     "EntityMixin",
     "FlowingFluidMixin",
+    "ItemEntityMixin",
     "LivingEntityMixin",
     "RaidMixin",
     "SensorMixin",

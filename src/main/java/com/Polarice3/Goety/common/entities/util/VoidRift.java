@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.entities.util;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayLoopSoundPacket;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.ColorUtil;
@@ -168,6 +170,7 @@ public class VoidRift extends CastSpellTrap {
                 }
                 if (!this.playEvent) {
                     this.playSound(ModSounds.VOID_RIFT_OPEN.get(), 5.0F, 1.0F);
+                    ModNetwork.sendToALL(new SPlayLoopSoundPacket(this, ModSounds.VOID_RIFT.get(), 5.0F));
                     this.playEvent = true;
                 }
                 if (this.tickCount % 200 == 0){

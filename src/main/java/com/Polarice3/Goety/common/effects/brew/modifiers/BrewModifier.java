@@ -9,6 +9,8 @@ public class BrewModifier {
     public static String LINGER = "linger";
     public static String QUAFF = "quaff";
     public static String VELOCITY = "velocity";
+    public static String AQUATIC = "aquatic";
+    public static String FIRE_PROOF = "fire_proof";
 
     public static String HIDDEN = "hidden";
     public static String SPLASH = "splash";

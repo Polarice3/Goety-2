@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "aether:skyroot_poison_bucket"
+  },
+  "effect": "aether:inebriation",
+  "soulCost": 25,
+  "capacityExtra": 4,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "aether"
+    }
+  ]
+}

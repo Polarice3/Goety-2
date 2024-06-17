@@ -370,6 +370,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxVelocityLevel;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitKill;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnvironmentalCost;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SummonDown;
 
@@ -382,6 +383,8 @@ public class SpellConfig {
                 .defineInRange("spellDamageMultiplier", 1, 1, Integer.MAX_VALUE);
         OwnerHitCommand = BUILDER.comment("Whether Servants change navigation modes by hitting them, put false to make them change by right-clicking on them, Default: true")
                 .define("ownerHitCommand", true);
+        OwnerHitKill = BUILDER.comment("Whether Servants are killed/dismissed by hitting them while crouching, put false to make them change by right-clicking on them while crouching, Default: true")
+                .define("ownerHitKill", true);
         EnvironmentalCost = BUILDER.comment("Spells have their soul cost reduced or increased depending on the surroundings around the caster, Default: true")
                 .define("environmentalCost", true);
         SummonDown = BUILDER.comment("Certain spells that summons servants will give player Summon Down effect, Default: true")
@@ -433,8 +436,8 @@ public class SpellConfig {
                     .defineInRange("skeletonTime", 60, 0, 72000);
             SkeletonCoolDown = BUILDER.comment("Osseous Spell Cooldown, Default: 100")
                     .defineInRange("skeletonCoolDown", 100, 0, Integer.MAX_VALUE);
-            SkeletonSummonDown = BUILDER.comment("Osseous Spell Summon Down, Default: 280")
-                    .defineInRange("skeletonSummonDown", 280, 0, 72000);
+            SkeletonSummonDown = BUILDER.comment("Osseous Spell Summon Down, Default: 120")
+                    .defineInRange("skeletonSummonDown", 120, 0, 72000);
             BUILDER.pop();
             BUILDER.push("Spooky Spell");
             WraithCost = BUILDER.comment("Spooky Spell Cost, Default: 24")

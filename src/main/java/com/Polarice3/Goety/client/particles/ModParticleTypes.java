@@ -96,6 +96,15 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> BIG_FIRE_GROUND = PARTICLE_TYPES.register("big_fire_ground",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> BIG_SOUL_FIRE = PARTICLE_TYPES.register("big_soul_fire",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> BIG_SOUL_FIRE_DROP = PARTICLE_TYPES.register("big_soul_fire_drop",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> BIG_SOUL_FIRE_GROUND = PARTICLE_TYPES.register("big_soul_fire_ground",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> NECRO_FIRE = PARTICLE_TYPES.register("necro_fire",
             () -> new SimpleParticleType(false));
 

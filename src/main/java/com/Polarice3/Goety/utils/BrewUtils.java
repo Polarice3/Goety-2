@@ -11,6 +11,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -30,6 +32,8 @@ public class BrewUtils {
     public static String LINGERING_ID = "Lingering";
     public static String QUAFF_ID = "Quaff";
     public static String VELOCITY_ID = "Velocity";
+    public static String AQUATIC_ID = "Aquatic";
+    public static String FIRE_PROOF_ID = "FireProof";
     private static final Component NO_EFFECT = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
 
     public static int getAreaOfEffect(ItemStack p_43576_) {
@@ -108,6 +112,32 @@ public class BrewUtils {
         pStack.getOrCreateTag().putFloat(VELOCITY_ID, velocity);
     }
 
+    public static boolean getAquatic(ItemStack p_43576_) {
+        CompoundTag compoundtag = p_43576_.getTag();
+        if (compoundtag != null && compoundtag.contains(AQUATIC_ID)) {
+            return compoundtag.getBoolean(AQUATIC_ID);
+        } else {
+            return false;
+        }
+    }
+
+    public static void setAquatic(ItemStack pStack, boolean aquatic){
+        pStack.getOrCreateTag().putBoolean(AQUATIC_ID, aquatic);
+    }
+
+    public static boolean getFireProof(ItemStack p_43576_) {
+        CompoundTag compoundtag = p_43576_.getTag();
+        if (compoundtag != null && compoundtag.contains(FIRE_PROOF_ID)) {
+            return compoundtag.getBoolean(FIRE_PROOF_ID);
+        } else {
+            return false;
+        }
+    }
+
+    public static void setFireProof(ItemStack pStack, boolean fireProof){
+        pStack.getOrCreateTag().putBoolean(FIRE_PROOF_ID, fireProof);
+    }
+
     public static List<BrewEffectInstance> getBrewEffects(ItemStack p_43548_) {
         return getAllEffects(p_43548_.getTag());
     }
@@ -183,6 +213,10 @@ public class BrewUtils {
                         mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + brewEffectInstance.getAmplifier()));
                     }
 
+                    if (brewEffectInstance.getDuration() > 20) {
+                        mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, formatDuration(brewEffectInstance, p_43558_));
+                    }
+
                     p_43557_.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
                 }
             }
@@ -222,6 +256,12 @@ public class BrewUtils {
             if (BrewUtils.getVelocityLevel(itemStack) > 0){
                 p_43557_.add(Component.translatable("tooltip.goety.brew.velocity", Component.translatable("potion.potency." + BrewUtils.getVelocityLevel(itemStack))).withStyle(ChatFormatting.BLUE));
             }
+            if (BrewUtils.getAquatic(itemStack)){
+                p_43557_.add(Component.translatable("tooltip.goety.brew.aquatic").withStyle(ChatFormatting.BLUE));
+            }
+            if (BrewUtils.getFireProof(itemStack)){
+                p_43557_.add(Component.translatable("tooltip.goety.brew.fireProof").withStyle(ChatFormatting.BLUE));
+            }
             if (!list1.isEmpty()) {
                 p_43557_.add(CommonComponents.EMPTY);
                 p_43557_.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
@@ -245,6 +285,11 @@ public class BrewUtils {
                 }
             }
         }
+    }
+
+    public static String formatDuration(BrewEffectInstance p_19582_, float p_19583_) {
+        int i = Mth.floor((float)p_19582_.getDuration() * p_19583_);
+        return StringUtil.formatTickDuration(i);
     }
 
     public static boolean hasBrewEffect(ItemStack itemStack){

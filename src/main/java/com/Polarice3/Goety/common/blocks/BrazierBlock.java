@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -35,7 +36,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.function.ToIntFunction;
 
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     protected static final VoxelShape SHAPE_BASE_1 = Block.box(1.0D, 0.0D, 1.0D,
@@ -69,21 +69,29 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     public static final VoxelShape SHAPE = Shapes.or(SHAPE_BASE, SHAPE_HOLDER, SHAPE_TOP);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public boolean soulFire;
 
     public BrazierBlock() {
+        this(false);
+    }
+
+    public BrazierBlock(boolean soulFire) {
         super(Properties.of()
                 .mapColor(MapColor.METAL)
                 .strength(3.5F)
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.CHAIN)
-                .lightLevel(litBlockEmission())
+                .lightLevel((state) -> {
+                    int light = 14;
+                    if (soulFire){
+                        light = 10;
+                    }
+                    return state.getValue(BlockStateProperties.LIT) ? light : 0;
+                })
                 .noOcclusion()
         );
+        this.soulFire = soulFire;
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(LIT, Boolean.TRUE));
-    }
-
-    private static ToIntFunction<BlockState> litBlockEmission() {
-        return (state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
@@ -110,7 +118,11 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
         if (pState.getValue(LIT)) {
             if (!pEntity.fireImmune() && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) pEntity)
                     && pEntity.getY() >= pPos.getY() + 0.5F) {
-                pEntity.hurt(pEntity.damageSources().inFire(), 1.0F);
+                float damage = 1.0F;
+                if (this.soulFire){
+                    damage = 2.0F;
+                }
+                pEntity.hurt(pEntity.damageSources().inFire(), damage);
             }
         }
         super.entityInside(pState, pLevel, pPos, pEntity);
@@ -162,18 +174,24 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
         double d0 = (double)pPos.getX() + pRand.nextDouble();
         double d1 = (double)pPos.getY() + pRand.nextDouble();
         double d2 = (double)pPos.getZ() + pRand.nextDouble();
+        ParticleOptions particleOptions = ModParticleTypes.BIG_FIRE.get();
+        ParticleOptions particleOptions2 = ModParticleTypes.BIG_FIRE_DROP.get();
+        if (this.soulFire){
+            particleOptions = ModParticleTypes.BIG_SOUL_FIRE.get();
+            particleOptions2 = ModParticleTypes.BIG_SOUL_FIRE_DROP.get();
+        }
         if (pState.getValue(LIT)) {
             if (pState.getValue(WATERLOGGED)) {
                 if (pLevel.getFluidState(pPos.above()).isEmpty() && pLevel.getBlockState(pPos.above()).isAir()) {
-                    pLevel.addParticle(ModParticleTypes.BIG_FIRE.get(), pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
+                    pLevel.addParticle(particleOptions, pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
                 }
             } else {
                 if (pLevel.getFluidState(pPos.above()).isEmpty() && pLevel.getBlockState(pPos.above()).isAir()) {
                     for (int p = 0; p < 4; ++p) {
                         pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
                     }
-                    pLevel.addParticle(ModParticleTypes.BIG_FIRE.get(), pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
-                    pLevel.addParticle(ModParticleTypes.BIG_FIRE_DROP.get(), pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
+                    pLevel.addParticle(particleOptions, pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
+                    pLevel.addParticle(particleOptions2, pPos.getX() + 0.5F, pPos.getY() + 1.0F, pPos.getZ() + 0.5F, 0, 0, 0);
                 }
             }
             pLevel.playSound(null, pPos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + pLevel.random.nextFloat(), pLevel.random.nextFloat() * 0.7F + 0.3F);

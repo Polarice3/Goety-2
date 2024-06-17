@@ -25,6 +25,33 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:marble/marble_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Подобно факелам и кострам, жаровни могут гореть огнём душ."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:shade/shade_soul_brazier",
+      "recipe2": "goety:stone_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:deepslate_soul_brazier",
+      "recipe2": "goety:brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:blackstone_soul_brazier",
+      "recipe2": "goety:nether_brick_soul_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_soul_brazier"
     }
   ]
 }

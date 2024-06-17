@@ -22,6 +22,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -151,7 +152,7 @@ public class GoetyBaseEffect extends MobEffect {
         }
         if (this == GoetyEffects.WILD_RAGE.get()){
             if (!livingEntity.level.isClientSide){
-                if (livingEntity instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null && mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
+                if (livingEntity instanceof Mob mob && (mob.getAttribute(Attributes.ATTACK_DAMAGE) != null || mob instanceof RangedAttackMob) && mob.getAttribute(Attributes.FOLLOW_RANGE) != null){
                     double follow = mob.getAttributeValue(Attributes.FOLLOW_RANGE);
                     LivingEntity target = world.getNearestEntity(world.getEntitiesOfClass(LivingEntity.class, mob.getBoundingBox().inflate(follow, 4.0D, follow), (p_148152_) -> {
                         return true;

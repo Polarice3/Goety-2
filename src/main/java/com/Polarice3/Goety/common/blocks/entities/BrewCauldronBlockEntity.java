@@ -65,6 +65,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
     public boolean isBrewing = false;
     public int liquidColor = WATER_COLOR, capacity = 0, capacityUsed = 0, duration = 0, amplifier = 0, aoe = 0, heatTime = 0, totalCost = 0, soulTime = 0, quaff = 0, takeBrew = 0, update = 0;
     public float velocity = 0;
+    public boolean isAquatic, isFireProof;
     public float lingering = 0;
 
     public BrewCauldronBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
@@ -321,6 +322,18 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                                     return Mode.BREWING;
                                 }
                             }
+                            if (brewModifier.getId().equals(BrewModifier.AQUATIC)) {
+                                if (!this.isAquatic() && modLevel == 0) {
+                                    this.isAquatic = true;
+                                    return Mode.BREWING;
+                                }
+                            }
+                            if (brewModifier.getId().equals(BrewModifier.FIRE_PROOF)) {
+                                if (!this.isFireProof() && modLevel == 0) {
+                                    this.isFireProof = true;
+                                    return Mode.BREWING;
+                                }
+                            }
                         } else if (brewModifier instanceof CapacityModifier capacityModifier) {
                             if (this.getCapacity() == 4 && capacityModifier.getLevel() == 1) {
                                 this.capacity += 2;
@@ -457,7 +470,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     if (brewEffect instanceof PotionBrewEffect potionBrewEffect){
                         effects.add(new MobEffectInstance(potionBrewEffect.mobEffect, potionBrewEffect.duration));
                     } else {
-                        blockEffects.add(new BrewEffectInstance(brewEffect, 1));
+                        blockEffects.add(new BrewEffectInstance(brewEffect, brewEffect.duration));
                     }
                 } else if (brewModifier != null) {
                     if (brewModifier.getId().equals(BrewModifier.HIDDEN)) {
@@ -493,7 +506,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 for (int j = 0; j < this.getDuration(); j++) {
                     BrewEffect type = blockEffects.get(i).getEffect();
                     int duration = blockEffects.get(i).getDuration();
-                    blockEffects.set(i, new BrewEffectInstance(type, duration));
+                    blockEffects.set(i, new BrewEffectInstance(type, type.isInstantenous() ? duration : duration * 2));
                 }
                 for (int j = 0; j < this.getAmplifier(); j++) {
                     BrewEffect type = blockEffects.get(i).getEffect();
@@ -506,6 +519,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             BrewUtils.setLingering(brew, this.getLingering());
             BrewUtils.setQuaff(brew, this.getQuaff());
             BrewUtils.setVelocity(brew, this.getVelocity());
+            BrewUtils.setAquatic(brew, this.isAquatic());
+            BrewUtils.setFireProof(brew, this.isFireProof());
             brew.getOrCreateTag().putInt("CustomPotionColor", BrewUtils.getColor(effects, blockEffects));
             brew.getOrCreateTag().putBoolean("CustomBrew", true);
             this.markUpdated();
@@ -580,6 +595,14 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         return this.velocity;
     }
 
+    public boolean isAquatic(){
+        return this.isAquatic;
+    }
+
+    public boolean isFireProof(){
+        return this.isFireProof;
+    }
+
     public float getLingering(){
         return this.lingering;
     }
@@ -646,6 +669,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             this.liquidColor = compoundNBT.getInt("Color");
         }
         this.velocity = compoundNBT.getFloat("Velocity");
+        this.isAquatic = compoundNBT.getBoolean("Aquatic");
+        this.isFireProof = compoundNBT.getBoolean("FireProof");
         this.lingering = compoundNBT.getFloat("Lingering");
         this.isBrewing = compoundNBT.getBoolean("Brewing");
         if (compoundNBT.contains("Mode")) {
@@ -669,6 +694,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         pCompound.putInt("ColorUpdate", this.update);
         pCompound.putInt("Color", this.liquidColor);
         pCompound.putFloat("Velocity", this.velocity);
+        pCompound.putBoolean("Aquatic", this.isAquatic);
+        pCompound.putBoolean("FireProof", this.isFireProof);
         pCompound.putFloat("Lingering", this.lingering);
         pCompound.putBoolean("Brewing", this.isBrewing);
         pCompound.putString("Mode", this.mode.name());

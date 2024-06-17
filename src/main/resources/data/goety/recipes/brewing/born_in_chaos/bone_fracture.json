@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "born_in_chaos_v1:gnawed_bones"
+  },
+  "effect": "born_in_chaos_v1:bone_fracture",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "born_in_chaos_v1"
+    }
+  ]
+}

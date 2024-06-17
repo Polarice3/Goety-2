@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class LoopSound extends AbstractTickableSoundInstance {
     protected final Entity entity;
 
-    public LoopSound(SoundEvent soundEvent, Entity entity) {
+    public LoopSound(SoundEvent soundEvent, float volume, Entity entity) {
         super(soundEvent, entity.getSoundSource(), SoundInstance.createUnseededRandom());
         this.entity = entity;
         this.x = (double)((float)entity.getX());
@@ -18,7 +18,11 @@ public class LoopSound extends AbstractTickableSoundInstance {
         this.z = (double)((float)entity.getZ());
         this.looping = true;
         this.delay = 0;
-        this.volume = 1.0F;
+        this.volume = volume;
+    }
+
+    public LoopSound(SoundEvent soundEvent, Entity entity) {
+        this(soundEvent, 1.0F, entity);
     }
 
     public void tick() {
@@ -33,10 +37,10 @@ public class LoopSound extends AbstractTickableSoundInstance {
                 this.y = living.getY();
                 this.z = living.getZ();
             }
-        } else if (this.entity instanceof LivingEntity living){
-            this.x = living.getX();
-            this.y = living.getY();
-            this.z = living.getZ();
+        } else {
+            this.x = this.entity.getX();
+            this.y = this.entity.getY();
+            this.z = this.entity.getZ();
         }
     }
 }

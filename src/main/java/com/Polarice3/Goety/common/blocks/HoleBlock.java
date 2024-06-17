@@ -45,6 +45,11 @@ public class HoleBlock extends BaseEntityBlock {
         return true;
     }
 
+    @Override
+    public VoxelShape getBlockSupportShape(BlockState p_56707_, BlockGetter p_56708_, BlockPos p_56709_) {
+        return Shapes.block();
+    }
+
     public boolean canBeReplaced(BlockState p_53012_, Fluid p_53013_) {
         return false;
     }

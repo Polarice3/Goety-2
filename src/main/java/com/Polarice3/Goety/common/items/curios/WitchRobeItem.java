@@ -34,9 +34,7 @@ public class WitchRobeItem extends SingleStackItem implements ICurioItem {
                             inventory.setIncreaseSpeed(0);
                         }
 
-                        if (!inventory.isEmpty() && inventory.isBrewable()) {
-                            inventory.tick();
-                        }
+                        inventory.tick();
                     }
                 }
             }

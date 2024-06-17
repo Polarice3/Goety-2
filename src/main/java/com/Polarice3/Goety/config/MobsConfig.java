@@ -125,6 +125,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileCryptUndead;
 
@@ -250,6 +251,8 @@ public class MobsConfig {
                 .define("redstoneMonstrosityMold", true);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
                 .define("redstoneMonstrosityLeafBreak", true);
+        RedstoneCubeBlockFind = BUILDER.comment("Enable Redstone Cubes block detection mechanic, Default: true")
+                .define("RedstoneCubeBlockFind", true);
         VexTeleport = BUILDER.comment("Whether Vex Servants can teleport to Players, Default: true")
                 .define("vexTeleport", true);
         MinionsAttackCreepers = BUILDER.comment("Whether Servants can attack Creepers if Mob Griefing Rule is False, Default: true")

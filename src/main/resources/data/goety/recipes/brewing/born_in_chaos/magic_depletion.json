@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "born_in_chaos_v1:nightmare_claw"
+  },
+  "effect": "born_in_chaos_v1:magic_depletion",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 4200,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "born_in_chaos_v1"
+    }
+  ]
+}

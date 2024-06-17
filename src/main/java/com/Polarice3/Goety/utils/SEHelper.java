@@ -41,12 +41,15 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.Npc;
+import net.minecraft.world.entity.npc.VillagerDataHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RespawnAnchorBlock;
 import net.minecraft.world.phys.Vec3;
@@ -177,7 +180,10 @@ public class SEHelper {
                     return MainConfig.AnimalSouls.get();
                 } else if (victim instanceof Raider && !(victim instanceof Ripper)) {
                     return MainConfig.IllagerSouls.get();
-                } else if (victim instanceof AbstractVillager) {
+                } else if (victim instanceof VillagerDataHolder
+                        || victim instanceof ReputationEventHandler
+                        || victim instanceof Npc
+                        || victim instanceof Merchant) {
                     return MainConfig.VillagerSouls.get();
                 } else if (victim instanceof AbstractPiglin) {
                     return MainConfig.PiglinSouls.get();

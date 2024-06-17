@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "irons_spellbooks:oakskin_elixir"
+  },
+  "effect": "irons_spellbooks:oakskin",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1800,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "irons_spellbooks"
+    }
+  ]
+}

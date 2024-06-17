@@ -39,6 +39,8 @@ public class ModTags {
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
+        public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
+        public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
 
         private static TagKey<Block> tag(String name)

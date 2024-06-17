@@ -1,0 +1,20 @@
+{
+  "name": "红石怪",
+  "icon": "minecraft:redstone_block",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/cores)活力核心$(), 你可以把红石块转化成你忠诚的仆从。它对火焰和熔岩免疫，并且会去撞击伤害敌人。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:redstone_cube",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "红石怪还有另一个特性，它在采矿方面有很大的作用。按住潜行键，用矿石、金属或镐可以采集的方块去右键单击它们，这样会使它们理解你想要什么，它们靠近特定的方块时，会发出黄色的光。潜行时空手右击它们可以让它们遗忘你想要的方块。"
+    }
+  ]
+}

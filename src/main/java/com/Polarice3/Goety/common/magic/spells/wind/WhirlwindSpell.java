@@ -62,7 +62,7 @@ public class WhirlwindSpell extends EverChargeSpell {
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vec3 = entityLiving.getDeltaMovement();
-        double y = 0.08D;
+        double y = 0.04D;
         float radius = 2.0F;
         if (rightStaff(staff)){
             radius += 1.0F;

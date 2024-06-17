@@ -310,6 +310,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SPIDER_NEST.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HOLE.get(), HoleBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PART_LIQUID.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NIGHT_BEACON.get(), NightBeaconRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TALL_SKULL.get(), TallSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REDSTONE_GOLEM_SKULL.get(), RedstoneGolemSkullBlockEntityRenderer::new);
@@ -579,6 +580,9 @@ public class ClientInitEvents {
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.BIG_FIRE_GROUND.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE_DROP.get(), FireParticle.Provider::new);
+        event.registerSpriteSet(ModParticleTypes.BIG_SOUL_FIRE_GROUND.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FIRE.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.NECRO_FIRE_DROP.get(), FireParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.SMALL_NECRO_FIRE.get(), FireParticle.SmallProvider::new);

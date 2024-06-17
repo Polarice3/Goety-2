@@ -581,13 +581,13 @@ public class ModEntityType {
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
-    public static final RegistryObject<EntityType<SkeletonPillager>> SKELETON_PILLAGER_SERVANT = register("skeleton_pillager",
-            EntityType.Builder.of(SkeletonPillager::new, MobCategory.MONSTER)
+    public static final RegistryObject<EntityType<SkeletonPillagerServant>> SKELETON_PILLAGER_SERVANT = register("skeleton_pillager",
+            EntityType.Builder.of(SkeletonPillagerServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8));
 
-    public static final RegistryObject<EntityType<ZombieVindicator>> ZOMBIE_VINDICATOR_SERVANT = register("zombie_vindicator",
-            EntityType.Builder.of(ZombieVindicator::new, MobCategory.MONSTER)
+    public static final RegistryObject<EntityType<ZombieVindicatorServant>> ZOMBIE_VINDICATOR_SERVANT = register("zombie_vindicator",
+            EntityType.Builder.of(ZombieVindicatorServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 

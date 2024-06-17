@@ -234,6 +234,7 @@
   "entity.goety.summon_fiery":"Approaching Summon",
   "entity.goety.hail_cloud":"Hail Cloud",
   "entity.goety.monsoon_cloud":"Monsoon Cloud",
+  "entity.goety.hell_cloud":"Hell Cloud",
   "entity.goety.brew_effect_cloud":"Brew Effect Cloud",
   "entity.goety.brew_effect_gas":"Brew Effect Gas",
   "entity.goety.laser":"Laser",
@@ -770,12 +771,19 @@
   "block.goety.snow_brick_wall": "Snow Brick Wall",
 
   "block.goety.shade_brazier": "Shade Brazier",
+  "block.goety.shade_soul_brazier": "Shade Soul Brazier",
   "block.goety.stone_brazier": "Stone Brazier",
+  "block.goety.stone_soul_brazier": "Stone Soul Brazier",
   "block.goety.brick_brazier": "Brick Brazier",
+  "block.goety.brick_soul_brazier": "Brick Soul Brazier",
   "block.goety.deepslate_brazier": "Deepslate Brazier",
+  "block.goety.deepslate_soul_brazier": "Deepslate Soul Brazier",
   "block.goety.nether_brick_brazier": "Nether Brick Brazier",
+  "block.goety.nether_brick_soul_brazier": "Nether Brick Soul Brazier",
   "block.goety.blackstone_brazier": "Blackstone Brazier",
+  "block.goety.blackstone_soul_brazier": "Blackstone Soul Brazier",
   "block.goety.marble_brazier": "Marble Brazier",
+  "block.goety.marble_soul_brazier": "Marble Soul Brazier",
 
   "block.goety.skull_pile": "Skull Pile",
 
@@ -929,6 +937,9 @@
   "block.goety.overgrown_roots": "Overgrown Roots",
   "block.goety.corpse_blossom": "Corpse Blossom",
 
+  "block.goety.hole": "Tunnel Hole",
+  "block.goety.part_liquid": "Parted Fluid",
+
   "block.goety.reinforced_redstone_block": "Reinforced Redstone Block",
 
   "block.goety.tall_skull": "Tall Skull",
@@ -985,6 +996,8 @@
   "effect.goety.sun_allergy.description": "Sets the affected entities on fire and damages helmet when in daylight.",
   "effect.goety.snow_skin": "Snow Skin",
   "effect.goety.snow_skin.description": "Gives characteristics of Snow Golems to affected entities.",
+  "effect.goety.evil_eye": "Evil Eye",
+  "effect.goety.evil_eye.description": "Causes monsters to periodically spawn around the affected.",
   "effect.goety.tripping": "Tripping",
   "effect.goety.tripping.description": "Causes the affected entities to be pushed in random direction periodically, higher levels makes it more frequent.",
   "effect.goety.arrowmantic": "Arrowmantic",
@@ -1069,6 +1082,8 @@
   "effect.goety.leaf_shell": "Leaf Shell",
   "effect.goety.saturation": "Saturation",
   "effect.goety.brew_dye": "Brew Dye",
+  "effect.goety.part_water": "Part Water",
+  "effect.goety.part_lava": "Part Lava",
   "effect.goety.purify_debuff": "Purify Debuffs",
   "effect.goety.purify_buff": "Purify Buffs",
 
@@ -1107,6 +1122,7 @@
 
   "key.goety.lich.category": "Goety Lich",
   "key.goety.lich.lichForm": "Lich Form",
+  "key.goety.lich.nightVision": "Lich Night Vision",
   "key.goety.lich.magnet": "Lich Magnet",
   "key.goety.lich.lichKiss": "Lich Kiss",
 
@@ -1194,7 +1210,7 @@
   "info.goety.witch_robe": "+%s%% resistance to magical damage.",
   "info.goety.witch_robe_brew": "Press %s to open robe brewing stand.",
   "info.goety.warlock_garment": "Automatically uses Wartful Eggs when afflicted with negative effect.",
-  "info.goety.warlock_robe": "+%s%% resistance to magical damage. Arthopods are neutral to wearer.",
+  "info.goety.warlock_robe": "+%s%% resistance to magical damage. Arthopods are neutral to wearer. Chance of not using up Wartful Egg.",
   "info.goety.ring_of_want": "When enchanted with Wanting, increases looting level when killing with servants or spells.",
   "info.goety.ring_of_the_dragon": "Empowers breathing spells when worn.",
   "info.goety.grave_gloves": "+50% attack speed for Scythes.",
@@ -1304,6 +1320,8 @@
   "tooltip.goety.brew.lingering": "Lingering %s",
   "tooltip.goety.brew.quaff": "Quaff %s",
   "tooltip.goety.brew.velocity": "Velocity %s",
+  "tooltip.goety.brew.aquatic": "Aquatic",
+  "tooltip.goety.brew.fireProof": "Fire Proof",
   "tooltip.goety.focusBag.bag": "Bag",
   "tooltip.goety.focusBag.insert": "Insert",
   "tooltip.goety.focusBag.swap": "Swap",
@@ -1539,6 +1557,12 @@
   "subtitle.goety.leapleaf_step": "Leapleaf steps",
   "subtitle.goety.leapleaf_death": "Leapleaf dies",
 
+  "subtitle.goety.ice_golem_hurt": "Ice Golem hurts",
+  "subtitle.goety.ice_golem_attack": "Ice Golem smash",
+  "subtitle.goety.ice_golem_pre_smash": "Ice Golem smash",
+  "subtitle.goety.ice_golem_step": "Ice Golem steps",
+  "subtitle.goety.ice_golem_death": "Ice Golem dies",
+
   "subtitle.goety.squall_golem_hurt": "Squall Golem hurts",
   "subtitle.goety.squall_golem_activate": "Squall Golem starts up",
   "subtitle.goety.squall_golem_deactivate": "Squall Golem shuts down",
@@ -1570,6 +1594,7 @@
 
   "subtitle.goety.haunt_ambient": "Haunt haunts",
   "subtitle.goety.haunt_hurt": "Haunt hurts",
+  "subtitle.goety.haunt_fly": "Haunt fly",
 
   "subtitle.goety.redstone_monstrosity_ambient": "Redstone Monstrosity laughs",
   "subtitle.goety.redstone_monstrosity_hurt": "Redstone Monstrosity hurts",
@@ -1633,13 +1658,32 @@
   "subtitle.goety.poison_anemone_burst": "Poison Anemone emerges",
   "subtitle.goety.poison_anemone_death": "Poison Anemone dies",
 
+  "subtitle.goety.poison_quill_impact": "Poison Quill impact",
+
+  "subtitle.goety.bone_shard_impact": "Bone Shard impact",
+
+  "subtitle.goety.insect_swarm": "Insects swarming",
+  "subtitle.goety.insect_swarm_bite": "Insects biting",
+
+  "subtitle.goety.vine_trap_burst": "Entangle Vines burst out",
+  "subtitle.goety.vine_trap_hold": "Entangle Vines holds",
+
   "subtitle.goety.spider_bite": "Spider bites",
+  "subtitle.goety.spider_call": "Spider call",
+  "subtitle.goety.spider_spit": "Spider spits",
+  "subtitle.goety.spider_web": "Web lands",
+
+  "subtitle.goety.void_rift_open": "Void Rift opens",
+  "subtitle.goety.void_rift": "Void Rift whooshes",
 
   "subtitle.goety.ghast_disappear": "Ghast disappears",
+
+  "subtitle.goety.dirt_debris": "Dirt debris",
 
   "subtitle.goety.evil_laugh": "Evil Laugh",
   "subtitle.goety.roar_spell": "Loud Roar",
   "subtitle.goety.fire_breath": "Breathing Flames",
+  "subtitle.goety.frost_breath": "Breathing Frosts",
   "subtitle.goety.soul_armor": "Apply Armor",
   "subtitle.goety.soul_heal": "Soul Heal",
   "subtitle.goety.prepare_spell": "Prepares Spell",
@@ -1681,14 +1725,26 @@
   "subtitle.goety.harpoon_impact": "Harpoon Hits",
   "subtitle.goety.blast_fungus_throw": "Throw Fungus",
   "subtitle.goety.blast_fungus_explode": "Fungus explodes",
+  "subtitle.goety.corrupt_beam_start": "Corrupted Beam starts",
+  "subtitle.goety.corrupt_beam_loop": "Corrupted Beam blasts",
+  "subtitle.goety.ice_storm_loop": "Ice Storm flies",
   "subtitle.goety.brew_gas": "Gas releases",
   "subtitle.goety.altar_start": "Ritual Starts",
   "subtitle.goety.altar_loop": "Ritual Progress",
   "subtitle.goety.altar_finish": "Ritual Finishes",
 
+  "subtitle.goety.cauldron_bubbles": "Cauldron bubbling",
+  "subtitle.goety.cauldron_chimes": "Cauldron chimes",
+
   "subtitle.goety.resonance_crystal_on": "Resonance Crystal Starts",
   "subtitle.goety.resonance_crystal_loop": "Resonance Crystal hums",
   "subtitle.goety.resonance_crystal_off": "Resonance Crystal Stops",
+
+  "subtitle.goety.spider_nest_start": "Spider Nest starts training",
+  "subtitle.goety.spider_nest_train": "Spider Nest training",
+  "subtitle.goety.spider_nest_spawn": "Spider Nest spawns",
+
+  "subtitle.goety.urn_break": "Urn breaks",
 
   "commands.lich.query.true": "%s is a Lich",
   "commands.lich.query.false": "%s is not a Lich",

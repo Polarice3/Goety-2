@@ -194,6 +194,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.fire_resistance"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.evil_eye",
+      "text": "Сияние зла привлекает самых разных ребят. Самое то для вечеринки!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.brew_dye",
@@ -239,11 +244,21 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fertility",
-      "text": "Что значит, «не хотите»? Размножайтесь, давайте! Бабуле нужна новая пара кожаных сапог!"
+      "text": "Что значит «не хотите»? Размножайтесь, давайте! Бабуле нужна новая пара кожаных сапог!"
     },
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.absorption"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_water",
+      "text": "Я позабыла свою крутящуюся вилку дома, как мне теперь пересечь это море? Ох, хорошо, что у меня с собой варево!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_lava",
+      "text": "Забыла взять с собой лавомерку. Похоже, по пути мне придётся раздвигать лавовые озера!"
     },
     {
       "type": "goety:catalyst",

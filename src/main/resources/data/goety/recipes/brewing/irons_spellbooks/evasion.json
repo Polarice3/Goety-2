@@ -1,0 +1,16 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "irons_spellbooks:evasion_elixir"
+  },
+  "effect": "irons_spellbooks:evasion",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1200,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "irons_spellbooks"
+    }
+  ]
+}

@@ -25,6 +25,7 @@ public abstract class BrewEffect {
     private String descriptionId;
     /** Used String because it's easier than making a new Registry, lol */
     public String effectID;
+    public int duration;
 
     public BrewEffect(String effectID, int soulCost, int capacityExtra, MobEffectCategory category, int color, boolean noExtra) {
         this.effectID = effectID;
@@ -100,6 +101,10 @@ public abstract class BrewEffect {
     }
 
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect){
+        this.applyBlockEffect(pLevel, pPos, pSource, 0, pAmplifier, pAreaOfEffect);
+    }
+
+    public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pDuration, int pAmplifier, int pAreaOfEffect){
     }
 
     public int getSoulCost(){
@@ -220,5 +225,9 @@ public abstract class BrewEffect {
 
     public int getColor() {
         return this.color;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

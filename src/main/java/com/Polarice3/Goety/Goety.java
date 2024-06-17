@@ -357,8 +357,8 @@ public class Goety {
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());
-        event.put(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillager.setCustomAttributes().build());
-        event.put(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), ZombieVindicator.setCustomAttributes().build());
+        event.put(ModEntityType.SKELETON_PILLAGER_SERVANT.get(), SkeletonPillagerServant.setCustomAttributes().build());
+        event.put(ModEntityType.ZOMBIE_VINDICATOR_SERVANT.get(), ZombieVindicatorServant.setCustomAttributes().build());
         event.put(ModEntityType.BOUND_EVOKER.get(), BoundEvoker.setCustomAttributes().build());
         event.put(ModEntityType.BOUND_ICEOLOGER.get(), BoundIceologer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR_SERVANT.get(), HauntedArmorServant.setCustomAttributes().build());

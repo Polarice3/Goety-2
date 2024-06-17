@@ -67,8 +67,10 @@ public class HoleBlockEntity extends SaveBlockEntity{
                         }
                     }
                 }
-                if (!TunnelSpell.createHole(this.level, this.getBlockPos().relative(this.direction.getOpposite()), this.direction, this.count - 1, this.lifespan)) {
-                    this.count = 0;
+                if (this.count > 2) {
+                    if (!TunnelSpell.createHole(this.level, this.getBlockPos().relative(this.direction.getOpposite()), this.direction, this.count - 1, this.lifespan)) {
+                        this.count = 0;
+                    }
                 }
             }
             ++this.life;

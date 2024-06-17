@@ -7,7 +7,7 @@ public class BrewColorEffect extends BrewEffect{
     public DyeItem dyeItem;
 
     public BrewColorEffect(DyeItem dyeItem) {
-        super(dyeItem.getDescriptionId(), 0, 0, MobEffectCategory.NEUTRAL, dyeItem.getDyeColor().getTextColor(), true);
+        super(dyeItem.getDescriptionId(), 0, -1, MobEffectCategory.NEUTRAL, dyeItem.getDyeColor().getTextColor(), true);
         this.dyeItem = dyeItem;
     }
 

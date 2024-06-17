@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.network.server;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.network.NetworkEvent;
@@ -33,10 +34,16 @@ public class SPurifyEffectPacket {
             if (clientWorld != null) {
                 Entity entity = clientWorld.getEntity(packet.mob);
                 if (entity instanceof LivingEntity livingEntity) {
-                    if (packet.removeDebuff) {
-                        livingEntity.getActiveEffects().removeIf(mobEffectInstance -> !mobEffectInstance.getEffect().isBeneficial() && !mobEffectInstance.getEffect().getCurativeItems().isEmpty());
-                    } else {
-                        livingEntity.getActiveEffects().removeIf(mobEffectInstance -> mobEffectInstance.getEffect().isBeneficial() && !mobEffectInstance.getEffect().getCurativeItems().isEmpty());
+                    for (MobEffectInstance mobEffectInstance : livingEntity.getActiveEffects()){
+                        boolean flag;
+                        if (packet.removeDebuff) {
+                            flag = !mobEffectInstance.getEffect().isBeneficial();
+                        } else {
+                            flag = mobEffectInstance.getEffect().isBeneficial();
+                        }
+                        if (flag && !mobEffectInstance.getEffect().getCurativeItems().isEmpty()){
+                            livingEntity.removeEffect(mobEffectInstance.getEffect());
+                        }
                     }
                 }
             }
