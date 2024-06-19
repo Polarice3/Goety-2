@@ -86,6 +86,7 @@ public class ModTags {
 
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
+        public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return create(Goety.location(name));

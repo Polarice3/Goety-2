@@ -101,10 +101,10 @@ public abstract class BrewEffect {
     }
 
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect){
-        this.applyBlockEffect(pLevel, pPos, pSource, 0, pAmplifier, pAreaOfEffect);
     }
 
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pDuration, int pAmplifier, int pAreaOfEffect){
+        this.applyBlockEffect(pLevel, pPos, pSource, pAmplifier, pAreaOfEffect);
     }
 
     public int getSoulCost(){

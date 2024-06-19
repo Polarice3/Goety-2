@@ -104,6 +104,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
@@ -842,10 +843,19 @@ public class ModEvents {
             }
         }
         if (player.getMainHandItem().getItem() instanceof DarkScytheItem){
+            ItemStack scythe = player.getMainHandItem();
             if (event.getState().getBlock().getDescriptionId().contains("sculk") && event.getState().is(BlockTags.MINEABLE_WITH_HOE)){
                 if (!player.level.isClientSide) {
                     ItemStack fakeItem = new ItemStack(Items.DIAMOND_HOE);
                     fakeItem.enchant(Enchantments.SILK_TOUCH, 1);
+                    Map<Enchantment, Integer> map1 = EnchantmentHelper.getEnchantments(scythe);
+                    if (!map1.isEmpty()) {
+                        for (Enchantment enchantment : EnchantmentHelper.getEnchantments(scythe).keySet()) {
+                            if (enchantment != Enchantments.SILK_TOUCH){
+                                fakeItem.enchant(enchantment, map1.get(enchantment));
+                            }
+                        }
+                    }
                     if (event.getState().getBlock() instanceof EnchanteableBlock enchanteableBlock){
                         BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
                         enchanteableBlock.playerDestroy(player.level, event.getPlayer(), event.getPos(), event.getState(), blockEntity, fakeItem);

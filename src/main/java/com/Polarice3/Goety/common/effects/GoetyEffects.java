@@ -111,7 +111,7 @@ public class GoetyEffects {
 
     //Brew Exclusive
     public static final RegistryObject<MobEffect> PRESSURE = EFFECTS.register("pressure",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x007200));
+            () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x007200, BrewConfig.PressureCurable.get()));
 
     public static final RegistryObject<MobEffect> ENDER_GROUND = EFFECTS.register("ender_ground",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x258474));

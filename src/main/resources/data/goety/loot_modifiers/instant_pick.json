@@ -1,0 +1,13 @@
+{
+  "type": "goety:instant_pick",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": [
+          "goety:eerie_pickaxe"
+        ]
+      }
+    }
+  ]
+}

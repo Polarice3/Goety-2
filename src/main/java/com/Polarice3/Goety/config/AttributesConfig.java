@@ -162,7 +162,6 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityFollowRange;
-    public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrositySpitRange;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityHPPercentDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityHurtRange;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneMonstrosityDamageCap;
@@ -581,8 +580,6 @@ public class AttributesConfig {
                         .defineInRange("redstoneMonstrosityDamage", 21.0, 1.0, Double.MAX_VALUE);
                 RedstoneMonstrosityFollowRange = BUILDER.comment("How much following/detection range Redstone Monstrosities have, Default: 32.0")
                         .defineInRange("redstoneMonstrosityFollowRange", 32.0, 1.0, 2048.0);
-                RedstoneMonstrositySpitRange = BUILDER.comment("The furthest number of blocks or distance the target is at that Redstone Monstrosities can perform their spit attack, Default: 13.0")
-                        .defineInRange("redstoneMonstrositySpitRange", 13.0, 4.0, 32.0);
                 RedstoneMonstrosityHPPercentDamage = BUILDER.comment("Redstone Monstrosities attack HP percent damage, Default: 0.08")
                         .defineInRange("redstoneMonstrosityHPPercentDamage", 0.08, 0.0, 1.0);
                 RedstoneMonstrosityHurtRange = BUILDER.comment("How many blocks or distance away an attack can be from Redstone Monstrosities to damage them, Default: 20.0")

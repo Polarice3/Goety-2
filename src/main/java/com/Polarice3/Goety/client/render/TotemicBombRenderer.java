@@ -13,6 +13,7 @@ public class TotemicBombRenderer extends AbstractMonolithRenderer{
     private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/monolith/totemic_bomb.png");
     private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/monolith/totemic_bomb_glow.png"));
     private static final RenderType RENDER_TYPE_2 = RenderType.eyes(Goety.location("textures/entity/monolith/totemic_bomb_glow2.png"));
+    private static final RenderType RENDER_TYPE_3 = RenderType.eyes(Goety.location("textures/entity/monolith/totemic_bomb_glow3.png"));
 
     public TotemicBombRenderer(EntityRendererProvider.Context p_i47208_1_) {
         super(p_i47208_1_);
@@ -20,8 +21,10 @@ public class TotemicBombRenderer extends AbstractMonolithRenderer{
 
     @Override
     public RenderType getActivatedTextureLocation(AbstractMonolith monolith) {
-        if (monolith.tickCount >= MathHelper.secondsToTicks(monolith.getLifeSpan() - 2)){
+        if (monolith.tickCount >= MathHelper.secondsToTicks(1) && monolith.tickCount < MathHelper.secondsToTicks(monolith.getLifeSpan() - 2)){
             return RENDER_TYPE_2;
+        } else if (monolith.tickCount >= MathHelper.secondsToTicks(monolith.getLifeSpan() - 2)){
+            return RENDER_TYPE_3;
         } else {
             return RENDER_TYPE;
         }

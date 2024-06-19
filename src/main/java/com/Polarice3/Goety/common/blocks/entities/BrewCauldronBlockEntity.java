@@ -398,6 +398,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             this.velocity = 0;
             this.lingering = 0;
             this.takeBrew = 0;
+            this.isAquatic = false;
+            this.isFireProof = false;
             this.clearContent();
             this.markUpdated();
             this.level.setBlock(this.worldPosition, this.getBlockState().setValue(ModStateProperties.LEVEL_BREW, 0), 3);

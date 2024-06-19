@@ -72,6 +72,7 @@ public class BrewConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BottlingLevelReq;
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxBottlingLevel;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PressureCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NyctophobiaCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SunAllergyCurable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SnowSkinCurable;
@@ -203,6 +204,8 @@ public class BrewConfig {
                 .defineInRange("saveEffectsCost", 50, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Curable");
+        PressureCurable = BUILDER.comment("Whether Pressure is curable via Milk or Wartful Egg, Default: false")
+                .define("pressureCurable", false);
         NyctophobiaCurable = BUILDER.comment("Whether Nyctophobia is curable via Milk or Wartful Egg, Default: false")
                 .define("nyctophobiaCurable", false);
         SunAllergyCurable = BUILDER.comment("Whether Sun Allergy is curable via Milk or Wartful Egg, Default: false")
