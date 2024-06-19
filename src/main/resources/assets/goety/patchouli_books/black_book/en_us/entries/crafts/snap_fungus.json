@@ -14,11 +14,12 @@
     {
       "type": "patchouli:spotlight",
       "item": "goety:snap_fungus",
-      "text": "It appears that you can only throw a large amount of them at a time. On one hand, you get to throw multiple at once, on the other, you can't throw any more for a couple of seconds. You've also discovered a way to increase the potency of the fungi by combining 4 of them with a Ghast Tear. These Blast Fungi's explosions have larger radius but they no longer leave any poison clouds."
+      "text": "It appears that you can only throw a large amount of them at a time. On one hand, you get to throw multiple at once, on the other, you can't throw any more for a couple of seconds."
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:blast_fungus"
+      "recipe": "goety:blast_fungus",
+      "text": "You've also discovered a way to increase the potency of the fungi by combining 4 of them with a Ghast Tear. These fungi's explosions have larger radius but no longer leave any poison clouds."
     },
     {
       "type": "patchouli:spotlight",

@@ -22,6 +22,7 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -351,9 +352,11 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     }
 
     public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn instanceof WitherBoss) {
+        if (entityIn.getType().is(ModTags.EntityTypes.APOSTLE_OTHER_ALLIES)) {
             return this.getTeam() == null && entityIn.getTeam() == null;
-        } else return super.isAlliedTo(entityIn);
+        } else {
+            return super.isAlliedTo(entityIn);
+        }
     }
 
     public void die(DamageSource cause) {
@@ -862,9 +865,19 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.level.gameEvent(GameEvent.TELEPORT, this.position(), GameEvent.Context.of(this));
         if (this.isSecondPhase()) {
             if (this.getTarget() != null) {
-                FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.prevX, this.prevY, this.prevZ);
-                fireBlastTrap.setOwner(this);
-                this.level.addFreshEntity(fireBlastTrap);
+                if (this.level.getDifficulty() == Difficulty.HARD || this.isInNether()){
+                    double d0 = Math.min(this.getTarget().getY(), this.prevY);
+                    double d1 = Math.max(this.getTarget().getY(), this.prevY) + 1.0D;
+                    float f = (float) Mth.atan2(this.getTarget().getZ() - this.prevZ, this.getTarget().getX() - this.prevX);
+                    for(int i = 0; i < 5; ++i) {
+                        float f1 = f + (float)i * (float)Math.PI * 0.4F;
+                        this.spawnBlasts(this, this.prevX + (double)Mth.cos(f1) * 1.5D, this.prevZ + (double)Mth.sin(f1) * 1.5D, d0, d1);
+                    }
+                } else {
+                    FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.prevX, this.prevY, this.prevZ);
+                    fireBlastTrap.setOwner(this);
+                    this.level.addFreshEntity(fireBlastTrap);
+                }
             }
         }
         if (!this.isSilent()) {
@@ -1278,8 +1291,13 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (this.getTarget() != null && this.getArrowEffect() == MobEffects.HARM && this.getTarget().isInvertedHealAndHarm()){
                 mobEffect = MobEffects.HEAL;
             }
-            if (this.isSecondPhase() && this.getArrowEffect() == MobEffects.DARKNESS){
-                mobEffect = MobEffects.BLINDNESS;
+            if (this.isSecondPhase()){
+                if (this.getArrowEffect() == MobEffects.POISON){
+                    mobEffect = GoetyEffects.ACID_VENOM.get();
+                }
+                if (this.getArrowEffect() == MobEffects.DARKNESS){
+                    mobEffect = MobEffects.BLINDNESS;
+                }
             }
             deathArrow.addEffect(new MobEffectInstance(mobEffect, mobEffect.isInstantenous() ? 1 : 200, amp));
         }
@@ -1338,6 +1356,38 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
         this.resetCoolDown();
         this.setSpellCycle(0);
+    }
+
+    public void spawnBlasts(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY) {
+        BlockPos blockpos = new BlockPos(pPosX, pOPosY, pPosZ);
+        boolean flag = false;
+        double d0 = 0.0D;
+
+        do {
+            BlockPos blockpos1 = blockpos.below();
+            BlockState blockstate = livingEntity.level.getBlockState(blockpos1);
+            if (blockstate.isFaceSturdy(livingEntity.level, blockpos1, Direction.UP)) {
+                if (!livingEntity.level.isEmptyBlock(blockpos)) {
+                    BlockState blockstate1 = livingEntity.level.getBlockState(blockpos);
+                    VoxelShape voxelshape = blockstate1.getCollisionShape(livingEntity.level, blockpos);
+                    if (!voxelshape.isEmpty()) {
+                        d0 = voxelshape.max(Direction.Axis.Y);
+                    }
+                }
+
+                flag = true;
+                break;
+            }
+
+            blockpos = blockpos.below();
+        } while(blockpos.getY() >= Mth.floor(PPPosY) - 1);
+
+        if (flag) {
+            FireBlastTrap fireBlastTrap = new FireBlastTrap(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ);
+            fireBlastTrap.setOwner(livingEntity);
+            livingEntity.level.addFreshEntity(fireBlastTrap);
+        }
+
     }
 
     class CastingSpellGoal extends CastingASpellGoal {
@@ -1474,11 +1524,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         int k = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
                         int l = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
                         BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                        blockpos$mutable.setX(blockpos$mutable.getX() + randomSource.nextInt(5) - randomSource.nextInt(5));
-                        blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                        blockpos$mutable.setZ(blockpos$mutable.getZ() + randomSource.nextInt(5) - randomSource.nextInt(5));
                         ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), Apostle.this.level);
-                        summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
+                        BlockPos blockPos = BlockFinder.SummonRadius(blockpos$mutable, Apostle.this, Apostle.this.level, 5);
+                        summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                         summonedentity.setTrueOwner(Apostle.this);
                         summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
                         serverLevel.addFreshEntity(summonedentity);
@@ -1615,12 +1663,10 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         for (int p = 0; p < p0 + r.nextInt(1 + p0); ++p) {
                             int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
                             int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
-                            BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                            blockpos$mutable.setX(blockpos$mutable.getX() + r.nextInt(5) - r.nextInt(5));
-                            blockpos$mutable.setY((int) BlockFinder.moveDownToGround(Apostle.this));
-                            blockpos$mutable.setZ(blockpos$mutable.getZ() + r.nextInt(5) - r.nextInt(5));
                             Inferno summonedentity = new Inferno(ModEntityType.INFERNO.get(), Apostle.this.level);
-                            summonedentity.moveTo(blockpos$mutable, 0.0F, 0.0F);
+                            BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
+                            BlockPos blockPos = BlockFinder.SummonRadius(blockpos$mutable, summonedentity, Apostle.this.level, 5);
+                            summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                             summonedentity.setTrueOwner(Apostle.this);
                             summonedentity.setLimitedLife(60 * (90 + Apostle.this.level.random.nextInt(180)));
                             summonedentity.finalizeSpawn(serverLevel, Apostle.this.level.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);
@@ -1735,26 +1781,27 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             } else {
                 double d0 = Math.min(apostle.getTarget().getY(), apostle.getY());
                 double d1 = Math.max(apostle.getTarget().getY(), apostle.getY()) + 1.0D;
+                float f = (float) Mth.atan2(apostle.getTarget().getZ() - apostle.getZ(), apostle.getTarget().getX() - apostle.getX());
                 for(int i = 0; i < 5; ++i) {
                     float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                    spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f1) * 1.5D, apostle.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1);
+                    apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f1) * 1.5D, apostle.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1);
                 }
 
                 for(int k = 0; k < 8; ++k) {
                     float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                    spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                    apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                 }
                 if (apostle.getHealth() < apostle.getMaxHealth()/2){
                     for(int k = 0; k < 11; ++k) {
                         float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                        spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                        apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }
 
                 if (apostle.getHealth() < apostle.getMaxHealth()/4){
                     for(int k = 0; k < 14; ++k) {
                         float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                        spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
+                        apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }
             }
@@ -1767,38 +1814,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         @Override
         protected SpellType getSpellType() {
             return SpellType.ROAR;
-        }
-
-        public void spawnBlasts(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY) {
-            BlockPos blockpos = new BlockPos(pPosX, pOPosY, pPosZ);
-            boolean flag = false;
-            double d0 = 0.0D;
-
-            do {
-                BlockPos blockpos1 = blockpos.below();
-                BlockState blockstate = livingEntity.level.getBlockState(blockpos1);
-                if (blockstate.isFaceSturdy(livingEntity.level, blockpos1, Direction.UP)) {
-                    if (!livingEntity.level.isEmptyBlock(blockpos)) {
-                        BlockState blockstate1 = livingEntity.level.getBlockState(blockpos);
-                        VoxelShape voxelshape = blockstate1.getCollisionShape(livingEntity.level, blockpos);
-                        if (!voxelshape.isEmpty()) {
-                            d0 = voxelshape.max(Direction.Axis.Y);
-                        }
-                    }
-
-                    flag = true;
-                    break;
-                }
-
-                blockpos = blockpos.below();
-            } while(blockpos.getY() >= Mth.floor(PPPosY) - 1);
-
-            if (flag) {
-                FireBlastTrap fireBlastTrap = new FireBlastTrap(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ);
-                fireBlastTrap.setOwner(livingEntity);
-                livingEntity.level.addFreshEntity(fireBlastTrap);
-            }
-
         }
     }
 

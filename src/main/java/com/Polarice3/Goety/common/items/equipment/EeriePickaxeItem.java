@@ -60,11 +60,6 @@ public class EeriePickaxeItem extends PickaxeItem {
                 }
                 if (!MobUtil.isShifting(player)){
                     for (Entity entity : worldIn.getEntitiesOfClass(Entity.class, player.getBoundingBox().inflate(10.0F))){
-                        if (entity instanceof ItemEntity itemEntity) {
-                            if (itemEntity.getAge() <= 20) {
-                                itemEntity.playerTouch(player);
-                            }
-                        }
                         if (entity instanceof ExperienceOrb experienceOrb){
                             experienceOrb.playerTouch(player);
                         }

@@ -807,10 +807,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         return true;
     }
 
-    public double spitRange(){
-        return AttributesConfig.RedstoneMonstrositySpitRange.get();
-    }
-
     public Vec3 getHorizontalLookAngle() {
         return this.calculateViewVector(0, this.getYRot());
     }
@@ -1045,7 +1041,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     && livingentity != null
                     && livingentity.isAlive()
                     && !this.mob.targetClose(livingentity)
-                    && this.mob.distanceTo(livingentity) <= this.mob.spitRange()) {
+                    && this.mob.distanceTo(livingentity) <= 13.0F) {
                 return !this.mob.isMeleeAttacking() && !this.mob.isSummoning();
             } else {
                 return false;
@@ -1122,8 +1118,8 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             float velocity = 1.0F;
             if (this.mob.getTarget() != null){
                 LivingEntity livingEntity = this.mob.getTarget();
-                if (livingEntity.distanceTo(this.mob) <= this.mob.spitRange()){
-                    velocity = Math.max(0.25F, (float) (livingEntity.distanceTo(this.mob) / this.mob.spitRange()));
+                if (livingEntity.distanceTo(this.mob) <= 13.0F){
+                    velocity = Math.max(0.25F, livingEntity.distanceTo(this.mob) / 13.0F);
                 }
             }
             this.shoot(bomb, d1, d2 + d4, d3, velocity, 30);

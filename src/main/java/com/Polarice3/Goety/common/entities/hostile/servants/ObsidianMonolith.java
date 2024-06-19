@@ -21,6 +21,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -69,6 +71,11 @@ public class ObsidianMonolith extends AbstractMonolith {
         if (!this.level.isClientSide && !this.isEmerging()) {
             if (pSource.isExplosion() || pSource.isFire()){
                 return false;
+            }
+            if (pSource == DamageSource.IN_WALL){
+                if (this.getTrueOwner() instanceof Apostle apostle) {
+                    this.teleportTowards(apostle);
+                }
             }
             if (ModDamageSource.physicalAttacks(pSource)) {
                 if (pSource.getDirectEntity() instanceof LivingEntity living) {
@@ -176,6 +183,10 @@ public class ObsidianMonolith extends AbstractMonolith {
         return true;
     }
 
+    public boolean isCurrentlyGlowing() {
+        return (!this.level.isClientSide() && !this.isEmerging()) || super.isCurrentlyGlowing();
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.isEmerging()){
@@ -192,6 +203,7 @@ public class ObsidianMonolith extends AbstractMonolith {
                     }
                 }
             }
+            this.setGlowingTag(true);
             if (!this.isActivate()){
                 this.playSound(SoundEvents.RESPAWN_ANCHOR_CHARGE, 1.0F, 0.5F);
                 this.setActivate(true);

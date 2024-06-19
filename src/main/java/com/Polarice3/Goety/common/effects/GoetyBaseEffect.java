@@ -39,6 +39,17 @@ public class GoetyBaseEffect extends MobEffect {
     @SuppressWarnings("deprecation")
     public void applyEffectTick(LivingEntity livingEntity, int amplify) {
         Level world = livingEntity.level;
+        if (this == GoetyEffects.PRESSURE.get()){
+            int count = 0;
+            for (LivingEntity other : world.getEntitiesOfClass(LivingEntity.class, livingEntity.getBoundingBox().inflate(8.0F + amplify))){
+                if (livingEntity.hasLineOfSight(other)){
+                    ++count;
+                }
+            }
+            if (count >= 3){
+                livingEntity.hurt(ModDamageSource.PHOBIA, 1.0F);
+            }
+        }
         if (this == GoetyEffects.NYCTOPHOBIA.get()){
             if (world.getLightLevelDependentMagicValue(livingEntity.blockPosition()) < 0.1 || livingEntity.hasEffect(MobEffects.DARKNESS)) {
                 livingEntity.hurt(ModDamageSource.PHOBIA, 1.0F);
@@ -175,7 +186,7 @@ public class GoetyBaseEffect extends MobEffect {
     }
 
     public boolean isDurationEffectTick(int tick, int amplify) {
-        if (this == GoetyEffects.NYCTOPHOBIA.get()) {
+        if (this == GoetyEffects.NYCTOPHOBIA.get() || this == GoetyEffects.PRESSURE.get()) {
             int j = 40 >> amplify;
             if (j > 0) {
                 return tick % j == 0;

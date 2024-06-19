@@ -110,17 +110,6 @@ public class PotionEvents {
                 MobUtil.ClimbAnyWall(livingEntity);
                 MobUtil.WebMovement(livingEntity);
             }
-            if (livingEntity instanceof Creeper creeper){
-                if (!creeper.level.isClientSide) {
-                    if (creeper.getTarget() != null) {
-                        if (creeper.getTarget().hasEffect(GoetyEffects.PRESSURE.get())) {
-                            if (creeper.getSwellDir() >= 1 && creeper.tickCount % 30 == 0) {
-                                MobUtil.explodeCreeper(creeper);
-                            }
-                        }
-                    }
-                }
-            }
             if (livingEntity instanceof Bee bee){
                 if (!bee.level.isClientSide) {
                     if (bee.getTags().contains(ConstantPaths.conjuredBee())){

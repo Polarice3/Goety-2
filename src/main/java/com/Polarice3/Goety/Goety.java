@@ -126,6 +126,7 @@ public class Goety {
         ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
         ModContainerType.CONTAINER_TYPE.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
+        ModLootModifier.GLOBAL_LOOT_MODIFIER.register(modEventBus);
         ModRituals.RITUALS.register(modEventBus);
         ModStructureTypes.STRUCTURE_TYPE.register(modEventBus);
         ModProcessors.STRUCTURE_PROCESSOR.register(modEventBus);
@@ -318,6 +319,7 @@ public class Goety {
         event.put(ModEntityType.MOSSY_SKELETON_SERVANT.get(), MossySkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerServant.setCustomAttributes().build());
+        event.put(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), CairnNecromancerServant.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH_SERVANT.get(), WraithServant.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServant.setCustomAttributes().build());
         event.put(ModEntityType.VANGUARD_SERVANT.get(), VanguardServant.setCustomAttributes().build());

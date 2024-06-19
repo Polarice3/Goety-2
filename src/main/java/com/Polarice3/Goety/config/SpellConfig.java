@@ -973,12 +973,12 @@ public class SpellConfig {
                     .defineInRange("blinkCoolDown", 20, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("End Walker Spell");
-            EndWalkCost = BUILDER.comment("End Walk Spell Cost, Default: 8")
-                    .defineInRange("endWalkCost", 8, 0, Integer.MAX_VALUE);
+            EndWalkCost = BUILDER.comment("End Walk Spell Cost, Default: 48")
+                    .defineInRange("endWalkCost", 48, 0, Integer.MAX_VALUE);
             EndWalkDuration = BUILDER.comment("Time to cast End Walk Spell, Default: 60")
                     .defineInRange("endWalkDuration", 60, 0, 72000);
-            EndWalkCoolDown = BUILDER.comment("End Walk Spell Cooldown, Default: 200")
-                    .defineInRange("endWalkCoolDown", 200, 0, Integer.MAX_VALUE);
+            EndWalkCoolDown = BUILDER.comment("End Walk Spell Cooldown, Default: 1200")
+                    .defineInRange("endWalkCoolDown", 1200, 0, Integer.MAX_VALUE);
             EndWalkEffectDuration = BUILDER.comment("How long the effect is applied from the spell, Default: 200")
                     .defineInRange("endWalkEffectDuration", 200, 0, Integer.MAX_VALUE);
             BUILDER.pop();

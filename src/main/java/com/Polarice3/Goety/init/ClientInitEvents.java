@@ -406,7 +406,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME.get(), CryptSlimeRenderer::new);
-        event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), AbstractCairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_IRK.get(), IrkRenderer::new);
@@ -421,6 +421,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.MOSSY_SKELETON_SERVANT.get(), SkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUNKEN_SKELETON_SERVANT.get(), SunkenSkeletonServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.NECROMANCER_SERVANT.get(), NecromancerRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER_SERVANT.get(), AbstractCairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH_SERVANT.get(), WraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH_SERVANT.get(), BorderWraithServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.VANGUARD_SERVANT.get(), VanguardRenderer::new);

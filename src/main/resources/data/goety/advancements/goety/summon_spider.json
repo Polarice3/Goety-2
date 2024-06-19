@@ -2,13 +2,13 @@
   "parent": "goety:goety/craft_animation_core",
   "display": {
     "icon": {
-      "item": "minecraft:bone"
+      "item": "minecraft:spider_eye"
     },
     "title": {
-      "translate": "advancements.goety.summon_skeleton.title"
+      "translate": "advancements.goety.summon_spider.title"
     },
     "description": {
-      "translate": "advancements.goety.summon_skeleton.description"
+      "translate": "advancements.goety.summon_spider.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,70 +16,70 @@
     "hidden": false
   },
   "criteria": {
-    "skeleton": {
+    "spider": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "goety:skeleton_servant"
+              "type": "goety:spider_servant"
             }
           }
         ]
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "stray": {
+    "cave_spider": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "goety:stray_servant"
+              "type": "goety:cave_spider_servant"
             }
           }
         ]
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "wither_skeleton": {
+    "web_spider": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "goety:wither_skeleton_servant"
+              "type": "goety:web_spider_servant"
             }
           }
         ]
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "mossy_skeleton": {
+    "icy_spider": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "goety:mossy_skeleton_servant"
+              "type": "goety:icy_spider_servant"
             }
           }
         ]
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "sunken_skeleton": {
+    "bone_spider": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "goety:sunken_skeleton_servant"
+              "type": "goety:bone_spider_servant"
             }
           }
         ]
@@ -89,11 +89,11 @@
   },
   "requirements": [
     [
-      "skeleton",
-      "stray",
-      "wither_skeleton",
-      "mossy_skeleton",
-      "sunken_skeleton"
+      "spider",
+      "cave_spider",
+      "web_spider",
+      "icy_spider",
+      "bone_spider"
     ]
   ]
 }

@@ -16,7 +16,7 @@
     "hidden": false
   },
   "criteria": {
-    "summon": {
+    "wraith": {
       "conditions": {
         "entity": [
           {
@@ -29,11 +29,26 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "border_wraith": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "goety:border_wraith_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "requirements": [
     [
-      "summon"
+      "wraith",
+      "border_wraith"
     ]
   ]
 }
