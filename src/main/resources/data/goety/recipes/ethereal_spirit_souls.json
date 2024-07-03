@@ -4,5 +4,11 @@
     "item": "born_in_chaos_v1:ethereal_spirit"
   },
   "soulIncrease": 5,
-  "cookingtime": 50
+  "cookingtime": 50,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "born_in_chaos_v1"
+    }
+  ]
 }

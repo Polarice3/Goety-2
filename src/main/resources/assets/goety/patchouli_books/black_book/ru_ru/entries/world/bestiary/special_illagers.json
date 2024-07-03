@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Могущественный и начитанный заклинатель, который, похоже, использует в своей магии странный рубиновый осколок на голове. Их тотем был либо подарен другими злодеянами, либо забран у них."
+      "text": "Могущественный и начитанный заклинатель, который, похоже, использует в своей магии странный рубиновый осколок на голове. Его тотем был либо подарен другими злодеянами, либо забран у них."
     },
     {
       "type": "patchouli:entity",
@@ -30,7 +30,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:piker"
+      "entity": "goety:piker",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",
@@ -38,7 +39,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:ripper"
+      "entity": "goety:ripper",
+      "scale": 0.5
     },
     {
       "type": "patchouli:text",
@@ -46,7 +48,8 @@
     },
 	{
       "type": "patchouli:entity",
-      "entity": "goety:trampler"
+      "entity": "goety:trampler",
+      "scale": 0.5
     },
     {
       "type": "patchouli:text",
@@ -86,7 +89,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:conquillager"
+      "entity": "goety:conquillager",
+      "scale": 0.95
     },
     {
       "type": "patchouli:text",

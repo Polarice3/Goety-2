@@ -1,0 +1,15 @@
+{
+  "name": "猛击聚晶",
+  "icon": "goety:mauling_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "熊很强壮，但很狂野，它们很有攻击性。但凭借你的黑暗力量，你能够召唤出对你忠诚至死的熊。当你用$(l:crafts/wild_staff)荒野魔杖$()施法，你一次可以召唤出两只熊，穿戴荒野长袍可以召唤出更强大的熊，它们的进攻甚至会让受害者更加脆弱。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/mauling_focus"
+    }
+  ]
+}

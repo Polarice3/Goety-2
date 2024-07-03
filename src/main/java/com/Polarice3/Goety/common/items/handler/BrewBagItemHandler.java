@@ -39,11 +39,6 @@ public class BrewBagItemHandler extends ItemStackHandler {
         return stack.getItem() instanceof ThrowableBrewItem;
     }
 
-    @Override
-    public int getSlotLimit(int slot) {
-        return 11;
-    }
-
     public NonNullList<ItemStack> getContents(){
         return stacks;
     }

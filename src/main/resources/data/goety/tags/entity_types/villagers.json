@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "minecraft:villager",
-    "minecraft:wandering_trader"
+    "minecraft:wandering_trader",
+    {
+      "id": "guardvillagers:guard",
+      "required": false
+    }
   ]
 }

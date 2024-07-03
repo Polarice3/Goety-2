@@ -20,6 +20,10 @@
     },
     {
       "type": "goety:ritual",
+      "recipe": "goety:summon_apostle2"
+    },
+    {
+      "type": "goety:ritual",
       "recipe": "goety:summon_apostle"
     },
     {

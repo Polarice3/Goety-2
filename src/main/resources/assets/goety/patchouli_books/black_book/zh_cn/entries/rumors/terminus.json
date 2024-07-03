@@ -1,5 +1,5 @@
 {
-  "name": "可恶的机器",
+  "name": "被憎恶的机器",
   "icon": "minecraft:end_stone",
   "category": "goety:rumors",
   "advancement": "goety:goety/read_warred_scroll",
@@ -7,12 +7,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "战争卷轴中提到了一种强大的变体，甚至比红石傀儡还要强大，它被制造出来并被放逐到失落的土地上。 还提到一些学者如何记录这种野兽在被摧毁之前是如何被制造的，但肯定还有一些仍然存在..."
+      "text": "从战争卷轴中提到了一种强大的变体，甚至比红石傀儡还要强大，它被制造并放逐到了一片失落的土地上。也有人提到一些学者是如何记录这种野兽在被摧毁之前是如何制造的，肯定有一些手稿没有被销毁..."
     },
     {
       "type": "patchouli:quest",
-      "trigger": "goety:goety/read_terminus_scroll",
-      "text": "卷轴提到野兽的设计可能来自末日的存在，也许这就是秘密所在。"
+      "trigger": "goety:goety/get_shrouded_blueprint",
+      "text": "卷轴提到，这只野兽的设计源于$(l)末路之地$(), 也许这就是秘密所在..."
     }
   ]
 }

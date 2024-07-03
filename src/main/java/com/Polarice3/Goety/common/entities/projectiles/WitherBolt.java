@@ -128,9 +128,6 @@ public class WitherBolt extends SpellHurtingProjectile {
 
             if (flag && entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 200), this.getEffectSource());
-                if (livingEntity.getRandom().nextFloat() <= 0.25F){
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100));
-                }
                 double x = this.getX();
                 double z = this.getZ();
                 if (entity1 != null){
@@ -176,9 +173,6 @@ public class WitherBolt extends SpellHurtingProjectile {
                     super.explodeHurt(target, damageSource, x, y, z, seen, actualDamage);
                     if (target instanceof LivingEntity livingEntity) {
                         livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 200));
-                        if (livingEntity.getRandom().nextFloat() <= 0.25F){
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100));
-                        }
                     }
                 }
             };

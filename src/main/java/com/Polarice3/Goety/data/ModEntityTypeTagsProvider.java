@@ -30,6 +30,7 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.FROZEN_ZOMBIE_SERVANT.get(),
                 ModEntityType.STRAY_SERVANT.get(),
                 ModEntityType.ICY_SPIDER_SERVANT.get(),
+                ModEntityType.POLAR_BEAR_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
@@ -85,6 +86,7 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.MOD_WITHER_SKULL.get());
         this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityType.SLIME_SERVANT.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
+                ModEntityType.CRYPT_SLIME_SERVANT.get(),
                 ModEntityType.CRYPT_SLIME.get());
 
         //Based on https://github.com/ochotonida/artifacts/blob/1.20.x/data/src/main/java/artifacts/data/providers/EntityTypeTags.java for max compat

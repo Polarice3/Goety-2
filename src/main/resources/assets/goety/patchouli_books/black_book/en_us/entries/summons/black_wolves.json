@@ -1,0 +1,28 @@
+{
+  "name": "Black Wolves",
+  "icon": "minecraft:bone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Thought to be fairy tales, these omens of death are very real and loyal to their summoner."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call upon a loyal black wolf through the use of a $(l:focuses/wild/hunting_focus)Hunting Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_black_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Black Wolf with meat will heal them."
+    }
+  ]
+}

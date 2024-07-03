@@ -15,6 +15,7 @@ import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -22,6 +23,7 @@ import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
@@ -239,22 +241,23 @@ public class DarkWand extends Item implements IWand {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
                         if (!SpellConfig.OwnerHitKill.get()) {
                             summonedEntity.tryKill(player);
+                            return InteractionResult.SUCCESS;
                         }
                     } else {
                         if (!SpellConfig.OwnerHitCommand.get()) {
                             if (summonedEntity.canUpdateMove()) {
                                 summonedEntity.updateMoveMode(player);
+                                return InteractionResult.SUCCESS;
                             }
                         }
                     }
-                    return InteractionResult.SUCCESS;
                 } else if (owned instanceof AbstractVine vine) {
                     if (player.isShiftKeyDown() || player.isCrouching()) {
                         if (!SpellConfig.OwnerHitKill.get()) {
                             vine.kill();
+                            return InteractionResult.SUCCESS;
                         }
                     }
-                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -263,6 +266,7 @@ public class DarkWand extends Item implements IWand {
                 if (player.level instanceof ServerLevel serverLevel) {
                     touchSpells.touchResult(serverLevel, player, target);
                 }
+                return InteractionResult.SUCCESS;
             }
         }
         return super.interactLivingEntity(stack, player, target, hand);
@@ -357,7 +361,7 @@ public class DarkWand extends Item implements IWand {
             return;
         }
         int CastTime = stack.getUseDuration() - count;
-        if (this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
+        if (livingEntityIn.getUseItem() == stack && this.getSpell(stack) != null && this.isNotInstant(this.getSpell(stack))) {
             SoundEvent soundevent = this.CastingSound(stack);
             if (CastTime == 1 && soundevent != null) {
                 if (worldIn instanceof ServerLevel serverLevel) {
@@ -704,8 +708,10 @@ public class DarkWand extends Item implements IWand {
                 RecallFocus.addRecallText(recallFocus, tooltip);
             }
         } else {
-            tooltip.add(Component.translatable("info.goety.wand.focus", "Empty"));
+            tooltip.add(Component.translatable("info.goety.wand.focus", Component.translatable("info.goety.wand.empty")));
+            tooltip.add(Component.translatable("info.goety.wand.open", ModKeybindings.wandSlot().getTranslatedKeyMessage()).withStyle(ChatFormatting.BLUE));
         }
+        tooltip.add(Component.translatable("info.goety.wand.switch", ModKeybindings.wandCircle().getTranslatedKeyMessage()).withStyle(ChatFormatting.BLUE));
     }
 
     @Override
@@ -723,6 +729,17 @@ public class DarkWand extends Item implements IWand {
                     model.leftArm.xRot -= MathHelper.modelDegrees(105);
                     model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.25F;
                     model.rightArm.xRot += MathHelper.modelDegrees(25);
+                }
+            });
+
+            private static final HumanoidModel.ArmPose HOLD_STAFF = HumanoidModel.ArmPose.create("HOLD_STAFF", false, (model, entity, arm) -> {
+                float f5 = entity.animationPosition - entity.animationSpeed * (1.0F - Minecraft.getInstance().getPartialTick());
+                if (arm == HumanoidArm.RIGHT) {
+                    model.rightArm.xRot -= MathHelper.modelDegrees(90);
+                    model.rightArm.zRot = Mth.cos(f5 * 0.6662F) * 0.1F;
+                } else {
+                    model.leftArm.xRot -= MathHelper.modelDegrees(90);
+                    model.leftArm.zRot = -Mth.cos(f5 * 0.6662F) * 0.1F;
                 }
             });
 

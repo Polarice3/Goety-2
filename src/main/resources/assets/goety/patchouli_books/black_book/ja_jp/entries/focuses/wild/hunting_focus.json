@@ -1,0 +1,15 @@
+{
+  "name": "狩猟のフォーカス",
+  "icon": "goety:hunting_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "黒狼は、民間伝承で言及されている超自然的または悪魔的な猟犬であり、オーバーワールド全体で見られると言われています。フォーカスを使用すると、助けのためにそれらを召喚または召喚できます。$(l:crafts/wild_staff)野生の杖$() でキャストすると、より多くの狼が召喚され、野生のローブ を着用すると強化され、爪と噛みつきでターゲットを呪います。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/hunting_focus"
+    }
+  ]
+}

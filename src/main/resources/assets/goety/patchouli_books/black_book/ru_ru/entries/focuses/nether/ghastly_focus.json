@@ -11,6 +11,14 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghastly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Незерская мантия позволит призывать гастов-прислужников вместо маленьких гастов, хотя и в меньшем количестве, даже если использовать незерский посох."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghastly_focus": 1
+  }
 }

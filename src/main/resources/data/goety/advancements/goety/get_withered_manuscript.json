@@ -1,0 +1,22 @@
+{
+  "parent": "goety:goety/kill_a_wither_necromancer",
+  "criteria": {
+    "withered_manuscript": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:withered_manuscript"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "withered_manuscript"
+    ]
+  ]
+}

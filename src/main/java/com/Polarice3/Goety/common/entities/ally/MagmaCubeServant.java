@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.init.ModMobType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.MagmaCube;
@@ -51,6 +53,11 @@ public class MagmaCubeServant extends SlimeServant{
     public void setSize(int p_32972_, boolean p_32973_) {
         super.setSize(p_32972_, p_32973_);
         this.getAttribute(Attributes.ARMOR).setBaseValue((double)(p_32972_ * 3));
+    }
+
+    @Override
+    public MobType getMobType() {
+        return ModMobType.NETHER;
     }
 
     public float getLightLevelDependentMagicValue() {

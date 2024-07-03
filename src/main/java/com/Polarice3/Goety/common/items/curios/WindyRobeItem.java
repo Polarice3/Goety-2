@@ -4,18 +4,26 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningPacket;
+import com.Polarice3.Goety.compat.iron.IronAttributes;
+import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -23,6 +31,9 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.SlotContext;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WindyRobeItem extends SingleStackItem{
@@ -88,5 +99,19 @@ public class WindyRobeItem extends SingleStackItem{
                 victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300));
             }
         }
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
+                                                                        UUID uuid, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
+        if (IronLoaded.IRON_SPELLBOOKS.isLoaded()){
+            if (MainConfig.RobesIronResist.get()) {
+                if (stack.is(ModItems.STORM_ROBE.get())){
+                    map.put(IronAttributes.LIGHTNING_MAGIC_RESIST, new AttributeModifier(UUID.fromString("ed6bb7e0-c849-4e25-849a-e288e2b76961"), "Robes Iron Spell Resist", 0.5F, AttributeModifier.Operation.ADDITION));
+                }
+            }
+        }
+        return map;
     }
 }

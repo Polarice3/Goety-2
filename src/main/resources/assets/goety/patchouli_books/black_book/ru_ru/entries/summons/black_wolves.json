@@ -1,0 +1,28 @@
+{
+  "name": "Чёрные волки",
+  "icon": "minecraft:bone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти предвестники смерти, считающиеся персонажами сказок, на деле очень реальны и верны своему владельцу."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать чёрных волков с помощью $(l:focuses/wild/mauling_focus)фокуса охоты$() или ритуала, который призывает волков с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_black_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Нажатие ПКМ по чёрному волку мясом исцелит его."
+    }
+  ]
+}

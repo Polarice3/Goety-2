@@ -1,0 +1,24 @@
+{
+  "name": "Пылающая клетка",
+  "icon": "goety:blazing_cage",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Несмотря на то, что вы не можете воссоздать рассадники всполохов из незерской крепости, вам удалось создать его подобие, которое создаёт всполохов-прислужников, хотя и за определённую цену."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blazing_cage"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Клетке необходимо дать магму, чтобы оно могло призывать всполохов. Подобно паучьему гнезду, нажатие ПКМ по клетке палочкой или посохом позволит ей вызывать прислужников, только когда рядом есть противник."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_cage": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "过往卷轴",
+  "icon": "goety:bygone_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_withered_manuscript",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "你已经设法获得了一份凋零手稿，上面详细介绍了堡垒居民的工作方式和魔法。不幸的是，手稿几乎无法阅读，但你已经设法找到了一种方法来召唤已死者来解密它。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bygone_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:withered_manuscript": 0,
+    "goety:bygone_scroll": 1
+  }
+}

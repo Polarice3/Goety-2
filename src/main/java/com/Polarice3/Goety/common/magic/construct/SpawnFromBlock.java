@@ -3,6 +3,8 @@ package com.Polarice3.Goety.common.magic.construct;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.SlimeServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.world.structures.ModStructures;
+import com.Polarice3.Goety.utils.BlockFinder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,6 +25,9 @@ public class SpawnFromBlock {
             Summoned summoned = null;
             if (blockState.is(Blocks.SLIME_BLOCK)) {
                 summoned = ModEntityType.SLIME_SERVANT.get().create(level);
+                if (BlockFinder.findStructure(level, blockPos, ModStructures.CRYPT_KEY)){
+                    summoned = ModEntityType.CRYPT_SLIME_SERVANT.get().create(level);
+                }
             } else if (blockState.is(Blocks.MAGMA_BLOCK)){
                 summoned = ModEntityType.MAGMA_CUBE_SERVANT.get().create(level);
             }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.hostile.servants;
 import com.Polarice3.Goety.common.entities.neutral.OwnedFlying;
 import com.Polarice3.Goety.common.entities.projectiles.HellBlast;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -62,6 +63,11 @@ public class Malghast extends OwnedFlying {
 
     public void addFireballGoal(){
         this.goalSelector.addGoal(7, new FireballAttackGoal(this));
+    }
+
+    @Override
+    public MobType getMobType() {
+        return ModMobType.NETHER;
     }
 
     public void tick() {

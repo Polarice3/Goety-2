@@ -65,6 +65,16 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
         return itemStacks;
     }
 
+    public boolean isEmpty(){
+        int i = 0;
+        for (ItemStack itemStack : this.getItems()){
+            if (!itemStack.isEmpty()){
+                ++i;
+            }
+        }
+        return i <= 0;
+    }
+
     public void readNetwork(CompoundTag compoundNBT) {
         NonNullList<ItemStack> items = NonNullList.withSize(this.getContainer().getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundNBT, items);
@@ -243,13 +253,13 @@ public class NecroBrazierBlockEntity extends ModBlockEntity implements Clearable
                         dropItemStack(this.level, blockpos.getX(), blockpos.getY() + 1, blockpos.getZ(), itemstack1);
                         this.level.playSound(null, this.getBlockPos(), ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                     } else {
-                        if (!this.getItems().isEmpty()) {
+                        if (!this.isEmpty()) {
                             Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
                             this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                         }
                     }
                 } else {
-                    if (!this.getItems().isEmpty()) {
+                    if (!this.isEmpty()) {
                         Containers.dropContents(this.level, this.getBlockPos(), this.getItems());
                         this.level.playSound(null, this.getBlockPos(), ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 2.0F, 0.5F);
                     }

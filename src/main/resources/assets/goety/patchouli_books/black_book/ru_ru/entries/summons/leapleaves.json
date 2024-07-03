@@ -10,7 +10,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:leapleaf"
+      "entity": "goety:leapleaf",
+      "scale": 0.75
     },
     {
       "type": "multiblock",

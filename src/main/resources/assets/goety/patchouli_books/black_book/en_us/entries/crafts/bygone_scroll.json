@@ -1,0 +1,20 @@
+{
+  "name": "Bygone Scroll",
+  "icon": "goety:bygone_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_withered_manuscript",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "You've managed to obtain a manuscript that details on the fortress dwellers workings and magic. Unfortunately, the manuscript is nigh-unreadable but you've managed to find a way to call upon the dead to fill in the blanks."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bygone_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:withered_manuscript": 0,
+    "goety:bygone_scroll": 1
+  }
+}

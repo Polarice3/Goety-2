@@ -1,0 +1,31 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:shrouded_blueprint"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 30,
+  "research": "warred",
+  "ingredients": [
+    {
+      "item": "cataclysm:monstrous_horn"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "goety:ectoplasm"
+    }
+  ],
+  "result": {
+    "item": "goety:terminus_scroll"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cataclysm"
+    }
+  ]
+}

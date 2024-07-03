@@ -1,0 +1,33 @@
+{
+  "name": "熊的力量",
+  "icon": "minecraft:salmon",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些熊忠诚而好斗，是优秀的仆人，可以用爪子抓和撕裂你的敌人。如果你不在意它缓慢的速度，它也是一个很好的坐骑，而且你不需要马鞍。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/wild/mauling_focus)猛击聚晶$()来召唤一只熊，或者使用某种仪式来召唤一只没有存续时间的熊。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bear_servant_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bear_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "持有鱼时右键点击一个忠诚的熊仆从，会治愈他们。在寒冷的生物群落中召唤一头熊，或用$(l:crafts/frost_staff)冰霜魔杖$()召唤，会召唤一头北极熊仆从。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:polar_bear_servant",
+      "scale": 0.5
+    }
+  ]
+}

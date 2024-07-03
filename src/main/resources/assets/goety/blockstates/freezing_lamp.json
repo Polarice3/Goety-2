@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "goety:block/freezing_lamp" }
+    "lit=true": { "model": "goety:block/freezing_lamp" },
+    "lit=false": { "model": "goety:block/freezing_lamp_off" }
   }
 }

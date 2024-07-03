@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.common.crafting.BrewingRecipe;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.effects.brew.BrewEffects;
@@ -23,7 +24,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,6 +36,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.entity.player.Player;
@@ -41,18 +46,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.MagmaBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.LavaFluid;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Based and modified from @MoriyaShiine's Witch Cauldron codes.
@@ -62,6 +68,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
     private final List<BlockPos> witchPoles = Lists.newArrayList();
     public static int WATER_COLOR = 0x3F76E4, FAILED_COLOR = 0x6D4423;
     public NonNullList<ItemStack> container = NonNullList.withSize(32, ItemStack.EMPTY);
+    public Map<Integer, EntityType<?>> sacrificed = new HashMap<>();
     public Mode mode = Mode.IDLE;
     public boolean isBrewing = false;
     public int liquidColor = WATER_COLOR, capacity = 0, capacityUsed = 0, duration = 0, amplifier = 0, aoe = 0, heatTime = 0, totalCost = 0, soulTime = 0, quaff = 0, takeBrew = 0, update = 0;
@@ -148,7 +155,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
 
     private int getFirstEmptySlot() {
         for (int i = 0; i < this.getCapacity(); i++) {
-            if (this.getItem(i).isEmpty()) {
+            if (this.getItem(i).isEmpty() && this.getSacrificed(i) == null) {
                 return i;
             }
         }
@@ -163,6 +170,45 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             }
             this.markUpdated();
         }
+    }
+
+    public Mode addSacrifice(Entity entity){
+        if (this.level != null && !this.level.isClientSide){
+            int firstEmpty = getFirstEmptySlot();
+            if (firstEmpty != -1) {
+                this.setSacrificed(firstEmpty, entity.getType());
+                if (this.mode == Mode.BREWING) {
+                    BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream()
+                            .filter(recipe -> {
+                                if (recipe.getEntityTypeTag() != null){
+                                    return entity.getType().is(recipe.getEntityTypeTag());
+                                } else if (recipe.getEntityType() != null) {
+                                    return entity.getType() == recipe.getEntityType();
+                                }
+                                return false;
+                            }).findFirst().orElse(null);
+                    BrewEffect brewEffect = new BrewEffects().getEffectFromSacrifice(entity.getType());
+                    if (brewingRecipe != null){
+                        if (brewingRecipe.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                            this.capacityUsed += brewingRecipe.getCapacityExtra();
+                            this.addCost(brewingRecipe.soulCost);
+                            this.setColor(BrewUtils.getColor(this.getBrew()));
+                            return Mode.BREWING;
+                        }
+                    }
+                    if (brewEffect != null){
+                        if (brewEffect.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                            this.capacityUsed += brewEffect.getCapacityExtra();
+                            this.addCost(brewEffect.getSoulCost());
+                            this.setColor(BrewUtils.getColor(this.getBrew()));
+                            return Mode.BREWING;
+                        }
+                    }
+                }
+            }
+            this.markUpdated();
+        }
+        return fail();
     }
 
     public Mode insertItem(ItemStack itemStack){
@@ -467,7 +513,21 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 BrewModifier brewModifier = new BrewEffects().getModifier(item);
                 BrewEffect brewEffect = new BrewEffects().getEffectFromCatalyst(item);
                 BrewingRecipe brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream().filter(recipe -> recipe.input.test(itemStack)).findFirst().orElse(null);
-                if (brewingRecipe != null && effects.stream().noneMatch(effect -> effect.getEffect() == brewingRecipe.output)) {
+                EntityType<?> entityType = this.getSacrificed(i);
+                if (entityType != null){
+                    brewingRecipe = this.level.getRecipeManager().getAllRecipesFor(ModRecipeSerializer.BREWING_TYPE.get()).stream()
+                            .filter(recipe -> {
+                                if (recipe.getEntityTypeTag() != null){
+                                    return entityType.is(recipe.getEntityTypeTag());
+                                } else if (recipe.getEntityType() != null) {
+                                    return entityType == recipe.getEntityType();
+                                }
+                                return false;
+                            }).findFirst().orElse(null);
+                    brewEffect = new BrewEffects().getEffectFromSacrifice(entityType);
+                }
+                BrewingRecipe finalBrewingRecipe = brewingRecipe;
+                if (brewingRecipe != null && effects.stream().noneMatch(effect -> effect.getEffect() == finalBrewingRecipe.output)) {
                     effects.add(new MobEffectInstance(brewingRecipe.output, brewingRecipe.duration));
                 } else if (brewEffect != null){
                     if (brewEffect instanceof PotionBrewEffect potionBrewEffect){
@@ -571,6 +631,11 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 ++number;
             }
         }
+        for(EntityType<?> entityType : this.sacrificed.values()) {
+            if (entityType != null) {
+                ++number;
+            }
+        }
         return number;
     }
 
@@ -622,8 +687,21 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 return false;
             }
         }
+        for(EntityType<?> entityType : this.sacrificed.values()) {
+            if (entityType != null) {
+                return false;
+            }
+        }
 
         return true;
+    }
+
+    public EntityType<?> getSacrificed(int pIndex) {
+        return this.sacrificed.get(pIndex);
+    }
+
+    public void setSacrificed(int pIndex, EntityType<?> pStack){
+        this.sacrificed.put(pIndex, pStack);
     }
 
     @Override
@@ -654,6 +732,11 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
     @Override
     public void clearContent() {
         this.container.clear();
+        this.clearSacrifices();
+    }
+
+    public void clearSacrifices() {
+        this.sacrificed.clear();
     }
 
     public void load(CompoundTag compoundNBT) {
@@ -681,6 +764,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         }
         this.container = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundNBT, this.container);
+        this.sacrificed = new HashMap<>();
+        loadAllSacrificed(compoundNBT, this.sacrificed);
     }
 
     public void saveAdditional(CompoundTag pCompound) {
@@ -703,6 +788,45 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         pCompound.putBoolean("Brewing", this.isBrewing);
         pCompound.putString("Mode", this.mode.name());
         ContainerHelper.saveAllItems(pCompound, this.container);
+        saveEntities(pCompound, this.sacrificed);
+    }
+
+    public static CompoundTag saveEntities(CompoundTag p_18977_, Map<Integer, EntityType<?>> p_18978_) {
+        ListTag listtag = new ListTag();
+
+        for (int i : p_18978_.keySet()) {
+            EntityType<?> entityType = p_18978_.get(i);
+            if (entityType != null) {
+                CompoundTag compoundtag = new CompoundTag();
+                ResourceLocation resourceLocation = ForgeRegistries.ENTITY_TYPES.getKey(entityType);
+                if (resourceLocation != null) {
+                    compoundtag.putInt("Slot", i);
+                    compoundtag.putString("Type", resourceLocation.toString());
+                    listtag.add(compoundtag);
+                }
+            }
+        }
+
+        if (!listtag.isEmpty()) {
+            p_18977_.put("Sacrificed", listtag);
+        }
+
+        return p_18977_;
+    }
+
+    public static void loadAllSacrificed(CompoundTag p_18981_, Map<Integer, EntityType<?>> p_18982_) {
+        ListTag listtag = p_18981_.getList("Sacrificed", 10);
+
+        for(int i = 0; i < listtag.size(); ++i) {
+            CompoundTag compoundtag = listtag.getCompound(i);
+            ResourceLocation resourceLocation = new ResourceLocation(compoundtag.getString("Type"));
+            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation);
+            int j = compoundtag.getInt("Slot");
+            if (entityType != null) {
+                p_18982_.put(j, entityType);
+            }
+        }
+
     }
 
     public int getTargetLevel(ItemStack stack, Player player) {
@@ -712,7 +836,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
             if (mode == Mode.IDLE || mode == Mode.FAILED) {
                 if (item == Items.BUCKET && waterLevel == 3) {
                     return 0;
-                } else if (item == Items.WATER_BUCKET && waterLevel == 0) {
+                } else if (item == Items.WATER_BUCKET && waterLevel < 3) {
                     return 3;
                 } else if (item == Items.GLASS_BOTTLE) {
                     return waterLevel - 1;
@@ -747,6 +871,10 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         chance -= 0.25F;
                     }
                     times += SEHelper.getBottleLevel(player);
+                    MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.BOTTLING.get());
+                    if (mobEffectInstance != null){
+                        times += mobEffectInstance.getAmplifier() + 1;
+                    }
                     if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
                         return waterLevel - 1;
                     } else {
@@ -767,7 +895,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
         assert this.level != null;
         BlockPos pos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ());
         BlockState blockState = this.level.getBlockState(pos);
-        return blockState.getMaterial() == Material.FIRE || blockState.getMaterial() == Material.LAVA || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
+        return blockState.getBlock() instanceof BaseFireBlock || blockState.getBlock() instanceof LiquidBlock liquidBlock && liquidBlock.getFluid() instanceof LavaFluid || blockState.getBlock() instanceof MagmaBlock || (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(BlockStateProperties.LIT));
     }
 
     public void findWitchPoles(){

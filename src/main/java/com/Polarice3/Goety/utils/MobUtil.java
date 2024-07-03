@@ -1092,7 +1092,11 @@ public class MobUtil {
     }
 
     public static boolean teleport(LivingEntity livingEntity, int level) {
-        int distance = 64 + (level * 2);
+        return teleport(livingEntity, 64, level);
+    }
+
+    public static boolean teleport(LivingEntity livingEntity, int initialDistance, int level) {
+        int distance = initialDistance + (level * 2);
         if (!livingEntity.level.isClientSide() && livingEntity.isAlive()) {
             double d0 = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * distance;
             double d1 = livingEntity.getY() + (double)(livingEntity.getRandom().nextInt(distance) - (distance / 2));

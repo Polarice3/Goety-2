@@ -1,0 +1,21 @@
+{
+  "name": "Terminus Scroll",
+  "icon": "goety:terminus_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_shrouded_blueprint",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The blueprint shares some similarities with the Warred Scroll, making you think that transcribing it into a readable schematic requires something that's from a similar creation."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:terminus_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 0,
+    "goety:terminus_scroll": 1
+  }
+}

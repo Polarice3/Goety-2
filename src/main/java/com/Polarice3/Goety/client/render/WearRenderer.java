@@ -41,6 +41,8 @@ public record WearRenderer(ResourceLocation texture,
             if (ItemConfig.NecroCapeChangeTexture.get()) {
                 if (CuriosFinder.hasFrostRobes(livingEntity)) {
                     return CuriosRenderer.render("necro_cape_crypt.png");
+                } else if (CuriosFinder.hasNetherRobe(livingEntity)){
+                    return CuriosRenderer.render("necro_cape_nether.png");
                 }
             }
         }

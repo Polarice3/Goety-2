@@ -1,0 +1,15 @@
+{
+  "name": "狩猎聚晶",
+  "icon": "goety:hunting_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "黑狼是民间传说中提到的超自然的恶魔猎犬，传说有人在主世界遇到过它们。有了法术聚晶，你就可以召唤它们来寻求帮助。当持有$(l:crafts/wild_staff)荒野魔杖$()时，你可以召唤更多的狼，穿上荒野长袍会增强它们的力量，它们的爪子和撕咬会使目标得到伤口无法愈合的诅咒。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/hunting_focus"
+    }
+  ]
+}

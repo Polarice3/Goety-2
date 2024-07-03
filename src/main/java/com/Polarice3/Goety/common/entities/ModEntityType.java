@@ -467,6 +467,13 @@ public class ModEntityType {
                     .fireImmune()
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Damned>> DAMNED = register("damned",
+            EntityType.Builder.of(Damned::new, MobCategory.MONSTER)
+                    .canSpawnFarFromPlayer()
+                    .fireImmune()
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<VampireBat>> VAMPIRE_BAT = register("vampire_bat",
             EntityType.Builder.of(VampireBat::new, MobCategory.MONSTER)
                     .sized(0.5F, 0.9F)
@@ -652,6 +659,11 @@ public class ModEntityType {
                     .fireImmune()
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<CryptSlimeServant>> CRYPT_SLIME_SERVANT = register("crypt_slime_servant",
+            EntityType.Builder.of(CryptSlimeServant::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<SpiderServant>> SPIDER_SERVANT = register("spider_servant",
             EntityType.Builder.of(SpiderServant::new, MobCategory.MONSTER)
                     .sized(1.4F, 0.9F)
@@ -695,6 +707,22 @@ public class ModEntityType {
     public static final RegistryObject<EntityType<ZombieRavager>> ZOMBIE_RAVAGER = register("zombie_ravager",
             EntityType.Builder.of(ZombieRavager::new, MobCategory.MONSTER)
                     .sized(1.95F, 2.2F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<BlackWolf>> BLACK_WOLF = register("black_wolf",
+            EntityType.Builder.of(BlackWolf::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.85F)
+                    .clientTrackingRange(8));
+
+    public static final RegistryObject<EntityType<BearServant>> BEAR_SERVANT = register("bear_servant",
+            EntityType.Builder.of(BearServant::new, MobCategory.MONSTER)
+                    .sized(1.4F, 1.4F)
+                    .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<BearServant>> POLAR_BEAR_SERVANT = register("polar_bear_servant",
+            EntityType.Builder.of(BearServant::new, MobCategory.MONSTER)
+                    .immuneTo(Blocks.POWDER_SNOW)
+                    .sized(1.4F, 1.4F)
                     .clientTrackingRange(10));
 
     public static final RegistryObject<EntityType<Whisperer>> WHISPERER = register("whisperer",

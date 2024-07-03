@@ -94,6 +94,10 @@ public class CuriosFinder {
         return hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof WarlockRobeItem);
     }
 
+    public static boolean hasNetherRobe(LivingEntity livingEntity){
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof NetherRobeItem));
+    }
+
     public static boolean hasWitchSet(LivingEntity livingEntity){
         return hasWitchHat(livingEntity)
                 && hasWitchRobe(livingEntity);

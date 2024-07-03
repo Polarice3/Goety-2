@@ -1,0 +1,24 @@
+{
+  "name": "Blazing Cage",
+  "icon": "goety:blazing_cage",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While you're unable to recreate the Blaze Spawners found in Fortresses, you've managed to figure out a way to create a simulacrum that properly produces a loyal Blaze, though with a price."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blazing_cage"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The cage requires a Magma Block to be added, in order to call forth a Blaze Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_cage": 1
+  }
+}

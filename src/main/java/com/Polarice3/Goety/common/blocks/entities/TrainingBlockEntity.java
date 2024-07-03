@@ -6,6 +6,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ItemHelper;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import com.Polarice3.Goety.utils.SEHelper;
 import net.minecraft.core.BlockPos;
@@ -216,6 +217,9 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
             if (this.isFuel(pStack) && this.trainAmount < this.maxTrainAmount()) {
                 this.itemStack = pStack;
                 this.startTraining(1, pStack);
+                if (pStack.hasCraftingRemainingItem()){
+                    ItemHelper.addItemEntity(this.level, this.getBlockPos().above(), pStack.getCraftingRemainingItem());
+                }
                 pStack.shrink(1);
                 this.markUpdated();
                 return true;

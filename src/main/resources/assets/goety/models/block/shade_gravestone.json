@@ -1,0 +1,6 @@
+{
+	"parent": "goety:block/template_gravestone",
+	"textures": {
+		"grave": "goety:block/shade_gravestone"
+	}
+}

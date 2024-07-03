@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -91,7 +92,11 @@ public class FireBreathSpell extends BreathingSpell {
             }
             for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
-                    if (target.hurt(ModDamageSource.fireBreath(entityLiving, entityLiving), damage)){
+                    DamageSource damageSource = ModDamageSource.fireBreath(entityLiving, entityLiving);
+                    if (CuriosFinder.hasNetherRobe(entityLiving)){
+                        damageSource = ModDamageSource.magicFireBreath(entityLiving, entityLiving);
+                    }
+                    if (target.hurt(damageSource, damage)){
                         target.setSecondsOnFire(5 * burning);
                     }
                 }

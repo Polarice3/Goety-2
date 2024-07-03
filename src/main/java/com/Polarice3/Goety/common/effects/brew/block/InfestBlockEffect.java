@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class InfestBlockEffect extends BrewEffect {
-    public InfestBlockEffect(int cap) {
-        super("infest", cap, MobEffectCategory.HARMFUL, 0x778e9a);
+    public InfestBlockEffect(int soulCost) {
+        super("infest", soulCost, MobEffectCategory.HARMFUL, 0x778e9a);
     }
 
     @Override

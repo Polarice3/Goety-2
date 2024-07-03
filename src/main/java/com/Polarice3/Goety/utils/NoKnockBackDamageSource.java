@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 public class NoKnockBackDamageSource extends DamageSource {
+    protected final String deathMsg;
     @Nullable
     protected final Entity entity;
     @Nullable
@@ -16,6 +17,14 @@ public class NoKnockBackDamageSource extends DamageSource {
 
     public NoKnockBackDamageSource(String pMessageId, @Nullable Entity pSource, @Nullable Entity pIndirectEntity) {
         super(pMessageId);
+        this.deathMsg = pMessageId;
+        this.entity = pSource;
+        this.owner = pIndirectEntity;
+    }
+
+    public NoKnockBackDamageSource(String pMessageId, String pDeathMessage, @Nullable Entity pSource, @Nullable Entity pIndirectEntity) {
+        super(pMessageId);
+        this.deathMsg = pDeathMessage;
         this.entity = pSource;
         this.owner = pIndirectEntity;
     }
@@ -35,7 +44,7 @@ public class NoKnockBackDamageSource extends DamageSource {
     }
 
     public Component getLocalizedDeathMessage(LivingEntity pLivingEntity) {
-        String s = "death.attack." + this.msgId;
+        String s = "death.attack." + this.deathMsg;
         if (this.entity != null){
             Component itextcomponent = this.owner == null ? this.entity.getDisplayName() : this.owner.getDisplayName();
             ItemStack itemstack = this.owner instanceof LivingEntity ? ((LivingEntity)this.owner).getMainHandItem() : ItemStack.EMPTY;

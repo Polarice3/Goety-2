@@ -1,0 +1,22 @@
+{
+  "name": "暗影墓碑",
+  "icon": "goety:shade_gravestone",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "暗影石和诅咒金属锭是死灵能量绝佳导体。通过一些修补和腐烂聚晶的加持，你已经成功地创建了一个特殊的墓碑，可以根据需要召唤出忠诚的僵尸仆人."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_gravestone"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "墓碑需要一块铁锭，才能召唤出一个僵尸仆从。 就像蜘蛛巢一样，用魔杖或杖右键点击暗影墓碑，那么它会在附近有有效目标的情况下产生一个仆从。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_gravestone": 1
+  }
+}

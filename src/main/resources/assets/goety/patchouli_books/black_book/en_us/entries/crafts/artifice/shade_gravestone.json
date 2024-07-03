@@ -1,0 +1,22 @@
+{
+  "name": "Shade Gravestone",
+  "icon": "goety:shade_gravestone",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Shade stone and cursed metal are great at funneling necrotic energies. With some tinkering and the Rotting Focus, you've managed to create a special gravestone that can summon forth loyal Zombie Servants on demand."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_gravestone"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The gravestone requires an Iron Ingot to be added, in order to call forth a Zombie Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_gravestone": 1
+  }
+}

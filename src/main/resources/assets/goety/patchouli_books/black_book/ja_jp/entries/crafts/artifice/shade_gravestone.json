@@ -1,0 +1,22 @@
+{
+  "name": "シェードの墓石",
+  "icon": "goety:shade_gravestone",
+  "category": "goety:crafts/artifice",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "シェイド ストーンと呪われた金属は壊死エネルギーを集中させるのに最適です。少し手を加えて、腐りし物のフォーカス を使用することで、要求に応じて忠実なゾンビの召使いを召喚できる特別な墓石を作成することができました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shade/shade_gravestone"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ゾンビの召使いを呼び出すには、墓石に鉄のインゴットを追加する必要があります。蜘蛛の巣と同様に、杖で巣を右クリックすると、有効なターゲットが近くにある場合にのみ召使いが出現するようになります。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shade_gravestone": 1
+  }
+}

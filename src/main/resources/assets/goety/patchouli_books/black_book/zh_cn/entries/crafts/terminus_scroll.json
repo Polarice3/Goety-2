@@ -1,0 +1,21 @@
+{
+  "name": "终结卷轴",
+  "icon": "goety:terminus_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_shrouded_blueprint",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该蓝图与战争有卷轴一些相似之处，让你认为将其转录成可读的示意图需要类似的东西..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:terminus_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 0,
+    "goety:terminus_scroll": 1
+  }
+}

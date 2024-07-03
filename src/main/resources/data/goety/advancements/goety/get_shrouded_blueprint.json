@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "goety:shrouded_blueprint"
+    },
+    "title": {
+      "translate": "advancements.goety.get_shrouded_blueprint.title"
+    },
+    "description": {
+      "translate": "advancements.goety.get_shrouded_blueprint.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "goety:goety/read_warred_scroll",
+  "criteria": {
+    "shrouded": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:shrouded_blueprint"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "shrouded"
+    ]
+  ]
+}

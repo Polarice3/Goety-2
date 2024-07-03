@@ -39,9 +39,13 @@ public class ModModelLayer {
     public static final ModelLayerLocation SKELETON_VILLAGER_SERVANT = register("skeleton_villager_servant");
     public static final ModelLayerLocation BOUND_ILLAGER = register("bound_illager");
     public static final ModelLayerLocation BOUND_ILLAGER_ANIMATED = register("bound_illager_animated");
+    public static final ModelLayerLocation DAMNED = register("damned");
+    public static final ModelLayerLocation DAMNED_HUMAN = register("damned_human");
     public static final ModelLayerLocation RAVAGED = register("ravaged");
     public static final ModelLayerLocation RAVAGER = register("ravager");
     public static final ModelLayerLocation RAVAGER_ARMOR = register("ravager_armor");
+    public static final ModelLayerLocation BLACK_WOLF = register("black_wolf");
+    public static final ModelLayerLocation BEAR = register("bear");
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
     public static final ModelLayerLocation ICE_GOLEM = register("ice_golem");

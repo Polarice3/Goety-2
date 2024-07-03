@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import net.minecraft.core.particles.ParticleOptions;
@@ -15,6 +16,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -108,6 +110,14 @@ public class FirePillar extends CastSpellTrap{
                             }
                             damage += this.getExtraDamage();
                             DamageSource damageSource = ModDamageSource.fireBreath(this, this.getOwner());
+                            if (CuriosFinder.hasNetherRobe(this.getOwner())){
+                                damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
+                            }
+                            if (this.getOwner() instanceof OwnableEntity ownable && ownable.getOwner() instanceof LivingEntity livingEntity1){
+                                if (CuriosFinder.hasNetherRobe(livingEntity1)){
+                                    damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
+                                }
+                            }
                             if (this.getOwner() instanceof WitherNecromancer){
                                 damageSource = ModDamageSource.hellfire(this, this.getOwner());
                             }

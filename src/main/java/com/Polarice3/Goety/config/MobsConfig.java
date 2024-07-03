@@ -21,6 +21,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NaturalMinionHealAmount;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> NetherMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnFreq;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
@@ -58,6 +62,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CryptSlimeServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> QuickGrowingVineTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PoisonQuillVineTexture;
@@ -80,6 +85,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
 
@@ -122,6 +128,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
@@ -187,6 +195,8 @@ public class MobsConfig {
                         .define("slimeServantTexture", true);
                 MagmaCubeServantTexture = BUILDER.comment("If Magma Cube Servants have custom textures, Default: true")
                         .define("magmaCubeServantTexture", true);
+                CryptSlimeServantTexture = BUILDER.comment("If Crypt Slime Servants have custom textures, Default: true")
+                        .define("cryptSlimeServantTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Wild Servants");
                 QuickGrowingVineTexture = BUILDER.comment("If Quick Growing Vine servants have custom textures, Default: true")
@@ -244,6 +254,16 @@ public class MobsConfig {
                     .defineInRange("naturalMinionHealTime", 1, 0, Integer.MAX_VALUE);
             NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 0.5")
                     .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Nether Servants");
+            NetherMinionHeal = BUILDER.comment("Whether Nether Servants can heal if summoned while wearing Nether Robe, Default: true")
+                    .define("netherMinionHeal", true);
+            NetherMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Nether Servant to heal, Default: 5")
+                    .defineInRange("netherMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            NetherMinionHealTime = BUILDER.comment("How frequent Nether Servants heal, count seconds, Default: 1")
+                    .defineInRange("netherMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 0.5")
+                    .defineInRange("netherMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
         RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
                 .define("redstoneGolemMold", true);
@@ -355,6 +375,10 @@ public class MobsConfig {
                 .define("tallSkullDrop", true);
         WraithAggressiveTeleport = BUILDER.comment("Whether Wraiths should teleport towards their targets if they can't see them instead of just teleporting away when they're near them, Default: true")
                 .define("wraithAggressiveTeleport", true);
+        HellfireFireImmune = BUILDER.comment("Whether Hellfire damage is halved on entities that are fire-immune, Default: true")
+                .define("hellfireFireImmune", true);
+        HellfireFireProtection = BUILDER.comment("Whether Hellfire damage is mitigated by Fire Protection enchantment, Default: true")
+                .define("hellfireFireProtection", true);
         HostileCryptUndead = BUILDER.comment("Whether undead mobs in the Crypts remain hostile even if players wear Necro Set, Default: true")
                 .define("hostileCryptUndead", true);
         BUILDER.pop();

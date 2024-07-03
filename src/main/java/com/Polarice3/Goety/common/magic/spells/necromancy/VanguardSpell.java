@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.Direction;
@@ -125,7 +126,7 @@ public class VanguardSpell extends SummonSpell {
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
+                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
                     }
                     summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     summonedentity.setYHeadRot(entityLiving.getYHeadRot());
@@ -154,7 +155,7 @@ public class VanguardSpell extends SummonSpell {
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);
-                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost, false, false));
+                        summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
                     }
                     summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     this.SummonSap(entityLiving, summonedentity);

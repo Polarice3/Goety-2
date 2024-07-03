@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "born_in_chaos_v1:missioner",
+      "required": false
+    }
+  ]
+}

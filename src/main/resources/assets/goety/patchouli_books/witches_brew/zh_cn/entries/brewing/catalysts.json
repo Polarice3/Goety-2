@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "但别担心！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！哦，其中一些效果占据了多余一个容量槽，所以在酿造时要注意另一件事！哈哈哈！"
+      "text": "但别担心！奥奶奶会解释他们中的一些人是怎么做的，因为我今天感觉很好！如果催化剂是一个刷怪蛋，这意味着你必须在你的大锅里煮掉从蛋里生出来的任何东西！哦，其中一些效果占据了多余一个容量槽，所以在酿造时要注意另一件事！哈哈哈！"
     },
     {
       "type": "goety:catalyst",
@@ -39,6 +39,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.blindness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bottling",
+      "text": "你甚至可以酿造一个能让你药酿技艺更好的药酿！"
     },
     {
       "type": "goety:catalyst",
@@ -89,6 +94,11 @@
       "text": "教导那些末影人在被砍伤或泼溅时不要瞬移!"
     },
     {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.ender_flux",
+      "text": "你知道猫在惊讶时跳起来抓天花板的古老故事吗？好吧，如果它们最终跳到了一个新的位置，而惊喜的是一把刀在它们的落点呢？"
+    },
+    {
       "type": "goety:catalyst",
       "recipe": "effect.goety.evil_eye",
       "text": "邪恶的光芒吸引着各种各样的人，非常适合举办派对！"
@@ -106,7 +116,7 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.fertility",
-      "text": "你说你没有感觉是什么意思？去给奶奶喂牛！奶奶需要一双新皮靴!"
+      "text": "你说动物不想繁殖是什么意思？去给奶奶喂牛！奶奶需要一双新皮靴!"
     },
     {
       "type": "goety:catalyst",
@@ -135,6 +145,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.flaying",
       "text": "撕裂动物的皮肤、羽毛和羊毛！把肉都留下，尽管别以为它们会好起来的！哈哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flimsy",
+      "text": "让最坚强的人也屈服于风!"
     },
     {
       "type": "goety:catalyst",
@@ -206,6 +221,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.hunger"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.infest",
+      "text": "如果你周围没有任何被侵蚀的石头，就在你的大锅炖鱼汤！虽然它可能比较硌牙...."
     },
     {
       "type": "goety:catalyst",
@@ -290,6 +310,16 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.photosynthesis",
+      "text": "沐浴在阳光下，亲爱的！好好看看那个火球！我相信你不会被闪瞎的！"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.plunge",
+      "text": "你说你不饿了是什么意思！给，再来一口！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.poison"
     },
     {
@@ -320,6 +350,16 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.minecraft.regeneration",
+      "text": "有没有想明白过女巫让人炖菜的故事是从哪里来的？！呵呵哈哈!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.repulsive",
+      "text": "什么？你竟然不知道我们奥奶奶用的香水的牌子？！"
     },
     {
       "type": "goety:catalyst",
@@ -358,8 +398,18 @@
       "text": "当奶奶觉得她想在雪地里玩的时候!"
     },
     {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.snow_skin",
+      "text": "想当雪人吗？！你得先煮一个！"
+    },
+    {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.speed"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.storms_wrath",
+      "text": "要么是来自天堂的愤怒，要么是闪电拼尽全力都想与你见面的爱。不管怎样，你的爆炸头过时了！"
     },
     {
       "type": "goety:catalyst",

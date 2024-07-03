@@ -1,0 +1,22 @@
+{
+  "name": "Костолобый молот",
+  "icon": "goety:bonehead_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Этот молот, выполненный в виде черепа, притягивает ближайших существ к месту удара, если наносить его с полным индикатором атаки."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bonehead_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Он может выполнять те же функции, что и его обычный аналог. Молот можно починить на наковальне с помощью $(l:intro/magical_components)слитков проклятого металла$()."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bonehead_hammer": 1
+  }
+}

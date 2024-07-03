@@ -1,0 +1,20 @@
+{
+  "name": "過ぎ去ったスクロール",
+  "icon": "goety:bygone_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_withered_manuscript",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "あなたは要塞の住人の働きと魔法について詳細に記された写本を手に入れました。残念ながら写本はほとんど読めませんが、あなたは死者を呼び出して空白を埋める方法を見つけました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bygone_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:withered_manuscript": 0,
+    "goety:bygone_scroll": 1
+  }
+}

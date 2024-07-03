@@ -353,6 +353,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> GHAST_DISAPPEAR = create("ghast_disappear");
 
+    public static final RegistryObject<SoundEvent> DAMNED_SCREAM = create("damned_scream");
+
     public static final RegistryObject<SoundEvent> DIRT_DEBRIS = create("dirt_debris");
 
     public static final RegistryObject<SoundEvent> THUNDER_STRIKE_EPIC = create("thunder_strike_epic");
@@ -402,6 +404,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> UPDRAFT_BLAST = create("updraft_blast");
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");
+    public static final RegistryObject<SoundEvent> GRAVITY = create("gravity");
     public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
     public static final RegistryObject<SoundEvent> TOOTH_SPAWN = create("tooth_spawn");
     public static final RegistryObject<SoundEvent> IMPALE = create("impale");
@@ -416,6 +419,9 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> HAMMER_SWING = create("hammer_swing");
     public static final RegistryObject<SoundEvent> HAMMER_IMPACT = create("hammer_impact");
+
+    public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_IMPACT = create("bonehead_hammer_impact");
+    public static final RegistryObject<SoundEvent> BONEHEAD_HAMMER_HIT = create("bonehead_hammer_hit");
 
     public static final RegistryObject<SoundEvent> HARPOON_HIT = create("harpoon_impact");
     public static final RegistryObject<SoundEvent> HARPOON_HIT_WATER = create("harpoon_impact_water");
@@ -453,6 +459,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SPIDER_NEST_START = create("spider_nest_start");
     public static final RegistryObject<SoundEvent> SPIDER_NEST_TRAIN = create("spider_nest_train");
     public static final RegistryObject<SoundEvent> SPIDER_NEST_SPAWN = create("spider_nest_spawn");
+
+    public static final RegistryObject<SoundEvent> GRAVESTONE_START = create("gravestone_start");
+
+    public static final RegistryObject<SoundEvent> BLAZING_CAGE_START = create("blazing_cage_start");
+    public static final RegistryObject<SoundEvent> BLAZING_CAGE_TRAIN = create("blazing_cage_train");
 
     public static final RegistryObject<SoundEvent> URN_BREAK = create("urn_break");
 

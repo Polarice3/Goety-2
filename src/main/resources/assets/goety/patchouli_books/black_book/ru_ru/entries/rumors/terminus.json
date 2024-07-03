@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:quest",
-      "trigger": "goety:goety/read_terminus_scroll",
+      "trigger": "goety:goety/get_shrouded_blueprint",
       "text": "В свитке упоминается, что зверь, возможно, был создан существом из $(l)Энда$(). Может, именно там и кроются ответы?"
     }
   ]

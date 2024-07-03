@@ -1,8 +1,9 @@
-// 1.19.2	2024-06-16T20:19:07.5295112	Goety LootTables
+// 1.19.2	2024-07-03T10:21:16.1210237	Goety LootTables
 9db6014aef734d3f03bbcd2f8d91294db59ee831 data/goety/loot_tables/blocks/apparition_door.json
 e6879298f9301398dfd05e679517cfe1dbed62fb data/goety/loot_tables/blocks/arca.json
 91780276c14aaa3e2781a35cd47e57fccb5e5497 data/goety/loot_tables/blocks/blackstone_brazier.json
 8b540177b8018977b35881650a5540c4fa693d9d data/goety/loot_tables/blocks/blackstone_soul_brazier.json
+3b9097386d52ee578fec028f4b0f8a53d21f06ef data/goety/loot_tables/blocks/blazing_cage.json
 010339b95e66d49740dc94c37972afad9a7ab5cc data/goety/loot_tables/blocks/brick_brazier.json
 25c03110bddf6dfe4effc5108dad4e8998e62589 data/goety/loot_tables/blocks/brick_soul_brazier.json
 515094d83fc8b7669b95006214277579c637cdd3 data/goety/loot_tables/blocks/carved_indented_gold.json
@@ -142,6 +143,7 @@ f7b70496e118fd770f156e17860b35df0d06badc data/goety/loot_tables/blocks/sculk_rel
 e5480cc7e5ac92ba4e0263d5e167c1349399d5b4 data/goety/loot_tables/blocks/shade_bricks_slab.json
 3c79f7dc6fa024f259cedc5db6d6c6fd66b61b4f data/goety/loot_tables/blocks/shade_bricks_stairs.json
 91afe91f34e402ce62582c095513559b443b623e data/goety/loot_tables/blocks/shade_bricks_wall.json
+3f8625303479b1f886e629b5f18e067ab5088872 data/goety/loot_tables/blocks/shade_gravestone.json
 b1fbff52e088e258b8d500c1907a044ffd749d94 data/goety/loot_tables/blocks/shade_soul_brazier.json
 c42b75581a23b0bf10da10e638d72d753d6d9021 data/goety/loot_tables/blocks/shade_stone.json
 a90e08620af753201e1aaa97861d72b13414025e data/goety/loot_tables/blocks/shade_stone_bricks.json

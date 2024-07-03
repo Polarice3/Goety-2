@@ -24,6 +24,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> WarlockRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> FrostRobeResistance;
     public static final ForgeConfigSpec.ConfigValue<Integer> StormRobeResistance;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NetherRobeResistance;
 
     public static final ForgeConfigSpec.ConfigValue<Double> OminousStaffDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroStaffDamage;
@@ -130,12 +131,14 @@ public class ItemConfig {
                     .defineInRange("windRobeSouls", 1, 1, Integer.MAX_VALUE);
             WitchRobeResistance = BUILDER.comment("How much magic resistance Witches Robes provides by percent, Default: 85")
                     .defineInRange("witchRobeResistance", 85, 0, 100);
-            WarlockRobeResistance = BUILDER.comment("How much explosive resistance Warlock Robes provides by percent, Default: 85")
+            WarlockRobeResistance = BUILDER.comment("How much magic resistance Warlock Robes provides by percent, Default: 85")
                     .defineInRange("warlockRobeResistance", 85, 0, 100);
             FrostRobeResistance = BUILDER.comment("How much frost resistance Frost Robes provides by percent, Default: 85")
                     .defineInRange("frostRobeResistance", 85, 0, 100);
             StormRobeResistance = BUILDER.comment("How much shock resistance Storm Robes provides by percent, Default: 85")
                     .defineInRange("stormRobeResistance", 85, 0, 100);
+            NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
+                    .defineInRange("netherRobeResistance", 85, 0, 100);
             NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("necroSetUndeadNeutral", true);
             NecroCrownWeakness = BUILDER.comment("Whether wearing Necro Crown while not being a Lich gives Weakness when in sunlight, Default: true")

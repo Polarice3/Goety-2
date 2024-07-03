@@ -1,0 +1,22 @@
+{
+  "name": "头骨锤",
+  "icon": "goety:bonehead_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这把锤子形状酷似头骨，当它被用力挥动时，它会将附近的生物拉向攻击目标."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bonehead_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "它可以执行与普通锤子相同的功能。锤子可以在铁砧上用$(l:intro/magical_components)诅咒金属锭$()来修复。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bonehead_hammer": 1
+  }
+}

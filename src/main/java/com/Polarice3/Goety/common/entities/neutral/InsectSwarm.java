@@ -1,13 +1,14 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -106,6 +107,10 @@ public class InsectSwarm extends Owned{
                         this.playSound(ModSounds.INSECT_SWARM_BITE.get(), 1.0F, this.getVoicePitch());
                         int speed = (int) ((this.getHealth() / this.getMaxHealth()) * 5);
                         living.invulnerableTime = Math.min(20, (20 - speed));
+                        this.hurt(DamageSource.STARVE, 2.0F);
+                        if (this.getTrueOwner() != null && CuriosFinder.hasWildRobe(this.getTrueOwner())){
+                            living.addEffect(new MobEffectInstance(GoetyEffects.ACID_VENOM.get(), MathHelper.secondsToTicks(5)));
+                        }
                     }
                 }
             }

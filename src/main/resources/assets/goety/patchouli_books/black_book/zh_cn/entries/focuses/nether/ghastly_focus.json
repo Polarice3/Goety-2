@@ -1,16 +1,24 @@
 {
   "name": "悚人聚晶",
   "icon": "goety:ghastly_focus",
-  "category": "goety:focuses",
+  "category": "goety:focuses/nether",
   "advancement": "minecraft:story/enter_the_nether",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "该聚晶可以让你召唤出迷你恶魂，它们虽然破坏性较小，但仍然是强大的地狱轰炸机."
+      "text": "焦点可以让你召唤出小型的恶魂，它们虽然破坏性较小，但仍然是强大的地狱轰炸机。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghastly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "穿上下界长袍施法会召唤出强大的恶魂仆从，而不是迷你恶魂，即使使用下界魔杖施法，数量也不会增多。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghastly_focus": 1
+  }
 }

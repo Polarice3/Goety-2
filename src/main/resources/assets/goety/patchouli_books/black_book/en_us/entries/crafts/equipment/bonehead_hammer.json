@@ -1,0 +1,22 @@
+{
+  "name": "Bonehead Hammer",
+  "icon": "goety:bonehead_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Fashioned in the likeness of a skull, this hammer pull nearby creatures towards the target of impact when swung at full power."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bonehead_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It can perform the same functionalities as it's mundane counterpart. The hammer can be repaired on an anvil with a $(l:intro/magical_components)Cursed Metal Ingot$()."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bonehead_hammer": 1
+  }
+}

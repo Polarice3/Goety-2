@@ -101,12 +101,15 @@ public class GhastSpell extends SummonSpell {
         if (!isShifting(entityLiving)) {
             int i = 3;
             if (rightStaff(staff)){
-                i = 1 + worldIn.random.nextInt(1);
+                i = 3 + worldIn.random.nextInt(3);
+            }
+            if (this.NetherPower(entityLiving)){
+                i -= 2;
             }
             for (int i1 = 0; i1 < i; ++i1) {
                 BlockPos blockpos = entityLiving.blockPosition().offset(-2 + entityLiving.getRandom().nextInt(5), 1, -2 + entityLiving.getRandom().nextInt(5));
                 Malghast ghast = new MiniGhast(ModEntityType.MINI_GHAST.get(), worldIn);
-                if (rightStaff(staff)){
+                if (this.NetherPower(entityLiving)){
                     ghast = new GhastServant(ModEntityType.GHAST_SERVANT.get(), worldIn);
                     blockpos = BlockFinder.SummonFlyingRadius(entityLiving.blockPosition().above(2), ghast, worldIn, 12);
                 }

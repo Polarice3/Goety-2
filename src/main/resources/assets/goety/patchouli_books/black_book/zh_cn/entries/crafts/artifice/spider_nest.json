@@ -5,32 +5,32 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "在一块生肉旁环绕一圈蜘蛛卵，可以让你创建一个蜘蛛巢。巢穴里有更小、更友好的蜘蛛，如果周围没有方块阻挡，并且在足够黑暗的区域内，它们会周期性地在自己周围形成蜘蛛网。"
+      "text": "在一块生肉周围放一堆蜘蛛卵，可以让你创建一个蜘蛛巢。用鼠标右键点击它，或者用一个带肉的漏斗接上它，这样它就可以产生一个忠诚的$(l:summons/spider_servants)蜘蛛仆从$()。根据周围环境的不同，就像是 $(l:rituals/dark_altar)祭坛$()一样, 它也会产生不同的蜘蛛仆从。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:spider_nest",
-      "text": "蜘蛛巢有一个特殊的属性。用鼠标右键点击它，或者把一个有生肉的漏斗放在它的上面，会使它产生一个忠诚的$(l:summons/spider_servants)蜘蛛仆从$()。 它也会根据环境的不同，就像是$(l:rituals/dark_altar)黑暗祭坛$(), 产生对应变种的蜘蛛。"
+      "text": "用魔杖或杖右键点击蜘蛛巢，那么它会在附近有有效目标的情况下产生一个仆从。."
     },
     {
       "type": "patchouli:text",
-      "title": "Cave Spider Servants",
-      "text": "要求: $(li)巢穴处于人工矿道之中$(br)$(l)或$()$() $(li)8个灰化土 $(li)8个任意种类的蘑菇 $(li)8块石头"
+      "title": "洞穴蜘蛛仆从",
+      "text": "需要: $(li)巢穴位于矿井之中$(br)$(l)或是$()$() $(li)8个铁轨 $(li)8个任意种类的蘑菇 $(li)8块石头"
     },
     {
       "type": "patchouli:text",
-      "title": "Web Spider Servants",
-      "text": "要求: $(li)16个树叶 $(li)8张蜘蛛网"
+      "title": "织网蜘蛛仆从",
+      "text": "需要: $(li)16个树叶 $(li)8张蜘蛛网"
     },
     {
       "type": "patchouli:text",
-      "title": "Icy Spider Servants",
-      "text": "要求： $(li)巢穴必须处于能降雪的群系中 $(br)$(l)或$()$() $(li)16个任意种类的冰块 $(li)8个雪块 $(li)4盏极寒冰灯"
+      "title": "冰冻蜘蛛仆从",
+      "text": "需要: $(li)巢穴必须位于降雪群系中$(br)$(l)或是$()$() $(li)16个任意种类的冰块 $(li)8个雪块 $(li)4盏极寒冰灯"
     },
     {
       "type": "patchouli:text",
-      "title": "Bone Spider Servants",
-      "text": "要求: $(li)巢穴处于墓穴中$(br)$(l)或$()$() $(li)16个骨块 $(li)4个骷髅堆"
+      "title": "骸骨蜘蛛仆从",
+      "text": "需要: $(li)巢穴必须处于墓穴之中$(br)$(l)或是$()$() $(li)16个骨块 $(li)4个骷髅堆"
     }
   ]
 }

@@ -1,12 +1,14 @@
 package com.Polarice3.Goety.common.entities.boss;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.SurroundGoal;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.SpellCastingCultist;
+import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
@@ -23,10 +25,7 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ModLootTables;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -62,7 +61,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Witch;
@@ -108,6 +106,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     private int tornadoCoolDown;
     private int infernoCoolDown;
     private int monolithCoolDown;
+    private int damnedCoolDown;
     private int spellCycle;
     private int titleNumber;
     private final Predicate<Entity> ALIVE = Entity::isAlive;
@@ -127,6 +126,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
     };
     private final Predicate<LivingEntity> MONOLITHS = (livingEntity) -> {
         return livingEntity instanceof ObsidianMonolith monolith && monolith.getTrueOwner() == this;
+    };
+    private final Predicate<Owned> MALGHASTS = (owned) -> {
+        return owned instanceof Malghast && owned.getTrueOwner() == this;
     };
     private final Predicate<Owned> RANGED_MINIONS = (owned) -> {
         return (owned instanceof Inferno || owned instanceof Malghast) && owned.getTrueOwner() == this;
@@ -166,6 +168,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.goalSelector.addGoal(2, new ApostleBowGoal<>(this, 30.0F));
         this.goalSelector.addGoal(3, new CastingSpellGoal());
         this.goalSelector.addGoal(3, new FireballSpellGoal());
+        this.goalSelector.addGoal(3, new DamnedSpellGoal());
         this.goalSelector.addGoal(3, new MonolithSpellGoal());
         this.goalSelector.addGoal(3, new FireRainSpellGoal());
         this.goalSelector.addGoal(3, new RangedSummonSpellGoal());
@@ -294,6 +297,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         pCompound.putInt("tornadoCoolDown", this.tornadoCoolDown);
         pCompound.putInt("infernoCoolDown", this.infernoCoolDown);
         pCompound.putInt("monolithCoolDown", this.monolithCoolDown);
+        pCompound.putInt("damnedCoolDown", this.damnedCoolDown);
         pCompound.putInt("spellCycle", this.spellCycle);
         pCompound.putInt("hitTimes", this.hitTimes);
         pCompound.putInt("antiRegen", this.antiRegen);
@@ -314,6 +318,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         this.tornadoCoolDown = pCompound.getInt("tornadoCoolDown");
         this.infernoCoolDown = pCompound.getInt("infernoCoolDown");
         this.monolithCoolDown = pCompound.getInt("monolithCoolDown");
+        this.damnedCoolDown = pCompound.getInt("damnedCoolDown");
         this.spellCycle = pCompound.getInt("spellCycle");
         this.hitTimes = pCompound.getInt("hitTimes");
         this.antiRegen = pCompound.getInt("antiRegen");
@@ -464,6 +469,19 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             ServerLevel ServerLevel = (ServerLevel) this.level;
             if (ServerLevel.getLevelData().isThundering()) {
                 ServerLevel.setWeatherParameters(6000, 0, false, false);
+            }
+            for (AbstractTrap trapEntity : this.level.getEntitiesOfClass(AbstractTrap.class, this.getBoundingBox().inflate(64))) {
+                if (trapEntity.getOwner() == this) {
+                    trapEntity.discard();
+                }
+            }
+            for (SpellEntity trapEntity : this.level.getEntitiesOfClass(SpellEntity.class, this.getBoundingBox().inflate(64))) {
+                if (trapEntity.getOwner() == this) {
+                    trapEntity.discard();
+                }
+            }
+            for (FireTornado fireTornadoEntity : this.level.getEntitiesOfClass(FireTornado.class, this.getBoundingBox().inflate(64))) {
+                fireTornadoEntity.discard();
             }
         }
         super.remove(p_146834_);
@@ -707,6 +725,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
     public int getMonolithCoolDown(){
         return this.monolithCoolDown;
+    }
+
+    public void setDamnedCoolDown(int coolDown){
+        this.damnedCoolDown = coolDown;
+    }
+
+    public int getDamnedCoolDown(){
+        return this.damnedCoolDown;
     }
 
     public int getAntiRegen(){
@@ -1038,6 +1064,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.getMonolithCoolDown() > 0){
             --this.monolithCoolDown;
         }
+        if (this.getDamnedCoolDown() > 0){
+            --this.damnedCoolDown;
+        }
         if (!this.isSmited()) {
             int count = this.isSecondPhase() ? 20 : 40;
             if (this.isInNether()) {
@@ -1078,13 +1107,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     ServerLevel.setWeatherParameters(0, 6000, true, true);
                 }
             }
-            if (!this.level.isClientSide) {
-                if (this.getCoolDown() < this.coolDownLimit()) {
-                    ++this.coolDown;
-                } else {
-                    this.setSpellCycle(1);
-                }
-            }
             if (this.tickCount % 20 == 0) {
                 BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(this.getRandomX(0.2), this.getY(), this.getRandomZ(0.2));
 
@@ -1098,16 +1120,17 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                     this.level.addFreshEntity(fireball);
                 }
             }
-        } else {
-            if (!this.level.isClientSide) {
-                if (this.getCoolDown() < this.coolDownLimit()) {
-                    ++this.coolDown;
-                } else {
-                    this.setSpellCycle(0);
-                }
-            }
         }
         if (!this.level.isClientSide) {
+            if (this.getCoolDown() < this.coolDownLimit()) {
+                ++this.coolDown;
+            } else {
+                if (!this.isSecondPhase() || this.getDamnedCoolDown() <= 0) {
+                    this.setSpellCycle(0);
+                } else {
+                    this.setSpellCycle(1);
+                }
+            }
             if (this.getSpellCycle() == 1) {
                 if (this.level.random.nextBoolean()) {
                     this.setSpellCycle(2);
@@ -1490,6 +1513,80 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         }
     }
 
+    class DamnedSpellGoal extends CastingGoal {
+
+        private DamnedSpellGoal() {
+        }
+
+        @Override
+        public boolean canUse() {
+            int j = Apostle.this.level.getEntitiesOfClass(Owned.class, Apostle.this.getBoundingBox().inflate(64.0D), MALGHASTS).size();
+            int h = Apostle.this.level.getEntitiesOfClass(Damned.class, Apostle.this.getBoundingBox().inflate(64.0D)).size();
+            LivingEntity livingentity = Apostle.this.getTarget();
+            if (!super.canUse()) {
+                return false;
+            } else if (livingentity == null) {
+                return false;
+            } else {
+                int cool = Apostle.this.spellStart();
+                return Apostle.this.getCoolDown() >= cool
+                        && Apostle.this.getDamnedCoolDown() <= 0
+                        && Apostle.this.getSpellCycle() == 0
+                        && !Apostle.this.isSettingUpSecond()
+                        && Apostle.this.isSecondPhase()
+                        && Apostle.this.getSensing().hasLineOfSight(livingentity)
+                        && j < 2 && h < 1;
+            }
+        }
+
+        protected int getCastingTime() {
+            return 30;
+        }
+
+        public void tick() {
+            --this.spellWarmup;
+            if (Apostle.this.level instanceof ServerLevel serverLevel) {
+                LivingEntity livingentity = Apostle.this.getTarget();
+                int time = Apostle.this.isInNether() ? 7 : 10;
+                if (this.spellWarmup % time == 0) {
+                    Damned damned = new Damned(ModEntityType.DAMNED.get(), Apostle.this.level);
+                    BlockPos blockPos = BlockFinder.SummonRadius(Apostle.this.blockPosition(), Apostle.this, Apostle.this.level, 5);
+                    damned.moveTo(blockPos.below(2), Apostle.this.getYHeadRot(), Apostle.this.getXRot());
+                    damned.setTrueOwner(Apostle.this);
+                    damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos.below()), MobSpawnType.MOB_SUMMONED, null, null);
+                    if (livingentity != null) {
+                        damned.setTarget(livingentity);
+                    }
+                    damned.setLimitedLife(100);
+                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), damned);
+                    Apostle.this.level.addFreshEntity(damned);
+                }
+            }
+            if (this.spellWarmup == 0) {
+                Apostle.this.resetCoolDown();
+                Apostle.this.setSpellCycle(1);
+                Apostle.this.setDamnedCoolDown(MathHelper.secondsToTicks(10));
+                Apostle.this.setSpellType(SpellType.NONE);
+            }
+        }
+
+        public void castSpell() {
+        }
+
+        protected int getCastWarmupTime() {
+            return 30;
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return ModSounds.APOSTLE_PREPARE_SUMMON.get();
+        }
+
+        @Override
+        protected SpellType getSpellType() {
+            return SpellType.FIRE;
+        }
+    }
+
     class MonolithSpellGoal extends CastingGoal {
         private MonolithSpellGoal() {
         }
@@ -1591,7 +1688,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
 
         @Override
         protected SpellType getSpellType() {
-            return SpellType.FIRE;
+            return SpellType.CLOUD;
         }
     }
 
@@ -1625,7 +1722,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 RandomSource r = Apostle.this.random;
                 if (livingentity != null) {
                     if (r.nextBoolean()) {
-                        if (Apostle.this.isSecondPhase()) {
+                        if (Apostle.this.isSecondPhase() && r.nextFloat() <= 0.25F) {
                             int k = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
                             int l = (12 + r.nextInt(12)) * (r.nextBoolean() ? -1 : 1);
                             BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
@@ -1793,14 +1890,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 }
                 if (apostle.getHealth() < apostle.getMaxHealth()/2){
                     for(int k = 0; k < 11; ++k) {
-                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + (1.2566371F * 2.0F);
                         apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }
 
                 if (apostle.getHealth() < apostle.getMaxHealth()/4){
                     for(int k = 0; k < 14; ++k) {
-                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + (1.2566371F * 4.0F);
                         apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
                     }
                 }

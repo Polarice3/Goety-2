@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.common.entities.util.AbstractTrap;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -98,7 +99,7 @@ public class AcidPool extends AbstractTrap {
             List<LivingEntity> targets = new ArrayList<>();
             for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())){
                 if (this.owner != null) {
-                    if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner) && !this.owner.isAlliedTo(livingEntity)) {
+                    if (livingEntity != this.owner && !MobUtil.areAllies(this.owner, livingEntity)) {
                         targets.add(livingEntity);
                     }
                 } else {

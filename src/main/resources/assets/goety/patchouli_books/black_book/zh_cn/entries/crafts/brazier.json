@@ -1,5 +1,5 @@
 {
-  "name": "Braziers",
+  "name": "火炉",
   "icon": "goety:shade_brazier",
   "category": "goety:crafts",
   "pages": [
@@ -21,6 +21,10 @@
       "type": "patchouli:crafting",
       "recipe": "goety:blackstone_brazier",
       "recipe2": "goety:nether_brick_brazier"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:marble/marble_brazier"
     },
     {
       "type": "patchouli:crafting",

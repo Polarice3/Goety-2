@@ -4056,6 +4056,14 @@
     ],
     "subtitle": "subtitle.goety.ghast_disappear"
   },
+  "damned_scream": {
+    "sounds": [
+      {
+        "name": "goety:random/damned_scream"
+      }
+    ],
+    "subtitle": "subtitle.goety.damned_scream"
+  },
   "dirt_debris": {
     "sounds": [
       {
@@ -4631,6 +4639,13 @@
     ],
     "subtitle": "subtitle.goety.zap"
   },
+  "gravity": {
+    "sounds": [
+      {
+        "name": "goety:random/gravity"
+      }
+    ]
+  },
   "rumble": {
     "sounds": [
       {
@@ -4770,6 +4785,40 @@
       },
       {
         "name": "goety:item/hammer_impact7"
+      }
+    ],
+    "subtitle": "subtitle.goety.hammer_impact"
+  },
+  "bonehead_hammer_impact": {
+    "sounds": [
+      {
+        "name": "goety:item/bonehead_hammer_impact1"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_impact2"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_impact3"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_impact4"
+      }
+    ],
+    "subtitle": "subtitle.goety.hammer_impact"
+  },
+  "bonehead_hammer_hit": {
+    "sounds": [
+      {
+        "name": "goety:item/bonehead_hammer_hit1"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_hit2"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_hit3"
+      },
+      {
+        "name": "goety:item/bonehead_hammer_hit4"
       }
     ],
     "subtitle": "subtitle.goety.hammer_impact"
@@ -5094,6 +5143,66 @@
       }
     ],
     "subtitle": "subtitle.goety.spider_nest_spawn"
+  },
+  "gravestone_start": {
+    "sounds": [
+      {
+        "name": "goety:block/graveyard_moan1"
+      },
+      {
+        "name": "goety:block/graveyard_moan2"
+      },
+      {
+        "name": "goety:block/graveyard_moan3"
+      },
+      {
+        "name": "goety:block/graveyard_moan4"
+      },
+      {
+        "name": "goety:block/graveyard_moan5"
+      },
+      {
+        "name": "goety:block/graveyard_moan6"
+      }
+    ],
+    "subtitle": "subtitle.goety.gravestone_start"
+  },
+  "blazing_cage_start": {
+    "sounds": [
+      {
+        "name": "goety:block/blazing_cage_start1"
+      },
+      {
+        "name": "goety:block/blazing_cage_start2"
+      },
+      {
+        "name": "goety:block/blazing_cage_start3"
+      },
+      {
+        "name": "goety:block/blazing_cage_start4"
+      },
+      {
+        "name": "goety:block/blazing_cage_start5"
+      },
+      {
+        "name": "goety:block/blazing_cage_start6"
+      }
+    ],
+    "subtitle": "subtitle.goety.blazing_cage_start"
+  },
+  "blazing_cage_train": {
+    "sounds": [
+      {
+        "name": "goety:block/blazing_cage_scatter1"
+      },
+      {
+        "name": "goety:block/blazing_cage_scatter2"
+      },
+      {
+        "name": "goety:block/blazing_cage_scatter3"
+      }
+    ],
+    "subtitle": "subtitle.goety.blazing_cage_train"
   },
   "urn_break": {
     "sounds": [

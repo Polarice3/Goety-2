@@ -4,11 +4,13 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +21,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.SweepingEdgeEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -64,6 +70,13 @@ public class FangedDaggerItem extends TieredItem implements Vanishable {
         return true;
     }
 
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return (enchantment.category == EnchantmentCategory.WEAPON
+                || enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment == Enchantments.MOB_LOOTING)
+                && !(enchantment instanceof SweepingEdgeEnchantment);
+    }
+
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot p_41639_, ItemStack stack) {
         return p_41639_ == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getAttributeModifiers(p_41639_, stack);
     }
@@ -74,11 +87,15 @@ public class FangedDaggerItem extends TieredItem implements Vanishable {
         Entity attacker = event.getSource().getEntity();
         if (ModDamageSource.physicalAttacks(event.getSource())){
             if (attacker instanceof LivingEntity livingAttacker){
+                MobEffect effect = MobEffects.POISON;
+                if (CuriosFinder.hasWildRobe(livingAttacker)){
+                    effect = GoetyEffects.ACID_VENOM.get();
+                }
                 if (livingAttacker.getMainHandItem().getItem() == ModItems.FANGED_DAGGER.get()){
                     if (livingAttacker.hasEffect(GoetyEffects.VENOMOUS_HANDS.get())){
-                        EffectsUtil.increaseDuration(livingEntity, MobEffects.POISON, 600);
+                        EffectsUtil.increaseDuration(livingEntity, effect, 600);
                     } else {
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
+                        livingEntity.addEffect(new MobEffectInstance(effect, 200));
                     }
                 }
             }

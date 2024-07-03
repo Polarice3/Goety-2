@@ -244,6 +244,18 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCoolDown;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HuntingLimit;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaulingCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaulingDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaulingCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaulingSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MaulingLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> OvergrowthCoolDown;
@@ -848,6 +860,30 @@ public class SpellConfig {
                     .defineInRange("grappleTime", 0, 0, 72000);
             GrappleCoolDown = BUILDER.comment("Grapple Spell Cooldown, Default: 20")
                     .defineInRange("grappleCoolDown", 20, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Hunting Spell");
+            HuntingCost = BUILDER.comment("Hunting Spell Cost, Default: 8")
+                    .defineInRange("huntingCost", 8, 0, Integer.MAX_VALUE);
+            HuntingDuration = BUILDER.comment("Time to cast Hunting Spell, Default: 20")
+                    .defineInRange("huntingTime", 20, 0, 72000);
+            HuntingCoolDown = BUILDER.comment("Hunting Spell Cooldown, Default: 200")
+                    .defineInRange("huntingCoolDown", 200, 0, Integer.MAX_VALUE);
+            HuntingSummonDown = BUILDER.comment("Hunting Spell Summon Down, Default: 100")
+                    .defineInRange("huntingSummonDown", 100, 0, 72000);
+            HuntingLimit = BUILDER.comment("Number of Black Wolves that can exist around the player, Default: 16")
+                    .defineInRange("huntingLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Mauling Spell");
+            MaulingCost = BUILDER.comment("Mauling Spell Cost, Default: 16")
+                    .defineInRange("maulingCost", 16, 0, Integer.MAX_VALUE);
+            MaulingDuration = BUILDER.comment("Time to cast Mauling Spell, Default: 20")
+                    .defineInRange("maulingTime", 20, 0, 72000);
+            MaulingCoolDown = BUILDER.comment("Mauling Spell Cooldown, Default: 600")
+                    .defineInRange("maulingCoolDown", 600, 0, Integer.MAX_VALUE);
+            MaulingSummonDown = BUILDER.comment("Mauling Spell Summon Down, Default: 150")
+                    .defineInRange("maulingSummonDown", 150, 0, 72000);
+            MaulingLimit = BUILDER.comment("Number of Bear Servants that can exist around the player, Default: 8")
+                    .defineInRange("maulingLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Overgrowth Spell");
             OvergrowthCost = BUILDER.comment("Overgrowth Spell Cost, Default: 8")

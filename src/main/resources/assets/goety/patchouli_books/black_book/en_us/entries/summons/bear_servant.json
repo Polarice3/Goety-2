@@ -1,0 +1,33 @@
+{
+  "name": "Bear Servants",
+  "icon": "minecraft:salmon",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Loyal and aggressive, these bears make for fine servants to claw and rip apart your enemies. Also makes for a good mount, no saddle needed in fact, if you ignore its slow speed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One can call upon a loyal bear through the use of a $(l:focuses/wild/mauling_focus)Mauling Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bear_servant_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bear_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Bear Servant with fish will heal them. Summoning a bear servant on a cold biome or with a $(l:crafts/frost_staff)Frost Staff$() will call forth a Polar Bear Servant."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:polar_bear_servant",
+      "scale": 0.5
+    }
+  ]
+}

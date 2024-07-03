@@ -18,6 +18,16 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:magma_cube_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/find_crypt",
+      "text": "Using an $(l:crafts/cores)Animation Core$() on a Block of Slime while within a Crypt will summon forth a loyal ectoplasmic Crypt Slime."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/find_crypt",
+      "entity": "goety:crypt_slime_servant"
     }
   ]
 }

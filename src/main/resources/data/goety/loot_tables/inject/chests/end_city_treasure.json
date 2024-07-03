@@ -7,7 +7,7 @@
         {
           "type": "minecraft:item",
           "weight": 10,
-          "name": "goety:terminus_scroll"
+          "name": "goety:shrouded_blueprint"
         },
         {
           "type": "minecraft:empty",

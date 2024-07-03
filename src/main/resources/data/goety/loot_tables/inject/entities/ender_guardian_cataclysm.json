@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "goety:terminus_scroll",
+          "name": "goety:shrouded_blueprint",
           "weight": 1
         }
       ]

@@ -21,11 +21,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -37,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ObsidianMonolith extends AbstractMonolith {
+public class ObsidianMonolith extends AbstractMonolith implements Enemy {
 
     public ObsidianMonolith(EntityType<? extends AbstractMonolith> type, Level worldIn) {
         super(type, worldIn);
@@ -119,7 +118,7 @@ public class ObsidianMonolith extends AbstractMonolith {
                     }
                 }
             };
-            if (cause.getEntity() instanceof Mob mob && mob.getTarget() == this){
+            if (cause.getEntity() instanceof Mob mob && mob.getTarget() == this && this.getTrueOwner() != null){
                 mob.setTarget(this.getTrueOwner());
             }
             if (this.getTrueOwner() instanceof Apostle apostle && apostle.isAlive()){

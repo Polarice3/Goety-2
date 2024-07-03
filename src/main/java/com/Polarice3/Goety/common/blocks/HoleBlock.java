@@ -41,6 +41,16 @@ public class HoleBlock extends BaseEntityBlock {
         return Shapes.empty();
     }
 
+    @Override
+    public VoxelShape getOcclusionShape(BlockState p_60578_, BlockGetter p_60579_, BlockPos p_60580_) {
+        return Shapes.block();
+    }
+
+    @Override
+    public VoxelShape getVisualShape(BlockState p_56684_, BlockGetter p_56685_, BlockPos p_56686_, CollisionContext p_56687_) {
+        return Shapes.block();
+    }
+
     public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
         return true;
     }

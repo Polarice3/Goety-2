@@ -14,14 +14,17 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class PartLiquidBlock extends BaseEntityBlock {
+    public static final Material PART_LIQUID = (new Material.Builder(MaterialColor.STONE)).replaceable().build();
+
     public PartLiquidBlock() {
-        super(Properties.of(Material.STONE)
+        super(Properties.of(PART_LIQUID)
                 .noCollission()
                 .noLootTable()
                 .noOcclusion()
