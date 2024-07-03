@@ -11,6 +11,14 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghastly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "ネザーのローブを着用してこの呪文を唱えると、ミニガストの代わりにガストの従者が召喚されますが、ネザースタッフで唱えた場合でも召喚される数は少なくなります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghastly_focus": 1
+  }
 }

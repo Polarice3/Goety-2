@@ -3,6 +3,8 @@ package com.Polarice3.Goety.client.render.model;
 import com.Polarice3.Goety.client.render.animation.ModSpiderAnimations;
 import com.Polarice3.Goety.common.entities.ally.spider.BoneSpiderServant;
 import com.Polarice3.Goety.common.entities.ally.spider.WebSpiderServant;
+import com.Polarice3.Goety.common.entities.hostile.BoneSpider;
+import com.Polarice3.Goety.common.entities.hostile.WebSpider;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -122,8 +124,19 @@ public class ModSpiderModel<T extends Entity> extends HierarchicalModel<T> {
 			flag = !boneSpiderServant.attackAnimationState.isStarted();
 			this.animate(boneSpiderServant.attackAnimationState, ModSpiderAnimations.BONE_SPIT, ageInTicks);
 		}
+		if (entity instanceof BoneSpider boneSpider){
+			flag = !boneSpider.attackAnimationState.isStarted();
+			this.animate(boneSpider.attackAnimationState, ModSpiderAnimations.BONE_SPIT, ageInTicks);
+		}
 		if (entity instanceof WebSpiderServant webSpiderServant){
 			if (webSpiderServant.isWebShooting()) {
+				this.body.xRot = ((float) Math.PI / 6F);
+			} else {
+				this.body.xRot = 0.0F;
+			}
+		}
+		if (entity instanceof WebSpider webSpider){
+			if (webSpider.isWebShooting()) {
 				this.body.xRot = ((float) Math.PI / 6F);
 			} else {
 				this.body.xRot = 0.0F;

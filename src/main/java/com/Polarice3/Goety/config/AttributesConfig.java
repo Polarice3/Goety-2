@@ -127,6 +127,12 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BearServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BearServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BearServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
@@ -493,6 +499,22 @@ public class AttributesConfig {
                 GhastServantDamage = BUILDER.comment("How much damage Ghast Servants' lavaballs deals, Default: 6.0")
                         .defineInRange("ghastServantDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Black Wolf");
+                BlackWolfHealth = BUILDER.comment("How much Max Health Black Wolves have, Default: 10.0")
+                        .defineInRange("blackWolfHealth", 10.0, 1.0, Double.MAX_VALUE);
+                BlackWolfArmor = BUILDER.comment("How much natural Armor Black Wolves have, Default: 0.0")
+                        .defineInRange("blackWolfArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BlackWolfDamage = BUILDER.comment("How much damage Black Wolves melee attack deals, Default: 4.0")
+                        .defineInRange("blackWolfDamage", 4.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Bear Servant");
+                BearServantHealth = BUILDER.comment("How much Max Health Bear Servants have, Default: 30.0")
+                        .defineInRange("bearServantHealth", 30.0, 1.0, Double.MAX_VALUE);
+                BearServantArmor = BUILDER.comment("How much natural Armor Bear Servants have, Default: 0.0")
+                        .defineInRange("bearServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BearServantDamage = BUILDER.comment("How much damage Bear Servants melee attack deals, Default: 6.0")
+                        .defineInRange("bearServantDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Whisperer");
                 WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")
                         .defineInRange("whispererHealth", 20.0, 1.0, Double.MAX_VALUE);
@@ -634,8 +656,8 @@ public class AttributesConfig {
                         .defineInRange("apostleToughness", 6.0, 0.0, Double.MAX_VALUE);
                 ApostleDamageCap = BUILDER.comment("The maximum amount of damage an Apostle can attain per hit, Default: 20.0")
                         .defineInRange("apostleDamageCap", 20.0, 1.0, Double.MAX_VALUE);
-                ApostleBowDamage = BUILDER.comment("Multiplies Apostle's Bow damage, Default: 4")
-                        .defineInRange("apostleBowDamage", 4, 1, Integer.MAX_VALUE);
+                ApostleBowDamage = BUILDER.comment("Multiplies Apostle's Bow damage, Default: 2")
+                        .defineInRange("apostleBowDamage", 2, 1, Integer.MAX_VALUE);
                 ApostleMagicDamage = BUILDER.comment("Set Apostle's spell damage (ie, Fire Tornadoes, Fire Blasts, Roars), Default: 6.0")
                         .defineInRange("apostleMagicDamage", 6.0, 6.0, Double.MAX_VALUE);
                 BUILDER.pop();

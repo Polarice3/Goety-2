@@ -182,14 +182,12 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                             if (cauldron.mode == BrewCauldronBlockEntity.Mode.IDLE) {
                                 bottle = PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER);
                             } else if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
+                                SEHelper.increaseBottling(pPlayer);
                                 bottle = cauldron.getBrew();
                             } else if (cauldron.mode == BrewCauldronBlockEntity.Mode.FAILED){
                                 bottle = new ItemStack(ModItems.REFUSE_BOTTLE.get());
                             }
                             if (bottle != null) {
-                                if (bottle == cauldron.getBrew()){
-                                    SEHelper.increaseBottling(pPlayer);
-                                }
                                 ItemHelper.addAndConsumeItem(pPlayer, pHand, bottle);
                                 playSound = true;
                             }
@@ -241,7 +239,11 @@ public class BrewCauldronBlock extends BaseEntityBlock{
             if (blockEntity != null) {
                 if (pLevel.getBlockState(pPos).getValue(LEVEL) > 0 && pEntity instanceof LivingEntity && this.isEntityInsideContent(pState, pPos, pEntity)) {
                     if (blockEntity.isHeated() && !pEntity.fireImmune()) {
-                        pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.BOILING), 1.0F);
+                        boolean flag = pEntity.hurt(ModDamageSource.getDamageSource(pLevel, ModDamageSource.BOILING), 1.0F);
+                        if (flag && pLevel.getBlockState(pPos).getValue(LEVEL) == 3 && !pEntity.isAlive()){
+                            blockEntity.mode = blockEntity.addSacrifice(pEntity);
+                            blockEntity.markUpdated();
+                        }
                     }
                 }
                 if (pLevel.getBlockState(pPos).getValue(LEVEL) == 3 && blockEntity.mode != BrewCauldronBlockEntity.Mode.COMPLETED && pEntity instanceof ItemEntity itemEntity) {

@@ -160,7 +160,25 @@ public class GoetyCommand {
                                 })))
                                         .then(Commands.literal("all").executes(context -> {
                                             return removeAllResearch(context.getSource(), EntityArgument.getPlayers(context, "targets"));
-                                        }))))));
+                                        })))))
+                .then(Commands.literal("brew")
+                        .then(Commands.literal("level")
+                                .then(Commands.literal("get").executes((p_198352_0_) -> {
+                                            return getBrewLevel(p_198352_0_.getSource(), p_198352_0_.getSource().getPlayerOrException());
+                                        })
+                                        .then(Commands.argument("targets", EntityArgument.player()).executes((p_198435_0_) -> {
+                                            return getBrewLevel(p_198435_0_.getSource(), EntityArgument.getPlayer(p_198435_0_, "targets"));
+                                        })))
+                                .then(Commands.literal("add")
+                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                .then(Commands.argument("amount", IntegerArgumentType.integer()).executes((p_198445_0_) -> {
+                                                    return addBrewLevel(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "ticks"));
+                                                }))))
+                                .then(Commands.literal("set")
+                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                .then(Commands.argument("amount", IntegerArgumentType.integer(0)).executes((p_198439_0_) -> {
+                                                    return setBrewLevel(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "ticks"));
+                                                })))))));
     }
 
     private static int addSoulEnergy(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int pAmount) {
@@ -168,7 +186,7 @@ public class GoetyCommand {
             if (SEHelper.getSoulsContainer(serverPlayer)) {
                 SEHelper.increaseSouls(serverPlayer, pAmount);
             } else {
-                pSource.sendFailure(Component.translatable("commands.goety.soul.failed", pAmount, pTargets.iterator().next().getDisplayName()));
+                pSource.sendFailure(Component.translatable("commands.goety.soul.failed", pTargets.iterator().next().getDisplayName()));
             }
         }
 
@@ -189,7 +207,7 @@ public class GoetyCommand {
                 SEHelper.setSoulsAmount(serverPlayer, pAmount);
                 ++i;
             } else {
-                pSource.sendFailure(Component.translatable("commands.goety.soul.failed", pAmount, pTargets.iterator().next().getDisplayName()));
+                pSource.sendFailure(Component.translatable("commands.goety.soul.failed", pTargets.iterator().next().getDisplayName()));
             }
         }
 
@@ -463,5 +481,46 @@ public class GoetyCommand {
         }
 
         return 1;
+    }
+
+    private static int getBrewLevel(CommandSourceStack pSource, ServerPlayer pPlayer){
+        int i = SEHelper.getBottleLevel(pPlayer);
+        pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.get.success", pPlayer.getDisplayName(), StringUtil.formatTickDuration(i)), false);
+        return 1;
+    }
+
+    private static int addBrewLevel(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int level) {
+        for(ServerPlayer serverPlayer : pTargets) {
+            SEHelper.increaseBottling(serverPlayer, level);
+        }
+
+        if (pTargets.size() == 1) {
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.add.success.single", level, pTargets.iterator().next().getDisplayName()), true);
+        } else {
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.add.success.multiple", level, pTargets.size()), true);
+        }
+
+        return pTargets.size();
+    }
+
+    private static int setBrewLevel(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int level) throws CommandSyntaxException{
+        int i = 0;
+
+        for(ServerPlayer serverPlayer : pTargets) {
+            SEHelper.setBottling(serverPlayer, level);
+            ++i;
+        }
+
+        if (i == 0) {
+            throw ERROR_SET_POINTS_INVALID2.create();
+        } else {
+            if (pTargets.size() == 1) {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.set.success.single", level, pTargets.iterator().next().getDisplayName()), true);
+            } else {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.set.success.multiple", level, pTargets.size()), true);
+            }
+
+            return pTargets.size();
+        }
     }
 }

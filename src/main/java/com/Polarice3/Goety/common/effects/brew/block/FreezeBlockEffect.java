@@ -14,8 +14,8 @@ import net.minecraft.world.phys.AABB;
 import javax.annotation.Nullable;
 
 public class FreezeBlockEffect extends BrewEffect {
-    public FreezeBlockEffect(int cap) {
-        super("freeze", cap, MobEffectCategory.NEUTRAL, 0x92b9fe);
+    public FreezeBlockEffect(int soulCost) {
+        super("freeze", soulCost, MobEffectCategory.NEUTRAL, 0x92b9fe);
     }
 
     @Override

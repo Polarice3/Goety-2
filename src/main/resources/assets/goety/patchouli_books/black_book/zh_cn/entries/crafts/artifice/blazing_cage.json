@@ -1,0 +1,24 @@
+{
+  "name": "燃烧之笼",
+  "icon": "goety:blazing_cage",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然你无法重现在要塞中发现的烈焰人刷怪笼，但是你已经设法重现了一个仿照物；尽管它需要一些付出，但是它能产生忠诚的烈焰人。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:blazing_cage"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你需要给予笼子一个岩浆块，它才能召唤出一个烈焰人仆从。就像蜘蛛巢一样，用魔杖或杖右键点击燃烧之笼，那么它会在附近有有效目标的情况下产生一个仆从。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blazing_cage": 1
+  }
+}

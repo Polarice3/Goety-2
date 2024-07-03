@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "item": "goety:nether_robe"
+  },
+  "result": "goety:nether_robe_warped",
+  "cookingTime": 60
+}

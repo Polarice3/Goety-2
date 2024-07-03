@@ -1,0 +1,21 @@
+{
+  "name": "下界长袍",
+  "icon": "goety:nether_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "随着对下界知识的不断增长，你已经成功地制作了一件能让穿着者充满火焰的长袍。穿戴者将能够抵抗火焰燃烧的疼痛，并更快地扑灭身上的火焰。长袍还使下界咒语变得更廉价，并且允许下界仆从使用召唤师的灵魂能量再生."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_robe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_robe": 1,
+    "goety:nether_robe_warped": 1
+  }
+}

@@ -23,6 +23,7 @@ public class PartLiquidBlock extends BaseEntityBlock {
     public PartLiquidBlock() {
         super(Properties.of()
                 .noCollission()
+                .replaceable()
                 .noLootTable()
                 .noOcclusion()
                 .pushReaction(PushReaction.BLOCK)

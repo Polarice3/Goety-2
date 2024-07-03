@@ -1,5 +1,7 @@
 {
   "values": [
-    "goety:ice_spike"
+    "goety:ice_spike",
+    "goety:no_owner_magic_fireball",
+    "goety:magic_fireball"
   ]
 }

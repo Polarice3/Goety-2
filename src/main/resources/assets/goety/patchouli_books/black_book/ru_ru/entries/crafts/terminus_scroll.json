@@ -1,0 +1,21 @@
+{
+  "name": "Последний свиток",
+  "icon": "goety:terminus_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_shrouded_blueprint",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Чертёж имеет некоторое сходство с военным свитком, что наводит на мысль, что для его преобразования в читаемую схему требуется нечто похожее."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:terminus_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shrouded_blueprint": 0,
+    "goety:terminus_scroll": 1
+  }
+}

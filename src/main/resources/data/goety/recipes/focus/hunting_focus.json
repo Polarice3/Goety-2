@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sfs",
+    "fef",
+    "sfs"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:hunger_core"
+    },
+    "f":
+    {
+      "tag": "goety:meat"
+    },
+    "s":
+    {
+      "tag": "forge:bones"
+    }
+  },
+  "result":
+  {
+    "item": "goety:hunting_focus",
+    "count": 1
+  }
+}

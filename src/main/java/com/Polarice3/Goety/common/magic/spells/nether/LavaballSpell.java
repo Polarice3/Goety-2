@@ -2,7 +2,6 @@ package com.Polarice3.Goety.common.magic.spells.nether;
 
 import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
-import com.Polarice3.Goety.common.entities.projectiles.ExplosiveProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.common.magic.Spell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -63,7 +62,7 @@ public class LavaballSpell extends Spell {
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
         Vec3 vector3d = entityLiving.getViewVector( 1.0F);
         float extraBlast = WandUtil.getLevels(ModEnchantments.RADIUS.get(), entityLiving) / 2.5F;
-        ExplosiveProjectile fireballEntity = new Lavaball(worldIn,
+        Lavaball fireballEntity = new Lavaball(worldIn,
                 entityLiving.getX() + vector3d.x / 2,
                 entityLiving.getEyeY() - 0.2,
                 entityLiving.getZ() + vector3d.z / 2,
@@ -83,7 +82,7 @@ public class LavaballSpell extends Spell {
         worldIn.addFreshEntity(fireballEntity);
         if (rightStaff(staff)) {
             for (int i = 0; i < 2; ++i) {
-                ExplosiveProjectile fireballEntity1 = new Lavaball(worldIn,
+                Lavaball fireballEntity1 = new Lavaball(worldIn,
                         entityLiving.getX() + vector3d.x / 2 + worldIn.random.nextGaussian(),
                         entityLiving.getEyeY() - 0.2,
                         entityLiving.getZ() + vector3d.z / 2 + worldIn.random.nextGaussian(),

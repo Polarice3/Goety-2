@@ -11,7 +11,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:grave_golem"
+      "entity": "goety:grave_golem",
+      "scale": 0.75
     },
     {
       "type": "multiblock",

@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DarkRobeModel extends HumanoidModel<LivingEntity> {
@@ -43,7 +44,7 @@ public class DarkRobeModel extends HumanoidModel<LivingEntity> {
     public void setupAnim(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.bodyParts().forEach((modelPart -> modelPart.visible = !entityIn.isInvisible()));
-        this.head.visible = ItemConfig.ShowRobeHoods.get() && !CuriosFinder.hasUndeadCrown(entityIn);
+        this.head.visible = ItemConfig.ShowRobeHoods.get() && !CuriosFinder.hasUndeadCrown(entityIn) && entityIn.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
     }
 
     @Override

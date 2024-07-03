@@ -1,0 +1,15 @@
+{
+  "name": "Hunting Focus",
+  "icon": "goety:hunting_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Black wolves are supernatural, or demonic hounds mentioned in folklore that are said to be seen throughout the Overworld. With the focus, you're able to summon or conjure them for aid. When cast with $(l:crafts/wild_staff)Wild Staff$(), more wolves are summoned, wearing a Wild Robe will strengthened them, where their claws and bites Curses their target."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/hunting_focus"
+    }
+  ]
+}

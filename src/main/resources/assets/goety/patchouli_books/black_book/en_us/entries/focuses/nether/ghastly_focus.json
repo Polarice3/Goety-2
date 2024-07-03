@@ -11,6 +11,11 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:focus/ghastly_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Wearing a Nether Robes will casting this spell will summon forth Ghast Servants instead of Mini-Ghasts, though in smaller amounts even when cast with Nether Staff."
     }
   ],
   "extra_recipe_mappings": {

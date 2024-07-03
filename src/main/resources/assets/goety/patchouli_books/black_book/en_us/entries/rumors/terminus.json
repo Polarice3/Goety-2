@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:quest",
-      "trigger": "goety:goety/read_terminus_scroll",
+      "trigger": "goety:goety/get_shrouded_blueprint",
       "text": "The scroll mentions that the beast's design may have came from a being of $(l)The End$(), perhaps that's where the secrets may lay."
     }
   ]

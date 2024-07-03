@@ -76,7 +76,7 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "decoration": "mansion",
+              "decoration": "target_point",
               "function": "minecraft:exploration_map",
               "destination": "goety:explorer_maps/crypt",
               "skip_existing_chunks": true,

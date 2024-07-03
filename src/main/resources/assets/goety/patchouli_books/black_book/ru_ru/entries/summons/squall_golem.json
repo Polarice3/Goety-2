@@ -11,7 +11,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:squall_golem"
+      "entity": "goety:squall_golem",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
@@ -38,5 +39,8 @@
       "type": "patchouli:text",
       "text": "Если голем деактивирован, нажатие ПКМ пустой рукой повернёт его в вашу сторону."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:resonance_crystal": 4
+  }
 }

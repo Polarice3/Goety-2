@@ -10,11 +10,12 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:whisperer"
+      "entity": "goety:whisperer",
+      "scale": 0.75
     },
     {
       "type": "patchouli:text",
-      "text": "Можно вызвать этих существ на время с помощью $(l:focuses/wild/whispering_focus)фокуса шёпота$() или навсегда, нажав ПКМ по центральному блоку мха ядром оживления в этой структуре."
+      "text": "Можно вызвать этих существ на время с помощью $(l:focuses/whispering_focus)фокуса шёпота$() или навсегда, нажав ПКМ по центральному блоку мха ядром оживления в этой структуре."
     },
     {
       "type": "multiblock",

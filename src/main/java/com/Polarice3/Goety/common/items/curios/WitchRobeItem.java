@@ -8,9 +8,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class WitchRobeItem extends SingleStackItem implements ICurioItem {
+public class WitchRobeItem extends SingleStackItem {
     public static String INVENTORY = "WITCH_ROBE_BREW";
 
     @Override

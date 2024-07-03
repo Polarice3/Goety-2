@@ -6,7 +6,10 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -15,47 +18,120 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.WitherSkull;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class ModWitherSkull extends ExplosiveProjectile {
+public class ModWitherSkull extends WitherSkull {
+   private static final EntityDataAccessor<Boolean> DATA_UPGRADED = SynchedEntityData.defineId(ModWitherSkull.class, EntityDataSerializers.BOOLEAN);
+   public static final EntityDataAccessor<Float> DATA_EXPLOSION = SynchedEntityData.defineId(ModWitherSkull.class, EntityDataSerializers.FLOAT);
+   public static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(ModWitherSkull.class, EntityDataSerializers.FLOAT);
+   public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(ModWitherSkull.class, EntityDataSerializers.FLOAT);
+   public static final EntityDataAccessor<Integer> DATA_FIERY = SynchedEntityData.defineId(ModWitherSkull.class, EntityDataSerializers.INT);
 
-   public ModWitherSkull(EntityType<? extends ExplosiveProjectile> p_37598_, Level p_37599_) {
+   public ModWitherSkull(EntityType<? extends WitherSkull> p_37598_, Level p_37599_) {
       super(p_37598_, p_37599_);
    }
 
    public ModWitherSkull(double p_i50167_2_, double p_i50167_4_, double p_i50167_6_, double p_i50167_8_, double p_i50167_10_, double p_i50167_12_, Level p_i50167_14_) {
-      super(ModEntityType.MOD_WITHER_SKULL.get(), p_i50167_2_, p_i50167_4_, p_i50167_6_, p_i50167_8_, p_i50167_10_, p_i50167_12_, p_i50167_14_);
+      this(ModEntityType.MOD_WITHER_SKULL.get(), p_i50167_14_);
+      this.moveTo(p_i50167_2_, p_i50167_4_, p_i50167_6_, this.getYRot(), this.getXRot());
+      this.reapplyPosition();
+      double d0 = Math.sqrt(p_i50167_8_ * p_i50167_8_ + p_i50167_10_ * p_i50167_10_ + p_i50167_12_ * p_i50167_12_);
+      if (d0 != 0.0D) {
+         this.xPower = p_i50167_8_ / d0 * 0.1D;
+         this.yPower = p_i50167_10_ / d0 * 0.1D;
+         this.zPower = p_i50167_12_ / d0 * 0.1D;
+      }
    }
 
-   public ModWitherSkull(LivingEntity p_i50168_2_, double p_i50168_3_, double p_i50168_5_, double p_i50168_7_, Level p_i50168_9_) {
-      super(ModEntityType.MOD_WITHER_SKULL.get(), p_i50168_2_, p_i50168_3_, p_i50168_5_, p_i50168_7_, p_i50168_9_);
+   @Override
+   public EntityType<?> getType() {
+      return ModEntityType.MOD_WITHER_SKULL.get();
    }
 
-   public void defaultExplosionAndDamage() {
+   protected void defineSynchedData() {
+      super.defineSynchedData();
+      this.entityData.define(DATA_UPGRADED, false);
+      this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
+      this.entityData.define(DATA_FIERY, 0);
       this.entityData.define(DATA_EXPLOSION, 1.0F);
       this.entityData.define(DATA_DAMAGE, 8.0F);
    }
 
-   protected float getInertia() {
-      return this.isDangerous() ? 0.73F : super.getInertia();
+   public float getExplosionPower() {
+      return this.entityData.get(DATA_EXPLOSION);
    }
 
-   public boolean isOnFire() {
-      return false;
+   public void setExplosionPower(float pExplosionPower){
+      this.entityData.set(DATA_EXPLOSION, pExplosionPower);
    }
 
-   public float getBlockExplosionResistance(Explosion p_37619_, BlockGetter p_37620_, BlockPos p_37621_, BlockState p_37622_, FluidState p_37623_, float p_37624_) {
-      return this.isDangerous() && p_37622_.canEntityDestroy(p_37620_, p_37621_, new WitherSkull(EntityType.WITHER_SKULL, this.level)) ? Math.min(0.8F, p_37624_) : p_37624_;
+   public float getDamage() {
+      return this.entityData.get(DATA_DAMAGE);
+   }
+
+   public void setDamage(float pDamage) {
+      this.entityData.set(DATA_DAMAGE, pDamage);
+   }
+
+   public float getExtraDamage() {
+      return this.entityData.get(DATA_EXTRA_DAMAGE);
+   }
+
+   public void setExtraDamage(float extra) {
+      this.entityData.set(DATA_EXTRA_DAMAGE, extra);
+   }
+
+   public int getFiery() {
+      return this.entityData.get(DATA_FIERY);
+   }
+
+   public void setFiery(int fiery) {
+      this.entityData.set(DATA_FIERY, fiery);
+   }
+
+   public boolean isUpgraded() {
+      return this.entityData.get(DATA_UPGRADED);
+   }
+
+   public void setUpgraded(boolean upgraded) {
+      this.entityData.set(DATA_UPGRADED, upgraded);
+   }
+
+   public void addAdditionalSaveData(CompoundTag pCompound) {
+      super.addAdditionalSaveData(pCompound);
+      pCompound.putFloat("ExplosionPower", this.getExplosionPower());
+      pCompound.putFloat("Damage", this.getDamage());
+      pCompound.putFloat("ExtraDamage", this.getExtraDamage());
+      pCompound.putInt("Fiery", this.getFiery());
+      pCompound.putBoolean("Upgraded", this.isUpgraded());
+   }
+
+   public void readAdditionalSaveData(CompoundTag pCompound) {
+      super.readAdditionalSaveData(pCompound);
+      if (pCompound.contains("ExplosionPower", 99)) {
+         this.setExplosionPower(pCompound.getFloat("ExplosionPower"));
+      }
+      if (pCompound.contains("Damage", 99)) {
+         this.setDamage(pCompound.getFloat("Damage"));
+      }
+      if (pCompound.contains("ExtraDamage", 99)) {
+         this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
+      }
+      if (pCompound.contains("Fiery")) {
+         this.setFiery(pCompound.getInt("Fiery"));
+      }
+      if (pCompound.contains("Upgraded")) {
+         this.setUpgraded(pCompound.getBoolean("Upgraded"));
+      }
    }
 
    protected void onHitEntity(EntityHitResult p_37626_) {
-      super.onHitEntity(p_37626_);
       if (!this.level.isClientSide) {
          Entity entity = p_37626_.getEntity();
          Entity entity1 = this.getOwner();
@@ -69,7 +145,7 @@ public class ModWitherSkull extends ExplosiveProjectile {
             } else {
                damage = this.getDamage();
             }
-            flag = entity.hurt(ModDamageSource.modWitherSkull(this, livingentity), damage + enchantment);
+            flag = entity.hurt(this.damageSources().witherSkull(this, livingentity), damage + enchantment);
             if (flag) {
                if (entity.isAlive()) {
                   this.doEnchantDamageEffects(livingentity, entity);
@@ -94,7 +170,16 @@ public class ModWitherSkull extends ExplosiveProjectile {
    }
 
    protected void onHit(HitResult pResult) {
-      super.onHit(pResult);
+      HitResult.Type hitresult$type = pResult.getType();
+      if (hitresult$type == HitResult.Type.ENTITY) {
+         this.onHitEntity((EntityHitResult)pResult);
+         this.level().gameEvent(GameEvent.PROJECTILE_LAND, pResult.getLocation(), GameEvent.Context.of(this, (BlockState)null));
+      } else if (hitresult$type == HitResult.Type.BLOCK) {
+         BlockHitResult blockhitresult = (BlockHitResult)pResult;
+         this.onHitBlock(blockhitresult);
+         BlockPos blockpos = blockhitresult.getBlockPos();
+         this.level().gameEvent(GameEvent.PROJECTILE_LAND, blockpos, GameEvent.Context.of(this, this.level().getBlockState(blockpos)));
+      }
       if (!this.level.isClientSide) {
          Entity owner = this.getOwner();
          boolean flaming = this.getFiery() > 0;
@@ -126,17 +211,5 @@ public class ModWitherSkull extends ExplosiveProjectile {
          }
       }
       return super.canHitEntity(pEntity);
-   }
-
-   public boolean isPickable() {
-      return false;
-   }
-
-   public boolean hurt(DamageSource p_37616_, float p_37617_) {
-      return false;
-   }
-
-   protected boolean shouldBurn() {
-      return false;
    }
 }

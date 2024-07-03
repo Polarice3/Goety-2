@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -36,6 +37,9 @@ public class ModDamageSource extends DamageSource {
     public static ResourceKey<DamageType> ICE_BOUQUET = create("ice_bouquet");
     public static ResourceKey<DamageType> HELLFIRE = create("hellfire");
     public static ResourceKey<DamageType> INDIRECT_HELLFIRE = create("indirect_hellfire");
+    public static ResourceKey<DamageType> MAGIC_FIRE = create("magic_fire");
+    public static ResourceKey<DamageType> MAGIC_FIREBALL = create("magic_fireball");
+    public static ResourceKey<DamageType> NO_OWNER_MAGIC_FIREBALL = create("no_owner_magic_fireball");
     public static ResourceKey<DamageType> FIRE_BREATH = create("fire_breath");
     public static ResourceKey<DamageType> FROST_BREATH = create("frost_breath");
     public static ResourceKey<DamageType> MAGIC_BOLT = create("magic_bolt");
@@ -115,6 +119,10 @@ public class ModDamageSource extends DamageSource {
         return pIndirectEntity == null ? indirectEntityDamageSource(world, DamageTypes.FIREBALL, fireball, fireball) : indirectEntityDamageSource(world, DamageTypes.FIREBALL, fireball, pIndirectEntity);
     }
 
+    public static DamageSource magicFireball(Fireball p_270147_, @Nullable Entity pIndirectEntity, Level world) {
+        return pIndirectEntity == null ? indirectEntityDamageSource(world, NO_OWNER_MAGIC_FIREBALL, p_270147_, null) : indirectEntityDamageSource(world, MAGIC_FIREBALL, p_270147_, pIndirectEntity);
+    }
+
     public static DamageSource sword(Entity pSource, @Nullable Entity pIndirectEntity){
         return indirectEntityDamageSource(pSource.level, SWORD, pSource, pIndirectEntity);
     }
@@ -129,6 +137,10 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource fireBreath(Entity pSource, @Nullable Entity pIndirectEntity){
         return noKnockbackDamageSource(pSource.level, FIRE_BREATH, pSource, pIndirectEntity);
+    }
+
+    public static DamageSource magicFireBreath(Entity pSource, @Nullable Entity pIndirectEntity){
+        return noKnockbackDamageSource(pSource.level, MAGIC_FIRE, pSource, pIndirectEntity);
     }
 
     public static DamageSource frostBreath(Entity pSource, @Nullable Entity pIndirectEntity){
@@ -150,6 +162,10 @@ public class ModDamageSource extends DamageSource {
     public static boolean hellfireAttacks(DamageSource source){
         return source != null && (source.getMsgId().equals(source("indirectHellfire"))
                 || source.is(ModDamageSource.HELLFIRE));
+    }
+
+    public static boolean isMagicFire(DamageSource source){
+        return source != null && (source.is(MAGIC_FIRE) || source.is(NO_OWNER_MAGIC_FIREBALL) || source.is(MAGIC_FIREBALL));
     }
 
     public static boolean shockAttacks(DamageSource source){
@@ -182,10 +198,6 @@ public class ModDamageSource extends DamageSource {
 
     public static DamageSource soulLeech(Entity pSource, @Nullable Entity pIndirectEntity){
         return noKnockbackDamageSource(pSource.level, SOUL_LEECH, pSource, pIndirectEntity);
-    }
-
-    public static DamageSource modWitherSkull(Entity pSource, Entity pIndirectEntity) {
-        return indirectEntityDamageSource(pSource.level, DamageTypes.WITHER_SKULL, pSource, pIndirectEntity);
     }
 
     public static DamageSource choke(Entity pSource, @Nullable Entity pIndirectEntity) {
@@ -238,7 +250,10 @@ public class ModDamageSource extends DamageSource {
         context.register(ICE_BOUQUET, new DamageType("goety.iceBouquet", 0.0F, DamageEffects.FREEZING));
         context.register(HELLFIRE, new DamageType("goety.hellfire", 0.0F, DamageEffects.BURNING));
         context.register(INDIRECT_HELLFIRE, new DamageType("goety.indirectHellfire", 0.0F, DamageEffects.BURNING));
+        context.register(MAGIC_FIREBALL, new DamageType("fireball", 0.1F, DamageEffects.BURNING));
+        context.register(NO_OWNER_MAGIC_FIREBALL, new DamageType("onFire", 0.1F, DamageEffects.BURNING));
         context.register(FIRE_BREATH, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
+        context.register(MAGIC_FIRE, new DamageType("goety.fireBreath", 0.0F, DamageEffects.BURNING));
         context.register(FROST_BREATH, new DamageType("goety.frostBreath", 0.0F, DamageEffects.FREEZING));
         context.register(MAGIC_BOLT, new DamageType("indirectMagic", 0.0F));
         context.register(SOUL_LEECH, new DamageType("goety.soulLeech", 0.0F));

@@ -1,0 +1,20 @@
+{
+  "name": "Минувший свиток",
+  "icon": "goety:bygone_scroll",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/get_withered_manuscript",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вам удалось заполучить рукопись, в которой подробно рассказывается о обитателях незерской крепости и их магии. К сожалению, рукопись практически нечитаема, но вы нашли способ связаться с мёртвыми, чтобы заполнить пробелы."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bygone_scroll"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:withered_manuscript": 0,
+    "goety:bygone_scroll": 1
+  }
+}

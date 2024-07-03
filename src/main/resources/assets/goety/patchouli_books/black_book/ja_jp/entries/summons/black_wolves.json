@@ -1,0 +1,28 @@
+{
+  "name": "黒狼",
+  "icon": "minecraft:bone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "おとぎ話だと考えられているこれらの死の前兆は非常に現実的であり、召喚者に忠実です。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "忠実な黒狼は、$(l:focuses/wild/hunting_focus)狩猟のフォーカス$() を使用することで、または寿命に制限のない黒狼を召喚する儀式を通じて呼び出すことができます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_black_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "忠実な黒狼を肉で右クリックすると回復します。"
+    }
+  ]
+}

@@ -30,7 +30,9 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Cultist;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
+import com.Polarice3.Goety.common.entities.hostile.servants.Damned;
 import com.Polarice3.Goety.common.entities.hostile.servants.ObsidianMonolith;
+import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
@@ -56,6 +58,7 @@ import com.Polarice3.Goety.compat.patchouli.PatchouliLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
@@ -77,6 +80,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -475,6 +479,9 @@ public class ModEvents {
                                 if (mob instanceof Apostle) {
                                     attributeInstance.setBaseValue(1.5D);
                                 }
+                                if (mob.getMobType() == ModMobType.NATURAL){
+                                    attributeInstance.setBaseValue(1.5D);
+                                }
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.HOLY_MAGIC_RESIST) {
                                 if (mob instanceof Conquillager || mob instanceof Preacher || mob instanceof Minister || mob instanceof Vizier) {
@@ -490,6 +497,9 @@ public class ModEvents {
                                 }
                                 if (mob instanceof IceGolem){
                                     attributeInstance.setBaseValue(2.0D);
+                                }
+                                if (mob instanceof BlazeServant){
+                                    attributeInstance.setBaseValue(0.5D);
                                 }
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.LIGHTNING_MAGIC_RESIST) {
@@ -877,7 +887,7 @@ public class ModEvents {
         if (attacker instanceof Mob mobAttacker) {
             if (target != null) {
                 if (target instanceof Player) {
-                    if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock || mobAttacker instanceof Crone){
+                    if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock || mobAttacker instanceof Crone || mobAttacker.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL)){
                         if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasWarlockRobe(target)){
                             if (mobAttacker.getLastHurtByMob() != target){
                                 event.setNewTarget(null);
@@ -1097,14 +1107,35 @@ public class ModEvents {
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), ModSounds.ZAP.get(), 2.0F, 1.0F));
             }
         }
+        if (ModDamageSource.isMagicFire(event.getSource())){
+            float amount = event.getAmount();
+            if (victim.fireImmune()) {
+                amount /= 2.0F;
+            }
+            int k = EnchantmentHelper.getDamageProtection(victim.getArmorSlots(), victim.damageSources().inFire());
+            if (k > 0) {
+                amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float) k);
+            }
+            event.setAmount(amount);
+        }
         if (ModDamageSource.hellfireAttacks(event.getSource())){
             if (victim.level instanceof ServerLevel serverLevel){
                 ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), victim);
                 ModNetwork.sendToALL(new SPlayWorldSoundPacket(victim.blockPosition(), SoundEvents.PLAYER_HURT_ON_FIRE, 2.0F, 1.0F));
             }
-            if (victim.fireImmune()){
-                event.setAmount(event.getAmount() / 2.0F);
+            float amount = event.getAmount();
+            if (MobsConfig.HellfireFireImmune.get()) {
+                if (victim.fireImmune()) {
+                    amount /= 2.0F;
+                }
             }
+            if (MobsConfig.HellfireFireProtection.get()) {
+                int k = EnchantmentHelper.getDamageProtection(victim.getArmorSlots(), victim.damageSources().inFire());
+                if (k > 0) {
+                    amount = CombatRules.getDamageAfterMagicAbsorb(amount, (float) k);
+                }
+            }
+            event.setAmount(amount);
         }
         if (event.getAmount() > 0.0F) {
             if (event.getSource().getDirectEntity() instanceof LivingEntity livingAttacker) {
@@ -1221,6 +1252,9 @@ public class ModEvents {
         LivingEntity killed = event.getEntity();
         Entity killer = event.getSource().getEntity();
         Level world = killed.getCommandSenderWorld();
+        if (event.getSource() instanceof NoKnockBackDamageSource noKnockBackDamageSource){
+            killer = noKnockBackDamageSource.getOwner();
+        }
         if (killed instanceof PathfinderMob){
             if (killed.hasEffect(GoetyEffects.GOLD_TOUCHED.get())){
                 if (world.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
@@ -1245,6 +1279,22 @@ public class ModEvents {
                         if (!zombievillager.isSilent()) {
                             serverLevel.levelEvent((Player) null, 1026, zombievillager.blockPosition(), 0);
                         }
+                    }
+                }
+            }
+            if (killed instanceof AbstractIllager illager){
+                for (Apostle apostle : world.getEntitiesOfClass(Apostle.class, illager.getBoundingBox().inflate(32))){
+                    if (apostle.hasLineOfSight(illager)){
+                        Damned damned = new Damned(ModEntityType.DAMNED.get(), world);
+                        damned.moveTo(illager.blockPosition().below(2), apostle.getYHeadRot(), apostle.getXRot());
+                        damned.setTrueOwner(apostle);
+                        damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(illager.blockPosition().below()), MobSpawnType.MOB_SUMMONED, null, null);
+                        if (apostle.getTarget() != null){
+                            damned.setTarget(apostle.getTarget());
+                        }
+                        damned.setLimitedLife(100);
+                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ModParticleTypes.BIG_FIRE.get(), damned);
+                        world.addFreshEntity(damned);
                     }
                 }
             }
@@ -1302,6 +1352,10 @@ public class ModEvents {
         if (killer instanceof WitherNecromancer necromancer){
             MobUtil.createWitherRose(killed, necromancer);
         }
+/*        if (killer instanceof LivingEntity livingEntity){
+            net.minecraft.network.chat.Component deathMessage = killed.getCombatTracker().getDeathMessage();
+            livingEntity.sendSystemMessage(deathMessage);
+        }*/
         if (!event.isCanceled()){
             MiscCapHelper.setFreezing(killed, 0);
             MiscCapHelper.setShields(killed, 0);
@@ -1493,9 +1547,11 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void addWanderTrade(WandererTradesEvent event){
+        List<VillagerTrades.ItemListing> genericTrades = event.getGenericTrades();
         List<VillagerTrades.ItemListing> rareTrades = event.getRareTrades();
-        rareTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
+        genericTrades.add(new ModTradeUtil.ItemsForEmeralds(ModItems.JADE.get(), 1, 64, 16));
         rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.WIND_SHRINE, "filled_map.goety.wind_shrine", MapDecoration.Type.TARGET_X, 12, 10));
+        rareTrades.add(new ModTradeUtil.TreasureMapForEmeralds(8, ModStructureTags.BLIGHTED_SHACK, "filled_map.goety.blighted_shack", MapDecoration.Type.MANSION, 12, 10));
     }
 
     @SubscribeEvent

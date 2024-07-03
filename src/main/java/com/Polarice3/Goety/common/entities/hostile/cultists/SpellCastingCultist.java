@@ -132,7 +132,8 @@ public abstract class SpellCastingCultist extends Cultist{
         ROAR(3, 0.8D, 0.3D, 0.8D),
         TORNADO(4, 1.0D, 0.1D, 0.1D),
         RANGED(5, 0.5D, 0.5D, 0.5D),
-        SACRIFICE(6, 0.1D, 0.1D, 0.1D);
+        CLOUD(6, 0.3D, 0.0D, 0.0D),
+        SACRIFICE(7, 0.1D, 0.1D, 0.1D);
 
         private final int id;
         private final double[] particleSpeed;

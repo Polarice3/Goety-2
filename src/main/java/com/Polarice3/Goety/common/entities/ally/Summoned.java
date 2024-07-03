@@ -60,9 +60,9 @@ import java.util.function.Predicate;
 
 public class Summoned extends Owned implements IServant {
     protected static final EntityDataAccessor<Byte> SUMMONED_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
+    protected static final EntityDataAccessor<Byte> UPGRADE_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("9c47949c-b896-4802-8e8a-f08c50791a8a");
     private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Staying speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
-    public boolean upgraded;
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
@@ -189,6 +189,12 @@ public class Summoned extends Owned implements IServant {
                                 soulCost = MobsConfig.NaturalMinionHealCost.get();
                                 healRate = MobsConfig.NaturalMinionHealTime.get();
                                 healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
+                            }
+                            if (this.getMobType() == ModMobType.NETHER && MobsConfig.NetherMinionHeal.get()){
+                                curio = CuriosFinder.hasNetherRobe(owner);
+                                soulCost = MobsConfig.NetherMinionHealCost.get();
+                                healRate = MobsConfig.NetherMinionHealTime.get();
+                                healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
                             }
                             if (curio) {
                                 if (SEHelper.getSoulsAmount(owner, soulCost)) {
@@ -356,6 +362,7 @@ public class Summoned extends Owned implements IServant {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SUMMONED_FLAGS, (byte)0);
+        this.entityData.define(UPGRADE_FLAGS, (byte)0);
     }
 
     private boolean getFlag(int mask) {
@@ -421,7 +428,7 @@ public class Summoned extends Owned implements IServant {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("Upgraded", this.upgraded);
+        compound.putBoolean("Upgraded", this.isUpgraded());
         compound.putBoolean("wandering", this.isWandering());
         compound.putBoolean("staying", this.isStaying());
         if (this.commandPos != null){
@@ -459,16 +466,24 @@ public class Summoned extends Owned implements IServant {
     }
 
     public boolean isUpgraded() {
-        return this.upgraded;
+        return (this.entityData.get(UPGRADE_FLAGS) & 4) != 0;
     }
 
     public void setUpgraded(boolean upgraded) {
-        this.upgraded = upgraded;
-        if (upgraded){
-            this.level.broadcastEntityEvent(this, (byte) 125);
+        byte b0 = this.entityData.get(UPGRADE_FLAGS);
+        if (upgraded) {
+            this.entityData.set(UPGRADE_FLAGS, (byte)(b0 | 4));
         } else {
-            this.level.broadcastEntityEvent(this, (byte) 126);
+            this.entityData.set(UPGRADE_FLAGS, (byte)(b0 & -5));
         }
+    }
+
+    public void upgrade(){
+        this.setUpgraded(true);
+    }
+
+    public void downgrade(){
+        this.setUpgraded(false);
     }
 
     public void setCommandPos(BlockPos blockPos){
@@ -517,16 +532,6 @@ public class Summoned extends Owned implements IServant {
 
     public void tryKill(Player player){
         this.kill();
-    }
-
-    public void handleEntityEvent(byte pId) {
-        if (pId == 125){
-            this.upgraded = true;
-        } else if (pId == 126){
-            this.upgraded = false;
-        } else {
-            super.handleEntityEvent(pId);
-        }
     }
 
     public static class FollowOwnerGoal extends Goal {
@@ -916,8 +921,24 @@ public class Summoned extends Owned implements IServant {
     public static class NaturalAttackGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         protected Summoned summoned;
 
-        public NaturalAttackGoal(Summoned summoned, Class<T> p_26061_) {
-            super(summoned, p_26061_, true);
+        public NaturalAttackGoal(Summoned summoned, Class<T> tClass) {
+            this(summoned, tClass, 10, true, null);
+        }
+
+        public NaturalAttackGoal(Summoned summoned, Class<T> tClass, boolean pMustSee) {
+            this(summoned, tClass, 10, pMustSee, null);
+        }
+
+        public NaturalAttackGoal(Summoned summoned, Class<T> tClass, boolean pMustSee, @Nullable Predicate<LivingEntity> predicate) {
+            this(summoned, tClass, 10, pMustSee, predicate);
+        }
+
+        public NaturalAttackGoal(Summoned summoned, Class<T> tClass, int time, boolean pMustSee, @Nullable Predicate<LivingEntity> predicate) {
+            this(summoned, tClass, time, pMustSee, false, predicate);
+        }
+
+        public NaturalAttackGoal(Summoned summoned, Class<T> tClass, int time, boolean pMustSee, boolean pMustReach, Predicate<LivingEntity> predicate) {
+            super(summoned, tClass, time, pMustSee, pMustReach, predicate);
             this.summoned = summoned;
         }
 

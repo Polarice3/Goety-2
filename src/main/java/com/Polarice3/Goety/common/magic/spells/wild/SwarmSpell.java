@@ -83,7 +83,7 @@ public class SwarmSpell extends BreathingSpell {
                             InsectSwarm insectSwarm = new InsectSwarm(worldIn, entityLiving, target.position());
                             insectSwarm.setLimitedLife(200 * duration);
                             if (enchantment > 0){
-                                insectSwarm.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), -1, enchantment - 1, false, false));
+                                insectSwarm.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), enchantment - 1, false, false));
                             }
                             worldIn.addFreshEntity(insectSwarm);
                         }

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.phys.Vec3;
 
 public class Vec3Util {
@@ -50,5 +51,20 @@ public class Vec3Util {
 
     public static Vec3 add(Vec3 vec3, double amount){
         return vec3.add(amount, amount, amount);
+    }
+
+    public static Vec3 readVec3(CompoundTag compoundTag) {
+        return new Vec3(
+                compoundTag.getDouble("X"),
+                compoundTag.getDouble("Y"),
+                compoundTag.getDouble("Z"));
+    }
+
+    public static CompoundTag writeVec3(Vec3 vec3) {
+        CompoundTag compoundtag = new CompoundTag();
+        compoundtag.putDouble("X", vec3.x);
+        compoundtag.putDouble("Y", vec3.y);
+        compoundtag.putDouble("Z", vec3.z);
+        return compoundtag;
     }
 }

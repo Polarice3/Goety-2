@@ -25,7 +25,7 @@ import java.util.List;
 public class SoulTransferItem extends Item {
 
     public SoulTransferItem() {
-        super(new Properties().stacksTo(1));
+        super(new Properties());
     }
 
     public boolean isFoil(ItemStack pStack) {

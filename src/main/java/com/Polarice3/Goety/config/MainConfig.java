@@ -62,6 +62,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmLootCompat;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
@@ -133,6 +134,8 @@ public class MainConfig {
         BUILDER.push("Mod Compatibility");
         CataclysmLootCompat = BUILDER.comment("If L_Ender Cataclysm is installed, certain loots are modified and change between this and the latter mod. Default: true")
                 .define("cataclysmLootCompat", true);
+        RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")
+                .define("robesIronResist", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""

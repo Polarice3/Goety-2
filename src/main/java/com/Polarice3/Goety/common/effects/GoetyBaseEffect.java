@@ -16,9 +16,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -30,6 +28,7 @@ import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class GoetyBaseEffect extends MobEffect {
     public GoetyBaseEffect(MobEffectCategory p_19451_, int p_19452_) {
@@ -74,6 +73,23 @@ public class GoetyBaseEffect extends MobEffect {
                 }
                 if (burn){
                     livingEntity.setSecondsOnFire(8);
+                }
+            }
+        }
+        if (this == GoetyEffects.STORMS_WRATH.get()){
+            float chance = 0.1F;
+            chance += amplify / 10.0F;
+            if (livingEntity.level.isRainingAt(livingEntity.blockPosition())){
+                chance += 0.1F;
+                if (livingEntity.level.isThundering()){
+                    chance += 0.25F;
+                }
+            }
+            if (livingEntity.level.canSeeSky(livingEntity.blockPosition())){
+                if (livingEntity.getRandom().nextFloat() <= chance){
+                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, livingEntity.level);
+                    lightningBolt.moveTo(Vec3.atBottomCenterOf(livingEntity.blockPosition()));
+                    livingEntity.level.addFreshEntity(lightningBolt);
                 }
             }
         }
@@ -186,7 +202,8 @@ public class GoetyBaseEffect extends MobEffect {
     }
 
     public boolean isDurationEffectTick(int tick, int amplify) {
-        if (this == GoetyEffects.NYCTOPHOBIA.get() || this == GoetyEffects.PRESSURE.get()) {
+        if (this == GoetyEffects.NYCTOPHOBIA.get()
+                || this == GoetyEffects.PRESSURE.get()) {
             int j = 40 >> amplify;
             if (j > 0) {
                 return tick % j == 0;
@@ -198,7 +215,8 @@ public class GoetyBaseEffect extends MobEffect {
                 return tick % j == 0;
             }
         }
-        if (this == GoetyEffects.TRIPPING.get()) {
+        if (this == GoetyEffects.TRIPPING.get()
+                || this == GoetyEffects.STORMS_WRATH.get()) {
             int j = 20 >> amplify;
             if (j > 0) {
                 return tick % j == 0;

@@ -24,6 +24,18 @@ public abstract class SummonSpell extends Spell implements ISummonSpell {
         return CuriosFinder.hasUndeadCape(entityLiving);
     }
 
+    public boolean FrostPower(LivingEntity entityLiving){
+        return CuriosFinder.hasFrostRobes(entityLiving);
+    }
+
+    public boolean WildPower(LivingEntity entityLiving){
+        return CuriosFinder.hasWildRobe(entityLiving);
+    }
+
+    public boolean NetherPower(LivingEntity entityLiving){
+        return CuriosFinder.hasNetherRobe(entityLiving);
+    }
+
     public int summonLimit(){
         return 64;
     }

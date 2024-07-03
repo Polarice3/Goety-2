@@ -29,7 +29,7 @@ public class IceSpikeSpell extends Spell {
     }
 
     public SoundEvent CastingSound() {
-        return ModSounds.ICE_SPIKE_CAST.get();
+        return ModSounds.FROST_PREPARE_SPELL.get();
     }
 
     @Override
@@ -54,14 +54,16 @@ public class IceSpikeSpell extends Spell {
         if (WandUtil.enchantedFocus(entityLiving)) {
             enchantment = WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving) / 3.0F;
         }
+        float initVelocity = 1.6F;
         IceSpike iceSpike = new IceSpike(entityLiving, worldIn);
         if (rightStaff(staff)){
             iceSpike = new IceSpear(entityLiving, worldIn);
+            initVelocity = 2.4F;
         }
-        iceSpike.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.6F + enchantment, 1.0F);
+        iceSpike.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, initVelocity + enchantment, 1.0F);
         iceSpike.setOwner(entityLiving);
         iceSpike.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
         worldIn.addFreshEntity(iceSpike);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_SPIKE_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

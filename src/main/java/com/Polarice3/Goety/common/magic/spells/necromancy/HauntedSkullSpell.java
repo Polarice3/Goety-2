@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -117,7 +118,7 @@ public class HauntedSkullSpell extends SummonSpell {
                 summonedentity.setLimitedLife(MathHelper.minutesToTicks(1) * duration);
                 if (enchantment > 0) {
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
-                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), Integer.MAX_VALUE, boost));
+                    summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost));
                 }
                 if (radius > 0) {
                     summonedentity.setExplosionPower(1.0F + radius / 4.0F);

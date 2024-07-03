@@ -1,0 +1,33 @@
+{
+  "name": "Медведи-прислужники",
+  "icon": "minecraft:salmon",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Преданные и агрессивные медведи — отличные слуги, способные рвать на части ваших врагов. Кроме того, из них получаются отличные ездовые животные, не требующие седла, если только не обращать внимания на медленную скорость."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Можно вызвать медведя с помощью $(l:focuses/wild/mauling_focus)фокуса терзаний$() или ритуала, который призывает медведя с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_bear_servant_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:bear_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Нажатие ПКМ по медведю-прислужнику рыбой исцелит его. Призыв медведя-прислужника в холодном биоме или с помощью $(l:crafts/frost_staff)морозного посоха$() создаст белого медведя-прислужника."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:polar_bear_servant",
+      "scale": 0.5
+    }
+  ]
+}

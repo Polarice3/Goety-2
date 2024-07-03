@@ -1,0 +1,21 @@
+{
+  "name": "Незерские одежды",
+  "icon": "goety:nether_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Благодаря знаниям о Незере, вам удалось создать мантию, которая наполняет своего владельца пламенем. Носитель мантии будет более устойчив к огненным атакам и будет быстрее тушить огонь. Мантия также удешевляет незерские заклинания и позволяет прислужникам регенерироваться, используя энергию душ владельца."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_robe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_robe": 1,
+    "goety:nether_robe_warped": 1
+  }
+}

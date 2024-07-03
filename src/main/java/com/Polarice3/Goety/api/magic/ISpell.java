@@ -92,6 +92,9 @@ public interface ISpell {
             }
         }
         if (this.getSpellType() == SpellType.NETHER){
+            if (NetherSoulDiscount(entityLiving)){
+                cost /= 2;
+            }
             if (enable) {
                 if (level.dimension() == Level.NETHER || biomeHolder.is(ModTags.Biomes.NETHER_DISCOUNT)) {
                     cost /= 1.5F;
@@ -101,6 +104,9 @@ public interface ISpell {
             }
         }
         if (this.getSpellType() == SpellType.NECROMANCY){
+            if (NecroSoulDiscount(entityLiving)){
+                cost /= 2;
+            }
             if (enable) {
                 if (level.getMoonBrightness() > 0.9F || biomeHolder.is(ModTags.Biomes.NECROMANCY_DISCOUNT)
                         || BlockFinder.findStructure(level, blockPos, ModTags.Structures.NECROMANCER_POWER)) {
@@ -123,6 +129,9 @@ public interface ISpell {
             }
         }
         if (this.getSpellType() == SpellType.ABYSS){
+            if (AbyssSoulDiscount(entityLiving)){
+                cost /= 2;
+            }
             if (enable) {
                 if (biomeHolder.is(ModTags.Biomes.ABYSS_DISCOUNT)) {
                     cost /= 1.5F;
@@ -132,6 +141,9 @@ public interface ISpell {
             }
         }
         if (this.getSpellType() == SpellType.VOID){
+            if (VoidSoulDiscount(entityLiving)){
+                cost /= 2;
+            }
             if (enable) {
                 if (biomeHolder.is(ModTags.Biomes.VOID_DISCOUNT)
                         || level.dimension() == Level.END) {
@@ -264,5 +276,21 @@ public interface ISpell {
 
     default boolean WildSoulDiscount(LivingEntity entityLiving){
         return CuriosFinder.hasWildRobe(entityLiving);
+    }
+
+    default boolean NetherSoulDiscount(LivingEntity entityLiving){
+        return CuriosFinder.hasNetherRobe(entityLiving);
+    }
+
+    default boolean AbyssSoulDiscount(LivingEntity entityLiving){
+        return false;
+    }
+
+    default boolean NecroSoulDiscount(LivingEntity entityLiving){
+        return false;
+    }
+
+    default boolean VoidSoulDiscount(LivingEntity entityLiving){
+        return false;
     }
 }

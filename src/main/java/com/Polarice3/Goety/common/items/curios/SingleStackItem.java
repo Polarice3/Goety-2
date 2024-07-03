@@ -11,15 +11,21 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SingleStackItem extends Item {
+public class SingleStackItem extends Item implements ICurioItem {
 
     public SingleStackItem() {
-        super(new Properties().stacksTo(1));
+        this(new Properties().stacksTo(1));
+    }
+
+    public SingleStackItem(Properties properties){
+        super(properties);
     }
 
     @Override
@@ -53,6 +59,11 @@ public class SingleStackItem extends Item {
             return enchantment == Enchantments.THORNS;
         }
         return false;
+    }
+
+    @Override
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        return true;
     }
 
     @Override
@@ -132,6 +143,12 @@ public class SingleStackItem extends Item {
                 if (stack.getItem() instanceof WarlockRobeItem && ItemConfig.WarlockRobeResistance.get() > 0) {
                     tooltip.add(Component.translatable("info.goety.warlock_robe", ItemConfig.WarlockRobeResistance.get()).withStyle(secondary));
                 }
+            }
+            if (stack.getItem() instanceof NetherRobeItem) {
+                if (ItemConfig.NetherRobeResistance.get() > 0) {
+                    tooltip.add(Component.translatable("info.goety.nether_robe", ItemConfig.NetherRobeResistance.get()).withStyle(main));
+                }
+                tooltip.add(Component.translatable("info.goety.nether_robe_discount").withStyle(secondary));
             }
             if (stack.is(ModItems.RING_OF_WANT.get())){
                 tooltip.add(Component.translatable("info.goety.ring_of_want").withStyle(secondary));

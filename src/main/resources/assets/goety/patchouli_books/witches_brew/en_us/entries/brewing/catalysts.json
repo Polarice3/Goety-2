@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "But don't worry! Ol' Granny will explain what some of them do since I'm feeling nice today! Oh, and some of these effects take up more than 1 capacity, so that's another thing to look out for when brewing! Hehahaha!"
+      "text": "But don't worry! Ol' Granny will explain what some of them do since I'm feeling nice today! If the catalyst is a spawn egg, it means you gotta boil whatever spawns from that egg in your cauldron! Oh, and some of these effects take up more than 1 capacity, so that's another thing to look out for when brewing! Hehahaha!"
     },
     {
       "type": "goety:catalyst",
@@ -39,6 +39,11 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.blindness"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.bottling",
+      "text": "Be better at brewing by brewing a brew that makes you brew better!"
     },
     {
       "type": "goety:catalyst",
@@ -87,6 +92,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.ender_ground",
       "text": "Teaches those Enderman to not disappear when getting slashed or splashed on!"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.ender_flux",
+      "text": "You know the old tale of cats jumping and clawing at the ceiling when surprised? Well, what if they end up jumping to whole new location instead, and the surprise is a knife to the face?"
     },
     {
       "type": "goety:catalyst",
@@ -140,6 +150,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.flaying",
       "text": "Rips the skin, feathers and wool from Animals! Leaves the meat and flesh behind, though don't think they'll be fine! Hahaha!"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.flimsy",
+      "text": "Makes even the sturdiest of fools bend to the winds!"
     },
     {
       "type": "goety:catalyst",
@@ -216,6 +231,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.infest",
       "text": "Makes certain Stones and Stone Bricks infested with those adorable Silverfishes!"
+    },
+    {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.infest",
+      "text": "Boil a Silverfish in your cauldron if you can't get any infested stone around!"
     },
     {
       "type": "goety:catalyst",
@@ -337,6 +357,11 @@
       "recipe": "effect.minecraft.regeneration"
     },
     {
+      "type": "goety:sacrifice",
+      "recipe": "effect.minecraft.regeneration",
+      "text": "Ever wonder where those stories of witches making people stew comes from?! Hehehahaha!"
+    },
+    {
       "type": "goety:catalyst",
       "recipe": "effect.goety.repulsive",
       "text": "What? Don't like my perfume after trying to get to know Ol' Granny?!"
@@ -378,8 +403,18 @@
       "text": "When Granny feels like she wants to play in the snow!"
     },
     {
+      "type": "goety:sacrifice",
+      "recipe": "effect.goety.snow_skin",
+      "text": "Wanna BE a snow man?! Well you gotta boil one first!"
+    },
+    {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.speed"
+    },
+    {
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.storms_wrath",
+      "text": "It's either wrath from the clouds or love from the very lightning itself. Either way, you're getting a new hairstyle!"
     },
     {
       "type": "goety:catalyst",

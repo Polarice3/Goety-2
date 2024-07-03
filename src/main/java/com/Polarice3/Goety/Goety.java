@@ -336,6 +336,7 @@ public class Goety {
         event.put(ModEntityType.ZPIGLIN_BRUTE_SERVANT.get(), ZPiglinBruteServant.setCustomAttributes().build());
         event.put(ModEntityType.MALGHAST.get(), Malghast.setCustomAttributes().build());
         event.put(ModEntityType.INFERNO.get(), Inferno.setCustomAttributes().build());
+        event.put(ModEntityType.DAMNED.get(), Damned.setCustomAttributes().build());
         event.put(ModEntityType.VAMPIRE_BAT.get(), VampireBat.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
@@ -371,6 +372,7 @@ public class Goety {
         event.put(ModEntityType.BLAZE_SERVANT.get(), BlazeServant.setCustomAttributes().build());
         event.put(ModEntityType.SLIME_SERVANT.get(), SlimeServant.setCustomAttributes().build());
         event.put(ModEntityType.MAGMA_CUBE_SERVANT.get(), MagmaCubeServant.setCustomAttributes().build());
+        event.put(ModEntityType.CRYPT_SLIME_SERVANT.get(), CryptSlimeServant.setCustomAttributes().build());
         event.put(ModEntityType.SPIDER_SERVANT.get(), SpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.CAVE_SPIDER_SERVANT.get(), CaveSpiderServant.setCustomAttributes().build());
         event.put(ModEntityType.WEB_SPIDER_SERVANT.get(), WebSpiderServant.setCustomAttributes().build());
@@ -380,6 +382,9 @@ public class Goety {
         event.put(ModEntityType.MOD_RAVAGER.get(), ModRavager.setCustomAttributes().build());
         event.put(ModEntityType.ARMORED_RAVAGER.get(), Ravager.createAttributes().build());
         event.put(ModEntityType.ZOMBIE_RAVAGER.get(), ZombieRavager.setCustomAttributes().build());
+        event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
+        event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
+        event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.WHISPERER.get(), Whisperer.setCustomAttributes().build());
         event.put(ModEntityType.WAVEWHISPERER.get(), Wavewhisperer.setCustomAttributes().build());
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());

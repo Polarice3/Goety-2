@@ -11,7 +11,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:redstone_monstrosity"
+      "entity": "goety:redstone_monstrosity",
+      "scale": 0.75
     },
     {
       "type": "multiblock",
@@ -26,5 +27,8 @@
       "type": "patchouli:text",
       "text": "Каменные кирпичи можно заменить другими подобными блоками, например, глубинносланцевыми кирпичами. Чудовище — одно из самых сильных существ, которых вы когда-либо создавали, и по своей силе другие прслужники ему уступают. Чудовище можно починить, нажав по нему ПКМ редстоуновыми блоками."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:reinforced_redstone_block": 3
+  }
 }

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.magic.construct;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
+import com.Polarice3.Goety.utils.CuriosFinder;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -89,6 +90,9 @@ public class IceGolemMold implements IMold {
                         iceGolem.setTrueOwner(player);
                         iceGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(iceGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                         iceGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                        if (CuriosFinder.hasFrostRobes(player)){
+                            iceGolem.setUpgraded(true);
+                        }
                         if (level.addFreshEntity(iceGolem)) {
                             removeBlocks(level, blockPos);
                             stack.shrink(1);

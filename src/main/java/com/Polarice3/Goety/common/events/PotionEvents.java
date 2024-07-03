@@ -26,22 +26,21 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.trading.Merchant;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -229,10 +228,14 @@ public class PotionEvents {
                     }
                 }
                 if (living.hasEffect(GoetyEffects.VENOMOUS_HANDS.get())) {
+                    MobEffect effect = MobEffects.POISON;
+                    if (CuriosFinder.hasWildRobe(living)){
+                        effect = GoetyEffects.ACID_VENOM.get();
+                    }
                     MobEffectInstance mobEffectInstance = living.getEffect(GoetyEffects.VENOMOUS_HANDS.get());
                     if (mobEffectInstance != null) {
                         int a = mobEffectInstance.getAmplifier();
-                        victim.addEffect(new MobEffectInstance(MobEffects.POISON, 200, a), living);
+                        victim.addEffect(new MobEffectInstance(effect, 200, a), living);
                     }
                 }
             }
@@ -286,6 +289,24 @@ public class PotionEvents {
                 int a = mobEffectInstance.getAmplifier() + 2;
                 if (event.getSource().is(DamageTypeTags.IS_FIRE)) {
                     event.setAmount(event.getAmount() * a);
+                }
+            }
+        }
+        if (victim.hasEffect(GoetyEffects.ENDER_FLUX.get())){
+            MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.ENDER_FLUX.get());
+            if (mobEffectInstance != null){
+                int a = mobEffectInstance.getAmplifier();
+                for(int i = 0; i < 64; ++i) {
+                    if (MobUtil.teleport(victim, 16, a)){
+                        if (victim.getRandom().nextFloat() < 0.05F && victim.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+                            Endermite endermite = EntityType.ENDERMITE.create(victim.level);
+                            if (endermite != null) {
+                                endermite.moveTo(victim.getX(), victim.getY(), victim.getZ(), victim.getYRot(), victim.getXRot());
+                                victim.level.addFreshEntity(endermite);
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -481,7 +502,11 @@ public class PotionEvents {
                 }
             }
             if (event.getEntity().hasEffect(GoetyEffects.SHADOW_WALK.get())){
-                event.modifyVisibility(0.0D);
+                if (event.getLookingEntity().getType().is(Tags.EntityTypes.BOSSES)){
+                    event.modifyVisibility(0.5D);
+                } else {
+                    event.modifyVisibility(0.0D);
+                }
             }
         }
     }
@@ -490,7 +515,10 @@ public class PotionEvents {
     public static void changeTarget(LivingChangeTargetEvent event){
         LivingEntity target = event.getOriginalTarget();
         if (target != null) {
-            if (target.hasEffect(GoetyEffects.SHADOW_WALK.get())) {
+            if (target.hasEffect(GoetyEffects.SHADOW_WALK.get())
+            && !event.getEntity().getType().is(Tags.EntityTypes.BOSSES)
+            && !(event.getEntity() instanceof OwnableEntity ownable &&
+                    ownable.getOwner() != null && ownable.getOwner().getType().is(Tags.EntityTypes.BOSSES))) {
                 event.setNewTarget(null);
             }
         }
@@ -550,6 +578,21 @@ public class PotionEvents {
                     if (livingEntity.hasEffect(GoetyEffects.SHADOW_WALK.get())){
                         livingEntity.removeEffect(GoetyEffects.SHADOW_WALK.get());
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void KnockbackEvents(LivingKnockBackEvent event){
+        LivingEntity livingEntity = event.getEntity();
+        if (livingEntity != null){
+            if (livingEntity.hasEffect(GoetyEffects.FLIMSY.get())){
+                MobEffectInstance mobEffectInstance = livingEntity.getEffect(GoetyEffects.FLIMSY.get());
+                if (mobEffectInstance != null){
+                    int a = mobEffectInstance.getAmplifier() + 2;
+                    float strength = event.getOriginalStrength();
+                    event.setStrength(strength * a);
                 }
             }
         }

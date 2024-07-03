@@ -10,6 +10,7 @@
     "#goety:indented_gold_blocks",
     "#goety:snow_bricks",
     "#goety:dark_metal_blocks",
+    "#goety:brazier",
     "goety:cursed_infuser",
     "goety:cursed_metal_block",
     "goety:stone_brazier",
@@ -20,6 +21,7 @@
     "goety:sculk_grower",
     "goety:witch_cauldron",
     "goety:skull_pile",
+    "goety:blazing_cage",
     "goety:lofty_chest",
     "goety:reinforced_redstone_block"
   ]

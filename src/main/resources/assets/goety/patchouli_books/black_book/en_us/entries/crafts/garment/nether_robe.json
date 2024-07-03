@@ -1,0 +1,21 @@
+{
+  "name": "Nether Robes",
+  "icon": "goety:nether_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With the growing knowledge of the Nether, you've managed to craft a robe that imbues the wearer with its flames. Wearers will be resistant to fire attacks and extinguish fire from them more quickly. The Robes also makes Nether Spells cheaper and Nether servants regenerate using their summoner's soul energy."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_robe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_robe": 1,
+    "goety:nether_robe_warped": 1
+  }
+}

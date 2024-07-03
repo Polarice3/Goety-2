@@ -30,6 +30,10 @@ public class ModKeybindings {
         }
     }
 
+    public static KeyMapping wandSlot(){
+        return keyBindings[0];
+    }
+
     public static KeyMapping wandCircle(){
         return keyBindings[1];
     }

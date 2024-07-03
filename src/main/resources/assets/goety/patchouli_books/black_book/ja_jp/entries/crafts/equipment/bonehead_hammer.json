@@ -1,0 +1,22 @@
+{
+  "name": "ボーンヘッドハンマー",
+  "icon": "goety:bonehead_hammer",
+  "category": "goety:crafts/equipment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "頭蓋骨の形に作られたこのハンマーは、全力で振り回すと、近くの生き物を衝撃の標的に向かって引き寄せます。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:bonehead_hammer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "通常のハンマーと同じ機能を実行できます。ハンマーは、$(l:intro/magical_components)呪われた鉄インゴット$() を使って金床で修理できます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:bonehead_hammer": 1
+  }
+}

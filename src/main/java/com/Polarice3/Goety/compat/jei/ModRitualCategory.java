@@ -39,8 +39,8 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
     private int recipeOutputOffsetX = 50;
 
     public ModRitualCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 120);
-        this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
+        this.background = guiHelper.createBlankDrawable(176, 140);
+        this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 24;
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
         this.localizedName = Component.translatable(Goety.MOD_ID + ".jei.ritual");
         this.darkAltar.getOrCreateTag().putBoolean("RenderFull", true);
@@ -80,7 +80,7 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                 .addItemStack(this.darkAltar);
 
         int sacrificialCircleRadius = 30;
-        int pedestalsPaddingVertical = 20;
+        int pedestalsPaddingVertical = 30;
         int pedestalsPaddingHorizontal = 15;
         List<Vec3i> pedestalsPosition = Stream.of(
                 new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
@@ -173,39 +173,40 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow.draw(stack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
+        int infoTextX = this.background.getWidth() / 2;
         int infotextY = 0;
         int initial = 14;
         if (recipe.requiresSacrifice()) {
             infotextY += initial;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
-                    I18n.get("jei.goety.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
+                    I18n.get("jei.goety.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), infoTextX, infotextY);
         }
-        int sequence = 8;
+        int sequence = 9;
 
         if (recipe.getEntityToSummon() != null) {
             infotextY += infotextY == 0 ? initial : sequence;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
                     I18n.get("jei.goety.summon", I18n.get(recipe.getEntityToSummon().getDescriptionId())),
-                    84, infotextY);
+                    infoTextX, infotextY);
         }
 
         if (recipe.getEntityToConvert() != null) {
             infotextY += infotextY == 0 ? initial : sequence;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
-                    I18n.get("jei.goety.convert", I18n.get(recipe.getEntityToConvertDisplayName())), 84, infotextY);
+                    I18n.get("jei.goety.convert", I18n.get(recipe.getEntityToConvertDisplayName())), infoTextX, infotextY);
         }
 
         if (recipe.getEntityToConvertInto() != null) {
             infotextY += infotextY == 0 ? initial : sequence;
             this.drawStringCentered(stack, Minecraft.getInstance().font,
                     I18n.get("jei.goety.convertInto", I18n.get(recipe.getEntityToConvertInto().getDescriptionId())),
-                    84, infotextY);
+                    infoTextX, infotextY);
         }
 
         if (recipe.getCraftType() != null) {
             this.drawStringCentered(stack, Minecraft.getInstance().font,
                     I18n.get("jei.goety.craftType." + I18n.get(recipe.getCraftType())),
-                    84, 5);
+                    infoTextX, 5);
         }
 
     }

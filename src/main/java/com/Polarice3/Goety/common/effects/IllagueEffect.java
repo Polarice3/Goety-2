@@ -5,6 +5,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 public class IllagueEffect extends GoetyBaseEffect {
 
     public IllagueEffect() {
-        super(MobEffectCategory.HARMFUL, 9804699);
+        super(MobEffectCategory.HARMFUL, 0);
     }
 }

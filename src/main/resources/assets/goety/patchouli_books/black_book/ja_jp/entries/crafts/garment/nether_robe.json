@@ -1,0 +1,21 @@
+{
+  "name": "ネザーのローブ",
+  "icon": "goety:nether_robe",
+  "category": "goety:crafts/garment",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ネザーに関する知識が深まるにつれ、着用者に炎を吹き込むローブの作成に成功しました。着用者は火の攻撃に耐性を持ち、火をより早く消火できるようになります。また、ローブによりネザー呪文のコストが下がり、ネザーの召使いは召喚者の魂のエネルギーを使用して再生します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_robe"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:nether_robe": 1,
+    "goety:nether_robe_warped": 1
+  }
+}

@@ -41,7 +41,7 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.NEUTRAL, 0xd67b5b));
 
     public static final RegistryObject<MobEffect> BUFF = EFFECTS.register("buff",
-            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 9643043)
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0)
                     .addAttributeModifier(Attributes.ATTACK_DAMAGE, "f033b086-8a5e-44f2-8655-888dd700691c",
                             1.0D, AttributeModifier.Operation.ADDITION));
 
@@ -75,7 +75,7 @@ public class GoetyEffects {
                             4.0D, AttributeModifier.Operation.ADDITION));
 
     public static final RegistryObject<MobEffect> SHADOW_WALK = EFFECTS.register("shadow_walk",
-            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x580c56));
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0));
 
     public static final RegistryObject<MobEffect> SOUL_HUNGER = EFFECTS.register("soul_hunger",
             SoulHungerEffect::new);
@@ -116,6 +116,9 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> ENDER_GROUND = EFFECTS.register("ender_ground",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x258474));
 
+    public static final RegistryObject<MobEffect> ENDER_FLUX = EFFECTS.register("ender_flux",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x441d5a));
+
     public static final RegistryObject<MobEffect> NYCTOPHOBIA = EFFECTS.register("nyctophobia",
             () -> new BrewMobEffect(MobEffectCategory.HARMFUL, 0x0d1305, BrewConfig.NyctophobiaCurable.get()));
 
@@ -137,11 +140,17 @@ public class GoetyEffects {
     public static final RegistryObject<MobEffect> PLUNGE = EFFECTS.register("plunge",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x8d989a));
 
+    public static final RegistryObject<MobEffect> FLIMSY = EFFECTS.register("flimsy",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf5f5f5));
+
     public static final RegistryObject<MobEffect> SENSE_LOSS = EFFECTS.register("sense_loss",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 2039587));
 
     public static final RegistryObject<MobEffect> FLAMMABLE = EFFECTS.register("flammable",
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1e0f07));
+
+    public static final RegistryObject<MobEffect> STORMS_WRATH = EFFECTS.register("storms_wrath",
+            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xe77c56));
 
     public static final RegistryObject<MobEffect> EXPLOSIVE = EFFECTS.register("explosive",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x912d11));
@@ -174,6 +183,9 @@ public class GoetyEffects {
 
     public static final RegistryObject<MobEffect> INSIGHT = EFFECTS.register("insight",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x59b057));
+
+    public static final RegistryObject<MobEffect> BOTTLING = EFFECTS.register("bottling",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x3e250f));
 
     public static final RegistryObject<MobEffect> CORPSE_EATER = EFFECTS.register("corpse_eater",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x48565e));

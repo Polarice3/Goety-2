@@ -54,7 +54,7 @@ public class IceSpear extends IceSpike {
     @Override
     public byte getPierceLevel() {
         if (this.getOwner() instanceof LivingEntity livingEntity){
-            return (byte) WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingEntity);
+            return (byte) (WandUtil.getLevels(ModEnchantments.POTENCY.get(), livingEntity) + 1);
         }
         return super.getPierceLevel();
     }

@@ -352,7 +352,7 @@ public class WandUtil {
                     vine.setWarmup(delay);
                 }
                 if (potency > 0) {
-                    monolith.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), -1, potency - 1, false, false));
+                    monolith.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), potency - 1, false, false));
                 }
                 if (target instanceof LivingEntity living) {
                     monolith.setTarget(living);

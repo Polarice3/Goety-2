@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -59,18 +58,8 @@ public class RedstoneGolemSkullBlockEntity extends SkullBlockEntity {
     }
 
     public void readNetwork(CompoundTag tag) {
-        UUID uuid;
         if (tag.hasUUID("Owner")) {
-            uuid = tag.getUUID("Owner");
-        } else {
-            String s = tag.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.level.getServer(), s);
-        }
-        if (uuid != null) {
-            try {
-                this.setOwnerId(uuid);
-            } catch (Throwable ignored) {
-            }
+            this.setOwnerId(tag.getUUID("Owner"));
         }
         if (tag.contains("mod_custom_name")){
             this.setCustomName(tag.getString("mod_custom_name"));

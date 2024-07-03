@@ -1,0 +1,28 @@
+{
+  "name": "黑狼",
+  "icon": "minecraft:bone",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些死亡的预兆曾经被认为是童话故事，非常真实，并且它们对召唤者十分忠诚。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你可以使用$(l:focuses/wild/hunting_focus)狩猎聚晶$()来召唤一些忠诚的黑狼，或者通过仪式召唤一个不会被时间抹除的仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_black_wolf_thrall"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_wolf",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持肉右键一只忠诚的黑狼仆从会治愈它。"
+    }
+  ]
+}

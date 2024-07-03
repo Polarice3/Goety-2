@@ -253,8 +253,6 @@ public class IceGolem extends AbstractGolemServant{
             this.setAggressive(true);
         } else if (p_21375_ == 6){
             this.setAggressive(false);
-        } else if (p_21375_ == 7){
-            this.setUpgraded(true);
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -318,9 +316,6 @@ public class IceGolem extends AbstractGolemServant{
                 }
             }
             if (this.isUpgraded()){
-                if (this.tickCount == 10) {
-                    this.level.broadcastEntityEvent(this, (byte) 7);
-                }
                 if (this.level instanceof ServerLevel serverLevel){
                     ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, this, 1.0F);
                     for (LivingEntity living : serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0F))) {

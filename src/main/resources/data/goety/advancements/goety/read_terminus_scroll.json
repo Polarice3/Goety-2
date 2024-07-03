@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": true
   },
-  "parent": "goety:goety/read_warred_scroll",
+  "parent": "goety:goety/get_shrouded_blueprint",
   "criteria": {
     "terminus_scroll": {
       "conditions": {

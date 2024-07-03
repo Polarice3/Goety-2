@@ -21,6 +21,14 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:necromancer_servant"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_stray_to_cairn_necromancer"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:cairn_necromancer_servant"
     }
   ],
   "extra_recipe_mappings": {

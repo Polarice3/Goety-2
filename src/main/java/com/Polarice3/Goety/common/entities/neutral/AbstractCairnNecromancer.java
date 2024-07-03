@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.undead.WraithServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.CairnNecromancerServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
@@ -15,8 +14,8 @@ import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.SoundUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -59,7 +58,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
         double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
         iceSpike.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, 1.0F);
         if (this.level.addFreshEntity(iceSpike)){
-            this.playSound(ModSounds.CAST_SPELL.get());
+            this.playSound(ModSounds.ICE_SPIKE_CAST.get());
             this.swing(InteractionHand.MAIN_HAND);
         }
     }
@@ -130,10 +129,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
                         summonedentity.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
                     }
                     if (serverLevel.addFreshEntity(summonedentity)){
-                        summonedentity.playSound(ModSounds.SUMMON_SPELL.get(), 1.0F, 1.0F);
-                        for (int i = 0; i < serverLevel.random.nextInt(35) + 10; ++i) {
-                            serverLevel.sendParticles(ParticleTypes.POOF, summonedentity.getX(), summonedentity.getEyeY(), summonedentity.getZ(), 1, 0.0F, 0.0F, 0.0F, 0);
-                        }
+                        SoundUtil.playNecromancerSummon(summonedentity);
                     }
                 }
             }

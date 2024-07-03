@@ -7,13 +7,16 @@ import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
 import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.BrewConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.InfestedBlock;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -23,8 +26,10 @@ public class BrewEffects {
     public static BrewEffects INSTANCE = new BrewEffects();
     private final Map<String, BrewEffect> effectIDs = Maps.newHashMap();
     private final Map<Item, BrewEffect> catalyst = Maps.newHashMap();
+    private final Map<EntityType<?>, BrewEffect> sacrifice = Maps.newHashMap();
     /** Made for external recipe viewers like Patchouli */
     private final Map<String, ItemStack> catalystInverted = Maps.newHashMap();
+    private final Map<String, EntityType<?>> sacrificeInverted = Maps.newHashMap();
     private final Map<Item, BrewModifier> modifiers = Maps.newHashMap();
 
     public BrewEffects(){
@@ -92,6 +97,7 @@ public class BrewEffects {
 
         //Goety
         this.register(new PotionBrewEffect(GoetyEffects.ARROWMANTIC.get(), BrewConfig.ArrowmanticCost.get(), 900), Items.TARGET);
+        this.register(new PotionBrewEffect(GoetyEffects.BOTTLING.get(), BrewConfig.BottlingCost.get(), 4, 3600), ModItems.WITCH_HAT.get());
         this.register(new PotionBrewEffect(GoetyEffects.CLIMBING.get(), BrewConfig.ClimbingCost.get(), 3600), ModItems.SPIDER_EGG.get());
         this.register(new PotionBrewEffect(GoetyEffects.CORPSE_EATER.get(), BrewConfig.CorpseEaterCost.get(), 4, 3600), Items.ZOMBIE_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.CURSED.get(), BrewConfig.CursedCost.get(), 4, 600), ModItems.OCCULT_FABRIC.get());
@@ -101,6 +107,7 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.FIRE_TRAIL.get(), BrewConfig.FireTrailCost.get(), 4, 900), Items.LAVA_BUCKET);
         this.register(new PotionBrewEffect(GoetyEffects.FLAME_HANDS.get(), BrewConfig.FlameHandsCost.get(), 3600), Items.FLINT_AND_STEEL);
         this.register(new PotionBrewEffect(GoetyEffects.FLAMMABLE.get(), BrewConfig.FlammableCost.get(), 1800), Items.GRASS);
+        this.register(new PotionBrewEffect(GoetyEffects.FLIMSY.get(), BrewConfig.FlimsyCost.get(), 1800), Items.FEATHER);
         this.register(new PotionBrewEffect(GoetyEffects.FORTUNATE.get(), BrewConfig.FortunateCost.get(), 6, 1800), Items.DIAMOND);
         this.register(new PotionBrewEffect(GoetyEffects.FREEZING.get(), BrewConfig.FreezingCost.get(), 900), Items.POWDER_SNOW_BUCKET);
         this.register(new PotionBrewEffect(GoetyEffects.FROSTY_AURA.get(), BrewConfig.FrostyAuraCost.get(), 2, 1800), Items.BLUE_ICE);
@@ -109,10 +116,11 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.NYCTOPHOBIA.get(), BrewConfig.NyctophobiaCost.get(), 4, 1800), Items.SCULK_SHRIEKER);
         this.register(new PotionBrewEffect(GoetyEffects.PHOTOSYNTHESIS.get(), BrewConfig.PhotosynthesisCost.get(), 1800), Items.SUNFLOWER);
         this.register(new PotionBrewEffect(GoetyEffects.PLUNGE.get(), BrewConfig.PlungeCost.get(), 4, 600), Items.ANVIL);
-        this.register(new PotionBrewEffect(GoetyEffects.PRESSURE.get(), BrewConfig.PressureCost.get(), 1800), Items.MUSIC_DISC_CAT);
+        this.register(new PotionBrewEffect(GoetyEffects.PRESSURE.get(), BrewConfig.PressureCost.get(), 1800), Items.SPYGLASS);
         this.register(new PotionBrewEffect(GoetyEffects.REPULSIVE.get(), BrewConfig.RepulsiveCost.get(), 1800), Items.PISTON);
         this.register(new PotionBrewEffect(GoetyEffects.SAPPED.get(), BrewConfig.SappedCost.get(), 1800), ModItems.SAVAGE_TOOTH.get());
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), 8, 6000), Items.ECHO_SHARD);
+        this.register(new PotionBrewEffect(GoetyEffects.STORMS_WRATH.get(), BrewConfig.StormsWrathCost.get(), 4, 3600), Items.LIGHTNING_ROD);
         this.register(new PotionBrewEffect(GoetyEffects.SUN_ALLERGY.get(), BrewConfig.SunAllergyCost.get(), 4, 3600), Items.SKELETON_SKULL);
         this.register(new PotionBrewEffect(GoetyEffects.EVIL_EYE.get(), BrewConfig.EvilEyeCost.get(), 4, 3600), ModBlocks.FORBIDDEN_GRASS.get().asItem());
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
@@ -133,7 +141,7 @@ public class BrewEffects {
         this.register(new FertilityBrewEffect(), Items.EGG);
         this.register(new FlayingBrewEffect(), Items.LEATHER);
         this.register(new FloodBlockEffect(100, 2), Items.WET_SPONGE);
-        this.register(new FreezeBlockEffect(1), Items.PACKED_ICE);
+        this.register(new FreezeBlockEffect(10), Items.PACKED_ICE);
         this.register(new GrowBlockEffect(50), Items.BONE_MEAL);
         this.register(new GrowCactusBlockEffect(10), Items.CACTUS);
         this.register(new GrowCaveVinesBlockEffect(10), Items.GLOW_BERRIES);
@@ -160,12 +168,34 @@ public class BrewEffects {
         for (Item item : ForgeRegistries.ITEMS.getValues()){
             if (item instanceof BlockItem blockItem){
                 if (blockItem.getBlock() instanceof InfestedBlock){
-                    this.register(new InfestBlockEffect(1), blockItem);
+                    this.register(new InfestBlockEffect(25), blockItem);
                 } else if (blockItem.getBlock() instanceof SaplingBlock saplingBlock){
                     this.register(new GrowTreeBlockEffect(blockItem.getBlock(), saplingBlock.treeGrower), blockItem);
                 }
             } else if (item instanceof DyeItem dyeItem){
                 this.register(new BrewColorEffect(dyeItem), dyeItem);
+            }
+        }
+        for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES.getValues()){
+            BrewEffect brewEffect = null;
+            Item item = ForgeSpawnEggItem.fromEntityType(entityType);
+            if (entityType.getDescriptionId().contains("endermite")){
+                brewEffect = new PotionBrewEffect(GoetyEffects.ENDER_FLUX.get(), BrewConfig.EnderFluxCost.get(), 900);
+            }
+            if (entityType.getDescriptionId().contains("silverfish")){
+                brewEffect = new InfestBlockEffect(25);
+            }
+            if (entityType == EntityType.SNOW_GOLEM){
+                brewEffect = new PotionBrewEffect(GoetyEffects.SNOW_SKIN.get(), BrewConfig.SnowSkinCost.get(), 4, 1800);
+            }
+            if (entityType.is(ModTags.EntityTypes.VILLAGERS)){
+                brewEffect = new PotionBrewEffect(MobEffects.REGENERATION, BrewConfig.RegenerationCost.get(), 1800);
+            }
+            if (brewEffect != null) {
+                if (item != null) {
+                    this.register(brewEffect, item);
+                }
+                this.register(brewEffect, entityType);
             }
         }
     }
@@ -182,6 +212,18 @@ public class BrewEffects {
         }
     }
 
+    private void register(BrewEffect effect, EntityType<?> sacrifice) {
+        if(!this.effectIDs.containsKey(effect.getEffectID())) {
+            this.effectIDs.put(effect.getEffectID(), effect);
+        }
+        if (!this.sacrifice.containsKey(sacrifice)){
+            this.sacrifice.put(sacrifice, effect);
+        }
+        if (!this.sacrificeInverted.containsKey(effect.getEffectID())){
+            this.sacrificeInverted.put(effect.getEffectID(), sacrifice);
+        }
+    }
+
     private void modifierRegister(BrewModifier modifier, Item ingredient){
         if (!this.modifiers.containsKey(ingredient)){
             this.modifiers.put(ingredient, modifier);
@@ -192,8 +234,16 @@ public class BrewEffects {
         return this.catalyst.get(ingredient);
     }
 
+    public BrewEffect getEffectFromSacrifice(EntityType<?> sacrifice){
+        return this.sacrifice.get(sacrifice);
+    }
+
     public ItemStack getCatalystFromEffect(String string){
         return this.catalystInverted.get(string);
+    }
+
+    public EntityType<?> getSacrificeFromEffect(String string){
+        return this.sacrificeInverted.get(string);
     }
 
     public BrewModifier getModifier(Item ingredient){
