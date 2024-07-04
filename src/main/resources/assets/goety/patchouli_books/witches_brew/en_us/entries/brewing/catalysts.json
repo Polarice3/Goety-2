@@ -354,6 +354,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.raise_dead",
+      "text": "Wake up sleepy heads! Granny can't carry all these bags herself!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
     },
     {

@@ -500,11 +500,20 @@ public class SEHelper {
     }
 
     public static int getBottleLevel(Player player){
-        return getBottling(player) / BrewConfig.BottlingLevelReq.get();
+        return getCapability(player).bottleLevel();
+    }
+
+    public static void setBottleLevel(Player player, int level){
+        getCapability(player).setBottleLevel(level);
+        if (getBottling(player) > (BrewConfig.BottlingLevelReq.get() * (level + 1))) {
+            getCapability(player).setBottling(BrewConfig.BottlingLevelReq.get() * level);
+        }
+        SEHelper.sendSEUpdatePacket(player);
     }
 
     public static void setBottling(Player player, int bottling){
         getCapability(player).setBottling(bottling);
+        getCapability(player).setBottleLevel(getBottling(player) / BrewConfig.BottlingLevelReq.get());
         SEHelper.sendSEUpdatePacket(player);
     }
 
@@ -515,13 +524,17 @@ public class SEHelper {
     public static void increaseBottling(Player player, int increase){
         if (BrewConfig.MaxBottlingLevel.get() > 0) {
             if (getBottling(player) < BrewConfig.MaxBottlingLevel.get()) {
+                setBottling(player, getBottling(player) + increase);
                 if (getBottling(player) > 0 && getBottling(player) % BrewConfig.BottlingLevelReq.get() == 0) {
                     if (!player.level.isClientSide){
                         ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.PLAYER_LEVELUP, 1.0F, 0.5F));
                     }
-                    player.displayClientMessage(Component.translatable("info.goety.brew.level_up").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+                    if (getBottleLevel(player) == BrewConfig.MaxBottlingLevel.get()){
+                        player.displayClientMessage(Component.translatable("info.goety.brew.max_level").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+                    } else {
+                        player.displayClientMessage(Component.translatable("info.goety.brew.level_up").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+                    }
                 }
-                setBottling(player, getBottling(player) + increase);
             }
         }
     }
@@ -610,6 +623,7 @@ public class SEHelper {
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
         tag.putInt("bottling", soulEnergy.bottling());
+        tag.putInt("bottleLevel", soulEnergy.bottleLevel());
         tag.putInt("warding", soulEnergy.wardingLeft());
         tag.putInt("maxWarding", soulEnergy.maxWarding());
         if (soulEnergy.getCameraUUID() != null) {
@@ -705,6 +719,11 @@ public class SEHelper {
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
         soulEnergy.setBottling(tag.getInt("bottling"));
+        if (tag.contains("bottleLevel")) {
+            soulEnergy.setBottleLevel(tag.getInt("bottleLevel"));
+        } else {
+            soulEnergy.setBottleLevel(tag.getInt("bottling") / BrewConfig.BottlingLevelReq.get());
+        }
         soulEnergy.setWarding(tag.getInt("warding"));
         soulEnergy.setMaxWarding(tag.getInt("maxWarding"));
         if (tag.contains("cameraUUID")) {

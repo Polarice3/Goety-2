@@ -646,6 +646,8 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             if (this.spellTime == 10) {
                 if (this.getCastSound() != null) {
                     AbstractNecromancer.this.playSound(this.getCastSound(), 1.0F, 1.0F);
+                } else {
+                    SoundUtil.playNecromancerSummon(AbstractNecromancer.this);
                 }
                 AbstractNecromancer.this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, AbstractNecromancer.this.getVoicePitch());
                 this.castSpell();
@@ -668,7 +670,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
 
         @Nullable
         protected SoundEvent getCastSound(){
-            return ModSounds.SUMMON_SPELL.get();
+            return null;
         }
 
         protected abstract NecromancerSpellType getNecromancerSpellType();

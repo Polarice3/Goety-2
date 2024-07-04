@@ -65,6 +65,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
@@ -1144,6 +1145,37 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (!(living instanceof Cultist) && !(living instanceof Witch) && !(living instanceof IOwned && ((IOwned) living).getTrueOwner() == this)){
                     if (living.isInWater()){
                         living.hurt(DamageSource.HOT_FLOOR, 1.0F);
+                    }
+                }
+            }
+            if (MobsConfig.ApostleConvertsVillagers.get()){
+                if (this.level instanceof ServerLevel serverLevel) {
+                    if (living instanceof Villager villager) {
+                        float chance = 0.25F;
+                        if (MobUtil.isDirectlyLooking(this, villager)){
+                            chance = 0.75F;
+                        }
+                        if (this.tickCount % 100 == 0 && this.random.nextFloat() <= chance && villager.getVillagerData().getLevel() <= 5) {
+                            Mob mob = EntityType.WITCH.create(serverLevel);
+                            if (this.random.nextBoolean()) {
+                                mob = ModEntityType.WARLOCK.get().create(serverLevel);
+                            }
+                            if (mob != null) {
+                                mob.moveTo(villager.getX(), villager.getY(), villager.getZ(), villager.getYRot(), villager.getXRot());
+                                mob.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.CONVERSION, (SpawnGroupData) null, (CompoundTag) null);
+                                mob.setNoAi(villager.isNoAi());
+                                if (villager.hasCustomName()) {
+                                    mob.setCustomName(villager.getCustomName());
+                                    mob.setCustomNameVisible(villager.isCustomNameVisible());
+                                }
+
+                                mob.setPersistenceRequired();
+                                net.minecraftforge.event.ForgeEventFactory.onLivingConvert(villager, mob);
+                                serverLevel.addFreshEntityWithPassengers(mob);
+                                MobUtil.releaseAllPois(villager);
+                                villager.discard();
+                            }
+                        }
                     }
                 }
             }

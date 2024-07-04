@@ -2045,5 +2045,14 @@
   "item.goety.black_wolf_spawn_egg": "ブラックウルフのスポーンエッグ",
   "item.goety.bear_servant_spawn_egg": "クマの召使いのスポーンエッグ",
   "item.goety.polar_bear_servant_spawn_egg": "シロクマの召使いのスポーンエッグ",
-  "item.goety.cairn_necromancer_servant_spawn_egg": "ケアン ネクロマンサー サーヴァント スポーン エッグ"
+  "item.goety.cairn_necromancer_servant_spawn_egg": "ケアン ネクロマンサー サーヴァント スポーン エッグ",
+  "effect.goety.raise_dead": "死者蘇生",
+  "info.goety.brew.max_level": "あなたは醸造の技術を習得しました！",
+  "commands.goety.brew.level.set.failure": "ボトリングレベル設定エラー",
+  "commands.goety.brew.xp.get.success": "%s は %s のボトリング経験を持っています",
+  "commands.goety.brew.xp.add.success.single": "%s のボトリング体験を %s に追加",
+  "commands.goety.brew.xp.add.success.multiple": "%s プレイヤーに %s のボトリング経験値を追加",
+  "commands.goety.brew.xp.set.success.single": "%s のボトリング エクスペリエンスを %s に設定",
+  "commands.goety.brew.xp.set.success.multiple": "%s 人のプレイヤーに %s のボトリング経験値を設定します",
+  "commands.goety.brew.xp.set.failure": "ボトリング経験の設定エラー"
 }

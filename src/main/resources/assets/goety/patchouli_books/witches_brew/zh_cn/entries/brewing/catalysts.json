@@ -349,6 +349,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.raise_dead",
+      "text": "睡眼惺忪的你们快醒醒吧！奶奶一个人拿不动这么多袋子！"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
     },
     {

@@ -2047,5 +2047,14 @@
   "item.goety.black_wolf_spawn_egg": "黑狼刷怪蛋",
   "item.goety.bear_servant_spawn_egg": "熊仆产卵",
   "item.goety.polar_bear_servant_spawn_egg": "北极熊仆从刷怪蛋",
-  "item.goety.cairn_necromancer_servant_spawn_egg": "凯恩亡灵法师仆从刷怪蛋"
+  "item.goety.cairn_necromancer_servant_spawn_egg": "凯恩亡灵法师仆从刷怪蛋",
+  "effect.goety.raise_dead": "复活亡者",
+  "info.goety.brew.max_level": "您已掌握了酿造艺术！",
+  "commands.goety.brew.level.set.failure": "装瓶液位设置错误",
+  "commands.goety.brew.xp.get.success": "%s 有 %s 装瓶经验",
+  "commands.goety.brew.xp.add.success.single": "在 %s 上添加 %s 装瓶经验",
+  "commands.goety.brew.xp.add.success.multiple": "为 %s 名玩家添加 %s 装瓶体验",
+  "commands.goety.brew.xp.set.success.single": "为 %s 设置 %s 装瓶体验",
+  "commands.goety.brew.xp.set.success.multiple": "为 %s 名玩家设置 %s 装瓶体验",
+  "commands.goety.brew.xp.set.failure": "装瓶体验设置错误"
 }

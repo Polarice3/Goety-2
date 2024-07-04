@@ -16,49 +16,117 @@
   },
   "parent": "goety:goety/craft_dark_robe",
   "criteria": {
-    "all_robes": {
+    "goety:dark_robe": {
       "conditions": {
         "items": [
           {
             "items": [
               "goety:dark_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:illusion_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:illusion_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:frost_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:frost_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:witch_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:witch_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:warlock_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:warlock_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:nether_robe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "goety:nether_robe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:wind_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:wind_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:storm_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:storm_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:wild_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:wild_robe"
             ]
-          },
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "goety:grand_robe": {
+      "conditions": {
+        "items": [
           {
             "items": [
               "goety:grand_robe"
@@ -71,7 +139,34 @@
   },
   "requirements": [
     [
-      "all_robes"
+      "goety:dark_robe"
+    ],
+    [
+      "goety:illusion_robe"
+    ],
+    [
+      "goety:frost_robe"
+    ],
+    [
+      "goety:witch_robe"
+    ],
+    [
+      "goety:warlock_robe"
+    ],
+    [
+      "goety:nether_robe"
+    ],
+    [
+      "goety:wind_robe"
+    ],
+    [
+      "goety:storm_robe"
+    ],
+    [
+      "goety:wild_robe"
+    ],
+    [
+      "goety:grand_robe"
     ]
   ]
 }

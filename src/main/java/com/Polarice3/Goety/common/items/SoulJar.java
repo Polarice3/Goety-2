@@ -2,6 +2,8 @@ package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,27 +50,35 @@ public class SoulJar extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (getNecromancer(stack, level) != null && (target instanceof SkeletonServant || target instanceof Skeleton)) {
-            AbstractNecromancer entity = getNecromancer(stack, level);
-            if (entity != null) {
-                if (entity.getTrueOwner() == player) {
-                    entity.setHealth(entity.getMaxHealth());
-                    entity.setPos(target.getX(), target.getY(), target.getZ());
-                    entity.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                    if (level.addFreshEntity(entity)) {
-                        entity.spawnAnim();
-                        if (level instanceof ServerLevel serverLevel){
-                            for (int i = 0; i < 8; ++i) {
-                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, entity);
-                                ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, entity);
+        if (getNecromancer(stack, level) != null) {
+            AbstractNecromancer necromancer = getNecromancer(stack, level);
+            if (necromancer != null) {
+                boolean flag;
+                if (necromancer instanceof AbstractCairnNecromancer){
+                    flag = target instanceof StrayServant || target instanceof Stray;
+                } else {
+                    flag = target instanceof SkeletonServant || target instanceof Skeleton;
+                }
+                if (flag) {
+                    if (necromancer.getTrueOwner() == player) {
+                        necromancer.setHealth(necromancer.getMaxHealth());
+                        necromancer.setPos(target.getX(), target.getY(), target.getZ());
+                        necromancer.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                        if (level.addFreshEntity(necromancer)) {
+                            necromancer.spawnAnim();
+                            if (level instanceof ServerLevel serverLevel) {
+                                for (int i = 0; i < 8; ++i) {
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, necromancer);
+                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, necromancer);
+                                }
                             }
+                            necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                            necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
+                            target.discard();
+                            player.swing(hand);
+                            player.getCooldowns().addCooldown(ModItems.SOUL_JAR.get(), MathHelper.secondsToTicks(30));
+                            stack.shrink(1);
                         }
-                        entity.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                        entity.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
-                        target.discard();
-                        player.swing(hand);
-                        player.getCooldowns().addCooldown(ModItems.SOUL_JAR.get(), MathHelper.secondsToTicks(30));
-                        stack.shrink(1);
                     }
                 }
             }

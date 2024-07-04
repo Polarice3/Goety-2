@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -81,8 +82,9 @@ public class CrystalBallBlock extends Block {
                     }
                     crone.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pPos), MobSpawnType.MOB_SUMMONED, null, null);
                     crone.setPersistenceRequired();
-                    if (pLevel.addFreshEntity(crone)) {
-                        pLevel.playSound(null, crone.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
+                    SummonCircleBoss summonCircle = new SummonCircleBoss(serverLevel, blockPos, crone);
+                    if (pLevel.addFreshEntity(summonCircle)) {
+                        pLevel.playSound(null, summonCircle.blockPosition(), ModSounds.CRONE_LAUGH.get(), SoundSource.HOSTILE, 2.0F, 1.0F);
                         pLevel.playSound(null, pPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.75F);
                         ServerParticleUtil.smokeParticles(ParticleTypes.SMOKE, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, serverLevel);
                         pLevel.setBlockAndUpdate(pPos, ModBlocks.CRYSTAL_BALL.get().defaultBlockState().setValue(POWERED, false));

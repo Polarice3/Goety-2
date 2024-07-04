@@ -27,6 +27,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
@@ -408,11 +409,11 @@ public class Crone extends Cultist implements RangedAttackMob {
                 } else {
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.SAPPED.get(), 1800 / (amp + 1), amp));
                 }
-                if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !target.hasEffect(GoetyEffects.FREEZING.get())){
+                if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FIERY_AURA.get()) && !target.hasEffect(GoetyEffects.FREEZING.get()) && !target.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900 / (amp + 1), amp));
                 } else if (this.random.nextFloat() <= 0.25F && !this.hasEffect(GoetyEffects.FROSTY_AURA.get()) && !target.hasEffect(GoetyEffects.FLAMMABLE.get()) && !target.fireImmune()){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.FLAMMABLE.get(), 900 / (amp + 1), amp));
-                } else if (this.random.nextFloat() <= 0.5F && !target.hasEffect(GoetyEffects.TRIPPING.get())){
+                } else if (this.random.nextFloat() <= 0.05F && !target.hasEffect(GoetyEffects.TRIPPING.get())){
                     mobEffectInstance.add(new MobEffectInstance(GoetyEffects.TRIPPING.get(), 1800 / (amp + 1), amp));
                 }
             } else if (target.hasEffect(MobEffects.REGENERATION) && !target.hasEffect(GoetyEffects.CURSED.get())){
