@@ -349,6 +349,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.raise_dead",
+      "text": "Просыпайтесь сонные головы! Бабушка не может сама нести все эти сумки!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.goety.sun_allergy",
       "text": "Эй, детишки! Хотите СТАТЬ скелетом? Или зомби? Или фантомом? Или..."
     },

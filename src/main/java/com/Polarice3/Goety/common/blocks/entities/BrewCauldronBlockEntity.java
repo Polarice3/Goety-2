@@ -856,6 +856,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                             cat -> cat.getVariant() == BuiltInRegistries.CAT_VARIANT.get(CatVariant.ALL_BLACK) && cat.getOwner() == player).isEmpty();
                     float chance = 1.0F;
                     int times = 0;
+                    int bottle = 0;
                     if (croneHat){
                         times += 2;
                         chance -= 0.25F;
@@ -871,12 +872,16 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         times += 1;
                         chance -= 0.25F;
                     }
-                    times += SEHelper.getBottleLevel(player);
+                    bottle += SEHelper.getBottleLevel(player);
                     MobEffectInstance mobEffectInstance = player.getEffect(GoetyEffects.BOTTLING.get());
                     if (mobEffectInstance != null){
-                        times += mobEffectInstance.getAmplifier() + 1;
+                        bottle += mobEffectInstance.getAmplifier() + 1;
                     }
-                    if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
+                    times += bottle;
+                    if (this.takeBrew < bottle){
+                        this.takeBrew++;
+                        return waterLevel;
+                    } else if (player.level.random.nextFloat() <= chance || this.takeBrew >= times) {
                         return waterLevel - 1;
                     } else {
                         this.takeBrew++;

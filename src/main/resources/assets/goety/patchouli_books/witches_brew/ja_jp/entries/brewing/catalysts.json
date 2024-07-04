@@ -319,6 +319,11 @@
     },
     {
       "type": "goety:catalyst",
+      "recipe": "effect.goety.raise_dead",
+      "text": "眠い頭は起きてください! おばあちゃんはこれらすべてのバッグを自分で運ぶことができません!"
+    },
+    {
+      "type": "goety:catalyst",
       "recipe": "effect.minecraft.regeneration"
     },
     {

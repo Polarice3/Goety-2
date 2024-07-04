@@ -2094,5 +2094,14 @@
   "item.goety.black_wolf_spawn_egg": "Яйцо призыва Черного Волка",
   "item.goety.bear_servant_spawn_egg": "Яйцо призывания слуги-медведя",
   "item.goety.polar_bear_servant_spawn_egg": "Яйцо призыва слуги белого медведя",
-  "item.goety.cairn_necromancer_servant_spawn_egg": "Яйцо призыва слуги-некроманта Каирна"
+  "item.goety.cairn_necromancer_servant_spawn_egg": "Яйцо призыва слуги-некроманта Каирна",
+  "effect.goety.raise_dead": "Поднять мертвых",
+  "info.goety.brew.max_level": "Вы овладели искусством пивоварения!",
+  "commands.goety.brew.level.set.failure": "Ошибка установки уровня розлива",
+  "commands.goety.brew.xp.get.success": "%s имеет %s опыт розлива",
+  "commands.goety.brew.xp.add.success.single": "Добавьте %s опыт розлива на %s",
+  "commands.goety.brew.xp.add.success.multiple": "Добавьте %s опыт розлива для %s игроков",
+  "commands.goety.brew.xp.set.success.single": "Установить %s опыт розлива для %s",
+  "commands.goety.brew.xp.set.success.multiple": "Установите %s опыт розлива для %s игроков",
+  "commands.goety.brew.xp.set.failure": "Ошибка при настройке опыта розлива."
 }

@@ -9,6 +9,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
+import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -51,15 +53,27 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
 
     @Override
     public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
-        IceSpike iceSpike = new IceSpike(this, this.level);
-        double d0 = p_33317_.getX() - this.getX();
-        double d1 = p_33317_.getY(0.3333333333333333D) - iceSpike.getY();
-        double d2 = p_33317_.getZ() - this.getZ();
-        double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
-        iceSpike.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, 1.0F);
-        if (this.level.addFreshEntity(iceSpike)){
-            this.playSound(ModSounds.ICE_SPIKE_CAST.get());
-            this.swing(InteractionHand.MAIN_HAND);
+        if (this.getNecroLevel() <= 0) {
+            IceSpike iceSpike = new IceSpike(this, this.level);
+            double d0 = p_33317_.getX() - this.getX();
+            double d1 = p_33317_.getY(0.3333333333333333D) - iceSpike.getY();
+            double d2 = p_33317_.getZ() - this.getZ();
+            double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+            iceSpike.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, 1.0F);
+            if (this.level.addFreshEntity(iceSpike)){
+                this.playSound(ModSounds.ICE_SPIKE_CAST.get());
+                this.swing(InteractionHand.MAIN_HAND);
+            }
+        } else {
+            for (int i = -this.getNecroLevel(); i <= this.getNecroLevel(); i++) {
+                Vec3 vector3d = this.getViewVector(1.0F);
+                IceSpike iceSpike = new IceSpike(this, this.level);
+                iceSpike.shoot(vector3d.x + (i / 10.0F), vector3d.y, vector3d.z + (i / 10.0F), 1.6F, 1.0F);
+                if (this.level.addFreshEntity(iceSpike)) {
+                    this.playSound(ModSounds.ICE_SPIKE_CAST.get());
+                    this.swing(InteractionHand.MAIN_HAND);
+                }
+            }
         }
     }
 

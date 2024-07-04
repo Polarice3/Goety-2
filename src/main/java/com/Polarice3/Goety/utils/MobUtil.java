@@ -3,12 +3,15 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
 import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,10 +45,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -1154,7 +1154,8 @@ public class MobUtil {
                 return (target) ->
                         (target instanceof Enemy
                                 && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() != null && LichdomHelper.isLich(attacker.getOwner()) && MainConfig.LichUndeadFriends.get())
-                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() instanceof Player player && CuriosFinder.hasUndeadSet(player) && MobsConfig.NecroRobeUndead.get())
+                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() != null && CuriosFinder.hasUndeadSet(attacker.getOwner()) && MobsConfig.NecroRobeUndead.get())
+                                && !(isWitchType(target) && attacker.getOwner() != null && CuriosFinder.isWitchFriendly(attacker.getOwner()))
                                 && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
                                 && !(target instanceof NeutralMob && ((attacker.getOwner() != null && ((NeutralMob) target).getTarget() != attacker.getOwner())))
                                 && !(target instanceof IOwned && attacker.getOwner() != null && ((IOwned) target).getTrueOwner() == attacker.getOwner()))
@@ -1166,6 +1167,10 @@ public class MobUtil {
         } else {
             return null;
         }
+    }
+
+    public static boolean isWitchType(Entity target){
+        return target instanceof Witch || target instanceof Warlock || target instanceof Crone || target.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL);
     }
 
     public static void createWitherRose(LivingEntity target, @Nullable LivingEntity killer) {
@@ -1190,5 +1195,14 @@ public class MobUtil {
             }
 
         }
+    }
+
+    public static boolean isDirectlyLooking(LivingEntity looker, LivingEntity looked) {
+        Vec3 vec3 = looker.getViewVector(1.0F).normalize();
+        Vec3 vec31 = new Vec3(looked.getX() - looker.getX(), looked.getEyeY() - looker.getEyeY(), looked.getZ() - looker.getZ());
+        double d0 = vec31.length();
+        vec31 = vec31.normalize();
+        double d1 = vec3.dot(vec31);
+        return d1 > 1.0D - 0.025D / d0 && looker.hasLineOfSight(looked);
     }
 }

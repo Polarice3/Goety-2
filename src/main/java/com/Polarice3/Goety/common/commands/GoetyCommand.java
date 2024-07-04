@@ -50,6 +50,8 @@ public class GoetyCommand {
     private static final SimpleCommandExceptionType INVALID_POSITION = new SimpleCommandExceptionType(Component.translatable("commands.summon.invalidPosition"));
     private static final SimpleCommandExceptionType ERROR_SET_POINTS_INVALID = new SimpleCommandExceptionType(Component.translatable("commands.goety.soul.set.points.invalid"));
     private static final SimpleCommandExceptionType ERROR_SET_POINTS_INVALID2 = new SimpleCommandExceptionType(Component.translatable("commands.goety.illager.rest.set.points.invalid"));
+    private static final SimpleCommandExceptionType ERROR_SET_POINTS_INVALID3 = new SimpleCommandExceptionType(Component.translatable("commands.goety.brew.level.set.failure"));
+    private static final SimpleCommandExceptionType ERROR_SET_POINTS_INVALID4 = new SimpleCommandExceptionType(Component.translatable("commands.goety.brew.xp.set.failure"));
     private static final SuggestionProvider<CommandSourceStack> SUGGEST_RESEARCHES = (p_136344_, p_136345_) -> {
         Collection<Research> collection = ResearchList.getResearchIdList().values();
         return SharedSuggestionProvider.suggestResource(collection.stream().map(Research::getLocation), p_136345_);
@@ -172,12 +174,29 @@ public class GoetyCommand {
                                 .then(Commands.literal("add")
                                         .then(Commands.argument("targets", EntityArgument.players())
                                                 .then(Commands.argument("amount", IntegerArgumentType.integer()).executes((p_198445_0_) -> {
-                                                    return addBrewLevel(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "ticks"));
+                                                    return addBrewLevel(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "amount"));
                                                 }))))
                                 .then(Commands.literal("set")
                                         .then(Commands.argument("targets", EntityArgument.players())
                                                 .then(Commands.argument("amount", IntegerArgumentType.integer(0)).executes((p_198439_0_) -> {
-                                                    return setBrewLevel(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "ticks"));
+                                                    return setBrewLevel(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "amount"));
+                                                })))))
+                        .then(Commands.literal("xp")
+                                .then(Commands.literal("get").executes((p_198352_0_) -> {
+                                            return getBrewBottling(p_198352_0_.getSource(), p_198352_0_.getSource().getPlayerOrException());
+                                        })
+                                        .then(Commands.argument("targets", EntityArgument.player()).executes((p_198435_0_) -> {
+                                            return getBrewBottling(p_198435_0_.getSource(), EntityArgument.getPlayer(p_198435_0_, "targets"));
+                                        })))
+                                .then(Commands.literal("add")
+                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                .then(Commands.argument("amount", IntegerArgumentType.integer()).executes((p_198445_0_) -> {
+                                                    return addBrewBottling(p_198445_0_.getSource(), EntityArgument.getPlayers(p_198445_0_, "targets"), IntegerArgumentType.getInteger(p_198445_0_, "amount"));
+                                                }))))
+                                .then(Commands.literal("set")
+                                        .then(Commands.argument("targets", EntityArgument.players())
+                                                .then(Commands.argument("amount", IntegerArgumentType.integer(0)).executes((p_198439_0_) -> {
+                                                    return setBrewBottling(p_198439_0_.getSource(), EntityArgument.getPlayers(p_198439_0_, "targets"), IntegerArgumentType.getInteger(p_198439_0_, "amount"));
                                                 })))))));
     }
 
@@ -485,13 +504,13 @@ public class GoetyCommand {
 
     private static int getBrewLevel(CommandSourceStack pSource, ServerPlayer pPlayer){
         int i = SEHelper.getBottleLevel(pPlayer);
-        pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.get.success", pPlayer.getDisplayName(), StringUtil.formatTickDuration(i)), false);
+        pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.get.success", pPlayer.getDisplayName(), i), false);
         return 1;
     }
 
     private static int addBrewLevel(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int level) {
         for(ServerPlayer serverPlayer : pTargets) {
-            SEHelper.increaseBottling(serverPlayer, level);
+            SEHelper.setBottleLevel(serverPlayer, SEHelper.getBottleLevel(serverPlayer) + level);
         }
 
         if (pTargets.size() == 1) {
@@ -507,17 +526,58 @@ public class GoetyCommand {
         int i = 0;
 
         for(ServerPlayer serverPlayer : pTargets) {
-            SEHelper.setBottling(serverPlayer, level);
+            SEHelper.setBottleLevel(serverPlayer, level);
             ++i;
         }
 
         if (i == 0) {
-            throw ERROR_SET_POINTS_INVALID2.create();
+            throw ERROR_SET_POINTS_INVALID3.create();
         } else {
             if (pTargets.size() == 1) {
                 pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.set.success.single", level, pTargets.iterator().next().getDisplayName()), true);
             } else {
                 pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.level.set.success.multiple", level, pTargets.size()), true);
+            }
+
+            return pTargets.size();
+        }
+    }
+
+    private static int getBrewBottling(CommandSourceStack pSource, ServerPlayer pPlayer){
+        int i = SEHelper.getBottling(pPlayer);
+        pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.xp.get.success", pPlayer.getDisplayName(), i), false);
+        return 1;
+    }
+
+    private static int addBrewBottling(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int level) {
+        for(ServerPlayer serverPlayer : pTargets) {
+            SEHelper.increaseBottling(serverPlayer, level);
+        }
+
+        if (pTargets.size() == 1) {
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.xp.add.success.single", level, pTargets.iterator().next().getDisplayName()), true);
+        } else {
+            pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.xp.add.success.multiple", level, pTargets.size()), true);
+        }
+
+        return pTargets.size();
+    }
+
+    private static int setBrewBottling(CommandSourceStack pSource, Collection<? extends ServerPlayer> pTargets, int level) throws CommandSyntaxException{
+        int i = 0;
+
+        for(ServerPlayer serverPlayer : pTargets) {
+            SEHelper.setBottling(serverPlayer, level);
+            ++i;
+        }
+
+        if (i == 0) {
+            throw ERROR_SET_POINTS_INVALID4.create();
+        } else {
+            if (pTargets.size() == 1) {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.xp.set.success.single", level, pTargets.iterator().next().getDisplayName()), true);
+            } else {
+                pSource.sendSuccess(() -> Component.translatable("commands.goety.brew.xp.set.success.multiple", level, pTargets.size()), true);
             }
 
             return pTargets.size();

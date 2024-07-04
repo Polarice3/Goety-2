@@ -98,10 +98,12 @@ public class BrewEffects {
         //Goety
         this.register(new PotionBrewEffect(GoetyEffects.ARROWMANTIC.get(), BrewConfig.ArrowmanticCost.get(), 900), Items.TARGET);
         this.register(new PotionBrewEffect(GoetyEffects.BOTTLING.get(), BrewConfig.BottlingCost.get(), 4, 3600), ModItems.WITCH_HAT.get());
+        this.register(new PotionBrewEffect(GoetyEffects.BOTTLING.get(), BrewConfig.BottlingCost.get(), 4, 3600), ModItems.WITCH_HAT_HEDGE.get());
         this.register(new PotionBrewEffect(GoetyEffects.CLIMBING.get(), BrewConfig.ClimbingCost.get(), 3600), ModItems.SPIDER_EGG.get());
         this.register(new PotionBrewEffect(GoetyEffects.CORPSE_EATER.get(), BrewConfig.CorpseEaterCost.get(), 4, 3600), Items.ZOMBIE_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.CURSED.get(), BrewConfig.CursedCost.get(), 4, 600), ModItems.OCCULT_FABRIC.get());
         this.register(new PotionBrewEffect(GoetyEffects.ENDER_GROUND.get(), BrewConfig.EnderGroundCost.get(), 900), Items.ENDER_PEARL);
+        this.register(new PotionBrewEffect(GoetyEffects.EVIL_EYE.get(), BrewConfig.EvilEyeCost.get(), 4, 3600), ModBlocks.FORBIDDEN_GRASS.get().asItem());
         this.register(new PotionBrewEffect(GoetyEffects.EXPLOSIVE.get(), BrewConfig.ExplosiveCost.get(), 2, 900), Items.CREEPER_HEAD);
         this.register(new PotionBrewEffect(GoetyEffects.FIERY_AURA.get(), BrewConfig.FieryAuraCost.get(), 2, 1800), Items.MAGMA_BLOCK);
         this.register(new PotionBrewEffect(GoetyEffects.FIRE_TRAIL.get(), BrewConfig.FireTrailCost.get(), 4, 900), Items.LAVA_BUCKET);
@@ -122,7 +124,6 @@ public class BrewEffects {
         this.register(new PotionBrewEffect(GoetyEffects.SAVE_EFFECTS.get(), BrewConfig.SaveEffectsCost.get(), 8, 6000), Items.ECHO_SHARD);
         this.register(new PotionBrewEffect(GoetyEffects.STORMS_WRATH.get(), BrewConfig.StormsWrathCost.get(), 4, 3600), Items.LIGHTNING_ROD);
         this.register(new PotionBrewEffect(GoetyEffects.SUN_ALLERGY.get(), BrewConfig.SunAllergyCost.get(), 4, 3600), Items.SKELETON_SKULL);
-        this.register(new PotionBrewEffect(GoetyEffects.EVIL_EYE.get(), BrewConfig.EvilEyeCost.get(), 4, 3600), ModBlocks.FORBIDDEN_GRASS.get().asItem());
         this.register(new PotionBrewEffect(GoetyEffects.SWIFT_SWIM.get(), BrewConfig.SwiftSwimCost.get(), 3600), ModItems.FEET_OF_FROG.get());
         this.register(new PotionBrewEffect(GoetyEffects.TRIPPING.get(), BrewConfig.TrippingCost.get(), 1800), Items.CRACKED_STONE_BRICKS);
         this.register(new PotionBrewEffect(GoetyEffects.VENOMOUS_HANDS.get(), BrewConfig.VenomousHandsCost.get(), 3600), ModItems.VENOMOUS_FANG.get());
@@ -156,6 +157,7 @@ public class BrewEffects {
         this.register(new PurifyBrewEffect("purify_debuff", 50, 2, MobEffectCategory.BENEFICIAL, 0x385858, true), ModItems.WARTFUL_EGG.get());
         this.register(new PurifyBrewEffect("purify_buff", 50, 2, MobEffectCategory.HARMFUL, 0x374a4a, false), ModItems.WARPED_WARTFUL_EGG.get());
         this.register(new PruningBlockEffect(10), Items.STONE_HOE);
+        this.register(new RaiseDeadBrewEffect(50, 2), ModItems.CURSED_METAL_INGOT.get());
         //Buffed version of Vanilla effect
         this.register(new SaturationBrewEffect(BrewConfig.SaturationCost.get()), Items.RABBIT_STEW);
         this.register(new ShearBrewEffect(10), Items.SHEARS);

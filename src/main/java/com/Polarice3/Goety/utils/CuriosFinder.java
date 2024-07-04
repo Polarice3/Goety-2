@@ -100,6 +100,10 @@ public class CuriosFinder {
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof NetherRobeItem));
     }
 
+    public static boolean isWitchFriendly(LivingEntity livingEntity){
+        return hasWitchSet(livingEntity) || hasWarlockRobe(livingEntity) || hasNetherRobe(livingEntity);
+    }
+
     public static boolean hasWitchSet(LivingEntity livingEntity){
         return hasWitchHat(livingEntity)
                 && hasWitchRobe(livingEntity);

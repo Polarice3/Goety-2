@@ -221,6 +221,9 @@ public class ModEvents {
                         soulEnergy.setBottling(capability3.bottling()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
+                        soulEnergy.setBottleLevel(capability3.bottleLevel()));
+        player.getCapability(SEProvider.CAPABILITY)
+                .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
 
         IMisc capability4 = MiscCapHelper.getCapability(original);
@@ -887,8 +890,8 @@ public class ModEvents {
         if (attacker instanceof Mob mobAttacker) {
             if (target != null) {
                 if (target instanceof Player) {
-                    if (mobAttacker instanceof Witch || mobAttacker instanceof Warlock || mobAttacker instanceof Crone || mobAttacker.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL)){
-                        if (CuriosFinder.hasWitchSet(target) || CuriosFinder.hasWarlockRobe(target)){
+                    if (MobUtil.isWitchType(mobAttacker)){
+                        if (CuriosFinder.isWitchFriendly(target)){
                             if (mobAttacker.getLastHurtByMob() != target){
                                 event.setNewTarget(null);
                             } else {
@@ -965,7 +968,7 @@ public class ModEvents {
     public static void InteractEntityEvent(PlayerInteractEvent.EntityInteractSpecific event){
         Player player = event.getEntity();
         if (!event.getLevel().isClientSide) {
-            if (CuriosFinder.hasWitchSet(player) || CuriosFinder.hasWarlockRobe(player)) {
+            if (CuriosFinder.isWitchFriendly(player)) {
                 if (event.getTarget() instanceof Raider witch) {
                     if (event.getTarget() instanceof Witch || event.getTarget() instanceof Warlock || event.getTarget() instanceof Crone) {
                         if (!witch.isAggressive()) {

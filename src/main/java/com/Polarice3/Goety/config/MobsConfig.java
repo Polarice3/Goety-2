@@ -127,6 +127,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleConvertsVillagers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
@@ -356,8 +357,10 @@ public class MobsConfig {
             BUILDER.push("Apostle");
             ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
                     .define("apocalypseMode", false);
-            ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of itself to take damage when in water. Default: true")
+            ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of themselves to take damage when in water. Default: true")
                     .define("apostleBoilsWater", true);
+            ApostleConvertsVillagers = BUILDER.comment("Whether Apostles causes Villagers within 32 blocks of themselves to have a chance of converting into a Witch or Warlock. Default: true")
+                    .define("apostleConvertsVillagers", true);
             FancierApostleDeath = BUILDER.comment("Gives Apostle an even more fancier death animation, Default: false")
                     .define("fancierApostleDeath", false);
             BUILDER.pop();

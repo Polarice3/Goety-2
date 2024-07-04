@@ -7,10 +7,7 @@ import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.BrewUtils;
-import com.Polarice3.Goety.utils.ItemHelper;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.SEHelper;
+import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -247,16 +244,20 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                     }
                 }
                 if (pLevel.getBlockState(pPos).getValue(LEVEL) == 3 && blockEntity.mode != BrewCauldronBlockEntity.Mode.COMPLETED && pEntity instanceof ItemEntity itemEntity) {
-                    pLevel.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.33F, 1.0F);
-                    ItemStack stack = itemEntity.getItem();
-                    if (stack.getItem().hasCraftingRemainingItem(stack)) {
-                        ItemEntity remainder = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 1, pPos.getZ() + 0.5, new ItemStack(stack.getItem().getCraftingRemainingItem()));
-                        remainder.setDeltaMovement(Vec3.ZERO);
-                        remainder.setNoGravity(true);
-                        pLevel.addFreshEntity(remainder);
+                    if (!itemEntity.getItem().isEmpty() && !itemEntity.getTags().contains(ConstantPaths.resultItem())) {
+                        pLevel.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.33F, 1.0F);
+                        ItemStack stack = itemEntity.getItem();
+                        ItemStack remain = stack.getCraftingRemainingItem();
+                        if (remain != null) {
+                            ItemEntity remainder = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 1, pPos.getZ() + 0.5, remain);
+                            remainder.setDeltaMovement(Vec3.ZERO);
+                            remainder.setNoGravity(true);
+                            remainder.addTag(ConstantPaths.resultItem());
+                            pLevel.addFreshEntity(remainder);
+                        }
+                        blockEntity.mode = blockEntity.insertItem(stack.split(1));
+                        blockEntity.markUpdated();
                     }
-                    blockEntity.mode = blockEntity.insertItem(stack.split(1));
-                    blockEntity.markUpdated();
                 }
             }
         }
