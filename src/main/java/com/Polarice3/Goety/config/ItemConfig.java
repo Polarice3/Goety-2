@@ -104,6 +104,9 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeHunger;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeChangeTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NamelessSetUndeadNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WitchSetWitchNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRobeWitchNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NetherRobeWitchNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowRobeHoods;
@@ -149,6 +152,12 @@ public class ItemConfig {
                     .define("necroCapeChangeTexture", true);
             NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("namelessSetUndeadNeutral", true);
+            WitchSetWitchNeutral = BUILDER.comment("Whether wearing both Witch Robe and Hat will cause Witches and Warlocks to be neutral, Default: true")
+                    .define("witchSetWitchNeutral", true);
+            WarlockRobeWitchNeutral = BUILDER.comment("Whether wearing a Warlock Robe will cause Witches and Warlocks to be neutral, Default: true")
+                    .define("warlockRobeWitchNeutral", true);
+            NetherRobeWitchNeutral = BUILDER.comment("Whether wearing a Nether Robe will cause Witches and Warlocks to be neutral, Default: true")
+                    .define("netherRobeWitchNeutral", true);
             BUILDER.pop();
         FirstPersonGloves = BUILDER.comment("Show gloves in first person, Default: true")
                 .define("firstPersonGloves", true);

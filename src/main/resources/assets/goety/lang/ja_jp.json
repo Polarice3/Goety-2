@@ -2054,5 +2054,19 @@
   "commands.goety.brew.xp.add.success.multiple": "%s プレイヤーに %s のボトリング経験値を追加",
   "commands.goety.brew.xp.set.success.single": "%s のボトリング エクスペリエンスを %s に設定",
   "commands.goety.brew.xp.set.success.multiple": "%s 人のプレイヤーに %s のボトリング経験値を設定します",
-  "commands.goety.brew.xp.set.failure": "ボトリング経験の設定エラー"
+  "commands.goety.brew.xp.set.failure": "ボトリング経験の設定エラー",
+  "advancements.goety.craft_feline_amulet.title": "緊張病性大惨事",
+  "advancements.goety.craft_feline_amulet.description": "着用すると近くのクリーパーを追い払います。",
+  "advancements.goety.craft_shade_gravestone.title": "安らぎのない死者",
+  "advancements.goety.craft_shade_gravestone.description": "鉄インゴットを挿入するとゾンビサーバントを召喚します。",
+  "advancements.goety.craft_blazing_cage.title": "終わりなき炎",
+  "advancements.goety.craft_blazing_cage.description": "マグマ ブロックまたは溶岩バケツを挿入すると、ブレイズ サーヴァントを召喚します。",
+  "advancements.goety.craft_warlock_robe.title": "良いところも悪いところも",
+  "advancements.goety.craft_warlock_robe.description": "ウォーロック ローブは、デフォルトで 85% の魔法防御力を提供し、ワートフル エッグとスナップ ファンギの使用率を向上させます。これを着用すると、ウィッチとウォーロックが中立になります。",
+  "advancements.goety.craft_nether_robe.title": "ディスコ インフェルノ",
+  "advancements.goety.craft_nether_robe.description": "ネザーローブはデフォルトで 85% の火炎防御力を与え、ネザー呪文の割引を与えます。これを着用すると、魔女とウォーロックは中立になります。",
+  "advancements.goety.get_bonehead_hammer.title": "ボーンゾーン",
+  "advancements.goety.get_bonehead_hammer.description": "全力で攻撃すると近くの非味方のモブを引き寄せるハンマーの亜種であるボーンヘッドハンマーを入手します。",
+  "advancements.goety.blaze_servant_kill_blaze.title": "火に火をもって対抗する",
+  "advancements.goety.blaze_servant_kill_blaze.description": "ブレイズサーヴァントにブレイズを倒させます。"
 }

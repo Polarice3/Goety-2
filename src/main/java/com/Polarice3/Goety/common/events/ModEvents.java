@@ -942,7 +942,7 @@ public class ModEvents {
                         }
                     }
                     if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
-                        boolean undead = mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy));
+                        boolean undead = (mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy)) || mobAttacker.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL));
                         if (target.level instanceof ServerLevel serverLevel){
                             if (MobsConfig.HostileCryptUndead.get()) {
                                 if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModTags.Structures.CRYPT)
@@ -979,7 +979,7 @@ public class ModEvents {
     public static void VisibilityEvent(LivingEvent.LivingVisibilityEvent event){
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() instanceof LivingEntity looker && entity instanceof Player) {
-            boolean undead = looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy));
+            boolean undead = (looker.getMobType() == MobType.UNDEAD && looker.getMaxHealth() < 50.0F && !(looker instanceof IOwned && !(looker instanceof Enemy)) || looker.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL));
             if (entity.level instanceof ServerLevel serverLevel){
                 if (MobsConfig.HostileCryptUndead.get()) {
                     if (BlockFinder.findStructure(serverLevel, entity.blockPosition(), ModTags.Structures.CRYPT)
@@ -1342,6 +1342,7 @@ public class ModEvents {
                         damned.moveTo(illager.blockPosition().below(2), apostle.getYHeadRot(), apostle.getXRot());
                         damned.setTrueOwner(apostle);
                         damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(illager.blockPosition().below()), MobSpawnType.MOB_SUMMONED, null, null);
+                        damned.setHuman(false);
                         if (apostle.getTarget() != null){
                             damned.setTarget(apostle.getTarget());
                         }

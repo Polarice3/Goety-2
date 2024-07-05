@@ -21,6 +21,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NaturalMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NaturalMinionHealAmount;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostMinionHealCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FrostMinionHealTime;
+    public static final ForgeConfigSpec.ConfigValue<Double> FrostMinionHealAmount;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> NetherMinionHealTime;
     public static final ForgeConfigSpec.ConfigValue<Double> NetherMinionHealAmount;
@@ -80,11 +84,13 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTeleport;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsAttackCreepers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroRobeUndead;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VariousRobeWitch;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinionsMasterImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerAttackCancel;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MobSense;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NaturalMinionHeal;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FrostMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
@@ -123,9 +129,11 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightBurn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> UndeadServantSunlightHelmet;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> VizierPersistent;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VizierMinion;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApocalypseMode;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ApostlePersistent;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleBoilsWater;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ApostleConvertsVillagers;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
@@ -225,7 +233,7 @@ public class MobsConfig {
             BUILDER.push("Undead Servants");
             UndeadTeleport = BUILDER.comment("Whether Undead Servants can teleport to Players, Default: false")
                     .define("undeadTeleport", false);
-            NecroRobeUndead = BUILDER.comment("Whether Servants can attack Undead mobs if owner wears a full Necro Set, Default: false")
+            NecroRobeUndead = BUILDER.comment("Whether Servants would naturally attack Undead mobs if owner wears a full Necro Set, Default: false")
                     .define("necroRobeUndead", false);
             UndeadMinionHeal = BUILDER.comment("Whether Undead Servants can heal if summoned while wearing Necro Cape, Default: true")
                     .define("undeadServantsHeal", true);
@@ -256,6 +264,16 @@ public class MobsConfig {
             NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 0.5")
                     .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Frost Servants");
+            FrostMinionHeal = BUILDER.comment("Whether Frost Servants can heal if summoned while wearing Frost Robe, Default: true")
+                    .define("frostMinionHeal", true);
+            FrostMinionHealCost = BUILDER.comment("How much Soul Energy it cost per second for a Frost Servant to heal, Default: 5")
+                    .defineInRange("frostMinionHealCost", 5, 0, Integer.MAX_VALUE);
+            FrostMinionHealTime = BUILDER.comment("How frequent Frost Servants heal, count seconds, Default: 1")
+                    .defineInRange("frostMinionHealTime", 1, 0, Integer.MAX_VALUE);
+            FrostMinionHealAmount = BUILDER.comment("How much Health Frost Servants heal, numerically, Default: 0.5")
+                    .defineInRange("frostMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Nether Servants");
             NetherMinionHeal = BUILDER.comment("Whether Nether Servants can heal if summoned while wearing Nether Robe, Default: true")
                     .define("netherMinionHeal", true);
@@ -284,6 +302,8 @@ public class MobsConfig {
                 .define("ownerAttackCancel", true);
         MobSense = BUILDER.comment("Mobs will automatically be hostile to servants, if servant is hostile towards the mob, Default: true")
                 .define("mobSense", true);
+        VariousRobeWitch = BUILDER.comment("Whether Servants would naturally attack Witches or Warlocks if owner wears a full a robe that renders the former two neutral, Default: false")
+                .define("variousRobeWitch", false);
         StayingServantChunkLoad = BUILDER.comment("Servants, when on staying mode, will load chunks around it, Default: true")
                 .define("stayingServantChunkLoad", true);
         MaxSlimeSize = BUILDER.comment("Maximum size Slime and Magma Cube Servants can obtain through Slime/Magma Block, Default: 4")
@@ -357,6 +377,8 @@ public class MobsConfig {
             BUILDER.push("Apostle");
             ApocalypseMode = BUILDER.comment("Nether Meteors deals environmental damage. WARNING: Causes lots of lag. Default: false")
                     .define("apocalypseMode", false);
+            ApostlePersistent = BUILDER.comment("Whether Apostles are persistent and do not naturally despawn. Default: false")
+                    .define("apostlePersistent", true);
             ApostleBoilsWater = BUILDER.comment("Whether Apostles causes entities within 32 blocks of themselves to take damage when in water. Default: true")
                     .define("apostleBoilsWater", true);
             ApostleConvertsVillagers = BUILDER.comment("Whether Apostles causes Villagers within 32 blocks of themselves to have a chance of converting into a Witch or Warlock. Default: true")
@@ -365,6 +387,8 @@ public class MobsConfig {
                     .define("fancierApostleDeath", false);
             BUILDER.pop();
             BUILDER.push("Vizier");
+            VizierPersistent = BUILDER.comment("Whether Viziers are persistent and do not naturally despawn. Default: false")
+                    .define("vizierPersistent", false);
             VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
                     .define("vizierMinion", false);
             BUILDER.pop();

@@ -2056,5 +2056,19 @@
   "commands.goety.brew.xp.add.success.multiple": "为 %s 名玩家添加 %s 装瓶体验",
   "commands.goety.brew.xp.set.success.single": "为 %s 设置 %s 装瓶体验",
   "commands.goety.brew.xp.set.success.multiple": "为 %s 名玩家设置 %s 装瓶体验",
-  "commands.goety.brew.xp.set.failure": "装瓶体验设置错误"
+  "commands.goety.brew.xp.set.failure": "装瓶体验设置错误",
+  "advancements.goety.craft_feline_amulet.title": "紧张性灾难",
+  "advancements.goety.craft_feline_amulet.description": "佩戴时会吓跑附近的爬行者。",
+  "advancements.goety.craft_shade_gravestone.title": "不安分的死者",
+  "advancements.goety.craft_shade_gravestone.description": "将铁锭插入僵尸仆从即可召唤僵尸仆从。",
+  "advancements.goety.craft_blazing_cage.title": "永不熄灭的火焰",
+  "advancements.goety.craft_blazing_cage.description": "在岩浆块或熔岩桶上插入熔岩块时召唤烈焰仆从。",
+  "advancements.goety.craft_warlock_robe.title": "缺点和缺点",
+  "advancements.goety.craft_warlock_robe.description": "术士长袍默认提供 85% 魔法防御，并提升疣卵和活菌的使用率。穿上它可使女巫和术士保持中立。",
+  "advancements.goety.craft_nether_robe.title": "迪斯科地狱",
+  "advancements.goety.craft_nether_robe.description": "虚空长袍默认提供 85% 的火焰保护，并可降低虚空法术的攻击力。穿上它可使女巫和术士保持中立。",
+  "advancements.goety.get_bonehead_hammer.title": "骨骼区",
+  "advancements.goety.get_bonehead_hammer.description": "获得一把骨头锤，这是锤子的变体，当全力击中时会拉动附近的非友方怪物。",
+  "advancements.goety.blaze_servant_kill_blaze.title": "以火攻火",
+  "advancements.goety.blaze_servant_kill_blaze.description": "让烈焰人仆从杀死烈焰人。"
 }

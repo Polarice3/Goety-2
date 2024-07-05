@@ -7,9 +7,12 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.magic.spells.frost.FrostNovaSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
-import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,10 +25,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -37,7 +37,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
@@ -259,27 +258,14 @@ public class IceGolem extends AbstractGolemServant{
     }
 
     @Override
+    public MobType getMobType() {
+        return ModMobType.FROST;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide){
-            if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
-                if (this.getHealth() < this.getMaxHealth()){
-                    if (this.getTrueOwner() instanceof Player owner) {
-                        if (CuriosFinder.hasFrostRobes(owner)){
-                            if (SEHelper.getSoulsAmount(owner, MobsConfig.NaturalMinionHealCost.get())) {
-                                if (this.tickCount % MathHelper.secondsToTicks(MobsConfig.NaturalMinionHealTime.get()) == 0) {
-                                    this.heal(MobsConfig.NaturalMinionHealAmount.get().floatValue());
-                                    Vec3 vector3d = this.getDeltaMovement();
-                                    if (this.level instanceof ServerLevel serverWorld) {
-                                        SEHelper.decreaseSouls(owner, MobsConfig.NaturalMinionHealCost.get());
-                                        serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             if (!this.isMeleeAttacking() && !this.isSmashing()){
                 if (!this.isMoving()){
                     this.setAnimationState("idle");

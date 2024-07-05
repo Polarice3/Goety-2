@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "born_in_chaos_v1:dark_vortex",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:restless_spirit",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:phantom_creeper",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:seared_spirit",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:seared_spirit_not_despawn",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:maggot",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:corpse_fly",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:bloody_gadfly",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:nightmare_stalker",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:corpse_fish",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:glutton_fish",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:spiritof_chaos",
+      "required": false
+    }
+  ]
+}

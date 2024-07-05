@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModKeybindings;
@@ -21,7 +22,7 @@ import java.util.List;
 public class SingleStackItem extends Item implements ICurioItem {
 
     public SingleStackItem() {
-        this(new Properties().stacksTo(1));
+        this(new Properties().tab(Goety.TAB).stacksTo(1));
     }
 
     public SingleStackItem(Properties properties){

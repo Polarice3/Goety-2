@@ -189,6 +189,12 @@ public class Summoned extends Owned implements IServant {
                                 healRate = MobsConfig.NaturalMinionHealTime.get();
                                 healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
                             }
+                            if (this.getMobType() == ModMobType.FROST && MobsConfig.FrostMinionHeal.get()){
+                                curio = CuriosFinder.hasFrostRobes(owner);
+                                soulCost = MobsConfig.FrostMinionHealCost.get();
+                                healRate = MobsConfig.FrostMinionHealTime.get();
+                                healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
+                            }
                             if (this.getMobType() == ModMobType.NETHER && MobsConfig.NetherMinionHeal.get()){
                                 curio = CuriosFinder.hasNetherRobe(owner);
                                 soulCost = MobsConfig.NetherMinionHealCost.get();

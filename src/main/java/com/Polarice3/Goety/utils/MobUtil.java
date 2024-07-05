@@ -1147,26 +1147,39 @@ public class MobUtil {
     }
 
     public static Predicate<LivingEntity> ownedPredicate(Entity entity){
-        if (entity instanceof OwnableEntity attacker) {
-            if (attacker.getOwner() instanceof Enemy
-                    || (attacker.getOwner() instanceof IOwned owned && owned.isHostile())) {
-                return (target) -> target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
+        return target -> isOwnedTargetable(entity, target);
+    }
+
+    public static boolean isOwnedTargetable(Entity attacker, LivingEntity target){
+        LivingEntity owner = null;
+        if (attacker instanceof IOwned owned){
+            owner = owned.getTrueOwner();
+        } else if (attacker instanceof OwnableEntity ownable && ownable.getOwner() instanceof LivingEntity livingEntity){
+            owner = livingEntity;
+        }
+        if (owner != null){
+            if (owner instanceof Enemy
+                    || (owner instanceof IOwned owned && owned.isHostile())
+                    || attacker instanceof Enemy
+                    || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
+                return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
             } else {
-                return (target) ->
-                        (target instanceof Enemy
-                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() != null && LichdomHelper.isLich(attacker.getOwner()) && MainConfig.LichUndeadFriends.get())
-                                && !(target.getMobType() == MobType.UNDEAD && attacker.getOwner() instanceof LivingEntity livingEntity && CuriosFinder.hasUndeadSet(livingEntity) && MobsConfig.NecroRobeUndead.get())
-                                && !(isWitchType(target) && attacker.getOwner() instanceof LivingEntity livingEntity1 && CuriosFinder.isWitchFriendly(livingEntity1))
-                                && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
-                                && !(target instanceof NeutralMob && ((attacker.getOwner() != null && ((NeutralMob) target).getTarget() != attacker.getOwner())))
-                                && !(target instanceof IOwned && attacker.getOwner() != null && ((IOwned) target).getTrueOwner() == attacker.getOwner()))
-                                || (target instanceof IOwned owned && owned.isHostile())
-                                || (attacker.getOwner() instanceof Player player
-                                && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
-                                || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
+                return (target instanceof Enemy
+                        && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
+                        && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && CuriosFinder.hasUndeadSet(owner) && !MobsConfig.NecroRobeUndead.get())
+                        && !(MobUtil.isWitchType(target) && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())
+                        && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                        && !(target instanceof NeutralMob && ((((NeutralMob) target).getTarget() != owner) || ((NeutralMob) target).getTarget() != attacker))
+                        && !(target instanceof IOwned && ((IOwned) target).getTrueOwner() == owner))
+                        || (target instanceof IOwned owned
+                        && !(attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())
+                        && owned.isHostile())
+                        || (owner instanceof Player player
+                        && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                        || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
             }
         } else {
-            return null;
+            return false;
         }
     }
 

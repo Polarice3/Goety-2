@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -156,7 +157,8 @@ public class LichEvents {
     public static void UndeadFriendly(LivingChangeTargetEvent event){
         if (MainConfig.LichUndeadFriends.get()) {
             if (event.getEntity() instanceof Enemy) {
-                if (event.getEntity().getMobType() == MobType.UNDEAD) {
+                if (event.getEntity().getMobType() == MobType.UNDEAD
+                        || event.getEntity().getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) {
                     if (event.getOriginalTarget() != null) {
                         if (event.getOriginalTarget() instanceof Player player) {
                             if (LichdomHelper.isLich(player)) {
@@ -246,7 +248,7 @@ public class LichEvents {
             }
         }
         if (event.getSource().getDirectEntity() instanceof Player player){
-            if (LichdomHelper.isLich(player)){
+            if (LichdomHelper.isLich(player) && MainConfig.LichTouch.get()){
                 if (ModDamageSource.physicalAttacks(event.getSource()) && event.getEntity() != player){
                     if (player.getMainHandItem().isEmpty()) {
                         event.getEntity().addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), 900));
@@ -273,11 +275,15 @@ public class LichEvents {
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        if (MainConfig.LichModeSounds.get()) {
-            if (LichdomHelper.isLich(livingEntity)){
-                if (LichdomHelper.isInLichMode(livingEntity)){
-                    if (!event.isCanceled()){
+        if (LichdomHelper.isLich(livingEntity)){
+            if (LichdomHelper.isInLichMode(livingEntity)){
+                if (!event.isCanceled()){
+                    if (MainConfig.LichModeSounds.get()) {
                         livingEntity.playSound(ModSounds.LICH_DEATH.get(), 1.0F, livingEntity.getVoicePitch());
+                    }
+                    if (livingEntity.level instanceof ServerLevel serverLevel){
+                        ColorUtil colorUtil = new ColorUtil(0x36e416);
+                        serverLevel.sendParticles(new ShockwaveParticleOption(0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 20, 0, true), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0, 0, 0, 0.5F);
                     }
                 }
             }

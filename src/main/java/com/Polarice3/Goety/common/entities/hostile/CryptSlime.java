@@ -13,10 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -75,6 +72,14 @@ public class CryptSlime extends Slime {
 
     protected boolean isDealsDamage() {
         return this.isEffectiveAi();
+    }
+
+    public void push(Entity p_33636_) {
+        super.push(p_33636_);
+        if (this.getTarget() != null && this.getTarget() == p_33636_ && this.isDealsDamage()) {
+            this.dealDamage((LivingEntity)p_33636_);
+        }
+
     }
 
     protected void dealDamage(LivingEntity livingEntity) {
