@@ -9,7 +9,6 @@ import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.projectiles.IceSpike;
-import com.Polarice3.Goety.common.entities.projectiles.SoulBolt;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;

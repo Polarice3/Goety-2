@@ -89,6 +89,8 @@ public class ModTags {
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
+        public static final TagKey<EntityType<?>> NECRO_SET_NEUTRAL = tag("necro_set_neutral");
+        public static final TagKey<EntityType<?>> LICH_NEUTRAL = tag("lich_neutral");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return create(Goety.location(name));

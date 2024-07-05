@@ -47,7 +47,7 @@
   },
   "start_pool": "goety:crypt/start_pool",
   "size": 30,
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "none",
   "start_height": {
     "absolute": 0
   },

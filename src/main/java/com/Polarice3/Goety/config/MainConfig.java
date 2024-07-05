@@ -83,6 +83,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichMagicResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichPowerfulFoes;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichVillagerHate;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichTouch;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichScrollRequirement;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichModeSounds;
 
@@ -219,6 +220,8 @@ public class MainConfig {
                 .define("lichPowerfulHostile", true);
         LichVillagerHate = BUILDER.comment("If Villagers provide negative Reputation to Liches and non-Player Iron Golems are automatically aggressive against them, Default: true")
                 .define("lichVillagerHate", true);
+        LichTouch = BUILDER.comment("If Liches bare-handed attacks inflicts negative effects, Default: true")
+                .define("lichTouch", true);
         LichScrollRequirement = BUILDER.comment("Whether the player needs to read a Forbidden Scroll to start the Potion of Transformation ritual, Default: true")
                 .define("lichScrollRequirement", true);
         LichModeSounds = BUILDER.comment("Whether the player in Lich Mode will emit Lich sounds, Default: true")

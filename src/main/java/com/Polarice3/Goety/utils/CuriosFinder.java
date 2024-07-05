@@ -101,7 +101,9 @@ public class CuriosFinder {
     }
 
     public static boolean isWitchFriendly(LivingEntity livingEntity){
-        return hasWitchSet(livingEntity) || hasWarlockRobe(livingEntity) || hasNetherRobe(livingEntity);
+        return (hasWitchSet(livingEntity) && ItemConfig.WitchSetWitchNeutral.get())
+                || (hasWarlockRobe(livingEntity) && ItemConfig.WarlockRobeWitchNeutral.get())
+                || (hasNetherRobe(livingEntity) && ItemConfig.NetherRobeWitchNeutral.get());
     }
 
     public static boolean hasWitchSet(LivingEntity livingEntity){

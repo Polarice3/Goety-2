@@ -140,8 +140,8 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         } else {
             return (target) ->
                     (target instanceof Enemy
-                            && !(target.getMobType() == MobType.UNDEAD && this.getTrueOwner() != null && LichdomHelper.isLich(this.getTrueOwner()) && MainConfig.LichUndeadFriends.get())
-                            && !(target.getMobType() == MobType.UNDEAD && this.getTrueOwner() != null && CuriosFinder.hasUndeadSet(this.getTrueOwner()) && MobsConfig.NecroRobeUndead.get())
+                            && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && this.getTrueOwner() != null && LichdomHelper.isLich(this.getTrueOwner()) && MainConfig.LichUndeadFriends.get())
+                            && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && this.getTrueOwner() != null && CuriosFinder.hasUndeadSet(this.getTrueOwner()) && MobsConfig.NecroRobeUndead.get())
                             && !(MobUtil.isWitchType(target) && this.getTrueOwner() != null && CuriosFinder.isWitchFriendly(this.getTrueOwner()))
                             && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
                             && !(target instanceof NeutralMob && ((this.getTrueOwner() != null && ((NeutralMob) target).getTarget() != this.getTrueOwner())))

@@ -1,27 +1,27 @@
 {
   "display": {
     "icon": {
-      "item": "goety:great_hammer"
+      "item": "goety:shade_gravestone"
     },
     "title": {
-      "translate": "advancements.goety.get_hammer.title"
+      "translate": "advancements.goety.craft_shade_gravestone.title"
     },
     "description": {
-      "translate": "advancements.goety.get_hammer.description"
+      "translate": "advancements.goety.craft_shade_gravestone.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "goety:goety/root",
+  "parent": "goety:goety/craft_dark_altar",
   "criteria": {
-    "hammer": {
+    "shade_gravestone": {
       "conditions": {
         "items": [
           {
             "items": [
-              "goety:great_hammer"
+              "goety:shade_gravestone"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "hammer"
+      "shade_gravestone"
     ]
   ]
 }

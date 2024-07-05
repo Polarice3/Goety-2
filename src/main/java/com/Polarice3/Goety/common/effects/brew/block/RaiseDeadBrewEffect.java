@@ -3,27 +3,17 @@ package com.Polarice3.Goety.common.effects.brew.block;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
-import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
-import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
-import com.Polarice3.Goety.common.entities.neutral.VampireBat;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.*;
+import com.Polarice3.Goety.utils.BlockFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
-
-import javax.annotation.Nullable;
 
 public class RaiseDeadBrewEffect extends BrewEffect {
     public RaiseDeadBrewEffect(int soulCost, int capacityExtra) {

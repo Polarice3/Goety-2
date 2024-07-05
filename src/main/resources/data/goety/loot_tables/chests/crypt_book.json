@@ -12,6 +12,26 @@
         {
           "type": "minecraft:empty",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "functions": [
+            {
+              "decoration": "target_point",
+              "function": "minecraft:exploration_map",
+              "destination": "goety:explorer_maps/ancient_city",
+              "zoom": 1,
+              "skip_existing_chunks": true
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.goety.ancient_city"
+              }
+            }
+          ],
+          "name": "minecraft:map"
         }
       ]
     },

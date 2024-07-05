@@ -549,7 +549,7 @@ public class SpellConfig {
             FireballDuration = BUILDER.comment("Time to cast Fireball Spell, Default: 0")
                     .defineInRange("fireballTime", 0, 0, 72000);
             FireballCoolDown = BUILDER.comment("Fireball Spell Cooldown, Default: 20")
-                    .defineInRange("fireballCoolDown", 20, 0, Integer.MAX_VALUE);
+                    .defineInRange("fireballCoolDown", 40, 0, Integer.MAX_VALUE);
             FireballDamage = BUILDER.comment("How much base damage Fireballs deal when directly hitting a mob, Default: 5.0")
                     .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
             FireballGriefing = BUILDER.comment("Enable Fireball projectile griefing, Default: true")

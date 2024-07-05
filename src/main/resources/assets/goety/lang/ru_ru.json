@@ -2103,5 +2103,19 @@
   "commands.goety.brew.xp.add.success.multiple": "Добавьте %s опыт розлива для %s игроков",
   "commands.goety.brew.xp.set.success.single": "Установить %s опыт розлива для %s",
   "commands.goety.brew.xp.set.success.multiple": "Установите %s опыт розлива для %s игроков",
-  "commands.goety.brew.xp.set.failure": "Ошибка при настройке опыта розлива."
+  "commands.goety.brew.xp.set.failure": "Ошибка при настройке опыта розлива.",
+  "advancements.goety.craft_feline_amulet.title": "Кататоническая катастрофа",
+  "advancements.goety.craft_feline_amulet.description": "При ношении отпугивает ближайших криперов.",
+  "advancements.goety.craft_shade_gravestone.title": "Беспокойные мертвецы",
+  "advancements.goety.craft_shade_gravestone.description": "Призывает зомби-слуг, если вставить в него железный слиток.",
+  "advancements.goety.craft_blazing_cage.title": "Бесконечное пламя",
+  "advancements.goety.craft_blazing_cage.description": "Призывает огненных слуг, если вставить в него блок магмы или ведро лавы.",
+  "advancements.goety.craft_warlock_robe.title": "Бородавки и все такое",
+  "advancements.goety.craft_warlock_robe.description": "Одеяния чернокнижника по умолчанию дают 85% магической защиты и улучшают использование бородавчатых яиц и щелкающих грибов. Его ношение делает ведьм и колдунов нейтральными.",
+  "advancements.goety.craft_nether_robe.title": "Дискотека Инферно",
+  "advancements.goety.craft_nether_robe.description": "Одеяния Пустоты по умолчанию дают 85% защиты от огня и дают скидку на заклинания Пустоты. Его ношение делает ведьм и колдунов нейтральными.",
+  "advancements.goety.get_bonehead_hammer.title": "Зона костей",
+  "advancements.goety.get_bonehead_hammer.description": "Получите Молот с костяной головой — вариант молота, который притягивает ближайших не-союзников при ударе на полную мощность.",
+  "advancements.goety.blaze_servant_kill_blaze.title": "Борьба с огнем огнем",
+  "advancements.goety.blaze_servant_kill_blaze.description": "Пусть Пламенный Слуга убьет Пламя."
 }

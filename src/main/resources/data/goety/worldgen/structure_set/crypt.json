@@ -9,6 +9,10 @@
     "salt": 1876543456,
     "spacing": 120,
     "separation": 40,
+    "exclusion_zone": {
+      "other_set": "minecraft:mineshafts",
+      "chunk_count": 5
+    },
     "type": "minecraft:random_spread"
   }
 }

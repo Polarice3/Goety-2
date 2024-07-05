@@ -1,27 +1,27 @@
 {
   "display": {
     "icon": {
-      "item": "goety:great_hammer"
+      "item": "goety:bonehead_hammer"
     },
     "title": {
-      "translate": "advancements.goety.get_hammer.title"
+      "translate": "advancements.goety.get_bonehead_hammer.title"
     },
     "description": {
-      "translate": "advancements.goety.get_hammer.description"
+      "translate": "advancements.goety.get_bonehead_hammer.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "goety:goety/root",
+  "parent": "goety:goety/get_hammer",
   "criteria": {
     "hammer": {
       "conditions": {
         "items": [
           {
             "items": [
-              "goety:great_hammer"
+              "goety:bonehead_hammer"
             ]
           }
         ]

@@ -115,14 +115,16 @@ public class BrewingRecipe implements Recipe<Container> {
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"));
             EntityType<?> entityType = null;
             TagKey<EntityType<?>> entityTag = null;
-            JsonObject data2 = json.getAsJsonObject("entity");
-            if (data2 != null) {
-                if (data2.has("entity_type")) {
-                    ResourceLocation resourceLocation = new ResourceLocation(data2.getAsJsonPrimitive("entity_type").getAsString());
-                    entityType = ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation);
-                } else if (data2.has("tag")) {
-                    ResourceLocation resourceLocation = new ResourceLocation(data2.getAsJsonPrimitive("tag").getAsString());
-                    entityTag = TagKey.create(ForgeRegistries.ENTITY_TYPES.getRegistryKey(), resourceLocation);
+            if (json.has("entity")) {
+                JsonObject data2 = json.getAsJsonObject("entity");
+                if (data2 != null) {
+                    if (data2.has("entity_type")) {
+                        ResourceLocation resourceLocation = new ResourceLocation(data2.getAsJsonPrimitive("entity_type").getAsString());
+                        entityType = ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation);
+                    } else if (data2.has("tag")) {
+                        ResourceLocation resourceLocation = new ResourceLocation(data2.getAsJsonPrimitive("tag").getAsString());
+                        entityTag = TagKey.create(ForgeRegistries.ENTITY_TYPES.getRegistryKey(), resourceLocation);
+                    }
                 }
             }
             return new BrewingRecipe(id,
@@ -137,6 +139,7 @@ public class BrewingRecipe implements Recipe<Container> {
 
         @Override
         public BrewingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+            Ingredient ingredient = Ingredient.fromNetwork(buf);
             TagKey<EntityType<?>> entityTag = null;
             EntityType<?> entityType = null;
 
@@ -148,14 +151,21 @@ public class BrewingRecipe implements Recipe<Container> {
             if (buf.readBoolean()){
                 entityType = buf.readRegistryId();
             }
+
+            MobEffect mobEffect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(buf.readUtf()));
+
+            int soulCost = buf.readInt();
+            int capacityExtra = buf.readInt();
+            int duration = buf.readInt();
+
             return new BrewingRecipe(id,
-                    Ingredient.fromNetwork(buf),
+                    ingredient,
                     entityTag,
                     entityType,
-                    ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(buf.readUtf())),
-                    buf.readInt(),
-                    buf.readInt(),
-                    buf.readInt());
+                    mobEffect,
+                    soulCost,
+                    capacityExtra,
+                    duration);
         }
 
         @Override
