@@ -13,5 +13,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/corruption_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:corruption_focus": 1
+  }
 }

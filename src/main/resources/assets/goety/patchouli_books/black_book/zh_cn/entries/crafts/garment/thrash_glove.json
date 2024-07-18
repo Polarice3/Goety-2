@@ -1,0 +1,18 @@
+{
+  "name": "Thrash Gloves",
+  "icon": "goety:thrash_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "对于像你这样的黑暗巫师来说，锤子相当重。幸运的是，凭借你的制作和锻造专业知识，你找到了一种制作手套的方法，可以帮助你更有效地挥动锤子，将攻击速度提高 50%%."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrash_glove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thrash_glove": 1
+  }
+}

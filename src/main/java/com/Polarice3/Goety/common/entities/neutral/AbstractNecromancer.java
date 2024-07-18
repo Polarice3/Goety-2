@@ -91,12 +91,16 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         super.registerGoals();
         this.goalSelector.addGoal(1, new CastingSpellGoal());
         this.summonSpells(1);
-        this.goalSelector.addGoal(2, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 2, 4, 1.0D, 1.2D));
+        this.avoidGoal(2);
         this.projectileGoal(3);
     }
 
     public void projectileGoal(int priority){
         this.goalSelector.addGoal(priority, new NecromancerRangedGoal(this, 1.0D, 20, 12.0F));
+    }
+
+    public void avoidGoal(int priority){
+        this.goalSelector.addGoal(priority, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 2, 4, 1.0D, 1.2D));
     }
 
     public void summonSpells(int priority){
@@ -500,7 +504,7 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                             serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
-                    return InteractionResult.CONSUME;
+                    return InteractionResult.SUCCESS;
                 } else if (!this.getSummonList().contains(ModEntityType.SKELETON_SERVANT.get()) && item == ModItems.OSSEOUS_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);

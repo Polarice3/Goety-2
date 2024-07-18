@@ -14,6 +14,11 @@
       "recipe": "goety:convert_skeleton_to_necromancer"
     },
     {
+      "type": "patchouli:spotlight",
+      "item": "goety:soul_jar",
+      "text": "Некромантов можно научить вызывать не только зомби. Нажатие по ним ПКМ определёнными некро-фокусами позволяет им призывать больше различных прислужников. Ходят слухи, что, если накормить их банкой душ, то они станут сильнее..."
+    },
+    {
       "type": "patchouli:entity",
       "entity": "goety:necromancer_servant"
     },
@@ -29,4 +34,5 @@
   "extra_recipe_mappings": {
     "goety:soul_jar": 2
   }
+  ]
 }

@@ -1,11 +1,14 @@
 package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.LichdomHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,6 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract boolean hasEffect(MobEffect p_21024_);
 
+    @Shadow public abstract MobType getMobType();
+
+    @Shadow public abstract float getMaxHealth();
+
     protected LivingEntityMixin(EntityType<? extends Entity> p_20966_, Level p_20967_) {
         super(p_20966_, p_20967_);
     }
@@ -26,6 +33,23 @@ public abstract class LivingEntityMixin extends Entity {
     public void isInvertedHealAndHarm(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         if (LichdomHelper.isLich(this)) {
             callbackInfoReturnable.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
+    public void canAttack(LivingEntity target, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
+        if (MainConfig.LichUndeadFriends.get()) {
+            if (this.getMobType() == MobType.UNDEAD || this.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) {
+                if (LichdomHelper.isLich(target)) {
+                    if (MainConfig.LichPowerfulFoes.get()) {
+                        if (this.getMaxHealth() <= MainConfig.LichPowerfulFoesHealth.get()){
+                            callbackInfoReturnable.setReturnValue(false);
+                        }
+                    } else {
+                        callbackInfoReturnable.setReturnValue(false);
+                    }
+                }
+            }
         }
     }
 

@@ -79,7 +79,7 @@ public class LichEvents {
             if (MainConfig.LichSoulHeal.get()) {
                 if (!player.isOnFire() && LichdomHelper.smited(player) <= 0) {
                     if (player.getHealth() < player.getMaxHealth()) {
-                        if (player.tickCount % MathHelper.secondsToTicks(MainConfig.LichHealSeconds.get()) == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
+                        if (player.tickCount % (MathHelper.secondsToTicks(MainConfig.LichHealSeconds.get()) + 1) == 0 && SEHelper.getSoulsAmount(player, MainConfig.LichHealCost.get())) {
                             player.heal(MainConfig.LichHealAmount.get().floatValue());
                             Vec3 vector3d = player.getDeltaMovement();
                             if (!player.level.isClientSide) {
@@ -163,7 +163,7 @@ public class LichEvents {
                         if (event.getOriginalTarget() instanceof Player player) {
                             if (LichdomHelper.isLich(player)) {
                                 if (MainConfig.LichPowerfulFoes.get()) {
-                                    if (event.getEntity().getMaxHealth() < 100) {
+                                    if (event.getEntity().getMaxHealth() <= MainConfig.LichPowerfulFoesHealth.get()) {
                                         event.setNewTarget(null);
                                         if (event.getEntity() instanceof NeutralMob){
                                             event.setNewTarget(null);
@@ -220,7 +220,7 @@ public class LichEvents {
                                     if (undead.getMobType() == MobType.UNDEAD) {
                                         if (undead.getTarget() != player) {
                                             if (MainConfig.LichPowerfulFoes.get()) {
-                                                if (undead.getMaxHealth() < 100.0F) {
+                                                if (undead.getMaxHealth() <= MainConfig.LichPowerfulFoesHealth.get()) {
                                                     undead.setTarget(attacker);
                                                 }
                                             } else {

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.items.ModTiers;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SLightningBoltPacket;
@@ -102,6 +103,7 @@ public class StormlanderItem extends HammerItem{
                 area = 1.75D;
                 pPlayer.playSound(ModSounds.THUNDER_STRIKE_FAST.get());
             }
+            area += EnchantmentHelper.getEnchantmentLevel(ModEnchantments.RADIUS.get(), pPlayer);
             for (LivingEntity livingentity : pPlayer.level.getEntitiesOfClass(LivingEntity.class, pTarget.getBoundingBox().inflate(area, 0.25D, area))) {
                 if (livingentity != pPlayer && livingentity != pTarget && !pPlayer.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && pPlayer.distanceToSqr(livingentity) < 16.0D && livingentity != pPlayer.getVehicle()) {
                     livingentity.knockback(0.4F, (double) Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F))));

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class SpiderServantRenderer<T extends SpiderServant> extends MobRenderer<T, SpiderModel<T>> {
    private static final ResourceLocation SPIDER_LOCATION = Goety.location("textures/entity/servants/spider/spider_servant.png");
+   private static final ResourceLocation ORIGINAL = new ResourceLocation("textures/entity/spider/spider.png");
 
    public SpiderServantRenderer(EntityRendererProvider.Context p_174401_) {
       this(p_174401_, ModelLayers.SPIDER);
@@ -30,7 +32,11 @@ public class SpiderServantRenderer<T extends SpiderServant> extends MobRenderer<
    }
 
    public ResourceLocation getTextureLocation(T p_116009_) {
-      return SPIDER_LOCATION;
+      if (p_116009_.isHostile() || !MobsConfig.SpiderServantTexture.get()){
+         return ORIGINAL;
+      } else {
+         return SPIDER_LOCATION;
+      }
    }
 
    public static class SpiderEyesLayer<T extends Entity, M extends SpiderModel<T>> extends EyesLayer<T, M> {

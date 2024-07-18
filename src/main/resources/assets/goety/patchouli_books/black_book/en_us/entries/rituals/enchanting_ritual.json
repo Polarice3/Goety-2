@@ -1,0 +1,159 @@
+{
+  "name": "Enchanting With Rituals",
+  "icon": "minecraft:enchanted_book",
+  "category": "goety:rituals",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Dark Altar can enchant items using certain ingredients, soul energy, and the ritual caster's own experience levels."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The rituals can enchant even enchanted items, so long as the item's enchantments are compatible with the enchantment, and can increase the level enchantment as well. However, when increasing the enchantment level, the experience level required is doubled."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/sharpness"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/smite"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/bane_of_arthropods"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fire_aspect"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/knockback"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/sweeping_edge"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/looting"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/efficiency"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fortune"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/silk_touch"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/power"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/punch"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/flame"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/infinity"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/piercing"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/quick_charge"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/multishot"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/impaling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/riptide"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/loyalty"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/channeling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/lure"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/luck_of_the_sea"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/projectile_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fire_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/blast_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/feather_falling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/aqua_affinity"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/respiration"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/depth_strider"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/thorns"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/binding_curse"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/vanishing_curse"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/unbreaking"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/mending"
+    }
+  ]
+}

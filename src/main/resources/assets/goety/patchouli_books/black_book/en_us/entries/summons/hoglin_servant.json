@@ -1,0 +1,38 @@
+{
+  "name": "Hoglin Servants",
+  "icon": "minecraft:porkchop",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hoglins make for fine servants to throw your enemies into the air with their mighty tusks. Also makes for a good mount, no saddle needed in fact, for some reason, if you ignore its slow speed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "But while loyal and brave, these Hoglins still retain their hatred of Warped Fungi and Nether Portals. They will also zombify outside of the Nether, turning the loyal creature into an omnicidal, and NOT loyal, Zoglin. One can call upon a loyal hoglin through the use of a $(l:focuses/wild/mauling_focus)Mauling Focus$() while being in the Nether, or through a ritual which summons or converts one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hoglin_servant_thrall"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_hoglin_to_hoglin_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hoglin_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking on a loyal Hoglin Servant with Crimson Roots or Weeping Vines will heal them."
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Obtaining and wearing a $(l:crafts/garment/nether_robe)Nether Robes$() will stop the zombification from affecting your Hoglins. Using the $(l:focuses/wild/mauling_focus)Mauling Focus$() with a $(l:crafts/nether_staff)Nether Staff$() will call them forth no matter what dimension you're in."
+    }
+  ]
+}

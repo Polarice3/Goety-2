@@ -166,10 +166,16 @@ public class IllagerSpawner {
                                 if(net.minecraftforge.common.ForgeHooks.canEntitySpawn(mount, worldIn, pos.getX(), pos.getY(), pos.getZ(), null, MobSpawnType.PATROL) == -1) return false;
                                 mount.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                                 illager.startRiding(mount);
+                                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                                    mount.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60));
+                                }
                                 worldIn.addFreshEntityWithPassengers(mount);
                             }
                         }
                     }
+                }
+                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                    illager.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60));
                 }
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;

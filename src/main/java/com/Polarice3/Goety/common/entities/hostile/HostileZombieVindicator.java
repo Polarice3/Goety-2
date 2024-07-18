@@ -22,7 +22,7 @@ public class HostileZombieVindicator extends AbstractZombieVindicator implements
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(4, new ModMeleeAttackGoal(this));
+        this.goalSelector.addGoal(4, new VindicatorMeleeAttackGoal(this));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));

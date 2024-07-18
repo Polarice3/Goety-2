@@ -1290,6 +1290,17 @@
     ],
     "subtitle": "subtitle.goety.frozen_zombie_hurt"
   },
+  "frozen_zombie_snowball": {
+    "sounds": [
+      {
+        "name": "goety:frozen_zombie/snowball1"
+      },
+      {
+        "name": "goety:frozen_zombie/snowball2"
+      }
+    ],
+    "subtitle": "subtitle.goety.frozen_zombie_snowball"
+  },
   "frozen_zombie_death": {
     "sounds": [
       {
@@ -4324,6 +4335,32 @@
       }
     ],
     "subtitle": "subtitle.goety.necro_cast"
+  },
+  "shock_cast": {
+    "sounds": [
+      {
+        "name": "goety:spell/shock_cast1"
+      },
+      {
+        "name": "goety:spell/shock_cast2"
+      },
+      {
+        "name": "goety:spell/shock_cast3"
+      },
+      {
+        "name": "goety:spell/shock_cast4"
+      },
+      {
+        "name": "goety:spell/shock_cast5"
+      },
+      {
+        "name": "goety:spell/shock_cast6"
+      },
+      {
+        "name": "goety:spell/shock_cast7"
+      }
+    ],
+    "subtitle": "subtitle.goety.cast_spell"
   },
   "summon_spell": {
     "sounds": [

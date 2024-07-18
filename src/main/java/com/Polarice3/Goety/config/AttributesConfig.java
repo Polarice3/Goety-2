@@ -94,24 +94,30 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> StrayServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> StrayServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WitherSkeletonServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> MossySkeletonServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SunkenSkeletonServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> VanguardServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SkeletonPillagerRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZombieVindicatorDamage;
@@ -127,12 +133,26 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> MiniGhastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> GhastServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpiderServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpiderServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> CaveSpiderServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> CaveSpiderServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WebSpiderServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WebSpiderServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> IcySpiderServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> IcySpiderServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BoneSpiderServantRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlackWolfDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BearServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
@@ -408,6 +428,8 @@ public class AttributesConfig {
                         .defineInRange("skeletonServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SkeletonServantDamage = BUILDER.comment("How much damage Skeleton Servants deals, Default: 2.0")
                         .defineInRange("skeletonServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                SkeletonServantRangeDamage = BUILDER.comment("How much extra damage Skeleton Servants range attack deals, Default: 0.0")
+                        .defineInRange("skeletonServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Stray Servant");
                 StrayServantHealth = BUILDER.comment("How much Max Health Stray Servants have, Default: 20.0")
@@ -416,6 +438,8 @@ public class AttributesConfig {
                         .defineInRange("strayServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 StrayServantDamage = BUILDER.comment("How much damage Stray Servants deals, Default: 2.0")
                         .defineInRange("strayServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                StrayServantRangeDamage = BUILDER.comment("How much extra damage Stray Servants range attack deals, Default: 0.0")
+                        .defineInRange("strayServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Wither Skeleton Servant");
                 WitherSkeletonServantHealth = BUILDER.comment("How much Max Health Wither Skeleton Servants have, Default: 20.0")
@@ -424,6 +448,8 @@ public class AttributesConfig {
                         .defineInRange("witherSkeletonServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 WitherSkeletonServantDamage = BUILDER.comment("How much damage Wither Skeleton Servants deals, Default: 4.0")
                         .defineInRange("witherSkeletonServantDamage", 4.0, 1.0, Double.MAX_VALUE);
+                WitherSkeletonServantRangeDamage = BUILDER.comment("How much extra damage Wither Skeleton Servants range attack deals, Default: 0.0")
+                        .defineInRange("witherSkeletonServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Mossy Skeleton Servant");
                 MossySkeletonServantHealth = BUILDER.comment("How much Max Health Mossy Skeleton Servants have, Default: 20.0")
@@ -432,6 +458,8 @@ public class AttributesConfig {
                         .defineInRange("mossySkeletonServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 MossySkeletonServantDamage = BUILDER.comment("How much damage Mossy Skeleton Servants deals, Default: 2.0")
                         .defineInRange("mossySkeletonServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                MossySkeletonServantRangeDamage = BUILDER.comment("How much extra damage Mossy Skeleton Servants range attack deals, Default: 0.0")
+                        .defineInRange("mossySkeletonServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Sunken Skeleton Servant");
                 SunkenSkeletonServantHealth = BUILDER.comment("How much Max Health Sunken Skeleton Servants have, Default: 20.0")
@@ -440,6 +468,8 @@ public class AttributesConfig {
                         .defineInRange("sunkenSkeletonServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SunkenSkeletonServantDamage = BUILDER.comment("How much damage Sunken Skeleton Servants deals, Default: 2.0")
                         .defineInRange("sunkenSkeletonServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                SunkenSkeletonServantRangeDamage = BUILDER.comment("How much extra damage Sunken Skeleton Servants range attack deals, Default: 0.0")
+                        .defineInRange("sunkenSkeletonServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Vanguard Servant");
                 VanguardServantHealth = BUILDER.comment("How much Max Health Vanguard Servants have, Default: 20.0")
@@ -456,6 +486,8 @@ public class AttributesConfig {
                         .defineInRange("skeletonPillagerArmor", 0.0, 0.0, Double.MAX_VALUE);
                 SkeletonPillagerDamage = BUILDER.comment("How much damage Skeleton Pillagers deals, Default: 5.0")
                         .defineInRange("skeletonPillagerDamage", 5.0, 1.0, Double.MAX_VALUE);
+                SkeletonPillagerRangeDamage = BUILDER.comment("How much extra damage Skeleton Pillagers range attack deals, Default: 0.0")
+                        .defineInRange("skeletonPillagerRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Zombie Vindicator");
                 ZombieVindicatorHealth = BUILDER.comment("How much Max Health Zombie Vindicators have, Default: 24.0")
@@ -499,6 +531,38 @@ public class AttributesConfig {
                 GhastServantDamage = BUILDER.comment("How much damage Ghast Servants' lavaballs deals, Default: 6.0")
                         .defineInRange("ghastServantDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Spider Servant");
+                SpiderServantHealth = BUILDER.comment("How much Max Health Spider Servants have, Default: 16.0")
+                        .defineInRange("spiderServantHealth", 16.0, 1.0, Double.MAX_VALUE);
+                SpiderServantDamage = BUILDER.comment("How much damage Spider Servants melee attack deals, Default: 2.0")
+                        .defineInRange("spiderServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Cave Spider Servant");
+                CaveSpiderServantHealth = BUILDER.comment("How much Max Health Cave Spider Servants have, Default: 12.0")
+                        .defineInRange("caveSpiderServantHealth", 12.0, 1.0, Double.MAX_VALUE);
+                CaveSpiderServantDamage = BUILDER.comment("How much damage Cave Spider Servants melee attack deals, Default: 2.0")
+                        .defineInRange("caveSpiderServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Web Spider Servant");
+                WebSpiderServantHealth = BUILDER.comment("How much Max Health Web Spider Servants have, Default: 16.0")
+                        .defineInRange("webSpiderServantHealth", 16.0, 1.0, Double.MAX_VALUE);
+                WebSpiderServantDamage = BUILDER.comment("How much damage Web Spider Servants melee attack deals, Default: 2.0")
+                        .defineInRange("webSpiderServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Icy Spider Servant");
+                IcySpiderServantHealth = BUILDER.comment("How much Max Health Icy Spider Servants have, Default: 16.0")
+                        .defineInRange("icySpiderServantHealth", 16.0, 1.0, Double.MAX_VALUE);
+                IcySpiderServantDamage = BUILDER.comment("How much damage Icy Spider Servants melee attack deals, Default: 2.0")
+                        .defineInRange("icySpiderServantDamage", 2.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Bone Spider Servant");
+                BoneSpiderServantHealth = BUILDER.comment("How much Max Health Bone Spider Servants have, Default: 32.0")
+                        .defineInRange("boneSpiderServantHealth", 32.0, 1.0, Double.MAX_VALUE);
+                BoneSpiderServantDamage = BUILDER.comment("How much damage Bone Spider Servants melee attack deals, Default: 3.0")
+                        .defineInRange("boneSpiderServantDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BoneSpiderServantRangeDamage = BUILDER.comment("How much extra damage Bone Spider Servants range attack deals, Default: 0.0")
+                        .defineInRange("boneSpiderServantRangeDamage", 0.0, 0.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Black Wolf");
                 BlackWolfHealth = BUILDER.comment("How much Max Health Black Wolves have, Default: 10.0")
                         .defineInRange("blackWolfHealth", 10.0, 1.0, Double.MAX_VALUE);
@@ -514,6 +578,14 @@ public class AttributesConfig {
                         .defineInRange("bearServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 BearServantDamage = BUILDER.comment("How much damage Bear Servants melee attack deals, Default: 6.0")
                         .defineInRange("bearServantDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Hoglin Servant");
+                HoglinServantHealth = BUILDER.comment("How much Max Health Hoglin Servants have, Default: 40.0")
+                        .defineInRange("hoglinServantHealth", 40.0, 1.0, Double.MAX_VALUE);
+                HoglinServantArmor = BUILDER.comment("How much natural Armor Hoglin Servants have, Default: 0.0")
+                        .defineInRange("hoglinServantArmor", 0.0, 0.0, Double.MAX_VALUE);
+                HoglinServantDamage = BUILDER.comment("How much damage Hoglin Servants melee attack deals, Default: 6.0")
+                        .defineInRange("hoglinServantDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Whisperer");
                 WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")
@@ -630,8 +702,8 @@ public class AttributesConfig {
                         .defineInRange("ministerDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Skull Lord");
-                SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 100.0")
-                        .defineInRange("skullLordHealth", 100.0, 1.0, Double.MAX_VALUE);
+                SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 150.0")
+                        .defineInRange("skullLordHealth", 150.0, 1.0, Double.MAX_VALUE);
                 SkullLordDamage = BUILDER.comment("How much damage Skull Lord deals, Default: 6.0")
                         .defineInRange("skullLordDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BoneLordHealth = BUILDER.comment("How much Max Health Bone Lord have, Default: 20.0")

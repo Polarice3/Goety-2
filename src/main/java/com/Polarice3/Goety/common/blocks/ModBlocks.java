@@ -46,6 +46,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> ARCA_BLOCK = register("arca", ArcaBlock::new);
     public static final RegistryObject<Block> CURSED_INFUSER = register("cursed_infuser", CursedInfuserBlock::new);
+    public static final RegistryObject<Block> GRIM_INFUSER = register("grim_infuser", GrimInfuserBlock::new);
     public static final RegistryObject<Block> CURSED_CAGE_BLOCK = register("cursed_cage", CursedCageBlock::new);
     public static final RegistryObject<Block> DARK_ALTAR = register("dark_altar", DarkAltarBlock::new);
     public static final RegistryObject<Block> PEDESTAL = register("pedestal", PedestalBlock::new);
@@ -103,6 +104,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> SNAP_WARTS = register("snap_warts", SnapWartsBlock::new, false, LootTableType.EMPTY);
 
     //Deco
+    public static final RegistryObject<Block> AWAKENED_EMERALD_BLOCK = register("awakened_emerald_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.EMERALD)
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 6.0F)
+            .sound(SoundType.METAL)));
     public static final RegistryObject<Block> CURSED_METAL_BLOCK = register("cursed_metal_block", CursedMetalBlock::new);
     public static final RegistryObject<Block> DARK_METAL_BLOCK = register("dark_metal_block", DarkMetalBlock::new);
 

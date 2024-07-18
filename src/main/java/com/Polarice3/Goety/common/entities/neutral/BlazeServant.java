@@ -220,7 +220,7 @@ public class BlazeServant extends Summoned {
                         this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                     }
                     pPlayer.swing(p_230254_2_);
-                    return InteractionResult.CONSUME;
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

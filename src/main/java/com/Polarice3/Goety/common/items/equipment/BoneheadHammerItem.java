@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -58,6 +59,7 @@ public class BoneheadHammerItem extends HammerItem{
             if (f2 > 0.9F) {
                 area = 1.75D;
             }
+            area += EnchantmentHelper.getEnchantmentLevel(ModEnchantments.RADIUS.get(), pPlayer);
             for (LivingEntity livingentity : pPlayer.level.getEntitiesOfClass(LivingEntity.class, pTarget.getBoundingBox().inflate(area, 0.25D, area))) {
                 if (livingentity != pPlayer && livingentity != pTarget && !pPlayer.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && pPlayer.distanceToSqr(livingentity) < 16.0D && livingentity != pPlayer.getVehicle()) {
                     livingentity.knockback(0.4F, (double) Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F))));
@@ -77,7 +79,7 @@ public class BoneheadHammerItem extends HammerItem{
                     livingentity.level.playSound((Player) null, livingentity.getX(), livingentity.getY(), livingentity.getZ(), ModSounds.GRAVITY.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
                     MobUtil.pull(livingentity, vec3.x, vec3.y, vec3.z);
                     if (livingentity.level instanceof ServerLevel serverLevel) {
-                        serverLevel.sendParticles(new TeleportInShockwaveParticleOption(0), livingentity.getX(), livingentity.getY() + 0.25F, livingentity.getZ(), 0, 0, 0, 0, 0.5F);
+                        serverLevel.sendParticles(new TeleportInShockwaveParticleOption(4, 1), livingentity.getX(), livingentity.getY() + 0.25F, livingentity.getZ(), 0, 0, 0, 0, 0.5F);
                     }
                 }
             }

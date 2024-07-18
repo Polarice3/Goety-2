@@ -27,7 +27,6 @@ public class SEImp implements ISoulEnergy{
     @Nullable
     private Projectile grappling = null;
     private int bottling = 0;
-    private int bottleLevel = 0;
     private int warding = 0;
     private int maxWarding = 0;
     private UUID cameraUUID = null;
@@ -227,16 +226,6 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setBottling(int bottling){
         this.bottling = bottling;
-    }
-
-    @Override
-    public int bottleLevel(){
-        return this.bottleLevel;
-    }
-
-    @Override
-    public void setBottleLevel(int bottling){
-        this.bottleLevel = bottling;
     }
 
     @Override

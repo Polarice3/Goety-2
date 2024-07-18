@@ -842,6 +842,12 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         super.actuallyHurt(source, amount);
     }
 
+    public void heal(float p_21116_) {
+        if (!this.isSmited()){
+            super.heal(p_21116_);
+        }
+    }
+
     @Override
     public void kill() {
         this.remove(RemovalReason.KILLED);

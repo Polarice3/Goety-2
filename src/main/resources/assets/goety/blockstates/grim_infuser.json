@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": { "model": "goety:block/grim_infuser" },
+    "lit=false": { "model": "goety:block/grim_infuser_litdown" }
+  }
+}

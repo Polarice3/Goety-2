@@ -253,6 +253,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.GRAND_TURBAN, DarkHatModel::createGrandTurbanLayer);
         event.registerLayerDefinition(ModModelLayer.WITCH_HAT, WitchHatModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CRONE_HAT, WitchHatModel::createCroneLayer);
+        event.registerLayerDefinition(ModModelLayer.IRON_CROWN, DarkHatModel::createIronCrownLayer);
         event.registerLayerDefinition(ModModelLayer.DARK_ROBE, DarkRobeModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CROWN, NecroCapeModel::createHeadLayer);
         event.registerLayerDefinition(ModModelLayer.NECRO_CAPE, NecroCapeModel::createBodyLayer);
@@ -302,6 +303,7 @@ public class ClientInitEvents {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         event.registerBlockEntityRenderer(ModBlockEntities.ARCA.get(), ArcaRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CURSED_INFUSER.get(), CursedInfuserRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.GRIM_INFUSER.get(), GrimInfuserRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CURSED_CAGE.get(), CursedCageRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DARK_ALTAR.get(), DarkAltarRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
@@ -413,6 +415,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME.get(), CryptSlimeRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BONE_SPIDER.get(), BoneSpiderRenderer::new);
         event.registerEntityRenderer(ModEntityType.CAIRN_NECROMANCER.get(), AbstractCairnNecromancerRenderer::new);
         event.registerEntityRenderer(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmorRenderer::new);
         event.registerEntityRenderer(ModEntityType.ALLY_VEX.get(), AllyVexRenderer::new);
@@ -457,6 +460,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HOGLIN_SERVANT.get(), HoglinServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.WHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.WAVEWHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.LEAPLEAF.get(), LeapleafRenderer::new);
@@ -603,6 +607,7 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.BURNING.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.FIERY_PILLAR.get(), FieryPillarParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_EXPLODE_BITS.get(), FlameParticle.Provider::new);
+        event.register(ModParticleTypes.XP_TAKE.get(), FlameParticle.Provider::new);
         event.register(ModParticleTypes.CULT_SPELL.get(), SpellParticle.MobProvider::new);
         event.register(ModParticleTypes.BIG_CULT_SPELL.get(), BigSpellParticle.MobProvider::new);
         event.register(ModParticleTypes.CONFUSED.get(), HeartParticle.Provider::new);

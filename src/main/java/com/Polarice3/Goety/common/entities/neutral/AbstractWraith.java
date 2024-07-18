@@ -278,7 +278,7 @@ public class AbstractWraith extends Summoned {
         if (this.postTeleportTime > 0){
             if (this.postTeleportTime == 36){
                 if (this.level instanceof ServerLevel serverLevel){
-                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                    serverLevel.sendParticles(new TeleportShockwaveParticleOption(), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
                 }
             }
             --this.postTeleportTime;
@@ -299,7 +299,7 @@ public class AbstractWraith extends Summoned {
                 --this.teleportTime;
                 if (this.teleportTime == 2){
                     if (this.level instanceof ServerLevel serverLevel){
-                        serverLevel.sendParticles(new TeleportInShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                        serverLevel.sendParticles(new TeleportInShockwaveParticleOption(4, 1), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
                     }
                 }
                 if (this.teleportTime <= 2){
@@ -489,7 +489,7 @@ public class AbstractWraith extends Summoned {
             this.level.broadcastEntityEvent(this, (byte) 4);
             this.level.broadcastEntityEvent(this, (byte) 100);
             if (this.level instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new TeleportShockwaveParticleOption(0), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                serverLevel.sendParticles(new TeleportShockwaveParticleOption(), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
             }
             if (!this.isSilent()) {
                 this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), this.getAttackSound(), this.getSoundSource(), 1.0F, 1.0F);

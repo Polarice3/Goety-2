@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/feast_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:feast_focus": 1
+  }
 }

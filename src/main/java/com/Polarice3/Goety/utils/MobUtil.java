@@ -1157,29 +1157,25 @@ public class MobUtil {
         } else if (attacker instanceof OwnableEntity ownable && ownable.getOwner() instanceof LivingEntity livingEntity){
             owner = livingEntity;
         }
-        if (owner != null){
-            if (owner instanceof Enemy
-                    || (owner instanceof IOwned owned && owned.isHostile())
-                    || attacker instanceof Enemy
-                    || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
-                return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
-            } else {
-                return (target instanceof Enemy
-                        && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
-                        && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && CuriosFinder.hasUndeadSet(owner) && !MobsConfig.NecroRobeUndead.get())
-                        && !(MobUtil.isWitchType(target) && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())
-                        && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
-                        && !(target instanceof NeutralMob && ((((NeutralMob) target).getTarget() != owner) || ((NeutralMob) target).getTarget() != attacker))
-                        && !(target instanceof IOwned && ((IOwned) target).getTrueOwner() == owner))
-                        || (target instanceof IOwned owned
-                        && !(attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())
-                        && owned.isHostile())
-                        || (owner instanceof Player player
-                        && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
-                        || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType()))));
-            }
+        if (owner instanceof Enemy
+                || (owner instanceof IOwned owned && owned.isHostile())
+                || attacker instanceof Enemy
+                || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
+            return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
         } else {
-            return false;
+            return (target instanceof Enemy
+                    && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
+                    && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && owner != null && CuriosFinder.hasUndeadSet(owner) && !MobsConfig.NecroRobeUndead.get())
+                    && !(MobUtil.isWitchType(target) && owner != null && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())
+                    && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
+                    && !(target instanceof NeutralMob neutralMob && ((owner != null && neutralMob.getTarget() != owner) || ((NeutralMob) target).getTarget() != attacker))
+                    && !(target instanceof IOwned owned && (owner != null && owned.getTrueOwner() == owner))
+                    || (target instanceof IOwned owned
+                    && !(attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())
+                    && owned.isHostile())
+                    || (owner instanceof Player player
+                    && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
+                    || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType())))));
         }
     }
 

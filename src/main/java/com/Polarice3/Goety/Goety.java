@@ -31,10 +31,7 @@ import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.hostile.illagers.*;
 import com.Polarice3.Goety.common.entities.hostile.servants.*;
 import com.Polarice3.Goety.common.entities.neutral.*;
-import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
-import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
-import com.Polarice3.Goety.common.entities.projectiles.IllBomb;
-import com.Polarice3.Goety.common.entities.projectiles.SnapFungus;
+import com.Polarice3.Goety.common.entities.projectiles.*;
 import com.Polarice3.Goety.common.entities.util.SkullLaser;
 import com.Polarice3.Goety.common.entities.util.TunnelingFang;
 import com.Polarice3.Goety.common.inventory.ModSaveInventory;
@@ -53,12 +50,14 @@ import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -203,6 +202,63 @@ public class Goety {
                     return new BerserkFungus(p_123469_.x(), p_123469_.y(), p_123469_.z(), p_123468_);
                 }
             });
+            DispenserBlock.registerBehavior(ModItems.SPLASH_BREW.get(), new DispenseItemBehavior() {
+                public ItemStack dispense(BlockSource p_123491_, ItemStack p_123492_) {
+                    return (new AbstractProjectileDispenseBehavior() {
+                        protected Projectile getProjectile(Level p_123501_, Position p_123502_, ItemStack p_123503_) {
+                            return Util.make(new ThrownBrew(p_123501_, p_123502_.x(), p_123502_.y(), p_123502_.z()), (p_123499_) -> {
+                                p_123499_.setItem(p_123503_);
+                            });
+                        }
+
+                        protected float getUncertainty() {
+                            return super.getUncertainty() * 0.5F;
+                        }
+
+                        protected float getPower() {
+                            return super.getPower() * 1.25F;
+                        }
+                    }).dispense(p_123491_, p_123492_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.LINGERING_BREW.get(), new DispenseItemBehavior() {
+                public ItemStack dispense(BlockSource p_123507_, ItemStack p_123508_) {
+                    return (new AbstractProjectileDispenseBehavior() {
+                        protected Projectile getProjectile(Level p_123517_, Position p_123518_, ItemStack p_123519_) {
+                            return Util.make(new ThrownBrew(p_123517_, p_123518_.x(), p_123518_.y(), p_123518_.z()), (p_123515_) -> {
+                                p_123515_.setItem(p_123519_);
+                            });
+                        }
+
+                        protected float getUncertainty() {
+                            return super.getUncertainty() * 0.5F;
+                        }
+
+                        protected float getPower() {
+                            return super.getPower() * 1.25F;
+                        }
+                    }).dispense(p_123507_, p_123508_);
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.GAS_BREW.get(), new DispenseItemBehavior() {
+                public ItemStack dispense(BlockSource p_123507_, ItemStack p_123508_) {
+                    return (new AbstractProjectileDispenseBehavior() {
+                        protected Projectile getProjectile(Level p_123517_, Position p_123518_, ItemStack p_123519_) {
+                            return Util.make(new ThrownBrew(p_123517_, p_123518_.x(), p_123518_.y(), p_123518_.z()), (p_123515_) -> {
+                                p_123515_.setItem(p_123519_);
+                            });
+                        }
+
+                        protected float getUncertainty() {
+                            return super.getUncertainty() * 0.5F;
+                        }
+
+                        protected float getPower() {
+                            return super.getPower() * 1.25F;
+                        }
+                    }).dispense(p_123507_, p_123508_);
+                }
+            });
             DispenserBlock.registerBehavior(ModItems.HAUNTED_ARMOR_STAND.get(), new DefaultDispenseItemBehavior() {
                 public ItemStack execute(BlockSource p_123461_, ItemStack p_123462_) {
                     Direction direction = p_123461_.getBlockState().getValue(DispenserBlock.FACING);
@@ -305,6 +361,7 @@ public class Goety {
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
+        event.put(ModEntityType.BONE_SPIDER.get(), BoneSpider.setCustomAttributes().build());
         event.put(ModEntityType.CAIRN_NECROMANCER.get(), CairnNecromancer.setCustomAttributes().build());
         event.put(ModEntityType.HAUNTED_ARMOR.get(), HauntedArmor.setCustomAttributes().build());
         event.put(ModEntityType.ALLY_VEX.get(), AllyVex.setCustomAttributes().build());
@@ -349,6 +406,7 @@ public class Goety {
         event.put(ModEntityType.BLACK_WOLF.get(), BlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
+        event.put(ModEntityType.HOGLIN_SERVANT.get(), HoglinServant.setCustomAttributes().build());
         event.put(ModEntityType.WHISPERER.get(), Whisperer.setCustomAttributes().build());
         event.put(ModEntityType.WAVEWHISPERER.get(), Wavewhisperer.setCustomAttributes().build());
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());

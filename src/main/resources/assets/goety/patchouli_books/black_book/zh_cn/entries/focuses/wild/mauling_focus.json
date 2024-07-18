@@ -10,6 +10,11 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/mauling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "minecraft:story/enter_the_nether",
+      "text": "当在下界使用该聚晶时，会召唤出忠诚的疣猪兽仆从。"
     }
   ]
 }

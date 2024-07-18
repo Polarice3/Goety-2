@@ -39,6 +39,9 @@ public class ModRituals {
             RITUALS.register("convert_complete_tamed",
                     () -> new ModRitualFactory((ritual) -> new ConvertRitual(ritual, true, true)));
 
+    public static final RegistryObject<ModRitualFactory> ENCHANT =
+            RITUALS.register("enchant",
+                    () -> new ModRitualFactory(EnchantItemRitual::new));
 }
 /*
  * MIT License

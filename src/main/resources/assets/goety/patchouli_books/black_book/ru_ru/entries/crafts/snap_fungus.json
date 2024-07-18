@@ -19,5 +19,9 @@
       "type": "patchouli:crafting",
       "recipe": "goety:blast_fungus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:snap_fungus": 2,
+    "goety:berserk_fungus": 4
+  }
 }

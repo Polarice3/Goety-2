@@ -51,8 +51,6 @@ public interface ISoulEnergy {
     void setGrappling(@Nullable Projectile projectile);
     int bottling();
     void setBottling(int bottling);
-    int bottleLevel();
-    void setBottleLevel(int level);
     int wardingLeft();
     int maxWarding();
     void setWarding(int warding);

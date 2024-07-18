@@ -66,7 +66,7 @@ public class RampagingAxeItem extends AxeItem {
                     } else {
                         livingEntity.removeEffect(GoetyEffects.RAMPAGE.get());
                         if (world instanceof ServerLevel serverLevel) {
-                            serverLevel.sendParticles(new ShockwaveParticleOption(0), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
+                            serverLevel.sendParticles(new ShockwaveParticleOption(), livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ(), 0, 0.0D, 0.0D, 0.0D, 0);
                             serverLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 0, 1.0D, 0.0D, 0.0D, 0.5F);
                         }
                         world.explode(livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 3.0F, Explosion.BlockInteraction.NONE);

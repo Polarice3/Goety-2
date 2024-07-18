@@ -28,6 +28,14 @@
       "type": "patchouli:entity",
       "entity": "goety:polar_bear_servant",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "シロクマの召使いを手に入れるもう一つの方法は、改宗の儀式を通して通常のシロクマを服従させることです。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
     }
   ]
 }

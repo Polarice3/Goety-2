@@ -29,13 +29,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -178,8 +181,14 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
-                    if (this.getTarget() instanceof Mob mob && (mob.getTarget() == null || mob.getTarget().isDeadOrDying())) {
-                        mob.setTarget(this);
+                    if (this.getTarget() instanceof Mob mob) {
+                        if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
+                            mob.setTarget(this);
+                        }
+                        if (!mob.getBrain().isActive(Activity.FIGHT) && !(mob instanceof Warden)) {
+                            mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, this.getUUID(), 600L);
+                            mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, this, 600L);
+                        }
                     }
                 }
             }

@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Кирку можно починить на наковальне с помощью $(l:intro/magical_components)слитков проклятого металла$()."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:eerie_pickaxe": 1
+  }
 }

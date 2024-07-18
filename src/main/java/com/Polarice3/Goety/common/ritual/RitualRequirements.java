@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-public class RitualRequirements {
+public class RitualRequirements extends RitualTypes{
 
     public static final int RANGE = Ritual.RANGE;
 
@@ -77,13 +77,13 @@ public class RitualRequirements {
 
     public static boolean getProperStructure(String craftType, RitualBlockEntity pTileEntity, BlockPos pPos, Level pLevel){
         return switch (craftType) {
-            case "animation", "forge", "magic", "sabbath" -> RitualRequirements.getStructures(craftType, pPos, pLevel);
-            case "geoturgy" -> geoturgyRitual(pPos, pLevel);
-            case "necroturgy", "lich" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
-            case "adept_nether", "expert_nether" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.dimensionType().ultraWarm();
-            case "frost" -> frostRitual(pPos, pLevel);
-            case "sky" -> skyRitual(pTileEntity, pPos);
-            case "storm" -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos);
+            case ANIMATION, FORGE, MAGIC, SABBATH -> RitualRequirements.getStructures(craftType, pPos, pLevel);
+            case GEOTURGY -> geoturgyRitual(pPos, pLevel);
+            case NECROTURGY, LICH -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.getSkyDarken() >= 4 && pLevel.dimensionType().hasSkyLight();
+            case ADEPT_NETHER, EXPERT_NETHER -> RitualRequirements.getStructures(craftType, pPos, pLevel) && pLevel.dimensionType().ultraWarm();
+            case FROST -> frostRitual(pPos, pLevel);
+            case SKY -> skyRitual(pTileEntity, pLevel, pPos);
+            case STORM -> RitualRequirements.getStructures(craftType, pPos, pLevel) && skyRitual(pTileEntity, pLevel, pPos) && pLevel.isThundering() && pLevel.canSeeSky(pPos.above());
             default -> false;
         };
     }
@@ -96,8 +96,8 @@ public class RitualRequirements {
         return pLevel.getBiome(pPos).get().coldEnoughToSnow(pPos) || getStructures("frost", pPos, pLevel);
     }
 
-    public static boolean skyRitual(RitualBlockEntity pTileEntity, BlockPos pPos){
-        return pPos.getY() >= 128 || getStructures("sky", pPos, pTileEntity.getLevel());
+    public static boolean skyRitual(RitualBlockEntity pTileEntity, Level pLevel, BlockPos pPos){
+        return pPos.getY() >= 128 || pLevel.getBiome(pPos).is(biomeResourceKey -> biomeResourceKey.registry().getNamespace().contains("aether")) || getStructures("sky", pPos, pTileEntity.getLevel());
     }
 
     public static boolean getStructures(String craftType, BlockPos pPos, Level pLevel){
@@ -114,7 +114,7 @@ public class RitualRequirements {
                     BlockPos blockpos1 = pPos.offset(i, j, k);
                     BlockState blockstate = pLevel.getBlockState(blockpos1);
                     switch (craftType) {
-                        case "animation" -> {
+                        case ANIMATION -> {
                             totalFirst = 15;
                             totalSecond = 15;
                             totalThird = 1;
@@ -128,7 +128,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "necroturgy", "lich" -> {
+                        case NECROTURGY, LICH -> {
                             totalFirst = 16;
                             totalSecond = 16;
                             totalThird = 8;
@@ -144,7 +144,7 @@ public class RitualRequirements {
                                 }
                             }
                         }
-                        case "forge" -> {
+                        case FORGE -> {
                             totalFirst = 1;
                             totalSecond = 2;
                             totalThird = 1;
@@ -158,7 +158,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "geoturgy" -> {
+                        case GEOTURGY -> {
                             totalFirst = 8;
                             totalSecond = 1;
                             totalThird = 16;
@@ -172,7 +172,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "magic" -> {
+                        case MAGIC -> {
                             totalFirst = 16;
                             totalSecond = 1;
                             totalThird = 1;
@@ -190,7 +190,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "sabbath" -> {
+                        case SABBATH -> {
                             totalFirst = 8;
                             totalSecond = 16;
                             totalThird = 4;
@@ -204,7 +204,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "adept_nether" -> {
+                        case ADEPT_NETHER -> {
                             totalFirst = 8;
                             totalSecond = 16;
                             totalThird = 4;
@@ -218,7 +218,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "expert_nether" -> {
+                        case EXPERT_NETHER -> {
                             totalFirst = 4;
                             totalSecond = 32;
                             totalThird = 8;
@@ -232,7 +232,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "frost" -> {
+                        case FROST -> {
                             totalFirst = 16;
                             totalSecond = 8;
                             totalThird = 4;
@@ -246,7 +246,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "sky" ->{
+                        case SKY ->{
                             totalFirst = 8;
                             totalSecond = 16;
                             totalThird = 4;
@@ -260,7 +260,7 @@ public class RitualRequirements {
                                 ++thirdCount;
                             }
                         }
-                        case "storm" -> {
+                        case STORM -> {
                             totalFirst = 12;
                             totalSecond = 4;
                             totalThird = 20;

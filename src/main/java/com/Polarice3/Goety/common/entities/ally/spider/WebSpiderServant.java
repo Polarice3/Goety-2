@@ -3,13 +3,17 @@ package com.Polarice3.Goety.common.entities.ally.spider;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.WebShot;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -57,6 +61,17 @@ public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(WEB_SHOOTING, false);
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return SpiderServant.setCustomAttributes()
+                .add(Attributes.MAX_HEALTH, AttributesConfig.WebSpiderServantHealth.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.WebSpiderServantDamage.get());
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.WebSpiderServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WebSpiderServantDamage.get());
     }
 
     public void setWebShooting(boolean webShooting) {

@@ -83,6 +83,32 @@
       }
     },
     {
+      "weight": 10,
+      "element": {
+
+        "location": "goety:crypt/rooms/spider_room",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+
+        "location": "goety:crypt/rooms/shrine_room",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
       "weight": 15,
       "element": {
 

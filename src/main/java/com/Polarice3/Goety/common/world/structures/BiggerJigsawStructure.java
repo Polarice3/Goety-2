@@ -31,7 +31,7 @@ public class BiggerJigsawStructure extends Structure {
             return p_227649_.startHeight;
         }), Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter((p_227644_) -> {
             return p_227644_.projectStartToHeightmap;
-        }), Codec.intRange(1, 512).fieldOf("max_distance_from_center").forGetter((p_227642_) -> {
+        }), Codec.intRange(1, 1024).fieldOf("max_distance_from_center").forGetter((p_227642_) -> {
             return p_227642_.maxDistanceFromCenter;
         })).apply(p_227640_, BiggerJigsawStructure::new);
     }).flatXmap(verifyRange(), verifyRange()).codec();
@@ -59,7 +59,7 @@ public class BiggerJigsawStructure extends Structure {
             }
 
             int i = b0;
-            return p_227638_.maxDistanceFromCenter + i > 512 ? DataResult.error("Structure size including terrain adaptation must not exceed 512") : DataResult.success(p_227638_);
+            return p_227638_.maxDistanceFromCenter + i > 1024 ? DataResult.error("Structure size including terrain adaptation must not exceed 1024") : DataResult.success(p_227638_);
         };
     }
 

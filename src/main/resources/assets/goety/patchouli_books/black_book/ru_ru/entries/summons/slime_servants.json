@@ -18,6 +18,16 @@
     {
       "type": "patchouli:entity",
       "entity": "goety:magma_cube_servant"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/find_crypt",
+      "text": "Использование $(l:crafts/cores)ядра оживления$() на блоке слизи внутри склепа создаст эктоплазменного склепного слизня-прислужника."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/find_crypt",
+      "entity": "goety:crypt_slime_servant"
     }
   ]
 }

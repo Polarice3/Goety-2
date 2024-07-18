@@ -3,6 +3,7 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.model.ModSpiderModel;
 import com.Polarice3.Goety.common.entities.ally.spider.BoneSpiderServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 
 public class BoneSpiderServantRenderer<T extends BoneSpiderServant> extends MobRenderer<T, ModSpiderModel<T>> {
    private static final ResourceLocation BONE_SPIDER_LOCATION = Goety.location("textures/entity/servants/spider/bone_spider_servant.png");
+   private static final ResourceLocation ORIGINAL = Goety.location("textures/entity/servants/spider/bone_spider_original.png");
 
    public BoneSpiderServantRenderer(EntityRendererProvider.Context p_173946_) {
       super(p_173946_, new ModSpiderModel<>(p_173946_.bakeLayer(ModModelLayer.MOD_SPIDER)), 0.8F * 0.75F);
@@ -29,7 +31,11 @@ public class BoneSpiderServantRenderer<T extends BoneSpiderServant> extends MobR
    }
 
    public ResourceLocation getTextureLocation(BoneSpiderServant p_113972_) {
-      return BONE_SPIDER_LOCATION;
+      if (p_113972_.isHostile() || !MobsConfig.BoneSpiderServantTexture.get()){
+         return ORIGINAL;
+      } else {
+         return BONE_SPIDER_LOCATION;
+      }
    }
 
    public static class SpiderEyesLayer<T extends Entity, M extends ModSpiderModel<T>> extends EyesLayer<T, M> {

@@ -1,0 +1,19 @@
+{
+  "name": "Фокус разлома",
+  "icon": "goety:rupture_focus",
+  "category": "goety:focuses/void",
+  "advancement": "minecraft:end/kill_dragon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Фокус открывает в мире пустотный разлом, засасывающий в себя ближайших существ, наносящий им урон и создающий мощный взрыв при исчезновении."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/rupture_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:rupture_focus": 1
+  }
+}

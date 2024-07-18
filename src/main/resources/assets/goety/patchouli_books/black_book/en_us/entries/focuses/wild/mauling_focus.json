@@ -10,6 +10,11 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/mauling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "minecraft:story/enter_the_nether",
+      "text": "When casting this focus in the Nether, instead of a Bear, you call forth a loyal Hoglin."
     }
   ]
 }

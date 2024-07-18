@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "#forge:is_mountain"
+    "#forge:is_mountain",
+    {
+      "id": "#aether:is_aether",
+      "required": false
+    }
   ]
 }

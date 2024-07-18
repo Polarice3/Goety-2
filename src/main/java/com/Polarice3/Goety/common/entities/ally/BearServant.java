@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -36,6 +37,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class BearServant extends Summoned implements PlayerRideable, IAutoRideable {
+public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRideable {
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID = SynchedEntityData.defineId(BearServant.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_CAVE = SynchedEntityData.defineId(BearServant.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(BearServant.class, EntityDataSerializers.BOOLEAN);
@@ -64,6 +66,7 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new BearMeleeAttackGoal());
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new WanderGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -108,7 +111,7 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.POLAR_BEAR_AMBIENT;
+        return this.isBaby() ? SoundEvents.POLAR_BEAR_AMBIENT_BABY : SoundEvents.POLAR_BEAR_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_29559_) {
@@ -191,6 +194,19 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
     }
 
     @Nullable
+    @Override
+    public AnimalSummon getBreedOffspring(ServerLevel p_146743_, AnimalSummon p_146744_) {
+        AnimalSummon entity =  super.getBreedOffspring(p_146743_, p_146744_);
+        if (entity instanceof BearServant bearServant){
+            if (this.isCave()){
+                bearServant.setBearCave();
+            }
+        }
+
+        return entity;
+    }
+
+    @Nullable
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
@@ -202,7 +218,7 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
         return null;
     }
 
-    public void positionRider(Entity rider) {
+    public void positionRider(Entity rider, MoveFunction p_19958_) {
         if (this.hasPassenger(rider)) {
             float radius = -0.07F * this.clientSideStandAnimation;
             float angle = (float) ((Math.PI / 180.0F) * this.yBodyRot);
@@ -231,6 +247,10 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
         LivingEntity livingentity = this.getControllingPassenger();
         boolean flag = livingentity instanceof Player || this.isEffectiveAi();
         return flag && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
+    }
+
+    public boolean isFood(ItemStack p_29565_) {
+        return p_29565_.is(Items.HONEYCOMB);
     }
 
     public void tick() {
@@ -301,7 +321,7 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
     public void travel(@NotNull Vec3 pTravelVector) {
         if (this.isAlive()) {
             LivingEntity rider = this.getControllingPassenger();
-            if (this.isVehicle() && rider instanceof Player && !this.isAutonomous()) {
+            if (this.isVehicle() && rider instanceof Player player && !this.isAutonomous()) {
                 this.setYRot(rider.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(rider.getXRot() * 0.5F);
@@ -360,7 +380,7 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
                         pPlayer.swing(pHand);
                         return InteractionResult.CONSUME;
                     }
-                } else if (!pPlayer.isCrouching()) {
+                } else if (!pPlayer.isCrouching() && !this.isBaby()) {
                     if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
                         this.getFirstPassenger().stopRiding();
                         return InteractionResult.SUCCESS;
@@ -421,6 +441,20 @@ public class BearServant extends Summoned implements PlayerRideable, IAutoRideab
     class BearMeleeAttackGoal extends MeleeAttackGoal {
         public BearMeleeAttackGoal() {
             super(BearServant.this, 1.25D, true);
+        }
+
+        public boolean canUse() {
+            if (!BearServant.this.isBaby()) {
+                if (super.canUse()) {
+                    for (BearServant bearServant : BearServant.this.level.getEntitiesOfClass(BearServant.class, BearServant.this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D))) {
+                        if (bearServant.isBaby()) {
+                            return true;
+                        }
+                    }
+                }
+
+            }
+            return false;
         }
 
         protected void checkAndPerformAttack(LivingEntity p_29589_, double p_29590_) {

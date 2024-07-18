@@ -1,0 +1,28 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:summon_tamed",
+  "activation_item": {
+    "item": "minecraft:crimson_fungus"
+  },
+  "craftType": "adept_nether",
+  "entity_to_summon": "goety:hoglin_servant",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:crimson_roots"
+    },
+    {
+      "item": "minecraft:shroomlight"
+    },
+    {
+      "item": "minecraft:weeping_vines"
+    },
+    {
+      "item": "minecraft:nether_wart_block"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

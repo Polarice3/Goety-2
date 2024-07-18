@@ -4,6 +4,8 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
+import com.Polarice3.Goety.common.ritual.RitualTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -20,9 +22,13 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,8 +80,14 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         int index = 0;
         this.recipeOutputOffsetX = 75;
 
+        Ingredient activationItem = recipe.getActivationItem();
+
+        if (recipe.getRitual() instanceof EnchantItemRitual){
+            activationItem = Ingredient.of(Items.BOOK);
+        }
+
         recipeLayout.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 15)
-                .addIngredients(recipe.getActivationItem());
+                .addIngredients(activationItem);
         recipeLayout.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX, this.ritualCenterY)
                 .addItemStack(this.darkAltar);
 
@@ -122,43 +134,54 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
 
         }
 
+        List<ItemStack> results = new ArrayList<>();
+
+        if (recipe.getRitual() instanceof EnchantItemRitual && recipe.getEnchantment() != null){
+            for (int i = 1; i <= recipe.getEnchantment().getMaxLevel(); ++i){
+                EnchantmentInstance enchantmentInstance = new EnchantmentInstance(recipe.getEnchantment(), i);
+                results.add(EnchantedBookItem.createForEnchantment(enchantmentInstance));
+            }
+        } else {
+            results.add(recipe.getResultItem());
+        }
+
         recipeLayout.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 15)
-                .addItemStack(recipe.getResultItem());
+                .addItemStacks(results);
 
         recipeLayout.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
                 .addItemStack(this.darkAltar);
 
-        if (recipe.getCraftType().contains("animation")){
+        if (recipe.getCraftType().contains(RitualTypes.ANIMATION)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.EGG));
-        } else if (recipe.getCraftType().contains("necroturgy") || recipe.getCraftType().contains("lich")){
+        } else if (recipe.getCraftType().contains(RitualTypes.NECROTURGY) || recipe.getCraftType().contains(RitualTypes.LICH)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.ZOMBIE_HEAD));
-        } else if (recipe.getCraftType().contains("forge")){
+        } else if (recipe.getCraftType().contains(RitualTypes.FORGE)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.ANVIL));
-        } else if (recipe.getCraftType().contains("magic")){
+        } else if (recipe.getCraftType().contains(RitualTypes.MAGIC)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.ENCHANTING_TABLE));
-        } else if (recipe.getCraftType().contains("adept_nether")){
+        } else if (recipe.getCraftType().contains(RitualTypes.ADEPT_NETHER)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.BLACKSTONE));
-        } else if (recipe.getCraftType().contains("expert_nether")){
+        } else if (recipe.getCraftType().contains(RitualTypes.EXPERT_NETHER)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.NETHER_BRICKS));
-        } else if (recipe.getCraftType().contains("sabbath")){
+        } else if (recipe.getCraftType().contains(RitualTypes.SABBATH)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.CRYING_OBSIDIAN));
-        } else if (recipe.getCraftType().contains("sky")){
+        } else if (recipe.getCraftType().contains(RitualTypes.SKY)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.FEATHER));
-        } else if (recipe.getCraftType().contains("storm")){
+        } else if (recipe.getCraftType().contains(RitualTypes.STORM)){
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.LIGHTNING_ROD));
-        } else if (recipe.getCraftType().contains("geoturgy")) {
+        } else if (recipe.getCraftType().contains(RitualTypes.GEOTURGY)) {
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.DEEPSLATE));
-        } else if (recipe.getCraftType().contains("frost")) {
+        } else if (recipe.getCraftType().contains(RitualTypes.FROST)) {
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.PACKED_ICE));
         } else {
@@ -182,6 +205,13 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                     I18n.get("jei.goety.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), infoTextX, infotextY);
         }
         int sequence = 9;
+
+        if (recipe.getRitual() instanceof EnchantItemRitual) {
+            infotextY += infotextY == 0 ? initial : sequence;
+            this.drawStringCentered(stack, Minecraft.getInstance().font,
+                    I18n.get("jei.goety.xp", recipe.getXPLevelCost()),
+                    infoTextX, infotextY);
+        }
 
         if (recipe.getEntityToSummon() != null) {
             infotextY += infotextY == 0 ? initial : sequence;
@@ -208,6 +238,14 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
                     I18n.get("jei.goety.craftType." + I18n.get(recipe.getCraftType())),
                     infoTextX, 5);
         }
+
+        this.drawStringCentered(stack, Minecraft.getInstance().font,
+                I18n.get("jei.goety.soulCost", recipe.getSoulCost()),
+                infoTextX, 120);
+
+        this.drawStringCentered(stack, Minecraft.getInstance().font,
+                I18n.get("jei.goety.duration", recipe.getDuration()),
+                infoTextX, 130);
 
     }
 

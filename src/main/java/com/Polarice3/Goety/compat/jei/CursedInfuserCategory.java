@@ -22,6 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 
@@ -34,8 +35,8 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
     public CursedInfuserCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.CURSED_INFUSER.get()));
-        background = guiHelper.drawableBuilder(new ResourceLocation(Goety.MOD_ID, "textures/gui/jei/jei_gui.png"), 0, 220, 82, 34)
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.CURSED_INFUSER.get()));
+        this.background = guiHelper.drawableBuilder(new ResourceLocation(Goety.MOD_ID, "textures/gui/jei/jei_gui.png"), 0, 220, 82, 36)
                 .addPadding(0, 0, 0, 0)
                 .build();
         this.regularCookTime = 400;
@@ -75,7 +76,7 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
     public void draw(CursedInfuserRecipes recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         IDrawableAnimated arrow = getArrow(recipe);
         arrow.draw(stack, 24, 8);
-        drawCookTime(recipe, stack, 35);
+        drawCookTime(recipe, stack, 30);
     }
 
     protected IDrawableAnimated getArrow(CursedInfuserRecipes recipe) {
@@ -102,6 +103,14 @@ public class CursedInfuserCategory implements IRecipeCategory<CursedInfuserRecip
     public void setRecipe(IRecipeLayoutBuilder builder, CursedInfuserRecipes recipe, IFocusGroup ingredients) {
         builder.addSlot(RecipeIngredientRole.INPUT, 1, 9)
                 .addIngredients(recipe.getIngredients().get(0));
+
+        if (recipe.isGrim()){
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 30, 20)
+                    .addIngredients(Ingredient.of(ModBlocks.GRIM_INFUSER.get()));
+        } else {
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 30, 20)
+                    .addIngredients(Ingredient.of(ModBlocks.CURSED_INFUSER.get()));
+        }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 9)
                 .addItemStack(recipe.getResultItem());

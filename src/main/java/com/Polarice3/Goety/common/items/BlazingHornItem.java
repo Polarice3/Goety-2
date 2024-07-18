@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.WitherNecromancer;
 import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -42,7 +41,7 @@ public class BlazingHornItem extends Item {
                 serverWorld.playSound(null, entityLiving.blockPosition(), SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(6), SoundSource.NEUTRAL, 16.0F, 1.0F);
                 WitherNecromancer necromancer = ModEntityType.WITHER_NECROMANCER.get().create(worldIn);
                 if (necromancer != null) {
-                    BlockPos blockPos = BlockFinder.SummonFurtherRadius(entityLiving.blockPosition(), necromancer, worldIn);
+                    BlockPos blockPos = entityLiving.blockPosition().relative(entityLiving.getDirection());
                     necromancer.setPos(blockPos.getX(), blockPos.getY(), blockPos.getZ());
                     necromancer.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     SummonCircleBoss summonCircle = new SummonCircleBoss(worldIn, blockPos, necromancer);

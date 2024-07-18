@@ -321,33 +321,31 @@ public class VanguardServant extends AbstractSkeletonServant {
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
-        if (!this.level.isClientSide) {
-            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
-            Item item = itemstack.getItem();
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    this.playSound(SoundEvents.SKELETON_STEP, 1.0F, 1.25F);
-                    this.heal(2.0F);
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                    }
-                    return InteractionResult.CONSUME;
+        ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+        Item item = itemstack.getItem();
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (item == Items.BONE && this.getHealth() < this.getMaxHealth()) {
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
                 }
-                if (!this.hasShield() && itemstack.is(ItemTags.PLANKS) && this.getTarget() == null && this.hurtTime <= 0){
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    this.setShield(true);
-                    this.setShieldHealth(1);
-                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                    return InteractionResult.CONSUME;
+                this.playSound(SoundEvents.SKELETON_STEP, 1.0F, 1.25F);
+                this.heal(2.0F);
+                for (int i = 0; i < 7; ++i) {
+                    double d0 = this.random.nextGaussian() * 0.02D;
+                    double d1 = this.random.nextGaussian() * 0.02D;
+                    double d2 = this.random.nextGaussian() * 0.02D;
+                    this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
                 }
+                return InteractionResult.SUCCESS;
+            }
+            if (!this.hasShield() && itemstack.is(ItemTags.PLANKS) && this.getTarget() == null && this.hurtTime <= 0){
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.setShield(true);
+                this.setShieldHealth(1);
+                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.mobInteract(pPlayer, p_230254_2_);

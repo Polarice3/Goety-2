@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -171,6 +172,7 @@ public class HammerItem extends TieredItem implements Vanishable {
             if (f2 > 0.9F) {
                 area = 1.75D;
             }
+            area += EnchantmentHelper.getEnchantmentLevel(ModEnchantments.RADIUS.get(), pPlayer);
             for (LivingEntity livingentity : pPlayer.level.getEntitiesOfClass(LivingEntity.class, pTarget.getBoundingBox().inflate(area, 0.25D, area))) {
                 if (livingentity != pPlayer && livingentity != pTarget && !pPlayer.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && pPlayer.distanceToSqr(livingentity) < 16.0D && livingentity != pPlayer.getVehicle()) {
                     livingentity.knockback(0.4F, (double) Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F))));
@@ -195,6 +197,7 @@ public class HammerItem extends TieredItem implements Vanishable {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return (enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.DIGGER
+                || enchantment == ModEnchantments.RADIUS.get()
                 || super.canApplyAtEnchantingTable(stack, enchantment));
     }
 

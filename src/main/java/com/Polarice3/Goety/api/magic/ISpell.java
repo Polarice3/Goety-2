@@ -235,7 +235,7 @@ public interface ISpell {
 
     default boolean ReduceCastTime(LivingEntity entityLiving){
         if (this.getSpellType() == SpellType.NECROMANCY){
-            return CuriosFinder.hasCurio(entityLiving, ModItems.NECRO_CROWN.get()) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+            return CuriosFinder.hasUndeadCrown(entityLiving) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         } else {
             return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         }

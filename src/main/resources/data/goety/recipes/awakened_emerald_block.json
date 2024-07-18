@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###",
+    "###",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:magic_emerald"
+    }
+  },
+  "result":
+  {
+    "item": "goety:awakened_emerald_block",
+    "count": 1
+  }
+}

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks;
 
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.entities.SoulMenderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,7 +56,7 @@ public class SoulMenderBlock extends BaseEntityBlock implements SimpleWaterlogge
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
         if (tileentity instanceof SoulMenderBlockEntity blockEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
-            if (itemstack.isDamaged() && itemstack.isRepairable()){
+            if ((itemstack.isDamaged() && itemstack.isRepairable()) || itemstack.getItem() instanceof ITotem){
                 if (!pLevel.isClientSide && blockEntity.placeItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
                     return InteractionResult.SUCCESS;
                 }

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "这些熊忠诚而好斗，是优秀的仆人，可以用爪子抓和撕裂你的敌人。如果你不在意它缓慢的速度，它也是一个很好的坐骑，而且你不需要马鞍。"
+      "text": "这些熊忠诚而好斗，是优秀的仆人，可以用爪子撕裂你的敌人。如果你不在意它缓慢的速度，它也是一个很好的坐骑，而且你不需要马鞍。"
     },
     {
       "type": "patchouli:text",
@@ -28,6 +28,14 @@
       "type": "patchouli:entity",
       "entity": "goety:polar_bear_servant",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "另一种获得北极熊仆人的方法是通过转换仪式让一只普通的北极熊服从你."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
     }
   ]
 }

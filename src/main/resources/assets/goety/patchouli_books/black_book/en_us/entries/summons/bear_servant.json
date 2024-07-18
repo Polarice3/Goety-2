@@ -28,6 +28,14 @@
       "type": "patchouli:entity",
       "entity": "goety:polar_bear_servant",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Another way of getting a Polar Bear Servant is to have a regular Polar Bear submit to you through a conversion ritual."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
     }
   ]
 }

@@ -28,6 +28,14 @@
       "type": "patchouli:entity",
       "entity": "goety:polar_bear_servant",
       "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ещё один способ получить белого медведя-прислужника — это заставить обычного белого медведя подчиниться вам с помощью ритуала."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_polar_bear_to_polar_bear_servant"
     }
   ]
 }

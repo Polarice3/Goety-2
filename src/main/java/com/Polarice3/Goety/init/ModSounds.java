@@ -108,6 +108,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_AMBIENT = create("frozen_zombie_ambient");
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_HURT = create("frozen_zombie_hurt");
+    public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_SNOWBALL = create("frozen_zombie_snowball");
     public static final RegistryObject<SoundEvent> FROZEN_ZOMBIE_DEATH = create("frozen_zombie_death");
 
     public static final RegistryObject<SoundEvent> JUNGLE_ZOMBIE_AMBIENT = create("jungle_zombie_ambient");
@@ -381,6 +382,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VEX_VAPOR = create("vex_vapor");
     public static final RegistryObject<SoundEvent> SOUL_BOLT_CAST = create("soul_bolt_cast");
     public static final RegistryObject<SoundEvent> NECRO_CAST = create("necro_cast");
+    public static final RegistryObject<SoundEvent> SHOCK_CAST = create("shock_cast");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL = create("summon_spell");
     public static final RegistryObject<SoundEvent> SUMMON_SPELL_FIERY = create("summon_spell_fiery");
     public static final RegistryObject<SoundEvent> VANGUARD_SPELL = create("vanguard_spell");

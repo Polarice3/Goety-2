@@ -163,7 +163,7 @@
             }
           ],
           "name": "minecraft:ender_eye",
-          "weight": 75
+          "weight": 25
         },
         {
           "type": "minecraft:item",

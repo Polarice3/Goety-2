@@ -1,0 +1,18 @@
+{
+  "name": "Thrash Gloves",
+  "icon": "goety:thrash_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hammers are quite heavy for a dark wizard such as yourself. Fortunately, with your crafting and forging expertise, you've discovered a way to create a pair of gloves that helps you to wield Hammers more efficiently, increasing the attack speed by 50%%."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrash_glove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thrash_glove": 1
+  }
+}

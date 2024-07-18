@@ -16,6 +16,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -49,6 +50,11 @@ public class AbstractSkeletonPillager extends AbstractSkeletonServant implements
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SkeletonPillagerHealth.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.SkeletonPillagerArmor.get());
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SkeletonPillagerDamage.get());
+    }
+
+    @Override
+    public double getBaseRangeDamage() {
+        return AttributesConfig.SkeletonPillagerRangeDamage.get();
     }
 
     public void reassessWeaponGoal() {
@@ -131,6 +137,9 @@ public class AbstractSkeletonPillager extends AbstractSkeletonServant implements
     }
 
     public void shootCrossbowProjectile(LivingEntity p_33275_, ItemStack p_33276_, Projectile p_33277_, float p_33278_) {
+        if (p_33277_ instanceof AbstractArrow arrow){
+            arrow.setBaseDamage(arrow.getBaseDamage() + this.getArrowPower() + this.getBaseRangeDamage());
+        }
         this.shootCrossbowProjectile(this, p_33275_, p_33277_, p_33278_, 1.6F);
     }
 }

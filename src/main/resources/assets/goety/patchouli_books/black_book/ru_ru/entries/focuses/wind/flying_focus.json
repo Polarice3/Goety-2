@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/flying_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:flying_focus": 1
+  }
 }

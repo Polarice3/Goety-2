@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/magma_bomb_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:magma_bomb_focus": 1
+  }
 }

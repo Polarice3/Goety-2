@@ -228,9 +228,6 @@ public class ModEvents {
                         soulEnergy.setBottling(capability3.bottling()));
         player.getCapability(SEProvider.CAPABILITY)
                 .ifPresent(soulEnergy ->
-                        soulEnergy.setBottleLevel(capability3.bottleLevel()));
-        player.getCapability(SEProvider.CAPABILITY)
-                .ifPresent(soulEnergy ->
                         soulEnergy.setCameraUUID(null));
 
         IMisc capability4 = MiscCapHelper.getCapability(original);
@@ -481,7 +478,7 @@ public class ModEvents {
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.ICE_MAGIC_RESIST) {
                                 if (mob instanceof Cryologer) {
-                                    attributeInstance.setBaseValue(1.85D);
+                                    attributeInstance.setBaseValue(1.5D);
                                 }
                                 if (mob instanceof IceGolem){
                                     attributeInstance.setBaseValue(2.0D);
@@ -492,7 +489,7 @@ public class ModEvents {
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.LIGHTNING_MAGIC_RESIST) {
                                 if (mob instanceof StormCaster) {
-                                    attributeInstance.setBaseValue(1.85D);
+                                    attributeInstance.setBaseValue(1.5D);
                                 }
                             }
                             if (attributeInstance.getAttribute() == IronAttributes.FIRE_MAGIC_RESIST) {
@@ -691,6 +688,21 @@ public class ModEvents {
             } else {
                 if (attackSpeed.hasModifier(attributemodifier1)){
                     attackSpeed.removeModifier(attributemodifier1);
+                }
+            }
+        }
+
+        float increaseAttackSpeed2 = 0.5F;
+        AttributeModifier attributemodifier2 = new AttributeModifier(UUID.fromString("39c01496-8161-4fde-ac2c-0bea379ceb37"), "Hammer Proficiency", increaseAttackSpeed2, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        boolean flag2 = CuriosFinder.hasCurio(player, ModItems.THRASH_GLOVE.get()) && hammer;
+        if (attackSpeed != null){
+            if (flag2){
+                if (!attackSpeed.hasModifier(attributemodifier2)){
+                    attackSpeed.addPermanentModifier(attributemodifier2);
+                }
+            } else {
+                if (attackSpeed.hasModifier(attributemodifier2)){
+                    attackSpeed.removeModifier(attributemodifier2);
                 }
             }
         }
@@ -942,7 +954,7 @@ public class ModEvents {
                         }
                     }
                     if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
-                        boolean undead = (mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() < 50.0F && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy)) || mobAttacker.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL));
+                        boolean undead = (mobAttacker.getMobType() == MobType.UNDEAD && mobAttacker.getMaxHealth() <= ItemConfig.NecroSetUndeadNeutralHealth.get() && !(mobAttacker instanceof IOwned && !(mobAttacker instanceof Enemy)) || mobAttacker.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL));
                         if (target.level instanceof ServerLevel serverLevel){
                             if (MobsConfig.HostileCryptUndead.get()) {
                                 if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModTags.Structures.CRYPT)
@@ -1075,6 +1087,29 @@ public class ModEvents {
                 }
                 if (player != null) {
                     if (SEHelper.getAllyEntities(player).contains(victim) || SEHelper.getAllyEntityTypes(player).contains(victim.getType())) {
+                        event.setCanceled(true);
+                    }
+                }
+            }
+            if (event.getSource().isFire()){
+                LivingEntity source1 = null;
+                Entity direct1 = direct;
+                if (source instanceof LivingEntity living1) {
+                    source1 = living1;
+                } else if (source instanceof OwnableEntity ownable && ownable.getOwner() instanceof LivingEntity livingEntity) {
+                    source1 = livingEntity;
+                }
+                if (event.getSource() instanceof NoKnockBackDamageSource damageSource){
+                    if (damageSource.getOwner() instanceof LivingEntity living1) {
+                        source1 = living1;
+                    } else if (damageSource.getOwner() instanceof OwnableEntity ownable && ownable.getOwner() instanceof LivingEntity livingEntity) {
+                        source1 = livingEntity;
+                    }
+                    direct1 = damageSource.getDirectAttacker();
+                }
+                if (CuriosFinder.hasNetherRobe(source1)){
+                    if (victim.isInvulnerableTo(event.getSource()) || victim.hasEffect(MobEffects.FIRE_RESISTANCE)){
+                        victim.hurt(ModDamageSource.magicFireBreath(source1, direct1), event.getAmount());
                         event.setCanceled(true);
                     }
                 }
@@ -1214,10 +1249,10 @@ public class ModEvents {
                             victim.addEffect(new MobEffectInstance(GoetyEffects.WANE.get(), 60));
                         }
                         if (weapon == ModItems.FELL_BLADE.get() && victim.getRandom().nextBoolean()) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.BUSTED.get(), MathHelper.secondsToTicks(10)));
+                            victim.addEffect(new MobEffectInstance(GoetyEffects.BUSTED.get(), MathHelper.secondsToTicks(5)));
                         }
                         if (weapon == ModItems.FROZEN_BLADE.get()) {
-                            victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(5)));
+                            victim.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(2)));
                         }
                     }
                 }

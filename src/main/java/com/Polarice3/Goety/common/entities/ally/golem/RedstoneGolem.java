@@ -459,8 +459,9 @@ public class RedstoneGolem extends AbstractGolemServant {
         }
         if (!this.level.isClientSide){
             if (!this.isDeadOrDying()) {
-                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
+                if (!this.isActivating() && !this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
                     if (this.isStaying()) {
+                        this.isStandingUp = MathHelper.secondsToTicks(1);
                         if (this.isSittingDown > 0) {
                             --this.isSittingDown;
                             this.setAnimationState(TO_SIT);
@@ -468,20 +469,14 @@ public class RedstoneGolem extends AbstractGolemServant {
                             this.setAnimationState(SIT);
                         }
                     } else {
+                        this.isSittingDown = MathHelper.secondsToTicks(1);
                         if (this.isStandingUp > 0) {
                             --this.isStandingUp;
                             this.setAnimationState(TO_STAND);
-                        } else if (!this.isPostAttack) {
+                        } else if (!this.isPostAttack && !this.isNovelty) {
                             this.setAnimationState(IDLE);
                         }
                     }
-                } else {
-                    if (this.isStaying()) {
-                        this.isSittingDown = MathHelper.secondsToTicks(1);
-                    } else {
-                        this.isSittingDown = 0;
-                    }
-                    this.isStandingUp = 0;
                 }
                 if (!this.isMeleeAttacking() && !this.isSummoning()) {
                     if (this.isMoving()) {

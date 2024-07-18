@@ -6,17 +6,22 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 public class CryptSlimeRenderer extends MobRenderer<CryptSlime, SlimeModel<CryptSlime>> {
    private static final ResourceLocation SLIME_LOCATION = Goety.location("textures/entity/crypt_slime.png");
 
    public CryptSlimeRenderer(EntityRendererProvider.Context p_174391_) {
       super(p_174391_, new SlimeModel<>(p_174391_.bakeLayer(ModelLayers.SLIME)), 0.25F);
+      this.addLayer(new CryptSlimeEyesLayer<>(this));
       this.addLayer(new SlimeOuterLayer<>(this, p_174391_.getModelSet()));
    }
 
@@ -37,5 +42,17 @@ public class CryptSlimeRenderer extends MobRenderer<CryptSlime, SlimeModel<Crypt
 
    public ResourceLocation getTextureLocation(CryptSlime p_115974_) {
       return SLIME_LOCATION;
+   }
+
+   public static class CryptSlimeEyesLayer<T extends Entity, M extends SlimeModel<T>> extends EyesLayer<T, M> {
+      private static final RenderType EYES = RenderType.eyes(Goety.location("textures/entity/crypt_slime_eyes.png"));
+
+      public CryptSlimeEyesLayer(RenderLayerParent<T, M> p_117507_) {
+         super(p_117507_);
+      }
+
+      public RenderType renderType() {
+         return EYES;
+      }
    }
 }

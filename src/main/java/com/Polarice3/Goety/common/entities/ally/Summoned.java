@@ -203,7 +203,7 @@ public class Summoned extends Owned implements IServant {
                             }
                             if (curio) {
                                 if (SEHelper.getSoulsAmount(owner, soulCost)) {
-                                    if (this.tickCount % MathHelper.secondsToTicks(healRate) == 0) {
+                                    if (this.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
                                         this.heal(healAmount);
                                         Vec3 vector3d = this.getDeltaMovement();
                                         if (this.level instanceof ServerLevel serverWorld) {

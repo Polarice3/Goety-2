@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:pendant_of_hunger"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:pendant_of_hunger": 1
+  }
 }

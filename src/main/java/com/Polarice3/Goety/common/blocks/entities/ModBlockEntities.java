@@ -16,6 +16,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CursedInfuserBlockEntity>> CURSED_INFUSER = BLOCK_ENTITY.register("cursed_infuser",
             () -> BlockEntityType.Builder.of(CursedInfuserBlockEntity::new, ModBlocks.CURSED_INFUSER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<GrimInfuserBlockEntity>> GRIM_INFUSER = BLOCK_ENTITY.register("grim_infuser",
+            () -> BlockEntityType.Builder.of(GrimInfuserBlockEntity::new, ModBlocks.GRIM_INFUSER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<CursedCageBlockEntity>> CURSED_CAGE = BLOCK_ENTITY.register("cursed_cage",
             () -> BlockEntityType.Builder.of(CursedCageBlockEntity::new, ModBlocks.CURSED_CAGE_BLOCK.get()).build(null));
 

@@ -49,14 +49,6 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
                     return camera.isVisible(new AABB(vector3d1.x, vector3d1.y, vector3d1.z, vector3d.x, vector3d.y, vector3d.z));
                 }
             }
-            if (skullLord.getLaser() != null){
-                LivingEntity laser = skullLord.getLaser();
-                if (laser != null) {
-                    Vec3 vector3d = this.getPosition(laser, (double)laser.getBbHeight() * 0.5D, 1.0F);
-                    Vec3 vector3d1 = this.getPosition(skullLord, (double)skullLord.getBbHeight() * 0.5D, 1.0F);
-                    return camera.isVisible(new AABB(vector3d1.x, vector3d1.y, vector3d1.z, vector3d.x, vector3d.y, vector3d.z));
-                }
-            }
 
             return false;
         }
@@ -206,7 +198,7 @@ public class SkullLordRenderer extends MobRenderer<SkullLord, SkullLordModel<Sku
 
     @Override
     public ResourceLocation getTextureLocation(SkullLord pEntity) {
-        if (pEntity.isCharging() || pEntity.getLaser() != null){
+        if (pEntity.isCharging()){
             return CHARGE;
         } else {
             return pEntity.isInvulnerable() ? LOCATION: VULNERABLE;

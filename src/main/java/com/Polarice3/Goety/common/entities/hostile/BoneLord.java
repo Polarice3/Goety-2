@@ -17,8 +17,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -127,7 +125,6 @@ public class BoneLord extends AbstractSkeleton implements ICustomAttributes {
             } else {
                 AttributeInstance knockResist = this.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
                 if (this.getSkullLord().isHalfHealth()) {
-                    this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 1, false, false));
                     if (knockResist != null) {
                         knockResist.setBaseValue(1.0D);
                     }

@@ -6,12 +6,12 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class LookAtTargelGoal extends Goal {
+public class LookAtTargetGoal extends Goal {
     protected final Mob mob;
     protected LivingEntity target;
     protected final float lookDistance;
 
-    public LookAtTargelGoal(Mob looker, float distance) {
+    public LookAtTargetGoal(Mob looker, float distance) {
         this.mob = looker;
         this.target = looker.getTarget();
         this.lookDistance = distance;

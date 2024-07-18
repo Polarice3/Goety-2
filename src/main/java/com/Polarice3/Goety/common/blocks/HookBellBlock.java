@@ -136,7 +136,7 @@ public class HookBellBlock extends BaseEntityBlock {
             ((HookBellBlockEntity)blockentity).onHit(p_152192_);
             p_152190_.playSound((Player)null, p_152191_, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 10.0F, 0.5F);
             if (p_152190_ instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new ShockwaveParticleOption(0), p_152191_.getX() + 0.5D, p_152191_.getY() + 0.5F, p_152191_.getZ() + 0.5D, 0, 0.0D, 0.0D, 0.0D, 0);
+                serverLevel.sendParticles(new ShockwaveParticleOption(), p_152191_.getX() + 0.5D, p_152191_.getY() + 0.5F, p_152191_.getZ() + 0.5D, 0, 0.0D, 0.0D, 0.0D, 0);
             }
             p_152190_.gameEvent(p_152189_, GameEvent.BLOCK_CHANGE, p_152191_);
             return true;

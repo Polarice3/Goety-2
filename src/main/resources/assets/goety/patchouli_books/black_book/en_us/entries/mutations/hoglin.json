@@ -1,0 +1,21 @@
+{
+  "name": "Hoglin",
+  "icon": "minecraft:crimson_fungus",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While turning a Pig into a Piglin remains a mystery, turning one into a Hoglin just requires a bunch of Nether Warts and some savagery."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_pig_to_hoglin"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:hoglin",
+      "scale": 0.5
+    }
+  ]
+}

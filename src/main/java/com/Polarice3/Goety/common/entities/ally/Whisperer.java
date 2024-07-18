@@ -4,7 +4,7 @@ import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.AvoidTargetGoal;
-import com.Polarice3.Goety.common.entities.ai.LookAtTargelGoal;
+import com.Polarice3.Goety.common.entities.ai.LookAtTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.AbstractMonolith;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.EntangleVines;
@@ -83,7 +83,7 @@ public class Whisperer extends Summoned{
         this.goalSelector.addGoal(0, new AttackGoal(this));
         this.goalSelector.addGoal(1, new SummonGoal(this));
         this.goalSelector.addGoal(1, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 4.0F, 8, 1.0F, 1.2F));
-        this.goalSelector.addGoal(2, new LookAtTargelGoal(this, 15.0F));
+        this.goalSelector.addGoal(2, new LookAtTargetGoal(this, 15.0F));
         this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D){
             @Override
             public boolean canUse() {

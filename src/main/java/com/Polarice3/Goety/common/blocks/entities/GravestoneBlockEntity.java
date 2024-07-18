@@ -50,7 +50,7 @@ public class GravestoneBlockEntity extends TrainingBlockEntity {
     public void setVariant(ItemStack itemStack, Level level, BlockPos blockPos) {
         if (level instanceof ServerLevel serverLevel) {
             ZombieServant zombieServant = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
-            if (this.getTrainMob() != zombieServant.getVariant(serverLevel, blockPos)) {
+            if (this.getTrainMob() != zombieServant.getVariant(serverLevel, blockPos.above())) {
                 this.setEntityType(zombieServant.getVariant(serverLevel, blockPos));
                 this.markUpdated();
             }

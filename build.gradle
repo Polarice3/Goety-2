@@ -128,8 +128,10 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
 
+    //Jade
+    implementation fg.deobf("curse.maven:jade-324717:4914105")
+
     //Testing Only
-    runtimeOnly fg.deobf("curse.maven:jade-324717:4433884")
     runtimeOnly fg.deobf("curse.maven:kiwi-303657:4937343")
     runtimeOnly fg.deobf("curse.maven:yeetus-635427:3909789")
     runtimeOnly fg.deobf("curse.maven:jeed-532286:4599099")

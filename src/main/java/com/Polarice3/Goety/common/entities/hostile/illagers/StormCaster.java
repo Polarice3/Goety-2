@@ -402,7 +402,7 @@ public class StormCaster extends HuntingIllagerEntity{
 
         public boolean canUse() {
             LivingEntity livingentity = StormCaster.this.getTarget();
-            if (livingentity != null && livingentity.isAlive() && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState("shock")) {
+            if (livingentity != null && livingentity.distanceTo(StormCaster.this) <= 16.0F && livingentity.isAlive() && StormCaster.this.getCurrentAnimation() != StormCaster.this.getAnimationState("shock")) {
                 if (StormCaster.this.isCastingSpell()) {
                     return false;
                 } else {

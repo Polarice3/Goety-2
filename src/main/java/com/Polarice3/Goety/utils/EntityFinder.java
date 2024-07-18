@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.server.ServerLifecycleHooks;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -54,10 +55,12 @@ public class EntityFinder {
         return null;
     }
 
+    @Nullable
     public static Entity getEntityByUuiD(UUID uuid) {
         return getEntityByUuiD(ServerLifecycleHooks.getCurrentServer(), uuid);
     }
 
+    @Nullable
     public static Entity getEntityByUuiD(MinecraftServer server, UUID uuid){
         if (uuid != null && server != null) {
             for (ServerLevel world : server.getAllLevels()) {

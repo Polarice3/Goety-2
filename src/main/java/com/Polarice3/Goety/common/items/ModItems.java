@@ -156,6 +156,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
+    public static final RegistryObject<SingleStackItem> IRON_CROWN = ITEMS.register("iron_crown", NecroGarbs.NecroCrownItem::new);
     public static final RegistryObject<SingleStackItem> NECRO_CROWN = ITEMS.register("necro_crown", NecroGarbs.NecroCrownItem::new);
     public static final RegistryObject<SingleStackItem> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
@@ -187,6 +188,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> SPITEFUL_BELT = ITEMS.register("spiteful_belt", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> STAR_AMULET = ITEMS.register("star_amulet", SingleFoiledStackItem::new);
     public static final RegistryObject<SingleStackItem> GRAVE_GLOVE = ITEMS.register("grave_glove", GloveItem::new);
+    public static final RegistryObject<SingleStackItem> THRASH_GLOVE = ITEMS.register("thrash_glove", GloveItem::new);
 
     //Focus
     ///Magic

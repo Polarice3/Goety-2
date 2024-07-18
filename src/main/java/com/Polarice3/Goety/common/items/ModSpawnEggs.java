@@ -171,6 +171,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> POLAR_BEAR_SERVANT_SPAWN_EGG = ITEMS.register("polar_bear_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.POLAR_BEAR_SERVANT, 0xf6f6f6, 0xfa2e14, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> HOGLIN_SERVANT_SPAWN_EGG = ITEMS.register("hoglin_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HOGLIN_SERVANT, 0x532e24, 0xbc6529, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WHISPERER_SPAWN_EGG = ITEMS.register("whisperer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WHISPERER, 0xa0c051, 0xe20703, egg()));
 
@@ -233,6 +236,9 @@ public class ModSpawnEggs {
 
     public static final RegistryObject<ModSpawnEggItem> CRYPT_SLIME_SPAWN_EGG = ITEMS.register("crypt_slime_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRYPT_SLIME, 0x22252a, 0x4d6577, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> BONE_SPIDER_SPAWN_EGG = ITEMS.register("bone_spider_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BONE_SPIDER, 0x4f1434, 0xf3f7ef, egg()));
 
     public static final RegistryObject<ModSpawnEggItem> CAIRN_NECROMANCER_SPAWN_EGG = ITEMS.register("cairn_necromancer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CAIRN_NECROMANCER, 0x446888, 0x00bfbf, egg()));

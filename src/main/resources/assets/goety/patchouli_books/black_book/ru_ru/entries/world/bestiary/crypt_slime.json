@@ -1,0 +1,17 @@
+{
+  "name": "Склепные слизни",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crypt_slime",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Склепы хранят в себе мощную некротическую энергию, из-за которой иногда появляются слизни, состоящие из костей и эктоплазмы."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crypt_slime",
+      "text": "Накладывает истощение."
+    }
+  ]
+}

@@ -782,7 +782,7 @@ public class GraveGolem extends AbstractGolemServant {
                     }
                 }
                 if (GraveGolem.this.level instanceof ServerLevel serverLevel){
-                    serverLevel.sendParticles(new ShockwaveParticleOption(0), GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2, GraveGolem.this.getY() + 0.25D, GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 0, 0.0D, 0.0D, 0.0D, 0);
+                    serverLevel.sendParticles(new ShockwaveParticleOption(), GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2, GraveGolem.this.getY() + 0.25D, GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 0, 0.0D, 0.0D, 0.0D, 0);
                 }
             }
         }

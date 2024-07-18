@@ -1,0 +1,38 @@
+{
+  "name": "Хоглины-прислужники",
+  "icon": "minecraft:porkchop",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Хоглины — отличные прислужники, способные подбрасывать врагов в воздух своими могучими клыками. Кроме того, из них получаются отличные ездовые животные, не требующие седла, если только не обращать внимания на медленную скорость."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Но, несмотря на свою преданность и храбрость, хоглины по-прежнему питают страх к искажённым грибам и Незер-порталам. Они также зомбифицируются за пределами Незера, превращаясь в зоглина, который НЕ является прислужником. Можно вызвать хоглина с помощью $(l:focuses/wild/mauling_focus)фокуса терзаний$(), находясь в Незере, или ритуала, который призывает хоглина с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hoglin_servant_thrall"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_hoglin_to_hoglin_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hoglin_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Нажатие ПКМ по хоглину-прислужнику багровыми корнями или плакучей лозой исцелит его."
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Ношение $(l:crafts/garment/nether_robe)незерской мантии$() предотвратит зомбификацию ваших хоглинов-прислужников. Использование $(l:focuses/wild/mauling_focus)фокуса терзаний$() с помощью $(l:crafts/nether_staff)незерского посоха$() вызовет хоглинов вне зависимости от измерения."
+    }
+  ]
+}

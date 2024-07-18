@@ -120,7 +120,7 @@ public class NightBeaconBlockEntity extends BlockEntity {
         if (!p_155108_.isClientSide && p_155108_ instanceof ServerLevel serverLevel) {
             if (!p_155111_.isActive && !p_155111_.getBeamSections().isEmpty()) {
                 playSound(p_155108_, p_155109_, SoundEvents.BEACON_ACTIVATE);
-                serverLevel.sendParticles(new PortalShockwaveParticleOption(0), i + 0.5F, j, k + 0.5F, 0, 0, 0, 0, 0);
+                serverLevel.sendParticles(new PortalShockwaveParticleOption(), i + 0.5F, j, k + 0.5F, 0, 0, 0, 0, 0);
                 p_155111_.isActive = true;
             } else if (p_155111_.isActive && p_155111_.getBeamSections().isEmpty()){
                 playSound(p_155108_, p_155109_, SoundEvents.BEACON_DEACTIVATE);

@@ -21,5 +21,9 @@
       "type": "patchouli:text",
       "text": "Работают так же, как и некро-одежды, но с некоторыми улучшениями."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:nameless_cape": 1,
+    "goety:nameless_crown": 2
+  }
 }

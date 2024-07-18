@@ -86,9 +86,9 @@ public class SingleStackItem extends Item implements ICurioItem {
                     tooltip.add(Component.translatable("info.goety.witch_hat_potion").withStyle(secondary));
                 }
             }
-            if (stack.is(ModItems.NECRO_CROWN.get()) || stack.is(ModItems.NAMELESS_CROWN.get())) {
+            if (stack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem) {
                 tooltip.add(Component.translatable("info.goety.necro_crown").withStyle(main));
-                if (stack.is(ModItems.NECRO_CROWN.get())) {
+                if (!crownItem.isNameless) {
                     tooltip.add(Component.translatable("info.goety.necro_crown_cast").withStyle(secondary));
                 }
             }
@@ -159,6 +159,9 @@ public class SingleStackItem extends Item implements ICurioItem {
             }
             if (stack.is(ModItems.GRAVE_GLOVE.get())) {
                 tooltip.add(Component.translatable("info.goety.grave_gloves").withStyle(secondary));
+            }
+            if (stack.is(ModItems.THRASH_GLOVE.get())) {
+                tooltip.add(Component.translatable("info.goety.thrash_gloves").withStyle(secondary));
             }
             if (stack.is(ModItems.WAYFARERS_BELT.get())) {
                 tooltip.add(Component.translatable("info.goety.wayfarers_belt").withStyle(secondary));

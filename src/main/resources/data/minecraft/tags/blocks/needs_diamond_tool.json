@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#goety:crypt_blocks",
+    "goety:grim_infuser",
     "goety:blazing_cage",
     "goety:reinforced_redstone_block"
   ]

@@ -38,6 +38,11 @@ public class WitherSkeletonServant extends AbstractSkeletonServant {
       MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.WitherSkeletonServantDamage.get());
    }
 
+   @Override
+   public double getBaseRangeDamage() {
+      return AttributesConfig.WitherSkeletonServantRangeDamage.get();
+   }
+
    protected SoundEvent getAmbientSound() {
       return SoundEvents.WITHER_SKELETON_AMBIENT;
    }

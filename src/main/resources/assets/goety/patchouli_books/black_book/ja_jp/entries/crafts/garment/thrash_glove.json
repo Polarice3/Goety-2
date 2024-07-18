@@ -1,0 +1,18 @@
+{
+  "name": "Thrash Gloves",
+  "icon": "goety:thrash_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ハンマーはあなたのような闇の魔法使いにとってはかなり重いものです。幸運にも、あなたはクラフトと鍛造の専門知識を活かして、ハンマーをより効率的に扱える手袋を作る方法を発見しました。これにより、攻撃速度が 50%% 増加します。."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrash_glove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thrash_glove": 1
+  }
+}

@@ -3,7 +3,10 @@ package com.Polarice3.Goety.client.render;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.render.layer.LichCuriosLayer;
 import com.Polarice3.Goety.client.render.model.LichModeModel;
+import com.Polarice3.Goety.utils.LichdomHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +19,14 @@ public class LichModeRenderer extends LichPlayerRenderer<AbstractClientPlayer, L
     public LichModeRenderer(EntityRendererProvider.Context context) {
         super(context, new LichModeModel<>(context.bakeLayer(ModModelLayer.LICH)));
         this.addLayer(new LichCuriosLayer<>(this));
+    }
+
+    public boolean renderPlayer(AbstractClientPlayer player, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource buffer, int packedLight) {
+        if (LichdomHelper.isInLichMode(player)){
+            this.render(player, entityYaw, partialTicks, stack, buffer, packedLight);
+            return true;
+        }
+        return false;
     }
 
     @Override

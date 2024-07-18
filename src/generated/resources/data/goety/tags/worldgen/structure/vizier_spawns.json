@@ -1,5 +1,9 @@
 {
   "values": [
-    "#minecraft:on_woodland_explorer_maps"
+    "#minecraft:on_woodland_explorer_maps",
+    {
+      "id": "#repurposed_structures:collections/mansions",
+      "required": false
+    }
   ]
 }

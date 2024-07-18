@@ -2,14 +2,21 @@ package com.Polarice3.Goety.compat.patchouli;
 
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualRecipeProcessor implements IComponentProcessor {
 
@@ -26,11 +33,16 @@ public class RitualRecipeProcessor implements IComponentProcessor {
 
     @Override
     public IVariable process(String key) {
-        if (this.recipe == null)
+        if (this.recipe == null) {
             return IVariable.empty();
+        }
 
         if (key.startsWith("activation_item")) {
-            return IVariable.from(this.recipe.getActivationItem().getItems());
+            if (this.recipe.getRitual() instanceof EnchantItemRitual){
+                return IVariable.from(Ingredient.of(Items.BOOK));
+            } else {
+                return IVariable.from(this.recipe.getActivationItem().getItems());
+            }
         }
 
         if (key.startsWith("craftType")) {
@@ -57,8 +69,25 @@ public class RitualRecipeProcessor implements IComponentProcessor {
             return IVariable.from(this.pedestal);
         }
 
+        if (key.startsWith("enchantment")) {
+            if (this.recipe.getEnchantment() != null) {
+                return IVariable.wrap(I18n.get("jei.goety.enchantment", I18n.get(this.recipe.getEnchantment().getDescriptionId())));
+            }
+        }
+
         if (key.equals("output")) {
-            if (this.recipe.getResultItem().getItem() != ModItems.JEI_DUMMY_NONE.get()) {
+            if (this.recipe.getRitual() instanceof EnchantItemRitual && this.recipe.getEnchantment() != null){
+                List<ItemStack> results = new ArrayList<>();
+                for (int i = 1; i <= recipe.getEnchantment().getMaxLevel(); ++i){
+                    EnchantmentInstance enchantmentInstance = new EnchantmentInstance(recipe.getEnchantment(), i);
+                    results.add(EnchantedBookItem.createForEnchantment(enchantmentInstance));
+                }
+                List<IVariable> variables = new ArrayList<>();
+                for (ItemStack itemStack : results){
+                    variables.add(IVariable.from(itemStack));
+                }
+                return IVariable.wrapList(variables);
+            } else if (this.recipe.getResultItem().getItem() != ModItems.JEI_DUMMY_NONE.get()) {
                 return IVariable.from(this.recipe.getResultItem());
             } else {
                 return IVariable.from(new ItemStack(ModItems.JEI_DUMMY_NONE.get()));
@@ -86,6 +115,12 @@ public class RitualRecipeProcessor implements IComponentProcessor {
         if (key.equals("entity_to_convert_into")) {
             if (this.recipe.getEntityToConvertInto() != null) {
                 return IVariable.wrap(I18n.get("jei.goety.convertInto", I18n.get(this.recipe.getEntityToConvertInto().getDescriptionId())));
+            }
+        }
+
+        if (key.equals("xp_levels")) {
+            if (this.recipe.getEnchantment() != null) {
+                return IVariable.wrap(I18n.get("jei.goety.xp", this.recipe.getXPLevelCost()));
             }
         }
 

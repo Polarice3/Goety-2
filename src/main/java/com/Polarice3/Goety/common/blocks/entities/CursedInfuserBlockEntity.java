@@ -32,50 +32,52 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     }
 
     public void tick() {
-        boolean flag = checkSpawner();
-        assert this.level != null;
-        if (!this.level.isClientSide) {
-            if (flag) {
-                this.makeParticles();
-                for (ItemStack item : this.items) {
-                    if (!item.isEmpty()) {
-                        this.makeWorkParticles();
+        if (this.level != null) {
+            boolean flag = checkSpawner();
+            if (!this.level.isClientSide) {
+                if (flag) {
+                    this.makeParticles();
+                    for (ItemStack item : this.items) {
+                        if (!item.isEmpty()) {
+                            this.makeWorkParticles();
+                        }
                     }
-                }
-                this.work();
-            } else {
-                for(int i = 0; i < this.items.size(); ++i) {
-                    if (this.cookingProgress[i] > 0) {
-                        this.cookingProgress[i] = Mth.clamp(this.cookingProgress[i] - 2, 0, this.cookingTime[i]);
+                    this.work();
+                } else {
+                    for (int i = 0; i < this.items.size(); ++i) {
+                        if (this.cookingProgress[i] > 0) {
+                            this.cookingProgress[i] = Mth.clamp(this.cookingProgress[i] - 2, 0, this.cookingTime[i]);
+                        }
                     }
                 }
             }
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(CursedInfuserBlock.LIT, this.checkSpawner()), 3);
         }
-        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(CursedInfuserBlock.LIT, this.checkSpawner()), 3);
     }
 
     private void work() {
-        for(int i = 0; i < this.items.size(); ++i) {
-            ItemStack itemstack = this.items.get(i);
-            if (!itemstack.isEmpty()) {
-                Container iinventory = new SimpleContainer(itemstack);
-                assert this.level != null;
-                ItemStack itemstack1 = this.level.getRecipeManager()
-                        .getRecipeFor(ModRecipeSerializer.CURSED_INFUSER.get(), iinventory, this.level)
-                        .map((recipes) -> recipes.assemble(iinventory)).orElse(itemstack);
-                if (itemstack != itemstack1){
-                    this.cookingProgress[i]++;
-                }
-                if (this.cookingProgress[i] % 20 == 0){
-                    this.level.playSound(null, this.getBlockPos(), SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                }
-                if (this.cookingProgress[i] >= this.cookingTime[i]) {
-                    this.items.set(i, ItemStack.EMPTY);
-                    BlockPos blockpos = this.getBlockPos();
-                    Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
-                    this.level.playSound(null, this.getBlockPos(), SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    this.markUpdated();
-                    this.cookingProgress[i] = 0;
+        if (this.level != null) {
+            for (int i = 0; i < this.items.size(); ++i) {
+                ItemStack itemstack = this.items.get(i);
+                if (!itemstack.isEmpty()) {
+                    Container iinventory = new SimpleContainer(itemstack);
+                    ItemStack itemstack1 = this.level.getRecipeManager()
+                            .getRecipeFor(ModRecipeSerializer.CURSED_INFUSER.get(), iinventory, this.level)
+                            .map((recipes) -> recipes.assemble(iinventory)).orElse(itemstack);
+                    if (itemstack != itemstack1) {
+                        this.cookingProgress[i]++;
+                    }
+                    if (this.cookingProgress[i] % 20 == 0) {
+                        this.level.playSound(null, this.getBlockPos(), SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                    if (this.cookingProgress[i] >= this.cookingTime[i]) {
+                        this.items.set(i, ItemStack.EMPTY);
+                        BlockPos blockpos = this.getBlockPos();
+                        Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
+                        this.level.playSound(null, this.getBlockPos(), SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        this.markUpdated();
+                        this.cookingProgress[i] = 0;
+                    }
                 }
             }
         }
@@ -83,16 +85,17 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     }
 
     public boolean placeItem(ItemStack pStack, int pCookTime) {
-        for(int i = 0; i < this.items.size(); ++i) {
-            ItemStack itemstack = this.items.get(i);
-            if (itemstack.isEmpty()) {
-                this.cookingTime[i] = pCookTime;
-                this.cookingProgress[i] = 0;
-                this.items.set(i, pStack.split(1));
-                assert this.level != null;
-                this.level.playSound(null, this.getBlockPos(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
-                this.markUpdated();
-                return true;
+        if (this.level != null) {
+            for (int i = 0; i < this.items.size(); ++i) {
+                ItemStack itemstack = this.items.get(i);
+                if (itemstack.isEmpty()) {
+                    this.cookingTime[i] = pCookTime;
+                    this.cookingProgress[i] = 0;
+                    this.items.set(i, pStack.split(1));
+                    this.level.playSound(null, this.getBlockPos(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    this.markUpdated();
+                    return true;
+                }
             }
         }
 
@@ -132,12 +135,18 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     @Override
     public void setItem(int pIndex, ItemStack pStack) {
         Optional<CursedInfuserRecipes> optional = this.getRecipes(pStack);
-        optional.ifPresent(furnaceRecipe -> this.placeItem(pStack, furnaceRecipe.getCookingTime()));
+        optional.ifPresent(furnaceRecipe -> {
+            if (!furnaceRecipe.isGrim()) {
+                this.placeItem(pStack, furnaceRecipe.getCookingTime());
+            }
+        });
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        if (this.level.getBlockEntity(this.worldPosition) != this) {
+        if (this.level == null){
+            return false;
+        } else if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
             return pPlayer.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
@@ -225,8 +234,7 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     }
 
     private boolean checkSpawner() {
-        assert this.level != null;
-        return this.level.getBlockState(new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ())).is(Blocks.SPAWNER);
+        return this.level != null && this.level.getBlockState(new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ())).is(Blocks.SPAWNER);
     }
 
     public Optional<CursedInfuserRecipes> getRecipes(ItemStack pStack) {
@@ -246,10 +254,10 @@ public class CursedInfuserBlockEntity extends ModBlockEntity implements Clearabl
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
         Optional<CursedInfuserRecipes> optional = this.getRecipes(pItemStack);
-        if (!optional.isPresent()) return false;
+        if (optional.isEmpty()) return false;
+        if (optional.get().isGrim()) return false;
         if (!this.checkSpawner()) return false;
-        assert this.level != null;
-        return !this.level.isClientSide && this.placeItem(pItemStack, optional.get().getCookingTime());
+        return this.level != null && !this.level.isClientSide && this.placeItem(pItemStack, optional.get().getCookingTime());
     }
 
     @Override

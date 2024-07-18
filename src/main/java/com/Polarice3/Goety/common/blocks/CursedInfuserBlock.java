@@ -58,11 +58,10 @@ public class CursedInfuserBlock extends BaseEntityBlock implements SimpleWaterlo
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-        if (tileentity instanceof CursedInfuserBlockEntity) {
-            CursedInfuserBlockEntity burnerTileEntity = (CursedInfuserBlockEntity)tileentity;
+        if (tileentity instanceof CursedInfuserBlockEntity burnerTileEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             Optional<CursedInfuserRecipes> optional = burnerTileEntity.getRecipes(itemstack);
-            if (optional.isPresent()) {
+            if (optional.isPresent() && !optional.get().isGrim()) {
                 if (!pLevel.isClientSide && burnerTileEntity.placeItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack, optional.get().getCookingTime())) {
                     return InteractionResult.SUCCESS;
                 }
