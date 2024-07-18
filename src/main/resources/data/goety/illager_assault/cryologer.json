@@ -2,12 +2,12 @@
   "entity_type": "goety:cryologer",
   "registry": {
     "threshold_times": 2.5,
-    "max": 5,
+    "max": 3,
     "extra": 0,
     "chance": 1.0,
     "riding": {
       "mount_type": "minecraft:ravager",
-      "ride_chance": 0.25
+      "ride_chance": 0.05
     }
   }
 }

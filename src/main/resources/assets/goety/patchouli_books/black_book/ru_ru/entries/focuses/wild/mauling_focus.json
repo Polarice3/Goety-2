@@ -10,6 +10,11 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/mauling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "minecraft:story/enter_the_nether",
+      "text": "При использовании в Незере фокус создаст хоглина-прислужника."
     }
   ]
 }

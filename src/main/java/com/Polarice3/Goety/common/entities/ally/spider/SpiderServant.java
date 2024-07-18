@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.EffectsUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
@@ -105,8 +106,14 @@ public class SpiderServant extends Summoned implements PlayerRideable{
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.MAX_HEALTH, AttributesConfig.SpiderServantHealth.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.SpiderServantDamage.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.3D);
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.SpiderServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SpiderServantDamage.get());
     }
 
     protected SoundEvent getAmbientSound() {

@@ -6,11 +6,14 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Кольцо дракона усиливает фокусы $(l:focuses/fire_breath_focus)огненного$() и $(l:focuses/frost/frost_breath_focus)ледяного$() дыхания, что не только увеличивает урон, но и заставляет их изменять ландшафт!"
+      "text": "Кольцо дракона усиливает фокусы $(l:focuses/fire_breath_focus)огненного$() и $(l:focuses/frost_breath_focus)ледяного$() дыхания, что не только увеличивает урон, но и заставляет их изменять ландшафт!"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:ring_of_the_dragon"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_dragon": 1
+  }
 }

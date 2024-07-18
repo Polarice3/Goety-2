@@ -97,7 +97,7 @@ public class SummonCircleBoss extends Entity {
             float f = 1.5F;
             float f5 = (float) Math.PI * f * f;
             if (this.tickCount % 5 == 0){
-                serverWorld.sendParticles(new TeleportInShockwaveParticleOption(0), this.getX(), this.getY() + 0.25F, this.getZ(), 0, 0, 0, 0, 0.5F);
+                serverWorld.sendParticles(new TeleportInShockwaveParticleOption(4, 1), this.getX(), this.getY() + 0.25F, this.getZ(), 0, 0, 0, 0, 0.5F);
             }
             if (this.tickCount == this.getLifeSpan()){
                 for (int j1 = 0; j1 < 16; ++j1) {

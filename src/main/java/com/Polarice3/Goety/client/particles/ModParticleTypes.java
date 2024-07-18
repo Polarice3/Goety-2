@@ -51,6 +51,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> SOUL_EXPLODE_BITS = PARTICLE_TYPES.register("soul_explode_bits",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> XP_TAKE = PARTICLE_TYPES.register("xp_take",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> LASER_GATHER = PARTICLE_TYPES.register("laser",
             () -> new SimpleParticleType(true));
 

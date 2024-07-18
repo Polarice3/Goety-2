@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
+import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.DarkAltarBlock;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.config.MainConfig;
@@ -59,8 +60,24 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
                     i += this.itemStack.getAllEnchantments().size();
                 }
                 if (this.cursedCageTile.getSouls() > (MainConfig.SoulMenderCost.get() * i)) {
-                    if (this.itemStack.isDamaged()) {
-                        if (this.level.getGameTime() % MathHelper.secondsToTicks(MainConfig.SoulMenderSeconds.get().floatValue()) == 0) {
+                    if (this.itemStack.getItem() instanceof ITotem){
+                        if (!ITotem.isFull(this.itemStack)) {
+                            if (this.level.getGameTime() % (MathHelper.secondsToTicks(MainConfig.SoulMenderSeconds.get().floatValue()) + 1) == 0) {
+                                ITotem.increaseSouls(this.itemStack, 1);
+                                this.cursedCageTile.decreaseSouls(1);
+                            }
+                            if (this.level.random.nextInt(24) == 0) {
+                                this.level.playSound(null, this.getBlockPos(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + this.level.random.nextFloat(), this.level.random.nextFloat() * 0.7F + 0.3F);
+                            }
+                        } else {
+                            BlockPos blockpos = this.getBlockPos();
+                            Containers.dropItemStack(this.level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.itemStack);
+                            this.itemStack.shrink(1);
+                            this.finishParticles();
+                            this.markUpdated();
+                        }
+                    } else if (this.itemStack.isDamaged()) {
+                        if (this.level.getGameTime() % (MathHelper.secondsToTicks(MainConfig.SoulMenderSeconds.get().floatValue()) + 1) == 0) {
                             this.itemStack.setDamageValue(this.itemStack.getDamageValue() - 1);
                             this.cursedCageTile.decreaseSouls(MainConfig.SoulMenderCost.get() * i);
                         }
@@ -206,7 +223,7 @@ public class SoulMenderBlockEntity extends ModBlockEntity implements Clearable, 
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        if (!pItemStack.isDamaged() && !pItemStack.isRepairable()) {
+        if (!((pItemStack.isDamaged() && pItemStack.isRepairable()) || pItemStack.getItem() instanceof ITotem)) {
             return false;
         }
         if (this.cursedCageTile == null) {

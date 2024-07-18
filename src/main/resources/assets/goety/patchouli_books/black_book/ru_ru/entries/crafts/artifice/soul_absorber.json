@@ -16,5 +16,8 @@
       "type": "goety:ritual",
       "recipe": "goety:soul_absorber"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:soul_absorber": 2
+  }
 }

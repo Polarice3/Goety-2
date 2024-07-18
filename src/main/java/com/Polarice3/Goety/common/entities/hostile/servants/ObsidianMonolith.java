@@ -102,7 +102,7 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
     public void silentDie(DamageSource cause){
         super.die(cause);
         if (this.level instanceof ServerLevel serverLevel){
-            serverLevel.sendParticles(new PortalShockwaveParticleOption(0), this.getX(), this.getY(), this.getZ(), 0, 0, 0, 0, 0);
+            serverLevel.sendParticles(new PortalShockwaveParticleOption(), this.getX(), this.getY(), this.getZ(), 0, 0, 0, 0, 0);
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()), this.getState(), serverLevel);
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()).above(), this.getState(), serverLevel);
             ServerParticleUtil.blockBreakParticles(this.getParticles(), BlockPos.containing(this.position()).above().above(), Blocks.CRYING_OBSIDIAN.defaultBlockState(), serverLevel);

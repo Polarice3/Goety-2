@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/vanguard_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:vanguard_focus": 1
+  }
 }

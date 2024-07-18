@@ -165,10 +165,16 @@ public class IllagerSpawner {
                                 mount.setPos((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
                                 ForgeEventFactory.onFinalizeSpawn(mount, worldIn, worldIn.getCurrentDifficultyAt(pos), MobSpawnType.PATROL, null, null);
                                 illager.startRiding(mount);
+                                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                                    mount.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60));
+                                }
                                 worldIn.addFreshEntityWithPassengers(mount);
                             }
                         }
                     }
+                }
+                if (CuriosFinder.hasCurio(player, ModItems.ALARMING_CHARM.get())){
+                    illager.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60));
                 }
                 worldIn.addFreshEntityWithPassengers(illager);
                 return true;

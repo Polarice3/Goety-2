@@ -16,6 +16,7 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.common.network.server.TotemDeathPacket;
 import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -348,7 +349,7 @@ public class SoulEnergyEvents {
                 event.setCanceled(true);
             }
             if (killer instanceof AbstractIllager){
-                soulEnergy.setRestPeriod(soulEnergy.getRestPeriod() + MathHelper.minecraftDayToTicks(1));
+                soulEnergy.setRestPeriod(soulEnergy.getRestPeriod() + MathHelper.minecraftDayToTicks(MobsConfig.IllagerAssaultRestDeath.get()));
             }
         }
 

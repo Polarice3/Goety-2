@@ -1,6 +1,7 @@
-// 1.20.1	2024-07-03T11:05:14.7306824	Loot Tables
+// 1.20.1	2024-07-12T15:11:29.4046256	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
+f7a819c3aef0dda1fe38d098a114b70570eec26b data/goety/loot_tables/blocks/awakened_emerald_block.json
 330ed12a082d7045673da814668f67aa50b4696f data/goety/loot_tables/blocks/blackstone_brazier.json
 963860e1cbde011734bcf03642ae4951cb8fec9e data/goety/loot_tables/blocks/blackstone_soul_brazier.json
 04cd388890b092bacff2afbbe7b2dd48d3fae225 data/goety/loot_tables/blocks/blazing_cage.json
@@ -55,6 +56,7 @@ d7363e831559f98ecc92da33663ad7623ae7ad83 data/goety/loot_tables/blocks/gold_chis
 bb6ee73cd1fad2001c9fa85208a8e162bb7021ca data/goety/loot_tables/blocks/gold_holder_marble.json
 b3222e11afa79e7fb02c3f7a98fb2bd824f9a146 data/goety/loot_tables/blocks/gold_indented_highrock_bricks.json
 dd9a559e6bdeb3d3ddbe67727e4c972dbd8a3002 data/goety/loot_tables/blocks/gold_plated_marble.json
+b8eaf8f54c00942169371a654e8656949badc5fa data/goety/loot_tables/blocks/grim_infuser.json
 6a456ba851c5116c487a5e85803f53872d45c8e0 data/goety/loot_tables/blocks/haunted_bookshelf.json
 93a4e792d50b2a8f54e9d6003effb4fec5c15d06 data/goety/loot_tables/blocks/haunted_button.json
 441afc98c953ee95063834cbd53e63bd95735da8 data/goety/loot_tables/blocks/haunted_chest.json

@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.render.model;
 
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -78,7 +79,7 @@ public class BlackWolfModel<T extends BlackWolf> extends HierarchicalModel<T> {
 			this.head.setPos(0.0F, -12.0F, -5.0F);
 			this.upperBody.setPos(0.0F, -6.0F, 2.0F);
 			this.upperBody.xRot = 0.8727F;
-			this.body.setPos(1.0F, -7.0F, 3.0F);
+			this.body.setPos(1.0F, -8.0F, 1.0F);
 			this.body.xRot = 0.4363F;
 			this.tail.setPos(0.0F, -2.0F, 4.0F);
 			this.rightHindLeg.setPos(-1.5F, -1.0F, 3.0F);
@@ -118,6 +119,14 @@ public class BlackWolfModel<T extends BlackWolf> extends HierarchicalModel<T> {
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 	}
 
+	protected Iterable<ModelPart> headParts() {
+		return ImmutableList.of(this.head);
+	}
+
+	protected Iterable<ModelPart> bodyParts() {
+		return ImmutableList.of(this.body, this.rightHindLeg, this.leftHindLeg, this.rightFrontLeg, this.leftFrontLeg, this.tail, this.upperBody);
+	}
+
 	@Override
 	public ModelPart root() {
 		return this.root;
@@ -134,6 +143,23 @@ public class BlackWolfModel<T extends BlackWolf> extends HierarchicalModel<T> {
 	}
 
 	public void renderToBuffer(PoseStack p_102424_, VertexConsumer p_102425_, int p_102426_, int p_102427_, float p_102428_, float p_102429_, float p_102430_, float p_102431_) {
-		super.renderToBuffer(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+		if (this.young) {
+			p_102424_.pushPose();
+			p_102424_.translate(0.0F, 1.75F, 4.0F / 16.0F);
+			this.headParts().forEach((p_102081_) -> {
+				p_102081_.render(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+			});
+			p_102424_.popPose();
+			p_102424_.pushPose();
+			float f1 = 1.0F / 2.0F;
+			p_102424_.scale(f1, f1, f1);
+			p_102424_.translate(0.0F, 3.0F, 0.0F);
+			this.bodyParts().forEach((p_102071_) -> {
+				p_102071_.render(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+			});
+			p_102424_.popPose();
+		} else {
+			super.renderToBuffer(p_102424_, p_102425_, p_102426_, p_102427_, this.r * p_102428_, this.g * p_102429_, this.b * p_102430_, p_102431_);
+		}
 	}
 }

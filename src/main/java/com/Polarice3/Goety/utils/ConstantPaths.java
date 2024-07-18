@@ -29,10 +29,6 @@ public class ConstantPaths {
         return "goety:gassed";
     }
 
-    public static String skullLordMinion(){
-        return "goety:sl_minion";
-    }
-
     public static String giveAI(){
         return "goety:giveAI";
     }

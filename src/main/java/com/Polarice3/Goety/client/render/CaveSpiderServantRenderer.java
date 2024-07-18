@@ -2,6 +2,7 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.ally.spider.CaveSpiderServant;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -9,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class CaveSpiderServantRenderer extends SpiderServantRenderer<CaveSpiderServant> {
    private static final ResourceLocation CAVE_SPIDER_LOCATION = Goety.location("textures/entity/servants/spider/cave_spider_servant.png");
+   private static final ResourceLocation ORIGINAL = new ResourceLocation("textures/entity/spider/cave_spider.png");
 
    public CaveSpiderServantRenderer(EntityRendererProvider.Context p_173946_) {
       super(p_173946_, ModelLayers.CAVE_SPIDER);
@@ -20,6 +22,10 @@ public class CaveSpiderServantRenderer extends SpiderServantRenderer<CaveSpiderS
    }
 
    public ResourceLocation getTextureLocation(CaveSpiderServant p_113972_) {
-      return CAVE_SPIDER_LOCATION;
+      if (p_113972_.isHostile() || !MobsConfig.CaveSpiderServantTexture.get()){
+         return ORIGINAL;
+      } else {
+         return CAVE_SPIDER_LOCATION;
+      }
    }
 }

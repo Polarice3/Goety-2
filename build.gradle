@@ -136,14 +136,16 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")
 
+    //Jade
+    implementation fg.deobf("curse.maven:jade-324717:5493390")
+
     //Testing Only
-    runtimeOnly fg.deobf("curse.maven:jade-324717:4768593")
     runtimeOnly fg.deobf("curse.maven:yeetus-635427:4680832")
     runtimeOnly fg.deobf("curse.maven:jeed-532286:4599236")
     runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
     runtimeOnly fg.deobf("curse.maven:mob-battle-mod-268746:4748521")
     runtimeOnly fg.deobf("curse.maven:lionfish-api-1001614:5363774")
-    runtimeOnly fg.deobf("curse.maven:lendercataclysm-551586:5397418")
+    runtimeOnly fg.deobf("curse.maven:lendercataclysm-551586:5474791")
     runtimeOnly fg.deobf("curse.maven:retro-damage-indicators-1003431:5268035")
     runtimeOnly fg.deobf("curse.maven:kiwi-303657:4688568")
     runtimeOnly fg.deobf("curse.maven:wiki-zoomer-383277:4576732")

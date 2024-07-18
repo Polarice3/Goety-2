@@ -1,0 +1,159 @@
+{
+  "name": "用仪式磨炼灵魂",
+  "icon": "minecraft:enchanted_book",
+  "category": "goety:rituals",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "黑暗祭坛可以使用某些材料、灵魂能量以及仪式施法者自身的经验水平来为物品附魔。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "仪式甚至可以为附魔物品附魔，只要物品的附魔与附魔兼容，也可以增加附魔等级。然而，增加附魔等级时，所需的经验等级会加倍。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/sharpness"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/smite"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/bane_of_arthropods"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fire_aspect"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/knockback"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/sweeping_edge"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/looting"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/efficiency"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fortune"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/silk_touch"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/power"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/punch"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/flame"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/infinity"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/piercing"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/quick_charge"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/multishot"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/impaling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/riptide"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/loyalty"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/channeling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/lure"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/luck_of_the_sea"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/projectile_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/fire_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/blast_protection"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/feather_falling"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/aqua_affinity"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/respiration"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/depth_strider"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/thorns"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/binding_curse"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/vanishing_curse"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/unbreaking"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:enchant/mending"
+    }
+  ]
+}

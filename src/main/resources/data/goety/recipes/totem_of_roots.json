@@ -2,16 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "ege",
+    "lgl",
     "gsg",
-    "lgl"
+    " g "
   ],
   "key":
   {
-    "e":
-    {
-      "tag": "forge:gems/emerald"
-    },
     "l":
     {
       "tag": "forge:gems/lapis"

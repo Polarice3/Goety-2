@@ -287,6 +287,7 @@ public class Envioker extends HuntingIllagerEntity {
                 return false;
             } else {
                 return Envioker.this.getTarget() != null
+                        && Envioker.this.level.getDifficulty() == Difficulty.HARD
                         && Envioker.this.isMagic()
                         && Envioker.this.getMainHandItem().getItem() instanceof SwordItem
                         && Envioker.this.hasLineOfSight(Envioker.this.getTarget());
@@ -294,11 +295,11 @@ public class Envioker extends HuntingIllagerEntity {
         }
 
         protected int getCastingTime() {
-            return 10;
+            return 20;
         }
 
         protected int getCastingInterval() {
-            return 10;
+            return 20;
         }
 
         protected void performSpellCasting() {

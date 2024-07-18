@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -36,6 +37,8 @@ public class RitualRecipe extends ModShapelessRecipe {
     private final TagKey<EntityType<?>> entityToConvert;
     private final EntityType<?> entityToSummon;
     private final EntityType<?> entityToConvertInto;
+    private final Enchantment enchantment;
+    private final int xpLevelCost;
     private final int duration;
     private final int summonLife;
     private final float durationPerIngredient;
@@ -46,7 +49,8 @@ public class RitualRecipe extends ModShapelessRecipe {
     public RitualRecipe(ResourceLocation id, String group, String pCraftType, ResourceLocation ritualType,
                         ItemStack result, EntityType<?> entityToSummon, EntityType<?> entityToConvertInto, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int summonLife, int pSoulCost,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName,
-                        TagKey<EntityType<?>> entityToConvert, String entityToConvertDisplayName, String research) {
+                        TagKey<EntityType<?>> entityToConvert, String entityToConvertDisplayName,
+                        Enchantment enchantment, int xpLevelCost, String research) {
         super(id, group, CraftingBookCategory.MISC, result, input);
         this.craftType = pCraftType;
         this.soulCost = pSoulCost;
@@ -62,6 +66,8 @@ public class RitualRecipe extends ModShapelessRecipe {
         this.entityToSacrificeDisplayName = entityToSacrificeDisplayName;
         this.entityToConvert = entityToConvert;
         this.entityToConvertDisplayName = entityToConvertDisplayName;
+        this.enchantment = enchantment;
+        this.xpLevelCost = xpLevelCost;
         this.research = research;
     }
 
@@ -153,6 +159,14 @@ public class RitualRecipe extends ModShapelessRecipe {
         return this.entityToConvertDisplayName;
     }
 
+    public Enchantment getEnchantment(){
+        return this.enchantment;
+    }
+
+    public int getXPLevelCost(){
+        return this.xpLevelCost;
+    }
+
     public String getResearch(){
         return this.research;
     }
@@ -204,6 +218,8 @@ public class RitualRecipe extends ModShapelessRecipe {
             TagKey<EntityType<?>> entityToConvert = null;
             String entityToConvertDisplayName = "";
             String research = "";
+            Enchantment enchantment = null;
+            int xpLevelCost = 0;
             if (json.has("entity_to_convert")){
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_convert"), "tag"));
                 entityToConvert = TagKey.create(Registries.ENTITY_TYPE, tagRL);
@@ -213,13 +229,17 @@ public class RitualRecipe extends ModShapelessRecipe {
             if (json.has("entity_to_convert_into")) {
                 entityToConvertInto = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_convert_into")));
             }
+            if (json.has("enchantment")){
+                enchantment = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(GsonHelper.getAsString(json, "enchantment")));
+                xpLevelCost = GsonHelper.getAsInt(json, "xpLevelCost", 0);
+            }
             if (json.has("research")){
                 research = GsonHelper.getAsString(json, "research", "");
             }
             return new RitualRecipe(recipeId, group, craftType, ritualType,
                     result, entityToSummon, entityToConvertInto, activationItem, ingredients, duration,
                     summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName,
-                    entityToConvert, entityToConvertDisplayName, research);
+                    entityToConvert, entityToConvertDisplayName, enchantment, xpLevelCost, research);
         }
 
         private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
@@ -273,6 +293,13 @@ public class RitualRecipe extends ModShapelessRecipe {
             if (buffer.readBoolean()){
                 entityToConvertInto = buffer.readRegistryId();
             }
+
+            Enchantment enchantment = null;
+            int xpLevelCost = 0;
+            if (buffer.readBoolean()){
+                enchantment = buffer.readRegistryId();
+                xpLevelCost = buffer.readVarInt();
+            }
             String research = "";
             if (buffer.readBoolean()){
                 research = buffer.readUtf(32767);
@@ -280,7 +307,7 @@ public class RitualRecipe extends ModShapelessRecipe {
 
             assert recipe != null;
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), craftType, ritualType, recipe.getResultItem(null), entityToSummon, entityToConvertInto,
-                    activationItem, recipe.getIngredients(), duration, summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName, entityToConvert, entityToConvertDisplayName, research);
+                    activationItem, recipe.getIngredients(), duration, summonLife, soulCost, entityToSacrifice, entityToSacrificeDisplayName, entityToConvert, entityToConvertDisplayName, enchantment, xpLevelCost, research);
         }
 
         @Override
@@ -312,6 +339,11 @@ public class RitualRecipe extends ModShapelessRecipe {
             buffer.writeBoolean(recipe.entityToConvertInto != null);
             if (recipe.entityToConvertInto != null) {
                 buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToConvertInto);
+            }
+            buffer.writeBoolean(recipe.enchantment != null);
+            if (recipe.enchantment != null) {
+                buffer.writeRegistryId(ForgeRegistries.ENCHANTMENTS, recipe.enchantment);
+                buffer.writeVarInt(recipe.xpLevelCost);
             }
             buffer.writeBoolean(recipe.research != null);
             if (recipe.research != null) {

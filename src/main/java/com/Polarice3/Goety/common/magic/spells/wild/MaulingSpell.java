@@ -6,6 +6,8 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BearServant;
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
+import com.Polarice3.Goety.common.entities.ally.HoglinServant;
+import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.magic.SummonSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -25,6 +27,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,12 +116,14 @@ public class MaulingSpell extends SummonSpell {
                 i = 2;
             }
             for (int i1 = 0; i1 < i; ++i1) {
-                BearServant summonedentity = new BearServant(ModEntityType.BEAR_SERVANT.get(), worldIn);
+                Summoned summonedentity = new BearServant(ModEntityType.BEAR_SERVANT.get(), worldIn);
                 BlockPos blockPos = BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn);
-                if (typeStaff(staff, SpellType.FROST) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD)) {
+                if (typeStaff(staff, SpellType.NETHER) || worldIn.dimension() == Level.NETHER){
+                    summonedentity = new HoglinServant(ModEntityType.HOGLIN_SERVANT.get(), worldIn);
+                } else if (typeStaff(staff, SpellType.FROST) || worldIn.getBiome(blockPos).is(Tags.Biomes.IS_COLD_OVERWORLD)) {
                     summonedentity = new BearServant(ModEntityType.POLAR_BEAR_SERVANT.get(), worldIn);
-                } else if (blockPos.getY() <= 64 && !worldIn.canSeeSky(blockPos)){
-                    summonedentity.setBearCave();
+                } else if (blockPos.getY() <= 64 && !worldIn.canSeeSky(blockPos) && summonedentity instanceof BearServant bearServant){
+                    bearServant.setBearCave();
                 }
                 summonedentity.setTrueOwner(entityLiving);
                 summonedentity.moveTo(blockPos, 0.0F, 0.0F);

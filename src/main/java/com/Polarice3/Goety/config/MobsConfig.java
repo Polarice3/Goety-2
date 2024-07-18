@@ -33,6 +33,8 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSpawnChance;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSEThreshold;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultSELimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultRestDeath;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultRestMinister;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
 
@@ -63,6 +65,10 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlazeServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SpiderServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CaveSpiderServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BoneSpiderServantTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SlimeServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MagmaCubeServantTexture;
@@ -199,6 +205,14 @@ public class MobsConfig {
                 VexTexture = BUILDER.comment("If Vexes have custom textures, Default: true")
                         .define("vexTexture", true);
                 BUILDER.pop();
+                BUILDER.push("Spider Servants");
+                SpiderServantTexture = BUILDER.comment("If Spiders Servants have custom textures, Default: true")
+                        .define("spiderServantTexture", true);
+                CaveSpiderServantTexture = BUILDER.comment("If Cave Spiders Servants have custom textures, Default: true")
+                        .define("caveSpiderServantTexture", true);
+                BoneSpiderServantTexture = BUILDER.comment("If Bone Spiders Servants have custom textures, Default: true")
+                        .define("boneSpiderServantTexture", true);
+                BUILDER.pop();
                 BUILDER.push("Slime Servants");
                 SlimeServantTexture = BUILDER.comment("If Slime Servants have custom textures, Default: true")
                         .define("slimeServantTexture", true);
@@ -323,6 +337,10 @@ public class MobsConfig {
                     .defineInRange("illagerAssaultThreshold", 2500, 0, Integer.MAX_VALUE);
             IllagerAssaultSELimit = BUILDER.comment("The maximum amount of Soul Energy the Player has that is taken consideration for the Assaults, Default: 30000")
                     .defineInRange("illagerAssaultLimit", 30000, 0, Integer.MAX_VALUE);
+            IllagerAssaultRestDeath = BUILDER.comment("How many Minecraft days of rest from Illager Assaults are added to Players killed by an Illager, Default: 2")
+                    .defineInRange("illagerAssaultRestDeath", 2, 0, Integer.MAX_VALUE);
+            IllagerAssaultRestMinister = BUILDER.comment("How many Minecraft days of rest from Illager Assaults the Players have after killing a Minister, Default: 10")
+                    .defineInRange("illagerAssaultRestMinister", 10, 0, Integer.MAX_VALUE);
             SoulEnergyBadOmen = BUILDER.comment("Hitting the Illager Assault Limit of Soul Energy have a chance of giving Player Bad Omen effect, Default: true")
                     .define("soulEnergyBadOmen", true);
             BUILDER.pop();

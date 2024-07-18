@@ -222,12 +222,15 @@ public class AbstractBorderWraith extends AbstractWraith implements IBreathing {
                 return;
             }
         }
+        if (MobUtil.areAllies(this, target)){
+            return;
+        }
         if (this.getTrueOwner() != null){
-            if (target.isAlliedTo(this.getTrueOwner()) || this.getTrueOwner().isAlliedTo(target) || target == this.getTrueOwner()){
+            if (MobUtil.areAllies(this.getTrueOwner(), target) || target == this.getTrueOwner()){
                 return;
             }
         }
-        target.hurt(ModDamageSource.iceBouquet(this, this), damage);
+        target.hurt(ModDamageSource.frostBreath(this, this), damage);
     }
 
 }

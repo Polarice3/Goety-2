@@ -1,0 +1,21 @@
+{
+  "name": "疣猪们",
+  "icon": "minecraft:crimson_fungus",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "虽然将猪变成猪灵仍然是一个谜，但将猪变成疣猪只需要一堆下界疣和一些残暴的行为."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_pig_to_hoglin"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:hoglin",
+      "scale": 0.5
+    }
+  ]
+}

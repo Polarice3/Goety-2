@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/barricade_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:barricade_focus": 1
+  }
 }

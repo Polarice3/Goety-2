@@ -21,5 +21,9 @@
       "type": "patchouli:text",
       "text": "$(l:focuses/soul_bolt_focus)Снаряды душ$(), выпущенные из этого посоха, превратятся в более мощные некро-снаряды. Использование $(l:focuses/illusion_focus)заклинания отражения$(), будучи в $(l:crafts/garment/nameless_set)безымянных одеждах$(), позволит вам стрелять одним, более мощным некро-снарядом."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:heart_of_the_night": 1,
+    "goety:nameless_staff": 2
+  }
 }

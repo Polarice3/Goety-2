@@ -1,0 +1,26 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:enchant",
+  "activation_item": {
+    "item": "minecraft:book"
+  },
+  "craftType": "magic",
+  "soulCost": 25,
+  "duration": 10,
+  "enchantment": "minecraft:infinity",
+  "xpLevelCost": 10,
+  "ingredients": [
+    {
+      "item": "minecraft:fletching_table"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:storage_blocks/lapis"
+    }
+  ],
+  "result": {
+    "item": "minecraft:enchanted_book"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ホグリン",
+  "icon": "minecraft:crimson_fungus",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:mutations",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "豚をピグリンに変える方法は謎のままですが、豚をホグリンに変えるには、大量のネザーウォートと多少の残忍さが必要です。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_pig_to_hoglin"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:hoglin",
+      "scale": 0.5
+    }
+  ]
+}

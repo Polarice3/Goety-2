@@ -1,0 +1,23 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert",
+  "activation_item": {
+    "item": "minecraft:sweet_berries"
+  },
+  "craftType": "animation",
+  "entity_to_convert": {
+    "tag": "goety:polar_bears",
+    "display_name": "entity.minecraft.polar_bear"
+  },
+  "entity_to_convert_into": "goety:polar_bear_servant",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "tag": "minecraft:fishes"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

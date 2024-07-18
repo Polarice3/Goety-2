@@ -113,6 +113,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> NecroSetUndeadNeutralHealth;
+
     static {
         BUILDER.push("General");
         SoulRepair = BUILDER.comment("Certain Items repair themselves using Soul Energy, Default: true")
@@ -144,6 +146,8 @@ public class ItemConfig {
                     .defineInRange("netherRobeResistance", 85, 0, 100);
             NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("necroSetUndeadNeutral", true);
+            NecroSetUndeadNeutralHealth = BUILDER.comment("If 'necroSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
+                    .defineInRange("necroSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             NecroCrownWeakness = BUILDER.comment("Whether wearing Necro Crown while not being a Lich gives Weakness when in sunlight, Default: true")
                     .define("necroCrownWeakness", true);
             NecroCapeHunger = BUILDER.comment("Whether wearing Necro Cape while not being a Lich gives Hunger when in sunlight, Default: true")

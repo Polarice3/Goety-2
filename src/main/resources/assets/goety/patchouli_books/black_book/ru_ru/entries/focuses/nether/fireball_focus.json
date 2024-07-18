@@ -12,5 +12,8 @@
       "type": "goety:ritual",
       "recipe": "goety:focus/fireball_focus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:fireball_focus": 1
+  }
 }

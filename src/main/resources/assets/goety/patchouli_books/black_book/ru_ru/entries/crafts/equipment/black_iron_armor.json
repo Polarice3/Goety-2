@@ -27,5 +27,11 @@
       "type": "goety:ritual",
       "recipe": "goety:black_iron/black_iron_boots"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:black_iron_helmet": 2,
+    "goety:black_iron_chestplate": 3,
+    "goety:black_iron_leggings": 4,
+    "goety:black_iron_boots": 5
+  }
 }

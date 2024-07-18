@@ -191,7 +191,7 @@ public class ScytheSlash extends AbstractHurtingProjectile {
         List<Entity> targets = new ArrayList<>();
         for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.5F))) {
             if (this.getTrueOwner() != null) {
-                if (entity != this.getTrueOwner() && !entity.isAlliedTo(this.getTrueOwner()) && !this.getTrueOwner().isAlliedTo(entity) && entity != this.getTrueOwner().getVehicle()) {
+                if (entity != this.getTrueOwner() && !MobUtil.areAllies(entity, this.getTrueOwner()) && entity != this.getTrueOwner().getVehicle()) {
                     targets.add(entity);
                 }
             } else {

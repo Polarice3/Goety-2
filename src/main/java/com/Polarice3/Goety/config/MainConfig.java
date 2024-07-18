@@ -43,6 +43,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
+    public static final ForgeConfigSpec.ConfigValue<Double> LichPowerfulFoesHealth;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> SpecialBossBar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BossMusic;
@@ -63,8 +64,10 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmLootCompat;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RitualEnchants;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
@@ -137,6 +140,8 @@ public class MainConfig {
                 .define("cataclysmLootCompat", true);
         RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")
                 .define("robesIronResist", true);
+        IronBuff = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain curios provides Spell buffs. Default: true")
+                .define("ironBuff", true);
         BUILDER.pop();
         BUILDER.push("Blocks");
         HookBellBlackList = BUILDER.comment("""
@@ -146,6 +151,8 @@ public class MainConfig {
                         (itemRaw) -> itemRaw instanceof String);
         EnableNightBeacon = BUILDER.comment("Whether Night Beacons are allowed to function, turning Daytime to Midnight so long as it's activated, Default: true")
                 .define("enableNightBeacon", true);
+        RitualEnchants = BUILDER.comment("Whether enchanting through Rituals are enabled, Default: true")
+                .define("ritualEnchants", true);
         DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if Cap is disabled, Default: 30")
                 .defineInRange("darkAnvilRepairCost", 30, 1, Integer.MAX_VALUE);
         DarkAnvilCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: false")
@@ -216,8 +223,10 @@ public class MainConfig {
                 .define("lichUndeadFriendly", true);
         LichMagicResist = BUILDER.comment("Enable to make Liches 85% more resistant to Magic Attacks, Default: false")
                 .define("lichMagicResist", false);
-        LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 50 Hearts are friendly, Default: true")
+        LichPowerfulFoes = BUILDER.comment("If Lich Undead Friendly is set to true, Only undead that have lower than 'lichPowerfulFoesHealth' max health are friendly, Default: true")
                 .define("lichPowerfulHostile", true);
+        LichPowerfulFoesHealth = BUILDER.comment("If 'lichPowerfulHostile' is enabled, the highest max health an Undead mob can be without being hostile, Default: 100.0")
+                .defineInRange("lichPowerfulFoesHealth", 100.0, 0.0, Double.MAX_VALUE);
         LichVillagerHate = BUILDER.comment("If Villagers provide negative Reputation to Liches and non-Player Iron Golems are automatically aggressive against them, Default: true")
                 .define("lichVillagerHate", true);
         LichTouch = BUILDER.comment("If Liches bare-handed attacks inflicts negative effects, Default: true")

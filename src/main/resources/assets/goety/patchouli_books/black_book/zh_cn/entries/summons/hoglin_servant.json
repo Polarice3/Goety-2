@@ -1,0 +1,38 @@
+{
+  "name": "愤怒的疣猪兽们",
+  "icon": "minecraft:porkchop",
+  "advancement": "minecraft:story/enter_the_nether",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "疣猪兽是优秀的仆人，它们会用它们强壮的獠牙把你的敌人抛向空中。事实上，如果你忽略它的缓慢，这也是一个很好的坐骑。出于某种原因，疣猪兽们不需要马鞍也可以骑乘。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "但是，尽管忠诚和勇敢，这些疣猪兽们仍然保留着对诡异菌和下界传送门的恐惧。它们还会在下界之外僵尸化，进而把你的仆从变成一个六亲不认的僵尸疣猪兽。你可以在下界使用$(l:focuses/wild/mauling_focus)猛击聚晶$()，或者使用仪式召唤一个不会随时间消亡的疣猪兽。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_hoglin_servant_thrall"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_hoglin_to_hoglin_servant"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:hoglin_servant",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "手持垂泪藤或绯红菌索右键疣猪兽仆从可以治愈它。"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "获得并且穿戴$(l:crafts/garment/nether_robe)下界长袍$()将会消除僵尸化对你疣猪兽仆从的影响。使用$(l:focuses/wild/mauling_focus)猛击聚晶$()搭配上$(l:crafts/nether_staff)下界魔杖$()可以无视召唤者所在的维度直接召唤疣猪兽仆从们。"
+    }
+  ]
+}

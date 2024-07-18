@@ -1,0 +1,28 @@
+{
+  "name": "Маленькие гасты",
+  "icon": "goety:mini_ghast_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти гасты меньше, чем их более крупные собратья, и не способны создавать гигантские лавовые бомбы, а вместо этого стреляют маленькими огненными шарами, как всполохи."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:mini_ghast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "text": "Эти гигантские, но в то же время хрупкие существа парят вокруг своего создателя, стреляя лавовыми бомбами и смотря жертвам прямо в лицо, в отличие от своих неподвижных собратьев."
+    },
+    {
+      "type": "patchouli:entity",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "entity": "goety:ghast_servant",
+      "scale": 0.5
+    }
+  ]
+}

@@ -160,6 +160,7 @@ public class ModTags {
         public static final TagKey<Structure> SKULL_LORD_SPAWNS = tag("skull_lord_spawns");
         public static final TagKey<Structure> CRYPT = tag("crypt");
         public static final TagKey<Structure> NECROMANCER_POWER = tag("necromancer_power");
+        public static final TagKey<Structure> CAN_SUMMON_BRUTES = tag("can_summon_brutes");
 
         private static TagKey<Structure> tag(String name) {
             return create(Goety.location(name));

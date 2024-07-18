@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.geomancy;
 
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -35,6 +36,11 @@ public class RotationSpell extends BlockSpell {
     @Override
     public int defaultSpellCooldown() {
         return SpellConfig.RotationCoolDown.get();
+    }
+
+    @Override
+    public SpellType getSpellType() {
+        return SpellType.GEOMANCY;
     }
 
     @Override
@@ -83,6 +89,8 @@ public class RotationSpell extends BlockSpell {
             }
         } else if (oldState.hasProperty(BlockStateProperties.ROTATION_16)){
             newState = oldState.setValue(BlockStateProperties.ROTATION_16, (oldState.getValue(BlockStateProperties.ROTATION_16) + 1) & 15);
+        } else if (oldState.hasProperty(BlockStateProperties.FACING)){
+            newState = oldState.setValue(BlockStateProperties.FACING, changeFacing(oldState.getValue(BlockStateProperties.FACING)));
         } else {
             switch (side) {
                 case DOWN, UP:
@@ -106,5 +114,16 @@ public class RotationSpell extends BlockSpell {
             rotated = world.setBlockAndUpdate(pos, newState);
         }
         return rotated;
+    }
+
+    public static Direction changeFacing(Direction direction0) {
+        return switch (direction0) {
+            case NORTH -> Direction.EAST;
+            case EAST -> Direction.SOUTH;
+            case SOUTH -> Direction.WEST;
+            case WEST -> Direction.UP;
+            case UP -> Direction.DOWN;
+            case DOWN -> Direction.NORTH;
+        };
     }
 }

@@ -15,7 +15,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "goety:zombie_ravager"
+      "entity": "goety:zombie_ravager",
+      "scale": 0.5
     }
   ]
 }

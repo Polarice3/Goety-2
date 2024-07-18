@@ -1,7 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ai.LookAtTargelGoal;
+import com.Polarice3.Goety.common.entities.ai.LookAtTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.projectiles.PoisonQuill;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -58,7 +58,7 @@ public class PoisonQuillVine extends AbstractVine{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new QuillRangedGoal(this, 14.0F));
-        this.goalSelector.addGoal(2, new LookAtTargelGoal(this, 16.0F));
+        this.goalSelector.addGoal(2, new LookAtTargetGoal(this, 16.0F));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));

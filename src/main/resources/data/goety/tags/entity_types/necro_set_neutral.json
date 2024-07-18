@@ -32,6 +32,10 @@
     {
       "id": "born_in_chaos_v1:bloody_gadfly",
       "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:corpse_fish",
+      "required": false
     }
   ]
 }

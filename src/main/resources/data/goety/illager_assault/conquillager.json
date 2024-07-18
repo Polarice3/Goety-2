@@ -7,7 +7,7 @@
     "chance": 0.5,
     "riding": {
       "mount_type": "minecraft:ravager",
-      "ride_chance": 0.25
+      "ride_chance": 0.05
     }
   }
 }

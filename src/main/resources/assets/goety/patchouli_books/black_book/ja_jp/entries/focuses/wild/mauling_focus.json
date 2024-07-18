@@ -5,11 +5,16 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "B耳は強いが、野性的で攻撃的。闇の力で、最後まであなたに忠実なクマを召喚することができます。$(l:crafts/wild_staff)野生の杖$() で唱えると、2 匹のクマが同時に召喚されます。野生のローブ を身に着けると、爪で犠牲者にサップを与える強力なバージョンが召喚されます。"
+      "text": "耳は強いが、野性的で攻撃的。闇の力で、最後まであなたに忠実なクマを召喚することができます。$(l:crafts/wild_staff)野生の杖$() で唱えると、2 匹のクマが同時に召喚されます。野生のローブ を身に着けると、爪で犠牲者にサップを与える強力なバージョンが召喚されます。"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "goety:focus/mauling_focus"
+    },
+    {
+      "type": "patchouli:text",
+      "advancement": "minecraft:story/enter_the_nether",
+      "text": "ネザーでこのフォーカスを唱えると、クマの代わりに忠実なホグリンが呼び出されます。"
     }
   ]
 }

@@ -13,7 +13,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "minecraft:skeleton_horse"
+      "entity": "minecraft:skeleton_horse",
+      "scale": 0.75
     }
   ]
 }

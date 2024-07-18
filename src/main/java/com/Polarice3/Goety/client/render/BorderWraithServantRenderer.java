@@ -12,18 +12,18 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
-public class BorderWraithServantRenderer extends AbstractWraithRenderer {
+public class BorderWraithServantRenderer<T extends AbstractWraith> extends AbstractWraithRenderer<T> {
     protected static final ResourceLocation TEXTURE = Goety.location("textures/entity/wraith/border_wraith.png");
 
     public BorderWraithServantRenderer(EntityRendererProvider.Context renderManagerIn){
         super(renderManagerIn, new WraithModel<>(renderManagerIn.bakeLayer(ModModelLayer.WRAITH)), 0.5F);
-        this.addLayer(new GlowLayer(this));
-        this.addLayer(new WraithBandsLayer(this, renderManagerIn.getModelSet()));
-        this.addLayer(new WraithSecretLayer(this, renderManagerIn.getModelSet()));
+        this.addLayer(new GlowLayer<>(this));
+        this.addLayer(new WraithBandsLayer<>(this, renderManagerIn.getModelSet()));
+        this.addLayer(new WraithSecretLayer<>(this, renderManagerIn.getModelSet()));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(AbstractWraith entity) {
+    public ResourceLocation getTextureLocation(T entity) {
         return TEXTURE;
     }
 

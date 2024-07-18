@@ -118,8 +118,8 @@ public class AbstractZombieVindicator extends ZombieServant {
         return flag;
     }
 
-    public static class ModMeleeAttackGoal extends NeutralZombieAttackGoal {
-        public ModMeleeAttackGoal(AbstractZombieVindicator p_34123_) {
+    public static class VindicatorMeleeAttackGoal extends NeutralZombieAttackGoal {
+        public VindicatorMeleeAttackGoal(AbstractZombieVindicator p_34123_) {
             super(p_34123_, 1.0D, false);
         }
 

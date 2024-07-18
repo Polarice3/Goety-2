@@ -2,8 +2,10 @@ package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.entities.projectiles.BoneShard;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -49,8 +51,13 @@ public class BoneSpider extends Spider implements RangedAttackMob {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return SpiderServant.setCustomAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MAX_HEALTH, 32.0D);
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.BoneSpiderServantDamage.get())
+                .add(Attributes.MAX_HEALTH, AttributesConfig.BoneSpiderServantHealth.get());
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.BoneSpiderServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.BoneSpiderServantDamage.get());
     }
 
     protected void defineSynchedData() {
@@ -166,6 +173,7 @@ public class BoneSpider extends Spider implements RangedAttackMob {
         double d1 = target.getY(0.3333333333333333D) - boneShard.getY();
         double d2 = target.getZ() - this.getZ();
         double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+        boneShard.setBaseDamage(boneShard.getBaseDamage() + AttributesConfig.BoneSpiderServantRangeDamage.get());
         boneShard.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
         this.level.addFreshEntity(boneShard);
     }

@@ -9,7 +9,11 @@ import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
+
+import java.util.ArrayList;
 
 public class MiscCapHelper {
     public static IMisc getCapability(LivingEntity livingEntity) {
@@ -96,6 +100,11 @@ public class MiscCapHelper {
     public static void resetAmbientSoundTime(LivingEntity livingEntity, int interval) {
         getCapability(livingEntity).setAmbientSoundTime(getAmbientSoundTime(livingEntity) - interval);
         MiscCapHelper.sendMiscUpdatePacket(livingEntity);
+    }
+
+    public static void clearGoals(GoalSelector goalSelector) {
+        ArrayList<WrappedGoal> wrappedGoals = new ArrayList<>(goalSelector.getAvailableGoals());
+        wrappedGoals.forEach(prioritizedGoal -> goalSelector.removeGoal(prioritizedGoal.getGoal()));
     }
 
     public static CompoundTag save(CompoundTag tag, IMisc misc) {

@@ -13,7 +13,8 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "minecraft:zombie_horse"
+      "entity": "minecraft:zombie_horse",
+      "scale": 0.75
     }
   ]
 }

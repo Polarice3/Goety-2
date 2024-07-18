@@ -46,7 +46,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class BlackWolf extends Summoned{
+public class BlackWolf extends AnimalSummon{
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(BlackWolf.class, EntityDataSerializers.BOOLEAN);
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_289448_) -> {
         EntityType<?> entitytype = p_289448_.getType();
@@ -361,32 +361,34 @@ public class BlackWolf extends Summoned{
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        if (!this.level.isClientSide){
-            ItemStack itemstack = pPlayer.getItemInHand(pHand);
-            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                    FoodProperties foodProperties = itemstack.getFoodProperties(this);
-                    if (foodProperties != null){
-                        this.heal((float)foodProperties.getNutrition());
-                        if (!pPlayer.getAbilities().instabuild) {
-                            itemstack.shrink(1);
-                        }
-
-                        this.gameEvent(GameEvent.EAT, this);
-                        this.eat(this.level, itemstack);
-                        for (int i = 0; i < 7; ++i) {
-                            double d0 = this.random.nextGaussian() * 0.02D;
-                            double d1 = this.random.nextGaussian() * 0.02D;
-                            double d2 = this.random.nextGaussian() * 0.02D;
-                            this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
-                        }
-                        pPlayer.swing(pHand);
-                        return InteractionResult.CONSUME;
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                if (foodProperties != null){
+                    this.heal((float)foodProperties.getNutrition());
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
                     }
+
+                    this.gameEvent(GameEvent.EAT, this);
+                    this.eat(this.level, itemstack);
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    }
+                    pPlayer.swing(pHand);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    public boolean canFallInLove() {
+        return false;
     }
 
     @Override

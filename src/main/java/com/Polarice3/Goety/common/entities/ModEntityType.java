@@ -494,6 +494,11 @@ public class ModEntityType {
                     .sized(2.04F, 2.04F)
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<BoneSpider>> BONE_SPIDER = register("bone_spider",
+            EntityType.Builder.of(BoneSpider::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.7F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<CairnNecromancer>> CAIRN_NECROMANCER = register("cairn_necromancer",
             EntityType.Builder.of(CairnNecromancer::new, MobCategory.MONSTER)
                     .sized(0.75F, 2.4875F)
@@ -724,6 +729,11 @@ public class ModEntityType {
                     .immuneTo(Blocks.POWDER_SNOW)
                     .sized(1.4F, 1.4F)
                     .clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<HoglinServant>> HOGLIN_SERVANT = register("hoglin_servant",
+            EntityType.Builder.of(HoglinServant::new, MobCategory.MONSTER)
+                    .sized(1.3964844F, 1.4F)
+                    .clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<Whisperer>> WHISPERER = register("whisperer",
             EntityType.Builder.of(Whisperer::new, MobCategory.MONSTER)

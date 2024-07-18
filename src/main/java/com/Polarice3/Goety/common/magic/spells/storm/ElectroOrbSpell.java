@@ -77,6 +77,6 @@ public class ElectroOrbSpell extends Spell {
                 vector3d.y,
                 vector3d.z, 0.66F, 3.0F);
         worldIn.addFreshEntity(blast);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.CAST_SPELL.get(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SHOCK_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

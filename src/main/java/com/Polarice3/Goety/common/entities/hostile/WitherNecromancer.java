@@ -74,6 +74,9 @@ public class WitherNecromancer extends AbstractNecromancer implements Enemy {
         this.goalSelector.addGoal(priority, new WitherNecromancerRangedGoal(this, 1.0D, 20, 12.0F));
     }
 
+    public void avoidGoal(int priority){
+    }
+
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority + 1, new SummonServantSpell());
         this.goalSelector.addGoal(priority, new SummonFirePillarsGoal());

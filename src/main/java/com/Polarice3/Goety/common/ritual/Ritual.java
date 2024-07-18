@@ -16,9 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -27,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -94,6 +93,15 @@ public abstract class Ritual {
                        Player castingPlayer, ItemStack activationItem) {
         if (tileEntity.getCurrentRitualRecipe().getCraftType().contains("forge")){
             world.playSound(null, darkAltarPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+        }
+        if (tileEntity.getCurrentRitualRecipe().getCraftType().contains("storm")){
+            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+            lightningBolt.setVisualOnly(true);
+            lightningBolt.setPos(Vec3.atCenterOf(darkAltarPos));
+            world.addFreshEntity(lightningBolt);
+        }
+        if (tileEntity.getCurrentRitualRecipe().getRitual() instanceof EnchantItemRitual){
+            world.playSound(null, darkAltarPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         }
         world.playSound(null, darkAltarPos, ModSounds.ALTAR_FINISH.get(), SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
     }

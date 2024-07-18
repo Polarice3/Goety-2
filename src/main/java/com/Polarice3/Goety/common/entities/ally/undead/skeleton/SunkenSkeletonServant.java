@@ -86,6 +86,10 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.SunkenSkeletonServantDamage.get());
     }
 
+    public double getBaseRangeDamage(){
+        return AttributesConfig.SunkenSkeletonServantRangeDamage.get();
+    }
+
     public void reassessWeaponGoal() {
         if (!this.level.isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);
@@ -233,6 +237,7 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         harpoon.setEnchantmentEffectsFromEntity(this, pDistanceFactor);
         harpoon.setSoundEvent(SoundEvents.CROSSBOW_HIT);
         harpoon.setShotFromCrossbow(true);
+        harpoon.setBaseDamage(harpoon.getBaseDamage() + this.getArrowPower() + this.getBaseRangeDamage());
         int i = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof CrossbowItem)));
         if (i > 0) {
             harpoon.setPierceLevel((byte)i);

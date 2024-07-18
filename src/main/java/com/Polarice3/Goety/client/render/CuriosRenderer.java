@@ -31,6 +31,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.WIND_ROBE.get(), () -> new WearRenderer(render("wind_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.STORM_ROBE.get(), () -> new WearRenderer(render("storm_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
         CuriosRendererRegistry.register(ModItems.WILD_ROBE.get(), () -> new WearRenderer(render("wild_robe.png"), new DarkRobeModel(bakeLayer(ModModelLayer.DARK_ROBE))));
+        CuriosRendererRegistry.register(ModItems.IRON_CROWN.get(), () -> new WearRenderer(render("iron_crown.png"), new DarkHatModel(bakeLayer(ModModelLayer.IRON_CROWN))));
         CuriosRendererRegistry.register(ModItems.NECRO_CROWN.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CROWN))));
         CuriosRendererRegistry.register(ModItems.NECRO_CAPE.get(), () -> new WearRenderer(render("necro_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NECRO_CAPE))));
         CuriosRendererRegistry.register(ModItems.NAMELESS_CROWN.get(), () -> new WearRenderer(render("nameless_cape.png"), new NecroCapeModel<>(bakeLayer(ModModelLayer.NAMELESS_CROWN))));
@@ -52,6 +53,7 @@ public class CuriosRenderer {
         CuriosRendererRegistry.register(ModItems.AMETHYST_NECKLACE.get(), () -> new WearRenderer(render("amethyst_necklace.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.AMETHYST_NECKLACE))));
         CuriosRendererRegistry.register(ModItems.TARGETING_MONOCLE.get(), () -> new WearRenderer(render("targeting_monocle.png"), new MiscCuriosModel(bakeLayer(ModModelLayer.MONOCLE))));
         CuriosRendererRegistry.register(ModItems.GRAVE_GLOVE.get(), () -> new WearRenderer(render("grave_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
+        CuriosRendererRegistry.register(ModItems.THRASH_GLOVE.get(), () -> new WearRenderer(render("thrash_glove.png"), new GloveModel(bakeLayer(ModModelLayer.GLOVE))));
     }
 
     public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {

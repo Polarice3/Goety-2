@@ -2,7 +2,9 @@ package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -25,7 +27,13 @@ public class CaveSpiderServant extends SpiderServant{
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return SpiderServant.setCustomAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D);
+                .add(Attributes.MAX_HEALTH, AttributesConfig.CaveSpiderServantHealth.get())
+                .add(Attributes.ATTACK_DAMAGE, AttributesConfig.CaveSpiderServantDamage.get());
+    }
+
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.CaveSpiderServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.CaveSpiderServantDamage.get());
     }
 
     public boolean doHurtTarget(Entity target) {

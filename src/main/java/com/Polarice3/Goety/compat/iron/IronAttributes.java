@@ -28,6 +28,8 @@ public class IronAttributes {
     public static final Attribute EVOCATION_SPELL_POWER = getPowerAttribute("evocation");
     public static final Attribute NATURE_SPELL_POWER = getPowerAttribute("nature");
 
+    public static final Attribute MAX_MANA = getAttribute("max_mana");
+    public static final Attribute MANA_REGEN = getAttribute("mana_regen");
     public static final Attribute SUMMON_DAMAGE = getAttribute("summon_damage");
 
     private static Attribute getAttribute(String id) {

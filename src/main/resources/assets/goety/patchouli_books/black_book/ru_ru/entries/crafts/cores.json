@@ -29,5 +29,11 @@
       "type": "goety:ritual",
       "recipe": "goety:mystic_core"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:animation_core": 2,
+    "goety:hunger_core": 3,
+    "goety:wind_core": 4,
+    "goety:mystic_core": 5
+  }
 }

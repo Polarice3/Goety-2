@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.magic.spells;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
+import com.Polarice3.Goety.client.particles.ReverseShockwaveParticleOption;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Doppelganger;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -94,6 +95,9 @@ public class IllusionSpell extends Spell {
             worldIn.addFreshEntity(summonedentity);
             for (int i = 0; i < entityLiving.level.random.nextInt(10) + 10; ++i) {
                 ServerParticleUtil.smokeParticles(particleOptions, summonedentity.getX(), summonedentity.getY(), summonedentity.getZ(), worldIn);
+            }
+            if (undead){
+                worldIn.sendParticles(new ReverseShockwaveParticleOption(new ColorUtil(0x36e416), 2.0F, 0.5F, 1), summonedentity.getX(), summonedentity.getY() + 0.5F, summonedentity.getZ(), 0, 0, 0, 0, 0.5F);
             }
         }
         if (CuriosFinder.hasIllusionRobe(entityLiving)){

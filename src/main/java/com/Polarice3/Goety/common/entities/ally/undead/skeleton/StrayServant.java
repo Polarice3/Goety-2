@@ -36,6 +36,10 @@ public class StrayServant extends AbstractSkeletonServant {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.StrayServantDamage.get());
     }
 
+    public double getBaseRangeDamage(){
+        return AttributesConfig.StrayServantRangeDamage.get();
+    }
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.STRAY_AMBIENT;
     }

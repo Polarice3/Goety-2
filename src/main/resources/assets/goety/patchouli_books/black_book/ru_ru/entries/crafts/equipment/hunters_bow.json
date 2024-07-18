@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Лук можно починить на наковальне с помощью любого другого лука."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:hunters_bow": 1
+  }
 }

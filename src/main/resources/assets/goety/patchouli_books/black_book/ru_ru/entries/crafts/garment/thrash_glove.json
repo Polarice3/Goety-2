@@ -1,0 +1,18 @@
+{
+  "name": "Thrash Gloves",
+  "icon": "goety:thrash_glove",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Молоты довольно тяжелы для такого темного волшебника, как ты. К счастью, благодаря вашему опыту изготовления и ковки вы нашли способ создать пару перчаток, которые помогут вам более эффективно владеть молотами, увеличивая скорость атаки на 50%%."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrash_glove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:thrash_glove": 1
+  }
+}

@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.network.ModServerBossInfo;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.Maps;
@@ -325,7 +326,7 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
         this.deathRotation = this.getYRot();
         if (this.level instanceof ServerLevel serverLevel){
             for (Player player : serverLevel.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(32.0F))){
-                SEHelper.setRestPeriod(player, MathHelper.minecraftDayToTicks(3));
+                SEHelper.setRestPeriod(player, MathHelper.minecraftDayToTicks(MobsConfig.IllagerAssaultRestMinister.get()));
             }
         }
         super.die(p_21014_);

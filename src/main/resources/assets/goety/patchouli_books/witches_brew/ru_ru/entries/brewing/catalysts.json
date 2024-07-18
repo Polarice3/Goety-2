@@ -40,6 +40,11 @@
       "recipe": "effect.goety.flammable",
       "text": "Огонь обжигает гораздо сильнее, чем обычно! Как будто ты сделан из веток!"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.raise_dead",
+      "text": "Просыпайтесь, сонные головы! Бабуля не сможет сама донести сумки!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.bats",
@@ -204,6 +209,11 @@
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.fire_resistance"
     },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.evil_eye",
+      "text": "Сияние зла привлекает самых разных ребят. Самое то для вечеринки!"
+    },
     {
       "type": "goety:catalyst",
       "recipe": "effect.goety.brew_dye",
@@ -254,6 +264,16 @@
     {
       "type": "goety:catalyst",
       "recipe": "effect.minecraft.absorption"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_water",
+      "text": "Я позабыла свою крутящуюся вилку дома, как мне теперь пересечь это море? Ох, хорошо, что у меня с собой варево!"
+    },
+	{
+      "type": "goety:catalyst",
+      "recipe": "effect.goety.part_lava",
+      "text": "Забыла взять с собой лавомерку. Похоже, по пути мне придётся раздвигать лавовые озера!"
     },
     {
       "type": "goety:catalyst",
@@ -346,11 +366,6 @@
       "type": "goety:catalyst",
       "recipe": "effect.goety.purify_buff",
       "text": "Снимает все полезные эффекты с этих клятых детишек!"
-    },
-    {
-      "type": "goety:catalyst",
-      "recipe": "effect.goety.raise_dead",
-      "text": "Просыпайтесь сонные головы! Бабушка не может сама нести все эти сумки!"
     },
     {
       "type": "goety:catalyst",

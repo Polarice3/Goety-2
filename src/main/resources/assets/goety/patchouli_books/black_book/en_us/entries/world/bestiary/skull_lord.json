@@ -15,6 +15,12 @@
     {
       "type": "patchouli:text",
       "text": "Unfortunately for would be treasure hunters and mages, the dark master of the Crypt managed to stay bound to the material world to guard their treasure. Their heads are the source of their power and intellect and is protected whenever they reconstituted their armored yet skeletonized bodies."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:iron_crown",
+      "title": "Iron Crown",
+      "text": "The crown of the Skull Lord tends to break during the heat of combat but, should it somehow remain intact, it can provide the same boons as a regular Necro Crown."
     }
   ]
 }

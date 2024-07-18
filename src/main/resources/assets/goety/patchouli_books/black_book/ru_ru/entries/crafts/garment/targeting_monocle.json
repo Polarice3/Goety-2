@@ -11,5 +11,8 @@
       "type": "goety:ritual",
       "recipe": "goety:targeting_monocle"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:targeting_monocle": 1
+  }
 }

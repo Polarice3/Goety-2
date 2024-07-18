@@ -42,6 +42,10 @@ public class MossySkeletonServant extends AbstractSkeletonServant {
         MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.MossySkeletonServantDamage.get());
     }
 
+    public double getBaseRangeDamage(){
+        return AttributesConfig.MossySkeletonServantRangeDamage.get();
+    }
+
     protected SoundEvent getAmbientSound() {
         return ModSounds.MOSSY_SKELETON_AMBIENT.get();
     }

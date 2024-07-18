@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.blocks.entities.PithosBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.SkullLord;
+import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
@@ -80,9 +82,11 @@ public class PithosBlock extends BaseEntityBlock {
                     SkullLord skullLord = ModEntityType.SKULL_LORD.get().create(pLevel);
                     if (skullLord != null){
                         skullLord.setBoundOrigin(pPos);
-                        skullLord.setPos(pPos.getX(), pPos.getY() + 1.0F, pPos.getZ());
-                        pLevel.playSound(null, pPos , SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1.0F, 1.0F);
-                        pLevel.addFreshEntity(skullLord);
+                        BlockPos blockPos = BlockPos.containing(pPos.getX(), pPos.getY() + 1.0F, pPos.getZ());
+                        Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+                        skullLord.setPos(vec3.x, vec3.y, vec3.z);
+                        SummonCircleBoss summonCircleBoss = new SummonCircleBoss(pLevel, vec3, skullLord);
+                        pLevel.addFreshEntity(summonCircleBoss);
                     }
                     pLevel.setBlock(pPos, pState.setValue(TRIGGERED, Boolean.TRUE), 4);
                 }
