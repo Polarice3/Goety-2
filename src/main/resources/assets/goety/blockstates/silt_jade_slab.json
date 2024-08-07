@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/silt_jade_slab"
+    },
+    "type=double": {
+      "model": "goety:block/silt_jade_tiles"
+    },
+    "type=top": {
+      "model": "goety:block/silt_jade_slab_top"
+    }
+  }
+}

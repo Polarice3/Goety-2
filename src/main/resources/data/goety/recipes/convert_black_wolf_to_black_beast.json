@@ -1,0 +1,36 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_complete_tamed",
+  "activation_item": {
+    "item": "goety:spirit_fabric"
+  },
+  "craftType": "animation",
+  "entity_to_convert": {
+    "tag": "goety:black_wolves",
+    "display_name": "entity.goety.black_wolf"
+  },
+  "entity_to_convert_into": "goety:black_beast",
+  "soulCost": 5,
+  "duration": 30,
+  "research": "haunting",
+  "ingredients": [
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "item": "goety:savage_tooth"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "goety:ectoplasm"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

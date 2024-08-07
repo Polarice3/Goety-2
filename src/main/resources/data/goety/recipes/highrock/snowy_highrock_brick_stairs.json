@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "goety:snowy_highrock_bricks"
+    }
+  },
+  "result": {
+    "item": "goety:snowy_highrock_brick_stairs",
+    "count": 4
+  }
+}

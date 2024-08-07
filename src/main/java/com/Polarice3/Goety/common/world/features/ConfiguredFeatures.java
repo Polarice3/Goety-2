@@ -24,22 +24,22 @@ import java.util.OptionalInt;
 public class ConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_HAUNTED_TREE =
-            FeatureUtils.register("haunted_tree_sapling", Feature.TREE, createHaunted().ignoreVines().build());
+            FeatureUtils.register("goety:haunted_tree_sapling", Feature.TREE, createHaunted().ignoreVines().build());
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_ROTTEN_TREE =
-            FeatureUtils.register("rotten_tree_sapling", Feature.TREE, createRotten().ignoreVines().build());
+            FeatureUtils.register("goety:rotten_tree_sapling", Feature.TREE, createRotten().ignoreVines().build());
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAPLING_FANCY_ROTTEN_TREE =
-            FeatureUtils.register("fancy_rotten_tree_sapling", Feature.TREE, createFancyRotten().build());
+            FeatureUtils.register("goety:fancy_rotten_tree_sapling", Feature.TREE, createFancyRotten().build());
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> WINDSWEPT_TREE =
-            FeatureUtils.register("windswept_tree", Feature.TREE, createWindswept().build());
+            FeatureUtils.register("goety:windswept_tree", Feature.TREE, createWindswept().build());
 
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> WINDSWEPT_TREE_2 =
-            FeatureUtils.register("second_windswept_tree", Feature.TREE, createWindswept2().build());
+            FeatureUtils.register("goety:second_windswept_tree", Feature.TREE, createWindswept2().build());
 
     public static final Holder<ConfiguredFeature<SimpleBlockConfiguration, ?>> CORPSE_BLOSSOM =
-            FeatureUtils.register("corpse_blossom", Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CORPSE_BLOSSOM.get())));
+            FeatureUtils.register("goety:corpse_blossom", Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CORPSE_BLOSSOM.get())));
 
     private static TreeConfiguration.TreeConfigurationBuilder createHaunted() {
         return (new TreeConfiguration

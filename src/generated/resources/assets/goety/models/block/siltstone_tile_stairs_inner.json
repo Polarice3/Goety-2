@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "goety:block/siltstone_tiles",
+    "side": "goety:block/siltstone_tiles",
+    "top": "goety:block/siltstone_tiles"
+  }
+}

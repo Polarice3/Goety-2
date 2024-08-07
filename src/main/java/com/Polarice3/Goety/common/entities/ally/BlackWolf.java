@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -18,6 +19,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,12 +39,14 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
@@ -81,7 +85,7 @@ public class BlackWolf extends AnimalSummon{
             }
         });
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D));
         this.goalSelector.addGoal(9, new BegGoal(this, 8.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
@@ -173,6 +177,17 @@ public class BlackWolf extends AnimalSummon{
         return 0.4F;
     }
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (pReason == MobSpawnType.MOB_SUMMONED && this.getTrueOwner() != null){
+            ServerParticleUtil.addParticlesAroundMiddleSelf(pLevel.getLevel(), ParticleTypes.LARGE_SMOKE, this);
+            ColorUtil color = new ColorUtil(0);
+            ServerParticleUtil.windParticle(pLevel.getLevel(), color, 1.0F, 0.0F, this.getId(), this.position());
+        }
+        return pSpawnData;
+    }
+
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide && this.isWet && !this.isShaking && !this.isPathFinding() && this.isOnGround()) {
@@ -241,7 +256,7 @@ public class BlackWolf extends AnimalSummon{
         if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
-                    if (this.getTarget() instanceof Mob mob && (mob.getTarget() == null || mob.getTarget().isDeadOrDying())) {
+                    if (this.getTarget() instanceof Mob mob && (mob.getTarget() != this || mob.getTarget().isDeadOrDying())) {
                         if (!this.isInvisible()) {
                             if (this.invisibleCool > 0) {
                                 mob.setTarget(this);

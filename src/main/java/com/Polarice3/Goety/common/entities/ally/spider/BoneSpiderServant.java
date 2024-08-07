@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.common.entities.ally.spider;
 
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BoneShard;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -35,7 +34,7 @@ public class BoneSpiderServant extends SpiderServant implements RangedAttackMob 
     public int attackAnim;
     public AnimationState attackAnimationState = new AnimationState();
 
-    public BoneSpiderServant(EntityType<? extends Owned> type, Level worldIn) {
+    public BoneSpiderServant(EntityType<? extends SpiderServant> type, Level worldIn) {
         super(type, worldIn);
     }
 

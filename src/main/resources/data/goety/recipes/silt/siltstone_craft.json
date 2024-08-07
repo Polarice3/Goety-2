@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "sts",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "tag": "forge:sandstone"
+    },
+    "t":
+    {
+      "tag": "goety:totems"
+    }
+  },
+  "result":
+  {
+    "item": "goety:siltstone",
+    "count": 8
+  }
+}

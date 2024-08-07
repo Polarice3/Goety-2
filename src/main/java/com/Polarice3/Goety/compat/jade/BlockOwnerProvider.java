@@ -5,7 +5,6 @@ import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,10 +48,6 @@ public enum BlockOwnerProvider implements IBlockComponentProvider, IServerDataPr
     @Override
     public void appendServerData(CompoundTag compoundTag, ServerPlayer serverPlayer, Level level, BlockEntity blockEntity, boolean b) {
         if (blockEntity.getLevel() == null){
-            return;
-        }
-        MinecraftServer server = blockEntity.getLevel().getServer();
-        if (server == null) {
             return;
         }
         UUID ownerUUID = null;

@@ -211,6 +211,9 @@ public class ObsidianMonolith extends AbstractMonolith implements Enemy {
                 if (apostle.isDeadOrDying()){
                     this.silentDie(DamageSource.STARVE);
                 }
+                if (!this.hasLineOfSight(apostle)){
+                    this.teleportTowards(apostle);
+                }
                 apostle.obsidianInvul = 10;
                 if (apostle.getTarget() != null){
                     if (apostle.getTarget().distanceTo(this) <= 4.0D){

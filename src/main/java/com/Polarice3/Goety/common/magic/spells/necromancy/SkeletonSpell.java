@@ -155,7 +155,10 @@ public class SkeletonSpell extends SummonSpell {
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 this.SummonSap(entityLiving, summonedentity);
                 this.setTarget(entityLiving, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
+                if (worldIn.addFreshEntity(summonedentity)) {
+                    ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+                    ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                }
                 this.summonAdvancement(entityLiving, summonedentity);
             }
             this.SummonDown(entityLiving);

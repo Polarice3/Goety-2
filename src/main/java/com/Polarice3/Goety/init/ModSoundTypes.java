@@ -12,4 +12,11 @@ public class ModSoundTypes {
             () -> SoundEvents.GLASS_HIT,
             () -> SoundEvents.GLASS_FALL);
 
+    public static final SoundType MOD_METAL = new ForgeSoundType(1.0F, 1.0F,
+            () -> SoundEvents.METAL_BREAK,
+            () -> SoundEvents.SNOW_GOLEM_AMBIENT,
+            () -> SoundEvents.METAL_PLACE,
+            () -> SoundEvents.METAL_HIT,
+            () -> SoundEvents.ZOMBIE_ATTACK_IRON_DOOR);
+
 }

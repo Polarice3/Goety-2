@@ -551,7 +551,7 @@ public class SlimeServant extends Summoned{
                 return false;
             } else if (this.slime.distanceToSqr(livingentity) < (double)(Mth.square(this.startDistance))) {
                 return false;
-            } else if (this.slime.isWandering() || this.slime.isStaying() || this.slime.isCommanded()) {
+            } else if (!this.slime.isFollowing() || this.slime.isCommanded()) {
                 return false;
             } else if (this.slime.getTarget() != null) {
                 return false;

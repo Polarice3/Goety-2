@@ -72,12 +72,14 @@ public class SwarmSpell extends BreathingSpell {
             for (Entity target : getBreathTarget(entityLiving, range + 15)) {
                 if (target != null) {
                     if (target.hurt(ModDamageSource.swarm(entityLiving, entityLiving), damage)){
-                        if (target instanceof LivingEntity livingTarget){
-                            MobEffect mobEffect = MobEffects.POISON;
-                            if (CuriosFinder.hasWildRobe(entityLiving)){
-                                mobEffect = GoetyEffects.ACID_VENOM.get();
+                        if (rightStaff(staff)) {
+                            if (target instanceof LivingEntity livingTarget) {
+                                MobEffect mobEffect = MobEffects.POISON;
+                                if (CuriosFinder.hasWildRobe(entityLiving)) {
+                                    mobEffect = GoetyEffects.ACID_VENOM.get();
+                                }
+                                livingTarget.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5) * duration));
                             }
-                            livingTarget.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5) * duration));
                         }
                         if (!target.isAlive()){
                             InsectSwarm insectSwarm = new InsectSwarm(worldIn, entityLiving, target.position());
@@ -86,17 +88,6 @@ public class SwarmSpell extends BreathingSpell {
                                 insectSwarm.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), enchantment - 1, false, false));
                             }
                             worldIn.addFreshEntity(insectSwarm);
-                        }
-                    }
-                }
-            }
-            if (rightStaff(staff)){
-                ServerParticleUtil.addParticlesAroundMiddleSelf(worldIn, ModParticleTypes.FLY.get(), entityLiving);
-                for (LivingEntity nearby : worldIn.getEntitiesOfClass(LivingEntity.class, entityLiving.getBoundingBox().inflate(1.0F), entity -> entityLiving != entity && !MobUtil.areAllies(entityLiving, entity))){
-                    if (nearby.isAlive()){
-                        if (nearby.hurt(ModDamageSource.swarm(entityLiving, entityLiving), 0.5F)) {
-                            entityLiving.playSound(ModSounds.INSECT_SWARM_BITE.get(), 1.0F, entityLiving.getVoicePitch());
-                            nearby.invulnerableTime = 15;
                         }
                     }
                 }

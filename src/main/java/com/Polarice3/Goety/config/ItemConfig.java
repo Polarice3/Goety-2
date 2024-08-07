@@ -108,6 +108,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRobeWitchNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherRobeWitchNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepair;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SoulRepairEnchant;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FirstPersonGloves;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowRobeHoods;
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
@@ -119,6 +120,8 @@ public class ItemConfig {
         BUILDER.push("General");
         SoulRepair = BUILDER.comment("Certain Items repair themselves using Soul Energy, Default: true")
                 .define("soulRepair", true);
+        SoulRepairEnchant = BUILDER.comment("If soulRepair is enabled, the cost of Soul Energy multiplies per item's enchantments, Default: true")
+                .define("soulRepairEnchant", true);
         CraftingSouls = BUILDER.comment("How much Souls is consumed when crafting with Totem, Default: 1")
                 .defineInRange("craftSouls", 1, 0, Integer.MAX_VALUE);
         ItemsRepairAmount = BUILDER.comment("Amount of Souls needed to repair certain Equipments per second, Default: 5")

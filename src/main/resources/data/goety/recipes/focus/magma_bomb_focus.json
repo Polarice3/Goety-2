@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:fireball_focus"
+    "item": "goety:animation_core"
   },
   "craftType": "adept_nether",
   "soulCost": 1,
@@ -15,10 +15,7 @@
       "item": "minecraft:tnt"
     },
     {
-      "item": "goety:animation_core"
-    },
-    {
-      "item": "minecraft:tnt"
+      "tag": "minecraft:coals"
     },
     {
       "item": "minecraft:piston"

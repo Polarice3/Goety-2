@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#S",
+    "S#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:siltstone_pillar"
+    },
+    "S":
+    {
+      "item": "minecraft:snowball"
+    }
+  },
+  "result":
+  {
+    "item": "goety:snowy_siltstone_pillar",
+    "count": 2
+  }
+}

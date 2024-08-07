@@ -2139,6 +2139,90 @@
     ],
     "subtitle": "subtitle.goety.iceologer_death"
   },
+  "black_beast_ambient": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/idle1"
+      },
+      {
+        "name": "goety:black_beast/idle2"
+      },
+      {
+        "name": "goety:black_beast/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_ambient"
+  },
+  "black_beast_hurt": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/hurt1"
+      },
+      {
+        "name": "goety:black_beast/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_hurt"
+  },
+  "black_beast_roar": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/roar1"
+      },
+      {
+        "name": "goety:black_beast/roar2"
+      },
+      {
+        "name": "goety:black_beast/roar3"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_roar"
+  },
+  "black_beast_claw": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/claw1"
+      },
+      {
+        "name": "goety:black_beast/claw2"
+      },
+      {
+        "name": "goety:black_beast/claw3"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_claw"
+  },
+  "black_beast_step": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/step1"
+      },
+      {
+        "name": "goety:black_beast/step2"
+      },
+      {
+        "name": "goety:black_beast/step3"
+      },
+      {
+        "name": "goety:black_beast/step4"
+      },
+      {
+        "name": "goety:black_beast/step5"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_step"
+  },
+  "black_beast_death": {
+    "sounds": [
+      {
+        "name": "goety:black_beast/death1"
+      },
+      {
+        "name": "goety:black_beast/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.black_beast_death"
+  },
   "whisperer_ambient": {
     "sounds": [
       {
@@ -4745,6 +4829,15 @@
       }
     ],
     "subtitle": "subtitle.goety.spell_fail"
+  },
+  "doom": {
+    "sounds": [
+      {
+        "name": "goety:item/gong_curse",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitle.goety.doom"
   },
   "scythe_swing": {
     "sounds": [

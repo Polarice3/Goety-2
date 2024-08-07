@@ -26,7 +26,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -36,6 +35,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
@@ -54,14 +54,12 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 public class Summoned extends Owned implements IServant {
     protected static final EntityDataAccessor<Byte> SUMMONED_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
     protected static final EntityDataAccessor<Byte> UPGRADE_FLAGS = SynchedEntityData.defineId(Summoned.class, EntityDataSerializers.BYTE);
-    private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("9c47949c-b896-4802-8e8a-f08c50791a8a");
-    private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Staying speed penalty", -1.0D, AttributeModifier.Operation.ADDITION);
+    public static int PATROL_RANGE = MobsConfig.ServantPatrolRange.get();
     public LivingEntity commandPosEntity;
     public BlockPos commandPos;
     public BlockPos boundPos;
@@ -151,6 +149,9 @@ public class Summoned extends Owned implements IServant {
                         }
                         this.commandPosEntity = null;
                     }
+                    if (this.isPatrolling()){
+                        this.setBoundPos(this.commandPos);
+                    }
                     this.moveTo(this.commandPos, this.getYRot(), this.getXRot());
                     this.commandPos = null;
                 }
@@ -158,9 +159,22 @@ public class Summoned extends Owned implements IServant {
                 this.commandPos = null;
             }
         }
-        if (this.isWandering()){
+        if (this.isWandering() || this.isPatrolling()){
             if (this.isStaying()) {
                 this.setStaying(false);
+            }
+        }
+        if (this.isPatrolling()){
+            if (this.getTarget() != null){
+                if (this.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                    this.setTarget(null);
+                    if (!this.isCommanded()){
+                        this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
+                    }
+                }
+            }
+            if (!this.isCommanded() && this.distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
             }
         }
         if (this.getTrueOwner() != null){
@@ -288,6 +302,20 @@ public class Summoned extends Owned implements IServant {
         }
     }
 
+    public void setTarget(@Nullable LivingEntity p_21544_) {
+        if (this.isPatrolling()){
+            if (p_21544_ != null) {
+                if (p_21544_.distanceToSqr(this.vec3BoundPos()) <= Mth.square(PATROL_RANGE)) {
+                    super.setTarget(p_21544_);
+                }
+            } else {
+                super.setTarget(null);
+            }
+        } else {
+            super.setTarget(p_21544_);
+        }
+    }
+
     protected boolean isSunSensitive() {
         return false;
     }
@@ -303,6 +331,7 @@ public class Summoned extends Owned implements IServant {
         }
         this.setWandering(this.getTrueOwner() == null);
         this.setStaying(false);
+        this.setBoundPos(null);
         return pSpawnData;
     }
 
@@ -403,6 +432,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void setFollowing(){
+        this.setBoundPos(null);
         this.setWandering(false);
         this.setStaying(false);
     }
@@ -456,15 +486,23 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void updateMoveMode(Player player){
-        if (!this.isWandering() && !this.isStaying()){
+        if (!this.isWandering() && !this.isStaying() && !this.isPatrolling()){
+            this.setBoundPos(null);
             this.setWandering(true);
             this.setStaying(false);
             player.displayClientMessage(Component.translatable("info.goety.servant.wander", this.getDisplayName()), true);
-        } else if (!this.isStaying()){
+        } else if (!this.isStaying() && !this.isPatrolling()){
+            this.setBoundPos(null);
             this.setWandering(false);
             this.setStaying(true);
             player.displayClientMessage(Component.translatable("info.goety.servant.staying", this.getDisplayName()), true);
+        } else if (!this.isPatrolling()){
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
+            player.displayClientMessage(Component.translatable("info.goety.servant.patrol", this.getDisplayName()), true);
         } else {
+            this.setBoundPos(null);
             this.setWandering(false);
             this.setStaying(false);
             player.displayClientMessage(Component.translatable("info.goety.servant.follow", this.getDisplayName()), true);
@@ -523,6 +561,10 @@ public class Summoned extends Owned implements IServant {
         this.boundPos = blockPos;
     }
 
+    public Vec3 vec3BoundPos(){
+        return Vec3.atBottomCenterOf(this.boundPos);
+    }
+
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){
         if (this.getEquipmentDropChance(equipmentSlot) > 0.0F) {
             this.spawnAtLocation(stack);
@@ -542,8 +584,8 @@ public class Summoned extends Owned implements IServant {
         this.kill();
     }
 
-    public static class FollowOwnerGoal extends Goal {
-        private final Summoned summonedEntity;
+    public static class FollowOwnerGoal<T extends Mob & IServant> extends Goal {
+        private final T summonedEntity;
         private LivingEntity owner;
         private final LevelReader level;
         private final double followSpeed;
@@ -553,7 +595,7 @@ public class Summoned extends Owned implements IServant {
         private final float startDistance;
         private float oldWaterCost;
 
-        public FollowOwnerGoal(Summoned summonedEntity, double speed, float startDistance, float stopDistance) {
+        public FollowOwnerGoal(T summonedEntity, double speed, float startDistance, float stopDistance) {
             this.summonedEntity = summonedEntity;
             this.level = summonedEntity.level;
             this.followSpeed = speed;
@@ -574,7 +616,7 @@ public class Summoned extends Owned implements IServant {
                 return false;
             } else if (this.summonedEntity.distanceToSqr(livingentity) < (double)(Mth.square(this.startDistance))) {
                 return false;
-            } else if (this.summonedEntity.isWandering() || this.summonedEntity.isStaying() || this.summonedEntity.isCommanded()) {
+            } else if (!this.summonedEntity.isFollowing() || this.summonedEntity.isCommanded()) {
                 return false;
             } else if (this.summonedEntity.getTarget() != null) {
                 return false;
@@ -706,7 +748,7 @@ public class Summoned extends Owned implements IServant {
                 return false;
             } else if (this.summonedEntity.distanceToSqr(livingentity) < (double)(this.minDist * this.minDist)) {
                 return false;
-            } else if (this.summonedEntity.isWandering() || this.summonedEntity.isStaying()) {
+            } else if (!this.summonedEntity.isFollowing()) {
                 return false;
             } else if (this.summonedEntity.getTarget() != null) {
                 return false;
@@ -815,25 +857,37 @@ public class Summoned extends Owned implements IServant {
         }
     }
 
-    public class WanderGoal extends RandomStrollGoal {
+    public static class WanderGoal<T extends PathfinderMob & IServant> extends RandomStrollGoal {
+        private final T summonedEntity;
         protected final float probability;
 
-        public WanderGoal(PathfinderMob p_i47301_1_, double p_i47301_2_) {
+        public WanderGoal(T p_i47301_1_, double p_i47301_2_) {
             this(p_i47301_1_, p_i47301_2_, 0.001F);
         }
 
-        public WanderGoal(PathfinderMob entity, double speedModifier, float probability) {
+        public WanderGoal(T entity, double speedModifier, float probability) {
             this(entity, speedModifier, 120, probability);
         }
 
-        public WanderGoal(PathfinderMob entity, double speedModifier, int interval, float probability) {
+        public WanderGoal(T entity, double speedModifier, int interval, float probability) {
             super(entity, speedModifier, interval, false);
+            this.summonedEntity = entity;
             this.probability = probability;
+        }
+
+        public boolean canUse() {
+            if (super.canUse()){
+                return (!this.summonedEntity.isStaying() && !this.summonedEntity.isCommanded() || this.summonedEntity.getTrueOwner() == null) && !(this.summonedEntity.getNavigation() instanceof WaterBoundPathNavigation);
+            } else {
+                return false;
+            }
         }
 
         @Nullable
         protected Vec3 getPosition() {
-            if (this.mob.isInWaterOrBubble()) {
+            if (this.summonedEntity.isPatrolling()){
+                return randomBoundPos();
+            } else if (this.mob.isInWaterOrBubble()) {
                 Vec3 vec3 = LandRandomPos.getPos(this.mob, 15, 7);
                 return vec3 == null ? super.getPosition() : vec3;
             } else {
@@ -841,19 +895,66 @@ public class Summoned extends Owned implements IServant {
             }
         }
 
-        public boolean canUse() {
-            if (super.canUse()){
-                return (!Summoned.this.isStaying() && !Summoned.this.isCommanded() || Summoned.this.getTrueOwner() == null) && !(Summoned.this.getNavigation() instanceof WaterBoundPathNavigation);
-            } else {
-                return false;
+        public Vec3 randomBoundPos(){
+            Vec3 vec3 = null;
+            int range = PATROL_RANGE / 2;
+
+            for (int i = 0; i < 10; ++i){
+                BlockPos blockPos = this.summonedEntity.getBoundPos()
+                        .offset(this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range),
+                                this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range),
+                                this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range));
+                BlockPos blockPos1 = LandRandomPos.movePosUpOutOfSolid(this.summonedEntity, blockPos);
+                if (blockPos1 != null){
+                    vec3 = Vec3.atBottomCenterOf(blockPos1);
+                    break;
+                }
             }
+
+            return vec3;
         }
     }
 
-    public class WaterWanderGoal extends RandomStrollGoal {
+    public class WaterWanderGoal<T extends PathfinderMob & IServant> extends RandomStrollGoal {
+        private final T summonedEntity;
 
-        public WaterWanderGoal(PathfinderMob p_i47301_1_) {
-            super(p_i47301_1_, 1.0D);
+        public WaterWanderGoal(T entity) {
+            super(entity, 1.0D);
+            this.summonedEntity = entity;
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            if (this.summonedEntity.isPatrolling()){
+                return randomBoundPos();
+            }
+            return super.getPosition();
+        }
+
+        public Vec3 randomBoundPos(){
+            Vec3 vec3 = null;
+            int range = PATROL_RANGE / 2;
+
+            for (int i = 0; i < 10; ++i){
+                BlockPos blockPos = this.summonedEntity.getBoundPos()
+                        .offset(this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range),
+                                this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range),
+                                this.summonedEntity.getRandom().nextIntBetweenInclusive(-range, range));
+                if (this.summonedEntity.getNavigation() instanceof WaterBoundPathNavigation){
+                    if (GoalUtils.isWater(this.summonedEntity, blockPos)){
+                        vec3 = Vec3.atBottomCenterOf(blockPos);
+                        break;
+                    }
+                } else {
+                    BlockPos blockPos1 = LandRandomPos.movePosUpOutOfSolid(this.summonedEntity, blockPos);
+                    if (blockPos1 != null){
+                        vec3 = Vec3.atBottomCenterOf(blockPos1);
+                        break;
+                    }
+                }
+            }
+
+            return vec3;
         }
 
         public boolean canUse() {
@@ -952,51 +1053,6 @@ public class Summoned extends Owned implements IServant {
 
         public boolean canUse() {
             return super.canUse() && this.summoned.isNatural() && this.summoned.getTrueOwner() == null && this.target != null;
-        }
-    }
-
-    public static class PatrolGoal extends Goal {
-        private final Summoned mob;
-        private double wantedX;
-        private double wantedY;
-        private double wantedZ;
-        private final double speedModifier;
-
-        public PatrolGoal(Summoned p_i48910_1_, double p_i48910_2_) {
-            this.mob = p_i48910_1_;
-            this.speedModifier = p_i48910_2_;
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            if (!this.mob.isStaying()
-                    && !this.mob.isWandering()
-                    && !this.mob.isFollowing()
-                    && !this.mob.isCommanded()){
-                Vec3 vector3d = this.getPatrolPos();
-                this.wantedX = vector3d.x;
-                this.wantedY = vector3d.y;
-                this.wantedZ = vector3d.z;
-                return true;
-            }
-            return false;
-        }
-
-        public boolean canContinueToUse() {
-            return !this.mob.getNavigation().isDone();
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
-        }
-
-        private Vec3 getPatrolPos() {
-            RandomSource random = this.mob.getRandom();
-            double d0 = (this.mob.getX() + (random.nextDouble() - 0.5D) * 16);
-            double d1 = (this.mob.getY() + (random.nextInt(16) - 8));
-            double d2 = (this.mob.getZ() + (random.nextDouble() - 0.5D) * 16);
-            return new Vec3(d0, d1, d2);
         }
     }
 }

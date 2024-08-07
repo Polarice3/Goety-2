@@ -68,6 +68,8 @@ public class MainConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnableNightBeacon;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RitualEnchants;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RitualCraftEnchant;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> RitualCraftDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilCap;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilTakePoints;
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
@@ -80,6 +82,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichEnable;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichSoulHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichSmite;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> LichArcaRemove;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichNightVision;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichDamageHelmet;
     public static final ForgeConfigSpec.ConfigValue<Boolean> LichUndeadFriends;
@@ -153,6 +156,10 @@ public class MainConfig {
                 .define("enableNightBeacon", true);
         RitualEnchants = BUILDER.comment("Whether enchanting through Rituals are enabled, Default: true")
                 .define("ritualEnchants", true);
+        RitualCraftEnchant = BUILDER.comment("Whether creating items through Rituals will transfer enchantments from the original item, Default: true")
+                .define("ritualCraftEnchant", true);
+        RitualCraftDamage = BUILDER.comment("Whether creating items through Rituals will transfer damage from the original item, Default: false")
+                .define("ritualCraftDamage", false);
         DarkAnvilRepairCost = BUILDER.comment("Maximum level of experience the Dark Anvil will stick to instead of capping if Cap is disabled, Default: 30")
                 .defineInRange("darkAnvilRepairCost", 30, 1, Integer.MAX_VALUE);
         DarkAnvilCap = BUILDER.comment("Whether Dark Anvils have a cap that prevents items from being repaired or enchanted if repair cost is exceeded, Default: false")
@@ -209,6 +216,8 @@ public class MainConfig {
                 .define("lichSoulHeal", true);
         LichSmite = BUILDER.comment("Enable Liches healing be stunted when hurt by Smite Enchantment, Default: true")
                 .define("lichSmite", true);
+        LichArcaRemove = BUILDER.comment("Whether players lose their lichdom if their Arca is removed, Default: true")
+                .define("lichArcaRemove", true);
         LichHealCost = BUILDER.comment("How much Soul Energy is cost to heal the Player per configured second if they've become a Lich, Default: 5")
                 .defineInRange("lichHealCost", 5, 0, Integer.MAX_VALUE);
         LichHealSeconds = BUILDER.comment("How many seconds until Lich Players heals using Soul Energy, Default: 1")

@@ -69,7 +69,7 @@ public class SunkenSkeletonServant extends AbstractSkeletonServant implements Cr
         this.goalSelector.addGoal(1, new GoToWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
-        this.goalSelector.addGoal(7, new WaterWanderGoal(this));
+        this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

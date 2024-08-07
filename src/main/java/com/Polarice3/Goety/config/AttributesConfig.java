@@ -153,6 +153,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> HoglinServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackBeastDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> WhispererDamage;
@@ -586,6 +589,14 @@ public class AttributesConfig {
                         .defineInRange("hoglinServantArmor", 0.0, 0.0, Double.MAX_VALUE);
                 HoglinServantDamage = BUILDER.comment("How much damage Hoglin Servants melee attack deals, Default: 6.0")
                         .defineInRange("hoglinServantDamage", 6.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Black Beast");
+                BlackBeastHealth = BUILDER.comment("How much Max Health Black Beasts have, Default: 75.0")
+                        .defineInRange("blackBeastHealth", 75.0, 1.0, Double.MAX_VALUE);
+                BlackBeastArmor = BUILDER.comment("How much natural Armor Black Beasts have, Default: 0.0")
+                        .defineInRange("blackBeastArmor", 0.0, 0.0, Double.MAX_VALUE);
+                BlackBeastDamage = BUILDER.comment("How much damage Black Beasts melee attack deals, Default: 8.0")
+                        .defineInRange("blackBeastDamage", 8.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Whisperer");
                 WhispererHealth = BUILDER.comment("How much Max Health Whisperers have, Default: 20.0")

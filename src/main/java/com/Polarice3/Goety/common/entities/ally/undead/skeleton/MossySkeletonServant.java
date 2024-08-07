@@ -12,9 +12,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -79,19 +77,6 @@ public class MossySkeletonServant extends AbstractSkeletonServant {
     @Override
     public SoundEvent getShootSound() {
         return ModSounds.MOSSY_SKELETON_SHOOT.get();
-    }
-
-    public boolean doHurtTarget(Entity pEntity) {
-        boolean flag = super.doHurtTarget(pEntity);
-        if (flag && pEntity instanceof LivingEntity livingEntity) {
-            MobEffect mobEffect = MobEffects.POISON;
-            if (CuriosFinder.hasWildRobe(this.getTrueOwner())){
-                mobEffect = GoetyEffects.ACID_VENOM.get();
-            }
-            livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(5)), this);
-        }
-
-        return flag;
     }
 
     protected AbstractArrow getMobArrow(ItemStack pArrowStack, float pDistanceFactor) {

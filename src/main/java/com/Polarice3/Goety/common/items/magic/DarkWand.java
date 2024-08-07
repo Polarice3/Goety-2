@@ -131,7 +131,7 @@ public class DarkWand extends Item implements IWand {
     }
 
     public int SoulUse(LivingEntity entityLiving, ItemStack stack){
-        if (IWand.getFocus(stack).isEnchanted()){
+        if (IWand.getFocus(stack).isEnchanted() && SpellConfig.EnchantMultiCost.get()){
             return (int) (SoulCost(stack) * 2 * SEHelper.soulDiscount(entityLiving));
         } else {
             return (int) (SoulCost(stack) * SEHelper.soulDiscount(entityLiving));
@@ -331,9 +331,9 @@ public class DarkWand extends Item implements IWand {
                 }
             } else if (this.getSpell(stack) instanceof IBlockSpell blockSpells){
                 if (player.level instanceof ServerLevel serverLevel) {
-                    if (blockSpells.rightBlock(serverLevel, player, blockpos)) {
+                    if (blockSpells.rightBlock(serverLevel, player, blockpos, pContext.getClickedFace())) {
                         if (this.canCastTouch(stack, level, player)) {
-                            blockSpells.blockResult(serverLevel, player, blockpos);
+                            blockSpells.blockResult(serverLevel, player, blockpos, pContext.getClickedFace());
                         }
                         return InteractionResult.SUCCESS;
                     }
@@ -376,9 +376,9 @@ public class DarkWand extends Item implements IWand {
             } else {
                 if (this.getSpell(stack) instanceof IChargingSpell spell
                         && spell.defaultCastUp() > 0){
-                    this.useParticles(worldIn, livingEntityIn, this.getSpell(stack));
+                    this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
                 } else if (!(this.getSpell(stack) instanceof IChargingSpell)) {
-                    this.useParticles(worldIn, livingEntityIn, this.getSpell(stack));
+                    this.useParticles(worldIn, livingEntityIn, stack, this.getSpell(stack));
                 }
             }
             if (this.getSpell(stack) instanceof IChargingSpell spell) {
@@ -469,16 +469,10 @@ public class DarkWand extends Item implements IWand {
 
     }
 
-    public void useParticles(Level worldIn, LivingEntity livingEntity, ISpell iSpell){
-        double d0 = worldIn.random.nextGaussian() * 0.2D;
-        double d1 = worldIn.random.nextGaussian() * 0.2D;
-        double d2 = worldIn.random.nextGaussian() * 0.2D;
+    public void useParticles(Level worldIn, LivingEntity livingEntity, ItemStack stack, ISpell iSpell){
         if (iSpell != null){
-            d0 = iSpell.particleColors(livingEntity).red();
-            d1 = iSpell.particleColors(livingEntity).green();
-            d2 = iSpell.particleColors(livingEntity).blue();
+            iSpell.useParticle(worldIn, livingEntity, stack);
         }
-        worldIn.addParticle(ParticleTypes.ENTITY_EFFECT, livingEntity.getX(), livingEntity.getBoundingBox().maxY + 0.5D, livingEntity.getZ(), d0, d1, d2);
     }
 
     public void setSpellConditions(@Nullable ISpell spell, ItemStack stack, LivingEntity livingEntity){

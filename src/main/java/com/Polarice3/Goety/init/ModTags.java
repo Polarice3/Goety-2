@@ -55,6 +55,8 @@ public class ModTags {
         public static final TagKey<Item> WANDS = tag("wands");
         public static final TagKey<Item> STAFFS = tag("staffs");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
+        public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
+        public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");
         public static final TagKey<Item> LICH_WITHER_ITEMS = tag("lich_wither_items");
         public static final TagKey<Item> RESPAWN_BOSS = tag("respawn_boss");
         public static final TagKey<Item> WITCH_CURRENCY = tag("witch_currency");
@@ -106,7 +108,9 @@ public class ModTags {
 
         public static final TagKey<Biome> COMMON_BLACKLIST = tag("mob_spawn/common_blacklist");
         public static final TagKey<Biome> WRAITH_SPAWN = tag("mob_spawn/wraith");
+        public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
+        public static final TagKey<Biome> WARLOCK_EXCLUDE_SPAWN = tag("mob_spawn/warlock_exclude");
 
         public static final TagKey<Biome> ABYSS_DISCOUNT = tag("spell_discount/abyss");
         public static final TagKey<Biome> FROST_DISCOUNT = tag("spell_discount/frost");

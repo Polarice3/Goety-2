@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.entities.projectiles;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.arguments.ParticleArgument;
@@ -16,12 +17,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.entity.PartEntity;
 
 public abstract class AbstractSpellCloud extends SpellEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(AbstractSpellCloud.class, EntityDataSerializers.FLOAT);
@@ -124,19 +123,27 @@ public abstract class AbstractSpellCloud extends SpellEntity {
                     this.rainParticles(this.getRainParticle());
                     AABB below = this.getBoundingBox().move(0, -16, 0).inflate(0, 16, 0);
 
-                    for (LivingEntity livingEntity : this.getLevel().getEntitiesOfClass(LivingEntity.class, below)) {
-                        boolean flag = false;
-                        if (this.getOwner() != null) {
-                            if (livingEntity != this.getOwner() && !livingEntity.isAlliedTo(this.getOwner()) && !this.getOwner().isAlliedTo(livingEntity)){
+                    for (Entity entity : this.level.getEntitiesOfClass(Entity.class, below)) {
+                        LivingEntity livingEntity = null;
+                        if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                            livingEntity = living;
+                        } else if (entity instanceof LivingEntity living){
+                            livingEntity = living;
+                        }
+                        if (livingEntity != null) {
+                            boolean flag = false;
+                            if (this.getOwner() != null) {
+                                if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)){
+                                    flag = true;
+                                }
+                            } else {
                                 flag = true;
                             }
-                        } else {
-                            flag = true;
-                        }
-                        if (flag) {
-                            int distance = (int) (this.getY() - livingEntity.getY());
-                            if (BlockFinder.emptySpaceBetween(this.level, livingEntity.blockPosition(), distance, true)) {
-                                this.hurtEntities(livingEntity);
+                            if (flag) {
+                                int distance = (int) (this.getY() - livingEntity.getY());
+                                if (BlockFinder.emptySpaceBetween(this.level, livingEntity.blockPosition(), distance, true)) {
+                                    this.hurtEntities(livingEntity);
+                                }
                             }
                         }
                     }

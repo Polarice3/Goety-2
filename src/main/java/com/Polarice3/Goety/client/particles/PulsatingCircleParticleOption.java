@@ -32,7 +32,7 @@ public record PulsatingCircleParticleOption(float size) implements ParticleOptio
    }
 
    public String writeToString() {
-      return String.format(Locale.ROOT, "%s %.2f %s",
+      return String.format(Locale.ROOT, "%s %.2f",
               Registry.PARTICLE_TYPE.getKey(this.getType()), this.size);
    }
 

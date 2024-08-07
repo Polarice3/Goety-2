@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/silt_slate_marble"
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 90
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 180
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 270
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_slate_marble",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

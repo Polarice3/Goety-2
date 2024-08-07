@@ -84,7 +84,7 @@ public class Whisperer extends Summoned{
         this.goalSelector.addGoal(1, new SummonGoal(this));
         this.goalSelector.addGoal(1, AvoidTargetGoal.AvoidRadiusGoal.newGoal(this, 4.0F, 8, 1.0F, 1.2F));
         this.goalSelector.addGoal(2, new LookAtTargetGoal(this, 15.0F));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D){
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D){
             @Override
             public boolean canUse() {
                 return super.canUse() && Whisperer.this.getTarget() == null;

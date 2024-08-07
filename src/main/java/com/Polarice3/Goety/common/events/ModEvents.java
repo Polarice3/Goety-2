@@ -662,7 +662,7 @@ public class ModEvents {
 
         float increaseAttackSpeed = 0.5F;
         AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("d4818bbc-54ed-4ecf-95a3-a15fbf71b31d"), "Scythe Proficiency", increaseAttackSpeed, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        boolean flag = CuriosFinder.hasCurio(player, ModItems.GRAVE_GLOVE.get()) && scythe;
+        boolean flag = CuriosFinder.hasCurio(player, ModItems.GRAVE_GLOVE.get()) && (scythe || player.getMainHandItem().is(ModTags.Items.GRAVE_GLOVE_BOOST));
         if (attackSpeed != null){
             if (flag){
                 if (!attackSpeed.hasModifier(attributemodifier)){
@@ -694,7 +694,7 @@ public class ModEvents {
 
         float increaseAttackSpeed2 = 0.5F;
         AttributeModifier attributemodifier2 = new AttributeModifier(UUID.fromString("39c01496-8161-4fde-ac2c-0bea379ceb37"), "Hammer Proficiency", increaseAttackSpeed2, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        boolean flag2 = CuriosFinder.hasCurio(player, ModItems.THRASH_GLOVE.get()) && hammer;
+        boolean flag2 = CuriosFinder.hasCurio(player, ModItems.THRASH_GLOVE.get()) && (hammer || player.getMainHandItem().is(ModTags.Items.THRASH_GLOVE_BOOST));
         if (attackSpeed != null){
             if (flag2){
                 if (!attackSpeed.hasModifier(attributemodifier2)){
@@ -973,8 +973,10 @@ public class ModEvents {
                     }
                 }
                 if ((mobAttacker.getMobType() == MobType.UNDEAD && !(mobAttacker instanceof IOwned) && mobAttacker.getMaxHealth() < 100.0F) || mobAttacker instanceof Creeper){
-                    if (target instanceof Apostle){
-                        event.setNewTarget(null);
+                    if ((mobAttacker.getMobType() == MobType.UNDEAD && !(mobAttacker instanceof IOwned) && mobAttacker.getMaxHealth() < 100.0F) || mobAttacker instanceof Creeper){
+                        if (event.getNewTarget() instanceof Apostle){
+                            event.setCanceled(true);
+                        }
                     }
                 }
                 if (mobAttacker.getType().is(ModTags.EntityTypes.CREEPERS) && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){

@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.enchantments;
 import com.Polarice3.Goety.api.items.magic.IFocus;
 import com.Polarice3.Goety.common.items.block.EnchantableBlockItem;
 import com.Polarice3.Goety.common.items.curios.WardingCharmItem;
+import com.Polarice3.Goety.common.items.equipment.HammerItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -22,7 +23,8 @@ public abstract class FocusEnchantments extends Enchantment {
         return super.canApplyAtEnchantingTable(stack)
                 && (stack.getItem() instanceof IFocus
                 || stack.getItem() instanceof WardingCharmItem
-                || stack.getItem() instanceof EnchantableBlockItem);
+                || stack.getItem() instanceof EnchantableBlockItem
+                || stack.getItem() instanceof HammerItem);
     }
 
     public boolean allowedInCreativeTab(Item book, CreativeModeTab tab){

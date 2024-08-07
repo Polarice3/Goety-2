@@ -54,7 +54,7 @@ public class DrownedServant extends ZombieServant implements RangedAttackMob {
         this.goalSelector.addGoal(2, new TridentAttackGoal(this, 1.0D, 40, 10.0F));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
-        this.goalSelector.addGoal(7, new WaterWanderGoal(this));
+        this.goalSelector.addGoal(7, new WaterWanderGoal<>(this));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

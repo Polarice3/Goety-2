@@ -10,4 +10,6 @@ public class ModWoodType {
             WoodType.create(Goety.location("rotten").toString());
     public static final WoodType WINDSWEPT =
             WoodType.create(Goety.location("windswept").toString());
+    public static final WoodType PINE =
+            WoodType.create(Goety.location("pine").toString());
 }

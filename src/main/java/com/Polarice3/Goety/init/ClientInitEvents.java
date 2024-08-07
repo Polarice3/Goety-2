@@ -21,6 +21,7 @@ import com.Polarice3.Goety.common.blocks.entities.ModBlockEntities;
 import com.Polarice3.Goety.common.crafting.ModRecipeSerializer;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
+import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.CallFocus;
@@ -41,6 +42,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.item.CompassItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
@@ -95,6 +97,10 @@ public class ClientInitEvents {
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
                 (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.ARCA_COMPASS.get(), new ResourceLocation("angle")
+                , new CompassItemPropertyFunction((p_234992_, p_234993_, p_234994_) -> {
+                    return ArcaCompassItem.getArcaPosition(p_234993_.getOrCreateTag());
+                }));
         ItemProperties.register(ModItems.HUNTERS_BOW.get(), new ResourceLocation("pull"),
                 (stack, world, living, seed) -> {
                     if (living == null) {
@@ -209,6 +215,7 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.RAVAGER_ARMOR, ModRavagerModel::createArmorLayer);
         event.registerLayerDefinition(ModModelLayer.BLACK_WOLF, BlackWolfModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.BEAR, BearServantModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.BLACK_BEAST, BlackBeastModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WHISPERER, WhispererModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.LEAPLEAF, LeapleafModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.ICE_GOLEM, IceGolemModel::createBodyLayer);
@@ -461,6 +468,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServantRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOGLIN_SERVANT.get(), HoglinServantRenderer::new);
+        event.registerEntityRenderer(ModEntityType.BLACK_BEAST.get(), BlackBeastRenderer::new);
         event.registerEntityRenderer(ModEntityType.WHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.WAVEWHISPERER.get(), WhispererRenderer::new);
         event.registerEntityRenderer(ModEntityType.LEAPLEAF.get(), LeapleafRenderer::new);
@@ -585,6 +593,8 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.NONE.get(), NoneParticle.Provider::new);
         event.register(ModParticleTypes.TOTEM_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.PLAGUE_EFFECT.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.DOOM.get(), SpellParticle.Provider::new);
+        event.register(ModParticleTypes.DOOM_DEATH.get(), DoomDeathParticle.Provider::new);
         event.register(ModParticleTypes.WHITE_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.BULLET_EFFECT.get(), SpellParticle.Provider::new);
         event.register(ModParticleTypes.NECRO_EFFECT.get(), SpellParticle.Provider::new);
@@ -654,7 +664,10 @@ public class ClientInitEvents {
         event.register(ModParticleTypes.FOG_CLOUD.get(), FoggyCloudParticle.Provider::new);
         event.register(ModParticleTypes.SOUL_HEAL.get(), RisingCircleParticle.Provider::new);
         event.register(ModParticleTypes.SCULK_BUBBLE.get(), SculkBubbleParticle.Provider::new);
+        event.register(ModParticleTypes.WIND.get(), WindParticle.Provider::new);
+        event.register(ModParticleTypes.WIND_SHOCKWAVE.get(), WindShockwaveParticle.Provider::new);
         event.register(ModParticleTypes.FAST_DUST.get(), FastFallDust.Provider::new);
+        event.register(ModParticleTypes.GATHER_TRAIL.get(), GatherTrailParticle.Provider::new);
     }
 
 }

@@ -11,6 +11,6 @@ public class CairnNecromancerServant extends AbstractCairnNecromancer {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
     }
 }

@@ -52,7 +52,7 @@ public class SpiderServant extends Summoned implements PlayerRideable{
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new WanderGoal(this, 0.8D));
+        this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.attackGoal();

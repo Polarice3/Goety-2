@@ -17,6 +17,10 @@ public class LichdomHelper {
         return player.getCapability(LichProvider.CAPABILITY).orElse(new LichImp());
     }
 
+    public static void setLich(Player player, boolean lich) {
+        getCapability(player).setLichdom(lich);
+    }
+
     public static boolean isLich(@Nullable Entity livingEntity) {
         if (livingEntity instanceof Player player){
             return isLich(player);

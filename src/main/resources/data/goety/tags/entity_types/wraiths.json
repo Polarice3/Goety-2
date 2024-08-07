@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "goety:wraith",
+    "goety:border_wraith",
+    "goety:wraith_servant",
+    "goety:border_wraith_servant"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "goety:siltstone",
+    "goety:siltstone_slab",
+    "goety:siltstone_stairs",
+    "goety:siltstone_wall",
+    "goety:siltstone_bricks",
+    "goety:siltstone_brick_slab",
+    "goety:siltstone_brick_stairs",
+    "goety:siltstone_brick_wall",
+    "goety:siltstone_tiles",
+    "goety:siltstone_tile_slab",
+    "goety:siltstone_tile_stairs",
+    "goety:siltstone_tile_wall",
+    "goety:siltstone_pavement",
+    "goety:siltstone_pavement_slab",
+    "goety:siltstone_pavement_stairs",
+    "goety:siltstone_pavement_wall",
+    "goety:chiseled_siltstone",
+    "goety:chiseled_siltstone_bricks",
+    "goety:siltstone_pillar"
+  ]
+}

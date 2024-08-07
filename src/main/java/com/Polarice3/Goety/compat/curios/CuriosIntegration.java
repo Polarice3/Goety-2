@@ -49,7 +49,6 @@ public class CuriosIntegration implements ICompatable {
             .put(ModItems.WITCH_HAT.get(), "head")
             .put(ModItems.WITCH_HAT_HEDGE.get(), "head")
             .put(ModItems.CRONE_HAT.get(), "head")
-            .put(ModItems.IRON_CROWN.get(), "head")
             .put(ModItems.NECRO_CROWN.get(), "head")
             .put(ModItems.NAMELESS_CROWN.get(), "head")
             .put(ModItems.TARGETING_MONOCLE.get(), "head")

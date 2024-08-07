@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.curios.MagicHatItem;
 import com.Polarice3.Goety.common.items.curios.MagicRobeItem;
+import com.Polarice3.Goety.common.items.curios.NecroGarbs;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -11,6 +12,8 @@ import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -199,6 +202,21 @@ public interface ISpell {
     }
 
     @Nullable
+    default ParticleOptions getParticle(LivingEntity entityLiving){
+        return ParticleTypes.ENTITY_EFFECT;
+    }
+
+    default void useParticle(Level worldIn, LivingEntity livingEntity, ItemStack stack){
+        double d0 = this.particleColors(livingEntity).red();
+        double d1 = this.particleColors(livingEntity).green();
+        double d2 = this.particleColors(livingEntity).blue();
+        ParticleOptions particle = this.getParticle(livingEntity);
+        if (particle != null){
+            worldIn.addParticle(particle, livingEntity.getX(), livingEntity.getBoundingBox().maxY + 0.5D, livingEntity.getZ(), d0, d1, d2);
+        }
+    }
+
+    @Nullable
     default LivingEntity getTarget(LivingEntity caster){
         return null;
     }
@@ -237,7 +255,7 @@ public interface ISpell {
         if (this.getSpellType() == SpellType.NECROMANCY){
             return CuriosFinder.hasUndeadCrown(entityLiving) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
         } else {
-            return CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+            return CuriosFinder.hasCurio(entityLiving, itemStack -> (itemStack.getItem() instanceof MagicHatItem) || (itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crown && crown.isNameless));
         }
     }
 

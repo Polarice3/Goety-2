@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
@@ -352,6 +353,7 @@ public class PotionEvents {
 
     @SubscribeEvent
     public static void DeathEvents(LivingDeathEvent event){
+        LivingEntity effected = event.getEntity();
         if (event.getEntity() instanceof Player player){
             if (player.hasEffect(GoetyEffects.SAVE_EFFECTS.get())){
                 if (!player.getActiveEffects().isEmpty()){
@@ -389,6 +391,13 @@ public class PotionEvents {
                         player.getFoodData().eat(amount, 0.1F);
                     }
                 }
+            }
+        }
+        if (event.getSource() == ModDamageSource.DOOM){
+            if (effected.level instanceof ServerLevel serverLevel){
+                serverLevel.sendParticles(ModParticleTypes.DOOM_DEATH.get(), effected.getX(), effected.getBbHeight() + 0.5F, effected.getZ(), 0, 0.0D, 0.07D, 0.0D, 0.5D);
+                effected.playSound(ModSounds.DOOM.get(), 1.0F, 1.0F);
+                ModNetwork.sendToALL(new SPlayWorldSoundPacket(effected.blockPosition(), ModSounds.DOOM.get(), 1.0F, 1.0F));
             }
         }
     }
@@ -706,11 +715,6 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
-        if (event.getEffectInstance().getEffect() == GoetyEffects.DOOM.get()){
-            if (!event.getEntity().canChangeDimensions() || event.getEntity().getType().is(Tags.EntityTypes.BOSSES)){
-                event.setResult(Event.Result.DENY);
-            }
-        }
         if (event.getEffectInstance().getEffect() == GoetyEffects.BUSTED.get()){
             if (event.getEntity().getAttribute(Attributes.ARMOR) == null || event.getEntity().getAttributeValue(Attributes.ARMOR) <= 0.0D){
                 event.setResult(Event.Result.DENY);
@@ -787,10 +791,12 @@ public class PotionEvents {
             }
 
             if (mobEffectInstance.getEffect() == GoetyEffects.DOOM.get()){
-                int a = mobEffectInstance.getAmplifier() + 1;
-                float doom = 0.05F * a;
-                if (effected.getHealth() <= effected.getMaxHealth() * doom){
-                    effected.hurt(ModDamageSource.DOOM, effected.getMaxHealth() * 20);
+                if (effected.canChangeDimensions() && !effected.getType().is(Tags.EntityTypes.BOSSES)) {
+                    int a = mobEffectInstance.getAmplifier() + 1;
+                    float doom = 0.05F * a;
+                    if (effected.getHealth() <= effected.getMaxHealth() * doom){
+                        effected.hurt(ModDamageSource.DOOM, effected.getMaxHealth() * 20);
+                    }
                 }
             }
         }

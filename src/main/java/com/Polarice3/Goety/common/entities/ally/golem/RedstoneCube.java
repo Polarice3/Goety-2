@@ -408,7 +408,7 @@ public class RedstoneCube extends AbstractGolemServant{
         return InteractionResult.PASS;
     }
 
-    public class SeekBlockGoal extends WanderGoal {
+    public static class SeekBlockGoal extends WanderGoal<RedstoneCube> {
         private final RedstoneCube redstoneCube;
 
         public SeekBlockGoal(RedstoneCube cube){

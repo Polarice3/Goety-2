@@ -90,6 +90,11 @@ public class SingleStackItem extends Item implements ICurioItem {
                 tooltip.add(Component.translatable("info.goety.necro_crown").withStyle(main));
                 if (!crownItem.isNameless) {
                     tooltip.add(Component.translatable("info.goety.necro_crown_cast").withStyle(secondary));
+                    if (ItemConfig.NecroCrownWeakness.get()){
+                        tooltip.add(Component.translatable("info.goety.necro_crown_weakness").withStyle(secondary));
+                    }
+                } else {
+                    tooltip.add(Component.translatable("info.goety.dark_hat").withStyle(secondary));
                 }
             }
             if (stack.getItem() instanceof MagicHatItem) {
@@ -98,9 +103,14 @@ public class SingleStackItem extends Item implements ICurioItem {
                 }
                 tooltip.add(Component.translatable("info.goety.dark_hat").withStyle(secondary));
             }
-            if (stack.is(ModItems.NECRO_CAPE.get()) || stack.is(ModItems.NAMELESS_CAPE.get())) {
+            if (stack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem) {
                 tooltip.add(Component.translatable("info.goety.necro_cape").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.necro_cape_power").withStyle(secondary));
+                if (!capeItem.isNameless) {
+                    if (ItemConfig.NecroCapeHunger.get()){
+                        tooltip.add(Component.translatable("info.goety.necro_cape_hunger").withStyle(secondary));
+                    }
+                }
             }
             if (stack.getItem() instanceof MagicRobeItem) {
                 if (stack.is(ModItems.GRAND_ROBE.get())) {

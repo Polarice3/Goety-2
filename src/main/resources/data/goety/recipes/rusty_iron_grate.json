@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "minecraft:iron_bars"
+    },
+    "E": {
+      "item": "goety:siltstone"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "FEF",
+    "FFF"
+  ],
+  "result": {
+    "item": "goety:rusty_iron_grate",
+    "count": 4
+  }
+}

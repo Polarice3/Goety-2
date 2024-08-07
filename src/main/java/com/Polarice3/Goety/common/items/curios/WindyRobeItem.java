@@ -8,10 +8,7 @@ import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.ModDamageSource;
-import com.Polarice3.Goety.utils.SEHelper;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.particles.ParticleTypes;
@@ -61,6 +58,8 @@ public class WindyRobeItem extends SingleStackItem{
                         SEHelper.decreaseSouls(player, ItemConfig.WindRobeSouls.get());
                     }
                     if (world instanceof ServerLevel serverLevel){
+                        ColorUtil color = new ColorUtil(0xffffff);
+                        ServerParticleUtil.windParticle(serverLevel, color, 1.0F + serverLevel.random.nextFloat() * 0.5F, 0.0F, player.getId(), player.position());
                         ServerParticleUtil.circularParticles(serverLevel, ParticleTypes.CLOUD, player, 1.0F);
                         if (CuriosFinder.hasCurio(player, ModItems.STORM_ROBE.get())) {
                             if (serverLevel.random.nextInt(20) == 0) {

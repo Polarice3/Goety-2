@@ -4,7 +4,6 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
-import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.phys.BlockHitResult;
 
 public class RotationSpell extends BlockSpell {
 
@@ -44,10 +42,8 @@ public class RotationSpell extends BlockSpell {
     }
 
     @Override
-    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
-        BlockHitResult blockHitResult = MobUtil.rayTrace(caster, 8, false);
-        Direction direction0 = blockHitResult.getDirection();
-        return blockCanRotate(worldIn, target, direction0);
+    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
+        return blockCanRotate(worldIn, target, direction);
     }
 
     @Override

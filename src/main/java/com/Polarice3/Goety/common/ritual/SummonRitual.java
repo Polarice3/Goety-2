@@ -23,10 +23,9 @@ public class SummonRitual extends Ritual {
         this.tame = tame;
     }
 
-    public void spawnEntity(Entity entity, Level world) {
-        for (ServerPlayer player : world.getEntitiesOfClass(ServerPlayer.class,
-                entity.getBoundingBox().inflate(50))) {
-            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
+    public void spawnEntity(Player castingPlayer, Entity entity, Level world) {
+        if (castingPlayer instanceof ServerPlayer serverPlayer){
+            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
         }
         world.addFreshEntity(entity);
     }
@@ -55,12 +54,12 @@ public class SummonRitual extends Ritual {
 
                 this.initSummoned(living, world, blockPos, tileEntity, castingPlayer);
 
-                this.spawnEntity(living, world);
+                this.spawnEntity(castingPlayer, living, world);
 
             } else {
                 entity.absMoveTo(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F,
                         world.random.nextInt(360), 0);
-                this.spawnEntity(entity, world);
+                this.spawnEntity(castingPlayer, entity, world);
             }
         }
     }

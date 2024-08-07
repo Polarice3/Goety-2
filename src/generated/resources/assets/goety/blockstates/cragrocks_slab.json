@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/cragrocks_slab"
+    },
+    "type=double": {
+      "model": "goety:block/cragrocks"
+    },
+    "type=top": {
+      "model": "goety:block/cragrocks_slab_top"
+    }
+  }
+}

@@ -26,7 +26,27 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "goety:highrock/highrock_craft"
+      "recipe": "goety:highrock/highrock"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cragrocks are also said to make up the peaks of the world, being used to make walls for the villages up there and pavement."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crag/cragrocks"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Siltstones are strange blocks that have the most variable looks from other blocks. They can be messy and combine with marble and jade, but also be used to make several decorative blocks."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:silt/siltstone_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:rusty_iron_grate"
     }
   ]
 }

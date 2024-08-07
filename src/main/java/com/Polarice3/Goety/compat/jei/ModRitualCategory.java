@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.research.ResearchList;
 import com.Polarice3.Goety.common.ritual.EnchantItemRitual;
 import com.Polarice3.Goety.common.ritual.RitualTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -187,6 +188,33 @@ public class ModRitualCategory implements IRecipeCategory<RitualRecipe> {
         } else {
             recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 0)
                     .addItemStack(new ItemStack(Items.OBSIDIAN));
+        }
+
+        ItemStack itemStack = ItemStack.EMPTY;
+        if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.FORBIDDEN || recipe.getCraftType().contains(RitualTypes.LICH)){
+            itemStack = new ItemStack(ModItems.FORBIDDEN_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.RAVAGING){
+            itemStack = new ItemStack(ModItems.RAVAGING_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.WARRED){
+            itemStack = new ItemStack(ModItems.WARRED_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.BURIED){
+            itemStack = new ItemStack(ModItems.BURIED_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.HAUNTING){
+            itemStack = new ItemStack(ModItems.HAUNTING_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.FRONT){
+            itemStack = new ItemStack(ModItems.FRONT_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.MISTRAL){
+            itemStack = new ItemStack(ModItems.MISTRAL_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.FLORAL){
+            itemStack = new ItemStack(ModItems.FLORAL_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.BYGONE){
+            itemStack = new ItemStack(ModItems.BYGONE_SCROLL.get());
+        } else if (ResearchList.getResearch(recipe.getResearch()) == ResearchList.TERMINUS){
+            itemStack = new ItemStack(ModItems.TERMINUS_SCROLL.get());
+        }
+        if (!itemStack.isEmpty()) {
+            recipeLayout.addSlot(RecipeIngredientRole.RENDER_ONLY, 0, 16)
+                    .addItemStack(itemStack);
         }
     }
 

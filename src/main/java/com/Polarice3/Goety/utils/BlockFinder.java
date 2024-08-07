@@ -74,6 +74,16 @@ public class BlockFinder {
         return entity.level.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
     }
 
+    public static boolean canSeeBlock(Entity looker, BlockPos location) {
+        Vec3 vec3 = new Vec3(looker.getX(), looker.getEyeY(), looker.getZ());
+        Vec3 vec31 = Vec3.atBottomCenterOf(location);
+        if (vec31.distanceTo(vec3) > 128.0D) {
+            return false;
+        } else {
+            return looker.level.clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, looker)).getType() == HitResult.Type.MISS;
+        }
+    }
+
     public static double distanceFromGround(Entity entity){
         HitResult rayTrace = rayTrace(entity);
         if (rayTrace.getType() == HitResult.Type.BLOCK) {
@@ -224,7 +234,11 @@ public class BlockFinder {
     }
 
     public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int radius){
-        for (int i = 0; i < 128; ++i) {
+        return SummonRadius(blockPos, livingEntity, world, 64, radius);
+    }
+
+    public static BlockPos SummonRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int attempts, int radius){
+        for (int i = 0; i < attempts; ++i) {
             BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
             blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(radius) - world.random.nextInt(radius));
             blockpos$mutable.setY(blockPos.getY());
@@ -233,6 +247,23 @@ public class BlockFinder {
                     && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
                     && blockpos$mutable.distToCenterSqr(Vec3.atCenterOf(blockPos)) <= Mth.square(radius * 2)) {
                 blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                break;
+            }
+        }
+        return blockPos;
+    }
+
+    public static BlockPos SummonRadiusSight(BlockPos blockPos, LivingEntity looker, LivingEntity summoned, Level world, int radius){
+        for (int i = 0; i < 64; ++i) {
+            BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
+            blockpos$mutable.setX(blockpos$mutable.getX() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            blockpos$mutable.setY(blockPos.getY());
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + world.random.nextInt(radius) - world.random.nextInt(radius));
+            if (world.noCollision(summoned, summoned.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(summoned.getBoundingBox().move(blockpos$mutable))
+                    && blockpos$mutable.distToCenterSqr(Vec3.atCenterOf(blockPos)) <= Mth.square(radius * 2)
+                    && canSeeBlock(looker, blockpos$mutable)) {
+                blockPos = SummonPosition(summoned, blockpos$mutable);
                 break;
             }
         }

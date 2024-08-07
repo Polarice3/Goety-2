@@ -13,12 +13,10 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -89,13 +87,21 @@ public class FirePillar extends CastSpellTrap{
                     this.playSound(ModSounds.FIRE_TORNADO_AMBIENT.get(), 1.0F, 1.0F);
                 }
                 List<LivingEntity> targets = new ArrayList<>();
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0, 8, 0))) {
-                    if (this.getOwner() != null) {
-                        if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+                    LivingEntity livingEntity = null;
+                    if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                        livingEntity = living;
+                    } else if (entity instanceof LivingEntity living){
+                        livingEntity = living;
+                    }
+                    if (livingEntity != null) {
+                        if (this.getOwner() != null) {
+                            if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                                targets.add(livingEntity);
+                            }
+                        } else {
                             targets.add(livingEntity);
                         }
-                    } else {
-                        targets.add(livingEntity);
                     }
                 }
                 if (!targets.isEmpty()) {

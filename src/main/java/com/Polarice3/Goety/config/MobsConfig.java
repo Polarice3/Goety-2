@@ -11,6 +11,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> RavagerRoarCooldown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ServantPatrolRange;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> UndeadMinionHealTime;
@@ -100,6 +101,7 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastDayStrength;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
@@ -277,6 +279,8 @@ public class MobsConfig {
                     .defineInRange("naturalMinionHealTime", 1, 0, Integer.MAX_VALUE);
             NaturalMinionHealAmount = BUILDER.comment("How much Health Natural Servants heal, numerically, Default: 0.5")
                     .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            BlackBeastDayStrength = BUILDER.comment("Whether Black Beasts gain buffs if total game time has gone long enough, Default: true")
+                    .define("blackBeastDayStrength", true);
             BUILDER.pop();
             BUILDER.push("Frost Servants");
             FrostMinionHeal = BUILDER.comment("Whether Frost Servants can heal if summoned while wearing Frost Robe, Default: true")
@@ -324,6 +328,8 @@ public class MobsConfig {
                 .defineInRange("maxSlimeSize", 4, 1, 127);
         RavagerRoarCooldown = BUILDER.comment("How many seconds it takes before Ravager can manually roar again, Default: 10")
                 .defineInRange("ravagerRoarCooldown", 10, 0, Integer.MAX_VALUE);
+        ServantPatrolRange = BUILDER.comment("How far servants can patrol from their patrol location, Default: 16")
+                .defineInRange("servantPatrolRange", 16, 2, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Illagers");
             BUILDER.push("Illager Assaults");

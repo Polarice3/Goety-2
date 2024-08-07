@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "goety:item/arca_compass/arca_compass_09"
+  }
+}

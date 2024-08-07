@@ -6,11 +6,11 @@ import com.Polarice3.Goety.common.blocks.ResonanceCrystalBlock;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.items.block.ResonanceBlockItem;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.EntityFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -19,6 +19,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,8 @@ public class ResonanceCrystalBlockEntity extends ModBlockEntity implements IWind
                     }
                     BlockPos blockPos = this.getBlockPos();
                     ServerParticleUtil.gatheringBlockParticles(ModParticleTypes.RESONANCE_GATHER.get(), blockPos, world);
-                    ServerParticleUtil.addAuraParticles(world, ParticleTypes.CLOUD, blockPos.getX() + 0.5F, blockPos.getY(), blockPos.getZ() + 0.5F, 1.0F);
+                    ColorUtil color = new ColorUtil(0xffffff);
+                    ServerParticleUtil.windParticle(world, color, 1.0F + world.random.nextFloat() * 0.5F, 0.0F, -1, Vec3.atBottomCenterOf(blockPos));
 
                     if (!this.uuids.isEmpty()) {
                         this.uuids.removeIf(uuid -> {

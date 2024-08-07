@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/crag_tile_slab"
+    },
+    "type=double": {
+      "model": "goety:block/crag_tiles"
+    },
+    "type=top": {
+      "model": "goety:block/crag_tile_slab_top"
+    }
+  }
+}

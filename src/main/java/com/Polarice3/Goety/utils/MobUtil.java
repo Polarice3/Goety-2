@@ -72,6 +72,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -84,6 +85,10 @@ import java.util.function.Predicate;
 public class MobUtil {
     public static final Predicate<LivingEntity> NO_CREATIVE_OR_SPECTATOR = (p_200824_0_) -> {
         return !(p_200824_0_ instanceof Player) || !p_200824_0_.isSpectator() && !((Player)p_200824_0_).isCreative();
+    };
+
+    public static final Predicate<Entity> LIVING_OR_PART = (entity) -> {
+        return entity.isAlive() && (entity instanceof LivingEntity || entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity);
     };
 
     public static boolean isShifting(Entity entity){
@@ -145,6 +150,13 @@ public class MobUtil {
         } else {
             return true;
         }
+    }
+
+    public static boolean sameDimension(@Nullable Entity entity1, @Nullable Entity entity2){
+        if (entity1 == null || entity2 == null){
+            return false;
+        }
+        return entity1.level.dimension() == entity2.level.dimension();
     }
 
     public static BlockHitResult rayTrace(Entity entity, double distance, boolean fluids) {
@@ -410,7 +422,7 @@ public class MobUtil {
      * Target Codes based of codes from @TeamTwilight
      */
     public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius) {
-        return getTargets(level, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+        return getTargets(level, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_OR_PART).and(entity -> !MobUtil.areAllies(entity, pSource)));
     }
 
     public static List<Entity> getTargets(Level level, LivingEntity pSource, double pRange, double pRadius, Predicate<? super Entity> predicate) {
@@ -449,7 +461,7 @@ public class MobUtil {
 
     @Nullable
     public static Entity getSingleTarget(Level pLevel, LivingEntity pSource, double pRange, double pRadius) {
-        return getSingleTarget(pLevel, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource) && entity.isPickable()));
+        return getSingleTarget(pLevel, pSource, pRange, pRadius, EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_OR_PART).and(entity -> !MobUtil.areAllies(entity, pSource) && entity.isPickable()));
     }
 
     @Nullable
@@ -496,7 +508,7 @@ public class MobUtil {
             Vec3 lookVec = pSource.getViewVector(1.0F);
             double[] lookRange = new double[] {lookVec.x() * pRange, lookVec.y() * pRange, lookVec.z() * pRange};
             List<Entity> possibleList = pLevel.getEntities(pSource, pSource.getBoundingBox().move(lookVec.x / 2, 0, lookVec.z / 2).expandTowards(lookRange[0], lookRange[1], lookRange[2]).inflate(pRadius, pRadius, pRadius),
-                    EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE).and(entity -> !MobUtil.areAllies(entity, pSource)));
+                    EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(LIVING_OR_PART).and(entity -> !MobUtil.areAllies(entity, pSource)));
 
             for (Entity hit : possibleList) {
                 if (hit.isPickable() && pSource.hasLineOfSight(hit)) {

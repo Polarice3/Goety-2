@@ -12,13 +12,13 @@
     {
       "item": "goety:empty_focus"
     },
-    "f":
+    "s":
     {
       "item": "minecraft:rotten_flesh"
     },
-    "s":
+    "f":
     {
-      "tag": "minecraft:flowers"
+      "item": "goety:corpse_blossom"
     }
   },
   "result":

@@ -112,7 +112,8 @@ public class ElectroOrb extends SpellThrowableProjectile {
 
     public void finalizeExplosion() {
         if (this.level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ModParticleTypes.ELECTRIC_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 1, 1.0D, 0.0D, 0.0D, 1.0F);
+            ColorUtil colorUtil = new ColorUtil(0xfef597);
+            serverLevel.sendParticles(ModParticleTypes.ELECTRIC_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
             if (this.isStaff()) {
                 DamageSource damageSource = ModDamageSource.SHOCK;
                 int radius = 1;
@@ -129,8 +130,7 @@ public class ElectroOrb extends SpellThrowableProjectile {
                         serverLevel.sendParticles(ModParticleTypes.ELECTRIC.get(), blockPos.getX(), blockPos.getY() + 0.5F, blockPos.getZ(), 0, 0, 0.04D, 0, 0.5F);
                     }
                 }
-                ColorUtil colorUtil = new ColorUtil(0xfef597);
-                serverLevel.sendParticles(new ShockwaveParticleOption(0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 0, true), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0);
+                serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 5, 0, true), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0);
                 new SpellExplosion(serverLevel, this, damageSource, this.blockPosition(), radius, damage){
                     @Override
                     public void explodeHurt(Entity target, DamageSource damageSource, double x, double y, double z, double seen, float actualDamage) {

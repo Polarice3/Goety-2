@@ -33,13 +33,13 @@ public class Haunt extends Summoned {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(4, new NeutralZombieAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     public void followGoal(){
-        this.goalSelector.addGoal(8, new FollowOwnerGoal(this, 1.0D, 20.0F, 2.0F));
+        this.goalSelector.addGoal(8, new FollowOwnerGoal<>(this, 1.0D, 20.0F, 2.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

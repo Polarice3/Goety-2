@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "s f",
+    " e ",
+    "f s"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:empty_focus"
+    },
+    "f":
+    {
+      "item": "minecraft:flint"
+    },
+    "s":
+    {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result":
+  {
+    "item": "goety:ignite_focus",
+    "count": 1
+  }
+}

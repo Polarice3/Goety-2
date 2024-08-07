@@ -4,6 +4,8 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.compat.iron.IronAttributes;
+import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
@@ -16,6 +18,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -33,6 +37,8 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LichEvents {
@@ -139,6 +145,36 @@ public class LichEvents {
         } else {
             LichdomHelper.setLichMode(player, false);
             LichdomHelper.setNightVision(player, false);
+        }
+
+        if (IronLoaded.IRON_SPELLBOOKS.isLoaded()){
+            AttributeInstance bloodResist = player.getAttribute(IronAttributes.BLOOD_MAGIC_RESIST);
+            AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("1d0bd7da-03e8-4b25-be6d-014d73689417"), "Lich Blood Resistance", 0.5F, AttributeModifier.Operation.ADDITION);
+            if (bloodResist != null){
+                if (LichdomHelper.isLich(player)){
+                    if (!bloodResist.hasModifier(attributemodifier)){
+                        bloodResist.addPermanentModifier(attributemodifier);
+                    }
+                } else {
+                    if (bloodResist.hasModifier(attributemodifier)){
+                        bloodResist.removeModifier(attributemodifier);
+                    }
+                }
+            }
+
+            AttributeInstance holyResist = player.getAttribute(IronAttributes.BLOOD_MAGIC_RESIST);
+            AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("5290681e-7020-4de5-bba2-a659242d45a9"), "Lich Holy Weakness", -0.5F, AttributeModifier.Operation.ADDITION);
+            if (holyResist != null){
+                if (LichdomHelper.isLich(player)){
+                    if (!holyResist.hasModifier(attributemodifier1)){
+                        holyResist.addPermanentModifier(attributemodifier1);
+                    }
+                } else {
+                    if (holyResist.hasModifier(attributemodifier1)){
+                        holyResist.removeModifier(attributemodifier1);
+                    }
+                }
+            }
         }
     }
 

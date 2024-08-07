@@ -7,7 +7,7 @@ version="${file.jarVersion}"
 displayName="Goety"
 displayURL="https://github.com/Polarice3/Goety-2"
 logoFile="Goety.png" #optional
-credits="Tutorial/Help: GentlemanRevvnar, Technovision, Cy4's Modding, TelepathicGrunt, diesieben07. Bug Testing: Mich705, pantman687, glacial_flower. Necromancer Servant texture by frosty_gg. Chinese Translation: Player_7, Japanese Translation: SAGA, Russian Translation: .cool_nickname"
+credits="Tutorial/Help: GentlemanRevvnar, Technovision, Cy4's Modding, TelepathicGrunt, diesieben07. Bug Testing: Mich705, pantman687, glacial_flower. Necromancer Servant texture by frosty_gg. Blighted Shack, Graveyard and Buried Ritual build by boxman. Chinese Translation: Player_7, Japanese Translation: SAGA, 坂上駒子, Russian Translation: .cool_nickname"
 authors="Polarice3"
 description='''
 Goety adds a bunch of new Mobs that can help or hinder players and a magic system that can provides a player a different way of combat!

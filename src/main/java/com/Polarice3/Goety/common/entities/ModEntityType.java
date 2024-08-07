@@ -735,6 +735,11 @@ public class ModEntityType {
                     .sized(1.3964844F, 1.4F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BlackBeast>> BLACK_BEAST = register("black_beast",
+            EntityType.Builder.of(BlackBeast::new, MobCategory.MONSTER)
+                    .sized(0.7F, 1.8F)
+                    .clientTrackingRange(20));
+
     public static final RegistryObject<EntityType<Whisperer>> WHISPERER = register("whisperer",
             EntityType.Builder.of(Whisperer::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.0F)

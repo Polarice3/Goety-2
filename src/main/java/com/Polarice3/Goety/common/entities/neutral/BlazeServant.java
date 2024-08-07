@@ -55,7 +55,7 @@ public class BlazeServant extends Summoned {
         super.registerGoals();
         this.attackGoal();
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new WanderGoal(this, 1.0D, 0.0F));
+        this.goalSelector.addGoal(7, new WanderGoal<>(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());

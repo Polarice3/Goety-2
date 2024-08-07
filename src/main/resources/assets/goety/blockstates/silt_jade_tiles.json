@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/silt_jade_tiles"
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 90
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 180
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 270
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_jade_tiles",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

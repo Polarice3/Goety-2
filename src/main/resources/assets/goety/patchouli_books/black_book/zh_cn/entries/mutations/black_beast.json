@@ -1,0 +1,30 @@
+{
+  "name": "暗兽",
+  "icon": "minecraft:chain",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "让幽灵撕裂一只黑狼，会产生一种强大而超自然的生物，它会使用枯萎的爪子将敌人诅咒并撕碎。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_black_wolf_to_black_beast"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_beast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这头野兽可以像驯服的狼一样通过喂食肉类来治愈，如果主人穿上荒野长袍，它也可以使用主人的灵魂能量治愈自己。使用带有标记生物的巫毒娃娃右键单击它们，会让它们永恒的追击这个生物，直至杀死他，然后再返回。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这个怪物的灵感基于“生于混沌”的梦魇循踪兽。"
+    }
+  ]
+}

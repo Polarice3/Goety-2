@@ -28,6 +28,17 @@ public class GrappleSpell extends Spell {
     }
 
     @Override
+    public int soulCost(LivingEntity entityLiving) {
+        if (entityLiving instanceof Player player){
+            Projectile projectile = SEHelper.getGrappling(player);
+            if (projectile != null) {
+                return 0;
+            }
+        }
+        return super.soulCost(entityLiving);
+    }
+
+    @Override
     public int defaultCastDuration() {
         return SpellConfig.GrappleDuration.get();
     }

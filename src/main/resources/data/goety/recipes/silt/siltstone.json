@@ -1,0 +1,8 @@
+{
+  "type": "goety:cursed_infuser_recipes",
+  "ingredient": {
+    "tag": "forge:sandstone"
+  },
+  "result": "goety:siltstone",
+  "cookingTime": 20
+}

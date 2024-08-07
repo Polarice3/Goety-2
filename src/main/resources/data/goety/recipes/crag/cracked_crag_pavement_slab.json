@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:cracked_crag_pavement"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cracked_crag_pavement_slab",
+    "count": 6
+  }
+}

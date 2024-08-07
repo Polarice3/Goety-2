@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "goety:cragrocks",
+    "goety:cragrocks_fence",
+    "goety:crag_tiles",
+    "goety:crag_tile_slab",
+    "goety:crag_tile_stairs",
+    "goety:crag_tile_wall",
+    "goety:crag_bricks",
+    "goety:crag_brick_slab",
+    "goety:crag_brick_stairs",
+    "goety:crag_brick_wall",
+    "goety:snowy_crag_bricks",
+    "goety:snowy_crag_brick_slab",
+    "goety:snowy_crag_brick_stairs",
+    "goety:snowy_crag_brick_wall",
+    "goety:crag_pavement",
+    "goety:crag_pavement_slab",
+    "goety:cracked_crag_pavement",
+    "goety:cracked_crag_pavement_slab",
+    "goety:silt_studded_crag_tiles"
+  ]
+}

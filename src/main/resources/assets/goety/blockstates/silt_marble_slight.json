@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/silt_marble_slight"
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 90
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 180
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 270
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/silt_marble_slight",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

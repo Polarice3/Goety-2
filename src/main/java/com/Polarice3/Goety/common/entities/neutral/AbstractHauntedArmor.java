@@ -61,7 +61,7 @@ public abstract class AbstractHauntedArmor extends Summoned {
         super.registerGoals();
         this.goalSelector.addGoal(1, new GuardingGoal(this, 0.75D, 20));
         this.goalSelector.addGoal(2, new AttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
     }
 
     @Override

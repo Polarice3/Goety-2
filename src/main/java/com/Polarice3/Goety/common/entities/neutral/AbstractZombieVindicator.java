@@ -16,7 +16,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,14 +28,6 @@ import java.util.Objects;
 public class AbstractZombieVindicator extends ZombieServant {
     public AbstractZombieVindicator(EntityType<? extends ZombieServant> type, Level worldIn) {
         super(type, worldIn);
-    }
-
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(4, new VindicatorMeleeAttackGoal(this));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

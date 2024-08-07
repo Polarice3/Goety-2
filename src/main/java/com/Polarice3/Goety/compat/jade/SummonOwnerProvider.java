@@ -19,26 +19,23 @@ public enum SummonOwnerProvider implements IServerDataProvider<Entity> {
 
     @Override
     public void appendServerData(CompoundTag compoundTag, ServerPlayer serverPlayer, Level level, Entity entity, boolean b) {
-        if (level.getServer() != null && !level.getServer().isSingleplayerOwner(serverPlayer.getGameProfile())) {
-            UUID ownerUUID = null;
-            if (entity instanceof OwnableEntity) {
-                ownerUUID = ((OwnableEntity)entity).getOwnerUUID();
-            } else if (entity instanceof AbstractHorse) {
-                ownerUUID = ((AbstractHorse)entity).getOwnerUUID();
-            }
+        UUID ownerUUID = null;
+        if (entity instanceof OwnableEntity) {
+            ownerUUID = ((OwnableEntity)entity).getOwnerUUID();
+        } else if (entity instanceof AbstractHorse) {
+            ownerUUID = ((AbstractHorse)entity).getOwnerUUID();
+        }
 
-            if (ownerUUID != null) {
-                String name = PlatformProxy.getLastKnownUsername(ownerUUID);
-                if (name != null) {
-                    compoundTag.putString("OwnerName", name);
-                } else {
-                    Entity entity1 = EntityFinder.getEntityByUuiD(ownerUUID);
-                    if (entity1 != null){
-                        compoundTag.putString("OwnerName", entity1.getDisplayName().getString());
-                    }
+        if (ownerUUID != null) {
+            String name = PlatformProxy.getLastKnownUsername(ownerUUID);
+            if (name != null) {
+                compoundTag.putString("OwnerName", name);
+            } else {
+                Entity entity1 = EntityFinder.getEntityByUuiD(ownerUUID);
+                if (entity1 != null){
+                    compoundTag.putString("OwnerName", entity1.getDisplayName().getString());
                 }
             }
-
         }
     }
 

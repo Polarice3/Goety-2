@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.items.curios;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.compat.iron.IronAttributes;
 import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
@@ -34,23 +33,12 @@ public class NecroGarbs extends SingleStackItem {
     }
 
     public static class NecroCrownItem extends NecroGarbs {
-        public NecroCrownItem() {
-            super(false);
+        public NecroCrownItem(boolean isNameless) {
+            super(isNameless);
         }
 
-        @Override
-        public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
-                                                                            UUID uuid, ItemStack stack) {
-            Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-            if (IronLoaded.IRON_SPELLBOOKS.isLoaded()){
-                if (MainConfig.IronBuff.get()) {
-                    if (stack.is(ModItems.IRON_CROWN.get())){
-                        map.put(IronAttributes.MAX_MANA, new AttributeModifier(UUID.fromString("2f219698-326a-4c86-ba9d-4928c3e67891"), "Iron Max Mana", 150, AttributeModifier.Operation.ADDITION));
-                        map.put(IronAttributes.MANA_REGEN, new AttributeModifier(UUID.fromString("42846f1d-be92-4a21-91bc-b28057e3c76a"), "Iron Mana Regen", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL));
-                    }
-                }
-            }
-            return map;
+        public NecroCrownItem() {
+            super(false);
         }
     }
 

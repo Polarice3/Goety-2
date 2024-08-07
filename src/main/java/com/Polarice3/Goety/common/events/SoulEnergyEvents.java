@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.VineHook;
+import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.armor.ModArmorMaterials;
 import com.Polarice3.Goety.common.items.magic.GrudgeGrimoire;
@@ -20,6 +21,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -300,7 +302,18 @@ public class SoulEnergyEvents {
         }
 
         if (killed instanceof Player player){
+            bindArcaCompass(killer, player);
             ISoulEnergy soulEnergy = SEHelper.getCapability(player);
+            if (MainConfig.LichArcaRemove.get()) {
+                if (!soulEnergy.getSEActive() || soulEnergy.getArcaBlock() == null) {
+                    if (LichdomHelper.isLich(player)) {
+                        LichdomHelper.setLich(player, false);
+                    }
+                }
+            }
+            if (killer instanceof AbstractIllager){
+                soulEnergy.setRestPeriod(soulEnergy.getRestPeriod() + MathHelper.minecraftDayToTicks(MobsConfig.IllagerAssaultRestDeath.get()));
+            }
             if (soulEnergy.getSEActive()){
                 if (soulEnergy.getArcaBlock() != null) {
                     if (MainConfig.ArcaUndying.get()) {
@@ -348,9 +361,6 @@ public class SoulEnergyEvents {
                 }
                 event.setCanceled(true);
             }
-            if (killer instanceof AbstractIllager){
-                soulEnergy.setRestPeriod(soulEnergy.getRestPeriod() + MathHelper.minecraftDayToTicks(MobsConfig.IllagerAssaultRestDeath.get()));
-            }
         }
 
     }
@@ -382,5 +392,37 @@ public class SoulEnergyEvents {
             }
         }
         return false;
+    }
+
+    public static void bindArcaCompass(Entity killer, Player player){
+        Player player1 = player;
+        if (killer instanceof Player playerKiller){
+            player1 = playerKiller;
+        }
+        ItemStack itemStack = ItemStack.EMPTY;
+        if (player1.getOffhandItem().is(ModItems.ARCA_COMPASS.get())){
+            itemStack = player1.getOffhandItem();
+        } else if (player1.getMainHandItem().is(ModItems.ARCA_COMPASS.get())){
+            itemStack = player1.getMainHandItem();
+        }
+
+        if (!itemStack.isEmpty()){
+            boolean flag = !player1.getAbilities().instabuild && itemStack.getCount() == 1;
+            if (flag) {
+                ArcaCompassItem.addPlayer(player, itemStack.getOrCreateTag());
+            } else {
+                ItemStack itemstack1 = new ItemStack(ModItems.ARCA_COMPASS.get(), 1);
+                CompoundTag compoundtag = itemStack.hasTag() ? itemStack.getTag().copy() : new CompoundTag();
+                itemstack1.setTag(compoundtag);
+                if (!player1.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+
+                ArcaCompassItem.addPlayer(player, compoundtag);
+                if (!player1.getInventory().add(itemstack1)) {
+                    player1.drop(itemstack1, false);
+                }
+            }
+        }
     }
 }

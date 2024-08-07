@@ -21,6 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -69,7 +70,7 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
         }
 
         if (!this.level.isClientSide) {
-            if (owner == null || !owner.isAlive() || (this.itemBase && !owner.isUsingItem())) {
+            if (owner == null || !owner.isAlive() || (this.itemBase && !MobUtil.isSpellCasting(owner))) {
                 this.discard();
                 return;
             }
@@ -80,7 +81,17 @@ public abstract class AbstractBeam extends Entity implements IEntityAdditionalSp
             double distanceToDestination = beamTraceDistance(MAX_RAYTRACE_DISTANCE, 1.0f, false);
             double distanceTraveled = 0;
             while (!(this.position().distanceTo(aabb.getCenter()) > distanceToDestination) && !(this.position().distanceTo(aabb.getCenter()) > MAX_RAYTRACE_DISTANCE)) {
-                entities.addAll(this.level.getEntitiesOfClass(LivingEntity.class, aabb, canHitEntity(owner)));
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb)) {
+                    LivingEntity livingEntity = null;
+                    if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                        livingEntity = living;
+                    } else if (entity instanceof LivingEntity living){
+                        livingEntity = living;
+                    }
+                    if (livingEntity != null && canHitEntity(owner).test(livingEntity)) {
+                        entities.add(livingEntity);
+                    }
+                }
                 distanceTraveled += 1.0D;
                 Vec3 viewVector = this.getViewVector(1.0F);
                 Vec3 targetVector = this.position().add(viewVector.x * distanceTraveled, viewVector.y * distanceTraveled, viewVector.z * distanceTraveled);

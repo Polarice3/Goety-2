@@ -15,7 +15,7 @@
       "type": "patchouli:text",
       "text": "Ношение $(l:crafts/garment/wild_robe)дикой мантии$() позволит корням наносить опутанной жертве постоянный урон."
     }
-  ]],
+  ],
   "extra_recipe_mappings": {
     "goety:entangling_focus": 1
   }

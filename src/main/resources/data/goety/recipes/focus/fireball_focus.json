@@ -2,7 +2,7 @@
   "type": "goety:ritual",
   "ritual_type": "goety:craft",
   "activation_item": {
-    "item": "goety:fire_breath_focus"
+    "item": "goety:ignite_focus"
   },
   "craftType": "adept_nether",
   "soulCost": 1,

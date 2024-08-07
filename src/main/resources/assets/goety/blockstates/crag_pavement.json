@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/crag_pavement"
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 90
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 180
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 270
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "y": 90
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "y": 180
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "y": 270
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/crag_pavement",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

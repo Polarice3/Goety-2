@@ -39,16 +39,17 @@ public class RaiseDeadBrewEffect extends BrewEffect {
         raiseUndead(pLevel, pPos, pSource, lifetime);
         pLevel.playSound(null, pPos.getX(), pPos.getY(), pPos.getZ(), ModSounds.NECROMANCER_SUMMON.get(), pSource.getSoundSource(), 1.4F, 0.7F);
         int j = 0;
-        if (pAmplifier >= 1 && (pLevel.random.nextDouble() < (pAmplifier * 0.5D))) {
-            ++j;
-        }
 
-        if (pAmplifier >= 2 && (pLevel.random.nextDouble() < (pAmplifier * 0.25D))) {
-            ++j;
-        }
-
-        if (pAmplifier >= 3 && (pLevel.random.nextDouble() < (pAmplifier * 0.25D))) {
-            ++j;
+        for (int h = 0; h <= pAmplifier; ++h){
+            if (h == 1){
+                if (pLevel.random.nextDouble() < (pAmplifier * 0.5D)){
+                    ++j;
+                }
+            } else if (h > 1){
+                if (pLevel.random.nextDouble() < (pAmplifier * 0.25D)){
+                    ++j;
+                }
+            }
         }
 
         for (int i = 0; i < j; ++i) {

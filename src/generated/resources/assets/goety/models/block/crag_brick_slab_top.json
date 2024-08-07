@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "goety:block/crag_bricks",
+    "side": "goety:block/crag_bricks",
+    "top": "goety:block/crag_bricks"
+  }
+}
