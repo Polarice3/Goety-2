@@ -163,7 +163,7 @@ public class SEHelper {
     public static int getSoulGiven(LivingEntity victim){
         if (victim != null){
             boolean flag = true;
-            if (victim instanceof IOwned){
+            if (victim instanceof IOwned owned && owned.getTrueOwner() != null){
                 flag = false;
             } else if (victim.isBaby() && !(victim instanceof Enemy)){
                 flag = false;

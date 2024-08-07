@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "goety:block/snowy_siltstone_pillar_end",
+    "side": "goety:block/snowy_siltstone_pillar"
+  }
+}

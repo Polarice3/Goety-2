@@ -86,6 +86,28 @@ public class HauntedPaintingModel extends Model {
         return LayerDefinition.create(meshdefinition, 128, 64);
     }
 
+    public static LayerDefinition createLargeFramelessLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(8, 4).addBox(-24.0F, -16.0F, -1.0F, 48.0F, 32.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.0F, 0.0F));
+
+        PartDefinition frame = bone.addOrReplaceChild("frame", CubeListBuilder.create(), PartPose.ZERO);
+
+        return LayerDefinition.create(meshdefinition, 128, 64);
+    }
+
+    public static LayerDefinition createTallFramelessLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(8, 4).addBox(-8.0F, -16.0F, -1.0F, 16.0F, 32.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.0F, 0.0F));
+
+        PartDefinition frame = bone.addOrReplaceChild("frame", CubeListBuilder.create(), PartPose.ZERO);
+
+        return LayerDefinition.create(meshdefinition, 128, 64);
+    }
+
     @Override
     public void renderToBuffer(PoseStack p_103111_, VertexConsumer p_103112_, int p_103113_, int p_103114_, float p_103115_, float p_103116_, float p_103117_, float p_103118_) {
         this.root.render(p_103111_, p_103112_, p_103113_, p_103114_, p_103115_, p_103116_, p_103117_, p_103118_);

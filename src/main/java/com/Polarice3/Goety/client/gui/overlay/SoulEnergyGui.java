@@ -84,8 +84,8 @@ public class SoulEnergyGui {
 
         if (MainConfig.ShowNum.get()) {
             minecraft.getProfiler().push("soulenergy");
-            String s = "" + SoulEnergy + "/" + "" + SoulEnergyTotal;
-            int i1 = i + 36;
+            String s = SoulEnergy + "/" + SoulEnergyTotal;
+            int i1 = i + 37;
             int j1 = height - 8;
             guiGraphics.drawString(getFont(), s, i1, j1, 16777215);
             minecraft.getProfiler().pop();

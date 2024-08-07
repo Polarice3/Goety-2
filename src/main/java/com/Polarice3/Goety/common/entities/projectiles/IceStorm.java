@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 public class IceStorm extends SpellHurtingProjectile {
@@ -115,7 +116,7 @@ public class IceStorm extends SpellHurtingProjectile {
 
     public void tick() {
         super.tick();
-        Entity entity = this.getOwner();
+        Entity owner = this.getOwner();
         if (!this.level.isClientSide){
             if (this.level instanceof ServerLevel serverLevel){
                 ServerParticleUtil.addAuraParticles(serverLevel, ParticleTypes.SNOWFLAKE, this.getX(), (this.getY() - 0.5F)+ (this.getSize() / 4.0F), this.getZ(), (this.getSize() / 4.0F) + 0.5F);
@@ -127,16 +128,22 @@ public class IceStorm extends SpellHurtingProjectile {
                 this.discard();
             }
             float baseDamage = SpellConfig.IceStormDamage.get().floatValue() * SpellConfig.SpellDamageMultiplier.get();
-            for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.0F))){
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-                    if (entity != null) {
-                        if (!MobUtil.areAllies(entity, livingEntity) && livingEntity != entity) {
-                            if (livingEntity.hurt(ModDamageSource.frostBreath(this, entity), baseDamage + this.getExtraDamage())){
+            for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(1.0F), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
+                LivingEntity livingEntity = null;
+                if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity parent){
+                    livingEntity = parent;
+                } else if (entity instanceof LivingEntity living){
+                    livingEntity = living;
+                }
+                if (livingEntity != null) {
+                    if (owner != null) {
+                        if (!MobUtil.areAllies(owner, livingEntity) && livingEntity != owner) {
+                            if (livingEntity.hurt(ModDamageSource.frostBreath(this, owner), baseDamage + this.getExtraDamage())) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1 + this.getDuration())));
                             }
                         }
                     } else {
-                        if (livingEntity.hurt(ModDamageSource.frostBreath(this, this), baseDamage + this.getExtraDamage())){
+                        if (livingEntity.hurt(ModDamageSource.frostBreath(this, this), baseDamage + this.getExtraDamage())) {
                             livingEntity.addEffect(new MobEffectInstance(GoetyEffects.FREEZING.get(), MathHelper.secondsToTicks(1 + this.getDuration())));
                         }
                     }

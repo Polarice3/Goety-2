@@ -178,7 +178,7 @@ public class ItemHelper {
                     if (stack.isDamaged()) {
                         if (SEHelper.getSoulsContainer(player)){
                             int i = 1;
-                            if (!stack.getAllEnchantments().isEmpty()) {
+                            if (!stack.getAllEnchantments().isEmpty() && ItemConfig.SoulRepairEnchant.get()) {
                                 i += stack.getAllEnchantments().size();
                             }
                             if (SEHelper.getSoulsAmount(player, ItemConfig.ItemsRepairAmount.get() * i)){

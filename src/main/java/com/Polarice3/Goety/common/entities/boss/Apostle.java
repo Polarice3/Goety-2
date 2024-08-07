@@ -1590,10 +1590,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 int time = Apostle.this.isInNether() ? 7 : 10;
                 if (this.spellWarmup % time == 0) {
                     Damned damned = new Damned(ModEntityType.DAMNED.get(), Apostle.this.level);
-                    BlockPos blockPos = BlockFinder.SummonRadius(Apostle.this.blockPosition(), Apostle.this, Apostle.this.level, 5);
+                    BlockPos blockPos0 = Apostle.this.blockPosition().offset(
+                            serverLevel.random.nextIntBetweenInclusive(-3, 3)
+                            , 0
+                            , serverLevel.random.nextIntBetweenInclusive(-3, 3));
+                    BlockPos blockPos = BlockFinder.SummonPosition(Apostle.this, blockPos0);
                     damned.moveTo(blockPos.below(2), Apostle.this.getYHeadRot(), Apostle.this.getXRot());
                     damned.setTrueOwner(Apostle.this);
-                    damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos.below()), MobSpawnType.MOB_SUMMONED, null, null);
+                    damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockPos.below(2)), MobSpawnType.MOB_SUMMONED, null, null);
                     if (livingentity != null) {
                         damned.setTarget(livingentity);
                     }
@@ -1661,8 +1665,8 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                         int k = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
                         int l = (12 + randomSource.nextInt(12)) * (randomSource.nextBoolean() ? -1 : 1);
                         BlockPos.MutableBlockPos blockpos$mutable = Apostle.this.blockPosition().mutable().move(k, 0, l);
-                        ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), Apostle.this.level);
-                        BlockPos blockPos = BlockFinder.SummonRadius(blockpos$mutable, Apostle.this, Apostle.this.level, 5);
+                        ObsidianMonolith summonedentity = new ObsidianMonolith(ModEntityType.OBSIDIAN_MONOLITH.get(), serverLevel);
+                        BlockPos blockPos = BlockFinder.SummonRadiusSight(blockpos$mutable, Apostle.this, summonedentity, serverLevel, 5);
                         summonedentity.moveTo(blockPos, 0.0F, 0.0F);
                         summonedentity.setTrueOwner(Apostle.this);
                         summonedentity.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos$mutable), MobSpawnType.MOB_SUMMONED, null, null);

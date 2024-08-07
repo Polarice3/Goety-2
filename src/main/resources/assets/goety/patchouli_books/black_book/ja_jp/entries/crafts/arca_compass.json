@@ -1,0 +1,20 @@
+{
+  "name": "アルカのコンパス",
+  "icon": "goety:arca_compass",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/craft_arca",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "アルカを使っているプレイヤー同士の戦いは困難で、敵のアルカの位置を特定するには思考を読んで推測しなければいけない。幸いなことに、あなたは特殊なコンパスで敵のアルカを見つける方法を思い付いた。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:arca_compass"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "このコンパスをどちらかの手に持って敵のプレイヤーを倒すと、コンパスがそのプレイヤーに関連付けてアルカの位置を指します。移動したり、配置したり、新たにアルカの関連付けをしても、自動的にアルカの座標を示します。"
+    }
+  ]
+}

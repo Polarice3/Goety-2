@@ -3,11 +3,17 @@ package com.Polarice3.Goety.common.magic;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.api.magic.ISpell;
 import com.Polarice3.Goety.api.magic.SpellType;
+import com.Polarice3.Goety.client.particles.FoggyCloudParticleOption;
+import com.Polarice3.Goety.client.particles.GatherTrailParticle;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +25,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -78,7 +85,10 @@ public abstract class Spell implements ISpell {
         } else {
             HitResult hitResult = this.rayTrace(caster.level, caster, range, 3);
             if (hitResult instanceof EntityHitResult entityHitResult){
-                if (entityHitResult.getEntity() instanceof LivingEntity living){
+                if (entityHitResult.getEntity() instanceof PartEntity<?> partEntity &&
+                        partEntity.getParent() instanceof LivingEntity living){
+                    return living;
+                } else if (entityHitResult.getEntity() instanceof LivingEntity living){
                     return living;
                 }
             }
@@ -92,6 +102,29 @@ public abstract class Spell implements ISpell {
 
     public boolean typeStaff(ItemStack staff, SpellType spellType){
         return staff.getItem() instanceof IWand darkWand && darkWand.getSpellType() == spellType;
+    }
+
+    @Override
+    public void useParticle(Level worldIn, LivingEntity livingEntity, ItemStack stack) {
+        if (this.getSpellType() == SpellType.WILD) {
+            if (worldIn instanceof ServerLevel serverLevel) {
+                ColorUtil colorUtil = new ColorUtil(0xfcd9f7);
+                serverLevel.sendParticles(ModParticleTypes.SPELL_SQUARE.get(), livingEntity.getX(), livingEntity.getY() + 2.0D, livingEntity.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 0.5F);
+                serverLevel.sendParticles(new FoggyCloudParticleOption(new ColorUtil(0xcf75af), 0.25F, 6), livingEntity.getX(), livingEntity.getY() + 1.5D, livingEntity.getZ(), 1, 0, 0, 0, 0);
+            }
+        } else if (this.getSpellType() == SpellType.NECROMANCY){
+            if (worldIn instanceof ServerLevel serverLevel){
+                int range = 1;
+                ColorUtil colorUtil = new ColorUtil(0xffffff);
+                if (stack.is(ModItems.NAMELESS_STAFF.get())){
+                    range = 3;
+                    colorUtil = new ColorUtil(0xa7fc3e);
+                }
+                ServerParticleUtil.gatheringParticles(new GatherTrailParticle.Option(colorUtil, livingEntity.position().add(0, 2, 0)), livingEntity, serverLevel, range);
+            }
+        } else {
+            ISpell.super.useParticle(worldIn, livingEntity, stack);
+        }
     }
 
     public List<Enchantment> acceptedEnchantments(){

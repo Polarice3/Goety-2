@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
-import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
@@ -128,7 +127,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         this.goalSelector.addGoal(2, new MeleeGoal(this));
         this.goalSelector.addGoal(3, new BelchGoal(this));
         this.goalSelector.addGoal(5, new AttackGoal(this, 1.2D));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -985,8 +984,10 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                 if (this.mob.level instanceof ServerLevel serverLevel){
                     ColorUtil colorUtil = new ColorUtil(0xff8200);
                     Vec3 vec31 = this.mob.position().add(vec3.scale(5.0D));
-                    serverLevel.sendParticles(new ShockwaveParticleOption(0, colorUtil.red, colorUtil.green, colorUtil.blue, 20, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
-                    serverLevel.sendParticles(new ShockwaveParticleOption(0, colorUtil.red, colorUtil.green, colorUtil.blue, 10, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
+                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 2, 0, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    ServerParticleUtil.windShockwaveParticle(serverLevel, colorUtil, 4, 0, -1, vec31.add(0.0D, 1.0D, 0.0D));
+                    /*serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 20, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);
+                    serverLevel.sendParticles(new ShockwaveParticleOption(colorUtil.red, colorUtil.green, colorUtil.blue, 10, 0, true), vec31.x, this.mob.getY() + 0.25D, vec31.z, 0, 0.0D, 0.0D, 0.0D, 0);*/
                 }
             }
         }

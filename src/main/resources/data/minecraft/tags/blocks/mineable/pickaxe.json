@@ -6,7 +6,9 @@
     "#goety:jade_ores",
     "#goety:crypt_blocks",
     "#goety:marble_blocks",
+    "#goety:crag_blocks",
     "#goety:highrock_blocks",
+    "#goety:silt_blocks",
     "#goety:indented_gold_blocks",
     "#goety:snow_bricks",
     "#goety:dark_metal_blocks",
@@ -23,6 +25,7 @@
     "goety:sculk_grower",
     "goety:witch_cauldron",
     "goety:skull_pile",
+    "goety:rusty_iron_grate",
     "goety:blazing_cage",
     "goety:lofty_chest",
     "goety:reinforced_redstone_block"

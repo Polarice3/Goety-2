@@ -174,6 +174,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> HOGLIN_SERVANT_SPAWN_EGG = ITEMS.register("hoglin_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.HOGLIN_SERVANT, 0x532e24, 0xbc6529, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> BLACK_BEAST_SPAWN_EGG = ITEMS.register("black_beast_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.BLACK_BEAST, 0x2f2532, 0xb60f0f, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WHISPERER_SPAWN_EGG = ITEMS.register("whisperer_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WHISPERER, 0xa0c051, 0xe20703, egg()));
 

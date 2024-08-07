@@ -38,6 +38,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> WraithDuration;
@@ -49,6 +50,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VanguardLimit;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
@@ -138,6 +140,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllusionCoolDown;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> IgniteCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IgniteCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> IgniteFireSeconds;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FireBreathCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> FireBreathChargeUp;
@@ -365,8 +371,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CorruptionImmobile;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> SkeletonLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneMonstrosityGlobalLimit;
@@ -384,7 +391,9 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitCommand;
     public static final ForgeConfigSpec.ConfigValue<Boolean> OwnerHitKill;
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnvironmentalCost;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> EnchantMultiCost;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SpellDamageEnderDragon;
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> TelekinesisBlackList;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BanishBlackList;
@@ -399,8 +408,12 @@ public class SpellConfig {
                 .define("ownerHitKill", true);
         EnvironmentalCost = BUILDER.comment("Spells have their soul cost reduced or increased depending on the surroundings around the caster, Default: true")
                 .define("environmentalCost", true);
+        EnchantMultiCost = BUILDER.comment("Spells cost double soul cost if enchanted, Default: true")
+                .define("enchantMultiCost", true);
         SummonDown = BUILDER.comment("Certain spells that summons servants will give player Summon Down effect, Default: true")
                 .define("summonDown", true);
+        SpellDamageEnderDragon = BUILDER.comment("Certain spells can damage the Ender Dragon, Default: true")
+                .define("spellDamageEnderDragon", true);
         BUILDER.pop();
         BUILDER.push("Spells");
             BUILDER.push("Vexing Spell");
@@ -450,6 +463,8 @@ public class SpellConfig {
                     .defineInRange("skeletonCoolDown", 100, 0, Integer.MAX_VALUE);
             SkeletonSummonDown = BUILDER.comment("Osseous Spell Summon Down, Default: 120")
                     .defineInRange("skeletonSummonDown", 120, 0, 72000);
+            SkeletonLimit = BUILDER.comment("Number of Skeleton Servants that an individual player can have in total, Default: 32")
+                    .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Spooky Spell");
             WraithCost = BUILDER.comment("Spooky Spell Cost, Default: 24")
@@ -472,6 +487,8 @@ public class SpellConfig {
                     .defineInRange("vanguardCoolDown", 100, 0, Integer.MAX_VALUE);
             VanguardSummonDown = BUILDER.comment("Vanguard Spell Summon Down, Default: 300")
                     .defineInRange("vanguardSummonDown", 300, 0, 72000);
+            VanguardLimit = BUILDER.comment("Number of Vanguard Servants that an individual player can have in total, Default: 16")
+                    .defineInRange("vanguardLimit", 16, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Skull Spell");
             HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")
@@ -548,7 +565,7 @@ public class SpellConfig {
                     .defineInRange("fireballCost", 4, 0, Integer.MAX_VALUE);
             FireballDuration = BUILDER.comment("Time to cast Fireball Spell, Default: 0")
                     .defineInRange("fireballTime", 0, 0, 72000);
-            FireballCoolDown = BUILDER.comment("Fireball Spell Cooldown, Default: 20")
+            FireballCoolDown = BUILDER.comment("Fireball Spell Cooldown, Default: 40")
                     .defineInRange("fireballCoolDown", 40, 0, Integer.MAX_VALUE);
             FireballDamage = BUILDER.comment("How much base damage Fireballs deal when directly hitting a mob, Default: 5.0")
                     .defineInRange("fireballDamage", 5.0, 1.0, Double.MAX_VALUE);
@@ -650,6 +667,14 @@ public class SpellConfig {
                     .defineInRange("illusionTime", 40, 0, 72000);
             IllusionCoolDown = BUILDER.comment("Mirror Spell Cooldown, Default: 340")
                     .defineInRange("illusionCoolDown", 340, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Ignite Spell");
+            IgniteCost = BUILDER.comment("Ignite Spell Cost, Default: 2")
+                    .defineInRange("igniteCost", 2, 0, Integer.MAX_VALUE);
+            IgniteCoolDown = BUILDER.comment("Ignite Spell Cooldown, Default: 10")
+                    .defineInRange("igniteCoolDown", 10, 0, Integer.MAX_VALUE);
+            IgniteFireSeconds = BUILDER.comment("How many seconds Ignite Spell sets target on fire unenchanted, Default: 5")
+                    .defineInRange("igniteFireSeconds", 5, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Fire Breath Spell");
             FireBreathCost = BUILDER.comment("Fire Breath Spell Cost per second, Default: 2")
@@ -1115,10 +1140,12 @@ public class SpellConfig {
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");
-        SkeletonLimit = BUILDER.comment("Number of Skeleton/Vanguard/Necromancer Servants that an individual player can have in total, Default: 32")
-                .defineInRange("skeletonLimit", 32, 1, Integer.MAX_VALUE);
+        NecromancerLimit = BUILDER.comment("Number of Necromancer Servants that an individual player can have in total, Default: 8")
+                .defineInRange("necromancerLimit", 8, 1, Integer.MAX_VALUE);
         BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")
                 .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
+        BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")
+                .defineInRange("blackBeastLimit", 2, 1, Integer.MAX_VALUE);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems an individual player can have, Default: 2")
                 .defineInRange("redstoneGolemLimit", 2, 0, Integer.MAX_VALUE);
         GraveGolemLimit = BUILDER.comment("Total number of Grave Golems an individual player can have, Default: 2")

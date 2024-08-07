@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:cragrocks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cragrocks_stairs",
+    "count": 4
+  }
+}

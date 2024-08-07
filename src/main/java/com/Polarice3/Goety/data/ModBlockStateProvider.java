@@ -24,6 +24,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builtinEntity(ModBlocks.WINDSWEPT_HANGING_SIGN.get(), "goety:block/stripped_windswept_log");
         builtinEntity(ModBlocks.WINDSWEPT_WALL_HANGING_SIGN.get(), "goety:block/stripped_windswept_log");
 
+        simpleBlockWithItem(ModBlocks.CRAGROCKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.CRAG_TILES_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.CRAG_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SNOWY_CRAG_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SILT_STUDDED_CRAG_TILES_BLOCK.get());
+
+        simpleBlockWithItem(ModBlocks.SILTSTONE_BRICKS_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SILTSTONE_TILES_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.SILTSTONE_PAVEMENT_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BLOCK.get());
+        simpleBlockWithItem(ModBlocks.CHISELED_SILTSTONE_BRICKS_BLOCK.get());
+
         buttonBlockWithItem((ButtonBlock) ModBlocks.HAUNTED_BUTTON.get(), Goety.location("block/haunted_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.ROTTEN_BUTTON.get(), Goety.location("block/rotten_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.WINDSWEPT_BUTTON.get(), Goety.location("block/windswept_planks"));
@@ -42,6 +54,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         fenceBlockWithItem((FenceBlock) ModBlocks.ROTTEN_FENCE.get(), Goety.location("block/rotten_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.WINDSWEPT_FENCE.get(), Goety.location("block/windswept_planks"));
         fenceBlockWithItem((FenceBlock) ModBlocks.STEEP_FENCE.get(), Goety.location("block/steep_planks"));
+        fenceBlockWithItem((FenceBlock) ModBlocks.CRAGROCKS_FENCE.get(), Goety.location("block/cragrocks"));
 
         logBlockWithItem((RotatedPillarBlock) ModBlocks.HAUNTED_LOG.get());
         logBlockWithItem((RotatedPillarBlock) ModBlocks.ROTTEN_LOG.get());
@@ -76,9 +89,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlockWithItem((SlabBlock) ModBlocks.SMOOTH_MARBLE_SLAB.get(), Goety.location("block/marble"));
         slabBlockWithItem((SlabBlock) ModBlocks.SLATE_MARBLE_SLAB.get(), Goety.location("block/slate_marble"));
 
+        slabBlockWithItem((SlabBlock) ModBlocks.CRAGROCKS_SLAB.get(), Goety.location("block/cragrocks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.CRAG_TILE_SLAB.get(), Goety.location("block/crag_tiles"));
+        slabBlockWithItem((SlabBlock) ModBlocks.CRAG_BRICK_SLAB.get(), Goety.location("block/crag_bricks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SNOWY_CRAG_BRICK_SLAB.get(), Goety.location("block/snowy_crag_bricks"));
+
         slabBlockWithItem((SlabBlock) ModBlocks.HIGHROCK_SLAB.get(), Goety.location("block/highrock"));
         slabBlockWithItem((SlabBlock) ModBlocks.POLISHED_HIGHROCK_SLAB.get(), Goety.location("block/polished_highrock"));
         slabBlockWithItem((SlabBlock) ModBlocks.HIGHROCK_BRICK_SLAB.get(), Goety.location("block/highrock_bricks"));
+
+        slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_SLAB.get(), Goety.location("block/siltstone"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_BRICK_SLAB.get(), Goety.location("block/siltstone_bricks"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_TILE_SLAB.get(), Goety.location("block/siltstone_tiles"));
+        slabBlockWithItem((SlabBlock) ModBlocks.SILTSTONE_PAVEMENT_SLAB.get(), Goety.location("block/siltstone_pavement"));
 
         slabBlockWithItem((SlabBlock) ModBlocks.SNOW_BRICK_SLAB.get(), Goety.location("block/snow_bricks"));
 
@@ -90,9 +113,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         stairsBlockWithItem((StairBlock) ModBlocks.MARBLE_STAIRS_BLOCK.get(), Goety.location("block/marble"));
         stairsBlockWithItem((StairBlock) ModBlocks.SLATE_MARBLE_STAIRS_BLOCK.get(), Goety.location("block/slate_marble"));
 
+        stairsBlockWithItem((StairBlock) ModBlocks.CRAGROCKS_STAIRS.get(), Goety.location("block/cragrocks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.CRAG_TILE_STAIRS.get(), Goety.location("block/crag_tiles"));
+        stairsBlockWithItem((StairBlock) ModBlocks.CRAG_BRICK_STAIRS.get(), Goety.location("block/crag_bricks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SNOWY_CRAG_BRICK_STAIRS.get(), Goety.location("block/snowy_crag_bricks"));
+
         stairsBlockWithItem((StairBlock) ModBlocks.HIGHROCK_STAIRS.get(), Goety.location("block/highrock"));
         stairsBlockWithItem((StairBlock) ModBlocks.POLISHED_HIGHROCK_STAIRS.get(), Goety.location("block/polished_highrock"));
         stairsBlockWithItem((StairBlock) ModBlocks.HIGHROCK_BRICK_STAIRS.get(), Goety.location("block/highrock_bricks"));
+
+        stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_STAIRS.get(), Goety.location("block/siltstone"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_BRICK_STAIRS.get(), Goety.location("block/siltstone_bricks"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_TILE_STAIRS.get(), Goety.location("block/siltstone_tiles"));
+        stairsBlockWithItem((StairBlock) ModBlocks.SILTSTONE_PAVEMENT_STAIRS.get(), Goety.location("block/siltstone_pavement"));
 
         stairsBlockWithItem((StairBlock) ModBlocks.SNOW_BRICK_STAIRS_BLOCK.get(), Goety.location("block/snow_bricks"));
 
@@ -100,9 +133,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.ROTTEN_TRAPDOOR.get(), Goety.location("block/rotten_trapdoor"), true, "cutout");
         trapdoorBlockWithRenderType((TrapDoorBlock) ModBlocks.WINDSWEPT_TRAPDOOR.get(), Goety.location("block/windswept_trapdoor"), false, "cutout");
 
+        wallBlockWithItem((WallBlock) ModBlocks.CRAGROCKS_WALL_BLOCK.get(), Goety.location("block/cragrocks"));
+        wallBlockWithItem((WallBlock) ModBlocks.CRAG_TILE_WALL_BLOCK.get(), Goety.location("block/crag_tiles"));
+        wallBlockWithItem((WallBlock) ModBlocks.CRAG_BRICK_WALL_BLOCK.get(), Goety.location("block/crag_bricks"));
+        wallBlockWithItem((WallBlock) ModBlocks.SNOWY_CRAG_BRICK_WALL_BLOCK.get(), Goety.location("block/snowy_crag_bricks"));
+
         wallBlockWithItem((WallBlock) ModBlocks.HIGHROCK_WALL_BLOCK.get(), Goety.location("block/highrock"));
         wallBlockWithItem((WallBlock) ModBlocks.POLISHED_HIGHROCK_WALL_BLOCK.get(), Goety.location("block/polished_highrock"));
         wallBlockWithItem((WallBlock) ModBlocks.HIGHROCK_BRICK_WALL_BLOCK.get(), Goety.location("block/highrock_bricks"));
+
+        wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_WALL_BLOCK.get(), Goety.location("block/siltstone"));
+        wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_TILE_WALL_BLOCK.get(), Goety.location("block/siltstone_tiles"));
+        wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_BRICK_WALL_BLOCK.get(), Goety.location("block/siltstone_bricks"));
+        wallBlockWithItem((WallBlock) ModBlocks.SILTSTONE_PAVEMENT_WALL_BLOCK.get(), Goety.location("block/siltstone_pavement"));
 
         wallBlockWithItem((WallBlock) ModBlocks.INDENTED_GOLD_WALL_BLOCK.get(), Goety.location("block/indented_gold"));
 

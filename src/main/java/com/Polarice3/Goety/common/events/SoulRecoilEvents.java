@@ -2,7 +2,7 @@ package com.Polarice3.Goety.common.events;
 
 public class SoulRecoilEvents {
 
-/*    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         if (player.level instanceof ServerLevel serverLevel) {
@@ -14,8 +14,7 @@ public class SoulRecoilEvents {
                     if (serverLevel.random.nextFloat() <= random) {
                         if (effect > 0) {
                             if (effect <= 88) {
-                                IllagerSpawner illagerSpawner = new IllagerSpawner();
-                                illagerSpawner.forceSpawn(serverLevel, player);
+
                             }
                         }
                     }

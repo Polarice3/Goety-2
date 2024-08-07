@@ -1,6 +1,5 @@
 package com.Polarice3.Goety.client.particles;
 
-import com.Polarice3.Goety.utils.ColorUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LightTexture;
@@ -9,16 +8,15 @@ import net.minecraft.core.particles.SimpleParticleType;
 public class ElectricExplosionParticle extends TextureSheetParticle {
    private final SpriteSet sprites;
 
-   protected ElectricExplosionParticle(ClientLevel p_106905_, double p_106906_, double p_106907_, double p_106908_, double p_106909_, SpriteSet p_106910_) {
-      super(p_106905_, p_106906_, p_106907_, p_106908_, 0.0D, 0.0D, 0.0D);
+   protected ElectricExplosionParticle(ClientLevel level, double x, double y, double z, float xSpeed, float ySpeed, float zSpeed, SpriteSet spriteSet) {
+      super(level, x, y, z, 0.0D, 0.0D, 0.0D);
       this.lifetime = 6 + this.random.nextInt(4);
-      ColorUtil colorUtil = new ColorUtil(0xfef597);
-      this.rCol = colorUtil.red;
-      this.gCol = colorUtil.green;
-      this.bCol = colorUtil.blue;
+      this.rCol = xSpeed;
+      this.gCol = ySpeed;
+      this.bCol = zSpeed;
       this.quadSize = 2.0F;
-      this.sprites = p_106910_;
-      this.setSpriteFromAge(p_106910_);
+      this.sprites = spriteSet;
+      this.setSpriteFromAge(spriteSet);
    }
 
    public int getLightColor(float p_106921_) {
@@ -48,7 +46,7 @@ public class ElectricExplosionParticle extends TextureSheetParticle {
       }
 
       public Particle createParticle(SimpleParticleType p_106936_, ClientLevel p_106937_, double p_106938_, double p_106939_, double p_106940_, double p_106941_, double p_106942_, double p_106943_) {
-         return new ElectricExplosionParticle(p_106937_, p_106938_, p_106939_, p_106940_, p_106941_, this.sprites);
+         return new ElectricExplosionParticle(p_106937_, p_106938_, p_106939_, p_106940_, (float) p_106941_, (float) p_106942_, (float) p_106943_, this.sprites);
       }
    }
 }

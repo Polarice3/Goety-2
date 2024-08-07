@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "goety:shock",
+    "goety:direct_shock",
+    "goety:indirect_shock",
+    "goety:wind_blast",
+    "goety:hellfire",
+    "goety:indirect_hellfire",
+    "goety:magic_bolt",
+    "goety:soul_leech",
+    "goety:phobia",
+    "goety:doom"
+  ]
+}

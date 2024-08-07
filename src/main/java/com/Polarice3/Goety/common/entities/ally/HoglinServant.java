@@ -76,7 +76,7 @@ public class HoglinServant extends AnimalSummon implements HoglinBase, PlayerRid
         super.registerGoals();
         this.goalSelector.addGoal(1, new HoglinMeleeAttackGoal());
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new WanderGoal(this, 0.4D));
+        this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.4D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }

@@ -16,6 +16,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
@@ -25,7 +26,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.PatrollingMonster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -60,7 +60,7 @@ public class IllagerSpawner {
                     if (j < 1) {
                         return 0;
                     } else {
-                        Player pPlayer = pLevel.players().get(random.nextInt(j));
+                        ServerPlayer pPlayer = pLevel.players().get(random.nextInt(j));
                         int soulEnergy = Mth.clamp(SEHelper.getSoulAmountInt(pPlayer), 0, MobsConfig.IllagerAssaultSELimit.get());
                         if (pPlayer.isSpectator() || pPlayer.isCreative()) {
                             return 0;
@@ -116,7 +116,7 @@ public class IllagerSpawner {
                                         }
                                     }
                                     if (CuriosFinder.hasCurio(pPlayer, ModItems.ALARMING_CHARM.get())){
-                                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
+                                        ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
                                     }
                                     return i1;
                                 } else {
@@ -132,7 +132,7 @@ public class IllagerSpawner {
         }
     }
 
-    public boolean spawnRaider(IllagerDataType dataType, EntityType<?> entityType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, Player player){
+    public boolean spawnRaider(IllagerDataType dataType, EntityType<?> entityType, ServerLevel worldIn, BlockPos pos, RandomSource random, int soulAmount, ServerPlayer player){
         BlockState blockstate = worldIn.getBlockState(pos);
         if (entityType == null){
             return false;
@@ -226,7 +226,7 @@ public class IllagerSpawner {
         }
     }
 
-    public void forceSpawn(ServerLevel pLevel, Player pPlayer, CommandSourceStack pSource){
+    public void forceSpawn(ServerLevel pLevel, ServerPlayer pPlayer, CommandSourceStack pSource){
         RandomSource random = pLevel.random;
         int soulEnergy = SEHelper.getSoulAmountInt(pPlayer);
         if (soulEnergy > MobsConfig.IllagerAssaultSEThreshold.get()) {
@@ -235,7 +235,7 @@ public class IllagerSpawner {
             BlockPos.MutableBlockPos blockpos$mutable = pPlayer.blockPosition().mutable().move(k, 0, l);
             if (pLevel.isLoaded(blockpos$mutable)) {
                 if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
-                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                    ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()){
                     for (IllagerDataType data : IllagerAssaultListener.ILLAGER_LIST.values()){
@@ -264,16 +264,16 @@ public class IllagerSpawner {
                         }
                     }
                     if (CuriosFinder.hasCurio(pPlayer, ModItems.ALARMING_CHARM.get())){
-                        ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
+                        ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.RAID_HORN.get(), 64.0F, 1.0F));
                     }
                     this.nextTick += MobsConfig.IllagerAssaultSpawnFreq.get();
                     pSource.sendSuccess(() -> Component.translatable("commands.goety.illager.spawn.success", pPlayer.getDisplayName()), false);
                 } else {
-                    ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                    ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.empty"));
                 }
             } else {
-                ModNetwork.sendToALL(new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                 pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
             }
         }

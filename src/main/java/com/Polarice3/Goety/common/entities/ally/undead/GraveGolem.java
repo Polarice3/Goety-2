@@ -94,7 +94,7 @@ public class GraveGolem extends AbstractGolemServant {
 //        this.goalSelector.addGoal(3, new GraveGolem.BelchGoal(this));
         this.goalSelector.addGoal(3, new GolemRangedGoal(this, 1.0D, 32.0F));
         this.goalSelector.addGoal(5, new AttackGoal(1.0D));
-        this.goalSelector.addGoal(8, new WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }

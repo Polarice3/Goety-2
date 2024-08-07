@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -18,7 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class IcySpiderServant extends SpiderServant{
-    public IcySpiderServant(EntityType<? extends Owned> type, Level worldIn) {
+    public IcySpiderServant(EntityType<? extends SpiderServant> type, Level worldIn) {
         super(type, worldIn);
     }
 

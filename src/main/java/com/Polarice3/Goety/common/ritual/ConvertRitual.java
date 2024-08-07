@@ -3,9 +3,11 @@ package com.Polarice3.Goety.common.ritual;
 import com.Polarice3.Goety.common.blocks.entities.DarkAltarBlockEntity;
 import com.Polarice3.Goety.common.crafting.RitualRecipe;
 import com.Polarice3.Goety.utils.MobUtil;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,6 +41,9 @@ public class ConvertRitual extends Ritual {
             Entity entity = MobUtil.convertTo(tileEntity.getConvertEntity, entityType, true, this.newEquip, this.tame ? castingPlayer : null);
             if (entity instanceof Mob mob){
                 mob.spawnAnim();
+            }
+            if (castingPlayer instanceof ServerPlayer serverPlayer){
+                CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
             }
         }
     }

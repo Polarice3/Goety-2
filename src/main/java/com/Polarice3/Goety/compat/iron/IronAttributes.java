@@ -18,6 +18,7 @@ public class IronAttributes {
     public static final Attribute BLOOD_MAGIC_RESIST = getResistanceAttribute("blood");
     public static final Attribute EVOCATION_MAGIC_RESIST = getResistanceAttribute("evocation");
     public static final Attribute NATURE_MAGIC_RESIST = getResistanceAttribute("nature");
+    public static final Attribute ELDRITCH_MAGIC_RESIST = getResistanceAttribute("eldritch");
 
     public static final Attribute FIRE_SPELL_POWER = getPowerAttribute("fire");
     public static final Attribute ICE_SPELL_POWER = getPowerAttribute("ice");
@@ -27,10 +28,13 @@ public class IronAttributes {
     public static final Attribute BLOOD_SPELL_POWER = getPowerAttribute("blood");
     public static final Attribute EVOCATION_SPELL_POWER = getPowerAttribute("evocation");
     public static final Attribute NATURE_SPELL_POWER = getPowerAttribute("nature");
+    public static final Attribute ELDRITCH_SPELL_POWER = getPowerAttribute("eldritch");
 
     public static final Attribute MAX_MANA = getAttribute("max_mana");
     public static final Attribute MANA_REGEN = getAttribute("mana_regen");
     public static final Attribute SUMMON_DAMAGE = getAttribute("summon_damage");
+    public static final Attribute SPELL_POWER = getAttribute("spell_power");
+    public static final Attribute SPELL_RESIST = getAttribute("spell_resist");
 
     private static Attribute getAttribute(String id) {
         return ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation("irons_spellbooks", id));

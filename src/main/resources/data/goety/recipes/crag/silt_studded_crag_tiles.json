@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#$#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:cragrocks"
+    },
+    "$":
+    {
+      "item": "goety:siltstone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:silt_studded_crag_tiles",
+    "count": 4
+  }
+}

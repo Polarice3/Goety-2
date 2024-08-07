@@ -47,7 +47,7 @@ public class BoundEvoker extends AbstractBoundIllager{
         this.goalSelector.addGoal(4, new EvokerSummonSpellGoal());
         this.goalSelector.addGoal(5, new EvokerAttackSpellGoal());
         this.goalSelector.addGoal(6, new EvokerWololoSpellGoal());
-        this.goalSelector.addGoal(8, new WanderGoal(this, 0.6D));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }

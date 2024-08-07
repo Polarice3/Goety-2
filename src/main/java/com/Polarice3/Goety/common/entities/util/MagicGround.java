@@ -1,14 +1,17 @@
 package com.Polarice3.Goety.common.entities.util;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.entity.PartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +49,21 @@ public class MagicGround extends AbstractTrap{
             }
         }
         List<LivingEntity> targets = new ArrayList<>();
-        for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox())){
-            if (this.owner != null) {
-                if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner) && !this.owner.isAlliedTo(livingEntity)) {
+        for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+            LivingEntity livingEntity = null;
+            if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                livingEntity = living;
+            } else if (entity instanceof LivingEntity living){
+                livingEntity = living;
+            }
+            if (livingEntity != null) {
+                if (this.getOwner() != null) {
+                    if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                        targets.add(livingEntity);
+                    }
+                } else {
                     targets.add(livingEntity);
                 }
-            } else {
-                targets.add(livingEntity);
             }
         }
         if (!targets.isEmpty()){

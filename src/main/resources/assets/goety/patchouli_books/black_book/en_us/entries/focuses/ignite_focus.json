@@ -1,0 +1,15 @@
+{
+  "name": "Ignite Focus",
+  "icon": "goety:ignite_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With this spell, right-clicking on a block or a target directly will set them aflame, simple as that."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ignite_focus"
+    }
+  ]
+}

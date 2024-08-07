@@ -443,6 +443,7 @@ public class Goety {
         event.put(ModEntityType.BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.POLAR_BEAR_SERVANT.get(), BearServant.setCustomAttributes().build());
         event.put(ModEntityType.HOGLIN_SERVANT.get(), HoglinServant.setCustomAttributes().build());
+        event.put(ModEntityType.BLACK_BEAST.get(), BlackBeast.setCustomAttributes().build());
         event.put(ModEntityType.WHISPERER.get(), Whisperer.setCustomAttributes().build());
         event.put(ModEntityType.WAVEWHISPERER.get(), Wavewhisperer.setCustomAttributes().build());
         event.put(ModEntityType.LEAPLEAF.get(), Leapleaf.setCustomAttributes().build());

@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.magic.spells.frost.FrostNovaSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
@@ -65,7 +64,7 @@ public class IceGolem extends AbstractGolemServant{
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new AttackGoal(this));
-        this.goalSelector.addGoal(8, new Summoned.WanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }

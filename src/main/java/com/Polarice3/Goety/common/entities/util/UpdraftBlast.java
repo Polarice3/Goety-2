@@ -4,18 +4,19 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.projectiles.AbstractCyclone;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
-import net.minecraft.core.particles.ParticleTypes;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
@@ -102,27 +103,18 @@ public class UpdraftBlast extends Entity {
         if (this.level instanceof ServerLevel serverLevel) {
             float area = this.getAreaOfEffect() / 2;
             float f = 1.5F + area;
-            float f5 = (float) Math.PI * f * f;
-            serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + Math.cos(this.tickCount * 0.25) * this.getAreaOfEffect(), this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25) * this.getAreaOfEffect(), 0, 0, 0, 0, 0.5F);
-            serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + Math.cos(this.tickCount * 0.25 + Math.PI) * this.getAreaOfEffect(), this.getY() + 0.5, this.getZ() + Math.sin(this.tickCount * 0.25 + Math.PI) * this.getAreaOfEffect(), 0, 0, 0, 0, 0.5F);
+            ColorUtil color = new ColorUtil(0xffffff);
+            ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
+            ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
 
-            if (this.tickCount % 20 == 0){
-                for (int j1 = 0; j1 < 16; ++j1) {
-                    for (int k1 = 0; (float) k1 < f5; ++k1) {
-                        float f6 = this.random.nextFloat() * ((float) Math.PI * 2F);
-                        float f7 = Mth.sqrt(this.random.nextFloat()) * f;
-                        float f8 = Mth.cos(f6) * f7;
-                        float f9 = Mth.sin(f6) * f7;
-                        serverLevel.sendParticles(ParticleTypes.CLOUD, this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 0, 0, 0.5D, 0, 0.5F);
-                    }
-                }
+            if (this.tickCount == 20){
                 List<Entity> targets = new ArrayList<>();
                 float area0 = 1.0F + area;
                 AABB aabb = this.getBoundingBox();
-                AABB aabb1 = new AABB(aabb.minX - area0, aabb.minY - 1.0F, aabb.minZ - area0, aabb.maxX + area0, aabb.maxY + 4.0F, aabb.maxZ + area0);
+                AABB aabb1 = new AABB(aabb.minX - area0, aabb.minY - 1.0F, aabb.minZ - area0, aabb.maxX + area0, aabb.maxY + 1.0F, aabb.maxZ + area0);
                 for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb1)){
                     if (this.owner != null) {
-                        if (entity != this.owner && !entity.isAlliedTo(this.owner)) {
+                        if (entity != this.owner && !MobUtil.areAllies(entity, this.owner)) {
                             targets.add(entity);
                         }
                     } else {
@@ -133,7 +125,7 @@ public class UpdraftBlast extends Entity {
                     for (Entity entity : targets) {
                         if (entity instanceof LivingEntity livingEntity) {
                             livingEntity.hurt(ModDamageSource.windBlast(this, this.owner), this.damage);
-                            MobUtil.push(livingEntity, 0, 1.0, 0);
+                            MobUtil.push(livingEntity, 0.0D, 1.0D, 0.0D);
                         } else if (entity instanceof AbstractCyclone cyclone){
                             cyclone.trueRemove();
                         }
@@ -144,7 +136,11 @@ public class UpdraftBlast extends Entity {
         if (this.tickCount == 1){
             this.playSound(ModSounds.UPDRAFT_BLAST.get(), 1.0F, 1.0F);
         }
-        if (this.tickCount % 20 == 0){
+        if (this.tickCount > 20){
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.25D, 0.0D));
+            this.move(MoverType.SELF, this.getDeltaMovement());
+        }
+        if (this.tickCount % 30 == 0){
             this.discard();
         }
     }

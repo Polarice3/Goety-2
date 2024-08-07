@@ -398,7 +398,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                             } else if (ritualRecipe.isConversion() && RitualRequirements.noConvertEntity(ritualRecipe.getEntityToConvert(), pos, world)){
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
                                 return false;
-                            } else if (ritualRecipe.isSummoning() && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())){
+                            } else if ((ritualRecipe.isSummoning() || ritualRecipe.isConversion()) && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())){
                                 return false;
                             } else if (ritualRecipe.getResearch() != null
                                     && ResearchList.getResearch(ritualRecipe.getResearch()) != null){
@@ -452,7 +452,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
         IItemHandler handler = this.itemStackHandler.orElseThrow(RuntimeException::new);
         ItemStack itemStack = handler.getStackInSlot(0);
         if (itemStack != ItemStack.EMPTY){
-            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(),
+            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY() + 1.0F, this.worldPosition.getZ(),
                     handler.extractItem(0, itemStack.getCount(), false));
         }
         this.currentRitualRecipe = null;

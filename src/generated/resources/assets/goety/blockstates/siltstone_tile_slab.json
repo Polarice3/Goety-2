@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/siltstone_tile_slab"
+    },
+    "type=double": {
+      "model": "goety:block/siltstone_tiles"
+    },
+    "type=top": {
+      "model": "goety:block/siltstone_tile_slab_top"
+    }
+  }
+}

@@ -1,5 +1,7 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.client.particles.WindParticleOption;
+import com.Polarice3.Goety.client.particles.WindShockwaveParticle;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -86,7 +88,7 @@ public class ServerParticleUtil {
                     float f2 = -0.5F + serverWorld.random.nextFloat();
                     BlockPos blockpos1 = blockpos.subtract(entity.blockPosition());
                     Vec3 vector3d1 = (new Vec3(f, f1, f2)).add(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
-                    serverWorld.sendParticles(pParticleData, vector3d.x, vector3d.y, vector3d.z, 0, vector3d1.x, vector3d1.y, vector3d1.z, 0.5F);
+                    serverWorld.sendParticles(pParticleData, vector3d.x, vector3d.y, vector3d.z, 1, vector3d1.x, vector3d1.y, vector3d1.z, 0.5F);
                 }
             }
         }
@@ -192,6 +194,10 @@ public class ServerParticleUtil {
         circularParticles(serverLevel, particleOptions, entity.getX(), entity.getY(), entity.getZ(), radius);
     }
 
+    public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, Entity entity, double xSpeed, double ySpeed, double zSpeed, float radius){
+        circularParticles(serverLevel, particleOptions, entity.getX(), entity.getY(), entity.getZ(), xSpeed, ySpeed, zSpeed, radius);
+    }
+
     public static void circularParticles(ServerLevel serverLevel, ParticleOptions particleOptions, double x, double y, double z, float radius){
         circularParticles(serverLevel, particleOptions, x, y, z, 0, 0, 0, radius);
     }
@@ -240,6 +246,20 @@ public class ServerParticleUtil {
                     }
                 }
             }
+        }
+    }
+
+    public static void windParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int id, Vec3 vec3){
+        serverLevel.sendParticles(new WindParticleOption(color, width, height, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
+    }
+
+    public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, int id, Vec3 vec3){
+        windShockwaveParticle(serverLevel, color, width, height, 0.25F, id, vec3);
+    }
+
+    public static void windShockwaveParticle(ServerLevel serverLevel, ColorUtil color, float width, float height, float increase, int id, Vec3 vec3){
+        for (int i = 0; i < 8; ++i) {
+            serverLevel.sendParticles(new WindShockwaveParticle.Option(color, width, height, increase, i * 0.125F, id), vec3.x(), vec3.y(), vec3.z(), 1, 0.0D, 0.0D, 0.0D, 0.0F);
         }
     }
 }

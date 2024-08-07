@@ -19,11 +19,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -113,13 +113,21 @@ public class FireBlastTrap extends Entity {
                     }
                 }
                 List<LivingEntity> targets = new ArrayList<>();
-                for (LivingEntity livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1), EntitySelector.NO_CREATIVE_OR_SPECTATOR)){
-                    if (this.owner != null) {
-                        if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner)) {
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+                    LivingEntity livingEntity = null;
+                    if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                        livingEntity = living;
+                    } else if (entity instanceof LivingEntity living){
+                        livingEntity = living;
+                    }
+                    if (livingEntity != null) {
+                        if (this.owner != null) {
+                            if (livingEntity != this.owner && !livingEntity.isAlliedTo(this.owner)) {
+                                targets.add(livingEntity);
+                            }
+                        } else {
                             targets.add(livingEntity);
                         }
-                    } else {
-                        targets.add(livingEntity);
                     }
                 }
                 if (!targets.isEmpty()){

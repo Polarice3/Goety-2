@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:snowy_crag_bricks"
+  },
+  "result": "goety:snowy_crag_brick_slab",
+  "count": 2
+}

@@ -8,6 +8,7 @@ import com.Polarice3.Goety.utils.MathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HoleBlockEntity extends SaveBlockEntity{
@@ -78,7 +79,11 @@ public class HoleBlockEntity extends SaveBlockEntity{
                 this.setChanged();
             }
             if (this.life >= this.lifespan) {
-                this.level.setBlock(this.getBlockPos(), this.oldBlock, 3);
+                BlockState blockState = Blocks.AIR.defaultBlockState();
+                if (this.oldBlock != null) {
+                    blockState = this.oldBlock;
+                }
+                this.level.setBlock(this.getBlockPos(), blockState, 3);
             }
         }
     }

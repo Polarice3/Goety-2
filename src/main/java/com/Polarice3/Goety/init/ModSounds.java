@@ -177,6 +177,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ICEOLOGER_ATTACK = create("iceologer_attack");
     public static final RegistryObject<SoundEvent> ICEOLOGER_DEATH = create("iceologer_death");
 
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_AMBIENT = create("black_beast_ambient");
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_HURT = create("black_beast_hurt");
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_ROAR = create("black_beast_roar");
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_CLAW = create("black_beast_claw");
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_STEP = create("black_beast_step");
+    public static final RegistryObject<SoundEvent> BLACK_BEAST_DEATH = create("black_beast_death");
+
     public static final RegistryObject<SoundEvent> WHISPERER_AMBIENT = create("whisperer_ambient");
     public static final RegistryObject<SoundEvent> WHISPERER_HURT = create("whisperer_hurt");
     public static final RegistryObject<SoundEvent> WHISPERER_ATTACK = create("whisperer_attack");
@@ -413,6 +420,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ICE_SPIKE_CAST = create("ice_spike_cast");
     public static final RegistryObject<SoundEvent> ICE_SPIKE_HIT = create("ice_spike_hit");
     public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
+    public static final RegistryObject<SoundEvent> DOOM = create("doom");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
 
     public static final RegistryObject<SoundEvent> SCYTHE_SWING = create("scythe_swing");

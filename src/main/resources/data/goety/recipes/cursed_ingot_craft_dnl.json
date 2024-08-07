@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "rrr",
+    "rrr",
+    "rrr"
+  ],
+  "key":
+  {
+    "r":
+    {
+      "item": "dungeonnowloading:spawner_fragment"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cursed_ingot",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "dungeonnowloading"
+    }
+  ]
+}

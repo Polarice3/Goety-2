@@ -57,15 +57,15 @@ public class TunnelSpell extends BlockSpell {
     }
 
     @Override
-    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
+    public boolean rightBlock(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
         BlockState blockState = worldIn.getBlockState(target);
-        return !blockState.hasBlockEntity() && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST) && blockState.getDestroySpeed(worldIn, target) != -1.0F;
+        BlockState blockState2 = worldIn.getBlockState(target.relative(direction));
+        return !blockState.hasBlockEntity() && blockState2.getBlock() != ModBlocks.HOLE.get() && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST) && blockState.getDestroySpeed(worldIn, target) != -1.0F;
     }
 
     @Override
-    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target) {
+    public void blockResult(ServerLevel worldIn, LivingEntity caster, BlockPos target, Direction direction) {
         BlockHitResult blockHitResult = MobUtil.rayTrace(caster, 8, false);
-        Direction direction = blockHitResult.getDirection();
         BlockPos blockPos = new BlockPos(blockHitResult.getBlockPos());
         int totalDistance = SpellConfig.TunnelDefaultDistance.get();
         int extraLife = 0;

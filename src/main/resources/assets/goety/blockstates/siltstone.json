@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "goety:block/siltstone"
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 90
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 180
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 270
+      },
+      {
+        "model": "goety:block/siltstone",
+        "y": 90
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "goety:block/siltstone",
+        "y": 180
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "goety:block/siltstone",
+        "y": 270
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "goety:block/siltstone",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

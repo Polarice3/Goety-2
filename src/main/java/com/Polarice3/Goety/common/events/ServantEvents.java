@@ -51,6 +51,17 @@ public class ServantEvents {
                     event.setNewTarget(mobAttacker.getLastHurtByMob());
                 }
             }
+            if (attacker instanceof IOwned owned && owned.getMasterOwner() instanceof Player){
+                if (attacker.level.getServer() != null) {
+                    if (!attacker.level.getServer().isPvpAllowed()) {
+                        if (target instanceof Player
+                                || (target instanceof IOwned owned1
+                                && owned1.getMasterOwner() instanceof Player)) {
+                            event.setNewTarget(null);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -73,10 +84,22 @@ public class ServantEvents {
     public static void AttackEvent(LivingAttackEvent event){
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
-        if (MobsConfig.MinionsMasterImmune.get()){
-            if (attacker instanceof IOwned owned){
+        if (attacker instanceof IOwned owned){
+            if (MobsConfig.MinionsMasterImmune.get()){
                 if (owned.getTrueOwner() == victim){
                     event.setCanceled(true);
+                }
+            }
+        }
+        if ((attacker instanceof IOwned owned && owned.getMasterOwner() instanceof Player)
+                || attacker instanceof Player){
+            if (attacker.level.getServer() != null) {
+                if (!attacker.level.getServer().isPvpAllowed()) {
+                    if (victim instanceof Player
+                            || (victim instanceof IOwned owned1
+                            && owned1.getMasterOwner() instanceof Player)) {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }

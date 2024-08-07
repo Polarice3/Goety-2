@@ -108,6 +108,7 @@ public class ModItems {
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
+    public static final RegistryObject<Item> ARCA_COMPASS = ITEMS.register("arca_compass", ArcaCompassItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GOODWILL = ITEMS.register("grimoire_of_goodwill", GoodwillGrimoire::new);
 
@@ -154,9 +155,8 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
-    public static final RegistryObject<SingleStackItem> IRON_CROWN = ITEMS.register("iron_crown", NecroGarbs.NecroCrownItem::new);
     public static final RegistryObject<SingleStackItem> NECRO_CROWN = ITEMS.register("necro_crown", NecroGarbs.NecroCrownItem::new);
-    public static final RegistryObject<SingleStackItem> NAMELESS_CROWN = ITEMS.register("nameless_crown", MagicHatItem::new);
+    public static final RegistryObject<SingleStackItem> NAMELESS_CROWN = ITEMS.register("nameless_crown", () -> new NecroGarbs.NecroCrownItem(true));
     public static final RegistryObject<SingleStackItem> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> WITCH_HAT = ITEMS.register("witch_hat", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> WITCH_HAT_HEDGE = ITEMS.register("witch_hat_hedge", WitchHatItem::new);
@@ -195,6 +195,7 @@ public class ModItems {
     public static final RegistryObject<Item> FEAST_FOCUS = ITEMS.register("feast_focus", () -> new MagicFocus(new FeastSpell()));
     public static final RegistryObject<Item> TEETH_FOCUS = ITEMS.register("teeth_focus", () -> new MagicFocus(new TeethSpell()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(new IllusionSpell()));
+    public static final RegistryObject<Item> IGNITE_FOCUS = ITEMS.register("ignite_focus", () -> new MagicFocus(new IgniteSpell()));
     public static final RegistryObject<Item> FIRE_BREATH_FOCUS = ITEMS.register("fire_breath_focus", () -> new MagicFocus(new FireBreathSpell()));
     public static final RegistryObject<Item> SOUL_BOLT_FOCUS = ITEMS.register("soul_bolt_focus", () -> new MagicFocus(new SoulBoltSpell()));
     public static final RegistryObject<Item> MAGIC_BOLT_FOCUS = ITEMS.register("magic_bolt_focus", () -> new MagicFocus(new MagicBoltSpell()));

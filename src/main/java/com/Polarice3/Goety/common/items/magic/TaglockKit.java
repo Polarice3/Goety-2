@@ -168,6 +168,13 @@ public class TaglockKit extends Item {
         return compoundtag != null && stack.getTag().contains(TAG_ENTITY);
     }
 
+    public static void removeEntity(ItemStack stack){
+        CompoundTag compoundtag = stack.getTag();
+        if (hasEntity(stack) && compoundtag != null){
+            compoundtag.remove(TAG_ENTITY);
+        }
+    }
+
     public static void setNewTaglock(Player player, ItemStack itemStack, LivingEntity livingEntity){
         if (livingEntity != null) {
             CompoundTag compoundTag = new CompoundTag();
@@ -186,6 +193,17 @@ public class TaglockKit extends Item {
             if (livingEntity != null) {
                 compoundTag.putUUID(TAG_ENTITY, livingEntity.getUUID());
             }
+        }
+    }
+
+    public static void setEntity(ItemStack itemStack, LivingEntity livingEntity){
+        if (livingEntity != null) {
+            CompoundTag compoundTag = new CompoundTag();
+            if (itemStack.hasTag()) {
+                compoundTag = itemStack.getTag();
+            }
+            setEntity(compoundTag, livingEntity);
+            itemStack.setTag(compoundTag);
         }
     }
 

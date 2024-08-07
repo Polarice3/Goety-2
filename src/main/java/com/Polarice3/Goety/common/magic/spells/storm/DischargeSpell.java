@@ -75,7 +75,7 @@ public class DischargeSpell extends Spell {
         }
         ColorUtil colorUtil = new ColorUtil(0xfef597);
         worldIn.sendParticles(new ShockwaveParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue()), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
-        worldIn.sendParticles(ModParticleTypes.ELECTRIC_EXPLODE.get(), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, 0, 0, 0, 0);
+        worldIn.sendParticles(ModParticleTypes.ELECTRIC_EXPLODE.get(), entityLiving.getX(), entityLiving.getY() + 0.5F, entityLiving.getZ(), 0, colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.0F);
         float trueDamage = Mth.clamp(damage + worldIn.random.nextInt((int) (maxDamage - damage)), damage, maxDamage);
         new SpellExplosion(worldIn, entityLiving, ModDamageSource.directShock(entityLiving), entityLiving.blockPosition(), radius, trueDamage){
             @Override

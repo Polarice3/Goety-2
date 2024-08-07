@@ -122,7 +122,7 @@ public class BlazeSpell extends SummonSpell {
                 this.SummonSap(entityLiving, blazeServant);
                 this.setTarget(entityLiving, blazeServant);
                 worldIn.addFreshEntity(blazeServant);
-                this.summonAdvancement(entityLiving, entityLiving);
+                this.summonAdvancement(entityLiving, blazeServant);
             }
             this.SummonDown(entityLiving);
             worldIn.playSound((Player) null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.SUMMON_SPELL_FIERY.get(), this.getSoundSource(), 1.0F, 1.0F);

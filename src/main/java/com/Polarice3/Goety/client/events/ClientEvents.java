@@ -59,6 +59,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -444,6 +446,42 @@ public class ClientEvents {
                 }
             }
         }
+    }
+
+    private static boolean addTempPoison;
+    private static MobEffectInstance addedTempPoison;
+
+    @SubscribeEvent
+    public static void RenderHealthBarPost(RenderGuiOverlayEvent.Post event) {
+        if (event.getOverlay().id() != VanillaGuiOverlay.PLAYER_HEALTH.id()) {
+            return;
+        }
+        if (Minecraft.getInstance().player == null){
+            return;
+        }
+        if (addTempPoison) {
+            Minecraft.getInstance().player.getActiveEffectsMap().remove(MobEffects.POISON);
+        }
+    }
+
+    @SubscribeEvent
+    public static void RenderHealthBarPre(RenderGuiOverlayEvent.Pre event) {
+        if (event.getOverlay().id() != VanillaGuiOverlay.PLAYER_HEALTH.id()) {
+            return;
+        }
+        if (Minecraft.getInstance().player == null){
+            return;
+        }
+
+        addTempPoison = Minecraft.getInstance().player.hasEffect(GoetyEffects.ACID_VENOM.get()) && !Minecraft.getInstance().player.getActiveEffectsMap().containsKey(MobEffects.POISON);
+
+        if (addTempPoison) {
+            if (addedTempPoison == null) {
+                addedTempPoison = new MobEffectInstance(MobEffects.POISON, 100);
+            }
+            Minecraft.getInstance().player.getActiveEffectsMap().put(MobEffects.POISON, addedTempPoison);
+        }
+
     }
 
     /**

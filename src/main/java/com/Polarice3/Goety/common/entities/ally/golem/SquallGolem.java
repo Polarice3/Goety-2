@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -65,7 +64,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
     public boolean isNovelty = false;
     public boolean requiresPower = true;
     public boolean proximity = false;
-    public BlockPos homePos;
     public AnimationState activateAnimationState = new AnimationState();
     public AnimationState deactivateAnimationState = new AnimationState();
     public AnimationState offAnimationState = new AnimationState();
@@ -128,9 +126,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         pCompound.putBoolean("Activated", this.isActivated());
         pCompound.putBoolean("RequiresPower", this.requiresPower());
         pCompound.putBoolean("Proximity", this.isProximity());
-        if (this.getHomePos() != null){
-            pCompound.put("HomePos", NbtUtils.writeBlockPos(this.getHomePos()));
-        }
         pCompound.putInt("HomeTick", this.homeTick);
     }
 
@@ -153,9 +148,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
         }
         if (pCompound.contains("Proximity")){
             this.setProximity(pCompound.getBoolean("Proximity"));
-        }
-        if (pCompound.contains("HomePos")){
-            this.homePos = NbtUtils.readBlockPos(pCompound.getCompound("HomePos"));
         }
         if (pCompound.contains("HomeTick")){
             this.homeTick = pCompound.getInt("HomeTick");
@@ -249,10 +241,16 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
 
     @Override
     public void updateMoveMode(Player player) {
-        if (!this.isStaying()){
+        if (!this.isStaying() && !this.isPatrolling()){
+            this.setBoundPos(null);
             this.setStaying(true);
             player.displayClientMessage(Component.translatable("info.goety.servant.staying", this.getDisplayName()), true);
+        } else if (!this.isPatrolling()){
+            this.setBoundPos(this.blockPosition());
+            this.setStaying(false);
+            player.displayClientMessage(Component.translatable("info.goety.servant.patrol", this.getDisplayName()), true);
         } else {
+            this.setBoundPos(null);
             this.setStaying(false);
             player.displayClientMessage(Component.translatable("info.goety.servant.follow", this.getDisplayName()), true);
         }
@@ -368,22 +366,23 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                             this.setStartingUp(true);
                             this.level.broadcastEntityEvent(this, (byte) 25);
                         }
-                    } else if (this.homePos != null){
+                    } else if (this.boundPos != null){
                         ++this.homeTick;
-                        if (this.getNavigation().isStableDestination(this.homePos)){
-                            this.getNavigation().moveTo(this.homePos.getX() + 0.5D, this.homePos.getY(), this.homePos.getZ() + 0.5D, 1.0D);
+                        if (this.getNavigation().isStableDestination(this.boundPos)){
+                            this.getNavigation().moveTo(this.boundPos.getX() + 0.5D, this.boundPos.getY(), this.boundPos.getZ() + 0.5D, 1.0D);
                             if (this.getNavigation().isStuck() || this.homeTick >= MathHelper.secondsToTicks(10)){
                                 this.homeTick = 0;
-                                this.homePos = null;
-                            } else if (this.homePos.closerToCenterThan(this.position(), this.getBbWidth() + 1.0D)){
-                                this.moveTo(this.homePos, this.getYRot(), this.getXRot());
-                                this.homePos = null;
+                                this.boundPos = null;
+                            } else if (this.boundPos.closerToCenterThan(this.position(), this.getBbWidth() + 1.0D)){
+                                this.moveTo(this.boundPos, this.getYRot(), this.getXRot());
+                                this.boundPos = null;
                             }
                         } else {
-                            this.homePos = null;
+                            this.boundPos = null;
                         }
                     } else {
                         if (!this.isShuttingDown() && this.isActivated()) {
+                            this.getNavigation().stop();
                             this.setShuttingDown(true);
                             this.level.broadcastEntityEvent(this, (byte) 26);
                         }
@@ -567,14 +566,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
 
     public void setProximity(boolean power){
         this.proximity = power;
-    }
-
-    public BlockPos getHomePos() {
-        return this.homePos;
-    }
-
-    public void setHomePos(BlockPos blockPos){
-        this.homePos = blockPos;
     }
 
     public void setCommandPos(BlockPos blockPos, boolean removeEntity){

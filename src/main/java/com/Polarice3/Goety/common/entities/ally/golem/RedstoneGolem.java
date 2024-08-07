@@ -3,7 +3,6 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
-import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.ScatterMine;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -110,7 +109,7 @@ public class RedstoneGolem extends AbstractGolemServant {
         this.goalSelector.addGoal(1, new SummonMinesGoal());
         this.goalSelector.addGoal(2, new MeleeGoal());
         this.goalSelector.addGoal(5, new AttackGoal(1.2D));
-        this.goalSelector.addGoal(8, new Summoned.WanderGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }

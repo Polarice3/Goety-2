@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_trapdoor_open",
+  "textures": {
+    "texture": "goety:block/gold_trapdoor"
+  },
+  "render_type": "cutout"
+}

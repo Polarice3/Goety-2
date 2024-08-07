@@ -167,8 +167,11 @@ public class ZombieSpell extends SummonSpell {
                 }
                 this.SummonSap(entityLiving, summonedentity);
                 this.setTarget(entityLiving, summonedentity);
-                worldIn.addFreshEntity(summonedentity);
-                this.summonAdvancement(entityLiving, entityLiving);
+                if (worldIn.addFreshEntity(summonedentity)) {
+                    ColorUtil colorUtil = new ColorUtil(0x2ac9cf);
+                    ServerParticleUtil.windShockwaveParticle(worldIn, colorUtil, 0.1F, 0.1F, 0.05F, -1, summonedentity.position());
+                }
+                this.summonAdvancement(entityLiving, summonedentity);
             }
             this.SummonDown(entityLiving);
             SoundUtil.playNecromancerSummon(entityLiving);

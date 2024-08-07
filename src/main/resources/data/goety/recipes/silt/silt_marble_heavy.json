@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lml",
+    "m m",
+    "lml"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "goety:marble"
+    },
+    "l":
+    {
+      "item": "goety:siltstone"
+    }
+  },
+  "result":
+  {
+    "item": "goety:silt_marble_heavy",
+    "count": 4
+  }
+}

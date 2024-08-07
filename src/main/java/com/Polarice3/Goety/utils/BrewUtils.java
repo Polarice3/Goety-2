@@ -142,6 +142,18 @@ public class BrewUtils {
         return getAllEffects(p_43548_.getTag());
     }
 
+    public static List<BrewEffectInstance> getAllEffects(Collection<BrewEffectInstance> p_43563_) {
+        List<BrewEffectInstance> list = Lists.newArrayList();
+        list.addAll(p_43563_);
+        return list;
+    }
+
+    public static List<MobEffectInstance> getAllMobEffects(Collection<MobEffectInstance> p_43563_) {
+        List<MobEffectInstance> list = Lists.newArrayList();
+        list.addAll(p_43563_);
+        return list;
+    }
+
     public static List<BrewEffectInstance> getAllEffects(@Nullable CompoundTag p_43567_) {
         List<BrewEffectInstance> list = Lists.newArrayList();
         getCustomEffects(p_43567_, list);

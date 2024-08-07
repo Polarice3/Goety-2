@@ -14,6 +14,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -249,13 +250,21 @@ public abstract class AbstractCyclone extends SpellHurtingProjectile {
                 this.trueRemove();
             }
             List<LivingEntity> targets = new ArrayList<>();
-            for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(this.getSize()))) {
-                if (this.getTrueOwner() != null) {
-                    if (entity != this.getTrueOwner() && !MobUtil.areAllies(this.getTrueOwner(), entity)) {
-                        targets.add(entity);
+            for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+                LivingEntity livingEntity = null;
+                if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
+                    livingEntity = living;
+                } else if (entity instanceof LivingEntity living){
+                    livingEntity = living;
+                }
+                if (livingEntity != null) {
+                    if (this.getOwner() != null) {
+                        if (livingEntity != this.getOwner() && !MobUtil.areAllies(this.getOwner(), livingEntity)) {
+                            targets.add(livingEntity);
+                        }
+                    } else {
+                        targets.add(livingEntity);
                     }
-                } else {
-                    targets.add(entity);
                 }
             }
             if (!targets.isEmpty()) {

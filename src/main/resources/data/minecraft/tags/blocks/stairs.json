@@ -12,9 +12,18 @@
     "goety:crypt_tiles_stairs",
     "goety:marble_stairs",
     "goety:slate_marble_stairs",
+    "goety:cragrocks_stairs",
+    "goety:crag_tile_stairs",
+    "goety:crag_brick_stairs",
+    "goety:snowy_crag_brick_stairs",
     "goety:highrock_stairs",
     "goety:polished_highrock_stairs",
     "goety:highrock_brick_stairs",
+    "goety:snowy_highrock_brick_stairs",
+    "goety:siltstone_stairs",
+    "goety:siltstone_brick_stairs",
+    "goety:siltstone_tile_stairs",
+    "goety:siltstone_pavement_stairs",
     "goety:indented_gold_stairs",
     "goety:snow_brick_stairs"
   ]

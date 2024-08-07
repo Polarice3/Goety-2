@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "W#W",
+    "W#W"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:cragrocks_slab"
+    },
+    "W":
+    {
+      "item": "goety:cragrocks"
+    }
+  },
+  "result":
+  {
+    "item": "goety:cragrocks_fence",
+    "count": 3
+  }
+}

@@ -1,6 +1,11 @@
 package com.Polarice3.Goety.utils;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.material.MapColor;
+
 public class ColorUtil {
+    public static ColorUtil WHITE = new ColorUtil(0xffffff);
+    public static ColorUtil BLACK = new ColorUtil(0x000000);
     public float red;
     public float green;
     public float blue;
@@ -32,6 +37,14 @@ public class ColorUtil {
         this.green = (colorCode >> 8 & 255) / 255F;
         this.blue = (colorCode & 255) / 255F;
         this.alpha = 1.0F;
+    }
+
+    public ColorUtil(MapColor mapColor){
+        this(mapColor.col);
+    }
+
+    public ColorUtil(ChatFormatting format){
+        this(format.getColor() != null ? format.getColor() : 0);
     }
 
     public float red() {

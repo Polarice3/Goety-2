@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 
 public class GravestoneBlockEntity extends TrainingBlockEntity {
@@ -50,8 +51,12 @@ public class GravestoneBlockEntity extends TrainingBlockEntity {
     public void setVariant(ItemStack itemStack, Level level, BlockPos blockPos) {
         if (level instanceof ServerLevel serverLevel) {
             ZombieServant zombieServant = new ZombieServant(ModEntityType.ZOMBIE_SERVANT.get(), serverLevel);
-            if (this.getTrainMob() != zombieServant.getVariant(serverLevel, blockPos.above())) {
-                this.setEntityType(zombieServant.getVariant(serverLevel, blockPos));
+            BlockState blockState = level.getBlockState(blockPos);
+            if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.getValue(BlockStateProperties.WATERLOGGED)){
+                this.setEntityType(ModEntityType.DROWNED_SERVANT.get());
+                this.markUpdated();
+            } else if (this.getTrainMob() != zombieServant.getVariant(serverLevel, blockPos.above())) {
+                this.setEntityType(zombieServant.getVariant(serverLevel, blockPos.above()));
                 this.markUpdated();
             }
         }

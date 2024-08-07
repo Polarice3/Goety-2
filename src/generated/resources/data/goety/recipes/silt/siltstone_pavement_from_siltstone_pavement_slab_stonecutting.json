@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "goety:siltstone_pavement"
+  },
+  "result": "goety:siltstone_pavement_slab"
+}

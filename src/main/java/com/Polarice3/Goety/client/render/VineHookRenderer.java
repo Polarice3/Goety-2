@@ -87,14 +87,14 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
             }
             VertexConsumer vertexConsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(location));
             PoseStack.Pose pose = poseStack.last();
-            vertex(vertexConsumer, pose, f7, f2, f8, 0.4999F, f16);
-            vertex(vertexConsumer, pose, f7, 0.0F, f8, 0.4999F, f15);
-            vertex(vertexConsumer, pose, f9, 0.0F, f10, 0.0F, f15);
-            vertex(vertexConsumer, pose, f9, f2, f10, 0.0F, f16);
-            vertex(vertexConsumer, pose, f11, f2, f12, 0.4999F, f16);
-            vertex(vertexConsumer, pose, f11, 0.0F, f12, 0.4999F, f15);
-            vertex(vertexConsumer, pose, f13, 0.0F, f14, 0.0F, f15);
-            vertex(vertexConsumer, pose, f13, f2, f14, 0.0F, f16);
+            vertex(hook.level, vertexConsumer, pose, f7, f2, f8, 0.4999F, f16);
+            vertex(hook.level, vertexConsumer, pose, f7, 0.0F, f8, 0.4999F, f15);
+            vertex(hook.level, vertexConsumer, pose, f9, 0.0F, f10, 0.0F, f15);
+            vertex(hook.level, vertexConsumer, pose, f9, f2, f10, 0.0F, f16);
+            vertex(hook.level, vertexConsumer, pose, f11, f2, f12, 0.4999F, f16);
+            vertex(hook.level, vertexConsumer, pose, f11, 0.0F, f12, 0.4999F, f15);
+            vertex(hook.level, vertexConsumer, pose, f13, 0.0F, f14, 0.0F, f15);
+            vertex(hook.level, vertexConsumer, pose, f13, f2, f14, 0.0F, f16);
             poseStack.popPose();
             super.render(hook, pYaw, pPartialTicks, poseStack, pBuffer, pPackedLight);
         }
@@ -116,9 +116,15 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
                 .endVertex();
     }
 
-    private static void vertex(VertexConsumer vertexConsumer, PoseStack.Pose pose, float x, float y, float z, float uv0, float uv1) {
+    private static void vertex(Level level, VertexConsumer vertexConsumer, PoseStack.Pose pose, float x, float y, float z, float uv0, float uv1) {
+        ColorUtil colorUtil = new ColorUtil(128, 255, 128, 255);
+        if (level.dimension() == Level.NETHER){
+            colorUtil = new ColorUtil(90, 0, 0, 255);
+        } else if (level.dimension() == Level.END){
+            colorUtil = new ColorUtil(167, 114, 190, 255);
+        }
         vertexConsumer.vertex(pose.pose(), x, y, z)
-                .color(128, 255, 128, 255)
+                .color(colorUtil.red, colorUtil.green, colorUtil.blue, 255)
                 .uv(uv0, uv1)
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
                 .uv2(LightTexture.FULL_BRIGHT)

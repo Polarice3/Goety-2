@@ -1,10 +1,13 @@
 package com.Polarice3.Goety.common.blocks.entities;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -49,7 +52,8 @@ public abstract class SaveBlockEntity extends BlockEntity {
 
     public void readNetwork(CompoundTag tag) {
         if (tag.contains("BlockState")) {
-            this.oldBlock = NbtUtils.readBlockState(this.level.holderLookup(Registries.BLOCK), tag.getCompound("BlockState"));
+            HolderGetter<Block> holdergetter = this.level != null ? this.level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
+            this.oldBlock = NbtUtils.readBlockState(holdergetter, tag.getCompound("BlockState"));
         }
         if (tag.contains("BlockEntity")){
             this.recreateBlockEntity(tag.getCompound("BlockEntity"));

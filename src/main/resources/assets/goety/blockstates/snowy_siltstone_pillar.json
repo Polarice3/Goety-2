@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "goety:block/snowy_siltstone_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "goety:block/snowy_siltstone_pillar"
+    },
+    "axis=z": {
+      "model": "goety:block/snowy_siltstone_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

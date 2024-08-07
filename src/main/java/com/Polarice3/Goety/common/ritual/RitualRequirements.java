@@ -2,11 +2,15 @@ package com.Polarice3.Goety.common.ritual;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.blocks.entities.RitualBlockEntity;
+import com.Polarice3.Goety.common.entities.ally.BlackBeast;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
+import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
 import com.Polarice3.Goety.common.magic.spells.necromancy.SkeletonSpell;
+import com.Polarice3.Goety.common.magic.spells.necromancy.VanguardSpell;
 import com.Polarice3.Goety.common.magic.spells.necromancy.WraithSpell;
 import com.Polarice3.Goety.common.magic.spells.necromancy.ZombieSpell;
 import com.Polarice3.Goety.config.SpellConfig;
@@ -50,6 +54,25 @@ public class RitualRequirements extends RitualTypes{
                 return new ZombieSpell().conditionsMet(serverLevel, castingPlayer);
             }
             if (summon instanceof AbstractSkeletonServant){
+                if (summon instanceof VanguardServant){
+                    return new VanguardSpell().conditionsMet(serverLevel, castingPlayer);
+                }
+                if (summon instanceof AbstractNecromancer){
+                    int count = 0;
+                    for (Entity entity : serverLevel.getAllEntities()) {
+                        if (entity instanceof AbstractNecromancer servant) {
+                            if (servant.getTrueOwner() == castingPlayer) {
+                                ++count;
+                            }
+                        }
+                    }
+                    if (count >= SpellConfig.NecromancerLimit.get()){
+                        castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
                 return new SkeletonSpell().conditionsMet(serverLevel, castingPlayer);
             }
             if (summon instanceof AbstractWraith){
@@ -65,6 +88,22 @@ public class RitualRequirements extends RitualTypes{
                     }
                 }
                 if (count >= SpellConfig.BoundIllagerLimit.get()){
+                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (summon instanceof BlackBeast){
+                int count = 0;
+                for (Entity entity : serverLevel.getAllEntities()) {
+                    if (entity instanceof BlackBeast servant) {
+                        if (servant.getTrueOwner() == castingPlayer) {
+                            ++count;
+                        }
+                    }
+                }
+                if (count >= SpellConfig.BlackBeastLimit.get()){
                     castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                     return false;
                 } else {

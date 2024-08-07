@@ -21,6 +21,12 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> PLAGUE_EFFECT = PARTICLE_TYPES.register("plague_effect",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> DOOM = PARTICLE_TYPES.register("doom",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> DOOM_DEATH = PARTICLE_TYPES.register("doom_death",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> HEAL_EFFECT = PARTICLE_TYPES.register("heal",
             () -> new SimpleParticleType(false));
 
@@ -278,6 +284,30 @@ public class ModParticleTypes {
                 @Override
                 public Codec codec() {
                     return SculkBubbleParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<WindParticleOption>> WIND = PARTICLE_TYPES.register("wind",
+            () -> new ParticleType<>(false, WindParticleOption.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return WindParticleOption.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<WindShockwaveParticle.Option>> WIND_SHOCKWAVE = PARTICLE_TYPES.register("wind_shockwave",
+            () -> new ParticleType<>(false, WindShockwaveParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return WindShockwaveParticle.Option.CODEC;
+                }
+            });
+
+    public static final RegistryObject<ParticleType<GatherTrailParticle.Option>> GATHER_TRAIL = PARTICLE_TYPES.register("gather_trail",
+            () -> new ParticleType<>(false, GatherTrailParticle.Option.DESERIALIZER) {
+                @Override
+                public Codec codec() {
+                    return GatherTrailParticle.Option.CODEC;
                 }
             });
 }

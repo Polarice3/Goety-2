@@ -14,13 +14,26 @@ public interface IServant extends IOwned {
 
     void setStaying(boolean staying);
 
+    default boolean isPatrolling(){
+        return this.getBoundPos() != null;
+    }
+
+    default BlockPos getBoundPos(){
+        return null;
+    }
+
+    default void setBoundPos(BlockPos blockPos){
+    }
+
     default boolean isFollowing(){
-        return !this.isWandering() && !this.isStaying();
+        return !this.isWandering() && !this.isStaying() && !this.isPatrolling();
     }
 
     boolean canUpdateMove();
 
     void updateMoveMode(Player player);
+
+    boolean isCommanded();
 
     void setCommandPos(BlockPos blockPos);
 

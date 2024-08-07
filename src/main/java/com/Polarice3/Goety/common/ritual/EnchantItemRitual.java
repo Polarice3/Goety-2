@@ -28,7 +28,9 @@ public class EnchantItemRitual extends Ritual{
                            Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.recipe.getEnchantment() != null
-                && (activationItem.canApplyAtEnchantingTable(this.recipe.getEnchantment()) || this.recipe.getEnchantment().canEnchant(activationItem))
+                && (activationItem.canApplyAtEnchantingTable(this.recipe.getEnchantment())
+                || this.recipe.getEnchantment().canEnchant(activationItem)
+                || activationItem.getItem() instanceof EnchantedBookItem)
                 && compatibleEnchant(activationItem)
                 && this.areAdditionalIngredientsFulfilled(world, darkAltarPos, castingPlayer, remainingAdditionalIngredients);
     }

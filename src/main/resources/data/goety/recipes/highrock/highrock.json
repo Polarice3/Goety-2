@@ -1,8 +1,24 @@
 {
-  "type": "goety:cursed_infuser_recipes",
-  "ingredient": {
-    "item": "minecraft:andesite"
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#S",
+    "S#"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "minecraft:andesite"
+    },
+    "S":
+    {
+      "item": "minecraft:stone"
+    }
   },
-  "result": "goety:highrock",
-  "cookingTime": 20
+  "result":
+  {
+    "item": "goety:highrock",
+    "count": 4
+  }
 }

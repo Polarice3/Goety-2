@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "goety:crag_bricks"
+  },
+  "result": "goety:crag_tiles",
+  "count": 1
+}

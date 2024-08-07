@@ -4,10 +4,8 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OwnableEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IServerDataProvider;
 import snownee.jade.util.CommonProxy;
@@ -19,10 +17,6 @@ public enum SummonOwnerProvider implements IServerDataProvider<EntityAccessor> {
 
     @Override
     public void appendServerData(CompoundTag data, EntityAccessor accessor) {
-        MinecraftServer server = accessor.getLevel().getServer();
-        if (server != null && server.isSingleplayerOwner(accessor.getPlayer().getGameProfile()) && accessor.getEntity() instanceof TamableAnimal) {
-            return;
-        }
         Entity entity = accessor.getEntity();
         UUID ownerUUID = null;
         if (entity instanceof OwnableEntity ownable) {

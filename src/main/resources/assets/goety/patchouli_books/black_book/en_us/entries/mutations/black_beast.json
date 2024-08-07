@@ -1,0 +1,30 @@
+{
+  "name": "Black Beast",
+  "icon": "minecraft:chain",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Having a Wraith properly possess a Black Wolf results in a powerful, and unnatural, creature that can rend your enemies asunder through it's withering claws and curses."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_black_wolf_to_black_beast"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_beast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The beast can be healed by feeding it meat much like tamed wolves, and can passively heal if their owner dons a Wild Robe. Right-clicking on them with a Taglock Kit, that has a Tagged creature on it, will cause them to hunt said creature down before returning to their owner once they slay their query."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mob based on 'Nightmare Stalker' from 'Born In Chaos' mod by 'mongoose_artist'."
+    }
+  ]
+}

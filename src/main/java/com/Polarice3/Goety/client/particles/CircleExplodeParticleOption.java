@@ -69,7 +69,7 @@ public class CircleExplodeParticleOption implements ParticleOptions {
    }
 
    public String writeToString() {
-      return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %d %s %s %s %s",
+      return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %s",
               BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue, this.size, this.speed);
    }
 

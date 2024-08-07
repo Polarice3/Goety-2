@@ -87,7 +87,7 @@ public class GoetyEffects {
             () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0xf4fcfc));
 
     public static final RegistryObject<MobEffect> DOOM = EFFECTS.register("doom",
-            () -> new GoetyBaseEffect(MobEffectCategory.HARMFUL, 0x1b0440));
+            DoomEffect::new);
 
     public static final RegistryObject<MobEffect> ACID_VENOM = EFFECTS.register("acid_venom",
             VenomEffect::new);

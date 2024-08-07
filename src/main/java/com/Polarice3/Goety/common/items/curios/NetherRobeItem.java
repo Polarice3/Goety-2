@@ -46,12 +46,16 @@ public class NetherRobeItem extends SingleStackItem{
         LivingEntity victim = event.getEntity();
         if (CuriosFinder.hasCurio(victim, item -> item.getItem() instanceof NetherRobeItem)){
             float resistance = 1.0F - (ItemConfig.NetherRobeResistance.get() / 100.0F);
-            if (event.getSource().is(DamageTypeTags.IS_FIRE) || ModDamageSource.isMagicFire(event.getSource())){
-                event.setAmount(event.getAmount() * resistance);
-            }
-            if (ModDamageSource.hellfireAttacks(event.getSource())){
-                resistance = Math.max(0.75F, resistance);
-                event.setAmount(event.getAmount() * resistance);
+            if (resistance <= 0.0F){
+                event.setCanceled(true);
+            } else {
+                if (event.getSource().is(DamageTypeTags.IS_FIRE) || ModDamageSource.isMagicFire(event.getSource())){
+                    event.setAmount(event.getAmount() * resistance);
+                }
+                if (ModDamageSource.hellfireAttacks(event.getSource())){
+                    resistance = Math.max(0.75F, resistance);
+                    event.setAmount(event.getAmount() * resistance);
+                }
             }
         }
     }

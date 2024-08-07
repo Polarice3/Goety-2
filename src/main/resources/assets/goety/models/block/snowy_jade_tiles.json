@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "goety:block/snowy_jade_tiles"
+  }
+}

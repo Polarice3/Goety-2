@@ -127,6 +127,11 @@ public class GhastServant extends Malghast implements IServant {
     }
 
     @Override
+    public boolean isCommanded() {
+        return false;
+    }
+
+    @Override
     public void setCommandPos(BlockPos blockPos) {
     }
 

@@ -203,7 +203,9 @@ public class AbstractWraith extends Summoned {
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         if (this.getStepSound() != null) {
-            this.playSound(this.getStepSound(), 0.5F, 1.0F);
+            float volume = Mth.clamp(0.6F + (this.random.nextFloat() / 2.0F), 0.6F, 1.0F);
+            float pitch = Mth.clamp(0.9F + (this.random.nextFloat() / 2.0F), 0.9F, 1.3F);
+            this.playSound(this.getStepSound(), volume, pitch);
         }
     }
 

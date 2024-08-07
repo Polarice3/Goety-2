@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.entities.ally.spider;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
-import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.WebShot;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -27,7 +26,7 @@ import java.util.EnumSet;
 public class WebSpiderServant extends SpiderServant implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> WEB_SHOOTING = SynchedEntityData.defineId(WebSpiderServant.class, EntityDataSerializers.BOOLEAN);
 
-    public WebSpiderServant(EntityType<? extends Owned> type, Level worldIn) {
+    public WebSpiderServant(EntityType<? extends SpiderServant> type, Level worldIn) {
         super(type, worldIn);
     }
 

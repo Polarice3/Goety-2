@@ -26,13 +26,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
@@ -44,9 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.common.Tags;
@@ -72,11 +66,19 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
 
     protected void registerGoals() {
         super.registerGoals();
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal<>(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal<>(this));
     }
 
     public void setConfigurableAttributes(){
+    }
+
+    public boolean isInvisibleTo(Player p_20178_) {
+        if (p_20178_ == this.getMasterOwner()){
+            return false;
+        } else {
+            return super.isInvisibleTo(p_20178_);
+        }
     }
 
     public void checkHostility() {
@@ -158,10 +160,12 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                         }
                     }
                 }
-                for (Owned target : this.level.getEntitiesOfClass(Owned.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
-                    if (this.getTrueOwner() != target.getTrueOwner()
-                            && target.getTarget() == this.getTrueOwner()) {
-                        this.setTarget(target);
+                for (Mob target : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(this.getAttributeValue(Attributes.FOLLOW_RANGE)))) {
+                    if (target instanceof IOwned owned) {
+                        if (this.getTrueOwner() != owned.getTrueOwner()
+                                && target.getTarget() == this.getTrueOwner()) {
+                            this.setTarget(target);
+                        }
                     }
                 }
             }
@@ -541,29 +545,31 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
-    public class OwnerHurtTargetGoal extends TargetGoal {
+    public static class OwnerHurtTargetGoal<T extends Mob & IOwned> extends TargetGoal {
+        private final T owned;
         private LivingEntity attacker;
         private int timestamp;
 
-        public OwnerHurtTargetGoal(Owned summonedEntity) {
+        public OwnerHurtTargetGoal(T summonedEntity) {
             super(summonedEntity, false);
+            this.owned = summonedEntity;
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
         public boolean canUse() {
-            LivingEntity livingentity = Owned.this.getTrueOwner();
+            LivingEntity livingentity = this.owned.getTrueOwner();
             if (livingentity == null) {
                 return false;
             } else {
                 this.attacker = livingentity.getLastHurtMob();
                 int i = livingentity.getLastHurtMobTimestamp();
-                return i != this.timestamp && this.canAttack(this.attacker, TargetingConditions.DEFAULT) && this.attacker != Owned.this.getTrueOwner();
+                return i != this.timestamp && this.canAttack(this.attacker, TargetingConditions.DEFAULT) && this.attacker != this.owned.getTrueOwner();
             }
         }
 
         public void start() {
-            Owned.this.setTarget(this.attacker);
-            LivingEntity livingentity = Owned.this.getTrueOwner();
+            this.owned.setTarget(this.attacker);
+            LivingEntity livingentity = this.owned.getTrueOwner();
             if (livingentity != null) {
                 this.timestamp = livingentity.getLastHurtMobTimestamp();
             }
@@ -572,29 +578,31 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
-    public class OwnerHurtByTargetGoal extends TargetGoal {
+    public static class OwnerHurtByTargetGoal<T extends Mob & IOwned> extends TargetGoal {
+        private final T owned;
         private LivingEntity attacker;
         private int timestamp;
 
-        public OwnerHurtByTargetGoal(Owned summonedEntity) {
+        public OwnerHurtByTargetGoal(T summonedEntity) {
             super(summonedEntity, false);
+            this.owned = summonedEntity;
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
         public boolean canUse() {
-            LivingEntity livingentity = Owned.this.getTrueOwner();
+            LivingEntity livingentity = this.owned.getTrueOwner();
             if (livingentity == null) {
                 return false;
             } else {
                 this.attacker = livingentity.getLastHurtByMob();
                 int i = livingentity.getLastHurtByMobTimestamp();
-                return i != this.timestamp && this.canAttack(this.attacker, TargetingConditions.DEFAULT) && this.attacker != Owned.this.getTrueOwner();
+                return i != this.timestamp && this.canAttack(this.attacker, TargetingConditions.DEFAULT) && this.attacker != this.owned.getTrueOwner();
             }
         }
 
         public void start() {
             this.mob.setTarget(this.attacker);
-            LivingEntity livingentity = Owned.this.getTrueOwner();
+            LivingEntity livingentity = this.owned.getTrueOwner();
             if (livingentity != null) {
                 this.timestamp = livingentity.getLastHurtByMobTimestamp();
             }
@@ -603,72 +611,4 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         }
     }
 
-    public static class LesserFollowOwnerGoal extends Goal {
-        private final Owned ownedEntity;
-        private LivingEntity owner;
-        private final LevelReader level;
-        private final double followSpeed;
-        private final PathNavigation navigation;
-        private int timeToRecalcPath;
-        private final float maxDist;
-        private final float minDist;
-        private float oldWaterCost;
-
-        public LesserFollowOwnerGoal(Owned ownedEntity, double speed, float minDist, float maxDist) {
-            this.ownedEntity = ownedEntity;
-            this.level = ownedEntity.level;
-            this.followSpeed = speed;
-            this.navigation = ownedEntity.getNavigation();
-            this.minDist = minDist;
-            this.maxDist = maxDist;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-            if (!(ownedEntity.getNavigation() instanceof GroundPathNavigation) && !(ownedEntity.getNavigation() instanceof FlyingPathNavigation)) {
-                throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
-            }
-        }
-
-        public boolean canUse() {
-            LivingEntity livingentity = this.ownedEntity.getTrueOwner();
-            if (livingentity == null) {
-                return false;
-            } else if (livingentity.isSpectator()) {
-                return false;
-            } else if (this.ownedEntity.distanceToSqr(livingentity) < (double)(this.minDist * this.minDist)) {
-                return false;
-            } else {
-                this.owner = livingentity;
-                return true;
-            }
-        }
-
-        public boolean canContinueToUse() {
-            if (this.navigation.isDone()) {
-                return false;
-            } else {
-                return !(this.ownedEntity.distanceToSqr(this.owner) <= (double)(this.maxDist * this.maxDist));
-            }
-        }
-
-        public void start() {
-            this.timeToRecalcPath = 0;
-            this.oldWaterCost = this.ownedEntity.getPathfindingMalus(BlockPathTypes.WATER);
-            this.ownedEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        }
-
-        public void stop() {
-            this.owner = null;
-            this.navigation.stop();
-            this.ownedEntity.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
-        }
-
-        public void tick() {
-            this.ownedEntity.getLookControl().setLookAt(this.owner, 10.0F, (float)this.ownedEntity.getMaxHeadXRot());
-            if (--this.timeToRecalcPath <= 0) {
-                this.timeToRecalcPath = 10;
-                if (!this.ownedEntity.isLeashed() && !this.ownedEntity.isPassenger()) {
-                    this.navigation.moveTo(this.owner, this.followSpeed);
-                }
-            }
-        }
-    }
 }

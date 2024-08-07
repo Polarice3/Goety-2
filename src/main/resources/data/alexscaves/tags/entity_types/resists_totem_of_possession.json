@@ -2,6 +2,14 @@
   "replace": false,
   "__comment": "all mobs that cannot be controlled with a totem of possession.",
   "values": [
+    "goety:skull_lord",
+    "goety:bone_lord",
+    "goety:minister",
+    "goety:crone",
+    "goety:wither_necromancer",
+    "goety:hostile_redstone_golem",
+    "goety:redstone_golem",
+    "goety:grave_golem",
     "goety:redstone_monstrosity"
   ]
 }

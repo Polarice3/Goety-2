@@ -1,6 +1,18 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:is_overworld"
+    "#minecraft:is_overworld",
+    {
+      "id": "twilightforest:dark_forest",
+      "required": false
+    },
+    {
+      "id": "twilightforest:underground",
+      "required": false
+    },
+    {
+      "id": "twilightforest:highlands_underground",
+      "required": false
+    }
   ]
 }

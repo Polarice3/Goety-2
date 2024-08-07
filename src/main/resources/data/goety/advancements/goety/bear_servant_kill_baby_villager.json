@@ -1,0 +1,51 @@
+{
+  "parent": "goety:goety/servant_kill_mob",
+  "display": {
+    "icon": {
+      "item": "goety:savage_tooth"
+    },
+    "title": {
+      "translate": "advancements.goety.bear_servant_kill_baby_villager.title"
+    },
+    "description": {
+      "translate": "advancements.goety.bear_servant_kill_baby_villager.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "kill": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:villager",
+              "flags": {
+                "is_baby": true
+              }
+            }
+          }
+        ],
+        "killer": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "killer",
+            "predicate": {
+              "type": "goety:bear_servant"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ]
+}

@@ -49,7 +49,7 @@ public class Wavewhisperer extends Whisperer{
         this.goalSelector.addGoal(1, new FollowOwnerWaterGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(5, new GoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new SwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
-        this.goalSelector.addGoal(8, new WaterWanderGoal(this){
+        this.goalSelector.addGoal(8, new WaterWanderGoal<>(this){
             @Override
             public boolean canUse() {
                 return super.canUse() && Wavewhisperer.this.getTarget() == null;

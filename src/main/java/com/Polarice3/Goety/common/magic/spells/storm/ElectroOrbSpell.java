@@ -56,7 +56,7 @@ public class ElectroOrbSpell extends Spell {
 
     @Override
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
-        int range = 20 + WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
+        int range = 32 + WandUtil.getLevels(ModEnchantments.RANGE.get(), entityLiving);
         LivingEntity livingEntity = this.getTarget(entityLiving, range);
         ElectroOrb blast = new ElectroOrb(worldIn, entityLiving, livingEntity);
         Vec3 vector3d;

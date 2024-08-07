@@ -48,7 +48,7 @@ public class SeaAmuletItem extends SingleStackItem{
                                     if (worldIn instanceof ServerLevel serverLevel) {
                                         ServerParticleUtil.gatheringParticles(ParticleTypes.NAUTILUS, player, serverLevel);
                                     }
-                                    if (player.tickCount % 20 == 0) {
+                                    if (player.tickCount % 5 == 0) {
                                         this.increaseConduitCharges(stack);
                                     }
                                 }

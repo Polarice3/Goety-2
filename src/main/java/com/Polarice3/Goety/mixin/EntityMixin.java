@@ -2,15 +2,22 @@ package com.Polarice3.Goety.mixin;
 
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
+import com.Polarice3.Goety.init.ModSoundTypes;
 import com.Polarice3.Goety.utils.SEHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
@@ -50,4 +57,13 @@ public abstract class EntityMixin {
         }
     }
 
+    @Inject(method = "playStepSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", at = @At(value = "TAIL"))
+    protected void playStepSound(BlockPos blockPos, BlockState blockState, CallbackInfo callbackInfo) {
+        Entity entity = (Entity) (Object) this;
+        SoundType soundtype = blockState.getSoundType(entity.level, blockPos, entity);
+        if (soundtype == ModSoundTypes.MOD_METAL){
+            entity.playSound(SoundEvents.STONE_STEP, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.random, 0.8F, 1.0F), Mth.randomBetween(entity.level.random, 0.8F, 1.0F));
+            entity.playSound(SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, (soundtype.getVolume() * 0.15F) * Mth.randomBetween(entity.level.random, 0.8F, 1.0F), Mth.randomBetween(entity.level.random, 0.8F, 1.0F));
+        }
+    }
 }

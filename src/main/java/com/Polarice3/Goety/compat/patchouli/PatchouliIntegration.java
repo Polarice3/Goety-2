@@ -119,6 +119,8 @@ public class PatchouliIntegration implements ICompatable {
     public static final Supplier<IMultiblock> SQUALL_GOLEM = Suppliers.memoize(() -> {
         IStateMatcher highrockMold = PatchouliAPI.get().predicateMatcher(ModBlocks.POLISHED_HIGHROCK_BLOCK.get(),
                 state -> state.is(ModBlocks.POLISHED_HIGHROCK_BLOCK.get()));
+        IStateMatcher grateMold = PatchouliAPI.get().predicateMatcher(ModBlocks.RUSTY_IRON_GRATE.get(),
+                state -> state.is(ModBlocks.RUSTY_IRON_GRATE.get()));
         IStateMatcher bricks = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
                 state -> state.is(Blocks.STONE_BRICKS));
         IStateMatcher gold = PatchouliAPI.get().predicateMatcher(ModBlocks.INDENTED_GOLD_BLOCK.get(),
@@ -139,9 +141,9 @@ public class PatchouliIntegration implements ICompatable {
                         {
                                 "_________",
                                 "_________",
-                                "___HHH___",
-                                "___H0H___",
-                                "___HHH___",
+                                "___III___",
+                                "___I0I___",
+                                "___III___",
                                 "_________",
                                 "_________"
                         }
@@ -150,7 +152,8 @@ public class PatchouliIntegration implements ICompatable {
                 'S', bricks,
                 'G', gold,
                 'J', jade,
-                '0', highrockMold
+                'I', grateMold,
+                '0', grateMold
         );
     });
 
