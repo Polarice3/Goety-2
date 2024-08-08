@@ -416,6 +416,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.INFERNO.get(), InfernoRenderer::new);
         event.registerEntityRenderer(ModEntityType.DAMNED.get(), DamnedRenderer::new);
         event.registerEntityRenderer(ModEntityType.VAMPIRE_BAT.get(), VampireBatRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HOSTILE_BLACK_WOLF.get(), BlackWolfRenderer::new);
         event.registerEntityRenderer(ModEntityType.WRAITH.get(), WraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.BORDER_WRAITH.get(), BorderWraithRenderer::new);
         event.registerEntityRenderer(ModEntityType.CRYPT_SLIME.get(), CryptSlimeRenderer::new);

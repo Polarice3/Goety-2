@@ -1,17 +1,16 @@
 {
-  "name": "goety:dark_manor/start_pool",
+  "name": "goety:dark_manor/end",
 
-  "fallback": "minecraft:empty",
+  "fallback": "goety:dark_manor/end",
 
   "elements": [
     {
-
       "weight": 1,
       "element": {
 
-        "location": "goety:dark_manor/dark_manor",
+        "location": "goety:dark_manor/end",
 
-        "processors": "minecraft:empty",
+        "processors": "goety:no_waterlogging",
 
         "projection": "rigid",
 

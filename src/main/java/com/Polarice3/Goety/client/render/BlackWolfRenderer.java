@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlackWolfRenderer extends MobRenderer<BlackWolf, BlackWolfModel<BlackWolf>> {
     private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/black_wolf/black_wolf.png");
+    private static final ResourceLocation HOSTILE = Goety.location("textures/entity/servants/black_wolf/black_wolf_hostile.png");
 
     public BlackWolfRenderer(EntityRendererProvider.Context p_174452_) {
         super(p_174452_, new BlackWolfModel<>(p_174452_.bakeLayer(ModModelLayer.BLACK_WOLF)), 0.5F);
@@ -50,6 +51,9 @@ public class BlackWolfRenderer extends MobRenderer<BlackWolf, BlackWolfModel<Bla
     }
 
     public ResourceLocation getTextureLocation(BlackWolf p_116526_) {
+        if (p_116526_.isHostile()){
+            return HOSTILE;
+        }
         return TEXTURES;
     }
 
@@ -72,6 +76,8 @@ public class BlackWolfRenderer extends MobRenderer<BlackWolf, BlackWolfModel<Bla
 
     public static class BigFurLayer<T extends BlackWolf, M extends BlackWolfModel<T>> extends RenderLayer<T, M> {
         private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/black_wolf/black_wolf_fur.png");
+        private static final ResourceLocation HOSTILE = Goety.location("textures/entity/servants/black_wolf/black_wolf_fur_hostile.png");
+
         private final BlackWolfModel<T> layerModel;
 
         public BigFurLayer(RenderLayerParent<T, M> p_117346_, EntityModelSet p_174555_) {
@@ -82,7 +88,8 @@ public class BlackWolfRenderer extends MobRenderer<BlackWolf, BlackWolfModel<Bla
         @Override
         public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T blackHound, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (blackHound.isUpgraded()) {
-                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, TEXTURES, matrixStackIn, bufferIn, packedLightIn, blackHound, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
+                ResourceLocation location = blackHound.isHostile() ? HOSTILE : TEXTURES;
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.layerModel, location, matrixStackIn, bufferIn, packedLightIn, blackHound, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
             }
         }
     }

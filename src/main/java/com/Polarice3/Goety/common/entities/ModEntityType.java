@@ -479,6 +479,11 @@ public class ModEntityType {
                     .sized(0.5F, 0.9F)
                     .clientTrackingRange(5));
 
+    public static final RegistryObject<EntityType<HostileBlackWolf>> HOSTILE_BLACK_WOLF = register("hostile_black_wolf",
+            EntityType.Builder.of(HostileBlackWolf::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.85F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<Wraith>> WRAITH = register("wraith",
             EntityType.Builder.of(Wraith::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)

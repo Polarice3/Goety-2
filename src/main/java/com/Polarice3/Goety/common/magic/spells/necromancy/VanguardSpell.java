@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.common.magic.spells.necromancy;
 
 import com.Polarice3.Goety.api.magic.SpellType;
-import com.Polarice3.Goety.client.particles.GatherTrailParticle;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;

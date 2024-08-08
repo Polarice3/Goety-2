@@ -394,6 +394,7 @@ public class Goety {
         event.put(ModEntityType.INFERNO.get(), Inferno.setCustomAttributes().build());
         event.put(ModEntityType.DAMNED.get(), Damned.setCustomAttributes().build());
         event.put(ModEntityType.VAMPIRE_BAT.get(), VampireBat.setCustomAttributes().build());
+        event.put(ModEntityType.HOSTILE_BLACK_WOLF.get(), HostileBlackWolf.setCustomAttributes().build());
         event.put(ModEntityType.WRAITH.get(), Wraith.setCustomAttributes().build());
         event.put(ModEntityType.BORDER_WRAITH.get(), BorderWraith.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME.get(), CryptSlime.setCustomAttributes().build());
@@ -490,6 +491,7 @@ public class Goety {
 
     private void SpawnPlacementEvent(SpawnPlacementRegisterEvent event){
         event.register(ModEntityType.WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(ModEntityType.HOSTILE_BLACK_WOLF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkDayMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.BORDER_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Owned::checkHostileSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(ModEntityType.CRYPT_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CryptSlime::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

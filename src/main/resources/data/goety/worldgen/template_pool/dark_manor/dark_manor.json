@@ -1,5 +1,5 @@
 {
-  "name": "goety:dark_manor/dark_manor_entrance",
+  "name": "goety:dark_manor/dark_manor",
 
   "fallback": "minecraft:empty",
 
@@ -9,9 +9,9 @@
       "weight": 1,
       "element": {
 
-        "location": "goety:dark_manor/dark_manor_entrance",
+        "location": "goety:dark_manor/dark_manor",
 
-        "processors": "minecraft:empty",
+        "processors": "goety:no_waterlogging",
 
         "projection": "rigid",
 
