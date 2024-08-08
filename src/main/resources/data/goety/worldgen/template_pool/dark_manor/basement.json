@@ -1,0 +1,190 @@
+{
+  "name": "goety:dark_manor/basement",
+
+  "fallback": "goety:dark_manor/end",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/staircase",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/entrance_corridor",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/corridor_1",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/corridor_2",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/corridor_3",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/corridor_4",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_1",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_2",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_3",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_4",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_5",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_6",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/room_7",
+
+        "processors": "goety:no_waterlogging",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

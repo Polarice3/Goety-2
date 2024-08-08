@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -53,7 +54,7 @@ public class GatherTrailParticle extends WindTrailParticle {
         }
     }
 
-    public Vec3 getPos() {
+    public @NotNull Vec3 getPos() {
         return new Vec3(this.x, this.y, this.z);
     }
 

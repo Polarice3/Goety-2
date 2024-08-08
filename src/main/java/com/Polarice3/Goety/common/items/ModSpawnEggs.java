@@ -231,6 +231,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> INFERNO_SPAWN_EGG = ITEMS.register("inferno_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.INFERNO, 0x1f0004, 0xfcee4b, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> HOSTILE_BLACK_WOLF_SPAWN_EGG = ITEMS.register("hostile_black_wolf_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HOSTILE_BLACK_WOLF, 0x132025, 0x495065, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> WRAITH_SPAWN_EGG = ITEMS.register("wraith_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WRAITH, 0x16215c, 0x82d8f8, egg()));
 

@@ -1,0 +1,106 @@
+{
+  "name": "goety:dark_manor/spawn",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/pillager",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/vindicator",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/illusioner",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/piker",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/ravaged",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/witch",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "goety:dark_manor/spawn/villager",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

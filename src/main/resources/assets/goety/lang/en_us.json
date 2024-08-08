@@ -83,6 +83,7 @@
 
   "entity.goety.vampire_bat":"Vampire Bat",
 
+  "entity.goety.hostile_black_wolf":"Black Wolf",
   "entity.goety.wraith":"Wraith",
   "entity.goety.border_wraith":"Border Wraith",
   "entity.goety.crypt_slime":"Crypt Slime",
@@ -259,6 +260,7 @@
   "item.goety.apostle_spawn_egg": "Apostle Spawn Egg",
   "item.goety.warlock_spawn_egg": "Warlock Spawn Egg",
   "item.goety.crone_spawn_egg": "Crone Spawn Egg",
+  "item.goety.hostile_black_wolf_spawn_egg": "Hostile Black Wolf Spawn Egg",
   "item.goety.wraith_spawn_egg": "Wraith Spawn Egg",
   "item.goety.border_wraith_spawn_egg": "Border Wraith Spawn Egg",
   "item.goety.crypt_slime_spawn_egg": "Crypt Slime Spawn Egg",
