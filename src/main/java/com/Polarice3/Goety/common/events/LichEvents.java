@@ -162,7 +162,7 @@ public class LichEvents {
                 }
             }
 
-            AttributeInstance holyResist = player.getAttribute(IronAttributes.BLOOD_MAGIC_RESIST);
+            AttributeInstance holyResist = player.getAttribute(IronAttributes.HOLY_MAGIC_RESIST);
             AttributeModifier attributemodifier1 = new AttributeModifier(UUID.fromString("5290681e-7020-4de5-bba2-a659242d45a9"), "Lich Holy Weakness", -0.5F, AttributeModifier.Operation.ADDITION);
             if (holyResist != null){
                 if (LichdomHelper.isLich(player)){

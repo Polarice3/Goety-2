@@ -112,22 +112,7 @@ public class BlackBeast extends Summoned{
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SummonGoal());
         this.goalSelector.addGoal(1, new HuntBreakDoorGoal(this));
-        this.goalSelector.addGoal(2, new ModMeleeAttackGoal(this, 1.2D, false){
-            protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
-                double d0 = this.getAttackReachSqr(p_25557_);
-                if (p_25558_ <= d0 && this.ticksUntilNextAttack <= 10) {
-                    if (this.mob instanceof BlackBeast blackBeast){
-                        blackBeast.attackTick = 10;
-                        blackBeast.setAnimationState(ATTACK);
-                    }
-                }
-                if (p_25558_ <= d0 && this.isTimeToAttack()) {
-                    this.resetAttackCooldown();
-                    this.mob.doHurtTarget(p_25557_);
-                }
-
-            }
-        });
+        this.goalSelector.addGoal(2, new ModMeleeAttackGoal(this, 1.2D, false));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 140.0F));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 140.0F));
         this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.8D));
@@ -264,6 +249,12 @@ public class BlackBeast extends Summoned{
         }
     }
 
+    public void stopAllAnimation(){
+        for (AnimationState state : this.getAnimations()){
+            state.stop();
+        }
+    }
+
     public int getCurrentAnimation(){
         return this.entityData.get(ANIM_STATE);
     }
@@ -279,8 +270,8 @@ public class BlackBeast extends Summoned{
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
+                        this.stopAllAnimation();
                         this.attackAnimationState.start(this.tickCount);
-                        this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 3:
                         this.walkAnimationState.startIfStopped(this.tickCount);
@@ -468,6 +459,8 @@ public class BlackBeast extends Summoned{
 
         if (!this.level.isClientSide) {
             if (flag) {
+                this.attackTick = 10;
+                this.setAnimationState(ATTACK);
                 this.playSound(ModSounds.BLACK_BEAST_CLAW.get(), this.getSoundVolume(), this.getVoicePitch());
                 if (entityIn instanceof LivingEntity target) {
                     if (!target.hasEffect(GoetyEffects.DOOM.get()) && !MobUtil.isInSunlighNoRain(this)) {

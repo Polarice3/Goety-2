@@ -223,6 +223,7 @@ public class SEHelper {
                 }
             }
             increaseSouls(player, Mth.floor(getSoulGiven(victim) * extra) * multi);
+            increaseRecoil(player, 1);
         }
     }
 
@@ -276,6 +277,22 @@ public class SEHelper {
             }
         }
         return multiply;
+    }
+
+    public static int getRecoil(Player player){
+        return getCapability(player).getRecoil();
+    }
+
+    public static void setRecoil(Player player, int recoil){
+        getCapability(player).setRecoil(recoil);
+    }
+
+    public static void increaseRecoil(Player player, int increase){
+        setRecoil(player, Math.min(getRecoil(player) + increase, 100));
+    }
+
+    public static void decreaseRecoil(Player player, int decrease){
+        setRecoil(player, Math.max(getRecoil(player) - decrease, 0));
     }
 
     public static int getRestPeriod(Player player){
@@ -616,6 +633,7 @@ public class SEHelper {
     public static CompoundTag save(CompoundTag tag, ISoulEnergy soulEnergy) {
         tag.putBoolean("seActive", soulEnergy.getSEActive());
         tag.putInt("soulEnergy", soulEnergy.getSoulEnergy());
+        tag.putInt("recoil", soulEnergy.getRecoil());
         tag.putInt("restPeriod", soulEnergy.getRestPeriod());
         tag.putBoolean("apostleWarned", soulEnergy.apostleWarned());
         tag.putInt("bottling", soulEnergy.bottling());
@@ -711,6 +729,7 @@ public class SEHelper {
             soulEnergy.setEndWalkDimension(Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, tag.get("EndWalkDim")).resultOrPartial(Goety.LOGGER::error).orElse(Level.OVERWORLD));
         }
         soulEnergy.setSoulEnergy(tag.getInt("soulEnergy"));
+        soulEnergy.setRecoil(tag.getInt("recoil"));
         soulEnergy.setRestPeriod(tag.getInt("restPeriod"));
         soulEnergy.setApostleWarned(tag.getBoolean("apostleWarned"));
         soulEnergy.setBottling(tag.getInt("bottling"));

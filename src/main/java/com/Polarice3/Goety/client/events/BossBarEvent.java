@@ -110,7 +110,7 @@ public class BossBarEvent {
         int j = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int j1 = j / 2 - 62;
         if (i > 0) {
-            if (pEntity.isInvulnerable()){
+            if (pEntity.isInvulnerable() && !pEntity.isInvisible()){
                 RenderSystem.setShaderTexture(0, MINI_BOSS_BAR);
                 blit(pPoseStack, j1, pY, 0, 24, i, 8, 128, 128);
             } else {

@@ -68,10 +68,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -899,7 +896,7 @@ public class MobUtil {
         mob.yBodyRot = mob.getYRot();
     }
 
-    public static void instaLook(Mob looker, LivingEntity target){
+    public static void instaLook(Mob looker, Entity target){
         looker.getLookControl().setLookAt(target, 200.0F, looker.getMaxHeadXRot());
         double d2 = target.getX() - looker.getX();
         double d1 = target.getZ() - looker.getZ();
@@ -1073,6 +1070,59 @@ public class MobUtil {
         entity.setXRot(p_19917_ % 360.0F);
     }
 
+    /**
+     * Based on Dweller code by Gargin: <a href="https://github.com/maow-tty/cave-dweller-decompiled/blob/master/src/main/java/com/gargin/cavenoise/entity/custom/DwellerStareGoal.java#L118">...</a>
+     */
+    public static boolean isPlayerLookingTowards(Player player, float fov, Mob mob) {
+        boolean yawPlayerLookingTowards = false;
+        float yFovMod = 0.65F;
+        float fovMod = (35.0F / fov - 1.0F) * 0.4F + 1.0F;
+        fov *= fovMod;
+        Vec3 a = player.position();
+        Vec3 b = mob.position();
+        Vec2 dist = new Vec2((float)b.x - (float)a.x, (float)b.z - (float)a.z);
+        dist = dist.normalized();
+        double newAngle = Math.toDegrees(Math.atan2(dist.x, dist.y));
+        float lookX = (float)player.getViewVector(1.0F).x;
+        float lookZ = (float)player.getViewVector(1.0F).z;
+        double newLookAngle = Math.toDegrees(Math.atan2(lookX, lookZ));
+        double newNewAngle = loopAngle(newAngle - newLookAngle) + (double)fov;
+        newNewAngle = loopAngle(newNewAngle);
+        if (newNewAngle > 0.0 && newNewAngle < (double)(fov * 2.0F)) {
+            yawPlayerLookingTowards = true;
+        }
+
+        boolean pitchPlayerLookingTowards = false;
+        boolean shouldOnlyUsePitch = false;
+        float yFov = fov * yFovMod;
+        Vec2 yDist = new Vec2((float)Math.sqrt((b.x - a.x) * (b.x - a.x) + (b.z - a.z) * (b.z - a.z)), (float)(b.y - a.y));
+        yDist = yDist.normalized();
+        double yAngle = Math.toDegrees(Math.atan2(yDist.x, yDist.y));
+        float lookY = (float)player.getViewVector(1.0F).y;
+        Vec2 lookDist = new Vec2((float)Math.sqrt(lookX * lookX + lookZ * lookZ), lookY);
+        lookDist = lookDist.normalized();
+        double yLookAngle = Math.toDegrees(Math.atan2(lookDist.x, lookDist.y));
+        double newYAngle = loopAngle(yAngle - yLookAngle) + (double)yFov;
+        newYAngle = loopAngle(newYAngle);
+        if (newYAngle > 0.0 && newYAngle < (double)(yFov * 2.0F)) {
+            pitchPlayerLookingTowards = true;
+        }
+
+        if (!(yLookAngle < (double)(180.0F - yFov)) || !(yLookAngle > (double)yFov)) {
+            shouldOnlyUsePitch = true;
+        }
+
+        return (yawPlayerLookingTowards || shouldOnlyUsePitch) && pitchPlayerLookingTowards;
+    }
+
+    public static double loopAngle(double angle) {
+        if (angle > 360.0) {
+            return angle - 360.0;
+        } else {
+            return angle < 0.0 ? angle + 360.0 : angle;
+        }
+    }
+
     public static void setBaseAttributes(AttributeInstance attribute, double value){
         if (attribute != null){
             attribute.setBaseValue(value);
@@ -1155,6 +1205,55 @@ public class MobUtil {
             return flag2;
         } else {
             return false;
+        }
+    }
+
+    public static boolean randomWaterTeleport(LivingEntity livingEntity, double p_20985_, double p_20986_, double p_20987_, boolean p_20988_) {
+        double d0 = livingEntity.getX();
+        double d1 = livingEntity.getY();
+        double d2 = livingEntity.getZ();
+        double d3 = p_20986_;
+        boolean flag = false;
+        BlockPos blockpos = new BlockPos(p_20985_, p_20986_, p_20987_);
+        Level level = livingEntity.level;
+        if (level.isLoaded(blockpos)) {
+            boolean flag1 = false;
+
+            while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = blockpos.below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.getMaterial().blocksMotion()) {
+                    flag1 = true;
+                } else if (blockstate.getFluidState().is(FluidTags.WATER)){
+                    --d3;
+                    flag1 = true;
+                } else {
+                    --d3;
+                    blockpos = blockpos1;
+                }
+            }
+
+            if (flag1) {
+                livingEntity.teleportTo(p_20985_, d3, p_20987_);
+                if (level.noCollision(livingEntity)) {
+                    flag = true;
+                }
+            }
+        }
+
+        if (!flag) {
+            livingEntity.teleportTo(d0, d1, d2);
+            return false;
+        } else {
+            if (p_20988_) {
+                level.broadcastEntityEvent(livingEntity, (byte)46);
+            }
+
+            if (livingEntity instanceof PathfinderMob) {
+                ((PathfinderMob)livingEntity).getNavigation().stop();
+            }
+
+            return true;
         }
     }
 

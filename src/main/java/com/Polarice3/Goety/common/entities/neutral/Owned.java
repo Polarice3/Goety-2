@@ -228,7 +228,7 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
                 entity.setSecondsOnFire(i * 4);
             }
 
-            boolean flag = entity.hurt(ModDamageSource.summonAttack(this, this.getTrueOwner()), f);
+            boolean flag = this.doHurtTarget(f, entity);
             if (flag) {
                 if (f1 > 0.0F && entity instanceof LivingEntity) {
                     ((LivingEntity) entity).knockback((double) (f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(this.getYRot() * ((float) Math.PI / 180F))));
@@ -247,6 +247,10 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         } else {
             return super.doHurtTarget(entity);
         }
+    }
+
+    public boolean doHurtTarget(float amount, Entity target){
+        return target.hurt(ModDamageSource.summonAttack(this, this.getTrueOwner()), amount);
     }
 
     public void maybeDisableShield(Player player, ItemStack axe, ItemStack shield) {

@@ -55,6 +55,7 @@ public class ModNetwork {
         INSTANCE.registerMessage(nextID(), CSetLichMode.class, CSetLichMode::encode, CSetLichMode::decode, CSetLichMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSetLichNightVisionMode.class, CSetLichNightVisionMode::encode, CSetLichNightVisionMode::decode, CSetLichNightVisionMode::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CBeamPacket.class, CBeamPacket::encode, CBeamPacket::decode, CBeamPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        INSTANCE.registerMessage(nextID(), CTargetPlayerPacket.class, CTargetPlayerPacket::encode, CTargetPlayerPacket::decode, CTargetPlayerPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusPacket.class, CSwapFocusPacket::encode, CSwapFocusPacket::decode, CSwapFocusPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CSwapFocusTwoPacket.class, CSwapFocusTwoPacket::encode, CSwapFocusTwoPacket::decode, CSwapFocusTwoPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         INSTANCE.registerMessage(nextID(), CAddFocusToBagPacket.class, CAddFocusToBagPacket::encode, CAddFocusToBagPacket::decode, CAddFocusToBagPacket::consume, Optional.of(NetworkDirection.PLAY_TO_SERVER));

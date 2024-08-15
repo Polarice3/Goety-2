@@ -444,6 +444,8 @@ public class Goety {
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER_CLONE.get(), VizierClone.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());
+        event.put(ModEntityType.WIGHT.get(), Wight.setCustomAttributes().build());
+        event.put(ModEntityType.CARRION_MAGGOT.get(), CarrionMaggot.setCustomAttributes().build());
         event.put(ModEntityType.SKULL_LORD.get(), SkullLord.setCustomAttributes().build());
         event.put(ModEntityType.BONE_LORD.get(), BoneLord.setCustomAttributes().build());
         event.put(ModEntityType.WITHER_NECROMANCER.get(), WitherNecromancer.setCustomAttributes().build());

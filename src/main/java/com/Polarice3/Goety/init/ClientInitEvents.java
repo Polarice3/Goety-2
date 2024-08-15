@@ -4,6 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.client.events.BossBarEvent;
 import com.Polarice3.Goety.client.gui.overlay.CurrentFocusGui;
+import com.Polarice3.Goety.client.gui.overlay.DreadOverlay;
 import com.Polarice3.Goety.client.gui.overlay.RavagerRoarGui;
 import com.Polarice3.Goety.client.gui.overlay.SoulEnergyGui;
 import com.Polarice3.Goety.client.gui.screen.inventory.*;
@@ -165,6 +166,7 @@ public class ClientInitEvents {
 
     @SubscribeEvent
     public static void registerGUI(final RegisterGuiOverlaysEvent event){
+        event.registerAbove(VanillaGuiOverlay.PLAYER_LIST.id(), "static_overlay", DreadOverlay.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "soul_energy_hud", SoulEnergyGui.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "ravager_roar_hud", RavagerRoarGui.OVERLAY);
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "current_focus_hud", CurrentFocusGui.OVERLAY);
@@ -237,6 +239,8 @@ public class ClientInitEvents {
         event.registerLayerDefinition(ModModelLayer.NECROMANCER, NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.WITHER_NECROMANCER, WitherNecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.VANGUARD, VanguardModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.WIGHT, WightModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayer.MAGGOT, CarrionMaggotModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.TORMENTOR, TormentorModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.INQUILLAGER, InquillagerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayer.CONQUILLAGER, ConquillagerModel::createBodyLayer);
@@ -385,6 +389,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.PYROCLAST.get(), PyroclastRenderer::new);
         event.registerEntityRenderer(ModEntityType.MAGMA_BOMB.get(), MagmaBombRenderer::new);
         event.registerEntityRenderer(ModEntityType.WEB_SHOT.get(), WebShotRenderer::new);
+        event.registerEntityRenderer(ModEntityType.DELAYED_SUMMON.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE.get(), SummonCircleRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_CIRCLE_BOSS.get(), SummonCircleBossRenderer::new);
         event.registerEntityRenderer(ModEntityType.SUMMON_FIERY.get(), SummonCircleVariantRenderer::new);
@@ -496,6 +501,8 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER_CLONE.get(), VizierCloneRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
+        event.registerEntityRenderer(ModEntityType.WIGHT.get(), WightRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CARRION_MAGGOT.get(), CarrionMaggotRenderer::new);
         event.registerEntityRenderer(ModEntityType.SKULL_LORD.get(), SkullLordRenderer::new);
         event.registerEntityRenderer(ModEntityType.BONE_LORD.get(), BoneLordRenderer::new);
         event.registerEntityRenderer(ModEntityType.WITHER_NECROMANCER.get(), WitherNecromancerRenderer::new);

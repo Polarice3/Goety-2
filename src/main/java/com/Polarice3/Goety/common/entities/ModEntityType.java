@@ -894,6 +894,16 @@ public class ModEntityType {
                     .sized(0.4F, 0.8F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<Wight>> WIGHT = register("wight",
+            EntityType.Builder.of(Wight::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(16));
+
+    public static final RegistryObject<EntityType<CarrionMaggot>> CARRION_MAGGOT = register("carrion_maggot",
+            EntityType.Builder.of(CarrionMaggot::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.3F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<SkullLord>> SKULL_LORD = register("skull_lord",
             EntityType.Builder.of(SkullLord::new, MobCategory.MONSTER)
                     .sized(0.5F, 0.5F)
@@ -987,6 +997,14 @@ public class ModEntityType {
                     .sized(2.0F, 2.0F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<DelayedSummon>> DELAYED_SUMMON = register("delayed_summon",
+            EntityType.Builder.<DelayedSummon>of(DelayedSummon::new, MobCategory.MISC)
+                    .fireImmune()
+                    .noSummon()
+                    .sized(2.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(1));
 
     public static final RegistryObject<EntityType<SummonCircle>> SUMMON_CIRCLE = register("summon_circle",
             EntityType.Builder.<SummonCircle>of(SummonCircle::new, MobCategory.MISC)

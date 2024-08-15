@@ -68,6 +68,8 @@ public class ModModelLayer {
     public static final ModelLayerLocation NECROMANCER = register("necromancer");
     public static final ModelLayerLocation WITHER_NECROMANCER = register("wither_necromancer");
     public static final ModelLayerLocation VANGUARD = register("vanguard");
+    public static final ModelLayerLocation WIGHT = register("wight");
+    public static final ModelLayerLocation MAGGOT = register("maggot");
     public static final ModelLayerLocation VILLAGER_ARMOR_INNER = registerInnerArmor("villager_armor");
     public static final ModelLayerLocation VILLAGER_ARMOR_OUTER = registerOuterArmor("villager_armor");
     public static final ModelLayerLocation CURSED_KNIGHT_ARMOR_INNER = registerInnerArmor("cursed_knight_armor");
