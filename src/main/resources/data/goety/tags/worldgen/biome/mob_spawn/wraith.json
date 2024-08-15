@@ -3,7 +3,19 @@
   "values": [
     "#minecraft:is_overworld",
     {
-      "id": "#twilightforest:in_twilight_forest",
+      "id": "twilightforest:dark_forest",
+      "required": false
+    },
+    {
+      "id": "twilightforest:underground",
+      "required": false
+    },
+    {
+      "id": "twilightforest:highlands_underground",
+      "required": false
+    },
+    {
+      "id": "twilightforest:spooky_forest",
       "required": false
     }
   ]

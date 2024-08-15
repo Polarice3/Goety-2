@@ -37,6 +37,9 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.POLAR_BEAR_SERVANT.get(),
                 ModEntityType.BOUND_ICEOLOGER.get(),
                 ModEntityType.CAIRN_NECROMANCER.get(),
+                ModEntityType.WIGHT.get(),
+                ModEntityType.BONE_LORD.get(),
+                ModEntityType.SKULL_LORD.get(),
                 ModEntityType.HAUNTED_ARMOR.get(),
                 ModEntityType.HAUNTED_ARMOR_SERVANT.get(),
                 ModEntityType.ICE_GOLEM.get(),
@@ -56,6 +59,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
         this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(
                 ModEntityType.INFERNO.get(),
                 ModEntityType.MAGMA_CUBE_SERVANT.get(),
+                ModEntityType.CARRION_MAGGOT.get(),
                 ModEntityType.STORM_CASTER.get());
         this.tag(EntityTypeTags.RAIDERS).add(ModEntityType.ARMORED_RAVAGER.get(),
                 ModEntityType.WARLOCK.get(),

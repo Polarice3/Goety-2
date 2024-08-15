@@ -199,6 +199,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneCubeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> RedstoneCubeFollowRange;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> WightHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WightDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BoneLordHealth;
@@ -712,6 +715,12 @@ public class AttributesConfig {
                 MinisterDamage = BUILDER.comment("How much damage Ministers deals, Default: 5.0")
                         .defineInRange("ministerDamage", 5.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
+                BUILDER.push("Wight");
+                WightHealth = BUILDER.comment("How much Max Health Wights have, Default: 200.0")
+                        .defineInRange("wightHealth", 200.0, 1.0, Double.MAX_VALUE);
+                WightDamage = BUILDER.comment("How much damage Wights deals, Default: 12.5")
+                        .defineInRange("wightDamage", 12.5, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
                 BUILDER.push("Skull Lord");
                 SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 150.0")
                         .defineInRange("skullLordHealth", 150.0, 1.0, Double.MAX_VALUE);
@@ -725,8 +734,8 @@ public class AttributesConfig {
             BUILDER.pop();
             BUILDER.push("Bosses");
                 BUILDER.push("Vizier");
-                VizierHealth = BUILDER.comment("How much Max Health Viziers have, Default: 200.0")
-                        .defineInRange("vizierHealth", 200.0, 100.0, Double.MAX_VALUE);
+                VizierHealth = BUILDER.comment("How much Max Health Viziers have, Default: 300.0")
+                        .defineInRange("vizierHealth", 300.0, 100.0, Double.MAX_VALUE);
                 VizierDamageCap = BUILDER.comment("The maximum amount of damage a Vizier can attain per hit, Default: 20.0")
                         .defineInRange("vizierDamageCap", 20.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();

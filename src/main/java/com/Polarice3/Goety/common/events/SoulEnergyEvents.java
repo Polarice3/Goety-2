@@ -6,6 +6,7 @@ import com.Polarice3.Goety.api.items.magic.ITotem;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.capabilities.soulenergy.ISoulEnergy;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
+import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.VineHook;
 import com.Polarice3.Goety.common.items.ArcaCompassItem;
@@ -309,6 +310,14 @@ public class SoulEnergyEvents {
                     if (LichdomHelper.isLich(player)) {
                         LichdomHelper.setLich(player, false);
                     }
+                }
+            }
+            if (killer instanceof Wight wight){
+                if (wight.level instanceof ServerLevel serverLevel) {
+                    SEHelper.decreaseSouls(player, 1000);
+                    float healAmount = 50.0F * (Math.min(0.0F, SEHelper.getSoulAmountInt(player)) / 1000.0F);
+                    wight.heal(healAmount);
+                    ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.SCULK_SOUL, wight);
                 }
             }
             if (killer instanceof AbstractIllager){

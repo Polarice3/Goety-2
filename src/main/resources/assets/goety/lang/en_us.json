@@ -153,6 +153,9 @@
 
   "entity.goety.void_rift":"Void Rift",
 
+  "entity.goety.wight":"Wight",
+  "entity.goety.carrion_maggot":"Carrion Maggot",
+
   "entity.goety.skull_lord":"Skull Lord",
   "entity.goety.bone_lord":"Bone Lord",
 
@@ -239,6 +242,7 @@
   "entity.goety.cushion":"Cushion",
   "entity.goety.storm_util":"Thunderstorm",
   "entity.goety.summon_apostle":"Apostle",
+  "entity.goety.delayed_summon":"Approaching Summon",
   "entity.goety.summon_circle":"Approaching Summon",
   "entity.goety.summon_circle_boss":"Approaching Summon",
   "entity.goety.summon_fiery":"Approaching Summon",
@@ -317,6 +321,8 @@
   "item.goety.minister_spawn_egg": "Minister Spawn Egg",
   "item.goety.vizier_spawn_egg": "Vizier Spawn Egg",
   "item.goety.irk_spawn_egg": "Irk Spawn Egg",
+  "item.goety.wight_spawn_egg": "Wight Spawn Egg (WIP)",
+  "item.goety.carrion_maggot_spawn_egg": "Carrion Maggot Spawn Egg",
   "item.goety.skull_lord_spawn_egg": "Skull Lord Spawn Egg",
   "item.goety.ravaged_spawn_egg": "Ravaged Spawn Egg",
   "item.goety.whisperer_spawn_egg": "Whisperer Spawn Egg",
@@ -1521,6 +1527,20 @@
   "subtitle.goety.inferno_pre_attack": "Inferno prepares",
   "subtitle.goety.inferno_loop": "Inferno burns",
   "subtitle.goety.inferno_death": "Inferno dies",
+
+  "subtitle.goety.wight_ambient": "Wight breaths",
+  "subtitle.goety.wight_hurt": "Wight hurts",
+  "subtitle.goety.wight_scream": "Wight screams",
+  "subtitle.goety.wight_swing": "Wight swings",
+  "subtitle.goety.wight_teleport_scream": "Wight screams",
+  "subtitle.goety.wight_teleport": "Wight teleports",
+  "subtitle.goety.wight_death": "Wight dies",
+
+  "subtitle.goety.maggot_ambient": "Maggot skitters",
+  "subtitle.goety.maggot_hurt": "Maggot hurts",
+  "subtitle.goety.maggot_attack": "Maggot bites",
+  "subtitle.goety.maggot_step": "Maggot crawls",
+  "subtitle.goety.maggot_death": "Maggot dies",
 
   "subtitle.goety.skull_lord_ambient": "Skull Lord murmurs",
   "subtitle.goety.skull_lord_hurt": "Skull Lord hurts",

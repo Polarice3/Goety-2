@@ -39,6 +39,21 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CRONE_LAUGH = create("crone_laugh");
     public static final RegistryObject<SoundEvent> CRONE_DEATH = create("crone_death");
 
+    public static final RegistryObject<SoundEvent> WIGHT_AMBIENT = create("wight_ambient");
+    public static final RegistryObject<SoundEvent> WIGHT_HURT = create("wight_hurt");
+    public static final RegistryObject<SoundEvent> WIGHT_SCREAM = create("wight_scream");
+    public static final RegistryObject<SoundEvent> WIGHT_PRE_SWING = create("wight_pre_swing");
+    public static final RegistryObject<SoundEvent> WIGHT_SWING = create("wight_swing");
+    public static final RegistryObject<SoundEvent> WIGHT_TELEPORT_SCREAM = create("wight_teleport_scream");
+    public static final RegistryObject<SoundEvent> WIGHT_LOOP = create("wight_loop");
+    public static final RegistryObject<SoundEvent> WIGHT_DEATH = create("wight_death");
+
+    public static final RegistryObject<SoundEvent> MAGGOT_AMBIENT = create("maggot_ambient");
+    public static final RegistryObject<SoundEvent> MAGGOT_HURT = create("maggot_hurt");
+    public static final RegistryObject<SoundEvent> MAGGOT_ATTACK = create("maggot_attack");
+    public static final RegistryObject<SoundEvent> MAGGOT_STEP = create("maggot_step");
+    public static final RegistryObject<SoundEvent> MAGGOT_DEATH = create("maggot_death");
+
     public static final RegistryObject<SoundEvent> SKULL_LORD_AMBIENT = create("skull_lord_ambient");
     public static final RegistryObject<SoundEvent> SKULL_LORD_HURT = create("skull_lord_hurt");
     public static final RegistryObject<SoundEvent> SKULL_LORD_CHARGE = create("skull_lord_charge");

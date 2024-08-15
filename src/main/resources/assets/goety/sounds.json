@@ -287,6 +287,200 @@
     ],
     "subtitle": "subtitle.goety.crone_death"
   },
+  "wight_ambient": {
+    "sounds": [
+      {
+        "name": "goety:wight/idle1"
+      },
+      {
+        "name": "goety:wight/idle2"
+      },
+      {
+        "name": "goety:wight/idle3"
+      },
+      {
+        "name": "goety:wight/idle4"
+      },
+      {
+        "name": "goety:wight/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_ambient"
+  },
+  "wight_hurt": {
+    "sounds": [
+      {
+        "name": "goety:wight/hurt1"
+      },
+      {
+        "name": "goety:wight/hurt2"
+      },
+      {
+        "name": "goety:wight/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_hurt"
+  },
+  "wight_scream": {
+    "sounds": [
+      {
+        "name": "goety:wight/scream1"
+      },
+      {
+        "name": "goety:wight/scream2"
+      },
+      {
+        "name": "goety:wight/scream3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_scream"
+  },
+  "wight_pre_swing": {
+    "sounds": [
+      {
+        "name": "goety:wight/pre_swing1"
+      },
+      {
+        "name": "goety:wight/pre_swing2"
+      },
+      {
+        "name": "goety:wight/pre_swing3"
+      }
+    ]
+  },
+  "wight_swing": {
+    "sounds": [
+      {
+        "name": "goety:wight/swing1"
+      },
+      {
+        "name": "goety:wight/swing2"
+      },
+      {
+        "name": "goety:wight/swing3"
+      },
+      {
+        "name": "goety:wight/swing4"
+      },
+      {
+        "name": "goety:wight/swing5"
+      },
+      {
+        "name": "goety:wight/swing6"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_swing"
+  },
+  "wight_teleport_scream": {
+    "sounds": [
+      {
+        "name": "goety:wight/teleport_scream1"
+      },
+      {
+        "name": "goety:wight/teleport_scream2"
+      },
+      {
+        "name": "goety:wight/teleport_scream3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_teleport_scream"
+  },
+  "wight_teleport": {
+    "sounds": [
+      {
+        "name": "goety:wraith/teleport1"
+      },
+      {
+        "name": "goety:wraith/teleport2"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_teleport"
+  },
+  "wight_loop": {
+    "sounds": [
+      {
+        "name": "goety:wight/loop"
+      }
+    ]
+  },
+  "wight_death": {
+    "sounds": [
+      {
+        "name": "goety:wight/death"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_death"
+  },
+  "maggot_ambient": {
+    "sounds": [
+      {
+        "name": "goety:maggot/idle1"
+      },
+      {
+        "name": "goety:maggot/idle2"
+      },
+      {
+        "name": "goety:maggot/idle3"
+      }
+    ],
+    "subtitle": "subtitle.goety.maggot_ambient"
+  },
+  "maggot_hurt": {
+    "sounds": [
+      {
+        "name": "goety:maggot/hurt1"
+      },
+      {
+        "name": "goety:maggot/hurt2"
+      },
+      {
+        "name": "goety:maggot/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.maggot_hurt"
+  },
+  "maggot_attack": {
+    "sounds": [
+      {
+        "name": "goety:maggot/attack1"
+      },
+      {
+        "name": "goety:maggot/attack2"
+      },
+      {
+        "name": "goety:maggot/attack3"
+      }
+    ],
+    "subtitle": "subtitle.goety.maggot_attack"
+  },
+  "maggot_step": {
+    "sounds": [
+      {
+        "name": "goety:maggot/step1"
+      },
+      {
+        "name": "goety:maggot/step2"
+      },
+      {
+        "name": "goety:maggot/step3"
+      },
+      {
+        "name": "goety:maggot/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.maggot_step"
+  },
+  "maggot_death": {
+    "sounds": [
+      {
+        "name": "goety:maggot/death1"
+      },
+      {
+        "name": "goety:maggot/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.maggot_death"
+  },
   "skull_lord_ambient": {
     "sounds": [
       {

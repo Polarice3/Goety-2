@@ -14,6 +14,7 @@ import java.util.*;
 public class SEImp implements ISoulEnergy{
     private boolean seActive;
     private int soulEnergy = 0;
+    private int recoil = 0;
     private int restPeriod = 0;
     private boolean apostleWarned = false;
     private ResourceKey<Level> dimension = Level.OVERWORLD;
@@ -89,6 +90,16 @@ public class SEImp implements ISoulEnergy{
         }
         this.soulEnergy = Math.max(this.soulEnergy - decrease, 0);
         return true;
+    }
+
+    @Override
+    public int getRecoil() {
+        return this.recoil;
+    }
+
+    @Override
+    public void setRecoil(int recoil) {
+        this.recoil = recoil;
     }
 
     @Override

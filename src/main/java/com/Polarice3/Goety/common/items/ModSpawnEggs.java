@@ -66,6 +66,12 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> IRK_SPAWN_EGG = ITEMS.register("irk_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.IRK, 8032420, 8032420, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> WIGHT_SPAWN_EGG = ITEMS.register("wight_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WIGHT, 0x19161d, 0x282534, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> CARRION_MAGGOT_SPAWN_EGG = ITEMS.register("carrion_maggot_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.CARRION_MAGGOT, 0x181a16, 0xe28e42, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> SKULL_LORD_SPAWN_EGG = ITEMS.register("skull_lord_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SKULL_LORD, 0xd3d3d3, 0x74f1f5, egg()));
 

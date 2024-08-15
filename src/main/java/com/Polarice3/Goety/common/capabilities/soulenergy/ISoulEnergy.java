@@ -23,6 +23,8 @@ public interface ISoulEnergy {
     void setSoulEnergy(int soulEnergy);
     boolean increaseSE(int increase);
     boolean decreaseSE(int decrease);
+    int getRecoil();
+    void setRecoil(int recoil);
     boolean apostleWarned();
     void setApostleWarned(boolean apostleWarned);
     int getRestPeriod();

@@ -88,7 +88,7 @@ public class QuakingSpell extends Spell {
     }
 
     //Based on @l_ender's codes: https://github.com/lender544/L_ender-s-Cataclysm-Backport-1.19.2-1.80/blob/7a1a4cea139685cd4fb11a482d4af893efa1f607/src/main/java/com/github/L_Ender/cataclysm/entity/BossMonsters/Ignis_Entity.java#L1853
-    public void tremor(LivingEntity livingEntity, int distance, double topY, float side, float damage, float airborne) {
+    public static void tremor(LivingEntity livingEntity, int distance, double topY, float side, float damage, float airborne) {
         int hitY = Mth.floor(livingEntity.getBoundingBox().minY - 0.5D);
         double minY = livingEntity.getY() - 2.0D;
         double maxY = livingEntity.getY() + topY;
@@ -124,7 +124,7 @@ public class QuakingSpell extends Spell {
     }
 
     //Based on @l_ender's codes: https://github.com/lender544/L_ender-s-Cataclysm-Backport-1.19.2-1.80/blob/7a1a4cea139685cd4fb11a482d4af893efa1f607/src/main/java/com/github/L_Ender/cataclysm/entity/BossMonsters/Ignis_Entity.java#L1788
-    public void surroundTremor(LivingEntity livingEntity, int distance, double topY, float side, boolean grab, float damage, float airborne) {
+    public static void surroundTremor(LivingEntity livingEntity, int distance, double topY, float side, boolean grab, float damage, float airborne) {
         int hitY = Mth.floor(livingEntity.getBoundingBox().minY - 0.5D);
         double spread = Math.PI * (double)2.0F;
         int arcLen = Mth.ceil((double)distance * spread);

@@ -91,26 +91,24 @@ public interface ITotem {
     }
 
     static void increaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof ITotem)) {
+        if (!(itemStack.getItem() instanceof ITotem) || itemStack.getTag() == null) {
             return;
         }
-        assert itemStack.getTag() != null;
         int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
         if (!isFull(itemStack)) {
-            Soulcount += souls;
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, Soulcount);
+            int finalCount = Math.min(Soulcount + souls, maximumSouls(itemStack));
+            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, finalCount);
         }
     }
 
     static void decreaseSouls(ItemStack itemStack, int souls) {
-        if (!(itemStack.getItem() instanceof ITotem)) {
+        if (!(itemStack.getItem() instanceof ITotem) || itemStack.getTag() == null) {
             return;
         }
-        assert itemStack.getTag() != null;
         int Soulcount = itemStack.getTag().getInt(SOULS_AMOUNT);
         if (!isEmpty(itemStack)) {
-            Soulcount -= souls;
-            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, Soulcount);
+            int finalCount = Math.max(Soulcount - souls, 0);
+            itemStack.getOrCreateTag().putInt(SOULS_AMOUNT, finalCount);
         }
     }
 }

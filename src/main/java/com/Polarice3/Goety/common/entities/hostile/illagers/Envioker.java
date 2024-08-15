@@ -181,7 +181,9 @@ public class Envioker extends HuntingIllagerEntity {
             if (!super.canUse()) {
                 return false;
             } else {
-                return Envioker.this.isMagic();
+                return Envioker.this.getTarget() != null
+                        && Envioker.this.isMagic()
+                        && Envioker.this.hasLineOfSight(Envioker.this.getTarget());
             }
         }
 

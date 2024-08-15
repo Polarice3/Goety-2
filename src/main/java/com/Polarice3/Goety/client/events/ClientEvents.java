@@ -4,10 +4,7 @@ import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.blocks.entities.IOwnedBlock;
 import com.Polarice3.Goety.api.blocks.entities.ITrainingBlock;
 import com.Polarice3.Goety.api.magic.ISpell;
-import com.Polarice3.Goety.client.audio.BossLoopMusic;
-import com.Polarice3.Goety.client.audio.ItemLoopSound;
-import com.Polarice3.Goety.client.audio.LoopSound;
-import com.Polarice3.Goety.client.audio.SummonNoveltySound;
+import com.Polarice3.Goety.client.audio.*;
 import com.Polarice3.Goety.client.gui.screen.inventory.BrewRadialMenuScreen;
 import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.ModModelLayer;
@@ -21,6 +18,7 @@ import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.entities.ally.golem.SquallGolem;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
+import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
@@ -61,10 +59,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -113,6 +108,9 @@ public class ClientEvents {
             }
             if (entity instanceof InsectSwarm){
                 soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
+            }
+            if (entity instanceof Wight wight && !wight.isHallucination()){
+                soundHandler.play(new WightLoopSound(wight));
             }
             if (entity instanceof IceStorm){
                 soundHandler.play(new LoopSound(ModSounds.ICE_STORM_LOOP.get(), entity));
@@ -482,6 +480,51 @@ public class ClientEvents {
             Minecraft.getInstance().player.getActiveEffectsMap().put(MobEffects.POISON, addedTempPoison);
         }
 
+    }
+
+    @SubscribeEvent
+    public static void TickEvents(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.START){
+            return;
+        }
+
+        Minecraft minecraft = Minecraft.getInstance();
+
+        if (minecraft.player != null){
+            Player player = minecraft.player;
+            Wight wight = Wight.findWight(player);
+            if (wight != null) {
+                if (MobUtil.isPlayerLookingTowards(player, minecraft.options.fov().get().floatValue(), wight)){
+                    wight.lookTime += 1;
+
+                    if (wight.lookTime >= MathHelper.secondsToTicks(3)){
+                        if (wight.lookTime % 20 == 0 && wight.getRandom().nextInt(8) == 0) {
+                            wight.lookTime = 0;
+                            ModNetwork.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CTargetPlayerPacket(wight));
+                        }
+                    }
+                } else {
+                    if (wight.lookTime > 0){
+                        wight.lookTime -= 1;
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void FogEvents(ViewportEvent.RenderFog event){
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null) {
+            Player player = minecraft.player;
+            Wight wight = Wight.findWight(player, EntitySelector.ENTITY_STILL_ALIVE::test);
+            if (wight != null) {
+                final float f = minecraft.gameRenderer.getRenderDistance();
+                event.setNearPlaneDistance(f * 0.05F);
+                event.setFarPlaneDistance(Math.min(f, 192.0F) * 0.5F);
+                event.setCanceled(true);
+            }
+        }
     }
 
     /**
