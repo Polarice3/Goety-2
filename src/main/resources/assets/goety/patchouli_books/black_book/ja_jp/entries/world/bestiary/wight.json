@@ -1,0 +1,29 @@
+{
+  "name": "ワイト",
+  "icon": "goety:shadow_essence",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ソウルエネルギーを多く持つ存在の近くに現れる異形の存在。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wight"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shadow_essence",
+      "title": "影のエッセンス",
+      "text": "ワイトは光を吸い込むような奇妙な「エッセンス」をドロップします。おそらく、特定のアイテムを作成するために使用できます。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "遭遇したのを目撃した人は、それらが $(l:world/crypts)dark and cold place$() の創造物であると信じている..."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shadow_essence": 2
+  }
+}

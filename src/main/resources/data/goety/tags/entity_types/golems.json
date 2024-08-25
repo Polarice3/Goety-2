@@ -10,6 +10,7 @@
     "goety:hostile_redstone_golem",
     "goety:grave_golem",
     "goety:redstone_monstrosity",
-    "goety:redstone_cube"
+    "goety:redstone_cube",
+    "goety:hostile_redstone_monstrosity"
   ]
 }

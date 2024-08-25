@@ -58,6 +58,9 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<HookBellBlockEntity>> HOOK_BELL = BLOCK_ENTITY.register("hook_bell",
             () -> BlockEntityType.Builder.of(HookBellBlockEntity::new, ModBlocks.HOOK_BELL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ShriekObeliskBlockEntity>> SHRIEKING_OBELISK = BLOCK_ENTITY.register("shriek_obelisk",
+            () -> BlockEntityType.Builder.of(ShriekObeliskBlockEntity::new, ModBlocks.SHRIEKING_OBELISK.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<NecroBrazierBlockEntity>> NECRO_BRAZIER = BLOCK_ENTITY.register("necro_brazier",
             () -> BlockEntityType.Builder.of(NecroBrazierBlockEntity::new, ModBlocks.NECRO_BRAZIER.get()).build(null));
 

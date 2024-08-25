@@ -31,16 +31,19 @@ import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
+import com.Polarice3.Goety.init.ClientInitEvents;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -51,15 +54,18 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -67,6 +73,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -76,6 +83,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -218,7 +227,7 @@ public class ClientEvents {
         }
     }
 
-    public static BossLoopMusic BOSS_MUSIC;
+    public static AbstractTickableSoundInstance BOSS_MUSIC;
 
     public static void playBossMusic(SoundEvent soundEvent, Mob mob){
         if (MainConfig.BossMusic.get()) {
@@ -299,6 +308,11 @@ public class ClientEvents {
         }
         if (player.isInvisible() && CuriosFinder.hasIllusionRobe(player)){
             event.setCanceled(true);
+        }
+        if (LichdomHelper.isLich(event.getEntity())){
+            if (ClientInitEvents.getModPlayerRenderer().renderPlayer((AbstractClientPlayer) event.getEntity(), 1, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight())){
+                event.setCanceled(true);
+            }
         }
     }
 
@@ -467,19 +481,131 @@ public class ClientEvents {
         if (event.getOverlay().id() != VanillaGuiOverlay.PLAYER_HEALTH.id()) {
             return;
         }
-        if (Minecraft.getInstance().player == null){
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player == null){
             return;
         }
 
-        addTempPoison = Minecraft.getInstance().player.hasEffect(GoetyEffects.ACID_VENOM.get()) && !Minecraft.getInstance().player.getActiveEffectsMap().containsKey(MobEffects.POISON);
+        addTempPoison = player.hasEffect(GoetyEffects.ACID_VENOM.get()) && !player.getActiveEffectsMap().containsKey(MobEffects.POISON);
 
         if (addTempPoison) {
             if (addedTempPoison == null) {
                 addedTempPoison = new MobEffectInstance(MobEffects.POISON, 100);
             }
-            Minecraft.getInstance().player.getActiveEffectsMap().put(MobEffects.POISON, addedTempPoison);
+            player.getActiveEffectsMap().put(MobEffects.POISON, addedTempPoison);
         }
 
+        if (minecraft.gui instanceof ForgeGui gui) {
+            if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()
+                    && (player.hasEffect(GoetyEffects.SPASMS.get()) || player.hasEffect(GoetyEffects.CURSED.get()))) {
+                setHearts(event);
+            }
+        }
+
+    }
+
+    private static final ResourceLocation CUSTOM_HEARTS = Goety.location("textures/gui/custom_hearts.png");
+
+    private static int lastHealth;
+    private static int displayHealth;
+    private static long lastHealthTime;
+    private static long healthBlinkTime;
+
+    private static void setHearts(RenderGuiOverlayEvent.Pre event) {
+        Player player = Minecraft.getInstance().player;
+        Minecraft mc = Minecraft.getInstance();
+        if (player == null){
+            return;
+        }
+        ForgeGui gui = (ForgeGui)mc.gui;
+        GuiGraphics stack = event.getGuiGraphics();
+        gui.setupOverlayRenderState(true, false);
+        int width = event.getWindow().getGuiScaledWidth();
+        int height = event.getWindow().getGuiScaledHeight();
+        event.setCanceled(true);
+        RenderSystem.setShaderTexture(0, CUSTOM_HEARTS);
+        RenderSystem.enableBlend();
+        int health = Mth.ceil(player.getHealth());
+        int tickCount = gui.getGuiTicks();
+        boolean highlight = healthBlinkTime > (long)tickCount && (healthBlinkTime - (long)tickCount) / 3L % 2L == 1L;
+        if (health < lastHealth && player.invulnerableTime > 0) {
+            lastHealthTime = Util.getMillis();
+            healthBlinkTime = (long)(tickCount + 20);
+        } else if (health > lastHealth && player.invulnerableTime > 0) {
+            lastHealthTime = Util.getMillis();
+            healthBlinkTime = (long)(tickCount + 10);
+        }
+
+        if (Util.getMillis() - lastHealthTime > 1000L) {
+            lastHealth = health;
+            displayHealth = health;
+            lastHealthTime = Util.getMillis();
+        }
+
+        lastHealth = health;
+        int healthLast = displayHealth;
+        float healthMax = (float) player.getAttributeValue(Attributes.MAX_HEALTH);
+        int absorption = Mth.ceil(player.getAbsorptionAmount());
+        int healthRows = Mth.ceil((healthMax + (float)absorption) / 2.0F / 10.0F);
+        int rowHeight = Math.max(10 - (healthRows - 2), 3);
+        Random random = new Random();
+        random.setSeed((long)tickCount * 312871L);
+        int left = width / 2 - 91;
+        int top = height - gui.leftHeight;
+        gui.leftHeight += healthRows * rowHeight;
+        if (rowHeight != 10) {
+            gui.leftHeight += 10 - rowHeight;
+        }
+
+        int regen = -1;
+        if (player.hasEffect(MobEffects.REGENERATION)) {
+            regen = tickCount % Mth.ceil(healthMax + 5.0F);
+        }
+
+        int TOP = player.level().getLevelData().isHardcore() ? 9 : 0;
+        int BACKGROUND = highlight ? 25 : 16;
+        int heartX = player.hasEffect(GoetyEffects.CURSED.get()) ? 52 : 34;
+        float absorptionRemaining = (float)absorption;
+
+        for(int i = Mth.ceil((healthMax + (float)absorption) / 2.0F) - 1; i >= 0; --i) {
+            int row = Mth.ceil((float)(i + 1) / 10.0F) - 1;
+            int x = left + i % 10 * 8;
+            int y = top - row * rowHeight;
+            if (health <= 4) {
+                y += random.nextInt(2);
+            }
+
+            if (i == regen) {
+                y -= 2;
+            }
+
+            stack.blit(CUSTOM_HEARTS, x, y, BACKGROUND, TOP, 9, 9);
+            if (highlight) {
+                if (i * 2 + 1 < healthLast) {
+                    stack.blit(CUSTOM_HEARTS, x, y, heartX, TOP, 9, 9);
+                } else if (i * 2 + 1 == healthLast) {
+                    stack.blit(CUSTOM_HEARTS, x, y, heartX + 9, TOP, 9, 9);
+                }
+            }
+
+            if (absorptionRemaining > 0.0F) {
+                if (absorptionRemaining == (float)absorption && (float)absorption % 2.0F == 1.0F) {
+                    stack.blit(CUSTOM_HEARTS, x, y, heartX + 9, TOP, 9, 9);
+                    --absorptionRemaining;
+                } else {
+                    stack.blit(CUSTOM_HEARTS, x, y, heartX, TOP, 9, 9);
+                    absorptionRemaining -= 2.0F;
+                }
+            } else if (i * 2 + 1 < health) {
+                stack.blit(CUSTOM_HEARTS, x, y, heartX, TOP, 9, 9);
+            } else if (i * 2 + 1 == health) {
+                stack.blit(CUSTOM_HEARTS, x, y, heartX + 9, TOP, 9, 9);
+            }
+        }
+
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderTexture(0, CUSTOM_HEARTS);
     }
 
     @SubscribeEvent

@@ -1,0 +1,27 @@
+{
+  "name": "尖啸方尖碑",
+  "icon": "goety:shriek_obelisk",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "灾厄村民们坚持不懈地追捕那些钻研黑魔法的人，就算付出了一波又一波的代价，他们也要杀死那些窃取魔法的人们。但是有了高头骨和深暗之地的尖啸体，你找到了一种方法来让灾厄村民们认清自己的位置。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shriek_obelisk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "尖啸方尖碑发出令人畏惧的尖叫，能够驱赶任何试图向你发动攻击的灾厄村民。它需要至少一个高头骨，布置得就像信标基座一样，但只有放在充满灵魂能量的诅咒之笼的顶部，它才能被激活
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在方尖碑周围放置高头骨，就像信标基座一样，尽管只是在轮廓上，但会拓展方尖碑的效果半径。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shriek_obelisk": 1
+  }
+}

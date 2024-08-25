@@ -42,9 +42,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WIGHT_AMBIENT = create("wight_ambient");
     public static final RegistryObject<SoundEvent> WIGHT_HURT = create("wight_hurt");
     public static final RegistryObject<SoundEvent> WIGHT_SCREAM = create("wight_scream");
+    public static final RegistryObject<SoundEvent> WIGHT_SUMMON = create("wight_summon");
     public static final RegistryObject<SoundEvent> WIGHT_PRE_SWING = create("wight_pre_swing");
     public static final RegistryObject<SoundEvent> WIGHT_SWING = create("wight_swing");
     public static final RegistryObject<SoundEvent> WIGHT_TELEPORT_SCREAM = create("wight_teleport_scream");
+    public static final RegistryObject<SoundEvent> WIGHT_TELEPORT = create("wight_teleport");
     public static final RegistryObject<SoundEvent> WIGHT_LOOP = create("wight_loop");
     public static final RegistryObject<SoundEvent> WIGHT_DEATH = create("wight_death");
 

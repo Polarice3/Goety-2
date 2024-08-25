@@ -27,6 +27,7 @@ public class ResearchList {
         researches.put(FRONT.getId(), FRONT);
         researches.put(MISTRAL.getId(), MISTRAL);
         researches.put(FLORAL.getId(), FLORAL);
+        researches.put(BYGONE.getId(), BYGONE);
         researches.put(TERMINUS.getId(), TERMINUS);
         return researches;
     }

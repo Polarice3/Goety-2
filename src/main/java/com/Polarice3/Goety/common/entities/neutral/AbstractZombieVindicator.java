@@ -90,6 +90,9 @@ public class AbstractZombieVindicator extends ZombieServant {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_219149_, DifficultyInstance p_219150_) {
+        if (this.canSpawnArmor()){
+            super.populateDefaultEquipmentSlots(p_219149_, p_219150_);
+        }
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
     }
 

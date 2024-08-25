@@ -63,6 +63,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -117,6 +118,17 @@ public class ClientInitEvents {
                 , (stack, world, living, seed) -> RecallFocus.hasRecall(stack) ? 1.0F : 0.0F);
     }
 
+    private static ModPlayerRenderer renderer;
+
+    public static void initRenderer(EntityRendererProvider.Context context) {
+        renderer = new ModPlayerRenderer(context);
+    }
+
+    @UnknownNullability
+    public static ModPlayerRenderer getModPlayerRenderer() {
+        return renderer;
+    }
+
     /**
      * Ripped from @TeamTwilight's AddLayer codes: <a href="https://github.com/TeamTwilight/twilightforest/blob/1.20.x/src/main/java/twilightforest/client/TFClientSetup.java">...</a>
      */
@@ -126,6 +138,7 @@ public class ClientInitEvents {
     @SubscribeEvent
     @SuppressWarnings("unchecked")
     public static void addLayers(EntityRenderersEvent.AddLayers event){
+        initRenderer(event.getContext());
         if (fieldEntityRenderer == null) {
             try {
                 fieldEntityRenderer = EntityRenderersEvent.AddLayers.class.getDeclaredField("renderers");
@@ -323,6 +336,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.FORBIDDEN_GRASS.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MAGIC_LIGHT.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SHRIEKING_OBELISK.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SPIDER_NEST.get(), TrainingBlockRenderer::new);
@@ -370,6 +384,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.FANG.get(), FangsRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPIKE.get(), SpikeRenderer::new);
         event.registerEntityRenderer(ModEntityType.ILL_BOMB.get(), IllBombRenderer::new);
+        event.registerEntityRenderer(ModEntityType.CRYPTIC_EYE.get(), (rendererManager) -> new ThrownItemRenderer<>(rendererManager, 1.0F, true));
         event.registerEntityRenderer(ModEntityType.ELECTRO_ORB.get(), ElectroOrbRenderer::new);
         event.registerEntityRenderer(ModEntityType.ICE_BOUQUET.get(), IceBouquetRenderer::new);
         event.registerEntityRenderer(ModEntityType.HELLFIRE.get(), HellfireRenderer::new);
@@ -495,6 +510,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.PREACHER.get(), PreacherRenderer::new);
         event.registerEntityRenderer(ModEntityType.MINISTER.get(), MinisterRenderer::new);
         event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolemRenderer::new);
+        event.registerEntityRenderer(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), RedstoneMonstrosityRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER.get(), VizierRenderer::new);
         event.registerEntityRenderer(ModEntityType.VIZIER_CLONE.get(), VizierCloneRenderer::new);
         event.registerEntityRenderer(ModEntityType.IRK.get(), IrkRenderer::new);
@@ -521,6 +537,7 @@ public class ClientInitEvents {
         event.registerEntityRenderer(ModEntityType.HELL_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.SPELL_LIGHTNING_BOLT.get(), SpellLightningBoltRenderer::new);
         event.registerEntityRenderer(ModEntityType.BREW_EFFECT_CLOUD.get(), TrapRenderer::new);
+        event.registerEntityRenderer(ModEntityType.DRAGON_BREATH_CLOUD.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.LASER.get(), TrapRenderer::new);
         event.registerEntityRenderer(ModEntityType.VINE_HOOK.get(), VineHookRenderer::new);
         event.registerEntityRenderer(ModEntityType.SURVEY_EYE.get(), TrapRenderer::new);

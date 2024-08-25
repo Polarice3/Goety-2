@@ -2,15 +2,13 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.util.DragonBreathCloud;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,8 +30,8 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
         super(ModEntityType.MOD_DRAGON_FIREBALL.get(), pX, pY, pZ, pAccelX, pAccelY, pAccelZ, pWorld);
     }
 
-    public ModDragonFireball(Level p_i46776_1_, LivingEntity p_i46776_2_, double p_i46776_3_, double p_i46776_5_, double p_i46776_7_) {
-        super(ModEntityType.MOD_DRAGON_FIREBALL.get(), p_i46776_2_, p_i46776_3_, p_i46776_5_, p_i46776_7_, p_i46776_1_);
+    public ModDragonFireball(Level pWorld, LivingEntity pOwner, double pAccelX, double pAccelY, double pAccelZ) {
+        super(ModEntityType.MOD_DRAGON_FIREBALL.get(), pOwner, pAccelX, pAccelY, pAccelZ, pWorld);
     }
 
     protected void onHit(HitResult p_36913_) {
@@ -44,7 +42,7 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
         if (p_36913_.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)p_36913_).getEntity())) {
             if (!this.level().isClientSide) {
                 List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
-                AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
+                DragonBreathCloud breathCloud = new DragonBreathCloud(this.level(), this.getX(), this.getY(), this.getZ());
                 if (entity instanceof LivingEntity livingEntity) {
                     if (entity instanceof Player player){
                         if (WandUtil.enchantedFocus(player)){
@@ -52,26 +50,24 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
                             duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
                         }
                     }
-                    areaeffectcloud.setOwner(livingEntity);
+                    breathCloud.setOwner(livingEntity);
                 }
 
-                areaeffectcloud.setParticle(ParticleTypes.DRAGON_BREATH);
-                areaeffectcloud.setRadius(3.0F + radius);
-                areaeffectcloud.setDuration(600 * duration);
-                areaeffectcloud.setRadiusPerTick((7.0F - areaeffectcloud.getRadius()) / (float)areaeffectcloud.getDuration());
-                areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
+                breathCloud.setRadius(3.0F + radius);
+                breathCloud.setDuration(600 * duration);
+                breathCloud.setRadiusPerTick((7.0F - breathCloud.getRadius()) / (float)breathCloud.getDuration());
                 if (!list.isEmpty()) {
                     for(LivingEntity livingentity : list) {
                         double d0 = this.distanceToSqr(livingentity);
                         if (d0 < 16.0D) {
-                            areaeffectcloud.setPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                            breathCloud.setPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
                             break;
                         }
                     }
                 }
 
                 this.level().levelEvent(2006, this.blockPosition(), this.isSilent() ? -1 : 1);
-                this.level().addFreshEntity(areaeffectcloud);
+                this.level().addFreshEntity(breathCloud);
                 this.discard();
             }
 

@@ -1,11 +1,14 @@
 package com.Polarice3.Goety.common.items.curios;
 
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,9 +51,7 @@ public class SeaAmuletItem extends SingleStackItem{
                                     if (worldIn instanceof ServerLevel serverLevel) {
                                         ServerParticleUtil.gatheringParticles(ParticleTypes.NAUTILUS, player, serverLevel);
                                     }
-                                    if (player.tickCount % 5 == 0) {
-                                        this.increaseConduitCharges(stack);
-                                    }
+                                    this.increaseConduitCharges(stack);
                                 }
                                 flag = false;
                             }
@@ -62,7 +63,11 @@ public class SeaAmuletItem extends SingleStackItem{
                         }
                         if (flag && this.getConduitChargesAmount(stack) > 0 && MobUtil.playerValidity(player, true)) {
                             this.decreaseConduitCharges(stack);
-                            player.playSound(SoundEvents.BUBBLE_COLUMN_BUBBLE_POP);
+                            if (!worldIn.isClientSide){
+                                if (player instanceof ServerPlayer serverPlayer){
+                                    ModNetwork.sendToClient(serverPlayer, new SPlayPlayerSoundPacket(SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, 1.0F, 1.0F));
+                                }
+                            }
                             player.addEffect(new MobEffectInstance(MobEffects.CONDUIT_POWER, duration * 2, 0, false, false));
                         }
                     }

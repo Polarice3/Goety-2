@@ -201,6 +201,12 @@ public class ModEntityType {
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4));
 
+    public static final RegistryObject<EntityType<EyeItemEntity>> CRYPTIC_EYE = register("cryptic_eye",
+            EntityType.Builder.<EyeItemEntity>of(EyeItemEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(4));
+
     public static final RegistryObject<EntityType<ElectroOrb>> ELECTRO_ORB = register("electro_orb",
             EntityType.Builder.<ElectroOrb>of(ElectroOrb::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -878,6 +884,12 @@ public class ModEntityType {
                     .fireImmune()
                     .clientTrackingRange(10));
 
+    public static final RegistryObject<EntityType<HostileRedstoneMonstrosity>> HOSTILE_REDSTONE_MONSTROSITY = register("hostile_redstone_monstrosity",
+            EntityType.Builder.of(HostileRedstoneMonstrosity::new, MobCategory.MONSTER)
+                    .sized(4.0F, 5.4F)
+                    .fireImmune()
+                    .clientTrackingRange(10));
+
     public static final RegistryObject<EntityType<Vizier>> VIZIER = register("vizier",
             EntityType.Builder.of(Vizier::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -1082,6 +1094,13 @@ public class ModEntityType {
             EntityType.Builder.<BrewGas>of(BrewGas::new, MobCategory.MISC)
                     .fireImmune()
                     .sized(1.0F, 1.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE));
+
+    public static final RegistryObject<EntityType<DragonBreathCloud>> DRAGON_BREATH_CLOUD = register("dragon_breath_cloud",
+            EntityType.Builder.<DragonBreathCloud>of(DragonBreathCloud::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 0.5F)
                     .clientTrackingRange(10)
                     .updateInterval(Integer.MAX_VALUE));
 

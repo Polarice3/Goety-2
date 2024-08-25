@@ -29,6 +29,9 @@ public class RaidAdditions {
             if (MobsConfig.HostileRedstoneGolemRaid.get()){
                 Raid.RaiderType.create("HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), new int[]{0, 0, 0, 0, 0, 1, 0, 0});
             }
+            if (MobsConfig.HostileRedstoneMonstrosityRaid.get()){
+                Raid.RaiderType.create("HOSTILE_RED_MONSTER", ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
+            }
             if (MobsConfig.MinisterRaid.get()) {
                 Raid.RaiderType.create("MINISTER", ModEntityType.MINISTER.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
             }

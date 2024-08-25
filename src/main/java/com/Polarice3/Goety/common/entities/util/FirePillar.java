@@ -87,7 +87,7 @@ public class FirePillar extends CastSpellTrap{
                     this.playSound(ModSounds.FIRE_TORNADO_AMBIENT.get(), 1.0F, 1.0F);
                 }
                 List<LivingEntity> targets = new ArrayList<>();
-                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+                for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0, 8, 0))) {
                     LivingEntity livingEntity = null;
                     if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
                         livingEntity = living;

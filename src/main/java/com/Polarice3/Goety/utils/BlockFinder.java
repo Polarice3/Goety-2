@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.common.blocks.entities.ShriekObeliskBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,11 +32,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -45,6 +48,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.Predicate;
 
 public class BlockFinder {
@@ -254,6 +258,24 @@ public class BlockFinder {
         return blockPos;
     }
 
+    public static BlockPos SummonAwayRadius(BlockPos blockPos, LivingEntity livingEntity, Level world, int attempts, int radius){
+        BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
+        for (int i = 0; i < attempts; ++i) {
+            int xOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            int zOffset = world.random.nextIntBetweenInclusive(-radius, radius);
+            blockpos$mutable.setX(blockpos$mutable.getX() + xOffset);
+            blockpos$mutable.setY(blockPos.getY());
+            blockpos$mutable.setZ(blockpos$mutable.getZ() + zOffset);
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && blockpos$mutable.distToCenterSqr(blockPos.getCenter()) >= Mth.square(radius / 2)) {
+                blockPos = SummonPosition(livingEntity, blockpos$mutable);
+                break;
+            }
+        }
+        return blockPos;
+    }
+
     public static BlockPos SummonRadiusSight(BlockPos blockPos, LivingEntity looker, LivingEntity summoned, Level world, int radius){
         for (int i = 0; i < 64; ++i) {
             BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable().move(0, 0, 0);
@@ -273,11 +295,12 @@ public class BlockFinder {
 
     public static BlockPos SummonFurtherRadius(BlockPos blockPos, LivingEntity livingEntity, Level world){
         BlockPos.MutableBlockPos blockpos$mutable = blockPos.mutable();
-        for (int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 64; ++i) {
             blockpos$mutable.setX((int) (blockpos$mutable.getX() + (world.random.nextDouble() - 0.5D) * 16));
             blockpos$mutable.setY(blockPos.getY());
             blockpos$mutable.setZ((int) (blockpos$mutable.getZ() + (world.random.nextDouble() - 0.5D) * 16));
-            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable)) && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))) {
+            if (world.noCollision(livingEntity, livingEntity.getBoundingBox().move(blockpos$mutable))
+                    && !world.containsAnyLiquid(livingEntity.getBoundingBox().move(blockpos$mutable))) {
                 blockPos = SummonPosition(livingEntity, blockpos$mutable);
                 break;
             }
@@ -312,6 +335,46 @@ public class BlockFinder {
         } else {
             return livingEntity.blockPosition().mutable().move(0, (int) BlockFinder.spawnWaterY(livingEntity, livingEntity.blockPosition()), 0);
         }
+    }
+
+    /**
+     * Based on Spawning codes from Man From the Fog Reimagined: <a href="https://github.com/z3n01d/man-from-the-fog-reimagined/blob/master/src/main/java/com/zen/the_fog/common/other/Util.java">...</a>
+     */
+    public static Vec3 getRandomSpawnBehindDirection(ServerLevel serverLevel, Random random, Vec3 origin, Vec3 direction, int minRange, int maxRange) {
+        direction = direction.scale(-1);
+        direction = direction.yRot((float) Math.toRadians((random.nextFloat(-60, 60))));
+        if (minRange == maxRange) {
+            direction = direction.scale(minRange);
+        } else {
+            direction = direction.scale(maxRange > minRange ? random.nextInt(minRange, maxRange) : random.nextInt(maxRange, minRange));
+        }
+
+        BlockPos blockPos = BlockPos.containing(origin.add(direction));
+        BlockState blockState = serverLevel.getBlockState(blockPos);
+
+        while (!blockState.isAir()) {
+            blockPos = blockPos.above();
+            blockState = serverLevel.getBlockState(blockPos);
+            if (blockPos.getY() >= serverLevel.getMaxBuildHeight()) {
+                break;
+            }
+        }
+
+        BlockState blockStateDown = serverLevel.getBlockState(blockPos.below());
+
+        while (blockStateDown.isAir()) {
+            blockPos = blockPos.below();
+            blockStateDown = serverLevel.getBlockState(blockPos.below());
+            if (blockPos.getY() < serverLevel.getMinBuildHeight()) {
+                break;
+            }
+        }
+
+        return blockPos.getCenter();
+    }
+
+    public static Vec3 getRandomSpawnBehindDirection(ServerLevel serverLevel, Random random, Vec3 origin, Vec3 direction) {
+        return getRandomSpawnBehindDirection(serverLevel, random, origin, direction, 40, 64);
     }
 
     public static boolean findStructure(Level level, BlockPos blockPos, ResourceKey<Structure> resourceKey){
@@ -606,4 +669,22 @@ public class BlockFinder {
         return buildOuterBlockCircle(position, radius, radius - 1.0D);
     }
 
+    public static boolean findIllagerWard(ServerLevel level, Player player, int soulEnergy){
+        for(int i = -4; i <= 4; ++i) {
+            for(int j = -4; j <= 4; ++j) {
+                LevelChunk levelchunk = level.getChunkAt(player.blockPosition().offset(i * 16, 0, j * 16));
+
+                for(BlockEntity blockentity : levelchunk.getBlockEntities().values()) {
+                    if (blockentity instanceof ShriekObeliskBlockEntity obelisk) {
+                        int radius = obelisk.getPower();
+                        AABB alignedBB = new AABB(obelisk.getBlockPos()).inflate(radius);
+                        if (player.getBoundingBox().intersects(alignedBB)){
+                            return obelisk.shriek(level, player, soulEnergy);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

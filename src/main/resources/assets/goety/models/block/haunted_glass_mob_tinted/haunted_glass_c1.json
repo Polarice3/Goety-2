@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "goety:block/haunted_glass_mob_tinted/haunted_glass_solo",
+    "down": "goety:block/haunted_glass_mob_tinted/haunted_glass_solo",
+    "up": "goety:block/haunted_glass_mob_tinted/haunted_glass_news",
+    "north": "goety:block/haunted_glass_mob_tinted/haunted_glass_n",
+    "south": "goety:block/haunted_glass_mob_tinted/haunted_glass_n",
+    "west": "goety:block/haunted_glass_mob_tinted/haunted_glass_n",
+    "east": "goety:block/haunted_glass_mob_tinted/haunted_glass_n"
+  },
+  "render_type": "translucent"
+}

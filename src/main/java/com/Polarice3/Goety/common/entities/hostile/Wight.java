@@ -36,6 +36,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -218,26 +219,6 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         return false;
     }
 
-    public Vec3 spawnLocation(Entity target) {
-        Vec3 targetPos = target.position();
-        double d0 = this.getRandom().nextInt(70) - 35.0D;
-        double d1 = this.getRandom().nextInt(70) - 35.0D;
-        double posX = targetPos.x() + d0;
-        double posY = targetPos.y() + 10.0D;
-        double posZ = targetPos.z() + d1;
-
-        for(int i = 100; i >= 0; --posY) {
-            BlockPos blockPos = BlockPos.containing(posX, posY, posZ);
-            --i;
-            if (this.level.noCollision(this, this.getBoundingBox().move(blockPos))
-                    && this.level.getBlockState(blockPos.below()).isSolidRender(this.level, blockPos.below())) {
-                break;
-            }
-        }
-
-        return new Vec3(posX, posY, posZ);
-    }
-
     @Override
     protected float getSoundVolume() {
         return 3.0F;
@@ -357,7 +338,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
 
     public void die(DamageSource cause) {
         if (this.isHallucination()){
-            this.lifeSpanDamage();
+            this.hallucinateVanish();
         } else if (this.deathTime > 0) {
             super.die(cause);
         }
@@ -419,6 +400,11 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     }
 
     @Override
+    public boolean isAttackable() {
+        return super.isAttackable() && !this.isHiding();
+    }
+
+    @Override
     public boolean isInvisibleTo(Player p_20178_) {
         if (this.isHallucination()){
             return false;
@@ -437,6 +423,10 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     @Override
     public boolean isInvulnerableTo(DamageSource p_20122_) {
         return super.isInvulnerableTo(p_20122_) || this.isHiding();
+    }
+
+    public boolean canBeSeenByAnyone() {
+        return super.canBeSeenByAnyone() && !this.isHiding();
     }
 
     private boolean getWightFlag(int mask) {
@@ -570,7 +560,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
             }
 
             if (this.isHallucination() && p_32495_ > 0.0F){
-                this.lifeSpanDamage();
+                this.hallucinateVanish();
             }
 
             if (this.isDeadOrDying()) {
@@ -585,6 +575,11 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     }
 
     protected boolean canRide(Entity p_219462_) {
+        return false;
+    }
+
+    @Override
+    public boolean canChangeDimensions() {
         return false;
     }
 
@@ -715,7 +710,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 if (this.isHallucination()){
                     if (this.getTrueOwner() != null){
                         if (this.getTrueOwner().isDeadOrDying()){
-                            this.lifeSpanDamage();
+                            this.hallucinateVanish();
                         }
                     }
                 }
@@ -732,8 +727,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         super.aiStep();
     }
 
-    @Override
-    public void lifeSpanDamage() {
+    public void hallucinateVanish(){
         if (this.level instanceof ServerLevel serverLevel){
             for(int i = 0; i < this.level.random.nextInt(10) + 10; ++i) {
                 ServerParticleUtil.addParticlesAroundMiddleSelf(serverLevel, ParticleTypes.SMOKE, this);
@@ -899,7 +893,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 if (this.getTarget() != null && !this.isScreaming() && this.getTarget().distanceTo(this) >= 4.0D && this.spawnCool <= 0 && this.level.random.nextFloat() <= 0.25F){
                     this.setSummoning(true);
                     this.level.broadcastEntityEvent(this, (byte) 8);
-                    this.playSound(ModSounds.WIGHT_SCREAM.get(), 3.0F, 1.0F);
+                    this.playSound(ModSounds.WIGHT_SUMMON.get(), 3.0F, 1.0F);
                     int amount = 3 + this.level.random.nextInt(1 + this.level.getDifficulty().getId());
                     for (int j = 0; j < amount; ++j){
                         CarrionMaggot carrionMaggot = new CarrionMaggot(ModEntityType.CARRION_MAGGOT.get(), this.level);
@@ -956,7 +950,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 }
                 this.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(this));
                 if (!this.isSilent()) {
-                    this.level.playSound((Player)null, this.prevX, this.prevY, this.prevZ, ModSounds.WRAITH_TELEPORT.get(), this.getSoundSource(), 1.0F, 0.5F);
+                    this.level.playSound((Player)null, this.prevX, this.prevY, this.prevZ, ModSounds.WIGHT_TELEPORT.get(), this.getSoundSource(), 1.0F, 0.5F);
                 }
             }
 
@@ -972,7 +966,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         }
         serverLevel.sendParticles(new TeleportShockwaveParticleOption(), this.getX(), this.getY() + 0.5F, this.getZ(), 0, 0, 0, 0, 0.5F);
         if (!this.isSilent()) {
-            this.playSound(ModSounds.WRAITH_TELEPORT.get(), 1.0F, 0.5F);
+            this.playSound(ModSounds.WIGHT_TELEPORT.get(), 1.0F, 0.5F);
         }
     }
 
@@ -987,34 +981,55 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
+        boolean flag = super.doHurtTarget(entityIn);
         if (this.isHallucination()){
-            if (this.doHurtTarget(1.0F, entityIn)) {
+            flag = this.doHurtTarget(1.0F, entityIn);
+            if (flag) {
                 if (entityIn instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
                 }
-                this.lifeSpanDamage();
-                return true;
+                this.playSound(ModSounds.WIGHT_SCREAM.get(), 1.0F, this.getVoicePitch());
+                this.hallucinateVanish();
             }
-        }
-        boolean flag = super.doHurtTarget(entityIn);
-        if (flag){
-            if (entityIn instanceof LivingEntity living){
-                if (entityIn instanceof Player player){
-                    if (SEHelper.getSoulsAmount(player, 10)){
-                        SEHelper.decreaseSouls(player, 10);
-                        this.regenHeal += 10;
+        } else {
+            if (flag){
+                if (entityIn instanceof LivingEntity living){
+                    if (entityIn instanceof Player player){
+                        if (SEHelper.getSoulsAmount(player, AttributesConfig.WightSoulAbsorb.get())){
+                            SEHelper.decreaseSouls(player, AttributesConfig.WightSoulAbsorb.get());
+                            this.regenHeal += AttributesConfig.WightSoulHeal.get();
+                        } else {
+                            player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+                        }
                     } else {
-                        player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
+                        living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
                     }
-                } else {
-                    living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
-                }
-                if (this.isEasterEgg()){
-                    living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false));
+                    if (this.isEasterEgg()){
+                        living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false));
+                    }
                 }
             }
         }
         return flag;
+    }
+
+    public void upgradePower(int sePercent){
+        AttributeInstance health = this.getAttribute(Attributes.MAX_HEALTH);
+        AttributeInstance attack = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (health != null && attack != null) {
+            if (sePercent >= 15) {
+                double h = 1.096D;
+                double a = 1.12D;
+                double d0 = 1.0D;
+                for (int i = 0; i < sePercent; ++i) {
+                    if (i % 15 == 0 && i > 15) {
+                        d0 += 0.1D;
+                    }
+                }
+                health.setBaseValue(AttributesConfig.WightHealth.get() * (h * d0));
+                attack.setBaseValue(AttributesConfig.WightDamage.get() * (a * d0));
+            }
+        }
     }
 
     @Override

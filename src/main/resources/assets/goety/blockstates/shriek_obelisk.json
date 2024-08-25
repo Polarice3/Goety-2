@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "powered=true,shrieking=false": { "model": "goety:block/shriek_obelisk" },
+    "powered=false,shrieking=false": { "model": "goety:block/shriek_obelisk_off" },
+    "powered=true,shrieking=true": { "model": "goety:block/shriek_obelisk_shriek" },
+    "powered=false,shrieking=true": { "model": "goety:block/shriek_obelisk_off" }
+  }
+}

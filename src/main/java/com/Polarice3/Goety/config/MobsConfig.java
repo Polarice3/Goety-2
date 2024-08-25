@@ -37,6 +37,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultRestDeath;
     public static final ForgeConfigSpec.ConfigValue<Integer> IllagerAssaultRestMinister;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> WightSpawnFreq;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WightSpawnChance;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> VillagerHateSpells;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> MaxSlimeSize;
@@ -123,10 +126,13 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> EnviokerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MinisterRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneGolemRaid;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneMonstrosityRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WightSpawn;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> InterDimensionalMobs;
     public static final ForgeConfigSpec.ConfigValue<Boolean> TallSkullDrops;
@@ -302,8 +308,8 @@ public class MobsConfig {
             NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 0.5")
                     .defineInRange("netherMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
             BUILDER.pop();
-        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: true")
-                .define("redstoneGolemMold", true);
+        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: false")
+                .define("redstoneGolemMold", false);
         RedstoneMonstrosityMold = BUILDER.comment("Whether creating a Redstone Monstrosity causes the mold to change blocks, Default: true")
                 .define("redstoneMonstrosityMold", true);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
@@ -375,6 +381,8 @@ public class MobsConfig {
                     .define("ministerRaid", true);
             HostileRedstoneGolemRaid = BUILDER.comment("Whether Hostile Redstone Golems appear in Raids, Default: false")
                     .define("hostileRedstoneGolemRaid", false);
+            HostileRedstoneMonstrosityRaid = BUILDER.comment("Whether Hostile Redstone Monstrosities appear in Raids, Default: false")
+                    .define("hostileRedstoneMonstrosityRaid", false);
             ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                     .define("armoredRavagerRaid", true);
             WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
@@ -388,7 +396,7 @@ public class MobsConfig {
                 .define("illagerSteal", true);
         BUILDER.pop();
         BUILDER.push("Villagers");
-        VillagerHate = BUILDER.comment("Wearing a Dark Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")
+        VillagerHate = BUILDER.comment("Wearing a Robe, along with variants, causes Villagers around the Player to have a negative Reputation unless said Player has 25 or more reputation among them, Default: false")
                 .define("villagerHate", false);
         VillagerHateRavager = BUILDER.comment("Having an owned Ravaged or Ravager, causes Villagers around the Player to have a negative Reputation, Default: false")
                 .define("villagerHateRavager", false);
@@ -416,6 +424,12 @@ public class MobsConfig {
             VizierMinion = BUILDER.comment("Viziers spawn Vexes instead of Irks, Default: false")
                     .define("vizierMinion", false);
             BUILDER.pop();
+        WightSpawn = BUILDER.comment("Whether Wights can spawn near players that have a high amount of Soul Energy, Default: true")
+                .define("wightSpawn", true);
+        WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 12000")
+                .defineInRange("wightSpawnFreq", 12000, 0, Integer.MAX_VALUE);
+        WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 5")
+                .defineInRange("wightSpawnChance", 5, 0, Integer.MAX_VALUE);
         InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
                 .define("interDimensionalMobs", false);
         WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")

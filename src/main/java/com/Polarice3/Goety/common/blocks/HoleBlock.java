@@ -1,8 +1,11 @@
 package com.Polarice3.Goety.common.blocks;
 
 import com.Polarice3.Goety.common.blocks.entities.HoleBlockEntity;
+import com.Polarice3.Goety.config.SpellConfig;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +41,15 @@ public class HoleBlock extends BaseEntityBlock {
         return RenderShape.INVISIBLE;
     }
 
-    public VoxelShape getShape(BlockState p_48760_, BlockGetter p_48761_, BlockPos p_48762_, CollisionContext p_48763_) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (SpellConfig.TunnelHaveBlacklist.get()) {
+            if (context instanceof EntityCollisionContext context1) {
+                Entity entity = context1.getEntity();
+                if (entity != null && entity.getType().is(ModTags.EntityTypes.HOLE_IMMUNE)) {
+                    return Shapes.block();
+                }
+            }
+        }
         return Shapes.empty();
     }
 

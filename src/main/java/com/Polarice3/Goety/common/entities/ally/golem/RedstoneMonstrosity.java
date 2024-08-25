@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally.golem;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
+import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -69,7 +70,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerRideable, IAutoRideable {
+public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerRideable, IAutoRideable, IRM {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> AUTO_MODE = SynchedEntityData.defineId(RedstoneMonstrosity.class, EntityDataSerializers.BOOLEAN);
@@ -581,12 +582,33 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         }
     }
 
+    @Override
+    public float getBigGlow() {
+        return this.bigGlow;
+    }
+
+    @Override
+    public float getMinorGlow() {
+        return this.minorGlow;
+    }
+
     public boolean isActivating() {
         return this.hasPose(Pose.EMERGING);
     }
 
     public void tick() {
         super.tick();
+        if (this.isHostile()) {
+            if (this.tickCount % 10 == 0) {
+                Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), false);
+                if (mob != null) {
+                    mob.setXRot(this.getXRot());
+                    mob.setYRot(this.getYRot());
+                    mob.setYBodyRot(this.getYRot());
+                    mob.setYHeadRot(this.getYHeadRot());
+                }
+            }
+        }
         if (this.isDeadOrDying()){
             this.setAnimationState(DEATH);
             this.setYRot(this.deathRotation);

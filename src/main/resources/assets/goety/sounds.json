@@ -335,6 +335,14 @@
     ],
     "subtitle": "subtitle.goety.wight_scream"
   },
+  "wight_summon": {
+    "sounds": [
+      {
+        "name": "goety:wight/summon"
+      }
+    ],
+    "subtitle": "subtitle.goety.wight_summon"
+  },
   "wight_pre_swing": {
     "sounds": [
       {

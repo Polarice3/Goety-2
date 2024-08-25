@@ -54,6 +54,9 @@ public class ModTags {
 
         public static final TagKey<Item> WANDS = tag("wands");
         public static final TagKey<Item> STAFFS = tag("staffs");
+        public static final TagKey<Item> ROBES = tag("robes");
+        public static final TagKey<Item> CAPES = tag("capes");
+        public static final TagKey<Item> CROWNS = tag("crowns");
         public static final TagKey<Item> BREWABLE_FOOD = tag("brewable_food");
         public static final TagKey<Item> GRAVE_GLOVE_BOOST = tag("grave_glove_boost");
         public static final TagKey<Item> THRASH_GLOVE_BOOST = tag("thrash_glove_boost");
@@ -89,6 +92,8 @@ public class ModTags {
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
+        public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
+        public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
         public static final TagKey<EntityType<?>> NECRO_SET_NEUTRAL = tag("necro_set_neutral");

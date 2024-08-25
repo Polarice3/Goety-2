@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "goety:block/haunted_glass/haunted_glass_solo",
+    "down": "goety:block/haunted_glass/haunted_glass_news",
+    "up": "goety:block/haunted_glass/haunted_glass_news",
+    "north": "goety:block/haunted_glass/haunted_glass_news",
+    "south": "goety:block/haunted_glass/haunted_glass_news",
+    "west": "goety:block/haunted_glass/haunted_glass_news",
+    "east": "goety:block/haunted_glass/haunted_glass_news"
+  },
+  "render_type": "cutout"
+}

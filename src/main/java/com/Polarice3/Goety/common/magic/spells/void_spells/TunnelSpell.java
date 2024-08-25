@@ -8,7 +8,6 @@ import com.Polarice3.Goety.common.magic.BlockSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
-import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
@@ -92,7 +91,6 @@ public class TunnelSpell extends BlockSpell {
         if (!world.isClientSide && world.getBlockEntity(blockPos) == null
                 && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST)
                 && blockState.getBlock() != ModBlocks.HOLE.get()
-                && (blockState.isAir() || !BlockFinder.canBeReplaced(world, blockPos))
                 && blockState.getDestroySpeed(world, blockPos) != -1.0F) {
             if (world.setBlockAndUpdate(blockPos, ModBlocks.HOLE.get().defaultBlockState())) {
                 HoleBlockEntity newHole = (HoleBlockEntity)world.getBlockEntity(blockPos);

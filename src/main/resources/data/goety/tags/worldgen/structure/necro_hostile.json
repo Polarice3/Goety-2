@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "goety:crypt",
+    {
+      "id": "dungeonnowloading:labyrinth",
+      "required": false
+    }
+  ]
+}

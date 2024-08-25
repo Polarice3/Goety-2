@@ -97,6 +97,8 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> DarkArmorEnchantability;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkArmorToughness;
     public static final ForgeConfigSpec.ConfigValue<Double> DarkArmorKnockResist;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetBlindness;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetDarkness;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetUndeadNeutral;
@@ -115,6 +117,7 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
     public static final ForgeConfigSpec.ConfigValue<Double> NecroSetUndeadNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> NamelessSetUndeadNeutralHealth;
 
     static {
         BUILDER.push("General");
@@ -159,6 +162,8 @@ public class ItemConfig {
                     .define("necroCapeChangeTexture", true);
             NamelessSetUndeadNeutral = BUILDER.comment("Whether wearing both Nameless Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("namelessSetUndeadNeutral", true);
+            NamelessSetUndeadNeutralHealth = BUILDER.comment("If 'namelessSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
+                    .defineInRange("namelessSetUndeadNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             WitchSetWitchNeutral = BUILDER.comment("Whether wearing both Witch Robe and Hat will cause Witches and Warlocks to be neutral, Default: true")
                     .define("witchSetWitchNeutral", true);
             WarlockRobeWitchNeutral = BUILDER.comment("Whether wearing a Warlock Robe will cause Witches and Warlocks to be neutral, Default: true")
@@ -173,9 +178,9 @@ public class ItemConfig {
         PendantOfHungerLimit = BUILDER.comment("The total amount of Rotten Flesh a Pendant of Hunger can hold, Default: 1024")
                 .defineInRange("pendantOfHungerLimit", 1024, 1, Integer.MAX_VALUE);
         SeaAmuletChargeConsume = BUILDER.comment("How much Charges the Sea Amulet needs to consume to function, Default: 1")
-                .defineInRange("seaAmuletChargeConsume", 1, 1, Integer.MAX_VALUE);
-        SeaAmuletMax = BUILDER.comment("The total amount of Charges a Sea Amulet can hold, Default: 256")
-                .defineInRange("seaAmuletMax", 256, 1, Integer.MAX_VALUE);
+                .defineInRange("seaAmuletChargeConsume", 1, 0, Integer.MAX_VALUE);
+        SeaAmuletMax = BUILDER.comment("The total amount of Charges a Sea Amulet can hold, Default: 1024")
+                .defineInRange("seaAmuletMax", 1024, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.push("Tools & Weapons");
             BUILDER.push("Staffs");
@@ -333,6 +338,10 @@ public class ItemConfig {
                     .defineInRange("darkArmorToughness", 2.0, 0.0, Double.MAX_VALUE);
             DarkArmorKnockResist = BUILDER.comment("Define how much knockback resistance each armor piece provides, Default: 0.3")
                     .defineInRange("darkArmorKnockResist", 0.3, 0.0, Double.MAX_VALUE);
+            DarkHelmetBlindness = BUILDER.comment("Whether Dark Helmets makes the wearer immune to Blindness, Default: true")
+                    .define("darkHelmetBlindness", true);
+            DarkHelmetDarkness = BUILDER.comment("Whether Dark Helmets makes the wearer immune to Darkness, Default: true")
+                    .define("darkHelmetDarkness", true);
             BUILDER.pop();
         BUILDER.pop();
         SPEC = BUILDER.build();

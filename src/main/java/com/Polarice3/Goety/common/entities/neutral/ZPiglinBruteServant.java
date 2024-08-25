@@ -87,7 +87,7 @@ public class ZPiglinBruteServant extends ZPiglinServant {
         super.customServerAiStep();
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
+    protected void populateWeapon(){
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_AXE));
     }
 }

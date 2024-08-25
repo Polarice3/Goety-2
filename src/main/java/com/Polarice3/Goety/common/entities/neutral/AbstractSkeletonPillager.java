@@ -115,6 +115,9 @@ public class AbstractSkeletonPillager extends AbstractSkeletonServant implements
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_219059_, DifficultyInstance p_219060_) {
+        if (this.canSpawnArmor()){
+            super.populateDefaultEquipmentSlots(p_219059_, p_219060_);
+        }
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
     }
 

@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-07T09:00:22.7939309	Loot Tables
+// 1.20.1	2024-08-17T20:13:59.2705209	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 f7a819c3aef0dda1fe38d098a114b70570eec26b data/goety/loot_tables/blocks/awakened_emerald_block.json
@@ -184,6 +184,7 @@ e42d29dbe3282bc81456c0d2a8f687f83c1cb7ab data/goety/loot_tables/blocks/shade_sto
 8833d77713199a8bab4500e539d3d8396ddb98b7 data/goety/loot_tables/blocks/shade_tiles.json
 984e0f5c56c65d5842241f67896fa73d0227b682 data/goety/loot_tables/blocks/shade_tiles_slab.json
 ca0f28271dc1286e5a7ba840177cbdfc8f64e17b data/goety/loot_tables/blocks/shade_tiles_stairs.json
+cfcaa16ac0755134e23ff7190f8d0a59a9e39ba3 data/goety/loot_tables/blocks/shriek_obelisk.json
 25ce9af4fb84c41c02dd4ceda1a2e1aa3e476871 data/goety/loot_tables/blocks/siltstone.json
 2eb2c9ac25b34029386c670029a53f926ae55be5 data/goety/loot_tables/blocks/siltstone_bricks.json
 b0bda61f20a66c808652b666277fb4499e86b134 data/goety/loot_tables/blocks/siltstone_brick_slab.json

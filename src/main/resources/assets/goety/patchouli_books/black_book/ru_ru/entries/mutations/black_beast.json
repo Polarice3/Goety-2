@@ -1,0 +1,30 @@
+{
+  "name": "Чёрный зверь",
+  "icon": "minecraft:chain",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Если призрак овладеет чёрным волком, то в результате получится могущественное и неестественное существо, способное рвать врагов на части своими когтями, иссушать и проклинать их."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_black_wolf_to_black_beast"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:black_beast",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Зверя можно вылечить, накормив его мясом, как прирученных волков, и он может пассивно исцеляться, если его владелец наденет дикую мантию. Нажатие по нему ПКМ использованным набором привязки, заставит его выследить существо и расправиться с ним, а затем вернуться к владельцу."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Моб основан на «кошмарном сталкере» из мода mongoose_artist «Born In Chaos»."
+    }
+  ]
+}

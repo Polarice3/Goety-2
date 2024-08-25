@@ -76,6 +76,7 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 ModEntityType.PREACHER.get(),
                 ModEntityType.MINISTER.get(),
                 ModEntityType.HOSTILE_REDSTONE_GOLEM.get(),
+                ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(),
                 ModEntityType.APOSTLE.get(),
                 ModEntityType.VIZIER.get());
         this.tag(EntityTypeTags.ARROWS).add(ModEntityType.GHOST_ARROW.get(),

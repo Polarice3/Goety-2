@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "goety:block/cracked_crag_pavement_slab"
+    },
+    "type=double": {
+      "model": "goety:block/cracked_crag_pavement"
+    },
+    "type=top": {
+      "model": "goety:block/cracked_crag_pavement_slab_top"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "goety:shriek_obelisk",
     "goety:sculk_converter",
     "goety:sculk_grower",
     "goety:sculk_relay",

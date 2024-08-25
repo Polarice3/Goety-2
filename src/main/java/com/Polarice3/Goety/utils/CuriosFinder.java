@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.utils;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -8,8 +9,11 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -130,6 +134,10 @@ public class CuriosFinder {
         return hasNecroSet(livingEntity) && ItemConfig.NecroSetUndeadNeutral.get();
     }
 
+    public static boolean validNecroUndead(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && livingEntity.getMaxHealth() <= ItemConfig.NecroSetUndeadNeutralHealth.get() && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
+    }
+
     public static boolean neutralNamelessCrown(LivingEntity livingEntity){
         return CuriosFinder.hasCurio(livingEntity, itemStack -> itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crownItem && crownItem.isNameless)
                 && ItemConfig.NamelessSetUndeadNeutral.get();
@@ -147,6 +155,10 @@ public class CuriosFinder {
 
     public static boolean neutralNamelessSet(LivingEntity livingEntity){
         return hasNamelessSet(livingEntity) && ItemConfig.NamelessSetUndeadNeutral.get();
+    }
+
+    public static boolean validNamelessUndead(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getType().is(ModTags.EntityTypes.NECRO_SET_NEUTRAL)) && livingEntity.getMaxHealth() <= ItemConfig.NamelessSetUndeadNeutralHealth.get() && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     public static boolean hasUndeadCrown(LivingEntity livingEntity){

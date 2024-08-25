@@ -163,6 +163,12 @@ public class SingleStackItem extends Item implements ICurioItem {
             if (stack.is(ModItems.RING_OF_WANT.get())){
                 tooltip.add(Component.translatable("info.goety.ring_of_want").withStyle(secondary));
             }
+            if (stack.is(ModItems.RING_OF_FORCE.get())){
+                tooltip.add(Component.translatable("info.goety.ring_of_force").withStyle(secondary));
+            }
+            if (stack.is(ModItems.RING_OF_THE_FORGE.get())){
+                tooltip.add(Component.translatable("info.goety.ring_of_the_forge").withStyle(secondary));
+            }
             if (stack.is(ModItems.RING_OF_THE_DRAGON.get())){
                 tooltip.add(Component.translatable("info.goety.ring_of_the_dragon").withStyle(secondary));
             }

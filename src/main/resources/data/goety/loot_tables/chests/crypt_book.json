@@ -11,11 +11,11 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 10
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "functions": [
             {
               "decoration": "target_point",

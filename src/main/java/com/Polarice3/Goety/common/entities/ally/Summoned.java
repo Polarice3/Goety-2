@@ -6,6 +6,7 @@ import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.*;
@@ -40,10 +41,7 @@ import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -334,6 +332,40 @@ public class Summoned extends Owned implements IServant {
         this.setStaying(false);
         this.setBoundPos(null);
         return pSpawnData;
+    }
+
+    public boolean canSpawnArmor(){
+        return this.getTrueOwner() != null && CuriosFinder.hasCurio(this.getTrueOwner(), ModItems.RING_OF_THE_FORGE.get());
+    }
+
+    protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
+        if (this.canSpawnArmor()){
+            for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
+                    int i = p_217055_.nextInt(2);
+                    if (p_217055_.nextFloat() < 0.095F) {
+                        ++i;
+                    }
+
+                    if (p_217055_.nextFloat() < 0.095F) {
+                        ++i;
+                    }
+
+                    if (p_217055_.nextFloat() < 0.095F) {
+                        ++i;
+                    }
+                    ItemStack itemstack = this.getItemBySlot(equipmentslot);
+                    if (itemstack.isEmpty()) {
+                        Item item = getEquipmentForSlot(equipmentslot, i);
+                        if (item != null) {
+                            this.setItemSlot(equipmentslot, new ItemStack(item));
+                        }
+                    }
+                }
+            }
+        } else {
+            super.populateDefaultEquipmentSlots(p_217055_, p_217056_);
+        }
     }
 
     public void die(DamageSource pCause) {

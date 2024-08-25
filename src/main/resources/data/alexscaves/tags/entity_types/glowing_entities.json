@@ -10,6 +10,7 @@
     "goety:magma_cube_servant",
     "goety:redstone_golem",
     "goety:hostile_redstone_golem",
-    "goety:redstone_monstrosity"
+    "goety:redstone_monstrosity",
+    "goety:hostile_redstone_monstrosity"
   ]
 }

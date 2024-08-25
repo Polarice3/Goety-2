@@ -1,13 +1,16 @@
 package com.Polarice3.Goety.client.render.model;
 
+import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.client.render.animation.RedstoneMonstrosityAnimations;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
+import com.Polarice3.Goety.common.entities.hostile.illagers.HostileRedstoneMonstrosity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.LivingEntity;
 
-public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends HierarchicalModel<T> {
+public class RedstoneMonstrosityModel<T extends LivingEntity & IRM> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart monstrosity;
 	private final ModelPart head;
@@ -90,22 +93,32 @@ public class RedstoneMonstrosityModel<T extends RedstoneMonstrosity> extends Hie
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		if (!entity.isSummoning() && !entity.isBelching() && !entity.isDeadOrDying()){
+		if (!entity.isSummoning() && !entity.isBelching() && !entity.isDeadOrDying()) {
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
-		this.animate(entity.activateAnimationState, RedstoneMonstrosityAnimations.ACTIVATE, ageInTicks);
-		this.animate(entity.idleAnimationState, RedstoneMonstrosityAnimations.IDLE, ageInTicks);
 		if (entity.canAnimateMove()) {
 			this.animateWalk(RedstoneMonstrosityAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
 		}
-		this.animate(entity.attackAnimationState, RedstoneMonstrosityAnimations.SMASH, ageInTicks);
-		this.animate(entity.summonAnimationState, RedstoneMonstrosityAnimations.SUMMON, ageInTicks);
-		this.animate(entity.sitAnimationState, RedstoneMonstrosityAnimations.SIT, ageInTicks);
-		this.animate(entity.toSitAnimationState, RedstoneMonstrosityAnimations.TO_SIT, ageInTicks);
-		this.animate(entity.toStandAnimationState, RedstoneMonstrosityAnimations.TO_STAND, ageInTicks);
-		this.animate(entity.belchAnimationState, RedstoneMonstrosityAnimations.SPIT, ageInTicks);
-		this.animate(entity.deathAnimationState, RedstoneMonstrosityAnimations.DEATH, ageInTicks);
-		this.eyes.visible = entity.deathTime < 24;
+		if (entity instanceof RedstoneMonstrosity redstoneMonstrosity) {
+			this.animate(redstoneMonstrosity.activateAnimationState, RedstoneMonstrosityAnimations.ACTIVATE, ageInTicks);
+			this.animate(redstoneMonstrosity.idleAnimationState, RedstoneMonstrosityAnimations.IDLE, ageInTicks);
+			this.animate(redstoneMonstrosity.attackAnimationState, RedstoneMonstrosityAnimations.SMASH, ageInTicks);
+			this.animate(redstoneMonstrosity.summonAnimationState, RedstoneMonstrosityAnimations.SUMMON, ageInTicks);
+			this.animate(redstoneMonstrosity.sitAnimationState, RedstoneMonstrosityAnimations.SIT, ageInTicks);
+			this.animate(redstoneMonstrosity.toSitAnimationState, RedstoneMonstrosityAnimations.TO_SIT, ageInTicks);
+			this.animate(redstoneMonstrosity.toStandAnimationState, RedstoneMonstrosityAnimations.TO_STAND, ageInTicks);
+			this.animate(redstoneMonstrosity.belchAnimationState, RedstoneMonstrosityAnimations.SPIT, ageInTicks);
+			this.animate(redstoneMonstrosity.deathAnimationState, RedstoneMonstrosityAnimations.DEATH, ageInTicks);
+			this.eyes.visible = redstoneMonstrosity.deathTime < 24;
+		} else if (entity instanceof HostileRedstoneMonstrosity redstoneMonstrosity){
+			this.animate(redstoneMonstrosity.activateAnimationState, RedstoneMonstrosityAnimations.ACTIVATE, ageInTicks);
+			this.animate(redstoneMonstrosity.idleAnimationState, RedstoneMonstrosityAnimations.IDLE, ageInTicks);
+			this.animate(redstoneMonstrosity.attackAnimationState, RedstoneMonstrosityAnimations.SMASH, ageInTicks);
+			this.animate(redstoneMonstrosity.summonAnimationState, RedstoneMonstrosityAnimations.SUMMON, ageInTicks);
+			this.animate(redstoneMonstrosity.belchAnimationState, RedstoneMonstrosityAnimations.SPIT, ageInTicks);
+			this.animate(redstoneMonstrosity.deathAnimationState, RedstoneMonstrosityAnimations.DEATH, ageInTicks);
+			this.eyes.visible = redstoneMonstrosity.deathTime < 24;
+		}
 	}
 
 	private void animateHeadLookTarget(float netHeadYaw, float headPitch) {
