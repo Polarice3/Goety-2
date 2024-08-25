@@ -1,0 +1,48 @@
+{
+  "parent": "goety:goety/servant_kill_mob",
+  "display": {
+    "icon": {
+      "item": "goety:reinforced_redstone_block"
+    },
+    "title": {
+      "translate": "advancements.goety.monstrosity_kill_boss.title"
+    },
+    "description": {
+      "translate": "advancements.goety.monstrosity_kill_boss.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "kill": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#forge:bosses"
+            }
+          }
+        ],
+        "killer": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "killer",
+            "predicate": {
+              "type": "goety:redstone_monstrosity"
+            }
+          }
+        ]
+      },
+      "trigger": "goety:servant_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ]
+}

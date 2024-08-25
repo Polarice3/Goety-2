@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.listeners.IllagerAssaultListener;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.Maps;
@@ -80,6 +81,8 @@ public class IllagerSpawner {
                                 if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS)) {
                                     return 0;
                                 } else if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
+                                    return 0;
+                                } else if (BlockFinder.findIllagerWard(pLevel, pPlayer, soulEnergy)){
                                     return 0;
                                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()) {
                                     int i1 = 0;
@@ -236,6 +239,9 @@ public class IllagerSpawner {
             BlockPos.MutableBlockPos blockpos$mutable = pPlayer.blockPosition().mutable().move(k, 0, l);
             if (pLevel.isLoaded(blockpos$mutable)) {
                 if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
+                    ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
+                    pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
+                } else if (BlockFinder.findIllagerWard(pLevel, pPlayer, soulEnergy)){
                     ModNetwork.sendToClient(pPlayer, new SPlayPlayerSoundPacket(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F));
                     pSource.sendFailure(Component.translatable("commands.goety.illager.spawn.failure_location", pPlayer.getDisplayName()));
                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()){

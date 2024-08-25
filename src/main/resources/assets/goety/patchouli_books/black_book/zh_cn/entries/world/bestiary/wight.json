@@ -1,0 +1,29 @@
+{
+  "name": "孤魂",
+  "icon": "goety:shadow_essence",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这种奇怪的实体似乎可以嗅到灵魂能量，它们总会出现在灵魂能量最庞大的地方，伺机而动。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wight"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shadow_essence",
+      "title": "Essence of Shadow",
+      "text": "当它被杀死时，它会掉落一些奇怪的“精华”，这种精华似乎会吸收光线。也许可以用这些东西来制作某些物品。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "一些幸存者们认为这个造物来源于某些$(l:world/crypts)幽暗冰冷之地$()..."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shadow_essence": 2
+  }
+}

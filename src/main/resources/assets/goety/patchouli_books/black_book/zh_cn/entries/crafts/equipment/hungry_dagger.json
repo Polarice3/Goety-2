@@ -1,0 +1,20 @@
+{
+  "name": "饥饿匕首",
+  "icon": "goety:hungry_dagger",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "尖牙匕首的另一版，虽然不再具备毒性，但它能为持有者回复其造成伤害的5%。生命偷取的百分比随着噬魂的魔咒等级而增加。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:hungry_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "匕首可以在铁砧上使用$(l:crafts/dark_metal_ingot)黑暗金属锭$()来修复，它也可以自己使用灵魂能量来修复。"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.client.render.model.RedstoneMonstrosityModel;
-import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -17,8 +17,9 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Mob;
 
-public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends MobRenderer<T, RedstoneMonstrosityModel<T>> {
+public class RedstoneMonstrosityRenderer<T extends Mob & IRM> extends MobRenderer<T, RedstoneMonstrosityModel<T>> {
     private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity.png");
     private static final ResourceLocation ACTIVE = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_active.png");
     private static final ResourceLocation GLOW = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_glow.png");
@@ -31,12 +32,12 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         this.addLayer(new RMBandsLayer<>(this));
         this.addLayer(new RMEmissiveLayer<>(this, GLOW, (entity, partialTicks, ageInTicks) -> {
             return !entity.isDeadOrDying()
-                    && entity.bigGlow > 0 ? entity.bigGlow : 0.0F;
+                    && entity.getBigGlow() > 0 ? entity.getBigGlow() : 0.0F;
         }));
         this.addLayer(new RMEmissiveLayer<>(this, ACTIVE, (entity, partialTicks, ageInTicks) -> {
             return !entity.isActivating()
                     && !entity.isDeadOrDying()
-                    && entity.bigGlow <= 0 ? entity.minorGlow : 0.0F;
+                    && entity.getBigGlow() <= 0 ? entity.getMinorGlow() : 0.0F;
         }));
     }
 
@@ -45,7 +46,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         return TEXTURES;
     }
 
-    public static class GlowEyesLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends EyesLayer<T, M>{
+    public static class GlowEyesLayer<T extends Mob & IRM, M extends RedstoneMonstrosityModel<T>> extends EyesLayer<T, M>{
         private static final ResourceLocation EYES = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_eyes.png");
 
         public GlowEyesLayer(RenderLayerParent<T, M> p_116981_) {
@@ -65,7 +66,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         }
     }
 
-    public static class ActiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
+    public static class ActiveLayer<T extends Mob & IRM, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
         private static final ResourceLocation LOCATION = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_lines.png");
 
         public ActiveLayer(RenderLayerParent<T, M> p_116981_) {
@@ -85,7 +86,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         }
     }
 
-    public static class NonActiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
+    public static class NonActiveLayer<T extends Mob & IRM, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M>{
         private static final ResourceLocation NON_ACTIVE = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_non_active.png");
 
         public NonActiveLayer(RenderLayerParent<T, M> p_116981_) {
@@ -101,7 +102,7 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
         }
     }
 
-    public static class RMEmissiveLayer<T extends RedstoneMonstrosity, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M> {
+    public static class RMEmissiveLayer<T extends Mob & IRM, M extends RedstoneMonstrosityModel<T>> extends RenderLayer<T, M> {
         private final ResourceLocation texture;
         private final AlphaFunction<T> alphaFunction;
 
@@ -118,12 +119,12 @@ public class RedstoneMonstrosityRenderer<T extends RedstoneMonstrosity> extends 
             }
         }
 
-        public interface AlphaFunction<T extends RedstoneMonstrosity> {
+        public interface AlphaFunction<T extends Mob & IRM> {
             float apply(T p_234920_, float p_234921_, float p_234922_);
         }
     }
 
-    public static class RMBandsLayer<T extends RedstoneMonstrosity> extends RenderLayer<T, RedstoneMonstrosityModel<T>> {
+    public static class RMBandsLayer<T extends Mob & IRM> extends RenderLayer<T, RedstoneMonstrosityModel<T>> {
         private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/redstone_monstrosity/redstone_monstrosity_bands.png");
 
         public RMBandsLayer(RenderLayerParent<T, RedstoneMonstrosityModel<T>> p_i50919_1_) {

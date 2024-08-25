@@ -230,14 +230,14 @@
             {
               "decoration": "target_point",
               "function": "minecraft:exploration_map",
-              "destination": "goety:explorer_maps/crypt",
+              "destination": "goety:explorer_maps/blighted_shack",
               "zoom": 1,
               "skip_existing_chunks": true
             },
             {
               "function": "minecraft:set_name",
               "name": {
-                "translate": "filled_map.goety.crypt"
+                "translate": "filled_map.goety.blighted_shack"
               }
             }
           ],

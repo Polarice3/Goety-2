@@ -24,7 +24,7 @@
     "frame": "challenge",
     "hidden": true,
     "icon": {
-      "item": "goety:reinforced_redstone_block"
+      "item": "goety:redstone_monstrosity_head"
     },
     "show_toast": true,
     "title": {

@@ -15,9 +15,10 @@ public class GrowBlockEffect extends BrewEffect {
 
     @Override
     public void applyBlockEffect(Level pLevel, BlockPos pPos, LivingEntity pSource, int pAmplifier, int pAreaOfEffect) {
-        if (pLevel instanceof ServerLevel serverLevel) {
-            for (BlockPos blockPos : this.getCubePos(pPos, pAreaOfEffect + 1)){
-                if (pLevel.getBlockState(blockPos).getBlock() instanceof BonemealableBlock bonemealableBlock) {
+        for (BlockPos blockPos : this.getCubePos(pPos, pAreaOfEffect + 1)){
+            if (pLevel.getBlockState(blockPos).getBlock() instanceof BonemealableBlock bonemealableBlock
+                    && bonemealableBlock.isValidBonemealTarget(pLevel, blockPos, pLevel.getBlockState(blockPos), pLevel.isClientSide)) {
+                if (pLevel instanceof ServerLevel serverLevel) {
                     bonemealableBlock.performBonemeal(serverLevel, serverLevel.random, blockPos, pLevel.getBlockState(blockPos));
                 }
             }

@@ -32,8 +32,8 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
 
     public void tick() {
         if (!MainConfig.BossMusic.get()){
-            this.stop();
             ClientEvents.BOSS_MUSIC = null;
+            this.stop();
         }
         if (this.mobEntity.isRemoved() || this.mobEntity.isDeadOrDying() || !this.mobEntity.isAlive()){
             if (this.mobEntity.isDeadOrDying()){
@@ -49,8 +49,8 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
                     }
                 }
             }
-            this.stop();
             ClientEvents.BOSS_MUSIC = null;
+            this.stop();
         }
     }
 }

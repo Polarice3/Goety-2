@@ -156,6 +156,13 @@ public class ZPiglinServant extends ZombieServant {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
+        if (this.canSpawnArmor()){
+            super.populateDefaultEquipmentSlots(randomSource, pDifficulty);
+        }
+        this.populateWeapon();
+    }
+
+    protected void populateWeapon(){
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
     }
 }

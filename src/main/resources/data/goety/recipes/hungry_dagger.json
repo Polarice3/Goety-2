@@ -1,0 +1,36 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:fanged_dagger"
+  },
+  "craftType": "forge",
+  "soulCost": 1,
+  "duration": 10,
+  "ingredients": [
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "goety:dark_ingot"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "goety:shadow_essence"
+    }
+  ],
+  "result": {
+    "item": "goety:hungry_dagger"
+  }
+}

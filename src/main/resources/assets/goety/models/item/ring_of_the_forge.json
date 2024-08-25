@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/ring_of_the_forge"
+  }
+}

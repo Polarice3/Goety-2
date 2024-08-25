@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.client.events;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.api.entities.IRM;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.boss.Vizier;
 import com.Polarice3.Goety.config.MainConfig;
@@ -99,6 +100,19 @@ public class BossBarEvent {
             }
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX, pY, 0, 48, 200, 16, 256, 256);
+        } else if (pEntity instanceof IRM) {
+            if (i > 0) {
+                RenderSystem.setShaderTexture(0, BOSS_BAR_1);
+                blit(pPoseStack, pX2, pY2, offset, 24, i, 8, 364, 64);
+                if (pEntity.hurtTime >= 5) {
+                    int damage = 96 + pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    int shake = pEntity.getRandom().nextInt(pEntity.hurtTime);
+                    RenderSystem.setShaderTexture(0, TEXTURE);
+                    blit(pPoseStack, pX2, pY2, shake, damage, i, 8, 256, 256);
+                }
+            }
+            RenderSystem.setShaderTexture(0, TEXTURE);
+            blit(pPoseStack, pX, pY, 0, 80, 200, 16, 256, 256);
         } else {
             drawMiniBossBar(pPoseStack, pX, pY, pEntity);
         }

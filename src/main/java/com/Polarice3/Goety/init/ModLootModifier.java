@@ -1,7 +1,6 @@
 package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.Goety;
-import com.Polarice3.Goety.utils.MobUtil;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -38,9 +37,7 @@ public class ModLootModifier {
         protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> loot, LootContext context) {
             Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
             if (entity instanceof Player player) {
-                if (!MobUtil.isShifting(player)) {
-                    loot.removeIf(player::addItem);
-                }
+                loot.removeIf(player::addItem);
             }
             return loot;
         }

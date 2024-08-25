@@ -12,10 +12,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.Tags;
 
 public class GravestoneBlockEntity extends TrainingBlockEntity {
 
@@ -83,6 +83,6 @@ public class GravestoneBlockEntity extends TrainingBlockEntity {
 
     @Override
     public boolean isFuel(ItemStack itemStack) {
-        return itemStack.is(Tags.Items.INGOTS_IRON);
+        return itemStack.is(Items.CHAIN);
     }
 }

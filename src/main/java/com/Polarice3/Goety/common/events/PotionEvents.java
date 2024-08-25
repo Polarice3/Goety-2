@@ -5,22 +5,29 @@ import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
+import com.Polarice3.Goety.common.entities.util.DragonBreathCloud;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.magic.spells.void_spells.EndWalkSpell;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayEntitySoundPacket;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.*;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,10 +39,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.BottleItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.trading.Merchant;
@@ -608,6 +619,26 @@ public class PotionEvents {
 
     @SubscribeEvent
     public static void PlayerInteractItemEvents(PlayerInteractEvent.RightClickItem event){
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        if (event.getItemStack().getItem() instanceof BottleItem bottleItem){
+            List<DragonBreathCloud> list = level.getEntitiesOfClass(DragonBreathCloud.class, player.getBoundingBox().inflate(2.0D), (p_289499_) -> {
+                return p_289499_ != null && p_289499_.isAlive() && p_289499_.getOwner() instanceof EnderDragon;
+            });
+            if (!list.isEmpty()) {
+                DragonBreathCloud breathCloud = list.get(0);
+                breathCloud.setRadius(breathCloud.getRadius() - 0.5F);
+                level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.gameEvent(player, GameEvent.FLUID_PICKUP, player.position());
+                if (player instanceof ServerPlayer) {
+                    ServerPlayer serverplayer = (ServerPlayer)player;
+                    CriteriaTriggers.PLAYER_INTERACTED_WITH_ENTITY.trigger(serverplayer, event.getItemStack(), breathCloud);
+                }
+                player.awardStat(Stats.ITEM_USED.get(bottleItem));
+                ItemUtils.createFilledResult(event.getItemStack(), player, new ItemStack(Items.DRAGON_BREATH));
+                event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+            }
+        }
     }
 
     @SubscribeEvent
@@ -688,15 +719,19 @@ public class PotionEvents {
                 event.setResult(Event.Result.DENY);
             }
             if (event.getEntity() instanceof Player player) {
-                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
-                    event.setResult(Event.Result.DENY);
+                if (ItemConfig.DarkHelmetBlindness.get()) {
+                    if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
             }
         }
         if (event.getEffectInstance().getEffect() == MobEffects.DARKNESS){
             if (event.getEntity() instanceof Player player) {
-                if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
-                    event.setResult(Event.Result.DENY);
+                if (ItemConfig.DarkHelmetDarkness.get()) {
+                    if (ItemHelper.findHelmet(player, ModItems.DARK_HELMET.get())){
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
             }
         }

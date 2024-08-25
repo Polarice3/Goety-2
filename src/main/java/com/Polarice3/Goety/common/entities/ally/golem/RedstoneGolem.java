@@ -440,8 +440,14 @@ public class RedstoneGolem extends AbstractGolemServant {
             }
         }
         if (this.isHostile()) {
-            if (this.tickCount % 20 == 0) {
-                this.convertTo(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), false);
+            if (this.tickCount % 10 == 0) {
+                Mob mob = this.convertTo(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), false);
+                if (mob != null) {
+                    mob.setXRot(this.getXRot());
+                    mob.setYRot(this.getYRot());
+                    mob.setYBodyRot(this.getYRot());
+                    mob.setYHeadRot(this.getYHeadRot());
+                }
             }
         }
         if (this.level.isClientSide()) {

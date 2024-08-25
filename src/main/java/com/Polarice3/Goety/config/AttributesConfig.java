@@ -201,6 +201,8 @@ public class AttributesConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Double> WightHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> WightDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WightSoulAbsorb;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WightSoulHeal;
 
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkullLordDamage;
@@ -720,6 +722,10 @@ public class AttributesConfig {
                         .defineInRange("wightHealth", 200.0, 1.0, Double.MAX_VALUE);
                 WightDamage = BUILDER.comment("How much damage Wights deals, Default: 12.5")
                         .defineInRange("wightDamage", 12.5, 1.0, Double.MAX_VALUE);
+                WightSoulAbsorb = BUILDER.comment("How much Soul Energy Wights absorb per attack, Default: 10")
+                        .defineInRange("wightSoulAbsorb", 10, 0, Integer.MAX_VALUE);
+                WightSoulHeal = BUILDER.comment("How much health Wights can heal up per Soul Energy absorption, Default: 10")
+                        .defineInRange("wightSoulHeal", 10, 0, Integer.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Skull Lord");
                 SkullLordHealth = BUILDER.comment("How much Max Health Skull Lord have, Default: 150.0")

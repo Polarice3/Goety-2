@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "goety:block/haunted_glass_tinted/haunted_glass_news"
+  },
+  "render_type": "translucent"
+}

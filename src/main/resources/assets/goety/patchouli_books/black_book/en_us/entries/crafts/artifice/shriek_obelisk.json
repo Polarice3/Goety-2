@@ -1,0 +1,27 @@
+{
+  "name": "Shrieking Obelisk",
+  "icon": "goety:shriek_obelisk",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The illagers are persistent with hunting down those who have delved into the dark arts. With a bunch of their skulls and a shrieker from the dark, you've found a way to remind them of their place."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shriek_obelisk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Shrieking Obelisk lets out a fearful shriek that wards off any illagers that tries to launch an assault upon you. It requires to be placed on top of a filled Cursed Cage to be active."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Tall Skulls placed around the Obelisk, like the blocks around a Beacon, though only on the outlines, will increase the Shrieking Obelisk's radius of effect."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shriek_obelisk": 1
+  }
+}

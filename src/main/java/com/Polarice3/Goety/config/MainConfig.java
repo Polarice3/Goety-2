@@ -41,6 +41,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SoulMenderCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> LichPowerfulFoesHealth;
@@ -62,6 +63,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> WheelGuiMovement;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ShowNum;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BetterDragonFireball;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CataclysmLootCompat;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobesIronResist;
     public static final ForgeConfigSpec.ConfigValue<Boolean> IronBuff;
@@ -75,6 +77,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkAnvilIgnoreMaxLevels;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerContinue;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SculkGrowerPotency;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ShriekObeliskRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> PithosRespawn;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CrystalBallRespawn;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HookBellBlackList;
@@ -139,6 +142,8 @@ public class MainConfig {
                 .define("cameraShake", true);
         BUILDER.pop();
         BUILDER.push("Mod Compatibility");
+        BetterDragonFireball = BUILDER.comment("If enabled, Ender Dragon's Fireballs will leave clouds that damages even undead and will not hit itself. Default: true")
+                .define("betterDragonFireball", true);
         CataclysmLootCompat = BUILDER.comment("If L_Ender Cataclysm is installed, certain loots are modified and change between this and the latter mod. Default: true")
                 .define("cataclysmLootCompat", true);
         RobesIronResist = BUILDER.comment("If Iron's Spells and Spellbooks is installed, certain robes provides Spell resistances. Default: true")
@@ -182,6 +187,10 @@ public class MainConfig {
                 .define("sculkGrowerContinue", true);
         SculkGrowerPotency = BUILDER.comment("Whether Sculk Grower can accept Potency enchantment, which allows the Grower to grow plants faster, Default: true")
                 .define("sculkGrowerPotency", true);
+        ShriekObeliskCost = BUILDER.comment("The amount of Soul Energy used to power the Shrieking Obelisk, Default: 100")
+                .defineInRange("shriekObeliskCost", 100, 0, Integer.MAX_VALUE);
+        ShriekObeliskRaid = BUILDER.comment("Whether Shrieking Obelisk can prevent or stop Raids, Default: true")
+                .define("ShriekObeliskRaid", true);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")
                 .define("pithosRespawn", true);
         CrystalBallRespawn = BUILDER.comment("Allow used Crystal Balls to spawn Crones again when right-clicked with respawn_boss tagged item, Default: true")

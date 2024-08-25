@@ -330,6 +330,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelCoolDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultLifespan;
     public static final ForgeConfigSpec.ConfigValue<Integer> TunnelDefaultDistance;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> TunnelHaveBlacklist;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> RuptureDuration;
@@ -1052,6 +1053,8 @@ public class SpellConfig {
                     .defineInRange("tunnelDefaultLifespan", 100, 0, Integer.MAX_VALUE);
             TunnelDefaultDistance = BUILDER.comment("The initial distance of the Tunnel, Default: 8")
                     .defineInRange("tunnelDefaultDistance", 8, 0, Integer.MAX_VALUE);
+            TunnelHaveBlacklist = BUILDER.comment("Whether Tunnel Holes disallows certain mobs from falling or moving through it, Default: true")
+                    .define("tunnelHaveBlacklist", true);
             BUILDER.pop();
             BUILDER.push("Rupture Spell");
             RuptureCost = BUILDER.comment("Rupture Spell Cost, Default: 250")

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.client.audio;
 
+import com.Polarice3.Goety.client.events.ClientEvents;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -18,6 +19,11 @@ public class PostBossMusic extends AbstractTickableSoundInstance {
         this.looping = false;
         this.delay = 0;
         this.volume = 1.0F;
+    }
+
+    @Override
+    public boolean canPlaySound() {
+        return ClientEvents.BOSS_MUSIC == null;
     }
 
     @Override

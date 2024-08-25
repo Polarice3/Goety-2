@@ -1,0 +1,18 @@
+{
+  "name": "Ring of the Forge",
+  "icon": "goety:ring_of_the_forge",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When summoning a Zombie or Skeleton Servants, they have a small chance of coming equipped with their own armor. With this ring, the chance will increase to 100%%."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:ring_of_the_forge"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ring_of_the_forge": 1
+  }
+}

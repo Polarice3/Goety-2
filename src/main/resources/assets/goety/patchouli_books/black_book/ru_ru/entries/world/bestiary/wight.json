@@ -1,0 +1,29 @@
+{
+  "name": "Умертвие",
+  "icon": "goety:shadow_essence",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Странная сущность, появляющаяся рядом с теми, у кого много энергии душ."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wight"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "goety:shadow_essence",
+      "title": "Теневая эссенция",
+      "text": "При убийстве с него выпадают странные «эссенции», которые, кажется, поглощают свет. Возможно, их можно использовать для создания некоторых предметов."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Некоторые из тех, кто пережил встречу с ними, считали их порождением $(l:world/crypts)тёмного и холодного места$()..."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shadow_essence": 2
+  }
+}

@@ -56,6 +56,11 @@ public abstract class HostileGolem extends Raider {
         return !(this.animationSpeed < 0.01F);
     }
 
+    @Override
+    public boolean canBeLeader() {
+        return false;
+    }
+
     public abstract double getAttackReachSqr(LivingEntity enemy);
 
     public boolean canAttack(LivingEntity p_186270_) {

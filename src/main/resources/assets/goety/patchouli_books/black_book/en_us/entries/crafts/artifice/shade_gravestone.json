@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The gravestone requires an Iron Ingot to be added, in order to call forth a Zombie Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it."
+      "text": "The gravestone requires a Chain to be added, in order to call forth a Zombie Servant. Much like the Spider Nest, right-clicking the nest with a Wand or Staff will make it so that it will only spawn a servant if a valid target is near it."
     }
   ],
   "extra_recipe_mappings": {

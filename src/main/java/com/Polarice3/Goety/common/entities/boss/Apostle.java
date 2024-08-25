@@ -770,9 +770,6 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
             if (smite > 0){
                 int smite2 = Mth.clamp(smite, 1, 5);
                 int duration = MathHelper.secondsToTicks(smite2);
-                if (this.Regen()){
-                    duration /= 2;
-                }
                 this.antiRegenTotal = duration;
                 this.antiRegen = duration;
                 if (this.level instanceof ServerLevel){
@@ -1323,7 +1320,7 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         double d0 = p_213688_1_.getX() - livingEntity.getX();
         double d1 = p_213688_1_.getZ() - livingEntity.getZ();
         double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-        MobUtil.push(p_213688_1_, d0 / d2 * 2.0D, 0.1D, d1 / d2 * 2.0D);
+        MobUtil.forcePush(p_213688_1_, d0 / d2 * 2.0D, 0.1D, d1 / d2 * 2.0D);
     }
 
     public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {

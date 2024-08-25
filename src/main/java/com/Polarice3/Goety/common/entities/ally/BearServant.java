@@ -445,14 +445,7 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
 
         public boolean canUse() {
             if (!BearServant.this.isBaby()) {
-                if (super.canUse()) {
-                    for (BearServant bearServant : BearServant.this.level.getEntitiesOfClass(BearServant.class, BearServant.this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D))) {
-                        if (bearServant.isBaby()) {
-                            return true;
-                        }
-                    }
-                }
-
+                return super.canUse();
             }
             return false;
         }

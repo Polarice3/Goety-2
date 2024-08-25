@@ -9,25 +9,16 @@
   "duration": 10,
   "ingredients": [
     {
-      "item": "minecraft:bamboo"
+      "item": "goety:quick_growing_seed"
     },
     {
-      "tag": "forge:seeds"
+      "item": "goety:quick_growing_seed"
     },
     {
-      "item": "minecraft:bone_meal"
+      "item": "goety:poison_quill_seed"
     },
     {
-      "item": "minecraft:kelp"
-    },
-    {
-      "item": "minecraft:vine"
-    },
-    {
-      "item": "goety:venomous_fang"
-    },
-    {
-      "item": "goety:corpse_blossom"
+      "item": "goety:poison_quill_seed"
     },
     {
       "item": "goety:overgrown_roots"

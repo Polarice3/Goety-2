@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "goety:block/haunted_glass_mob/haunted_glass_solo"
+  },
+  "render_type": "cutout"
+}
