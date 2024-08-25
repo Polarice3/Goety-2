@@ -60,10 +60,8 @@ import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.player.Player;
@@ -78,6 +76,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -272,6 +271,58 @@ public class Goety {
                     return p_123462_;
                 }
             });
+            DispenserBlock.registerBehavior(ModItems.QUICK_GROWING_SEED.get(), new DefaultDispenseItemBehavior() {
+                public ItemStack execute(BlockSource p_123461_, ItemStack p_123462_) {
+                    Direction direction = p_123461_.getBlockState().getValue(DispenserBlock.FACING);
+                    BlockPos blockpos = p_123461_.getPos().relative(direction);
+                    Level level = p_123461_.getLevel();
+                    AbstractVine vine = ModEntityType.QUICK_GROWING_VINE.get().create(level);
+                    if (vine != null){
+                        EntityType<?> entityType = vine.getVariant(level, blockpos);
+                        if (entityType != null){
+                            vine = (AbstractVine) entityType.create(level);
+                        }
+                        if (vine != null){
+                            Vec3 vec3 = new Vec3((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D);
+                            vine.setPos(vec3);
+                            if (level instanceof ServerLevel serverLevel) {
+                                vine.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                            }
+                            vine.setPerpetual(true);
+                            if (level.addFreshEntity(vine)){
+                                p_123462_.shrink(1);
+                            }
+                        }
+                    }
+                    return p_123462_;
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.POISON_QUILL_SEED.get(), new DefaultDispenseItemBehavior() {
+                public ItemStack execute(BlockSource p_123461_, ItemStack p_123462_) {
+                    Direction direction = p_123461_.getBlockState().getValue(DispenserBlock.FACING);
+                    BlockPos blockpos = p_123461_.getPos().relative(direction);
+                    Level level = p_123461_.getLevel();
+                    AbstractVine vine = ModEntityType.POISON_QUILL_VINE.get().create(level);
+                    if (vine != null){
+                        EntityType<?> entityType = vine.getVariant(level, blockpos);
+                        if (entityType != null){
+                            vine = (AbstractVine) entityType.create(level);
+                        }
+                        if (vine != null){
+                            Vec3 vec3 = new Vec3((double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D);
+                            vine.setPos(vec3);
+                            if (level instanceof ServerLevel serverLevel) {
+                                vine.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                            }
+                            vine.setPerpetual(true);
+                            if (level.addFreshEntity(vine)){
+                                p_123462_.shrink(1);
+                            }
+                        }
+                    }
+                    return p_123462_;
+                }
+            });
             ModDispenserRegister.registerAlternativeDispenseBehavior(new ModDispenserRegister.AlternativeDispenseBehavior(
                     Goety.MOD_ID, Items.WATER_BUCKET,
                     (blockSource, itemStack) -> blockSource.getLevel().getBlockState(ModDispenserRegister.offsetPos(blockSource)).is(ModBlocks.BREWING_CAULDRON.get()),
@@ -441,6 +492,7 @@ public class Goety {
         event.put(ModEntityType.PREACHER.get(), Preacher.setCustomAttributes().build());
         event.put(ModEntityType.MINISTER.get(), Minister.setCustomAttributes().build());
         event.put(ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), HostileRedstoneGolem.setCustomAttributes().build());
+        event.put(ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), HostileRedstoneMonstrosity.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER.get(), Vizier.setCustomAttributes().build());
         event.put(ModEntityType.VIZIER_CLONE.get(), VizierClone.setCustomAttributes().build());
         event.put(ModEntityType.IRK.get(), Irk.setCustomAttributes().build());

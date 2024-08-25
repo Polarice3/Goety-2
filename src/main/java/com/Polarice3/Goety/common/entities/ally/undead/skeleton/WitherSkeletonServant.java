@@ -60,6 +60,9 @@ public class WitherSkeletonServant extends AbstractSkeletonServant {
    }
 
    protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
+      if (this.canSpawnArmor()){
+         super.populateDefaultEquipmentSlots(p_219154_, p_219155_);
+      }
       this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
       this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
    }

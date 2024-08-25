@@ -1,0 +1,27 @@
+{
+  "name": "Quick Growing Seeds",
+  "icon": "goety:quick_growing_seed",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With bamboos to make the vines and kelp sturdier, and some bone meals, you've made seeds that will quickly grow into a strong living vine, or kelp when placed underwater, that can block a creature's way."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:quick_growing_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Crouching while placing one down will cause the vine to be inert, only growing once a valid enemy or target comes near it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:poison_quill_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mixing the seed with a cave spider's toxins and corpse blossoms will sprout poison quill vines, that will shoot poisonous quills at your foes. Much like the Quick Growing Seeds, crouching will cause it to be inert and will grow once an enemy is near."
+    }
+  ]
+}

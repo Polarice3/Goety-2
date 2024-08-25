@@ -1,0 +1,27 @@
+{
+  "name": "速生之种",
+  "icon": "goety:quick_growing_seed",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用竹子使藤蔓和海带更坚固，再加上一些骨粉，你培育出的种子会迅速长成强壮的藤蔓，在水下时会变为海带，它们可以阻挡生物的去路。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:quick_growing_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "潜行放置种子会让藤蔓暂时隐匿，只有当敌人或目标靠近它时才会生长出现。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:poison_quill_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "将种子与洞穴蜘蛛的毒牙和大王花混合，可以催发出具有毒性的毒刺藤，它会向敌人射出有毒的刺针。就像速生之种一样，潜行放置它会使它隐匿，一旦敌人靠近，它就会生长。"
+    }
+  ]
+}

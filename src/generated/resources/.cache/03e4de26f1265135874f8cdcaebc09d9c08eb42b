@@ -1,3 +1,6 @@
-// 1.19.2	2024-05-31T19:55:06.8905846	Tags for minecraft:item
+// 1.19.2	2024-08-17T20:21:03.4797761	Tags for minecraft:item
+812e4c03e0755394c71913fa1d4f6f938400718e data/goety/tags/items/capes.json
+615c2fc0823764139d8e070f80642967ab99261b data/goety/tags/items/crowns.json
+3ecfb567a7577ebe0d15c672cd91eff27434864c data/goety/tags/items/robes.json
 ecde1bc5ad5a6e94d2c36b89ba790d4596ae58e9 data/goety/tags/items/staffs.json
 b783075fc02196a1c100d9d2f419a8df826aa32d data/goety/tags/items/wands.json

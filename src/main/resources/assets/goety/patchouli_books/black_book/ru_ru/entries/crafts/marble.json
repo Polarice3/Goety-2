@@ -27,6 +27,26 @@
     {
       "type": "patchouli:crafting",
       "recipe": "goety:highrock/highrock"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Говорят, что на вершинах также образуется скальный камень. Местные жители применяют его для создания стен и покрытия."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:crag/cragrocks"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Алевролит — необычный блок, которые внешне отличается от других. Он может выглядеть неаккуратно и сочетаться с мрамором и нефритом, а также использоваться для изготовления различных декоративных блоков."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:silt/siltstone_craft"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:rusty_iron_grate"
     }
   ]
 }

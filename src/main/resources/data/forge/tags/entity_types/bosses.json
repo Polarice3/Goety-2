@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "goety:apostle",
-    "goety:vizier"
+    "goety:vizier",
+    "goety:hostile_redstone_monstrosity"
   ]
 }

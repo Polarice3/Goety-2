@@ -1,0 +1,27 @@
+{
+  "name": "慟哭するオベリスク",
+  "icon": "goety:shriek_obelisk",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/get_sculk_catalyst",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "イリジャー達は闇の芸術に精通した人を次々と追い詰めています。彼らの頭蓋骨と闇からの慟哭(どうこく)を使って、彼らに自分たちの場所を思い出させる方法を見つけました。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:shriek_obelisk"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "慟哭するオベリスクは恐ろしい慟哭をあげ、あなたを攻撃するイリジャーを追い払います。満たされた呪われた檻の上に置くことでアクティブになります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "オベリスクの周囲に背の高い頭蓋骨を配置すると、アウトラインのみではありますが、オベリスクの効果範囲が広がります。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:shriek_obelisk": 1
+  }
+}

@@ -1,18 +1,19 @@
 package com.Polarice3.Goety.common.entities.projectiles;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.util.DragonBreathCloud;
+import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -43,7 +44,7 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
         if (p_36913_.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)p_36913_).getEntity())) {
             if (!this.level.isClientSide) {
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
-                AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+                DragonBreathCloud breathCloud = new DragonBreathCloud(this.level, this.getX(), this.getY(), this.getZ());
                 if (entity instanceof LivingEntity livingEntity) {
                     if (entity instanceof Player player){
                         if (WandUtil.enchantedFocus(player)){
@@ -51,26 +52,24 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
                             duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
                         }
                     }
-                    areaeffectcloud.setOwner(livingEntity);
+                    breathCloud.setOwner(livingEntity);
                 }
 
-                areaeffectcloud.setParticle(ParticleTypes.DRAGON_BREATH);
-                areaeffectcloud.setRadius(3.0F + radius);
-                areaeffectcloud.setDuration(600 * duration);
-                areaeffectcloud.setRadiusPerTick((7.0F - areaeffectcloud.getRadius()) / (float)areaeffectcloud.getDuration());
-                areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
+                breathCloud.setRadius(3.0F + radius);
+                breathCloud.setDuration(600 * duration);
+                breathCloud.setRadiusPerTick((7.0F - breathCloud.getRadius()) / (float)breathCloud.getDuration());
                 if (!list.isEmpty()) {
                     for(LivingEntity livingentity : list) {
                         double d0 = this.distanceToSqr(livingentity);
                         if (d0 < 16.0D) {
-                            areaeffectcloud.setPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                            breathCloud.setPos(livingentity.getX(), livingentity.getY(), livingentity.getZ());
                             break;
                         }
                     }
                 }
 
                 this.level.levelEvent(2006, this.blockPosition(), this.isSilent() ? -1 : 1);
-                this.level.addFreshEntity(areaeffectcloud);
+                this.level.addFreshEntity(breathCloud);
                 this.discard();
             }
 
@@ -91,6 +90,25 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
 
     protected boolean shouldBurn() {
         return false;
+    }
+
+    protected boolean canHitEntity(Entity pEntity) {
+        if (this.getOwner() != null){
+            if (pEntity == this.getOwner()){
+                return false;
+            }
+            if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
+                return super.canHitEntity(pEntity);
+            } else {
+                if (MobUtil.areAllies(this.getOwner(), pEntity)){
+                    return false;
+                }
+                if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){
+                    return !MobUtil.ownerStack(owned0, owned1);
+                }
+            }
+        }
+        return super.canHitEntity(pEntity);
     }
 
     @Override

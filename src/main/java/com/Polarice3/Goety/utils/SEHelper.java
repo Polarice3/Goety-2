@@ -11,8 +11,8 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.illagers.Ripper;
 import com.Polarice3.Goety.common.entities.util.SurveyEye;
 import com.Polarice3.Goety.common.events.ArcaTeleporter;
-import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
+import com.Polarice3.Goety.common.items.equipment.FangedDaggerItem;
 import com.Polarice3.Goety.common.listeners.SoulTakenListener;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -217,7 +217,7 @@ public class SEHelper {
             if (ModDamageSource.physicalAttacks(source)) {
                 ItemStack itemStack = killer.getMainHandItem();
                 Item item = itemStack.getItem();
-                if (item == ModItems.FANGED_DAGGER.get()
+                if (item instanceof FangedDaggerItem
                         || (item instanceof TieredItem tieredItem && tieredItem.getTier() == ModTiers.DARK)) {
                     extra *= 1.5F;
                 }

@@ -2,12 +2,12 @@
   "replace": false,
   "__comment": "all mobs that are not shaken by a tremorsaurus roar.",
   "values": [
+    "#goety:mini_bosses",
     "goety:apostle",
     "goety:vizier",
     "goety:ice_golem",
     "goety:squall_golem",
     "goety:redstone_golem",
-    "goety:hostile_redstone_golem",
     "goety:grave_golem",
     "goety:haunt",
     "goety:redstone_monstrosity",

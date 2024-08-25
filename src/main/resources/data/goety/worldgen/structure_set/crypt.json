@@ -13,6 +13,7 @@
       "other_set": "minecraft:mineshafts",
       "chunk_count": 5
     },
+    "spread_type": "triangular",
     "type": "minecraft:random_spread"
   }
 }

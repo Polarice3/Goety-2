@@ -1,0 +1,20 @@
+{
+  "name": "ハングリーダガー",
+  "icon": "goety:hungry_dagger",
+  "category": "goety:crafts/equipment",
+  "advancement": "goety:goety/craft_necro_brazier",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ファングドダガーの別バージョンで、毒性が無くなりました。代わりに使用者が攻撃すると与えたダメージの5%を回復します(5%のHP吸収)。ソウルイーターのエンチャントでパーセンテージを上げられます。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:hungry_dagger"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これは $(l:crafts/dark_metal_ingot)Dark Metal Ingot$() で修理することができます。使用者がソウルエネルギーを持っている場合は自己修復します。"
+    }
+  ]
+}

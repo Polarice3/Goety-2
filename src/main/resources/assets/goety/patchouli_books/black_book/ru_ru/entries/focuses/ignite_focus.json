@@ -1,0 +1,15 @@
+{
+  "name": "Фокус поджога",
+  "icon": "goety:ignite_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это заклинание позволяет одним нажатием ПКМ поджигать блок или жертву, только и всего."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ignite_focus"
+    }
+  ]
+}

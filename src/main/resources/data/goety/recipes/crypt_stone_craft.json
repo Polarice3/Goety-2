@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "SOS",
+    "O$O",
+    "SOS"
+  ],
+  "key":
+  {
+    "S":
+    {
+      "tag": "goety:shade_stone"
+    },
+    "O":
+    {
+      "tag": "forge:obsidian"
+    },
+    "$":
+    {
+      "item": "goety:shadow_essence"
+    }
+  },
+  "result":
+  {
+    "item": "goety:crypt_stone",
+    "count": 4
+  }
+}

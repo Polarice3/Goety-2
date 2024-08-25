@@ -1,0 +1,27 @@
+{
+  "name": "急成長する種",
+  "icon": "goety:quick_growing_seed",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "つると昆布を丈夫にする竹と骨粉を使って、置くと行く手を阻む急成長するつるや昆布の種を作りました。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:quick_growing_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "しゃがんで種を置くと、有効な敵やターゲットが近づいた時に成長するようになります。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:poison_quill_seed"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "種に毒素や死体の花を混ぜると毒針花になり、それは敵に向けて毒針を発射します。前述の種と同じように、しゃがんで種を置くと、有効な敵やターゲットが近づいた時に成長するようになります。"
+    }
+  ]
+}

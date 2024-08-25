@@ -42,15 +42,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class HostileRedstoneGolem extends HostileGolem {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(HostileRedstoneGolem.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(HostileRedstoneGolem.class, EntityDataSerializers.INT);
+    public static String IDLE = "idle";
+    public static String ATTACK = "attack";
+    public static String WALK = "walk";
+    public static String SUMMON = "summon";
+    public static String NOVELTY = "novelty";
+    public static String DEATH = "death";
     public static float SUMMON_SECONDS_TIME = 5.15F;
     private int activateTick;
     private int idleTime;
@@ -119,10 +128,85 @@ public class HostileRedstoneGolem extends HostileGolem {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
+        this.entityData.define(ANIM_STATE, 0);
     }
 
     protected Component getTypeName() {
         return ModEntityType.REDSTONE_GOLEM.get().getDescription();
+    }
+
+    public void setAnimationState(String input) {
+        this.setAnimationState(this.getAnimationState(input));
+    }
+
+    public void setAnimationState(int id) {
+        this.entityData.set(ANIM_STATE, id);
+    }
+
+    public int getAnimationState(String animation) {
+        if (Objects.equals(animation, "idle")){
+            return 1;
+        } else if (Objects.equals(animation, "attack")){
+            return 2;
+        } else if (Objects.equals(animation, "walk")){
+            return 3;
+        } else if (Objects.equals(animation, "summon")){
+            return 4;
+        } else if (Objects.equals(animation, "novelty")){
+            return 5;
+        } else if (Objects.equals(animation, "death")){
+            return 6;
+        } else {
+            return 0;
+        }
+    }
+
+    public void stopMostAnimation(AnimationState exception){
+        for (AnimationState state : this.getAnimations()){
+            if (state != exception){
+                state.stop();
+            }
+        }
+    }
+
+    public int getCurrentAnimation(){
+        return this.entityData.get(ANIM_STATE);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
+        if (ANIM_STATE.equals(p_219422_)) {
+            if (this.level.isClientSide){
+                switch (this.entityData.get(ANIM_STATE)){
+                    case 0:
+                        break;
+                    case 1:
+                        this.idleAnimationState.startIfStopped(this.tickCount);
+                        this.stopMostAnimation(this.idleAnimationState);
+                        break;
+                    case 2:
+                        this.attackAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.attackAnimationState);
+                        break;
+                    case 3:
+                        this.walkAnimationState.startIfStopped(this.tickCount);
+                        break;
+                    case 4:
+                        this.summonAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.summonAnimationState);
+                        break;
+                    case 5:
+                        this.noveltyAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.noveltyAnimationState);
+                        break;
+                    case 6:
+                        this.deathAnimationState.start(this.tickCount);
+                        this.stopMostAnimation(this.deathAnimationState);
+                        break;
+                }
+            }
+        }
+
+        super.onSyncedDataUpdated(p_219422_);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -150,6 +234,10 @@ public class HostileRedstoneGolem extends HostileGolem {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
+    }
+
+    public boolean canAnimateMove(){
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
     }
 
     public boolean isAlliedTo(Entity pEntity) {
@@ -285,7 +373,7 @@ public class HostileRedstoneGolem extends HostileGolem {
     }
 
     public void die(DamageSource p_21014_) {
-        this.level.broadcastEntityEvent(this, (byte) 7);
+        this.setAnimationState(DEATH);
         this.deathRotation = this.getYRot();
         super.die(p_21014_);
     }
@@ -318,113 +406,107 @@ public class HostileRedstoneGolem extends HostileGolem {
         if (this.level.isClientSide()) {
             if (this.isAlive()) {
                 if (!this.isSummoning()){
-                    this.summonAnimationState.stop();
                     this.glow();
-                }
-                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
-                    this.walkAnimationState.stop();
-                    this.idleAnimationState.startIfStopped(this.tickCount);
-                } else {
-                    this.noveltyAnimationState.stop();
-                    this.idleAnimationState.stop();
-                }
-                if (!this.isMeleeAttacking() && !this.isSummoning()) {
-                    if (this.isMoving()) {
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                    } else {
-                        this.walkAnimationState.stop();
-                    }
-                } else {
-                    this.walkAnimationState.stop();
-                }
-                if (this.isMeleeAttacking()) {
-                    ++this.attackTick;
                 }
                 if (this.summonTick > 0) {
                     this.isFlash = this.summonTick < 60 && this.summonTick > 55 || this.summonTick < 52 && this.summonTick > 47 || this.summonTick < 45 && this.summonTick > 40 || this.summonTick < 38 && this.summonTick > 20;
                     --this.summonTick;
                 } else {
-                    this.summonAnimationState.stop();
                     this.isFlash = false;
                 }
             }
         }
         if (!this.level.isClientSide){
-            if (this.isAlive()) {
-                if (this.isNovelty){
-                    this.jumping = false;
-                    this.xxa = 0.0F;
-                    this.zza = 0.0F;
-                    ++this.noveltyTick;
-                    if (this.noveltyTick == 8 || this.noveltyTick == 13 || this.noveltyTick == 18 || this.noveltyTick == 23 || this.noveltyTick == 28 || this.noveltyTick == 33){
-                        this.playSound(ModSounds.REDSTONE_GOLEM_CHEST.get());
+            if (!this.isDeadOrDying()) {
+                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
+                    if (!this.isPostAttack && !this.isNovelty) {
+                        this.setAnimationState(IDLE);
                     }
-                    if (this.noveltyTick == 42){
-                        this.playSound(ModSounds.REDSTONE_GOLEM_GROWL.get());
-                        this.gameEvent(GameEvent.ENTITY_ROAR, this);
+                }
+                if (!this.isMeleeAttacking() && !this.isSummoning()) {
+                    if (this.isMoving()) {
+                        this.setAnimationState(WALK);
                     }
-                    if (this.noveltyTick >= 92 || this.getTarget() != null || this.hurtTime > 0){
+                }
+                if (this.isAlive()) {
+                    if (this.isNovelty) {
+                        this.jumping = false;
+                        this.xxa = 0.0F;
+                        this.zza = 0.0F;
+                        ++this.noveltyTick;
+                        if (this.noveltyTick == 8 || this.noveltyTick == 13 || this.noveltyTick == 18 || this.noveltyTick == 23 || this.noveltyTick == 28 || this.noveltyTick == 33) {
+                            this.playSound(ModSounds.REDSTONE_GOLEM_CHEST.get());
+                        }
+                        if (this.noveltyTick == 42) {
+                            this.playSound(ModSounds.REDSTONE_GOLEM_GROWL.get());
+                            this.gameEvent(GameEvent.ENTITY_ROAR, this);
+                        }
+                        if (this.noveltyTick >= 92 || this.getTarget() != null || this.hurtTime > 0) {
+                            this.isNovelty = false;
+                        }
+                    } else {
+                        this.noveltyTick = 0;
+                    }
+                    if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
+                        ++this.idleTime;
+                        if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.minutesToTicks(1)) {
+                            this.idleTime = 0;
+                            this.isNovelty = true;
+                            this.setAnimationState(NOVELTY);
+                        }
+                    } else {
+                        this.idleTime = 0;
                         this.isNovelty = false;
                     }
-                } else {
-                    this.level.broadcastEntityEvent(this, (byte) 10);
-                    this.noveltyTick = 0;
-                }
-                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
-                    ++this.idleTime;
-                    if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.minutesToTicks(1)) {
-                        this.idleTime = 0;
-                        this.isNovelty = true;
-                        this.level.broadcastEntityEvent(this, (byte) 9);
+                    if (this.summonTick > 0) {
+                        --this.summonTick;
                     }
-                } else {
-                    this.idleTime = 0;
-                    this.isNovelty = false;
-                }
-                if (this.summonTick > 0) {
-                    --this.summonTick;
-                }
-                if (this.summonCool > 0) {
-                    --this.summonCool;
-                }
-                if (this.isMeleeAttacking()) {
-                    ++this.attackTick;
-                }
-                if (this.isPostAttack){
-                    ++this.postAttackTick;
-                }
-                if (this.postAttackTick >= 15){
-                    this.level.broadcastEntityEvent(this, (byte) 11);
-                    this.postAttackTick = 0;
-                    this.isPostAttack = false;
-                }
-                if (this.isSummoning()) {
-                    if (this.level instanceof ServerLevel serverLevel) {
-                        for (int i = 0; i < 5; ++i) {
-                            double d0 = serverLevel.random.nextGaussian() * 0.02D;
-                            double d1 = serverLevel.random.nextGaussian() * 0.02D;
-                            double d2 = serverLevel.random.nextGaussian() * 0.02D;
-                            serverLevel.sendParticles(ModParticleTypes.BIG_ELECTRIC.get(), this.getRandomX(0.5D), this.getEyeY() - serverLevel.random.nextInt(5), this.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
+                    if (this.summonCool > 0) {
+                        --this.summonCool;
+                    }
+                    if (this.isMeleeAttacking()) {
+                        ++this.attackTick;
+                    }
+                    if (this.isPostAttack) {
+                        ++this.postAttackTick;
+                    }
+                    if (this.postAttackTick >= 15) {
+                        if (!this.isSummoning()) {
+                            this.setAnimationState(IDLE);
                         }
+                        this.postAttackTick = 0;
+                        this.isPostAttack = false;
                     }
-                    if (this.summonTick == MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)){
-                        CameraShake.cameraShake(this.level, this.position(), 10.0F, 0.1F, 0, 20);
-                    }
-                    if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
-                        int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
-                        if (this.tickCount % time == 0 && this.isOnGround()) {
-                            BlockPos blockPos = this.blockPosition();
-                            blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                            BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
-                            ScatterMine scatterMine = new ScatterMine(this.level, this, blockPos);
-                            if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()){
-                                scatterMine.setPos(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+                    if (this.isSummoning()) {
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 5; ++i) {
+                                double d0 = serverLevel.random.nextGaussian() * 0.02D;
+                                double d1 = serverLevel.random.nextGaussian() * 0.02D;
+                                double d2 = serverLevel.random.nextGaussian() * 0.02D;
+                                serverLevel.sendParticles(ModParticleTypes.BIG_ELECTRIC.get(), this.getRandomX(0.5D), this.getEyeY() - serverLevel.random.nextInt(5), this.getRandomZ(0.5D), 0, d0, d1, d2, 0.5F);
                             }
-                            if (this.level.addFreshEntity(scatterMine)) {
-                                if (this.level.random.nextBoolean()) {
-                                    scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                        }
+                        if (this.summonTick == MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) {
+                            CameraShake.cameraShake(this.level, this.position(), 10.0F, 0.1F, 0, 20);
+                        }
+                        if (this.summonTick <= (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1)) && this.mineCount > 0) {
+                            int time = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME - 1) / 14);
+                            if (this.tickCount % time == 0 && this.isOnGround()) {
+                                BlockPos blockPos = this.blockPosition();
+                                blockPos = blockPos.offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
+                                BlockPos blockPos2 = this.blockPosition().offset(-8 + this.level.random.nextInt(16), 0, -8 + this.level.random.nextInt(16));
+                                Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
+                                Vec3 vec32 = Vec3.atBottomCenterOf(blockPos2);
+                                ScatterMine scatterMine = new ScatterMine(this.level, this, vec3);
+                                if (!this.level.getEntitiesOfClass(ScatterMine.class, new AABB(blockPos)).isEmpty()) {
+                                    scatterMine.setPos(vec32.x(), vec32.y(), vec32.z());
                                 }
-                                --this.mineCount;
+                                if (this.level.addFreshEntity(scatterMine)) {
+                                    if (this.level.random.nextBoolean()) {
+                                        scatterMine.playSound(ModSounds.REDSTONE_GOLEM_MINE_SPAWN.get());
+                                    }
+                                    --this.mineCount;
+                                }
                             }
                         }
                     }
@@ -442,31 +524,16 @@ public class HostileRedstoneGolem extends HostileGolem {
 
     public void handleEntityEvent(byte pId) {
         if (pId == 4){
-            this.stopAnimations();
-            this.summonAnimationState.start(this.tickCount);
             this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get());
             this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME) + 5);
             this.getGlow = 1.0F;
         } else if (pId == 5){
             this.attackTick = 0;
         } else if (pId == 6){
-            this.stopAnimations();
-            this.attackAnimationState.start(this.tickCount);
             this.playSound(ModSounds.REDSTONE_GOLEM_ATTACK.get());
         } else if (pId == 7){
-            this.stopAnimations();
-            this.deathAnimationState.start(this.tickCount);
             this.deathRotation = this.getYRot();
             this.playSound(ModSounds.REDSTONE_GOLEM_DEATH.get(), 1.0F, 1.0F);
-        } else if (pId == 8){
-            this.stopAnimations();
-        } else if (pId == 9){
-            this.stopAnimations();
-            this.noveltyAnimationState.start(this.tickCount);
-        } else if (pId == 10) {
-            this.noveltyAnimationState.stop();
-        } else if (pId == 11){
-            this.attackAnimationState.stop();
         } else {
             super.handleEntityEvent(pId);
         }
@@ -588,7 +655,7 @@ public class HostileRedstoneGolem extends HostileGolem {
                     HostileRedstoneGolem.this.setYBodyRot(HostileRedstoneGolem.this.getYHeadRot());
                     if (HostileRedstoneGolem.this.attackTick == 1) {
                         HostileRedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_ATTACK.get());
-                        HostileRedstoneGolem.this.level.broadcastEntityEvent(HostileRedstoneGolem.this, (byte) 6);
+                        HostileRedstoneGolem.this.setAnimationState(ATTACK);
                     }
                     if (HostileRedstoneGolem.this.attackTick == 3) {
                         if (HostileRedstoneGolem.this.targetClose(livingentity, d0)) {
@@ -663,7 +730,7 @@ public class HostileRedstoneGolem extends HostileGolem {
         public void start() {
             super.start();
             HostileRedstoneGolem.this.playSound(ModSounds.REDSTONE_GOLEM_SUMMON.get(), HostileRedstoneGolem.this.getSoundVolume(), HostileRedstoneGolem.this.getVoicePitch());
-            HostileRedstoneGolem.this.level.broadcastEntityEvent(HostileRedstoneGolem.this, (byte) 4);
+            HostileRedstoneGolem.this.setAnimationState(SUMMON);
             HostileRedstoneGolem.this.summonTick = (int) (MathHelper.secondsToTicks(SUMMON_SECONDS_TIME));
             HostileRedstoneGolem.this.summonCool = (int) MathHelper.secondsToTicks(10 + SUMMON_SECONDS_TIME);
             HostileRedstoneGolem.this.mineCount = 14;

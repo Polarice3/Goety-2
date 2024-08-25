@@ -350,7 +350,6 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficulty) {
-        super.populateDefaultEquipmentSlots(randomSource, difficulty);
         if (this.getTrueOwner() != null){
             for (EquipmentSlot equipmentSlotType: EquipmentSlot.values()){
                 if (equipmentSlotType != EquipmentSlot.MAINHAND) {
