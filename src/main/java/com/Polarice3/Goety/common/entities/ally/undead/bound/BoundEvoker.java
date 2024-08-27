@@ -6,6 +6,7 @@ import com.Polarice3.Goety.common.entities.ally.AllyVex;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.config.AttributesConfig;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -93,6 +94,12 @@ public class BoundEvoker extends AbstractBoundIllager{
 
     protected SoundEvent getHurtSound(DamageSource p_32654_) {
         return SoundEvents.EVOKER_HURT;
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        this.playSound(ModSounds.DEAD_MOAN.get(), 2.0F, 1.0F);
+        super.die(pCause);
     }
 
     @Override

@@ -596,11 +596,13 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                         this.heal((this.getMaxHealth() / 4.0F) / 8.0F);
                         this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 0.25F, 1.0F);
                     }
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = this.random.nextGaussian() * 0.02D;
-                        double d1 = this.random.nextGaussian() * 0.02D;
-                        double d2 = this.random.nextGaussian() * 0.02D;
-                        this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
                     }
                 } else if (itemstack.isEmpty() && this.fullyInactive()) {
                     float f = (float)Mth.floor((Mth.wrapDegrees(pPlayer.getYRot() - 180.0F) + 22.5F) / 45.0F) * 45.0F;

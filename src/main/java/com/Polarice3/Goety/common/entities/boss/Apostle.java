@@ -1712,9 +1712,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (livingentity != null) {
                     HellCloud hellCloud = new HellCloud(Apostle.this.level, Apostle.this, livingentity);
                     if (Apostle.this.isSecondPhase()){
-                        hellCloud.setRadius(4.5F);
-                    } else {
                         hellCloud.setRadius(3.0F);
+                    } else {
+                        hellCloud.setRadius(1.5F);
                     }
                     hellCloud.setLifeSpan(1200);
                     Apostle.this.level.addFreshEntity(hellCloud);

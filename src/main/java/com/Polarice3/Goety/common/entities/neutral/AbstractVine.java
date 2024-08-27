@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
+import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -16,11 +17,17 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -254,5 +261,31 @@ public abstract class AbstractVine extends AbstractMonolith{
         } else {
             super.handleEntityEvent(pId);
         }
+    }
+
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
+        if (!this.level.isClientSide){
+            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+            Item item = itemstack.getItem();
+            if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
+                if (item == Items.BONE_MEAL && this.getHealth() < this.getMaxHealth()) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.heal(5.0F);
+                    if (this.level instanceof ServerLevel serverLevel) {
+                        for (int i = 0; i < 7; ++i) {
+                            double d0 = this.random.nextGaussian() * 0.02D;
+                            double d1 = this.random.nextGaussian() * 0.02D;
+                            double d2 = this.random.nextGaussian() * 0.02D;
+                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                        }
+                    }
+                    pPlayer.swing(p_230254_2_);
+                    return InteractionResult.CONSUME;
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, p_230254_2_);
     }
 }

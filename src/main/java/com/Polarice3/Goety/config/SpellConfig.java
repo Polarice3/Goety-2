@@ -52,6 +52,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> VanguardLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardSummonDown;
+    public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardLimit;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCoolDown;
@@ -490,6 +496,18 @@ public class SpellConfig {
                     .defineInRange("vanguardSummonDown", 300, 0, 72000);
             VanguardLimit = BUILDER.comment("Number of Vanguard Servants that an individual player can have in total, Default: 16")
                     .defineInRange("vanguardLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Blackguard Spell");
+            BlackguardCost = BUILDER.comment("Blackguard Spell Cost, Default: 48")
+                    .defineInRange("blackguardCost", 48, 0, Integer.MAX_VALUE);
+            BlackguardDuration = BUILDER.comment("Time to cast Blackguard Spell, Default: 180")
+                    .defineInRange("blackguardTime", 180, 0, 72000);
+            BlackguardCoolDown = BUILDER.comment("Blackguard Spell Cooldown, Default: 1200")
+                    .defineInRange("blackguardCoolDown", 1200, 0, Integer.MAX_VALUE);
+            BlackguardSummonDown = BUILDER.comment("Blackguard Spell Summon Down, Default: 300")
+                    .defineInRange("blackguardSummonDown", 300, 0, 72000);
+            BlackguardLimit = BUILDER.comment("Number of Blackguard Servants that an individual player can have in total, Default: 16")
+                    .defineInRange("blackguardLimit", 16, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Skull Spell");
             HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")

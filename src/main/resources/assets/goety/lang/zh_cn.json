@@ -2259,5 +2259,14 @@
   "block.goety.silt_jade_tiles": "粉砂质玉台阶瓷砖",
   "block.goety.cragrocks_fence": "峭壁岩栅栏",
   "advancements.goety.craft_sonic_boom_focus.title": "我的麦很炸吗？",
-  "subtitle.goety.wight_pre_swing": "Wight attacks"
+  "subtitle.goety.wight_pre_swing": "孤魂：攻击",
+  "entity.goety.blackguard_servant": "暗卫仆从",
+  "item.goety.blackguard_servant_spawn_egg": "暗卫仆从刷怪蛋",
+  "item.goety.blackguard_focus": "暗卫聚晶",
+  "item.goety.blackguard_focus.info": "生成几个暗卫仆从，潜行施法会召集仆从。",
+  "subtitle.goety.blackguard_pre_attack": "暗卫：咆哮",
+  "subtitle.goety.blackguard_smash": "狼牙棒：击地",
+  "subtitle.goety.blackguard_step": "暗卫：践踏",
+  "subtitle.goety.plate": "击中金属",
+  "subtitle.goety.plate_drop": "金属掉落"
 }

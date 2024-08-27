@@ -359,22 +359,7 @@
   "wight_swing": {
     "sounds": [
       {
-        "name": "goety:wight/swing1"
-      },
-      {
-        "name": "goety:wight/swing2"
-      },
-      {
-        "name": "goety:wight/swing3"
-      },
-      {
-        "name": "goety:wight/swing4"
-      },
-      {
-        "name": "goety:wight/swing5"
-      },
-      {
-        "name": "goety:wight/swing6"
+        "name": "goety:wight/swing"
       }
     ],
     "subtitle": "subtitle.goety.wight_swing"
@@ -1585,6 +1570,57 @@
     ],
     "subtitle": "subtitle.goety.jungle_zombie_death"
   },
+  "blackguard_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:blackguard/pre_attack1"
+      },
+      {
+        "name": "goety:blackguard/pre_attack2"
+      },
+      {
+        "name": "goety:blackguard/pre_attack3"
+      }
+    ],
+    "subtitle": "subtitle.goety.blackguard_pre_attack"
+  },
+  "blackguard_smash": {
+    "sounds": [
+      {
+        "name": "goety:blackguard/smash1"
+      },
+      {
+        "name": "goety:blackguard/smash2"
+      },
+      {
+        "name": "goety:blackguard/smash3"
+      }
+    ],
+    "subtitle": "subtitle.goety.blackguard_smash"
+  },
+  "blackguard_step": {
+    "sounds": [
+      {
+        "name": "goety:blackguard/step1"
+      },
+      {
+        "name": "goety:blackguard/step2"
+      },
+      {
+        "name": "goety:blackguard/step3"
+      },
+      {
+        "name": "goety:blackguard/step4"
+      },
+      {
+        "name": "goety:blackguard/step5"
+      },
+      {
+        "name": "goety:blackguard/step6"
+      }
+    ],
+    "subtitle": "subtitle.goety.blackguard_step"
+  },
   "mossy_skeleton_ambient": {
     "sounds": [
       {
@@ -2743,7 +2779,7 @@
         "name": "goety:leapleaf/alert3"
       }
     ],
-    "subtitle": "subtitle.goety.leapleaf_idle"
+    "subtitle": "subtitle.goety.leapleaf_ambient"
   },
   "leapleaf_step": {
     "sounds": [
@@ -4983,6 +5019,52 @@
     ],
     "subtitle": "subtitle.goety.rumble"
   },
+  "plate": {
+    "sounds": [
+      {
+        "name": "goety:random/plate1"
+      },
+      {
+        "name": "goety:random/plate2"
+      },
+      {
+        "name": "goety:random/plate3"
+      },
+      {
+        "name": "goety:random/plate4"
+      },
+      {
+        "name": "goety:random/plate5"
+      }
+    ],
+    "subtitle": "subtitle.goety.plate"
+  },
+  "plate_drop": {
+    "sounds": [
+      {
+        "name": "goety:random/plate_drop1"
+      },
+      {
+        "name": "goety:random/plate_drop2"
+      },
+      {
+        "name": "goety:random/plate_drop3"
+      },
+      {
+        "name": "goety:random/plate_drop4"
+      },
+      {
+        "name": "goety:random/plate_drop5"
+      },
+      {
+        "name": "goety:random/plate_drop6"
+      },
+      {
+        "name": "goety:random/plate_drop7"
+      }
+    ],
+    "subtitle": "subtitle.goety.plate_drop"
+  },
   "tooth_spawn": {
     "sounds": [
       {
@@ -5040,6 +5122,13 @@
       }
     ],
     "subtitle": "subtitle.goety.doom"
+  },
+  "dead_moan": {
+    "sounds": [
+      {
+        "name": "goety:block/graveyard_moan4"
+      }
+    ]
   },
   "scythe_swing": {
     "sounds": [

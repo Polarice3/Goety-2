@@ -1158,7 +1158,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                         Wight.this.setYBodyRot(Wight.this.getYHeadRot());
                         if (Wight.this.getCurrentAnimation() == Wight.this.getAnimationState(SMASH)) {
                             if (Wight.this.attackTick == 20) {
-                                Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.25F);
+                                Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.5F);
                                 if (Wight.this.targetClose(enemy, distToEnemySqr)) {
                                     Wight.this.doHurtTarget(enemy);
                                     if (enemy instanceof Player player){
@@ -1168,7 +1168,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                             }
                         } else {
                             if (Wight.this.attackTick == 14) {
-                                Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch() - 0.25F);
+                                Wight.this.playSound(ModSounds.WIGHT_SWING.get(), Wight.this.getSoundVolume(), Wight.this.getVoicePitch());
                                 this.massiveSweep(Wight.this, 3.0D, 100.0D);
                             }
                         }

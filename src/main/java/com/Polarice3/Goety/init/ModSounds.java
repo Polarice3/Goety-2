@@ -133,6 +133,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> JUNGLE_ZOMBIE_STEP = create("jungle_zombie_step");
     public static final RegistryObject<SoundEvent> JUNGLE_ZOMBIE_DEATH = create("jungle_zombie_death");
 
+    public static final RegistryObject<SoundEvent> BLACKGUARD_PRE_ATTACK = create("blackguard_pre_attack");
+    public static final RegistryObject<SoundEvent> BLACKGUARD_SMASH = create("blackguard_smash");
+    public static final RegistryObject<SoundEvent> BLACKGUARD_STEP = create("blackguard_step");
+
     public static final RegistryObject<SoundEvent> MOSSY_SKELETON_AMBIENT = create("mossy_skeleton_ambient");
     public static final RegistryObject<SoundEvent> MOSSY_SKELETON_HURT = create("mossy_skeleton_hurt");
     public static final RegistryObject<SoundEvent> MOSSY_SKELETON_SHOOT = create("mossy_skeleton_shoot");
@@ -431,6 +435,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WIND_BLAST = create("wind_blast");
     public static final RegistryObject<SoundEvent> ZAP = create("zap");
     public static final RegistryObject<SoundEvent> GRAVITY = create("gravity");
+    public static final RegistryObject<SoundEvent> PLATE = create("plate");
+    public static final RegistryObject<SoundEvent> PLATE_DROP = create("plate_drop");
     public static final RegistryObject<SoundEvent> RUMBLE = create("rumble");
     public static final RegistryObject<SoundEvent> TOOTH_SPAWN = create("tooth_spawn");
     public static final RegistryObject<SoundEvent> IMPALE = create("impale");
@@ -438,6 +444,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ICE_SPIKE_HIT = create("ice_spike_hit");
     public static final RegistryObject<SoundEvent> SPELL_FAIL = create("spell_fail");
     public static final RegistryObject<SoundEvent> DOOM = create("doom");
+    public static final RegistryObject<SoundEvent> DEAD_MOAN = create("dead_moan");
     public static final RegistryObject<SoundEvent> SOUL_EAT = create("soul_eat");
 
     public static final RegistryObject<SoundEvent> SCYTHE_SWING = create("scythe_swing");

@@ -221,6 +221,7 @@ public class ModItems {
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(new SkeletonSpell()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
     public static final RegistryObject<Item> VANGUARD_FOCUS = ITEMS.register("vanguard_focus", () -> new MagicFocus(new VanguardSpell()));
+    public static final RegistryObject<Item> BLACKGUARD_FOCUS = ITEMS.register("blackguard_focus", () -> new MagicFocus(new BlackguardSpell()));
     public static final RegistryObject<Item> SKULL_FOCUS = ITEMS.register("skull_focus", () -> new MagicFocus(new HauntedSkullSpell()));
 
     ///Geomancy

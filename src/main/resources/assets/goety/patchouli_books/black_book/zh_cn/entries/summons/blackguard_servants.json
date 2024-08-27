@@ -1,0 +1,25 @@
+{
+  "name": "暗卫仆从",
+  "icon": "goety:blackguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在古代骷髅先锋的基础上，你创造了一个僵尸变体，他们专注于恐吓和蛮力攻击，而非技巧与速度。这些亡灵卫兵身穿厚重的镀甲，手持带刺的狼牙棒，用速度换取极其强大的力量。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blackguard_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果它们没有盾牌，召唤者可以用铁锭右键单击它们，在它们不进攻时会把盾牌重新赐予它们。$(br)你可以使用$(l:focuses/necromancy/blackguard_focus)暗卫聚晶$()来召唤这些亡灵之惧，或者使用仪式召唤出一个永生的仆从。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blackguard_thrall"
+    }
+  ]
+}

@@ -459,6 +459,7 @@ public class Goety {
         event.put(ModEntityType.DROWNED_SERVANT.get(), DrownedServant.setCustomAttributes().build());
         event.put(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), FrozenZombieServant.setCustomAttributes().build());
         event.put(ModEntityType.JUNGLE_ZOMBIE_SERVANT.get(), JungleZombieServant.setCustomAttributes().build());
+        event.put(ModEntityType.BLACKGUARD_SERVANT.get(), BlackguardServant.setCustomAttributes().build());
         event.put(ModEntityType.SKELETON_SERVANT.get(), SkeletonServant.setCustomAttributes().build());
         event.put(ModEntityType.STRAY_SERVANT.get(), StrayServant.setCustomAttributes().build());
         event.put(ModEntityType.WITHER_SKELETON_SERVANT.get(), WitherSkeletonServant.setCustomAttributes().build());

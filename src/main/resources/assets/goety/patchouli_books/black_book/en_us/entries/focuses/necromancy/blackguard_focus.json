@@ -1,0 +1,19 @@
+{
+  "name": "Blackguard Focus",
+  "icon": "goety:blackguard_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Inspired by the vanguards, you've devised a way to summon and armed powerful, but slow, zombies with heavy armor and mace."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blackguard_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blackguard_focus": 1
+  }
+}

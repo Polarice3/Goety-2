@@ -9,7 +9,7 @@
       "text": "尖牙匕首的另一版，虽然不再具备毒性，但它能为持有者回复其造成伤害的5%。生命偷取的百分比随着噬魂的魔咒等级而增加。"
     },
     {
-      "type": "patchouli:crafting",
+      "type": "goety:ritual",
       "recipe": "goety:hungry_dagger"
     },
     {

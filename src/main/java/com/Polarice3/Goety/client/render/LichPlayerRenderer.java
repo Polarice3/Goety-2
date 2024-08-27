@@ -113,6 +113,12 @@ public abstract class LichPlayerRenderer <T extends AbstractClientPlayer, E exte
         this.model.prepareMobModel(p_117788_, f5, f8, p_117790_);
         this.model.setupAnim(p_117788_, f5, f8, f7, f2, f6);
         Minecraft minecraft = Minecraft.getInstance();
+        //Hopefully fixed compat issue with First Person Model mod.
+        if (minecraft.getCameraEntity() == p_117788_){
+            this.model.head.visible = !minecraft.options.getCameraType().isFirstPerson();
+        } else {
+            this.model.head.visible = true;
+        }
         boolean flag = this.isBodyVisible(p_117788_);
         boolean flag1 = !flag && !p_117788_.isInvisibleTo(minecraft.player);
         boolean flag2 = minecraft.shouldEntityAppearGlowing(p_117788_);

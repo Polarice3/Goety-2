@@ -1,0 +1,19 @@
+{
+  "name": "暗卫聚晶",
+  "icon": "goety:blackguard_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "受到骷髅先锋的启发，你设计了一种召唤武装强大但行进缓慢的僵尸的方法，这些僵尸暗卫身上有重甲和狼牙棒，阻挡着所有敢于进犯的敌人。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blackguard_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blackguard_focus": 1
+  }
+}
