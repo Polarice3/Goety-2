@@ -91,6 +91,10 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> JungleZombieServantDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantToughness;
+    public static final ForgeConfigSpec.ConfigValue<Double> BlackguardServantDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> SkeletonServantDamage;
@@ -428,6 +432,16 @@ public class AttributesConfig {
                         .defineInRange("jungleZombieServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 JungleZombieServantDamage = BUILDER.comment("How much damage Jungle Zombie Servants deals, Default: 3.0")
                         .defineInRange("jungleZombieServantDamage", 3.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Blackguard Servant");
+                BlackguardServantHealth = BUILDER.comment("How much Max Health Blackguard Servants have, Default: 20.0")
+                        .defineInRange("blackguardServantHealth", 20.0, 1.0, Double.MAX_VALUE);
+                BlackguardServantArmor = BUILDER.comment("How much natural armor points Blackguard Servants have, Default: 20.0")
+                        .defineInRange("blackguardServantArmor", 20.0, 0.0, Double.MAX_VALUE);
+                BlackguardServantToughness = BUILDER.comment("How much natural armor toughness points Blackguard Servants have, Default: 8.0")
+                        .defineInRange("blackguardServantToughness", 8.0, 0.0, Double.MAX_VALUE);
+                BlackguardServantDamage = BUILDER.comment("How much damage Blackguard Servants deals, Default: 9.0")
+                        .defineInRange("blackguardServantDamage", 9.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Skeleton Servant");
                 SkeletonServantHealth = BUILDER.comment("How much Max Health Skeleton Servants have, Default: 20.0")

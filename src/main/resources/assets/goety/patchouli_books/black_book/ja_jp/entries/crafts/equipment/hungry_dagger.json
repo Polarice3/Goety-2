@@ -9,7 +9,7 @@
       "text": "ファングドダガーの別バージョンで、毒性が無くなりました。代わりに使用者が攻撃すると与えたダメージの5%を回復します(5%のHP吸収)。ソウルイーターのエンチャントでパーセンテージを上げられます。"
     },
     {
-      "type": "patchouli:crafting",
+      "type": "goety:ritual",
       "recipe": "goety:hungry_dagger"
     },
     {

@@ -358,6 +358,7 @@ public class Summoned extends Owned implements IServant {
                         Item item = getEquipmentForSlot(equipmentslot, i);
                         if (item != null) {
                             this.setItemSlot(equipmentslot, new ItemStack(item));
+                            this.setDropChance(equipmentslot, 0.0F);
                         }
                     }
                 }

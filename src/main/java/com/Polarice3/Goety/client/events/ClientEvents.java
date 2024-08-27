@@ -227,13 +227,17 @@ public class ClientEvents {
     }
 
     public static AbstractTickableSoundInstance BOSS_MUSIC;
-
+    
     public static void playBossMusic(SoundEvent soundEvent, Mob mob){
+        playBossMusic(soundEvent, mob, 1.0F);
+    }
+
+    public static void playBossMusic(SoundEvent soundEvent, Mob mob, float volume){
         if (MainConfig.BossMusic.get()) {
             Minecraft minecraft = Minecraft.getInstance();
             if (soundEvent != null && mob.isAlive()) {
                 if (BOSS_MUSIC == null) {
-                    BOSS_MUSIC = new BossLoopMusic(soundEvent, mob);
+                    BOSS_MUSIC = new BossLoopMusic(soundEvent, mob, volume);
                 }
             } else {
                 BOSS_MUSIC = null;

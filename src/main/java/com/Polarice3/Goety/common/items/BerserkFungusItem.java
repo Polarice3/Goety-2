@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.projectiles.BerserkFungus;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 public class BerserkFungusItem extends Item {
    public BerserkFungusItem() {
-      super(new Properties());
+      super(new Properties().tab(Goety.TAB));
    }
 
    public InteractionResultHolder<ItemStack> use(Level p_41128_, Player p_41129_, InteractionHand p_41130_) {

@@ -2204,7 +2204,7 @@
   "entity.goety.hostile_black_wolf": "ブラックウルフ",
   "entity.goety.wight": "ワイト",
   "entity.goety.carrion_maggot": "腐ったうじ虫",
-  "entity.goety.cryptic_eye": "不可解なアイ",
+  "entity.goety.cryptic_eye": "クリプトアイ",
   "entity.goety.delayed_summon": "召喚の接近",
   "entity.goety.dragon_breath_cloud": "ドラゴンブレスクラウド",
   "item.goety.hostile_black_wolf_spawn_egg": "ブラックウルフのスポーンエッグ",
@@ -2214,7 +2214,7 @@
   "item.goety.shadow_essence": "影のエッセンス",
   "item.goety.quick_growing_seed": "急成長する種",
   "item.goety.poison_quill_seed": "毒針花の種",
-  "item.goety.cryptic_eye": "不可解なアイ",
+  "item.goety.cryptic_eye": "クリプトアイ",
   "block.goety.shriek_obelisk": "慟哭するオベリスク",
   "subtitle.goety.wight_ambient": "Wight breaths",
   "subtitle.goety.wight_hurt": "Wight hurts",
@@ -2240,5 +2240,14 @@
   "item.goety.ring_of_the_forge": "鍛冶のリング",
   "info.goety.ring_of_force": "テレキネシスの呪文が影響を受けるエンティティをゆっくりと窒息させるようにします。",
   "info.goety.ring_of_the_forge": "新たなに召喚されたゾンビやスケルトンの従者が常に防具を着用します。",
-  "subtitle.goety.wight_pre_swing": "Wight attacks"
+  "subtitle.goety.wight_pre_swing": "Wight attacks",
+  "entity.goety.blackguard_servant": "ブラックガードの従者",
+  "item.goety.blackguard_servant_spawn_egg": "ブラックガードの従者のスポーンエッグ",
+  "item.goety.blackguard_focus": "ブラックガードのフォーカス",
+  "item.goety.blackguard_focus.info": "ブラックガードの従者を召喚します。しゃがむと、すでにいる従者がプレイヤーの元へ行きます。",
+  "subtitle.goety.blackguard_pre_attack": "Blackguard growls",
+  "subtitle.goety.blackguard_smash": "Mace smash",
+  "subtitle.goety.blackguard_step": "Blackguard stomps",
+  "subtitle.goety.plate": "Metal hit",
+  "subtitle.goety.plate_drop": "Metal drop"
 }

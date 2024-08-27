@@ -2297,5 +2297,14 @@
   "item.goety.ring_of_the_forge": "Кольцо кузницы",
   "info.goety.ring_of_force": "Заклинание телекинеза будет медленно душить поднятое существо.",
   "info.goety.ring_of_the_forge": "Призванные зомби- и скелеты-прислужники будут появляться в броне.",
-  "subtitle.goety.wight_pre_swing": "Wight attacks"
+  "subtitle.goety.wight_pre_swing": "Умертвие замахивается",
+  "entity.goety.blackguard_servant": "Черностражник-прислужник",
+  "item.goety.blackguard_servant_spawn_egg": "Яйцо призыва черностражника-прислужника",
+  "item.goety.blackguard_focus": "Фокус чёрной стражи",
+  "item.goety.blackguard_focus.info": "Призывает черностражников. Использование при приседании телепортирует их к вам.",
+  "subtitle.goety.blackguard_pre_attack": "Черностражник стонет",
+  "subtitle.goety.blackguard_smash": "Удар булавы",
+  "subtitle.goety.blackguard_step": "Шаги черностражника",
+  "subtitle.goety.plate": "Звон металла",
+  "subtitle.goety.plate_drop": "Грохот металла"
 }

@@ -6,13 +6,11 @@ import com.Polarice3.Goety.common.entities.ally.BlackBeast;
 import com.Polarice3.Goety.common.entities.ally.undead.bound.AbstractBoundIllager;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.VanguardServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
-import com.Polarice3.Goety.common.magic.spells.necromancy.SkeletonSpell;
-import com.Polarice3.Goety.common.magic.spells.necromancy.VanguardSpell;
-import com.Polarice3.Goety.common.magic.spells.necromancy.WraithSpell;
-import com.Polarice3.Goety.common.magic.spells.necromancy.ZombieSpell;
+import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.core.BlockPos;
@@ -51,6 +49,9 @@ public class RitualRequirements extends RitualTypes{
         if (level instanceof ServerLevel serverLevel){
             Entity summon = summonType.create(level);
             if (summon instanceof ZombieServant){
+                if (summon instanceof BlackguardServant){
+                    return new BlackguardSpell().conditionsMet(serverLevel, castingPlayer);
+                }
                 return new ZombieSpell().conditionsMet(serverLevel, castingPlayer);
             }
             if (summon instanceof AbstractSkeletonServant){

@@ -16,6 +16,10 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
     protected final Mob mobEntity;
 
     public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity) {
+        this(soundEvent, mobEntity, 1.0F);
+    }
+
+    public BossLoopMusic(SoundEvent soundEvent, Mob mobEntity, float volume) {
         super(soundEvent, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.mobEntity = mobEntity;
         this.x = (double)((float)mobEntity.getX());
@@ -23,7 +27,7 @@ public class BossLoopMusic extends AbstractTickableSoundInstance {
         this.z = (double)((float)mobEntity.getZ());
         this.looping = true;
         this.delay = 0;
-        this.volume = 1.0F;
+        this.volume = volume;
     }
 
     public boolean canPlaySound() {

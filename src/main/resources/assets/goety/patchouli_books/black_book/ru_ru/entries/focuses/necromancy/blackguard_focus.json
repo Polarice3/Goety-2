@@ -1,0 +1,19 @@
+{
+  "name": "Фокус чёрной стражи",
+  "icon": "goety:blackguard_focus",
+  "category": "goety:focuses/necromancy",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вдохновившись стражами, вы придумали способ призывать и вооружать сильных, но медлительных зомби тяжёлой броней и булавой."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/blackguard_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:blackguard_focus": 1
+  }
+}

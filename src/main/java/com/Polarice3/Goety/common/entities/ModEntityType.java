@@ -557,6 +557,11 @@ public class ModEntityType {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8));
 
+    public static final RegistryObject<EntityType<BlackguardServant>> BLACKGUARD_SERVANT = register("blackguard_servant",
+            EntityType.Builder.of(BlackguardServant::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<SkeletonServant>> SKELETON_SERVANT = register("skeleton_servant",
             EntityType.Builder.of(SkeletonServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)

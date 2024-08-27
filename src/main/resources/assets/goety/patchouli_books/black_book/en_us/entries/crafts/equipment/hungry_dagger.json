@@ -9,7 +9,7 @@
       "text": "A version of the Fanged Dagger that, while no longer venomous, will heal the wielder 5%% of damage dealt by it. The lifesteal percentage increases with each Soul Eater enchantment level."
     },
     {
-      "type": "patchouli:crafting",
+      "type": "goety:ritual",
       "recipe": "goety:hungry_dagger"
     },
     {

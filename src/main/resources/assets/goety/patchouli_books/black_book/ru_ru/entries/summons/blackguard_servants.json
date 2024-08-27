@@ -1,0 +1,25 @@
+{
+  "name": "Черностражники-прислужники",
+  "icon": "goety:blackguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Основываясь на древних стражах, вы создали разновидность зомби, в которой основное внимание уделяется устрашению и грубой силе, а не ловкости. Эта кошмарная нежить, одетая в тяжёлую броню и вооружённая шипастой дубиной, предпочитает силу и могущество взамен скорости."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blackguard_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Если у черностражников нет щита, нажмите по ним ПКМ любыми досками, чтобы вернуть его, когда они не атакуют.$(br)Можно вызвать этих существ с помощью $(l:focuses/necromancy/blackguard_focus)фокуса чёрной стражи$() или ритуала, который призывает черностражников с неограниченным сроком жизни."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blackguard_thrall"
+    }
+  ]
+}

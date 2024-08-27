@@ -69,10 +69,14 @@ public class ZombieServant extends Summoned {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(4, new NeutralZombieAttackGoal(this, 1.0D, false));
+        this.attackGoal();
         this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+    }
+
+    public void attackGoal(){
+        this.goalSelector.addGoal(4, new NeutralZombieAttackGoal(this, 1.0D, false));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -208,6 +212,7 @@ public class ZombieServant extends Summoned {
             } else {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
             }
+            this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
         }
 
     }
@@ -252,6 +257,9 @@ public class ZombieServant extends Summoned {
         this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficultyIn);
         this.handleAttributes(f);
         this.setBaby(getSpawnAsBabyOdds(worldIn.getRandom()));
+        for(EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
+            this.setDropChance(equipmentslottype, 0.0F);
+        }
         return spawnDataIn;
     }
 
@@ -330,11 +338,13 @@ public class ZombieServant extends Summoned {
                 }
                 this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
                 this.heal(2.0F);
-                for (int i = 0; i < 7; ++i) {
-                    double d0 = this.random.nextGaussian() * 0.02D;
-                    double d1 = this.random.nextGaussian() * 0.02D;
-                    double d2 = this.random.nextGaussian() * 0.02D;
-                    this.level.addParticle(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                    }
                 }
                 return InteractionResult.SUCCESS;
             }

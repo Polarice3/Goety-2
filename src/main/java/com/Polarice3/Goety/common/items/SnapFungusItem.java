@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class SnapFungusItem extends Item {
     public SnapFungusItem() {
-        super(new Properties());
+        super(new Properties().tab(Goety.TAB));
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

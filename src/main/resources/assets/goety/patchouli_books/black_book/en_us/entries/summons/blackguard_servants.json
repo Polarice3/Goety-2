@@ -1,0 +1,25 @@
+{
+  "name": "Blackguard Servant",
+  "icon": "goety:blackguard_servant_spawn_egg",
+  "category": "goety:summons",
+  "advancement": "goety:goety/read_front_scroll",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Based on the ancient vanguards, you've created a zombie variation that focuses on intimidation and brute force, rather than finesse. Wearing heavy plated armor and a spiked club, these undead horrors trade speed for strength and power."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:blackguard_servant",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If they're shield-less, right click on them with an Iron Ingot to give them their shield back when they're not attacking.$(br)One can call these creatures through the use of a $(l:focuses/necromancy/blackguard_focus)Blackguard Focus$(), or through a ritual which summons one without a limited lifespan."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blackguard_thrall"
+    }
+  ]
+}
