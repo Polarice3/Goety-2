@@ -31,7 +31,6 @@ import com.Polarice3.Goety.common.network.client.*;
 import com.Polarice3.Goety.common.network.client.brew.CBrewBagKeyPacket;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
-import com.Polarice3.Goety.init.ClientInitEvents;
 import com.Polarice3.Goety.init.ModKeybindings;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
@@ -312,11 +311,6 @@ public class ClientEvents {
         }
         if (player.isInvisible() && CuriosFinder.hasIllusionRobe(player)){
             event.setCanceled(true);
-        }
-        if (LichdomHelper.isLich(event.getEntity())){
-            if (ClientInitEvents.getModPlayerRenderer().renderPlayer((AbstractClientPlayer) event.getEntity(), 1, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight())){
-                event.setCanceled(true);
-            }
         }
     }
 

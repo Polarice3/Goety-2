@@ -472,7 +472,7 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        if (pReason == MobSpawnType.MOB_SUMMONED){
+        if (pReason == MobSpawnType.MOB_SUMMONED || pReason == MobSpawnType.COMMAND){
             this.setPose(Pose.EMERGING);
         }
         this.isStandingUp = 0;

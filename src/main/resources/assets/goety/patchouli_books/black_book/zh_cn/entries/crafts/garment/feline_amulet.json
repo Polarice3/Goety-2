@@ -1,0 +1,18 @@
+{
+  "name": "猫的护身符",
+  "icon": "goety:feline_amulet",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "护身符上含有猫科动物的精华，让佩戴者会充满猫的气味，从而抵挡苦力怕和幻翼。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:feline_amulet"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:feline_amulet": 1
+  }
+}

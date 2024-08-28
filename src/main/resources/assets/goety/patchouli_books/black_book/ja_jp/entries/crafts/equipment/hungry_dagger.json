@@ -16,5 +16,8 @@
       "type": "patchouli:text",
       "text": "これは $(l:crafts/dark_metal_ingot)Dark Metal Ingot$() で修理することができます。使用者がソウルエネルギーを持っている場合は自己修復します。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:hungry_dagger": 1
+  }
 }

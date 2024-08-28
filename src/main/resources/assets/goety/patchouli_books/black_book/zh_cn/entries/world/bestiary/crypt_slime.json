@@ -1,0 +1,17 @@
+{
+  "name": "墓穴史莱姆",
+  "icon": "goety:crypt_stone",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_crypt_slime",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "墓穴有着浓郁的死灵能量，有时会产生一些奇妙的造物...."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:crypt_slime",
+      "text": "它们的攻击会附带侵蚀效果。"
+    }
+  ]
+}

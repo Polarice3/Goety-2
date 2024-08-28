@@ -1,0 +1,15 @@
+{
+  "name": "增生之根",
+  "icon": "goety:overgrown_roots",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "自然界中绝大部分的植物及其根系对于某些荒野魔法来说都太孱弱了。幸运的是，你已经设法设计出一些强大的载体来负载这种神奇的力量。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:overgrown_roots"
+    }
+  ]
+}
