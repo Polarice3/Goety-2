@@ -93,6 +93,7 @@ public class RedstoneMonstrosityModel<T extends LivingEntity & IRM> extends Hier
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 		if (!entity.isSummoning() && !entity.isBelching() && !entity.isDeadOrDying()) {
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}

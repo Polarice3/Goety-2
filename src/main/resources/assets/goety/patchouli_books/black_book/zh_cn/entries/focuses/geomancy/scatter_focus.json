@@ -1,0 +1,18 @@
+{
+  "name": "分散聚晶",
+  "icon": "goety:scatter_focus",
+  "category": "goety:focuses/geomancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "该聚晶会让人联想到红石傀儡布设的地雷，它们会在两秒后引爆，并在非友方目标靠近时产生不损坏地形的爆炸。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/scatter_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:scatter_focus": 1
+  }
+}

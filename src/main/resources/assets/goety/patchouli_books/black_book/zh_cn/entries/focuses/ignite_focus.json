@@ -1,0 +1,15 @@
+{
+  "name": "点燃聚晶",
+  "icon": "goety:ignite_focus",
+  "category": "goety:focuses",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一个简易的法术聚晶，允许你右键点燃所指向的生物或方块。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/ignite_focus"
+    }
+  ]
+}

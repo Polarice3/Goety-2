@@ -208,6 +208,15 @@ public class BlackguardServant extends ZombieServant{
         return ModSounds.BLACKGUARD_STEP.get();
     }
 
+    @Override
+    public void setBaby(boolean pChildZombie) {
+    }
+
+    @Override
+    public boolean isBaby() {
+        return false;
+    }
+
     public void tick() {
         super.tick();
         if (this.level.isClientSide){

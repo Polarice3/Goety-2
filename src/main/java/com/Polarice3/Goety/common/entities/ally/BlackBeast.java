@@ -647,22 +647,24 @@ public class BlackBeast extends Summoned{
         if (MobsConfig.MobSense.get()) {
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
-                    if (this.getTarget() instanceof Mob mob) {
-                        if (!this.isInvisible()) {
-                            if (this.invisibleCool > 0) {
+                    if (!this.isInvisible()) {
+                        if (this.invisibleCool > 0) {
+                            if (this.getTarget() instanceof Mob mob) {
                                 mob.setTarget(this);
-                            } else {
-                                this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, MathHelper.secondsToTicks(30), 0, false, false));
-                                this.invisibleCool = MathHelper.secondsToTicks(30);
-                                if (this.level instanceof ServerLevel serverLevel){
-                                    for(int i = 0; i < 8; ++i) {
-                                        ColorUtil colorUtil = new ColorUtil(0x3e293c);
-                                        serverLevel.sendParticles(ModParticleTypes.BIG_CULT_SPELL.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 0.5F);
-                                    }
+                            }
+                        } else {
+                            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, MathHelper.secondsToTicks(30), 0, false, false));
+                            this.invisibleCool = MathHelper.secondsToTicks(30);
+                            if (this.level instanceof ServerLevel serverLevel) {
+                                for (int i = 0; i < 8; ++i) {
+                                    ColorUtil colorUtil = new ColorUtil(0x3e293c);
+                                    serverLevel.sendParticles(ModParticleTypes.BIG_CULT_SPELL.get(), this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), 0, colorUtil.red, colorUtil.green, colorUtil.blue, 0.5F);
                                 }
                             }
                         }
-                        if (mob.getType().getDescriptionId().contains("nightmare_stalker")){
+                    }
+                    if (this.getTarget() instanceof Mob mob) {
+                        if (mob.getType().getDescriptionId().contains("nightmare_stalker")) {
                             mob.setTarget(this);
                         }
                     }
