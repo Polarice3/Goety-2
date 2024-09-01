@@ -26,6 +26,7 @@
   ],
   "extra_recipe_mappings": {
     "goety:witch_hat": 1,
-    "goety:witch_robe": 2
+    "goety:witch_robe": 2,
+    "goety:witch_robe_hedge": 2
   }
 }

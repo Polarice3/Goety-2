@@ -161,7 +161,7 @@ public class RitualRequirements extends RitualTypes{
                             if (blockstate.getBlock() instanceof LadderBlock || blockstate.getBlock().getDescriptionId().contains("ladder")) {
                                 ++firstCount;
                             }
-                            if (blockstate.getBlock() instanceof RailBlock) {
+                            if (blockstate.getBlock() instanceof BaseRailBlock) {
                                 ++secondCount;
                             }
                             if (blockstate.getBlock() instanceof CarvedPumpkinBlock) {

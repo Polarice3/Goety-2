@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "Мантия также усиливает фокус отражения, заставляя ваших двойников наносить урон, хотя и небольшой."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_robe_mirror": 1
+  }
 }

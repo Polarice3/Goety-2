@@ -5,12 +5,16 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Leapleaf;
 import com.Polarice3.Goety.common.research.ResearchList;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -89,6 +93,20 @@ public class LeapleafMold implements IMold {
         return invalid;
     }
 
+    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        if (worldIn instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof Leapleaf servant) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count < SpellConfig.LeapleafLimit.get();
+    }
+
     public static boolean canSpawn(Level level, BlockPos blockPos){
         if (checkRootsX(level, blockPos).isEmpty() && checkLeavesX(level, blockPos).isEmpty()){
             for (BlockPos blockPos1 : ROOTS_LOCATIONS) {
@@ -133,19 +151,23 @@ public class LeapleafMold implements IMold {
             if (level.getBlockState(blockPos).is(ModBlocks.OVERGROWN_ROOTS.get())) {
                 if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
                     if (canSpawn(level, blockPos)) {
-                        Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
-                        if (leapleaf != null) {
-                            leapleaf.setTrueOwner(player);
-                            leapleaf.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(leapleaf.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                            leapleaf.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                            if (level.addFreshEntity(leapleaf)) {
-                                removeBlocks(level, blockPos);
-                                stack.shrink(1);
-                                if (player instanceof ServerPlayer serverPlayer) {
-                                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, leapleaf);
+                        if (conditionsMet(level, player)) {
+                            Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
+                            if (leapleaf != null) {
+                                leapleaf.setTrueOwner(player);
+                                leapleaf.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(leapleaf.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                                leapleaf.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                                if (level.addFreshEntity(leapleaf)) {
+                                    removeBlocks(level, blockPos);
+                                    stack.shrink(1);
+                                    if (player instanceof ServerPlayer serverPlayer) {
+                                        CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, leapleaf);
+                                    }
+                                    return true;
                                 }
-                                return true;
                             }
+                        } else {
+                            player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                         }
                     } else {
                         player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);

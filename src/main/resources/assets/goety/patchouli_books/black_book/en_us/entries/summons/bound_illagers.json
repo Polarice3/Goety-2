@@ -31,6 +31,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These bound souls can be healed by right-clicking on them with Ectoplasm."
     }
   ]
 }

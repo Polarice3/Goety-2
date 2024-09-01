@@ -713,7 +713,7 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                 SquallGolem.this.level.broadcastEntityEvent(SquallGolem.this, (byte) 6);
             }
             if (SquallGolem.this.attackTick == 15) {
-                AABB aabb = makeAttackRange(SquallGolem.this.getX() + SquallGolem.this.getHorizontalLookAngle().x * 2,
+                AABB aabb = MobUtil.makeAttackRange(SquallGolem.this.getX() + SquallGolem.this.getHorizontalLookAngle().x * 2,
                         SquallGolem.this.getY(),
                         SquallGolem.this.getZ() + SquallGolem.this.getHorizontalLookAngle().z * 2, 5, 3, 5);
                 for (LivingEntity target : SquallGolem.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
@@ -749,13 +749,6 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                 SquallGolem.this.doEnchantDamageEffects(SquallGolem.this, target);
                 SquallGolem.this.setLastHurtMob(target);
             }
-        }
-
-        /**
-         * Based of @Crimson_Steve codes.
-         */
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
 
         @Override

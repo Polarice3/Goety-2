@@ -3,11 +3,9 @@ package com.Polarice3.Goety.common.entities.neutral;
 import com.Polarice3.Goety.client.particles.DustCloudParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
-import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MathHelper;
-import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.*;
 import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -223,6 +221,36 @@ public abstract class AbstractVine extends AbstractMonolith{
                     }
                     if (this.getAge() <= 0){
                         this.discard();
+                    }
+                }
+            }
+            if (!this.level.isClientSide) {
+                if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
+                    if (this.getHealth() < this.getMaxHealth()){
+                        if (this.getTrueOwner() instanceof Player owner) {
+                            boolean curio = false;
+                            int soulCost = 0;
+                            int healRate = 0;
+                            float healAmount = 0;
+                            if (MobsConfig.NaturalMinionHeal.get()){
+                                curio = CuriosFinder.hasWildRobe(owner);
+                                soulCost = MobsConfig.NaturalMinionHealCost.get();
+                                healRate = MobsConfig.NaturalMinionHealTime.get();
+                                healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
+                            }
+                            if (curio) {
+                                if (SEHelper.getSoulsAmount(owner, soulCost)) {
+                                    if (this.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
+                                        this.heal(healAmount);
+                                        Vec3 vector3d = this.getDeltaMovement();
+                                        if (this.level instanceof ServerLevel serverWorld) {
+                                            SEHelper.decreaseSouls(owner, soulCost);
+                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

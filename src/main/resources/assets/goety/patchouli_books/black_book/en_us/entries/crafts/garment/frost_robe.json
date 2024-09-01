@@ -13,6 +13,7 @@
     }
   ],
   "extra_recipe_mappings": {
-    "goety:frost_robe": 1
+    "goety:frost_robe": 1,
+    "goety:frost_robe_cryo": 1
   }
 }

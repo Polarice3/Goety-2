@@ -249,7 +249,7 @@ public abstract class AbstractCyclone extends SpellHurtingProjectile {
                 this.trueRemove();
             }
             List<LivingEntity> targets = new ArrayList<>();
-            for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+            for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(this.getSize()))) {
                 LivingEntity livingEntity = null;
                 if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
                     livingEntity = living;

@@ -18,6 +18,10 @@
       "item": "goety:animation_core",
       "title": "Haunted Armor",
       "text": "What truly makes the stand special, is that if the stand is fully clad in armor, right-clicking an Animation Core on it will transform the stand into a loyal Haunted Armor."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Haunted Armors can be healed by right-clicking on them with Ectoplasm."
     }
   ],
   "extra_recipe_mappings": {

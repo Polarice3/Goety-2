@@ -16,4 +16,8 @@ public interface ITrainingBlock extends IOwnedBlock{
     default boolean isSensorSensitive(){
         return false;
     }
+
+    default boolean reachedLimit(){
+        return false;
+    }
 }

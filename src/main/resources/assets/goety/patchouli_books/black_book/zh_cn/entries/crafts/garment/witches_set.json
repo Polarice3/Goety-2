@@ -23,5 +23,10 @@
       "type": "patchouli:text",
       "text": "在穿着女巫长袍的同时戴上女巫帽不仅可以使酿造药剂的速度更快，还可以使女巫和邪术师中立。你也可以用绿宝石右键女巫和邪术师来以物易物，但前提是他们没有被激怒，或已经拿着什么东西。与野蛮的猪灵不同，他们不会捡起扔给他们的绿宝石，你必须直接交给他们。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:witch_hat": 1,
+    "goety:witch_robe": 2,
+    "goety:witch_robe_hedge": 2
+  }
 }

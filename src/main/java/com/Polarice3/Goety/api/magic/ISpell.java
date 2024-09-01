@@ -176,6 +176,10 @@ public interface ISpell {
         return 0.5F;
     }
 
+    default float castingPitch(){
+        return 1.0F;
+    }
+
     int defaultSpellCooldown();
 
     default int spellCooldown(){

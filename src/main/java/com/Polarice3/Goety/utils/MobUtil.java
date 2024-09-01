@@ -1327,6 +1327,13 @@ public class MobUtil {
         return d1 > 1.0D - 0.025D / d0 && looker.hasLineOfSight(looked);
     }
 
+    /**
+     * Based of @Crimson_Steve codes.
+     */
+    public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
+        return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
+    }
+
     public static class SizeInfo {
         public final float defaultWidth;
         public final float defaultHeight;

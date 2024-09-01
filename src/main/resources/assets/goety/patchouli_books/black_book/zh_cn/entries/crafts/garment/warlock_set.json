@@ -23,5 +23,9 @@
       "type": "patchouli:text",
       "text": "和穿戴女巫帽和女巫长袍时相同, 穿戴术士长袍会让所有的女巫和邪术师中立，并且可以以物易物。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:warlock_robe": 2,
+    "goety:warlock_robe_dark": 2
+  }
 }

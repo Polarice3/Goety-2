@@ -367,7 +367,7 @@ public class DarkWand extends Item implements IWand {
                 if (worldIn instanceof ServerLevel serverLevel) {
                     this.getSpell(stack).startSpell(serverLevel, livingEntityIn, stack);
                 }
-                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, this.castingVolume(stack), 1.0F);
+                worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, this.castingVolume(stack), this.castingPitch(stack));
             }
             if (this.getSpell(stack) instanceof RecallSpell){
                 for(int i = 0; i < 2; ++i) {
@@ -559,6 +559,14 @@ public class DarkWand extends Item implements IWand {
             return this.getSpell(stack).castingVolume();
         } else {
             return 0.5F;
+        }
+    }
+
+    public float castingPitch(ItemStack stack){
+        if (this.getSpell(stack) != null){
+            return this.getSpell(stack).castingPitch();
+        } else {
+            return 1.0F;
         }
     }
 

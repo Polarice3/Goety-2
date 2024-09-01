@@ -426,10 +426,10 @@ public class MobsConfig {
             BUILDER.pop();
         WightSpawn = BUILDER.comment("Whether Wights can spawn near players that have a high amount of Soul Energy, Default: true")
                 .define("wightSpawn", true);
-        WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 12000")
-                .defineInRange("wightSpawnFreq", 12000, 0, Integer.MAX_VALUE);
-        WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 5")
-                .defineInRange("wightSpawnChance", 5, 0, Integer.MAX_VALUE);
+        WightSpawnFreq = BUILDER.comment("How many ticks it takes for Wights to spawn, Default: 24000")
+                .defineInRange("wightSpawnFreq", 24000, 0, Integer.MAX_VALUE);
+        WightSpawnChance = BUILDER.comment("Spawn Chance for Wights spawning near the Player every Spawn Frequency, the lower the more likelier, Default: 10")
+                .defineInRange("wightSpawnChance", 10, 0, Integer.MAX_VALUE);
         InterDimensionalMobs = BUILDER.comment("Whether Goety Mobs can spawn in Overworld-like modded dimensions, Default: false")
                 .define("interDimensionalMobs", false);
         WarlockSpawnWeight = BUILDER.comment("Spawn Weight for Warlock, Default: 5")

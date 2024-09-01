@@ -27,15 +27,11 @@
             }
           }
         ],
-        "killer": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "killer",
-            "predicate": {
-              "type": "goety:bound_iceologer"
-            }
+        "killing_blow": {
+          "source_entity": {
+            "type": "goety:bound_iceologer"
           }
-        ]
+        }
       },
       "trigger": "goety:servant_killed_entity"
     }

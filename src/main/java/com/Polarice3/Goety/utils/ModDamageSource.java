@@ -97,6 +97,10 @@ public class ModDamageSource extends DamageSource {
         return new NoKnockBackDamageSource(source("swarm"), pSource, pIndirectEntity);
     }
 
+    public static DamageSource spike(Entity pSource, @Nullable Entity pIndirectEntity){
+        return new NoKnockBackDamageSource(source("spike"), pSource, pIndirectEntity).setMagic();
+    }
+
     public static boolean hellfireAttacks(DamageSource source){
         return source != null && (source.getMsgId().equals(source("indirectHellfire"))
                 || source == ModDamageSource.HELLFIRE);

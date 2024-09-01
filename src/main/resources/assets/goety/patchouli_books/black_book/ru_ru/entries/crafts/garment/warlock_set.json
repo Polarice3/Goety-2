@@ -25,6 +25,7 @@
     }
   ],
   "extra_recipe_mappings": {
-    "goety:warlock_robe": 2
+    "goety:warlock_robe": 2,
+    "goety:warlock_robe_dark": 2
   }
 }

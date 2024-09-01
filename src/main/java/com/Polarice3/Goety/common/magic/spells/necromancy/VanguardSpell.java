@@ -118,7 +118,6 @@ public class VanguardSpell extends SummonSpell {
                     summonedentity.setPos(vec32);
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setPersistenceRequired();
-                    summonedentity.setUpgraded(this.NecroPower(entityLiving));
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);
@@ -149,7 +148,6 @@ public class VanguardSpell extends SummonSpell {
                     summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn), 0.0F, 0.0F);
                     MobUtil.moveDownToGround(summonedentity);
                     summonedentity.setPersistenceRequired();
-                    summonedentity.setUpgraded(this.NecroPower(entityLiving));
                     summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                     if (enchantment > 0){
                         int boost = Mth.clamp(enchantment - 1, 0, 10);

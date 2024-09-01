@@ -378,6 +378,17 @@ public class ClientEvents {
                             event.getPoseStack().popPose();
 
                             if (trainingBlock.getPlayer() == player) {
+                                if (trainingBlock.reachedLimit()) {
+                                    event.getPoseStack().pushPose();
+                                    event.getPoseStack().translate((float) (width / 2), (float) (height - 116), 0.0F);
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.defaultBlendFunc();
+                                    String s0 = Component.translatable("info.goety.summon.limit").getString();
+                                    int l0 = fontRenderer.width(s0);
+                                    fontRenderer.drawShadow(event.getPoseStack(), s0, (float) (-l0 / 2), -4, 0xFFFFFF);
+                                    RenderSystem.disableBlend();
+                                    event.getPoseStack().popPose();
+                                }
                                 if (trainingBlock.isSensorSensitive()) {
                                     event.getPoseStack().pushPose();
                                     event.getPoseStack().translate((float) (width / 2), (float) (height - 90), 0.0F);

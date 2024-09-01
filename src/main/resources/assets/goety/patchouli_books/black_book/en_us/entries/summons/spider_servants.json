@@ -55,6 +55,10 @@
     {
       "type": "patchouli:text",
       "text": "A bone covered spider that shoots Bone Shards at their foes from afar, only going onto melee if their target is close."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Each loyal spider can be healed by right-clicking on them with a piece of meat."
     }
   ]
 }

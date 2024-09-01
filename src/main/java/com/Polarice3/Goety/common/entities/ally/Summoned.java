@@ -326,11 +326,22 @@ public class Summoned extends Owned implements IServant {
                 pLevel.getLevel().sendParticles(ModParticleTypes.SUMMON.get(), this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0, 0.0F, 0.0F, 0.0F, 1.0F);
             }
             pLevel.getLevel().sendParticles(ModParticleTypes.SOUL_EXPLODE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 2.0D, 0, 1.0F);
+            this.spawnUpgraded();
         }
         this.setWandering(this.getTrueOwner() == null);
         this.setStaying(false);
         this.setBoundPos(null);
         return pSpawnData;
+    }
+
+    public void spawnUpgraded(){
+        if (this.getMobType() == MobType.UNDEAD){
+            this.setUpgraded(CuriosFinder.hasUndeadCape(this.getTrueOwner()));
+        } else if (this.getMobType() == ModMobType.NATURAL){
+            this.setUpgraded(CuriosFinder.hasWildRobe(this.getTrueOwner()));
+        } else if (this.getMobType() == ModMobType.FROST){
+            this.setUpgraded(CuriosFinder.hasFrostRobes(this.getTrueOwner()));
+        }
     }
 
     public boolean canSpawnArmor(){

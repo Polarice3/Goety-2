@@ -1,0 +1,16 @@
+{
+  "name": "Shredding Focus",
+  "icon": "goety:shredding_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Summons a row of royal, magical, spikes in front of you that constantly deals damage, which ignores armor (Unless it's enchanted), to any targets caught in them. When crouching, a circles of Spikes are summoned around you."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shredding_focus"
+    }
+  ]
+}

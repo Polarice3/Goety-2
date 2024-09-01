@@ -421,7 +421,9 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 this.startRitual(player, activationItem, ritualRecipe);
                             }
                         } else {
-                            if (ritualRecipe.getRitual() instanceof EnchantItemRitual enchantItemRitual){
+                            if ((ritualRecipe.isSummoning() && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())) || (ritualRecipe.isConversion()  && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToConvertInto()))){
+                                return false;
+                            } else if (ritualRecipe.getRitual() instanceof EnchantItemRitual enchantItemRitual){
                                 if (!enchantItemRitual.compatibleEnchant(activationItem)){
                                     player.displayClientMessage(Component.translatable("info.goety.ritual.enchantCompat.fail"), true);
                                 } else if (player.experienceLevel < ritualRecipe.getXPLevelCost()){

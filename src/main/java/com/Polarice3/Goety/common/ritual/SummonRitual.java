@@ -13,7 +13,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class SummonRitual extends Ritual {
     private final boolean tame;
@@ -21,6 +24,13 @@ public class SummonRitual extends Ritual {
     public SummonRitual(RitualRecipe recipe, boolean tame) {
         super(recipe);
         this.tame = tame;
+    }
+
+    public boolean isValid(Level world, BlockPos darkAltarPos, DarkAltarBlockEntity tileEntity,
+                           Player castingPlayer, ItemStack activationItem,
+                           List<Ingredient> remainingAdditionalIngredients) {
+        return super.isValid(world, darkAltarPos, tileEntity, castingPlayer, activationItem, remainingAdditionalIngredients)
+                && RitualRequirements.canSummon(world, castingPlayer, this.recipe.getEntityToSummon());
     }
 
     public void spawnEntity(Player castingPlayer, Entity entity, Level world) {

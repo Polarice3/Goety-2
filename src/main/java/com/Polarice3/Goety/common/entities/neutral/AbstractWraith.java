@@ -8,6 +8,7 @@ import com.Polarice3.Goety.common.entities.ai.FloatSwimGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.Wraith;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -596,9 +597,25 @@ public class AbstractWraith extends Summoned {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-            if (!this.isInterested()) {
+            if (itemstack.is(ModItems.ECTOPLASM.get()) && this.getHealth() < this.getMaxHealth()){
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.playSound(ModSounds.WRAITH_AMBIENT.get(), 1.0F, 1.25F);
+                this.heal(2.0F);
+                if (this.level instanceof ServerLevel serverLevel) {
+                    for (int i = 0; i < 7; ++i) {
+                        double d0 = this.random.nextGaussian() * 0.02D;
+                        double d1 = this.random.nextGaussian() * 0.02D;
+                        double d2 = this.random.nextGaussian() * 0.02D;
+                        serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                    }
+                }
+                pPlayer.swing(pHand);
+                return InteractionResult.SUCCESS;
+            } else if ((itemstack.isEmpty() || itemstack == ItemStack.EMPTY) && !this.isInterested()) {
                 InteractionResult actionresulttype = super.mobInteract(pPlayer, pHand);
-                if (!actionresulttype.consumesAction() && (itemstack.isEmpty() || itemstack == ItemStack.EMPTY)) {
+                if (!actionresulttype.consumesAction()) {
                     this.setIsInterested(true);
                     this.interestTime = 40;
                     this.level.broadcastEntityEvent(this, (byte) 102);

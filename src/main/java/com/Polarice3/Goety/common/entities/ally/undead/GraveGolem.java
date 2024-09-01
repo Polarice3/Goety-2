@@ -773,7 +773,7 @@ public class GraveGolem extends AbstractGolemServant {
             }
             if (GraveGolem.this.attackTick == 22) {
                 GraveGolem.this.playSound(SoundEvents.GENERIC_EXPLODE, 2.0F, 1.0F);
-                AABB aabb = makeAttackRange(GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2,
+                AABB aabb = MobUtil.makeAttackRange(GraveGolem.this.getX() + GraveGolem.this.getHorizontalLookAngle().x * 2,
                         GraveGolem.this.getY(),
                         GraveGolem.this.getZ() + GraveGolem.this.getHorizontalLookAngle().z * 2, 9, 7, 9);
                 for (LivingEntity target : GraveGolem.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
@@ -809,13 +809,6 @@ public class GraveGolem extends AbstractGolemServant {
                 GraveGolem.this.doEnchantDamageEffects(GraveGolem.this, target);
                 GraveGolem.this.setLastHurtMob(target);
             }
-        }
-
-        /**
-         * Based of @Crimson_Steve codes.
-         */
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
 
         @Override

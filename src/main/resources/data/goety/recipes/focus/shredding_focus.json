@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "srs",
+    "ses",
+    "fff"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "goety:biting_focus"
+    },
+    "f":
+    {
+      "item": "goety:magic_emerald"
+    },
+    "s":
+    {
+      "item": "goety:savage_tooth"
+    },
+    "r":
+    {
+      "item": "goety:soul_ruby"
+    }
+  },
+  "result":
+  {
+    "item": "goety:shredding_focus",
+    "count": 1
+  }
+}

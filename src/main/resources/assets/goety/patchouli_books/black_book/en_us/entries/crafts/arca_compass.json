@@ -16,5 +16,8 @@
       "type": "patchouli:text",
       "text": "Killing your foe while holding the compass on either hands will cause it to bind towards the player. If the player moves, places down or bind with an Arca, the compass will automatically point to its location."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:arca_compass": 1
+  }
 }

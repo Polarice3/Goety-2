@@ -33,6 +33,7 @@ public class HostileBlackWolf extends BlackWolf implements Enemy {
         float f = pDifficulty.getSpecialMultiplier();
         if (this.random.nextFloat() < f * 0.05F) {
             this.setUpgraded(true);
+            this.setHealth(this.getMaxHealth());
         }
         if (pReason == MobSpawnType.SPAWNER){
             if (BlockFinder.findStructure(pLevel.getLevel(), this.blockPosition(), ModStructures.GRAVEYARD_KEY)){
