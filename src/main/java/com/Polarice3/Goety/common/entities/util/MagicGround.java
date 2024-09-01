@@ -49,7 +49,7 @@ public class MagicGround extends AbstractTrap{
             }
         }
         List<LivingEntity> targets = new ArrayList<>();
-        for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(16.0F))) {
+        for (Entity entity : this.level.getEntitiesOfClass(Entity.class, this.getBoundingBox())) {
             LivingEntity livingEntity = null;
             if (entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity living){
                 livingEntity = living;

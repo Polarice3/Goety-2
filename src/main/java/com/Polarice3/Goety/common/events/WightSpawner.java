@@ -47,12 +47,14 @@ public class WightSpawner {
                         int sePercent = (int) (rawPercent * 100);
                         if (pPlayer.isSpectator() || pPlayer.isCreative()) {
                             return 0;
+                        } else if (!pLevel.getBiome(pPlayer.blockPosition()).is(ModTags.Biomes.WIGHT_SPAWN)) {
+                            return 0;
                         } else if (!pLevel.getEntitiesOfClass(LivingEntity.class,
                                 pPlayer.getBoundingBox().inflate(64.0D),
                                 entity -> entity.getType().is(Tags.EntityTypes.BOSSES)
                                     || entity.getType().is(ModTags.EntityTypes.MINI_BOSSES)).isEmpty()) {
                             return 0;
-                        } else if (sePercent >= 5 && sePercent < 20) {
+                        } else if (sePercent >= 9 && sePercent < 20) {
                             summonWight(pLevel, pPlayer, sePercent);
                             this.nextTick += MobsConfig.WightSpawnFreq.get();
                             return 1;

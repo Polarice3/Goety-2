@@ -3,12 +3,15 @@ package com.Polarice3.Goety.common.magic.construct;
 import com.Polarice3.Goety.api.magic.IMold;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
-import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,6 +59,20 @@ public class IceGolemMold implements IMold {
         return invalid;
     }
 
+    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+        int count = 0;
+        if (worldIn instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof IceGolem servant) {
+                    if (servant.getTrueOwner() == entityLiving && servant.isAlive()) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count < SpellConfig.IceGolemLimit.get();
+    }
+
     public static boolean canSpawn(Level level, BlockPos blockPos){
         if (checkIceX(level, blockPos).isEmpty()){
             for (BlockPos blockPos1 : ICE_LOCATIONS) {
@@ -84,15 +101,12 @@ public class IceGolemMold implements IMold {
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(Blocks.BLUE_ICE)) {
-                if (canSpawn(level, blockPos)) {
+                if (canSpawn(level, blockPos) && conditionsMet(level, player)) {
                     IceGolem iceGolem = ModEntityType.ICE_GOLEM.get().create(level);
                     if (iceGolem != null) {
                         iceGolem.setTrueOwner(player);
                         iceGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(iceGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                         iceGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                        if (CuriosFinder.hasFrostRobes(player)){
-                            iceGolem.setUpgraded(true);
-                        }
                         if (level.addFreshEntity(iceGolem)) {
                             removeBlocks(level, blockPos);
                             stack.shrink(1);

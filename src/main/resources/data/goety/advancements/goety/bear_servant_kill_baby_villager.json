@@ -30,15 +30,11 @@
             }
           }
         ],
-        "killer": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "killer",
-            "predicate": {
-              "type": "goety:bear_servant"
-            }
+        "killing_blow": {
+          "source_entity": {
+            "type": "goety:bear_servant"
           }
-        ]
+        }
       },
       "trigger": "goety:servant_killed_entity"
     }

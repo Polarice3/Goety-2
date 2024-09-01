@@ -124,8 +124,6 @@ public class HuntingSpell extends SummonSpell {
                     int boost = Mth.clamp(enchantment - 1, 0, 10);
                     summonedentity.addEffect(new MobEffectInstance(GoetyEffects.BUFF.get(), EffectsUtil.infiniteEffect(), boost, false, false));
                 }
-                summonedentity.setUpgraded(this.WildPower(entityLiving));
-                summonedentity.setHealth(summonedentity.getMaxHealth());
                 this.SummonSap(entityLiving, summonedentity);
                 this.setTarget(entityLiving, summonedentity);
                 worldIn.addFreshEntity(summonedentity);

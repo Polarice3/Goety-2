@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "##",
+    "##"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "goety:ominous_shard"
+    }
+  },
+  "result":
+  {
+    "item": "goety:ominous_orb",
+    "count": 1
+  }
+}

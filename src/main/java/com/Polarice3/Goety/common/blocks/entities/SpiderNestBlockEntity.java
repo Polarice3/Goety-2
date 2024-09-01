@@ -2,7 +2,9 @@ package com.Polarice3.Goety.common.blocks.entities;
 
 import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.ally.spider.SpiderServant;
 import com.Polarice3.Goety.common.ritual.RitualRequirements;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
@@ -14,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.StructureTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -109,6 +112,21 @@ public class SpiderNestBlockEntity extends TrainingBlockEntity {
     @Override
     public int maxTrainAmount() {
         return 5;
+    }
+
+    @Override
+    public boolean summonLimit() {
+        int count = 0;
+        if (this.level instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof SpiderServant servant) {
+                    if (this.getTrueOwner() != null && servant.getTrueOwner() == this.getTrueOwner() && servant.isAlive()) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count >= SpellConfig.SpiderLimit.get();
     }
 
     @Override

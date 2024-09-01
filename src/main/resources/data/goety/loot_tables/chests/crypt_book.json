@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 20,
           "name": "goety:haunting_scroll"
         },
         {

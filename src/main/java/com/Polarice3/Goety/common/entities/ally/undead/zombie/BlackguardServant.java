@@ -421,9 +421,9 @@ public class BlackguardServant extends ZombieServant{
             if (BlackguardServant.this.attackTick == 14) {
                 double x = BlackguardServant.this.getX() + BlackguardServant.this.getHorizontalLookAngle().x * 2;
                 double z = BlackguardServant.this.getZ() + BlackguardServant.this.getHorizontalLookAngle().z * 2;
-                AABB aabb = makeAttackRange(x,
+                AABB aabb = MobUtil.makeAttackRange(x,
                         BlackguardServant.this.getY(),
-                        z, 3, 1, 3);
+                        z, 3, 3, 3);
                 for (LivingEntity target : BlackguardServant.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != BlackguardServant.this && !MobUtil.areAllies(target, BlackguardServant.this)) {
                         BlackguardServant.this.doHurtTarget(target);
@@ -439,13 +439,6 @@ public class BlackguardServant extends ZombieServant{
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 1.5F, 1), x, BlockFinder.moveDownToGround(BlackguardServant.this), z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             }
-        }
-
-        /**
-         * Based of @Crimson_Steve codes.
-         */
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
 
         @Override

@@ -27,15 +27,11 @@
             }
           }
         ],
-        "killer": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "killer",
-            "predicate": {
-              "type": "goety:redstone_monstrosity"
-            }
+        "killing_blow": {
+          "source_entity": {
+            "type": "goety:redstone_monstrosity"
           }
-        ]
+        }
       },
       "trigger": "goety:servant_killed_entity"
     }

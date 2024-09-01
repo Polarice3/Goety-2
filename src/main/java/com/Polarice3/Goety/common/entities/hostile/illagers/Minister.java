@@ -341,6 +341,12 @@ public class Minister extends HuntingIllagerEntity implements RangedAttackMob {
             if (itementity != null) {
                 itementity.setExtendedLifetime();
             }
+        } else {
+            ItemStack itemStack = ModItems.OMINOUS_SHARD.get().getDefaultInstance();
+            ItemEntity itementity = this.spawnAtLocation(itemStack);
+            if (itementity != null) {
+                itementity.setExtendedLifetime();
+            }
         }
     }
 

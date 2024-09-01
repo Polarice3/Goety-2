@@ -77,6 +77,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGER_CORE = ITEMS.register("hunger_core", ItemBase::new);
     public static final RegistryObject<Item> WIND_CORE = ITEMS.register("wind_core", ItemBase::new);
     public static final RegistryObject<Item> MYSTIC_CORE = ITEMS.register("mystic_core", ItemBase::new);
+    public static final RegistryObject<Item> OMINOUS_SHARD = ITEMS.register("ominous_shard", ItemBase::new);
     public static final RegistryObject<Item> OMINOUS_ORB = ITEMS.register("ominous_orb", () -> new RepeatCraftItem(new Item.Properties()));
     public static final RegistryObject<Item> HEART_OF_THE_NIGHT = ITEMS.register("heart_of_the_night", ItemBase::new);
     public static final RegistryObject<Item> CAULDRON_LADLE = ITEMS.register("cauldron_ladle", SingleStackItem::new);
@@ -199,6 +200,7 @@ public class ModItems {
     public static final RegistryObject<Item> BITING_FOCUS = ITEMS.register("biting_focus", () -> new MagicFocus(new FangSpell()));
     public static final RegistryObject<Item> FEAST_FOCUS = ITEMS.register("feast_focus", () -> new MagicFocus(new FeastSpell()));
     public static final RegistryObject<Item> TEETH_FOCUS = ITEMS.register("teeth_focus", () -> new MagicFocus(new TeethSpell()));
+    public static final RegistryObject<Item> SHREDDING_FOCUS = ITEMS.register("shredding_focus", () -> new MagicFocus(new SpikeSpell()));
     public static final RegistryObject<Item> ILLUSION_FOCUS = ITEMS.register("illusion_focus", () -> new MagicFocus(new IllusionSpell()));
     public static final RegistryObject<Item> IGNITE_FOCUS = ITEMS.register("ignite_focus", () -> new MagicFocus(new IgniteSpell()));
     public static final RegistryObject<Item> FIRE_BREATH_FOCUS = ITEMS.register("fire_breath_focus", () -> new MagicFocus(new FireBreathSpell()));

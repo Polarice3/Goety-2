@@ -111,7 +111,6 @@ public class WraithSpell extends SummonSpell {
                 summonedentity.moveTo(BlockFinder.SummonRadius(entityLiving.blockPosition(), summonedentity, worldIn), 0.0F, 0.0F);
                 MobUtil.moveDownToGround(summonedentity);
                 summonedentity.setPersistenceRequired();
-                summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 if (enchantment > 0){

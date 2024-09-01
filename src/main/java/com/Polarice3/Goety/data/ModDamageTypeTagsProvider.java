@@ -24,15 +24,15 @@ public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
     }
 
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSource.PHOBIA, ModDamageSource.DOOM, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.MAGIC_BOLT, ModDamageSource.CHOKE);
+        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSource.PHOBIA, ModDamageSource.DOOM, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.SPIKE, ModDamageSource.MAGIC_BOLT, ModDamageSource.CHOKE);
         this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageSource.DOOM);
         this.tag(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageSource.DOOM);
         this.tag(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageSource.DOOM);
         this.tag(DamageTypeTags.IS_PROJECTILE).add(ModDamageSource.ICE_SPIKE, ModDamageSource.NO_OWNER_MAGIC_FIREBALL, ModDamageSource.MAGIC_FIREBALL);
         this.tag(DamageTypeTags.IS_FIRE).add(ModDamageSource.BOILING, ModDamageSource.FIRE_BREATH);
         this.tag(DamageTypeTags.IS_FREEZING).add(ModDamageSource.DIRECT_FREEZE, ModDamageSource.INDIRECT_FREEZE, ModDamageSource.FROST_BREATH, ModDamageSource.ICE_SPIKE, ModDamageSource.ICE_BOUQUET);
-        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageSource.PHOBIA, ModDamageSource.ICE_BOUQUET, ModDamageSource.MAGIC_BOLT, ModDamageSource.WIND_BLAST, ModDamageSource.SOUL_LEECH);
-        this.tag(NO_KNOCKBACK).add(ModDamageSource.ICE_BOUQUET, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.FIRE_BREATH, ModDamageSource.MAGIC_FIRE, ModDamageSource.FROST_BREATH, ModDamageSource.MAGIC_BOLT, ModDamageSource.SOUL_LEECH, ModDamageSource.CHOKE, ModDamageSource.SWARM);
+        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageSource.PHOBIA, ModDamageSource.ICE_BOUQUET, ModDamageSource.SPIKE, ModDamageSource.MAGIC_BOLT, ModDamageSource.WIND_BLAST, ModDamageSource.SOUL_LEECH);
+        this.tag(NO_KNOCKBACK).add(ModDamageSource.ICE_BOUQUET, ModDamageSource.SPIKE, ModDamageSource.HELLFIRE, ModDamageSource.INDIRECT_HELLFIRE, ModDamageSource.FIRE_BREATH, ModDamageSource.MAGIC_FIRE, ModDamageSource.FROST_BREATH, ModDamageSource.MAGIC_BOLT, ModDamageSource.SOUL_LEECH, ModDamageSource.CHOKE, ModDamageSource.SWARM);
     }
 
     private static TagKey<DamageType> create(String name) {

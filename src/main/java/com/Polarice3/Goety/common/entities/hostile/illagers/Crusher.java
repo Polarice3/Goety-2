@@ -471,9 +471,9 @@ public class Crusher extends HuntingIllagerEntity{
                 Crusher.this.playSound(ModSounds.HAMMER_SWING.get());
             }
             if (Crusher.this.attackTick == 13) {
-                AABB aabb = makeAttackRange(Crusher.this.getX() + Crusher.this.getHorizontalLookAngle().x * 2,
+                AABB aabb = MobUtil.makeAttackRange(Crusher.this.getX() + Crusher.this.getHorizontalLookAngle().x * 2,
                         Crusher.this.getY(),
-                        Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2, 3, 1, 3);
+                        Crusher.this.getZ() + Crusher.this.getHorizontalLookAngle().z * 2, 3, 3, 3);
                 for (LivingEntity target : Crusher.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
                     if (target != Crusher.this && !target.isAlliedTo(Crusher.this) && !Crusher.this.isAlliedTo(target)) {
                         this.hurtTarget(target);
@@ -569,10 +569,6 @@ public class Crusher extends HuntingIllagerEntity{
             float f7 = f2 * f4;
             Vec3 vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
             return worldIn.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
-        }
-
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
 
         @Override

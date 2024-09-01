@@ -116,6 +116,7 @@ public class ModTags {
         public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
         public static final TagKey<Biome> WARLOCK_EXCLUDE_SPAWN = tag("mob_spawn/warlock_exclude");
+        public static final TagKey<Biome> WIGHT_SPAWN = tag("mob_spawn/wight");
 
         public static final TagKey<Biome> ABYSS_DISCOUNT = tag("spell_discount/abyss");
         public static final TagKey<Biome> FROST_DISCOUNT = tag("spell_discount/frost");

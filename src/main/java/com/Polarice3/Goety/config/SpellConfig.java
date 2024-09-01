@@ -28,6 +28,12 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> FangDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> FangGainSouls;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpikeCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpikeDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpikeCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> SpikeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpikeGainSouls;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> ZombieCoolDown;
@@ -378,6 +384,8 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> CorruptedBeamDamage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CorruptionImmobile;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> LeapleafLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SpiderLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
@@ -449,6 +457,18 @@ public class SpellConfig {
             FangGainSouls = BUILDER.comment("Amount of Soul Energy Magic Fangs gives when hitting mob(s), Default: 1")
                     .defineInRange("fangGainSouls", 1, 0, Integer.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Shredding Spell && Royal Spikes");
+            SpikeCost = BUILDER.comment("Shredding Spell Cost, Default: 16")
+                    .defineInRange("spikeCost", 16, 0, Integer.MAX_VALUE);
+            SpikeDuration = BUILDER.comment("Time to cast Shredding Spell, Default: 160")
+                    .defineInRange("spikeTime", 160, 0, 72000);
+            SpikeCoolDown = BUILDER.comment("Shredding Spell Cooldown, Default: 100")
+                    .defineInRange("spikeCoolDown", 100, 0, Integer.MAX_VALUE);
+            SpikeDamage = BUILDER.comment("How much base damage Royal Spikes deals per second, Default: 1.0")
+                    .defineInRange("spikeDamage", 1.0, 1.0, Double.MAX_VALUE);
+            SpikeGainSouls = BUILDER.comment("Amount of Soul Energy Royal Spikes gives when hitting mob(s), Default: 1")
+                    .defineInRange("spikeGainSouls", 1, 0, Integer.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Rotting Spell");
             ZombieCost = BUILDER.comment("Rotting Spell Cost, Default: 5")
                     .defineInRange("zombieCost", 5, 0, Integer.MAX_VALUE);
@@ -458,7 +478,7 @@ public class SpellConfig {
                     .defineInRange("zombieCoolDown", 100, 0, Integer.MAX_VALUE);
             ZombieSummonDown = BUILDER.comment("Rotting Spell Summon Down, Default: 120")
                     .defineInRange("zombieSummonDown", 120, 0, 72000);
-            ZombieLimit = BUILDER.comment("Number of Zombie Servants that can exist around the player without instantly dying, Default: 32")
+            ZombieLimit = BUILDER.comment("Number of Zombie Servants that can a player can have, Default: 32")
                     .defineInRange("zombieLimit", 32, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Osseous Spell");
@@ -482,7 +502,7 @@ public class SpellConfig {
                     .defineInRange("wraithCoolDown", 100, 0, Integer.MAX_VALUE);
             WraithSummonDown = BUILDER.comment("Spooky Spell Summon Down, Default: 300")
                     .defineInRange("wraithSummonDown", 300, 0, 72000);
-            WraithLimit = BUILDER.comment("Number of Wraith Servants that can exist around the player without instantly dying, Default: 6")
+            WraithLimit = BUILDER.comment("Number of Wraith Servants that a player can have, Default: 6")
                     .defineInRange("wraithLimit", 6, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Vanguard Spell");
@@ -522,7 +542,7 @@ public class SpellConfig {
                     .defineInRange("hauntedSkullDamage", 5.0, 1.0, Double.MAX_VALUE);
             HauntedSkullGriefing = BUILDER.comment("Enable Haunted Skull projectile griefing, Default: true")
                     .define("hauntedSkullGriefing", true);
-            SkullLimit = BUILDER.comment("Number of Haunted Skulls that can exist around the player without instantly dying, Default: 8")
+            SkullLimit = BUILDER.comment("Number of Haunted Skulls that can a player can have, Default: 8")
                     .defineInRange("skullLimit", 8, 1, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Wither Skull Spell");
@@ -1161,6 +1181,10 @@ public class SpellConfig {
             BUILDER.pop();
         BUILDER.pop();
         BUILDER.push("Servant Limits");
+        LeapleafLimit = BUILDER.comment("Number of Leapleaves that an individual player can have in total, Default: 16")
+                .defineInRange("leapleafLimit", 16, 1, Integer.MAX_VALUE);
+        SpiderLimit = BUILDER.comment("Number of Spider Servants that an individual player can have in total, Default: 32")
+                .defineInRange("spiderLimit", 32, 1, Integer.MAX_VALUE);
         NecromancerLimit = BUILDER.comment("Number of Necromancer Servants that an individual player can have in total, Default: 8")
                 .defineInRange("necromancerLimit", 8, 1, Integer.MAX_VALUE);
         BoundIllagerLimit = BUILDER.comment("Number of Bound Illager Servants that an individual player can have in total, Default: 2")

@@ -149,7 +149,6 @@ public class SkeletonSpell extends SummonSpell {
                     MobUtil.moveDownToGround(summonedentity);
                 }
                 summonedentity.setPersistenceRequired();
-                summonedentity.setUpgraded(this.NecroPower(entityLiving));
                 summonedentity.setLimitedLife(MobUtil.getSummonLifespan(worldIn) * duration);
                 summonedentity.setArrowPower(enchantment);
                 summonedentity.finalizeSpawn(worldIn, entityLiving.level.getCurrentDifficultyAt(entityLiving.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);

@@ -5,6 +5,7 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
+import com.Polarice3.Goety.utils.MobUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -73,6 +74,13 @@ public class BlazeServant extends Summoned {
                 .add(Attributes.ARMOR, AttributesConfig.BlazeServantArmor.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
+    }
+
+    @Override
+    public void setConfigurableAttributes() {
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.MAX_HEALTH), AttributesConfig.BlazeServantHealth.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ATTACK_DAMAGE), AttributesConfig.BlazeServantMeleeDamage.get());
+        MobUtil.setBaseAttributes(this.getAttribute(Attributes.ARMOR), AttributesConfig.BlazeServantArmor.get());
     }
 
     protected void defineSynchedData() {
@@ -200,9 +208,9 @@ public class BlazeServant extends Summoned {
         return true;
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!this.level.isClientSide){
-            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+            ItemStack itemstack = pPlayer.getItemInHand(pHand);
             Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
                 if ((itemstack.is(Tags.Items.RODS_BLAZE) || item == Items.BLAZE_POWDER) && this.getHealth() < this.getMaxHealth()) {
@@ -223,12 +231,12 @@ public class BlazeServant extends Summoned {
                             serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
-                    pPlayer.swing(p_230254_2_);
+                    pPlayer.swing(pHand);
                     return InteractionResult.SUCCESS;
                 }
             }
         }
-        return super.mobInteract(pPlayer, p_230254_2_);
+        return super.mobInteract(pPlayer, pHand);
     }
 
     static class BlazeAttackGoal extends Goal {

@@ -526,7 +526,7 @@ public class Leapleaf extends Summoned{
             if (Leapleaf.this.attackTick == 13) {
                 double x = Leapleaf.this.getX() + Leapleaf.this.getHorizontalLookAngle().x * 2;
                 double z = Leapleaf.this.getZ() + Leapleaf.this.getHorizontalLookAngle().z * 2;
-                AABB aabb = makeAttackRange(x,
+                AABB aabb = MobUtil.makeAttackRange(x,
                         Leapleaf.this.getY(),
                         z, 1, 1, 1);
                 for (LivingEntity target : Leapleaf.this.level.getEntitiesOfClass(LivingEntity.class, aabb)) {
@@ -544,10 +544,6 @@ public class Leapleaf extends Summoned{
                     serverLevel.sendParticles(new CircleExplodeParticleOption(colorUtil.red(), colorUtil.green(), colorUtil.blue(), 2, 1), x, BlockFinder.moveDownToGround(Leapleaf.this), z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
             }
-        }
-
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
 
         public boolean requiresUpdateEveryTick() {
@@ -719,7 +715,7 @@ public class Leapleaf extends Summoned{
             double xRight = this.leapleaf.getX() + this.leapleaf.getHorizontalRightLookAngle().x;
             double zRight = this.leapleaf.getZ() + this.leapleaf.getHorizontalRightLookAngle().z;
             if (this.leapleaf.isLeaping() && this.leapleaf.onGround() && this.leapleaf.leapTick > 1) {
-                AABB aabb = makeAttackRange(x,
+                AABB aabb = MobUtil.makeAttackRange(x,
                         this.leapleaf.getY(),
                         z, 3, 3, 3);
                 boolean random = this.leapleaf.random.nextFloat() <= 0.25F;
@@ -762,10 +758,6 @@ public class Leapleaf extends Summoned{
                     }
                 }
             }
-        }
-
-        public static AABB makeAttackRange(double x, double y, double z, double sizeX, double sizeY, double sizeZ) {
-            return new AABB(x - (sizeX / 2.0D), y - (sizeY / 2.0D), z - (sizeZ / 2.0D), x + (sizeX / 2.0D), y + (sizeY / 2.0D), z + (sizeZ / 2.0D));
         }
     }
 }

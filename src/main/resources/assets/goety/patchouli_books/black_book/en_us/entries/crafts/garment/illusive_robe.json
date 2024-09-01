@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "The robe also buffs the Mirror Spell by making your Doppelgangers' attack actually hurt their targets, though not by a lot."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_robe_mirror": 1
+  }
 }

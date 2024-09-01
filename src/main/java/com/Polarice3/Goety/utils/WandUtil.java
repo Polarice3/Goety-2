@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.neutral.AbstractVine;
 import com.Polarice3.Goety.common.entities.neutral.TotemicBomb;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.IceBouquet;
+import com.Polarice3.Goety.common.entities.projectiles.Spike;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -126,6 +127,52 @@ public class WandUtil {
                 }
             }
             livingEntity.level.addFreshEntity(fangEntity);
+        }
+
+    }
+
+    public static void spawnSpikes(LivingEntity livingEntity, double pPosX, double pPosZ, double PPPosY, double pOPosY, float pYRot, int pWarmUp) {
+        BlockPos blockpos = BlockPos.containing(pPosX, pOPosY, pPosZ);
+        boolean flag = false;
+        double d0 = 0.0D;
+
+        do {
+            BlockPos blockpos1 = blockpos.below();
+            BlockState blockstate = livingEntity.level.getBlockState(blockpos1);
+            if (blockstate.isFaceSturdy(livingEntity.level, blockpos1, Direction.UP)) {
+                if (!livingEntity.level.isEmptyBlock(blockpos)) {
+                    BlockState blockstate1 = livingEntity.level.getBlockState(blockpos);
+                    VoxelShape voxelshape = blockstate1.getCollisionShape(livingEntity.level, blockpos);
+                    if (!voxelshape.isEmpty()) {
+                        d0 = voxelshape.max(Direction.Axis.Y);
+                    }
+                }
+
+                flag = true;
+                break;
+            }
+
+            blockpos = blockpos.below();
+        } while(blockpos.getY() >= Mth.floor(PPPosY) - 1);
+
+        if (flag) {
+            Spike spike = new Spike(livingEntity.level, pPosX, (double)blockpos.getY() + d0, pPosZ, pYRot, pWarmUp, livingEntity);
+            if (livingEntity instanceof Player player){
+                if (WandUtil.enchantedFocus(player)){
+                    float enchantment = 0;
+                    int burning = 0;
+                    int soulEater = 0;
+                    if (WandUtil.enchantedFocus(player)) {
+                        enchantment = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
+                        burning = WandUtil.getLevels(ModEnchantments.BURNING.get(), player);
+                        soulEater = WandUtil.getLevels(ModEnchantments.SOUL_EATER.get(), player);
+                    }
+                    spike.setExtraDamage(enchantment);
+                    spike.setBurning(burning);
+                    spike.setSoulEater(soulEater);
+                }
+            }
+            livingEntity.level.addFreshEntity(spike);
         }
 
     }

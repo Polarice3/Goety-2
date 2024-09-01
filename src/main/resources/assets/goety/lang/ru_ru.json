@@ -2323,5 +2323,9 @@
   "subtitle.goety.blackguard_smash": "Удар булавы",
   "subtitle.goety.blackguard_step": "Шаги черностражника",
   "subtitle.goety.plate": "Звон металла",
-  "subtitle.goety.plate_drop": "Грохот металла"
+  "subtitle.goety.plate_drop": "Грохот металла",
+  "item.goety.ominous_shard": "Ominous Shard",
+  "item.goety.shredding_focus": "Shredding Focus",
+  "item.goety.shredding_focus.info": "Summons a row of royal Spikes in front of caster. Damages any non-allied targets caught in them.",
+  "subtitle.goety.void_prepare_spell": "Prepares Spell"
 }

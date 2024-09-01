@@ -6,11 +6,13 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -79,6 +81,21 @@ public class GravestoneBlockEntity extends TrainingBlockEntity {
     @Override
     public int maxTrainAmount() {
         return 5;
+    }
+
+    @Override
+    public boolean summonLimit() {
+        int count = 0;
+        if (this.level instanceof ServerLevel serverLevel) {
+            for (Entity entity : serverLevel.getAllEntities()) {
+                if (entity instanceof ZombieServant servant) {
+                    if (this.getTrueOwner() != null && servant.getTrueOwner() == this.getTrueOwner() && servant.isAlive()) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        return count >= SpellConfig.ZombieLimit.get();
     }
 
     @Override

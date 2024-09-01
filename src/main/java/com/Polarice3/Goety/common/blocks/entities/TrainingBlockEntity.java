@@ -28,6 +28,7 @@ import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,6 +44,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
     public int updateVariant;
     public boolean showArea;
     public boolean sensorSensitive;
+    public boolean reachedLimit;
     public ItemStack itemStack = ItemStack.EMPTY;
     public CompoundTag entityToSpawn = new CompoundTag();
 
@@ -60,6 +62,12 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState, TrainingBlockEntity blockEntity){
         if (level != null){
+            if (level instanceof ServerLevel){
+                if (blockEntity.reachedLimit != blockEntity.summonLimit()) {
+                    blockEntity.reachedLimit = blockEntity.summonLimit();
+                    blockEntity.markUpdated();
+                }
+            }
             if (blockEntity.updateVariant > 0){
                 --blockEntity.updateVariant;
                 blockEntity.setVariant(blockEntity.itemStack, level, blockPos);
@@ -69,10 +77,13 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                     ++blockEntity.trainTime;
                 } else {
                     boolean flag;
-                    if (this.isSensorSensitive()){
+                    if (blockEntity.isSensorSensitive()){
                         flag = hasNearbyTarget();
                     } else {
                         flag = true;
+                    }
+                    if (blockEntity.reachedLimit){
+                        flag = false;
                     }
                     if (flag) {
                         --blockEntity.trainAmount;
@@ -89,11 +100,12 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                                     Entity entity = blockEntity.getTrainMob().spawn(serverLevel, blockpos, MobSpawnType.SPAWNER);
                                     if (entity != null) {
                                         level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockpos);
-                                        if (entity instanceof Mob mob) {
-                                            mob.spawnAnim();
-                                        }
                                         if (entity instanceof IOwned owned && blockEntity.getTrueOwner() != null) {
                                             owned.setTrueOwner(blockEntity.getTrueOwner());
+                                        }
+                                        if (entity instanceof Mob mob) {
+                                            mob.spawnAnim();
+                                            ForgeEventFactory.onFinalizeSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), MobSpawnType.MOB_SUMMONED, null, null);
                                         }
                                         blockEntity.playSpawnSound();
                                         break;
@@ -103,7 +115,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
                         }
                     }
                 }
-                this.markUpdated();
+                blockEntity.markUpdated();
             } else {
                 if (blockEntity.trainTime > 0) {
                     blockEntity.trainTime = 0;
@@ -249,6 +261,14 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         return getStructures(this.level, this.worldPosition, pPredicate, totalCount);
     }
 
+    public boolean reachedLimit(){
+        return this.reachedLimit;
+    }
+
+    public boolean summonLimit(){
+        return false;
+    }
+
     public PositionSource getListenerSource() {
         return this.blockPosSource;
     }
@@ -295,6 +315,9 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         if (tag.contains("sensorSensitive")) {
             this.sensorSensitive = tag.getBoolean("sensorSensitive");
         }
+        if (tag.contains("reachedLimit")) {
+            this.reachedLimit = tag.getBoolean("reachedLimit");
+        }
     }
 
     public CompoundTag writeNetwork(CompoundTag tag) {
@@ -306,6 +329,7 @@ public abstract class TrainingBlockEntity extends OwnedBlockEntity implements IT
         tag1.put("EntityToSpawn", this.entityToSpawn);
         tag1.putBoolean("showArea", this.showArea);
         tag1.putBoolean("sensorSensitive", this.sensorSensitive);
+        tag1.putBoolean("reachedLimit", this.reachedLimit);
         return tag1;
     }
 

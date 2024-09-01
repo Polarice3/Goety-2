@@ -23,5 +23,9 @@
       "type": "patchouli:text",
       "text": "魔女の帽子とローブを着用するのと同じように、ウォーロック ローブを着用すると、すべての魔女とウォーロックが中立になり、物々交換が可能になります。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:warlock_robe": 2,
+    "goety:warlock_robe_dark": 2
+  }
 }

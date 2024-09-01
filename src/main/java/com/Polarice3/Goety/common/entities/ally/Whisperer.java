@@ -29,7 +29,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -77,7 +76,7 @@ public class Whisperer extends Summoned{
         this.goalSelector.addGoal(0, new FloatGoal(this){
             @Override
             public boolean canUse() {
-                return super.canUse() && !(Whisperer.this.getNavigation() instanceof WaterBoundPathNavigation);
+                return super.canUse() && !(Whisperer.this instanceof Wavewhisperer);
             }
         });
         this.goalSelector.addGoal(0, new AttackGoal(this));

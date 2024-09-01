@@ -426,6 +426,7 @@ public class BlackWolf extends AnimalSummon{
                 attack.setBaseValue(AttributesConfig.BlackWolfDamage.get());
             }
         }
+        this.setHealth(this.getMaxHealth());
     }
 
     public @NotNull Vec3 getLeashOffset() {

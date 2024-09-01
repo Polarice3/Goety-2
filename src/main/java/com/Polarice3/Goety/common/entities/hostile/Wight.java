@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.hostile;
 
 import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
 import com.Polarice3.Goety.client.particles.TeleportShockwaveParticleOption;
+import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.neutral.CarrionMaggot;
@@ -1004,6 +1005,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                     } else {
                         living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));
                     }
+                    living.addEffect(new MobEffectInstance(GoetyEffects.CURSED.get(), 60, 0, false, false));
                     if (this.isEasterEgg()){
                         living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false));
                     }
@@ -1016,18 +1018,23 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
     public void upgradePower(int sePercent){
         AttributeInstance health = this.getAttribute(Attributes.MAX_HEALTH);
         AttributeInstance attack = this.getAttribute(Attributes.ATTACK_DAMAGE);
-        if (health != null && attack != null) {
+        AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (health != null && attack != null && speed != null) {
             if (sePercent >= 15) {
                 double h = 1.096D;
                 double a = 1.12D;
                 double d0 = 1.0D;
+                double d1 = 0.0D;
                 for (int i = 0; i < sePercent; ++i) {
                     if (i % 15 == 0 && i > 15) {
                         d0 += 0.1D;
+                        d1 += 0.05D;
                     }
                 }
                 health.setBaseValue(AttributesConfig.WightHealth.get() * (h * d0));
                 attack.setBaseValue(AttributesConfig.WightDamage.get() * (a * d0));
+                speed.setBaseValue(Math.min(0.55D, 0.3D + d1));
+                this.setHealth(this.getMaxHealth());
             }
         }
     }

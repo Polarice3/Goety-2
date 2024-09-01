@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "ローブはまた、ドッペルゲンガーの攻撃がターゲットに実際にダメージを与えることで、ミラーの呪文をバフしますが、それほど大きくはありません。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_robe_mirror": 1
+  }
 }

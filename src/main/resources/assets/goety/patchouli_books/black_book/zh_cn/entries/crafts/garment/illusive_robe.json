@@ -15,5 +15,8 @@
       "type": "patchouli:text",
       "text": "这套长袍也为你的幻镜法术提供了增益，让你的分身的攻击能够对目标造成真实的伤害，虽然并不多。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:illusion_robe_mirror": 1
+  }
 }

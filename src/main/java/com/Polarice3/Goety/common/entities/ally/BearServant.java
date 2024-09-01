@@ -429,6 +429,7 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
                 knockback.setBaseValue(0.0D);
             }
         }
+        this.setHealth(this.getMaxHealth());
     }
 
     @Override
