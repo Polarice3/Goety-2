@@ -10,15 +10,6 @@
   "duration": 30,
   "ingredients": [
     {
-      "tag": "forge:ender_pearls"
-    },
-    {
-      "item": "minecraft:glowstone_dust"
-    },
-    {
-      "item": "minecraft:ghast_tear"
-    },
-    {
       "item": "goety:ectoplasm"
     },
     {

@@ -124,7 +124,7 @@ public class FirePillar extends CastSpellTrap{
                                     damageSource = ModDamageSource.magicFireBreath(this, this.getOwner());
                                 }
                             }
-                            if (this.getOwner() instanceof WitherNecromancer){
+                            if (this.getOwner() instanceof WitherNecromancer || CuriosFinder.hasUnholySet(this.getOwner())){
                                 damageSource = ModDamageSource.hellfire(this, this.getOwner());
                             }
                             livingEntity.hurt(damageSource, damage);

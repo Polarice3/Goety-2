@@ -77,7 +77,12 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && ModRavager.this.getMobType() != MobType.UNDEAD;
+            }
+        });
         this.goalSelector.addGoal(4, new RavagerMeleeAttackGoal());
         this.goalSelector.addGoal(5, new WanderGoal<>(this, 0.4D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));

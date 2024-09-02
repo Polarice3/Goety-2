@@ -64,6 +64,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", ItemBase::new);
     public static final RegistryObject<Item> GALE_FABRIC = ITEMS.register("gale_fabric", ItemBase::new);
     public static final RegistryObject<Item> CHILL_FABRIC = ITEMS.register("chill_fabric", ItemBase::new);
+//    public static final RegistryObject<Item> UNHOLY_FABRIC = ITEMS.register("unholy_fabric", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SAVAGE_TOOTH = ITEMS.register("savage_tooth", ItemBase::new);
     public static final RegistryObject<Item> JADE = ITEMS.register("jade", ItemBase::new);
     public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", ItemBase::new);
@@ -167,6 +168,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> WITCH_HAT = ITEMS.register("witch_hat", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> WITCH_HAT_HEDGE = ITEMS.register("witch_hat_hedge", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> CRONE_HAT = ITEMS.register("crone_hat", WitchHatItem::new);
+//    public static final RegistryObject<SingleStackItem> UNHOLY_HAT = ITEMS.register("unholy_hat", WitchHatItem::new);
     public static final RegistryObject<SingleStackItem> DARK_ROBE = ITEMS.register("dark_robe", MagicRobeItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_ROBE = ITEMS.register("grand_robe", MagicRobeItem::new);
     public static final RegistryObject<SingleStackItem> NECRO_CAPE = ITEMS.register("necro_cape", () -> new NecroGarbs.NecroCapeItem(false));
@@ -185,6 +187,7 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> WARLOCK_SASH = ITEMS.register("warlock_sash", WarlockGarmentItem::new);
     public static final RegistryObject<SingleStackItem> NETHER_ROBE = ITEMS.register("nether_robe", NetherRobeItem::new);
     public static final RegistryObject<SingleStackItem> NETHER_ROBE_WARPED = ITEMS.register("nether_robe_warped", NetherRobeItem::new);
+//    public static final RegistryObject<SingleStackItem> UNHOLY_ROBE = ITEMS.register("unholy_robe", UnholyRobeItem::new);
     public static final RegistryObject<SingleStackItem> SEA_AMULET = ITEMS.register("sea_amulet", SeaAmuletItem::new);
     public static final RegistryObject<SingleStackItem> FELINE_AMULET = ITEMS.register("feline_amulet", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> ALARMING_CHARM = ITEMS.register("alarming_charm", SingleStackItem::new);

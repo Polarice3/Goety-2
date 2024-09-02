@@ -3,6 +3,7 @@ package com.Polarice3.Goety.utils;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
+import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
@@ -778,6 +779,9 @@ public class MobUtil {
             summonedEntity.setTrueOwner(player);
             if (summonedEntity instanceof IServant summoned){
                 summoned.setWandering(false);
+            }
+            if (summonedEntity instanceof Summoned summoned){
+                summoned.spawnUpgraded();
             }
         }
     }

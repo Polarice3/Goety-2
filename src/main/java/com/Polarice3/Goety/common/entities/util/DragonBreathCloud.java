@@ -35,6 +35,7 @@ public class DragonBreathCloud extends Entity implements TraceableEntity {
     private int waitTime = 20;
     private int reapplicationDelay = 20;
     private int durationOnUse;
+    private float damage = 12.0F;
     private float radiusOnUse;
     private float radiusPerTick;
     @Nullable
@@ -63,6 +64,7 @@ public class DragonBreathCloud extends Entity implements TraceableEntity {
         this.waitTime = p_19727_.getInt("WaitTime");
         this.reapplicationDelay = p_19727_.getInt("ReapplicationDelay");
         this.durationOnUse = p_19727_.getInt("DurationOnUse");
+        this.damage = p_19727_.getFloat("Damage");
         this.radiusOnUse = p_19727_.getFloat("RadiusOnUse");
         this.radiusPerTick = p_19727_.getFloat("RadiusPerTick");
         this.setRadius(p_19727_.getFloat("Radius"));
@@ -78,6 +80,7 @@ public class DragonBreathCloud extends Entity implements TraceableEntity {
         p_19737_.putInt("WaitTime", this.waitTime);
         p_19737_.putInt("ReapplicationDelay", this.reapplicationDelay);
         p_19737_.putInt("DurationOnUse", this.durationOnUse);
+        p_19737_.putFloat("Damage", this.damage);
         p_19737_.putFloat("RadiusOnUse", this.radiusOnUse);
         p_19737_.putFloat("RadiusPerTick", this.radiusPerTick);
         p_19737_.putFloat("Radius", this.getRadius());
@@ -143,6 +146,14 @@ public class DragonBreathCloud extends Entity implements TraceableEntity {
 
     public void setRadiusPerTick(float p_19739_) {
         this.radiusPerTick = p_19739_;
+    }
+
+    public float getDamage() {
+        return this.damage;
+    }
+
+    public void setDamage(float p_19739_) {
+        this.damage = p_19739_;
     }
 
     public int getDurationOnUse() {
@@ -257,7 +268,7 @@ public class DragonBreathCloud extends Entity implements TraceableEntity {
                             if (d3 <= (double)(f * f)) {
                                 this.victims.put(livingentity, this.tickCount + this.reapplicationDelay);
 
-                                livingentity.hurt(this.damageSources().dragonBreath(), 12.0F);
+                                livingentity.hurt(this.damageSources().dragonBreath(), this.getDamage());
 
                                 if (this.radiusOnUse != 0.0F) {
                                     f += this.radiusOnUse;

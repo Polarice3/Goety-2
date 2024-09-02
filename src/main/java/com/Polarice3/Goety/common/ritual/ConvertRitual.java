@@ -33,7 +33,7 @@ public class ConvertRitual extends Ritual {
                            Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return super.isValid(world, darkAltarPos, tileEntity, castingPlayer, activationItem, remainingAdditionalIngredients)
-                && RitualRequirements.canSummon(world, castingPlayer, this.recipe.getEntityToSummon());
+                && RitualRequirements.canSummon(world, castingPlayer, this.recipe.getEntityToConvertInto());
     }
 
     @Override

@@ -2269,8 +2269,10 @@
   "subtitle.goety.blackguard_step": "暗卫：践踏",
   "subtitle.goety.plate": "击中金属",
   "subtitle.goety.plate_drop": "金属掉落",
-  "item.goety.ominous_shard": "Ominous Shard",
-  "item.goety.shredding_focus": "Shredding Focus",
-  "item.goety.shredding_focus.info": "Summons a row of royal Spikes in front of caster. Damages any non-allied targets caught in them.",
-  "subtitle.goety.void_prepare_spell": "Prepares Spell"
+  "item.goety.ominous_shard": "不像碎片",
+  "item.goety.shredding_focus": "尖刺聚晶",
+  "item.goety.shredding_focus.info": "在施法者召唤皇家尖刺，对非盟军实体造成持续伤害。",
+  "subtitle.goety.void_prepare_spell": "准备施放法术",
+  "death.attack.goety.spike": "%1$s被%2$s做成了花洒",
+  "death.attack.goety.spike.item": "%1$s 被%2$s 用%3$s做成了花洒"
 }
