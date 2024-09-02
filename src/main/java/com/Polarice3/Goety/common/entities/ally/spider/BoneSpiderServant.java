@@ -59,11 +59,6 @@ public class BoneSpiderServant extends SpiderServant implements RangedAttackMob 
         this.entityData.define(ANIM_STATE, 0);
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.UNDEAD;
-    }
-
     public void setAnimationState(String input) {
         this.setAnimationState(this.getAnimationState(input));
     }

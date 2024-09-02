@@ -99,13 +99,27 @@ public class CuriosFinder {
     }
 
     public static boolean hasNetherRobe(LivingEntity livingEntity){
-        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof NetherRobeItem));
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof NetherRobeItem))
+                || hasUnholyRobe(livingEntity);
+    }
+
+    public static boolean hasUnholyRobe(LivingEntity livingEntity){
+        return false;
+    }
+
+    public static boolean hasUnholyHat(LivingEntity livingEntity){
+        return false;
+    }
+
+    public static boolean hasUnholySet(LivingEntity livingEntity){
+        return hasUnholyRobe(livingEntity) && hasUnholyHat(livingEntity);
     }
 
     public static boolean isWitchFriendly(LivingEntity livingEntity){
         return (hasWitchSet(livingEntity) && ItemConfig.WitchSetWitchNeutral.get())
                 || (hasWarlockRobe(livingEntity) && ItemConfig.WarlockRobeWitchNeutral.get())
-                || (hasNetherRobe(livingEntity) && ItemConfig.NetherRobeWitchNeutral.get());
+                || (hasNetherRobe(livingEntity) && ItemConfig.NetherRobeWitchNeutral.get())
+                || (hasUnholyRobe(livingEntity) || hasUnholyHat(livingEntity));
     }
 
     public static boolean hasWitchSet(LivingEntity livingEntity){

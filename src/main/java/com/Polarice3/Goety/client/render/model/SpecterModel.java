@@ -32,23 +32,23 @@ public class SpecterModel<T extends Mob> extends HierarchicalModel<T> {
 
 		PartDefinition Ghost = partdefinition.addOrReplaceChild("Ghost", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition head = Ghost.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -3.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(32, 0).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 3.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(40, 16).addBox(-4.0F, -8.0F, 5.0F, 8.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, -1.0F));
+		PartDefinition head = Ghost.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(32, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 3.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(40, 16).addBox(-4.0F, -8.0F, 4.0F, 8.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -23.0F, 0.0F));
 
 		PartDefinition right_arm = Ghost.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-6.0F, -22.0F, 0.0F));
 
 		PartDefinition right_robe = right_arm.addOrReplaceChild("right_robe", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 34).addBox(-2.0F, -3.0F, 2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(0, 34).addBox(-2.0F, -3.0F, 2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition left_arm = Ghost.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(6.0F, -22.0F, 0.0F));
 
 		PartDefinition left_robe = left_arm.addOrReplaceChild("left_robe", CubeListBuilder.create().texOffs(16, 16).mirror().addBox(-2.0F, -3.0F, -2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(16, 34).addBox(-2.0F, -3.0F, 2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(16, 34).addBox(-2.0F, -3.0F, 2.0F, 4.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -24.0F, 1.0F));
+		PartDefinition body = Ghost.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -24.0F, 0.0F));
 
-		PartDefinition robe = body.addOrReplaceChild("robe", CubeListBuilder.create().texOffs(40, 28).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 20.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition robe = body.addOrReplaceChild("robe", CubeListBuilder.create().texOffs(40, 28).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 20.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 1.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -62,10 +62,12 @@ public class SpecterModel<T extends Mob> extends HierarchicalModel<T> {
 		this.body.xRot += Mth.cos(ageInTicks * 0.09F) * 0.1F + 0.1F;
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
-		animateArms(this.left_arm, this.right_arm, limbSwingAmount, ageInTicks);
+		animateArms(this.left_arm, this.right_arm, this.attackTime, ageInTicks);
 	}
 
 	public static void animateArms(ModelPart leftArm, ModelPart rightArm, float attackTime, float ageInTicks) {
+		float f = Mth.sin(attackTime * (float)Math.PI);
+		float f1 = Mth.sin((1.0F - (1.0F - attackTime) * (1.0F - attackTime)) * (float)Math.PI);
 		rightArm.zRot = 0.0F;
 		leftArm.zRot = 0.0F;
 		rightArm.yRot = -(0.1F - 0 * 0.6F);
@@ -73,6 +75,8 @@ public class SpecterModel<T extends Mob> extends HierarchicalModel<T> {
 		float f2 = -MathHelper.modelDegrees(45.0F);
 		rightArm.xRot = f2;
 		leftArm.xRot = f2;
+		rightArm.xRot += f * 1.2F - f1 * 0.4F;
+		leftArm.xRot += f * 1.2F - f1 * 0.4F;
 		AnimationUtils.bobArms(rightArm, leftArm, ageInTicks);
 	}
 

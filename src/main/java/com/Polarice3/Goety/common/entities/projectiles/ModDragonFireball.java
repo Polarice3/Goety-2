@@ -19,6 +19,7 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
         Entity entity = this.getOwner();
         float radius = 0;
         int duration = 1;
+        float damage = 0.0F;
         if (p_36913_.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)p_36913_).getEntity())) {
             if (!this.level.isClientSide) {
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
@@ -50,11 +52,12 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
                         if (WandUtil.enchantedFocus(player)){
                             radius = WandUtil.getLevels(ModEnchantments.RADIUS.get(), player);
                             duration = WandUtil.getLevels(ModEnchantments.DURATION.get(), player) + 1;
+                            damage = WandUtil.getLevels(ModEnchantments.POTENCY.get(), player) / 2.0F;
                         }
                     }
                     breathCloud.setOwner(livingEntity);
                 }
-
+                breathCloud.setDamage(breathCloud.getDamage() + damage);
                 breathCloud.setRadius(3.0F + radius);
                 breathCloud.setDuration(600 * duration);
                 breathCloud.setRadiusPerTick((7.0F - breathCloud.getRadius()) / (float)breathCloud.getDuration());
@@ -94,13 +97,13 @@ public class ModDragonFireball extends AbstractHurtingProjectile {
 
     protected boolean canHitEntity(Entity pEntity) {
         if (this.getOwner() != null){
-            if (pEntity == this.getOwner()){
+            if (pEntity == this.getOwner() || (pEntity instanceof PartEntity<?> partEntity && partEntity.getParent() == this.getOwner())){
                 return false;
             }
             if (this.getOwner() instanceof Mob mob && mob.getTarget() == pEntity){
                 return super.canHitEntity(pEntity);
             } else {
-                if (MobUtil.areAllies(this.getOwner(), pEntity)){
+                if(MobUtil.areAllies(this.getOwner(), pEntity)){
                     return false;
                 }
                 if (pEntity instanceof IOwned owned0 && this.getOwner() instanceof IOwned owned1){

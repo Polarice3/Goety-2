@@ -1,11 +1,14 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -39,6 +42,10 @@ public class Specter extends Summoned {
     public void followGoal(){
     }
 
+    public void targetSelectGoal(){
+        this.targetSelector.addGoal(1, new SummonTargetGoal(this, false, false));
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
@@ -59,6 +66,15 @@ public class Specter extends Summoned {
     @Override
     public boolean isSteppingCarefully() {
         return true;
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance pPotioneffect) {
+        return super.canBeAffected(pPotioneffect) && pPotioneffect.getEffect() != MobEffects.WITHER;
+    }
+
+    public double getMeleeAttackRangeSqr(LivingEntity p_147273_) {
+        return (double)(this.getBbWidth() * this.getBbWidth() + p_147273_.getBbWidth());
     }
 
     public static class SpecterMoveControl extends MoveControl {

@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.items.equipment;
 
+import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.init.ModSounds;
@@ -45,7 +46,7 @@ public class HammerItem extends TieredItem implements Vanishable {
     protected final float speed;
 
     public HammerItem(Tier itemTier) {
-        super(itemTier, new Properties().rarity(Rarity.UNCOMMON).durability(itemTier.getUses()));
+        super(itemTier, new Properties().tab(Goety.TAB).rarity(Rarity.UNCOMMON).durability(itemTier.getUses()));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         initialDamage = ItemConfig.HammerBaseDamage.get().floatValue() + itemTier.getAttackDamageBonus();
         double attackSpeed = 4.0D - ItemConfig.HammerAttackSpeed.get();

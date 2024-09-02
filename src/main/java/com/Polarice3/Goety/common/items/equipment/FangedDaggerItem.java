@@ -37,7 +37,7 @@ public class FangedDaggerItem extends TieredItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public FangedDaggerItem(Tier tier) {
-        super(tier, (new Properties().tab(Goety.TAB)).rarity(Rarity.UNCOMMON));
+        super(tier, (new Properties().tab(Goety.TAB).rarity(Rarity.UNCOMMON)));
         this.attackDamage = tier.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));

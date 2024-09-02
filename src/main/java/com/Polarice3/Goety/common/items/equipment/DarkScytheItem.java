@@ -150,6 +150,7 @@ public class DarkScytheItem extends TieredItem implements Vanishable {
         return (enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment.category == EnchantmentCategory.DIGGER
                 || enchantment == Enchantments.MOB_LOOTING
                 || enchantment == Enchantments.BLOCK_FORTUNE);
     }

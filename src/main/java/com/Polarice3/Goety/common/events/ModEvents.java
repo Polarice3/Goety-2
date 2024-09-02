@@ -982,6 +982,11 @@ public class ModEvents {
                             }
                         }
                     }
+                    if (CuriosFinder.hasUnholyRobe(target) || CuriosFinder.hasUnholyHat(target)){
+                        if (mobAttacker instanceof Ghast || mobAttacker instanceof Blaze){
+                            event.setNewTarget(null);
+                        }
+                    }
                     if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
                         boolean undead = CuriosFinder.validNecroUndead(mobAttacker);
                         if (target.level instanceof ServerLevel serverLevel){
@@ -1148,7 +1153,11 @@ public class ModEvents {
                 }
                 if (CuriosFinder.hasNetherRobe(source1)){
                     if (victim.isInvulnerableTo(event.getSource()) || victim.hasEffect(MobEffects.FIRE_RESISTANCE)){
-                        victim.hurt(ModDamageSource.magicFireBreath(direct1, source1), event.getAmount());
+                        DamageSource damageSource = ModDamageSource.magicFireBreath(direct1, source1);
+                        if (CuriosFinder.hasUnholyRobe(source1)){
+                            damageSource = ModDamageSource.hellfire(direct1, source1);
+                        }
+                        victim.hurt(damageSource, event.getAmount());
                         event.setCanceled(true);
                     }
                 }
