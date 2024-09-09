@@ -147,6 +147,9 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> BLAZE_SERVANT_SPAWN_EGG = ITEMS.register("blaze_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.BLAZE_SERVANT, 0xff9c0c, 0xfffb82, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> WILDFIRE_SERVANT_SPAWN_EGG = ITEMS.register("wildfire_servant_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.WILDFIRE, 0xfc9600, 0xff0000, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> SLIME_SERVANT_SPAWN_EGG = ITEMS.register("slime_servant_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.SLIME_SERVANT, 0x51a03e, 0x162810, egg()));
 

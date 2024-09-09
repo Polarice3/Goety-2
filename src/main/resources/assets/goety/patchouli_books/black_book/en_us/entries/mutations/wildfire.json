@@ -1,0 +1,26 @@
+{
+  "name": "Wildfire",
+  "icon": "minecraft:blaze_rod",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "With some testing and studying, you've managed to recreate one of the Nephilim's greatest folly, though without the whole betrayal thing of course."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_blazes_to_wildfire"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wildfire",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The master of blazes can be healed by right-clicking it with Blaze Powders or Rods, and can passively heal if their owner dons a Nether Robe, much like their lesser brethren. So intune to fire, they regenerate when standing on one and heal when struck by fiery attacks (with some... exceptions)."
+    }
+  ]
+}

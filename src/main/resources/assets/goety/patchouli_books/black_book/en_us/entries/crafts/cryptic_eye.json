@@ -1,0 +1,17 @@
+{
+  "name": "Cryptic Eye",
+  "icon": "goety:cryptic_eye",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These essences dropped by that $(l:world/bestiary/wight)horrific creature$() appears to be resonating towards something. By combining it with an Eye of Ender, you've discovered that instead of leading to the nearest Stronghold, it leads to $(l:world/crypts)someplace else$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cryptic_eye",
+      "text": "It appears that using it will throw a copy of the eye instead of using it fully. However, it takes up durability when doing so."
+    }
+  ]
+}

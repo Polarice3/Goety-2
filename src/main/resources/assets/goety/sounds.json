@@ -178,6 +178,164 @@
     ],
     "subtitle": "subtitle.goety.inferno_death"
   },
+  "wildfire_ambient": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/idle1"
+      },
+      {
+        "name": "goety:wildfire/idle2"
+      },
+      {
+        "name": "goety:wildfire/idle3"
+      },
+      {
+        "name": "goety:wildfire/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_ambient"
+  },
+  "wildfire_hurt": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/hurt1"
+      },
+      {
+        "name": "goety:wildfire/hurt2"
+      },
+      {
+        "name": "goety:wildfire/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_hurt"
+  },
+  "wildfire_pre_attack": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/pre_attack1"
+      },
+      {
+        "name": "goety:wildfire/pre_attack2"
+      },
+      {
+        "name": "goety:wildfire/pre_attack3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_pre_attack"
+  },
+  "wildfire_shoot": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/shoot1"
+      },
+      {
+        "name": "goety:wildfire/shoot2"
+      },
+      {
+        "name": "goety:wildfire/shoot3"
+      },
+      {
+        "name": "goety:wildfire/shoot4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_shoot"
+  },
+  "wildfire_shockwave": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/shockwave1"
+      },
+      {
+        "name": "goety:wildfire/shockwave2"
+      },
+      {
+        "name": "goety:wildfire/shockwave3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_shockwave"
+  },
+  "wildfire_shield_break": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/shield_break1"
+      },
+      {
+        "name": "goety:wildfire/shield_break2"
+      },
+      {
+        "name": "goety:wildfire/shield_break3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_shield_break"
+  },
+  "wildfire_shield_break_vocal": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/shield_break_vocal1"
+      },
+      {
+        "name": "goety:wildfire/shield_break_vocal2"
+      },
+      {
+        "name": "goety:wildfire/shield_break_vocal3"
+      }
+    ]
+  },
+  "wildfire_shield_regen": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/shield_regen1"
+      },
+      {
+        "name": "goety:wildfire/shield_regen2"
+      },
+      {
+        "name": "goety:wildfire/shield_regen3"
+      },
+      {
+        "name": "goety:wildfire/shield_regen4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_shield_regen"
+  },
+  "wildfire_loop": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/loop"
+      }
+    ]
+  },
+  "wildfire_step": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/step1"
+      },
+      {
+        "name": "goety:wildfire/step2"
+      },
+      {
+        "name": "goety:wildfire/step3"
+      },
+      {
+        "name": "goety:wildfire/step4"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_step"
+  },
+  "wildfire_death": {
+    "sounds": [
+      {
+        "name": "goety:wildfire/death1"
+      },
+      {
+        "name": "goety:wildfire/death2"
+      },
+      {
+        "name": "goety:wildfire/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.wildfire_death"
+  },
   "warlock_ambient": {
     "sounds": [
       {
@@ -4203,6 +4361,22 @@
       }
     ],
     "subtitle": "subtitle.goety.bone_shard_impact"
+  },
+  "shield_debris_impact": {
+    "sounds": [
+      {
+        "name": "goety:random/shield_debris_impact1"
+      },
+      {
+        "name": "goety:random/shield_debris_impact2"
+      },
+      {
+        "name": "goety:random/shield_debris_impact3"
+      },
+      {
+        "name": "goety:random/shield_debris_impact4"
+      }
+    ]
   },
   "insect_swarm": {
     "sounds": [

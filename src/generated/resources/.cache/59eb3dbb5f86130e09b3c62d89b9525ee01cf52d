@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-17T20:13:59.2705209	Loot Tables
+// 1.20.1	2024-09-04T19:55:43.0185521	Loot Tables
 3680f1ed64d6a43ffeb4318902cf373b057b8db4 data/goety/loot_tables/blocks/apparition_door.json
 975921a90d8fa8d7a0e12f961a5757e1b083ad87 data/goety/loot_tables/blocks/arca.json
 f7a819c3aef0dda1fe38d098a114b70570eec26b data/goety/loot_tables/blocks/awakened_emerald_block.json
@@ -66,6 +66,7 @@ ed30b0bdc50c587cc9376c3dc35a6728c0130f5f data/goety/loot_tables/blocks/dark_meta
 d96970541510b1dcbf0c98c17655b736c5d90010 data/goety/loot_tables/blocks/dark_pressure_plate.json
 9f38bc6343636994f7caec7bcc2f1d748b99e4ce data/goety/loot_tables/blocks/deepslate_brazier.json
 b93145036633a9284e62d4c4a71eb06ae268398e data/goety/loot_tables/blocks/deepslate_soul_brazier.json
+ccde6d25d5d6dff26a62263448a969bd63122f4c data/goety/loot_tables/blocks/diamond_mold_block.json
 e224c00e808f8c2c592ca7cde376c8a940d1d280 data/goety/loot_tables/blocks/forbidden_grass.json
 b6646b8e880b73a6c9665e0dff3275752d013708 data/goety/loot_tables/blocks/freezing_lamp.json
 79450c0c0b2d6dc3f41da17a3cb977f53cc32fdd data/goety/loot_tables/blocks/gold_arch_marble.json

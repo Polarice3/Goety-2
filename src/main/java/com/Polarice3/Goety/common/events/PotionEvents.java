@@ -77,6 +77,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PotionEvents {
 
@@ -539,7 +541,11 @@ public class PotionEvents {
             && !event.getEntity().getType().is(Tags.EntityTypes.BOSSES)
             && !(event.getEntity() instanceof OwnableEntity ownable &&
                     ownable.getOwner() != null && ownable.getOwner().getType().is(Tags.EntityTypes.BOSSES))) {
-                event.setNewTarget(null);
+                if (event.getTargetType() == MOB_TARGET) {
+                    event.setNewTarget(null);
+                } else {
+                    event.setCanceled(true);
+                }
             }
         }
     }

@@ -1,0 +1,15 @@
+{
+  "name": "Фокус ядовитых дротиков",
+  "icon": "goety:poison_dart_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Позволяет стрелять ядовитыми дротиками по направлению взгляда. Поражённые существа отравляются."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/poison_dart_focus"
+    }
+  ]
+}

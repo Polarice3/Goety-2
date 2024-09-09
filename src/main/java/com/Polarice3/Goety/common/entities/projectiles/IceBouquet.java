@@ -2,13 +2,11 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.client.render.IceBouquetTextures;
-import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.SEHelper;
-import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -38,6 +36,7 @@ public class IceBouquet extends GroundProjectile {
     private static final EntityDataAccessor<Integer> DATA_TYPE_ID = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SOUL_EATING = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CONCENTRATE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(IceBouquet.class, EntityDataSerializers.FLOAT);
 
     public IceBouquet(EntityType<? extends Entity> p_i50170_1_, Level p_i50170_2_) {
         super(p_i50170_1_, p_i50170_2_);
@@ -73,6 +72,7 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.define(DATA_TYPE_ID, 0);
         this.entityData.define(SOUL_EATING, false);
         this.entityData.define(CONCENTRATE, true);
+        this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
     public int getAnimation() {
@@ -99,12 +99,39 @@ public class IceBouquet extends GroundProjectile {
         this.entityData.set(CONCENTRATE, concentrate);
     }
 
+    public float getExtraDamage() {
+        return this.entityData.get(DATA_EXTRA_DAMAGE);
+    }
+
+    public void setExtraDamage(float pDamage) {
+        this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    public int getLifeSpan() {
+        return this.lifeTicks;
+    }
+
+    public void setLifeSpan(int span) {
+        this.lifeTicks = span;
+    }
+
+    public void addLifeSpan(int span) {
+        this.lifeTicks += span;
+    }
+
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setAnimation(pCompound.getInt("Animation"));
-        this.setSoulEating(pCompound.getBoolean("soulEating"));
-        this.setConcentrate(pCompound.getBoolean("concentrate"));
+        if (pCompound.contains("soulEating")) {
+            this.setSoulEating(pCompound.getBoolean("soulEating"));
+        }
+        if (pCompound.contains("concentrate")) {
+            this.setConcentrate(pCompound.getBoolean("concentrate"));
+        }
+        if (pCompound.contains("ExtraDamage")) {
+            this.setExtraDamage(pCompound.getFloat("ExtraDamage"));
+        }
     }
 
     @Override
@@ -113,6 +140,7 @@ public class IceBouquet extends GroundProjectile {
         pCompound.putInt("Animation", this.getAnimation());
         pCompound.putBoolean("soulEating", this.isSoulEating());
         pCompound.putBoolean("concentrate", this.needsConcentrate());
+        pCompound.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
     public float getLightLevelDependentMagicValue() {
@@ -220,11 +248,7 @@ public class IceBouquet extends GroundProjectile {
                 if (MobUtil.areAllies(owner, target)){
                     return;
                 }
-                if (owner instanceof Player player){
-                    if (WandUtil.enchantedFocus(player)) {
-                        damage += WandUtil.getLevels(ModEnchantments.POTENCY.get(), player);
-                    }
-                } else {
+                if (owner instanceof Mob) {
                     if (owner.getAttribute(Attributes.ATTACK_DAMAGE) != null){
                         damage = (float) owner.getAttributeValue(Attributes.ATTACK_DAMAGE);
                         if (damage < 1){
@@ -234,6 +258,8 @@ public class IceBouquet extends GroundProjectile {
                             damage /= 2.0F;
                         }
                     }
+                } else {
+                    damage += this.getExtraDamage();
                 }
                 if (target.hurt(ModDamageSource.iceBouquet(this, owner), damage)){
                     if (owner instanceof Player) {

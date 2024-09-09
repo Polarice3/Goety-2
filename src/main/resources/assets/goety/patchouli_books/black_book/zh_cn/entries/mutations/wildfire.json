@@ -1,0 +1,26 @@
+{
+  "name": "野火",
+  "icon": "minecraft:blaze_rod",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "经过一些测试和研究，你成功地重现了那些下界先哲们所做过的最愚蠢的行为之一，当然，它不会再现下界的焦灼。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_blazes_to_wildfire"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wildfire",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些烈焰人宗师可以通过用烈焰粉或烈焰棒右键单击它来治愈，如果它们的主人穿上下界长袍，它们也可以使用灵魂能量来治愈自身，就像它们的小兄弟一样。因此，当它们站在火上时，它们会再生，受到火属性攻击时也会治疗他们（当然万事万物都是有例外的...）。"
+    }
+  ]
+}

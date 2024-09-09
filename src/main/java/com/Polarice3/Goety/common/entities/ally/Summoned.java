@@ -177,10 +177,25 @@ public class Summoned extends Owned implements IServant {
             }
         }
         if (this.getTrueOwner() != null){
-            if (CuriosFinder.hasUndeadCrown(this.getTrueOwner()) && this.getMobType() == MobType.UNDEAD){
+            boolean crown = false;
+            if (this.getMobType() == ModMobType.FROST){
+                crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == ModMobType.NATURAL){
+                crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == ModMobType.NETHER){
+                crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == MobType.UNDEAD){
+                crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
+            }
+            if (!crown){
+                if (this.limitedLifeTicks > 0){
+                    this.limitedLifespan = true;
+                }
+            } else {
                 this.limitedLifespan = false;
-            } else if (this.limitedLifeTicks > 0){
-                this.limitedLifespan = true;
             }
             if (!this.level.isClientSide) {
                 if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {

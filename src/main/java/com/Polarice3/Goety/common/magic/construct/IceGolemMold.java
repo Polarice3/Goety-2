@@ -101,23 +101,25 @@ public class IceGolemMold implements IMold {
     public boolean spawnServant(Player player, ItemStack stack, Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(Blocks.BLUE_ICE)) {
-                if (canSpawn(level, blockPos) && conditionsMet(level, player)) {
-                    IceGolem iceGolem = ModEntityType.ICE_GOLEM.get().create(level);
-                    if (iceGolem != null) {
-                        iceGolem.setTrueOwner(player);
-                        iceGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(iceGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                        iceGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
-                        if (level.addFreshEntity(iceGolem)) {
-                            removeBlocks(level, blockPos);
-                            stack.shrink(1);
-                            if (player instanceof ServerPlayer serverPlayer) {
-                                CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, iceGolem);
+                if (conditionsMet(level, player)) {
+                    if (canSpawn(level, blockPos)) {
+                        IceGolem iceGolem = ModEntityType.ICE_GOLEM.get().create(level);
+                        if (iceGolem != null) {
+                            iceGolem.setTrueOwner(player);
+                            iceGolem.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(iceGolem.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                            iceGolem.moveTo((double) blockPos.getX() + 0.5D, (double) blockPos.below().getY() + 0.05D, (double) blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+                            if (level.addFreshEntity(iceGolem)) {
+                                removeBlocks(level, blockPos);
+                                stack.shrink(1);
+                                if (player instanceof ServerPlayer serverPlayer) {
+                                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, iceGolem);
+                                }
+                                return true;
                             }
-                            return true;
                         }
+                    } else {
+                        player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                     }
-                } else {
-                    player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                 }
             }
         }

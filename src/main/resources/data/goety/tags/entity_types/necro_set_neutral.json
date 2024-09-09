@@ -14,6 +14,10 @@
       "required": false
     },
     {
+      "id": "born_in_chaos_v1:phantom_creeper_copy",
+      "required": false
+    },
+    {
       "id": "born_in_chaos_v1:seared_spirit",
       "required": false
     },

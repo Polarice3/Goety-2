@@ -1,19 +1,28 @@
 {
-  "name": "氷魔女のローブ",
+  "name": "氷のローブ",
   "icon": "goety:frost_robe",
   "category": "goety:crafts/garment",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "氷魔女のローブは、着用者に冷たいものすべての力を吹き込みます。 着用者は決して凍ることはなく、凍結攻撃に耐性があり、粉雪の中を自由に移動できます。 ローブを使用するとフロストスペルも安くなります。"
+      "text": "氷のローブは、着用者に冷たいもの全ての力を吹き込みます。着用すると、凍結攻撃に耐性を持ち、粉雪の中を自由に移動できます。また、凍結呪文のソウルコストも下がります。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:frost_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:frost_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "氷の冠は凍結呪文を唱える時間を半分に減らし、特定の氷の従者がヴェックスのように死んでしまうのを防ぎます。"
     }
   ],
   "extra_recipe_mappings": {
     "goety:frost_robe": 1,
-    "goety:frost_robe_cryo": 1
+    "goety:frost_robe_cryo": 1,
+    "goety:frost_crown": 2
   }
 }

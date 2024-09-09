@@ -1,0 +1,17 @@
+{
+  "name": "墓穴之眼",
+  "icon": "goety:cryptic_eye",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些精粹掉落于那些$(l:world/bestiary/wight)极恶恐怖之物$()...并且似乎还在对某种东西产生共鸣。通过将其与末影之眼相结合，您发现它并非通往最近的要塞，而是通往$(l:world/crypts)其他的地方$()的。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cryptic_eye",
+      "text": "使用它会复制一个寻找结构的眼睛，这样做会消耗它的耐久。"
+    }
+  ]
+}

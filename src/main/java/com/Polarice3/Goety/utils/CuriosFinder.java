@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.api.entities.IOwned;
+import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.items.ModItems;
@@ -9,11 +10,16 @@ import com.Polarice3.Goety.common.items.curios.*;
 import com.Polarice3.Goety.common.items.handler.BrewBagItemHandler;
 import com.Polarice3.Goety.compat.curios.CuriosLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,6 +70,15 @@ public class CuriosFinder {
         return foundStack;
     }
 
+    public static boolean noHeadWear(LivingEntity livingEntity){
+        if (livingEntity != null) {
+            if (CuriosLoaded.CURIOS.isLoaded()) {
+                return CuriosApi.getCuriosInventory(livingEntity).map(inv -> inv.findCurios("head").isEmpty()).orElse(false);
+            }
+        }
+        return true;
+    }
+
     public static boolean hasWanting(Entity entity){
         if (entity instanceof Player player){
             if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()){
@@ -76,12 +91,38 @@ public class CuriosFinder {
         return false;
     }
 
+    public static boolean hasMagicHat(LivingEntity livingEntity){
+        return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof MagicHatItem));
+    }
+
     public static boolean hasDarkRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof MagicRobeItem));
     }
 
     public static boolean hasWildRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof WildRobeItem));
+    }
+
+    public static boolean hasWildCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.WILD);
+    }
+
+    public static boolean hasWildSet(LivingEntity livingEntity){
+        return hasWildRobe(livingEntity)
+                && hasWildCrown(livingEntity);
+    }
+
+    public static boolean neutralWildSet(LivingEntity livingEntity){
+        return hasWildSet(livingEntity) && ItemConfig.WildSetMobNeutral.get();
+    }
+
+    public static boolean validWildMob(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == ModMobType.NATURAL
+                || livingEntity.getMobType() == MobType.ARTHROPOD
+                || livingEntity instanceof Animal
+                || livingEntity.getType().is(ModTags.EntityTypes.WILD_SET_NEUTRAL))
+                && livingEntity.getMaxHealth() <= ItemConfig.WildSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     public static boolean hasIllusionRobe(LivingEntity livingEntity){
@@ -103,6 +144,29 @@ public class CuriosFinder {
     public static boolean hasNetherRobe(LivingEntity livingEntity){
         return hasCurio(livingEntity, (itemStack -> itemStack.getItem() instanceof NetherRobeItem))
                 || hasUnholyRobe(livingEntity);
+    }
+
+    public static boolean hasNetherCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, item -> item.getItem() instanceof MagicCrownItem crownItem && crownItem.spellType == SpellType.NETHER);
+    }
+
+    public static boolean hasNetherSet(LivingEntity livingEntity){
+        return hasNetherRobe(livingEntity)
+                && hasNetherCrown(livingEntity);
+    }
+
+    public static boolean neutralNetherSet(LivingEntity livingEntity){
+        return hasNetherSet(livingEntity) && ItemConfig.NetherSetMobNeutral.get();
+    }
+
+    public static boolean validNetherMob(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == ModMobType.NETHER
+                || livingEntity instanceof Blaze
+                || livingEntity instanceof Ghast
+                || livingEntity instanceof MagmaCube
+                || livingEntity.getType().is(ModTags.EntityTypes.NETHER_SET_NEUTRAL))
+                && livingEntity.getMaxHealth() <= ItemConfig.NetherSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     public static boolean hasUnholyRobe(LivingEntity livingEntity){
@@ -191,6 +255,26 @@ public class CuriosFinder {
 
     public static boolean hasFrostRobes(LivingEntity livingEntity){
         return hasCurio(livingEntity, item -> item.getItem() instanceof FrostRobeItem);
+    }
+
+    public static boolean hasFrostCrown(LivingEntity livingEntity){
+        return hasCurio(livingEntity, ModItems.FROST_CROWN.get());
+    }
+
+    public static boolean hasFrostSet(LivingEntity livingEntity){
+        return hasFrostRobes(livingEntity)
+                && hasFrostCrown(livingEntity);
+    }
+
+    public static boolean neutralFrostSet(LivingEntity livingEntity){
+        return hasFrostSet(livingEntity) && ItemConfig.FrostSetMobNeutral.get();
+    }
+
+    public static boolean validFrostMob(LivingEntity livingEntity){
+        return (livingEntity.getMobType() == ModMobType.FROST
+                || livingEntity.getType().is(ModTags.EntityTypes.FROST_SET_NEUTRAL))
+                && livingEntity.getMaxHealth() <= ItemConfig.FrostSetMobNeutralHealth.get()
+                && !(livingEntity instanceof IOwned && !(livingEntity instanceof Enemy));
     }
 
     public static boolean hasWindyRobes(LivingEntity livingEntity){

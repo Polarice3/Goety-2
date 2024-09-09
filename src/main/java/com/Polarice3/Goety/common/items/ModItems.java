@@ -113,6 +113,7 @@ public class ModItems {
     public static final RegistryObject<Item> ILL_BOMB = ITEMS.register("ill_bomb", IllBombItem::new);
     public static final RegistryObject<Item> CRYPTIC_EYE = ITEMS.register("cryptic_eye", CrypticEyeItem::new);
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
+    public static final RegistryObject<Item> HOWLING_SOUL = ITEMS.register("howling_soul", HowlingSoul::new);
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
     public static final RegistryObject<Item> ARCA_COMPASS = ITEMS.register("arca_compass", ArcaCompassItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
@@ -162,6 +163,9 @@ public class ModItems {
     public static final RegistryObject<SingleStackItem> TARGETING_MONOCLE = ITEMS.register("targeting_monocle", SingleStackItem::new);
     public static final RegistryObject<SingleStackItem> DARK_HAT = ITEMS.register("dark_hat", MagicHatItem::new);
     public static final RegistryObject<SingleStackItem> GRAND_TURBAN = ITEMS.register("grand_turban", MagicHatItem::new);
+    public static final RegistryObject<SingleStackItem> FROST_CROWN = ITEMS.register("frost_crown", () -> new MagicCrownItem(SpellType.FROST));
+    public static final RegistryObject<SingleStackItem> WILD_CROWN = ITEMS.register("wild_crown", () -> new MagicCrownItem(SpellType.WILD));
+    public static final RegistryObject<SingleStackItem> NETHER_CROWN = ITEMS.register("nether_crown", () -> new MagicCrownItem(new Item.Properties().fireResistant().stacksTo(1), SpellType.NETHER));
     public static final RegistryObject<SingleStackItem> NECRO_CROWN = ITEMS.register("necro_crown", NecroGarbs.NecroCrownItem::new);
     public static final RegistryObject<SingleStackItem> NAMELESS_CROWN = ITEMS.register("nameless_crown", () -> new NecroGarbs.NecroCrownItem(true));
     public static final RegistryObject<SingleStackItem> AMETHYST_NECKLACE = ITEMS.register("amethyst_necklace", SingleStackItem::new);
@@ -224,6 +228,7 @@ public class ModItems {
     ///Necromancy
     public static final RegistryObject<Item> ROTTING_FOCUS = ITEMS.register("rotting_focus", () -> new MagicFocus(new ZombieSpell()));
     public static final RegistryObject<Item> OSSEOUS_FOCUS = ITEMS.register("osseous_focus", () -> new MagicFocus(new SkeletonSpell()));
+    public static final RegistryObject<Item> GHOST_FIRE_FOCUS = ITEMS.register("ghost_fire_focus", () -> new MagicFocus(new IceBouquetSpell()));
     public static final RegistryObject<Item> SPOOKY_FOCUS = ITEMS.register("spooky_focus", () -> new MagicFocus(new WraithSpell()));
     public static final RegistryObject<Item> VANGUARD_FOCUS = ITEMS.register("vanguard_focus", () -> new MagicFocus(new VanguardSpell()));
     public static final RegistryObject<Item> BLACKGUARD_FOCUS = ITEMS.register("blackguard_focus", () -> new MagicFocus(new BlackguardSpell()));
@@ -248,6 +253,7 @@ public class ModItems {
 
     ///Wild
     public static final RegistryObject<Item> SWARM_FOCUS = ITEMS.register("swarm_focus", () -> new MagicFocus(new SwarmSpell()));
+    public static final RegistryObject<Item> POISON_DART_FOCUS = ITEMS.register("poison_dart_focus", () -> new MagicFocus(new PoisonDartSpell()));
     public static final RegistryObject<Item> GRAPPLE_FOCUS = ITEMS.register("grapple_focus", () -> new MagicFocus(new GrappleSpell()));
     public static final RegistryObject<Item> HUNTING_FOCUS = ITEMS.register("hunting_focus", () -> new MagicFocus(new HuntingSpell()));
     public static final RegistryObject<Item> MAULING_FOCUS = ITEMS.register("mauling_focus", () -> new MagicFocus(new MaulingSpell()));

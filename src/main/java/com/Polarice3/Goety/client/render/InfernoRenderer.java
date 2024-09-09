@@ -16,8 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
 public class InfernoRenderer extends MobRenderer<Inferno, InfernoModel<Inferno>> {
-   private static final ResourceLocation BLAZE_LOCATION = Goety.location("textures/entity/servants/inferno.png");
-   private static final ResourceLocation GRAND = Goety.location("textures/entity/servants/inferno_grand.png");
+   private static final ResourceLocation BLAZE_LOCATION = Goety.location("textures/entity/servants/blaze/inferno.png");
+   private static final ResourceLocation GRAND = Goety.location("textures/entity/servants/blaze/inferno_grand.png");
 
    public InfernoRenderer(EntityRendererProvider.Context p_173933_) {
       super(p_173933_, new InfernoModel<>(p_173933_.bakeLayer(ModModelLayer.INFERNO)), 0.5F);
@@ -37,7 +37,7 @@ public class InfernoRenderer extends MobRenderer<Inferno, InfernoModel<Inferno>>
    }
 
    public static class GlowLayer<T extends Inferno, M extends InfernoModel<T>> extends EyesLayer<T, M> {
-      private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/servants/inferno_eyes.png"));
+      private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/servants/blaze/inferno_eyes.png"));
 
       public GlowLayer(RenderLayerParent<T, M> p_i50919_1_) {
          super(p_i50919_1_);

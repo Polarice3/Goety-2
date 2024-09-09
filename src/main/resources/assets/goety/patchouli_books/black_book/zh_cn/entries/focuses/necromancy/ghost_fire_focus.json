@@ -1,0 +1,18 @@
+{
+  "name": "幽灵火聚晶",
+  "icon": "goety:ghost_fire_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "逝者之火可能很冰冷刺骨。但是借助灵质，你也可以成功地在某个地方或敌人脚下召唤出冰之火。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghost_fire_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghost_fire_focus": 1
+  }
+}

@@ -64,6 +64,10 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardSummonDown;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackguardLimit;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhostFireCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhostFireDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> GhostFireCoolDown;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> HauntedSkullCoolDown;
@@ -258,6 +262,11 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SwarmChargeUp;
     public static final ForgeConfigSpec.ConfigValue<Double> SwarmDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> PoisonDartCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PoisonDartDuration;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PoisonDartCoolDown;
+    public static final ForgeConfigSpec.ConfigValue<Double> PoisonDartDamage;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleDuration;
     public static final ForgeConfigSpec.ConfigValue<Integer> GrappleCoolDown;
@@ -389,6 +398,7 @@ public class SpellConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> NecromancerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BoundIllagerLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> BlackBeastLimit;
+    public static final ForgeConfigSpec.ConfigValue<Integer> WildfireLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> GraveGolemLimit;
     public static final ForgeConfigSpec.ConfigValue<Integer> RedstoneMonstrosityGlobalLimit;
@@ -528,6 +538,14 @@ public class SpellConfig {
                     .defineInRange("blackguardSummonDown", 300, 0, 72000);
             BlackguardLimit = BUILDER.comment("Number of Blackguard Servants that an individual player can have in total, Default: 16")
                     .defineInRange("blackguardLimit", 16, 1, Integer.MAX_VALUE);
+            BUILDER.pop();
+            BUILDER.push("Ghost Fire Spell");
+            GhostFireCost = BUILDER.comment("Ghost Fire Spell Cost, Default: 16")
+                    .defineInRange("ghostFireCost", 16, 0, Integer.MAX_VALUE);
+            GhostFireDuration = BUILDER.comment("Time to cast Ghost Fire Spell, Default: 40")
+                    .defineInRange("ghostFireTime", 40, 0, 72000);
+            GhostFireCoolDown = BUILDER.comment("Ghost Fire Spell Cooldown, Default: 200")
+                    .defineInRange("ghostFireCoolDown", 200, 0, Integer.MAX_VALUE);
             BUILDER.pop();
             BUILDER.push("Skull Spell");
             HauntedSkullCost = BUILDER.comment("Skull Spell Cost, Default: 16")
@@ -917,6 +935,16 @@ public class SpellConfig {
             SwarmDamage = BUILDER.comment("How much base damage Swarm deals, Default: 2.0")
                     .defineInRange("swarmDamage", 2.0, 1.0, Double.MAX_VALUE);
             BUILDER.pop();
+            BUILDER.push("Poison Dart Spell");
+            PoisonDartCost = BUILDER.comment("Poison Dart Spell Cost, Default: 8")
+                    .defineInRange("poisonDartCost", 8, 0, Integer.MAX_VALUE);
+            PoisonDartDuration = BUILDER.comment("Time to cast Poison Dart Spell, Default: 0")
+                    .defineInRange("poisonDartTime", 0, 0, 72000);
+            PoisonDartCoolDown = BUILDER.comment("Poison Dart Spell Cooldown, Default: 20")
+                    .defineInRange("poisonDartCoolDown", 20, 0, Integer.MAX_VALUE);
+            PoisonDartDamage = BUILDER.comment("How much base damage Poison Quills deals, Default: 2.5")
+                    .defineInRange("poisonDartDamage", 2.5, 1.0, Double.MAX_VALUE);
+            BUILDER.pop();
             BUILDER.push("Grapple Spell");
             GrappleCost = BUILDER.comment("Grapple Spell Cost, Default: 4")
                     .defineInRange("grappleCost", 4, 0, Integer.MAX_VALUE);
@@ -1191,6 +1219,8 @@ public class SpellConfig {
                 .defineInRange("boundIllagerLimit", 2, 1, Integer.MAX_VALUE);
         BlackBeastLimit = BUILDER.comment("Number of Black Beast Servants that an individual player can have in total, Default: 2")
                 .defineInRange("blackBeastLimit", 2, 1, Integer.MAX_VALUE);
+        WildfireLimit = BUILDER.comment("Number of Wildfire Servants that an individual player can have in total, Default: 2")
+                .defineInRange("wildfireLimit", 2, 1, Integer.MAX_VALUE);
         RedstoneGolemLimit = BUILDER.comment("Total number of Redstone Golems an individual player can have, Default: 2")
                 .defineInRange("redstoneGolemLimit", 2, 0, Integer.MAX_VALUE);
         GraveGolemLimit = BUILDER.comment("Total number of Grave Golems an individual player can have, Default: 2")

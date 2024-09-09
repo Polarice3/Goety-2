@@ -22,6 +22,7 @@ import com.Polarice3.Goety.common.entities.hostile.Wight;
 import com.Polarice3.Goety.common.entities.hostile.servants.Inferno;
 import com.Polarice3.Goety.common.entities.neutral.ApostleShade;
 import com.Polarice3.Goety.common.entities.neutral.InsectSwarm;
+import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
@@ -61,7 +62,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -113,6 +113,9 @@ public class ClientEvents {
             }
             if (entity instanceof Inferno){
                 soundHandler.play(new LoopSound(ModSounds.INFERNO_LOOP.get(), entity));
+            }
+            if (entity instanceof Wildfire){
+                soundHandler.play(new LoopSound(ModSounds.WILDFIRE_LOOP.get(), entity));
             }
             if (entity instanceof InsectSwarm){
                 soundHandler.play(new LoopSound(ModSounds.INSECT_SWARM.get(), entity));
@@ -469,22 +472,6 @@ public class ClientEvents {
         }
     }
 
-    private static boolean addTempPoison;
-    private static MobEffectInstance addedTempPoison;
-
-    @SubscribeEvent
-    public static void RenderHealthBarPost(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay().id() != VanillaGuiOverlay.PLAYER_HEALTH.id()) {
-            return;
-        }
-        if (Minecraft.getInstance().player == null){
-            return;
-        }
-        if (addTempPoison) {
-            Minecraft.getInstance().player.getActiveEffectsMap().remove(MobEffects.POISON);
-        }
-    }
-
     @SubscribeEvent
     public static void RenderHealthBarPre(RenderGuiOverlayEvent.Pre event) {
         if (event.getOverlay().id() != VanillaGuiOverlay.PLAYER_HEALTH.id()) {
@@ -496,18 +483,11 @@ public class ClientEvents {
             return;
         }
 
-        addTempPoison = player.hasEffect(GoetyEffects.ACID_VENOM.get()) && !player.getActiveEffectsMap().containsKey(MobEffects.POISON);
-
-        if (addTempPoison) {
-            if (addedTempPoison == null) {
-                addedTempPoison = new MobEffectInstance(MobEffects.POISON, 100);
-            }
-            player.getActiveEffectsMap().put(MobEffects.POISON, addedTempPoison);
-        }
-
         if (minecraft.gui instanceof ForgeGui gui) {
             if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()
-                    && (player.hasEffect(GoetyEffects.SPASMS.get()) || player.hasEffect(GoetyEffects.CURSED.get()))) {
+                    && (player.hasEffect(GoetyEffects.SPASMS.get())
+                    || player.hasEffect(GoetyEffects.CURSED.get())
+                    || player.hasEffect(GoetyEffects.ACID_VENOM.get()))) {
                 setHearts(event);
             }
         }
@@ -573,8 +553,18 @@ public class ClientEvents {
         }
 
         int TOP = player.level().getLevelData().isHardcore() ? 9 : 0;
+        if (highlight){
+            TOP = player.level().getLevelData().isHardcore() ? 27 : 18;
+        }
         int BACKGROUND = highlight ? 25 : 16;
-        int heartX = player.hasEffect(GoetyEffects.CURSED.get()) ? 52 : 34;
+        int heartX = 0;
+        if (player.hasEffect(GoetyEffects.CURSED.get())){
+            heartX = 52;
+        } else if (player.hasEffect(GoetyEffects.ACID_VENOM.get())){
+            heartX = 70;
+        } else if (player.hasEffect(GoetyEffects.SPASMS.get())){
+            heartX = 34;
+        }
         float absorptionRemaining = (float)absorption;
 
         for(int i = Mth.ceil((healthMax + (float)absorption) / 2.0F) - 1; i >= 0; --i) {

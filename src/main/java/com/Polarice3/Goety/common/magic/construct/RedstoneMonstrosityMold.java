@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.RedstoneMonstrosity;
 import com.Polarice3.Goety.common.research.ResearchList;
-import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.utils.SEHelper;
 import com.google.common.collect.ImmutableList;
@@ -428,7 +427,7 @@ public class RedstoneMonstrosityMold implements IMold {
         List<BlockPos> invalid = new ArrayList<>();
         for (BlockPos blockPos1 : DIAMOND_LOCATIONS){
             BlockPos blockPos2 = blockPos.offset(blockPos1);
-            if (!level.getBlockState(blockPos2).is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND)){
+            if (!level.getBlockState(blockPos2).is(ModBlocks.DIAMOND_MOLD_BLOCK.get())){
                 invalid.add(blockPos1);
             }
         }
@@ -515,15 +514,6 @@ public class RedstoneMonstrosityMold implements IMold {
 
     public static void removeBlocks(Level level, BlockPos blockPos){
         if (!level.isClientSide) {
-            if (MobsConfig.RedstoneMonstrosityMold.get()) {
-                for (BlockPos blockPos1 : DIAMOND_LOCATIONS) {
-                    BlockPos blockPos2 = blockPos.offset(blockPos1);
-                    if (level.getBlockState(blockPos2).is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND)) {
-                        level.levelEvent(2001, blockPos2, Block.getId(level.getBlockState(blockPos2)));
-                        level.setBlockAndUpdate(blockPos2, Blocks.OBSIDIAN.defaultBlockState());
-                    }
-                }
-            }
             for (BlockPos blockPos1 : LAVA_LOCATIONS) {
                 BlockPos blockPos2 = blockPos.offset(blockPos1);
                 if (level.getBlockState(blockPos2).is(Blocks.LAVA)) {

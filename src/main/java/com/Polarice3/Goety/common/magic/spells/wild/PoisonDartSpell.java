@@ -16,15 +16,15 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoisonQuillSpell extends Spell {
+public class PoisonDartSpell extends Spell {
 
     public int defaultSoulCost() {
-        return SpellConfig.IceSpikeCost.get();
+        return SpellConfig.PoisonDartCost.get();
     }
 
     @Override
     public int defaultCastDuration() {
-        return SpellConfig.IceSpikeDuration.get();
+        return SpellConfig.PoisonDartDuration.get();
     }
 
     public SoundEvent CastingSound() {
@@ -33,7 +33,7 @@ public class PoisonQuillSpell extends Spell {
 
     @Override
     public int defaultSpellCooldown() {
-        return SpellConfig.IceSpikeCoolDown.get();
+        return SpellConfig.PoisonDartCoolDown.get();
     }
 
     public SpellType getSpellType() {
@@ -50,21 +50,20 @@ public class PoisonQuillSpell extends Spell {
 
     public void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff){
         float enchantment = 0;
+        int damage = 0;
         if (WandUtil.enchantedFocus(entityLiving)) {
             enchantment = WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving) / 3.0F;
+            damage = WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving);
         }
-        float initVelocity = 1.6F;
         PoisonQuill poisonQuill = new PoisonQuill(worldIn, entityLiving);
-        if (rightStaff(staff)){
-            initVelocity = 2.4F;
-        }
-        poisonQuill.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, initVelocity + enchantment, 1.0F);
+        poisonQuill.setSpear(rightStaff(staff), damage);
+        poisonQuill.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.6F + enchantment, 1.0F);
         poisonQuill.setOwner(entityLiving);
-        poisonQuill.setExtraDamage(WandUtil.getLevels(ModEnchantments.POTENCY.get(), entityLiving));
+        poisonQuill.setExtraDamage(damage);
         if (entityLiving.isUnderWater()){
             poisonQuill.setAqua(true);
         }
         worldIn.addFreshEntity(poisonQuill);
-        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.ICE_SPIKE_CAST.get(), this.getSoundSource(), 1.0F, 1.0F);
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), ModSounds.POISON_QUILL_VINE_SHOOT.get(), this.getSoundSource(), 1.0F, 1.0F);
     }
 }

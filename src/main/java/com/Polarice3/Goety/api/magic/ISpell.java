@@ -256,8 +256,14 @@ public interface ISpell {
     }
 
     default boolean ReduceCastTime(LivingEntity entityLiving){
-        if (this.getSpellType() == SpellType.NECROMANCY){
-            return CuriosFinder.hasUndeadCrown(entityLiving) || CuriosFinder.hasCurio(entityLiving, itemStack -> itemStack.getItem() instanceof MagicHatItem);
+        if (this.getSpellType() == SpellType.FROST){
+            return CuriosFinder.hasFrostCrown(entityLiving) || CuriosFinder.hasMagicHat(entityLiving);
+        } else if (this.getSpellType() == SpellType.WILD){
+            return CuriosFinder.hasWildCrown(entityLiving) || CuriosFinder.hasMagicHat(entityLiving);
+        } else if (this.getSpellType() == SpellType.NETHER){
+            return CuriosFinder.hasNetherCrown(entityLiving) || CuriosFinder.hasMagicHat(entityLiving);
+        } else if (this.getSpellType() == SpellType.NECROMANCY){
+            return CuriosFinder.hasUndeadCrown(entityLiving) || CuriosFinder.hasMagicHat(entityLiving);
         } else {
             return CuriosFinder.hasCurio(entityLiving, itemStack -> (itemStack.getItem() instanceof MagicHatItem) || (itemStack.getItem() instanceof NecroGarbs.NecroCrownItem crown && crown.isNameless));
         }

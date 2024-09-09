@@ -12,25 +12,13 @@
       "tag": "minecraft:soul_fire_base_blocks"
     },
     {
-      "tag": "minecraft:soul_fire_base_blocks"
-    },
-    {
       "item": "goety:spirit_fabric"
     },
     {
       "item": "goety:spirit_fabric"
     },
     {
-      "item": "goety:chill_fabric"
-    },
-    {
-      "item": "goety:chill_fabric"
-    },
-    {
-      "tag": "forge:bones"
-    },
-    {
-      "item": "minecraft:powder_snow_bucket"
+      "item": "goety:ghost_fire_focus"
     }
   ],
   "result": {

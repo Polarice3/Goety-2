@@ -24,6 +24,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builtinEntity(ModBlocks.WINDSWEPT_HANGING_SIGN.get(), "goety:block/stripped_windswept_log");
         builtinEntity(ModBlocks.WINDSWEPT_WALL_HANGING_SIGN.get(), "goety:block/stripped_windswept_log");
 
+        simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
+
         simpleBlockWithItem(ModBlocks.CRAGROCKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CRAG_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CRAG_BRICKS_BLOCK.get());

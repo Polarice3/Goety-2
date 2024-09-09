@@ -1,0 +1,26 @@
+{
+  "name": "ワイルドファイア",
+  "icon": "minecraft:blaze_rod",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "いくつかの実験と研究を行った結果、ネフィリムの最大の愚行の1つを再現することができました。もちろん、悪意はありません。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_blazes_to_wildfire"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wildfire",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "このブレイズのマスターはブレイズパウダー及びロッドで回復でき、ネザーローブを着ていればソウルを使って自動で回復します(ここまではブレイズと同じです)。火に敏感であり、炎の上に立つと回復し、火炎ダメージでも回復します(例外はあります)。"
+    }
+  ]
+}

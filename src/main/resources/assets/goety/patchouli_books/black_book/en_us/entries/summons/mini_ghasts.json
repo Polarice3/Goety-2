@@ -23,6 +23,11 @@
       "advancement": "goety:goety/read_bygone_scroll",
       "entity": "goety:ghast_servant",
       "scale": 0.5
+    },
+    {
+      "type": "goety:ritual",
+      "advancement": "goety:goety/read_bygone_scroll",
+      "recipe": "goety:thrall/summon_ghast_servant_thrall"
     }
   ]
 }

@@ -184,6 +184,12 @@ public class ModEntityType {
                     .clientTrackingRange(4)
                     .updateInterval(1));
 
+    public static final RegistryObject<EntityType<ShieldDebris>> SHIELD_DEBRIS = register("shield_debris",
+            EntityType.Builder.<ShieldDebris>of(ShieldDebris::new, MobCategory.MISC)
+                    .sized(0.3125F, 0.3125F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1));
+
     public static final RegistryObject<EntityType<Fangs>> FANG = register("fang",
             EntityType.Builder.<Fangs>of(Fangs::new, MobCategory.MISC)
                     .sized(0.5F, 0.8F)
@@ -667,6 +673,12 @@ public class ModEntityType {
             EntityType.Builder.of(BlazeServant::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.8F)
                     .clientTrackingRange(8)
+                    .fireImmune());
+
+    public static final RegistryObject<EntityType<Wildfire>> WILDFIRE = register("wildfire",
+            EntityType.Builder.of(Wildfire::new, MobCategory.MONSTER)
+                    .sized(0.9F, 2.25F)
+                    .clientTrackingRange(10)
                     .fireImmune());
 
     public static final RegistryObject<EntityType<SlimeServant>> SLIME_SERVANT = register("slime_servant",

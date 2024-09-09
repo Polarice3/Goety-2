@@ -17,6 +17,7 @@ import com.Polarice3.Goety.common.magic.spells.SoulBoltSpell;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -280,6 +281,9 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
     }
 
     public List<EntityType<?>> getSummonList() {
+        if (this.getDefaultSummon() != null && !this.summonList.contains(this.getDefaultSummon().getType())){
+            this.summonList.add(this.getDefaultSummon().getType());
+        }
         return this.summonList;
     }
 
@@ -477,12 +481,12 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
         }
     }
 
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         if (!this.level.isClientSide) {
-            ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
+            ItemStack itemstack = pPlayer.getItemInHand(pHand);
             Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if (!this.spawnUndeadIdle() && itemstack.isEmpty()){
+                if (!this.spawnUndeadIdle() && pHand == InteractionHand.MAIN_HAND && itemstack.isEmpty()){
                     if (this.idleSpellCool <= 0){
                         this.setUndeadIdle(true);
                     } else {
@@ -505,26 +509,33 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                         }
                     }
                     return InteractionResult.SUCCESS;
-                } else if (!this.getSummonList().contains(ModEntityType.SKELETON_SERVANT.get()) && item == ModItems.OSSEOUS_FOCUS.get()){
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS)) && item == ModItems.ROTTING_FOCUS.get()){
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.addSummon(ModEntityType.ZOMBIE_SERVANT.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
+                    return InteractionResult.SUCCESS;
+                } else if (this.getSummonList().stream().noneMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS)) && item == ModItems.OSSEOUS_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.SKELETON_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 0 && */!this.getSummonList().contains(ModEntityType.WRAITH_SERVANT.get()) && item == ModItems.SPOOKY_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.WRAITH_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
                     return InteractionResult.SUCCESS;
                 } else if (/*this.getNecroLevel() > 1 && */!this.getSummonList().contains(ModEntityType.VANGUARD_SERVANT.get()) && item == ModItems.VANGUARD_FOCUS.get()){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
                     this.addSummon(ModEntityType.VANGUARD_SERVANT.get());
-                    this.playSound(ModSounds.NECROMANCER_LAUGH.get());
+                    this.playSound(ModSounds.NECROMANCER_LAUGH.get(), 1.0F, this.getVoicePitch());
                     return InteractionResult.SUCCESS;
                 } else if (item == ModItems.SOUL_JAR.get()){
                     if (!pPlayer.getAbilities().instabuild) {
@@ -577,6 +588,27 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
             }
         }
         return summoned;
+    }
+
+    @Override
+    public void convertNewEquipment(Entity entity) {
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+            this.dropEquipment(equipmentSlot, this.getItemBySlot(equipmentSlot));
+            this.setItemSlot(equipmentSlot, ItemStack.EMPTY);
+        }
+    }
+
+    public boolean summonVariants(){
+        return true;
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        if (this.killChance <= 0){
+            this.warnKill(player);
+        } else {
+            super.tryKill(player);
+        }
     }
 
     public class CastingSpellGoal extends Goal {
@@ -808,9 +840,11 @@ public abstract class AbstractNecromancer extends AbstractSkeletonServant implem
                 for (int i1 = 0; i1 < i; ++i1) {
                     if (AbstractNecromancer.this.level instanceof ServerLevel serverLevel) {
                         Summoned summonedentity = AbstractNecromancer.this.getSummon();
-                        EntityType<?> entityType = summonedentity.getVariant(serverLevel, AbstractNecromancer.this.blockPosition());
-                        if (entityType != null && entityType.create(serverLevel) instanceof Summoned summoned) {
-                            summonedentity = summoned;
+                        if (AbstractNecromancer.this.summonVariants()) {
+                            EntityType<?> entityType = summonedentity.getVariant(serverLevel, AbstractNecromancer.this.blockPosition());
+                            if (entityType != null && entityType.create(serverLevel) instanceof Summoned summoned) {
+                                summonedentity = summoned;
+                            }
                         }
                         BlockPos blockPos = BlockFinder.SummonRadius(AbstractNecromancer.this.blockPosition(), summonedentity, serverLevel);
                         LivingEntity owner = AbstractNecromancer.this.getTrueOwner() != null ? AbstractNecromancer.this.getTrueOwner() : AbstractNecromancer.this;

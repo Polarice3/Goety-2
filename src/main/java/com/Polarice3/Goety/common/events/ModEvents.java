@@ -141,6 +141,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
 
@@ -931,23 +933,75 @@ public class ModEvents {
         if (attacker instanceof Mob mobAttacker) {
             if (target != null) {
                 if (target instanceof Player) {
-                    if (MobUtil.isWitchType(mobAttacker)){
-                        if (CuriosFinder.isWitchFriendly(target)){
-                            if (mobAttacker.getLastHurtByMob() != target){
-                                event.setNewTarget(null);
+                    if (MobUtil.isWitchType(mobAttacker)) {
+                        if (CuriosFinder.isWitchFriendly(target)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
                             } else {
                                 mobAttacker.setLastHurtByMob(target);
                             }
                         }
                     }
-                    if (CuriosFinder.hasUnholyRobe(target) || CuriosFinder.hasUnholyHat(target)){
-                        if (mobAttacker instanceof Ghast || mobAttacker instanceof Blaze){
-                            event.setNewTarget(null);
+
+                    if (CuriosFinder.hasUnholyRobe(target) || CuriosFinder.hasUnholyHat(target)) {
+                        if (mobAttacker instanceof Ghast || mobAttacker instanceof Blaze || mobAttacker instanceof MagmaCube) {
+                            if (event.getTargetType() == MOB_TARGET) {
+                                event.setNewTarget(null);
+                            } else {
+                                event.setCanceled(true);
+                            }
                         }
                     }
+
+                    if (CuriosFinder.neutralFrostSet(target)) {
+                        if (CuriosFinder.validFrostMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
+
+                    if (CuriosFinder.neutralWildSet(target)) {
+                        if (CuriosFinder.validWildMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
+
+                    if (CuriosFinder.neutralNetherSet(target)) {
+                        if (CuriosFinder.validNetherMob(mobAttacker)) {
+                            if (mobAttacker.getLastHurtByMob() != target) {
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
+                            } else {
+                                mobAttacker.setLastHurtByMob(target);
+                            }
+                        }
+                    }
+
                     if (CuriosFinder.neutralNecroSet(target) || CuriosFinder.neutralNamelessSet(target)) {
                         boolean undead = CuriosFinder.validNecroUndead(mobAttacker);
-                        if (target.level instanceof ServerLevel serverLevel){
+                        if (target.level instanceof ServerLevel serverLevel) {
                             if (MobsConfig.HostileCryptUndead.get()) {
                                 if (BlockFinder.findStructure(serverLevel, target.blockPosition(), ModStructureTags.NECRO_HOSTILE)
                                         && !CuriosFinder.neutralNamelessSet(target)) {
@@ -957,23 +1011,35 @@ public class ModEvents {
                         }
                         if (undead || (CuriosFinder.neutralNamelessSet(target) && CuriosFinder.validNamelessUndead(mobAttacker))) {
                             if (mobAttacker.getLastHurtByMob() != target) {
-                                event.setNewTarget(null);
+                                if (event.getTargetType() == MOB_TARGET) {
+                                    event.setNewTarget(null);
+                                } else {
+                                    event.setCanceled(true);
+                                }
                             } else {
                                 mobAttacker.setLastHurtByMob(target);
                             }
                         }
                     }
                 }
-                if ((mobAttacker.getMobType() == MobType.UNDEAD && !(mobAttacker instanceof IOwned) && mobAttacker.getMaxHealth() < 100.0F) || mobAttacker instanceof Creeper){
-                    if (event.getNewTarget() instanceof Apostle){
+                if ((mobAttacker.getMobType() == MobType.UNDEAD && !(mobAttacker instanceof IOwned) && mobAttacker.getMaxHealth() < 100.0F) || mobAttacker instanceof Creeper) {
+                    if (event.getNewTarget() instanceof Apostle) {
                         event.setCanceled(true);
                     }
                 }
                 if (mobAttacker.getType().is(ModTags.EntityTypes.CREEPERS) && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){
-                    event.setNewTarget(null);
+                    if (event.getTargetType() == MOB_TARGET) {
+                        event.setNewTarget(null);
+                    } else {
+                        event.setCanceled(true);
+                    }
                 }
                 if (mobAttacker instanceof Phantom && CuriosFinder.hasCurio(target, ModItems.FELINE_AMULET.get())){
-                    event.setNewTarget(null);
+                    if (event.getTargetType() == MOB_TARGET) {
+                        event.setNewTarget(null);
+                    } else {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
@@ -1008,6 +1074,36 @@ public class ModEvents {
             } else if (CuriosFinder.neutralNamelessCape(entity)) {
                 if (CuriosFinder.validNamelessUndead(looker)) {
                     event.modifyVisibility(0.5);
+                }
+            }
+            if (ItemConfig.FrostSetMobNeutral.get()) {
+                if (CuriosFinder.validFrostMob(looker)) {
+                    if (CuriosFinder.hasFrostCrown(entity)) {
+                        event.modifyVisibility(0.5);
+                    }
+                    if (CuriosFinder.hasFrostRobes(looker)) {
+                        event.modifyVisibility(0.5);
+                    }
+                }
+            }
+            if (ItemConfig.WildSetMobNeutral.get()) {
+                if (CuriosFinder.validWildMob(looker)) {
+                    if (CuriosFinder.hasWildCrown(entity)) {
+                        event.modifyVisibility(0.5);
+                    }
+                    if (CuriosFinder.hasWildRobe(looker)) {
+                        event.modifyVisibility(0.5);
+                    }
+                }
+            }
+            if (ItemConfig.NetherSetMobNeutral.get()) {
+                if (CuriosFinder.validNetherMob(looker)) {
+                    if (CuriosFinder.hasNetherCrown(entity)) {
+                        event.modifyVisibility(0.5);
+                    }
+                    if (CuriosFinder.hasNetherRobe(looker)) {
+                        event.modifyVisibility(0.5);
+                    }
                 }
             }
             if (CuriosFinder.hasIllusionRobe(entity)){
@@ -1383,6 +1479,9 @@ public class ModEvents {
                             damned.moveTo(illager.blockPosition().below(2), apostle.getYHeadRot(), apostle.getXRot());
                             damned.setTrueOwner(apostle);
                             damned.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(illager.blockPosition().below()), MobSpawnType.MOB_SUMMONED, null, null);
+                            if (illager.hasCustomName()){
+                                damned.setCustomName(illager.getCustomName());
+                            }
                             damned.setHuman(false);
                             if (apostle.getTarget() != null) {
                                 damned.setTarget(apostle.getTarget());

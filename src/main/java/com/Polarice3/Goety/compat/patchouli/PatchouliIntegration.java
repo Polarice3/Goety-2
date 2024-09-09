@@ -158,8 +158,8 @@ public class PatchouliIntegration implements ICompatable {
     });
 
     public static final Supplier<IMultiblock> REDSTONE_GOLEM = Suppliers.memoize(() -> {
-        IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(Blocks.DIAMOND_BLOCK,
-                state -> state.is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND));
+        IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(ModBlocks.DIAMOND_MOLD_BLOCK.get(),
+                state -> state.is(ModBlocks.DIAMOND_MOLD_BLOCK.get()));
         IStateMatcher redstoneCore = PatchouliAPI.get().predicateMatcher(Blocks.REDSTONE_BLOCK,
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
         IStateMatcher stoneMold = PatchouliAPI.get().predicateMatcher(Blocks.STONE_BRICKS,
@@ -198,8 +198,8 @@ public class PatchouliIntegration implements ICompatable {
     });
 
     public static final Supplier<IMultiblock> REDSTONE_GOLEM_REVIVE = Suppliers.memoize(() -> {
-        IStateMatcher diamond = PatchouliAPI.get().predicateMatcher(Blocks.DIAMOND_BLOCK,
-                state -> state.is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND));
+        IStateMatcher diamond = PatchouliAPI.get().predicateMatcher(ModBlocks.DIAMOND_MOLD_BLOCK.get(),
+                state -> state.is(ModBlocks.DIAMOND_MOLD_BLOCK.get()));
         IStateMatcher redstoneCore = PatchouliAPI.get().predicateMatcher(Blocks.REDSTONE_BLOCK,
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
         return PatchouliAPI.get().makeMultiblock(
@@ -305,8 +305,8 @@ public class PatchouliIntegration implements ICompatable {
     });
 
     public static final Supplier<IMultiblock> REDSTONE_MONSTROSITY = Suppliers.memoize(() -> {
-        IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(Blocks.DIAMOND_BLOCK,
-                state -> state.is(Tags.Blocks.STORAGE_BLOCKS_DIAMOND));
+        IStateMatcher diamondMold = PatchouliAPI.get().predicateMatcher(ModBlocks.DIAMOND_MOLD_BLOCK.get(),
+                state -> state.is(ModBlocks.DIAMOND_MOLD_BLOCK.get()));
         IStateMatcher redstone = PatchouliAPI.get().predicateMatcher(Blocks.REDSTONE_BLOCK,
                 state -> state.is(Tags.Blocks.STORAGE_BLOCKS_REDSTONE));
         IStateMatcher redstoneCore = PatchouliAPI.get().predicateMatcher(ModBlocks.REINFORCED_REDSTONE_BLOCK.get(),

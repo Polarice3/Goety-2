@@ -13,7 +13,19 @@
     },
     {
       "type": "patchouli:text",
-      "text": "如果召唤师穿上这件长袍，从荒野魔法中产生的仆从可以利用召唤师的灵魂能量慢慢治愈自己."
+      "text": "如果召唤师穿上这件长袍，从荒野魔法中产生的仆从可以利用召唤师的灵魂能量慢慢治愈自己。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "荒野王冠可以减半你施展荒野魔法的时间，并且可以有效防止你的仆从像恼鬼一样随风而散。"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_robe": 1,
+    "goety:wild_crown": 2
+  }
 }

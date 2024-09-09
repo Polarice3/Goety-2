@@ -18,6 +18,8 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WarlockRobeItem extends WarlockGarmentItem{
 
@@ -37,7 +39,11 @@ public class WarlockRobeItem extends WarlockGarmentItem{
     public static void TargetEvents(LivingChangeTargetEvent event){
         if (event.getEntity().getMobType() == MobType.ARTHROPOD){
             if (CuriosFinder.hasWarlockRobe(event.getOriginalTarget())) {
-                event.setNewTarget(null);
+                if (event.getTargetType() == MOB_TARGET) {
+                    event.setNewTarget(null);
+                } else {
+                    event.setCanceled(true);
+                }
             }
         }
     }

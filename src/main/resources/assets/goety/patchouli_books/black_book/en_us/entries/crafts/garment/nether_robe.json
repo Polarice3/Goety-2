@@ -12,10 +12,19 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:nether_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Nether Crown reduce the amount of time to cast Nether spells by half and keeps your nether-spawned servants from dying off like Vexes."
     }
   ],
   "extra_recipe_mappings": {
     "goety:nether_robe": 1,
-    "goety:nether_robe_warped": 1
+    "goety:nether_robe_warped": 1,
+    "goety:nether_crown": 2
   }
 }

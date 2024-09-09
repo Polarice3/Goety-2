@@ -5,15 +5,24 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "冰霜长袍赋予穿戴者一切冰冷的力量。穿戴它的人永远不会结冰，能够抵抗冰冻的攻击，并且可以在细雪中自由移动。这套长袍也使霜冻法术的消耗更低。"
+      "text": "霜冻长袍赋予穿着者所有寒冷的力量。穿戴者永远不会被冻结，还能够抵抗冰冻攻击，可以自由地穿过细雪。长袍也降低了霜冻魔法的灵魂消耗量。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:frost_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:frost_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "冰霜王冠可以减半你施展冰霜魔法的时间，并且可以有效防止你的仆从像恼鬼一样随风而散."
     }
   ],
   "extra_recipe_mappings": {
     "goety:frost_robe": 1,
-    "goety:frost_robe_cryo": 1
+    "goety:frost_robe_cryo": 1,
+    "goety:frost_crown": 2
   }
 }

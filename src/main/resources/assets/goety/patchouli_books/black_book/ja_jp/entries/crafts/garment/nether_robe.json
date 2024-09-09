@@ -7,15 +7,24 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "ネザーに関する知識が深まるにつれ、着用者に炎を吹き込むローブの作成に成功しました。着用者は火の攻撃に耐性を持ち、火をより早く消火できるようになります。また、ローブによりネザー呪文のコストが下がり、ネザーの召使いは召喚者の魂のエネルギーを使用して再生します。"
+      "text": "ネザーに関する知識が深まったため、着用者に炎を吹き込むローブを作ることができました。火の攻撃に耐性がつき、火の攻撃をより早く消すことができます。ネザーの呪文のソウルコストを下げ、、ネザーの従者は召喚者のソウルエネルギーを使って再生します。"
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:nether_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ネザーの冠はネザーの呪文を唱える時間を半分にし、ネザーの従者がヴェックスのように死んでしまうのを防ぎます。"
     }
   ],
   "extra_recipe_mappings": {
     "goety:nether_robe": 1,
-    "goety:nether_robe_warped": 1
+    "goety:nether_robe_warped": 1,
+    "goety:nether_crown": 2
   }
 }

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The closest followers of the first Nether Cultist, Apollyon, these terrific beings spread the word of the Great Flame alongside their master when they walked the Overworld. Some Apostles used to be Kings, Lords or Nobles, while others range from normal Villagers to the most ill-witted Nitwits. When the Emissary appears, the water around them boils, and the sky darkens."
+      "text": "The closest followers of the first Nether Cultist, Apollyon, these terrific beings spread the word of the Great Flame alongside their master when they walked the Overworld. Some Apostles used to be Kings, Lords or Nobles, while others range from normal Villagers to the most ill-witted Nitwits. When the emissary appears, the water around them boils, and the sky darkens."
     },
     {
       "type": "patchouli:entity",
@@ -15,24 +15,42 @@
     },
     {
       "type": "patchouli:text",
-      "text": "An Apostle doesn't deign to use their true power when confronted with a violent heathen. They would shoot arrows upon them, while occasionally shooting a Lavaball or summoning the Undead to defend themselves. The fiend would teleport, leaving a cloud of smoke, when hit after a number of times or after casting a spell."
+      "text": "An Apostle doesn't deign to use their true power when confronted with a violent heathen. They would shoot arrows upon them, while occasionally shooting a Hell Blast or summoning fiendish servants to defend themselves. The fiend would teleport, leaving a cloud of smoke, when hit after a number of times or after casting a spell."
     },
     {
       "type": "patchouli:text",
-      "text": "When lowered to half of their maximum health, the Apostle will regenerate their health and reveal their true might. When fought in the Overworld or dimensions similar to it, a storm will rain upon the world once they reveal themselves in their horrid form. Meteors will fall around them and the true battle begins. The Apostle will try to teleport more often, and they will begin to summon Zombified Piglin Brutes to do their bidding instead."
+      "text": "When lowered to half of their maximum health, the Apostle will regenerate their health and reveal their true might. When fought in the Overworld or dimensions similar to it, a storm will rain upon the world once they reveal themselves in their horrid form. Meteors will fall around them and the true battle begins. The Apostle will try to teleport more often, and their arrows are much potent in damage and effects."
     },
     {
       "type": "patchouli:text",
-      "text": "Throughout the battle, they will cast horrid spells upon their target, from a rain of arrows to conjuring a great flaming tornado that follows their target wherever they go. If their target was close to them, the Apostle will summon a circle of fire that after a short time, burst causing whatever creature near them to be knocked into the sky. The bursts and the flaming tornado curses the target with Burn Hex, which prevents Fire Resistance from working."
+      "text": "Throughout the battle, they will cast horrid spells upon their target, from a rain of lava to conjuring a great flaming tornado that follows their target wherever they go. If their target was close to them, the Apostle will summon a circle of fire that after a short time, burst causing whatever creature near them to be knocked into the sky. The bursts and the flaming tornado curses the target with Burn Hex, which prevents Fire Resistance from working."
     },
     {
       "type": "patchouli:text",
-      "text": "The Apostle constantly regenerates their health, no doubt absorbing the energies of the Nether to heal their wounds. However, when struck with a weapon enchanted with Smite, they won't be able to regenerate their health for a time depending on the level of the Enchantment."
+      "text": "The Apostle regenerates health once their arrows pierce their victims. However, when struck with a weapon enchanted with Smite, they won't be able to regenerate their health for a time depending on the level of the Enchantment."
     },
     {
       "type": "patchouli:spotlight",
       "item": "goety:unholy_blood",
       "text": "The blood of an Apostle courses with Necrotic and Nether Energies. With it, one can either cheat death or create miracles. It appears that an Apostle doesn't possess too much blood and only by slaying them can a sizeable amount be extracted. When slain, the storm will ebb and the meteors will stop falling."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:inferno",
+      "scale": 0.95
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Infernos are cousins to the blazes, but are enchanted to be undeterred by simple water and their flames burns even those that are immune to fire."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:malghast",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Smaller but far superior to ghasts, these agonized monsters belch out balls of unholy flames that burns through all. Occasionally, these creatures would shoot out a regular lavaball, that can be swung back at them."
     }
   ],
   "extra_recipe_mappings": {

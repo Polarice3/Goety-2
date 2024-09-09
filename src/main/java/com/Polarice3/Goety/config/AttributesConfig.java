@@ -24,6 +24,11 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantMeleeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantRangeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildfireHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildfireShieldHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildfireArmor;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildfireMeleeDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildfireRangeDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> InfernoHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> InfernoArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> InfernoMeleeDamage;
@@ -246,6 +251,18 @@ public class AttributesConfig {
                         .defineInRange("blazeServantMeleeDamage", 6.0, 1.0, Double.MAX_VALUE);
                 BlazeServantRangeDamage = BUILDER.comment("How much ranged damage Blaze Servants deals, Default: 5.0")
                         .defineInRange("blazeServantRangeDamage", 5.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Wildfire");
+                WildfireHealth = BUILDER.comment("How much Max Health Wildfires have, Default: 75.0")
+                        .defineInRange("wildfireHealth", 75.0, 1.0, Double.MAX_VALUE);
+                WildfireShieldHealth = BUILDER.comment("How much Health each Wildfire's shields have, Default: 12.5")
+                        .defineInRange("wildfireShieldHealth", 12.5, 1.0, Double.MAX_VALUE);
+                WildfireArmor = BUILDER.comment("How much natural armor points Wildfires have, Default: 0.0")
+                        .defineInRange("wildfireArmor", 0.0, 0.0, Double.MAX_VALUE);
+                WildfireMeleeDamage = BUILDER.comment("How much melee damage Wildfires deals, Default: 6.0")
+                        .defineInRange("wildfireMeleeDamage", 6.0, 1.0, Double.MAX_VALUE);
+                WildfireRangeDamage = BUILDER.comment("How much ranged damage Wildfires deals, Default: 10.0")
+                        .defineInRange("wildfireRangeDamage", 10.0, 1.0, Double.MAX_VALUE);
                 BUILDER.pop();
                 BUILDER.push("Inferno");
                 InfernoHealth = BUILDER.comment("How much Max Health Inferno have, Default: 20.0")

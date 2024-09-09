@@ -350,7 +350,7 @@ public class VanguardServant extends AbstractSkeletonServant {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.mobInteract(pPlayer, p_230254_2_);
+        return InteractionResult.PASS;
     }
 
     class VanguardAttackGoal extends MeleeAttackGoal {

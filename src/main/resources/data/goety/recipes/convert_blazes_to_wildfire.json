@@ -1,0 +1,33 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:convert_complete_tamed",
+  "activation_item": {
+    "item": "minecraft:lava_bucket"
+  },
+  "craftType": "expert_nether",
+  "entity_to_convert": {
+    "tag": "goety:blazes",
+    "display_name": "entity.minecraft.blaze"
+  },
+  "entity_to_convert_into": "goety:wildfire",
+  "soulCost": 5,
+  "duration": 10,
+  "research": "bygone",
+  "ingredients": [
+    {
+      "item": "goety:bulwark_focus"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "result": {
+    "item": "goety:jei_dummy/none"
+  }
+}

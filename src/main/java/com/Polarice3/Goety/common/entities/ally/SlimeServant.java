@@ -438,7 +438,7 @@ public class SlimeServant extends Summoned{
             }
         } else if (this.getTrueOwner() != null && p_34394_ == this.getTrueOwner()) {
             if (!this.isInterested()) {
-                if (itemstack.isEmpty()) {
+                if (itemstack.isEmpty() && !p_34394_.isCrouching()) {
                     this.setIsInterested(true);
                     this.interestTime = 40;
                     this.level.broadcastEntityEvent(this, (byte) 102);

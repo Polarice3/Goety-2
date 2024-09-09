@@ -1,0 +1,17 @@
+{
+  "name": "Око склепа",
+  "icon": "goety:cryptic_eye",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эссенции, выпадающие с $(l:world/bestiary/wight)ужасного существа$(), похоже, резонируют с чем-то. Объединив их с оком Эндера, вы обнаружили, что вместо того, чтобы вести к ближайшей крепости, оно ведет к $(l:world/crypts)другому месту$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cryptic_eye",
+      "text": "Похоже, что при его использовании создаётся копия ока. Однако при этом снижается прочность."
+    }
+  ]
+}

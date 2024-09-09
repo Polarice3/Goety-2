@@ -1,0 +1,26 @@
+{
+  "name": "Дикое пламя",
+  "icon": "minecraft:blaze_rod",
+  "category": "goety:mutations",
+  "advancement": "goety:goety/read_bygone_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "После некоторых испытаний и изучений вам удалось воссоздать одну из величайших глупостей нефилимов, хотя, конечно, без предательства и всего такого."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:convert_blazes_to_wildfire"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:wildfire",
+      "scale": 0.5
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Дикое пламя можно исцелить, нажав по нему ПКМ  огненным порошком или стержнем, и оно может пассивно исцеляться, если его владелец наденет незерскую мантию, подобно всполохам. Привыкши к огню, они исцеляются, стоя в пламени, или под огненными атаками (за некоторыми... исключениями)."
+    }
+  ]
+}

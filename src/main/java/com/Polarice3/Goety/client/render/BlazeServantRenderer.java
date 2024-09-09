@@ -32,7 +32,7 @@ public class BlazeServantRenderer extends MobRenderer<BlazeServant, BlazeModel<B
    }
 
    public static class ServantBandsLayer extends RenderLayer<BlazeServant, BlazeModel<BlazeServant>> {
-      private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/blaze_servant_bands.png");
+      private static final ResourceLocation TEXTURES = Goety.location("textures/entity/servants/blaze/blaze_servant_bands.png");
       private final BlazeModel<BlazeServant> layerModel;
 
       public ServantBandsLayer(RenderLayerParent<BlazeServant, BlazeModel<BlazeServant>> p_i50919_1_, EntityModelSet p_174555_) {

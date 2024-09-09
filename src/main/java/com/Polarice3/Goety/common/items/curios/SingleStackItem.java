@@ -102,6 +102,18 @@ public class SingleStackItem extends Item implements ICurioItem {
                 }
                 tooltip.add(Component.translatable("info.goety.dark_hat").withStyle(secondary));
             }
+            if (stack.is(ModItems.FROST_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.frost_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.frost_crown_cast").withStyle(secondary));
+            }
+            if (stack.is(ModItems.WILD_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.wild_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.wild_crown_cast").withStyle(secondary));
+            }
+            if (stack.is(ModItems.NETHER_CROWN.get())){
+                tooltip.add(Component.translatable("info.goety.nether_crown").withStyle(main));
+                tooltip.add(Component.translatable("info.goety.nether_crown_cast").withStyle(secondary));
+            }
             if (stack.getItem() instanceof NecroGarbs.NecroCapeItem capeItem) {
                 tooltip.add(Component.translatable("info.goety.necro_cape").withStyle(main));
                 tooltip.add(Component.translatable("info.goety.necro_cape_power").withStyle(secondary));

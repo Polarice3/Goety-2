@@ -101,6 +101,9 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> DarkHelmetDarkness;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> RobeCape;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> FrostSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WildSetMobNeutral;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NetherSetMobNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroSetUndeadNeutral;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCrownWeakness;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecroCapeHunger;
@@ -116,6 +119,9 @@ public class ItemConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FireSpawnCage;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ScytheSlashBreaks;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> FrostSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> WildSetMobNeutralHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> NetherSetMobNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NecroSetUndeadNeutralHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> NamelessSetUndeadNeutralHealth;
 
@@ -150,6 +156,18 @@ public class ItemConfig {
                     .defineInRange("stormRobeResistance", 85, 0, 100);
             NetherRobeResistance = BUILDER.comment("How much fire resistance Nether Robes provides by percent, Default: 85")
                     .defineInRange("netherRobeResistance", 85, 0, 100);
+            FrostSetMobNeutral = BUILDER.comment("Whether wearing both Frost Robe and Crown will cause certain mobs to be neutral, Default: true")
+                    .define("frostSetMobNeutral", true);
+            FrostSetMobNeutralHealth = BUILDER.comment("If 'frostSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                    .defineInRange("frostSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+            WildSetMobNeutral = BUILDER.comment("Whether wearing both Wild Robe and Crown will cause certain mobs to be neutral, Default: true")
+                    .define("wildSetMobNeutral", true);
+            WildSetMobNeutralHealth = BUILDER.comment("If 'wildSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                    .defineInRange("wildSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
+            NetherSetMobNeutral = BUILDER.comment("Whether wearing both Nether Robe and Crown will cause certain mobs to be neutral, Default: true")
+                    .define("netherSetMobNeutral", true);
+            NetherSetMobNeutralHealth = BUILDER.comment("If 'netherSetMobNeutral' is enabled, the highest max health affected mobs has to have to be neutral, Default: 50.0")
+                    .defineInRange("netherSetMobNeutralHealth", 50.0, 1.0, Double.MAX_VALUE);
             NecroSetUndeadNeutral = BUILDER.comment("Whether wearing both Necro Cape and Crown will cause Undead mobs to be neutral, Default: true")
                     .define("necroSetUndeadNeutral", true);
             NecroSetUndeadNeutralHealth = BUILDER.comment("If 'necroSetUndeadNeutral' is enabled, the highest max health an Undead mob has to have to be neutral, Default: 50.0")
