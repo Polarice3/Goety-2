@@ -79,6 +79,7 @@ public class ModEntityTypeTagsProvider extends TagsProvider<EntityType<?>> {
                 ModEntityType.HELL_BLAST.get(),
                 ModEntityType.NECRO_BOLT.get(),
                 ModEntityType.MAGIC_BOLT.get(),
+                ModEntityType.SHIELD_DEBRIS.get(),
                 ModEntityType.ILL_BOMB.get(),
                 ModEntityType.SCATTER_BOMB.get(),
                 ModEntityType.SCYTHE.get(),

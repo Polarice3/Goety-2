@@ -1,0 +1,18 @@
+{
+  "type": "goety:brazier",
+  "soulCost": 500,
+  "ingredients": [
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "minecraft:sculk"
+    },
+    {
+      "item": "goety:cursed_ingot"
+    }
+  ],
+  "result": {
+    "item": "goety:dark_ingot"
+  }
+}

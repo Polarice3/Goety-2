@@ -23,8 +23,16 @@
       "text": "The beast can be healed by feeding it meat much like tamed wolves, and can passively heal if their owner dons a Wild Robe. Right-clicking on them with a Taglock Kit, that has a Tagged creature on it, will cause them to hunt said creature down before returning to their owner once they slay their query."
     },
     {
+      "type": "patchouli:spotlight",
+      "item": "goety:howling_soul",
+      "text": "Upon death, the beast would be reduced to a soul where it can be right-clicked on a Black Wolf, loyal or not, to have it possess and mutate it back to its original form."
+    },
+    {
       "type": "patchouli:text",
       "text": "Mob based on 'Nightmare Stalker' from 'Born In Chaos' mod by 'mongoose_artist'."
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:howling_soul": 5
+  }
 }

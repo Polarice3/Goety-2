@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "#forge:is_mushroom",
-    "minecraft:deep_dark"
+    "minecraft:deep_dark",
+    {
+      "id": "#alexscaves:alexs_caves_biomes",
+      "required": false
+    }
   ]
 }

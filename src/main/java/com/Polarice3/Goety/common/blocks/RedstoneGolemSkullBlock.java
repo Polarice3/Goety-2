@@ -176,7 +176,7 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
             this.redstoneGolemBase = BlockPatternBuilder.start()
                     .aisle("~~ ~~", "#####", "~###~", "~~D~~")
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
-                    .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.DIAMOND_BLOCK)))
+                    .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.DIAMOND_MOLD_BLOCK.get())))
                     .where('~', (p_284869_) -> {
                         return p_284869_.getState().isAir();
                     }).build();
@@ -192,7 +192,7 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.REDSTONE_GOLEM_SKULL_BLOCK.get())
                             .or(BlockStatePredicate.forBlock(ModBlocks.WALL_REDSTONE_GOLEM_SKULL_BLOCK.get()))))
                     .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.REDSTONE_BLOCK)))
-                    .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.DIAMOND_BLOCK)))
+                    .where('D', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.DIAMOND_MOLD_BLOCK.get())))
                     .where('~', (p_284869_) -> {
                         return p_284869_.getState().isAir();
                     }).build();

@@ -1,0 +1,15 @@
+{
+  "name": "毒镖聚晶",
+  "icon": "goety:poison_dart_focus",
+  "category": "goety:focuses/wild",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "在你的面前射出一根毒刺。被其击中的生物会中毒。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/poison_dart_focus"
+    }
+  ]
+}

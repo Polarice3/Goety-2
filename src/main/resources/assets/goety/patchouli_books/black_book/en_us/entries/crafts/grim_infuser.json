@@ -1,0 +1,17 @@
+{
+  "name": "Grim Infuser",
+  "icon": "goety:grim_infuser",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An upgraded version of the humble $(l:intro/cursed_infuser)Cursed Infuser$(), where not only can it transform Obsidian to Crypt Stone, but also accept and infuse more than one item. Works the same way as its previous counterpart"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grim_infuser"
+    }
+  ]
+}

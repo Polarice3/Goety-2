@@ -30,6 +30,18 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> INFERNO_LOOP = create("inferno_loop");
     public static final RegistryObject<SoundEvent> INFERNO_DEATH = create("inferno_death");
 
+    public static final RegistryObject<SoundEvent> WILDFIRE_AMBIENT = create("wildfire_ambient");
+    public static final RegistryObject<SoundEvent> WILDFIRE_HURT = create("wildfire_hurt");
+    public static final RegistryObject<SoundEvent> WILDFIRE_PRE_ATTACK = create("wildfire_pre_attack");
+    public static final RegistryObject<SoundEvent> WILDFIRE_SHOOT = create("wildfire_shoot");
+    public static final RegistryObject<SoundEvent> WILDFIRE_SHOCKWAVE = create("wildfire_shockwave");
+    public static final RegistryObject<SoundEvent> WILDFIRE_SHIELD_BREAK = create("wildfire_shield_break");
+    public static final RegistryObject<SoundEvent> WILDFIRE_SHIELD_BREAK_VOCAL = create("wildfire_shield_break_vocal");
+    public static final RegistryObject<SoundEvent> WILDFIRE_SHIELD_REGEN = create("wildfire_shield_regen");
+    public static final RegistryObject<SoundEvent> WILDFIRE_LOOP = create("wildfire_loop");
+    public static final RegistryObject<SoundEvent> WILDFIRE_STEP = create("wildfire_step");
+    public static final RegistryObject<SoundEvent> WILDFIRE_DEATH = create("wildfire_death");
+
     public static final RegistryObject<SoundEvent> WARLOCK_AMBIENT = create("warlock_ambient");
     public static final RegistryObject<SoundEvent> WARLOCK_HURT = create("warlock_hurt");
     public static final RegistryObject<SoundEvent> WARLOCK_CELEBRATE = create("warlock_celebrate");
@@ -359,6 +371,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> POISON_QUILL_AQUA_IMPACT = create("poison_quill_aqua_impact");
 
     public static final RegistryObject<SoundEvent> BONE_SHARD_IMPACT = create("bone_shard_impact");
+
+    public static final RegistryObject<SoundEvent> SHIELD_DEBRIS_IMPACT = create("shield_debris_impact");
 
     public static final RegistryObject<SoundEvent> INSECT_SWARM = create("insect_swarm");
     public static final RegistryObject<SoundEvent> INSECT_SWARM_BITE = create("insect_swarm_bite");

@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.entities.ally.undead.zombie.BlackguardServant;
 import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractWraith;
+import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.magic.spells.necromancy.*;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModTags;
@@ -105,6 +106,22 @@ public class RitualRequirements extends RitualTypes{
                     }
                 }
                 if (count >= SpellConfig.BlackBeastLimit.get()){
+                    castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (summon instanceof Wildfire){
+                int count = 0;
+                for (Entity entity : serverLevel.getAllEntities()) {
+                    if (entity instanceof Wildfire servant) {
+                        if (servant.getTrueOwner() == castingPlayer) {
+                            ++count;
+                        }
+                    }
+                }
+                if (count >= SpellConfig.WildfireLimit.get()){
                     castingPlayer.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                     return false;
                 } else {

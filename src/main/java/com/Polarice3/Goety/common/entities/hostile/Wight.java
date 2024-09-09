@@ -1024,14 +1024,18 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
                 double d0 = 1.0D;
                 double d1 = 0.0D;
                 for (int i = 0; i < sePercent; ++i) {
-                    if (i % 15 == 0 && i > 15) {
-                        d0 += 0.1D;
-                        d1 += 0.05D;
+                    if (i > 15) {
+                        if (i % 15 == 0) {
+                            d0 += 0.1D;
+                        }
+                        if (i % 30 == 0) {
+                            d1 += 0.05D;
+                        }
                     }
                 }
                 health.setBaseValue(AttributesConfig.WightHealth.get() * (h * d0));
                 attack.setBaseValue(AttributesConfig.WightDamage.get() * (a * d0));
-                speed.setBaseValue(Math.min(0.5D, 0.3D + d1));
+                speed.setBaseValue(Math.min(0.45D, 0.3D + d1));
                 this.setHealth(this.getMaxHealth());
             }
         }

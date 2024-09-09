@@ -1,0 +1,18 @@
+{
+  "name": "ゴーストファイアのフォーカス",
+  "icon": "goety:ghost_fire_focus",
+  "category": "goety:focuses/necromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "死者の炎は非常に恐ろしい。エクトプラズムを使えば、特定の場所や敵の足元に死者の冷たい炎を呼び出すことができるようだ。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:focus/ghost_fire_focus"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:ghost_fire_focus": 1
+  }
+}

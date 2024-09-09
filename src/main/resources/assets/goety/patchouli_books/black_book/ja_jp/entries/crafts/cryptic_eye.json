@@ -1,0 +1,17 @@
+{
+  "name": "クリプトアイ",
+  "icon": "goety:cryptic_eye",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/kill_a_wight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(l:world/bestiary/wight)恐ろしい生き物$()が落としたエッセンスは何かに向かって共鳴しています。エンダーアイと組み合わせると、要塞ではなく $(l:world/crypts)他の場所$()を指すことが分かりました。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:cryptic_eye",
+      "text": "これを使用すると、エンダーアイとは違い、自身の複製が投げられるようです。その代わり、耐久力を消費します。"
+    }
+  ]
+}

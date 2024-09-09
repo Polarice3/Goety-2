@@ -444,6 +444,7 @@ public class Goety {
         event.put(ModEntityType.MINI_GHAST.get(), MiniGhast.setCustomAttributes().build());
         event.put(ModEntityType.GHAST_SERVANT.get(), GhastServant.setCustomAttributes().build());
         event.put(ModEntityType.BLAZE_SERVANT.get(), BlazeServant.setCustomAttributes().build());
+        event.put(ModEntityType.WILDFIRE.get(), Wildfire.setCustomAttributes().build());
         event.put(ModEntityType.SLIME_SERVANT.get(), SlimeServant.setCustomAttributes().build());
         event.put(ModEntityType.MAGMA_CUBE_SERVANT.get(), MagmaCubeServant.setCustomAttributes().build());
         event.put(ModEntityType.CRYPT_SLIME_SERVANT.get(), CryptSlimeServant.setCustomAttributes().build());

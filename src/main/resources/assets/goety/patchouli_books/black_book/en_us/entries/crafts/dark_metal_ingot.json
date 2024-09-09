@@ -14,6 +14,10 @@
       "recipe": "goety:dark/dark_ingot"
     },
     {
+      "type": "goety:brazier",
+      "recipe": "goety:dark/dark_ingot_2"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "goety:dark/dark_sword",
       "recipe2": "goety:dark/dark_pickaxe"

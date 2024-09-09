@@ -22,6 +22,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         buttonBlockWithItem((ButtonBlock) ModBlocks.WINDSWEPT_BUTTON.get(), Goety.location("block/windswept_planks"));
         buttonBlockWithItem((ButtonBlock) ModBlocks.STEEP_BUTTON.get(), Goety.location("block/steep_planks"));
 
+        simpleBlockWithItem(ModBlocks.DIAMOND_MOLD_BLOCK.get());
+
         simpleBlockWithItem(ModBlocks.CRAGROCKS_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CRAG_TILES_BLOCK.get());
         simpleBlockWithItem(ModBlocks.CRAG_BRICKS_BLOCK.get());

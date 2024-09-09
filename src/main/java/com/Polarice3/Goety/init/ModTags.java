@@ -92,10 +92,15 @@ public class ModTags {
         public static final TagKey<EntityType<?>> CREEPERS = tag("creepers");
         public static final TagKey<EntityType<?>> ENDERMEN = tag("endermen");
         public static final TagKey<EntityType<?>> VILLAGERS = tag("villagers");
+        public static final TagKey<EntityType<?>> ZOMBIE_SERVANTS = tag("zombie_servants");
+        public static final TagKey<EntityType<?>> SKELETON_SERVANTS = tag("skeleton_servants");
         public static final TagKey<EntityType<?>> HOLE_IMMUNE = tag("hole_immune");
         public static final TagKey<EntityType<?>> MINI_BOSSES = tag("mini_bosses");
         public static final TagKey<EntityType<?>> APOSTLE_OTHER_ALLIES = tag("apostle_other_allies");
         public static final TagKey<EntityType<?>> WITCH_SET_NEUTRAL = tag("witch_set_neutral");
+        public static final TagKey<EntityType<?>> FROST_SET_NEUTRAL = tag("frost_set_neutral");
+        public static final TagKey<EntityType<?>> WILD_SET_NEUTRAL = tag("wild_set_neutral");
+        public static final TagKey<EntityType<?>> NETHER_SET_NEUTRAL = tag("nether_set_neutral");
         public static final TagKey<EntityType<?>> NECRO_SET_NEUTRAL = tag("necro_set_neutral");
         public static final TagKey<EntityType<?>> LICH_NEUTRAL = tag("lich_neutral");
 

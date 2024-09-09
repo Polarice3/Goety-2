@@ -15,6 +15,10 @@
     {
       "type": "patchouli:text",
       "text": "Right-clicking on a loyal Blaze Servant with a Blaze Powder or Blaze Rod will heal them."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:thrall/summon_blaze_servant_thrall"
     }
   ]
 }

@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.ai.ModMeleeAttackGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
+import com.Polarice3.Goety.common.items.HowlingSoul;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.WitherSkull;
@@ -385,6 +387,15 @@ public class BlackBeast extends Summoned{
     protected void tickDeath() {
         ++this.deathTime;
         if (this.deathTime == 40) {
+            if (this.getTrueOwner() != null && MobsConfig.BlackBeastHowlingSoul.get()){
+                ItemStack itemStack = new ItemStack(ModItems.HOWLING_SOUL.get());
+                HowlingSoul.setOwnerName(this.getTrueOwner(), itemStack);
+                HowlingSoul.setBlackBeast(this, itemStack);
+                ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+                if (itemEntity != null){
+                    itemEntity.setExtendedLifetime();
+                }
+            }
             this.remove(RemovalReason.KILLED);
             this.dropExperience();
         }

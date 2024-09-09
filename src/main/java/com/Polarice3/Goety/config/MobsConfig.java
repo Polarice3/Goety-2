@@ -67,6 +67,7 @@ public class MobsConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> GhastServantTexture;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlazeServantTexture;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireTexture;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VexTexture;
 
@@ -104,7 +105,9 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> NetherMinionHeal;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSoulJar;
     public static final ForgeConfigSpec.ConfigValue<Boolean> NecromancerSummonsLife;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WildfireSummonsLife;
     public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastDayStrength;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> BlackBeastHowlingSoul;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHate;
     public static final ForgeConfigSpec.ConfigValue<Boolean> VillagerHateRavager;
@@ -153,8 +156,6 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> FancierApostleDeath;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireImmune;
     public static final ForgeConfigSpec.ConfigValue<Boolean> HellfireFireProtection;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneGolemMold;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityMold;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneMonstrosityLeafBreak;
     public static final ForgeConfigSpec.ConfigValue<Boolean> RedstoneCubeBlockFind;
 
@@ -208,6 +209,8 @@ public class MobsConfig {
                 BUILDER.push("Blaze Servants");
                 BlazeServantTexture = BUILDER.comment("If Blaze Servants have custom textures, Default: true")
                         .define("blazeServantTexture", true);
+                WildfireTexture = BUILDER.comment("If Wildfires have custom textures, Default: true")
+                        .define("wildfireTexture", true);
                 BUILDER.pop();
                 BUILDER.push("Vexes");
                 VexTexture = BUILDER.comment("If Vexes have custom textures, Default: true")
@@ -287,6 +290,8 @@ public class MobsConfig {
                     .defineInRange("naturalMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
             BlackBeastDayStrength = BUILDER.comment("Whether Black Beasts gain buffs if total game time has gone long enough, Default: true")
                     .define("blackBeastDayStrength", true);
+            BlackBeastHowlingSoul = BUILDER.comment("Whether owned Black Beasts drop Howling Soul, Default: true")
+                    .define("blackBeastHowlingSoul", true);
             BUILDER.pop();
             BUILDER.push("Frost Servants");
             FrostMinionHeal = BUILDER.comment("Whether Frost Servants can heal if summoned while wearing Frost Robe, Default: true")
@@ -307,11 +312,9 @@ public class MobsConfig {
                     .defineInRange("netherMinionHealTime", 1, 0, Integer.MAX_VALUE);
             NetherMinionHealAmount = BUILDER.comment("How much Health Nether Servants heal, numerically, Default: 0.5")
                     .defineInRange("netherMinionHealAmount", 0.5, 0.0, Double.MAX_VALUE);
+            WildfireSummonsLife = BUILDER.comment("Whether Wildfire's summons have limited lifespans, Default: true")
+                    .define("wildfireSummonsLife", true);
             BUILDER.pop();
-        RedstoneGolemMold = BUILDER.comment("Whether creating a Redstone Golem causes the mold to change blocks, Default: false")
-                .define("redstoneGolemMold", false);
-        RedstoneMonstrosityMold = BUILDER.comment("Whether creating a Redstone Monstrosity causes the mold to change blocks, Default: true")
-                .define("redstoneMonstrosityMold", true);
         RedstoneMonstrosityLeafBreak = BUILDER.comment("Whether Redstone Monstrosity breaks leaves and certain blocks if mob griefing is enabled, Default: true")
                 .define("redstoneMonstrosityLeafBreak", true);
         RedstoneCubeBlockFind = BUILDER.comment("Enable Redstone Cubes block detection mechanic, Default: true")

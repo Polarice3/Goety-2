@@ -24,6 +24,11 @@
       "text": "The Stone Bricks can be substituted with other similar blocks such as Deepslate Bricks. The resulting Golem proves far superior to the Iron Golems as not only is it stronger, but it can be commanded to follow, wander or stay in position through a wand/staff. They can be repaired by right-clicking on them with Redstone Dusts or Blocks."
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "goety:diamond_mold_block",
+      "text": "Diamonds and stones are used to create a powerful mold."
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "goety:redstone_golem_skull",
       "text": "Should the Golem fell from battle or command, they will drop their 'skull'. The Skull can be used to revive the Golem in a cheaper manner. However, the Skull remembers it's original creator and master and the revived Golem will only follow their commands."

@@ -330,7 +330,7 @@ public class BlackguardServant extends ZombieServant{
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.mobInteract(pPlayer, p_230254_2_);
+        return InteractionResult.PASS;
     }
 
     class BlackguardAttackGoal extends MeleeAttackGoal {

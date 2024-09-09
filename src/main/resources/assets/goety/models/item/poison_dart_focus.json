@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "goety:item/focus/poison_dart_spell"
+  }
+}

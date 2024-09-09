@@ -150,8 +150,8 @@ public class LeapleafMold implements IMold {
         if (!level.isClientSide) {
             if (level.getBlockState(blockPos).is(ModBlocks.OVERGROWN_ROOTS.get())) {
                 if (SEHelper.hasResearch(player, ResearchList.FLORAL)) {
-                    if (canSpawn(level, blockPos)) {
-                        if (conditionsMet(level, player)) {
+                    if (conditionsMet(level, player)) {
+                        if (canSpawn(level, blockPos)) {
                             Leapleaf leapleaf = ModEntityType.LEAPLEAF.get().create(level);
                             if (leapleaf != null) {
                                 leapleaf.setTrueOwner(player);
@@ -167,13 +167,12 @@ public class LeapleafMold implements IMold {
                                 }
                             }
                         } else {
-                            player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                            player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
                         }
                     } else {
-                        player.displayClientMessage(Component.translatable("info.goety.block.fail"), true);
+                        player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                     }
-                }
-                 else {
+                } else {
                     player.displayClientMessage(Component.translatable("info.goety.research.fail"), true);
                 }
             }

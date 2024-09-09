@@ -43,6 +43,7 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
 
     public void summonSpells(int priority){
         this.goalSelector.addGoal(priority, new SummonServantSpell());
+        this.goalSelector.addGoal(priority + 1, new SummonUndeadGoal());
     }
 
     @Override
@@ -82,12 +83,12 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
 
     public Summoned getSummon(){
         Summoned summoned = getDefaultSummon();
-        if (this.getSummonList().contains(ModEntityType.FROZEN_ZOMBIE_SERVANT.get())) {
+        if (this.getSummonList().stream().anyMatch(entityType -> entityType.is(ModTags.EntityTypes.ZOMBIE_SERVANTS))) {
             if (this.level.random.nextBoolean()) {
                 summoned = new ZombieServant(ModEntityType.FROZEN_ZOMBIE_SERVANT.get(), this.level);
             }
         }
-        if (this.getSummonList().contains(ModEntityType.STRAY_SERVANT.get())) {
+        if (this.getSummonList().stream().anyMatch(entityType -> entityType.is(ModTags.EntityTypes.SKELETON_SERVANTS))) {
             if (this.level.random.nextBoolean()) {
                 summoned = new SkeletonServant(ModEntityType.STRAY_SERVANT.get(), this.level);
             }
@@ -103,6 +104,11 @@ public class AbstractCairnNecromancer extends AbstractNecromancer{
             }
         }
         return summoned;
+    }
+
+    @Override
+    public boolean summonVariants() {
+        return this.level.isWaterAt(this.blockPosition());
     }
 
     public class SummonServantSpell extends SummoningSpellGoal {

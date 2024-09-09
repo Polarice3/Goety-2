@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.listeners.IllagerAssaultListener;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModTags;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.SEHelper;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
@@ -83,6 +85,11 @@ public class IllagerSpawner {
                                 } else if (pPlayer.blockPosition().getY() < pLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutable).getY() - 32 && !pLevel.canSeeSky(pPlayer.blockPosition())){
                                     return 0;
                                 } else if (BlockFinder.findIllagerWard(pLevel, pPlayer, soulEnergy)){
+                                    return 0;
+                                } else if (!pLevel.getEntitiesOfClass(LivingEntity.class,
+                                        pPlayer.getBoundingBox().inflate(64.0D),
+                                        entity -> entity.getType().is(Tags.EntityTypes.BOSSES)
+                                                || entity.getType().is(ModTags.EntityTypes.MINI_BOSSES)).isEmpty()) {
                                     return 0;
                                 } else if (!IllagerAssaultListener.ILLAGER_LIST.isEmpty()) {
                                     int i1 = 0;

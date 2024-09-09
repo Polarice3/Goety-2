@@ -30,6 +30,7 @@ public class EnchantItemRitual extends Ritual{
         return this.recipe.getEnchantment() != null
                 && (activationItem.canApplyAtEnchantingTable(this.recipe.getEnchantment())
                 || this.recipe.getEnchantment().canEnchant(activationItem)
+                || activationItem.getItem() instanceof BookItem
                 || activationItem.getItem() instanceof EnchantedBookItem)
                 && compatibleEnchant(activationItem)
                 && this.areAdditionalIngredientsFulfilled(world, darkAltarPos, castingPlayer, remainingAdditionalIngredients);
@@ -76,8 +77,8 @@ public class EnchantItemRitual extends Ritual{
 
         Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(activationItem);
         ItemStack result = activationItem;
+        EnchantmentInstance enchantmentInstance = new EnchantmentInstance(this.recipe.getEnchantment(), 1);
         if (result.getItem() instanceof BookItem){
-            EnchantmentInstance enchantmentInstance = new EnchantmentInstance(this.recipe.getEnchantment(), 1);
             result = EnchantedBookItem.createForEnchantment(enchantmentInstance);
             activationItem.shrink(1);
         } else {
@@ -93,7 +94,11 @@ public class EnchantItemRitual extends Ritual{
                     }
                 }
             } else {
-                result.enchant(this.recipe.getEnchantment(), 1);
+                if (result.getItem() instanceof EnchantedBookItem){
+                    EnchantedBookItem.addEnchantment(result, enchantmentInstance);
+                } else {
+                    result.enchant(this.recipe.getEnchantment(), 1);
+                }
             }
         }
         result.onCraftedBy(world, castingPlayer, 1);

@@ -1,0 +1,31 @@
+{
+  "name": "野生のローブ",
+  "icon": "goety:wild_robe",
+  "category": "goety:crafts/garment",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "野生のローブを使用すると、自然の力をより効率的かつ効果的に活用できます。例えば、毒を使う従者は、代わりにアンデッドにも影響を与える酸毒を与えます。その結果、ローブは毒や酸毒に対する免疫も提供します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_robe"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "野生の呪文で生まれた従者は、召喚者がこのローブを着ていれば、召喚者のソウルエネルギーを使ってゆっくりと再生します。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "野生の冠は、野生の呪文を唱える時間を半分に短縮し、野生の従者がヴェックスのように死んでしまうのを防ぎます。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:wild_robe": 1,
+    "goety:wild_crown": 2
+  }
+}

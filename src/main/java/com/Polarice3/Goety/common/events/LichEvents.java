@@ -40,6 +40,8 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.UUID;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LichEvents {
 
@@ -200,15 +202,23 @@ public class LichEvents {
                             if (LichdomHelper.isLich(player)) {
                                 if (MainConfig.LichPowerfulFoes.get()) {
                                     if (event.getEntity().getMaxHealth() <= MainConfig.LichPowerfulFoesHealth.get()) {
+                                        if (event.getTargetType() == MOB_TARGET) {
+                                            event.setNewTarget(null);
+                                            if (event.getEntity() instanceof NeutralMob){
+                                                event.setNewTarget(null);
+                                            }
+                                        } else {
+                                            event.setCanceled(true);
+                                        }
+                                    }
+                                } else {
+                                    if (event.getTargetType() == MOB_TARGET) {
                                         event.setNewTarget(null);
                                         if (event.getEntity() instanceof NeutralMob){
                                             event.setNewTarget(null);
                                         }
-                                    }
-                                } else {
-                                    event.setNewTarget(null);
-                                    if (event.getEntity() instanceof NeutralMob){
-                                        event.setNewTarget(null);
+                                    } else {
+                                        event.setCanceled(true);
                                     }
                                 }
                             }

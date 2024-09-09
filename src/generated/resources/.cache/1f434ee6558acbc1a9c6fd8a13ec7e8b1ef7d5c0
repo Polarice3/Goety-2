@@ -1,4 +1,4 @@
-// 1.19.2	2024-07-30T00:24:22.2197563	Block States: goety
+// 1.19.2	2024-09-04T19:53:38.9310353	Block States: goety
 5ba05d2dcf57fd94853e20c1ed5185269980c6e1 assets/goety/blockstates/chiseled_siltstone.json
 f662201e0dad4be8da418251dc6737d16ebcd41c assets/goety/blockstates/chiseled_siltstone_bricks.json
 a889b86fc23228813018a54862555704e4c9fbff assets/goety/blockstates/compacted_windswept_slab.json
@@ -16,6 +16,7 @@ ad3a591c2fd10a6d7e658788d9e732f9114ffb60 assets/goety/blockstates/crag_brick_wal
 01be05e14badcbc2f5552b2bab4cda632820d5af assets/goety/blockstates/crag_tile_slab.json
 ad4120fcdbf8a10c43962d247dd3db3d8c4c4c20 assets/goety/blockstates/crag_tile_stairs.json
 08ff2a420c9b98afce4a1e2a9bce46d81e8b5dfb assets/goety/blockstates/crag_tile_wall.json
+7811175fd1336a076f505a4874353a9d973d29b3 assets/goety/blockstates/diamond_mold_block.json
 9695e21d4de7d6aafe313be7e7638563d2d6719d assets/goety/blockstates/haunted_button.json
 eb83aabf86461e7205fc2406a72216f8102ec228 assets/goety/blockstates/haunted_door.json
 0c2fbe32bffc1538d085d271d30b3c090eb6ef21 assets/goety/blockstates/haunted_fence.json
@@ -140,6 +141,7 @@ fa92310a5df570c9cb5064dfcffe3edac02e6ec6 assets/goety/models/block/crag_tile_wal
 50de42ed24b43a5d73c261b8fb796a14915068a9 assets/goety/models/block/crag_tile_wall_post.json
 60210808db98d43877cc5a497db4f87af0a327fd assets/goety/models/block/crag_tile_wall_side.json
 02c0970d62e7d067bdd05b84bc91bf726b4d7d3b assets/goety/models/block/crag_tile_wall_side_tall.json
+1f0083ddfdbbce1db45e6a00cd39157a1ac2c991 assets/goety/models/block/diamond_mold_block.json
 47b09f5574d7901bab42978dae40916dba795bf5 assets/goety/models/block/haunted_button.json
 f646762e69894556e6acd5171a33b90af1af54d3 assets/goety/models/block/haunted_button_inventory.json
 af7e0ff7c6bc16eb87f5e12dd8ff2d8bc9eb2e71 assets/goety/models/block/haunted_button_pressed.json
@@ -395,6 +397,7 @@ fcc335c73d501a4b72fe1c09395665f5244fcf25 assets/goety/models/item/crag_brick_wal
 b9d3810083270629e5bacbe1ef64fcb42c9ba666 assets/goety/models/item/crag_tile_slab.json
 4771d387a0697e8ee0c0f5f4fc214983172283f4 assets/goety/models/item/crag_tile_stairs.json
 e9fa6e393cfc4d15fde20d455630b5ce40e2a259 assets/goety/models/item/crag_tile_wall.json
+e352d4eb8803f488819b798827bf101fa4787aa6 assets/goety/models/item/diamond_mold_block.json
 416c217b36c3a068356ef630fb29b7c234ee3b99 assets/goety/models/item/haunted_button.json
 30ddc17381ad9296096df034436501cd50072b4f assets/goety/models/item/haunted_fence.json
 b067c286d7b7f563044bf6098b494b7333751f57 assets/goety/models/item/haunted_fence_gate.json

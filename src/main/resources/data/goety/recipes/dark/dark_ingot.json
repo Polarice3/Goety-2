@@ -1,6 +1,6 @@
 {
   "type": "goety:brazier",
-  "soulCost": 1000,
+  "soulCost": 2000,
   "ingredients": [
     {
       "item": "minecraft:ghast_tear"

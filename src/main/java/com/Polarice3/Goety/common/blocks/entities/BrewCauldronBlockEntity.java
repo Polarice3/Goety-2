@@ -189,7 +189,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                             }).findFirst().orElse(null);
                     BrewEffect brewEffect = new BrewEffects().getEffectFromSacrifice(entity.getType());
                     if (brewingRecipe != null){
-                        if (brewingRecipe.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                        if ((brewingRecipe.getCapacityExtra() + this.getCapacityUsed()) < this.getCapacity()) {
                             this.capacityUsed += brewingRecipe.getCapacityExtra();
                             this.addCost(brewingRecipe.soulCost);
                             this.setColor(BrewUtils.getColor(this.getBrew()));
@@ -197,7 +197,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                         }
                     }
                     if (brewEffect != null){
-                        if (brewEffect.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                        if ((brewEffect.getCapacityExtra() + this.getCapacityUsed()) < this.getCapacity()) {
                             this.capacityUsed += brewEffect.getCapacityExtra();
                             this.addCost(brewEffect.getSoulCost());
                             this.setColor(BrewUtils.getColor(this.getBrew()));
@@ -241,7 +241,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                     if (this.hasNoAugmentation()) {
                         if (brewingRecipe != null || brewEffect != null) {
                             if (brewingRecipe != null){
-                                if (brewingRecipe.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                                if ((brewingRecipe.getCapacityExtra() + this.getCapacityUsed()) < this.getCapacity()) {
                                     this.capacityUsed += brewingRecipe.getCapacityExtra();
                                     this.addCost(brewingRecipe.soulCost);
                                     this.setColor(BrewUtils.getColor(this.getBrew()));
@@ -249,7 +249,7 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                                 }
                             }
                             if (brewEffect != null){
-                                if (brewEffect.getCapacityExtra() + this.capacityUsed < this.getCapacity()) {
+                                if ((brewEffect.getCapacityExtra() + this.getCapacityUsed()) < this.getCapacity()) {
                                     this.capacityUsed += brewEffect.getCapacityExtra();
                                     this.addCost(brewEffect.getSoulCost());
                                     this.setColor(BrewUtils.getColor(this.getBrew()));

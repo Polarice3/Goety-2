@@ -177,106 +177,123 @@ public class WandUtil {
 
     }
 
-    public static void spawnIceBouquet(Level world, BlockPos pPos, LivingEntity livingEntity){
-        BlockPos blockPos2 = pPos.west();
-        BlockPos blockPos3 = pPos.east();
-        IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
-        world.addFreshEntity(iceBouquet1);
-        IceBouquet iceBouquet2 = new IceBouquet(world, blockPos2, livingEntity);
-        world.addFreshEntity(iceBouquet2);
-        IceBouquet iceBouquet3 = new IceBouquet(world, blockPos3, livingEntity);
-        world.addFreshEntity(iceBouquet3);
-        IceBouquet iceBouquet4 = new IceBouquet(world, pPos.north(), livingEntity);
-        world.addFreshEntity(iceBouquet4);
-        IceBouquet iceBouquet5 = new IceBouquet(world, pPos.south(), livingEntity);
-        world.addFreshEntity(iceBouquet5);
-        IceBouquet iceBouquet6 = new IceBouquet(world, blockPos2.north(), livingEntity);
-        world.addFreshEntity(iceBouquet6);
-        IceBouquet iceBouquet7 = new IceBouquet(world, blockPos2.south(), livingEntity);
-        world.addFreshEntity(iceBouquet7);
-        IceBouquet iceBouquet8 = new IceBouquet(world, blockPos3.north(), livingEntity);
-        world.addFreshEntity(iceBouquet8);
-        IceBouquet iceBouquet9 = new IceBouquet(world, blockPos3.south(), livingEntity);
-        world.addFreshEntity(iceBouquet9);
+    public static void spawnIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
+        spawnIceBouquet(world, pPos, livingEntity, 0.0F, 0);
     }
 
-    public static void spawnIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
+    public static void spawnIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
         Vec3 vector3d = Vec3Util.west(pPos);
         Vec3 vector3d1 = Vec3Util.east(pPos);
         IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+        iceBouquet1.setExtraDamage(damage);
+        iceBouquet1.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet1);
         IceBouquet iceBouquet2 = new IceBouquet(world, vector3d, livingEntity);
+        iceBouquet2.setExtraDamage(damage);
+        iceBouquet2.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet2);
         IceBouquet iceBouquet3 = new IceBouquet(world, vector3d1, livingEntity);
+        iceBouquet3.setExtraDamage(damage);
+        iceBouquet3.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet3);
         IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
+        iceBouquet4.setExtraDamage(damage);
+        iceBouquet4.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet4);
         IceBouquet iceBouquet5 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
+        iceBouquet5.setExtraDamage(damage);
+        iceBouquet5.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet5);
         IceBouquet iceBouquet6 = new IceBouquet(world, Vec3Util.north(vector3d), livingEntity);
+        iceBouquet6.setExtraDamage(damage);
+        iceBouquet6.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet6);
         IceBouquet iceBouquet7 = new IceBouquet(world, Vec3Util.south(vector3d), livingEntity);
+        iceBouquet7.setExtraDamage(damage);
+        iceBouquet7.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet7);
         IceBouquet iceBouquet8 = new IceBouquet(world, Vec3Util.north(vector3d1), livingEntity);
+        iceBouquet8.setExtraDamage(damage);
+        iceBouquet8.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet8);
         IceBouquet iceBouquet9 = new IceBouquet(world, Vec3Util.south(vector3d1), livingEntity);
+        iceBouquet9.setExtraDamage(damage);
+        iceBouquet9.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet9);
     }
 
     public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
+        spawnCrossIceBouquet(world, pPos, livingEntity, 0.0F, 0);
+    }
+
+    public static void spawnCrossIceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
         IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+        iceBouquet1.setExtraDamage(damage);
+        iceBouquet1.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet1);
         IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.west(pPos), livingEntity);
+        iceBouquet2.setExtraDamage(damage);
+        iceBouquet2.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet2);
         IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.east(pPos), livingEntity);
+        iceBouquet3.setExtraDamage(damage);
+        iceBouquet3.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet3);
         IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
+        iceBouquet4.setExtraDamage(damage);
+        iceBouquet4.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet4);
         IceBouquet iceBouquet5 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
+        iceBouquet5.setExtraDamage(damage);
+        iceBouquet5.addLifeSpan(duration);
         world.addFreshEntity(iceBouquet5);
     }
 
     public static void spawn4x4IceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity){
+        spawn4x4IceBouquet(world, pPos, livingEntity, 0.0F, 0);
+    }
+
+    public static void spawn4x4IceBouquet(Level world, Vec3 pPos, LivingEntity livingEntity, float damage, int duration){
         Vec3 vector3d = Vec3Util.west(pPos);
         Vec3 vector3d1 = Vec3Util.east(pPos);
         int random = world.random.nextInt(4);
-        if (random == 0) {
-            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
-            world.addFreshEntity(iceBouquet1);
-            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet2);
-            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.west(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet3);
-            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(vector3d), livingEntity);
-            world.addFreshEntity(iceBouquet4);
+        Vec3 vec31;
+        Vec3 vec32;
+        Vec3 vec33;
+        if (random == 0){
+            vec31 = Vec3Util.north(pPos);
+            vec32 = Vec3Util.west(pPos);
+            vec33 = Vec3Util.north(vector3d);
         } else if (random == 1){
-            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
-            world.addFreshEntity(iceBouquet1);
-            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet2);
-            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.west(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet3);
-            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.south(vector3d), livingEntity);
-            world.addFreshEntity(iceBouquet4);
+            vec31 = Vec3Util.south(pPos);
+            vec32 = Vec3Util.west(pPos);
+            vec33 = Vec3Util.south(vector3d);
         } else if (random == 2){
-            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
-            world.addFreshEntity(iceBouquet1);
-            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.north(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet2);
-            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.east(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet3);
-            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.north(vector3d1), livingEntity);
-            world.addFreshEntity(iceBouquet4);
+            vec31 = Vec3Util.north(pPos);
+            vec32 = Vec3Util.east(pPos);
+            vec33 = Vec3Util.north(vector3d1);
         } else {
-            IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
-            world.addFreshEntity(iceBouquet1);
-            IceBouquet iceBouquet2 = new IceBouquet(world, Vec3Util.south(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet2);
-            IceBouquet iceBouquet3 = new IceBouquet(world, Vec3Util.east(pPos), livingEntity);
-            world.addFreshEntity(iceBouquet3);
-            IceBouquet iceBouquet4 = new IceBouquet(world, Vec3Util.south(vector3d1), livingEntity);
-            world.addFreshEntity(iceBouquet4);
+            vec31 = Vec3Util.south(pPos);
+            vec32 = Vec3Util.east(pPos);
+            vec33 = Vec3Util.south(vector3d1);
         }
+
+        IceBouquet iceBouquet1 = new IceBouquet(world, pPos, livingEntity);
+        iceBouquet1.setExtraDamage(damage);
+        iceBouquet1.addLifeSpan(duration);
+        world.addFreshEntity(iceBouquet1);
+        IceBouquet iceBouquet2 = new IceBouquet(world, vec31, livingEntity);
+        iceBouquet2.setExtraDamage(damage);
+        iceBouquet2.addLifeSpan(duration);
+        world.addFreshEntity(iceBouquet2);
+        IceBouquet iceBouquet3 = new IceBouquet(world, vec32, livingEntity);
+        iceBouquet3.setExtraDamage(damage);
+        iceBouquet3.addLifeSpan(duration);
+        world.addFreshEntity(iceBouquet3);
+        IceBouquet iceBouquet4 = new IceBouquet(world, vec33, livingEntity);
+        iceBouquet4.setExtraDamage(damage);
+        iceBouquet4.addLifeSpan(duration);
+        world.addFreshEntity(iceBouquet4);
     }
 
     /**

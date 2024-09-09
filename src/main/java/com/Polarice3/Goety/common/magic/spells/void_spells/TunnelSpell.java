@@ -74,7 +74,7 @@ public class TunnelSpell extends BlockSpell {
         }
         for (int distance = 0; distance < totalDistance; ++distance) {
             BlockState blockState = worldIn.getBlockState(blockPos);
-            if (blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST) || blockState.getBlock() == ModBlocks.HOLE.get() || blockState.isAir()) {
+            if (blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST) || !blockState.getFluidState().isEmpty() || blockState.getBlock() == ModBlocks.HOLE.get() || blockState.isAir()) {
                 break;
             }
             if (blockState.getDestroySpeed(worldIn, blockPos) == -1.0F) {
@@ -90,6 +90,7 @@ public class TunnelSpell extends BlockSpell {
         BlockState blockState = world.getBlockState(blockPos);
         if (!world.isClientSide && world.getBlockEntity(blockPos) == null
                 && !blockState.is(ModTags.Blocks.TUNNEL_BLACKLIST)
+                && blockState.getFluidState().isEmpty()
                 && blockState.getBlock() != ModBlocks.HOLE.get()
                 && blockState.getDestroySpeed(world, blockPos) != -1.0F) {
             if (world.setBlockAndUpdate(blockPos, ModBlocks.HOLE.get().defaultBlockState())) {

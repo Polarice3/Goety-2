@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.effects.brew;
 
+import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,6 +26,11 @@ public class FertilityBrewEffect extends BrewEffect {
     public void applyEntityEffect(LivingEntity pTarget, @Nullable Entity pSource, @Nullable Entity pIndirectSource, int pAmplifier){
         if (!pTarget.level.isClientSide) {
             if (pTarget instanceof Animal animal){
+                if (animal.getAge() > 0){
+                    animal.setAge(0);
+                }
+            }
+            if (pTarget instanceof AnimalSummon animal){
                 if (animal.getAge() > 0){
                     animal.setAge(0);
                 }

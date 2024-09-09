@@ -1,0 +1,17 @@
+{
+  "name": "阴咒注入器",
+  "icon": "goety:grim_infuser",
+  "category": "goety:crafts",
+  "advancement": "goety:goety/read_haunting_scroll",
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "作为不起眼的$(l:intro/cursed_infuser)诅咒注入器$()的升级版本，现在不仅可以将黑曜石转化成墓穴石，还可以接受和注入多个物品。其工作方式与诅咒注入器相同。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:grim_infuser"
+    }
+  ]
+}

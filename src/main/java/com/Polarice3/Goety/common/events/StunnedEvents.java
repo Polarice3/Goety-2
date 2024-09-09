@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class StunnedEvents {
 
@@ -73,7 +75,11 @@ public class StunnedEvents {
     @SubscribeEvent
     public static void onLivingTarget(LivingChangeTargetEvent event) {
         if (event.getEntity() instanceof Mob mob && isStunned(mob)) {
-            event.setNewTarget(null);
+            if (event.getTargetType() == MOB_TARGET) {
+                event.setNewTarget(null);
+            } else {
+                event.setCanceled(true);
+            }
         }
     }
 

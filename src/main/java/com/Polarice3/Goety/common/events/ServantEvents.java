@@ -24,6 +24,8 @@ import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static net.minecraftforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.MOB_TARGET;
+
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServantEvents {
 
@@ -57,7 +59,11 @@ public class ServantEvents {
                         if (target instanceof Player
                                 || (target instanceof IOwned owned1
                                 && owned1.getMasterOwner() instanceof Player)) {
-                            event.setNewTarget(null);
+                            if (event.getTargetType() == MOB_TARGET) {
+                                event.setNewTarget(null);
+                            } else {
+                                event.setCanceled(true);
+                            }
                         }
                     }
                 }

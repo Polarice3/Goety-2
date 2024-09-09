@@ -12,10 +12,19 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:nether_robe"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:nether_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Незерская корона вдвое сокращает время использования незерских заклинаний и не даёт вашим незерским прислужникам исчезать, подобно врединам."
     }
   ],
   "extra_recipe_mappings": {
     "goety:nether_robe": 1,
-    "goety:nether_robe_warped": 1
+    "goety:nether_robe_warped": 1,
+    "goety:nether_crown": 2
   }
 }

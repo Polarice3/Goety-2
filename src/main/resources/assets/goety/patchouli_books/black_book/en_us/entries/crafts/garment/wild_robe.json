@@ -14,9 +14,18 @@
     {
       "type": "patchouli:text",
       "text": "Creatures born from Wild magic can slowly heal themselves using their summoner's soul energy, should the summoner don this robe."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:wild_crown"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Wild Crown reduce the amount of time to cast Wild spells by half and keeps your wild servants from dying off like Vexes."
     }
   ],
   "extra_recipe_mappings": {
-    "goety:wild_robe": 1
+    "goety:wild_robe": 1,
+    "goety:wild_crown": 2
   }
 }
