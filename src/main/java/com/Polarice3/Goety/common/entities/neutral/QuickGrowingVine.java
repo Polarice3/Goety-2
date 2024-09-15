@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -15,6 +16,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -237,5 +239,10 @@ public class QuickGrowingVine extends AbstractVine{
         super.burrow();
         this.setAnimationState("burrow");
         this.playSound(this.getBurrowSound(), 2.0F, 1.0F);
+    }
+
+    @Override
+    public ItemStack getSeed() {
+        return new ItemStack(ModItems.QUICK_GROWING_SEED.get());
     }
 }

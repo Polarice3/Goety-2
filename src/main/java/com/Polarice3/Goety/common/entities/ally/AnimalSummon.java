@@ -269,16 +269,18 @@ public abstract class AnimalSummon extends Summoned{
     }
 
     public boolean canFallInLove() {
-        return this.inLove <= 0 && !this.limitedLifespan;
+        return this.inLove <= 0 && !this.limitedLifespan && this.limitedLifeTicks <= 0;
     }
 
     public void setInLove(@Nullable Player p_27596_) {
-        this.inLove = 600;
-        if (p_27596_ != null) {
-            this.loveCause = p_27596_.getUUID();
-        }
+        if (!this.limitedLifespan && this.limitedLifeTicks <= 0) {
+            this.inLove = 600;
+            if (p_27596_ != null) {
+                this.loveCause = p_27596_.getUUID();
+            }
 
-        this.level.broadcastEntityEvent(this, (byte)18);
+            this.level.broadcastEntityEvent(this, (byte) 18);
+        }
     }
 
     public void setInLoveTime(int p_27602_) {

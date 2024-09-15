@@ -259,8 +259,10 @@ public class BlackWolf extends AnimalSummon{
                 if (this.getTarget() != null) {
                     if (!this.isInvisible()) {
                         if (this.invisibleCool > 0) {
-                            if (this.getTarget() instanceof Mob mob && (mob.getTarget() != this || mob.getTarget().isDeadOrDying())) {
-                                mob.setTarget(this);
+                            if (this.getTarget() instanceof Mob mob) {
+                                if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
+                                    mob.setTarget(this);
+                                }
                             }
                         } else {
                             this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, MathHelper.secondsToTicks(30), 0, false, false));

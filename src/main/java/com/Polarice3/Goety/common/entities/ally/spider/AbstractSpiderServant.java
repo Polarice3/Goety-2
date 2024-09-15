@@ -11,8 +11,10 @@ import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -67,6 +69,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     protected static final EntityDataAccessor<Boolean> NATURAL = SynchedEntityData.defineId(AbstractSpiderServant.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Byte> SUMMONED_FLAGS = SynchedEntityData.defineId(AbstractSpiderServant.class, EntityDataSerializers.BYTE);
     protected static final EntityDataAccessor<Byte> UPGRADE_FLAGS = SynchedEntityData.defineId(AbstractSpiderServant.class, EntityDataSerializers.BYTE);
+    public static int PATROL_RANGE = MobsConfig.ServantPatrolRange.get();
     private final NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(this, Player.class, true);
     public boolean limitedLifespan;
     public int limitedLifeTicks;
@@ -90,7 +93,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     public void followGoal(){
-        this.goalSelector.addGoal(8, new Summoned.FollowOwnerGoal<>(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(5, new Summoned.FollowOwnerGoal<>(this, 1.0D, 10.0F, 2.0F));
     }
 
     public void targetSelectGoal(){
@@ -257,6 +260,89 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         if (this.isWandering()){
             if (this.isStaying()) {
                 this.setStaying(false);
+            }
+        }
+        if (this.isPatrolling()){
+            if (this.getTarget() != null){
+                if (this.getTarget().distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                    this.setTarget(null);
+                    if (!this.isCommanded()){
+                        this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
+                    }
+                }
+            }
+            if (!this.isCommanded() && this.distanceToSqr(this.vec3BoundPos()) > Mth.square(PATROL_RANGE)){
+                this.getNavigation().moveTo(this.boundPos.getX(), this.boundPos.getY(), this.boundPos.getZ(), 1.0F);
+            }
+        }
+        if (this.getTrueOwner() != null){
+            boolean crown = false;
+            if (this.getMobType() == ModMobType.FROST){
+                crown = CuriosFinder.hasFrostCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == ModMobType.NATURAL){
+                crown = CuriosFinder.hasWildCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == ModMobType.NETHER){
+                crown = CuriosFinder.hasNetherCrown(this.getTrueOwner());
+            }
+            if (this.getMobType() == MobType.UNDEAD){
+                crown = CuriosFinder.hasUndeadCrown(this.getTrueOwner());
+            }
+            if (!crown){
+                if (this.limitedLifeTicks > 0){
+                    this.limitedLifespan = true;
+                }
+            } else {
+                this.limitedLifespan = false;
+            }
+            if (!this.level.isClientSide) {
+                if (!this.isOnFire() && !this.isDeadOrDying() && (!this.limitedLifespan || this.limitedLifeTicks > 20)) {
+                    if (this.getHealth() < this.getMaxHealth()){
+                        if (this.getTrueOwner() instanceof Player owner) {
+                            boolean curio = false;
+                            int soulCost = 0;
+                            int healRate = 0;
+                            float healAmount = 0;
+                            if (this.getMobType() == MobType.UNDEAD && MobsConfig.UndeadMinionHeal.get()){
+                                curio = CuriosFinder.hasUndeadCape(owner);
+                                soulCost = MobsConfig.UndeadMinionHealCost.get();
+                                healRate = MobsConfig.UndeadMinionHealTime.get();
+                                healAmount = MobsConfig.UndeadMinionHealAmount.get().floatValue();
+                            }
+                            if (this.getMobType() == ModMobType.NATURAL && MobsConfig.NaturalMinionHeal.get()){
+                                curio = CuriosFinder.hasWildRobe(owner);
+                                soulCost = MobsConfig.NaturalMinionHealCost.get();
+                                healRate = MobsConfig.NaturalMinionHealTime.get();
+                                healAmount = MobsConfig.NaturalMinionHealAmount.get().floatValue();
+                            }
+                            if (this.getMobType() == ModMobType.FROST && MobsConfig.FrostMinionHeal.get()){
+                                curio = CuriosFinder.hasFrostRobes(owner);
+                                soulCost = MobsConfig.FrostMinionHealCost.get();
+                                healRate = MobsConfig.FrostMinionHealTime.get();
+                                healAmount = MobsConfig.FrostMinionHealAmount.get().floatValue();
+                            }
+                            if (this.getMobType() == ModMobType.NETHER && MobsConfig.NetherMinionHeal.get()){
+                                curio = CuriosFinder.hasNetherRobe(owner);
+                                soulCost = MobsConfig.NetherMinionHealCost.get();
+                                healRate = MobsConfig.NetherMinionHealTime.get();
+                                healAmount = MobsConfig.NetherMinionHealAmount.get().floatValue();
+                            }
+                            if (curio) {
+                                if (SEHelper.getSoulsAmount(owner, soulCost)) {
+                                    if (this.tickCount % (MathHelper.secondsToTicks(healRate) + 1) == 0) {
+                                        this.heal(healAmount);
+                                        Vec3 vector3d = this.getDeltaMovement();
+                                        if (this.level instanceof ServerLevel serverWorld) {
+                                            SEHelper.decreaseSouls(owner, soulCost);
+                                            serverWorld.sendParticles(ParticleTypes.SCULK_SOUL, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, vector3d.x * -0.2D, 0.1D, vector3d.z * -0.2D, 0.5F);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         boolean flag = this.isSunSensitive() && this.isSunBurnTick() && MobsConfig.UndeadServantSunlightBurn.get();
@@ -556,6 +642,7 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     public void setFollowing(){
+        this.setBoundPos(null);
         this.setWandering(false);
         this.setStaying(false);
     }
@@ -565,15 +652,23 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
     }
 
     public void updateMoveMode(Player player){
-        if (!this.isWandering() && !this.isStaying()){
+        if (!this.isWandering() && !this.isStaying() && !this.isPatrolling()){
+            this.setBoundPos(null);
             this.setWandering(true);
             this.setStaying(false);
             player.displayClientMessage(Component.translatable("info.goety.servant.wander", this.getDisplayName()), true);
-        } else if (!this.isStaying()){
+        } else if (!this.isStaying() && !this.isPatrolling()){
+            this.setBoundPos(null);
             this.setWandering(false);
             this.setStaying(true);
             player.displayClientMessage(Component.translatable("info.goety.servant.staying", this.getDisplayName()), true);
+        } else if (!this.isPatrolling()){
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
+            player.displayClientMessage(Component.translatable("info.goety.servant.patrol", this.getDisplayName()), true);
         } else {
+            this.setBoundPos(null);
             this.setWandering(false);
             this.setStaying(false);
             player.displayClientMessage(Component.translatable("info.goety.servant.follow", this.getDisplayName()), true);
@@ -622,6 +717,18 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
 
     public boolean isCommanded(){
         return this.commandPos != null;
+    }
+
+    public BlockPos getBoundPos(){
+        return this.boundPos;
+    }
+
+    public void setBoundPos(BlockPos blockPos){
+        this.boundPos = blockPos;
+    }
+
+    public Vec3 vec3BoundPos(){
+        return Vec3.atBottomCenterOf(this.boundPos);
     }
 
     public void dropEquipment(EquipmentSlot equipmentSlot, ItemStack stack){

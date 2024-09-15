@@ -19,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -195,9 +194,6 @@ public class HauntedSkull extends Minion {
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34002_, DifficultyInstance p_34003_, MobSpawnType p_34004_, @Nullable SpawnGroupData p_34005_, @Nullable CompoundTag p_34006_) {
-        RandomSource randomsource = p_34002_.getRandom();
-        this.populateDefaultEquipmentSlots(randomsource, p_34003_);
-        this.populateDefaultEquipmentEnchantments(randomsource, p_34003_);
         if (this.getTrueOwner() == null){
             this.setBoundOrigin(this.blockPosition());
         }

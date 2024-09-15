@@ -53,11 +53,9 @@ public class SoulTransferItem extends Item {
                 }
                 BlockState blockstate = world.getBlockState(blockpos);
                 if (blockstate.is(ModBlocks.CURSED_CAGE_BLOCK.get()) && !blockstate.getValue(CursedCageBlock.POWERED)) {
-                    ItemStack itemstack = pContext.getItemInHand();
                     if (!world.isClientSide) {
-                        ((CursedCageBlock) ModBlocks.CURSED_CAGE_BLOCK.get()).setItem(world, blockpos, blockstate, itemstack);
+                        ((CursedCageBlock) ModBlocks.CURSED_CAGE_BLOCK.get()).setItem(world, blockpos, blockstate, stack);
                         world.levelEvent(null, 1010, blockpos, Item.getId(this));
-                        itemstack.shrink(1);
                     }
 
                     return InteractionResult.sidedSuccess(world.isClientSide);

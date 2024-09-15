@@ -1,10 +1,12 @@
 package com.Polarice3.Goety.common.items;
 
 import com.Polarice3.Goety.Goety;
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.SkeletonServant;
 import com.Polarice3.Goety.common.entities.ally.undead.skeleton.StrayServant;
 import com.Polarice3.Goety.common.entities.neutral.AbstractCairnNecromancer;
 import com.Polarice3.Goety.common.entities.neutral.AbstractNecromancer;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -61,23 +63,25 @@ public class SoulJar extends Item {
                 }
                 if (flag) {
                     if (necromancer.getTrueOwner() == player) {
-                        necromancer.setHealth(necromancer.getMaxHealth());
-                        necromancer.setPos(target.getX(), target.getY(), target.getZ());
-                        necromancer.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                        if (level.addFreshEntity(necromancer)) {
-                            necromancer.spawnAnim();
-                            if (level instanceof ServerLevel serverLevel) {
-                                for (int i = 0; i < 8; ++i) {
-                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, necromancer);
-                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, necromancer);
+                        if (RitualRequirements.canSummon(level, player, ModEntityType.NECROMANCER_SERVANT.get())) {
+                            necromancer.setHealth(necromancer.getMaxHealth());
+                            necromancer.setPos(target.getX(), target.getY(), target.getZ());
+                            necromancer.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                            if (level.addFreshEntity(necromancer)) {
+                                necromancer.spawnAnim();
+                                if (level instanceof ServerLevel serverLevel) {
+                                    for (int i = 0; i < 8; ++i) {
+                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, necromancer);
+                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, necromancer);
+                                    }
                                 }
+                                necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                                necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
+                                target.discard();
+                                player.swing(hand);
+                                player.getCooldowns().addCooldown(ModItems.SOUL_JAR.get(), MathHelper.secondsToTicks(30));
+                                stack.shrink(1);
                             }
-                            necromancer.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                            necromancer.playSound(ModSounds.NECROMANCER_LAUGH.get(), 2.0F, 0.5F);
-                            target.discard();
-                            player.swing(hand);
-                            player.getCooldowns().addCooldown(ModItems.SOUL_JAR.get(), MathHelper.secondsToTicks(30));
-                            stack.shrink(1);
                         }
                     }
                 }

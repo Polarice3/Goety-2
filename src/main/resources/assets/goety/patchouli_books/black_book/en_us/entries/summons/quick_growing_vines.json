@@ -1,0 +1,47 @@
+{
+  "name": "Quick-Growing Vines",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These thick, sentient vines can block the paths of any creature that attempts to go through."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When summoned or planted underwater, instead of growing into vines, they grow into aquatic kelp instead."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_kelp{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Monstrous and poisonous, these floral creatures shoot poisonous quills towards their master's foes."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_quill_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Much like their simple cousins, summoning these poisonous plants underwater will spawn an aquatic variant, though unlike their landlubber counterparts, their quills are unaffected by water."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_anemone{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These plants can be healed using Bone Meal on them. If they're already fully healed, they have a chance of generating a new seed instead."
+    }
+  ]
+}

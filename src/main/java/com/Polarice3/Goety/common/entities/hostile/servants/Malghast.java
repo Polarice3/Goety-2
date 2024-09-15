@@ -6,7 +6,9 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,15 +40,15 @@ import java.util.EnumSet;
 public class Malghast extends OwnedFlying {
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(Malghast.class, EntityDataSerializers.INT);
-    public float fireBallDamage;
     private float explosionPower = 1.0F;
+    public float fireBallDamage;
     private int oldSwell;
     private int swell;
     private int stun;
 
     public Malghast(EntityType<? extends OwnedFlying> type, Level p_i48578_2_) {
         super(type, p_i48578_2_);
-        this.moveControl = new Malghast.MoveHelperController(this);
+        this.moveControl = new MoveHelperController(this);
     }
 
     protected void registerGoals() {
@@ -55,6 +57,9 @@ public class Malghast extends OwnedFlying {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.addFlyingGoal();
         this.addFireballGoal();
+    }
+
+    public void followGoal(){
     }
 
     public void addFlyingGoal(){
@@ -96,6 +101,11 @@ public class Malghast extends OwnedFlying {
             }
         }
         super.tick();
+        if (!this.level.isClientSide) {
+            if (this.isStaying()) {
+                this.getMoveControl().strafe(0.0F, 0.0F);
+            }
+        }
     }
 
     public float getSwelling(float pPartialTicks) {
@@ -219,7 +229,32 @@ public class Malghast extends OwnedFlying {
         if (this.isNatural()){
             this.setHostile(true);
         }
-        this.setBoundOrigin(this.blockPosition());
+        if (this.getTrueOwner() == null) {
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
+        }
+    }
+
+    @Override
+    public void lifeSpanDamage() {
+        if (!this.level.isClientSide){
+            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
+            }
+        }
+        this.playSound(ModSounds.GHAST_DISAPPEAR.get(), this.getSoundVolume(), this.getVoicePitch());
+        this.discard();
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        this.lifeSpanDamage();
+    }
+
+    @Override
+    public boolean canUpdateMove() {
+        return true;
     }
 
     @Override
@@ -281,8 +316,7 @@ public class Malghast extends OwnedFlying {
                             this.ghast.playSound(ModSounds.HELL_BLAST_SHOOT.get(), 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
                         } else {
                             this.ghast.playSound(SoundEvents.GHAST_SHOOT, 5.0F, (this.ghast.random.nextFloat() - this.ghast.random.nextFloat()) * 0.2F + 1.0F);
-                        }
-                    }
+                        }                    }
 
                     int power = (int) (this.ghast.getExplosionPower() + this.ghast.level.getCurrentDifficultyAt(this.ghast.blockPosition()).getSpecialMultiplier());
 
@@ -314,7 +348,7 @@ public class Malghast extends OwnedFlying {
 
         public LookAroundGoal(Malghast p_i45839_1_) {
             this.ghast = p_i45839_1_;
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.LOOK));
         }
 
         public boolean canUse() {
@@ -347,7 +381,7 @@ public class Malghast extends OwnedFlying {
         }
 
         public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
+            if (this.operation == Operation.MOVE_TO) {
                 if (this.floatDuration-- <= 0) {
                     this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
                     Vec3 vector3d = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
@@ -357,7 +391,7 @@ public class Malghast extends OwnedFlying {
                         if (this.canReach(vector3d, Mth.ceil(d0))) {
                             this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(vector3d.scale(0.1D)));
                         } else {
-                            this.operation = MoveControl.Operation.WAIT;
+                            this.operation = Operation.WAIT;
                         }
                     } else {
                         this.ghast.setDeltaMovement(Vec3.ZERO);
@@ -386,12 +420,14 @@ public class Malghast extends OwnedFlying {
 
         public FlyingGoal(Malghast p_i45836_1_) {
             this.ghast = p_i45836_1_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
             MoveControl moveControl = this.ghast.getMoveControl();
-            if (!moveControl.hasWanted()) {
+            if (this.ghast.isCommanded() || this.ghast.isStaying()){
+                return false;
+            } else if (!moveControl.hasWanted()) {
                 return true;
             } else {
                 double d0 = moveControl.getWantedX() - this.ghast.getX();
@@ -411,12 +447,12 @@ public class Malghast extends OwnedFlying {
             RandomSource random = this.ghast.getRandom();
             float distance = 16.0F;
             BlockPos blockPos = null;
-            if (this.ghast.getTrueOwner() != null){
+            if (this.ghast.getBoundPos() != null){
+                blockPos = this.ghast.getBoundPos();
+            } else if (this.ghast.getTrueOwner() != null && this.ghast.isFollowing()){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){
                 blockPos = this.ghast.getTarget().blockPosition().above(4);
-            } else if (this.ghast.getBoundOrigin() != null){
-                blockPos = this.ghast.getBoundOrigin();
             }
 
             if (blockPos != null) {

@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.undead;
 
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.client.particles.ShockwaveParticleOption;
+import com.Polarice3.Goety.common.blocks.ModBlocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.ally.golem.AbstractGolemServant;
@@ -9,6 +10,7 @@ import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.HauntedSkullProjectile;
 import com.Polarice3.Goety.common.entities.projectiles.SoulBomb;
 import com.Polarice3.Goety.common.entities.util.SummonCircle;
+import com.Polarice3.Goety.common.items.block.GraveGolemSkullItem;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -317,6 +319,19 @@ public class GraveGolem extends AbstractGolemServant {
         ++this.deathTime;
         if (this.deathTime >= MathHelper.secondsToTicks(5)) {
             this.spawnAnim();
+            ItemStack itemStack = new ItemStack(ModBlocks.GRAVE_GOLEM_SKULL_ITEM.get());
+            if (this.getTrueOwner() != null){
+                GraveGolemSkullItem.setOwner(this.getTrueOwner(), itemStack);
+                if (this.getCustomName() != null){
+                    GraveGolemSkullItem.setCustomName(this.getCustomName().getString(), itemStack);
+                }
+                ItemEntity itemEntity = this.spawnAtLocation(itemStack);
+                if (itemEntity != null){
+                    itemEntity.setExtendedLifetime();
+                }
+            } else if (this.level.random.nextFloat() <= 0.11F){
+                this.spawnAtLocation(itemStack);
+            }
             this.dropInventory();
             this.remove(RemovalReason.KILLED);
         }

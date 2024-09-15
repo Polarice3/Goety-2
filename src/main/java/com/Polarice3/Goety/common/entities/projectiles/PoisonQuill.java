@@ -39,7 +39,9 @@ import java.util.List;
 public class PoisonQuill extends Arrow {
     private static final EntityDataAccessor<Boolean> AQUA = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SPEAR = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PIERCE_LEVEL = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.FLOAT);
+    public int duration;
     @Nullable
     private IntOpenHashSet piercingIgnoreEntityIds;
     @Nullable
@@ -66,6 +68,7 @@ public class PoisonQuill extends Arrow {
         super.defineSynchedData();
         this.entityData.define(AQUA, false);
         this.entityData.define(SPEAR, false);
+        this.entityData.define(PIERCE_LEVEL, 0);
         this.entityData.define(DATA_EXTRA_DAMAGE, 0.0F);
     }
 
@@ -73,6 +76,8 @@ public class PoisonQuill extends Arrow {
         super.addAdditionalSaveData(p_36881_);
         p_36881_.putBoolean("Aqua", this.isAqua());
         p_36881_.putBoolean("Spear", this.isSpear());
+        p_36881_.putInt("SpearLevel", this.getSpearLevel());
+        p_36881_.putInt("Duration", this.getDuration());
         p_36881_.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
@@ -83,6 +88,12 @@ public class PoisonQuill extends Arrow {
         }
         if (p_36875_.contains("Spear")){
             this.setSpear(p_36875_.getBoolean("Spear"));
+        }
+        if (p_36875_.contains("SpearLevel")){
+            this.setSpearLevel(p_36875_.getInt("SpearLevel"));
+        }
+        if (p_36875_.contains("Duration")){
+            this.setDuration(p_36875_.getInt("Duration"));
         }
         if (p_36875_.contains("ExtraDamage")) {
             this.setExtraDamage(p_36875_.getFloat("ExtraDamage"));
@@ -95,6 +106,14 @@ public class PoisonQuill extends Arrow {
 
     public void setExtraDamage(float pDamage) {
         this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return this.duration;
     }
 
     protected float getWaterInertia() {
@@ -122,15 +141,18 @@ public class PoisonQuill extends Arrow {
 
     public void setSpear(boolean spear, int pierce){
         this.setSpear(spear);
-        this.setPierceLevel((byte) pierce);
+        this.setSpearLevel(pierce);
     }
 
-    @Override
-    public byte getPierceLevel() {
+    public int getSpearLevel() {
         if (this.isSpear()){
-            return super.getPierceLevel();
+            return this.entityData.get(PIERCE_LEVEL);
         }
         return 0;
+    }
+
+    public void setSpearLevel(int level){
+        this.entityData.set(PIERCE_LEVEL, level);
     }
 
     @Override
@@ -164,7 +186,7 @@ public class PoisonQuill extends Arrow {
     protected void onHitEntity(EntityHitResult pResult) {
         if (!this.level.isClientSide) {
             Entity entity = pResult.getEntity();
-            if (this.getPierceLevel() > 0) {
+            if (this.getSpearLevel() > 0) {
                 if (this.piercingIgnoreEntityIds == null) {
                     this.piercingIgnoreEntityIds = new IntOpenHashSet(5);
                 }
@@ -173,7 +195,7 @@ public class PoisonQuill extends Arrow {
                     this.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
                 }
 
-                if (this.piercingIgnoreEntityIds.size() >= this.getPierceLevel() + 1) {
+                if (this.piercingIgnoreEntityIds.size() >= this.getSpearLevel() + 1) {
                     this.discard();
                     return;
                 }
@@ -210,10 +232,10 @@ public class PoisonQuill extends Arrow {
                         || (entity1 instanceof LivingEntity livingEntity1 && CuriosFinder.hasWildRobe(livingEntity1))) {
                     mobEffect = GoetyEffects.ACID_VENOM.get();
                 }
-                livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(2)));
+                livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(2 + this.getDuration())));
 
                 this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                if (this.getPierceLevel() <= 0) {
+                if (this.getSpearLevel() <= 0) {
                     this.discard();
                 }
             }

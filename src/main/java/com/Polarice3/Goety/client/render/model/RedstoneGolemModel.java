@@ -103,8 +103,10 @@ public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalMode
 			this.animate(redstoneGolem.activateAnimationState, RedstoneGolemAnimations.ACTIVATE, ageInTicks);
 			this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 			this.animate(redstoneGolem.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-			if (redstoneGolem.canAnimateMove()) {
+			if (redstoneGolem.canAnimateMove() && redstoneGolem.isMoving()) {
 				ModModelUtils.animateWalk(this, RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			} else {
+				this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 			}
 			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);
@@ -118,8 +120,10 @@ public class RedstoneGolemModel<T extends LivingEntity> extends HierarchicalMode
 			}
 			this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 			this.animate(redstoneGolem.noveltyAnimationState, RedstoneGolemAnimations.NOVELTY, ageInTicks);
-			if (redstoneGolem.canAnimateMove()) {
+			if (redstoneGolem.canAnimateMove() && redstoneGolem.isMoving()) {
 				ModModelUtils.animateWalk(this, RedstoneGolemAnimations.WALK, limbSwing, limbSwingAmount, 2.5F, 20.0F);
+			} else {
+				this.animate(redstoneGolem.idleAnimationState, RedstoneGolemAnimations.IDLE, ageInTicks);
 			}
 			this.animate(redstoneGolem.attackAnimationState, RedstoneGolemAnimations.ATTACK, ageInTicks);
 			this.animate(redstoneGolem.summonAnimationState, RedstoneGolemAnimations.SUMMON, ageInTicks);

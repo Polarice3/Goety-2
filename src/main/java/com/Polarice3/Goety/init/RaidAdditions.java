@@ -2,39 +2,61 @@ package com.Polarice3.Goety.init;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.config.MobsConfig;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RaidAdditions {
 
+    public static final List<Raid.RaiderType> NEW_RAID_MEMBERS = new ArrayList<>();
+
     public static void addRaiders(){
         if (MobsConfig.WarlockRaid.get()) {
-            Raid.RaiderType.create("WARLOCK", ModEntityType.WARLOCK.get(), new int[]{0, 0, 0, 0, 1, 2, 0, 1});
+            addWaves("WARLOCK", ModEntityType.WARLOCK.get(), MobsConfig.WarlockRaidCount.get());
         }
         if (MobsConfig.IllagerRaid.get()) {
             if (MobsConfig.PikerRaid.get()) {
-                Raid.RaiderType.create("PIKER", ModEntityType.PIKER.get(), new int[]{0, 0, 0, 2, 0, 3, 3, 5});
+                addWaves("PIKER", ModEntityType.PIKER.get(), MobsConfig.PikerRaidCount.get());
             }
             if (MobsConfig.RipperRaid.get()) {
-                Raid.RaiderType.create("RIPPER", ModEntityType.RIPPER.get(), new int[]{0, 0, 0, 4, 0, 6, 6, 10});
+                addWaves("RIPPER", ModEntityType.RIPPER.get(), MobsConfig.RipperRaidCount.get());
             }
             if (MobsConfig.CrusherRaid.get()) {
-                Raid.RaiderType.create("CRUSHER", ModEntityType.CRUSHER.get(), new int[]{0, 0, 0, 0, 2, 2, 0, 2});
+                addWaves("CRUSHER", ModEntityType.CRUSHER.get(), MobsConfig.CrusherRaidCount.get());
             }
             if (MobsConfig.StormCasterRaid.get()) {
-                Raid.RaiderType.create("STORM_CASTER", ModEntityType.STORM_CASTER.get(), new int[]{0, 0, 0, 0, 1, 1, 0, 2});
+                addWaves("STORM_CASTER", ModEntityType.STORM_CASTER.get(), MobsConfig.StormCasterRaidCount.get());
             }
             if (MobsConfig.CryologerRaid.get()) {
-                Raid.RaiderType.create("CRYOLOGER", ModEntityType.CRYOLOGER.get(), new int[]{0, 0, 1, 1, 0, 0, 0, 2});
+                addWaves("CRYOLOGER", ModEntityType.CRYOLOGER.get(), MobsConfig.CryologerRaidCount.get());
+            }
+            if (MobsConfig.ConquillagerRaid.get()) {
+                addWaves("CONQUILLAGER", ModEntityType.CONQUILLAGER.get(), MobsConfig.ConquillagerRaidCount.get());
+            }
+            if (MobsConfig.InquillagerRaid.get()) {
+                addWaves("INQUILLAGER", ModEntityType.INQUILLAGER.get(), MobsConfig.InquillagerRaidCount.get());
+            }
+            if (MobsConfig.EnviokerRaid.get()) {
+                addWaves("ENVIOKER", ModEntityType.ENVIOKER.get(), MobsConfig.EnviokerRaidCount.get());
             }
             if (MobsConfig.HostileRedstoneGolemRaid.get()){
-                Raid.RaiderType.create("HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), new int[]{0, 0, 0, 0, 0, 1, 0, 0});
+                addWaves("HOSTILE_RED_GOLEM", ModEntityType.HOSTILE_REDSTONE_GOLEM.get(), MobsConfig.HostileRedstoneGolemRaidCount.get());
             }
             if (MobsConfig.HostileRedstoneMonstrosityRaid.get()){
-                Raid.RaiderType.create("HOSTILE_RED_MONSTER", ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
+                addWaves("HOSTILE_RED_MONSTER", ModEntityType.HOSTILE_REDSTONE_MONSTROSITY.get(), MobsConfig.HostileRedstoneMonstrosityRaidCount.get());
             }
             if (MobsConfig.MinisterRaid.get()) {
-                Raid.RaiderType.create("MINISTER", ModEntityType.MINISTER.get(), new int[]{0, 0, 0, 0, 0, 0, 0, 1});
+                addWaves("MINISTER", ModEntityType.MINISTER.get(), MobsConfig.MinisterRaidCount.get());
             }
         }
+    }
+
+    private static Raid.RaiderType addWaves(String name, EntityType<? extends Raider> type, List<? extends Integer> list) {
+        Raid.RaiderType member = Raid.RaiderType.create(name, type, new int[]{list.get(0), list.get(1), list.get(2), list.get(3), list.get(4), list.get(5), list.get(6), list.get(7)});
+        NEW_RAID_MEMBERS.add(member);
+        return member;
     }
 }

@@ -65,9 +65,9 @@ public class ModModelUtils {
 
     private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
 
-    public static void animateWalk(HierarchicalModel<?> p_232320_, AnimationDefinition p_268159_, float p_268057_, float p_268347_, float p_268138_, float p_268165_) {
-        long i = (long)(p_268057_ * 50.0F * p_268138_);
-        float f = Math.min(p_268347_ * p_268165_, 1.0F);
-        KeyframeAnimations.animate(p_232320_, p_268159_, i, f, ANIMATION_VECTOR_CACHE);
+    public static void animateWalk(HierarchicalModel<?> model, AnimationDefinition animation, float limbSwing, float limbSwingAmount, float speed, float scale) {
+        long i = (long)(limbSwing * 50.0F * speed);
+        float f = Math.min(limbSwingAmount * scale, 1.0F);
+        KeyframeAnimations.animate(model, animation, i, f, ANIMATION_VECTOR_CACHE);
     }
 }

@@ -175,6 +175,10 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
         return pSpawnData;
     }
 
+    public boolean canSpawnArmor(){
+        return false;
+    }
+
     public void setSaddle(boolean p_20850_) {
         this.entityData.set(DATA_SADDLE_ID, p_20850_);
     }

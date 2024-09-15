@@ -1,0 +1,47 @@
+{
+  "name": "Quick-Growing Vines",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分厚く、人格のあるつるは、そこを通ろうとする生き物の進路を妨げることができます。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "水中に召喚する/植えると、つるに成長する代わりに、水生の海藻に成長します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_kelp{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "凶暴で有毒な花の生き物は、主人の敵に向かって有毒な羽(矢)を発射します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_quill_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "先ほどの単純な親類と同様に、水中に召喚する/植えると、水生の変種が生成されます。陸生の植物とは異なり、羽は水中でも地上で打ったように機能します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_anemone{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "これらの植物は骨粉を使用して回復できます。すでに完全に回復している場合は、新しい種を生成する可能性があります。"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Requirements: $(li)祭壇の高さは 32 以下で、空に露出していないのが条件$(br)$(l)OR$()$() $(li)1 鍛冶台 $(li)8アメジストブロック $(li)16深層岩"
+      "text": "Requirements: $(li)祭壇の高さは y32 以下で、空に露出していないのが条件$(br)$(l)OR$()$() $(li)1 鍛冶台 $(li)8アメジストブロック $(li)16深層岩(種類は何でも可）"
     },
     {
       "type": "patchouli:image",

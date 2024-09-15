@@ -3,10 +3,14 @@ package com.Polarice3.Goety.common.events;
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.api.entities.ally.IServant;
+import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ally.undead.HauntedSkull;
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.common.entities.projectiles.ThrowableFungus;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.MobsConfig;
+import com.Polarice3.Goety.utils.CuriosFinder;
+import com.Polarice3.Goety.utils.NoKnockBackDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -14,10 +18,8 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
@@ -172,6 +174,47 @@ public class ServantEvents {
                                     || entity instanceof AbstractHorse && fungus.getOwner() != null &&  ((AbstractHorse) entity).getOwnerUUID() == fungus.getOwner().getUUID()
                                     || entity == fungus.getOwner()
                                     || entity instanceof ThrowableFungus));
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void ServantLoot(LootingLevelEvent event){
+        if (event.getDamageSource() != null) {
+            if (event.getEntity() != null) {
+                if (!event.getEntity().level.isClientSide) {
+                    int looting = 0;
+                    if (event.getDamageSource() instanceof NoKnockBackDamageSource damageSource){
+                        if (damageSource.getOwner() != null){
+                            if (damageSource.getOwner() instanceof IOwned ownedEntity) {
+                                if (ownedEntity.getTrueOwner() instanceof Player player) {
+                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
+                                        if (CuriosFinder.findRing(player).isEnchanted()) {
+                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
+                                        }
+                                    }
+                                    event.setLootingLevel(event.getLootingLevel() + looting);
+                                }
+                            }
+                        }
+                    }
+                    if (event.getDamageSource().getEntity() != null) {
+                        if (event.getDamageSource().getEntity() instanceof IOwned ownedEntity) {
+                            if (ownedEntity instanceof LivingEntity) {
+                                if (ownedEntity.getTrueOwner() instanceof Player player) {
+                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
+                                        if (CuriosFinder.findRing(player).isEnchanted()) {
+                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
+                                        }
+                                    }
+                                    if (looting > EnchantmentHelper.getMobLooting((LivingEntity) ownedEntity)) {
+                                        event.setLootingLevel(looting);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

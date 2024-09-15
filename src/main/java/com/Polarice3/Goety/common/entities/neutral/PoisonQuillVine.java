@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ai.LookAtTargetGoal;
 import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.projectiles.PoisonQuill;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -368,6 +370,11 @@ public class PoisonQuillVine extends AbstractVine{
         float i = (this.getAge() / getEmergingTime());
         EntityDimensions entitydimensions = this.getType().getDimensions();
         return entitydimensions.scale(1, i);
+    }
+
+    @Override
+    public ItemStack getSeed() {
+        return new ItemStack(ModItems.POISON_QUILL_SEED.get());
     }
 
     public static class QuillRangedGoal extends Goal {

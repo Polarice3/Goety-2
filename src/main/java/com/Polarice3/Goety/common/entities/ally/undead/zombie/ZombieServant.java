@@ -322,6 +322,9 @@ public class ZombieServant extends Summoned {
             if (this.getTrueOwner() != null) {
                 zombieentity.setTrueOwner(this.getTrueOwner());
             }
+            if (this.limitedLifeTicks > 0){
+                zombieentity.setLimitedLife(this.limitedLifeTicks);
+            }
             net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, zombieentity);
         }
 

@@ -1,0 +1,47 @@
+{
+  "name": "速生藤蔓",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "这些厚厚的，能够感知敌人的藤蔓可以阻挡任何试图通过的生物的路径。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当被它召唤或种植在水下时，它们会长成速生海带，而非原本的藤蔓。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_kelp{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些花朵生物凶猛而有毒，会向主人的敌人射出有毒的尖刺。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_quill_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "就像它们的简单表亲一样，在水下召唤这些有毒植物会产生一种水生变种，尽管与陆地上的同类不同，它们的尖刺不受水的影响。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_anemone{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这些植物可以用骨粉治愈。如果它们已经满血，那就有机会产生新的种子。"
+    }
+  ]
+}

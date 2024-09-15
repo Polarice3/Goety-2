@@ -195,11 +195,11 @@ public abstract class Ritual {
                     consumedIngredients.add(extracted);
 
                     if (extracted.getItem() instanceof BucketItem bucketItem && !bucketItem.getFluid().defaultFluidState().isEmpty()){
-                        ItemHelper.addItemEntity(world, pedestal.getBlockPos(), new ItemStack(Items.BUCKET));
+                        ItemHelper.addItemEntity(world, pedestal.getBlockPos().above(), new ItemStack(Items.BUCKET));
                         world.playSound(null, pedestal.getBlockPos(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS,
                                 0.7F, 0.7F);
                     } else if (extracted.hasCraftingRemainingItem()){
-                        ItemHelper.addItemEntity(world, pedestal.getBlockPos(), extracted.getCraftingRemainingItem());
+                        ItemHelper.addItemEntity(world, pedestal.getBlockPos().above(), extracted.getCraftingRemainingItem());
                     }
 
                     handler.setStackInSlot(0, ItemStack.EMPTY);

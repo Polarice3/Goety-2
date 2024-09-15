@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With bamboos to make the vines and kelp sturdier, and some bone meals, you've made seeds that will quickly grow into a strong living vine, or kelp when placed underwater, that can block a creature's way."
+      "text": "With bamboos to make the vines and kelp sturdier, and some bone meals, you've made seeds that will quickly grow into a $(l:summons/quick_growing_vines)strong sentient vine$(), or kelp when placed underwater, that can block a creature's way."
     },
     {
       "type": "patchouli:crafting",

@@ -901,16 +901,14 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
         if (this.isSecondPhase()) {
             if (this.getTarget() != null) {
                 if (this.level.getDifficulty() == Difficulty.HARD || this.isInNether()){
-                    double d0 = Math.min(this.getTarget().getY(), this.prevY);
-                    double d1 = Math.max(this.getTarget().getY(), this.prevY) + 1.0D;
-                    float f = (float) Mth.atan2(this.getTarget().getZ() - this.prevZ, this.getTarget().getX() - this.prevX);
-                    for(int i = 0; i < 5; ++i) {
-                        float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                        this.spawnBlasts(this, this.prevX + (double)Mth.cos(f1) * 1.5D, this.prevZ + (double)Mth.sin(f1) * 1.5D, d0, d1);
-                    }
-                } else {
-                    FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.prevX, this.prevY, this.prevZ);
+                    FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.prevX, this.prevY + 0.25D, this.prevZ);
                     fireBlastTrap.setOwner(this);
+                    fireBlastTrap.setAreaOfEffect(3.0F);
+                    this.level.addFreshEntity(fireBlastTrap);
+                } else {
+                    FireBlastTrap fireBlastTrap = new FireBlastTrap(this.level, this.prevX, this.prevY + 0.25D, this.prevZ);
+                    fireBlastTrap.setOwner(this);
+                    fireBlastTrap.setAreaOfEffect(1.5F);
                     this.level.addFreshEntity(fireBlastTrap);
                 }
             }
@@ -1715,9 +1713,9 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 if (livingentity != null) {
                     HellCloud hellCloud = new HellCloud(Apostle.this.level, Apostle.this, livingentity);
                     if (Apostle.this.isSecondPhase()){
-                        hellCloud.setRadius(3.0F);
+                        hellCloud.setRadius(4.0F);
                     } else {
-                        hellCloud.setRadius(1.5F);
+                        hellCloud.setRadius(2.0F);
                     }
                     hellCloud.setLifeSpan(1200);
                     Apostle.this.level.addFreshEntity(hellCloud);
@@ -1920,31 +1918,16 @@ public class Apostle extends SpellCastingCultist implements RangedAttackMob {
                 apostle.coolDown = 0;
                 apostle.playSound(ModSounds.ROAR_SPELL.get(), 1.0F, 1.0F);
             } else {
-                double d0 = Math.min(apostle.getTarget().getY(), apostle.getY());
-                double d1 = Math.max(apostle.getTarget().getY(), apostle.getY()) + 1.0D;
-                float f = (float) Mth.atan2(apostle.getTarget().getZ() - apostle.getZ(), apostle.getTarget().getX() - apostle.getX());
-                for(int i = 0; i < 5; ++i) {
-                    float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                    apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f1) * 1.5D, apostle.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1);
-                }
-
-                for(int k = 0; k < 8; ++k) {
-                    float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                    apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
-                }
+                FireBlastTrap fireBlastTrap = new FireBlastTrap(apostle.level, apostle.getX(), apostle.getY() + 0.25D, apostle.getZ());
+                fireBlastTrap.setOwner(apostle);
                 if (apostle.getHealth() < apostle.getMaxHealth()/2){
-                    for(int k = 0; k < 11; ++k) {
-                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + (1.2566371F * 2.0F);
-                        apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
-                    }
+                    fireBlastTrap.setAreaOfEffect(6.0F);
+                } else if (apostle.getHealth() < apostle.getMaxHealth()/4){
+                    fireBlastTrap.setAreaOfEffect(4.5F);
+                } else {
+                    fireBlastTrap.setAreaOfEffect(3.0F);
                 }
-
-                if (apostle.getHealth() < apostle.getMaxHealth()/4){
-                    for(int k = 0; k < 14; ++k) {
-                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + (1.2566371F * 4.0F);
-                        apostle.spawnBlasts(apostle,apostle.getX() + (double)Mth.cos(f2) * 2.5D, apostle.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1);
-                    }
-                }
+                apostle.level.addFreshEntity(fireBlastTrap);
             }
         }
 

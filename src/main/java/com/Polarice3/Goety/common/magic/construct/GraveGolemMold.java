@@ -216,7 +216,7 @@ public class GraveGolemMold implements IMold {
                 && checkStones(level, blockPos).isEmpty();
     }
 
-    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+    public static boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
         int count = 0;
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {

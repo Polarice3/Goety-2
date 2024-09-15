@@ -230,7 +230,7 @@ public class RedstoneGolemMold implements IMold {
                 && checkLava(level, blockPos).isEmpty() && checkRedstone(level, blockPos).isEmpty();
     }
 
-    public boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
+    public static boolean conditionsMet(Level worldIn, LivingEntity entityLiving) {
         int count = 0;
         if (worldIn instanceof ServerLevel serverLevel) {
             for (Entity entity : serverLevel.getAllEntities()) {

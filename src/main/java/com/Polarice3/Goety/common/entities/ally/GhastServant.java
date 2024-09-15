@@ -1,15 +1,9 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.api.entities.ally.IServant;
-import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.projectiles.Lavaball;
 import com.Polarice3.Goety.config.AttributesConfig;
-import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,16 +16,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class GhastServant extends Malghast implements IServant {
+public class GhastServant extends Malghast {
 
     public GhastServant(EntityType<? extends Malghast> type, Level worldIn) {
         super(type, worldIn);
         this.moveControl = new MoveHelperController(this);
-    }
-
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(1, new SummonTargetGoal(this));
     }
 
     public void addFireballGoal(){
@@ -61,17 +50,11 @@ public class GhastServant extends Malghast implements IServant {
     }
 
     public void setGhastSpawn(){
-    }
-
-    @Override
-    public void lifeSpanDamage() {
-        if (!this.level.isClientSide){
-            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
-            }
+        if (this.getTrueOwner() == null) {
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
         }
-        this.playSound(ModSounds.GHAST_DISAPPEAR.get(), this.getSoundVolume(), this.getVoicePitch());
-        this.discard();
     }
 
     @Override
@@ -97,55 +80,6 @@ public class GhastServant extends Malghast implements IServant {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean isWandering() {
-        return true;
-    }
-
-    @Override
-    public void setWandering(boolean wandering) {
-    }
-
-    @Override
-    public boolean isStaying() {
-        return false;
-    }
-
-    @Override
-    public void setStaying(boolean staying) {
-    }
-
-    @Override
-    public boolean canUpdateMove() {
-        return false;
-    }
-
-    @Override
-    public void updateMoveMode(Player player) {
-    }
-
-    @Override
-    public boolean isCommanded() {
-        return false;
-    }
-
-    @Override
-    public void setCommandPos(BlockPos blockPos) {
-    }
-
-    @Override
-    public void setCommandPos(BlockPos blockPos, boolean removeEntity) {
-    }
-
-    @Override
-    public void setCommandPosEntity(LivingEntity living) {
-    }
-
-    @Override
-    public void tryKill(Player player) {
-        this.lifeSpanDamage();
     }
 
     static class MoveHelperController extends MoveControl {
@@ -223,7 +157,7 @@ public class GhastServant extends Malghast implements IServant {
                 if (this.chargeTime == 20) {
                     Vec3 vec3 = this.ghast.getViewVector(1.0F);
                     double d2 = livingentity.getX() - (this.ghast.getX() + vec3.x() * 4.0D);
-                    double d3 = livingentity.getBoundingBox().minY + livingentity.getBbHeight() / 2.0F - (0.5D + this.ghast.getY() + this.ghast.getBbHeight() / 2.0F);
+                    double d3 = livingentity.getY(0.25D) - this.ghast.getY(0.25D);
                     double d4 = livingentity.getZ() - (this.ghast.getZ() + vec3.z() * 4.0D);
                     if (!this.ghast.isSilent()) {
                         world.levelEvent((Player)null, 1016, this.ghast.blockPosition(), 0);
@@ -231,7 +165,7 @@ public class GhastServant extends Malghast implements IServant {
                     Lavaball largefireball = new Lavaball(world, this.ghast, d2, d3, d4);
                     largefireball.setExplosionPower(this.ghast.getExplosionPower());
                     largefireball.setDamage(AttributesConfig.GhastServantDamage.get().floatValue() + this.ghast.getFireBallDamage());
-                    largefireball.setPos(this.ghast.getX() + vec3.x() * 4.0D, this.ghast.getY() + this.ghast.getBbHeight() / 2.0F + 0.5D, this.ghast.getZ() + vec3.z() * 4.0D);
+                    largefireball.setPos(this.ghast.getX() + vec3.x() * 4.0D, this.ghast.getY() + 0.25D, this.ghast.getZ() + vec3.z() * 4.0D);
                     largefireball.setDangerous(ForgeEventFactory.getMobGriefingEvent(world, this.ghast));
                     world.addFreshEntity(largefireball);
                     this.chargeTime = -40;

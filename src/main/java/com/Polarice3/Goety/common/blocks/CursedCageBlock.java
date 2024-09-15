@@ -58,7 +58,7 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pState.getValue(POWERED) && pPlayer.getItemInHand(pHand).isEmpty()) {
+        if (pHand == InteractionHand.MAIN_HAND && pState.getValue(POWERED) && pPlayer.getMainHandItem().isEmpty()) {
             this.dropItem(pLevel, pPos);
             pState = pState.setValue(POWERED, Boolean.FALSE);
             pLevel.setBlock(pPos, pState, 2);
@@ -70,8 +70,8 @@ public class CursedCageBlock extends BaseEntityBlock implements IForgeBlock {
 
     public void setItem(Level pLevel, BlockPos pPos, BlockState pState, ItemStack pStack) {
         BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-        if (tileentity instanceof CursedCageBlockEntity) {
-            ((CursedCageBlockEntity)tileentity).setItem(pStack.copy());
+        if (tileentity instanceof CursedCageBlockEntity cageBlock) {
+            cageBlock.setItem(pStack.split(1));
             pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
             pLevel.setBlock(pPos, pState.setValue(POWERED, Boolean.TRUE), 2);
         }

@@ -5,6 +5,8 @@ import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class MobsConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -132,6 +134,20 @@ public class MobsConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HostileRedstoneMonstrosityRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> ArmoredRavagerRaid;
     public static final ForgeConfigSpec.ConfigValue<Boolean> WarlockRaid;
+
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> PikerRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> RipperRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> CrusherRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> StormCasterRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> CryologerRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> PreacherRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> ConquillagerRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> InquillagerRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> EnviokerRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> MinisterRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneGolemRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> HostileRedstoneMonstrosityRaidCount;
+    public static ForgeConfigSpec.ConfigValue<List<? extends Integer>> WarlockRaidCount;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> CryologerIceChunk;
 
@@ -362,34 +378,112 @@ public class MobsConfig {
             BUILDER.push("Raid");
             IllagerRaid = BUILDER.comment("Whether Modded Illagers appears in Raids, Default: true")
                     .define("specialIllagerRaid", true);
-            PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
-                    .define("pikerRaid", true);
-            RipperRaid = BUILDER.comment("Whether Rippers appear in Raids. They do not count as part of the Raid bar, Default: true")
-                    .define("ripperRaid", true);
-            CrusherRaid = BUILDER.comment("Whether Crushers appear in Raids, Default: true")
-                    .define("crusherRaid", true);
-            StormCasterRaid = BUILDER.comment("Whether Storm Casters appear in Raids, Default: true")
-                    .define("stormCasterRaid", true);
-            CryologerRaid = BUILDER.comment("Whether Cryologers appear in Raids, Default: true")
-                    .define("cryologerRaid", true);
-            PreacherRaid = BUILDER.comment("Whether Preachers appear in Raids, Default: true")
-                    .define("preacherRaid", true);
-            ConquillagerRaid = BUILDER.comment("Whether Conquillagers appear in Raids, Default: true")
-                    .define("conquillagerRaid", true);
-            InquillagerRaid = BUILDER.comment("Whether Inquillagers appear in Raids, Default: true")
-                    .define("inquillagerRaid", true);
-            EnviokerRaid = BUILDER.comment("Whether Enviokers appear in Raids, Default: true")
-                    .define("enviokerRaid", true);
-            MinisterRaid = BUILDER.comment("Whether Ministers appear in Raids, Default: true")
-                    .define("ministerRaid", true);
-            HostileRedstoneGolemRaid = BUILDER.comment("Whether Hostile Redstone Golems appear in Raids, Default: false")
-                    .define("hostileRedstoneGolemRaid", false);
-            HostileRedstoneMonstrosityRaid = BUILDER.comment("Whether Hostile Redstone Monstrosities appear in Raids, Default: false")
-                    .define("hostileRedstoneMonstrosityRaid", false);
             ArmoredRavagerRaid = BUILDER.comment("Whether Armored Ravagers spawn in Raids, Default: true")
                     .define("armoredRavagerRaid", true);
-            WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
-                    .define("warlockRaid", true);
+                BUILDER.push("Piker");
+                PikerRaid = BUILDER.comment("Whether Pikers appear in Raids, Default: true")
+                        .define("pikerRaid", true);
+                PikerRaidCount = BUILDER.comment("How many Pikers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("pikerRaidCount",
+                                Arrays.asList(0, 0, 0, 2, 0, 3, 3, 5), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Ripper");
+                RipperRaid = BUILDER.comment("Whether Rippers appear in Raids. They do not count as part of the Raid bar, Default: true")
+                        .define("ripperRaid", true);
+                RipperRaidCount = BUILDER.comment("How many Rippers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("ripperRaidCount",
+                                Arrays.asList(0, 0, 0, 4, 0, 6, 6, 10), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Crusher");
+                CrusherRaid = BUILDER.comment("Whether Crushers appear in Raids, Default: true")
+                        .define("crusherRaid", true);
+                CrusherRaidCount = BUILDER.comment("How many Crushers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("crusherRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 2, 2, 0, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Storm Caster");
+                StormCasterRaid = BUILDER.comment("Whether Storm Casters appear in Raids, Default: true")
+                        .define("stormCasterRaid", true);
+                StormCasterRaidCount = BUILDER.comment("How many Storm Casters each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("stormCasterRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 1, 1, 0, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Cryologer");
+                CryologerRaid = BUILDER.comment("Whether Cryologers appear in Raids, Default: true")
+                        .define("cryologerRaid", true);
+                CryologerRaidCount = BUILDER.comment("How many Cryologers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("cryologerRaidCount",
+                                Arrays.asList(0, 0, 1, 1, 0, 0, 0, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Preacher");
+                PreacherRaid = BUILDER.comment("Whether Preachers appear in Raids, Default: true")
+                        .define("preacherRaid", true);
+                PreacherRaidCount = BUILDER.comment("How many Preachers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("preacherRaidCount",
+                                Arrays.asList(0, 0, 1, 1, 0, 0, 0, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Conquillager");
+                ConquillagerRaid = BUILDER.comment("Whether Conquillagers appear in Raids, Default: true")
+                        .define("conquillagerRaid", true);
+                ConquillagerRaidCount = BUILDER.comment("How many Conquillagers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("conquillagerRaidCount",
+                                Arrays.asList(0, 4, 3, 3, 4, 4, 4, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Inquillager");
+                InquillagerRaid = BUILDER.comment("Whether Inquillagers appear in Raids, Default: true")
+                        .define("inquillagerRaid", true);
+                InquillagerRaidCount = BUILDER.comment("How many Inquillagers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("inquillagerRaidCount",
+                                Arrays.asList(0, 0, 2, 0, 1, 2, 2, 3), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Envioker");
+                EnviokerRaid = BUILDER.comment("Whether Enviokers appear in Raids, Default: true")
+                        .define("enviokerRaid", true);
+                EnviokerRaidCount = BUILDER.comment("How many Enviokers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("enviokerRaidCount",
+                                Arrays.asList(0, 0, 0, 1, 0, 1, 1, 2), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Minister");
+                MinisterRaid = BUILDER.comment("Whether Ministers appear in Raids, Default: true")
+                        .define("ministerRaid", true);
+                MinisterRaidCount = BUILDER.comment("How many Ministers each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("ministerRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 0, 0, 0, 1), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Hostile Redstone Golem");
+                HostileRedstoneGolemRaid = BUILDER.comment("Whether Hostile Redstone Golems appear in Raids, Default: false")
+                        .define("hostileRedstoneGolemRaid", false);
+                HostileRedstoneGolemRaidCount = BUILDER.comment("How many Hostile Redstone Golems each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("hostileRedstoneGolemRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 0, 1, 1, 0), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Hostile Redstone Monstrosity");
+                HostileRedstoneMonstrosityRaid = BUILDER.comment("Whether Hostile Redstone Monstrosities appear in Raids, Default: false")
+                        .define("hostileRedstoneMonstrosityRaid", false);
+                HostileRedstoneMonstrosityRaidCount = BUILDER.comment("How many Hostile Redstone Monstrosities each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("hostileRedstoneMonstrosityRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 0, 0, 0, 1), (i) -> i instanceof Integer);
+                BUILDER.pop();
+                BUILDER.push("Warlock");
+                WarlockRaid = BUILDER.comment("Whether Warlocks appear in Raids, Default: true")
+                        .define("warlockRaid", true);
+                WarlockRaidCount = BUILDER.comment("How many Warlocks each wave", "Requires game restart", "Must have no more and no less than 8 integers")
+                        .worldRestart()
+                        .defineList("warlockRaidCount",
+                                Arrays.asList(0, 0, 0, 0, 1, 2, 0, 1), (i) -> i instanceof Integer);
+                BUILDER.pop();
             BUILDER.pop();
         CryologerIceChunk = BUILDER.comment("Whether Cryologers can summon Ice Chunks on Hard Difficulty, Default: false")
                 .define("cryologerIceChunk", false);

@@ -76,7 +76,7 @@ public class Summoned extends Owned implements IServant {
     }
 
     public void followGoal(){
-        this.goalSelector.addGoal(8, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal<>(this, 1.0D, 10.0F, 2.0F));
     }
 
     public void targetSelectGoal(){

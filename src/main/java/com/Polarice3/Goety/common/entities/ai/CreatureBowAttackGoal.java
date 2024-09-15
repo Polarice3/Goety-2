@@ -20,11 +20,11 @@ public class CreatureBowAttackGoal <T extends Mob & RangedAttackMob> extends Goa
     private boolean strafingBackwards;
     private int strafingTime = -1;
 
-    public CreatureBowAttackGoal(T p_i47515_1_, double p_i47515_2_, int p_i47515_4_, float p_i47515_5_) {
-        this.mob = p_i47515_1_;
-        this.speedModifier = p_i47515_2_;
-        this.attackIntervalMin = p_i47515_4_;
-        this.attackRadiusSqr = p_i47515_5_ * p_i47515_5_;
+    public CreatureBowAttackGoal(T pMob, double pSpeedModifier, int pAttackIntervalMin, float pAttackRadius) {
+        this.mob = pMob;
+        this.speedModifier = pSpeedModifier;
+        this.attackIntervalMin = pAttackIntervalMin;
+        this.attackRadiusSqr = pAttackRadius * pAttackRadius;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
@@ -32,36 +32,23 @@ public class CreatureBowAttackGoal <T extends Mob & RangedAttackMob> extends Goa
         this.attackIntervalMin = pAttackCooldown;
     }
 
-    /**
-     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-     * method as well.
-     */
     public boolean canUse() {
         return this.mob.getTarget() != null && this.isHoldingBow();
     }
 
     protected boolean isHoldingBow() {
-        return this.mob.isHolding(item -> item.getItem() instanceof BowItem);
+        return this.mob.isHolding(is -> is.getItem() instanceof BowItem);
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     public boolean canContinueToUse() {
         return (this.canUse() || !this.mob.getNavigation().isDone()) && this.isHoldingBow();
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     public void start() {
         super.start();
         this.mob.setAggressive(true);
     }
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
     public void stop() {
         super.stop();
         this.mob.setAggressive(false);
@@ -70,9 +57,10 @@ public class CreatureBowAttackGoal <T extends Mob & RangedAttackMob> extends Goa
         this.mob.stopUsingItem();
     }
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
     public void tick() {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity != null) {
