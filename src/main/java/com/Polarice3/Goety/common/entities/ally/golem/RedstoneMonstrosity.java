@@ -187,12 +187,18 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
-            if (entity instanceof LivingEntity livingEntity) {
-                return livingEntity;
+            if (entity instanceof Mob mob){
+                return mob;
+            } else if (entity instanceof LivingEntity && !this.isAutonomous()) {
+                return (LivingEntity)entity;
             }
         }
 
         return null;
+    }
+
+    public boolean isControlledByLocalInstance() {
+        return super.isControlledByLocalInstance() && (this.getControllingPassenger() == null || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player) || this.getControllingPassenger() instanceof Mob);
     }
 
     @Override
@@ -206,12 +212,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
             player.setXRot(this.getXRot());
             player.startRiding(this);
         }
-    }
-
-    public boolean isControlledByLocalInstance() {
-        LivingEntity livingentity = this.getControllingPassenger();
-        boolean flag = livingentity instanceof Player || this.isEffectiveAi();
-        return flag && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
     }
 
     public void travel(@NotNull Vec3 pTravelVector) {

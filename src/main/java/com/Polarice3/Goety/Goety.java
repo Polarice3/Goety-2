@@ -406,7 +406,6 @@ public class Goety {
             WoodType.register(ModWoodType.HAUNTED);
             WoodType.register(ModWoodType.ROTTEN);
             WoodType.register(ModWoodType.WINDSWEPT);
-            RaidAdditions.addRaiders();
             ModPotPatterns.addPatterns();
             addBrewingRecipes();
         });

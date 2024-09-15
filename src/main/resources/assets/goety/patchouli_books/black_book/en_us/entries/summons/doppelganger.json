@@ -1,11 +1,11 @@
 {
-  "name": "Doppleganger",
+  "name": "Doppelganger",
   "icon": "minecraft:player_head",
   "category": "goety:summons",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "While similar to the clones conjured by Illusioners, these Dopplegangers will instead draw attention from hostile creatures and will disappear once hit or their summoner getting hit."
+      "text": "While similar to the clones conjured by Illusioners, these Doppelgangers will instead draw attention from hostile creatures and will disappear once hit or their summoner getting hit."
     },
     {
       "type": "patchouli:text",

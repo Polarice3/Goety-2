@@ -1,7 +1,9 @@
 package com.Polarice3.Goety.common.items;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BlackBeast;
 import com.Polarice3.Goety.common.entities.ally.BlackWolf;
+import com.Polarice3.Goety.common.ritual.RitualRequirements;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -50,23 +52,25 @@ public class HowlingSoul extends Item {
                 boolean flag = target instanceof BlackWolf;
                 if (flag) {
                     if (blackBeast.getTrueOwner() == player) {
-                        blackBeast.setHealth(blackBeast.getMaxHealth());
-                        blackBeast.setPos(target.getX(), target.getY(), target.getZ());
-                        blackBeast.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
-                        if (level.addFreshEntity(blackBeast)) {
-                            blackBeast.spawnAnim();
-                            if (level instanceof ServerLevel serverLevel) {
-                                for (int i = 0; i < 8; ++i) {
-                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, blackBeast);
-                                    ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, blackBeast);
+                        if (RitualRequirements.canSummon(level, player, ModEntityType.BLACK_BEAST.get())) {
+                            blackBeast.setHealth(blackBeast.getMaxHealth());
+                            blackBeast.setPos(target.getX(), target.getY(), target.getZ());
+                            blackBeast.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+                            if (level.addFreshEntity(blackBeast)) {
+                                blackBeast.spawnAnim();
+                                if (level instanceof ServerLevel serverLevel) {
+                                    for (int i = 0; i < 8; ++i) {
+                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.SCULK_SOUL, blackBeast);
+                                        ServerParticleUtil.addParticlesAroundSelf(serverLevel, ParticleTypes.POOF, blackBeast);
+                                    }
                                 }
+                                blackBeast.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
+                                blackBeast.playSound(ModSounds.BLACK_BEAST_ROAR.get(), 2.0F, 0.5F);
+                                target.discard();
+                                player.swing(hand);
+                                player.getCooldowns().addCooldown(ModItems.HOWLING_SOUL.get(), MathHelper.secondsToTicks(30));
+                                stack.shrink(1);
                             }
-                            blackBeast.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-                            blackBeast.playSound(ModSounds.BLACK_BEAST_ROAR.get(), 2.0F, 0.5F);
-                            target.discard();
-                            player.swing(hand);
-                            player.getCooldowns().addCooldown(ModItems.HOWLING_SOUL.get(), MathHelper.secondsToTicks(30));
-                            stack.shrink(1);
                         }
                     }
                 }

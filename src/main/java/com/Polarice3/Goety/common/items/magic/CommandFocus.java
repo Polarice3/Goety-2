@@ -1,10 +1,14 @@
 package com.Polarice3.Goety.common.items.magic;
 
+import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.magic.spells.utility.CommandSpell;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
 import com.Polarice3.Goety.utils.EntityFinder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -36,6 +40,30 @@ public class CommandFocus extends MagicFocus{
             }
         }
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
+
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (!player.level.isClientSide) {
+            if (entity instanceof LivingEntity target) {
+                if (stack.getItem() instanceof CommandFocus) {
+                    if (entity instanceof IOwned owned) {
+                        if (owned.getTrueOwner() == player) {
+                            if (!hasServant(stack)) {
+                                CompoundTag compoundTag = new CompoundTag();
+                                if (stack.hasTag()) {
+                                    compoundTag = stack.getTag();
+                                }
+                                setServant(compoundTag, target);
+                                stack.setTag(compoundTag);
+                                player.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F);
+                                ModNetwork.sendTo(player, new SPlayPlayerSoundPacket(SoundEvents.ARROW_HIT_PLAYER, 1.0F, 0.45F));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

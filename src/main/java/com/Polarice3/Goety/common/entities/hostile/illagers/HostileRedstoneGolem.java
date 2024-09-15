@@ -56,7 +56,6 @@ public class HostileRedstoneGolem extends HostileGolem {
     private static final EntityDataAccessor<Integer> ANIM_STATE = SynchedEntityData.defineId(HostileRedstoneGolem.class, EntityDataSerializers.INT);
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
-    public static String WALK = "walk";
     public static String SUMMON = "summon";
     public static String NOVELTY = "novelty";
     public static String DEATH = "death";
@@ -80,7 +79,6 @@ public class HostileRedstoneGolem extends HostileGolem {
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState noveltyAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
 
@@ -148,14 +146,12 @@ public class HostileRedstoneGolem extends HostileGolem {
             return 1;
         } else if (Objects.equals(animation, "attack")){
             return 2;
-        } else if (Objects.equals(animation, "walk")){
-            return 3;
         } else if (Objects.equals(animation, "summon")){
-            return 4;
+            return 3;
         } else if (Objects.equals(animation, "novelty")){
-            return 5;
+            return 4;
         } else if (Objects.equals(animation, "death")){
-            return 6;
+            return 5;
         } else {
             return 0;
         }
@@ -188,17 +184,14 @@ public class HostileRedstoneGolem extends HostileGolem {
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 3:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        break;
-                    case 4:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 5:
+                    case 4:
                         this.noveltyAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.noveltyAnimationState);
                         break;
-                    case 6:
+                    case 5:
                         this.deathAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.deathAnimationState);
                         break;
@@ -237,7 +230,7 @@ public class HostileRedstoneGolem extends HostileGolem {
     }
 
     public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(IDLE);
     }
 
     public boolean isAlliedTo(Entity pEntity) {
@@ -352,7 +345,6 @@ public class HostileRedstoneGolem extends HostileGolem {
         animationStates.add(this.idleAnimationState);
         animationStates.add(this.noveltyAnimationState);
         animationStates.add(this.summonAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
     }
@@ -418,14 +410,9 @@ public class HostileRedstoneGolem extends HostileGolem {
         }
         if (!this.level.isClientSide){
             if (!this.isDeadOrDying()) {
-                if (!this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
+                if (!this.isMeleeAttacking() && !this.isSummoning()) {
                     if (!this.isPostAttack && !this.isNovelty) {
                         this.setAnimationState(IDLE);
-                    }
-                }
-                if (!this.isMeleeAttacking() && !this.isSummoning()) {
-                    if (this.isMoving()) {
-                        this.setAnimationState(WALK);
                     }
                 }
                 if (this.isAlive()) {

@@ -154,6 +154,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:framework-549225:5180972")
     runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
     runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
+    runtimeOnly fg.deobf("curse.maven:illage-and-spillage-finally-ported-1079714:5630627")
 }
 
 tasks.named('jar', Jar).configure {

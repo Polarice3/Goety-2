@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -291,26 +292,48 @@ public abstract class AbstractVine extends AbstractMonolith{
         }
     }
 
+    public ItemStack getSeed(){
+        return ItemStack.EMPTY;
+    }
+
     public InteractionResult mobInteract(Player pPlayer, InteractionHand p_230254_2_) {
         if (!this.level.isClientSide){
             ItemStack itemstack = pPlayer.getItemInHand(p_230254_2_);
             Item item = itemstack.getItem();
             if (this.getTrueOwner() != null && pPlayer == this.getTrueOwner()) {
-                if (item == Items.BONE_MEAL && this.getHealth() < this.getMaxHealth()) {
+                if (item == Items.BONE_MEAL){
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    this.heal(5.0F);
-                    if (this.level instanceof ServerLevel serverLevel) {
-                        for (int i = 0; i < 7; ++i) {
-                            double d0 = this.random.nextGaussian() * 0.02D;
-                            double d1 = this.random.nextGaussian() * 0.02D;
-                            double d2 = this.random.nextGaussian() * 0.02D;
-                            serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                    if (this.getHealth() < this.getMaxHealth()) {
+                        this.heal(5.0F);
+                        this.playSound(SoundEvents.GROWING_PLANT_CROP, this.getSoundVolume(), this.getVoicePitch() + 0.25F);
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 7; ++i) {
+                                double d0 = this.random.nextGaussian() * 0.02D;
+                                double d1 = this.random.nextGaussian() * 0.02D;
+                                double d2 = this.random.nextGaussian() * 0.02D;
+                                serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                            }
+                        }
+                    } else {
+                        this.playSound(SoundEvents.BONE_MEAL_USE, this.getSoundVolume(), this.getVoicePitch());
+                        if (this.level instanceof ServerLevel serverLevel) {
+                            for (int i = 0; i < 7; ++i) {
+                                double d0 = this.random.nextGaussian() * 0.02D;
+                                double d1 = this.random.nextGaussian() * 0.02D;
+                                double d2 = this.random.nextGaussian() * 0.02D;
+                                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
+                            }
+                        }
+                        if (this.level.random.nextFloat() <= 0.45F){
+                            if (!this.getSeed().isEmpty()){
+                                ItemHelper.addItemEntity(this.level, this.blockPosition().above(), this.getSeed());
+                            }
                         }
                     }
                     pPlayer.swing(p_230254_2_);
-                    return InteractionResult.CONSUME;
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

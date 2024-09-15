@@ -474,7 +474,7 @@ public class BlackBeast extends Summoned{
                 this.setAnimationState(ATTACK);
                 this.playSound(ModSounds.BLACK_BEAST_CLAW.get(), this.getSoundVolume(), this.getVoicePitch());
                 if (entityIn instanceof LivingEntity target) {
-                    if (!target.hasEffect(GoetyEffects.DOOM.get()) && !MobUtil.isInSunlighNoRain(this)) {
+                    if (!target.hasEffect(GoetyEffects.DOOM.get()) && MobUtil.noSunlight(this)) {
                         int debuffDuration = MathHelper.secondsToTicks(15);
                         this.playSound(ModSounds.BLACK_BEAST_ROAR.get(), this.getSoundVolume(), 0.25F);
 
@@ -561,7 +561,7 @@ public class BlackBeast extends Summoned{
                         resistAmp = 2;
                     }
 
-                    if (this.level.dayTime() >= MathHelper.minecraftDayToTicks(50) && !MobUtil.isInSunlighNoRain(this)) {
+                    if (this.level.dayTime() >= MathHelper.minecraftDayToTicks(50) && MobUtil.noSunlight(this)) {
                         this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20, boostAmp, false, false));
                         this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20, resistAmp, false, false));
                     }

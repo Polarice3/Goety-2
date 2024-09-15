@@ -83,7 +83,12 @@ public class Leapleaf extends Summoned{
         this.goalSelector.addGoal(0, new AttackGoal());
         this.goalSelector.addGoal(1, new StrafeGoal(this));
         this.goalSelector.addGoal(2, new LeapGoal(this));
-        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D));
+        this.goalSelector.addGoal(8, new WanderGoal<>(this, 1.0D){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !Leapleaf.this.isNovelty;
+            }
+        });
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
     }
@@ -219,6 +224,7 @@ public class Leapleaf extends Summoned{
             if (this.level.isClientSide){
                 switch (this.entityData.get(ANIM_STATE)){
                     case 0:
+                        this.stopAllAnimations();
                         break;
                     case 1:
                         this.idleAnimationState.startIfStopped(this.tickCount);
@@ -325,6 +331,10 @@ public class Leapleaf extends Summoned{
         return this.isAlive() && this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.5D)).stream().noneMatch(living -> living == this.getTrueOwner() && CuriosFinder.hasWildRobe(living));
     }
 
+    public boolean canAnimateMove(){
+        return this.getCurrentAnimation() == this.getAnimationState(IDLE);
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -366,19 +376,15 @@ public class Leapleaf extends Summoned{
                 } else {
                     if (!this.isMeleeAttacking() && !this.isChestPound() && !this.isLeaping()) {
                         ++this.idleTime;
-                        if (this.level.random.nextFloat() <= 0.05F && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.secondsToTicks(10)) {
+                        if (this.level.random.nextFloat() <= 0.05F && !this.isMoving() && this.hurtTime <= 0 && (this.getTarget() == null || this.getTarget().isDeadOrDying()) && !this.isNovelty && this.idleTime >= MathHelper.secondsToTicks(10)) {
                             this.idleTime = 0;
                             this.isNovelty = true;
                             this.level.broadcastEntityEvent(this, (byte) 22);
                         }
-                        if (!this.isMoving()) {
-                            if (this.isNovelty){
-                                this.setAnimationState(ALERT);
-                            } else {
-                                this.setAnimationState(IDLE);
-                            }
+                        if (this.isNovelty){
+                            this.setAnimationState(ALERT);
                         } else {
-                            this.setAnimationState(WALK);
+                            this.setAnimationState(IDLE);
                         }
                     } else {
                         this.isNovelty = false;
@@ -404,7 +410,7 @@ public class Leapleaf extends Summoned{
                     if (this.isNovelty){
                         ++noveltyTick;
                         this.level.broadcastEntityEvent(this, (byte) 24);
-                        if (this.noveltyTick >= MathHelper.secondsToTicks(5.75F) || this.getTarget() != null || this.hurtTime > 0){
+                        if (this.noveltyTick >= MathHelper.secondsToTicks(5.75F) || this.isMoving() || this.getTarget() != null || this.hurtTime > 0){
                             this.isNovelty = false;
                             this.noveltyTick = 0;
                             this.level.broadcastEntityEvent(this, (byte) 23);

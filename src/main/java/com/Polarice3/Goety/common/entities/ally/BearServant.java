@@ -210,12 +210,22 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
-            if (entity instanceof LivingEntity livingEntity) {
-                return livingEntity;
+            if (entity instanceof Mob mob){
+                return mob;
+            } else if (entity instanceof LivingEntity
+                    && !this.isAutonomous()) {
+                return (LivingEntity)entity;
             }
         }
 
         return null;
+    }
+
+    public boolean isControlledByLocalInstance() {
+        return super.isControlledByLocalInstance()
+                && (this.getControllingPassenger() == null
+                || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player)
+                || this.getControllingPassenger() instanceof Mob);
     }
 
     public void positionRider(Entity rider, Entity.MoveFunction p_19958_) {
@@ -241,12 +251,6 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
             player.setXRot(this.getXRot());
             player.startRiding(this);
         }
-    }
-
-    public boolean isControlledByLocalInstance() {
-        LivingEntity livingentity = this.getControllingPassenger();
-        boolean flag = livingentity instanceof Player || this.isEffectiveAi();
-        return flag && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
     }
 
     public boolean isFood(ItemStack p_29565_) {

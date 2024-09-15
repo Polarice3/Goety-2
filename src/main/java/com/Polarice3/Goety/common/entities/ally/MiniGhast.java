@@ -1,14 +1,10 @@
 package com.Polarice3.Goety.common.entities.ally;
 
-import com.Polarice3.Goety.common.entities.ai.SummonTargetGoal;
 import com.Polarice3.Goety.common.entities.hostile.servants.Malghast;
 import com.Polarice3.Goety.common.entities.projectiles.ModFireball;
 import com.Polarice3.Goety.config.AttributesConfig;
-import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
-import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -26,11 +22,6 @@ public class MiniGhast extends Malghast {
 
     public MiniGhast(EntityType<? extends Malghast> type, Level worldIn) {
         super(type, worldIn);
-    }
-
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(1, new SummonTargetGoal(this));
     }
 
     public void addFlyingGoal(){
@@ -64,17 +55,11 @@ public class MiniGhast extends Malghast {
     }
 
     public void setGhastSpawn(){
-    }
-
-    @Override
-    public void lifeSpanDamage() {
-        if (!this.level.isClientSide){
-            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
-                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
-            }
+        if (this.getTrueOwner() == null) {
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
         }
-        this.playSound(ModSounds.GHAST_DISAPPEAR.get());
-        this.discard();
     }
 
     static class FireballAttackGoal extends Goal {
@@ -147,7 +132,9 @@ public class MiniGhast extends Malghast {
 
         public boolean canUse() {
             MoveControl moveControl = this.ghast.getMoveControl();
-            if (!moveControl.hasWanted()) {
+            if (this.ghast.isCommanded() || this.ghast.isStaying()){
+                return false;
+            } else if (!moveControl.hasWanted()) {
                 return true;
             } else {
                 double d0 = moveControl.getWantedX() - this.ghast.getX();
@@ -167,12 +154,12 @@ public class MiniGhast extends Malghast {
             RandomSource random = this.ghast.getRandom();
             float distance = 8.0F;
             BlockPos blockPos = null;
-            if (this.ghast.getTrueOwner() != null){
-                blockPos = this.ghast.getTrueOwner().blockPosition().above(3);
+            if (this.ghast.getBoundPos() != null){
+                blockPos = this.ghast.getBoundPos();
+            } else if (this.ghast.getTrueOwner() != null && this.ghast.isFollowing()){
+                blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){
-                blockPos = this.ghast.getTarget().blockPosition().above(3);
-            } else if (this.ghast.getBoundOrigin() != null){
-                blockPos = this.ghast.getBoundOrigin();
+                blockPos = this.ghast.getTarget().blockPosition().above(4);
             }
 
             if (blockPos != null) {

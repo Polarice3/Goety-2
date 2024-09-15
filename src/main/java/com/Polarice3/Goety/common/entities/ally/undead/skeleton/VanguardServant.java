@@ -280,6 +280,9 @@ public class VanguardServant extends AbstractSkeletonServant {
             this.attackAnimationState.start(this.tickCount);
         } else if (p_21375_ == 5){
             this.attackTick = 0;
+        } else if (p_21375_ == 6){
+            this.setShield(true);
+            this.setShieldHealth(1);
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -340,14 +343,17 @@ public class VanguardServant extends AbstractSkeletonServant {
                 }
                 return InteractionResult.SUCCESS;
             }
-            if (!this.hasShield() && itemstack.is(ItemTags.PLANKS) && this.getTarget() == null && this.hurtTime <= 0){
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
+            if (!this.level.isClientSide) {
+                if (!this.hasShield() && itemstack.is(ItemTags.PLANKS) && this.getTarget() == null && this.hurtTime <= 0) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    this.setShield(true);
+                    this.setShieldHealth(1);
+                    this.level.broadcastEntityEvent(this, (byte) 6);
+                    this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+                    return InteractionResult.SUCCESS;
                 }
-                this.setShield(true);
-                this.setShieldHealth(1);
-                this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;

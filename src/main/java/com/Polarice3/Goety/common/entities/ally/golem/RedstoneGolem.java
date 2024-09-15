@@ -60,7 +60,6 @@ public class RedstoneGolem extends AbstractGolemServant {
     public static String ACTIVATE = "activate";
     public static String IDLE = "idle";
     public static String ATTACK = "attack";
-    public static String WALK = "walk";
     public static String SUMMON = "summon";
     public static String TO_SIT = "to_sit";
     public static String TO_STAND = "to_stand";
@@ -90,7 +89,6 @@ public class RedstoneGolem extends AbstractGolemServant {
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState noveltyAnimationState = new AnimationState();
     public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState walkAnimationState = new AnimationState();
     public AnimationState summonAnimationState = new AnimationState();
     public AnimationState toSitAnimationState = new AnimationState();
     public AnimationState toStandAnimationState = new AnimationState();
@@ -166,20 +164,18 @@ public class RedstoneGolem extends AbstractGolemServant {
             return 2;
         } else if (Objects.equals(animation, "attack")){
             return 3;
-        } else if (Objects.equals(animation, "walk")){
-            return 4;
         } else if (Objects.equals(animation, "summon")){
-            return 5;
+            return 4;
         } else if (Objects.equals(animation, "to_sit")){
-            return 6;
+            return 5;
         } else if (Objects.equals(animation, "to_stand")){
-            return 7;
+            return 6;
         } else if (Objects.equals(animation, "sit")){
-            return 8;
+            return 7;
         } else if (Objects.equals(animation, "novelty")){
-            return 9;
+            return 8;
         } else if (Objects.equals(animation, "death")){
-            return 10;
+            return 9;
         } else {
             return 0;
         }
@@ -216,29 +212,26 @@ public class RedstoneGolem extends AbstractGolemServant {
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 4:
-                        this.walkAnimationState.startIfStopped(this.tickCount);
-                        break;
-                    case 5:
                         this.summonAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
-                    case 6:
+                    case 5:
                         this.stopMostAnimation(this.toSitAnimationState);
                         this.toSitAnimationState.startIfStopped(this.tickCount);
                         break;
-                    case 7:
+                    case 6:
                         this.stopMostAnimation(this.toStandAnimationState);
                         this.toStandAnimationState.startIfStopped(this.tickCount);
                         break;
-                    case 8:
+                    case 7:
                         this.sitAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.sitAnimationState);
                         break;
-                    case 9:
+                    case 8:
                         this.noveltyAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.noveltyAnimationState);
                         break;
-                    case 10:
+                    case 9:
                         this.deathAnimationState.start(this.tickCount);
                         this.stopMostAnimation(this.deathAnimationState);
                         break;
@@ -283,7 +276,7 @@ public class RedstoneGolem extends AbstractGolemServant {
     }
 
     public boolean canAnimateMove(){
-        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(WALK);
+        return super.canAnimateMove() && this.getCurrentAnimation() == this.getAnimationState(IDLE);
     }
 
     @Nullable
@@ -362,7 +355,6 @@ public class RedstoneGolem extends AbstractGolemServant {
         animationStates.add(this.toSitAnimationState);
         animationStates.add(this.toStandAnimationState);
         animationStates.add(this.sitAnimationState);
-        animationStates.add(this.walkAnimationState);
         animationStates.add(this.deathAnimationState);
         return animationStates;
     }
@@ -465,7 +457,7 @@ public class RedstoneGolem extends AbstractGolemServant {
         }
         if (!this.level.isClientSide){
             if (!this.isDeadOrDying()) {
-                if (!this.isActivating() && !this.isMeleeAttacking() && !this.isSummoning() && !this.isMoving()) {
+                if (!this.isActivating() && !this.isMeleeAttacking() && !this.isSummoning()) {
                     if (this.isStaying()) {
                         this.isStandingUp = MathHelper.secondsToTicks(1);
                         if (this.isSittingDown > 0) {
@@ -482,11 +474,6 @@ public class RedstoneGolem extends AbstractGolemServant {
                         } else if (!this.isPostAttack && !this.isNovelty) {
                             this.setAnimationState(IDLE);
                         }
-                    }
-                }
-                if (!this.isMeleeAttacking() && !this.isSummoning()) {
-                    if (this.isMoving()) {
-                        this.setAnimationState(WALK);
                     }
                 }
                 if (this.isAlive() && !this.isActivating()) {

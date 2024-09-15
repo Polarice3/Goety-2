@@ -872,8 +872,8 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         }
     }
 
-    private boolean teleport(double p_32544_, double p_32545_, double p_32546_) {
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_32544_, p_32545_, p_32546_);
+    private boolean teleport(double pX, double pY, double pZ) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(pX, pY, pZ);
 
         while(blockpos$mutableblockpos.getY() > this.level.getMinBuildHeight() && !this.level.getBlockState(blockpos$mutableblockpos).blocksMotion()) {
             blockpos$mutableblockpos.move(Direction.DOWN);
@@ -883,7 +883,7 @@ public class Wight extends Summoned implements Enemy, NeutralMob {
         boolean flag = blockstate.blocksMotion();
         boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER) && !this.isSwimming();
         if (flag && !flag1) {
-            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, p_32544_, p_32545_, p_32546_);
+            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, pX, pY, pZ);
             if (event.isCanceled()) return false;
             Vec3 vec3 = this.position();
             boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false);

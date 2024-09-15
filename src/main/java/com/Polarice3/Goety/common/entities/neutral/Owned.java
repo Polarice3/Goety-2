@@ -1,5 +1,6 @@
 package com.Polarice3.Goety.common.entities.neutral;
 
+import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.ICustomAttributes;
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.advancements.ModCriteriaTriggers;
@@ -556,6 +557,15 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         if (!this.isSilent()) {
             this.level.playSound((Player) null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        }
+    }
+
+    @Override
+    public boolean isVehicle() {
+        if (this instanceof IAutoRideable rideable && rideable.isAutonomous()){
+            return false;
+        } else {
+            return super.isVehicle();
         }
     }
 

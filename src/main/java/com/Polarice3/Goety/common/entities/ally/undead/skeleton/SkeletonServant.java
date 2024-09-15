@@ -77,11 +77,24 @@ public class SkeletonServant extends AbstractSkeletonServant {
     }
 
     protected void doFreezeConversion() {
-        this.convertTo(ModEntityType.STRAY_SERVANT.get(), true);
+        this.convertToSkeletonType(ModEntityType.STRAY_SERVANT.get());
         if (!this.isSilent()) {
             this.level.levelEvent((Player)null, 1048, this.blockPosition(), 0);
         }
 
+    }
+
+    protected void convertToSkeletonType(EntityType<? extends AbstractSkeletonServant> p_234341_1_) {
+        AbstractSkeletonServant skeletonServant = this.convertTo(p_234341_1_, true);
+        if (skeletonServant != null) {
+            if (this.getTrueOwner() != null) {
+                skeletonServant.setTrueOwner(this.getTrueOwner());
+            }
+            if (this.limitedLifeTicks > 0){
+                skeletonServant.setLimitedLife(this.limitedLifeTicks);
+            }
+            net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, skeletonServant);
+        }
     }
 
     public boolean canFreeze() {

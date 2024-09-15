@@ -43,7 +43,7 @@ public class BoneheadHammerItem extends HammerItem{
         double area = 1.75D;
         area += pStack.getEnchantmentLevel(ModEnchantments.RADIUS.get());
         for (LivingEntity livingentity : pPlayer.level.getEntitiesOfClass(LivingEntity.class, pTarget.getBoundingBox().inflate(area, 0.25D, area))) {
-            if (livingentity != pPlayer && livingentity != pTarget && !pPlayer.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && livingentity != pPlayer.getVehicle()) {
+            if (livingentity != pPlayer && livingentity != pTarget && !MobUtil.areAllies(pPlayer, livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && livingentity != pPlayer.getVehicle()) {
                 livingentity.knockback(0.4F, (double) Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F)), (double) (-Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F))));
                 if (livingentity.hurt(pPlayer.damageSources().playerAttack(pPlayer), f + f1)) {
                     if (j > 0) {
@@ -55,7 +55,7 @@ public class BoneheadHammerItem extends HammerItem{
             }
         }
         for (LivingEntity livingentity : pPlayer.level.getEntitiesOfClass(LivingEntity.class, pTarget.getBoundingBox().inflate(area * 2.0D, 1.0D, area * 2.0D))) {
-            if (livingentity != pPlayer && livingentity != pTarget && !pPlayer.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && livingentity != pPlayer.getVehicle()) {
+            if (livingentity != pPlayer && livingentity != pTarget && !MobUtil.areAllies(pPlayer, livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && livingentity != pPlayer.getVehicle()) {
                 Vec3 vec3 = livingentity.position().subtract(pTarget.position());
                 vec3 = vec3.normalize();
                 livingentity.level.playSound((Player) null, livingentity.getX(), livingentity.getY(), livingentity.getZ(), ModSounds.GRAVITY.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);

@@ -6,7 +6,9 @@ import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -57,6 +59,9 @@ public class Malghast extends OwnedFlying {
         this.addFireballGoal();
     }
 
+    public void followGoal(){
+    }
+
     public void addFlyingGoal(){
         this.goalSelector.addGoal(5, new FlyingGoal(this));
     }
@@ -96,6 +101,11 @@ public class Malghast extends OwnedFlying {
             }
         }
         super.tick();
+        if (!this.level.isClientSide) {
+            if (this.isStaying()) {
+                this.getMoveControl().strafe(0.0F, 0.0F);
+            }
+        }
     }
 
     public float getSwelling(float pPartialTicks) {
@@ -219,7 +229,32 @@ public class Malghast extends OwnedFlying {
         if (this.isNatural()){
             this.setHostile(true);
         }
-        this.setBoundOrigin(this.blockPosition());
+        if (this.getTrueOwner() == null) {
+            this.setBoundPos(this.blockPosition());
+            this.setWandering(false);
+            this.setStaying(false);
+        }
+    }
+
+    @Override
+    public void lifeSpanDamage() {
+        if (!this.level.isClientSide){
+            for(int i = 0; i < this.level.random.nextInt(35) + 10; ++i) {
+                ServerParticleUtil.smokeParticles(ParticleTypes.POOF, this.getX(), this.getEyeY(), this.getZ(), this.level);
+            }
+        }
+        this.playSound(ModSounds.GHAST_DISAPPEAR.get(), this.getSoundVolume(), this.getVoicePitch());
+        this.discard();
+    }
+
+    @Override
+    public void tryKill(Player player) {
+        this.lifeSpanDamage();
+    }
+
+    @Override
+    public boolean canUpdateMove() {
+        return true;
     }
 
     @Override
@@ -390,7 +425,9 @@ public class Malghast extends OwnedFlying {
 
         public boolean canUse() {
             MoveControl moveControl = this.ghast.getMoveControl();
-            if (!moveControl.hasWanted()) {
+            if (this.ghast.isCommanded() || this.ghast.isStaying()){
+                return false;
+            } else if (!moveControl.hasWanted()) {
                 return true;
             } else {
                 double d0 = moveControl.getWantedX() - this.ghast.getX();
@@ -410,12 +447,12 @@ public class Malghast extends OwnedFlying {
             RandomSource random = this.ghast.getRandom();
             float distance = 16.0F;
             BlockPos blockPos = null;
-            if (this.ghast.getTrueOwner() != null){
+            if (this.ghast.getBoundPos() != null){
+                blockPos = this.ghast.getBoundPos();
+            } else if (this.ghast.getTrueOwner() != null && this.ghast.isFollowing()){
                 blockPos = this.ghast.getTrueOwner().blockPosition().above(4);
             } else if (this.ghast.getTarget() != null){
                 blockPos = this.ghast.getTarget().blockPosition().above(4);
-            } else if (this.ghast.getBoundOrigin() != null){
-                blockPos = this.ghast.getBoundOrigin();
             }
 
             if (blockPos != null) {

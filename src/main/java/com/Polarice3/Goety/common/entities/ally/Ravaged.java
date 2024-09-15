@@ -31,6 +31,7 @@ import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -167,6 +168,14 @@ public class Ravaged extends Summoned {
 
     public int getMaxHeadYRot() {
         return 45;
+    }
+
+    @Override
+    public void convertNewEquipment(Entity entity) {
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+            this.dropEquipment(equipmentSlot, this.getItemBySlot(equipmentSlot));
+            this.setItemSlot(equipmentSlot, ItemStack.EMPTY);
+        }
     }
 
     public void aiStep() {

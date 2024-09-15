@@ -287,12 +287,22 @@ public class HoglinServant extends AnimalSummon implements HoglinBase, PlayerRid
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
-            if (entity instanceof LivingEntity livingEntity) {
-                return livingEntity;
+            if (entity instanceof Mob mob){
+                return mob;
+            } else if (entity instanceof LivingEntity
+                    && !this.isAutonomous()) {
+                return (LivingEntity)entity;
             }
         }
 
         return null;
+    }
+
+    public boolean isControlledByLocalInstance() {
+        return super.isControlledByLocalInstance()
+                && (this.getControllingPassenger() == null
+                || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player)
+                || this.getControllingPassenger() instanceof Mob);
     }
 
     protected void doPlayerRide(Player player) {
@@ -301,12 +311,6 @@ public class HoglinServant extends AnimalSummon implements HoglinBase, PlayerRid
             player.setXRot(this.getXRot());
             player.startRiding(this);
         }
-    }
-
-    public boolean isControlledByLocalInstance() {
-        LivingEntity livingentity = this.getControllingPassenger();
-        boolean flag = livingentity instanceof Player || this.isEffectiveAi();
-        return flag && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
     }
 
     protected void customServerAiStep() {

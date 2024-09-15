@@ -145,6 +145,9 @@ public class Whisperer extends Summoned{
             if (this.getTrueOwner() != null) {
                 wavewhisperer.setTrueOwner(this.getTrueOwner());
             }
+            if (this.limitedLifeTicks > 0){
+                wavewhisperer.setLimitedLife(this.limitedLifeTicks);
+            }
             net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, wavewhisperer);
         }
 

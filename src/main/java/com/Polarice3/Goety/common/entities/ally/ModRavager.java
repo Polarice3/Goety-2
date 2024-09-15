@@ -171,6 +171,10 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
         return pSpawnData;
     }
 
+    public boolean canSpawnArmor(){
+        return false;
+    }
+
     public void setSaddle(boolean p_20850_) {
         this.entityData.set(DATA_SADDLE_ID, p_20850_);
     }
@@ -206,7 +210,10 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
-            if (entity instanceof LivingEntity) {
+            if (entity instanceof Mob mob){
+                return mob;
+            } else if (entity instanceof LivingEntity
+                    && !this.isAutonomous()) {
                 return (LivingEntity)entity;
             }
         }
@@ -215,7 +222,10 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
     }
 
     public boolean isControlledByLocalInstance() {
-        return super.isControlledByLocalInstance() && (!this.isAutonomous() || this.getControllingPassenger() instanceof Mob);
+        return super.isControlledByLocalInstance()
+                && (this.getControllingPassenger() == null
+                || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player)
+                || this.getControllingPassenger() instanceof Mob);
     }
 
     public ItemStack getArmor() {

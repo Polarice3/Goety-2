@@ -65,7 +65,7 @@ public class NecroGarbs extends SingleStackItem {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity != null){
             if (!LichdomHelper.isLich(livingEntity)) {
-                if (MobUtil.isInSunlighNoRain(livingEntity)) {
+                if (!MobUtil.noSunlight(livingEntity)) {
                     if (ItemConfig.NecroCrownWeakness.get()) {
                         if (CuriosFinder.hasCurio(livingEntity, item -> item.getItem() instanceof NecroCrownItem crownItem && !crownItem.isNameless)) {
                             livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0, false, false));

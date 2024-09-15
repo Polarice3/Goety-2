@@ -84,7 +84,7 @@ public class GhastSpell extends SummonSpell {
         if (isShifting(entityLiving)) {
             for (Entity entity : worldIn.getAllEntities()) {
                 if (entity instanceof Malghast malghast) {
-                    if (malghast.getTrueOwner() == entityLiving) {
+                    if (malghast.getTrueOwner() == entityLiving && malghast.limitedLifeTicks > 0) {
                         malghast.lifeSpanDamage();
                     }
                 }

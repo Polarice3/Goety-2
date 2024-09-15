@@ -23,6 +23,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLAST_FUNGUS = register("blast_fungus");
     public static final ModelLayerLocation WEB_SHOT = register("web_shot");
     public static final ModelLayerLocation SOUL_BOMB = register("soul_bomb");
+    public static final ModelLayerLocation SCREAM = register("scream");
     public static final ModelLayerLocation SUMMON_CIRCLE = register("summon_circle");
     public static final ModelLayerLocation SUMMON_CIRCLE_BOSS = register("summon_circle_boss");
     public static final ModelLayerLocation ENTANGLE_VINES = register("entangle_vines");
@@ -48,6 +49,7 @@ public class ModModelLayer {
     public static final ModelLayerLocation BLACK_WOLF = register("black_wolf");
     public static final ModelLayerLocation BEAR = register("bear");
     public static final ModelLayerLocation BLACK_BEAST = register("black_beast");
+    public static final ModelLayerLocation ANATHEMA = register("anathema");
     public static final ModelLayerLocation WHISPERER = register("whisperer");
     public static final ModelLayerLocation LEAPLEAF = register("leapleaf");
     public static final ModelLayerLocation ICE_GOLEM = register("ice_golem");

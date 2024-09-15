@@ -282,7 +282,7 @@ public class SlimeServant extends Summoned{
                 if (this.getTrueOwner() != null) {
                     slime.setTrueOwner(this.getTrueOwner());
                 }
-                if (this.limitedLifespan) {
+                if (this.limitedLifeTicks > 0) {
                     slime.setLimitedLife(this.limitedLifeTicks);
                 }
                 slime.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);

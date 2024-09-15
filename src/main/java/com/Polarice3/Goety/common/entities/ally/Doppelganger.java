@@ -445,7 +445,7 @@ public class Doppelganger extends Summoned implements RangedAttackMob {
         }
 
         public boolean canContinueToUse() {
-            return this.canUse() || this.target.isAlive() && !this.rangedAttackMob.getNavigation().isDone() && !this.rangedAttackMob.hasShot();
+            return (this.canUse()) || (this.target != null && this.target.isAlive() && !this.rangedAttackMob.getNavigation().isDone() && !this.rangedAttackMob.hasShot());
         }
 
         public void stop() {

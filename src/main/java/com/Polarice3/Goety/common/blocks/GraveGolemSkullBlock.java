@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.blocks.entities.GraveGolemSkullBlockEntity;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.undead.GraveGolem;
 import com.Polarice3.Goety.common.items.block.GraveGolemSkullItem;
+import com.Polarice3.Goety.common.magic.construct.GraveGolemMold;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -132,40 +133,46 @@ public class GraveGolemSkullBlock extends BaseEntityBlock {
     }
 
     private void trySpawnGolem(LivingEntity living, Level p_51379_, BlockPos p_51380_, ItemStack itemStack) {
-        BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateGraveGolemFull().find(p_51379_, p_51380_);
-        if (blockpattern$blockpatternmatch != null) {
-            for(int j = 0; j < this.getOrCreateGraveGolemFull().getWidth(); ++j) {
-                for(int k = 0; k < this.getOrCreateGraveGolemFull().getHeight(); ++k) {
-                    BlockInWorld blockinworld2 = blockpattern$blockpatternmatch.getBlock(j, k, 0);
-                    p_51379_.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
-                    p_51379_.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
+        if (GraveGolemMold.conditionsMet(p_51379_, living)) {
+            BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateGraveGolemFull().find(p_51379_, p_51380_);
+            if (blockpattern$blockpatternmatch != null) {
+                for(int j = 0; j < this.getOrCreateGraveGolemFull().getWidth(); ++j) {
+                    for(int k = 0; k < this.getOrCreateGraveGolemFull().getHeight(); ++k) {
+                        BlockInWorld blockinworld2 = blockpattern$blockpatternmatch.getBlock(j, k, 0);
+                        p_51379_.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
+                        p_51379_.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
+                    }
+                }
+
+                BlockPos blockpos = blockpattern$blockpatternmatch.getBlock(1, 2, 0).getPos();
+                GraveGolem graveGolem = ModEntityType.GRAVE_GOLEM.get().create(p_51379_);
+                if (graveGolem != null) {
+                    if (GraveGolemSkullItem.getOwnerID(itemStack) != null) {
+                        graveGolem.setOwnerId(GraveGolemSkullItem.getOwnerID(itemStack));
+                    } else if (living != null) {
+                        graveGolem.setTrueOwner(living);
+                    }
+                    String string = GraveGolemSkullItem.getCustomName(itemStack);
+                    if (string != null) {
+                        graveGolem.setCustomName(Component.literal(string));
+                    }
+                    graveGolem.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+                    if (p_51379_ instanceof ServerLevel serverLevel) {
+                        graveGolem.finalizeSpawn(serverLevel, p_51379_.getCurrentDifficultyAt(p_51380_), MobSpawnType.MOB_SUMMONED, null, null);
+                    }
+                    p_51379_.addFreshEntity(graveGolem);
+                }
+
+                for (int i1 = 0; i1 < this.getOrCreateGraveGolemFull().getWidth(); ++i1) {
+                    for (int j1 = 0; j1 < this.getOrCreateGraveGolemFull().getHeight(); ++j1) {
+                        BlockInWorld blockinworld1 = blockpattern$blockpatternmatch.getBlock(i1, j1, 0);
+                        p_51379_.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
+                    }
                 }
             }
-
-            BlockPos blockpos = blockpattern$blockpatternmatch.getBlock(1, 2, 0).getPos();
-            GraveGolem graveGolem = ModEntityType.GRAVE_GOLEM.get().create(p_51379_);
-            if (graveGolem != null) {
-                if (GraveGolemSkullItem.getOwnerID(itemStack) != null){
-                    graveGolem.setOwnerId(GraveGolemSkullItem.getOwnerID(itemStack));
-                } else if (living != null){
-                    graveGolem.setTrueOwner(living);
-                }
-                String string = GraveGolemSkullItem.getCustomName(itemStack);
-                if (string != null){
-                    graveGolem.setCustomName(Component.literal(string));
-                }
-                graveGolem.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (p_51379_ instanceof ServerLevel serverLevel) {
-                    graveGolem.finalizeSpawn(serverLevel, p_51379_.getCurrentDifficultyAt(p_51380_), MobSpawnType.MOB_SUMMONED, null, null);
-                }
-                p_51379_.addFreshEntity(graveGolem);
-            }
-
-            for(int i1 = 0; i1 < this.getOrCreateGraveGolemFull().getWidth(); ++i1) {
-                for(int j1 = 0; j1 < this.getOrCreateGraveGolemFull().getHeight(); ++j1) {
-                    BlockInWorld blockinworld1 = blockpattern$blockpatternmatch.getBlock(i1, j1, 0);
-                    p_51379_.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
-                }
+        } else {
+            if (living instanceof Player player) {
+                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
             }
         }
     }

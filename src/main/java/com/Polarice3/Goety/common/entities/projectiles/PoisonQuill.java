@@ -40,6 +40,7 @@ public class PoisonQuill extends Arrow {
     private static final EntityDataAccessor<Boolean> SPEAR = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PIERCE_LEVEL = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> DATA_EXTRA_DAMAGE = SynchedEntityData.defineId(PoisonQuill.class, EntityDataSerializers.FLOAT);
+    public int duration;
     @Nullable
     private IntOpenHashSet piercingIgnoreEntityIds;
     @Nullable
@@ -75,6 +76,7 @@ public class PoisonQuill extends Arrow {
         p_36881_.putBoolean("Aqua", this.isAqua());
         p_36881_.putBoolean("Spear", this.isSpear());
         p_36881_.putInt("SpearLevel", this.getSpearLevel());
+        p_36881_.putInt("Duration", this.getDuration());
         p_36881_.putFloat("ExtraDamage", this.getExtraDamage());
     }
 
@@ -89,6 +91,9 @@ public class PoisonQuill extends Arrow {
         if (p_36875_.contains("SpearLevel")){
             this.setSpearLevel(p_36875_.getInt("SpearLevel"));
         }
+        if (p_36875_.contains("Duration")){
+            this.setDuration(p_36875_.getInt("Duration"));
+        }
         if (p_36875_.contains("ExtraDamage")) {
             this.setExtraDamage(p_36875_.getFloat("ExtraDamage"));
         }
@@ -100,6 +105,14 @@ public class PoisonQuill extends Arrow {
 
     public void setExtraDamage(float pDamage) {
         this.entityData.set(DATA_EXTRA_DAMAGE, pDamage);
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return this.duration;
     }
 
     protected float getWaterInertia() {
@@ -218,7 +231,7 @@ public class PoisonQuill extends Arrow {
                         || (entity1 instanceof LivingEntity livingEntity1 && CuriosFinder.hasWildRobe(livingEntity1))) {
                     mobEffect = GoetyEffects.ACID_VENOM.get();
                 }
-                livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(2)));
+                livingEntity.addEffect(new MobEffectInstance(mobEffect, MathHelper.secondsToTicks(2 + this.getDuration())));
 
                 this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 if (this.getSpearLevel() <= 0) {

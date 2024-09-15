@@ -861,8 +861,8 @@ public class MobUtil {
         return false;
     }
 
-    public static boolean isInSunlighNoRain(LivingEntity livingEntity){
-        return isInSunlight(livingEntity) && !livingEntity.level.isRaining();
+    public static boolean noSunlight(LivingEntity livingEntity){
+        return !isInSunlight(livingEntity) || livingEntity.level.isRaining();
     }
 
     /**
@@ -985,6 +985,14 @@ public class MobUtil {
                 }
             }
 
+        }
+    }
+
+    public static void disableShield(LivingEntity livingEntity, int ticks) {
+        if (livingEntity instanceof Player player && player.isBlocking()) {
+            player.getCooldowns().addCooldown(player.getUseItem().getItem(), ticks);
+            player.stopUsingItem();
+            player.level.broadcastEntityEvent(player, (byte)30);
         }
     }
 

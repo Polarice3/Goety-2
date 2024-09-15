@@ -36,6 +36,7 @@ import com.Polarice3.Goety.common.entities.neutral.BlazeServant;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.Fangs;
 import com.Polarice3.Goety.common.entities.projectiles.ModDragonFireball;
+import com.Polarice3.Goety.common.entities.util.DragonBreathCloud;
 import com.Polarice3.Goety.common.entities.util.StormEntity;
 import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.common.items.ModTiers;
@@ -62,6 +63,7 @@ import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.init.ModMobType;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
+import com.Polarice3.Goety.init.RaidAdditions;
 import com.Polarice3.Goety.utils.*;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.Advancement;
@@ -78,7 +80,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.CombatRules;
@@ -97,6 +98,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -137,6 +139,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.commons.lang3.ArrayUtils;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
@@ -280,6 +283,22 @@ public class ModEvents {
                     event.setCanceled(true);
                 }
             }
+            if (entity instanceof AreaEffectCloud cloud){
+                if (cloud.getOwner() instanceof EnderDragon){
+                    DragonBreathCloud breathCloud = new DragonBreathCloud(entity.level, cloud.getX(), cloud.getY(), cloud.getZ());
+                    breathCloud.setOwner(cloud.getOwner());
+                    breathCloud.setRadius(cloud.getRadius());
+                    breathCloud.setRadiusOnUse(cloud.getRadiusOnUse());
+                    breathCloud.setRadiusPerTick(cloud.getRadiusPerTick());
+                    breathCloud.setDuration(cloud.getDuration());
+                    breathCloud.setDurationOnUse(cloud.getDurationOnUse());
+                    breathCloud.setWaitTime(cloud.getWaitTime());
+                    if (entity.level.addFreshEntity(breathCloud)) {
+                        cloud.discard();
+                        event.setCanceled(true);
+                    }
+                }
+            }
         }
         if (entity instanceof StormEntity){
             if (!entity.level.isClientSide){
@@ -288,7 +307,7 @@ public class ModEvents {
             }
         }
         if (entity instanceof Raider raider){
-            if (world instanceof ServerLevel serverLevel) {
+            if (world instanceof ServerLevel) {
                 if (raider.hasActiveRaid()) {
                     Raid raid = raider.getCurrentRaid();
                     if (raid != null && raid.isActive() && !raid.isBetweenWaves() && !raid.isOver() && !raid.isStopped()) {
@@ -296,88 +315,22 @@ public class ModEvents {
                         if (player != null) {
                             if (MobsConfig.IllagerRaid.get()) {
                                 if (SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 2)) {
-                                    int badOmen = Mth.clamp(raid.getBadOmenLevel(), 0, 5) + 1;
-                                    int pillager = world.random.nextInt((int) 12 / badOmen);
-                                    if (SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 4)){
-                                        pillager = world.random.nextInt(3);
-                                    }
                                     if (SEHelper.getSoulAmountInt(player) < (MobsConfig.IllagerAssaultSEThreshold.get() * 5)){
                                         if (raider instanceof Minister) {
                                             raid.removeFromRaid(raider, true);
                                             event.setCanceled(true);
                                         }
                                     }
-                                    if (pillager == 0) {
-                                        if (raider.getType() == EntityType.PILLAGER) {
-                                            if (MobsConfig.ConquillagerRaid.get()) {
-                                                HuntingIllagerEntity conquillager = ModEntityType.CONQUILLAGER.get().create(world);
-                                                if (conquillager != null) {
-                                                    if (world.random.nextInt(4) == 0) {
-                                                        conquillager.setRider(true);
-                                                    }
-                                                    conquillager.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                    conquillager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                    serverLevel.addFreshEntity(conquillager);
-                                                }
-                                            }
-                                        }
-                                        if (raider.getType() == EntityType.EVOKER) {
-                                            if (MobsConfig.EnviokerRaid.get()) {
-                                                Envioker illager = ModEntityType.ENVIOKER.get().create(world);
-                                                if (illager != null) {
-                                                    illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                    illager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                    serverLevel.addFreshEntity(illager);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    int vindicator = world.random.nextInt((int) 12 / badOmen);
-                                    if (vindicator == 0) {
-                                        if (raid.getGroupsSpawned() > 3 || SEHelper.getSoulAmountInt(player) >= (MobsConfig.IllagerAssaultSEThreshold.get() * 4)) {
-                                            if (raider.getType() == EntityType.VINDICATOR) {
-                                                if (MobsConfig.InquillagerRaid.get()) {
-                                                    HuntingIllagerEntity illager = ModEntityType.INQUILLAGER.get().create(world);
-                                                    if (illager != null) {
-                                                        illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                        if (world.random.nextInt(4) == 0) {
-                                                            illager.setRider(true);
-                                                        }
-                                                        illager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                        serverLevel.addFreshEntity(illager);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (raider.getType() == EntityType.EVOKER) {
-                                            if (MobsConfig.PreacherRaid.get()) {
-                                                Preacher illager = ModEntityType.PREACHER.get().create(world);
-                                                if (illager != null) {
-                                                    illager.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                    illager.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                    serverLevel.addFreshEntity(illager);
-                                                }
-                                            }
-                                        }
-                                        if (raider instanceof Ravager) {
-                                            if (MobsConfig.EnviokerRaid.get()) {
-                                                Envioker envioker = ModEntityType.ENVIOKER.get().create(world);
-                                                if (envioker != null) {
-                                                    if (world.random.nextInt(4) == 0) {
-                                                        envioker.setRider(true);
-                                                    }
-                                                    envioker.moveTo(raider.getX(), raider.getY(), raider.getZ());
-                                                    envioker.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(raider.blockPosition()), MobSpawnType.EVENT, null, null);
-                                                    serverLevel.addFreshEntity(envioker);
-                                                }
-                                            }
-                                        }
-                                    }
                                 } else {
-                                    if (raider instanceof Piker || raider instanceof Crusher || raider instanceof StormCaster || raider instanceof Cryologer){
+                                    if (raider instanceof HuntingIllagerEntity){
                                         raid.removeFromRaid(raider, true);
                                         event.setCanceled(true);
                                     }
+                                }
+                            } else {
+                                if (raider instanceof HuntingIllagerEntity){
+                                    raid.removeFromRaid(raider, true);
+                                    event.setCanceled(true);
                                 }
                             }
                         }
@@ -435,6 +388,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void worldLoad(LevelEvent.Load event) {
+        RaidAdditions.addRaiders();
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
             ILLAGER_SPAWN_MAP.put(serverWorld, new IllagerSpawner());
             WIGHT_SPAWN_MAP.put(serverWorld, new WightSpawner());
@@ -443,6 +397,12 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void worldUnload(LevelEvent.Unload event) {
+        Raid.RaiderType[] members = Raid.RaiderType.values();
+        for (Raid.RaiderType member : members) {
+            if (RaidAdditions.NEW_RAID_MEMBERS.contains(member)) {
+                ArrayUtils.remove(members, member.ordinal());
+            }
+        }
         if (!event.getLevel().isClientSide() && event.getLevel() instanceof ServerLevel serverWorld) {
             ILLAGER_SPAWN_MAP.remove(serverWorld);
             WIGHT_SPAWN_MAP.remove(serverWorld);
@@ -1222,6 +1182,14 @@ public class ModEvents {
             }
         }
 
+        if (source instanceof MagmaCube magmaCube){
+            if (CuriosFinder.neutralNetherSet(victim)){
+                if (magmaCube.getLastHurtByMob() != victim) {
+                    event.setCanceled(true);
+                }
+            }
+        }
+
         if (direct instanceof AbstractArrow arrowEntity){
             if (arrowEntity.getTags().contains(ConstantPaths.rainArrow()) || arrowEntity.getOwner() instanceof Apostle){
                 if (arrowEntity.getOwner() != null) {
@@ -1472,7 +1440,8 @@ public class ModEvents {
             }
             if (killed instanceof AbstractIllager illager){
                 if (!illager.getType().getDescriptionId().contains("magispeller")
-                    && !illager.getType().getDescriptionId().contains("spiritcaller")) {
+                        && !illager.getType().getDescriptionId().contains("faker")
+                        && !illager.getType().getDescriptionId().contains("spiritcaller")) {
                     for (Apostle apostle : world.getEntitiesOfClass(Apostle.class, illager.getBoundingBox().inflate(32))) {
                         if (apostle.hasLineOfSight(illager)) {
                             Damned damned = new Damned(ModEntityType.DAMNED.get(), world);
@@ -1576,16 +1545,6 @@ public class ModEvents {
                                 }
                                 event.setLootingLevel(looting);
                             }
-                            if (damageSource.getOwner() instanceof IOwned ownedEntity) {
-                                if (ownedEntity.getTrueOwner() instanceof Player player) {
-                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                                        if (CuriosFinder.findRing(player).isEnchanted()) {
-                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
-                                        }
-                                    }
-                                    event.setLootingLevel(event.getLootingLevel() + looting);
-                                }
-                            }
                         }
                     }
                     if (event.getDamageSource().getEntity() != null) {
@@ -1599,20 +1558,6 @@ public class ModEvents {
                             if (looting > EnchantmentHelper.getMobLooting(player)) {
                                 if (spell != null) {
                                     if (!(spell instanceof LivingEntity)) {
-                                        event.setLootingLevel(looting);
-                                    }
-                                }
-                            }
-                        }
-                        if (event.getDamageSource().getEntity() instanceof IOwned ownedEntity) {
-                            if (ownedEntity instanceof LivingEntity) {
-                                if (ownedEntity.getTrueOwner() instanceof Player player) {
-                                    if (CuriosFinder.findRing(player).getItem() == ModItems.RING_OF_WANT.get()) {
-                                        if (CuriosFinder.findRing(player).isEnchanted()) {
-                                            looting = CuriosFinder.findRing(player).getEnchantmentLevel(ModEnchantments.WANTING.get());
-                                        }
-                                    }
-                                    if (looting > EnchantmentHelper.getMobLooting((LivingEntity) ownedEntity)) {
                                         event.setLootingLevel(looting);
                                     }
                                 }

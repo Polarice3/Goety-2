@@ -240,6 +240,9 @@ public class Lavaball extends LargeFireball {
         if (this.isUpgraded()){
             return false;
         } else {
+            if (!SpellConfig.LavaballGriefing.get()) {
+                this.setDangerous(false);
+            }
             return super.hurt(p_36839_, p_36840_);
         }
     }

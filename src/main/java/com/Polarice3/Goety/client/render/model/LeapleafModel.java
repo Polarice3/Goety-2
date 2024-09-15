@@ -6,8 +6,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 
 public class LeapleafModel<T extends Leapleaf> extends HierarchicalModel<T> {
 	private final ModelPart root;
@@ -93,10 +91,11 @@ public class LeapleafModel<T extends Leapleaf> extends HierarchicalModel<T> {
 		if (!entity.isDeadOrDying() && !entity.isResting()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
-		Vec3 velocity = entity.getDeltaMovement();
-		float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
-		this.animate(entity.idleAnimationState, LeapleafAnimations.IDLE, ageInTicks);
-		this.animate(entity.walkAnimationState, LeapleafAnimations.WALK, ageInTicks, groundSpeed * 10);
+		if (entity.canAnimateMove() && entity.isMoving()) {
+			this.animateWalk(LeapleafAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+		} else {
+			this.animate(entity.idleAnimationState, LeapleafAnimations.IDLE, ageInTicks);
+		}
 		this.animate(entity.smashAnimationState, LeapleafAnimations.SMASH, ageInTicks);
 		this.animate(entity.chargeAnimationState, LeapleafAnimations.CHARGE, ageInTicks);
 		this.animate(entity.leapAnimationState, LeapleafAnimations.LEAP, ageInTicks);

@@ -38,6 +38,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -82,6 +84,17 @@ public class ThrownBrew extends ThrowableItemProjectile implements ItemSupplier 
             return true;
         }
         return super.fireImmune();
+    }
+
+    @Override
+    public boolean isPushedByFluid(FluidType type) {
+        if (BrewUtils.getAquatic(this.getItem()) && type == ForgeMod.WATER_TYPE.get()){
+            return false;
+        } else if (BrewUtils.getFireProof(this.getItem()) && type == ForgeMod.LAVA_TYPE.get()){
+            return false;
+        } else {
+            return super.isPushedByFluid(type);
+        }
     }
 
     protected void onHitBlock(BlockHitResult p_37541_) {
