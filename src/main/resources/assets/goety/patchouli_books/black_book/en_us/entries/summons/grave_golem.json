@@ -37,5 +37,8 @@
       "multiblock_id": "goety:grave_golem_revive",
       "enable_visualize": false
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:grave_golem_skull": 6
+  }
 }

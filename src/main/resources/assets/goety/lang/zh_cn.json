@@ -2269,7 +2269,7 @@
   "subtitle.goety.blackguard_step": "暗卫：践踏",
   "subtitle.goety.plate": "击中金属",
   "subtitle.goety.plate_drop": "金属掉落",
-  "item.goety.ominous_shard": "不像碎片",
+  "item.goety.ominous_shard": "不祥碎片",
   "item.goety.shredding_focus": "尖刺聚晶",
   "item.goety.shredding_focus.info": "在施法者召唤皇家尖刺，对非盟军实体造成持续伤害。",
   "subtitle.goety.void_prepare_spell": "准备施放法术",
@@ -2301,5 +2301,5 @@
   "info.goety.wild_crown_cast": "减半荒野法术的施法时间。",
   "info.goety.nether_crown": "下界仆从将会永续存在。",
   "info.goety.nether_crown_cast": "减半下界法术的施法时间。",
-  "item.goety.howling_soul": "Howling Soul"
+  "item.goety.howling_soul": "咆哮之魂"
 }

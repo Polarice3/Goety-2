@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
@@ -33,12 +34,32 @@ public class WandUtil {
         return itemStack.getItem() instanceof IWand;
     }
 
+    public static ItemStack findWandOnHand(LivingEntity playerEntity, InteractionHand hand) {
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (isMatchingItem(playerEntity.getItemInHand(hand))){
+            foundStack = playerEntity.getItemInHand(hand);
+        }
+
+        return foundStack;
+    }
+
     public static ItemStack findWand(LivingEntity playerEntity) {
         ItemStack foundStack = ItemStack.EMPTY;
         if (isMatchingItem(playerEntity.getMainHandItem())){
             foundStack = playerEntity.getMainHandItem();
         } else if (isMatchingItem(playerEntity.getOffhandItem())){
             foundStack = playerEntity.getOffhandItem();
+        }
+
+        return foundStack;
+    }
+
+    public static ItemStack findFocusOnHand(LivingEntity playerEntity, InteractionHand hand){
+        ItemStack foundStack = ItemStack.EMPTY;
+        if (!findWandOnHand(playerEntity, hand).isEmpty()){
+            if (!IWand.getFocus(findWandOnHand(playerEntity, hand)).isEmpty()) {
+                foundStack = IWand.getFocus(findWandOnHand(playerEntity, hand));
+            }
         }
 
         return foundStack;
@@ -66,6 +87,15 @@ public class WandUtil {
             }
         }
         return foundStack;
+    }
+
+    public static ISpell getSpellOnHand(LivingEntity livingEntity, InteractionHand hand){
+        if (WandUtil.findFocusOnHand(livingEntity, hand).getItem() instanceof IFocus magicFocus){
+            if (magicFocus.getSpell() != null){
+                return magicFocus.getSpell();
+            }
+        }
+        return null;
     }
 
     public static ISpell getSpell(LivingEntity livingEntity){

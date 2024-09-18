@@ -189,6 +189,12 @@ public interface ISpell {
     default void startSpell(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff) {
     }
 
+    default void useSpell(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff, int castTime) {
+    }
+
+    default void stopSpell(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff, int useTimeRemaining) {
+    }
+
     void SpellResult(ServerLevel worldIn, LivingEntity entityLiving, ItemStack staff);
 
     SpellType getSpellType();

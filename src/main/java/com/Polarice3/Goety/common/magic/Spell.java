@@ -10,6 +10,7 @@ import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.CuriosFinder;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -65,7 +66,7 @@ public abstract class Spell implements ISpell {
     }
 
     public boolean isShifting(LivingEntity entityLiving){
-        return entityLiving.isCrouching() || entityLiving.isShiftKeyDown();
+        return (entityLiving.isCrouching() || entityLiving.isShiftKeyDown()) && !WandUtil.findWand(entityLiving).isEmpty();
     }
 
     public boolean conditionsMet(ServerLevel worldIn, LivingEntity entityLiving){

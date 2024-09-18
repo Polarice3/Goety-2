@@ -59,7 +59,9 @@ public class SoulEnergyEvents {
         Player player = event.player;
         Level world = player.level;
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
-        SEHelper.getFocusCoolDown(player).tick(player, world);
+        if (event.phase == TickEvent.Phase.END) {
+            SEHelper.getFocusCoolDown(player).tick(player, world);
+        }
         if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
             if (!world.isClientSide){
                 player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));

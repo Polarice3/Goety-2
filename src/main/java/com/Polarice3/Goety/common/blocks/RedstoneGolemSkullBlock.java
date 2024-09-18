@@ -91,9 +91,20 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+        boolean flag = false;
         if (this.canSpawnGolem(pLevel, pPos)){
-            this.trySpawnGolem(pPlacer, pLevel, pPos, pStack);
+            if (RedstoneGolemMold.conditionsMet(pLevel, pPlacer)) {
+                this.trySpawnGolem(pPlacer, pLevel, pPos, pStack);
+            } else {
+                if (pPlacer instanceof Player player) {
+                    player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+                }
+                flag = true;
+            }
         } else {
+            flag = true;
+        }
+        if (flag) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
             if (tileentity instanceof RedstoneGolemSkullBlockEntity blockEntity) {
                 blockEntity.setOwnerId(RedstoneGolemSkullItem.getOwnerID(pStack));
@@ -133,46 +144,40 @@ public class RedstoneGolemSkullBlock extends BaseEntityBlock {
     }
 
     private void trySpawnGolem(LivingEntity living, Level p_51379_, BlockPos p_51380_, ItemStack itemStack) {
-        if (RedstoneGolemMold.conditionsMet(p_51379_, living)) {
-            BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateRedstoneGolemFull().find(p_51379_, p_51380_);
-            if (blockpattern$blockpatternmatch != null) {
-                for(int j = 0; j < this.getOrCreateRedstoneGolemFull().getWidth(); ++j) {
-                    for(int k = 0; k < this.getOrCreateRedstoneGolemFull().getHeight(); ++k) {
-                        BlockInWorld blockinworld2 = blockpattern$blockpatternmatch.getBlock(j, k, 0);
-                        p_51379_.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
-                        p_51379_.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
-                    }
-                }
-
-                BlockPos blockpos = blockpattern$blockpatternmatch.getBlock(1, 2, 0).getPos();
-                RedstoneGolem redstoneGolem = ModEntityType.REDSTONE_GOLEM.get().create(p_51379_);
-                if (redstoneGolem != null) {
-                    if (RedstoneGolemSkullItem.getOwnerID(itemStack) != null){
-                        redstoneGolem.setOwnerId(RedstoneGolemSkullItem.getOwnerID(itemStack));
-                    } else if (living != null){
-                        redstoneGolem.setTrueOwner(living);
-                    }
-                    String string = RedstoneGolemSkullItem.getCustomName(itemStack);
-                    if (string != null){
-                        redstoneGolem.setCustomName(Component.literal(string));
-                    }
-                    redstoneGolem.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
-                    if (p_51379_ instanceof ServerLevel serverLevel) {
-                        redstoneGolem.finalizeSpawn(serverLevel, p_51379_.getCurrentDifficultyAt(p_51380_), MobSpawnType.MOB_SUMMONED, null, null);
-                    }
-                    p_51379_.addFreshEntity(redstoneGolem);
-                }
-
-                for(int i1 = 0; i1 < this.getOrCreateRedstoneGolemFull().getWidth(); ++i1) {
-                    for(int j1 = 0; j1 < this.getOrCreateRedstoneGolemFull().getHeight(); ++j1) {
-                        BlockInWorld blockinworld1 = blockpattern$blockpatternmatch.getBlock(i1, j1, 0);
-                        p_51379_.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
-                    }
+        BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = this.getOrCreateRedstoneGolemFull().find(p_51379_, p_51380_);
+        if (blockpattern$blockpatternmatch != null) {
+            for(int j = 0; j < this.getOrCreateRedstoneGolemFull().getWidth(); ++j) {
+                for(int k = 0; k < this.getOrCreateRedstoneGolemFull().getHeight(); ++k) {
+                    BlockInWorld blockinworld2 = blockpattern$blockpatternmatch.getBlock(j, k, 0);
+                    p_51379_.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
+                    p_51379_.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
                 }
             }
-        } else {
-            if (living instanceof Player player) {
-                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
+
+            BlockPos blockpos = blockpattern$blockpatternmatch.getBlock(1, 2, 0).getPos();
+            RedstoneGolem redstoneGolem = ModEntityType.REDSTONE_GOLEM.get().create(p_51379_);
+            if (redstoneGolem != null) {
+                if (RedstoneGolemSkullItem.getOwnerID(itemStack) != null){
+                    redstoneGolem.setOwnerId(RedstoneGolemSkullItem.getOwnerID(itemStack));
+                } else if (living != null){
+                    redstoneGolem.setTrueOwner(living);
+                }
+                String string = RedstoneGolemSkullItem.getCustomName(itemStack);
+                if (string != null){
+                    redstoneGolem.setCustomName(Component.literal(string));
+                }
+                redstoneGolem.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+                if (p_51379_ instanceof ServerLevel serverLevel) {
+                    redstoneGolem.finalizeSpawn(serverLevel, p_51379_.getCurrentDifficultyAt(p_51380_), MobSpawnType.MOB_SUMMONED, null, null);
+                }
+                p_51379_.addFreshEntity(redstoneGolem);
+            }
+
+            for(int i1 = 0; i1 < this.getOrCreateRedstoneGolemFull().getWidth(); ++i1) {
+                for(int j1 = 0; j1 < this.getOrCreateRedstoneGolemFull().getHeight(); ++j1) {
+                    BlockInWorld blockinworld1 = blockpattern$blockpatternmatch.getBlock(i1, j1, 0);
+                    p_51379_.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
+                }
             }
         }
     }

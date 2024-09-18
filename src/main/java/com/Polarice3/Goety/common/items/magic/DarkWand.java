@@ -367,6 +367,9 @@ public class DarkWand extends Item implements IWand {
                 }
                 worldIn.playSound(null, livingEntityIn.getX(), livingEntityIn.getY(), livingEntityIn.getZ(), soundevent, SoundSource.PLAYERS, this.castingVolume(stack), this.castingPitch(stack));
             }
+            if (worldIn instanceof ServerLevel serverLevel) {
+                this.getSpell(stack).useSpell(serverLevel, livingEntityIn, stack, CastTime);
+            }
             if (this.getSpell(stack) instanceof RecallSpell){
                 for(int i = 0; i < 2; ++i) {
                     worldIn.addParticle(ParticleTypes.PORTAL, livingEntityIn.getRandomX(0.5D), livingEntityIn.getRandomY() - 0.25D, livingEntityIn.getRandomZ(0.5D), (worldIn.random.nextDouble() - 0.5D) * 2.0D, -worldIn.random.nextDouble(), (worldIn.random.nextDouble() - 0.5D) * 2.0D);
@@ -398,6 +401,15 @@ public class DarkWand extends Item implements IWand {
                         player.stopUsingItem();
                     }
                 }
+            }
+        }
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int useTimeRemaining) {
+        if (level instanceof ServerLevel serverLevel) {
+            if (this.getSpell(stack) != null) {
+                this.getSpell(stack).stopSpell(serverLevel, livingEntity, stack, useTimeRemaining);
             }
         }
     }

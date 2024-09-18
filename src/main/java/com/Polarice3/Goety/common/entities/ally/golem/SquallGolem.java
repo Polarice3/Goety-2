@@ -604,15 +604,17 @@ public class SquallGolem extends AbstractGolemServant implements IWindPowered {
                             serverLevel.sendParticles(ModParticleTypes.HEAL_EFFECT.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0, d0, d1, d2, 0.5F);
                         }
                     }
+                    return InteractionResult.SUCCESS;
                 } else if (itemstack.isEmpty() && this.fullyInactive()) {
                     float f = (float)Mth.floor((Mth.wrapDegrees(pPlayer.getYRot() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     this.setYRot(f);
                     this.setYHeadRot(f);
                     this.playSound(SoundEvents.IRON_GOLEM_STEP, 1.0F, 0.5F);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
-        return InteractionResult.SUCCESS;
+        return super.mobInteract(pPlayer, pHand);
     }
 
     class AttackGoal extends MeleeAttackGoal {
