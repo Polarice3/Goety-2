@@ -1,0 +1,47 @@
+{
+  "name": "Быстрорастущие лозы",
+  "icon": "minecraft:vine",
+  "category": "goety:summons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Эти крепкие, наделённые разумом лианы преграждают путь любому, кто попытается пройти сквозь них."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Семена, вызванные или посаженные под водой, превращаются не в лозы, а в водоросли."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:quick_growing_kelp{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти чудовищные растения стреляют ядовитыми иглами во врагов."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_quill_vine{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Как и у их простых собратьев, у этих ядовитых растений есть подводная разновидность, иглы которой могут летать сквозь воду."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:poison_anemone{ActiveTick:15,Animation:1}",
+      "scale": 0.75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Эти растения можно исцелить костной мукой. Если у них полное здоровье, то нажатие мукой может создать новое семя поблизости."
+    }
+  ]
+}

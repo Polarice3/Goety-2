@@ -2,7 +2,9 @@ package com.Polarice3.Goety.client.render;
 
 import com.Polarice3.Goety.Goety;
 import com.Polarice3.Goety.common.entities.projectiles.VineHook;
+import com.Polarice3.Goety.common.magic.spells.wild.GrappleSpell;
 import com.Polarice3.Goety.utils.ColorUtil;
+import com.Polarice3.Goety.utils.WandUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -134,7 +136,7 @@ public class VineHookRenderer extends EntityRenderer<VineHook> {
 
     private Vec3 getPlayerHandPos(Player player, float pPartialTicks) {
         int i;
-        if (player.swingingArm == InteractionHand.MAIN_HAND){
+        if (WandUtil.getSpellOnHand(player, InteractionHand.MAIN_HAND) instanceof GrappleSpell){
             if (player.getMainArm() == HumanoidArm.RIGHT){
                 i = 1;
             } else {

@@ -259,7 +259,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                         if (recipe.getRitual() instanceof EnchantItemRitual enchantItemRitual) {
                             if (this.experienceTaken < enchantItemRitual.getLevelCost(handler.getStackInSlot(0))) {
                                 if (this.castingPlayer.experienceLevel > 1) {
-                                    if (this.level.getGameTime() % 20 == 0) {
+                                    if (this.level.getGameTime() % 10 == 0) {
                                         serverWorld.playSound(null, this.worldPosition, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 1.0F, 0.5F);
                                         this.castingPlayer.giveExperienceLevels(-1);
                                         this.experienceTaken += 1;
@@ -399,6 +399,7 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.convert.fail"), true);
                                 return false;
                             } else if ((ritualRecipe.isSummoning() && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())) || (ritualRecipe.isConversion()  && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToConvertInto()))){
+                                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                                 return false;
                             } else if (ritualRecipe.getResearch() != null
                                     && ResearchList.getResearch(ritualRecipe.getResearch()) != null){
@@ -429,6 +430,8 @@ public class DarkAltarBlockEntity extends PedestalBlockEntity implements GameEve
                                 } else {
                                     player.displayClientMessage(Component.translatable("info.goety.ritual.enchantCompatItem.fail"), true);
                                 }
+                            } else if ((ritualRecipe.isSummoning() && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToSummon())) || (ritualRecipe.isConversion()  && !RitualRequirements.canSummon(world, player, ritualRecipe.getEntityToConvertInto()))){
+                                player.displayClientMessage(Component.translatable("info.goety.summon.limit"), true);
                             } else {
                                 player.displayClientMessage(Component.translatable("info.goety.ritual.itemProblem.fail"), true);
                             }

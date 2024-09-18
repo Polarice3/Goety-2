@@ -5,6 +5,7 @@ import com.Polarice3.Goety.api.magic.SpellType;
 import com.Polarice3.Goety.common.items.capability.SoulUsingItemCapability;
 import com.Polarice3.Goety.common.items.handler.SoulUsingItemHandler;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -46,6 +47,14 @@ public interface IWand extends IForgeItem {
             return focus.getSpell();
         } else {
             return null;
+        }
+    }
+
+    default int currentCastTime(LivingEntity livingEntity, ItemStack itemstack){
+        if (livingEntity.isUsingItem() && livingEntity.getUseItem() == itemstack) {
+            return livingEntity.getTicksUsingItem();
+        } else {
+            return 0;
         }
     }
 

@@ -3,6 +3,10 @@ package com.Polarice3.Goety.common.effects.brew.block;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
+import com.Polarice3.Goety.common.entities.ally.undead.skeleton.AbstractSkeletonServant;
+import com.Polarice3.Goety.common.entities.ally.undead.zombie.ZombieServant;
+import com.Polarice3.Goety.common.magic.spells.necromancy.SkeletonSpell;
+import com.Polarice3.Goety.common.magic.spells.necromancy.ZombieSpell;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.BlockFinder;
 import com.Polarice3.Goety.utils.MobUtil;
@@ -73,6 +77,17 @@ public class RaiseDeadBrewEffect extends BrewEffect {
                     summoned = (Summoned) entityType.create(pLevel);
                 }
                 if (summoned != null) {
+                    if (pLevel instanceof ServerLevel serverLevel) {
+                        if (summoned instanceof ZombieServant) {
+                            if (!new ZombieSpell().conditionsMet(serverLevel, pSource)){
+                                return;
+                            }
+                        } else if (summoned instanceof AbstractSkeletonServant){
+                            if (!new SkeletonSpell().conditionsMet(serverLevel, pSource)){
+                                return;
+                            }
+                        }
+                    }
                     summoned.setPos(Vec3.upFromBottomCenterOf(pPos, 1.0F));
                     if (pSource != null){
                         summoned.setTrueOwner(pSource);

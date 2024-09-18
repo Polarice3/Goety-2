@@ -38,5 +38,8 @@
       "multiblock_id": "goety:redstone_golem_revive",
       "enable_visualize": false
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "goety:redstone_golem_skull": 6
+  }
 }
