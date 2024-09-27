@@ -121,7 +121,6 @@ public class PotionEvents {
             }
             if (livingEntity.hasEffect(GoetyEffects.CLIMBING.get())){
                 MobUtil.ClimbAnyWall(livingEntity);
-                MobUtil.WebMovement(livingEntity);
             }
             if (livingEntity instanceof Bee bee){
                 if (!bee.level.isClientSide) {
@@ -227,11 +226,11 @@ public class PotionEvents {
     }
 
     @SubscribeEvent
-    public static void AttackEvent(LivingAttackEvent event){
+    public static void HurtEvent(LivingHurtEvent event){
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
 
-        if (attacker instanceof LivingEntity living){
+        if (attacker instanceof LivingEntity living) {
             if (ModDamageSource.physicalAttacks(event.getSource())) {
                 if (living.hasEffect(GoetyEffects.FLAME_HANDS.get())) {
                     MobEffectInstance mobEffectInstance = living.getEffect(GoetyEffects.FLAME_HANDS.get());
@@ -252,15 +251,6 @@ public class PotionEvents {
                     }
                 }
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void HurtEvent(LivingHurtEvent event){
-        LivingEntity victim = event.getEntity();
-        Entity attacker = event.getSource().getEntity();
-
-        if (attacker instanceof LivingEntity living) {
             if (victim.hasEffect(GoetyEffects.REPULSIVE.get())) {
                 MobEffectInstance mobEffectInstance = victim.getEffect(GoetyEffects.REPULSIVE.get());
                 if (mobEffectInstance != null){

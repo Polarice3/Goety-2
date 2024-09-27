@@ -40,6 +40,7 @@ import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
@@ -81,6 +82,15 @@ public class Summoned extends Owned implements IServant {
 
     public void targetSelectGoal(){
         this.targetSelector.addGoal(1, new SummonTargetGoal(this));
+    }
+
+    protected void updateControlFlags() {
+        boolean flag = !(this.getControllingPassenger() instanceof Mob);
+        boolean flag1 = !(this.getVehicle() instanceof Boat);
+        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
+        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
+        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
+        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
     public void checkDespawn() {

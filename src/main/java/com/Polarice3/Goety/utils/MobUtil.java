@@ -863,7 +863,7 @@ public class MobUtil {
     }
 
     public static boolean noSunlight(LivingEntity livingEntity){
-        return !isInSunlight(livingEntity) || livingEntity.level.isRaining();
+        return !isInSunlight(livingEntity) && !livingEntity.level.isRaining();
     }
 
     /**
@@ -1286,7 +1286,7 @@ public class MobUtil {
                 || (attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())){
             return target instanceof Player player && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player);
         } else {
-            return (target instanceof Enemy
+            return ((target instanceof Enemy || (target instanceof IOwned ownedTarget && ownedTarget.isHostile()))
                     && !((target.getMobType() == MobType.UNDEAD || target.getType().is(ModTags.EntityTypes.LICH_NEUTRAL)) && LichdomHelper.isLich(owner) && MainConfig.LichUndeadFriends.get())
                     && !(owner != null && ((CuriosFinder.hasNecroSet(owner) && CuriosFinder.validNecroUndead(target)) || (CuriosFinder.neutralNamelessSet(owner) && CuriosFinder.validNamelessUndead(target))) && !MobsConfig.NecroRobeUndead.get())
                     && !(MobUtil.isWitchType(target) && owner != null && CuriosFinder.isWitchFriendly(owner) && !MobsConfig.VariousRobeWitch.get())
@@ -1294,11 +1294,8 @@ public class MobUtil {
                     && !(CuriosFinder.validWildMob(target) && owner != null && CuriosFinder.neutralWildSet(owner))
                     && !(CuriosFinder.validNetherMob(target) && owner != null && CuriosFinder.neutralNetherSet(owner))
                     && !(target instanceof Creeper && target.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && MobsConfig.MinionsAttackCreepers.get())
-                    && !(target instanceof NeutralMob neutralMob && ((owner != null && neutralMob.getTarget() != owner) || ((NeutralMob) target).getTarget() != attacker))
-                    && !(target instanceof IOwned owned && (owner != null && owned.getTrueOwner() == owner))
-                    || (target instanceof IOwned owned
-                    && !(attacker instanceof IOwned ownedAttacker && ownedAttacker.isHostile())
-                    && owned.isHostile())
+                    && !(target instanceof NeutralMob neutralMob && ((owner != null && neutralMob.getTarget() != owner) || neutralMob.getTarget() != attacker))
+                    && !(target instanceof IOwned ownedTarget && (owner != null && ownedTarget.getTrueOwner() == owner))
                     || (owner instanceof Player player
                     && ((!SEHelper.getGrudgeEntities(player).isEmpty() && SEHelper.getGrudgeEntities(player).contains(target))
                     || (!SEHelper.getGrudgeEntityTypes(player).isEmpty() && SEHelper.getGrudgeEntityTypes(player).contains(target.getType())))));

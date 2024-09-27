@@ -25,7 +25,9 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
@@ -66,6 +68,8 @@ public class Tormentor extends AbstractIllager implements ICustomAttributes {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
         this.targetSelector.addGoal(2, new Tormentor.CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, (new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false)));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

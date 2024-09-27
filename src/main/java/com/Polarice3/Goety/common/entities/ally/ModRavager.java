@@ -31,7 +31,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -40,7 +39,6 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -97,15 +95,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
         super.targetSelectGoal();
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, AbstractVillager.class));
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
-    }
-
-    protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
-        boolean flag1 = !(this.getVehicle() instanceof Boat);
-        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
-        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
     protected void defineSynchedData() {

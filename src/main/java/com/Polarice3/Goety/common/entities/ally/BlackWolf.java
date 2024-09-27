@@ -178,6 +178,15 @@ public class BlackWolf extends AnimalSummon{
         return 0.4F;
     }
 
+    @Override
+    public boolean isBaby() {
+        return false;
+    }
+
+    @Override
+    public void setBaby(boolean p_146756_) {
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
@@ -260,7 +269,9 @@ public class BlackWolf extends AnimalSummon{
                     if (!this.isInvisible()) {
                         if (this.invisibleCool > 0) {
                             if (this.getTarget() instanceof Mob mob) {
-                                if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
+                                if (this.getTarget() instanceof Animal animal){
+                                    animal.setLastHurtByMob(this);
+                                } else if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
                                     mob.setTarget(this);
                                 }
                             }

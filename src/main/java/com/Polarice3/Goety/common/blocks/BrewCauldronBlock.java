@@ -5,10 +5,13 @@ import com.Polarice3.Goety.common.blocks.properties.ModStateProperties;
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.WaystoneItem;
+import com.Polarice3.Goety.common.items.brew.ThrowableBrewItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -116,11 +119,11 @@ public class BrewCauldronBlock extends BaseEntityBlock{
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.getBlockEntity(pPos) instanceof BrewCauldronBlockEntity cauldron) {
             ItemStack stack = pPlayer.getItemInHand(pHand);
-            boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = BrewUtils.brewableFood(stack), ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
+            boolean bucket = ItemHelper.isValidFluidContainerToFill(stack, Fluids.WATER), waterBucket = ItemHelper.isValidFluidContainerToDrain(stack, Fluids.WATER), glassBottle = stack.getItem() == Items.GLASS_BOTTLE, waterBottle = (stack.getItem() == Items.POTION || stack.getItem() == ModItems.BREW.get()) && PotionUtils.getPotion(stack) == Potions.WATER, apple = BrewUtils.brewableFood(stack), waystone = stack.getItem() instanceof WaystoneItem, ladle = stack.getItem() == ModItems.CAULDRON_LADLE.get();
             boolean taglock = stack.getItem() instanceof TaglockKit && TaglockKit.hasEntity(stack);
             boolean playSound = false;
             if (!pLevel.isClientSide) {
-                if (bucket || waterBucket || apple || taglock || glassBottle || waterBottle || ladle) {
+                if (bucket || waterBucket || apple || taglock || glassBottle || waterBottle || waystone || ladle) {
                     int targetLevel = cauldron.getTargetLevel(stack, pPlayer);
                     if (targetLevel > -1) {
                         if (bucket) {
@@ -172,6 +175,22 @@ public class BrewCauldronBlock extends BaseEntityBlock{
                                     } else {
                                         pLevel.playSound(null, pPos, ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                                         pPlayer.displayClientMessage(Component.translatable("info.goety.taglock.difDimension"), true);
+                                    }
+                                }
+                            }
+                        } else if (waystone && pState.getValue(LEVEL) >= 3 && cauldron.getBrew().getItem() instanceof ThrowableBrewItem){
+                            if (cauldron.mode == BrewCauldronBlockEntity.Mode.COMPLETED) {
+                                GlobalPos globalPos = WaystoneItem.getPosition(stack);
+                                if (globalPos != null){
+                                    if (globalPos.dimension() == pLevel.dimension()
+                                            && WaystoneItem.isInRange(Vec3.atCenterOf(pPos), stack, BrewCauldronBlockEntity.getWitchPoles(cauldron))) {
+                                        BrewUtils.onHit(pPlayer, cauldron.getBrew(), null, globalPos.pos(), WaystoneItem.getDirection(cauldron.getBrew()));
+                                        pLevel.playSound(null, pPos, ModSounds.CAST_SPELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                        SEHelper.increaseBottling(pPlayer, 5);
+                                        playSound = true;
+                                    } else {
+                                        pLevel.playSound(null, pPos, ModSounds.SPELL_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                                        pPlayer.displayClientMessage(Component.translatable("info.goety.waystone.difDimension"), true);
                                     }
                                 }
                             }

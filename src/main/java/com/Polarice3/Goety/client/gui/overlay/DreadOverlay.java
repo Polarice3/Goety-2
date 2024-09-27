@@ -32,7 +32,7 @@ public class DreadOverlay extends GuiComponent {
                 };
 
                 gui.setupOverlayRenderState(true, false);
-                float alpha = 1.0F - (Math.min(1.0F, wight.distanceTo(player) / 56.0F));
+                float alpha = 1.0F - (Math.min(1.0F, wight.distanceTo(player) / 48.0F));
                 renderOverlay(overlay, alpha, screenWidth, screenHeight);
             }
         }

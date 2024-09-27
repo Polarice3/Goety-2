@@ -1,0 +1,39 @@
+{
+  "type": "goety:ritual",
+  "ritual_type": "goety:craft",
+  "activation_item": {
+    "item": "goety:cursed_cage"
+  },
+  "craftType": "forge",
+  "soulCost": 5,
+  "duration": 30,
+  "ingredients": [
+    {
+      "item": "goety:magic_emerald"
+    },
+    {
+      "item": "goety:animation_core"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "goety:ectoplasm"
+    },
+    {
+      "item": "goety:shadow_essence"
+    },
+    {
+      "item": "minecraft:crying_obsidian"
+    }
+  ],
+  "result": {
+    "item": "goety:animator"
+  }
+}

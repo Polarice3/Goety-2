@@ -4,6 +4,7 @@ import com.Polarice3.Goety.common.blocks.*;
 import com.Polarice3.Goety.common.blocks.entities.OwnedBlockEntity;
 import com.Polarice3.Goety.common.entities.ally.AnimalSummon;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
+import com.Polarice3.Goety.common.entities.projectiles.SpellEntity;
 import snownee.jade.addon.vanilla.MobBreedingProvider;
 import snownee.jade.addon.vanilla.MobGrowthProvider;
 import snownee.jade.api.IWailaClientRegistration;
@@ -18,6 +19,7 @@ public class JadePlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
         registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, Owned.class);
+        registration.registerEntityDataProvider(SummonOwnerProvider.INSTANCE, SpellEntity.class);
         registration.registerEntityDataProvider(SummonLifespanProvider.INSTANCE, Owned.class);
         registration.registerEntityDataProvider(SummonBreedProvider.INSTANCE, AnimalSummon.class);
         registration.registerEntityDataProvider(SummonGrowthProvider.INSTANCE, AnimalSummon.class);

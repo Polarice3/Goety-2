@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.entities.ally.golem;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
 import com.Polarice3.Goety.api.entities.IRM;
+import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.client.particles.CircleExplodeParticleOption;
 import com.Polarice3.Goety.client.particles.ModParticleTypes;
 import com.Polarice3.Goety.common.blocks.ModBlocks;
@@ -47,7 +48,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -158,15 +158,6 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
         this.entityData.define(AUTO_MODE, false);
     }
 
-    protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
-        boolean flag1 = !(this.getVehicle() instanceof Boat);
-        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
-        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
-    }
-
     public void setAutonomous(boolean autonomous) {
         this.entityData.set(AUTO_MODE, autonomous);
         if (autonomous) {
@@ -186,8 +177,11 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
     public LivingEntity getControllingPassenger() {
         if (!this.isNoAi()) {
             Entity entity = this.getFirstPassenger();
-            if (entity instanceof LivingEntity livingEntity) {
-                return livingEntity;
+            if (entity instanceof Mob mob){
+                return mob;
+            } else if (entity instanceof LivingEntity
+                    && !this.isAutonomous()) {
+                return (LivingEntity)entity;
             }
         }
 
@@ -220,14 +214,15 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     && rider instanceof Player
                     && !this.clientStopMoving()
                     && !this.isAutonomous()) {
-                this.setYRot(rider.getYRot() * 0.5F);
+                this.setYRot(rider.getYRot());
                 this.yRotO = this.getYRot();
                 this.setXRot(rider.getXRot() * 0.5F);
                 this.setRot(this.getYRot(), this.getXRot());
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
-                float f = rider.xxa * 0.23F;
-                float f1 = rider.zza * 0.23F;
+                float speed = this.getSpeed();
+                float f = rider.xxa * speed;
+                float f1 = rider.zza * speed;
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
@@ -868,14 +863,14 @@ public class RedstoneMonstrosity extends AbstractGolemServant implements PlayerR
                     }
                     return InteractionResult.SUCCESS;
                 } else {
-                    //Disabled this because players will look like they're floating midair during attacks when riding it.
-                    /*if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
+                    //Don't care, let them ride in the air lol
+                    if (this.getFirstPassenger() != null && this.getFirstPassenger() != pPlayer){
                         this.getFirstPassenger().stopRiding();
                         return InteractionResult.SUCCESS;
                     } else if (!(pPlayer.getItemInHand(pHand).getItem() instanceof IWand)){
                         this.doPlayerRide(pPlayer);
                         return InteractionResult.SUCCESS;
-                    }*/
+                    }
                 }
             }
         }

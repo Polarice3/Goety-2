@@ -1,0 +1,20 @@
+{
+  "name": "Waystones",
+  "icon": "goety:waystone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Waystones allows you to bound it to a specific location by simply right-clicking a block with it, which can be used to perform all kinds of dark magic upon it, assuming that said location is in the same dimension."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:waystone",
+      "text": "The stone also marks the holder as its owner when used."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Right-clicking a bound waystone on certain servants will cause them to patrol towards and around that location, putting them into Patrolling mode, so long as the location is in the same dimension. Shift-right clicking a bound waystone will erase the information it has stored within itself."
+    }
+  ]
+}

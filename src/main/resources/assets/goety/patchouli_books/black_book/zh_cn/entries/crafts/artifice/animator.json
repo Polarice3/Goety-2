@@ -1,0 +1,27 @@
+{
+  "name": "赋魂器",
+  "icon": "goety:animator",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_animation_core",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使用$(l:crafts/cores)活力核心$()来制作各种傀儡或者结构可能是一件比较麻烦的任务。特别是当需要持续进行时。经过一些研究和实验，你成功创造了一种能够为你自动激活傀儡的装置。"
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animator"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "赋魂器不仅需要被放置在装满的$(l:intro/cursed_cage)诅咒之笼$(),它还需要一个绑定的$(l:crafts/waystone)指路石$()放置于其中。激活傀儡或结构需要灵魂能量，所需数量取决于绑定位置与赋魂器之间的距离。绑定位置应为召唤者原本使用'活力核心'召唤傀儡的地方。这台机器需要红石信号供能以启动，前提是之前的要求已被满足。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "指路石放置在机器中的方式与图腾放置在诅咒之笼中相同。潜行观察装满的赋魂器时，会显示其坐标、拥有者和所需灵魂能量。潜行并空手右击它，则可视化绑定位置。"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:animator": 1
+  }
+}

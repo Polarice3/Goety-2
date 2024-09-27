@@ -65,7 +65,11 @@ public class CycloneSpell extends Spell {
                 vector3d.y,
                 vector3d.z);
         cyclone.setOwnerId(entityLiving.getUUID());
-        cyclone.setTarget(this.getTarget(entityLiving));
+        if (this.getTarget(entityLiving) != null) {
+            cyclone.setTarget(this.getTarget(entityLiving));
+        } else {
+            cyclone.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.0F + WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving), 1.0F);
+        }
         float size = 1.0F;
         float damage = 0.0F;
         if (rightStaff(staff)){

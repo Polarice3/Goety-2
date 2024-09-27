@@ -845,9 +845,11 @@ public abstract class AbstractSpiderServant extends Spider implements PlayerRide
         this.entityData.set(OWNER_CLIENT_ID, id);
     }
 
-    public void setTrueOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
-        this.setOwnerClientId(livingEntity.getId());
+    public void setTrueOwner(@Nullable LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+            this.setOwnerClientId(livingEntity.getId());
+        }
     }
 
     public void setHostile(boolean hostile){

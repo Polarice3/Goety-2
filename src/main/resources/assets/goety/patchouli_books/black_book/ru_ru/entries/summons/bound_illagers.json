@@ -31,6 +31,10 @@
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_bound_iceologer"
-    }
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Подчинённых злодеян можно исцелять, нажав по ним ПКМ эктоплазмой."
+	}
   ]
 }

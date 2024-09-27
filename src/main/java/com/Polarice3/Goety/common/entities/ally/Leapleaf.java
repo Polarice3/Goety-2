@@ -234,15 +234,15 @@ public class Leapleaf extends Summoned{
                         this.stopMostAnimation(this.walkAnimationState);
                         break;
                     case 3:
-                        this.smashAnimationState.start(this.tickCount);
+                        this.smashAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.smashAnimationState);
                         break;
                     case 4:
-                        this.chargeAnimationState.start(this.tickCount);
+                        this.chargeAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.chargeAnimationState);
                         break;
                     case 5:
-                        this.leapAnimationState.start(this.tickCount);
+                        this.leapAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.leapAnimationState);
                         break;
                     case 6:
@@ -387,11 +387,12 @@ public class Leapleaf extends Summoned{
                         }
                     } else {
                         this.isNovelty = false;
+                        this.noveltyTick = 0;
                         this.level.broadcastEntityEvent(this, (byte) 23);
                     }
                     if (this.isMeleeAttacking()) {
                         ++this.attackTick;
-                        if (this.attackTick >= MathHelper.secondsToTicks(1.21F)){
+                        if (this.attackTick >= MathHelper.secondsToTicks(1.29F)){
                             this.setMeleeAttacking(false);
                         }
                     }

@@ -42,6 +42,7 @@ public class MainConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCost;
     public static final ForgeConfigSpec.ConfigValue<Integer> SculkGrowerCharge;
     public static final ForgeConfigSpec.ConfigValue<Integer> ShriekObeliskCost;
+    public static final ForgeConfigSpec.ConfigValue<Integer> AnimatorCost;
     public static final ForgeConfigSpec.ConfigValue<Double> SoulMenderSeconds;
     public static final ForgeConfigSpec.ConfigValue<Double> LichHealAmount;
     public static final ForgeConfigSpec.ConfigValue<Double> LichPowerfulFoesHealth;
@@ -191,6 +192,8 @@ public class MainConfig {
                 .defineInRange("shriekObeliskCost", 100, 0, Integer.MAX_VALUE);
         ShriekObeliskRaid = BUILDER.comment("Whether Shrieking Obelisk can prevent or stop Raids, Default: true")
                 .define("ShriekObeliskRaid", true);
+        AnimatorCost = BUILDER.comment("The amount of Soul Energy used to power the Animator per block distance, Default: 10")
+                .defineInRange("animatorCost", 10, 0, Integer.MAX_VALUE);
         PithosRespawn = BUILDER.comment("Allow looted Pithos to regenerate Loot and spawn Skull Lord again when right-clicked with respawn_boss tagged item, Default: true")
                 .define("pithosRespawn", true);
         CrystalBallRespawn = BUILDER.comment("Allow used Crystal Balls to spawn Crones again when right-clicked with respawn_boss tagged item, Default: true")

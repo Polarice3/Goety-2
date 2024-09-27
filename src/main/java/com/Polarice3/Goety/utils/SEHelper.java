@@ -90,6 +90,7 @@ public class SEHelper {
         }
     }
 
+    @Nullable
     public static BlockPos getArcaBlock(Player player){
         return getCapability(player).getArcaBlock();
     }

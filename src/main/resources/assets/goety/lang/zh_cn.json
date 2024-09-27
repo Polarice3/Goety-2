@@ -502,6 +502,12 @@
   "item.goety.corruption_focus": "腐化聚晶",
   "item.goety.corruption_focus.info": "射出一束腐化光束，造成持续的魔法伤害。",
 
+  "item.goety.cross_pottery_sherd": "十字陶器碎片",
+  "item.goety.dead_pottery_sherd": "死亡陶器碎片",
+  "item.goety.haunt_pottery_sherd": "缠魂陶器碎片",
+  "item.goety.night_pottery_sherd": "暗夜陶器碎片",
+  "item.goety.soul_pottery_sherd": "灵魂陶器碎片",
+
   "item.goety.pedestal_dummy": "祭坛基座",
 
   "item.goety.music_disc_vizier": "音乐唱片",
@@ -633,6 +639,8 @@
   "block.goety.haunted_pressure_plate": "缠魂木压力板",
   "block.goety.haunted_sign": "缠魂木告示牌",
   "block.goety.haunted_wall_sign": "缠魂告示牌",
+  "block.goety.haunted_hanging_sign": "悬挂的缠魂木告示牌",
+  "block.goety.haunted_wall_hanging_sign": "悬挂的缠魂木告示牌",
   "block.goety.haunted_bookshelf": "缠魂木书架",
   "block.goety.haunted_chest": "缠魂木箱",
   "block.goety.trapped_haunted_chest": "缠魂木陷阱箱",
@@ -656,6 +664,8 @@
   "block.goety.rotten_pressure_plate": "朽木压力板",
   "block.goety.rotten_sign": "朽木告示牌",
   "block.goety.rotten_wall_sign": "朽木告示牌",
+  "block.goety.rotten_hanging_sign": "悬挂的朽木告示牌",
+  "block.goety.rotten_wall_hanging_sign": "悬挂的朽木告示牌",
   "block.goety.rotten_bookshelf": "朽木书架",
   "block.goety.rotten_chest": "朽木箱",
   "block.goety.trapped_rotten_chest": "朽木陷阱箱",
@@ -681,6 +691,8 @@
   "block.goety.windswept_pressure_plate": "风袭木压力板",
   "block.goety.windswept_sign": "风袭木告示牌",
   "block.goety.windswept_wall_sign": "风袭木告示牌",
+  "block.goety.windswept_hanging_sign": "风吹挂牌",
+  "block.goety.windswept_wall_hanging_sign": "风吹壁挂标牌",
   "block.goety.windswept_bookshelf": "风袭木书架",
   "block.goety.windswept_chest": "风袭木箱子",
   "block.goety.trapped_windswept_chest": "风袭木陷阱箱",
@@ -878,6 +890,11 @@
 
   "container.goety.pithos": "Pithos",
   "container.goety.urn": "Urn",
+
+  "trim_material.goety.cursed": "诅咒材料",
+  "trim_material.goety.dark": "黑暗材料",
+  "trim_material.goety.ecto": "灵质材料",
+  "trim_material.goety.jade": "玉材料",
 
   "enchantment.goety.soul_eater": "噬魂",
   "enchantment.goety.wanting": "渴望",
@@ -2284,5 +2301,11 @@
   "info.goety.wild_crown_cast": "减半荒野法术的施法时间。",
   "info.goety.nether_crown": "下界仆从将会永续存在。",
   "info.goety.nether_crown_cast": "减半下界法术的施法时间。",
-  "item.goety.howling_soul": "咆哮之魂"
+  "item.goety.howling_soul": "咆哮之魂",
+  "item.goety.waystone": "指路石",
+  "block.goety.animator": "赋魂器",
+  "info.goety.focus.noPos2": "§5未设置坐标§5",
+  "info.goety.focus.Pos2": "§e坐标:§e",
+  "info.goety.focus.PosDirection": "§8方块朝向:§8 %d",
+  "info.goety.waystone.difDimension": "存储位置太远！"
 }

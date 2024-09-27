@@ -31,7 +31,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -40,7 +39,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -125,15 +123,6 @@ public class HoglinServant extends AnimalSummon implements HoglinBase, PlayerRid
         if (p_33344_.contains("AutoMode")) {
             this.setAutonomous(p_33344_.getBoolean("AutoMode"));
         }
-    }
-
-    protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
-        boolean flag1 = !(this.getVehicle() instanceof Boat);
-        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
-        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
     protected SoundEvent getAmbientSound() {

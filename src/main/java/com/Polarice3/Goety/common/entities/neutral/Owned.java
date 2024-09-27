@@ -31,6 +31,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -189,7 +190,9 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
             if (this.isAlive()) {
                 if (this.getTarget() != null) {
                     if (this.getTarget() instanceof Mob mob) {
-                        if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
+                        if (this.getTarget() instanceof Animal animal){
+                            animal.setLastHurtByMob(this);
+                        } else if (mob.getTarget() == null || mob.getTarget().isDeadOrDying()){
                             mob.setTarget(this);
                         }
                         if (!mob.getBrain().isActive(Activity.FIGHT) && !(mob instanceof Warden)) {
@@ -431,9 +434,11 @@ public class Owned extends PathfinderMob implements IOwned, OwnableEntity, ICust
         this.entityData.set(OWNER_CLIENT_ID, id);
     }
 
-    public void setTrueOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
-        this.setOwnerClientId(livingEntity.getId());
+    public void setTrueOwner(@Nullable LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+            this.setOwnerClientId(livingEntity.getId());
+        }
     }
 
     public void setHostile(boolean hostile){

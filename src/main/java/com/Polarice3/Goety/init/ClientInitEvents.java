@@ -25,6 +25,7 @@ import com.Polarice3.Goety.common.entities.vehicle.ModBoat;
 import com.Polarice3.Goety.common.items.ArcaCompassItem;
 import com.Polarice3.Goety.common.items.FlameCaptureItem;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.CallFocus;
 import com.Polarice3.Goety.common.items.magic.RecallFocus;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
@@ -98,6 +99,8 @@ public class ClientInitEvents {
                 (stack, world, living, seed) -> FlameCaptureItem.hasEntity(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation("tagged"),
                 (stack, world, living, seed) -> TaglockKit.hasEntity(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation("store"),
+                (stack, world, living, seed) -> WaystoneItem.hasBlock(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.ARCA_COMPASS.get(), new ResourceLocation("angle")
                 , new CompassItemPropertyFunction((p_234992_, p_234993_, p_234994_) -> {
                     return ArcaCompassItem.getArcaPosition(p_234993_.getOrCreateTag());
@@ -332,6 +335,7 @@ public class ClientInitEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.HOOK_BELL.get(), HookBellRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SHRIEKING_OBELISK.get(), ModBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.NECRO_BRAZIER.get(), NecroBrazierRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.ANIMATOR.get(), AnimatorRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BREWING_CAULDRON.get(), BrewCauldronRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SPIDER_NEST.get(), TrainingBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SHADE_GRAVESTONE.get(), TrainingBlockRenderer::new);

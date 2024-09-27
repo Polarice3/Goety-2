@@ -77,6 +77,7 @@ public class FangedDaggerItem extends TieredItem implements Vanishable {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return (enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment.category == EnchantmentCategory.VANISHABLE
                 || enchantment == Enchantments.MOB_LOOTING)
                 && !(enchantment instanceof SweepingEdgeEnchantment);
     }

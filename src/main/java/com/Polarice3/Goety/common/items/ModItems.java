@@ -117,6 +117,7 @@ public class ModItems {
     public static final RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", SoulJar::new);
     public static final RegistryObject<Item> HOWLING_SOUL = ITEMS.register("howling_soul", HowlingSoul::new);
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit", TaglockKit::new);
+    public static final RegistryObject<Item> WAYSTONE = ITEMS.register("waystone", WaystoneItem::new);
     public static final RegistryObject<Item> ARCA_COMPASS = ITEMS.register("arca_compass", ArcaCompassItem::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GRUDGES = ITEMS.register("grimoire_of_grudges", GrudgeGrimoire::new);
     public static final RegistryObject<Item> GRIMOIRE_OF_GOODWILL = ITEMS.register("grimoire_of_goodwill", GoodwillGrimoire::new);

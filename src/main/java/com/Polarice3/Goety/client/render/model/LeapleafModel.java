@@ -92,10 +92,9 @@ public class LeapleafModel<T extends Leapleaf> extends HierarchicalModel<T> {
 		if (!entity.isDeadOrDying() && !entity.isResting()){
 			this.animateHeadLookTarget(netHeadYaw, headPitch);
 		}
+		this.animate(entity.idleAnimationState, LeapleafAnimations.IDLE, ageInTicks);
 		if (entity.canAnimateMove() && entity.isMoving()) {
 			ModModelUtils.animateWalk(this, LeapleafAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
-		} else {
-			this.animate(entity.idleAnimationState, LeapleafAnimations.IDLE, ageInTicks);
 		}
 		this.animate(entity.smashAnimationState, LeapleafAnimations.SMASH, ageInTicks);
 		this.animate(entity.chargeAnimationState, LeapleafAnimations.CHARGE, ageInTicks);

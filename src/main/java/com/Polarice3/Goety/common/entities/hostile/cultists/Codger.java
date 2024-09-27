@@ -12,7 +12,6 @@ import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MathHelper;
 import com.Polarice3.Goety.utils.MobUtil;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -51,10 +50,6 @@ public class Codger extends Cultist implements RangedAttackMob {
     private int hitTimes;
     private int lastHitTime;
     private int overwhelmed;
-    private boolean isSpecial;
-    private boolean isShaking;
-    private float shakeAnim;
-    private float shakeAnimO;
     private final ModServerBossInfo bossInfo;
     private NearestHealableRaiderTargetGoal<Raider> healRaidersGoal;
     private NearestAttackableWitchTargetGoal<Player> attackPlayersGoal;
@@ -154,52 +149,8 @@ public class Codger extends Cultist implements RangedAttackMob {
     public void aiStep() {
         super.aiStep();
 
-        if (!this.level.isClientSide && this.isSpecial && !this.isShaking && !this.isPathFinding() && this.onGround) {
-            this.isShaking = true;
-            this.shakeAnim = 0.0F;
-            this.shakeAnimO = 0.0F;
-            this.level.broadcastEntityEvent(this, (byte)8);
-        }
-
         if (this.coolDown > 0){
             --this.coolDown;
-        }
-
-        if (this.getTarget() != null) {
-            if ((this.isSpecial || this.isShaking) && this.isShaking) {
-                if (this.shakeAnim == 0.0F) {
-                    this.playSound(SoundEvents.WART_BLOCK_STEP, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                    this.gameEvent(GameEvent.ENTITY_SHAKE);
-                }
-
-                this.performRangedAttack(this.getTarget(), 1.0F);
-
-                this.shakeAnimO = this.shakeAnim;
-                this.shakeAnim += 0.05F;
-                if (this.shakeAnimO >= 2.0F) {
-                    this.isSpecial = false;
-                    this.isShaking = false;
-                    this.shakeAnimO = 0.0F;
-                    this.shakeAnim = 0.0F;
-                }
-
-                if (this.shakeAnim > 0.4F) {
-                    float f = (float) this.getY();
-                    int i = (int) (Mth.sin((this.shakeAnim - 0.4F) * (float) Math.PI) * 7.0F);
-                    Vec3 vec3 = this.getDeltaMovement();
-
-                    for (int j = 0; j < i; ++j) {
-                        float f1 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.5F;
-                        float f2 = (this.random.nextFloat() * 2.0F - 1.0F) * this.getBbWidth() * 0.5F;
-                        this.level.addParticle(ParticleTypes.CRIMSON_SPORE, this.getX() + (double) f1, (double) (f + 0.8F), this.getZ() + (double) f2, vec3.x, vec3.y, vec3.z);
-                    }
-                }
-            }
-        } else {
-            this.isSpecial = false;
-            this.isShaking = false;
-            this.shakeAnimO = 0.0F;
-            this.shakeAnim = 0.0F;
         }
 
         if (!this.level.isClientSide){
@@ -219,10 +170,6 @@ public class Codger extends Cultist implements RangedAttackMob {
                     }
                     if (this.getHealth() <= this.getMaxHealth() / 4 && this.tickCount % 10 == 0 && this.random.nextBoolean()){
                         MobUtil.throwBlastFungus(this, level);
-                    }
-                    if (this.tickCount % 100 == 0 && this.random.nextFloat() <= 0.25F && !this.isSpecial && !this.isShaking){
-                        this.isSpecial = true;
-                        this.level.broadcastEntityEvent(this, (byte)7);
                     }
                 } else {
                     this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.BERSERK_FUNGUS.get()));
@@ -254,33 +201,8 @@ public class Codger extends Cultist implements RangedAttackMob {
         }
     }
 
-    private void cancelShake() {
-        this.isShaking = false;
-        this.shakeAnim = 0.0F;
-        this.shakeAnimO = 0.0F;
-    }
-
-    public float getBodyRollAngle(float p_30433_, float p_30434_) {
-        float f = (Mth.lerp(p_30433_, this.shakeAnimO, this.shakeAnim) + p_30434_) / 1.8F;
-        if (f < 0.0F) {
-            f = 0.0F;
-        } else if (f > 1.0F) {
-            f = 1.0F;
-        }
-
-        return Mth.sin(f * (float)Math.PI) * Mth.sin(f * (float)Math.PI * 11.0F) * 0.15F * (float)Math.PI;
-    }
-
     public void handleEntityEvent(byte p_34138_) {
-        if (p_34138_ == 7){
-            this.isSpecial = true;
-        } else if (p_34138_ == 8) {
-            this.isShaking = true;
-            this.shakeAnim = 0.0F;
-            this.shakeAnimO = 0.0F;
-        } else if (p_34138_ == 56) {
-            this.cancelShake();
-        } else if (p_34138_ == 15) {
+        if (p_34138_ == 15) {
             for(int i = 0; i < this.random.nextInt(35) + 10; ++i) {
                 this.level.addParticle(ModParticleTypes.WARLOCK.get(), this.getX() + this.random.nextGaussian() * (double)0.13F, this.getBoundingBox().maxY + this.random.nextGaussian() * (double)0.13F, this.getZ() + this.random.nextGaussian() * (double)0.13F, 0.0D, 0.0D, 0.0D);
             }

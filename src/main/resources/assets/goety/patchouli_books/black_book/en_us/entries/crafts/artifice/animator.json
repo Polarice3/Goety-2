@@ -1,0 +1,27 @@
+{
+  "name": "Animator",
+  "icon": "goety:animator",
+  "category": "goety:crafts/artifice",
+  "advancement": "goety:goety/craft_animation_core",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Summoning golems and constructs using an $(l:crafts/cores)Animation Core$() can be such a tedious task, especially when done constantly. After some research and experiments, you've managed to create a device that can animate golems for you."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:animator"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Animator not only requires to be placed atop of a filled $(l:intro/cursed_cage)Cursed Cage$(), it also requires a bound $(l:crafts/waystone)Waystone$() placed in it. Animating a golem or construct requires soul energy, with the amount depending on how far the bound location is towards the Animator. The bound location should be where the summoner would've used an Animation Core at to summon a golem. A redstone signal is needed to activate the machine, provided that both requirements were reached."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Waystone are placed in the machine the same way Totems are placed into Cursed Cages. Looking at a filled Animator while crouching will show the co-ordinates, owner and soul energy requirement. Right-clicking on it with an empty hand and while crouching will visualize the bound location."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:animator": 1
+  }
+}
