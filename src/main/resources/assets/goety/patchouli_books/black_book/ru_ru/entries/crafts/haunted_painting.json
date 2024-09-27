@@ -1,0 +1,15 @@
+{
+  "name": "Одержимые картины",
+  "icon": "goety:haunted_painting",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Объединение обычной картины с одержимыми досками позволяет создавать одержимые картины. Несмотря на название, они выглядят как новый набор картин и не более того."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:haunted_painting"
+    }
+  ]
+}

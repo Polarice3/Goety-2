@@ -46,6 +46,7 @@ import com.Polarice3.Goety.common.world.structures.ModStructureTypes;
 import com.Polarice3.Goety.compat.OtherModCompat;
 import com.Polarice3.Goety.config.*;
 import com.Polarice3.Goety.init.*;
+import com.Polarice3.Goety.mixin.FireBlockAccessor;
 import com.Polarice3.Goety.utils.ModPotionUtil;
 import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
@@ -73,6 +74,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -103,6 +105,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
@@ -112,6 +115,8 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static net.minecraftforge.fml.loading.LogMarkers.CORE;
 
@@ -408,6 +413,20 @@ public class Goety {
             WoodType.register(ModWoodType.WINDSWEPT);
             ModPotPatterns.addPatterns();
             addBrewingRecipes();
+
+            FireBlockAccessor fireBlockAccessor = (FireBlockAccessor) Blocks.FIRE;
+
+            Collection<Block> blocks = new ArrayList<>();
+            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+                if (block.defaultBlockState().ignitedByLava()){
+                    blocks.add(block);
+                }
+            });
+            for (Block block : blocks){
+                if (block.defaultBlockState().ignitedByLava()){
+                    fireBlockAccessor.callSetFlammable(block, 5, 20);
+                }
+            }
         });
     }
 

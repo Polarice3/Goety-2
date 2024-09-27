@@ -5,10 +5,10 @@ import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.magic.EverChargeSpell;
 import com.Polarice3.Goety.config.SpellConfig;
 import com.Polarice3.Goety.init.ModSounds;
+import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import com.Polarice3.Goety.utils.WandUtil;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -110,8 +110,9 @@ public class WhirlwindSpell extends EverChargeSpell {
                 }
             }
         }
-        ServerParticleUtil.addAuraParticles(worldIn, ParticleTypes.CLOUD, entityLiving.getX(), (entityLiving.getY() - 0.5F), entityLiving.getZ(), radius - 1.0F);
-        ServerParticleUtil.addAuraParticles(worldIn, ParticleTypes.CLOUD, entityLiving.getX(), (entityLiving.getY() + 1.0F), entityLiving.getZ(), radius - 1.0F);
-        ServerParticleUtil.addAuraParticles(worldIn, ParticleTypes.CLOUD, entityLiving.getX(), (entityLiving.getY() + 0.5F), entityLiving.getZ(), radius);
+        ColorUtil color = new ColorUtil(0xffffff);
+        ServerParticleUtil.windParticle(worldIn, color, radius - 1.0F, -0.5F, entityLiving.getId(), entityLiving.position());
+        ServerParticleUtil.windParticle(worldIn, color, radius - 1.0F, 1.0F, entityLiving.getId(), entityLiving.position());
+        ServerParticleUtil.windParticle(worldIn, color, radius, 0.5F, entityLiving.getId(), entityLiving.position());
     }
 }

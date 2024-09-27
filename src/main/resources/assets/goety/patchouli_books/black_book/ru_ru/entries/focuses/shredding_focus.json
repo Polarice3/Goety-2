@@ -1,0 +1,16 @@
+{
+  "name": "Фокус шинкования",
+  "icon": "goety:shredding_focus",
+  "category": "goety:focuses",
+  "advancement": "goety:goety/get_ruby",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вызывает ряд королевских магических шипов по направлению взгляда, которые постоянно наносят урон, игнорирующий броню (если только она не зачарована). Использование при приседании создаст шипы вокруг вас."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:focus/shredding_focus"
+    }
+  ]
+}

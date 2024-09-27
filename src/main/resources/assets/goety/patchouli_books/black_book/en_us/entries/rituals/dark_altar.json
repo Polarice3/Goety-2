@@ -3,6 +3,7 @@
   "icon": "goety:dark_altar",
   "category": "goety:rituals",
   "sortnum": 0,
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

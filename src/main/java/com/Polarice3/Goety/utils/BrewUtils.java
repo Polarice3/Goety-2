@@ -2,30 +2,52 @@ package com.Polarice3.Goety.utils;
 
 import com.Polarice3.Goety.common.effects.brew.BrewEffect;
 import com.Polarice3.Goety.common.effects.brew.BrewEffectInstance;
+import com.Polarice3.Goety.common.entities.util.BrewEffectCloud;
+import com.Polarice3.Goety.common.entities.util.BrewGas;
+import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.network.ModNetwork;
+import com.Polarice3.Goety.common.network.server.SAddBrewParticlesPacket;
+import com.Polarice3.Goety.common.network.server.SPlayWorldSoundPacket;
+import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.init.ModTags;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.block.AbstractCandleBlock;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class BrewUtils {
     public static String AOE_ID = "AreaOfEffect";
@@ -363,5 +385,218 @@ public class BrewUtils {
                 return (int)f << 16 | (int)f1 << 8 | (int)f2;
             }
         }
+    }
+
+    public static boolean isLingering(ItemStack itemStack) {
+        return itemStack.is(ModItems.LINGERING_BREW.get());
+    }
+
+    public static boolean isGas(ItemStack itemStack){
+        return itemStack.is(ModItems.GAS_BREW.get());
+    }
+
+    public static void onHit(LivingEntity livingEntity, ItemStack itemStack, @Nullable Entity target, BlockPos blockPos, Direction direction) {
+        if (!livingEntity.level.isClientSide) {
+            Potion potion = PotionUtils.getPotion(itemStack);
+            List<MobEffectInstance> list = PotionUtils.getMobEffects(itemStack);
+            List<BrewEffectInstance> list1 = BrewUtils.getBrewEffects(itemStack);
+            boolean flag = potion == Potions.WATER && list.isEmpty();
+            if (flag) {
+                applyWater(livingEntity, itemStack, target, blockPos);
+            } else if (!list.isEmpty() || !list1.isEmpty()) {
+                if (isGas(itemStack)){
+                    makeBrewGas(livingEntity, itemStack, target, blockPos);
+                } else if (isLingering(itemStack)) {
+                    makeAreaOfEffectCloud(livingEntity, itemStack, target, blockPos);
+                } else {
+                    applySplash(livingEntity, itemStack, target, blockPos, list, list1);
+                }
+            }
+
+            ModNetwork.sendToALL(new SAddBrewParticlesPacket(itemStack, blockPos, potion.hasInstantEffects(), BrewUtils.getColor(itemStack)));
+            if (target != null){
+                onHitBlock(livingEntity, itemStack, target.blockPosition(), direction);
+                onHitEntity(livingEntity, itemStack, target);
+            }
+        }
+    }
+
+    public static void onHitEntity(LivingEntity livingEntity, ItemStack itemStack, Entity target) {
+        if (!livingEntity.level.isClientSide) {
+            if (!isGas(itemStack)) {
+                List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemStack);
+                for (BrewEffectInstance brewEffectInstance : list) {
+                    brewEffectInstance.getEffect().applyBlockEffect(livingEntity.level, target.blockPosition(), livingEntity, brewEffectInstance.getDuration(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemStack));
+                }
+            }
+        }
+    }
+
+    public static void onHitBlock(LivingEntity livingEntity, ItemStack itemStack, BlockPos blockPos, Direction direction) {
+        if (!livingEntity.level.isClientSide) {
+            if (!isGas(itemStack)) {
+                Potion potion = PotionUtils.getPotion(itemStack);
+                List<BrewEffectInstance> list = BrewUtils.getBrewEffects(itemStack);
+                boolean flag = potion == Potions.WATER && list.isEmpty();
+                BlockPos blockpos1 = blockPos.relative(direction);
+                if (flag) {
+                    dowseFire(livingEntity, blockpos1);
+                    dowseFire(livingEntity, blockpos1.relative(direction.getOpposite()));
+
+                    for (Direction direction1 : Direction.Plane.HORIZONTAL) {
+                        dowseFire(livingEntity, blockpos1.relative(direction1));
+                    }
+                }
+                for (BrewEffectInstance brewEffectInstance : list) {
+                    brewEffectInstance.getEffect().applyDirectionalBlockEffect(livingEntity.level, blockPos, direction, livingEntity, brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemStack));
+                    brewEffectInstance.getEffect().applyBlockEffect(livingEntity.level, blockPos, livingEntity, brewEffectInstance.getDuration(), brewEffectInstance.getAmplifier(), BrewUtils.getAreaOfEffect(itemStack));
+                }
+            }
+        }
+    }
+
+    public static AABB makeBoundingBox(double p_20385_, double p_20386_, double p_20387_) {
+        float f = 0.25F / 2.0F;
+        float f1 = 0.25F;
+        return new AABB(p_20385_ - (double)f, p_20386_, p_20387_ - (double)f, p_20385_ + (double)f, p_20386_ + (double)f1, p_20387_ + (double)f);
+    }
+
+    public static final Predicate<LivingEntity> WATER_SENSITIVE = LivingEntity::isSensitiveToWater;
+
+    public static void applyWater(LivingEntity livingEntity, ItemStack itemStack, @Nullable Entity target, BlockPos blockPos) {
+        int area = BrewUtils.getAreaOfEffect(itemStack) + 4;
+        int areaSqr = Mth.square(area);
+        Vec3 vec3 = blockPos.getCenter();
+        if (target != null){
+            vec3 = target.position();
+        }
+        AABB aabb = makeBoundingBox(vec3.x, vec3.y, vec3.z).inflate(area, area / 2.0D, area);
+        List<LivingEntity> list = livingEntity.level.getEntitiesOfClass(LivingEntity.class, aabb, WATER_SENSITIVE);
+        if (!list.isEmpty()) {
+            for(LivingEntity livingTarget : list) {
+                double d0 = vec3.distanceToSqr(livingTarget.position());
+                if (d0 < areaSqr && livingTarget.isSensitiveToWater()) {
+                    livingTarget.hurt(livingTarget.damageSources().indirectMagic(livingEntity, livingEntity), 1.0F);
+                }
+            }
+        }
+
+        for(Axolotl axolotl : livingEntity.level.getEntitiesOfClass(Axolotl.class, aabb)) {
+            axolotl.rehydrate();
+        }
+
+    }
+
+    public static void applySplash(LivingEntity livingEntity, ItemStack itemStack, @Nullable Entity target, BlockPos blockPos, List<MobEffectInstance> mobEffectInstances, List<BrewEffectInstance> brewEffectInstances) {
+        int area = BrewUtils.getAreaOfEffect(itemStack) + 4;
+        int areaSqr = Mth.square(area);
+        Vec3 vec3 = blockPos.getCenter();
+        if (target != null){
+            vec3 = target.position();
+        }
+        AABB aabb = makeBoundingBox(vec3.x, vec3.y, vec3.z).inflate(area, area / 2.0D, area);
+        List<LivingEntity> list = livingEntity.level.getEntitiesOfClass(LivingEntity.class, aabb);
+        if (!list.isEmpty()) {
+            for(LivingEntity livingTarget : list) {
+                if (livingTarget.isAffectedByPotions()) {
+                    double d0 = vec3.distanceToSqr(livingTarget.position());
+                    if (d0 < areaSqr) {
+                        double d1 = 1.0D - Math.sqrt(d0) / areaSqr;
+                        if (livingTarget == target) {
+                            d1 = 1.0D;
+                        }
+
+                        if (!mobEffectInstances.isEmpty()) {
+                            for (MobEffectInstance mobeffectinstance : mobEffectInstances) {
+                                MobEffect mobeffect = mobeffectinstance.getEffect();
+                                if (mobeffect.isInstantenous()) {
+                                    mobeffect.applyInstantenousEffect(livingEntity, livingEntity, livingTarget, mobeffectinstance.getAmplifier(), d1);
+                                } else {
+                                    int i = (int) (d1 * (double) mobeffectinstance.getDuration() + 0.5D);
+                                    if (i > 20) {
+                                        livingTarget.addEffect(new MobEffectInstance(mobeffect, i, mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()), livingEntity);
+                                    }
+                                }
+                            }
+                        }
+                        if (!brewEffectInstances.isEmpty()) {
+                            for (BrewEffectInstance brewEffectInstance : brewEffectInstances) {
+                                BrewEffect brewEffect = brewEffectInstance.getEffect();
+                                if (brewEffect.isInstantenous()) {
+                                    brewEffect.applyInstantenousEffect(livingEntity, livingEntity, livingTarget, brewEffectInstance.getAmplifier(), d1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    public static void makeAreaOfEffectCloud(LivingEntity livingEntity, ItemStack itemStack, @Nullable Entity target, BlockPos blockPos) {
+        int h = BrewUtils.getAreaOfEffect(itemStack);
+        float i = BrewUtils.getLingering(itemStack);
+        Vec3 vec3 = blockPos.getCenter();
+        if (target != null){
+            vec3 = target.position();
+        }
+        BrewEffectCloud brewEffectCloud = new BrewEffectCloud(livingEntity.level, vec3.x(), vec3.y(), vec3.z());
+        brewEffectCloud.setOwner(livingEntity);
+
+        brewEffectCloud.setRadius(3.0F + h);
+        if (i < 0.3) {
+            brewEffectCloud.setRadiusOnUse(-(0.5F - Mth.square(i)));
+        }
+        brewEffectCloud.setWaitTime(10);
+        brewEffectCloud.setRadiusPerTick(-brewEffectCloud.getRadius() / (float)brewEffectCloud.getDuration());
+
+        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(itemStack)) {
+            brewEffectCloud.addEffect(new MobEffectInstance(mobeffectinstance));
+        }
+
+        for(BrewEffectInstance brewEffectInstance : BrewUtils.getCustomEffects(itemStack)) {
+            if (brewEffectInstance.getEffect().canLinger()) {
+                brewEffectCloud.addBrewEffect(new BrewEffectInstance(brewEffectInstance));
+            }
+        }
+
+        CompoundTag compoundtag = itemStack.getTag();
+        if (compoundtag != null && compoundtag.contains("CustomPotionColor", 99)) {
+            brewEffectCloud.setFixedColor(compoundtag.getInt("CustomPotionColor"));
+        }
+
+        livingEntity.level.addFreshEntity(brewEffectCloud);
+    }
+
+    public static void makeBrewGas(LivingEntity livingEntity, ItemStack itemStack, @Nullable Entity target, BlockPos blockPos){
+        int h = BrewUtils.getAreaOfEffect(itemStack);
+        int i = (int) BrewUtils.getLingering(itemStack);
+        if (target != null){
+            blockPos = target.blockPosition();
+        }
+        BrewGas brewGas = new BrewGas(livingEntity.level, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        brewGas.setGas(PotionUtils.getCustomEffects(itemStack), BrewUtils.getCustomEffects(itemStack),
+                120 * (i + 1), 3 * (h + 1), livingEntity);
+
+        livingEntity.level.addFreshEntity(brewGas);
+
+        if (!livingEntity.level.isClientSide){
+            ModNetwork.sendToALL(new SPlayWorldSoundPacket(blockPos, ModSounds.BREW_GAS.get(), 1.0F, livingEntity.level.random.nextFloat() * 0.1F + 0.9F));
+        }
+    }
+
+    public static void dowseFire(LivingEntity livingEntity, BlockPos p_150193_) {
+        BlockState blockstate = livingEntity.level.getBlockState(p_150193_);
+        if (blockstate.is(BlockTags.FIRE)) {
+            livingEntity.level.removeBlock(p_150193_, false);
+        } else if (AbstractCandleBlock.isLit(blockstate)) {
+            AbstractCandleBlock.extinguish((Player)null, blockstate, livingEntity.level, p_150193_);
+        } else if (CampfireBlock.isLitCampfire(blockstate)) {
+            livingEntity.level.levelEvent((Player)null, 1009, p_150193_, 0);
+            CampfireBlock.dowse(livingEntity, livingEntity.level, p_150193_, blockstate);
+            livingEntity.level.setBlockAndUpdate(p_150193_, blockstate.setValue(CampfireBlock.LIT, Boolean.valueOf(false)));
+        }
+
     }
 }

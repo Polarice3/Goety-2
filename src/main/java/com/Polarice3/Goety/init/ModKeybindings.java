@@ -6,11 +6,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 
 public class ModKeybindings {
-    public static KeyMapping[] keyBindings;
+    public static KeyMapping[] keyBindings = new KeyMapping[13];
 
     public static void init(){
-        keyBindings = new KeyMapping[13];
-
         keyBindings[0] = new KeyMapping("key.goety.wand", GLFW.GLFW_KEY_Z, "key.goety.category");
         keyBindings[1] = new KeyMapping("key.goety.focusCircle", GLFW.GLFW_KEY_X, "key.goety.category");
         keyBindings[2] = new KeyMapping("key.goety.bag", GLFW.GLFW_KEY_C, "key.goety.category");
@@ -25,8 +23,8 @@ public class ModKeybindings {
         keyBindings[11] = new KeyMapping("key.goety.mount.freeRoam", GLFW.GLFW_KEY_H, "key.goety.mount.category");
         keyBindings[12] = new KeyMapping("key.goety.lich.lichForm", GLFW.GLFW_KEY_N, "key.goety.lich.category");
 
-        for (int i = 0; i < keyBindings.length; ++i) {
-            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, keyBindings[i]);
+        for (KeyMapping keyBinding : keyBindings) {
+            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, keyBinding);
         }
     }
 

@@ -64,8 +64,6 @@ import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -74,10 +72,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-@OnlyIn(
-        value = Dist.CLIENT,
-        _interface = PowerableMob.class
-)
 public class Vizier extends SpellcasterIllager implements PowerableMob, ICustomAttributes {
     private static final Predicate<Entity> field_213690_b = (p_213685_0_) -> {
         return p_213685_0_.isAlive() && !(p_213685_0_ instanceof Vizier);

@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 
 public class ResearchList {
+    public static Map<String, Research> RESEARCH_LIST = Maps.newHashMap();
     public static Research FORBIDDEN = new Research("forbidden");
     public static Research RAVAGING = new Research("ravaging");
     public static Research WARRED = new Research("warred");
@@ -16,6 +17,10 @@ public class ResearchList {
     public static Research FLORAL = new Research("floral");
     public static Research BYGONE = new Research("bygone");
     public static Research TERMINUS = new Research("terminus");
+
+    public static void registerResearch(String id, Research research){
+        RESEARCH_LIST.put(id, research);
+    }
 
     public static Map<String, Research> getResearchList(){
         Map<String, Research> researches = Maps.newHashMap();
@@ -29,6 +34,9 @@ public class ResearchList {
         researches.put(FLORAL.getId(), FLORAL);
         researches.put(BYGONE.getId(), BYGONE);
         researches.put(TERMINUS.getId(), TERMINUS);
+        if (!RESEARCH_LIST.isEmpty()){
+            researches.putAll(RESEARCH_LIST);
+        }
         return researches;
     }
 

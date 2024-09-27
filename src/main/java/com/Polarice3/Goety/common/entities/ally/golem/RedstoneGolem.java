@@ -208,11 +208,11 @@ public class RedstoneGolem extends AbstractGolemServant {
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 3:
-                        this.attackAnimationState.start(this.tickCount);
+                        this.attackAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 4:
-                        this.summonAnimationState.start(this.tickCount);
+                        this.summonAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
                     case 5:
@@ -228,7 +228,7 @@ public class RedstoneGolem extends AbstractGolemServant {
                         this.stopMostAnimation(this.sitAnimationState);
                         break;
                     case 8:
-                        this.noveltyAnimationState.start(this.tickCount);
+                        this.noveltyAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.noveltyAnimationState);
                         break;
                     case 9:

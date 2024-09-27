@@ -374,6 +374,7 @@
   "item.goety.philosophers_stone": "Philosopher's Stone",
 
   "item.goety.taglock_kit": "Taglock Kit",
+  "item.goety.waystone": "Waystone",
 
   "item.goety.arca_compass": "Arca Compass",
 
@@ -1038,6 +1039,7 @@
   "block.goety.resonance_crystal": "Resonance Crystal",
   "block.goety.hook_bell": "Hook Bell",
   "block.goety.necro_brazier": "Necrotic Brazier",
+  "block.goety.animator": "Animator",
   "block.goety.dark_anvil": "Dark Anvil",
   "block.goety.chipped_dark_anvil": "Chipped Dark Anvil",
   "block.goety.damaged_dark_anvil": "Damaged Dark Anvil",
@@ -1295,9 +1297,12 @@
   "info.goety.focus.noServant": "§5No Servant Selected§5",
   "info.goety.focus.servant": "Servant:",
   "info.goety.focus.noPos": "§5No Recall Position Set§5",
+  "info.goety.focus.noPos2": "§5No Location Set§5",
   "info.goety.focus.Pos": "§5Recall:§5",
+  "info.goety.focus.Pos2": "§eLocation:§e",
   "info.goety.focus.PosNum": "X: %d, Y: %d, Z: %d",
   "info.goety.focus.PosDim": "§aDimension:§a %d",
+  "info.goety.focus.PosDirection": "§8Block Facing:§8 %d",
   "info.goety.focus.PosInvalid": "§cRecall Block Is Invalid§c",
   "info.goety.focus.noCreative": "§4Can't select in Creative Mode§4",
 
@@ -1439,6 +1444,7 @@
   "info.goety.taglock.failed": "You failed get taglock! Your target noticed!",
   "info.goety.taglock.discover": "Someone tried to taglock you, but failed!",
   "info.goety.taglock.difDimension": "Tagged Entity is too far away!",
+  "info.goety.waystone.difDimension": "Stored Location is too far away!",
   "info.goety.brew.level_up": "You're getting more skilled at brewing, more brews can be bottled!",
   "info.goety.brew.max_level": "You have mastered the art of brewing!",
   "info.goety.lichdom.success": "You have ascended your mortal coil!",

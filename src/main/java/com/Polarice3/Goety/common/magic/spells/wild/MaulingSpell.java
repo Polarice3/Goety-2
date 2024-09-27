@@ -5,7 +5,6 @@ import com.Polarice3.Goety.common.effects.GoetyEffects;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.BearServant;
-import com.Polarice3.Goety.common.entities.ally.BlackWolf;
 import com.Polarice3.Goety.common.entities.ally.HoglinServant;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.magic.SummonSpell;
@@ -77,12 +76,12 @@ public class MaulingSpell extends SummonSpell {
 
     @Override
     public Predicate<LivingEntity> summonPredicate() {
-        return livingEntity -> livingEntity instanceof BlackWolf;
+        return livingEntity -> livingEntity instanceof BearServant;
     }
 
     @Override
     public int summonLimit() {
-        return SpellConfig.HuntingLimit.get();
+        return SpellConfig.MaulingLimit.get();
     }
 
     @Override

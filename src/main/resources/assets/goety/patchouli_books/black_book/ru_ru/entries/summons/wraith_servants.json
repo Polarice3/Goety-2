@@ -14,11 +14,15 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Можно вызвать этих существ с помощью $(l:focuses/osseous_focus)фокуса страха$() или ритуала, который призывает призраков с неограниченным сроком жизни."
+      "text": "Можно вызвать этих существ с помощью $(l:focuses/necromancy/spooky_focus)фокуса страха$() или ритуала, который призывает призраков с неограниченным сроком жизни."
     },
     {
       "type": "goety:ritual",
       "recipe": "goety:thrall/summon_wraith_thrall"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Призраков-прислужников можно исцелять, нажав по ним ПКМ эктоплазмой."
     },
     {
       "type": "patchouli:entity",

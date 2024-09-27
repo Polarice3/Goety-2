@@ -108,8 +108,10 @@ public class VampireBat extends Bat implements IOwned {
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
     }
 
-    public void setTrueOwner(LivingEntity livingEntity){
-        this.setOwnerId(livingEntity.getUUID());
+    public void setTrueOwner(@Nullable LivingEntity livingEntity){
+        if (livingEntity != null) {
+            this.setOwnerId(livingEntity.getUUID());
+        }
     }
 
     @Override

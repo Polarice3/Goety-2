@@ -49,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class BlockFinder {
@@ -686,5 +687,18 @@ public class BlockFinder {
             }
         }
         return false;
+    }
+
+    //Based from Bosses of Mass Destruction codes: https://github.com/CERBON-MODS/Bosses-of-Mass-Destruction-FORGE/blob/master/Common/src/main/java/com/cerbon/bosses_of_mass_destruction/util/BMDUtils.java#L28
+    public static BlockPos findGroundBelow(Level level, BlockPos pos, Function<BlockPos, Boolean> isOpenBlock) {
+        int bottomY = level.getMinBuildHeight();
+        for (int i = pos.getY(); i >= bottomY + 1; i--) {
+            BlockPos tempPos = new BlockPos(pos.getX(), i, pos.getZ());
+
+            if (level.getBlockState(tempPos).isFaceSturdy(level, tempPos, Direction.UP, SupportType.FULL) && isOpenBlock.apply(tempPos.above())) {
+                return tempPos;
+            }
+        }
+        return new BlockPos(pos.getX(), bottomY, pos.getZ());
     }
 }

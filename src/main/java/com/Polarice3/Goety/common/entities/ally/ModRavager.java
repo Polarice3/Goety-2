@@ -1,6 +1,7 @@
 package com.Polarice3.Goety.common.entities.ally;
 
 import com.Polarice3.Goety.api.entities.IAutoRideable;
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.ArmoredRavager;
@@ -31,14 +32,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -93,15 +92,6 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
         super.targetSelectGoal();
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, AbstractVillager.class));
         this.targetSelector.addGoal(1, new NaturalAttackGoal<>(this, IronGolem.class));
-    }
-
-    protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
-        boolean flag1 = !(this.getVehicle() instanceof Boat);
-        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
-        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
     protected void defineSynchedData() {
@@ -222,10 +212,7 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
     }
 
     public boolean isControlledByLocalInstance() {
-        return super.isControlledByLocalInstance()
-                && (this.getControllingPassenger() == null
-                || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player)
-                || this.getControllingPassenger() instanceof Mob);
+        return this.isEffectiveAi();
     }
 
     public ItemStack getArmor() {
@@ -334,8 +321,9 @@ public class ModRavager extends Summoned implements PlayerRideable, IAutoRideabl
                 }
             }
 
-            if (this.getControllingPassenger() instanceof Summoned summoned) {
-                this.setTarget(summoned.getTarget());
+            if (this.getControllingPassenger() instanceof IServant summoned
+                && summoned instanceof Mob mob) {
+                this.setTarget(mob.getTarget());
             }
         }
     }

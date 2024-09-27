@@ -62,8 +62,8 @@ public class WightSpawner {
                             summonWight(pLevel, pPlayer, sePercent);
                             return 1;
                         } else if (sePercent >= 90){
-                            int extra = random.nextInt(2);
-                            for (int i = 0; i < extra; ++i) {
+                            int extra = random.nextInt(1);
+                            for (int i = 0; i < extra + 1; ++i) {
                                 summonWight(pLevel, pPlayer, sePercent);
                             }
                             return 1;

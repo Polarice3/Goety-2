@@ -180,15 +180,15 @@ public class HostileRedstoneGolem extends HostileGolem {
                         this.stopMostAnimation(this.idleAnimationState);
                         break;
                     case 2:
-                        this.attackAnimationState.start(this.tickCount);
+                        this.attackAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.attackAnimationState);
                         break;
                     case 3:
-                        this.summonAnimationState.start(this.tickCount);
+                        this.summonAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.summonAnimationState);
                         break;
                     case 4:
-                        this.noveltyAnimationState.start(this.tickCount);
+                        this.noveltyAnimationState.startIfStopped(this.tickCount);
                         this.stopMostAnimation(this.noveltyAnimationState);
                         break;
                     case 5:

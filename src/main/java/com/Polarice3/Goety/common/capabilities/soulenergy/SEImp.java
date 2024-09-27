@@ -18,7 +18,7 @@ public class SEImp implements ISoulEnergy{
     private int restPeriod = 0;
     private boolean apostleWarned = false;
     private ResourceKey<Level> dimension = Level.OVERWORLD;
-    private BlockPos ArcaBlock = new BlockPos(0, 0, 0);
+    private BlockPos ArcaBlock = null;
     private Set<UUID> grudgeList = new HashSet<>();
     private List<EntityType<?>> grudgeTypeList = new ArrayList<>();
     private Set<UUID> allyList = new HashSet<>();
@@ -35,12 +35,13 @@ public class SEImp implements ISoulEnergy{
     private ResourceKey<Level> EndWalkDim = null;
 
     @Override
+    @Nullable
     public BlockPos getArcaBlock() {
         return this.ArcaBlock;
     }
 
     @Override
-    public void setArcaBlock(BlockPos blockPos) {
+    public void setArcaBlock(@Nullable BlockPos blockPos) {
         this.ArcaBlock = blockPos;
     }
 

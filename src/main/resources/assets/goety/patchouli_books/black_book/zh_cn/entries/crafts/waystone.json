@@ -1,0 +1,20 @@
+{
+  "name": "指路石",
+  "icon": "goety:waystone",
+  "category": "goety:crafts",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "指路石允许你右键一个方块，将其绑定到特定的位置，这可以用来在该位置施展各种黑暗魔法，前提是该位置在同一维度内。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "goety:waystone",
+      "text": "石头也会把持有者标记为自己的所有者。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "右键单击某些仆从的绑定地点将使他们向该位置及其周围巡逻，只要该位置在同一维度上，他们就会进入巡逻模式。按住潜行键并右键单击绑定的方块将移除其内部存储的信息。"
+    }
+  ]
+}

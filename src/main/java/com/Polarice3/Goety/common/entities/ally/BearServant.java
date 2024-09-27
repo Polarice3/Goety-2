@@ -31,10 +31,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -99,15 +101,6 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
         this.entityData.define(DATA_STANDING_ID, false);
         this.entityData.define(DATA_CAVE, false);
         this.entityData.define(AUTO_MODE, false);
-    }
-
-    protected void updateControlFlags() {
-        boolean flag = !(this.getControllingPassenger() instanceof Mob) || this.getControllingPassenger() instanceof Summoned;
-        boolean flag1 = !(this.getVehicle() instanceof Boat);
-        this.goalSelector.setControlFlag(Goal.Flag.MOVE, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.JUMP, flag && flag1);
-        this.goalSelector.setControlFlag(Goal.Flag.LOOK, flag);
-        this.goalSelector.setControlFlag(Goal.Flag.TARGET, flag);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -222,10 +215,7 @@ public class BearServant extends AnimalSummon implements PlayerRideable, IAutoRi
     }
 
     public boolean isControlledByLocalInstance() {
-        return super.isControlledByLocalInstance()
-                && (this.getControllingPassenger() == null
-                || (!this.isAutonomous() && this.getControllingPassenger() instanceof Player)
-                || this.getControllingPassenger() instanceof Mob);
+        return this.isEffectiveAi();
     }
 
     public void positionRider(Entity rider, Entity.MoveFunction p_19958_) {

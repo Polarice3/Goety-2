@@ -2301,5 +2301,11 @@
   "info.goety.wild_crown_cast": "减半荒野法术的施法时间。",
   "info.goety.nether_crown": "下界仆从将会永续存在。",
   "info.goety.nether_crown_cast": "减半下界法术的施法时间。",
-  "item.goety.howling_soul": "咆哮之魂"
+  "item.goety.howling_soul": "咆哮之魂",
+  "item.goety.waystone": "指路石",
+  "block.goety.animator": "赋魂器",
+  "info.goety.focus.noPos2": "§5未设置坐标§5",
+  "info.goety.focus.Pos2": "§e坐标:§e",
+  "info.goety.focus.PosDirection": "§8方块朝向:§8 %d",
+  "info.goety.waystone.difDimension": "存储位置太远！"
 }

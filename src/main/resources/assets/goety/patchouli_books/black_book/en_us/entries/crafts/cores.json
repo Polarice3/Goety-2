@@ -2,6 +2,7 @@
   "name": "Cores of Magic",
   "icon": "goety:empty_focus",
   "category": "goety:crafts",
+  "priority": true,
   "pages": [
     {
       "type": "patchouli:text",

@@ -10,6 +10,7 @@ import com.Polarice3.Goety.client.gui.screen.inventory.FocusRadialMenuScreen;
 import com.Polarice3.Goety.client.render.ModModelLayer;
 import com.Polarice3.Goety.client.render.WearRenderer;
 import com.Polarice3.Goety.client.render.model.LichModeModel;
+import com.Polarice3.Goety.common.blocks.entities.AnimatorBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.ArcaBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.BrewCauldronBlockEntity;
 import com.Polarice3.Goety.common.blocks.entities.CursedCageBlockEntity;
@@ -26,6 +27,7 @@ import com.Polarice3.Goety.common.entities.neutral.Wildfire;
 import com.Polarice3.Goety.common.entities.projectiles.CorruptedBeam;
 import com.Polarice3.Goety.common.entities.projectiles.IceStorm;
 import com.Polarice3.Goety.common.entities.util.CameraShake;
+import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.GloveItem;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.client.*;
@@ -38,6 +40,7 @@ import com.Polarice3.Goety.utils.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -56,6 +59,8 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -67,9 +72,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -82,7 +89,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, value = Dist.CLIENT)
@@ -257,11 +269,15 @@ public class ClientEvents {
             return;
         }
 
-        if (CuriosFinder.hasCurio(event.getPlayer(), itemStack -> itemStack.getItem() instanceof GloveItem)){
-            ItemStack itemStack = CuriosFinder.findCurio(event.getPlayer(), itemStack1 -> itemStack1.getItem() instanceof GloveItem);
-            WearRenderer renderer = WearRenderer.getRenderer(itemStack);
-            if (renderer != null) {
-                renderer.renderFirstPersonArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPlayer(), event.getArm(), itemStack.hasFoil());
+        Optional<SlotResult> slotResult = CuriosApi.getCuriosInventory(event.getPlayer()).map(inv -> inv.findFirstCurio(itemStack -> itemStack.getItem() instanceof GloveItem))
+                .orElse(Optional.empty());
+        if (slotResult.isPresent()) {
+            ItemStack itemStack = slotResult.get().stack();
+            if (slotResult.get().slotContext().visible()) {
+                WearRenderer renderer = WearRenderer.getRenderer(itemStack);
+                if (renderer != null) {
+                    renderer.renderFirstPersonArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPlayer(), event.getArm(), itemStack.hasFoil());
+                }
             }
         }
     }
@@ -466,8 +482,69 @@ public class ClientEvents {
                             RenderSystem.disableBlend();
                             poseStack.popPose();
                         }
+                    } else if (blockEntity instanceof AnimatorBlockEntity animatorBlock) {
+                        GlobalPos globalPos = animatorBlock.getPosition();
+                        if ((player.isShiftKeyDown() || player.isCrouching()) && globalPos != null) {
+                            poseStack.pushPose();
+                            poseStack.translate((float) (width / 2), (float) (height - 60), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            BlockPos blockPos = globalPos.pos();
+                            String s1 = Component.translatable("tooltip.goety.arcaCoords", blockPos.getX(), blockPos.getY(), blockPos.getZ()).getString();
+                            int l2 = fontRenderer.width(s1);
+                            event.getGuiGraphics().drawString(fontRenderer, s1, (-l2 / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
+                            poseStack.pushPose();
+                            poseStack.translate((float) (width / 2), (float) (height - 68), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s = Component.translatable("tooltip.goety.arcaDimension", globalPos.dimension().location().toString()).getString();
+                            int l = fontRenderer.width(s);
+                            event.getGuiGraphics().drawString(fontRenderer, s, (-l / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
+                            poseStack.pushPose();
+                            poseStack.translate((float) (width / 2), (float) (height - 76), 0.0F);
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+                            String s0 = Component.translatable("tooltip.goety.blockSoulCost").getString() + animatorBlock.getSoulCost();
+                            int l0 = fontRenderer.width(s0);
+                            event.getGuiGraphics().drawString(fontRenderer, s0, (-l0 / 2), -4, 0xFFFFFF);
+                            RenderSystem.disableBlend();
+                            poseStack.popPose();
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void RenderWorldLast(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
+            return;
+        }
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null) {
+            Level world = player.level;
+            ItemStack stack = player.getMainHandItem();
+            Map<BlockPos, ColorUtil> renderCubes = new HashMap<>();
+            if (stack.getItem() instanceof WaystoneItem) {
+                if (stack.getTag() != null) {
+                    GlobalPos loc = WaystoneItem.getPosition(stack);
+                    if (loc != null) {
+                        if (loc.dimension() == world.dimension()) {
+                            renderCubes.put(loc.pos(), new ColorUtil(ChatFormatting.GOLD));
+                        }
+                    }
+                }
+            }
+            if (!renderCubes.keySet().isEmpty()) {
+                PoseStack matrix = event.getPoseStack();
+                Vec3 view = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+                RenderBlockUtils.renderColourCubes(matrix, view, renderCubes, 1.0F, 1.0F);
             }
         }
     }

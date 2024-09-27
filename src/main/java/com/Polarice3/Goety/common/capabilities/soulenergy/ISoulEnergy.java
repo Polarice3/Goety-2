@@ -13,8 +13,9 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface ISoulEnergy {
+    @Nullable
     BlockPos getArcaBlock();
-    void setArcaBlock(BlockPos blockPos);
+    void setArcaBlock(@Nullable BlockPos blockPos);
     ResourceKey<Level> getArcaBlockDimension();
     void setArcaBlockDimension(ResourceKey<Level> dimension);
     boolean getSEActive();

@@ -34,7 +34,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Also, don't forget that your cauldron must to full of the brew to use your $(bold)taglock kit$() on it! If ya don't know what a taglock kit is, too bad! Ol'Granny's talking about brewing! Get another Granny to show the other paths of the old ways! Hahahahaha!"
+      "text": "Also, don't forget that your cauldron must to full of the brew to use your $(bold)taglock kit$(), or a $(bold)waystone$() on it! If ya don't know what either those things are, too bad! Ol'Granny's talking about brewing! Get another Granny to show the other paths of the old ways! Hahahahaha!"
     }
   ]
 }

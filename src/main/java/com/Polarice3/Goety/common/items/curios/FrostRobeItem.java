@@ -6,7 +6,6 @@ import com.Polarice3.Goety.compat.iron.IronLoaded;
 import com.Polarice3.Goety.config.ItemConfig;
 import com.Polarice3.Goety.config.MainConfig;
 import com.Polarice3.Goety.utils.CuriosFinder;
-import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -26,6 +25,10 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Goety.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FrostRobeItem extends SingleStackItem{
 
+    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+        return stack.getItem() instanceof FrostRobeItem;
+    }
+
     @SubscribeEvent
     public static void LivingEffects(LivingEvent.LivingTickEvent event){
         LivingEntity livingEntity = event.getEntity();
@@ -33,7 +36,6 @@ public class FrostRobeItem extends SingleStackItem{
             if (CuriosFinder.hasCurio(livingEntity, item -> item.getItem() instanceof FrostRobeItem)){
                 livingEntity.setTicksFrozen(0);
                 livingEntity.setIsInPowderSnow(false);
-                MobUtil.PowderedSnowMovement(livingEntity);
             }
         }
     }

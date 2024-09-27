@@ -72,6 +72,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> HOOK_BELL = register("hook_bell", HookBellBlock::new);
     public static final RegistryObject<Block> SHRIEKING_OBELISK = register("shriek_obelisk", ShriekObeliskBlock::new);
     public static final RegistryObject<Block> NECRO_BRAZIER = register("necro_brazier", NecroBrazierBlock::new);
+    public static final RegistryObject<Block> ANIMATOR = register("animator", AnimatorBlock::new);
     public static final RegistryObject<Block> DARK_ANVIL = register("dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> CHIPPED_DARK_ANVIL = register("chipped_dark_anvil", DarkAnvilBlock::new);
     public static final RegistryObject<Block> DAMAGED_DARK_ANVIL = register("damaged_dark_anvil", DarkAnvilBlock::new);
@@ -235,7 +236,7 @@ public class ModBlocks {
 
     //Rotten
     public static final RegistryObject<Block> ROTTEN_PLANKS = register("rotten_planks",
-            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD)));
+            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD).ignitedByLava()));
     public static final RegistryObject<Block> ROTTEN_LOG = register("rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN, SoundType.STEM));
     public static final RegistryObject<Block> STRIPPED_ROTTEN_LOG = register("stripped_rotten_log", () -> log(MapColor.COLOR_GREEN, MapColor.COLOR_GREEN, SoundType.STEM));
     public static final RegistryObject<Block> ROTTEN_WOOD = register("rotten_wood",
@@ -244,9 +245,9 @@ public class ModBlocks {
             () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.STEM)));
     public static final RegistryObject<Block> ROTTEN_LEAVES = register("rotten_leaves", () -> leaves(SoundType.GRASS), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> ROTTEN_PRESSURE_PLATE = register("rotten_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.ROTTEN));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY).ignitedByLava(), ModBlockSetType.ROTTEN));
     public static final RegistryObject<Block> ROTTEN_TRAPDOOR = register("rotten_trapdoor",
-            () -> new TrapDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.NETHER_WOOD).noOcclusion(), ModBlockSetType.ROTTEN));
+            () -> new TrapDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().noOcclusion(), ModBlockSetType.ROTTEN));
     public static final RegistryObject<Block> ROTTEN_BUTTON = register("rotten_button",
             () -> woodenButton(ModBlockSetType.ROTTEN));
     public static final RegistryObject<Block> ROTTEN_STAIRS = registerStairs("rotten_stairs",
@@ -254,47 +255,47 @@ public class ModBlocks {
     public static final RegistryObject<Block> ROTTEN_SLAB = registerSlabs("rotten_slab",
             ROTTEN_PLANKS);
     public static final RegistryObject<Block> ROTTEN_FENCE_GATE = register("rotten_fence_gate",
-            () -> new FenceGateBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD), ModWoodType.ROTTEN));
+            () -> new FenceGateBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD).ignitedByLava(), ModWoodType.ROTTEN));
     public static final RegistryObject<Block> ROTTEN_FENCE = register("rotten_fence",
-            () -> new FenceBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD)));
+            () -> new FenceBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD).ignitedByLava()));
     public static final RegistryObject<Block> ROTTEN_DOOR = register("rotten_door",
-            () -> new DoorBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.NETHER_WOOD).noOcclusion(), ModBlockSetType.ROTTEN));
+            () -> new DoorBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().noOcclusion(), ModBlockSetType.ROTTEN));
     public static final RegistryObject<Block> ROTTEN_BOOKSHELF = register("rotten_bookshelf",
-            () -> new BookshelfBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.NETHER_WOOD)), true, LootTableType.EMPTY);
-    public static final RegistryObject<ModChestBlock> ROTTEN_CHEST = isterRegister("rotten_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.NETHER_WOOD)));
-    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_ROTTEN_CHEST = isterRegister("trapped_rotten_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.NETHER_WOOD)));
+            () -> new BookshelfBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.NETHER_WOOD).ignitedByLava()), true, LootTableType.EMPTY);
+    public static final RegistryObject<ModChestBlock> ROTTEN_CHEST = isterRegister("rotten_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.NETHER_WOOD).ignitedByLava()));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_ROTTEN_CHEST = isterRegister("trapped_rotten_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.NETHER_WOOD).ignitedByLava()));
     public static final RegistryObject<Block> ROTTEN_SIGN = register("rotten_sign",
-            () -> new ModStandSignBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD), ModWoodType.ROTTEN), false);
+            () -> new ModStandSignBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD).ignitedByLava(), ModWoodType.ROTTEN), false);
     public static final RegistryObject<Block> ROTTEN_WALL_SIGN = register("rotten_wall_sign",
-            () -> new ModWallSignBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD).lootFrom(ROTTEN_SIGN), ModWoodType.ROTTEN), false);
+            () -> new ModWallSignBlock(Block.Properties.of().mapColor(ROTTEN_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD).lootFrom(ROTTEN_SIGN).ignitedByLava(), ModWoodType.ROTTEN), false);
     public static final RegistryObject<Block> ROTTEN_HANGING_SIGN = register("rotten_hanging_sign",
-            () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(ROTTEN_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), ModWoodType.ROTTEN), false);
+            () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(ROTTEN_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ModWoodType.ROTTEN), false);
     public static final RegistryObject<Block> ROTTEN_WALL_HANGING_SIGN = register("rotten_wall_hanging_sign",
-            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(ROTTEN_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(ROTTEN_HANGING_SIGN), ModWoodType.ROTTEN), false);
+            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(ROTTEN_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(ROTTEN_HANGING_SIGN).ignitedByLava(), ModWoodType.ROTTEN), false);
     public static final RegistryObject<Block> ROTTEN_SAPLING = register("rotten_sapling", () -> sapling(new RottenTree()));
     public static final RegistryObject<Block> POTTED_ROTTEN_SAPLING = register("potted_rotten_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.ROTTEN_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);
 
     //Windswept
     public static final RegistryObject<Block> WINDSWEPT_PLANKS = register("windswept_planks",
-            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> COMPACTED_WINDSWEPT_PLANKS = register("compacted_windswept_planks",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> COMPACTED_WINDSWEPT_SLAB = registerSlabs("compacted_windswept_slab",
             COMPACTED_WINDSWEPT_PLANKS);
     public static final RegistryObject<Block> THATCHED_WINDSWEPT_PLANKS = register("thatched_windswept_planks",
-            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+            () -> new Block(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> WINDSWEPT_LOG = register("windswept_log", () -> log(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN));
     public static final RegistryObject<Block> STRIPPED_WINDSWEPT_LOG = register("stripped_windswept_log", () -> log(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN));
     public static final RegistryObject<Block> WINDSWEPT_WOOD = register("windswept_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> STRIPPED_WINDSWEPT_WOOD = register("stripped_windswept_wood",
-            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)));
+            () -> new RotatedPillarBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> WINDSWEPT_LEAVES = register("windswept_leaves", () -> leaves(SoundType.GRASS), true, LootTableType.EMPTY);
     public static final RegistryObject<Block> WINDSWEPT_PRESSURE_PLATE = register("windswept_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), ModBlockSetType.WINDSWEPT));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY).ignitedByLava(), ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> WINDSWEPT_TRAPDOOR = register("windswept_trapdoor",
-            () -> new TrapDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), ModBlockSetType.WINDSWEPT));
+            () -> new TrapDoorBlock(Block.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).ignitedByLava().noOcclusion(), ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> WINDSWEPT_BUTTON = register("windswept_button",
             () -> woodenButton(ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> WINDSWEPT_STAIRS = registerStairs("windswept_stairs",
@@ -302,23 +303,23 @@ public class ModBlocks {
     public static final RegistryObject<Block> WINDSWEPT_SLAB = registerSlabs("windswept_slab",
             WINDSWEPT_PLANKS);
     public static final RegistryObject<Block> WINDSWEPT_FENCE_GATE = register("windswept_fence_gate",
-            () -> new FenceGateBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD), ModWoodType.WINDSWEPT));
+            () -> new FenceGateBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava(), ModWoodType.WINDSWEPT));
     public static final RegistryObject<Block> WINDSWEPT_FENCE = register("windswept_fence",
-            () -> new FenceBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+            () -> new FenceBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> WINDSWEPT_DOOR = register("windswept_door",
-            () -> new DoorBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), ModBlockSetType.WINDSWEPT));
+            () -> new DoorBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).sound(SoundType.WOOD).ignitedByLava().noOcclusion(), ModBlockSetType.WINDSWEPT));
     public static final RegistryObject<Block> WINDSWEPT_BOOKSHELF = register("windswept_bookshelf",
-            () -> new BookshelfBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD)), true, LootTableType.EMPTY);
-    public static final RegistryObject<ModChestBlock> WINDSWEPT_CHEST = isterRegister("windswept_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_WINDSWEPT_CHEST = isterRegister("trapped_windswept_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)));
+            () -> new BookshelfBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava()), true, LootTableType.EMPTY);
+    public static final RegistryObject<ModChestBlock> WINDSWEPT_CHEST = isterRegister("windswept_chest", () -> new ModChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final RegistryObject<ModTrappedChestBlock> TRAPPED_WINDSWEPT_CHEST = isterRegister("trapped_windswept_chest", () -> new ModTrappedChestBlock(Block.Properties.of().instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> WINDSWEPT_SIGN = register("windswept_sign",
-            () -> new ModStandSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.WINDSWEPT), false);
+            () -> new ModStandSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD).ignitedByLava(), ModWoodType.WINDSWEPT), false);
     public static final RegistryObject<Block> WINDSWEPT_WALL_SIGN = register("windswept_wall_sign",
-            () -> new ModWallSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD).lootFrom(WINDSWEPT_SIGN), ModWoodType.WINDSWEPT), false);
+            () -> new ModWallSignBlock(Block.Properties.of().mapColor(WINDSWEPT_PLANKS.get().defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).sound(SoundType.WOOD).lootFrom(WINDSWEPT_SIGN).ignitedByLava(), ModWoodType.WINDSWEPT), false);
     public static final RegistryObject<Block> WINDSWEPT_HANGING_SIGN = register("windswept_hanging_sign",
-            () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), ModWoodType.WINDSWEPT), false);
+            () -> new ModHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ModWoodType.WINDSWEPT), false);
     public static final RegistryObject<Block> WINDSWEPT_WALL_HANGING_SIGN = register("windswept_wall_hanging_sign",
-            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(WINDSWEPT_HANGING_SIGN), ModWoodType.WINDSWEPT), false);
+            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(WINDSWEPT_LOG.get().defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).lootFrom(WINDSWEPT_HANGING_SIGN).ignitedByLava(), ModWoodType.WINDSWEPT), false);
     public static final RegistryObject<Block> WINDSWEPT_SAPLING = register("windswept_sapling", () -> sapling(new WindsweptTree()));
     public static final RegistryObject<Block> POTTED_WINDSWEPT_SAPLING = register("potted_windswept_sapling", () ->
             new FlowerPotBlock(() -> (FlowerPotBlock) ForgeRegistries.BLOCKS.getDelegateOrThrow(Blocks.FLOWER_POT).get(), ModBlocks.WINDSWEPT_SAPLING, Block.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion().instabreak()), false, LootTableType.EMPTY);

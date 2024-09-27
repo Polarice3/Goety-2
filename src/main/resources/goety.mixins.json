@@ -9,6 +9,7 @@
     "EnchantRandomlyFunctionMixin",
     "EnderDragonMixin",
     "EntityMixin",
+    "FireBlockAccessor",
     "FlowingFluidMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
