@@ -1,0 +1,21 @@
+{
+  "name": "ヘレティック",
+  "icon": "goety:infernal_tome",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heretic",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "ウィッチのいとこに相当するカルト集団で、ターゲットに向かって呪文を詠唱し、足元に炎の爆発を起こします。また、死者の息からネザーの生き物を召喚します。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic",
+      "text": "ウィッチと同じように、魔法に耐性があります。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "村人がアクティブなネザーポータルの近くにいると、ヘレティックになる可能性があります。"
+    }
+  ]
+}

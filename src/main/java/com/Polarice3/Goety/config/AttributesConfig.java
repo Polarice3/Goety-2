@@ -20,6 +20,9 @@ public class AttributesConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinBruteServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> ZPiglinBruteServantDamage;
 
+    public static final ForgeConfigSpec.ConfigValue<Double> ObsidianMonolithHealth;
+    public static final ForgeConfigSpec.ConfigValue<Double> ObsidianMonolithArmor;
+
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantHealth;
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantArmor;
     public static final ForgeConfigSpec.ConfigValue<Double> BlazeServantMeleeDamage;
@@ -289,6 +292,12 @@ public class AttributesConfig {
                         .defineInRange("zombifiedPiglinBruteServantArmor", 2.0, 0.0, Double.MAX_VALUE);
                 ZPiglinBruteServantDamage = BUILDER.comment("How much damage Zombified Piglin Brute Servants deals, Default: 7.0")
                         .defineInRange("zombifiedPiglinBruteServantDamage", 7.0, 1.0, Double.MAX_VALUE);
+                BUILDER.pop();
+                BUILDER.push("Obsidian Monolith");
+                ObsidianMonolithHealth = BUILDER.comment("How much Max Health Obsidian Monolith have, Default: 50.0")
+                        .defineInRange("obsidianMonolithHealth", 50.0, 1.0, Double.MAX_VALUE);
+                ObsidianMonolithArmor = BUILDER.comment("How much natural armor points Obsidian Monolith have, Default: 12.0")
+                        .defineInRange("obsidianMonolithArmor", 12.0, 0.0, Double.MAX_VALUE);
                 BUILDER.pop();
             BUILDER.pop();
             BUILDER.push("Illagers");

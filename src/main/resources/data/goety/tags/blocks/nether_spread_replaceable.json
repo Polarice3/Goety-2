@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:sandstone",
+    "#forge:sand",
+    "#minecraft:base_stone_overworld",
+    "#minecraft:dirt",
+    "#minecraft:terracotta",
+    "#minecraft:coal_ores",
+    "#minecraft:copper_ores",
+    "#minecraft:iron_ores",
+    "#minecraft:gold_ores",
+    "minecraft:water",
+    "minecraft:calcite",
+    {
+      "id": "#burnt:burnt_dirt",
+      "required": false
+    }
+  ]
+}

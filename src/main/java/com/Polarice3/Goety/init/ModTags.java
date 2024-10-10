@@ -39,6 +39,8 @@ public class ModTags {
         public static final TagKey<Block> RECALL_BLOCKS = tag("recall_blocks");
         public static final TagKey<Block> DARK_ANVILS = tag("dark_anvils");
         public static final TagKey<Block> TUNNEL_BLACKLIST = tag("tunnel_blacklist");
+        public static final TagKey<Block> NETHER_SPREAD = tag("nether_spread");
+        public static final TagKey<Block> NETHER_SPREAD_REPLACEABLE = tag("nether_spread_replaceable");
         public static final TagKey<Block> REDSTONE_CUBE_DETECT = tag("redstone_cube_detect");
         public static final TagKey<Block> REDSTONE_CUBE_EXEMPT = tag("redstone_cube_exempt");
         public static final TagKey<Block> MONSTROSITY_BREAKS = tag("monstrosity_breaks");
@@ -121,6 +123,10 @@ public class ModTags {
         public static final TagKey<Biome> WRAITH_EXCLUDE_SPAWN = tag("mob_spawn/wraith_exclude");
         public static final TagKey<Biome> WARLOCK_SPAWN = tag("mob_spawn/warlock");
         public static final TagKey<Biome> WARLOCK_EXCLUDE_SPAWN = tag("mob_spawn/warlock_exclude");
+        public static final TagKey<Biome> HERETIC_SPAWN = tag("mob_spawn/heretic");
+        public static final TagKey<Biome> HERETIC_EXCLUDE_SPAWN = tag("mob_spawn/heretic_exclude");
+        public static final TagKey<Biome> MAVERICK_SPAWN = tag("mob_spawn/maverick");
+        public static final TagKey<Biome> MAVERICK_EXCLUDE_SPAWN = tag("mob_spawn/maverick_exclude");
         public static final TagKey<Biome> WIGHT_SPAWN = tag("mob_spawn/wight");
 
         public static final TagKey<Biome> ABYSS_DISCOUNT = tag("spell_discount/abyss");

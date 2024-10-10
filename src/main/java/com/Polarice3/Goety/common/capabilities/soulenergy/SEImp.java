@@ -30,6 +30,9 @@ public class SEImp implements ISoulEnergy{
     private int bottling = 0;
     private int warding = 0;
     private int maxWarding = 0;
+    private int ticksInAir = 0;
+    private int airJumps = 0;
+    private int airJumpCooldown = 0;
     private UUID cameraUUID = null;
     private BlockPos EndWalkPos = null;
     private ResourceKey<Level> EndWalkDim = null;
@@ -258,6 +261,36 @@ public class SEImp implements ISoulEnergy{
     @Override
     public void setMaxWarding(int warding) {
         this.maxWarding = warding;
+    }
+
+    @Override
+    public int getTicksInAir() {
+        return this.ticksInAir;
+    }
+
+    @Override
+    public void setTicksInAir(int ticksInAir) {
+        this.ticksInAir = ticksInAir;
+    }
+
+    @Override
+    public int getAirJumps() {
+        return this.airJumps;
+    }
+
+    @Override
+    public void setAirJumps(int airJumps) {
+        this.airJumps = airJumps;
+    }
+
+    @Override
+    public int getAirJumpCooldown() {
+        return this.airJumpCooldown;
+    }
+
+    @Override
+    public void setAirJumpCooldown(int airJumpCooldown) {
+        this.airJumpCooldown = airJumpCooldown;
     }
 
     @Override

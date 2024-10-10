@@ -61,23 +61,31 @@ public class SoulEnergyEvents {
         ISoulEnergy soulEnergy = SEHelper.getCapability(player);
         if (event.phase == TickEvent.Phase.END) {
             SEHelper.getFocusCoolDown(player).tick(player, world);
-        }
-        if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
-            if (!world.isClientSide){
-                player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));
-                if (player.tickCount % 5 == 0) {
-                    SEHelper.decreaseSESouls(player, 1);
-                    SEHelper.sendSEUpdatePacket(player);
-                }
+            if (player.isOnGround()){
+                SEHelper.setTicksInAir(player, 0);
+                SEHelper.setAirJumps(player, 0);
+                SEHelper.setAirJumpCooldown(player, 0);
+            } else {
+                SEHelper.setTicksInAir(player, SEHelper.getTicksInAir(player) + 1);
             }
-        }
-        if (event.phase == TickEvent.Phase.END) {
+            if (SEHelper.getAirJumpCooldown(player) > 0) {
+                SEHelper.setAirJumpCooldown(player, SEHelper.getAirJumpCooldown(player) - 1);
+            }
             if (SEHelper.getRestPeriod(player) > 0) {
                 SEHelper.decreaseRestPeriod(player, 1);
             }
             if (SEHelper.hasResearch(player, ResearchList.FORBIDDEN)){
                 if (!SEHelper.hasResearch(player, ResearchList.BURIED)){
                     SEHelper.addResearch(player, ResearchList.BURIED);
+                }
+            }
+            if (!soulEnergy.getSEActive() && soulEnergy.getSoulEnergy() > 0) {
+                if (!world.isClientSide){
+                    player.addEffect(new MobEffectInstance(GoetyEffects.SOUL_HUNGER.get(), 60));
+                    if (player.tickCount % 5 == 0) {
+                        SEHelper.decreaseSESouls(player, 1);
+                        SEHelper.sendSEUpdatePacket(player);
+                    }
                 }
             }
         }

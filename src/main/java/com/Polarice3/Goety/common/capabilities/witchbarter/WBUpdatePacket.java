@@ -1,8 +1,7 @@
 package com.Polarice3.Goety.common.capabilities.witchbarter;
 
-import com.Polarice3.Goety.common.capabilities.lichdom.LichProvider;
-import com.Polarice3.Goety.utils.EntityFinder;
-import com.Polarice3.Goety.utils.LichdomHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -10,42 +9,47 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class WBUpdatePacket {
-    private final UUID WitchUUID;
+    private final int witchId;
     private CompoundTag tag;
 
-    public WBUpdatePacket(UUID uuid, CompoundTag tag) {
-        this.WitchUUID = uuid;
+    public WBUpdatePacket(int witchId, CompoundTag tag) {
+        this.witchId = witchId;
         this.tag = tag;
     }
 
-    public WBUpdatePacket(LivingEntity player) {
-        this.WitchUUID = player.getUUID();
-        player.getCapability(LichProvider.CAPABILITY, null).ifPresent((lichdom) -> {
-            this.tag = (CompoundTag) LichdomHelper.save(new CompoundTag(), lichdom);
+    public WBUpdatePacket(LivingEntity livingEntity) {
+        this.witchId = livingEntity.getId();
+        livingEntity.getCapability(WitchBarterProvider.CAPABILITY, null).ifPresent((barter) -> {
+            this.tag = WitchBarterProvider.save(new CompoundTag(), barter);
         });
     }
 
     public static void encode(WBUpdatePacket packet, FriendlyByteBuf buffer) {
-        buffer.writeUUID(packet.WitchUUID);
+        buffer.writeInt(packet.witchId);
         buffer.writeNbt(packet.tag);
     }
 
     public static WBUpdatePacket decode(FriendlyByteBuf buffer) {
-        return new WBUpdatePacket(buffer.readUUID(), buffer.readNbt());
+        return new WBUpdatePacket(buffer.readInt(), buffer.readNbt());
     }
 
     public static void consume(WBUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            Entity entity = EntityFinder.getEntityByUuiDGlobal(packet.WitchUUID).get();
-            entity.getCapability(WitchBarterProvider.CAPABILITY).ifPresent((infamy) -> {
-                WitchBarterProvider.load(packet.tag, infamy);
-            });
+            ClientLevel clientLevel = Minecraft.getInstance().level;
+            if (clientLevel != null){
+                Entity entity = clientLevel.getEntity(packet.witchId);
+                if (entity != null) {
+                    entity.getCapability(WitchBarterProvider.CAPABILITY).ifPresent((barter) -> {
+                        WitchBarterProvider.load(packet.tag, barter);
+                    });
+                }
+            }
+
         });
         ctx.get().setPacketHandled(true);
     }

@@ -179,7 +179,7 @@ public class SlimeServant extends Summoned{
                 List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
 
                 for (LivingEntity target : list) {
-                    if (target == this.getTarget()) {
+                    if (target == this.getTarget() && this.isDealsDamage()) {
                         this.dealDamage(target);
                     }
                 }
@@ -264,22 +264,25 @@ public class SlimeServant extends Summoned{
                 float f1 = ((float)(l % 2) - 0.5F) * f;
                 float f2 = ((float)(l / 2) - 0.5F) * f;
                 SlimeServant slime = this.getType().create(this.level);
-                if (this.isPersistenceRequired()) {
-                    slime.setPersistenceRequired();
-                }
+                if (slime != null) {
+                    if (this.isPersistenceRequired()) {
+                        slime.setPersistenceRequired();
+                    }
 
-                slime.setCustomName(component);
-                slime.setNoAi(flag);
-                slime.setInvulnerable(this.isInvulnerable());
-                slime.setSize(j, true);
-                if (this.getTrueOwner() != null) {
-                    slime.setTrueOwner(this.getTrueOwner());
+                    slime.setCustomName(component);
+                    slime.setNoAi(flag);
+                    slime.setInvulnerable(this.isInvulnerable());
+                    slime.setSize(j, true);
+                    if (this.getTrueOwner() != null) {
+                        slime.setTrueOwner(this.getTrueOwner());
+                    }
+                    if (this.limitedLifeTicks > 0) {
+                        slime.setLimitedLife(this.limitedLifeTicks);
+                    }
+                    slime.setHostile(this.isHostile());
+                    slime.moveTo(this.getX() + (double) f1, this.getY() + 0.5D, this.getZ() + (double) f2, this.random.nextFloat() * 360.0F, 0.0F);
+                    this.level.addFreshEntity(slime);
                 }
-                if (this.limitedLifeTicks > 0) {
-                    slime.setLimitedLife(this.limitedLifeTicks);
-                }
-                slime.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);
-                this.level.addFreshEntity(slime);
             }
         }
 
@@ -431,7 +434,7 @@ public class SlimeServant extends Summoned{
             }
         } else if (this.getTrueOwner() != null && p_34394_ == this.getTrueOwner()) {
             if (!this.isInterested()) {
-                if (itemstack.isEmpty() && !p_34394_.isCrouching()) {
+                if (p_34395_ == InteractionHand.MAIN_HAND && itemstack.isEmpty() && !p_34394_.isCrouching()) {
                     this.setIsInterested(true);
                     this.interestTime = 40;
                     this.level.broadcastEntityEvent(this, (byte) 102);
@@ -446,15 +449,10 @@ public class SlimeServant extends Summoned{
                         }
                     }
                     return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.CONSUME;
                 }
-            } else {
-                return InteractionResult.CONSUME;
             }
-        } else {
-            return super.mobInteract(p_34394_, p_34395_);
         }
+        return super.mobInteract(p_34394_, p_34395_);
     }
 
     public void handleEntityEvent(byte pId) {

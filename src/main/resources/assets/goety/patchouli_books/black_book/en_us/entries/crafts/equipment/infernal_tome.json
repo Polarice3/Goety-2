@@ -1,0 +1,23 @@
+{
+  "name": "Infernal Tome",
+  "icon": "goety:infernal_tome",
+  "category": "goety:crafts/equipment",
+  "advancement": "minecraft:story/enter_the_nether",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Heretics have a chance of dropping or bartering an Infernal Tome, which can be read to replicate their hellish chants but will burn and nauseate those unworthy of the Nether's gifts when doing so..."
+    },
+    {
+      "type": "goety:ritual",
+      "recipe": "goety:infernal_tome"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Infernal Tome can be repaired with paper on an Anvil (Don't ask why an Anvil is used to repair books...)."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "goety:infernal_tome": 1
+  }
+}

@@ -336,6 +336,28 @@
     ],
     "subtitle": "subtitle.goety.wildfire_death"
   },
+  "nether_spread": {
+    "sounds": [
+      {
+        "name": "goety:obsidian_monolith/spread1"
+      },
+      {
+        "name": "goety:obsidian_monolith/spread2"
+      },
+      {
+        "name": "goety:obsidian_monolith/spread3"
+      },
+      {
+        "name": "goety:obsidian_monolith/spread4"
+      },
+      {
+        "name": "goety:obsidian_monolith/spread5"
+      },
+      {
+        "name": "goety:obsidian_monolith/spread6"
+      }
+    ]
+  },
   "warlock_ambient": {
     "sounds": [
       {
@@ -411,6 +433,123 @@
       }
     ],
     "subtitle": "subtitle.goety.warlock_death"
+  },
+  "heretic_ambient": {
+    "sounds": [
+      {
+        "name": "goety:heretic/idle1"
+      },
+      {
+        "name": "goety:heretic/idle2"
+      },
+      {
+        "name": "goety:heretic/idle3"
+      },
+      {
+        "name": "goety:heretic/idle4"
+      }
+    ],
+    "subtitle": "subtitle.goety.heretic_ambient"
+  },
+  "heretic_hurt": {
+    "sounds": [
+      {
+        "name": "goety:heretic/hurt1"
+      },
+      {
+        "name": "goety:heretic/hurt2"
+      }
+    ],
+    "subtitle": "subtitle.goety.heretic_hurt"
+  },
+  "heretic_chant": {
+    "sounds": [
+      {
+        "name": "goety:heretic/chant1"
+      },
+      {
+        "name": "goety:heretic/chant2"
+      },
+      {
+        "name": "goety:heretic/chant3"
+      }
+    ],
+    "subtitle": "subtitle.goety.heretic_chant"
+  },
+  "heretic_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:heretic/celebrate"
+      }
+    ],
+    "subtitle": "subtitle.goety.heretic_celebrate"
+  },
+  "heretic_death": {
+    "sounds": [
+      {
+        "name": "goety:heretic/death1"
+      },
+      {
+        "name": "goety:heretic/death2"
+      }
+    ],
+    "subtitle": "subtitle.goety.heretic_death"
+  },
+  "maverick_ambient": {
+    "sounds": [
+      {
+        "name": "goety:maverick/idle1"
+      },
+      {
+        "name": "goety:maverick/idle2"
+      },
+      {
+        "name": "goety:maverick/idle3"
+      },
+      {
+        "name": "goety:maverick/idle4"
+      },
+      {
+        "name": "goety:maverick/idle5"
+      }
+    ],
+    "subtitle": "subtitle.goety.maverick_ambient"
+  },
+  "maverick_hurt": {
+    "sounds": [
+      {
+        "name": "goety:maverick/hurt1"
+      },
+      {
+        "name": "goety:maverick/hurt2"
+      },
+      {
+        "name": "goety:maverick/hurt3"
+      }
+    ],
+    "subtitle": "subtitle.goety.maverick_hurt"
+  },
+  "maverick_celebrate": {
+    "sounds": [
+      {
+        "name": "goety:maverick/celebrate"
+      }
+    ],
+    "subtitle": "subtitle.goety.maverick_celebrate"
+  },
+  "maverick_death": {
+    "sounds": [
+      {
+        "name": "goety:maverick/death1"
+      },
+      {
+        "name": "goety:maverick/death2"
+      },
+      {
+        "name": "goety:maverick/death3"
+      }
+    ],
+    "subtitle": "subtitle.goety.maverick_death"
   },
   "crone_ambient": {
     "sounds": [
@@ -5238,6 +5377,13 @@
       }
     ],
     "subtitle": "subtitle.goety.plate_drop"
+  },
+  "scary_recite": {
+    "sounds": [
+      {
+        "name": "goety:random/scary_recite"
+      }
+    ]
   },
   "tooth_spawn": {
     "sounds": [

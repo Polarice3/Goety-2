@@ -5,6 +5,8 @@ import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.Polarice3.Goety.api.items.magic.IWand;
 import com.Polarice3.Goety.common.entities.ally.Summoned;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Heretic;
+import com.Polarice3.Goety.common.entities.hostile.cultists.Maverick;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Warlock;
 import com.Polarice3.Goety.common.entities.neutral.Owned;
 import com.Polarice3.Goety.common.entities.projectiles.BlastFungus;
@@ -276,7 +278,15 @@ public class MobUtil {
         push(pEntity, -pX, -pY, -pZ);
     }
 
+    public static void pull(Entity pEntity, double pX, double pY, double pZ, double reduction){
+        push(pEntity, -pX, -pY, -pZ, reduction);
+    }
+
     public static void push(Entity pEntity, double pX, double pY, double pZ) {
+        push(pEntity, pX, pY, pZ, 1.0D);
+    }
+
+    public static void push(Entity pEntity, double pX, double pY, double pZ, double reduction) {
         if (pEntity instanceof Player player) {
             if (MobUtil.playerValidity(player, false)) {
                 player.hurtMarked = true;
@@ -286,8 +296,8 @@ public class MobUtil {
             }
         }
         double resist = 0.0D;
-        if (pEntity instanceof LivingEntity living) {
-            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        if (pEntity instanceof LivingEntity living && living.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
+            resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) * reduction;
         }
         double resist1 = Math.max(0.0D, 1.0D - resist);
         pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(pX, pY, pZ).scale(resist1));
@@ -862,8 +872,8 @@ public class MobUtil {
         return false;
     }
 
-    public static boolean noSunlight(LivingEntity livingEntity){
-        return !isInSunlight(livingEntity) && !livingEntity.level.isRaining();
+    public static boolean isInSunlightNoRain(LivingEntity livingEntity){
+        return isInSunlight(livingEntity) && !livingEntity.level.isRaining();
     }
 
     /**
@@ -1303,7 +1313,7 @@ public class MobUtil {
     }
 
     public static boolean isWitchType(Entity target){
-        return target instanceof Witch || target instanceof Warlock || target instanceof Crone || target.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL);
+        return target instanceof Witch || target instanceof Warlock || target instanceof Maverick || target instanceof Heretic || target instanceof Crone || target.getType().is(ModTags.EntityTypes.WITCH_SET_NEUTRAL);
     }
 
     public static void createWitherRose(LivingEntity target, @Nullable LivingEntity killer) {

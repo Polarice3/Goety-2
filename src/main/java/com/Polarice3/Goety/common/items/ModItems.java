@@ -352,6 +352,7 @@ public class ModItems {
     public static final RegistryObject<Item> HUNGRY_DAGGER = ITEMS.register("hungry_dagger", HungryDaggerItem::new);
     public static final RegistryObject<Item> FELL_BLADE = ITEMS.register("fell_blade", () -> new SwordItem(ModTiers.SPECIAL, 3, -2.4F, new Item.Properties().durability(256).tab(Goety.TAB)));
     public static final RegistryObject<Item> FROZEN_BLADE = ITEMS.register("frozen_blade", () -> new SwordItem(ModTiers.SPECIAL, 4, -2.4F, new Item.Properties().tab(Goety.TAB)));
+    public static final RegistryObject<Item> INFERNAL_TOME = ITEMS.register("infernal_tome", InfernalTome::new);
 
     //Discs
     public static final RegistryObject<Item> MUSIC_DISC_VIZIER = ITEMS.register("music_disc_vizier", () -> new RecordItem(14, ModSounds.MUSIC_DISC_VIZIER, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), (int) MathHelper.minutesToTicks(1.33F)));

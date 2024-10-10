@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
-public class TotemicBombRenderer extends AbstractMonolithRenderer{
+public class TotemicBombRenderer<T extends AbstractMonolith> extends AbstractMonolithRenderer<T>{
     private static final ResourceLocation TEXTURE_LOCATION = Goety.location("textures/entity/monolith/totemic_bomb.png");
     private static final RenderType RENDER_TYPE = RenderType.eyes(Goety.location("textures/entity/monolith/totemic_bomb_glow.png"));
     private static final RenderType RENDER_TYPE_2 = RenderType.eyes(Goety.location("textures/entity/monolith/totemic_bomb_glow2.png"));

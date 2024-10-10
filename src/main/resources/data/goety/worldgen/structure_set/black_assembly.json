@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "goety:black_assembly",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1987656789,
+    "spacing": 60,
+    "separation": 20,
+    "type": "minecraft:random_spread",
+    "frequency": 0.5,
+    "frequency_reduction_method": "legacy_type_1"
+  }
+}

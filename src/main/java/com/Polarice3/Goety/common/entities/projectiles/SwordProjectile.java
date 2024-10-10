@@ -12,10 +12,12 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -111,28 +114,43 @@ public class SwordProjectile extends AbstractArrow implements ItemSupplier {
     protected void onHitEntity(EntityHitResult pResult) {
         Entity target = pResult.getEntity();
         float f = 6.0F;
+        float f1 = 0.0F;
+        int i = 0;
+        Entity owner = this.getOwner();
         if (this.getItem().getItem() instanceof SwordItem swordItem){
             f = swordItem.getDamage();
+            f1 += swordItem.getEnchantmentLevel(this.getItem(), Enchantments.KNOCKBACK);
+            i = swordItem.getEnchantmentLevel(this.getItem(), Enchantments.FIRE_ASPECT);
         }
-        Entity entity1 = this.getOwner();
         if (target instanceof LivingEntity livingentity) {
             f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
         }
-        DamageSource damagesource = ModDamageSource.sword(this, (Entity)(entity1 == null ? this : entity1));
+        DamageSource damagesource = ModDamageSource.sword(this, owner == null ? this : owner);
+        if (owner instanceof Player player){
+            damagesource = DamageSource.playerAttack(player);
+        } else if (owner instanceof Mob mob){
+            damagesource = DamageSource.mobAttack(mob);
+        }
         SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
         if (target.hurt(damagesource, f)) {
-            if (target instanceof LivingEntity livingentity1) {
-                if (entity1 instanceof LivingEntity) {
-                    EnchantmentHelper.doPostHurtEffects(livingentity1, entity1);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity)entity1, livingentity1);
+            if (target instanceof LivingEntity livingTarget) {
+                if (owner instanceof LivingEntity) {
+                    EnchantmentHelper.doPostHurtEffects(livingTarget, owner);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity)owner, livingTarget);
+                }
+                if (f1 > 0) {
+                    livingTarget.knockback((double)((float)f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
+                }
+                if (i > 0) {
+                    livingTarget.setSecondsOnFire(i * 4);
                 }
 
-                this.doPostHurtEffects(livingentity1);
+                this.doPostHurtEffects(livingTarget);
             }
         }
 
-        float f1 = 1.0F;
-        this.playSound(soundevent, f1, 1.0F);
+        float f2 = 1.0F;
+        this.playSound(soundevent, f2, 1.0F);
     }
 
     protected boolean canHitEntity(Entity pEntity) {

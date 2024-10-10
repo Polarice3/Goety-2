@@ -2,6 +2,7 @@ package com.Polarice3.Goety.common.items.equipment;
 
 import com.Polarice3.Goety.client.particles.TeleportInShockwaveParticleOption;
 import com.Polarice3.Goety.common.enchantments.ModEnchantments;
+import com.Polarice3.Goety.common.items.ModItems;
 import com.Polarice3.Goety.init.ModSounds;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
@@ -67,5 +68,10 @@ public class BoneheadHammerItem extends HammerItem{
             }
         }
         pPlayer.level.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), ModSounds.BONEHEAD_HAMMER_IMPACT.get(), pPlayer.getSoundSource(), 1.0F, 1.0F);
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return pRepair.getItem() == ModItems.CURSED_METAL_INGOT.get();
     }
 }

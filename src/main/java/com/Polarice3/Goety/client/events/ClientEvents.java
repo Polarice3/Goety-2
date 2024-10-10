@@ -699,6 +699,8 @@ public class ClientEvents {
         RenderSystem.setShaderTexture(0, CUSTOM_HEARTS);
     }
 
+    private static boolean prevJumpBindState = false;
+
     @SubscribeEvent
     public static void TickEvents(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.START){
@@ -726,6 +728,11 @@ public class ClientEvents {
                     }
                 }
             }
+            if (minecraft.options.keyJump.isDown() && !prevJumpBindState && !player.isInWater() && SEHelper.getTicksInAir(player) > 2 && !player.isCreative() && !player.isSpectator() && !player.isPassenger()) {
+                ModNetwork.sendToServer(new CMultiJumpPacket());
+                SEHelper.doubleJump(player);
+            }
+            prevJumpBindState = minecraft.options.keyJump.isDown();
         }
     }
 

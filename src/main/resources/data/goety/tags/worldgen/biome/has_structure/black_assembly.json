@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_forest",
+    "#minecraft:is_savanna",
+    "#minecraft:is_taiga",
+    "#forge:is_desert",
+    "#forge:is_plains",
+    "#forge:is_plateau"
+  ]
+}

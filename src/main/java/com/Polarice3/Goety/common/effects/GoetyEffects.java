@@ -160,6 +160,9 @@ public class GoetyEffects {
                     .addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "15c1a19c-b4f8-4d84-ab37-a9036ac1885f",
                             1.0D, AttributeModifier.Operation.ADDITION));
 
+    public static final RegistryObject<MobEffect> FROG_LEG = EFFECTS.register("frog_leg",
+            () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0x6abe30));
+
     public static final RegistryObject<MobEffect> FLAME_HANDS = EFFECTS.register("flame_hands",
             () -> new GoetyBaseEffect(MobEffectCategory.BENEFICIAL, 0xff3d29));
 

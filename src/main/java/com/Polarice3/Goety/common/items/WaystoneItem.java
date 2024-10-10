@@ -108,6 +108,11 @@ public class WaystoneItem extends ItemBase {
         return null;
     }
 
+    public static boolean isSameDimension(LivingEntity livingEntity, ItemStack stack){
+        GlobalPos globalPos = getPosition(stack);
+        return globalPos != null && globalPos.dimension() == livingEntity.level.dimension();
+    }
+
     public static boolean isInRange(Vec3 origin, ItemStack stack, int increase){
         GlobalPos globalPos = getPosition(stack);
         if (globalPos != null) {
@@ -117,6 +122,10 @@ public class WaystoneItem extends ItemBase {
         } else {
             return false;
         }
+    }
+
+    public static boolean canAffect(LivingEntity livingEntity, ItemStack stack, Vec3 origin, int increase){
+        return stack.getItem() instanceof WaystoneItem && WaystoneItem.getPosition(stack) != null && isSameDimension(livingEntity, stack) && isInRange(origin, stack, increase);
     }
 
     public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, Player player, @NotNull LivingEntity entity, @NotNull InteractionHand hand) {

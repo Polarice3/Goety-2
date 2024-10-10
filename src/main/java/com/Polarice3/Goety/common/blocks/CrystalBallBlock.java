@@ -3,6 +3,7 @@ package com.Polarice3.Goety.common.blocks;
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.hostile.cultists.Crone;
 import com.Polarice3.Goety.common.entities.util.SummonCircleBoss;
+import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.common.network.ModNetwork;
 import com.Polarice3.Goety.common.network.server.SPlayPlayerSoundPacket;
@@ -97,6 +98,15 @@ public class CrystalBallBlock extends Block {
                         pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.PLAYERS, 1.0F, 0.5F);
                     } else {
                         pPlayer.displayClientMessage(Component.translatable("info.goety.taglock.difDimension"), true);
+                    }
+                } else if (pPlayer.getItemInHand(pHand).getItem() instanceof WaystoneItem && WaystoneItem.hasBlock(pPlayer.getItemInHand(pHand))){
+                    ItemStack itemStack = pPlayer.getItemInHand(pHand);
+                    if (WaystoneItem.isSameDimension(pPlayer, itemStack)) {
+                        SEHelper.setCamera(pPlayer, null, WaystoneItem.getPosition(pPlayer.getItemInHand(pHand)).pos());
+                        ModNetwork.sendTo(pPlayer, new SPlayPlayerSoundPacket(ModSounds.END_WALK.get(), 1.0F, 0.5F));
+                        pLevel.playSound(pPlayer, pPlayer.blockPosition(), ModSounds.END_WALK.get(), SoundSource.PLAYERS, 1.0F, 0.5F);
+                    } else {
+                        pPlayer.displayClientMessage(Component.translatable("info.goety.waystone.difDimension"), true);
                     }
                 } else if (pPlayer.getItemInHand(pHand).is(ModTags.Items.RESPAWN_BOSS) && MainConfig.CrystalBallRespawn.get() && BlockFinder.findStructure(serverLevel, pPlayer, ModTags.Structures.CRONE_SPAWNS)) {
                     ItemStack itemStack = pPlayer.getItemInHand(pHand);

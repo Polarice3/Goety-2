@@ -128,7 +128,7 @@ public class ModDamageSource extends DamageSource {
                 && (source.getMsgId().equals("mob")
                 || source.getMsgId().equals("sting")
                 || source.getMsgId().equals("player")
-                || source.getMsgId().equals("summon"));
+                || source.getMsgId().equals(source("summon")));
     }
 
     public static boolean toolAttack(DamageSource source, Predicate<Item> item){

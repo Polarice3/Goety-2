@@ -21,6 +21,15 @@ public class ModSpawnEggs {
     public static final RegistryObject<ModSpawnEggItem> WARLOCK_SPAWN_EGG = ITEMS.register("warlock_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.WARLOCK, 0x2c0b00, 0xa01064, egg()));
 
+    public static final RegistryObject<ModSpawnEggItem> OBSIDIAN_MONOLITH_SPAWN_EGG = ITEMS.register("obsidian_monolith_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.OBSIDIAN_MONOLITH, 0x0e031a, 0x3c284a, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> HERETIC_SPAWN_EGG = ITEMS.register("heretic_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.HERETIC, 0x6e0453, 0xff9700, egg()));
+
+    public static final RegistryObject<ModSpawnEggItem> MAVERICK_SPAWN_EGG = ITEMS.register("maverick_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityType.MAVERICK, 0x383b2c, 0x352427, egg()));
+
     public static final RegistryObject<ModSpawnEggItem> CRONE_SPAWN_EGG = ITEMS.register("crone_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityType.CRONE, 0x732424, 0x916b1a, egg()));
 

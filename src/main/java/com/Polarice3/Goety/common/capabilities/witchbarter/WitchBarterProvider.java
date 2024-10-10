@@ -32,16 +32,16 @@ public class WitchBarterProvider implements ICapabilityProvider, ICapabilitySeri
 
     public static CompoundTag save(CompoundTag tag, IWitchBarter witchBarter) {
         tag.putInt("barterTimer", witchBarter.getTimer());
-        if (witchBarter.getTrader() != null) {
-            tag.putUUID("barterTrader", witchBarter.getTrader().getUUID());
-        }
+        tag.putInt("barterTraderID", witchBarter.getTraderID());
         return tag;
     }
 
     public static IWitchBarter load(CompoundTag tag, IWitchBarter witchBarter) {
-        witchBarter.setTimer(tag.getInt("barterTimer"));
-        if (tag.hasUUID("barterTrader")) {
-            witchBarter.setTrader(EntityFinder.getLivingEntityByUuiD(tag.getUUID("barterTrader")));
+        if (tag.contains("barterTimer")) {
+            witchBarter.setTimer(tag.getInt("barterTimer"));
+        }
+        if (tag.contains("barterTraderID")) {
+            witchBarter.setTraderID(tag.getInt("barterTraderID"));
         }
         return witchBarter;
     }

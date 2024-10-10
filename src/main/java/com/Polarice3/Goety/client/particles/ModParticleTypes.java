@@ -150,6 +150,9 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> LEECH = PARTICLE_TYPES.register("leech",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> CHANT = PARTICLE_TYPES.register("chant",
+            () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> ELECTRIC = PARTICLE_TYPES.register("electric",
             () -> new SimpleParticleType(false));
 
@@ -193,6 +196,12 @@ public class ModParticleTypes {
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> MAGIC_BOLT = PARTICLE_TYPES.register("magic_bolt",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> RISING_ENCHANT = PARTICLE_TYPES.register("rising_enchant",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> ROLLING_ENCHANT = PARTICLE_TYPES.register("rolling_enchant",
             () -> new SimpleParticleType(false));
 
     public static final RegistryObject<SimpleParticleType> REDSTONE_EXPLODE = PARTICLE_TYPES.register("redstone_explode",

@@ -58,6 +58,12 @@ public interface ISoulEnergy {
     int maxWarding();
     void setWarding(int warding);
     void setMaxWarding(int warding);
+    int getTicksInAir();
+    int getAirJumps();
+    int getAirJumpCooldown();
+    void setTicksInAir(int tick);
+    void setAirJumps(int airJumps);
+    void setAirJumpCooldown(int cooldown);
     @Nullable
     UUID getCameraUUID();
     void setCameraUUID(@Nullable UUID camera);

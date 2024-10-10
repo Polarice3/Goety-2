@@ -68,7 +68,7 @@ public class CycloneSpell extends Spell {
         if (this.getTarget(entityLiving) != null) {
             cyclone.setTarget(this.getTarget(entityLiving));
         } else {
-            cyclone.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.0F + WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving), 1.0F);
+            cyclone.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 1.0F + (WandUtil.getLevels(ModEnchantments.VELOCITY.get(), entityLiving) / 3.0F), 1.0F);
         }
         float size = 1.0F;
         float damage = 0.0F;

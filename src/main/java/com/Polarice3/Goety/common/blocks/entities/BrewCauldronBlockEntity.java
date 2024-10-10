@@ -12,6 +12,7 @@ import com.Polarice3.Goety.common.effects.brew.PotionBrewEffect;
 import com.Polarice3.Goety.common.effects.brew.modifiers.BrewModifier;
 import com.Polarice3.Goety.common.effects.brew.modifiers.CapacityModifier;
 import com.Polarice3.Goety.common.items.ModItems;
+import com.Polarice3.Goety.common.items.WaystoneItem;
 import com.Polarice3.Goety.common.items.curios.WitchHatItem;
 import com.Polarice3.Goety.common.items.magic.TaglockKit;
 import com.Polarice3.Goety.init.ModSounds;
@@ -845,6 +846,8 @@ public class BrewCauldronBlockEntity extends BlockEntity implements Container {
                 }
             } else if (mode == Mode.COMPLETED) {
                 if (waterLevel >= 3 && TaglockKit.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), getWitchPoles(this))){
+                    return 0;
+                } else if (waterLevel >= 3 && WaystoneItem.canAffect(player, stack, Vec3.atCenterOf(this.getBlockPos()), getWitchPoles(this))){
                     return 0;
                 } else if (item == Items.GLASS_BOTTLE || BrewUtils.brewableFood(stack)) {
                     boolean hat = CuriosFinder.hasCurio(player, itemStack -> itemStack.getItem() instanceof WitchHatItem),

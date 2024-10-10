@@ -1,0 +1,21 @@
+{
+  "name": "异教徒们",
+  "icon": "goety:infernal_tome",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heretic",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "作为女巫的近亲，这些邪教徒对准目标咆哮着亵神的咒语，在目标的脚下召唤出炎爆陷阱，从临近生灵的垂死气息中，召唤出下界之中的生物。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic",
+      "text": "They're resistant to magic much like their Witch cousins."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果村民靠近了一个激活的下界传送门，那么他们有概率转化成异教徒。"
+    }
+  ]
+}

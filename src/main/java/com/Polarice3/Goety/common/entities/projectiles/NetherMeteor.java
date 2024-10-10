@@ -2,10 +2,14 @@ package com.Polarice3.Goety.common.entities.projectiles;
 
 import com.Polarice3.Goety.api.entities.IOwned;
 import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.boss.Apostle;
+import com.Polarice3.Goety.config.MobsConfig;
 import com.Polarice3.Goety.utils.MobUtil;
 import com.Polarice3.Goety.utils.ModDamageSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -51,6 +55,19 @@ public class NetherMeteor extends ExplosiveProjectile {
             boolean flag = this.isDangerous();
             Explosion.BlockInteraction mode = flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), this.getExplosionPower(), flag, mode);
+            if (MobsConfig.ApocalypseMode.get() && flag){
+                if (this.getOwner() instanceof Apostle apostle){
+                    apostle.netherSpreaderUtil.clear();
+                    for (int i = 0; i < 5; i++) {
+                        int range = Mth.floor(this.getExplosionPower());
+                        int x = this.random.nextInt(-range, range);
+                        int y = this.random.nextInt(-range, -(range / 2));
+                        int z = this.random.nextInt(-range, range);
+                        BlockPos blockPos = this.blockPosition().below().offset(x, y, z);
+                        apostle.netherSpreaderUtil.addCursors(blockPos, 10);
+                    }
+                }
+            }
             this.discard();
         }
     }

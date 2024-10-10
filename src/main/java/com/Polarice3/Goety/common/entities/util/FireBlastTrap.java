@@ -7,6 +7,7 @@ import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.Polarice3.Goety.config.AttributesConfig;
 import com.Polarice3.Goety.utils.ColorUtil;
 import com.Polarice3.Goety.utils.MobUtil;
+import com.Polarice3.Goety.utils.ModDamageSource;
 import com.Polarice3.Goety.utils.ServerParticleUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,10 +23,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
@@ -39,7 +39,9 @@ public class FireBlastTrap extends Entity {
     private static final EntityDataAccessor<Boolean> IMMEDIATE = SynchedEntityData.defineId(FireBlastTrap.class, EntityDataSerializers.BOOLEAN);
     public LivingEntity owner;
     private UUID ownerUniqueId;
+    private float extraDamage;
     private float areaOfEffect = 0.0F;
+    private int burning = 0;
 
     public FireBlastTrap(EntityType<?> entityTypeIn, Level worldIn) {
         super(entityTypeIn, worldIn);
@@ -61,7 +63,9 @@ public class FireBlastTrap extends Entity {
         if (compound.hasUUID("Owner")) {
             this.ownerUniqueId = compound.getUUID("Owner");
         }
+        this.extraDamage = compound.getFloat("ExtraDamage");
         this.areaOfEffect = compound.getFloat("AreaOfEffect");
+        this.burning = compound.getInt("Burning");
     }
 
     @Override
@@ -69,7 +73,9 @@ public class FireBlastTrap extends Entity {
         if (this.ownerUniqueId != null) {
             compound.putUUID("Owner", this.ownerUniqueId);
         }
+        compound.putFloat("ExtraDamage", this.extraDamage);
         compound.putFloat("AreaOfEffect", this.areaOfEffect);
+        compound.putInt("Burning", this.burning);
     }
 
     public void setOwner(@Nullable LivingEntity ownerIn) {
@@ -87,6 +93,22 @@ public class FireBlastTrap extends Entity {
         }
 
         return this.owner;
+    }
+
+    public void setBurning(int burning){
+        this.burning = burning;
+    }
+
+    public int getBurning(){
+        return this.burning;
+    }
+
+    public void setExtraDamage(float damage) {
+        this.extraDamage = damage;
+    }
+
+    public float getExtraDamage() {
+        return this.extraDamage;
     }
 
     public void setAreaOfEffect(float damage) {
@@ -119,7 +141,7 @@ public class FireBlastTrap extends Entity {
                 float f9 = Mth.sin(f6) * f7;
                 serverLevel.sendParticles(ModParticleTypes.BURNING.get(), this.getX() + (double) f8, this.getY(), this.getZ() + (double) f9, 1, 0, 0, 0, 0);
             }
-            ColorUtil color = new ColorUtil(ChatFormatting.DARK_RED);
+            ColorUtil color = new ColorUtil(ChatFormatting.GOLD);
             ServerParticleUtil.windParticle(serverLevel, color, (f - 1.0F) + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
             ServerParticleUtil.windParticle(serverLevel, color, f + serverLevel.random.nextFloat() * 0.5F, 0.0F, this.getId(), this.position());
 
@@ -140,7 +162,13 @@ public class FireBlastTrap extends Entity {
                 for (Entity entity : this.level.getEntitiesOfClass(Entity.class, aabb1)){
                     if (this.owner != null) {
                         if (entity != this.owner && !MobUtil.areAllies(entity, this.owner)) {
-                            targets.add(entity);
+                            if (this.owner instanceof Mob mob && this.owner instanceof Enemy && entity instanceof Enemy) {
+                                if (mob.getTarget() == entity) {
+                                    targets.add(entity);
+                                }
+                            } else {
+                                targets.add(entity);
+                            }
                         }
                     } else {
                         targets.add(entity);
@@ -152,16 +180,23 @@ public class FireBlastTrap extends Entity {
                             if (entity instanceof LivingEntity livingEntity) {
                                 livingEntity.addEffect(new MobEffectInstance(GoetyEffects.BURN_HEX.get(), 1200));
                             }
-                            entity.hurt(DamageSource.indirectMagic(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
+                            entity.hurt(ModDamageSource.magicFireBreath(this, this.owner), AttributesConfig.ApostleMagicDamage.get().floatValue());
                         } else {
                             if (this.owner != null){
-                                entity.hurt(DamageSource.indirectMagic(this, this.owner), 5.0F);
+                                float damage = 5.0F;
+                                if (this.owner instanceof Mob mob && mob.getAttribute(Attributes.ATTACK_DAMAGE) != null){
+                                    damage = (float) mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                                }
+                                entity.hurt(ModDamageSource.magicFireBreath(this, this.owner), damage + this.getExtraDamage());
                             } else {
-                                entity.hurt(DamageSource.MAGIC, 5.0F);
+                                entity.hurt(DamageSource.MAGIC, 5.0F + this.getExtraDamage());
                             }
                         }
                         if (entity instanceof LivingEntity livingEntity) {
-                            MobUtil.push(livingEntity, 0.0D, 1.0D, 0.0D);
+                            MobUtil.push(livingEntity, 0.0D, 1.0D, 0.0D, 0.5D);
+                            if (this.burning > 0){
+                                livingEntity.setSecondsOnFire(this.burning * 4);
+                            }
                         }
                     }
                 }

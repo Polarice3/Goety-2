@@ -42,10 +42,10 @@ public abstract class LivingEntityMixin extends Entity {
         super(p_20966_, p_20967_);
     }
 
-    @Inject(method = "isInvertedHealAndHarm", at = @At("HEAD"), cancellable = true)
-    public void isInvertedHealAndHarm(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
+    @Inject(method = "getMobType()Lnet/minecraft/world/entity/MobType;", at = @At("HEAD"), cancellable = true)
+    public void getMobType(CallbackInfoReturnable<MobType> cir){
         if (LichdomHelper.isLich(this)) {
-            callbackInfoReturnable.setReturnValue(true);
+            cir.setReturnValue(MobType.UNDEAD);
         }
     }
 

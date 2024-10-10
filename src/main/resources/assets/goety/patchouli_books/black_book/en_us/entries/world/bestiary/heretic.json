@@ -1,0 +1,21 @@
+{
+  "name": "Heretics",
+  "icon": "goety:infernal_tome",
+  "category": "goety:world/bestiary",
+  "advancement": "goety:goety/kill_a_heretic",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A cousin to Witches, these partisans shout unholy chants at their targets, summoning flame blasts beneath their feet, summon forth a creature of the Nether from a dying breath of a nearby creature."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "goety:heretic",
+      "text": "They're resistant to magic much like their Witch cousins."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a Villager is near an active Nether Portal, they have a chance of transforming into a Heretic."
+    }
+  ]
+}
